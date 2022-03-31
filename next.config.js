@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   publicRuntimeConfig: {
     // Conf will be available on both server and client

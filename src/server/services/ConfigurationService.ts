@@ -1,3 +1,3 @@
 export interface ConfigurationService {
-    getConfiguration(): any
+  getConfiguration(): any;
 }
