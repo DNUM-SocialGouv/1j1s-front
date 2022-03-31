@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { log } from "util";
 
 import { ConfigurationService } from "../../services/ConfigurationService";
 import { DateService } from "../../services/date/DateService";
@@ -17,12 +18,18 @@ export class ApiPoleEmploiTokenRepository implements ApiTokenRepository {
 
   async getToken(): Promise<string> {
     if (this.isTokenExpired(this.dateService.now())) {
-      const serverRuntimeConfig = this.configurationService.getConfiguration();
+      const environmentVariables = this.configurationService.getConfiguration();
       const params = new URLSearchParams();
       params.append("grant_type", "client_credentials");
-      params.append("client_id", serverRuntimeConfig.client_id);
-      params.append("client_secret", serverRuntimeConfig.client_secret);
-      params.append("scope", serverRuntimeConfig.scope);
+      params.append(
+        "client_id",
+        environmentVariables.API_POLE_EMPLOI_CLIENT_ID!
+      );
+      params.append(
+        "client_secret",
+        environmentVariables.API_POLE_EMPLOI_CLIENT_SECRET!
+      );
+      params.append("scope", environmentVariables.API_POLE_EMPLOI_SCOPE!);
 
       const endpoint =
         "https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=partenaire";

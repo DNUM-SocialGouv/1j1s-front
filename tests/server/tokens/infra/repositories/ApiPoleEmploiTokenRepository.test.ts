@@ -41,9 +41,9 @@ describe("ApiPoleEmploiTokenRepository", () => {
       };
 
       jest.spyOn(configurationService, "getConfiguration").mockReturnValue({
-        client_id: "fake_client_id",
-        client_secret: "fake_client_secret",
-        scope: "fake_scope",
+        API_POLE_EMPLOI_CLIENT_ID: "fake_client_id",
+        API_POLE_EMPLOI_CLIENT_SECRET: "fake_client_secret",
+        API_POLE_EMPLOI_SCOPE: "fake_scope",
       });
     });
 

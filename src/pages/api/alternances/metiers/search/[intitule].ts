@@ -9,7 +9,7 @@ export default function handler(
 ) {
   const { intitule } = req.query;
   dependencies.metierRechercheDependencies.listeMetierRecherche
-    .handle(intitule)
+    .handle(intitule[0])
     .then((value) => {
       res.status(200).json(value);
     });
