@@ -12,6 +12,18 @@ npm run dev
 
 [http://localhost:3000/api/emplois](http://localhost:3000/api/emplois) pour la partie api.
 
+## Démarrage de l'application en mode build
+
+Premièrement :
+```bash
+npm run build
+```
+Deuxièmement :
+```bash
+next start
+```
+[http://localhost:3000](http://localhost:3000) pour ouvrir l'application builder avec next.
+
 ## Conventions de développement
 
 Nous respectons les conventions proposées par la fabrique :
