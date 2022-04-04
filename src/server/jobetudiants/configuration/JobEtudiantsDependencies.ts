@@ -1,7 +1,3 @@
-import {
-  ListeOffreEmploiDependenciesContainer,
-  listeOffreEmploiDependenciesContainer,
-} from "../../offreemplois/infra/configuration/ListeOffreEmploiDependenciesContainer";
 import { ApiTokenRepository } from "../../tokens/infra/ApiTokenRepository";
 import { HttpClientService } from "../../services/http/HttpClientService";
 import {

@@ -1,8 +1,9 @@
 import axios from "axios";
 
 import { ApiPoleEmploiOffreRepository } from "../../../../../src/server/offreemplois/infra/repositories/ApiPoleEmploiOffreRepository";
-import { ApiTokenRepository } from "../../../../../src/server/tokens/infra/ApiTokenRepository";
 import { HttpClientService } from "../../../../../src/server/services/http/HttpClientService";
+import { ApiTokenRepository } from "../../../../../src/server/tokens/infra/ApiTokenRepository";
+import { MockedCacheService } from "../../../../fixtures/CacheService.fixture";
 import {
   anAxiosInstance,
   anAxiosResponse,
@@ -37,7 +38,8 @@ describe("ApiPoleEmploiOffreRepository", () => {
     it("retourne la liste des offres d emploi de pole emploi", async () => {
       const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(
         httpClientService,
-        apiTokenRepository
+        apiTokenRepository,
+        new MockedCacheService()
       );
 
       jest
@@ -57,6 +59,43 @@ describe("ApiPoleEmploiOffreRepository", () => {
         })
       );
 
+      const result = await apiPoleEmploiOffreRepository.listeOffreEmploi();
+
+      expect([
+        { id: "130WPHH", intitule: "Gestionnaire ADV    (H/F)" },
+        { id: "130WPHC", intitule: "Maçon / Maçonne" },
+        {
+          id: "130WPHB",
+          intitule: "Surveillant / Surveillante de nuit         (H/F)",
+        },
+      ]).toEqual(result);
+    });
+
+    it("retourne la liste des offres d emploi de pole emploi depuis le cache", async () => {
+      const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(
+        httpClientService,
+        apiTokenRepository,
+        new MockedCacheService()
+      );
+
+      jest
+        .spyOn(apiTokenRepository, "getToken")
+        .mockResolvedValue("fake_token");
+
+      jest.spyOn(httpClientService, "get").mockResolvedValue(
+        anAxiosResponse({
+          resultats: [
+            { id: "130WPHH", intitule: "Gestionnaire ADV    (H/F)" },
+            { id: "130WPHC", intitule: "Maçon / Maçonne" },
+            {
+              id: "130WPHB",
+              intitule: "Surveillant / Surveillante de nuit         (H/F)",
+            },
+          ],
+        })
+      );
+
+      await apiPoleEmploiOffreRepository.listeOffreEmploi();
       const result = await apiPoleEmploiOffreRepository.listeOffreEmploi();
 
       expect([

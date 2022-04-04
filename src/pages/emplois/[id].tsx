@@ -13,8 +13,7 @@ interface EmploiProps {
 
 export default function EmploiDetails(props: EmploiProps) {
   const { offreEmploi } = props;
-  // eslint-disable-next-line react/no-unescaped-entities
-  return <div>Description de l'offre d'emploi : {offreEmploi.intitule}</div>;
+  return <div>{JSON.stringify(offreEmploi)}</div>;
 }
 
 export async function getStaticProps(

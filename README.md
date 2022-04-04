@@ -4,7 +4,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Premièrement :
 
+Installer nodejs [https://nodejs.org/fr/](https://nodejs.org/fr/)
+Installer docker [https://docs.docker.com/desktop/](https://docs.docker.com/desktop/)
+Installer docker-compose [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
+
 ```bash
+docker-compose up
+
 npm run dev
 ```
 
@@ -37,5 +43,10 @@ Nous respectons les conventions proposées par la fabrique :
 - [ ] Conventionner les commentaires : https://conventionalcomments.org/
 - [x] Releaser sur GitHub/npm : avec semantic-release cf la FAQ. A continuer => [https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md#getting-started](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md#getting-started)
 - [ ] Récupérer les erreurs applicatives dans notre sentry [https://docs.sentry.io/platforms/node/typescript/](https://docs.sentry.io/platforms/node/typescript/)
+  - [ ] == QUESTION ==> Avec Scalingo, pas de sentry on log dans ELK ? [https://ibm-cloud-architecture.github.io/b2m-nodejs/logging/](https://ibm-cloud-architecture.github.io/b2m-nodejs/logging/)
 - [ ] Utiliser DashLord pour monitorer les bonnes pratiques.
 - [x] Le système de design de l'état doit être utilisé par défaut. une implémentation React existe ici : [https://www.npmjs.com/package/@dataesr/react-dsfr](https://www.npmjs.com/package/@dataesr/react-dsfr)
+
+## Recommendations et bonne utilisations de NextJs
+- Data fetching [https://nextjs.org/docs/basic-features/data-fetching/overview](https://nextjs.org/docs/basic-features/data-fetching/overview)
+- Going to prod [https://nextjs.org/docs/going-to-production](https://nextjs.org/docs/going-to-production)

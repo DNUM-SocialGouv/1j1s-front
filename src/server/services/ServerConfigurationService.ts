@@ -12,6 +12,15 @@ export class ServerConfigurationService implements ConfigurationService {
       API_POLE_EMPLOI_SCOPE: ServerConfigurationService.getOrThrowError(
         "API_POLE_EMPLOI_SCOPE"
       ),
+      REDIS_DB: Number(ServerConfigurationService.getOrThrowError("REDIS_DB")),
+      REDIS_HOST: ServerConfigurationService.getOrThrowError("REDIS_HOST"),
+      REDIS_PASSWORD:
+        ServerConfigurationService.getOrThrowError("REDIS_PASSWORD"),
+      REDIS_PORT: Number(
+        ServerConfigurationService.getOrThrowError("REDIS_PORT")
+      ),
+      REDIS_USERNAME:
+        ServerConfigurationService.getOrThrowError("REDIS_USERNAME"),
     };
   }
 
@@ -36,4 +45,9 @@ export interface EnvironementVariables {
   readonly API_POLE_EMPLOI_CLIENT_ID: string | undefined;
   readonly API_POLE_EMPLOI_CLIENT_SECRET: string | undefined;
   readonly API_POLE_EMPLOI_SCOPE: string | undefined;
+  readonly REDIS_DB: number | undefined;
+  readonly REDIS_HOST: string | undefined;
+  readonly REDIS_PASSWORD: string | undefined;
+  readonly REDIS_PORT: number | undefined;
+  readonly REDIS_USERNAME: string | undefined;
 }

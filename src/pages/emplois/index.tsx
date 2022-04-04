@@ -11,9 +11,30 @@ interface EmploisProps {
 export default function Emplois(props: any) {
   const { offreEmplois } = props;
   return (
-    <div style={{ background: "blue" }}>
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "row wrap",
+      }}
+    >
       {offreEmplois.map((offreEmploi: OffreEmploi) => {
-        <Link href={"/emplois/" + offreEmploi.id}>{offreEmploi.intitule}</Link>;
+        return (
+          <Link key={offreEmploi.id} href={"/emplois/" + offreEmploi.id}>
+            <a
+              style={{
+                background: "blueviolet",
+                color: "black",
+                height: 150,
+                margin: 10,
+                padding: 5,
+                textAlign: "center",
+                width: 200,
+              }}
+            >
+              {offreEmploi.intitule}
+            </a>
+          </Link>
+        );
       })}
     </div>
   );
