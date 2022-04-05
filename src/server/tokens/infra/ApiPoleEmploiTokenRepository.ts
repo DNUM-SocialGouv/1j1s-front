@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-import { log } from "util";
 
 import { ConfigurationService } from "../../services/ConfigurationService";
 import { DateService } from "../../services/date/DateService";

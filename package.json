@@ -1,5 +1,9 @@
 {
-  "name": "1jeune1solution",
+  "name": "1j1s-front",
+  "engines": {
+    "node": "16",
+    "npm": "8"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
