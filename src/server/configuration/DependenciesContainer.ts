@@ -12,8 +12,7 @@ import {
 } from "../offreemplois/configuration/OffreEmploiDependencies";
 import { RedisCacheService } from "../services/cache/RedisCacheService";
 import { LuxonDateService } from "../services/date/LuxonDateService";
-import { HttpLaBonneAlternanceClientService } from "../services/http/HttpLaBonneAlternanceClientService";
-import { HttpPoleEmploiClientService } from "../services/http/HttpPoleEmploiClientService";
+import { HttpClientService } from "../services/http/HttpClientService";
 import { ServerConfigurationService } from "../services/ServerConfigurationService";
 import { ApiPoleEmploiTokenRepository } from "../tokens/infra/ApiPoleEmploiTokenRepository";
 
@@ -25,8 +24,8 @@ export type Dependencies = {
 
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
-  const httpApiPoleEmploiClient = new HttpPoleEmploiClientService();
-  const httpAuthPoleEmploiClient = new HttpPoleEmploiClientService();
+  const httpClientService = new HttpClientService();
+  const httpAuthPoleEmploiClient = new HttpClientService();
   const apiPoleEmploiTokenRepository = new ApiPoleEmploiTokenRepository(
     new LuxonDateService(),
     serverConfigurationService,
@@ -34,19 +33,17 @@ export const dependenciesContainer = (): Dependencies => {
   );
   const redisCacheService = new RedisCacheService(serverConfigurationService);
   const offreEmploiDependencies = offreEmploiDependenciesContainer(
-    httpApiPoleEmploiClient,
+    httpClientService,
     apiPoleEmploiTokenRepository,
     redisCacheService
   );
   const jobEtudiantDependencies = jobEtudiantDependenciesContainer(
-    httpApiPoleEmploiClient,
+    httpClientService,
     apiPoleEmploiTokenRepository
   );
 
-  const httpLaBonneAlternanceClient = new HttpLaBonneAlternanceClientService();
-  const metierRechercheDependencies = metierRechercheDependenciesContainer(
-    httpLaBonneAlternanceClient
-  );
+  const metierRechercheDependencies =
+    metierRechercheDependenciesContainer(httpClientService);
   return {
     jobEtudiantDependencies,
     metierRechercheDependencies,

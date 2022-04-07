@@ -1,4 +1,4 @@
-import { HttpClientService } from "../../../services/http/HttpClientService";
+import { ClientService } from "../../../services/http/ClientService";
 import { ListeMetierRecherche } from "../../usecases/ListeMetierRecherche";
 import { ApiLaBonneAlternanceRepository } from "../repositories/ApiLaBonneAlternanceRepository";
 
@@ -7,7 +7,7 @@ export type ListeMetierRechercheDependenciesContainer = Readonly<{
 }>;
 
 export const listeMetierRechercherDependenciesContainer = (
-  httpClientService: HttpClientService
+  httpClientService: ClientService
 ): ListeMetierRechercheDependenciesContainer => {
   const jobEtudiantRepository = new ApiLaBonneAlternanceRepository(
     httpClientService

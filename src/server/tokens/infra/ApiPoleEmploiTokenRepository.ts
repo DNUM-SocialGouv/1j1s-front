@@ -2,14 +2,14 @@ import { DateTime } from "luxon";
 
 import { ConfigurationService } from "../../services/ConfigurationService";
 import { DateService } from "../../services/date/DateService";
-import { HttpClientService } from "../../services/http/HttpClientService";
+import { ClientService } from "../../services/http/ClientService";
 import { ApiTokenRepository } from "./ApiTokenRepository";
 
 export class ApiPoleEmploiTokenRepository implements ApiTokenRepository {
   constructor(
     private readonly dateService: DateService,
     private readonly configurationService: ConfigurationService,
-    private readonly httpClientService: HttpClientService
+    private readonly httpClientService: ClientService
   ) {}
 
   private token: string | undefined;

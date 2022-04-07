@@ -1,5 +1,5 @@
 import { CacheService } from "../../services/cache/CacheService";
-import { HttpClientService } from "../../services/http/HttpClientService";
+import { ClientService } from "../../services/http/ClientService";
 import { ApiTokenRepository } from "../../tokens/infra/ApiTokenRepository";
 import {
   ListeOffreEmploiDependenciesContainer,
@@ -9,7 +9,7 @@ import {
 export type OffreEmploiDependencies = ListeOffreEmploiDependenciesContainer;
 
 export const offreEmploiDependenciesContainer = (
-  httpClientService: HttpClientService,
+  httpClientService: ClientService,
   apiTokenRepository: ApiTokenRepository,
   cacheService: CacheService
 ): OffreEmploiDependencies => {
