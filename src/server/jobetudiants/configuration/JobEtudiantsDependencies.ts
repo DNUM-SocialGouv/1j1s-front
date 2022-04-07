@@ -1,5 +1,5 @@
 import { ApiTokenRepository } from "../../tokens/infra/ApiTokenRepository";
-import { HttpClientService } from "../../services/http/HttpClientService";
+import { ClientService } from "../../services/http/ClientService";
 import {
   listeJobEtudiantDependenciesContainer,
   ListeJobEtudiantDependenciesContainer
@@ -8,7 +8,7 @@ import {
 export type JobEtudiantDependencies = ListeJobEtudiantDependenciesContainer;
 
 export const jobEtudiantDependenciesContainer = (
-  httpClientService: HttpClientService,
+  httpClientService: ClientService,
   apiTokenRepository: ApiTokenRepository
 ): JobEtudiantDependencies => {
   return {

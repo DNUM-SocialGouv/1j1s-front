@@ -1,5 +1,5 @@
 import { CacheService } from "../../../services/cache/CacheService";
-import { HttpClientService } from "../../../services/http/HttpClientService";
+import { ClientService } from "../../../services/http/ClientService";
 import { ApiTokenRepository } from "../../../tokens/infra/ApiTokenRepository";
 import { ListeOffreEmploi } from "../../usecases/ListeOffreEmploi";
 import { ApiPoleEmploiOffreRepository } from "../repositories/ApiPoleEmploiOffreRepository";
@@ -9,7 +9,7 @@ export type ListeOffreEmploiDependenciesContainer = Readonly<{
 }>;
 
 export const listeOffreEmploiDependenciesContainer = (
-  httpClientService: HttpClientService,
+  httpClientService: ClientService,
   apiTokenRepository: ApiTokenRepository,
   cacheService: CacheService
 ): ListeOffreEmploiDependenciesContainer => {

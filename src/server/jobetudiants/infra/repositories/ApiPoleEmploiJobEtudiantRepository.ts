@@ -1,14 +1,14 @@
 import { OffreEmploiRepository } from "../../../offreemplois/domain/OffreEmploiRepository";
 import { JobEtudiant } from "../../domain/JobEtudiant";
 import { JobEtudiantRepository } from "../../domain/JobEtudiantRepository";
-import { HttpClientService } from "../../../services/http/HttpClientService";
+import { ClientService } from "../../../services/http/ClientService";
 import { ApiTokenRepository } from "../../../tokens/infra/ApiTokenRepository";
 
 export class ApiPoleEmploiJobEtudiantRepository
   implements JobEtudiantRepository
 {
   constructor(
-    private readonly httpClientService: HttpClientService,
+    private readonly httpClientService: ClientService,
     private readonly apiTokenRepository: ApiTokenRepository
   ) {}
 
