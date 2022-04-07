@@ -1,12 +1,12 @@
 import { CacheService } from "../../../services/cache/CacheService";
-import { HttpClientService } from "../../../services/http/HttpClientService";
+import { ClientService } from "../../../services/http/ClientService";
 import { ApiTokenRepository } from "../../../tokens/infra/ApiTokenRepository";
 import { OffreEmploi } from "../../domain/OffreEmploi";
 import { OffreEmploiRepository } from "../../domain/OffreEmploiRepository";
 
 export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
-    private readonly httpClientService: HttpClientService,
+    private readonly httpClientService: ClientService,
     private readonly apiTokenRepository: ApiTokenRepository,
     private readonly cacheService: CacheService
   ) {}

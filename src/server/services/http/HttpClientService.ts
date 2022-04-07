@@ -1,20 +1,24 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 
-export abstract class HttpClientService {
-  readonly client: AxiosInstance;
+import { ClientService } from "./ClientService";
 
-  protected constructor() {
-    this.client = axios.create();
+export class HttpClientService extends ClientService {
+  constructor() {
+    super();
   }
 
-  abstract get<T>(
+  get<T>(
     endpoint: string,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>>;
+  ): Promise<AxiosResponse<T>> {
+    return this.client.get(endpoint, config);
+  }
 
-  abstract post<T>(
+  post<T>(
     resource: string,
     body?: any,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>>;
+  ): Promise<AxiosResponse<T>> {
+    return this.client.post(resource, body, config);
+  }
 }
