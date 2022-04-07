@@ -1,9 +1,9 @@
-import { HttpClientService } from "../../../services/http/HttpClientService";
+import { ClientService } from "../../../services/http/ClientService";
 import { AlternanceRepository } from "../../domain/AlternanceRepository";
 import { MetierRecherche } from "../../domain/MetierRecherche";
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-  constructor(private httpClientService: HttpClientService) {}
+  constructor(private httpClientService: ClientService) {}
 
   async listeMetierRecherche(
     metierRechercher: string

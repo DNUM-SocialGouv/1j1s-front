@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { ApiPoleEmploiJobEtudiantRepository } from "../../../../../src/server/jobetudiants/infra/repositories/ApiPoleEmploiJobEtudiantRepository";
 import { ApiTokenRepository } from "../../../../../src/server/tokens/infra/ApiTokenRepository";
-import { HttpClientService } from "../../../../../src/server/services/http/HttpClientService";
+import { ClientService } from "../../../../../src/server/services/http/ClientService";
 import {
   anAxiosInstance,
   anAxiosResponse,
@@ -16,7 +16,7 @@ jest.mock("axios", () => {
 
 describe("ApiPoleEmploiJobEtudiantRepository", () => {
   describe("listeJobEtudiant", () => {
-    let httpClientService: HttpClientService;
+    let httpClientService: ClientService;
     let apiTokenRepository: ApiTokenRepository;
 
     const axiosInstance = anAxiosInstance();

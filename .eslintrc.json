@@ -4,5 +4,8 @@
     "jest": {
       "version": 27
     }
+  },
+  "rules": {
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
 }
