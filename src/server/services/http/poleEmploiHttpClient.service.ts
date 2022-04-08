@@ -10,8 +10,9 @@ interface PoleEmploiTokenResponse {
 
 export class PoleEmploiHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_POLE_BASE_URL } = configurationService.getConfiguration();
-    super(API_POLE_BASE_URL);
+    const { API_POLE_EMPLOI_BASE_URL } =
+      configurationService.getConfiguration();
+    super(API_POLE_EMPLOI_BASE_URL);
 
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,

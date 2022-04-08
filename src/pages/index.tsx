@@ -1,14 +1,22 @@
-import type { NextPage } from "next";
+import { GetStaticPropsResult } from "next";
 import Head from "next/head";
 import Script from "next/script";
 import React from "react";
 
 import styles from "../../styles/Home.module.css";
+import { Article1J1S } from "../client/components/Article1J1S";
 import { CardEmploiUnJUnS } from "../client/components/CardEmploiUnJUnS";
 import { FooterUnJUnS } from "../client/components/FooterUnJUnS";
 import { HeaderUnJUnS } from "../client/components/HeaderUnJUnS";
+import { PageAccueilArticle } from "../server/services/cms/infra/repostitories/strapiCms.service";
+import { dependencies } from "../server/start";
 
-const Home: NextPage = () => {
+export interface HomeProps {
+  articles: PageAccueilArticle[];
+}
+
+export default function Home(props: HomeProps) {
+  const { articles } = props;
   return (
     <div className={styles.container}>
       <Head>
@@ -21,6 +29,8 @@ const Home: NextPage = () => {
       </Head>
 
       <HeaderUnJUnS />
+
+      <Article1J1S articles={articles} />
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -78,6 +88,17 @@ const Home: NextPage = () => {
       <FooterUnJUnS />
     </div>
   );
-};
+}
 
-export default Home;
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<HomeProps>
+> {
+  const articles =
+    await dependencies.accueilCMSDependencies.getPageAccueilList();
+
+  return {
+    props: {
+      articles,
+    },
+  };
+}

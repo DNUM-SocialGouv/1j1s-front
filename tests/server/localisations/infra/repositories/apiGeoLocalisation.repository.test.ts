@@ -1,40 +1,29 @@
-import axios from "axios";
-
 import { ApiGeoLocalisationRepository } from "../../../../../src/server/localisations/infra/repositories/apiGeoLocalisation.repository";
-import { ClientService } from "../../../../../src/server/services/http/client.service";
-import {
-  anAxiosInstance,
-  anAxiosResponse,
-} from "../../../../fixtures/httpClientService.fixture";
-
-jest.mock("axios", () => {
-  return {
-    create: jest.fn(),
-  };
-});
+import { ApiAdresseHttpClientService } from "../../../../../src/server/services/http/apiAdresseHttpClient.service";
+import { ApiGeoHttpClientService } from "../../../../../src/server/services/http/apiGeoHttpClient.service";
+import { aApiAdresseHttpClientService } from "../../../../fixtures/apiAdresseHttpClientService.fixture";
+import { aApiGeoHttpClientService } from "../../../../fixtures/apiGeoHttpClientService.fixture";
+import { anAxiosResponse } from "../../../../fixtures/httpClientService.fixture";
 
 describe("ApiGeoLocalisationRepository", () => {
   describe("listeAdresse", () => {
-    let httpClientService: ClientService;
+    let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
-    const axiosInstance = anAxiosInstance();
+    let apiGeoHttpClientService: ApiGeoHttpClientService;
+    let apiAdresseHttpClientService: ApiAdresseHttpClientService;
 
     beforeEach(() => {
-      jest.mocked(axios.create).mockReturnValue(axiosInstance);
+      apiGeoHttpClientService = aApiGeoHttpClientService();
+      apiAdresseHttpClientService = aApiAdresseHttpClientService();
 
-      httpClientService = {
-        client: anAxiosInstance(),
-        get: jest.fn(),
-        post: jest.fn(),
-      };
+      apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
+        apiGeoHttpClientService,
+        apiAdresseHttpClientService
+      );
     });
 
     it("retourne la liste des adresses trouvées par l'api geo gouv", async () => {
-      const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
-        httpClientService
-      );
-
-      jest.spyOn(httpClientService, "get").mockResolvedValue(
+      jest.spyOn(apiAdresseHttpClientService, "get").mockResolvedValue(
         anAxiosResponse({
           features: [
             {
@@ -106,11 +95,7 @@ describe("ApiGeoLocalisationRepository", () => {
     });
 
     it("retourne la liste des communes trouvées par l'api decoupage administratif", async () => {
-      const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
-        httpClientService
-      );
-
-      jest.spyOn(httpClientService, "get").mockResolvedValue(
+      jest.spyOn(apiGeoHttpClientService, "get").mockResolvedValue(
         anAxiosResponse([
           {
             _score: 0.5387275638398817,
@@ -148,11 +133,7 @@ describe("ApiGeoLocalisationRepository", () => {
     });
 
     it("retourne la liste des departements trouvées par l'api decoupage administratif", async () => {
-      const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
-        httpClientService
-      );
-
-      jest.spyOn(httpClientService, "get").mockResolvedValue(
+      jest.spyOn(apiGeoHttpClientService, "get").mockResolvedValue(
         anAxiosResponse([
           {
             _score: 1,
@@ -174,11 +155,7 @@ describe("ApiGeoLocalisationRepository", () => {
     });
 
     it("retourne la liste des regions trouvées par l'api decoupage administratif", async () => {
-      const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
-        httpClientService
-      );
-
-      jest.spyOn(httpClientService, "get").mockResolvedValue(
+      jest.spyOn(apiGeoHttpClientService, "get").mockResolvedValue(
         anAxiosResponse([
           {
             _score: 0.6917635957182404,

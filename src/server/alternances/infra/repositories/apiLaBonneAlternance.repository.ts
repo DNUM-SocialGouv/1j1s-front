@@ -12,7 +12,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   ): Promise<MetierRecherche[]> {
     const response =
       await this.laBonneAlternanceHttpClient.get<RechercheMetierResponse>(
-        "https://labonnealternance.apprentissage.beta.gouv.fr/api/V1/metiers?title=" +
+        "api/V1/metiers?title=" +
           metierRechercher
       );
 

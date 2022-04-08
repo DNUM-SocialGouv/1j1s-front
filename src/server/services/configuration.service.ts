@@ -1,5 +1,5 @@
-import { EnvironementVariables } from "./serverConfiguration.service";
+import { EnvironmentVariables } from "./serverConfiguration.service";
 
 export interface ConfigurationService {
-  getConfiguration(): EnvironementVariables;
+  getConfiguration(): EnvironmentVariables;
 }

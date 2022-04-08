@@ -10,14 +10,17 @@ import {
   OffreEmploiDependencies,
   offreEmploiDependenciesContainer,
 } from "../offreemplois/configuration/offreEmploi.dependencies";
+import { StrapiCmsService } from "../services/cms/infra/repostitories/strapiCms.service";
 import { LaBonneAlternanceHttpClient } from "../services/http/laBonneAlternanceHttpClient.service";
 import { PoleEmploiHttpClientService } from "../services/http/poleEmploiHttpClient.service";
+import { StrapiHttpClientService } from "../services/http/strapiHttpClient.service";
 import { ServerConfigurationService } from "../services/serverConfiguration.service";
 
 export type Dependencies = {
   offreEmploiDependencies: OffreEmploiDependencies;
   jobEtudiantDependencies: JobEtudiantDependencies;
   metierRechercheDependencies: MetierRechercheDependencies;
+  accueilCMSDependencies: StrapiCmsService;
 };
 
 export const dependenciesContainer = (): Dependencies => {
@@ -26,6 +29,9 @@ export const dependenciesContainer = (): Dependencies => {
     serverConfigurationService
   );
   const laBonneAlternanceHttpClient = new LaBonneAlternanceHttpClient(
+    serverConfigurationService
+  );
+  const strapiHttpClientService = new StrapiHttpClientService(
     serverConfigurationService
   );
 
@@ -40,6 +46,10 @@ export const dependenciesContainer = (): Dependencies => {
     laBonneAlternanceHttpClient
   );
   return {
+    accueilCMSDependencies: new StrapiCmsService(
+      strapiHttpClientService,
+      serverConfigurationService
+    ),
     jobEtudiantDependencies,
     metierRechercheDependencies,
     offreEmploiDependencies,
