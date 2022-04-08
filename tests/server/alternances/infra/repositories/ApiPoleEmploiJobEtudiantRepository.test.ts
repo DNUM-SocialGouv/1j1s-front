@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { ApiLaBonneAlternanceRepository } from "../../../../../src/server/alternances/infra/repositories/ApiLaBonneAlternanceRepository";
-import { HttpClientService } from "../../../../../src/server/services/http/HttpClientService";
+import { ClientService } from "../../../../../src/server/services/http/ClientService";
 import {
   anAxiosInstance,
   anAxiosResponse,
@@ -15,7 +15,7 @@ jest.mock("axios", () => {
 
 describe("ApiLaBonneAlternanceRepository", () => {
   describe("listeJobEtudiant", () => {
-    let httpClientService: HttpClientService;
+    let httpClientService: ClientService;
 
     const axiosInstance = anAxiosInstance();
 

@@ -1,4 +1,4 @@
-import { HttpClientService } from "../../services/http/HttpClientService";
+import { ClientService } from "../../services/http/ClientService";
 import {
   ListeMetierRechercheDependenciesContainer,
   listeMetierRechercherDependenciesContainer,
@@ -8,7 +8,7 @@ export type MetierRechercheDependencies =
   ListeMetierRechercheDependenciesContainer;
 
 export const metierRechercheDependenciesContainer = (
-  httpClientService: HttpClientService
+  httpClientService: ClientService
 ): MetierRechercheDependencies => {
   return {
     ...listeMetierRechercherDependenciesContainer(httpClientService),

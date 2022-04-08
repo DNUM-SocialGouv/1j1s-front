@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 import { ApiPoleEmploiTokenRepository } from "../../../../../src/server/tokens/infra/ApiPoleEmploiTokenRepository";
 import { ConfigurationService } from "../../../../../src/server/services/ConfigurationService";
 import { DateService } from "../../../../../src/server/services/date/DateService";
-import { HttpClientService } from "../../../../../src/server/services/http/HttpClientService";
+import { ClientService } from "../../../../../src/server/services/http/ClientService";
 import {
   anAxiosInstance,
   anAxiosResponse,
@@ -20,7 +20,7 @@ describe("ApiPoleEmploiTokenRepository", () => {
   describe("getToken", () => {
     let dateService: DateService;
     let configurationService: ConfigurationService;
-    let httpClientService: HttpClientService;
+    let httpClientService: ClientService;
 
     const axiosInstance = anAxiosInstance();
 
