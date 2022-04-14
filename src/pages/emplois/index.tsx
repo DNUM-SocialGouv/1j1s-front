@@ -8,7 +8,7 @@ interface EmploisProps {
   offreEmplois: OffreEmploi[];
 }
 
-export default function Emplois(props: any) {
+export default function Emplois(props: EmploisProps) {
   const { offreEmplois } = props;
   return (
     <div
