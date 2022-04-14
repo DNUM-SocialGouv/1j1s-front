@@ -1,0 +1,23 @@
+title: DashLord 1J1S
+description: Bonnes pratiques techniques
+entity: Ministères sociaux
+footer: Powered by SocialGouv
+marianne: false
+tools:
+  404: true
+  screenshot: true
+  nmap: true
+  zap: true
+  wappalyzer: true
+  http: true
+  testssl: true
+  lighthouse: true
+  thirdparties: true
+  nuclei: true
+  updownio: false
+  dependabot: true
+  codescan: true
+  stats: false
+  declaration-a11y: true
+urls:
+  - url: https://1j1s-front.osc-fr1.scalingo.io/

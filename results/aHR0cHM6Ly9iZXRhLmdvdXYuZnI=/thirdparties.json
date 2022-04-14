@@ -1,0 +1,103 @@
+{
+  "trackers": [],
+  "cookies": [
+    {
+      "name": "_pk_ses.21.968e",
+      "value": "1",
+      "domain": "beta.gouv.fr",
+      "path": "/",
+      "expires": 1649554838,
+      "size": 16,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "sameSite": "Lax",
+      "sameParty": false,
+      "sourceScheme": "Secure",
+      "sourcePort": 443
+    },
+    {
+      "name": "_pk_id.21.968e",
+      "value": "0f199450aedb462d.1649553038.",
+      "domain": "beta.gouv.fr",
+      "path": "/",
+      "expires": 1683508238,
+      "size": 42,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "sameSite": "Lax",
+      "sameParty": false,
+      "sourceScheme": "Secure",
+      "sourcePort": 443
+    }
+  ],
+  "headers": {
+    "server": "openresty",
+    "date": "Sun, 10 Apr 2022 01:10:37 GMT",
+    "content-type": "text/html",
+    "x-request-id": "c837463b-944d-4e39-a64e-edcc52cd53de",
+    "strict-transport-security": "max-age=31536000",
+    "last-modified": "Fri, 08 Apr 2022 16:37:00 GMT",
+    "etag": "W/\"625064ac-d248\"",
+    "content-encoding": "gzip"
+  },
+  "endpoints": [
+    {
+      "hostname": "beta.gouv.fr",
+      "ip": "5.104.101.30",
+      "geoip": {
+        "continent": {
+          "code": "EU",
+          "geoname_id": 6255148,
+          "names": {
+            "de": "Europa",
+            "en": "Europe",
+            "es": "Europa",
+            "fr": "Europe",
+            "ja": "ヨーロッパ",
+            "pt-BR": "Europa",
+            "ru": "Европа",
+            "zh-CN": "欧洲"
+          }
+        },
+        "country": {
+          "geoname_id": 3017382,
+          "is_in_european_union": true,
+          "iso_code": "FR",
+          "names": {
+            "de": "Frankreich",
+            "en": "France",
+            "es": "Francia",
+            "fr": "France",
+            "ja": "フランス共和国",
+            "pt-BR": "França",
+            "ru": "Франция",
+            "zh-CN": "法国"
+          }
+        },
+        "location": {
+          "accuracy_radius": 500,
+          "latitude": 48.8582,
+          "longitude": 2.3387,
+          "time_zone": "Europe/Paris"
+        },
+        "registered_country": {
+          "geoname_id": 3017382,
+          "is_in_european_union": true,
+          "iso_code": "FR",
+          "names": {
+            "de": "Frankreich",
+            "en": "France",
+            "es": "Francia",
+            "fr": "France",
+            "ja": "フランス共和国",
+            "pt-BR": "França",
+            "ru": "Франция",
+            "zh-CN": "法国"
+          }
+        }
+      }
+    }
+  ]
+}
