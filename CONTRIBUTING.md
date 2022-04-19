@@ -27,10 +27,11 @@ npm run start
 
 
 ### Commandes utiles
-| Commande       | Fonction               |
-| -------------- | ---------------------- |
-| npm run lint   | Formater le code       |
-| npm run test   | Exécuter les tests     |
+| Commande        | Fonction               |
+| --------------- | ---------------------- |
+| npm run lint    | Formater le code       |
+| npm run test    | Exécuter les tests     |
+| npm run release | Versionner le code     |
 
 
 Technologies
