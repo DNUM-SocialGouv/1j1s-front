@@ -11,7 +11,7 @@ import {
   offreEmploiDependenciesContainer,
 } from "../offreemplois/configuration/OffreEmploiDependencies";
 import { RedisCacheService } from "../services/cache/RedisCacheService";
-import { LuxonDateService } from "../services/date/LuxonDateService";
+import { JavascriptDateService } from "../services/date/JavascriptDateService";
 import { HttpClientService } from "../services/http/HttpClientService";
 import { ServerConfigurationService } from "../services/ServerConfigurationService";
 import { ApiPoleEmploiTokenRepository } from "../tokens/infra/ApiPoleEmploiTokenRepository";
@@ -26,16 +26,16 @@ export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
   const httpClientService = new HttpClientService();
   const httpAuthPoleEmploiClient = new HttpClientService();
-  const apiPoleEmploiTokenRepository = new ApiPoleEmploiTokenRepository(
-    new LuxonDateService(),
-    serverConfigurationService,
-    httpAuthPoleEmploiClient
-  );
   const redisCacheService = new RedisCacheService(serverConfigurationService);
+  const apiPoleEmploiTokenRepository = new ApiPoleEmploiTokenRepository(
+    new JavascriptDateService(),
+    serverConfigurationService,
+    httpAuthPoleEmploiClient,
+    redisCacheService
+  );
   const offreEmploiDependencies = offreEmploiDependenciesContainer(
     httpClientService,
-    apiPoleEmploiTokenRepository,
-    redisCacheService
+    apiPoleEmploiTokenRepository
   );
   const jobEtudiantDependencies = jobEtudiantDependenciesContainer(
     httpClientService,
