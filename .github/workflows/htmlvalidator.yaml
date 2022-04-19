@@ -1,0 +1,28 @@
+name: HTML5 Validator
+on: [push]
+jobs:
+  html5validator:
+    name: HTML5 Validator
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm run build
+    - name: validate html
+      uses: Cyb3r-Jak3/html5validator-action@v0.4.1
+      with:
+        root: .next/pages
+        log_level: INFO
+        css: true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: log
+          path: log.log
