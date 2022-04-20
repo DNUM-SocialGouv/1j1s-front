@@ -4,16 +4,19 @@ import Script from "next/script";
 import React from "react";
 
 import styles from "../../styles/Home.module.css";
+import { CardEmploiUnJUnS } from "../client/components/CardEmploiUnJUnS";
 import { FooterUnJUnS } from "../client/components/FooterUnJUnS";
 import { HeaderUnJUnS } from "../client/components/HeaderUnJUnS";
-import { CardEmploiUnJUnS } from '../client/components/CardEmploiUnJUnS';
 
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
         <title>1 jeune 1 solution</title>
-        <meta name="description" content="Toutes les solutions pour l'avenir des jeunes" />
+        <meta
+          name="description"
+          content="Toutes les solutions pour l'avenir des jeunes"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
