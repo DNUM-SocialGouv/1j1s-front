@@ -1,5 +1,6 @@
 {
   "extends": ["next/core-web-vitals","@socialgouv/eslint-config-recommended"],
+  "plugins": ["testing-library"],
   "settings": {
     "jest": {
       "version": 27
@@ -7,5 +8,15 @@
   },
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }]
-  }
+  },
+  "overrides": [
+    // Only uses Testing Library lint rules in test files
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
 }
