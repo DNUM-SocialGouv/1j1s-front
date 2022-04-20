@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { MetierRecherche } from "../../../../../server/alternances/domain/MetierRecherche";
+import { MetierRecherche } from "../../../../../server/alternances/domain/metierRecherche";
 import { dependencies } from "../../../../../server/start";
 
 export default function handler(

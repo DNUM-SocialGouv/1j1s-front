@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { OffreEmploi } from "../../server/offreemplois/domain/OffreEmploi";
+import { OffreEmploi } from "../../server/offreemplois/domain/offreEmploi";
 import { dependencies } from "../../server/start";
 
 export default function handler(
