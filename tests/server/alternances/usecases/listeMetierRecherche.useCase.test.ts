@@ -11,7 +11,9 @@ describe("ListeMetierRecherche", () => {
   });
 
   it("retourne la liste des offres d emploi", async () => {
-    const listeJobEtudiant = new ListeMetierRechercheUseCase(alternanceRepository);
+    const listeJobEtudiant = new ListeMetierRechercheUseCase(
+      alternanceRepository
+    );
     jest.spyOn(alternanceRepository, "listeMetierRecherche").mockResolvedValue([
       {
         intitule: "Boucherie, charcuterie, traiteur",

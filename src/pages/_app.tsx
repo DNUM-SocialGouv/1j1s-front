@@ -4,9 +4,15 @@ import "../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.css";
 import { AppProps } from "next/app";
 import React from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
+import { DependenciesProvider } from "../client/context/dependenciesContainerContext";
+import dependenciesContainer from "../client/dependencies.container";
 
-  return <Component {...pageProps} />;
+function App({ Component, pageProps }: AppProps) {
+  return (
+    <DependenciesProvider dependenciesContainer={dependenciesContainer}>
+      <Component {...pageProps} />
+    </DependenciesProvider>
+  );
 }
 
-export default MyApp;
+export default App;

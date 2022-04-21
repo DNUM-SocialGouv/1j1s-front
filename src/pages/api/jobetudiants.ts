@@ -1,7 +1,7 @@
-import { withSentry } from "@sentry/nextjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { OffreEmploi } from "../../server/offreemplois/domain/offreEmploi";
+import { sentryHandler } from "../../server/sentryHandler.middleware";
 import { dependencies } from "../../server/start";
 
 const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
@@ -12,4 +12,4 @@ const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
     });
 };
 
-export default withSentry(handler);
+export default sentryHandler(handler);
