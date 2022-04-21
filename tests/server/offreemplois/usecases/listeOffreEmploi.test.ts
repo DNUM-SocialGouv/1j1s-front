@@ -1,18 +1,18 @@
-import { JobEtudiantRepository } from "../../../../src/server/jobetudiants/domain/jobEtudiant.repository";
-import { ListeJobEtudiantUseCase } from "../../../../src/server/jobetudiants/usecases/listeJobEtudiant.useCase";
+import { OffreEmploiRepository } from "../../../../src/server/offreemplois/domain/offreEmploi.repository";
+import { ListeOffreEmploiUseCase } from "../../../../src/server/offreemplois/usecases/listeOffreEmploi.useCase";
 
-describe("ListeJobEtudiant", () => {
-  let emploiRepository: JobEtudiantRepository;
+describe("ListeOffreEmploi", () => {
+  let emploiRepository: OffreEmploiRepository;
 
   beforeEach(() => {
     emploiRepository = {
-      getJobEtudiantList: jest.fn(),
+      listeOffreEmploi: jest.fn(),
     };
   });
 
   it("retourne la liste des offres d emploi", async () => {
-    const listeJobEtudiant = new ListeJobEtudiantUseCase(emploiRepository);
-    jest.spyOn(emploiRepository, "getJobEtudiantList").mockResolvedValue([
+    const listeOffreEmploi = new ListeOffreEmploiUseCase(emploiRepository);
+    jest.spyOn(emploiRepository, "listeOffreEmploi").mockResolvedValue([
       { id: "130WPHH", intitule: "Gestionnaire ADV    (H/F)" },
       { id: "130WPHC", intitule: "Maçon / Maçonne" },
       {
@@ -21,7 +21,7 @@ describe("ListeJobEtudiant", () => {
       },
     ]);
 
-    const result = await listeJobEtudiant.handle();
+    const result = await listeOffreEmploi.handle();
 
     expect([
       { id: "130WPHH", intitule: "Gestionnaire ADV    (H/F)" },

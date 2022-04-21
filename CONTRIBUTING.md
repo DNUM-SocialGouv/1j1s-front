@@ -59,9 +59,12 @@ _exemple : getJobEtudiant, OffreEmploi, it("récupère la liste des alternances"
 #### Collection
 Une variable représentant une collection sera suffixée par le mot `List` afin d'éviter le pluriel, parfois en conflit avec des mots invariables
 
+### Code
+* inutile d'ajouter le prefix d'attribut **readonly** dans les paramètres de fonctions ou constructor
+
 #### Fichiers et dossiers
 * composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.css`
-* tout le reste : kebab-case, `http-client.service.ts`, `offre-emploi.ts`, `offre-emploi.repository.ts`
+* tout le reste : camelCase, `httpClient.service.ts`, `offre-emploi.ts`, `offreEmploi.repository.ts`
 
 ### Commits
 Nous suivons [conventional commits](https://conventionalcommits.org/)
