@@ -1,10 +1,18 @@
-import { withSentry } from "@sentry/nextjs";
+import * as Sentry from "@sentry/nextjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { OffreEmploi } from "../../server/offreemplois/domain/offreEmploi";
 import { dependencies } from "../../server/start";
 
 const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
+  const transactionId = req.headers["x-transaction-id"];
+
+  if (transactionId) {
+    Sentry.configureScope((scope) => {
+      scope.setTag("transaction_id", transactionId);
+    });
+  }
+
   dependencies.offreEmploiDependencies.listeOffreEmploi
     .handle()
     .then((value) => {
@@ -12,4 +20,4 @@ const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
     });
 };
 
-export default withSentry(handler);
+export default Sentry.withSentry(handler);
