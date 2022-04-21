@@ -42,6 +42,15 @@ export default function Home(props: HomeProps) {
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
+        <button
+          type="button"
+          onClick={() => {
+            throw new Error("Sentry Frontend Error");
+          }}
+        >
+          Throw error
+        </button>
+
         <div className={styles.grid}>
           <CardEmploiUnJUnS />
 
