@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const HeaderUnJUnS = () => {
   return (
     <>
@@ -16,14 +18,13 @@ export const HeaderUnJUnS = () => {
                   </div>
                 </div>
                 <div className="fr-header__service">
-                  <a
-                    href="/"
-                    title="Accueil - [À MODIFIER | Nom du site / service]"
-                  >
-                    <p className="fr-header__service-title">
-                      Nom du site / service
-                    </p>
-                  </a>
+                  <Link href="/">
+                    <a title="Accueil - [À MODIFIER | Nom du site / service]">
+                      <p className="fr-header__service-title">
+                        Nom du site / service
+                      </p>
+                    </a>
+                  </Link>
                   <p className="fr-header__service-tagline">
                     baseline - précisions sur l‘organisation
                   </p>

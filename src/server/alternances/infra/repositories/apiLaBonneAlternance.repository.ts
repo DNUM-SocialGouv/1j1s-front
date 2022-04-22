@@ -12,8 +12,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   ): Promise<MetierRecherche[]> {
     const response =
       await this.laBonneAlternanceHttpClient.get<RechercheMetierResponse>(
-        "api/V1/metiers?title=" +
-          metierRechercher
+        "api/V1/metiers?title=" + metierRechercher
       );
 
     return response.data.labelsAndRomes.map((rechercheMetier) => ({

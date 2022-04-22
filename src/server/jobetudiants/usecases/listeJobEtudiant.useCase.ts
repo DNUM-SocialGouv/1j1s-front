@@ -1,4 +1,3 @@
-import { OffreEmploiRepository } from "../../offreemplois/domain/offreEmploi.repository";
 import { JobEtudiantRepository } from "../domain/jobEtudiant.repository";
 
 export class ListeJobEtudiantUseCase {

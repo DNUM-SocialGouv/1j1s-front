@@ -1,4 +1,3 @@
-import { ClientService } from "../../../services/http/client.service";
 import { PoleEmploiHttpClientService } from "../../../services/http/poleEmploiHttpClient.service";
 import { ListeOffreEmploiUseCase } from "../../usecases/listeOffreEmploi.useCase";
 import { ApiPoleEmploiOffreRepository } from "../repositories/apiPoleEmploiOffre.repository";

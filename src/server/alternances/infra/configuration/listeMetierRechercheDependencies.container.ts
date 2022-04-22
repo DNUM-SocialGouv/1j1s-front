@@ -14,6 +14,8 @@ export const listeMetierRechercherDependenciesContainer = (
   );
 
   return {
-    listeMetierRecherche: new ListeMetierRechercheUseCase(jobEtudiantRepository),
+    listeMetierRecherche: new ListeMetierRechercheUseCase(
+      jobEtudiantRepository
+    ),
   };
 };
