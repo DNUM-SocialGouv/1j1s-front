@@ -1,3 +1,4 @@
+import { push } from "@socialgouv/matomo-next";
 import { GetStaticPropsResult } from "next";
 import Head from "next/head";
 import Script from "next/script";
@@ -17,6 +18,11 @@ export interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const { articles } = props;
+
+  const trackEvent = () => {
+    push(["trackEvent", "click", "button-test-matomo"]);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -41,6 +47,8 @@ export default function Home(props: HomeProps) {
           Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
+
+        <button onClick={trackEvent}>Test Matomo</button>
 
         <button
           type="button"
