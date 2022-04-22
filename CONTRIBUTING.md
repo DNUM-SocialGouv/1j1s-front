@@ -69,6 +69,8 @@ Une variable représentant une collection sera suffixée par le mot `List` afin 
 ### Commits
 Nous suivons [conventional commits](https://conventionalcommits.org/)
 Les types de commit sont donc :
+* **feat** : nouvelle fonctionnalité
+* **fix** : correction d'un bug
 * **build** : changements du système de build ou de dépendances
 * **chore** : autre changement qui ne modifie ni fichier src, ni fichier test
 * **ci** : changement à la configuration de la CI
@@ -77,6 +79,7 @@ Les types de commit sont donc :
 * **refactor** : changement qui ne corrige pas de bug ou n'ajoute pas une nouvelle fonctionnalité
 * **perf** : changement qui améliore les performances
 * **test** : ajoute ou corrige un test
+* **revert** : annule un précédent changement
 
 ### Versioning
 Nous suivons le [Semantic Versioning](https://semver.org)
