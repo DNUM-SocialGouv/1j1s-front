@@ -1,8 +1,8 @@
 import { configureScope, withSentry } from "@sentry/nextjs";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const sentryHandler =
-  (fn) => (req: NextApiRequest, res: NextApiResponse) => {
+export const monitoringHandler =
+  (handler: any) => (req: NextApiRequest, res: NextApiResponse) => {
     const transactionId = req.headers["x-transaction-id"] as string;
     const sessionId = req.headers["x-session-id"] as string;
 
@@ -11,5 +11,5 @@ export const sentryHandler =
       scope.setTag("session_id", sessionId);
     });
 
-    return withSentry(fn(req, res));
+    return withSentry(handler(req, res));
   };
