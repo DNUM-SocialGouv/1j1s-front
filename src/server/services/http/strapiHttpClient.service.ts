@@ -3,11 +3,10 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { ConfigurationService } from "../configuration.service";
 import { ClientService } from "./client.service";
 
-export class LaBonneAlternanceHttpClient extends ClientService {
+export class StrapiHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_POLE_EMPLOI_BASE_URL } =
-      configurationService.getConfiguration();
-    super(API_POLE_EMPLOI_BASE_URL);
+    const { STRAPI_URL_API } = configurationService.getConfiguration();
+    super(STRAPI_URL_API);
   }
 
   get<T>(

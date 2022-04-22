@@ -4,7 +4,7 @@ import { anAxiosResponse } from "../../../../fixtures/httpClientService.fixture"
 import { aLaBonneAlternanceHttpClient } from "../../../../fixtures/laBonneAlternanceHttpClientService.fixture";
 
 describe("ApiLaBonneAlternanceRepository", () => {
-  describe("listeJobEtudiant", () => {
+  describe("listeMetierRecherche", () => {
     let laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient;
 
     beforeEach(() => {

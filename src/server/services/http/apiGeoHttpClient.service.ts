@@ -3,11 +3,10 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { ConfigurationService } from "../configuration.service";
 import { ClientService } from "./client.service";
 
-export class LaBonneAlternanceHttpClient extends ClientService {
+export class ApiGeoHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_POLE_EMPLOI_BASE_URL } =
-      configurationService.getConfiguration();
-    super(API_POLE_EMPLOI_BASE_URL);
+    const { API_GEO_BASE_URL } = configurationService.getConfiguration();
+    super(API_GEO_BASE_URL);
   }
 
   get<T>(
