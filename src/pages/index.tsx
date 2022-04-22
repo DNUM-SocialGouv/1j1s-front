@@ -1,4 +1,3 @@
-import { push } from "@socialgouv/matomo-next";
 import { GetStaticPropsResult } from "next";
 import Head from "next/head";
 import Script from "next/script";
@@ -9,6 +8,7 @@ import { Article1J1S } from "../client/components/Article1J1S";
 import { CardEmploiUnJUnS } from "../client/components/CardEmploiUnJUnS";
 import { FooterUnJUnS } from "../client/components/FooterUnJUnS";
 import { HeaderUnJUnS } from "../client/components/HeaderUnJUnS";
+import Tracker from "../client/utils/tracker.util";
 import { PageAccueilArticle } from "../server/services/cms/infra/repostitories/strapiCms.service";
 import { dependencies } from "../server/start";
 
@@ -18,10 +18,6 @@ export interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const { articles } = props;
-
-  const trackEvent = () => {
-    push(["trackEvent", "click", "button-test-matomo"]);
-  };
 
   return (
     <div className={styles.container}>
@@ -48,7 +44,9 @@ export default function Home(props: HomeProps) {
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
-        <button onClick={trackEvent}>Test Matomo</button>
+        <button onClick={() => Tracker.trackEvent("click", "matomo test")}>
+          Test Matomo
+        </button>
 
         <button
           type="button"

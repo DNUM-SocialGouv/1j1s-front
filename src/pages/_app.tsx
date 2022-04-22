@@ -8,12 +8,16 @@ import React, { useEffect } from "react";
 import { DependenciesProvider } from "../client/context/dependenciesContainerContext";
 import dependenciesContainer from "../client/dependencies.container";
 
-const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
-const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
+const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL || "missing MATOMO URL";
+const MATOMO_SITE_ID =
+  process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "missing MATOMO SITE ID";
 
 function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    init({ siteId: MATOMO_SITE_ID, url: MATOMO_URL });
+    init({
+      siteId: MATOMO_SITE_ID,
+      url: MATOMO_URL,
+    });
   }, []);
 
   return (
