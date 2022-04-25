@@ -8,6 +8,7 @@ import { Article1J1S } from "../client/components/Article1J1S";
 import { CardEmploiUnJUnS } from "../client/components/CardEmploiUnJUnS";
 import { FooterUnJUnS } from "../client/components/FooterUnJUnS";
 import { HeaderUnJUnS } from "../client/components/HeaderUnJUnS";
+import Tracker from "../client/utils/tracker.util";
 import { PageAccueilArticle } from "../server/services/cms/infra/repostitories/strapiCms.service";
 import { dependencies } from "../server/start";
 
@@ -17,6 +18,7 @@ export interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const { articles } = props;
+
   return (
     <div className={styles.container}>
       <Head>
@@ -41,6 +43,10 @@ export default function Home(props: HomeProps) {
           Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
+
+        <button onClick={() => Tracker.trackEvent("click", "matomo test")}>
+          Test Matomo
+        </button>
 
         <button
           type="button"

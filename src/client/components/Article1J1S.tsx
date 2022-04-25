@@ -8,10 +8,10 @@ export const Article1J1S = (props: HomeProps) => {
   const { articles } = props;
   return (
     <section className={styles.container}>
-      {articles.map((article: any) => {
+      {articles.map((article: any, index) => {
         return (
           <div
-            key={article.title}
+            key={index}
             className="fr-card fr-enlarge-link"
             style={{
               width: 300,
