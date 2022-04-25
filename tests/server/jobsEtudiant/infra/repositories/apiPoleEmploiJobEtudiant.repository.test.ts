@@ -1,5 +1,5 @@
 import { anAxiosResponse } from "@tests/fixtures/httpClientService.fixture";
-import { aPoleEmploiHttpClient } from "@tests/fixtures/poleEmploiHttpClientService.fixture";
+import { aPoleEmploiHttpClient } from "@tests/fixtures/offresEmploi/poleEmploiHttpClientService.fixture";
 
 import { ApiPoleEmploiJobEtudiantRepository } from "~/server/jobsEtudiant/infra/repositories/apiPoleEmploiJobEtudiant.repository";
 import { PoleEmploiHttpClientService } from "~/server/services/http/poleEmploiHttpClient.service";

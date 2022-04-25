@@ -1,5 +1,5 @@
-import { aApiAdresseHttpClientService } from "@tests/fixtures/apiAdresseHttpClientService.fixture";
-import { aApiGeoHttpClientService } from "@tests/fixtures/apiGeoHttpClientService.fixture";
+import { aApiAdresseHttpClientService } from "@tests/fixtures/localisations/apiAdresseHttpClientService.fixture";
+import { aApiGeoHttpClientService } from "@tests/fixtures/localisations/apiGeoHttpClientService.fixture";
 import { anAxiosResponse } from "@tests/fixtures/httpClientService.fixture";
 
 import { ApiGeoLocalisationRepository } from "~/server/localisations/infra/repositories/apiGeoLocalisation.repository";

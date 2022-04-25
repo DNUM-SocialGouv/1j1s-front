@@ -1,5 +1,5 @@
 import { anAxiosResponse } from "@tests/fixtures/httpClientService.fixture";
-import { aLaBonneAlternanceHttpClient } from "@tests/fixtures/laBonneAlternanceHttpClientService.fixture";
+import { aLaBonneAlternanceHttpClient } from "@tests/fixtures/alternances/laBonneAlternanceHttpClientService.fixture";
 
 import { ApiLaBonneAlternanceRepository } from "~/server/alternances/infra/repositories/apiLaBonneAlternance.repository";
 import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";

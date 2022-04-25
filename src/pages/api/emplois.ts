@@ -5,6 +5,8 @@ import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
 import { dependencies } from "~/server/start";
 
 const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
+  const { query } = req;
+  // TODO: map query to offreEmploiFiltre
   dependencies.offreEmploiDependencies.listeOffreEmploi
     .handle()
     .then((value) => {
