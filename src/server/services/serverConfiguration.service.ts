@@ -1,4 +1,4 @@
-import { ConfigurationService } from "./configuration.service";
+import { ConfigurationService } from "~/server/services/configuration.service";
 
 export class ServerConfigurationService implements ConfigurationService {
   getConfiguration(): EnvironmentVariables {

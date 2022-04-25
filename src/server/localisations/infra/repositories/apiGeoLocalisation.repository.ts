@@ -1,8 +1,8 @@
-import { ApiAdresseHttpClientService } from "../../../services/http/apiAdresseHttpClient.service";
-import { ApiGeoHttpClientService } from "../../../services/http/apiGeoHttpClient.service";
-import { Adresse } from "../../domain/adresse";
-import { Localisation } from "../../domain/localisation";
-import { LocalisationRepository } from "../../domain/localisation.repository";
+import { Adresse } from "~/server/localisations/domain/adresse";
+import { Localisation } from "~/server/localisations/domain/localisation";
+import { LocalisationRepository } from "~/server/localisations/domain/localisation.repository";
+import { ApiAdresseHttpClientService } from "~/server/services/http/apiAdresseHttpClient.service";
+import { ApiGeoHttpClientService } from "~/server/services/http/apiGeoHttpClient.service";
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
@@ -10,7 +10,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     private readonly apiAdresseHttpClientService: ApiAdresseHttpClientService
   ) {}
 
-  async listeAdresse(adresseRecherche: string): Promise<Adresse[]> {
+  async getAdresseList(adresseRecherche: string): Promise<Adresse[]> {
     const response =
       await this.apiAdresseHttpClientService.get<ApiGeoAdresseResponse>(
         "search/?q=" + adresseRecherche
@@ -23,7 +23,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async listeCommune(communeRecherche: string): Promise<Localisation[]> {
+  async getCommuneList(communeRecherche: string): Promise<Localisation[]> {
     const response = await this.apiGeoGouvHttpClientService.get<
       ApiDecoupageAdministratifResponse[]
     >("communes?nom=" + communeRecherche);
@@ -34,7 +34,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async listeDepartement(
+  async getDepartementList(
     departementRecherche: string
   ): Promise<Localisation[]> {
     const response = await this.apiGeoGouvHttpClientService.get<
@@ -47,7 +47,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async listeRegion(regionRecherche: string): Promise<Localisation[]> {
+  async getRegionList(regionRecherche: string): Promise<Localisation[]> {
     const response = await this.apiGeoGouvHttpClientService.get<
       ApiDecoupageAdministratifResponse[]
     >("regions?nom=" + regionRecherche);

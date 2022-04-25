@@ -1,4 +1,4 @@
-import { CacheService } from "../../src/server/services/cache/cache.service";
+import { CacheService } from "~/server/services/cache/cache.service";
 
 interface Cache {
   key: string;

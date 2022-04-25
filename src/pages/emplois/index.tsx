@@ -1,8 +1,8 @@
 import { GetStaticPropsResult } from "next";
 import Link from "next/link";
 
-import { OffreEmploi } from "../../server/offreemplois/domain/offreEmploi";
-import { dependencies } from "../../server/start";
+import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
+import { dependencies } from "~/server/start";
 
 interface EmploisProps {
   offreEmplois: OffreEmploi[];

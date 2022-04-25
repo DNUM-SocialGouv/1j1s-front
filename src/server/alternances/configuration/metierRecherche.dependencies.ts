@@ -1,8 +1,8 @@
-import { LaBonneAlternanceHttpClient } from "../../services/http/laBonneAlternanceHttpClient.service";
 import {
   ListeMetierRechercheDependenciesContainer,
   listeMetierRechercherDependenciesContainer,
-} from "../infra/configuration/listeMetierRechercheDependencies.container";
+} from "~/server/alternances/infra/configuration/listeMetierRechercheDependencies.container";
+import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
 
 export type MetierRechercheDependencies =
   ListeMetierRechercheDependenciesContainer;

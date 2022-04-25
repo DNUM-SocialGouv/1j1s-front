@@ -1,4 +1,4 @@
-import StorageService from "../../../src/client/utils/sessionStorage.util";
+import StorageService from "~/client/utils/sessionStorage.util";
 
 describe("StorageService", () => {
   describe("getItem", () => {

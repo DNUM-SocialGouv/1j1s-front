@@ -1,5 +1,6 @@
-import { LaBonneAlternanceHttpClient } from "../../src/server/services/http/laBonneAlternanceHttpClient.service";
-import { anAxiosInstance } from "./httpClientService.fixture";
+import { anAxiosInstance } from "@tests/fixtures/httpClientService.fixture";
+
+import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
 
 export function aLaBonneAlternanceHttpClient(): LaBonneAlternanceHttpClient {
   return {

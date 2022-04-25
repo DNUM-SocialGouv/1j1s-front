@@ -1,15 +1,23 @@
 {
-  "extends": ["next/core-web-vitals","@socialgouv/eslint-config-recommended"],
-  "plugins": ["testing-library", "@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "@socialgouv/eslint-config-recommended"
+  ],
+  "plugins": ["testing-library"],
   "settings": {
     "jest": {
       "version": 27
     }
   },
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": ["error", {
+      "endOfLine": "auto",
+      "print-width": 999
+    }],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-namespace": "off"
   },
   "overrides": [
     // Only uses Testing Library lint rules in test files

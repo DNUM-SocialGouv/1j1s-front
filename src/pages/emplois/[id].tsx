@@ -3,9 +3,12 @@ import {
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next";
+import { ParsedUrlQuery } from "querystring";
 
-import { OffreEmploi } from "../../server/offreemplois/domain/offreEmploi";
-import { dependencies } from "../../server/start";
+import { PageContextParamsError } from "~/server/errors/pageContextParams.error";
+import { EmploiNotFoundError } from "~/server/offresEmploi/domain/emploiNotFound.error";
+import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
+import { dependencies } from "~/server/start";
 
 interface EmploiProps {
   offreEmploi: OffreEmploi;
@@ -16,15 +19,26 @@ export default function EmploiDetails(props: EmploiProps) {
   return <div>{JSON.stringify(offreEmploi)}</div>;
 }
 
+interface EmploiContext extends ParsedUrlQuery {
+  id: string;
+}
+
 export async function getStaticProps(
-  context: GetStaticPropsContext
+  context: GetStaticPropsContext<EmploiContext>
 ): Promise<GetStaticPropsResult<EmploiProps>> {
-  const id = context.params!["id"] as string;
+  if (!context.params) {
+    throw new PageContextParamsError();
+  }
+  const { id } = context.params;
   const offreEmplois =
     await dependencies.offreEmploiDependencies.listeOffreEmploi.handle();
   const offreEmploi = offreEmplois.find(
     (offreEmploi: OffreEmploi) => offreEmploi.id === id
-  )!;
+  );
+
+  if (!offreEmploi) {
+    throw new EmploiNotFoundError(id);
+  }
 
   return {
     props: {
@@ -33,7 +47,7 @@ export async function getStaticProps(
   };
 }
 
-export async function getStaticPaths(): Promise<GetStaticPathsResult<any>> {
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   return {
     fallback: true,
     paths: [],

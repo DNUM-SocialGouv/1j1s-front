@@ -1,12 +1,13 @@
-import { ApiGeoLocalisationRepository } from "../../../../../src/server/localisations/infra/repositories/apiGeoLocalisation.repository";
-import { ApiAdresseHttpClientService } from "../../../../../src/server/services/http/apiAdresseHttpClient.service";
-import { ApiGeoHttpClientService } from "../../../../../src/server/services/http/apiGeoHttpClient.service";
-import { aApiAdresseHttpClientService } from "../../../../fixtures/apiAdresseHttpClientService.fixture";
-import { aApiGeoHttpClientService } from "../../../../fixtures/apiGeoHttpClientService.fixture";
-import { anAxiosResponse } from "../../../../fixtures/httpClientService.fixture";
+import { aApiAdresseHttpClientService } from "@tests/fixtures/apiAdresseHttpClientService.fixture";
+import { aApiGeoHttpClientService } from "@tests/fixtures/apiGeoHttpClientService.fixture";
+import { anAxiosResponse } from "@tests/fixtures/httpClientService.fixture";
+
+import { ApiGeoLocalisationRepository } from "~/server/localisations/infra/repositories/apiGeoLocalisation.repository";
+import { ApiAdresseHttpClientService } from "~/server/services/http/apiAdresseHttpClient.service";
+import { ApiGeoHttpClientService } from "~/server/services/http/apiGeoHttpClient.service";
 
 describe("ApiGeoLocalisationRepository", () => {
-  describe("listeAdresse", () => {
+  describe("getAdresseList", () => {
     let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
     let apiGeoHttpClientService: ApiGeoHttpClientService;
@@ -78,7 +79,7 @@ describe("ApiGeoLocalisationRepository", () => {
         })
       );
 
-      const result = await apiGeoLocalisationRepository.listeAdresse("jou");
+      const result = await apiGeoLocalisationRepository.getAdresseList("jou");
 
       expect([
         {
@@ -118,7 +119,7 @@ describe("ApiGeoLocalisationRepository", () => {
         ])
       );
 
-      const result = await apiGeoLocalisationRepository.listeCommune("jou");
+      const result = await apiGeoLocalisationRepository.getCommuneList("jou");
 
       expect([
         {
@@ -144,7 +145,9 @@ describe("ApiGeoLocalisationRepository", () => {
         ])
       );
 
-      const result = await apiGeoLocalisationRepository.listeDepartement("jou");
+      const result = await apiGeoLocalisationRepository.getDepartementList(
+        "jou"
+      );
 
       expect([
         {
@@ -165,7 +168,7 @@ describe("ApiGeoLocalisationRepository", () => {
         ])
       );
 
-      const result = await apiGeoLocalisationRepository.listeRegion("jou");
+      const result = await apiGeoLocalisationRepository.getRegionList("jou");
 
       expect([
         {

@@ -1,10 +1,11 @@
-import { ApiLaBonneAlternanceRepository } from "../../../../../src/server/alternances/infra/repositories/apiLaBonneAlternance.repository";
-import { LaBonneAlternanceHttpClient } from "../../../../../src/server/services/http/laBonneAlternanceHttpClient.service";
-import { anAxiosResponse } from "../../../../fixtures/httpClientService.fixture";
-import { aLaBonneAlternanceHttpClient } from "../../../../fixtures/laBonneAlternanceHttpClientService.fixture";
+import { anAxiosResponse } from "@tests/fixtures/httpClientService.fixture";
+import { aLaBonneAlternanceHttpClient } from "@tests/fixtures/laBonneAlternanceHttpClientService.fixture";
+
+import { ApiLaBonneAlternanceRepository } from "~/server/alternances/infra/repositories/apiLaBonneAlternance.repository";
+import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
 
 describe("ApiLaBonneAlternanceRepository", () => {
-  describe("listeMetierRecherche", () => {
+  describe("getMétierRecherchéList", () => {
     let laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient;
 
     beforeEach(() => {
@@ -56,9 +57,8 @@ describe("ApiLaBonneAlternanceRepository", () => {
         })
       );
 
-      const result = await apiLaBonneAlternanceRepository.listeMetierRecherche(
-        "bou"
-      );
+      const result =
+        await apiLaBonneAlternanceRepository.getMétierRecherchéList("bou");
 
       expect([
         {
