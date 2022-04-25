@@ -3,7 +3,7 @@ import "reflect-metadata";
 import {
   Dependencies,
   dependenciesContainer,
-} from "./configuration/dependencies.container";
+} from "~/server/configuration/dependencies.container";
 
 declare type Nullable<T> = T | null;
 

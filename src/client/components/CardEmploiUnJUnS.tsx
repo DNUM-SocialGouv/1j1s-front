@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import styles from "../../../styles/Home.module.css";
+import styles from "~/styles/Home.module.css";
 
 export const CardEmploiUnJUnS = () => {
   return (

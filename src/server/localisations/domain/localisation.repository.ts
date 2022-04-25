@@ -1,5 +1,5 @@
-import { Adresse } from "./adresse";
-import { Localisation } from "./localisation";
+import { Adresse } from "~/server/localisations/domain/adresse";
+import { Localisation } from "~/server/localisations/domain/localisation";
 
 export interface LocalisationRepository {
   listeCommune(communeRecherche: string): Promise<Localisation[]>;

@@ -1,24 +1,24 @@
 import {
   MetierRechercheDependencies,
   metierRechercheDependenciesContainer,
-} from "../alternances/configuration/metierRecherche.dependencies";
+} from "~/server/alternances/configuration/metierRecherche.dependencies";
 import {
-  JobEtudiantDependencies,
-  jobEtudiantDependenciesContainer,
-} from "../jobetudiants/configuration/jobEtudiants.dependencies";
+  JobsEtudiantDependencies,
+  jobsEtudiantDependenciesContainer,
+} from "~/server/jobsEtudiant/configuration/jobsEtudiant.dependencies";
 import {
-  OffreEmploiDependencies,
-  offreEmploiDependenciesContainer,
-} from "../offreemplois/configuration/offreEmploi.dependencies";
-import { StrapiCmsService } from "../services/cms/infra/repostitories/strapiCms.service";
-import { LaBonneAlternanceHttpClient } from "../services/http/laBonneAlternanceHttpClient.service";
-import { PoleEmploiHttpClientService } from "../services/http/poleEmploiHttpClient.service";
-import { StrapiHttpClientService } from "../services/http/strapiHttpClient.service";
-import { ServerConfigurationService } from "../services/serverConfiguration.service";
+  OffresEmploiDependencies,
+  offresEmploiDependenciesContainer,
+} from "~/server/offresEmploi/configuration/offresEmploi.dependencies";
+import { StrapiCmsService } from "~/server/services/cms/infra/repostitories/strapiCms.service";
+import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
+import { PoleEmploiHttpClientService } from "~/server/services/http/poleEmploiHttpClient.service";
+import { StrapiHttpClientService } from "~/server/services/http/strapiHttpClient.service";
+import { ServerConfigurationService } from "~/server/services/serverConfiguration.service";
 
 export type Dependencies = {
-  offreEmploiDependencies: OffreEmploiDependencies;
-  jobEtudiantDependencies: JobEtudiantDependencies;
+  offreEmploiDependencies: OffresEmploiDependencies;
+  jobEtudiantDependencies: JobsEtudiantDependencies;
   metierRechercheDependencies: MetierRechercheDependencies;
   accueilCMSDependencies: StrapiCmsService;
 };
@@ -35,10 +35,10 @@ export const dependenciesContainer = (): Dependencies => {
     serverConfigurationService
   );
 
-  const offreEmploiDependencies = offreEmploiDependenciesContainer(
+  const offreEmploiDependencies = offresEmploiDependenciesContainer(
     poleEmploiHttpClientService
   );
-  const jobEtudiantDependencies = jobEtudiantDependenciesContainer(
+  const jobEtudiantDependencies = jobsEtudiantDependenciesContainer(
     poleEmploiHttpClientService
   );
 

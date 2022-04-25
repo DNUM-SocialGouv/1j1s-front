@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 
 import { render, screen } from "@testing-library/react";
 
-import { CardEmploiUnJUnS } from "../client/components/CardEmploiUnJUnS";
+import { CardEmploiUnJUnS } from "~/client/components/CardEmploiUnJUnS";
 
 describe("CardEmploiUnJUnS", () => {
   it("renders CardEmploiUnJUnS component", () => {

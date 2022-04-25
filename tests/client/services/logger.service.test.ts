@@ -1,25 +1,16 @@
 import * as Sentry from "@sentry/nextjs";
 import { Breadcrumb } from "@sentry/nextjs";
 
-import { LoggerService } from "../../../src/client/services/logger.service";
+import { LoggerService } from "~/client/services/logger.service";
 
-jest.mock("@sentry/nextjs", () => {
-  return {
-    Severity: {
-      Error: "error",
-      Info: "info",
-      Warning: "warning",
-    },
-    addBreadcrumb: jest.fn(),
-    configureScope: jest.fn(),
-  };
-});
+jest.mock("@sentry/nextjs");
 
-const SentryMockScope = {
+const SentryMock = jest.mocked(Sentry, true);
+const SentryScopeMock = {
   setTag: jest.fn(),
-};
-Sentry.configureScope.mockImplementation((callback) => {
-  callback(SentryMockScope);
+} as unknown as Sentry.Scope;
+SentryMock.configureScope.mockImplementation((callback) => {
+  callback(SentryScopeMock);
 });
 
 describe("LoggerService", () => {
@@ -38,7 +29,7 @@ describe("LoggerService", () => {
 
       loggerService.error(message, category);
 
-      expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
     });
   });
 
@@ -55,7 +46,7 @@ describe("LoggerService", () => {
 
       loggerService.info(message, category);
 
-      expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
     });
   });
 
@@ -71,7 +62,7 @@ describe("LoggerService", () => {
       };
       loggerService.warn(message, category);
 
-      expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
     });
   });
 
@@ -83,7 +74,7 @@ describe("LoggerService", () => {
 
       loggerService.setTransactionId(transactionId);
 
-      expect(SentryMockScope.setTag).toHaveBeenCalledWith(
+      expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
         "transaction_id",
         transactionId
       );

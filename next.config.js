@@ -3,9 +3,14 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require("@sentry/nextjs");
 
 const moduleExports = {
+  i18n: {
+    defaultLocale: "fr",
+    locales: ["fr"],
+  },
   images: {
     domains: [process.env.IMAGE_PROVIDER_DOMAIN],
   },

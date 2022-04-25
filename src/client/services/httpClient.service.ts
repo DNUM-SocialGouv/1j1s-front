@@ -6,7 +6,7 @@ import axios, {
   AxiosResponse,
 } from "axios";
 
-import { LoggerService } from "./logger.service";
+import { LoggerService } from "~/client/services/logger.service";
 
 export class HttpClientService {
   readonly client: AxiosInstance;

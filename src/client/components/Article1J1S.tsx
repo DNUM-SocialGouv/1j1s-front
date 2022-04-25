@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
 
-import styles from "../../../styles/Article1J1S.module.css";
-import { HomeProps } from "../../pages";
+import { HomeProps } from "~/pages";
+import styles from "~/styles/Article1J1S.module.css";
 
 export const Article1J1S = (props: HomeProps) => {
   const { articles } = props;

@@ -1,6 +1,6 @@
-import { LaBonneAlternanceHttpClient } from "../../../services/http/laBonneAlternanceHttpClient.service";
-import { AlternanceRepository } from "../../domain/alternance.repository";
-import { MetierRecherche } from "../../domain/metierRecherche";
+import { AlternanceRepository } from "~/server/alternances/domain/alternance.repository";
+import { MetierRecherche } from "~/server/alternances/domain/metierRecherche";
+import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   constructor(

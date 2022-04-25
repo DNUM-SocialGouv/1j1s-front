@@ -1,8 +1,8 @@
-import { ApiAdresseHttpClientService } from "../../../services/http/apiAdresseHttpClient.service";
-import { ApiGeoHttpClientService } from "../../../services/http/apiGeoHttpClient.service";
-import { Adresse } from "../../domain/adresse";
-import { Localisation } from "../../domain/localisation";
-import { LocalisationRepository } from "../../domain/localisation.repository";
+import { Adresse } from "~/server/localisations/domain/adresse";
+import { Localisation } from "~/server/localisations/domain/localisation";
+import { LocalisationRepository } from "~/server/localisations/domain/localisation.repository";
+import { ApiAdresseHttpClientService } from "~/server/services/http/apiAdresseHttpClient.service";
+import { ApiGeoHttpClientService } from "~/server/services/http/apiGeoHttpClient.service";
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(

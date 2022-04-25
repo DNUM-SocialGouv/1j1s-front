@@ -3,14 +3,14 @@ import Head from "next/head";
 import Script from "next/script";
 import React from "react";
 
-import styles from "../../styles/Home.module.css";
-import { Article1J1S } from "../client/components/Article1J1S";
-import { CardEmploiUnJUnS } from "../client/components/CardEmploiUnJUnS";
-import { FooterUnJUnS } from "../client/components/FooterUnJUnS";
-import { HeaderUnJUnS } from "../client/components/HeaderUnJUnS";
+import { Article1J1S } from "~/client/components/Article1J1S";
+import { CardEmploiUnJUnS } from "~/client/components/CardEmploiUnJUnS";
+import { FooterUnJUnS } from "~/client/components/FooterUnJUnS";
+import { HeaderUnJUnS } from "~/client/components/HeaderUnJUnS";
 import Tracker from "../client/utils/tracker.util";
-import { PageAccueilArticle } from "../server/services/cms/infra/repostitories/strapiCms.service";
-import { dependencies } from "../server/start";
+import { PageAccueilArticle } from "~/server/services/cms/infra/repostitories/strapiCms.service";
+import { dependencies } from "~/server/start";
+import styles from "~/styles/Home.module.css";
 
 export interface HomeProps {
   articles: PageAccueilArticle[];
@@ -90,14 +90,11 @@ export default function Home(props: HomeProps) {
         </div>
       </main>
 
-      <Script
-        type="module"
-        src="../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js"
-      />
+      <Script type="module" src="@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js" />
       <Script
         type="text/javascript"
         noModule
-        src="../../node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.nomodule.min.js"
+        src="@gouvfr/dsfr/dist/dsfr/dsfr.nomodule.min.js"
       />
 
       <FooterUnJUnS />

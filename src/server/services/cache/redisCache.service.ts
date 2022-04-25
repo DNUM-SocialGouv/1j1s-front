@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 
-import { ConfigurationService } from "../configuration.service";
-import { CacheService } from "./cache.service";
+import { CacheService } from "~/server/services/cache/cache.service";
+import { ConfigurationService } from "~/server/services/configuration.service";
 
 export class RedisCacheService implements CacheService {
   private client: Redis;

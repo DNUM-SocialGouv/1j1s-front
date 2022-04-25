@@ -1,6 +1,6 @@
-import { LaBonneAlternanceHttpClient } from "../../../services/http/laBonneAlternanceHttpClient.service";
-import { ListeMetierRechercheUseCase } from "../../usecases/listeMetierRecherche.useCase";
-import { ApiLaBonneAlternanceRepository } from "../repositories/apiLaBonneAlternance.repository";
+import { ApiLaBonneAlternanceRepository } from "~/server/alternances/infra/repositories/apiLaBonneAlternance.repository";
+import { ListeMetierRechercheUseCase } from "~/server/alternances/useCases/listeMetierRecherche.useCase";
+import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
 
 export type ListeMetierRechercheDependenciesContainer = Readonly<{
   listeMetierRecherche: ListeMetierRechercheUseCase;

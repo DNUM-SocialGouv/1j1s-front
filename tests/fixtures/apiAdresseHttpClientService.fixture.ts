@@ -1,5 +1,6 @@
-import { ApiAdresseHttpClientService } from "../../src/server/services/http/apiAdresseHttpClient.service";
-import { anAxiosInstance } from "./httpClientService.fixture";
+import { anAxiosInstance } from "@tests/fixtures/httpClientService.fixture";
+
+import { ApiAdresseHttpClientService } from "~/server/services/http/apiAdresseHttpClient.service";
 
 export function aApiAdresseHttpClientService(): ApiAdresseHttpClientService {
   return {

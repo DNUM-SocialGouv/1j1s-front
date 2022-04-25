@@ -1,5 +1,6 @@
-import { PoleEmploiHttpClientService } from "../../src/server/services/http/poleEmploiHttpClient.service";
-import { anAxiosInstance } from "./httpClientService.fixture";
+import { anAxiosInstance } from "@tests/fixtures/httpClientService.fixture";
+
+import { PoleEmploiHttpClientService } from "~/server/services/http/poleEmploiHttpClient.service";
 
 export function aPoleEmploiHttpClient(): PoleEmploiHttpClientService {
   return {

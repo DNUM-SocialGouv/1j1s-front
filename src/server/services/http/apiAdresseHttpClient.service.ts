@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { ConfigurationService } from "../configuration.service";
-import { ClientService } from "./client.service";
+import { ConfigurationService } from "~/server/services/configuration.service";
+import { ClientService } from "~/server/services/http/client.service";
 
 export class ApiAdresseHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {

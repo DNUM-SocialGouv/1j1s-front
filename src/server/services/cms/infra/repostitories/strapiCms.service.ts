@@ -1,8 +1,8 @@
-import { ConfigurationService } from "../../../configuration.service";
-import { ClientService } from "../../../http/client.service";
-import { DataCmsResponse } from "./responses/cmsResponse";
-import { BasePageAccueilArticleNamespace } from "./responses/pageAccueilCmsResponse.type";
-import { StrapiContentType } from "./strapiContent.type";
+import { DataCmsResponse } from "~/server/services/cms/infra/repostitories/responses/cmsResponse";
+import { BasePageAccueilArticleNamespace } from "~/server/services/cms/infra/repostitories/responses/pageAccueilCmsResponse.type";
+import { StrapiContentType } from "~/server/services/cms/infra/repostitories/strapiContent.type";
+import { ConfigurationService } from "~/server/services/configuration.service";
+import { ClientService } from "~/server/services/http/client.service";
 
 export class StrapiCmsService {
   constructor(
