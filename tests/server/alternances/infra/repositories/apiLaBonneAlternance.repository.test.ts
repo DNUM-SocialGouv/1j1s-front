@@ -5,7 +5,7 @@ import { ApiLaBonneAlternanceRepository } from "~/server/alternances/infra/repos
 import { LaBonneAlternanceHttpClient } from "~/server/services/http/laBonneAlternanceHttpClient.service";
 
 describe("ApiLaBonneAlternanceRepository", () => {
-  describe("listeMetierRecherche", () => {
+  describe("getMétierRecherchéList", () => {
     let laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient;
 
     beforeEach(() => {
@@ -57,9 +57,8 @@ describe("ApiLaBonneAlternanceRepository", () => {
         })
       );
 
-      const result = await apiLaBonneAlternanceRepository.listeMetierRecherche(
-        "bou"
-      );
+      const result =
+        await apiLaBonneAlternanceRepository.getMétierRecherchéList("bou");
 
       expect([
         {

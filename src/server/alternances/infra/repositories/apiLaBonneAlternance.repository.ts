@@ -7,7 +7,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     private laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient
   ) {}
 
-  async listeMetierRecherche(
+  async getMétierRecherchéList(
     metierRechercher: string
   ): Promise<MetierRecherche[]> {
     const response =

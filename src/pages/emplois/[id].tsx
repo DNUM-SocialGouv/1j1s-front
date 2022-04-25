@@ -5,8 +5,8 @@ import {
 } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-import { EmploiNotFoundError } from "~/errors/emploiNotFound.error";
-import { PageContextParamsError } from "~/errors/pageContextParams.error";
+import { PageContextParamsError } from "~/server/errors/pageContextParams.error";
+import { EmploiNotFoundError } from "~/server/offresEmploi/domain/emploiNotFound.error";
 import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
 import { dependencies } from "~/server/start";
 

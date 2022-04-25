@@ -5,7 +5,7 @@ import { ApiPoleEmploiOffreRepository } from "~/server/offresEmploi/infra/reposi
 import { PoleEmploiHttpClientService } from "~/server/services/http/poleEmploiHttpClient.service";
 
 describe("ApiPoleEmploiOffreRepository", () => {
-  describe("listeOffreEmploi", () => {
+  describe("getOffreEmploiList", () => {
     let poleEmploiHttpClientService: PoleEmploiHttpClientService;
 
     beforeEach(() => {

@@ -11,7 +11,10 @@
     }
   },
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": ["error", {
+      "endOfLine": "auto",
+      "print-width": 999
+    }],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-namespace": "off"

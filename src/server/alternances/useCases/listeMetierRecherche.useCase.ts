@@ -4,7 +4,7 @@ export class ListeMetierRechercheUseCase {
   constructor(private alternanceRepository: AlternanceRepository) {}
 
   async handle(metierRecherche: string) {
-    return await this.alternanceRepository.listeMetierRecherche(
+    return await this.alternanceRepository.getMétierRecherchéList(
       metierRecherche
     );
   }

@@ -7,7 +7,7 @@ import { ApiAdresseHttpClientService } from "~/server/services/http/apiAdresseHt
 import { ApiGeoHttpClientService } from "~/server/services/http/apiGeoHttpClient.service";
 
 describe("ApiGeoLocalisationRepository", () => {
-  describe("listeAdresse", () => {
+  describe("getAdresseList", () => {
     let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
     let apiGeoHttpClientService: ApiGeoHttpClientService;

@@ -1,6 +1,6 @@
 import { push } from "@socialgouv/matomo-next";
 
-import Tracker from "../../../src/client/utils/tracker.util";
+import Tracker from "~/client/utils/tracker.util";
 
 jest.mock("@socialgouv/matomo-next", () => {
   return {
