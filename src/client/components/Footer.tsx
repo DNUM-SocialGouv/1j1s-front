@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const FooterUnJUnS = () => {
+export const Footer = () => {
   return (
     <footer
       className="fr-footer"

@@ -4,7 +4,7 @@ import React from "react";
 import { HomeProps } from "~/pages";
 import styles from "~/styles/Article1J1S.module.css";
 
-export const Article1J1S = (props: HomeProps) => {
+export const Article = (props: HomeProps) => {
   const { articles } = props;
   return (
     <section className={styles.container}>

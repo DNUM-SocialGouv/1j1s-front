@@ -7,7 +7,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     private poleEmploiHttpClientService: PoleEmploiHttpClientService
   ) {}
 
-  async listeOffreEmploi(): Promise<OffreEmploi[]> {
+  async getOffreEmploiList(): Promise<OffreEmploi[]> {
     const response =
       await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
         "partenaire/offresdemploi/v2/offres/search?range=0-49"

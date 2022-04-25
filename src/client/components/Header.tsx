@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const HeaderUnJUnS = () => {
+export const Header = () => {
   return (
     <>
       <header role="banner" className="fr-header">

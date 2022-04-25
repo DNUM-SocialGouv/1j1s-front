@@ -3,11 +3,11 @@ import Head from "next/head";
 import Script from "next/script";
 import React from "react";
 
-import { Article1J1S } from "~/client/components/Article1J1S";
-import { CardEmploiUnJUnS } from "~/client/components/CardEmploiUnJUnS";
-import { FooterUnJUnS } from "~/client/components/FooterUnJUnS";
-import { HeaderUnJUnS } from "~/client/components/HeaderUnJUnS";
-import Tracker from "../client/utils/tracker.util";
+import { Article } from "~/client/components/Article";
+import { CardEmploi } from "~/client/components/CardEmploi";
+import { Footer } from "~/client/components/Footer";
+import { Header } from "~/client/components/Header";
+import Tracker from "~/client/utils/tracker.util";
 import { PageAccueilArticle } from "~/server/services/cms/infra/repostitories/strapiCms.service";
 import { dependencies } from "~/server/start";
 import styles from "~/styles/Home.module.css";
@@ -30,9 +30,9 @@ export default function Home(props: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <HeaderUnJUnS />
+      <Header />
 
-      <Article1J1S articles={articles} />
+      <Article articles={articles} />
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -58,7 +58,7 @@ export default function Home(props: HomeProps) {
         </button>
 
         <div className={styles.grid}>
-          <CardEmploiUnJUnS />
+          <CardEmploi />
 
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
@@ -97,7 +97,7 @@ export default function Home(props: HomeProps) {
         src="@gouvfr/dsfr/dist/dsfr/dsfr.nomodule.min.js"
       />
 
-      <FooterUnJUnS />
+      <Footer />
     </div>
   );
 }

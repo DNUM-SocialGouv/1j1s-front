@@ -2,11 +2,11 @@ import "@testing-library/jest-dom";
 
 import { render, screen } from "@testing-library/react";
 
-import { FooterUnJUnS } from "~/client/components/FooterUnJUnS";
+import { Footer } from "~/client/components/Footer";
 
-describe("FooterUnJUnS", () => {
-  it("renders FooterUnJUnS component", () => {
-    render(<FooterUnJUnS />);
+describe("Footer", () => {
+  it("renders Footer component", () => {
+    render(<Footer />);
 
     const footer = screen.getByTestId("footer");
 

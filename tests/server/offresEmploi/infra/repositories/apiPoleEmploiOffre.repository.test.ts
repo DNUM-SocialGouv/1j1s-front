@@ -30,7 +30,7 @@ describe("ApiPoleEmploiOffreRepository", () => {
         })
       );
 
-      const result = await apiPoleEmploiOffreRepository.listeOffreEmploi();
+      const result = await apiPoleEmploiOffreRepository.getOffreEmploiList();
 
       expect([
         { id: "130WPHH", intitule: "Gestionnaire ADV    (H/F)" },

@@ -6,13 +6,13 @@ describe("ListeOffreEmploi", () => {
 
   beforeEach(() => {
     emploiRepository = {
-      listeOffreEmploi: jest.fn(),
+      getOffreEmploiList: jest.fn(),
     };
   });
 
   it("retourne la liste des offres d emploi", async () => {
     const listeOffreEmploi = new ListeOffreEmploiUseCase(emploiRepository);
-    jest.spyOn(emploiRepository, "listeOffreEmploi").mockResolvedValue([
+    jest.spyOn(emploiRepository, "getOffreEmploiList").mockResolvedValue([
       { id: "130WPHH", intitule: "Gestionnaire ADV    (H/F)" },
       { id: "130WPHC", intitule: "Maçon / Maçonne" },
       {

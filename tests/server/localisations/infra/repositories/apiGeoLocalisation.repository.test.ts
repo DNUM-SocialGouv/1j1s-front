@@ -79,7 +79,7 @@ describe("ApiGeoLocalisationRepository", () => {
         })
       );
 
-      const result = await apiGeoLocalisationRepository.listeAdresse("jou");
+      const result = await apiGeoLocalisationRepository.getAdresseList("jou");
 
       expect([
         {
@@ -119,7 +119,7 @@ describe("ApiGeoLocalisationRepository", () => {
         ])
       );
 
-      const result = await apiGeoLocalisationRepository.listeCommune("jou");
+      const result = await apiGeoLocalisationRepository.getCommuneList("jou");
 
       expect([
         {
@@ -145,7 +145,9 @@ describe("ApiGeoLocalisationRepository", () => {
         ])
       );
 
-      const result = await apiGeoLocalisationRepository.listeDepartement("jou");
+      const result = await apiGeoLocalisationRepository.getDepartementList(
+        "jou"
+      );
 
       expect([
         {
@@ -166,7 +168,7 @@ describe("ApiGeoLocalisationRepository", () => {
         ])
       );
 
-      const result = await apiGeoLocalisationRepository.listeRegion("jou");
+      const result = await apiGeoLocalisationRepository.getRegionList("jou");
 
       expect([
         {

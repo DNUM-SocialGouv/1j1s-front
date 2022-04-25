@@ -48,7 +48,6 @@
     "eslint-config-next": "12.1.2",
     "eslint-plugin-testing-library": "^5.3.1",
     "husky": "^7.0.4",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "lint-staged": "^12.4.0",
     "node-mocks-http": "^1.11.0",

@@ -4,6 +4,6 @@ export class ListeOffreEmploiUseCase {
   constructor(private emploiRepository: OffreEmploiRepository) {}
 
   async handle() {
-    return await this.emploiRepository.listeOffreEmploi();
+    return await this.emploiRepository.getOffreEmploiList();
   }
 }

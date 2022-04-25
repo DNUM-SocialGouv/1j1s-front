@@ -2,8 +2,8 @@ import { Adresse } from "~/server/localisations/domain/adresse";
 import { Localisation } from "~/server/localisations/domain/localisation";
 
 export interface LocalisationRepository {
-  listeCommune(communeRecherche: string): Promise<Localisation[]>;
-  listeDepartement(departementRecherche: string): Promise<Localisation[]>;
-  listeRegion(regionRecherche: string): Promise<Localisation[]>;
-  listeAdresse(adresseRecherche: string): Promise<Adresse[]>;
+  getCommuneList(communeRecherche: string): Promise<Localisation[]>;
+  getDepartementList(departementRecherche: string): Promise<Localisation[]>;
+  getRegionList(regionRecherche: string): Promise<Localisation[]>;
+  getAdresseList(adresseRecherche: string): Promise<Adresse[]>;
 }

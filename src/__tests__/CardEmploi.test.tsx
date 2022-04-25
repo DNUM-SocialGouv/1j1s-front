@@ -2,11 +2,11 @@ import "@testing-library/jest-dom";
 
 import { render, screen } from "@testing-library/react";
 
-import { CardEmploiUnJUnS } from "~/client/components/CardEmploiUnJUnS";
+import { CardEmploi } from "~/client/components/CardEmploi";
 
-describe("CardEmploiUnJUnS", () => {
-  it("renders CardEmploiUnJUnS component", () => {
-    render(<CardEmploiUnJUnS />);
+describe("CardEmploi", () => {
+  it("renders CardEmploi component", () => {
+    render(<CardEmploi />);
 
     const cardEmploi = screen.getByTestId("lien-emploi");
 
@@ -14,7 +14,7 @@ describe("CardEmploiUnJUnS", () => {
   });
 
   it("redirects the user when clicking on the card", () => {
-    render(<CardEmploiUnJUnS />);
+    render(<CardEmploi />);
 
     const cardEmploi = screen.getByTestId("lien-emploi");
 
