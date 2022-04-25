@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
     "^@tests/(.*)$": "<rootDir>/tests/$1",
     "^~/(.*)$": "<rootDir>/src/$1",
   },
-  testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "node",
 };
 
 export default config;
