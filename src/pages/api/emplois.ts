@@ -1,14 +1,26 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { monitoringHandler } from "~/server/monitoringHandler.middleware";
-import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
-import { dependencies } from "~/server/start";
+import { monitoringHandler } from '~/server/monitoringHandler.middleware';
+import {
+  OffreEmploi,
+  OffreEmploiFiltre,
+} from '~/server/offresEmploi/domain/offreEmploi';
+import { dependencies } from '~/server/start';
 
-const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
-  dependencies.offreEmploiDependencies.listeOffreEmploi
-    .handle()
-    .then((value) => {
-      res.status(200).json(value);
-    });
-};
-export default monitoringHandler(handler);
+export async function offreEmploiHandler(req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) {
+  const offreEmploiList =
+    await dependencies.offreEmploiDependencies.listeOffreEmploi
+      .handle(offreEmploiRequestMapper(req));
+  return res.status(200).json(offreEmploiList);
+}
+
+export default monitoringHandler(offreEmploiHandler);
+
+function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
+  const { query } = request;
+
+  return {
+    motClé: String(query.motsCles),
+    page: Number(query.page),
+  };
+}

@@ -1,7 +1,9 @@
-import { AlternanceRepository } from "~/server/alternances/domain/alternance.repository";
-import { ListeMetierRechercheUseCase } from "~/server/alternances/useCases/listeMetierRecherche.useCase";
+import { aMétierRecherchéList } from '@tests/fixtures/domain/alternance.fixture';
 
-describe("ListeMetierRecherche", () => {
+import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
+import { ListeMétierRecherchéUseCase } from '~/server/alternances/useCases/listeMétierRecherché.useCase';
+
+describe('ListeMetierRecherche', () => {
   let alternanceRepository: AlternanceRepository;
 
   beforeEach(() => {
@@ -10,33 +12,24 @@ describe("ListeMetierRecherche", () => {
     };
   });
 
-  it("retourne la liste des offres d emploi", async () => {
-    const listeJobEtudiant = new ListeMetierRechercheUseCase(
-      alternanceRepository
+  it('retourne la liste des offres d emploi', async () => {
+    const listeJobEtudiant = new ListeMétierRecherchéUseCase(
+      alternanceRepository,
     );
     jest
-      .spyOn(alternanceRepository, "getMétierRecherchéList")
-      .mockResolvedValue([
-        {
-          intitule: "Boucherie, charcuterie, traiteur",
-          repertoireOperationnelMetiersEmplois: ["D1103", "D1101", "H2101"],
-        },
-        {
-          intitule: "Boulangerie, pâtisserie, chocolaterie",
-          repertoireOperationnelMetiersEmplois: ["D1102", "D1104"],
-        },
-      ]);
+      .spyOn(alternanceRepository, 'getMétierRecherchéList')
+      .mockResolvedValue(aMétierRecherchéList());
 
-    const result = await listeJobEtudiant.handle("bou");
+    const result = await listeJobEtudiant.handle('bou');
 
     expect([
       {
-        intitule: "Boucherie, charcuterie, traiteur",
-        repertoireOperationnelMetiersEmplois: ["D1103", "D1101", "H2101"],
+        intitule: 'Boucherie, charcuterie, traiteur',
+        répertoireOpérationnelMétiersEmplois: ['D1103', 'D1101', 'H2101'],
       },
       {
-        intitule: "Boulangerie, pâtisserie, chocolaterie",
-        repertoireOperationnelMetiersEmplois: ["D1102", "D1104"],
+        intitule: 'Boulangerie, pâtisserie, chocolaterie',
+        répertoireOpérationnelMétiersEmplois: ['D1102', 'D1104'],
       },
     ]).toEqual(result);
   });

@@ -1,20 +1,20 @@
-import { Adresse } from "~/server/localisations/domain/adresse";
-import { Localisation } from "~/server/localisations/domain/localisation";
-import { LocalisationRepository } from "~/server/localisations/domain/localisation.repository";
-import { ApiAdresseHttpClientService } from "~/server/services/http/apiAdresseHttpClient.service";
-import { ApiGeoHttpClientService } from "~/server/services/http/apiGeoHttpClient.service";
+import { Adresse } from '~/server/localisations/domain/adresse';
+import { Localisation } from '~/server/localisations/domain/localisation';
+import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
+import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
     private readonly apiGeoGouvHttpClientService: ApiGeoHttpClientService,
-    private readonly apiAdresseHttpClientService: ApiAdresseHttpClientService
-  ) {}
+    private readonly apiAdresseHttpClientService: ApiAdresseHttpClientService,
+  ) {
+  }
 
-  async getAdresseList(adresseRecherche: string): Promise<Adresse[]> {
-    const response =
-      await this.apiAdresseHttpClientService.get<ApiGeoAdresseResponse>(
-        "search/?q=" + adresseRecherche
-      );
+  async getAdresseList(adresseRecherchée: string): Promise<Adresse[]> {
+    const response = await this.apiAdresseHttpClientService.get<ApiGeoAdresseResponse>(
+      `search/?q=${adresseRecherchée}`,
+    );
 
     return response.data.features.map((adresse) => ({
       codeInsee: adresse.properties.citycode,
@@ -23,10 +23,9 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async getCommuneList(communeRecherche: string): Promise<Localisation[]> {
-    const response = await this.apiGeoGouvHttpClientService.get<
-      ApiDecoupageAdministratifResponse[]
-    >("communes?nom=" + communeRecherche);
+  async getCommuneList(communeRecherchée: string): Promise<Localisation[]> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse[]>(`communes?nom=${communeRecherchée}`);
 
     return response.data.map((commune) => ({
       codeInsee: commune.code,
@@ -34,12 +33,9 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async getDepartementList(
-    departementRecherche: string
-  ): Promise<Localisation[]> {
-    const response = await this.apiGeoGouvHttpClientService.get<
-      ApiDecoupageAdministratifResponse[]
-    >("departements?nom=" + departementRecherche);
+  async getDépartementList(départementRecherché: string): Promise<Localisation[]> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse[]>(`departements?nom=${départementRecherché}`);
 
     return response.data.map((commune) => ({
       codeInsee: commune.code,
@@ -47,10 +43,9 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async getRegionList(regionRecherche: string): Promise<Localisation[]> {
-    const response = await this.apiGeoGouvHttpClientService.get<
-      ApiDecoupageAdministratifResponse[]
-    >("regions?nom=" + regionRecherche);
+  async getRégionList(régionRecherchée: string): Promise<Localisation[]> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse[]>(`regions?nom=${régionRecherchée}`);
 
     return response.data.map((commune) => ({
       codeInsee: commune.code,

@@ -1,17 +1,17 @@
-import * as Sentry from "@sentry/nextjs";
-import { Breadcrumb } from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
+import { Breadcrumb } from '@sentry/nextjs';
 
 export class LoggerService {
   constructor(sessionId: string) {
     Sentry.configureScope((scope: Sentry.Scope) => {
-      scope.setTag("session_id", sessionId);
+      scope.setTag('session_id', sessionId);
     });
   }
 
   private log(
     message: string,
     level: Sentry.Severity,
-    category: string | undefined = undefined
+    category: string | undefined = undefined,
   ) {
     Sentry.addBreadcrumb({
       category,
@@ -34,7 +34,7 @@ export class LoggerService {
 
   setTransactionId(transactionId: string): void {
     Sentry.configureScope((scope) => {
-      scope.setTag("transaction_id", transactionId);
+      scope.setTag('transaction_id', transactionId);
     });
   }
 }

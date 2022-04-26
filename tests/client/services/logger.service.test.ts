@@ -1,9 +1,9 @@
-import * as Sentry from "@sentry/nextjs";
-import { Breadcrumb } from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
+import { Breadcrumb } from '@sentry/nextjs';
 
-import { LoggerService } from "~/client/services/logger.service";
+import { LoggerService } from '~/client/services/logger.service';
 
-jest.mock("@sentry/nextjs");
+jest.mock('@sentry/nextjs');
 
 const SentryMock = jest.mocked(Sentry, true);
 const SentryScopeMock = {
@@ -13,14 +13,14 @@ SentryMock.configureScope.mockImplementation((callback) => {
   callback(SentryScopeMock);
 });
 
-describe("LoggerService", () => {
-  const sessionId = "ma-session-id";
+describe('LoggerService', () => {
+  const sessionId = 'ma-session-id';
 
-  describe("error", () => {
-    it("appelle le logger error avec les bons paramètres", () => {
+  describe('error', () => {
+    it('appelle le logger error avec les bons paramètres', () => {
       const loggerService = new LoggerService(sessionId);
-      const message = "mon erreur message";
-      const category = "message derreur";
+      const message = 'mon erreur message';
+      const category = 'message derreur';
       const expectedParameters: Breadcrumb = {
         category,
         level: Sentry.Severity.Error,
@@ -33,11 +33,11 @@ describe("LoggerService", () => {
     });
   });
 
-  describe("info", () => {
-    it("appelle le logger info avec les bons paramètres", () => {
+  describe('info', () => {
+    it('appelle le logger info avec les bons paramètres', () => {
       const loggerService = new LoggerService(sessionId);
-      const message = "mon info message";
-      const category = "message informatif";
+      const message = 'mon info message';
+      const category = 'message informatif';
       const expectedParameters: Breadcrumb = {
         category,
         level: Sentry.Severity.Info,
@@ -50,11 +50,11 @@ describe("LoggerService", () => {
     });
   });
 
-  describe("warn", () => {
-    it("appelle le logger warn avec les bons paramètres", () => {
+  describe('warn', () => {
+    it('appelle le logger warn avec les bons paramètres', () => {
       const loggerService = new LoggerService(sessionId);
-      const message = "mon warn message";
-      const category = "message de prévention";
+      const message = 'mon warn message';
+      const category = 'message de prévention';
       const expectedParameters: Breadcrumb = {
         category,
         level: Sentry.Severity.Warning,
@@ -66,17 +66,17 @@ describe("LoggerService", () => {
     });
   });
 
-  describe("setTransactionId", () => {
-    const transactionId = "ma-transaction-id";
+  describe('setTransactionId', () => {
+    const transactionId = 'ma-transaction-id';
 
-    it("appelle setTag avec le transactionId", () => {
+    it('appelle setTag avec le transactionId', () => {
       const loggerService = new LoggerService(sessionId);
 
       loggerService.setTransactionId(transactionId);
 
       expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
-        "transaction_id",
-        transactionId
+        'transaction_id',
+        transactionId,
       );
     });
   });

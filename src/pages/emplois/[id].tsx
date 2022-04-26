@@ -2,13 +2,12 @@ import {
   GetStaticPathsResult,
   GetStaticPropsContext,
   GetStaticPropsResult,
-} from "next";
-import { ParsedUrlQuery } from "querystring";
+} from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
-import { PageContextParamsError } from "~/server/errors/pageContextParams.error";
-import { EmploiNotFoundError } from "~/server/offresEmploi/domain/emploiNotFound.error";
-import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
-import { dependencies } from "~/server/start";
+import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { EmploiNotFoundException } from '~/server/offresEmploi/domain/emploiNotFound.exception';
+import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 interface EmploiProps {
   offreEmploi: OffreEmploi;
@@ -24,20 +23,19 @@ interface EmploiContext extends ParsedUrlQuery {
 }
 
 export async function getStaticProps(
-  context: GetStaticPropsContext<EmploiContext>
+  context: GetStaticPropsContext<EmploiContext>,
 ): Promise<GetStaticPropsResult<EmploiProps>> {
   if (!context.params) {
-    throw new PageContextParamsError();
+    throw new PageContextParamsException();
   }
   const { id } = context.params;
-  const offreEmplois =
-    await dependencies.offreEmploiDependencies.listeOffreEmploi.handle();
-  const offreEmploi = offreEmplois.find(
-    (offreEmploi: OffreEmploi) => offreEmploi.id === id
-  );
+  const offreEmploi = {
+    id,
+    intitule: 'Offre Emploi',
+  };
 
   if (!offreEmploi) {
-    throw new EmploiNotFoundError(id);
+    throw new EmploiNotFoundException(id);
   }
 
   return {

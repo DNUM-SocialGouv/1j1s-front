@@ -1,14 +1,14 @@
-import Image from "next/image";
-import React from "react";
+import Image from 'next/image';
+import React from 'react';
 
-import { HomeProps } from "~/pages";
-import styles from "~/styles/Article1J1S.module.css";
+import { HomeProps } from '~/pages';
+import styles from '~/styles/Article1J1S.module.css';
 
 export const Article = (props: HomeProps) => {
   const { articles } = props;
   return (
     <section className={styles.container}>
-      {articles.map((article: any, index) => {
+      {articles.map((article, index) => {
         return (
           <div
             key={index}

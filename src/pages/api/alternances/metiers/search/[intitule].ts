@@ -1,19 +1,14 @@
-import { withSentry } from "@sentry/nextjs";
-import { NextApiRequest, NextApiResponse } from "next";
+import { withSentry } from '@sentry/nextjs';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import { MetierRecherche } from "~/server/alternances/domain/metierRecherche";
-import { dependencies } from "~/server/start";
+import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
+import { dependencies } from '~/server/start';
 
-const handler = (
-  req: NextApiRequest,
-  res: NextApiResponse<MetierRecherche[]>
-) => {
+async function handler (req: NextApiRequest, res: NextApiResponse<MétierRecherché[]>) {
   const { intitule } = req.query;
-  dependencies.metierRechercheDependencies.listeMetierRecherche
-    .handle(intitule[0])
-    .then((value) => {
-      res.status(200).json(value);
-    });
+  const métierRecherchéList = await dependencies.metierRechercheDependencies.listeMétierRecherché
+    .handle(intitule[0]);
+  return res.status(200).json(métierRecherchéList);
 };
 
 export default withSentry(handler);

@@ -1,4 +1,4 @@
-import { CacheService } from "~/server/services/cache/cache.service";
+import { CacheService } from '~/server/services/cache/cache.service';
 
 interface Cache {
   key: string;
@@ -17,7 +17,7 @@ export class MockedCacheService implements CacheService {
     }
   }
 
-  set(key: string, value: any): void {
+  set(key: string, value: Record<string, unknown>): void {
     this.store.push({
       key: key,
       value: Promise.resolve(JSON.stringify(value)),

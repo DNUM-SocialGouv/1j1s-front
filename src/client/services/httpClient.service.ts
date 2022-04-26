@@ -1,22 +1,22 @@
-import { uuid4 } from "@sentry/utils";
+import { uuid4 } from '@sentry/utils';
 import axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
-} from "axios";
+} from 'axios';
 
-import { LoggerService } from "~/client/services/logger.service";
+import { LoggerService } from '~/client/services/logger.service';
 
 export class HttpClientService {
   readonly client: AxiosInstance;
 
   constructor(sessionId: string, private logger: LoggerService) {
     this.client = axios.create({
-      baseURL: "api",
+      baseURL: 'api',
       headers: {
-        "content-type": "application/json",
-        "x-session-id": sessionId,
+        'content-type': 'application/json',
+        'x-session-id': sessionId,
       },
     });
 
@@ -26,41 +26,41 @@ export class HttpClientService {
           request.headers = {};
         }
         const transactionId = uuid4();
-        request.headers["x-transaction-id"] = transactionId;
+        request.headers['x-transaction-id'] = transactionId;
         this.logger.setTransactionId(transactionId);
         return request;
       },
-      (error: AxiosError) => Promise.reject(error)
+      (error: AxiosError) => Promise.reject(error),
     );
   }
 
-  async get<T>(
+  async get<Response>(
     resource: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.get(resource, config);
   }
 
-  async post<T>(
+  async post<Body, Response>(
     resource: string,
-    body?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    body?: Body,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.post(resource, body, config);
   }
 
-  async put<T>(
+  async put<Body, Response>(
     resource: string,
-    body: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    body: Body,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.put(resource, body, config);
   }
 
-  async delete<T>(
+  async delete<Response>(
     resource: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.delete(resource, config);
   }
 }

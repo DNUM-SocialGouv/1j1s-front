@@ -3,7 +3,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosRequestHeaders,
   AxiosResponse,
-} from "axios";
+} from 'axios';
 
 export abstract class ClientService {
   readonly client: AxiosInstance;
@@ -15,16 +15,16 @@ export abstract class ClientService {
     });
   }
 
-  abstract get<T>(
+  abstract get<Response>(
     endpoint: string,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>>;
+  ): Promise<AxiosResponse<Response>>;
 
-  abstract post<T>(
+  abstract post<Body, Response>(
     resource: string,
-    body?: any,
+    body?: Body,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>>;
+  ): Promise<AxiosResponse<Response>>;
 
   protected setAuthorizationHeader(token: string): void {
     this.client.defaults.headers.common.Authorization = `Bearer ${token}`;

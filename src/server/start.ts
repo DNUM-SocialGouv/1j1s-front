@@ -1,9 +1,9 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 
 import {
   Dependencies,
   dependenciesContainer,
-} from "~/server/configuration/dependencies.container";
+} from '~/server/configuration/dependencies.container';
 
 declare type Nullable<T> = T | null;
 
