@@ -1,4 +1,4 @@
-import { JobEtudiant } from "~/server/jobsEtudiant/domain/jobEtudiant";
+import { JobEtudiant } from '~/server/jobsEtudiant/domain/jobEtudiant';
 
 export interface JobEtudiantRepository {
   getJobEtudiantList(): Promise<JobEtudiant[]>;

@@ -53,7 +53,6 @@
     "next-test-api-route-handler": "^3.1.2",
     "nock": "^13.2.4",
     "node-mocks-http": "^1.11.0",
-    "prettier": "^2.6.1",
     "semantic-release": "^19.0.2",
     "standard-version": "^9.3.2",
     "ts-node": "^10.7.0",
@@ -62,8 +61,6 @@
   "lint-staged": {
     "*.ts": "eslint --fix",
     "*.tsx": "eslint --fix",
-    "*.js": "eslint --fix",
-    "*.{tsx,ts,js,css,md}": "prettier --write",
-    "*.{js,css,md}": "prettier --write"
+    "*.js": "eslint --fix"
   }
 }

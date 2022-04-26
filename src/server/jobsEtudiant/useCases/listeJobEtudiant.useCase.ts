@@ -1,4 +1,4 @@
-import { JobEtudiantRepository } from "~/server/jobsEtudiant/domain/jobEtudiant.repository";
+import { JobEtudiantRepository } from '~/server/jobsEtudiant/domain/jobEtudiant.repository';
 
 export class ListeJobEtudiantUseCase {
   constructor(private jobEtudiantRepository: JobEtudiantRepository) {}

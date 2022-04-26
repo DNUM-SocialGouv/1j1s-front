@@ -1,4 +1,9 @@
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  AxiosResponseHeaders,
+} from 'axios';
 
 export function anAxiosInstance(): AxiosInstance {
   return {
@@ -21,19 +26,19 @@ export function anAxiosInstance(): AxiosInstance {
     },
     post: jest.fn(),
     put: jest.fn(),
-  } as any as AxiosInstance;
+  } as unknown as AxiosInstance;
 }
 
 export function anAxiosResponse<T>(
   data: T,
   status?: number,
-  headers?: any
+  headers: AxiosResponseHeaders = {},
 ): AxiosResponse<T> {
   return {
     config: undefined as unknown as AxiosRequestConfig,
     data,
     headers,
     status: status || 200,
-    statusText: "",
+    statusText: '',
   };
 }

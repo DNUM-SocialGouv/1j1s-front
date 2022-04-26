@@ -1,7 +1,7 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { ConfigurationService } from "~/server/services/configuration.service";
-import { ClientService } from "~/server/services/http/client.service";
+import { ConfigurationService } from '~/server/services/configuration.service';
+import { ClientService } from '~/server/services/http/client.service';
 
 export class ApiAdresseHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
@@ -9,18 +9,18 @@ export class ApiAdresseHttpClientService extends ClientService {
     super(API_GEO_BASE_URL);
   }
 
-  get<T>(
+  get<Response>(
     endpoint: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.get(endpoint, config);
   }
 
-  post<T>(
+  post<Body, Response>(
     resource: string,
-    body?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    body?: Body,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.post(resource, body, config);
   }
 }

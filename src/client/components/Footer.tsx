@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export const Footer = () => {
   return (
@@ -305,7 +305,7 @@ export const Footer = () => {
           </ul>
           <div className="fr-footer__bottom-copy">
             <p>
-              Sauf mention contraire, tous les contenus de ce site sont sous{" "}
+              Sauf mention contraire, tous les contenus de ce site sont sous{' '}
               <a
                 href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
                 target="_blank"

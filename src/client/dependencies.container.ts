@@ -1,8 +1,8 @@
-import { uuid4 } from "@sentry/utils";
+import { uuid4 } from '@sentry/utils';
 
-import { HttpClientService } from "~/client/services/httpClient.service";
-import { LoggerService } from "~/client/services/logger.service";
-import StorageService from "~/client/utils/sessionStorage.util";
+import { HttpClientService } from '~/client/services/httpClient.service';
+import { LoggerService } from '~/client/services/logger.service';
+import StorageService from '~/client/utils/sessionStorage.util';
 
 export default function dependenciesContainer() {
   const sessionId =

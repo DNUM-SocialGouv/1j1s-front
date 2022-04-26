@@ -1,7 +1,7 @@
-import { push } from "@socialgouv/matomo-next";
+import { push } from '@socialgouv/matomo-next';
 
 enum TrackerObjectEnum {
-  TRACK_EVENT = "trackEvent",
+  TRACK_EVENT = 'trackEvent',
 }
 
 function trackEvent(category: string, action: string): void {

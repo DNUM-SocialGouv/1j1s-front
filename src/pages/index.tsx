@@ -1,16 +1,16 @@
-import { GetStaticPropsResult } from "next";
-import Head from "next/head";
-import Script from "next/script";
-import React from "react";
+import { GetStaticPropsResult } from 'next';
+import Head from 'next/head';
+import Script from 'next/script';
+import React from 'react';
 
-import { Article } from "~/client/components/Article";
-import { CardEmploi } from "~/client/components/CardEmploi";
-import { Footer } from "~/client/components/Footer";
-import { Header } from "~/client/components/Header";
-import Tracker from "~/client/utils/tracker.util";
-import { PageAccueilArticle } from "~/server/services/cms/infra/repostitories/strapiCms.service";
-import { dependencies } from "~/server/start";
-import styles from "~/styles/Home.module.css";
+import { Article } from '~/client/components/Article';
+import { CardEmploi } from '~/client/components/CardEmploi';
+import { Footer } from '~/client/components/Footer';
+import { Header } from '~/client/components/Header';
+import Tracker from '~/client/utils/tracker.util';
+import { PageAccueilArticle } from '~/server/services/cms/infra/repositories/strapiCms.service';
+import { dependencies } from '~/server/start';
+import styles from '~/styles/Home.module.css';
 
 export interface HomeProps {
   articles: PageAccueilArticle[];
@@ -40,18 +40,18 @@ export default function Home(props: HomeProps) {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{" "}
+          Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
-        <button onClick={() => Tracker.trackEvent("click", "matomo test")}>
+        <button onClick={() => Tracker.trackEvent('click', 'matomo test')}>
           Test Matomo
         </button>
 
         <button
           type="button"
           onClick={() => {
-            throw new Error("Sentry Frontend Error");
+            throw new Error('Sentry Frontend Error');
           }}
         >
           Throw error
@@ -104,7 +104,7 @@ export default function Home(props: HomeProps) {
 
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<HomeProps>
-> {
+  > {
   const articles =
     await dependencies.accueilCMSDependencies.getPageAccueilList();
 

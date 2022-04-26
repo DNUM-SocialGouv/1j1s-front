@@ -11,10 +11,15 @@
     }
   },
   "rules": {
-    "prettier/prettier": ["error", {
-      "endOfLine": "auto",
-      "print-width": 999
-    }],
+    "prettier/prettier": "off",
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "semi": "error",
+    "comma-dangle": ["error", "always-multiline"],
+    "quotes": ["error", "single"],
+    "object-curly-spacing": ["error", "always"],
+    "arrow-parens": "error",
+    "no-redeclare": "off",
+    "@typescript-eslint/no-redeclare": ["error"],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-namespace": "off"
@@ -23,7 +28,7 @@
     // Only uses Testing Library lint rules in test files
     {
       "files": [
-        "**/__tests__/**/*.[jt]s?(x)",
+        "tests/client/components/*.tsx",
         "**/?(*.)+(spec|test).[jt]s?(x)"
       ],
       "extends": ["plugin:testing-library/react"]

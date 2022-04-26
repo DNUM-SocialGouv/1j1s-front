@@ -1,33 +1,27 @@
-import { GetStaticPropsResult } from "next";
-import Link from "next/link";
+import Link from 'next/link';
 
-import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
-import { dependencies } from "~/server/start";
+import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-interface EmploisProps {
-  offreEmplois: OffreEmploi[];
-}
-
-export default function Emplois(props: EmploisProps) {
-  const { offreEmplois } = props;
+export default function Emplois() {
+  const offreEmplois: OffreEmploi[] = [];
   return (
     <div
       style={{
-        display: "flex",
-        flexFlow: "row wrap",
+        display: 'flex',
+        flexFlow: 'row wrap',
       }}
     >
       {offreEmplois.map((offreEmploi: OffreEmploi) => {
         return (
-          <Link key={offreEmploi.id} href={"/emplois/" + offreEmploi.id}>
+          <Link key={offreEmploi.id} href={'/emplois/' + offreEmploi.id}>
             <a
               style={{
-                background: "blueviolet",
-                color: "black",
+                background: 'blueviolet',
+                color: 'black',
                 height: 150,
                 margin: 10,
                 padding: 5,
-                textAlign: "center",
+                textAlign: 'center',
                 width: 200,
               }}
             >
@@ -38,17 +32,4 @@ export default function Emplois(props: EmploisProps) {
       })}
     </div>
   );
-}
-
-export async function getStaticProps(): Promise<
-  GetStaticPropsResult<EmploisProps>
-> {
-  const offreEmplois =
-    await dependencies.offreEmploiDependencies.listeOffreEmploi.handle();
-
-  return {
-    props: {
-      offreEmplois,
-    },
-  };
 }

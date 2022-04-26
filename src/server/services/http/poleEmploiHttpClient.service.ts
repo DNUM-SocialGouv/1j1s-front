@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { ConfigurationService } from "~/server/services/configuration.service";
-import { ClientService } from "~/server/services/http/client.service";
+import { ConfigurationService } from '~/server/services/configuration.service';
+import { ClientService } from '~/server/services/http/client.service';
 
 interface PoleEmploiTokenResponse {
   access_token: string;
@@ -29,22 +29,22 @@ export class PoleEmploiHttpClientService extends ClientService {
           return this.client.request(originalRequest);
         }
         return Promise.reject(error);
-      }
+      },
     );
   }
 
-  get<T>(
+  get<Response>(
     endpoint: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.get(endpoint, config);
   }
 
-  post<T>(
+  post<Body, Response>(
     resource: string,
-    body?: any,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> {
+    body?: Body,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<Response>> {
     return this.client.post(resource, body, config);
   }
 
@@ -55,23 +55,23 @@ export class PoleEmploiHttpClientService extends ClientService {
   async refreshToken(): Promise<void> {
     const environmentVariables = this.configurationService.getConfiguration();
     const params = new URLSearchParams();
-    params.append("grant_type", "client_credentials");
-    params.append("client_id", environmentVariables.API_POLE_EMPLOI_CLIENT_ID!);
+    params.append('grant_type', 'client_credentials');
+    params.append('client_id', environmentVariables.API_POLE_EMPLOI_CLIENT_ID);
     params.append(
-      "client_secret",
-      environmentVariables.API_POLE_EMPLOI_CLIENT_SECRET!
+      'client_secret',
+      environmentVariables.API_POLE_EMPLOI_CLIENT_SECRET,
     );
-    params.append("scope", environmentVariables.API_POLE_EMPLOI_SCOPE!);
+    params.append('scope', environmentVariables.API_POLE_EMPLOI_SCOPE);
 
     const endpoint =
-      "https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=partenaire";
+      'https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=partenaire';
 
     const response = await axios.post<PoleEmploiTokenResponse>(
       endpoint,
       params,
       {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      },
     );
 
     this.setAuthorizationHeader(response.data.access_token);

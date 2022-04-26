@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { monitoringHandler } from "~/server/monitoringHandler.middleware";
-import { OffreEmploi } from "~/server/offresEmploi/domain/offreEmploi";
-import { dependencies } from "~/server/start";
+import { monitoringHandler } from '~/server/monitoringHandler.middleware';
+import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { dependencies } from '~/server/start';
 
 const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
   dependencies.jobEtudiantDependencies.listeJobEtudiant

@@ -1,13 +1,13 @@
 import {
   ListeJobEtudiantDependenciesContainer,
   listeJobEtudiantDependenciesContainer,
-} from "~/server/jobsEtudiant/infra/configuration/listeJobEtudiantDependencies.container";
-import { PoleEmploiHttpClientService } from "~/server/services/http/poleEmploiHttpClient.service";
+} from '~/server/jobsEtudiant/infra/configuration/listeJobEtudiantDependencies.container';
+import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
 export type JobsEtudiantDependencies = ListeJobEtudiantDependenciesContainer;
 
 export const jobsEtudiantDependenciesContainer = (
-  poleEmploiHttpClientService: PoleEmploiHttpClientService
+  poleEmploiHttpClientService: PoleEmploiHttpClientService,
 ): JobsEtudiantDependencies => {
   return {
     ...listeJobEtudiantDependenciesContainer(poleEmploiHttpClientService),

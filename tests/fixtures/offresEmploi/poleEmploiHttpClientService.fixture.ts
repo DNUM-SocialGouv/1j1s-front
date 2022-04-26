@@ -1,11 +1,11 @@
 import {
   anAxiosInstance,
   anAxiosResponse,
-} from "@tests/fixtures/httpClientService.fixture";
-import { anOffreEmploiList } from "@tests/fixtures/offresEmploi/offreEmploi.fixture";
-import { AxiosResponse } from "axios";
+} from '@tests/fixtures/httpClientService.fixture';
+import { anOffreEmploiList } from '@tests/fixtures/offresEmploi/offreEmploi.fixture';
+import { AxiosResponse } from 'axios';
 
-import { PoleEmploiHttpClientService } from "~/server/services/http/poleEmploiHttpClient.service";
+import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
 export function aPoleEmploiHttpClient(): PoleEmploiHttpClientService {
   return {

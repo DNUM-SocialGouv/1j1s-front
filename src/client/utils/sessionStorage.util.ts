@@ -1,8 +1,8 @@
-export enum Key {
-  SESSION_ID = "session_Id",
+enum Key {
+  SESSION_ID = 'session_Id',
 }
 
-function setItem(key: string, value: any): void {
+function setItem(key: string, value: string): void {
   sessionStorage.setItem(key, value);
 }
 

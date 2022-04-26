@@ -1,17 +1,11 @@
-import * as Sentry from "@sentry/nextjs";
-import { Breadcrumb } from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
+import { Breadcrumb } from '@sentry/nextjs';
 
 export class LoggerService {
-  constructor(sessionId: string) {
-    Sentry.configureScope((scope: Sentry.Scope) => {
-      scope.setTag("session_id", sessionId);
-    });
-  }
-
-  private log(
+  private static log(
     message: string,
     level: Sentry.Severity,
-    category: string | undefined = undefined
+    category: string | undefined = undefined,
   ) {
     Sentry.addBreadcrumb({
       category,
@@ -20,21 +14,27 @@ export class LoggerService {
     } as Breadcrumb);
   }
 
-  info(message: string, category: string | undefined = undefined) {
+  static info(message: string, category: string | undefined = undefined) {
     this.log(message, Sentry.Severity.Info, category);
   }
 
-  warn(message: string, category: string | undefined = undefined) {
+  static warn(message: string, category: string | undefined = undefined) {
     this.log(message, Sentry.Severity.Warning, category);
   }
 
-  error(message: string, category: string | undefined = undefined) {
+  static error(message: string, category: string | undefined = undefined) {
     this.log(message, Sentry.Severity.Error, category);
   }
 
-  setTransactionId(transactionId: string): void {
+  static setTransactionId(transactionId: string): void {
     Sentry.configureScope((scope) => {
-      scope.setTag("transaction_id", transactionId);
+      scope.setTag('transaction_id', transactionId);
+    });
+  }
+
+  static setSessionId(sessionId: string): void {
+    Sentry.configureScope((scope) => {
+      scope.setTag('session_id', sessionId);
     });
   }
 }

@@ -1,6 +1,6 @@
-import { anAxiosInstance } from "@tests/fixtures/httpClientService.fixture";
+import { anAxiosInstance } from '@tests/fixtures/httpClientService.fixture';
 
-import { ApiGeoHttpClientService } from "~/server/services/http/apiGeoHttpClient.service";
+import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 export function aApiGeoHttpClientService(): ApiGeoHttpClientService {
   return {
