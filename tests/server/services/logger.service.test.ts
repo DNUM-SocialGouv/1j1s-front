@@ -60,30 +60,4 @@ describe('LoggerService', () => {
       expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
     });
   });
-
-  describe('setTransactionId', () => {
-    const transactionId = 'ma-transaction-id';
-
-    it('appelle setTag avec le transactionId', () => {
-      LoggerService.setTransactionId(transactionId);
-
-      expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
-        'transaction_id',
-        transactionId,
-      );
-    });
-  });
-
-  describe('setSessionId', () => {
-    const sessionId = 'ma-session-id';
-
-    it('appelle setTag avec le sessionId', () => {
-      LoggerService.setSessionId(sessionId);
-
-      expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
-        'session_id',
-        sessionId,
-      );
-    });
-  });
 });

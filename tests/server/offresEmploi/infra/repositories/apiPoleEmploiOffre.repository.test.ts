@@ -1,8 +1,8 @@
-import { anOffreEmploiFiltre } from '@tests/fixtures/offresEmploi/offreEmploi.fixture';
+import { anOffreEmploiFiltre } from '@tests/fixtures/domain/offreEmploi.fixture';
 import {
   aPoleEmploiHttpClient,
-  aPoleEmploiRechercheResponse,
-} from '@tests/fixtures/offresEmploi/poleEmploiHttpClientService.fixture';
+  aRechercheOffreEmploiResponse,
+} from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
@@ -34,7 +34,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
     it('retourne la liste des offres d\'emploi de pole emploi', async () => {
       jest
         .spyOn(poleEmploiHttpClientService, 'get')
-        .mockResolvedValue(aPoleEmploiRechercheResponse());
+        .mockResolvedValue(aRechercheOffreEmploiResponse());
       const offreEmploiFiltre = anOffreEmploiFiltre();
 
       const result = await apiPoleEmploiOffreRepository.getOffreEmploiList(
@@ -63,10 +63,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       describe('quand la page vaut 1', () => {
         it('retourne les paramètres de recherche', () => {
           const offreEmploiFiltre = anOffreEmploiFiltre();
-          const result =
-            apiPoleEmploiOffreRepository.buildParamètresRecherche(
-              offreEmploiFiltre,
-            );
+          const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
           expect(result).toEqual('range=0-39&motsCles=boulanger');
         });
@@ -75,10 +72,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       describe('quand la page vaut 3', () => {
         it('retourne les paramètres de recherche', () => {
           const offreEmploiFiltre = anOffreEmploiFiltre({ page: 3 });
-          const result =
-            apiPoleEmploiOffreRepository.buildParamètresRecherche(
-              offreEmploiFiltre,
-            );
+          const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
           expect(result).toEqual('range=80-119&motsCles=boulanger');
         });
@@ -88,10 +82,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
     describe('quand le mot clé est absent', () => {
       it('retourne des paramètres de recherche avec motsCles à vide', () => {
         const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
-        const result =
-          apiPoleEmploiOffreRepository.buildParamètresRecherche(
-            offreEmploiFiltre,
-          );
+        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
         expect(result).toEqual('range=0-39&motsCles=');
       });

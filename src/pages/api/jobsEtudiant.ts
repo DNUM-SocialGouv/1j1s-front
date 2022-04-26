@@ -4,12 +4,10 @@ import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
 
-const handler = (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) => {
-  dependencies.jobEtudiantDependencies.listeJobEtudiant
-    .handle()
-    .then((value) => {
-      res.status(200).json(value);
-    });
+async function handler (req: NextApiRequest, res: NextApiResponse<OffreEmploi[]>) {
+  const jobEtudiantList = await dependencies.jobEtudiantDependencies.listeJobEtudiant
+    .handle();
+  return res.status(200).json(jobEtudiantList);
 };
 
 export default monitoringHandler(handler);

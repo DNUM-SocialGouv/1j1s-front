@@ -7,7 +7,7 @@ import { Article } from '~/client/components/Article';
 import { CardEmploi } from '~/client/components/CardEmploi';
 import { Footer } from '~/client/components/Footer';
 import { Header } from '~/client/components/Header';
-import Tracker from '~/client/utils/tracker.util';
+import { trackClick } from '~/client/utils/tracker.util';
 import { PageAccueilArticle } from '~/server/services/cms/infra/repositories/strapiCms.service';
 import { dependencies } from '~/server/start';
 import styles from '~/styles/Home.module.css';
@@ -44,7 +44,7 @@ export default function Home(props: HomeProps) {
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
-        <button onClick={() => Tracker.trackEvent('click', 'matomo test')}>
+        <button onClick={() => trackClick('matomo test')}>
           Test Matomo
         </button>
 

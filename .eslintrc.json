@@ -18,6 +18,7 @@
     "quotes": ["error", "single"],
     "object-curly-spacing": ["error", "always"],
     "arrow-parens": "error",
+    "eol-last": "error",
     "no-redeclare": "off",
     "@typescript-eslint/no-redeclare": ["error"],
     "no-unused-vars": "off",

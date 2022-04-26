@@ -4,7 +4,5 @@ import {
 } from '~/server/offresEmploi/domain/offreEmploi';
 
 export interface OffreEmploiRepository {
-  getOffreEmploiList(
-    offreEmploiFiltre: OffreEmploiFiltre
-  ): Promise<OffreEmploi[]>;
+  getOffreEmploiList(offreEmploiFiltre: OffreEmploiFiltre): Promise<OffreEmploi[]>;
 }

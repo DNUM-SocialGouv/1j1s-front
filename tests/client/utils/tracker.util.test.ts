@@ -1,6 +1,6 @@
 import { push } from '@socialgouv/matomo-next';
 
-import Tracker from '~/client/utils/tracker.util';
+import { trackClick } from '~/client/utils/tracker.util';
 
 jest.mock('@socialgouv/matomo-next', () => {
   return {
@@ -8,17 +8,16 @@ jest.mock('@socialgouv/matomo-next', () => {
   };
 });
 
-describe('Tracker', () => {
-  describe('trackEvent', () => {
+describe('tracker util', () => {
+  describe('trackClick', () => {
     it('appelle l\'outil d\'analytique pour pousser un evenement', () => {
-      const category = 'click';
       const action = 'bouton-test-matomo';
 
-      Tracker.trackEvent(category, action);
+      trackClick(action);
 
       expect(push).toHaveBeenCalledWith([
-        Tracker.TrackerObjectEnum.TRACK_EVENT,
-        category,
+        'trackEvent',
+        'click',
         action,
       ]);
     });

@@ -10,8 +10,7 @@ interface PoleEmploiTokenResponse {
 
 export class PoleEmploiHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_POLE_EMPLOI_BASE_URL } =
-      configurationService.getConfiguration();
+    const { API_POLE_EMPLOI_BASE_URL } = configurationService.getConfiguration();
     super(API_POLE_EMPLOI_BASE_URL);
 
     this.client.interceptors.response.use(
@@ -57,14 +56,10 @@ export class PoleEmploiHttpClientService extends ClientService {
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
     params.append('client_id', environmentVariables.API_POLE_EMPLOI_CLIENT_ID);
-    params.append(
-      'client_secret',
-      environmentVariables.API_POLE_EMPLOI_CLIENT_SECRET,
-    );
+    params.append('client_secret', environmentVariables.API_POLE_EMPLOI_CLIENT_SECRET);
     params.append('scope', environmentVariables.API_POLE_EMPLOI_SCOPE);
 
-    const endpoint =
-      'https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=partenaire';
+    const endpoint = 'https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=partenaire';
 
     const response = await axios.post<PoleEmploiTokenResponse>(
       endpoint,

@@ -3,36 +3,19 @@ import { ConfigurationService } from '~/server/services/configuration.service';
 export class ServerConfigurationService implements ConfigurationService {
   getConfiguration(): EnvironmentVariables {
     return {
-      API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError(
-        'API_ADRESSE_BASE_URL',
-      ),
-      API_GEO_BASE_URL:
-        ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
-      API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError(
-        'API_POLE_EMPLOI_BASE_URL',
-      ),
-      API_POLE_EMPLOI_CLIENT_ID: ServerConfigurationService.getOrThrowError(
-        'API_POLE_EMPLOI_CLIENT_ID',
-      ),
-      API_POLE_EMPLOI_CLIENT_SECRET: ServerConfigurationService.getOrThrowError(
-        'API_POLE_EMPLOI_CLIENT_SECRET',
-      ),
-      API_POLE_EMPLOI_SCOPE: ServerConfigurationService.getOrThrowError(
-        'API_POLE_EMPLOI_SCOPE',
-      ),
+      API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
+      API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
+      API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
+      API_POLE_EMPLOI_CLIENT_ID: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_CLIENT_ID'),
+      API_POLE_EMPLOI_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_CLIENT_SECRET'),
+      API_POLE_EMPLOI_SCOPE: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_SCOPE'),
       REDIS_DB: Number(ServerConfigurationService.getOrThrowError('REDIS_DB')),
       REDIS_HOST: ServerConfigurationService.getOrThrowError('REDIS_HOST'),
-      REDIS_PASSWORD:
-        ServerConfigurationService.getOrThrowError('REDIS_PASSWORD'),
-      REDIS_PORT: Number(
-        ServerConfigurationService.getOrThrowError('REDIS_PORT'),
-      ),
-      REDIS_USERNAME:
-        ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
-      STRAPI_URL_API:
-        ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
-      STRAPI_URL_IMAGE:
-        ServerConfigurationService.getOrThrowError('STRAPI_URL_IMAGE'),
+      REDIS_PASSWORD: ServerConfigurationService.getOrThrowError('REDIS_PASSWORD'),
+      REDIS_PORT: Number(ServerConfigurationService.getOrThrowError('REDIS_PORT')),
+      REDIS_USERNAME: ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
+      STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
+      STRAPI_URL_IMAGE: ServerConfigurationService.getOrThrowError('STRAPI_URL_IMAGE'),
     };
   }
 

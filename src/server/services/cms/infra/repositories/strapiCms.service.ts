@@ -8,19 +8,16 @@ export class StrapiCmsService {
   constructor(
     private clientService: ClientService,
     private configurationService: ConfigurationService,
-  ) {}
+  ) {
+  }
 
   async getPageAccueilList(): Promise<PageAccueilArticle[]> {
-    const { STRAPI_URL_API, STRAPI_URL_IMAGE } =
-      this.configurationService.getConfiguration();
-    const response = await this.clientService.get<
-      DataCmsResponse<PageAccueilCmsResponse>
-    >(
-      STRAPI_URL_API +
-        StrapiContentType.PAGE_ACCUEIL +
-        StrapiCmsService.buildApiStrapiForNestedContentTypeQueryParams(
-          StrapiContentType.PAGE_ACCUEIL_ARTICLES,
-        ),
+    const { STRAPI_URL_API, STRAPI_URL_IMAGE } = this.configurationService.getConfiguration();
+    const nestedContentTypeQueryParams = StrapiCmsService.buildNestedContentTypeQueryParams(
+      StrapiContentType.PAGE_ACCUEIL_ARTICLES,
+    );
+    const response = await this.clientService.get<DataCmsResponse<PageAccueilCmsResponse>>(
+      `${STRAPI_URL_API}${StrapiContentType.PAGE_ACCUEIL}${nestedContentTypeQueryParams}`,
     );
 
     return response.data.data.attributes!.articles.map(
@@ -41,9 +38,7 @@ export class StrapiCmsService {
     );
   }
 
-  private static buildApiStrapiForNestedContentTypeQueryParams(
-    contentType: string,
-  ): string {
+  private static buildNestedContentTypeQueryParams(contentType: string): string {
     return `?populate[${contentType}][populate]=*`;
   }
 }

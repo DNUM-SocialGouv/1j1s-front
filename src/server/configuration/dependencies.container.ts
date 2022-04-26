@@ -1,7 +1,7 @@
 import {
-  MetierRechercheDependencies,
-  metierRechercheDependenciesContainer,
-} from '~/server/alternances/configuration/metierRecherche.dependencies';
+  MétierRecherchéDependencies,
+  métierRecherchéDependenciesContainer,
+} from '~/server/alternances/configuration/métierRecherché.dependencies';
 import {
   JobsEtudiantDependencies,
   jobsEtudiantDependenciesContainer,
@@ -19,7 +19,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   jobEtudiantDependencies: JobsEtudiantDependencies;
-  metierRechercheDependencies: MetierRechercheDependencies;
+  metierRechercheDependencies: MétierRecherchéDependencies;
   accueilCMSDependencies: StrapiCmsService;
 };
 
@@ -41,7 +41,7 @@ export const dependenciesContainer = (): Dependencies => {
   const jobEtudiantDependencies = jobsEtudiantDependenciesContainer(
     poleEmploiHttpClientService,
   );
-  const metierRechercheDependencies = metierRechercheDependenciesContainer(
+  const metierRechercheDependencies = métierRecherchéDependenciesContainer(
     laBonneAlternanceHttpClient,
   );
 

@@ -1,19 +1,11 @@
-enum Key {
+export enum SESSION_STORAGE_KEY {
   SESSION_ID = 'session_Id',
 }
 
-function setItem(key: string, value: string): void {
+export function setSessionStorage(key: string, value: string): void {
   sessionStorage.setItem(key, value);
 }
 
-function getItem(key: string): string | null {
+export function getSessionStorage(key: string): string | null {
   return sessionStorage.getItem(key);
 }
-
-const StorageService = {
-  Key,
-  getItem,
-  setItem,
-};
-
-export default StorageService;

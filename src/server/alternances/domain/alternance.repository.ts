@@ -1,5 +1,5 @@
-import { MetierRecherche } from '~/server/alternances/domain/metierRecherche';
+import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 export interface AlternanceRepository {
-  getMétierRecherchéList(metierRechercher: string): Promise<MetierRecherche[]>;
+  getMétierRecherchéList(metierRechercher: string): Promise<MétierRecherché[]>;
 }

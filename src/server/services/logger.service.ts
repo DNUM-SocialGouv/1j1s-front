@@ -25,16 +25,4 @@ export class LoggerService {
   static error(message: string, category: string | undefined = undefined) {
     this.log(message, Sentry.Severity.Error, category);
   }
-
-  static setTransactionId(transactionId: string): void {
-    Sentry.configureScope((scope) => {
-      scope.setTag('transaction_id', transactionId);
-    });
-  }
-
-  static setSessionId(sessionId: string): void {
-    Sentry.configureScope((scope) => {
-      scope.setTag('session_id', sessionId);
-    });
-  }
 }
