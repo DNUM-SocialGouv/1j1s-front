@@ -1,8 +1,5 @@
-import {
-  OffreEmploi,
-  OffreEmploiFiltre,
-} from '~/server/offresEmploi/domain/offreEmploi';
+import { OffreEmploiFiltre, RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 export interface OffreEmploiRepository {
-  getOffreEmploiList(offreEmploiFiltre: OffreEmploiFiltre): Promise<OffreEmploi[]>;
+  searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<RésultatsRechercheOffreEmploi>;
 }

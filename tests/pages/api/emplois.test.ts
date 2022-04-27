@@ -1,4 +1,4 @@
-import { aRechercheOffreEmploiResponse } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import { aRésultatRechercheOffreEmploiAxiosResponse } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -11,7 +11,7 @@ describe('emploi api controller', () => {
       .get('/partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger')
       .reply(401)
       .get('/partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger')
-      .reply(200, aRechercheOffreEmploiResponse().data);
+      .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://entreprise.pole-emploi.fr/')
       .post('/connexion/oauth2/access_token?realm=partenaire', {
