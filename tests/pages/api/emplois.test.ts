@@ -1,9 +1,10 @@
+import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 import { aRésultatRechercheOffreEmploiAxiosResponse } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { offreEmploiHandler } from '~/pages/api/emplois';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 describe('emploi api controller', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
@@ -22,26 +23,13 @@ describe('emploi api controller', () => {
       })
       .reply(200, { access_token: 'fake_access_token' });
 
-    await testApiHandler<OffreEmploi[]>({
+    await testApiHandler<RésultatsRechercheOffreEmploi>({
       handler: (req, res) => offreEmploiHandler(req, res),
       requestPatcher: (req) => (req.url = '/emplois?page=1&motsCles=boulanger'),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
-        expect(json).toEqual([
-          {
-            id: '130WPHH',
-            intitule: 'Gestionnaire ADV    (H/F)',
-          },
-          {
-            id: '130WPHC',
-            intitule: 'Maçon / Maçonne',
-          },
-          {
-            id: '130WPHB',
-            intitule: 'Surveillant / Surveillante de nuit         (H/F)',
-          },
-        ]);
+        expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
       url: '/emplois?page=1&motsCles=boulanger',
     });

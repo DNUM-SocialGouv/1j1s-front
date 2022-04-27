@@ -24,10 +24,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
   beforeEach(() => {
     poleEmploiHttpClientService = aPoleEmploiHttpClient();
-
-    apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(
-      poleEmploiHttpClientService,
-    );
+    apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiHttpClientService);
   });
 
   describe('searchOffreEmploi', () => {

@@ -24,8 +24,8 @@ export namespace OffreEmploi {
   export enum TypeContrat {
     CDI = 'CDI',
     CDD = 'CDD',
-    MIS = 'MIS',
-    SAI = 'SAI',
+    MIS = 'Intérim',
+    SAI = 'Saisonnier',
   }
 
   export interface Entreprise {

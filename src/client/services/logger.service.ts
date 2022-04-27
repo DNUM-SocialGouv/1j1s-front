@@ -8,7 +8,7 @@ export class LoggerService {
     });
   }
 
-  private log(
+  private static log(
     message: string,
     level: Sentry.Severity,
     category: string | undefined = undefined,
@@ -21,15 +21,15 @@ export class LoggerService {
   }
 
   info(message: string, category: string | undefined = undefined) {
-    this.log(message, Sentry.Severity.Info, category);
+    LoggerService.log(message, Sentry.Severity.Info, category);
   }
 
   warn(message: string, category: string | undefined = undefined) {
-    this.log(message, Sentry.Severity.Warning, category);
+    LoggerService.log(message, Sentry.Severity.Warning, category);
   }
 
   error(message: string, category: string | undefined = undefined) {
-    this.log(message, Sentry.Severity.Error, category);
+    LoggerService.log(message, Sentry.Severity.Error, category);
   }
 
   setTransactionId(transactionId: string): void {
