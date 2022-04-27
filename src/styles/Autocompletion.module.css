@@ -1,0 +1,12 @@
+.container {
+  position: relative;
+}
+
+.autocompletionSuggestion {
+  position: absolute;
+  border: 1px solid #eeeeee;
+  background-color: #ffffff;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+}

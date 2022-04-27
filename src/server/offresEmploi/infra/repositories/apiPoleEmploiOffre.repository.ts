@@ -21,8 +21,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     );
 
     return response.data.resultats.map((offreEmploi) => ({
-      id: offreEmploi.id,
-      intitule: offreEmploi.intitule,
+      ...offreEmploi,
     }));
   }
 
@@ -39,4 +38,13 @@ interface OffreEmploiResponse {
 interface OffreEmploiDataResponse {
   id: string;
   intitule: string;
+  description: string;
+  qualificationLibelle: string;
+  typeContrat: string;
+  dureeTravailLibelleConverti: string;
+  entreprise: Entreprise;
+}
+
+interface Entreprise {
+  nom: string;
 }

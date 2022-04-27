@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { HomeProps } from '~/pages';
-import styles from '~/styles/Article1J1S.module.css';
+import { AccueilProps } from '~/pages';
+import styles from '~/styles/Article.module.css';
 
-export const Article = (props: HomeProps) => {
+export const Article = (props: AccueilProps) => {
   const { articles } = props;
   return (
     <section className={styles.container}>
