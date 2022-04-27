@@ -2,8 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Marianne", sans-serif;
 }
 
 a {
@@ -13,4 +12,21 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+p {
+  margin: 0 !important;
+}
+
+.align-right {
+  text-align: right;
+}
+/* COLORS */
+
+.color-primary {
+  color: #000091;
+}
+
+.color-white {
+  color: #ffffff;
 }

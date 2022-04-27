@@ -1,0 +1,39 @@
+.subtitle {
+  height: 228px;
+  background-color: #000091;
+  display: flex;
+  padding: 0.625rem;
+}
+
+.subtitle h2 {
+  margin: auto;
+  color: #ffffff;
+  text-align: center;
+}
+
+.barrederecherche {
+  display: flex;
+  flex-direction: column;
+  padding: 1.875rem;
+}
+
+.barrederecherche > div:first-child {
+  margin-bottom: 1.875rem;
+}
+
+.listOffreEmplois {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media screen and (min-width: 600px) {
+  .listOffreEmplois {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.listOffreEmplois > a:not(last-child) {
+  margin-bottom: 1.75rem;
+}
