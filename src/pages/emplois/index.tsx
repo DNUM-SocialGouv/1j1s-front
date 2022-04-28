@@ -1,4 +1,4 @@
-import React, { FormEvent,useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { BarreDeRecherche } from '~/client/components/BarreDeRecherche/BarreDeRecherche';
 import { CardOffreEmploi } from '~/client/components/CardOffreEmploi/CardOffreEmploi';
