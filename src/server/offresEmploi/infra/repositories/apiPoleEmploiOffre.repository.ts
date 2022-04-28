@@ -1,11 +1,17 @@
 import {
-  NOMBRE_RÉSULTATS_PAR_PAGE,
+  NOMBRE_RÉSULTATS_PAR_PAGE, OffreEmploi,
   OffreEmploiFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { OffreEmploiRepository } from '~/server/offresEmploi/domain/offreEmploi.repository';
-import { mapRésultatsRechercheOffreEmploi } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
-import { RésultatsRechercheOffreEmploiResponse } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
+import {
+  mapOffreEmploi,
+  mapRésultatsRechercheOffreEmploi,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
+import {
+  OffreEmploiResponse,
+  RésultatsRechercheOffreEmploiResponse,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
@@ -13,6 +19,15 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
     private poleEmploiHttpClientService: PoleEmploiHttpClientService,
   ) {
+  }
+
+  async getOffreEmploi(id: string): Promise<OffreEmploi> {
+    LoggerService.info(`Récupération offre emploi ${id}`);
+    const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
+      `partenaire/offresdemploi/v2/offres/${id}`,
+    );
+
+    return mapOffreEmploi(response.data);
   }
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<RésultatsRechercheOffreEmploi> {

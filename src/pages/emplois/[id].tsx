@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { EmploiNotFoundException } from '~/server/offresEmploi/domain/emploiNotFound.exception';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { dependencies } from '~/server/start';
 
 interface EmploiProps {
   offreEmploi: OffreEmploi;
@@ -11,32 +12,19 @@ interface EmploiProps {
 
 export default function EmploiDetails(props: EmploiProps) {
   const { offreEmploi } = props;
-  return <div>{JSON.stringify(offreEmploi)}</div>;
+  return <div>{offreEmploi?.intitulé}</div>;
 }
 
 interface EmploiContext extends ParsedUrlQuery {
   id: string;
 }
 
-export async function getStaticProps(
-  context: GetStaticPropsContext<EmploiContext>,
-): Promise<GetStaticPropsResult<EmploiProps>> {
+export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<EmploiProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
   const { id } = context.params;
-  const offreEmploi: OffreEmploi = {
-    description: 'Toto',
-    duréeTravail: OffreEmploi.DuréeTravail.TEMPS_PLEIN,
-    entreprise: {
-      nom: 'Toto',
-    },
-    expérience: OffreEmploi.Expérience.EXPERIENCE_SOUHAITEE,
-    id,
-    intitulé: 'Offre Emploi',
-    lieuTravail: 'Paris',
-    typeContrat: OffreEmploi.TypeContrat.MIS,
-  };
+  const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
 
   if (!offreEmploi) {
     throw new EmploiNotFoundException(id);
@@ -44,7 +32,7 @@ export async function getStaticProps(
 
   return {
     props: {
-      offreEmploi,
+      offreEmploi: JSON.parse(JSON.stringify(offreEmploi)),
     },
   };
 }

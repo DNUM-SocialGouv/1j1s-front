@@ -1,12 +1,12 @@
 export interface OffreEmploiResponse {
   id: string
   intitule: string
-  description: string
-  lieuTravail: OffreEmploiResponse.LieuTravail
-  entreprise: OffreEmploiResponse.Entreprise
+  description?: string
+  lieuTravail?: OffreEmploiResponse.LieuTravail
+  entreprise?: OffreEmploiResponse.Entreprise
   typeContrat: OffreEmploiResponse.TypeContrat
-  experienceExige: OffreEmploiResponse.Expérience
-  dureeTravailLibelleConverti: OffreEmploiResponse.DuréeTravail
+  experienceExige?: OffreEmploiResponse.Expérience
+  dureeTravailLibelleConverti?: OffreEmploiResponse.DuréeTravail
 }
 
 export namespace OffreEmploiResponse {

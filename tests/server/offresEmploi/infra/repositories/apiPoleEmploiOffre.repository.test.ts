@@ -1,5 +1,10 @@
-import { anOffreEmploiFiltre, aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 import {
+  aBarmanOffreEmploi,
+  anOffreEmploiFiltre,
+  aRésultatsRechercheOffreEmploi,
+} from '@tests/fixtures/domain/offreEmploi.fixture';
+import {
+  aBarmanOffreEmploiAxiosResponse,
   aPoleEmploiHttpClient,
   aRésultatRechercheOffreEmploiAxiosResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
@@ -25,6 +30,26 @@ describe('ApiPoleEmploiOffreRepository', () => {
   beforeEach(() => {
     poleEmploiHttpClientService = aPoleEmploiHttpClient();
     apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiHttpClientService);
+  });
+
+  describe('getOffreEmploi', () => {
+    it('récupère l\'offre d\'emploi selon l\'id', async () => {
+      jest
+        .spyOn(poleEmploiHttpClientService, 'get')
+        .mockResolvedValue(aBarmanOffreEmploiAxiosResponse());
+      const expected = aBarmanOffreEmploi();
+      const offreEmploiId = expected.id;
+
+      const result = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId);
+
+      expect(result).toEqual(expected);
+      expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
+        'partenaire/offresdemploi/v2/offres/132LKFB',
+      );
+      expect(LoggerService.info).toHaveBeenCalledWith(
+        'Récupération offre emploi 132LKFB',
+      );
+    });
   });
 
   describe('searchOffreEmploi', () => {

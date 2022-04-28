@@ -7,10 +7,13 @@ import { SkiplinkItem, Skiplinks } from '@dataesr/react-dsfr';
 import { AppProps } from 'next/app';
 import React, { useEffect } from 'react';
 
+import { Footer } from '~/client/components/Footer';
+import { Header } from '~/client/components/Header';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
 import { initTracker } from '~/client/utils/tracker.util';
+import styles from '~/styles/Accueil.module.css';
 
 function App({ Component, pageProps }: AppProps) {
   const sessionId = useSessionId();
@@ -25,7 +28,11 @@ function App({ Component, pageProps }: AppProps) {
         <SkiplinkItem href="#header-navigation">Menu</SkiplinkItem>
         <SkiplinkItem href="#footer">Pied de page</SkiplinkItem>
       </Skiplinks>
-      <Component {...pageProps} />
+      <Header/>
+      <div className={styles.container}>
+        <Component {...pageProps} />
+      </div>
+      <Footer/>
     </DependenciesProvider>
   );
 }

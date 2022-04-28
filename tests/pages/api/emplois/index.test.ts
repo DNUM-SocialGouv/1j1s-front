@@ -3,10 +3,10 @@ import { aRésultatRechercheOffreEmploiAxiosResponse } from '@tests/fixtures/ser
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { offreEmploiHandler } from '~/pages/api/emplois';
+import { rechercherOffreEmploiHandler } from '~/pages/api/emplois';
 import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-describe('emploi api controller', () => {
+describe('rechercher offre emploi api controller', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr/')
       .get('/partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger')
@@ -24,8 +24,7 @@ describe('emploi api controller', () => {
       .reply(200, { access_token: 'fake_access_token' });
 
     await testApiHandler<RésultatsRechercheOffreEmploi>({
-      handler: (req, res) => offreEmploiHandler(req, res),
-      requestPatcher: (req) => (req.url = '/emplois?page=1&motsCles=boulanger'),
+      handler: (req, res) => rechercherOffreEmploiHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();

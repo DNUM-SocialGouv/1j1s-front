@@ -16,8 +16,8 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
     description: offreEmploiResponse.description,
     duréeTravail: mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti),
     entreprise: {
-      logo: offreEmploiResponse.entreprise.logo,
-      nom: offreEmploiResponse.entreprise.nom,
+      logo: offreEmploiResponse.entreprise?.logo,
+      nom: offreEmploiResponse.entreprise?.nom,
     },
     expérience: mapExpérience(offreEmploiResponse.experienceExige),
     id: offreEmploiResponse.id,
@@ -27,12 +27,14 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
   };
 }
 
-function mapDuréeTravail(duréeTravailResponse: OffreEmploiResponse.DuréeTravail): OffreEmploi.DuréeTravail {
+function mapDuréeTravail(duréeTravailResponse?: OffreEmploiResponse.DuréeTravail): OffreEmploi.DuréeTravail | undefined {
   switch (duréeTravailResponse) {
     case 'Temps partiel':
       return OffreEmploi.DuréeTravail.TEMPS_PARTIEL;
     case 'Temps plein':
       return OffreEmploi.DuréeTravail.TEMPS_PLEIN;
+    default:
+      return undefined;
   }
 }
 
@@ -49,14 +51,17 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): OffreEmpl
   }
 }
 
-function mapLieuTravail(lieuTravailResponse: OffreEmploiResponse.LieuTravail): string {
+function mapLieuTravail(lieuTravailResponse?: OffreEmploiResponse.LieuTravail): string | undefined {
+  if (!lieuTravailResponse) {
+    return undefined;
+  }
   const lieuTravail = lieuTravailResponse.libelle.split(' - ');
   const ville = lieuTravail[1];
   const département = lieuTravail[0];
   return `${ville} (${département})`;
 }
 
-function mapExpérience(expérienceExigéeResponse: OffreEmploiResponse.Expérience): OffreEmploi.Expérience {
+function mapExpérience(expérienceExigéeResponse?: OffreEmploiResponse.Expérience): OffreEmploi.Expérience | undefined {
   switch (expérienceExigéeResponse) {
     case 'D':
       return OffreEmploi.Expérience.DEBUTANT_ACCEPTE;
@@ -64,6 +69,8 @@ function mapExpérience(expérienceExigéeResponse: OffreEmploiResponse.Expérie
       return OffreEmploi.Expérience.EXPERIENCE_SOUHAITEE;
     case 'E':
       return OffreEmploi.Expérience.EXPERIENCE_EXIGEE;
+    default:
+      return undefined;
   }
 }
 

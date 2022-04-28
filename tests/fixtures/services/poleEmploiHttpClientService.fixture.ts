@@ -29,6 +29,10 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(): AxiosResponse<Ré
   });
 }
 
+export function aBarmanOffreEmploiAxiosResponse(): AxiosResponse<OffreEmploiResponse> {
+  return anAxiosResponse(aBarmanOffreEmploiResponse());
+}
+
 function aBarmanOffreEmploiResponse(): OffreEmploiResponse {
   return {
     description: 'Nous recherchons pour la saison demi-mai à mi-octobre 2022 un(e) Barman h/f.\n\nVos missions principales: \n- Vous effectuez le service au comptoir, en salle, en terrasse, de boissons chaudes ou froides selon la législation relative à la consommation d\'alcools. \n- Vous entretenez la verrerie, les équipements du bar et les locaux selon les règles d\'hygiène et la réglementation  en vigueur.\n- Vous participez à la vie de la paillote. \n \nVous travaillez vendredi et samedi. \n\n\n',
@@ -58,9 +62,7 @@ function aMaçonOffreEmploiResponse(): OffreEmploiResponse {
     experienceExige: 'E',
     id: '130WPHC',
     intitule: 'Maçon / Maçonne',
-    lieuTravail: {
-      libelle: '44 - ST PERE EN RETZ',
-    },
+    lieuTravail: undefined,
     typeContrat: 'MIS',
   };
 }
@@ -69,10 +71,7 @@ function aValetOffreEmploiResponse(): OffreEmploiResponse {
   return {
     description: 'Vous interviendrez sur le nettoyage des chambres de l\'Hôtel.\nVous changerez les draps et serviettes, nettoierez la salle de bain et les sanitaires, effectuerez la poussière et passerez l\'aspirateur.  \n\nNous vous proposons un contrat en vacation, vous devez pouvoir être disponible les weekend. 3 à 4 vacations par semaine.\nLa durée du contrat et le nombre d\'heure varieront en fonction des nécessites du service; c\'est à dire de 20 h à 24h de travail par semaine.\n\nPrise de poste au plus tôt.\n',
     dureeTravailLibelleConverti: 'Temps partiel',
-    entreprise: {
-      logo: undefined,
-      nom: 'IBIS SETE BALARUC',
-    },
+    entreprise: undefined,
     experienceExige: 'S',
     id: '132MDKM',
     intitule: 'Valet / Femme de chambre',
