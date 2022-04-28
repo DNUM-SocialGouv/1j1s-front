@@ -1,6 +1,12 @@
 import React, { createContext, useContext } from 'react';
 
+import { OffreEmploiService } from '../services/offreEmploi.service';
+
 const DependenciesContainerContext = createContext({});
+
+interface DependenciesContainer {
+  offreEmploiService: OffreEmploiService
+}
 
 export function DependenciesProvider({
   children,
@@ -13,6 +19,6 @@ export function DependenciesProvider({
   );
 }
 
-export function useDeps() {
+export function useDeps(): Record<string, DependenciesContainer> {
   return useContext(DependenciesContainerContext);
 }

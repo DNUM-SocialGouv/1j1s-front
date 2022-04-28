@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 
+import styles from '~/client/components/Autocompletion/Autocompletion.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
-import styles from '~/styles/Autocompletion.module.css';
 
 interface AutocompletionProps {
   data: string[];
@@ -20,7 +20,7 @@ export const Autocompletion = (props: AutocompletionProps) => {
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     const query = value.toLowerCase();
     setValue(query);
@@ -35,14 +35,14 @@ export const Autocompletion = (props: AutocompletionProps) => {
     }
   };
 
-  const handleClick = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { innerText } = e.target;
+  const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const { innerText } = e.target as HTMLElement;
     setSuggestions([]);
     setValue(innerText);
     setSuggestionsActive(false);
   };
 
-  const handleKeyDown = (event: KeyboardEvent) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ARROW_UP) {
       if (suggestionIndex === 0) {
         return;
@@ -106,7 +106,7 @@ export const Autocompletion = (props: AutocompletionProps) => {
             id={inputName}
             aria-autocomplete="list"
             aria-controls={listbox}
-            aria-activedescendant
+            aria-activedescendant={inputName}
             placeholder={placeholder ?? 'Rechercher'}
             className="fr-input"
             value={value}

@@ -21,3 +21,7 @@ p {
 .align-right {
   text-align: right;
 }
+
+.pl-16 {
+  padding-left: 1rem;
+}

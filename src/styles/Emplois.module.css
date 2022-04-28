@@ -1,14 +1,25 @@
-.subtitle {
+.title {
   height: 228px;
   background-color: var(--blue-france-113);
   display: flex;
   padding: 0.625rem;
 }
 
-.subtitle h2 {
+.title h1 {
   margin: auto;
-  color: #ffffff;
+  color: var(--grey-950);
   text-align: center;
+}
+
+.nombreRésultats {
+  border-top: 1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
+  padding-top: 1.5rem;;
+  padding-bottom: 1.5rem;
+}
+
+.nombreRésultats strong {
+  padding: 1rem;
 }
 
 .barreDeRechercheContainer {
@@ -17,7 +28,7 @@
   padding: 1.875rem;
 }
 
-.barreDeRechercheContainer > div:first-child {
+.barreDeRechercheContainer > div:not(:last-child) {
   margin-bottom: 1.875rem;
 }
 
@@ -29,6 +40,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  margin-top: 1.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }

@@ -1,4 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, {
+  ChangeEvent,
+} from 'react';
 
 interface BarreDeRechercheProps {
   placeholder?: string;
@@ -10,7 +12,7 @@ interface BarreDeRechercheProps {
 export const BarreDeRecherche = (props: BarreDeRechercheProps) => {
   const { inputName, placeholder, icon, onChange } = props;
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     onChange(value);
   };
