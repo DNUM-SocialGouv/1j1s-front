@@ -7,5 +7,5 @@ export function setSessionStorage(key: string, value: string): void {
 }
 
 export function getSessionStorage(key: string): string | null {
-  return sessionStorage.getItem(key);
+  return typeof window !== 'undefined' ? sessionStorage.getItem(key) : null;
 }

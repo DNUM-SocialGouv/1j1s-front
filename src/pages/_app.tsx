@@ -1,5 +1,6 @@
 import '@gouvfr/dsfr/dist/dsfr/dsfr.css';
 import '@gouvfr/dsfr/dist/utility/icons/icons-map/icons-map.css';
+import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css';
 import '~/styles/globals.css';
 
 import { SkiplinkItem, Skiplinks } from '@dataesr/react-dsfr';
@@ -16,7 +17,7 @@ function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <DependenciesProvider dependenciesContainer={dependenciesContainer}>
+    <DependenciesProvider dependenciesContainer={dependenciesContainer()}>
       <Skiplinks>
         <SkiplinkItem href="#contenu">Contenu</SkiplinkItem>
         <SkiplinkItem href="#header-navigation">Menu</SkiplinkItem>

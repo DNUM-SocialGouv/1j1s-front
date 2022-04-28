@@ -1,6 +1,6 @@
 .subtitle {
   height: 228px;
-  background-color: #000091;
+  background-color: var(--blue-france-113);
   display: flex;
   padding: 0.625rem;
 }
@@ -11,16 +11,20 @@
   text-align: center;
 }
 
-.barrederecherche {
+.barreDeRechercheContainer {
   display: flex;
   flex-direction: column;
   padding: 1.875rem;
 }
 
-.barrederecherche > div:first-child {
+.barreDeRechercheContainer > div:first-child {
   margin-bottom: 1.875rem;
 }
 
+.buttonContainer {
+  display: flex;
+  margin: auto;
+}
 .listOffreEmplois {
   display: flex;
   flex-direction: column;
@@ -28,6 +32,7 @@
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
 @media screen and (min-width: 600px) {
   .listOffreEmplois {
     flex-direction: row;

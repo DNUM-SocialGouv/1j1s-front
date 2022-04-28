@@ -1,20 +1,24 @@
 import React, { ChangeEvent, useState } from 'react';
 
+import { KeyBoard } from '~/client/utils/keyboard.util';
 import styles from '~/styles/Autocompletion.module.css';
 
-interface DataProps {
+interface AutocompletionProps {
   data: string[];
   placeholder?: string;
   inputName: string;
   icon?: string;
 }
-export const Autocompletion = (props: DataProps) => {
+export const Autocompletion = (props: AutocompletionProps) => {
   const { data, inputName, placeholder, icon } = props;
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
   const [value, setValue] = useState('');
+
+  const label = 'autocomplete-label';
+  const listbox = 'autocomplete-listbox';
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
@@ -38,25 +42,21 @@ export const Autocompletion = (props: DataProps) => {
     setSuggestionsActive(false);
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    // UP ARROW
-    if (e.keyCode === 38) {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === KeyBoard.ARROW_UP) {
       if (suggestionIndex === 0) {
         return;
       }
       setSuggestionIndex(suggestionIndex - 1);
     }
-    // DOWN ARROW || TAB
-    else if (e.keyCode === 40 || e.keyCode === 9) {
-      if (suggestionIndex - 1 === suggestions.length) {
+    else if (event.key === KeyBoard.ARROW_DOWN) {
+      if (suggestionIndex + 1 === suggestions.length) {
         return;
       }
       setSuggestionIndex(suggestionIndex + 1);
     }
-    // ENTER
-    else if (e.keyCode === 13) {
+    else if (event.key === KeyBoard.ENTER) {
       setValue(suggestions[suggestionIndex]);
-      setSuggestionIndex(0);
       setSuggestionsActive(false);
     }
   };
@@ -66,16 +66,17 @@ export const Autocompletion = (props: DataProps) => {
       <ul
         className={styles.autocompletionSuggestion}
         role="listbox"
-        aria-labelledby="autocomplete-label"
-        id="autocomplete-listbox"
+        aria-labelledby={label}
+        id={listbox}
       >
         {suggestions.map((suggestion, index) => {
           return (
             <li
-              className={index === suggestionIndex ? 'active' : ''}
+              className={index === suggestionIndex ? styles.active : ''}
               key={index}
-              onClick={() => handleClick}
+              onClick={handleClick}
               role="option"
+              aria-selected={false}
             >
               {suggestion}
             </li>
@@ -86,29 +87,31 @@ export const Autocompletion = (props: DataProps) => {
   };
 
   return (
-    <>
-      <label className="fr-label" htmlFor={inputName} id="autocomplete-label">
+    <div>
+      <label className={[styles.label, 'fr-label'].join(' ')} htmlFor={inputName} id={label}>
         Recherche
       </label>
       <div className={styles.container}>
         <div
-          className={['fr-search-bar'].join(' ')}
+          className='fr-search-bar'
           id="header-search"
           role="combobox"
           aria-expanded={suggestionsActive}
-          aria-owns="autocomplete-listbox"
+          aria-controls={listbox}
+          aria-owns={listbox}
           aria-haspopup="listbox"
         >
           <input
             type="text"
             id={inputName}
             aria-autocomplete="list"
-            aria-controls="autocomplete-listbox"
+            aria-controls={listbox}
+            aria-activedescendant
             placeholder={placeholder ?? 'Rechercher'}
             className="fr-input"
             value={value}
-            onChange={() => handleChange}
-            onKeyDown={() => handleKeyDown}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
           <span
             className={['fr-btn', icon ?? 'fr-icon-zoom-line'].join(' ')}
@@ -117,6 +120,6 @@ export const Autocompletion = (props: DataProps) => {
         </div>
         {suggestionsActive && <Suggestions />}
       </div>
-    </>
+    </div>
   );
 };

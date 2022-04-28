@@ -87,3 +87,18 @@ Nous suivons le [Semantic Versioning](https://semver.org)
 ### Recommendations de NextJS
 * [Data fetching](https://nextjs.org/docs/basic-features/data-fetching/overview)
 * [Going to production](https://nextjs.org/docs/going-to-production)
+
+
+### A11Y
+[MDN Accessibilité](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
+
+#### Lexique utilisé dans le projet
+
+- aria-expanded: set on an element to indicate if a control is expanded or collapsed, and whether or not its child elements are displayed or hidden
+- aria-owns: identifies an element (or elements) in order to define a visual, functional, or contextual relationship between a parent and its child elements when the DOM hierarchy cannot be used to represent the relationship
+- aria-haspopup: indicates the availability and type of interactive popup element that can be triggered by the element on which the attribute is set
+- aria-autocomplete: indicates whether inputting text could trigger display of one or more predictions of the user's intended value for a combobox, searchbox, or textbox and specifies how predictions will be presented if they are made.
+- aria-controls: identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set
+- aria-activedescendant: identifies the currently active element when focus is on a composite widget, combobox, textbox, group, or application.
+- aria-labelledby: identifies the element (or elements) that labels the element it is applied to.
+- aria-selected: indicates the current "selected" state of various widgets
