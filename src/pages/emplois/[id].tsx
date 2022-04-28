@@ -1,8 +1,4 @@
-import {
-  GetStaticPathsResult,
-  GetStaticPropsContext,
-  GetStaticPropsResult,
-} from 'next';
+import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -29,9 +25,17 @@ export async function getStaticProps(
     throw new PageContextParamsException();
   }
   const { id } = context.params;
-  const offreEmploi = {
+  const offreEmploi: OffreEmploi = {
+    description: 'Toto',
+    duréeTravail: OffreEmploi.DuréeTravail.TEMPS_PLEIN,
+    entreprise: {
+      nom: 'Toto',
+    },
+    expérience: OffreEmploi.Expérience.EXPERIENCE_SOUHAITEE,
     id,
-    intitule: 'Offre Emploi',
+    intitulé: 'Offre Emploi',
+    lieuTravail: 'Paris',
+    typeContrat: OffreEmploi.TypeContrat.MIS,
   };
 
   if (!offreEmploi) {

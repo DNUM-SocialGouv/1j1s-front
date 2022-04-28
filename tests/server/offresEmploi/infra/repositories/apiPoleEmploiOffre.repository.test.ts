@@ -1,7 +1,7 @@
-import { anOffreEmploiFiltre } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { anOffreEmploiFiltre, aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 import {
   aPoleEmploiHttpClient,
-  aRechercheOffreEmploiResponse,
+  aRésultatRechercheOffreEmploiAxiosResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
@@ -24,31 +24,19 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
   beforeEach(() => {
     poleEmploiHttpClientService = aPoleEmploiHttpClient();
-
-    apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(
-      poleEmploiHttpClientService,
-    );
+    apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiHttpClientService);
   });
 
-  describe('getOffreEmploiList', () => {
-    it('retourne la liste des offres d\'emploi de pole emploi', async () => {
+  describe('searchOffreEmploi', () => {
+    it('recherche les offres d\'emploi de pole emploi', async () => {
       jest
         .spyOn(poleEmploiHttpClientService, 'get')
-        .mockResolvedValue(aRechercheOffreEmploiResponse());
+        .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
       const offreEmploiFiltre = anOffreEmploiFiltre();
 
-      const result = await apiPoleEmploiOffreRepository.getOffreEmploiList(
-        offreEmploiFiltre,
-      );
+      const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre);
 
-      expect(result).toEqual([
-        { id: '130WPHH', intitule: 'Gestionnaire ADV    (H/F)' },
-        { id: '130WPHC', intitule: 'Maçon / Maçonne' },
-        {
-          id: '130WPHB',
-          intitule: 'Surveillant / Surveillante de nuit         (H/F)',
-        },
-      ]);
+      expect(result).toEqual(aRésultatsRechercheOffreEmploi());
       expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
         'partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger',
       );

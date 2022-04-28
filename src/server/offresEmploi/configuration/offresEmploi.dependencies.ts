@@ -1,15 +1,15 @@
 import {
-  ListeOffreEmploiDependenciesContainer,
-  listeOffreEmploiDependenciesContainer,
-} from '~/server/offresEmploi/infra/configuration/listeOffreEmploiDependencies.container';
+  RechercherOffreEmploiDependenciesContainer,
+  rechercherOffreEmploiDependenciesContainer,
+} from '~/server/offresEmploi/infra/configuration/rechercherOffreEmploiDependencies.container';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
-export type OffresEmploiDependencies = ListeOffreEmploiDependenciesContainer;
+export type OffresEmploiDependencies = RechercherOffreEmploiDependenciesContainer;
 
 export const offresEmploiDependenciesContainer = (
   poleEmploiHttpClientService: PoleEmploiHttpClientService,
 ): OffresEmploiDependencies => {
   return {
-    ...listeOffreEmploiDependenciesContainer(poleEmploiHttpClientService),
+    ...rechercherOffreEmploiDependenciesContainer(poleEmploiHttpClientService),
   };
 };

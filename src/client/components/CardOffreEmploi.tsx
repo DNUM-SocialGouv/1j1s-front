@@ -17,20 +17,20 @@ export const CardOffreEmploi = (props: CardOffreEmploiProps) => {
         <div className={styles.cardHeader}>
           <img alt="" src="/images/france-relance.svg" width="48" height="48" />
           <div>
-            <strong> {offreEmploi.intitule} </strong>
+            <strong> {offreEmploi.intitulé} </strong>
             <p> {offreEmploi.entreprise?.nom ?? 'NOM ENTREPRISE'} </p>
           </div>
         </div>
         <div className={styles.cardBody}>
           <ul className={styles.tagList}>
             <li>
-              <Tag>{offreEmploi.qualificationLibelle}</Tag>
+              <Tag>{offreEmploi.expérience}</Tag>
             </li>
             <li>
               <Tag>{offreEmploi.typeContrat}</Tag>
             </li>
             <li>
-              <Tag>{offreEmploi.dureeTravailLibelleConverti}</Tag>
+              <Tag>{offreEmploi.duréeTravail}</Tag>
             </li>
           </ul>
           <p>
