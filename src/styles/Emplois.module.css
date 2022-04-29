@@ -1,23 +1,34 @@
-.subtitle {
+.title {
   height: 228px;
-  background-color: #000091;
+  background-color: var(--blue-france-113);
   display: flex;
   padding: 0.625rem;
 }
 
-.subtitle h2 {
+.title h1 {
   margin: auto;
-  color: #ffffff;
+  color: var(--grey-1000);
   text-align: center;
 }
 
-.barrederecherche {
+.nombreRésultats {
+  border-top: 1px solid var(--grey-950);
+  border-bottom: 1px solid var(--grey-950);
+  padding-top: 1.5rem;;
+  padding-bottom: 1.5rem;
+}
+
+.nombreRésultats strong {
+  padding: 1rem;
+}
+
+.barreDeRechercheContainer {
   display: flex;
   flex-direction: column;
   padding: 1.875rem;
 }
 
-.barrederecherche > div:first-child {
+.barreDeRechercheContainer > div:not(:last-child) {
   margin-bottom: 1.875rem;
 }
 
@@ -25,9 +36,11 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  margin-top: 1.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
 @media screen and (min-width: 600px) {
   .listOffreEmplois {
     flex-direction: row;

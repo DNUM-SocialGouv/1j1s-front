@@ -7,10 +7,16 @@ import {
   jobsEtudiantDependenciesContainer,
 } from '~/server/jobsEtudiant/configuration/jobsEtudiant.dependencies';
 import {
+  localisationDependenciesContainer,
+  LocalisationsDependencies,
+} from '~/server/localisations/configuration/localisations.dependencies';
+import {
   OffresEmploiDependencies,
   offresEmploiDependenciesContainer,
 } from '~/server/offresEmploi/configuration/offresEmploi.dependencies';
 import { StrapiCmsService } from '~/server/services/cms/infra/repositories/strapiCms.service';
+import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
+import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 import { LaBonneAlternanceHttpClient } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
@@ -21,6 +27,7 @@ export type Dependencies = {
   jobEtudiantDependencies: JobsEtudiantDependencies;
   metierRechercheDependencies: MétierRecherchéDependencies;
   accueilCMSDependencies: StrapiCmsService;
+  localisationDependencies: LocalisationsDependencies;
 };
 
 export const dependenciesContainer = (): Dependencies => {
@@ -34,6 +41,8 @@ export const dependenciesContainer = (): Dependencies => {
   const strapiHttpClientService = new StrapiHttpClientService(
     serverConfigurationService,
   );
+  const apiGeoGouvHttpClientService = new ApiGeoHttpClientService(serverConfigurationService);
+  const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
 
   const offreEmploiDependencies = offresEmploiDependenciesContainer(
     poleEmploiHttpClientService,
@@ -44,6 +53,10 @@ export const dependenciesContainer = (): Dependencies => {
   const metierRechercheDependencies = métierRecherchéDependenciesContainer(
     laBonneAlternanceHttpClient,
   );
+  const localisationDependencies = localisationDependenciesContainer(
+    apiGeoGouvHttpClientService,
+    apiAdresseHttpClientService,
+  );
 
   return {
     accueilCMSDependencies: new StrapiCmsService(
@@ -51,6 +64,7 @@ export const dependenciesContainer = (): Dependencies => {
       serverConfigurationService,
     ),
     jobEtudiantDependencies,
+    localisationDependencies,
     metierRechercheDependencies,
     offreEmploiDependencies,
   };

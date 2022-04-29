@@ -1,55 +1,76 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 
-import { Autocompletion } from '~/client/components/Autocompletion';
-import { BarreDeRecherche } from '~/client/components/BarreDeRecherche';
-import { CardOffreEmploi } from '~/client/components/CardOffreEmploi';
-import { Footer } from '~/client/components/Footer';
-import { Header } from '~/client/components/Header';
+import { BarreDeRecherche } from '~/client/components/BarreDeRecherche/BarreDeRecherche';
+import { CardOffreEmploi } from '~/client/components/CardOffreEmploi/CardOffreEmploi';
 import { HeadTag } from '~/client/components/HeaderTag';
+import { SubmitButton } from '~/client/components/SubmitButton';
+import { useDeps } from '~/client/context/dependenciesContainer.context';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import styles from '~/styles/Emplois.module.css';
 
 export default function Emplois() {
-  const offreEmplois: OffreEmploi[] = [];
+  const { dependenciesContainer } = useDeps();
+  const offreEmploiService = dependenciesContainer.offreEmploiService;
+  const [offreEmploisFiltreMétier, setOffreEmploisFiltreMétier] = useState('');
+  const [offreEmplois, setOffreEmplois] = useState<OffreEmploi[]>([]);
+  const [offreEmploisNombreRésultats, setOffreEmploisNombreRésultats] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const rechercherOffreEmploi = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+    const result = await offreEmploiService.rechercherOffreEmploi(offreEmploisFiltreMétier);
+    setOffreEmplois(result.résultats);
+    setOffreEmploisNombreRésultats(result.nbRésultats);
+    setIsLoading(false);
+  };
+
   return (
     <>
       <HeadTag
-        title="1 jeune 1 solution"
-        description="Toutes les solutions pour l'avenir des jeunes"
+        title="Rechercher un emploi | 1jeune1solution"
+        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
-      <Header />
 
       <main>
-        <section className={styles.subtitle}>
-          <h2>
+        <div className={styles.title}>
+          <h1>
             Des milliers d’offres d’emplois sélectionnées pour vous par Pôle
             Emploi
-          </h2>
-        </section>
+          </h1>
+        </div>
 
-        <div className={styles.barrederecherche}>
+        <form className={styles.barreDeRechercheContainer} onSubmit={rechercherOffreEmploi} role="search">
           <BarreDeRecherche
             placeholder="Recherche un métier, une entreprise, un mot-clé..."
             inputName="champ-métier"
+            onChange={setOffreEmploisFiltreMétier}
           />
-          <Autocompletion
-            placeholder="Saisir une localisation, un lieu..."
-            inputName="champ-localisation"
-            icon="fr-icon-map-pin-2-line"
-            data={['Paris', 'Parasol', 'Paravent', 'Palerme']}
-          />
-        </div>
+          <SubmitButton label="Rechercher"/>
+        </form>
 
-        <div className={styles.listOffreEmplois}>
-          {offreEmplois.map((offreEmploi: OffreEmploi) => {
-            return (
-              <CardOffreEmploi offreEmploi={offreEmploi} key={offreEmploi.id} />
-            );
-          })}
-        </div>
+        { offreEmploisNombreRésultats !== 0 &&
+          <div className={styles.nombreRésultats}>
+            <strong>{offreEmploisNombreRésultats} offres d&apos;emplois</strong>
+          </div>
+        }
+
+
+        { isLoading ?
+          <p className={'pl-16'}>....en cours de chargement (todo ajouter un loader)</p>
+          :
+          <div className={styles.listOffreEmplois}>
+            {offreEmplois.map((offreEmploi: OffreEmploi) => {
+              return (
+                <CardOffreEmploi offreEmploi={offreEmploi} key={offreEmploi.id} />
+              );
+            })}
+          </div>
+        }
+
       </main>
 
-      <Footer />
     </>
   );
 }

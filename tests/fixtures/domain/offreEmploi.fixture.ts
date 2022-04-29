@@ -5,12 +5,12 @@ import {
 
 export function aRésultatsRechercheOffreEmploi(): RésultatsRechercheOffreEmploi {
   return {
+    nbRésultats: 12,
     résultats: [
       aBarmanOffreEmploi(),
       aMaçonOffreEmploi(),
       aValetOffreEmploi(),
     ],
-    nbRésultats: 12,
   };
 }
 
@@ -33,6 +33,7 @@ export function aBarmanOffreEmploi(): OffreEmploi {
 export function aMaçonOffreEmploi(): OffreEmploi {
   return {
     description: 'Vous recherchez un emploi ? Faites confiances à nos différences ! R.A.S Intérim, réseau d\'agences d\'emploi de 170 agences, propose des centaines d\'opportunités d\'emploi dans tous les secteurs d\'activité, en intérim, CDD et CDI.\n\nVotre Agence R.A.S Intérim de PORNIC, recherche un MACON dans pour un de ses clients spécialiste du BTP.\n\nVos missions:\n- Travaux de maçonnerie\n- Travaux sur différents matériaux (parpaings, brique...)\n- Lecture de plans\n\nVotre profil:\n- Titulaire d\'un CAP maçonnerie\n- Expérience sur un poste similaire\n- Rigueur/ Autonome\n\nDisponible? Envoyez nous votre CV !',
+    duréeTravail: OffreEmploi.DuréeTravail.TEMPS_PARTIEL,
     entreprise: {
       logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
       nom: 'RAS 1040',
@@ -41,7 +42,6 @@ export function aMaçonOffreEmploi(): OffreEmploi {
     id: '130WPHC',
     intitulé: 'Maçon / Maçonne',
     lieuTravail: 'ST PERE EN RETZ (44)',
-    duréeTravail: OffreEmploi.DuréeTravail.TEMPS_PARTIEL,
     typeContrat: OffreEmploi.TypeContrat.MIS,
   };
 }

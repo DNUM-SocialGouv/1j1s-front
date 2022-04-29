@@ -2,8 +2,8 @@ import { Tag } from '@dataesr/react-dsfr';
 import Link from 'next/link';
 import React from 'react';
 
+import styles from '~/client/components/CardOffreEmploi/CardOffreEmploi.module.css';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
-import styles from '~/styles/CardOffreEmploi.module.css';
 
 interface CardOffreEmploiProps {
   offreEmploi: OffreEmploi;

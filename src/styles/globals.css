@@ -21,12 +21,18 @@ p {
 .align-right {
   text-align: right;
 }
-/* COLORS */
 
-.color-primary {
-  color: #000091;
+.pl-16 {
+  padding-left: 1rem;
 }
 
-.color-white {
-  color: #ffffff;
+.hide {
+  clip: rect(0,0,0,0);
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 1px;
 }
