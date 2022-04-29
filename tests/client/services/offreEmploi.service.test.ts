@@ -1,19 +1,18 @@
+import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
-import { HttpClientService } from '~/client/services/httpClient.service';
-import { LoggerService } from '~/client/services/logger.service';
 import { OffreEmploiService } from '~/client/services/offreEmploi.service';
+
 
 describe('OffreEmploiService', () => {
   describe('rechercherOffreEmploi', () => {
     it('appelle emploi avec le filtre', async () => {
-      const sessionId = 'ma-session-id';
-      const loggerService = new LoggerService(sessionId);
-      const httpClientService = new HttpClientService(sessionId, loggerService);
+      const httpClientService = aHttpClientService();
       const offreEmploiService = new OffreEmploiService(httpClientService);
       const filtre = 'barman';
 
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploi());
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 
       const result = await offreEmploiService.rechercherOffreEmploi(filtre);
 

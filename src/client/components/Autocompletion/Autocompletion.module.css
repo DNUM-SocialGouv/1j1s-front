@@ -1,11 +1,7 @@
-.container {
-
-}
-
 .autocompletionSuggestion {
   position: absolute;
-  border: 1px solid var(--grey-950);
-  background-color: #ffffff;
+  border: 1px solid var(--grey-925);
+  background-color: var(--grey-1000);
   width: 100%;
   list-style-type: none;
   margin: 0;
@@ -22,13 +18,4 @@
   background-color: rgba(3,15,143,.05);
 }
 
-.label {
-  clip: rect(0,0,0,0);
-  border: 0;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  white-space: nowrap;
-  width: 1px;
-}
+

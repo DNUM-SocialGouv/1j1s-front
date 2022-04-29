@@ -17,16 +17,12 @@ export default function Emplois() {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const getFiltreMétier = (filtre: string): void => {
-    setOffreEmploisFiltreMétier(filtre);
-  };
-
   const rechercherOffreEmploi = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     const result = await offreEmploiService.rechercherOffreEmploi(offreEmploisFiltreMétier);
-    setOffreEmplois(result.data.résultats);
-    setOffreEmploisNombreRésultats(result.data.nbRésultats);
+    setOffreEmplois(result.résultats);
+    setOffreEmploisNombreRésultats(result.nbRésultats);
     setIsLoading(false);
   };
 
@@ -34,33 +30,30 @@ export default function Emplois() {
     <>
       <HeadTag
         title="Rechercher un emploi | 1jeune1solution"
-        description="Toutes les solutions pour l'avenir des jeunes"
+        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
 
       <main>
-        <section className={styles.title}>
+        <div className={styles.title}>
           <h1>
             Des milliers d’offres d’emplois sélectionnées pour vous par Pôle
             Emploi
           </h1>
-        </section>
+        </div>
 
-        <form className={styles.barreDeRechercheContainer} onSubmit={rechercherOffreEmploi}>
+        <form className={styles.barreDeRechercheContainer} onSubmit={rechercherOffreEmploi} role="search">
           <BarreDeRecherche
             placeholder="Recherche un métier, une entreprise, un mot-clé..."
             inputName="champ-métier"
-            onChange={getFiltreMétier}
+            onChange={setOffreEmploisFiltreMétier}
           />
-          <div className={styles.buttonContainer}>
-            <SubmitButton title="rechercher"  label="Rechercher"/>
-          </div>
+          <SubmitButton label="Rechercher"/>
         </form>
 
-        { offreEmploisNombreRésultats ?
+        { offreEmploisNombreRésultats !== 0 &&
           <div className={styles.nombreRésultats}>
             <strong>{offreEmploisNombreRésultats} offres d&apos;emplois</strong>
           </div>
-          : null
         }
 
 

@@ -7,13 +7,13 @@
 
 .title h1 {
   margin: auto;
-  color: var(--grey-950);
+  color: var(--grey-1000);
   text-align: center;
 }
 
 .nombreRésultats {
-  border-top: 1px solid #EEEEEE;
-  border-bottom: 1px solid #EEEEEE;
+  border-top: 1px solid var(--grey-950);
+  border-bottom: 1px solid var(--grey-950);
   padding-top: 1.5rem;;
   padding-bottom: 1.5rem;
 }
@@ -32,10 +32,6 @@
   margin-bottom: 1.875rem;
 }
 
-.buttonContainer {
-  display: flex;
-  margin: auto;
-}
 .listOffreEmplois {
   display: flex;
   flex-direction: column;

@@ -17,7 +17,7 @@ export const BarreDeRecherche = (props: BarreDeRechercheProps) => {
     onChange(value);
   };
   return (
-    <div className="fr-search-bar" id="header-search" role="search">
+    <div className="fr-search-bar">
       <label className="fr-label" htmlFor={inputName}>
         Recherche
       </label>
@@ -25,7 +25,7 @@ export const BarreDeRecherche = (props: BarreDeRechercheProps) => {
         className="fr-input"
         placeholder={placeholder ?? 'Rechercher'}
         type="search"
-        id="search-784-input"
+        id={inputName}
         name={inputName}
         onChange={handleChange}
       />

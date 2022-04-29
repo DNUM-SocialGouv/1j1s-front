@@ -9,11 +9,11 @@ import React, { useEffect } from 'react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
-import useSessionId, { SESSION_STORAGE_KEY } from '~/client/hooks/useSessionId';
+import useSessionId from '~/client/hooks/useSessionId';
 import { initTracker } from '~/client/utils/tracker.util';
 
 function App({ Component, pageProps }: AppProps) {
-  const sessionId = useSessionId(SESSION_STORAGE_KEY.SESSION_ID);
+  const sessionId = useSessionId();
   useEffect(() => {
     initTracker();
   }, []);

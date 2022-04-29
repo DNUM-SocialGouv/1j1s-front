@@ -4,13 +4,13 @@ import styles from '~/client/components/Autocompletion/Autocompletion.module.css
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface AutocompletionProps {
-  data: string[];
+  suggestionList: string[];
   placeholder?: string;
   inputName: string;
   icon?: string;
 }
 export const Autocompletion = (props: AutocompletionProps) => {
-  const { data, inputName, placeholder, icon } = props;
+  const { suggestionList, inputName, placeholder, icon } = props;
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
@@ -22,11 +22,10 @@ export const Autocompletion = (props: AutocompletionProps) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const query = value.toLowerCase();
-    setValue(query);
-    if (query.length > 1) {
-      const filterSuggestions = data.filter(
-        (suggestion) => suggestion.toLowerCase().indexOf(query) > -1,
+    setValue(value);
+    if (value.length > 1) {
+      const filterSuggestions = suggestionList.filter(
+        (suggestion) => suggestion.toLowerCase().indexOf(value) > -1,
       );
       setSuggestions(filterSuggestions);
       setSuggestionsActive(true);
@@ -88,10 +87,10 @@ export const Autocompletion = (props: AutocompletionProps) => {
 
   return (
     <div>
-      <label className={[styles.label, 'fr-label'].join(' ')} htmlFor={inputName} id={label}>
+      <label className={['hide', 'fr-label'].join(' ')} htmlFor={inputName} id={label}>
         Recherche
       </label>
-      <div className={styles.container}>
+      <div>
         <div
           className='fr-search-bar'
           id="header-search"
