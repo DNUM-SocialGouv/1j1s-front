@@ -1,25 +1,13 @@
 import { render, RenderOptions } from '@testing-library/react';
-import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { aDependenciesContainer } from '@tests/fixtures/services/dependenciesContainer.fixture';
 import React, { FC, ReactElement } from 'react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-const dependenciesContainerMocked = () => {
-  return {
-    offreEmploiService: unOffreEmploiService(),
-  };
-};
-
-const unOffreEmploiService = () => {
-  return {
-    rechercherOffreEmploi: jest.fn().mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi())),
-  };
-};
 
 const MockedProviders: FC = ({ children }) => {
   return (
-    <DependenciesProvider dependenciesContainer={dependenciesContainerMocked()}>
+    <DependenciesProvider dependenciesContainer={aDependenciesContainer()}>
       {children}
     </DependenciesProvider>
   );

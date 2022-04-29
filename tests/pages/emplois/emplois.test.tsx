@@ -6,10 +6,9 @@ import '@testing-library/jest-dom';
 import {
   screen,
 } from '@testing-library/react';
+import { fireEvent, render  } from '@tests/fixtures/dependenciesProvider.fixture';
 
 import  Emplois  from '~/pages/emplois';
-
-import { fireEvent,render  } from '../../utils/test-utils';
 
 describe('Emplois', () => {
   it('appelle l\'api emploi au click sur rechercher',  async() => {
@@ -23,8 +22,10 @@ describe('Emplois', () => {
     // When
     fireEvent.submit(rechercherButton);
 
-    await screen.findByText('Barman / Barmaid (H/F)');
+    const intitulé = 'Barman / Barmaid (H/F)';
+
+    await screen.findByText(intitulé);
     // Then
-    expect(screen.getByText('Barman / Barmaid (H/F)')).toBeInTheDocument();
+    expect(screen.getByText(intitulé)).toBeInTheDocument();
   });
 });
