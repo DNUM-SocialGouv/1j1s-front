@@ -1,4 +1,4 @@
-import { unOffreEmploiService } from '@tests/fixtures/services/offreEmploiService.fixture';
+import { unOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 
 export const aDependenciesContainer = () => {
   return {
