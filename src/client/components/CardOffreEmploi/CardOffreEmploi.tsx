@@ -1,4 +1,5 @@
 import { Tag } from '@dataesr/react-dsfr';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -15,7 +16,7 @@ export const CardOffreEmploi = (props: CardOffreEmploiProps) => {
     <Link href={'/emplois/' + offreEmploi.id}>
       <a className={styles.card}>
         <div className={styles.cardHeader}>
-          <img alt="" src="/images/france-relance.svg" width="48" height="48" />
+          <Image alt="" src="/images/france-relance.svg" width="48" height="48" />
           <div>
             <strong> {offreEmploi.intitulé} </strong>
             <p> {offreEmploi.entreprise?.nom ?? 'NOM ENTREPRISE'} </p>

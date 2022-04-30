@@ -1,0 +1,17 @@
+.offreEmploiContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+}
+
+.offreEmploiContainer > * + * {
+  margin-top: 24px;
+}
+
+.offreEmploiHeader {
+  --title-spacing: 0;
+  text-align: center;
+}
+
+.tagList {
+}

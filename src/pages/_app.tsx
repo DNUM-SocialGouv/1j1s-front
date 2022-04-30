@@ -13,7 +13,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
 import { initTracker } from '~/client/utils/tracker.util';
-import styles from '~/styles/Accueil.module.css';
 
 function App({ Component, pageProps }: AppProps) {
   const sessionId = useSessionId();
@@ -29,9 +28,7 @@ function App({ Component, pageProps }: AppProps) {
         <SkiplinkItem href="#footer">Pied de page</SkiplinkItem>
       </Skiplinks>
       <Header/>
-      <div className={styles.container}>
-        <Component {...pageProps} />
-      </div>
+      <Component {...pageProps} />
       <Footer/>
     </DependenciesProvider>
   );
