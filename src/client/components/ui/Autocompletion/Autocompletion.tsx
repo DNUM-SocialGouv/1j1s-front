@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import styles from '~/client/components/Autocompletion/Autocompletion.module.css';
+import styles from '~/client/components/ui/Autocompletion/Autocompletion.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface AutocompletionProps {

@@ -3,7 +3,7 @@ import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } fro
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import { TagList } from '~/client/components/TagList/TagList';
+import { TagList } from '~/client/components/ui/TagList/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { EmploiNotFoundException } from '~/server/offresEmploi/domain/emploiNotFound.exception';
@@ -28,8 +28,7 @@ export default function EmploiDetails(props: EmploiProps) {
           <Title as="h1" look="h3">{offreEmploi.intitulé}</Title>
           {offreEmploi.entreprise.nom && <span className="fr-text--lead">{offreEmploi.entreprise.nom}</span>}
         </header>
-        <TagList list={[offreEmploi.expérience, offreEmploi.typeContrat, offreEmploi.duréeTravail]}>
-        </TagList>
+        <TagList list={[offreEmploi.expérience, offreEmploi.typeContrat, offreEmploi.duréeTravail]} />
         {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
       </article>
     </main>

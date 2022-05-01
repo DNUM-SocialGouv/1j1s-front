@@ -3,35 +3,32 @@ import '@gouvfr/dsfr/dist/utility/icons/icons-map/icons-map.css';
 import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css';
 import '~/styles/globals.css';
 
-import { SkiplinkItem, Skiplinks } from '@dataesr/react-dsfr';
 import { AppProps } from 'next/app';
+import Head from 'next/head';
 import React, { useEffect } from 'react';
 
-import { Footer } from '~/client/components/Footer';
-import { Header } from '~/client/components/Header';
+import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
 import { initTracker } from '~/client/utils/tracker.util';
 
-function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   const sessionId = useSessionId();
   useEffect(() => {
     initTracker();
   }, []);
 
   return (
-    <DependenciesProvider dependenciesContainer={dependenciesContainer(sessionId!)}>
-      <Skiplinks>
-        <SkiplinkItem href="#contenu">Contenu</SkiplinkItem>
-        <SkiplinkItem href="#header-navigation">Menu</SkiplinkItem>
-        <SkiplinkItem href="#footer">Pied de page</SkiplinkItem>
-      </Skiplinks>
-      <Header/>
-      <Component {...pageProps} />
-      <Footer/>
-    </DependenciesProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0" />
+      </Head>
+      <Layout>
+        <DependenciesProvider dependenciesContainer={dependenciesContainer(sessionId!)}>
+          <Component {...pageProps} />
+        </DependenciesProvider>
+      </Layout>
+    </>
   );
 }
-
-export default App;

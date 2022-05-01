@@ -8,10 +8,11 @@
   margin-top: 24px;
 }
 
+.offreEmploiContainer > ul {
+  justify-content: center;
+}
+
 .offreEmploiHeader {
   --title-spacing: 0;
   text-align: center;
-}
-
-.tagList {
 }

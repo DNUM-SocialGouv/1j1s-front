@@ -7,10 +7,6 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports = {
-  i18n: {
-    defaultLocale: 'fr',
-    locales: ['fr'],
-  },
   images: {
     domains: [process.env.IMAGE_PROVIDER_DOMAIN],
   },

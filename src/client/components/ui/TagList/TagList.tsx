@@ -1,7 +1,7 @@
 import { Tag } from '@dataesr/react-dsfr';
 import React from 'react';
 
-import styles from '~/client/components/TagList/TagList.module.css';
+import styles from '~/client/components/ui/TagList/TagList.module.css';
 
 interface TagListProps {
   list: Array<string | undefined>

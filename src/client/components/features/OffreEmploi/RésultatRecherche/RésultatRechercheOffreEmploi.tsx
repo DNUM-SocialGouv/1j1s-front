@@ -1,16 +1,16 @@
-import { Tag } from '@dataesr/react-dsfr';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import styles from '~/client/components/CardOffreEmploi/CardOffreEmploi.module.css';
+import styles from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi.module.css';
+import { TagList } from '~/client/components/ui/TagList/TagList';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-interface CardOffreEmploiProps {
+interface RésultatRechercheOffreEmploiProps {
   offreEmploi: OffreEmploi;
 }
 
-export const CardOffreEmploi = (props: CardOffreEmploiProps) => {
+export function RésultatRechercheOffreEmploi (props: RésultatRechercheOffreEmploiProps) {
   const { offreEmploi } = props;
   return (
     <Link href={'/emplois/' + offreEmploi.id}>
@@ -23,17 +23,7 @@ export const CardOffreEmploi = (props: CardOffreEmploiProps) => {
           </div>
         </div>
         <div className={styles.cardBody}>
-          <ul className={styles.tagList}>
-            <li>
-              <Tag>{offreEmploi.expérience}</Tag>
-            </li>
-            <li>
-              <Tag>{offreEmploi.typeContrat}</Tag>
-            </li>
-            <li>
-              <Tag>{offreEmploi.duréeTravail}</Tag>
-            </li>
-          </ul>
+          <TagList list={[offreEmploi.expérience, offreEmploi.typeContrat, offreEmploi.duréeTravail]} />
           <p>
             <strong>Description:</strong>{' '}
             {offreEmploi.description?.slice(0, 100)} [...]
@@ -43,10 +33,10 @@ export const CardOffreEmploi = (props: CardOffreEmploiProps) => {
             <span
               className="fr-icon-arrow-right-s-line"
               aria-hidden="true"
-            ></span>
+            />
           </span>
         </div>
       </a>
     </Link>
   );
-};
+}

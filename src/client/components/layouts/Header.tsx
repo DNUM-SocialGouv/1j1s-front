@@ -35,17 +35,17 @@ export function Header() {
             height="66"
           />
         </HeaderOperator>
-        <Service title="1jeune1solution" description=""/>
+        <Service title="1jeune1solution" description="" />
       </HeaderBody>
       <HeaderNav>
-        <NavItem title="Accueil" asLink={<NavItemLink link="/" />} current={path === '/'}/>
+        <NavItem title="Accueil" asLink={<NavItemLink link="/" />} current={path === '/'} />
         <NavItem title="Offres">
-          <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" />} current={path === '/emplois'}/>
+          <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" />} current={path === '/emplois'} />
         </NavItem>
       </HeaderNav>
     </HeaderDSFR>
   );
-};
+}
 
 interface NavItemLinkProps {
   link: string
