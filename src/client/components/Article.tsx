@@ -12,6 +12,7 @@ export const Article = ({ data }: ArticleProps) => {
     <div
       className="fr-card fr-enlarge-link"
       style={{ width: 300 }}
+      data-testid="article"
     >
       <div className="fr-card__body">
         <h2 className="fr-card__title">{data.titre}</h2>
