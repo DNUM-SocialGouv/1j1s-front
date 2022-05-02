@@ -64,10 +64,10 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29',
+          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI',
         );
         expect(LoggerService.info).toHaveBeenCalledWith(
-          'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
+          'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1,"typeDeContrats":["CDD","CDI"]}',
         );
       });
     });
@@ -93,36 +93,53 @@ describe('ApiPoleEmploiOffreRepository', () => {
   });
 
   describe('buildParamètresRecherche', () => {
-    describe('quand le mot clé existe', () => {
-      describe('quand la page vaut 1', () => {
-        it('retourne les paramètres de recherche', () => {
-          const offreEmploiFiltre = anOffreEmploiFiltre();
-          const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+    describe('quand tous les paramètres sont présents dans le filtre', () => {
+      it('retourne les paramètres de recherche', () => {
+        const offreEmploiFiltre = anOffreEmploiFiltre();
+        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-          expect(result).toEqual('motsCles=boulanger&range=0-29');
-        });
-      });
-
-      describe('quand la page vaut 3', () => {
-        it('retourne les paramètres de recherche', () => {
-          const offreEmploiFiltre = anOffreEmploiFiltre({
-            motClé: 'électricien',
-            page: 3,
-          });
-          const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
-
-          expect(result).toEqual('motsCles=%C3%A9lectricien&range=60-89');
-        });
+        expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI');
       });
     });
 
-    describe('quand le mot clé est absent', () => {
-      it('retourne des paramètres de recherche avec motsCles à vide', () => {
+    describe('quand un paramètre est absent', () => {
+      it('retourne ce paramètres de recherche à vide', () => {
         const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
         const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-        expect(result).toEqual('motsCles=&range=0-29');
+        expect(result).toEqual('motsCles=&range=0-29&typeContrat=CDD%2CCDI');
+      });
+    });
+
+    describe('quand la page vaut 1', () => {
+      it('retourne les paramètres de recherche', () => {
+        const offreEmploiFiltre = anOffreEmploiFiltre();
+        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+        expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI');
+      });
+    });
+
+    describe('quand la page vaut 3', () => {
+      it('retourne les paramètres de recherche', () => {
+        const offreEmploiFiltre = anOffreEmploiFiltre({
+          motClé: 'électricien',
+          page: 3,
+        });
+        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+        expect(result).toEqual('motsCles=%C3%A9lectricien&range=60-89&typeContrat=CDD%2CCDI');
       });
     });
   });
+
+  describe('quand le mot clé est absent', () => {
+    it('retourne des paramètres de recherche avec motsCles à vide', () => {
+      const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
+      const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+      expect(result).toEqual('motsCles=&range=0-29&typeContrat=CDD%2CCDI');
+    });
+  });
 });
+

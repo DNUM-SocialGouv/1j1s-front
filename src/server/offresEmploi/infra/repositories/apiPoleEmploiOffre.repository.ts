@@ -47,6 +47,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     const params = new URLSearchParams({
       motsCles: offreEmploiFiltre.motClé || '',
       range,
+      typeContrat: offreEmploiFiltre.typeDeContrats.toString(),
     });
     return params.toString();
   }

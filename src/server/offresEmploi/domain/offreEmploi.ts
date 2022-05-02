@@ -44,6 +44,7 @@ export interface RésultatsRechercheOffreEmploi {
 
 export interface OffreEmploiFiltre {
   motClé?: string
+  typeDeContrats: string[]
   page: number
 }
 

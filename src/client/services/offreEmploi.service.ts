@@ -6,8 +6,11 @@ export class OffreEmploiService {
   constructor(private readonly httpClientService: HttpClientService ) {
   }
 
-  async rechercherOffreEmploi(filtre: string): Promise<RésultatsRechercheOffreEmploi> {
-    const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?page=1&motsCles=${filtre}`);
+  async rechercherOffreEmploi(formData: FormData): Promise<RésultatsRechercheOffreEmploi> {
+    console.log(formData.get('métierRecherché'));
+    console.log(formData.getAll('typeDeContrat'));
+    // emplois?page=1&motsCles=${filtre.motClé}&typeDeContrats=${filtre.typeDeContrats.toString()}
+    const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>('');
     return response.data;
   }
 }

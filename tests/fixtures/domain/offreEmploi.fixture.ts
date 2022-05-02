@@ -70,6 +70,7 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
   return {
     motClé: 'boulanger',
     page: 1,
+    typeDeContrats: ['CDD', 'CDI'],
     ...override,
   };
 }

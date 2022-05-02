@@ -1,6 +1,8 @@
 import { Button, ButtonGroup, TextInput, Title } from '@dataesr/react-dsfr';
+import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
+import { ChoixMultiple } from '~/client/components/ChoixMultiple';
 import { RésultatRechercheOffreEmploi } from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -9,15 +11,18 @@ import styles from '~/styles/Emplois.module.css';
 
 export default function Emplois() {
   const offreEmploiService = useDependency('offreEmploiService');
-  const [offreEmploisFiltreMétier, setOffreEmploisFiltreMétier] = useState('');
   const [offreEmplois, setOffreEmplois] = useState<OffreEmploi[]>([]);
   const [offreEmploisNombreRésultats, setOffreEmploisNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [toggleFiltrerMaRecherche, setToggleFiltrerMaRecherche] = useState(false);
+
+  function handleToggleFiltrerMaRecherche() { setToggleFiltrerMaRecherche(!toggleFiltrerMaRecherche); }
+
 
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    const result = await offreEmploiService.rechercherOffreEmploi(offreEmploisFiltreMétier);
+    const result = await offreEmploiService.rechercherOffreEmploi(new FormData(event.currentTarget));
     setOffreEmplois(result.résultats);
     setOffreEmploisNombreRésultats(result.nombreRésultats);
     setIsLoading(false);
@@ -44,11 +49,32 @@ export default function Emplois() {
             // @ts-ignore
             name="motCle"
             placeholder="Boulanger"
-            onChange={(event: ChangeEvent<HTMLInputElement>) => setOffreEmploisFiltreMétier(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => event.target.value}
           />
           <ButtonGroup size="md">
             <Button submit={true} icon="ri-search-line" iconPosition="right">Rechercher</Button>
           </ButtonGroup>
+
+          <Button className={styles.filtrerRecherche} styleAsLink>
+            <Image src="/icons/filtrer.svg" alt="" width="24" height="24" />
+            <span onClick={handleToggleFiltrerMaRecherche}>Filtrer ma recherche</span>
+          </Button>
+
+
+          {
+            toggleFiltrerMaRecherche && <ChoixMultiple
+              name="typeDeContrat"
+              list={
+                [
+                  { label: 'Contrat à durée déterminé', value: 'CDD' },
+                  { label: 'Contrat à durée indéterminé', value: 'CDI' },
+                  { label: 'Mission intérimaire', value: 'MIS' },
+                  { label: 'Contrat travail saisonnier', value: 'SAI' },
+                ]
+              }
+
+            />
+          }
         </form>
 
         {

@@ -18,5 +18,10 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   return {
     motClé: String(query.motsCles),
     page: Number(query.page),
+    typeDeContrats: query.typeDeContrats ? toTypeDeContrats(query.typeDeContrats) : [],
   };
+}
+
+function toTypeDeContrats(typeDeContrats: string | string[]): string[] {
+  return typeDeContrats.toString().split(',');
 }
