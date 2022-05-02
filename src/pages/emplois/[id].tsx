@@ -1,42 +1,50 @@
+import { Title } from '@dataesr/react-dsfr';
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import React from 'react';
 
+import { TagList } from '~/client/components/ui/TagList/TagList';
+import useSanitize from '~/client/hooks/useSanitize';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { EmploiNotFoundException } from '~/server/offresEmploi/domain/emploiNotFound.exception';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { OffreEmploi, OffreEmploiId } from '~/server/offresEmploi/domain/offreEmploi';
+import { dependencies } from '~/server/start';
+import styles from '~/styles/OffreEmploi.module.css';
 
 interface EmploiProps {
-  offreEmploi: OffreEmploi;
+  offreEmploi: OffreEmploi | undefined;
 }
 
 export default function EmploiDetails(props: EmploiProps) {
   const { offreEmploi } = props;
-  return <div>{JSON.stringify(offreEmploi)}</div>;
+  const descriptionOffreEmploi = useSanitize(offreEmploi?.description);
+
+  if (!offreEmploi) return null;
+
+  return (
+    <main>
+      <article className={styles.offreEmploiContainer}>
+        <header className={styles.offreEmploiHeader}>
+          <Title as="h1" look="h3">{offreEmploi.intitulé}</Title>
+          {offreEmploi.entreprise.nom && <span className="fr-text--lead">{offreEmploi.entreprise.nom}</span>}
+        </header>
+        <TagList list={[offreEmploi.expérience, offreEmploi.typeContrat, offreEmploi.duréeTravail]} />
+        {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
+      </article>
+    </main>
+  );
 }
 
 interface EmploiContext extends ParsedUrlQuery {
-  id: string;
+  id: OffreEmploiId;
 }
 
-export async function getStaticProps(
-  context: GetStaticPropsContext<EmploiContext>,
-): Promise<GetStaticPropsResult<EmploiProps>> {
+export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<EmploiProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
   const { id } = context.params;
-  const offreEmploi: OffreEmploi = {
-    description: 'Toto',
-    duréeTravail: OffreEmploi.DuréeTravail.TEMPS_PLEIN,
-    entreprise: {
-      nom: 'Toto',
-    },
-    expérience: OffreEmploi.Expérience.EXPERIENCE_SOUHAITEE,
-    id,
-    intitulé: 'Offre Emploi',
-    lieuTravail: 'Paris',
-    typeContrat: OffreEmploi.TypeContrat.MIS,
-  };
+  const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
 
   if (!offreEmploi) {
     throw new EmploiNotFoundException(id);
@@ -44,8 +52,9 @@ export async function getStaticProps(
 
   return {
     props: {
-      offreEmploi,
+      offreEmploi: JSON.parse(JSON.stringify(offreEmploi)),
     },
+    revalidate: 86400,
   };
 }
 

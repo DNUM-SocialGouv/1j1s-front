@@ -13,14 +13,14 @@ describe('ListeMetierRecherche', () => {
   });
 
   it('retourne la liste des offres d emploi', async () => {
-    const listeJobEtudiant = new ListeMétierRecherchéUseCase(
+    const listeJobÉtudiant = new ListeMétierRecherchéUseCase(
       alternanceRepository,
     );
     jest
       .spyOn(alternanceRepository, 'getMétierRecherchéList')
       .mockResolvedValue(aMétierRecherchéList());
 
-    const result = await listeJobEtudiant.handle('bou');
+    const result = await listeJobÉtudiant.handle('bou');
 
     expect([
       {

@@ -28,7 +28,7 @@ export class StrapiCmsService {
           description,
           image: {
             height,
-            url: `${STRAPI_URL_IMAGE + url}`,
+            url: `${STRAPI_URL_IMAGE}${url}`,
             width,
           },
           lien,

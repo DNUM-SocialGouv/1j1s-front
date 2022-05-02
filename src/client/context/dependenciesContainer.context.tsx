@@ -1,17 +1,20 @@
 import React, { createContext, useContext } from 'react';
 
-import { OffreEmploiService } from '../services/offreEmploi.service';
+import { Dependencies, Dependency } from '~/client/dependencies.container';
 
-const DependenciesContainerContext = createContext({});
-
-interface DependenciesContainer {
-  offreEmploiService: OffreEmploiService
+class DependencyException extends Error {
+  constructor(key: string) {
+    super(`Dependency ${key} not found`);
+    this.name = 'DependencyException';
+  }
 }
+
+const DependenciesContainerContext = createContext<Partial<Dependencies>>({});
 
 export function DependenciesProvider({
   children,
   ...dependencies
-}: React.PropsWithChildren<Record<string, unknown>>) {
+}: React.PropsWithChildren<Partial<Dependencies>>) {
   return (
     <DependenciesContainerContext.Provider value={dependencies}>
       {children}
@@ -19,6 +22,11 @@ export function DependenciesProvider({
   );
 }
 
-export function useDeps(): Record<string, DependenciesContainer> {
-  return useContext(DependenciesContainerContext);
+export function useDependency(key: keyof Dependencies): Dependency {
+  const dependencies = useContext(DependenciesContainerContext);
+  const dependency: Dependency | undefined = dependencies[key];
+  if(!dependency) {
+    throw new DependencyException(key);
+  }
+  return dependency;
 }

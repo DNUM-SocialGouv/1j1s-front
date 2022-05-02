@@ -1,4 +1,4 @@
-import { aJobEtudiantList } from '@tests/fixtures/domain/jobEtudiant.fixture';
+import { aJobÉtudiantList } from '@tests/fixtures/domain/jobÉtudiant.fixture';
 import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
@@ -27,6 +27,10 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(): AxiosResponse<Ré
       aValetOffreEmploiResponse(),
     ],
   });
+}
+
+export function aBarmanOffreEmploiAxiosResponse(): AxiosResponse<OffreEmploiResponse> {
+  return anAxiosResponse(aBarmanOffreEmploiResponse());
 }
 
 function aBarmanOffreEmploiResponse(): OffreEmploiResponse {
@@ -58,9 +62,7 @@ function aMaçonOffreEmploiResponse(): OffreEmploiResponse {
     experienceExige: 'E',
     id: '130WPHC',
     intitule: 'Maçon / Maçonne',
-    lieuTravail: {
-      libelle: '44 - ST PERE EN RETZ',
-    },
+    lieuTravail: undefined,
     typeContrat: 'MIS',
   };
 }
@@ -69,10 +71,7 @@ function aValetOffreEmploiResponse(): OffreEmploiResponse {
   return {
     description: 'Vous interviendrez sur le nettoyage des chambres de l\'Hôtel.\nVous changerez les draps et serviettes, nettoierez la salle de bain et les sanitaires, effectuerez la poussière et passerez l\'aspirateur.  \n\nNous vous proposons un contrat en vacation, vous devez pouvoir être disponible les weekend. 3 à 4 vacations par semaine.\nLa durée du contrat et le nombre d\'heure varieront en fonction des nécessites du service; c\'est à dire de 20 h à 24h de travail par semaine.\n\nPrise de poste au plus tôt.\n',
     dureeTravailLibelleConverti: 'Temps partiel',
-    entreprise: {
-      logo: undefined,
-      nom: 'IBIS SETE BALARUC',
-    },
+    entreprise: undefined,
     experienceExige: 'S',
     id: '132MDKM',
     intitule: 'Valet / Femme de chambre',
@@ -122,8 +121,8 @@ function aFiltresPossiblesResponse(): RésultatsRechercheOffreEmploiResponse.Fil
   ];
 }
 
-export function aRechercheJobEtudiantResponse(): AxiosResponse {
+export function aRechercheJobÉtudiantResponse(): AxiosResponse {
   return anAxiosResponse({
-    resultats: aJobEtudiantList(),
+    resultats: aJobÉtudiantList(),
   });
 }

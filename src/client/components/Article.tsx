@@ -1,33 +1,27 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { AccueilProps } from '~/pages';
-import styles from '~/styles/Article.module.css';
+import { PageAccueilArticle } from '~/server/services/cms/infra/repositories/strapiCms.service';
 
-export const Article = (props: AccueilProps) => {
-  const { articles } = props;
+interface ArticleProps {
+  data: PageAccueilArticle
+}
+
+export const Article = ({ data }: ArticleProps) => {
   return (
-    <section className={styles.container}>
-      {articles.map((article, index) => {
-        return (
-          <div
-            key={index}
-            className="fr-card fr-enlarge-link"
-            style={{
-              width: 300,
-            }}
-          >
-            <div className="fr-card__body">
-              <h2 className="fr-card__title">{article.titre}</h2>
-              <p className="fr-card__desc">{article.description}</p>
-              <p className="fr-card__detail">{article.lien}</p>
-            </div>
-            <div className="fr-card__img">
-              <Image alt="" src={article.image.url} layout="fill" />
-            </div>
-          </div>
-        );
-      })}
-    </section>
+    <div
+      className="fr-card fr-enlarge-link"
+      style={{ width: 300 }}
+      data-testid="article"
+    >
+      <div className="fr-card__body">
+        <h2 className="fr-card__title">{data.titre}</h2>
+        <p className="fr-card__desc">{data.description}</p>
+        <p className="fr-card__detail">{data.lien}</p>
+      </div>
+      <div className="fr-card__img">
+        <Image alt="" src={data.image.url} layout="fill"/>
+      </div>
+    </div>
   );
 };

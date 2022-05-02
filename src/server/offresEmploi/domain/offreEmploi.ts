@@ -1,12 +1,14 @@
+export type OffreEmploiId = string;
+
 export interface OffreEmploi {
-  id: string
+  id: OffreEmploiId
   intitulé: string
   description?: string
   lieuTravail?: string
-  entreprise?: OffreEmploi.Entreprise
+  entreprise: OffreEmploi.Entreprise
   typeContrat: OffreEmploi.TypeContrat
-  expérience: OffreEmploi.Expérience
-  duréeTravail: OffreEmploi.DuréeTravail
+  expérience?: OffreEmploi.Expérience
+  duréeTravail?: OffreEmploi.DuréeTravail
 }
 
 export namespace OffreEmploi {

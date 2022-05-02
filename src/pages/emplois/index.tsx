@@ -1,30 +1,28 @@
+import { Button, Title } from '@dataesr/react-dsfr';
 import React, { FormEvent, useState } from 'react';
 
-import { BarreDeRecherche } from '~/client/components/BarreDeRecherche/BarreDeRecherche';
-import { CardOffreEmploi } from '~/client/components/CardOffreEmploi/CardOffreEmploi';
-import { HeadTag } from '~/client/components/HeaderTag';
-import { SubmitButton } from '~/client/components/SubmitButton';
-import { useDeps } from '~/client/context/dependenciesContainer.context';
+import { RésultatRechercheOffreEmploi } from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi';
+import { BarreDeRecherche } from '~/client/components/ui/BarreDeRecherche/BarreDeRecherche';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import styles from '~/styles/Emplois.module.css';
 
 export default function Emplois() {
-  const { dependenciesContainer } = useDeps();
-  const offreEmploiService = dependenciesContainer.offreEmploiService;
+  const offreEmploiService = useDependency('offreEmploiService');
   const [offreEmploisFiltreMétier, setOffreEmploisFiltreMétier] = useState('');
   const [offreEmplois, setOffreEmplois] = useState<OffreEmploi[]>([]);
   const [offreEmploisNombreRésultats, setOffreEmploisNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const rechercherOffreEmploi = async (event: FormEvent<HTMLFormElement>) => {
+  async function rechercherOffreEmploi (event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     const result = await offreEmploiService.rechercherOffreEmploi(offreEmploisFiltreMétier);
     setOffreEmplois(result.résultats);
     setOffreEmploisNombreRésultats(result.nbRésultats);
     setIsLoading(false);
-  };
+  }
 
   return (
     <>
@@ -35,10 +33,10 @@ export default function Emplois() {
 
       <main>
         <div className={styles.title}>
-          <h1>
+          <Title as="h1">
             Des milliers d’offres d’emplois sélectionnées pour vous par Pôle
             Emploi
-          </h1>
+          </Title>
         </div>
 
         <form className={styles.barreDeRechercheContainer} onSubmit={rechercherOffreEmploi} role="search">
@@ -47,7 +45,7 @@ export default function Emplois() {
             inputName="champ-métier"
             onChange={setOffreEmploisFiltreMétier}
           />
-          <SubmitButton label="Rechercher"/>
+          <Button submit={true} className="fr-col--bottom">Rechercher</Button>
         </form>
 
         { offreEmploisNombreRésultats !== 0 &&
@@ -56,21 +54,18 @@ export default function Emplois() {
           </div>
         }
 
-
         { isLoading ?
           <p className={'pl-16'}>....en cours de chargement (todo ajouter un loader)</p>
           :
           <div className={styles.listOffreEmplois}>
             {offreEmplois.map((offreEmploi: OffreEmploi) => {
               return (
-                <CardOffreEmploi offreEmploi={offreEmploi} key={offreEmploi.id} />
+                <RésultatRechercheOffreEmploi offreEmploi={offreEmploi} key={offreEmploi.id} />
               );
             })}
           </div>
         }
-
       </main>
-
     </>
   );
 }

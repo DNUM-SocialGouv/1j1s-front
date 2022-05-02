@@ -41,7 +41,7 @@ export function aMaçonOffreEmploi(): OffreEmploi {
     expérience: OffreEmploi.Expérience.EXPERIENCE_EXIGEE,
     id: '130WPHC',
     intitulé: 'Maçon / Maçonne',
-    lieuTravail: 'ST PERE EN RETZ (44)',
+    lieuTravail: undefined,
     typeContrat: OffreEmploi.TypeContrat.MIS,
   };
 }
@@ -52,7 +52,7 @@ export function aValetOffreEmploi(): OffreEmploi {
     duréeTravail: OffreEmploi.DuréeTravail.TEMPS_PARTIEL,
     entreprise: {
       logo: undefined,
-      nom: 'IBIS SETE BALARUC',
+      nom: undefined,
     },
     expérience: OffreEmploi.Expérience.EXPERIENCE_SOUHAITEE,
     id: '132MDKM',

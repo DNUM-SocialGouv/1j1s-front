@@ -7,9 +7,9 @@ export interface ListeMétierRecherchéDependenciesContainer {
 };
 
 export function listeMétierRecherchéDependenciesContainer (laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient): ListeMétierRecherchéDependenciesContainer {
-  const jobEtudiantRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient);
+  const jobÉtudiantRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient);
 
   return {
-    listeMétierRecherché: new ListeMétierRecherchéUseCase(jobEtudiantRepository),
+    listeMétierRecherché: new ListeMétierRecherchéUseCase(jobÉtudiantRepository),
   };
 };
