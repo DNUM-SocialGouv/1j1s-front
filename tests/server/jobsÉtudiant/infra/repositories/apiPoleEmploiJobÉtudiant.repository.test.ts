@@ -1,13 +1,13 @@
 import {
   aPoleEmploiHttpClient,
-  aRechercheJobEtudiantResponse,
+  aRechercheJobÉtudiantResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
-import { ApiPoleEmploiJobEtudiantRepository } from '~/server/jobsEtudiant/infra/repositories/apiPoleEmploiJobEtudiant.repository';
+import { ApiPoleEmploiJobÉtudiantRepository } from '~/server/jobsÉtudiant/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
-describe('ApiPoleEmploiJobEtudiantRepository', () => {
-  describe('getJobEtudiantList', () => {
+describe('ApiPoleEmploiJobÉtudiantRepository', () => {
+  describe('getJobÉtudiantList', () => {
     let poleEmploiHttpClientService: PoleEmploiHttpClientService;
 
     beforeEach(() => {
@@ -15,11 +15,11 @@ describe('ApiPoleEmploiJobEtudiantRepository', () => {
     });
 
     it('retourne la liste des jobs etudiants de pole emploi', async () => {
-      const apiPoleEmploiJobEtudiantRepository = new ApiPoleEmploiJobEtudiantRepository(poleEmploiHttpClientService);
+      const apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiHttpClientService);
 
-      jest.spyOn(poleEmploiHttpClientService, 'get').mockResolvedValue(aRechercheJobEtudiantResponse());
+      jest.spyOn(poleEmploiHttpClientService, 'get').mockResolvedValue(aRechercheJobÉtudiantResponse());
 
-      const result = await apiPoleEmploiJobEtudiantRepository.getJobEtudiantList();
+      const result = await apiPoleEmploiJobÉtudiantRepository.getJobÉtudiantList();
 
       expect([
         { id: '130WZJJ', intitule: 'Hote/Hotesse de Caisse (H/F)' },

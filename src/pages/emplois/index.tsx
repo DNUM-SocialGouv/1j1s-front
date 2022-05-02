@@ -22,7 +22,7 @@ export default function Emplois() {
     setOffreEmplois(result.résultats);
     setOffreEmploisNombreRésultats(result.nbRésultats);
     setIsLoading(false);
-  };
+  }
 
   return (
     <>

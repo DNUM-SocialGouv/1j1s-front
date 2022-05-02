@@ -1,4 +1,6 @@
+type AlternanceId = string;
+
 export interface Alternance {
-  id: string;
+  id: AlternanceId;
   intitule: string;
 }

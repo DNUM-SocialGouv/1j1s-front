@@ -54,7 +54,7 @@ Standards de développement
 * les intitulés de test sont en **français**
 * Le reste du code est en **anglais**
 
-_exemple : getJobEtudiant, OffreEmploi, it("récupère la liste des alternances", () => ...)_
+_exemple : getJobÉtudiant, OffreEmploi, it("récupère la liste des alternances", () => ...)_
 
 #### Collection
 Une variable représentant une collection sera suffixée par le mot `List` afin d'éviter le pluriel, parfois en conflit avec des mots invariables

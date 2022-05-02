@@ -7,7 +7,7 @@ import { TagList } from '~/client/components/ui/TagList/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { EmploiNotFoundException } from '~/server/offresEmploi/domain/emploiNotFound.exception';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { OffreEmploi, OffreEmploiId } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
 import styles from '~/styles/OffreEmploi.module.css';
 
@@ -36,7 +36,7 @@ export default function EmploiDetails(props: EmploiProps) {
 }
 
 interface EmploiContext extends ParsedUrlQuery {
-  id: string;
+  id: OffreEmploiId;
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<EmploiProps>> {

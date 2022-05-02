@@ -3,9 +3,9 @@ import {
   métierRecherchéDependenciesContainer,
 } from '~/server/alternances/configuration/métierRecherché.dependencies';
 import {
-  JobsEtudiantDependencies,
-  jobsEtudiantDependenciesContainer,
-} from '~/server/jobsEtudiant/configuration/jobsEtudiant.dependencies';
+  JobsÉtudiantDependencies,
+  jobsÉtudiantDependenciesContainer,
+} from '~/server/jobsÉtudiant/configuration/jobsÉtudiant.dependencies';
 import {
   localisationDependenciesContainer,
   LocalisationsDependencies,
@@ -24,7 +24,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
-  jobEtudiantDependencies: JobsEtudiantDependencies;
+  jobÉtudiantDependencies: JobsÉtudiantDependencies;
   metierRechercheDependencies: MétierRecherchéDependencies;
   cmsDependencies: StrapiCmsService;
   localisationDependencies: LocalisationsDependencies;
@@ -39,7 +39,7 @@ export const dependenciesContainer = (): Dependencies => {
   const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
 
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
-  const jobEtudiantDependencies = jobsEtudiantDependenciesContainer(poleEmploiHttpClientService);
+  const jobÉtudiantDependencies = jobsÉtudiantDependenciesContainer(poleEmploiHttpClientService);
   const metierRechercheDependencies = métierRecherchéDependenciesContainer(laBonneAlternanceHttpClient);
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
@@ -51,7 +51,7 @@ export const dependenciesContainer = (): Dependencies => {
       strapiHttpClientService,
       serverConfigurationService,
     ),
-    jobEtudiantDependencies,
+    jobÉtudiantDependencies,
     localisationDependencies,
     metierRechercheDependencies,
     offreEmploiDependencies,

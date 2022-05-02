@@ -1,5 +1,7 @@
+export type OffreEmploiId = string;
+
 export interface OffreEmploi {
-  id: string
+  id: OffreEmploiId
   intitulé: string
   description?: string
   lieuTravail?: string

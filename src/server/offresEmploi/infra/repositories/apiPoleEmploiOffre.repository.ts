@@ -1,6 +1,8 @@
 import {
-  NOMBRE_RÉSULTATS_PAR_PAGE, OffreEmploi,
+  NOMBRE_RÉSULTATS_PAR_PAGE,
+  OffreEmploi,
   OffreEmploiFiltre,
+  OffreEmploiId,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { OffreEmploiRepository } from '~/server/offresEmploi/domain/offreEmploi.repository';
@@ -21,7 +23,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   ) {
   }
 
-  async getOffreEmploi(id: string): Promise<OffreEmploi> {
+  async getOffreEmploi(id: OffreEmploiId): Promise<OffreEmploi> {
     LoggerService.info(`Récupération offre emploi ${id}`);
     const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
       `partenaire/offresdemploi/v2/offres/${id}`,

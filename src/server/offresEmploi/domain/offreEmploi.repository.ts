@@ -1,10 +1,11 @@
 import {
   OffreEmploi,
   OffreEmploiFiltre,
+  OffreEmploiId,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 
 export interface OffreEmploiRepository {
-  getOffreEmploi(id: string): Promise<OffreEmploi>
+  getOffreEmploi(id: OffreEmploiId): Promise<OffreEmploi>
   searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<RésultatsRechercheOffreEmploi>;
 }
