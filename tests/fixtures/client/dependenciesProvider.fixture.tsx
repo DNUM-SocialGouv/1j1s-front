@@ -1,21 +1,23 @@
 import { render, RenderOptions } from '@testing-library/react';
-import { aDependenciesContainer } from '@tests/fixtures/client/dependenciesContainer.fixture';
-import React, { FC, ReactElement } from 'react';
+import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
+import React, { ReactElement } from 'react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-const MockedProviders: FC<React.PropsWithChildren<Record<string, unknown>>> = ({ children }) => {
+function MockedProviders ({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <DependenciesProvider dependenciesContainer={aDependenciesContainer()}>
+    <DependenciesProvider offreEmploiService={anOffreEmploiService()}>
       {children}
     </DependenciesProvider>
   );
-};
+}
 
-const customRender = (
+function customRender (
   ui: ReactElement,
   options?: Omit<RenderOptions, 'wrapper'>,
-) => render(ui, { wrapper: MockedProviders, ...options });
+) {
+  return render(ui, { wrapper: MockedProviders, ...options });
+}
 
 export * from '@testing-library/react';
 export { customRender as render };

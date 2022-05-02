@@ -15,6 +15,7 @@ import { initTracker } from '~/client/utils/tracker.util';
 
 export default function App({ Component, pageProps }: AppProps) {
   const sessionId = useSessionId();
+
   useEffect(() => {
     initTracker();
   }, []);
@@ -22,12 +23,19 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0" />
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0"
+        />
       </Head>
       <Layout>
-        <DependenciesProvider dependenciesContainer={dependenciesContainer(sessionId!)}>
-          <Component {...pageProps} />
-        </DependenciesProvider>
+        {
+          sessionId && (
+            <DependenciesProvider {...dependenciesContainer(sessionId)}>
+              <Component {...pageProps} />
+            </DependenciesProvider>
+          )
+        }
       </Layout>
     </>
   );

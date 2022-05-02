@@ -26,40 +26,28 @@ export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   jobEtudiantDependencies: JobsEtudiantDependencies;
   metierRechercheDependencies: MétierRecherchéDependencies;
-  accueilCMSDependencies: StrapiCmsService;
+  cmsDependencies: StrapiCmsService;
   localisationDependencies: LocalisationsDependencies;
 };
 
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
-  const poleEmploiHttpClientService = new PoleEmploiHttpClientService(
-    serverConfigurationService,
-  );
-  const laBonneAlternanceHttpClient = new LaBonneAlternanceHttpClient(
-    serverConfigurationService,
-  );
-  const strapiHttpClientService = new StrapiHttpClientService(
-    serverConfigurationService,
-  );
+  const poleEmploiHttpClientService = new PoleEmploiHttpClientService(serverConfigurationService);
+  const laBonneAlternanceHttpClient = new LaBonneAlternanceHttpClient(serverConfigurationService);
+  const strapiHttpClientService = new StrapiHttpClientService(serverConfigurationService);
   const apiGeoGouvHttpClientService = new ApiGeoHttpClientService(serverConfigurationService);
   const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
 
-  const offreEmploiDependencies = offresEmploiDependenciesContainer(
-    poleEmploiHttpClientService,
-  );
-  const jobEtudiantDependencies = jobsEtudiantDependenciesContainer(
-    poleEmploiHttpClientService,
-  );
-  const metierRechercheDependencies = métierRecherchéDependenciesContainer(
-    laBonneAlternanceHttpClient,
-  );
+  const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
+  const jobEtudiantDependencies = jobsEtudiantDependenciesContainer(poleEmploiHttpClientService);
+  const metierRechercheDependencies = métierRecherchéDependenciesContainer(laBonneAlternanceHttpClient);
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
     apiAdresseHttpClientService,
   );
 
   return {
-    accueilCMSDependencies: new StrapiCmsService(
+    cmsDependencies: new StrapiCmsService(
       strapiHttpClientService,
       serverConfigurationService,
     ),

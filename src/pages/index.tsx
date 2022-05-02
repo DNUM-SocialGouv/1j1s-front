@@ -27,8 +27,7 @@ export default function Accueil(props: AccueilProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilProps>> {
-  const articles = await dependencies.accueilCMSDependencies.getPageAccueilList();
-  console.info(articles);
+  const articles = await dependencies.cmsDependencies.getPageAccueilList();
 
   return {
     props: {

@@ -1,15 +1,16 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import styles from '~/client/components/ui/Autocompletion/Autocompletion.module.css';
+import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
-interface AutocompletionProps {
+interface AutoCompletionProps {
   suggestionList: string[];
   placeholder?: string;
   inputName: string;
   icon?: string;
 }
-export const Autocompletion = (props: AutocompletionProps) => {
+
+export const AutoCompletion = (props: AutoCompletionProps) => {
   const { suggestionList, inputName, placeholder, icon } = props;
 
   const [suggestions, setSuggestions] = useState<string[]>([]);

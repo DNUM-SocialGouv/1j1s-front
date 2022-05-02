@@ -4,13 +4,12 @@ import React, { FormEvent, useState } from 'react';
 import { RésultatRechercheOffreEmploi } from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi';
 import { BarreDeRecherche } from '~/client/components/ui/BarreDeRecherche/BarreDeRecherche';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-import { useDeps } from '~/client/context/dependenciesContainer.context';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import styles from '~/styles/Emplois.module.css';
 
 export default function Emplois() {
-  const { dependenciesContainer } = useDeps();
-  const offreEmploiService = dependenciesContainer.offreEmploiService;
+  const offreEmploiService = useDependency('offreEmploiService');
   const [offreEmploisFiltreMétier, setOffreEmploisFiltreMétier] = useState('');
   const [offreEmplois, setOffreEmplois] = useState<OffreEmploi[]>([]);
   const [offreEmploisNombreRésultats, setOffreEmploisNombreRésultats] = useState(0);
