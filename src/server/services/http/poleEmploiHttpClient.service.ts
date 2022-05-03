@@ -23,7 +23,7 @@ export class PoleEmploiHttpClientService extends ClientService {
           try {
             await this.refreshToken();
           } catch (e) {
-            // log error refresh token
+            console.error(e);
           }
           return this.client.request(originalRequest);
         }
@@ -55,11 +55,11 @@ export class PoleEmploiHttpClientService extends ClientService {
     const environmentVariables = this.configurationService.getConfiguration();
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
-    params.append('client_id', environmentVariables.API_POLE_EMPLOI_CLIENT_ID);
-    params.append('client_secret', environmentVariables.API_POLE_EMPLOI_CLIENT_SECRET);
-    params.append('scope', environmentVariables.API_POLE_EMPLOI_SCOPE);
+    params.append('client_id', environmentVariables.POLE_EMPLOI_CONNECT_CLIENT_ID);
+    params.append('client_secret', environmentVariables.POLE_EMPLOI_CONNECT_CLIENT_SECRET);
+    params.append('scope', environmentVariables.POLE_EMPLOI_CONNECT_SCOPE);
 
-    const endpoint = 'https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=partenaire';
+    const endpoint = `${environmentVariables.POLE_EMPLOI_CONNECT_URL}/connexion/oauth2/access_token?realm=partenaire`;
 
     const response = await axios.post<PoleEmploiTokenResponse>(
       endpoint,

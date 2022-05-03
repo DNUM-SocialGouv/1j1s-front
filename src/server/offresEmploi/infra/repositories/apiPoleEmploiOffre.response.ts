@@ -7,6 +7,7 @@ export interface OffreEmploiResponse {
   typeContrat: OffreEmploiResponse.TypeContrat
   experienceExige?: OffreEmploiResponse.Expérience
   dureeTravailLibelleConverti?: OffreEmploiResponse.DuréeTravail
+  origineOffre: OffreEmploiResponse.OrigineOffre
 }
 
 export namespace OffreEmploiResponse {
@@ -23,6 +24,10 @@ export namespace OffreEmploiResponse {
   export interface Entreprise {
     nom?: string
     logo?: string
+  }
+
+  export interface OrigineOffre {
+    urlOrigine: string
   }
 }
 

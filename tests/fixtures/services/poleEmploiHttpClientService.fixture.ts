@@ -47,6 +47,9 @@ function aBarmanOffreEmploiResponse(): OffreEmploiResponse {
     lieuTravail: {
       libelle: '26 - BOURG LES VALENCE',
     },
+    origineOffre: {
+      urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
+    },
     typeContrat: 'SAI',
   };
 }
@@ -63,6 +66,9 @@ function aMaçonOffreEmploiResponse(): OffreEmploiResponse {
     id: '130WPHC',
     intitule: 'Maçon / Maçonne',
     lieuTravail: undefined,
+    origineOffre: {
+      urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/130WPHC',
+    },
     typeContrat: 'MIS',
   };
 }
@@ -77,6 +83,9 @@ function aValetOffreEmploiResponse(): OffreEmploiResponse {
     intitule: 'Valet / Femme de chambre',
     lieuTravail: {
       libelle: '34 - BALARUC LES BAINS',
+    },
+    origineOffre: {
+      urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132MDKM',
     },
     typeContrat: 'CDD',
   };

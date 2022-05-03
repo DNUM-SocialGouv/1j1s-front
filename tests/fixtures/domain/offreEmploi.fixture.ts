@@ -27,6 +27,7 @@ export function aBarmanOffreEmploi(): OffreEmploi {
     intitulé: 'Barman / Barmaid (H/F)',
     lieuTravail: 'BOURG LES VALENCE (26)',
     typeContrat: OffreEmploi.TypeContrat.SAI,
+    urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
   };
 }
 
@@ -43,6 +44,7 @@ export function aMaçonOffreEmploi(): OffreEmploi {
     intitulé: 'Maçon / Maçonne',
     lieuTravail: undefined,
     typeContrat: OffreEmploi.TypeContrat.MIS,
+    urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/130WPHC',
   };
 }
 
@@ -59,6 +61,7 @@ export function aValetOffreEmploi(): OffreEmploi {
     intitulé: 'Valet / Femme de chambre',
     lieuTravail: 'BALARUC LES BAINS (34)',
     typeContrat: OffreEmploi.TypeContrat.CDD,
+    urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132MDKM',
   };
 }
 

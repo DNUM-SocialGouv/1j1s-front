@@ -9,6 +9,7 @@ export interface OffreEmploi {
   typeContrat: OffreEmploi.TypeContrat
   expérience?: OffreEmploi.Expérience
   duréeTravail?: OffreEmploi.DuréeTravail
+  urlOffreOrigine: string
 }
 
 export namespace OffreEmploi {
@@ -46,4 +47,4 @@ export interface OffreEmploiFiltre {
   page: number
 }
 
-export const NOMBRE_RÉSULTATS_PAR_PAGE = 40;
+export const NOMBRE_RÉSULTATS_PAR_PAGE = 30;

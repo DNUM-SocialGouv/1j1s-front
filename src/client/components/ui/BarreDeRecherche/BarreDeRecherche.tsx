@@ -1,16 +1,13 @@
-import React, {
-  ChangeEvent,
-} from 'react';
+import React, { ChangeEvent } from 'react';
 
 interface BarreDeRechercheProps {
   placeholder?: string;
   inputName: string;
-  icon?: string;
   onChange: (value: string) => void
 }
 
 export const BarreDeRecherche = (props: BarreDeRechercheProps) => {
-  const { inputName, placeholder, icon, onChange } = props;
+  const { inputName, placeholder, onChange } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -30,7 +27,7 @@ export const BarreDeRecherche = (props: BarreDeRechercheProps) => {
         onChange={handleChange}
       />
       <span
-        className={['fr-btn', icon ?? 'fr-icon-zoom-line'].join(' ')}
+        className="fr-btn fr-icon-zoom-line"
         aria-hidden="true"
       />
     </div>

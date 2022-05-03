@@ -1,6 +1,5 @@
 import '@gouvfr/dsfr/dist/dsfr/dsfr.css';
 import '@gouvfr/dsfr/dist/utility/icons/icons-map/icons-map.css';
-import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.css';
 import '~/styles/globals.css';
 
 import { AppProps } from 'next/app';

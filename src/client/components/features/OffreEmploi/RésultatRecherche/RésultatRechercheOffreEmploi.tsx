@@ -1,3 +1,4 @@
+import { ButtonGroup, Icon, Text } from '@dataesr/react-dsfr';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -10,31 +11,38 @@ interface RésultatRechercheOffreEmploiProps {
   offreEmploi: OffreEmploi;
 }
 
-export function RésultatRechercheOffreEmploi (props: RésultatRechercheOffreEmploiProps) {
+export function RésultatRechercheOffreEmploi(props: RésultatRechercheOffreEmploiProps) {
   const { offreEmploi } = props;
+  const defaultLogo = '/images/pole-emploi.svg';
+
   return (
     <Link href={'/emplois/' + offreEmploi.id}>
       <a className={styles.card}>
-        <div className={styles.cardHeader}>
-          <Image alt="" src="/images/france-relance.svg" width="48" height="48" />
+        <header className={styles.cardHeader}>
+          <Image alt="" src={offreEmploi.entreprise.logo || defaultLogo} width="48" height="48"/>
           <div>
-            <strong> {offreEmploi.intitulé} </strong>
-            <p> {offreEmploi.entreprise?.nom ?? 'NOM ENTREPRISE'} </p>
+            <strong>{offreEmploi.intitulé}</strong>
+            {offreEmploi.entreprise?.nom && <div>{offreEmploi.entreprise?.nom}</div>}
           </div>
-        </div>
+        </header>
         <div className={styles.cardBody}>
-          <TagList list={[offreEmploi.expérience, offreEmploi.typeContrat, offreEmploi.duréeTravail]} />
+          <TagList list={[
+            offreEmploi.lieuTravail,
+            offreEmploi.expérience,
+            offreEmploi.typeContrat,
+            offreEmploi.duréeTravail,
+          ]}/>
           <p>
             <strong>Description:</strong>{' '}
             {offreEmploi.description?.slice(0, 100)} [...]
           </p>
-          <span className={'align-right'}>
-            en savoir plus
-            <span
-              className="fr-icon-arrow-right-s-line"
-              aria-hidden="true"
-            />
-          </span>
+
+          <ButtonGroup size="md" align="right">
+            <Text size="sm" spacing="m-0" className="fr-link">
+              En savoir plus
+              <Icon name="ri-arrow-right-s-line" size="2x" iconPosition="right" />
+            </Text>
+          </ButtonGroup>
         </div>
       </a>
     </Link>

@@ -12,41 +12,28 @@
 }
 
 .nombreRésultats {
-  border-top: 1px solid var(--grey-950);
+  margin-top: 24px;
+  padding: 16px;
+}
+
+.rechercheOffreEmploi {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 16px;
   border-bottom: 1px solid var(--grey-950);
-  padding-top: 1.5rem;;
-  padding-bottom: 1.5rem;
 }
 
-.nombreRésultats strong {
-  padding: 1rem;
+.rechercheOffreEmploi > div:not(:last-child) {
+  margin-bottom: 28px;
 }
 
-.barreDeRechercheContainer {
+.résultatRechercheOffreEmploiList {
   display: flex;
   flex-direction: column;
-  padding: 1.875rem;
+  padding: 0 16px;
+  list-style: none;
 }
 
-.barreDeRechercheContainer > div:not(:last-child) {
-  margin-bottom: 1.875rem;
-}
-
-.listOffreEmplois {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@media screen and (min-width: 600px) {
-  .listOffreEmplois {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-.listOffreEmplois > a:not(last-child) {
-  margin-bottom: 1.75rem;
+.résultatRechercheOffreEmploiList > li {
+  margin-top: 24px;
 }

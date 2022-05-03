@@ -18,14 +18,6 @@ p {
   margin: 0;
 }
 
-.align-right {
-  text-align: right;
-}
-
-.pl-16 {
-  padding-left: 1rem;
-}
-
 .hide {
   clip: rect(0,0,0,0);
   border: 0;

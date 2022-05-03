@@ -63,7 +63,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
       expect(result).toEqual(aRésultatsRechercheOffreEmploi());
       expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
-        'partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger',
+        'partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger',
       );
       expect(LoggerService.info).toHaveBeenCalledWith(
         'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
@@ -78,7 +78,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
           const offreEmploiFiltre = anOffreEmploiFiltre();
           const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-          expect(result).toEqual('range=0-39&motsCles=boulanger');
+          expect(result).toEqual('range=0-29&motsCles=boulanger');
         });
       });
 
@@ -87,7 +87,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
           const offreEmploiFiltre = anOffreEmploiFiltre({ page: 3 });
           const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-          expect(result).toEqual('range=80-119&motsCles=boulanger');
+          expect(result).toEqual('range=60-89&motsCles=boulanger');
         });
       });
     });
@@ -97,7 +97,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
         const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
         const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-        expect(result).toEqual('range=0-39&motsCles=');
+        expect(result).toEqual('range=0-29&motsCles=');
       });
     });
   });
