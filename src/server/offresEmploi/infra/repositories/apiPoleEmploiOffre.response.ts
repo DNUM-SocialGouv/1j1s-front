@@ -33,7 +33,7 @@ export namespace OffreEmploiResponse {
 
 export interface RésultatsRechercheOffreEmploiResponse {
   resultats: OffreEmploiResponse[]
-  filtresPossibles: RésultatsRechercheOffreEmploiResponse.FiltresPossibles[]
+  filtresPossibles?: RésultatsRechercheOffreEmploiResponse.FiltresPossibles[]
 }
 
 export namespace RésultatsRechercheOffreEmploiResponse {

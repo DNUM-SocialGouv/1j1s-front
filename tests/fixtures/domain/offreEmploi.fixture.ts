@@ -3,14 +3,15 @@ import {
   OffreEmploiFiltre, RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 
-export function aRésultatsRechercheOffreEmploi(): RésultatsRechercheOffreEmploi {
+export function aRésultatsRechercheOffreEmploi(override?: Partial<RésultatsRechercheOffreEmploi>): RésultatsRechercheOffreEmploi {
   return {
-    nbRésultats: 12,
+    nombreRésultats: 3,
     résultats: [
       aBarmanOffreEmploi(),
       aMaçonOffreEmploi(),
       aValetOffreEmploi(),
     ],
+    ...override,
   };
 }
 
@@ -65,9 +66,7 @@ export function aValetOffreEmploi(): OffreEmploi {
   };
 }
 
-export function anOffreEmploiFiltre(
-  override?: Partial<OffreEmploiFiltre>,
-): OffreEmploiFiltre {
+export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
     motClé: 'boulanger',
     page: 1,

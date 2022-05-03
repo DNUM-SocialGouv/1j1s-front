@@ -1,8 +1,7 @@
-import { Button, ButtonGroup, Title } from '@dataesr/react-dsfr';
-import React, { FormEvent, useState } from 'react';
+import { Button, ButtonGroup, TextInput, Title } from '@dataesr/react-dsfr';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { RésultatRechercheOffreEmploi } from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi';
-import { BarreDeRecherche } from '~/client/components/ui/BarreDeRecherche/BarreDeRecherche';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
@@ -20,7 +19,7 @@ export default function Emplois() {
     setIsLoading(true);
     const result = await offreEmploiService.rechercherOffreEmploi(offreEmploisFiltreMétier);
     setOffreEmplois(result.résultats);
-    setOffreEmploisNombreRésultats(result.nbRésultats);
+    setOffreEmploisNombreRésultats(result.nombreRésultats);
     setIsLoading(false);
   }
 
@@ -39,10 +38,13 @@ export default function Emplois() {
         </div>
 
         <form className={styles.rechercheOffreEmploi} onSubmit={rechercherOffreEmploi} role="search">
-          <BarreDeRecherche
-            placeholder="Recherche un métier, une entreprise, un mot-clé..."
-            inputName="champ-métier"
-            onChange={setOffreEmploisFiltreMétier}
+          <TextInput
+            label="Rechercher un métier, un mot-clé..."
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            name="motCle"
+            placeholder="Boulanger"
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setOffreEmploisFiltreMétier(event.target.value)}
           />
           <ButtonGroup size="md">
             <Button submit={true} icon="ri-search-line" iconPosition="right">Rechercher</Button>

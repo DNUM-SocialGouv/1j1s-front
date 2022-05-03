@@ -38,8 +38,8 @@ export namespace OffreEmploi {
 }
 
 export interface RésultatsRechercheOffreEmploi {
+  nombreRésultats: number
   résultats: OffreEmploi[]
-  nbRésultats: number
 }
 
 export interface OffreEmploiFiltre {

@@ -6,7 +6,7 @@ import {
 
 export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheOffreEmploiResponse): RésultatsRechercheOffreEmploi {
   return {
-    nbRésultats: sumRésultatsFiltrePossible(response.filtresPossibles),
+    nombreRésultats: getNombreRésultats(response.filtresPossibles),
     résultats: response.resultats.map(mapOffreEmploi),
   };
 }
@@ -79,6 +79,9 @@ function sumRésultatsAgrégation(agrégationResponseList: RésultatsRechercheOf
   return agrégationResponseList.reduce((nbRésultats, agrégationResponse) => nbRésultats + agrégationResponse.nbResultats, 0);
 }
 
-function sumRésultatsFiltrePossible(filtrePossibleResponseList: RésultatsRechercheOffreEmploiResponse.FiltresPossibles[]): number {
-  return filtrePossibleResponseList.reduce((nbRésultats, filtrePossibleResponse) => nbRésultats + sumRésultatsAgrégation(filtrePossibleResponse.agregation), 0);
+function getNombreRésultats(filtrePossibleResponseList: RésultatsRechercheOffreEmploiResponse.FiltresPossibles[] | undefined): number {
+  if (!filtrePossibleResponseList?.length) return 0;
+
+  const maxNombreRésultatList = filtrePossibleResponseList.flatMap((filtrePossibleResponse) => sumRésultatsAgrégation(filtrePossibleResponse.agregation));
+  return Math.max(...maxNombreRésultatList);
 }

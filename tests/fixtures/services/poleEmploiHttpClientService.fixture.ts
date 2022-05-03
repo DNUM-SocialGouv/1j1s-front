@@ -18,7 +18,7 @@ export function aPoleEmploiHttpClient(): PoleEmploiHttpClientService {
   } as unknown as PoleEmploiHttpClientService;
 }
 
-export function aRésultatRechercheOffreEmploiAxiosResponse(): AxiosResponse<RésultatsRechercheOffreEmploiResponse> {
+export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<RésultatsRechercheOffreEmploiResponse>): AxiosResponse<RésultatsRechercheOffreEmploiResponse> {
   return anAxiosResponse({
     filtresPossibles: aFiltresPossiblesResponse(),
     resultats: [
@@ -26,6 +26,7 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(): AxiosResponse<Ré
       aMaçonOffreEmploiResponse(),
       aValetOffreEmploiResponse(),
     ],
+    ...override,
   });
 }
 

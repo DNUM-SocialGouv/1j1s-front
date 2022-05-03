@@ -53,21 +53,42 @@ describe('ApiPoleEmploiOffreRepository', () => {
   });
 
   describe('searchOffreEmploi', () => {
-    it('recherche les offres d\'emploi de pole emploi', async () => {
-      jest
-        .spyOn(poleEmploiHttpClientService, 'get')
-        .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
-      const offreEmploiFiltre = anOffreEmploiFiltre();
+    describe('quand nombre de résultat est présent dans la réponse', () => {
+      it('recherche les offres d\'emploi de pole emploi', async () => {
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
+        const offreEmploiFiltre = anOffreEmploiFiltre();
 
-      const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre);
+        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre);
 
-      expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-      expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
-        'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29',
-      );
-      expect(LoggerService.info).toHaveBeenCalledWith(
-        'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
-      );
+        expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
+          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29',
+        );
+        expect(LoggerService.info).toHaveBeenCalledWith(
+          'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
+        );
+      });
+    });
+
+    describe('quand nombre de résultat est absent dans la réponse', () => {
+      it('recherche les offres d\'emploi de pole emploi', async () => {
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse({ filtresPossibles: undefined }));
+        const offreEmploiFiltre = anOffreEmploiFiltre();
+
+        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre);
+
+        expect(result).toEqual(aRésultatsRechercheOffreEmploi({ nombreRésultats: 0 }));
+        expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
+          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29',
+        );
+        expect(LoggerService.info).toHaveBeenCalledWith(
+          'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
+        );
+      });
     });
   });
 
