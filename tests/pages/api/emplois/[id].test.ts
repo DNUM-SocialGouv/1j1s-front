@@ -8,7 +8,7 @@ import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 describe('consulter offre emploi api controller', () => {
   it('retourne l\'offre d\'emploi', async () => {
-    nock('https://api.emploi-store.fr/')
+    nock('https://api.emploi-store.fr')
       .get('/partenaire/offresdemploi/v2/offres/132LKFB')
       .reply(200, aBarmanOffreEmploiAxiosResponse().data);
 

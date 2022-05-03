@@ -63,7 +63,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
       expect(result).toEqual(aRésultatsRechercheOffreEmploi());
       expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
-        'partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger',
+        'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29',
       );
       expect(LoggerService.info).toHaveBeenCalledWith(
         'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
@@ -78,16 +78,19 @@ describe('ApiPoleEmploiOffreRepository', () => {
           const offreEmploiFiltre = anOffreEmploiFiltre();
           const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-          expect(result).toEqual('range=0-29&motsCles=boulanger');
+          expect(result).toEqual('motsCles=boulanger&range=0-29');
         });
       });
 
       describe('quand la page vaut 3', () => {
         it('retourne les paramètres de recherche', () => {
-          const offreEmploiFiltre = anOffreEmploiFiltre({ page: 3 });
+          const offreEmploiFiltre = anOffreEmploiFiltre({
+            motClé: 'électricien',
+            page: 3,
+          });
           const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-          expect(result).toEqual('range=60-89&motsCles=boulanger');
+          expect(result).toEqual('motsCles=%C3%A9lectricien&range=60-89');
         });
       });
     });
@@ -97,7 +100,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
         const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
         const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-        expect(result).toEqual('range=0-29&motsCles=');
+        expect(result).toEqual('motsCles=&range=0-29');
       });
     });
   });

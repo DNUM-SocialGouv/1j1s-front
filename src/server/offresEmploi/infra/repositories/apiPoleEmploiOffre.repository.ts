@@ -44,6 +44,10 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
   buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): string {
     const range = `${(offreEmploiFiltre.page - 1) * NOMBRE_RÉSULTATS_PAR_PAGE}-${offreEmploiFiltre.page * NOMBRE_RÉSULTATS_PAR_PAGE - 1}`;
-    return `range=${range}&motsCles=${offreEmploiFiltre.motClé ?? ''}`;
+    const params = new URLSearchParams({
+      motsCles: offreEmploiFiltre.motClé || '',
+      range,
+    });
+    return params.toString();
   }
 }
