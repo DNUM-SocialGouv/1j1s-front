@@ -6,9 +6,16 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require('@sentry/nextjs');
 
+function getHostName(string) {
+  return string.replace('https://', '');
+}
+
+const CMS_HOST = getHostName(process.env.STRAPI_BASE_URL);
+const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
+
 const moduleExports = {
   images: {
-    domains: [process.env.IMAGE_PROVIDER_DOMAIN],
+    domains: [CMS_HOST, API_POLE_EMPLOI_HOST],
   },
   reactStrictMode: true,
 };

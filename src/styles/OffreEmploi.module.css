@@ -4,8 +4,8 @@
   padding: 20px 16px;
 }
 
-.offreEmploiContainer > * + * {
-  margin-top: 24px;
+.offreEmploiContainer > * {
+  margin-bottom: 24px;
 }
 
 .offreEmploiContainer > ul {

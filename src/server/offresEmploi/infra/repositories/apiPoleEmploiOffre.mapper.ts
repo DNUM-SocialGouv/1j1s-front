@@ -24,6 +24,7 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
     intitulé: offreEmploiResponse.intitule,
     lieuTravail: mapLieuTravail(offreEmploiResponse.lieuTravail),
     typeContrat: mapTypeContrat(offreEmploiResponse.typeContrat),
+    urlOffreOrigine: offreEmploiResponse.origineOffre.urlOrigine,
   };
 }
 

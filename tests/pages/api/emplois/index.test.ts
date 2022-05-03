@@ -9,9 +9,9 @@ import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/off
 describe('rechercher offre emploi api controller', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr/')
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-39&motsCles=boulanger')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://entreprise.pole-emploi.fr/')

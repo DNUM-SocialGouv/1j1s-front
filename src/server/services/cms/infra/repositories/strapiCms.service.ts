@@ -12,7 +12,7 @@ export class StrapiCmsService {
   }
 
   async getPageAccueilList(): Promise<PageAccueilArticle[]> {
-    const { STRAPI_URL_API, STRAPI_URL_IMAGE } = this.configurationService.getConfiguration();
+    const { STRAPI_URL_API, STRAPI_BASE_URL } = this.configurationService.getConfiguration();
     const nestedContentTypeQueryParams = StrapiCmsService.buildNestedContentTypeQueryParams(
       StrapiContentType.PAGE_ACCUEIL_ARTICLES,
     );
@@ -28,7 +28,7 @@ export class StrapiCmsService {
           description,
           image: {
             height,
-            url: `${STRAPI_URL_IMAGE}${url}`,
+            url: `${STRAPI_BASE_URL}/${url}`,
             width,
           },
           lien,
