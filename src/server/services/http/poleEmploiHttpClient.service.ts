@@ -23,7 +23,7 @@ export class PoleEmploiHttpClientService extends ClientService {
           try {
             await this.refreshToken();
           } catch (e) {
-            // log error refresh token
+            console.error(e);
           }
           return this.client.request(originalRequest);
         }
