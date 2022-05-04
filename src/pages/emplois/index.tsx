@@ -23,7 +23,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import styles from '~/styles/RechercheOffreEmploi.module.css';
 
-export default function Emplois() {
+export default function RechercherOffresEmploi() {
   const offreEmploiService = useDependency('offreEmploiService');
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
