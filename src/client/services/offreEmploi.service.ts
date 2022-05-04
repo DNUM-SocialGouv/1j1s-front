@@ -7,10 +7,8 @@ export class OffreEmploiService {
   }
 
   async rechercherOffreEmploi(formData: FormData): Promise<RésultatsRechercheOffreEmploi> {
-    console.log(formData.get('métierRecherché'));
-    console.log(formData.getAll('typeDeContrat'));
-    // emplois?page=1&motsCles=${filtre.motClé}&typeDeContrats=${filtre.typeDeContrats.toString()}
-    const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>('');
+    const queryString = new URLSearchParams(formData as unknown as Record<string, string>).toString();
+    const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?page=1&${queryString}`);
     return response.data;
   }
 }

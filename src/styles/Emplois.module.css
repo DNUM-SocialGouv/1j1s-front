@@ -11,6 +11,19 @@
   text-align: center;
 }
 
+.filtresDesktop {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  .filtresMobile {
+    display: none;
+  }
+  .filtresDesktop {
+    display: block;
+  }
+}
+
 .nombreRésultats {
   margin-top: 24px;
   padding: 16px;

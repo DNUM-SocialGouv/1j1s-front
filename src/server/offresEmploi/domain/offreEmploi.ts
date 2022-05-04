@@ -49,3 +49,10 @@ export interface OffreEmploiFiltre {
 }
 
 export const NOMBRE_RÉSULTATS_PAR_PAGE = 30;
+
+export const TYPE_DE_CONTRAT_LIST = [
+  { label: 'Contrat à durée déterminé', value: 'CDD' },
+  { label: 'Contrat à durée indéterminé', value: 'CDI' },
+  { label: 'Mission intérimaire', value: 'MIS' },
+  { label: 'Contrat travail saisonnier', value: 'SAI' },
+];
