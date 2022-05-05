@@ -25,7 +25,7 @@ describe('rechercher offre emploi api controller', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
-      url: '/emplois?page=1&motsCles=boulanger&typeDeContrats=CDD,CDI',
+      url: '/emplois?page=1&motCle=boulanger&typeDeContrats=CDD,CDI',
     });
   });
 });

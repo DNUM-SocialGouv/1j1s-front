@@ -11,17 +11,8 @@ import {
 
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
-jest.mock('~/server/services/logger.service', () => {
-  return {
-    LoggerService: {
-      error: jest.fn(),
-      info: jest.fn(),
-      warn: jest.fn(),
-    },
-  };
-});
+jest.mock('~/server/services/logger.service');
 
 describe('ApiPoleEmploiOffreRepository', () => {
   let poleEmploiHttpClientService: PoleEmploiHttpClientService;
@@ -46,9 +37,6 @@ describe('ApiPoleEmploiOffreRepository', () => {
       expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
         'partenaire/offresdemploi/v2/offres/132LKFB',
       );
-      expect(LoggerService.info).toHaveBeenCalledWith(
-        'Récupération offre emploi 132LKFB',
-      );
     });
   });
 
@@ -66,9 +54,6 @@ describe('ApiPoleEmploiOffreRepository', () => {
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
           'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI',
         );
-        expect(LoggerService.info).toHaveBeenCalledWith(
-          'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1,"typeDeContrats":["CDD","CDI"]}',
-        );
       });
     });
 
@@ -83,10 +68,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(aRésultatsRechercheOffreEmploi({ nombreRésultats: 0 }));
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29',
-        );
-        expect(LoggerService.info).toHaveBeenCalledWith(
-          'Recherche offre emploi avec filtres {"motClé":"boulanger","page":1}',
+          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI',
         );
       });
     });

@@ -1,29 +1,3 @@
-.title {
-  height: 228px;
-  background-color: var(--blue-france-113);
-  display: flex;
-  padding: 0.625rem;
-}
-
-.title h1 {
-  margin: auto;
-  color: var(--grey-1000);
-  text-align: center;
-}
-
-.filtresDesktop {
-  display: none;
-}
-
-@media screen and (min-width: 600px) {
-  .filtresMobile {
-    display: none;
-  }
-  .filtresDesktop {
-    display: block;
-  }
-}
-
 .nombreRésultats {
   margin-top: 24px;
   padding: 16px;
