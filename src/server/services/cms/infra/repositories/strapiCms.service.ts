@@ -2,21 +2,21 @@ import { DataCmsResponse } from '~/server/services/cms/infra/repositories/respon
 import { PageAccueilCmsResponse } from '~/server/services/cms/infra/repositories/responses/pageAccueilCmsResponse.type';
 import { StrapiContentType } from '~/server/services/cms/infra/repositories/strapiContent.type';
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { ClientService } from '~/server/services/http/client.service';
+import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
 
 export class StrapiCmsService {
   constructor(
-    private clientService: ClientService,
+    private strapiHttpClientService: StrapiHttpClientService,
     private configurationService: ConfigurationService,
   ) {
   }
 
   async getPageAccueilList(): Promise<PageAccueilArticle[]> {
-    const { STRAPI_URL_API, STRAPI_BASE_URL } = this.configurationService.getConfiguration();
+    const { STRAPI_URL_API, STRAPI_BASE_URL, FRONT_URL } = this.configurationService.getConfiguration();
     const nestedContentTypeQueryParams = StrapiCmsService.buildNestedContentTypeQueryParams(
       StrapiContentType.PAGE_ACCUEIL_ARTICLES,
     );
-    const response = await this.clientService.get<DataCmsResponse<PageAccueilCmsResponse>>(
+    const response = await this.strapiHttpClientService.get<DataCmsResponse<PageAccueilCmsResponse>>(
       `${STRAPI_URL_API}${StrapiContentType.PAGE_ACCUEIL}${nestedContentTypeQueryParams}`,
     );
 
@@ -28,10 +28,10 @@ export class StrapiCmsService {
           description,
           image: {
             height,
-            url: `${STRAPI_BASE_URL}/${url}`,
+            url: `${STRAPI_BASE_URL}${url}`,
             width,
           },
-          lien,
+          lien: `${FRONT_URL}${lien}`,
           titre,
         };
       },
@@ -51,7 +51,7 @@ export interface PageAccueilArticle {
 }
 
 export interface PageAccueilArticleImage {
-  width: number;
-  height: number;
+  width: number | null;
+  height: number | null;
   url: string;
 }
