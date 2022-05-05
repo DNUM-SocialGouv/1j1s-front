@@ -20,8 +20,8 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { OffreEmploi, TYPE_DE_CONTRAT_LIST } from '~/server/offresEmploi/domain/offreEmploi';
-import styles from '~/styles/Emplois.module.css';
+import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import styles from '~/styles/RechercheOffreEmploi.module.css';
 
 export default function Emplois() {
   const offreEmploiService = useDependency('offreEmploiService');
@@ -79,7 +79,8 @@ export default function Emplois() {
 
           <Button
             styleAsLink
-            icon="ri-filter-line"
+            className={`${styles.buttonFiltreRecherche} fr-text--sm`}
+            icon="ri-filter-fill"
             iconPosition="left"
             onClick={() => isSmallScreen ? setIsFiltreRechercheMobileOpen(true) : toggleFiltreRechercheDesktop()}
           >
@@ -87,19 +88,21 @@ export default function Emplois() {
           </Button>
 
           {
-            isFiltreRechercheDesktopOpen && <CheckboxGroup legend="Type de contrat">
-              {TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                <Checkbox
-                  key={index}
-                  label={typeDeContrat.label}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                  value={typeDeContrat.value}
-                  checked={typeDeContratInput.includes(typeDeContrat.value)}
-                />
-              ))}
-            </CheckboxGroup>
+            isFiltreRechercheDesktopOpen && <div className={styles.filtreRechercheDesktop}>
+              <CheckboxGroup legend="Type de contrat">
+                {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                  <Checkbox
+                    key={index}
+                    label={typeDeContrat.libelléLong}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                    value={typeDeContrat.valeur}
+                    checked={typeDeContratInput.includes(typeDeContrat.valeur)}
+                  />
+                ))}
+              </CheckboxGroup>
+            </div>
           }
         </form>
 
@@ -129,15 +132,15 @@ export default function Emplois() {
         <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
         <ModalContent>
           <CheckboxGroup legend="Type de contrat">
-            {TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+            {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
               <Checkbox
                 key={index}
-                label={typeDeContrat.label}
+                label={typeDeContrat.libelléLong}
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                value={typeDeContrat.value}
-                checked={typeDeContratInput.includes(typeDeContrat.value)}
+                value={typeDeContrat.valeur}
+                checked={typeDeContratInput.includes(typeDeContrat.valeur)}
               />
             ))}
           </CheckboxGroup>

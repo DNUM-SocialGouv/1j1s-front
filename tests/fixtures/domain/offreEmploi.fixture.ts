@@ -27,7 +27,7 @@ export function aBarmanOffreEmploi(): OffreEmploi {
     id: '132LKFB',
     intitulé: 'Barman / Barmaid (H/F)',
     lieuTravail: 'BOURG LES VALENCE (26)',
-    typeContrat: OffreEmploi.TypeContrat.SAI,
+    typeContrat: OffreEmploi.CONTRAT_SAISONNIER,
     urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
   };
 }
@@ -44,7 +44,7 @@ export function aMaçonOffreEmploi(): OffreEmploi {
     id: '130WPHC',
     intitulé: 'Maçon / Maçonne',
     lieuTravail: undefined,
-    typeContrat: OffreEmploi.TypeContrat.MIS,
+    typeContrat: OffreEmploi.CONTRAT_INTÉRIMAIRE,
     urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/130WPHC',
   };
 }
@@ -61,7 +61,7 @@ export function aValetOffreEmploi(): OffreEmploi {
     id: '132MDKM',
     intitulé: 'Valet / Femme de chambre',
     lieuTravail: 'BALARUC LES BAINS (34)',
-    typeContrat: OffreEmploi.TypeContrat.CDD,
+    typeContrat: OffreEmploi.CONTRAT_CDD,
     urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132MDKM',
   };
 }

@@ -10,6 +10,16 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
+.buttonFiltreRecherche {
+  align-self: flex-start;
+}
+
+.filtreRechercheDesktop {
+  margin-top: 16px;
+  padding-left: 16px;
+  border-left: solid 2px var(--blue-france-113);
+}
+
 .rechercheOffreEmploi > div:not(:last-child) {
   margin-bottom: 28px;
 }
