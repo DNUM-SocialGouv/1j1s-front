@@ -20,6 +20,10 @@
   border-left: solid 2px var(--blue-france-113);
 }
 
+.filtresAvancésModalFooter {
+  justify-content: center;
+}
+
 .rechercheOffreEmploi > div:not(:last-child) {
   margin-bottom: 28px;
 }

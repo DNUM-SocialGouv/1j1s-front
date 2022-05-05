@@ -24,7 +24,7 @@ export function Header() {
   }, [path, setPath, router]);
 
   return (
-    <HeaderDSFR>
+    <HeaderDSFR key={path}>
       <HeaderBody>
         <Logo splitCharacter={10}>République Française</Logo>
         <HeaderOperator>

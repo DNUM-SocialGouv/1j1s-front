@@ -13,7 +13,7 @@ import {
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 
 import { RésultatRechercheOffreEmploi } from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi';
 import { Hero } from '~/client/components/ui/Hero/Hero';
@@ -25,16 +25,24 @@ import styles from '~/styles/RechercheOffreEmploi.module.css';
 
 export default function Emplois() {
   const offreEmploiService = useDependency('offreEmploiService');
+  const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFiltreRechercheDesktopOpen, setIsFiltreRechercheDesktopOpen] = useState(false);
-  const [isFiltreRechercheMobileOpen, setIsFiltreRechercheMobileOpen] = useState(false);
+  const [isFiltresAvancésDesktopOpen, setIsFiltresAvancésDesktopOpen] = useState(false);
+  const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
   const [typeDeContratInput, setTypeDeContratInput] = useState('');
   const { isSmallScreen } = useBreakpoint();
 
   function toggleFiltreRechercheDesktop() {
-    setIsFiltreRechercheDesktopOpen(!isFiltreRechercheDesktopOpen);
+    setIsFiltresAvancésDesktopOpen(!isFiltresAvancésDesktopOpen);
+  }
+
+  function applyFiltresAvancés() {
+    setIsFiltresAvancésMobileOpen(false);
+    rechercheOffreEmploiForm.current?.dispatchEvent(
+      new Event('submit', { bubbles: true, cancelable: true }),
+    );
   }
 
   function toggleTypeDeContrat(value: string) {
@@ -43,6 +51,7 @@ export default function Emplois() {
 
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    console.info('submitted');
     setIsLoading(true);
     const { résultats, nombreRésultats } = await offreEmploiService.rechercherOffreEmploi(new FormData(event.currentTarget));
     setOffreEmploiList(résultats);
@@ -63,7 +72,12 @@ export default function Emplois() {
           </Title>
         </Hero>
 
-        <form className={styles.rechercheOffreEmploi} onSubmit={rechercherOffreEmploi} role="search">
+        <form
+          ref={rechercheOffreEmploiForm}
+          className={styles.rechercheOffreEmploi}
+          onSubmit={rechercherOffreEmploi}
+          role="search"
+        >
           <TextInput
             label="Rechercher un métier, un mot-clé..."
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -82,13 +96,13 @@ export default function Emplois() {
             className={`${styles.buttonFiltreRecherche} fr-text--sm`}
             icon="ri-filter-fill"
             iconPosition="left"
-            onClick={() => isSmallScreen ? setIsFiltreRechercheMobileOpen(true) : toggleFiltreRechercheDesktop()}
+            onClick={() => isSmallScreen ? setIsFiltresAvancésMobileOpen(true) : toggleFiltreRechercheDesktop()}
           >
             Filtrer ma recherche
           </Button>
 
           {
-            isFiltreRechercheDesktopOpen && <div className={styles.filtreRechercheDesktop}>
+            isFiltresAvancésDesktopOpen && <div className={styles.filtreRechercheDesktop}>
               <CheckboxGroup legend="Type de contrat">
                 {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                   <Checkbox
@@ -127,8 +141,8 @@ export default function Emplois() {
           </ul>
         }
       </main>
-      <Modal isOpen={isFiltreRechercheMobileOpen} hide={() => setIsFiltreRechercheMobileOpen(false)}>
-        <ModalClose hide={() => setIsFiltreRechercheMobileOpen(false)} title="Fermer les filtres"/>
+      <Modal isOpen={isFiltresAvancésMobileOpen} hide={() => setIsFiltresAvancésMobileOpen(false)}>
+        <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
         <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
         <ModalContent>
           <CheckboxGroup legend="Type de contrat">
@@ -145,9 +159,9 @@ export default function Emplois() {
             ))}
           </CheckboxGroup>
         </ModalContent>
-        <ModalFooter>
+        <ModalFooter className={styles.filtresAvancésModalFooter}>
           <Button
-            onClick={() => setIsFiltreRechercheMobileOpen(false)}
+            onClick={applyFiltresAvancés}
             icon="ri-arrow-right-s-line"
             iconPosition="right"
           >
