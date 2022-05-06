@@ -34,7 +34,7 @@ export default function ConsulterOffreEmploi(props: EmploiProps) {
           <TagList list={[
             offreEmploi.lieuTravail,
             offreEmploi.expérience,
-            offreEmploi.typeContrat,
+            offreEmploi.typeContrat.libelléCourt,
             offreEmploi.duréeTravail,
           ]} />
           {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}

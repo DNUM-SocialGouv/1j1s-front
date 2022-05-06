@@ -9,9 +9,9 @@ import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/off
 describe('rechercher offre emploi api controller', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://entreprise.pole-emploi.fr')
@@ -25,7 +25,7 @@ describe('rechercher offre emploi api controller', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
-      url: '/emplois?page=1&motsCles=boulanger',
+      url: '/emplois?page=1&motCle=boulanger&typeDeContrats=CDD,CDI',
     });
   });
 });

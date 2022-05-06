@@ -29,7 +29,7 @@ export function RésultatRechercheOffreEmploi(props: RésultatRechercheOffreEmpl
           <TagList list={[
             offreEmploi.lieuTravail,
             offreEmploi.expérience,
-            offreEmploi.typeContrat,
+            offreEmploi.typeContrat.libelléCourt,
             offreEmploi.duréeTravail,
           ]}/>
           <p>

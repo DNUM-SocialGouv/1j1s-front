@@ -6,9 +6,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.articleList {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}

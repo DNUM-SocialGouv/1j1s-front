@@ -6,7 +6,7 @@ export interface OffreEmploi {
   description?: string
   lieuTravail?: string
   entreprise: OffreEmploi.Entreprise
-  typeContrat: OffreEmploi.TypeContrat
+  typeContrat: OffreEmploi.TypeDeContrat
   expérience?: OffreEmploi.Expérience
   duréeTravail?: OffreEmploi.DuréeTravail
   urlOffreOrigine: string
@@ -35,6 +35,43 @@ export namespace OffreEmploi {
     nom?: string
     logo?: string
   }
+
+  export interface TypeDeContrat {
+    libelléCourt: string
+    libelléLong: string
+    valeur: string
+  }
+
+  export const CONTRAT_CDD: TypeDeContrat = {
+    libelléCourt: 'CDD',
+    libelléLong: 'Contrat à durée déterminé',
+    valeur: 'CDD',
+  };
+
+  export const CONTRAT_CDI: TypeDeContrat = {
+    libelléCourt: 'CDI',
+    libelléLong: 'Contrat à durée indéterminé',
+    valeur: 'CDI',
+  };
+
+  export const CONTRAT_INTÉRIMAIRE: TypeDeContrat = {
+    libelléCourt: 'Intérim',
+    libelléLong: 'Mission intérimaire',
+    valeur: 'MIS',
+  };
+
+  export const CONTRAT_SAISONNIER: TypeDeContrat = {
+    libelléCourt: 'Saisonnier',
+    libelléLong: 'Contrat travail saisonnier',
+    valeur: 'SAI',
+  };
+
+  export const TYPE_DE_CONTRAT_LIST: TypeDeContrat[] = [
+    OffreEmploi.CONTRAT_CDD,
+    OffreEmploi.CONTRAT_CDI,
+    OffreEmploi.CONTRAT_INTÉRIMAIRE,
+    OffreEmploi.CONTRAT_SAISONNIER,
+  ];
 }
 
 export interface RésultatsRechercheOffreEmploi {
@@ -44,6 +81,7 @@ export interface RésultatsRechercheOffreEmploi {
 
 export interface OffreEmploiFiltre {
   motClé?: string
+  typeDeContrats: string[]
   page: number
 }
 

@@ -3,6 +3,7 @@ import {
   OffreEmploiResponse,
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
+import TypeDeContrat = OffreEmploi.TypeDeContrat;
 
 export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheOffreEmploiResponse): RésultatsRechercheOffreEmploi {
   return {
@@ -39,16 +40,16 @@ function mapDuréeTravail(duréeTravailResponse?: OffreEmploiResponse.DuréeTrav
   }
 }
 
-function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): OffreEmploi.TypeContrat {
+function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeContrat {
   switch (typeContrat) {
     case 'CDD':
-      return OffreEmploi.TypeContrat.CDD;
+      return OffreEmploi.CONTRAT_CDD;
     case 'CDI':
-      return OffreEmploi.TypeContrat.CDI;
+      return OffreEmploi.CONTRAT_CDI;
     case 'MIS':
-      return OffreEmploi.TypeContrat.MIS;
+      return OffreEmploi.CONTRAT_INTÉRIMAIRE;
     case 'SAI':
-      return OffreEmploi.TypeContrat.SAI;
+      return OffreEmploi.CONTRAT_SAISONNIER;
   }
 }
 
