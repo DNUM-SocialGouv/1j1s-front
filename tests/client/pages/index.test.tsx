@@ -4,16 +4,15 @@
 import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
-import { anArticleList } from '@tests/fixtures/client/cms.fixture';
 
 import Accueil from '~/pages';
 
 describe('Page accueil', () => {
   it('affiche une liste d\'article', () => {
-    render(<Accueil articles={anArticleList()} />);
+    render(<Accueil />);
 
-    const result = screen.getAllByTestId('article');
+    const main = screen.getByRole('main');
 
-    expect(result).toHaveLength(2);
+    expect(main).toBeInTheDocument();
   });
 });
