@@ -1,7 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
-import { OffreEmploiFiltre, RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import {
+  OffreEmploiFiltre,
+  OffreEmploiFiltreLocalisation,
+  RésultatsRechercheOffreEmploi,
+} from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
 
 export async function rechercherOffreEmploiHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi>) {
@@ -17,9 +22,32 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
 
   return {
     motClé: query.motCle ? String(query.motCle) : '',
+    localisation: localisationMapper(query),
     page: Number(query.page),
     typeDeContrats: query.typeDeContrats ? toTypeDeContrats(query.typeDeContrats) : [],
   };
+
+  function localisationMapper(query: { [key: string]: string | string[]; }): OffreEmploiFiltreLocalisation | undefined {
+    const { codeInsee, typeLocalisation } = query;
+    if(typeLocalisation === TypeLocalisation.REGION) {
+      return {
+        codeInsee: String(codeInsee),
+        typeLocalisation: TypeLocalisation.REGION,
+      };
+    } else if(typeLocalisation === TypeLocalisation.DEPARTEMENT) {
+      return {
+        codeInsee: String(codeInsee),
+        typeLocalisation: TypeLocalisation.DEPARTEMENT,
+      };
+    } else if(typeLocalisation === TypeLocalisation.COMMUNE) {
+      return {
+        codeInsee: String(codeInsee),
+        typeLocalisation: TypeLocalisation.COMMUNE,
+      };
+    } else {
+      return undefined;
+    }
+  }
 }
 
 function toTypeDeContrats(typeDeContrats: string | string[]): string[] {

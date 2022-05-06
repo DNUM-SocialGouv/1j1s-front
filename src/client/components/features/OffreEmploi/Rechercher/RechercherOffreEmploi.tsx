@@ -26,12 +26,14 @@ import React, {
 
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { RésultatRechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
+import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { transformFormToEntries } from '~/client/utils/form.util';
+import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 export function RechercherOffreEmploi() {
@@ -40,9 +42,11 @@ export function RechercherOffreEmploi() {
   const { isSmallScreen } = useBreakpoint();
 
   const offreEmploiService = useDependency('offreEmploiService');
+  const localisationService = useDependency('localisationService');
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
+  const [localisationList, setLocalisationList] = useState<LocalisationList>({ communeList: [], départementList: [], régionList: [] });
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -128,6 +132,15 @@ export function RechercherOffreEmploi() {
     return await router.push({ query: query ? `${query}&${QUERY_FIRST_PAGE}` : `${QUERY_FIRST_PAGE}` });
   }
 
+  async function rechercherLocalisation(recherche: string) {
+    const résultats = await localisationService.rechercheLocalisation(recherche);
+    if(résultats) {
+      setLocalisationList(résultats);
+    } else {
+      setLocalisationList({ communeList: [], départementList: [], régionList: [] });
+    }
+  }
+
   return (
     <main id="contenu">
       <Hero>
@@ -155,6 +168,14 @@ export function RechercherOffreEmploi() {
           onChange={(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)}
         />
         <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
+
+        <AutoCompletionForLocalisation
+          régionList={localisationList.régionList}
+          communeList={localisationList.communeList}
+          départementList={localisationList.départementList}
+          inputName="localisations"
+          onChange={rechercherLocalisation}/>
+
         <ButtonGroup size="md">
           <Button
             submit={true}

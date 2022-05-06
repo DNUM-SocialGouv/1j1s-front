@@ -1,8 +1,9 @@
+import { aLongList } from '@tests/fixtures/domain/localisation.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherLocalisationHandler } from '~/pages/api/localisations';
-import { LocalisationList } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
+import { rechercherLocalisationHandler, sanitizeRéponse } from '~/pages/api/localisations';
+import { LocalisationList } from '~/server/localisations/domain/localisation';
 
 describe('rechercher une localisation', () => {
   it('retourne la liste des localisations recherchées', async () => {
@@ -64,5 +65,13 @@ describe('rechercher une localisation', () => {
       },
       url: '/localisations?recherche=haut',
     });
+  });
+
+  it('la réponse de la recherche contient 20 éléments maximum', () => {
+    const { communeList, départementList, régionList } = sanitizeRéponse(aLongList());
+
+    expect(communeList.length).toEqual(20);
+    expect(départementList.length).toEqual(20);
+    expect(régionList.length).toEqual(20);
   });
 });

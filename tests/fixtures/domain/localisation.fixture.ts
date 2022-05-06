@@ -1,4 +1,4 @@
-import { Localisation } from '~/server/localisations/domain/localisation';
+import { Localisation, LocalisationList } from '~/server/localisations/domain/localisation';
 
 export function aCommuneList(): Localisation[] {
   return [
@@ -33,4 +33,18 @@ export function aRégionList(): Localisation[] {
       libelle: 'Occitanie',
     },
   ];
+}
+
+export function aLongList(): LocalisationList {
+  return {
+    communeList: [...Array(22)].map(() => {
+      return { code: '76', codeInsee: 'fale', libelle:'ff' };
+    }),
+    départementList: [...Array(22)].map(() => {
+      return { code: '76', codeInsee: 'fale', libelle:'ff' };
+    }),
+    régionList: [...Array(22)].map(() => {
+      return { code: '76', codeInsee: 'fale', libelle:'ff' };
+    }),
+  };
 }

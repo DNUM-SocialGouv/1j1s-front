@@ -1,3 +1,4 @@
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   NOMBRE_RÉSULTATS_PAR_PAGE,
   OffreEmploi,
@@ -44,11 +45,31 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
   buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): string {
     const range = `${(offreEmploiFiltre.page - 1) * NOMBRE_RÉSULTATS_PAR_PAGE}-${offreEmploiFiltre.page * NOMBRE_RÉSULTATS_PAR_PAGE - 1}`;
+
+    const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
+
     const params = new URLSearchParams({
       motsCles: offreEmploiFiltre.motClé || '',
       range,
       typeContrat: offreEmploiFiltre.typeDeContrats.join(','),
+      ...localisation,
     });
     return params.toString();
+  }
+
+  private static buildParamètreLocalisation(offreEmploiFiltre: OffreEmploiFiltre): object | undefined {
+    if (offreEmploiFiltre.localisation) {
+      const typeLocalisation = offreEmploiFiltre.localisation.typeLocalisation;
+      const codeInsee = offreEmploiFiltre.localisation.codeInsee;
+      if (typeLocalisation === TypeLocalisation.REGION) {
+        return { region: codeInsee };
+      } else if (typeLocalisation === TypeLocalisation.DEPARTEMENT) {
+        return { departement: codeInsee };
+      } else if (typeLocalisation === TypeLocalisation.COMMUNE) {
+        return { commune: codeInsee };
+      }
+    } else {
+      return undefined;
+    }
   }
 }

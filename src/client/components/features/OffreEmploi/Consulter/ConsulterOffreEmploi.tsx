@@ -23,7 +23,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         <TagList data-testid="ÉtiquetteOffreEmploiList" list={[
           offreEmploi.lieuTravail,
           offreEmploi.expérience,
-          offreEmploi.typeContrat.libelléCourt,
+          offreEmploi.typeContrat?.libelléCourt,
           offreEmploi.duréeTravail,
         ]} />
         {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
