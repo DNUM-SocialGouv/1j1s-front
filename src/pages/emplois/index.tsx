@@ -51,9 +51,12 @@ export default function RechercherOffresEmploi() {
 
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.info('submitted');
     setIsLoading(true);
-    const { résultats, nombreRésultats } = await offreEmploiService.rechercherOffreEmploi(new FormData(event.currentTarget));
+    const formData = new FormData(event.currentTarget);
+    const {
+      résultats,
+      nombreRésultats,
+    } = await offreEmploiService.rechercherOffreEmploi(formData.toRecord());
     setOffreEmploiList(résultats);
     setNombreRésultats(nombreRésultats);
     setIsLoading(false);
@@ -80,6 +83,7 @@ export default function RechercherOffresEmploi() {
         >
           <TextInput
             label="Rechercher un métier, un mot-clé..."
+            data-testid="InputRechercheMotClé"
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             name="motCle"
@@ -88,41 +92,50 @@ export default function RechercherOffresEmploi() {
           />
           <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
           <ButtonGroup size="md">
-            <Button submit={true} icon="ri-search-line" iconPosition="right">Rechercher</Button>
+            <Button
+              submit={true}
+              icon="ri-search-line"
+              iconPosition="right"
+              data-testid="ButtonRechercher"
+            >
+              Rechercher
+            </Button>
           </ButtonGroup>
 
           <Button
             styleAsLink
-            className={`${styles.buttonFiltreRecherche} fr-text--sm`}
+            className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
             icon="ri-filter-fill"
             iconPosition="left"
             onClick={() => isSmallScreen ? setIsFiltresAvancésMobileOpen(true) : toggleFiltreRechercheDesktop()}
+            data-testid="ButtonFiltrerRecherche"
           >
             Filtrer ma recherche
           </Button>
 
           {
-            isFiltresAvancésDesktopOpen && <div className={styles.filtreRechercheDesktop}>
-              <CheckboxGroup legend="Type de contrat">
-                {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                  <Checkbox
-                    key={index}
-                    label={typeDeContrat.libelléLong}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                    value={typeDeContrat.valeur}
-                    checked={typeDeContratInput.includes(typeDeContrat.valeur)}
-                  />
-                ))}
-              </CheckboxGroup>
-            </div>
-          }
+            isFiltresAvancésDesktopOpen && (
+              <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
+                <CheckboxGroup legend="Type de contrat">
+                  {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                    <Checkbox
+                      key={index}
+                      label={typeDeContrat.libelléLong}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                      value={typeDeContrat.valeur}
+                      checked={typeDeContratInput.includes(typeDeContrat.valeur)}
+                    />
+                  ))}
+                </CheckboxGroup>
+              </div>
+            )}
         </form>
 
         {
           nombreRésultats !== 0 &&
-          <div className={styles.nombreRésultats}>
+          <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
             <strong>{nombreRésultats} offres d&apos;emplois</strong>
           </div>
         }
@@ -141,11 +154,11 @@ export default function RechercherOffresEmploi() {
           </ul>
         }
       </main>
-      <Modal isOpen={isFiltresAvancésMobileOpen} hide={() => setIsFiltresAvancésMobileOpen(false)}>
+      <Modal isOpen={isFiltresAvancésMobileOpen} hide={() => setIsFiltresAvancésMobileOpen(false)} data-testid="FiltreRechercheMobile">
         <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
         <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
         <ModalContent>
-          <CheckboxGroup legend="Type de contrat">
+          <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
             {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
               <Checkbox
                 key={index}
@@ -164,6 +177,7 @@ export default function RechercherOffresEmploi() {
             onClick={applyFiltresAvancés}
             icon="ri-arrow-right-s-line"
             iconPosition="right"
+            data-testid="ButtonAppliquerFiltres"
           >
             Appliquer les filtres
           </Button>

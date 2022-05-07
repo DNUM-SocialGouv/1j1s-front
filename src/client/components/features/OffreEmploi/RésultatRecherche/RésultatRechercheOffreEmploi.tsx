@@ -17,7 +17,7 @@ export function RésultatRechercheOffreEmploi(props: RésultatRechercheOffreEmpl
 
   return (
     <Link href={'/emplois/' + offreEmploi.id}>
-      <a className={styles.card}>
+      <a className={styles.card} data-testid="RésultatRechercheOffreEmploi">
         <header className={styles.cardHeader}>
           <Image alt="" src={offreEmploi.entreprise.logo || defaultLogo} width="48" height="48"/>
           <div>

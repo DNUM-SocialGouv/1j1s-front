@@ -24,13 +24,6 @@ export namespace OffreEmploi {
     TEMPS_PARTIEL = 'Temps partiel',
   }
 
-  export enum TypeContrat {
-    CDI = 'CDI',
-    CDD = 'CDD',
-    MIS = 'Intérim',
-    SAI = 'Saisonnier',
-  }
-
   export interface Entreprise {
     nom?: string
     logo?: string
