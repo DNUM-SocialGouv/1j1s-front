@@ -2,16 +2,15 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import '~/client/utils/form/form.util';
 
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
 import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import RechercherOffresEmploi from '~/pages/emplois';
+import RechercherOffreEmploiPage from '~/pages/emplois';
 
-describe('Page rechercher offres emploi', () => {
+describe('RechercherOffreEmploi', () => {
   beforeAll(() => {
     mockSmallScreen();
   });
@@ -22,7 +21,7 @@ describe('Page rechercher offres emploi', () => {
 
       render(
         <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffresEmploi/>
+          <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
 
@@ -40,7 +39,7 @@ describe('Page rechercher offres emploi', () => {
 
       render(
         <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffresEmploi/>
+          <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
 
@@ -49,7 +48,7 @@ describe('Page rechercher offres emploi', () => {
       fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
       const buttonRechercher = screen.getByTestId('ButtonRechercher');
       fireEvent.click(buttonRechercher);
-      const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercheOffreEmploi');
+      const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherOffreEmploi');
       const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
 
       expect(résultatRechercheOffreEmploiList).toHaveLength(3);
@@ -67,7 +66,7 @@ describe('Page rechercher offres emploi', () => {
 
       render(
         <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffresEmploi/>
+          <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
 
@@ -106,7 +105,7 @@ describe('Page rechercher offres emploi', () => {
 
       render(
         <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffresEmploi/>
+          <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
 

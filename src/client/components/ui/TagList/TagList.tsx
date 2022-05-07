@@ -7,9 +7,9 @@ interface TagListProps {
   list: Array<string | undefined>
 }
 
-export function TagList({ children, list }: React.PropsWithChildren<TagListProps>) {
+export function TagList({ children, list, ...rest }: React.PropsWithChildren<TagListProps>) {
   return (
-    <ul className={styles.tagList}>
+    <ul className={styles.tagList} {...rest}>
       {
         list.map((tag) => (
           tag && (
