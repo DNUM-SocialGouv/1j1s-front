@@ -14,7 +14,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
   const descriptionOffreEmploi = useSanitize(offreEmploi.description);
   
   return (
-    <main>
+    <main id="contenu">
       <article className={styles.offreEmploiContainer}>
         <header className={styles.offreEmploiHeader}>
           <Title as="h1" look="h3">{offreEmploi.intitulé}</Title>

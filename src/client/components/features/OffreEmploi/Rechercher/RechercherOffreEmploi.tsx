@@ -67,126 +67,125 @@ export function RechercherOffreEmploi() {
   }
 
   return (
-    <>
-      <main>
-        <Hero>
-          <Title as="h1" look="h3">
-            Des milliers d’offres d’emplois sélectionnées pour vous par Pôle Emploi
-          </Title>
-        </Hero>
+    <main id="contenu">
+      <Hero>
+        <Title as="h1" look="h3">
+          Des milliers d’offres d’emplois sélectionnées pour vous par Pôle Emploi
+        </Title>
+      </Hero>
 
-        <form
-          ref={rechercheOffreEmploiForm}
-          className={styles.rechercheOffreEmploi}
-          onSubmit={rechercherOffreEmploi}
-          role="search"
-        >
-          <TextInput
-            label="Rechercher un métier, un mot-clé..."
-            data-testid="InputRechercheMotClé"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            name="motCle"
-            placeholder="exemple : boulanger, informatique..."
-            onChange={(event: ChangeEvent<HTMLInputElement>) => event.target.value}
-          />
-          <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
-          <ButtonGroup size="md">
-            <Button
-              submit={true}
-              icon="ri-search-line"
-              iconPosition="right"
-              data-testid="ButtonRechercher"
-            >
-              Rechercher
-            </Button>
-          </ButtonGroup>
-
-          <Button
-            styleAsLink
-            className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
-            icon="ri-filter-fill"
-            iconPosition="left"
-            onClick={toggleFiltresAvancés}
-            data-testid="ButtonFiltrerRecherche"
-          >
-            Filtrer ma recherche
-          </Button>
-
-          {
-            isFiltresAvancésDesktopOpen && (
-              <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-                <CheckboxGroup legend="Type de contrat">
-                  {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                    <Checkbox
-                      key={index}
-                      label={typeDeContrat.libelléLong}
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                      value={typeDeContrat.valeur}
-                      checked={typeDeContratInput.includes(typeDeContrat.valeur)}
-                    />
-                  ))}
-                </CheckboxGroup>
-              </div>
-            )}
-        </form>
-
-        {
-          nombreRésultats !== 0 &&
-          <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
-            <strong>{nombreRésultats} offres d&apos;emplois</strong>
-          </div>
-        }
-
-        {isLoading && <p>Recherche des offres</p>}
-        {
-          offreEmploiList.length > 0 && !isLoading &&
-          <ul className={styles.résultatRechercheOffreEmploiList}>
-            {offreEmploiList.map((offreEmploi: OffreEmploi) => {
-              return (
-                <li key={offreEmploi.id}>
-                  <RésultatRechercherOffreEmploi offreEmploi={offreEmploi}/>
-                </li>
-              );
-            })}
-          </ul>
-        }
-      </main>
-      <Modal
-        isOpen={isFiltresAvancésMobileOpen}
-        hide={() => setIsFiltresAvancésMobileOpen(false)}
-        data-testid="FiltreRechercheMobile"
+      <form
+        ref={rechercheOffreEmploiForm}
+        className={styles.rechercheOffreEmploi}
+        onSubmit={rechercherOffreEmploi}
+        role="search"
       >
-        <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
-        <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
-        <ModalContent>
-          <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
-            {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-              <Checkbox
-                key={index}
-                label={typeDeContrat.libelléLong}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                value={typeDeContrat.valeur}
-                checked={typeDeContratInput.includes(typeDeContrat.valeur)}
-              />
-            ))}
-          </CheckboxGroup>
-        </ModalContent>
-        <ModalFooter className={styles.filtresAvancésModalFooter}>
+        <TextInput
+          label="Rechercher un métier, un mot-clé..."
+          data-testid="InputRechercheMotClé"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          name="motCle"
+          autoFocus
+          placeholder="exemple : boulanger, informatique..."
+          onChange={(event: ChangeEvent<HTMLInputElement>) => event.target.value}
+        />
+        <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
+        <ButtonGroup size="md">
           <Button
-            onClick={applyFiltresAvancés}
-            icon="ri-arrow-right-s-line"
+            submit={true}
+            icon="ri-search-line"
             iconPosition="right"
-            data-testid="ButtonAppliquerFiltres"
+            data-testid="ButtonRechercher"
           >
-            Appliquer les filtres
+            Rechercher
           </Button>
-        </ModalFooter>
-      </Modal>
-    </>
+        </ButtonGroup>
+
+        <Button
+          styleAsLink
+          className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
+          icon="ri-filter-fill"
+          iconPosition="left"
+          onClick={toggleFiltresAvancés}
+          data-testid="ButtonFiltrerRecherche"
+        >
+          Filtrer ma recherche
+        </Button>
+        <Modal
+          isOpen={isFiltresAvancésMobileOpen}
+          hide={() => setIsFiltresAvancésMobileOpen(false)}
+          data-testid="FiltreRechercheMobile"
+        >
+          <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
+          <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
+          <ModalContent>
+            <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
+              {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                <Checkbox
+                  key={index}
+                  label={typeDeContrat.libelléLong}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                  value={typeDeContrat.valeur}
+                  checked={typeDeContratInput.includes(typeDeContrat.valeur)}
+                />
+              ))}
+            </CheckboxGroup>
+          </ModalContent>
+          <ModalFooter className={styles.filtresAvancésModalFooter}>
+            <Button
+              onClick={applyFiltresAvancés}
+              icon="ri-arrow-right-s-line"
+              iconPosition="right"
+              data-testid="ButtonAppliquerFiltres"
+            >
+              Appliquer les filtres
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+        {
+          isFiltresAvancésDesktopOpen && (
+            <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
+              <CheckboxGroup legend="Type de contrat">
+                {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                  <Checkbox
+                    key={index}
+                    label={typeDeContrat.libelléLong}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                    value={typeDeContrat.valeur}
+                    checked={typeDeContratInput.includes(typeDeContrat.valeur)}
+                  />
+                ))}
+              </CheckboxGroup>
+            </div>
+          )}
+      </form>
+
+      {
+        nombreRésultats !== 0 &&
+        <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+          <strong>{nombreRésultats} offres d&apos;emplois</strong>
+        </div>
+      }
+
+      {isLoading && <p>Recherche des offres</p>}
+      {
+        offreEmploiList.length > 0 && !isLoading &&
+        <ul className={styles.résultatRechercheOffreEmploiList}>
+          {offreEmploiList.map((offreEmploi: OffreEmploi) => {
+            return (
+              <li key={offreEmploi.id}>
+                <RésultatRechercherOffreEmploi offreEmploi={offreEmploi}/>
+              </li>
+            );
+          })}
+        </ul>
+      }
+    </main>
   );
 }
