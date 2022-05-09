@@ -1,7 +1,7 @@
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import { ListeLocalisationUseCase } from '~/server/localisations/useCases/listeLocalisation.useCase';
+import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 
-describe('ListeLocalisationUseCase', () => {
+describe('RechercherLocalisationUseCase', () => {
   let localisationRepository: LocalisationRepository;
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('ListeLocalisationUseCase', () => {
 
   describe('quand la recherche contient 2 chiffres on va rechercher seulement les départements', () => {
     it('renvoie la liste de département correspondant à la recherche', async () => {
-      const listeLocalisationUseCase = new ListeLocalisationUseCase(localisationRepository);
+      const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository);
       jest.spyOn(localisationRepository, 'getDépartementList').mockResolvedValue([
         {
           codeInsee: '78',
@@ -40,7 +40,7 @@ describe('ListeLocalisationUseCase', () => {
   describe('quand la recherche contient 5 chiffres on va rechercher les communes', () => {
     it('renvoie la liste de commune correspondant à la recherche', 
       async () => {
-        const listeLocalisationUseCase = new ListeLocalisationUseCase(localisationRepository);
+        const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository);
         jest.spyOn(localisationRepository, 'getCommuneList').mockResolvedValue([
           {
             codeInsee: '95100',
@@ -63,7 +63,7 @@ describe('ListeLocalisationUseCase', () => {
   });
   describe('quand la recherche contient seulement des lettres on va rechercher les communes, les départements et les régions', () => {
     it('renvoie la liste correspondant à la recherche', async () => {
-      const listeLocalisationUseCase = new ListeLocalisationUseCase(localisationRepository);
+      const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository);
       jest.spyOn(localisationRepository, 'getCommuneList').mockResolvedValue([
         {
           codeInsee: '02377',

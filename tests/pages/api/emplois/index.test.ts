@@ -6,7 +6,7 @@ import nock from 'nock';
 import { rechercherOffreEmploiHandler } from '~/pages/api/emplois';
 import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-describe('rechercher offre emploi api controller', () => {
+describe('rechercher une offre d\'emploi', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr')
       .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI')
