@@ -38,9 +38,9 @@ export function Header() {
         <Service title="1jeune1solution" description="" />
       </HeaderBody>
       <HeaderNav>
-        <NavItem title="Accueil" asLink={<NavItemLink link="/" />} current={path === '/'} />
+        <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
         <NavItem title="Offres">
-          <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" />} current={path === '/emplois'} />
+          <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
         </NavItem>
       </HeaderNav>
     </HeaderDSFR>
@@ -48,13 +48,14 @@ export function Header() {
 }
 
 interface NavItemLinkProps {
+  current: boolean
   link: string
 }
 
-function NavItemLink({ children, link }: React.PropsWithChildren<NavItemLinkProps>) {
+function NavItemLink({ children, current, link }: React.PropsWithChildren<NavItemLinkProps>) {
   return (
     <Link href={link}>
-      <a className="fr-nav__link">
+      <a className="fr-nav__link" {... (current && { 'aria-current': 'page' })}>
         {children}
       </a>
     </Link>

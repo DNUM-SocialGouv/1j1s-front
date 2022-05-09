@@ -10,10 +10,10 @@ enum BREAKPOINT {
 }
 
 function getScreenSize() {
-  if (matchMedia(`(min-width: ${BREAKPOINT.LG})`).matches) {
+  if (window.matchMedia(`(min-width: ${BREAKPOINT.LG})`).matches) {
     return BREAKPOINT.LG;
   }
-  if (matchMedia(`(min-width: ${BREAKPOINT.MD})`).matches) {
+  if (window.matchMedia(`(min-width: ${BREAKPOINT.MD})`).matches) {
     return BREAKPOINT.MD;
   }
   return BREAKPOINT.SM;

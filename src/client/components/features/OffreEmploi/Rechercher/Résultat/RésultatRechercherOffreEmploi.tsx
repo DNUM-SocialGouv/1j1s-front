@@ -3,21 +3,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import styles from '~/client/components/features/OffreEmploi/RésultatRecherche/RésultatRechercheOffreEmploi.module.css';
+import styles from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi.module.css';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-interface RésultatRechercheOffreEmploiProps {
+interface RésultatRechercherOffreEmploiProps {
   offreEmploi: OffreEmploi;
 }
 
-export function RésultatRechercheOffreEmploi(props: RésultatRechercheOffreEmploiProps) {
+export function RésultatRechercherOffreEmploi(props: RésultatRechercherOffreEmploiProps) {
   const { offreEmploi } = props;
   const defaultLogo = '/images/pole-emploi.svg';
 
   return (
-    <Link href={'/emplois/' + offreEmploi.id}>
-      <a className={styles.card}>
+    <Link href={`/emplois/${offreEmploi.id}`}>
+      <a className={styles.card} data-testid="RésultatRechercherOffreEmploi">
         <header className={styles.cardHeader}>
           <Image alt="" src={offreEmploi.entreprise.logo || defaultLogo} width="48" height="48"/>
           <div>
@@ -26,7 +26,7 @@ export function RésultatRechercheOffreEmploi(props: RésultatRechercheOffreEmpl
           </div>
         </header>
         <div className={styles.cardBody}>
-          <TagList list={[
+          <TagList data-testid="ÉtiquetteOffreEmploiList" list={[
             offreEmploi.lieuTravail,
             offreEmploi.expérience,
             offreEmploi.typeContrat.libelléCourt,
