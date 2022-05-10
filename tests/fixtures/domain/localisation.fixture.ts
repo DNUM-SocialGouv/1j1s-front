@@ -3,12 +3,12 @@ import { Localisation } from '~/server/localisations/domain/localisation';
 export function aCommuneList(): Localisation[] {
   return [
     {
-      codeInsee: '36048',
-      libelle: 'Chavin',
+      codeInsee: '34001',
+      libelle: 'Abeilhan',
     },
     {
-      codeInsee: '92022',
-      libelle: 'Chaville',
+      codeInsee: '34002',
+      libelle: 'Adissan',
     },
   ];
 }
@@ -16,8 +16,8 @@ export function aCommuneList(): Localisation[] {
 export function aDépartementList(): Localisation[] {
   return [
     {
-      codeInsee: '78',
-      libelle: 'Yvelines',
+      codeInsee: '34',
+      libelle: 'Hérault',
     },
   ];
 }
@@ -25,8 +25,8 @@ export function aDépartementList(): Localisation[] {
 export function aRégionList(): Localisation[] {
   return [
     {
-      codeInsee: '32',
-      libelle: 'Hauts-de-France',
+      codeInsee: '76',
+      libelle: 'Occitanie',
     },
   ];
 }
