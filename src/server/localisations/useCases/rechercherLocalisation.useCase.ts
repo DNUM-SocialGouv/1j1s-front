@@ -8,21 +8,21 @@ export class RechercherLocalisationUseCase {
   async handle(recherche: string): Promise<LocalisationList> {
     if(RechercherLocalisationUseCase.checkRechercheOnlyNumber(2, recherche)) {
       return {
-        communeList : [],
-        départementList : await this.localisationRepository.getDépartementList(recherche),
+        communeList : await this.localisationRepository.getCommuneListByNuméroDépartement(recherche),
+        départementList : await this.localisationRepository.getDépartementListByNuméroDépartement(recherche),
         régionList : [],
       };
     } else if(RechercherLocalisationUseCase.checkRechercheOnlyNumber(5, recherche)) {
       return  {
-        communeList : await this.localisationRepository.getCommuneList(recherche),
+        communeList : await this.localisationRepository.getCommuneListByCodePostal(recherche),
         départementList : [],
         régionList : [],
       };
     } else {
       const [communeList, départementList, régionList] = await Promise.all([
-        this.localisationRepository.getCommuneList(recherche),
-        this.localisationRepository.getDépartementList(recherche),
-        this.localisationRepository.getRégionList(recherche),
+        this.localisationRepository.getCommuneListByNom(recherche),
+        this.localisationRepository.getDépartementListByNom(recherche),
+        this.localisationRepository.getRégionListByNom(recherche),
       ]);
       return {
         communeList,

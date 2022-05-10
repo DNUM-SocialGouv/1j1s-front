@@ -7,29 +7,53 @@ describe('RechercherLocalisationUseCase', () => {
   beforeEach(() => {
     localisationRepository = {
       getAdresseList: jest.fn(),
-      getCommuneList: jest.fn(),
-      getDépartementList: jest.fn(),
-      getRégionList: jest.fn(),
+      getCommuneListByCodePostal: jest.fn(),
+      getCommuneListByNom: jest.fn(),
+      getCommuneListByNuméroDépartement: jest.fn(),
+      getDépartementListByNom: jest.fn(),
+      getDépartementListByNuméroDépartement : jest.fn(),
+      getRégionListByNom: jest.fn(),
     };
   });
 
-  describe('quand la recherche contient 2 chiffres on va rechercher seulement les départements', () => {
-    it('renvoie la liste de département correspondant à la recherche', async () => {
+  describe('quand la recherche contient 2 chiffres on va rechercher le département et les communes par le code du département', () => {
+    it('renvoie une liste avec le département et les communes correspondant à la recherche', async () => {
       const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository);
-      jest.spyOn(localisationRepository, 'getDépartementList').mockResolvedValue([
+      jest.spyOn(localisationRepository, 'getDépartementListByNuméroDépartement').mockResolvedValue([
         {
           codeInsee: '78',
           libelle: 'Yvelines',
         },
       ]);
+      jest.spyOn(localisationRepository, 'getCommuneListByNuméroDépartement').mockResolvedValue([
+        {
+          codeInsee: '78003',
+          libelle: 'Ablis',
+        },
+        {
+          codeInsee: '78005',
+          libelle: 'Achères',
+        },
+      ]);
 
       const expected = 
         {
-          communeList: [],
-          départementList: [{
-            codeInsee: '78',
-            libelle: 'Yvelines',
-          }],
+          communeList: [
+            {
+              codeInsee: '78003',
+              libelle: 'Ablis',
+            },
+            {
+              codeInsee: '78005',
+              libelle: 'Achères',
+            },
+          ],
+          départementList: [
+            {
+              codeInsee: '78',
+              libelle: 'Yvelines',
+            },
+          ],
           régionList: [],
         };
       const result = await listeLocalisationUseCase.handle('78');
@@ -37,11 +61,11 @@ describe('RechercherLocalisationUseCase', () => {
       expect(result).toEqual(expected);
     });
   });
-  describe('quand la recherche contient 5 chiffres on va rechercher les communes', () => {
+  describe('quand la recherche contient 5 chiffres on va rechercher les communes par code postal', () => {
     it('renvoie la liste de commune correspondant à la recherche', 
       async () => {
         const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository);
-        jest.spyOn(localisationRepository, 'getCommuneList').mockResolvedValue([
+        jest.spyOn(localisationRepository, 'getCommuneListByCodePostal').mockResolvedValue([
           {
             codeInsee: '95100',
             libelle: 'Argenteuil',
@@ -64,19 +88,19 @@ describe('RechercherLocalisationUseCase', () => {
   describe('quand la recherche contient seulement des lettres on va rechercher les communes, les départements et les régions', () => {
     it('renvoie la liste correspondant à la recherche', async () => {
       const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository);
-      jest.spyOn(localisationRepository, 'getCommuneList').mockResolvedValue([
+      jest.spyOn(localisationRepository, 'getCommuneListByNom').mockResolvedValue([
         {
           codeInsee: '02377',
           libelle: 'Haution',
         },
       ]);
-      jest.spyOn(localisationRepository, 'getDépartementList').mockResolvedValue([
+      jest.spyOn(localisationRepository, 'getDépartementListByNom').mockResolvedValue([
         {
           codeInsee: '68',
           libelle: 'Haut-Rhin',
         },
       ]);
-      jest.spyOn(localisationRepository, 'getRégionList').mockResolvedValue([
+      jest.spyOn(localisationRepository, 'getRégionListByNom').mockResolvedValue([
         {
           codeInsee: '32',
           libelle: 'Haut-de-France',
