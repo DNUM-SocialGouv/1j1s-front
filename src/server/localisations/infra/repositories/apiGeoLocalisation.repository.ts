@@ -28,6 +28,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse[]>(`communes?nom=${communeRecherchée}`);
 
     return response.data.map((commune) => ({
+      code: commune.codesPostaux[0],
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -38,6 +39,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse[]>(`departements?nom=${départementRecherché}`);
 
     return response.data.map((commune) => ({
+      code: commune.code,
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -48,6 +50,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse[]>(`regions?nom=${régionRecherchée}`);
 
     return response.data.map((commune) => ({
+      code: commune.code,
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -58,6 +61,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse[]>(`communes?codePostal=${codePostalRecherchée}`);
 
     return response.data.map((commune) => ({
+      code: commune.codesPostaux[0],
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -68,6 +72,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse[]>(`departements/${numéroDépartementRecherché}/communes`);
 
     return response.data.map((commune) => ({
+      code: commune.codesPostaux[0],
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -78,6 +83,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse[]>(`departements?code=${numéroDépartementRecherché}`);
 
     return response.data.map((commune) => ({
+      code: commune.code,
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -101,4 +107,5 @@ interface ApiGeoAdressePropertiesResponse {
 interface ApiDecoupageAdministratifResponse {
   nom: string;
   code: string;
+  codesPostaux: string[];
 }

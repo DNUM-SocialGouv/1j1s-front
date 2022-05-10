@@ -28,16 +28,19 @@ describe('RechercherLocalisationUseCase', () => {
         {
           communeList: [
             {
+              code: '34290',
               codeInsee: '34001',
               libelle: 'Abeilhan',
             },
             {
+              code: '34230',
               codeInsee: '34002',
               libelle: 'Adissan',
             },
           ],
           départementList: [
             {
+              code: '34',
               codeInsee: '34',
               libelle: 'Hérault',
             },
@@ -58,10 +61,12 @@ describe('RechercherLocalisationUseCase', () => {
           {
             communeList: [
               {
+                code: '34290',
                 codeInsee: '34001',
                 libelle: 'Abeilhan',
               },
               {
+                code: '34230',
                 codeInsee: '34002',
                 libelle: 'Adissan',
               },
@@ -84,22 +89,26 @@ describe('RechercherLocalisationUseCase', () => {
         {
           communeList: [
             {
+              code: '34290',
               codeInsee: '34001',
               libelle: 'Abeilhan',
             },
             {
+              code: '34230',
               codeInsee: '34002',
               libelle: 'Adissan',
             },
           ],
           départementList: [
             {
+              code: '34',
               codeInsee: '34',
               libelle: 'Hérault',
             },
           ],
           régionList: [
             {
+              code: '76',
               codeInsee: '76',
               libelle: 'Occitanie',
             },

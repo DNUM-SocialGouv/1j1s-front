@@ -56,10 +56,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
       expect(result).toEqual([
         {
+          code: '36200',
           codeInsee: '36048',
           libelle: 'Chavin',
         },
         {
+          code: '92370',
           codeInsee: '92022',
           libelle: 'Chaville',
         },
@@ -73,6 +75,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       expect(result).toEqual([
         {
+          code: '78',
           codeInsee: '78',
           libelle: 'Yvelines',
         },
@@ -86,6 +89,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       expect(result).toEqual([
         {
+          code: '32',
           codeInsee: '32',
           libelle: 'Hauts-de-France',
         },
@@ -99,10 +103,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
       expect(result).toEqual([
         {
+          code: '36200',
           codeInsee: '36048',
           libelle: 'Chavin',
         },
         {
+          code: '92370',
           codeInsee: '92022',
           libelle: 'Chaville',
         },
@@ -116,10 +122,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
       expect(result).toEqual([
         {
+          code: '36200',
           codeInsee: '36048',
           libelle: 'Chavin',
         },
         {
+          code: '92370',
           codeInsee: '92022',
           libelle: 'Chaville',
         },
@@ -133,6 +141,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       expect(result).toEqual([
         {
+          code: '78',
           codeInsee: '78',
           libelle: 'Yvelines',
         },
