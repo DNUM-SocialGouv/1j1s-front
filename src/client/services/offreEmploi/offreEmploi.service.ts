@@ -15,7 +15,7 @@ export class OffreEmploiService extends Cachable {
 
   @cache({ key: 'rechercherOffreEmploi' })
   async rechercherOffreEmploi(queryString = ''): Promise<RésultatsRechercheOffreEmploi> {
-    const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?page=1&${queryString}`);
+    const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}`);
     return response.data;
   }
 }

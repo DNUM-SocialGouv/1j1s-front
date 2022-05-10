@@ -10,6 +10,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
+  Pagination,
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
@@ -47,12 +48,16 @@ export function RechercherOffreEmploi() {
   const [inputValue, setInputValue] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
+  const [page, setPage] = useState(1);
+
   const QUERY_MOT_CLÉ = 'motCle';
   const QUERY_TYPE_DE_CONTRATS = 'typeDeContrats';
+  const QUERY_PAGE = 'page';
 
   const mapFiltres = useCallback(() => {
     const filtreList: string[] = [];
     Object.keys(router.query).map((key) => {
+      if (key === QUERY_PAGE) return;
       if (key === QUERY_TYPE_DE_CONTRATS) {
         const typeDeContrats: string = router.query[key]!.toString();
         const typeDeContratList = typeDeContrats.split(',');
@@ -88,6 +93,9 @@ export function RechercherOffreEmploi() {
     if (queries.has(QUERY_TYPE_DE_CONTRATS) && queries.get(QUERY_TYPE_DE_CONTRATS) !== null) {
       setTypeDeContratInput(queries.get(QUERY_TYPE_DE_CONTRATS)!);
     }
+    if (queries.has(QUERY_PAGE) && queries.get(QUERY_PAGE) !== null) {
+      setPage(Number(queries.get(QUERY_PAGE)!));
+    }
   }
 
   function toggleFiltresAvancés() {
@@ -109,15 +117,21 @@ export function RechercherOffreEmploi() {
     setTypeDeContratInput(typeDeContratInput.appendOrRemoveSubStr(value));
   }
 
+  async function changePage(page: number) {
+    setPage(page);
+    await router.push({ query: { ...router.query, page } });
+  }
+
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     const formEntries = transformFormToEntries(event.currentTarget);
     const query = new URLSearchParams(formEntries).toString();
     if (query) {
-      return await router.push({ query });
+      return await router.push({ query: `${query}&page=1` });
     }
-    offreEmploiService.rechercherOffreEmploi()
+
+    offreEmploiService.rechercherOffreEmploi('page=1')
       .then((res) => {
         setOffreEmploiList(res.résultats);
         setNombreRésultats(res.nombreRésultats);
@@ -250,6 +264,10 @@ export function RechercherOffreEmploi() {
             );
           })}
         </ul>
+      }
+      {
+        nombreRésultats !== 0 &&
+        <Pagination onClick={changePage} currentPage={page} pageCount={Math.round(nombreRésultats / 30)}/>
       }
     </main>
   );
