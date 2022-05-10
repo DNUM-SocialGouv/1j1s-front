@@ -1,10 +1,9 @@
-export function transformFormFormToRecord(formElement: HTMLFormElement): Record<string, string> {
+export function transformFormToEntries(formElement: HTMLFormElement): string[][] {
   const formData = new FormData(formElement);
-  const formEntries = Array.from(
+  return Array.from(
     formData,
     ([key, value]) => (
       [key, typeof value === 'string' ? value : value.name]
     ),
-  );
-  return Object.fromEntries(formEntries) as unknown as Record<string, string>;
+  ).filter((element) => element[1] !== '');
 };
