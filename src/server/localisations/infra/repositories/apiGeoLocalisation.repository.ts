@@ -23,31 +23,67 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }));
   }
 
-  async getCommuneList(communeRecherchée: string): Promise<Localisation[]> {
+  async getCommuneListByNom(communeRecherchée: string): Promise<Localisation[]> {
     const response = await this.apiGeoGouvHttpClientService
       .get<ApiDecoupageAdministratifResponse[]>(`communes?nom=${communeRecherchée}`);
 
     return response.data.map((commune) => ({
+      code: commune.codesPostaux[0],
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
   }
 
-  async getDépartementList(départementRecherché: string): Promise<Localisation[]> {
+  async getDépartementListByNom(départementRecherché: string): Promise<Localisation[]> {
     const response = await this.apiGeoGouvHttpClientService
       .get<ApiDecoupageAdministratifResponse[]>(`departements?nom=${départementRecherché}`);
 
     return response.data.map((commune) => ({
+      code: commune.code,
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
   }
 
-  async getRégionList(régionRecherchée: string): Promise<Localisation[]> {
+  async getRégionListByNom(régionRecherchée: string): Promise<Localisation[]> {
     const response = await this.apiGeoGouvHttpClientService
       .get<ApiDecoupageAdministratifResponse[]>(`regions?nom=${régionRecherchée}`);
 
     return response.data.map((commune) => ({
+      code: commune.code,
+      codeInsee: commune.code,
+      libelle: commune.nom,
+    }));
+  }
+
+  async getCommuneListByCodePostal(codePostalRecherchée: string): Promise<Localisation[]> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse[]>(`communes?codePostal=${codePostalRecherchée}`);
+
+    return response.data.map((commune) => ({
+      code: commune.codesPostaux[0],
+      codeInsee: commune.code,
+      libelle: commune.nom,
+    }));
+  }
+
+  async getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse[]>(`departements/${numéroDépartementRecherché}/communes`);
+
+    return response.data.map((commune) => ({
+      code: commune.codesPostaux[0],
+      codeInsee: commune.code,
+      libelle: commune.nom,
+    }));
+  }
+
+  async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse[]>(`departements?code=${numéroDépartementRecherché}`);
+
+    return response.data.map((commune) => ({
+      code: commune.code,
       codeInsee: commune.code,
       libelle: commune.nom,
     }));
@@ -71,4 +107,5 @@ interface ApiGeoAdressePropertiesResponse {
 interface ApiDecoupageAdministratifResponse {
   nom: string;
   code: string;
+  codesPostaux: string[];
 }
