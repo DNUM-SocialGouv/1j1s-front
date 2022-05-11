@@ -4,18 +4,16 @@ import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.
 import { KeyBoard } from '~/client/utils/keyboard.util';
 import { Localisation, TypeLocalisation } from '~/server/localisations/domain/localisation';
 
-interface AutoCompletionProps {
+interface AutoCompletionForLocalisationProps {
   régionList: Localisation[];
   départementList: Localisation[];
   communeList: Localisation[];
-  placeholder?: string;
   inputName: string;
-  icon?: string;
   onChange: (toto: string) => void;
 }
 
-export const AutoCompletionForLocalisation = (props: AutoCompletionProps) => {
-  const { régionList, départementList, communeList, inputName, placeholder, icon, onChange } = props;
+export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisationProps) => {
+  const { régionList, départementList, communeList, inputName, onChange } = props;
 
   const [suggestionIndex, setSuggestionIndex] = useState(1);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
@@ -42,7 +40,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionProps) => {
   };
 
   const handleBlur = () => {
-    if(codeInsee === undefined && typeLocalisation === undefined) {
+    if(codeInsee === '' && typeLocalisation === undefined) {
       setValue('');
       setSuggestionsActive(false);
     }
@@ -138,42 +136,41 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionProps) => {
 
   return (
     <div>
-      <label className={['hide', 'fr-label'].join(' ')} htmlFor={inputName} id={label}>
-        Recherche
-      </label>
       <div>
-        <div
-          className='fr-search-bar'
-          id="header-search"
-          role="combobox"
-          aria-expanded={suggestionsActive}
-          aria-controls={listbox}
-          aria-owns={listbox}
-          aria-haspopup="listbox"
-        >
-          <input
-            type="text"
-            id={inputName}
-            autoComplete="off"
-            aria-autocomplete="list"
+        <label className={'fr-label'} htmlFor={inputName} id={label}>
+          Localisation
+        </label>
+        <div>
+          <div
+            className='fr-search-bar'
+            id="header-search"
+            role="combobox"
+            aria-expanded={suggestionsActive}
             aria-controls={listbox}
-            aria-activedescendant={inputName}
-            placeholder={placeholder ?? 'Rechercher'}
-            className="fr-input"
-            value={value}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            onBlur={handleBlur}
-          />
-          <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
-          <input type="hidden" name="codeInsee" value={codeInsee}/>
-          <span
-            className={['fr-btn', icon ?? 'fr-icon-zoom-line'].join(' ')}
-            aria-hidden="true"
-          />
+            aria-owns={listbox}
+            aria-haspopup="listbox"
+          >
+            <input
+              type="text"
+              id={inputName}
+              autoComplete="off"
+              aria-autocomplete="list"
+              aria-controls={listbox}
+              aria-activedescendant={inputName}
+              placeholder={'Exemple: Paris, Béziers...'}
+              className="fr-input"
+              value={value}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              onBlur={handleBlur}
+            />
+            <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
+            <input type="hidden" name="codeInsee" value={codeInsee}/>
+          </div>
+          {suggestionsActive && <Suggestions />}
         </div>
-        {suggestionsActive && <Suggestions />}
       </div>
+
     </div>
   );
 };

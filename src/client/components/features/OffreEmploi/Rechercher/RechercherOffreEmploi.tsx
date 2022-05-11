@@ -156,8 +156,7 @@ export function RechercherOffreEmploi() {
         role="search"
       >
         <TextInput
-
-          label="Rechercher un métier, un mot-clé..."
+          label="Métier, mot-clé..."
           data-testid="InputRechercheMotClé"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
