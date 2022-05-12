@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-import { Breadcrumb } from '@sentry/nextjs';
 
 export class LoggerService {
   constructor(sessionId: string) {
@@ -17,7 +16,7 @@ export class LoggerService {
       category,
       level,
       message,
-    } as Breadcrumb);
+    } as Sentry.Breadcrumb);
   }
 
   info(message: string, category: string | undefined = undefined) {

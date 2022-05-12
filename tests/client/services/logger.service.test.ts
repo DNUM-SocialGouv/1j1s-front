@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-import { Breadcrumb } from '@sentry/nextjs';
 
 import { LoggerService } from '~/client/services/logger.service';
 
@@ -21,7 +20,7 @@ describe('LoggerService', () => {
       const loggerService = new LoggerService(sessionId);
       const message = 'mon erreur message';
       const category = 'message derreur';
-      const expectedParameters: Breadcrumb = {
+      const expectedParameters: Sentry.Breadcrumb = {
         category,
         level: Sentry.Severity.Error,
         message,
@@ -38,7 +37,7 @@ describe('LoggerService', () => {
       const loggerService = new LoggerService(sessionId);
       const message = 'mon info message';
       const category = 'message informatif';
-      const expectedParameters: Breadcrumb = {
+      const expectedParameters: Sentry.Breadcrumb = {
         category,
         level: Sentry.Severity.Info,
         message,
@@ -55,7 +54,7 @@ describe('LoggerService', () => {
       const loggerService = new LoggerService(sessionId);
       const message = 'mon warn message';
       const category = 'message de prévention';
-      const expectedParameters: Breadcrumb = {
+      const expectedParameters: Sentry.Breadcrumb = {
         category,
         level: Sentry.Severity.Warning,
         message,

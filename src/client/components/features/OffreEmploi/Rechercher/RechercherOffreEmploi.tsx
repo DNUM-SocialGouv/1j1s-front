@@ -10,29 +10,90 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
+  Pagination,
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
-import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { RésultatRechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { transformFormFormToRecord } from '~/client/utils/form.util';
+import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
+import { transformFormToEntries } from '~/client/utils/form.util';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 export function RechercherOffreEmploi() {
+  const router = useRouter();
+  const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
+  const { isSmallScreen } = useBreakpoint();
+
   const offreEmploiService = useDependency('offreEmploiService');
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
+
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
+
   const [isLoading, setIsLoading] = useState(false);
+
   const [isFiltresAvancésDesktopOpen, setIsFiltresAvancésDesktopOpen] = useState(false);
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
+
   const [typeDeContratInput, setTypeDeContratInput] = useState('');
-  const { isSmallScreen } = useBreakpoint();
+  const [inputValue, setInputValue] = useState<string>('');
+  const [filtres, setFiltres] = useState<string[]>([]);
+
+  const OFFRE_PER_PAGE = 30;
+  const [page, setPage] = useState(1);
+  const pageCount = Math.round(nombreRésultats / OFFRE_PER_PAGE);
+
+  const mapQueryParamsToFiltreList = useCallback(() => {
+    const filtreList: string[] = [];
+    Object.keys(queryParams).map((key) => {
+      if (key === QueryParams.PAGE) return;
+      if (key === QueryParams.TYPE_DE_CONTRATS) {
+        const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
+        const typeDeContratList = typeDeContrats.split(',');
+        typeDeContratList.map((contrat: string) => {
+          filtreList.push(contrat);
+        });
+      } else {
+        filtreList.push(getQueryValue(key));
+      }
+    });
+    setFiltres(filtreList);
+  }, [queryParams]);
+
+  useEffect(() => {
+    if (hasQueryParams) {
+      setParamètresUrl();
+      mapQueryParamsToFiltreList();
+
+      offreEmploiService.rechercherOffreEmploi(getQueryString())
+        .then((res) => {
+          setOffreEmploiList(res.résultats);
+          setNombreRésultats(res.nombreRésultats);
+          setIsLoading(false);
+        });
+    }
+  }, [offreEmploiService, mapQueryParamsToFiltreList, queryParams, hasQueryParams]);
+
+  function setParamètresUrl() {
+    if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputValue(getQueryValue(QueryParams.MOT_CLÉ));
+    if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setTypeDeContratInput(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
+    if (isKeyInQueryParams(QueryParams.PAGE)) setPage(Number(getQueryValue(QueryParams.PAGE)));
+  }
 
   function toggleFiltresAvancés() {
     if (isSmallScreen) {
@@ -53,17 +114,18 @@ export function RechercherOffreEmploi() {
     setTypeDeContratInput(typeDeContratInput.appendOrRemoveSubStr(value));
   }
 
+  async function changePage(page: number) {
+    setPage(page);
+    await router.push({ query: { ...router.query, page } });
+  }
+
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    const formRecord = transformFormFormToRecord(event.currentTarget);
-    const {
-      résultats,
-      nombreRésultats,
-    } = await offreEmploiService.rechercherOffreEmploi(formRecord);
-    setOffreEmploiList(résultats);
-    setNombreRésultats(nombreRésultats);
-    setIsLoading(false);
+    const formEntries = transformFormToEntries(event.currentTarget);
+    const query = new URLSearchParams(formEntries).toString();
+    const QUERY_FIRST_PAGE = 'page=1';
+    return await router.push({ query: query ? `${query}&${QUERY_FIRST_PAGE}` : `${QUERY_FIRST_PAGE}` });
   }
 
   return (
@@ -81,14 +143,16 @@ export function RechercherOffreEmploi() {
         role="search"
       >
         <TextInput
+
           label="Rechercher un métier, un mot-clé..."
           data-testid="InputRechercheMotClé"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
+          value={inputValue}
           name="motCle"
           autoFocus
           placeholder="exemple : boulanger, informatique..."
-          onChange={(event: ChangeEvent<HTMLInputElement>) => event.target.value}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)}
         />
         <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
         <ButtonGroup size="md">
@@ -169,6 +233,9 @@ export function RechercherOffreEmploi() {
       {
         nombreRésultats !== 0 &&
         <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+          { filtres.length > 0 &&
+          <TagList list={filtres} />
+          }
           <strong>{nombreRésultats} offres d&apos;emplois</strong>
         </div>
       }
@@ -185,6 +252,13 @@ export function RechercherOffreEmploi() {
             );
           })}
         </ul>
+      }
+      {
+        nombreRésultats !== 0 &&
+          <div className={styles.pagination}>
+            <Pagination onClick={changePage} currentPage={page} pageCount={pageCount} surrendingPages={0}/>
+          </div>
+
       }
     </main>
   );

@@ -1,6 +1,15 @@
 .nombreRésultats {
-  margin-top: 24px;
   padding: 16px;
+  border-bottom: 1px solid var(--grey-950);
+}
+
+.pagination {
+  display: flex;
+  padding: 16px;
+}
+
+.pagination > nav {
+  margin: auto;
 }
 
 .rechercheOffreEmploi {
