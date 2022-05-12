@@ -3,6 +3,15 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
+.pagination {
+  display: flex;
+  padding: 16px;
+}
+
+.pagination > nav {
+  margin: auto;
+}
+
 .rechercheOffreEmploi {
   display: flex;
   flex-direction: column;

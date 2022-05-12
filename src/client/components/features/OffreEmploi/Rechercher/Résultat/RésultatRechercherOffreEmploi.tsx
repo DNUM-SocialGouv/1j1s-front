@@ -29,7 +29,7 @@ export function RésultatRechercherOffreEmploi(props: RésultatRechercherOffreEm
           <TagList data-testid="ÉtiquetteOffreEmploiList" list={[
             offreEmploi.lieuTravail,
             offreEmploi.expérience,
-            offreEmploi.typeContrat.libelléCourt,
+            offreEmploi.typeContrat?.libelléCourt,
             offreEmploi.duréeTravail,
           ]}/>
           <p>

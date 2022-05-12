@@ -30,72 +30,69 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
+import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { transformFormToEntries } from '~/client/utils/form.util';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 export function RechercherOffreEmploi() {
   const router = useRouter();
+  const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
+  const { isSmallScreen } = useBreakpoint();
 
   const offreEmploiService = useDependency('offreEmploiService');
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
+
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
+
   const [isLoading, setIsLoading] = useState(false);
+
   const [isFiltresAvancésDesktopOpen, setIsFiltresAvancésDesktopOpen] = useState(false);
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
+
   const [typeDeContratInput, setTypeDeContratInput] = useState('');
-  const { isSmallScreen } = useBreakpoint();
   const [inputValue, setInputValue] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
+  const OFFRE_PER_PAGE = 30;
   const [page, setPage] = useState(1);
+  const pageCount = Math.round(nombreRésultats / OFFRE_PER_PAGE);
 
-  const QUERY_MOT_CLÉ = 'motCle';
-  const QUERY_TYPE_DE_CONTRATS = 'typeDeContrats';
-  const QUERY_PAGE = 'page';
-
-  const mapFiltres = useCallback(() => {
+  const mapQueryParamsToFiltreList = useCallback(() => {
     const filtreList: string[] = [];
-    Object.keys(router.query).map((key) => {
-      if (key === QUERY_PAGE) return;
-      if (key === QUERY_TYPE_DE_CONTRATS) {
-        const typeDeContrats: string = router.query[key]!.toString();
+    Object.keys(queryParams).map((key) => {
+      if (key === QueryParams.PAGE) return;
+      if (key === QueryParams.TYPE_DE_CONTRATS) {
+        const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
         const typeDeContratList = typeDeContrats.split(',');
         typeDeContratList.map((contrat: string) => {
           filtreList.push(contrat);
         });
       } else {
-        filtreList.push(router.query[key]!.toString());
+        filtreList.push(getQueryValue(key));
       }
     });
     setFiltres(filtreList);
-  }, [router.query]);
+  }, [queryParams]);
 
   useEffect(() => {
-    if (Object.keys(router.query).length > 0) {
-      const queries = new URLSearchParams(Object.entries(router.query) as unknown as URLSearchParams);
-      setParamètresUrl(queries);
-      mapFiltres();
+    if (hasQueryParams) {
+      setParamètresUrl();
+      mapQueryParamsToFiltreList();
 
-      offreEmploiService.rechercherOffreEmploi(queries.toString())
+      offreEmploiService.rechercherOffreEmploi(getQueryString())
         .then((res) => {
           setOffreEmploiList(res.résultats);
           setNombreRésultats(res.nombreRésultats);
           setIsLoading(false);
         });
     }
-  }, [offreEmploiService, router.query, mapFiltres]);
+  }, [offreEmploiService, mapQueryParamsToFiltreList, queryParams, hasQueryParams]);
 
-  function setParamètresUrl(queries: URLSearchParams) {
-    if (queries.has(QUERY_MOT_CLÉ) && queries.get(QUERY_MOT_CLÉ) !== null) {
-      setInputValue(queries.get(QUERY_MOT_CLÉ)!);
-    }
-    if (queries.has(QUERY_TYPE_DE_CONTRATS) && queries.get(QUERY_TYPE_DE_CONTRATS) !== null) {
-      setTypeDeContratInput(queries.get(QUERY_TYPE_DE_CONTRATS)!);
-    }
-    if (queries.has(QUERY_PAGE) && queries.get(QUERY_PAGE) !== null) {
-      setPage(Number(queries.get(QUERY_PAGE)!));
-    }
+  function setParamètresUrl() {
+    if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputValue(getQueryValue(QueryParams.MOT_CLÉ));
+    if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setTypeDeContratInput(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
+    if (isKeyInQueryParams(QueryParams.PAGE)) setPage(Number(getQueryValue(QueryParams.PAGE)));
   }
 
   function toggleFiltresAvancés() {
@@ -127,17 +124,8 @@ export function RechercherOffreEmploi() {
     setIsLoading(true);
     const formEntries = transformFormToEntries(event.currentTarget);
     const query = new URLSearchParams(formEntries).toString();
-    if (query) {
-      return await router.push({ query: `${query}&page=1` });
-    }
-
-    offreEmploiService.rechercherOffreEmploi('page=1')
-      .then((res) => {
-        setOffreEmploiList(res.résultats);
-        setNombreRésultats(res.nombreRésultats);
-        setIsLoading(false);
-      });
-
+    const QUERY_FIRST_PAGE = 'page=1';
+    return await router.push({ query: query ? `${query}&${QUERY_FIRST_PAGE}` : `${QUERY_FIRST_PAGE}` });
   }
 
   return (
@@ -267,7 +255,10 @@ export function RechercherOffreEmploi() {
       }
       {
         nombreRésultats !== 0 &&
-        <Pagination onClick={changePage} currentPage={page} pageCount={Math.round(nombreRésultats / 30)}/>
+          <div className={styles.pagination}>
+            <Pagination onClick={changePage} currentPage={page} pageCount={pageCount} surrendingPages={0}/>
+          </div>
+
       }
     </main>
   );

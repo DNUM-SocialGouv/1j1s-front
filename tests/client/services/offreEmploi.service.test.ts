@@ -26,7 +26,7 @@ describe('OffreEmploiService', () => {
       it('appelle emploi avec le filtre', async () => {
         const httpClientService = aHttpClientService();
         const offreEmploiService = new OffreEmploiService(httpClientService, storage);
-        const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI';
+        const offreEmploiQuery = 'page=1&motCle=barman&typeDeContrats=CDD%2CCDI';
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 
@@ -41,7 +41,7 @@ describe('OffreEmploiService', () => {
       it('appelle emploi avec le filtre', async () => {
         const httpClientService = aHttpClientService();
         const offreEmploiService = new OffreEmploiService(httpClientService, storage);
-        const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI';
+        const offreEmploiQuery = 'page=1&motCle=barman&typeDeContrats=CDD%2CCDI';
 
         const apiEmploi = jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 
@@ -58,8 +58,8 @@ describe('OffreEmploiService', () => {
       it('appelle emploi avec le nouveau filtre', async () => {
         const httpClientService = aHttpClientService();
         const offreEmploiService = new OffreEmploiService(httpClientService, storage);
-        const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI';
-        const offreEmploiQueryNouveauxFiltres = 'motCle=barman&typeDeContrats=CDD';
+        const offreEmploiQuery = 'page=1&motCle=barman&typeDeContrats=CDD%2CCDI';
+        const offreEmploiQueryNouveauxFiltres = 'page=1&motCle=barman&typeDeContrats=CDD';
 
         const apiEmploi = jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 

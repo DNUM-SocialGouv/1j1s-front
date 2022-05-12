@@ -3,11 +3,14 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import {
-  mockUseRouter,
-  mockUseRouterOnce,
-} from '@tests/client/useRouter.mock';
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
 import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
@@ -46,7 +49,7 @@ describe('RechercherOffreEmploi', () => {
   describe('quand la recherche est lancée', () => {
     it('affiche les résultats de recherche et le nombre de résultats', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
-      mockUseRouter({ query: { motCle: 'boulanger', typeDeContrats: '' } });
+      mockUseRouter({ query: { motCle: 'boulanger' } });
       render(
         <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploiPage/>
@@ -63,14 +66,14 @@ describe('RechercherOffreEmploi', () => {
 
       expect(résultatRechercheOffreEmploiList).toHaveLength(3);
       expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois');
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&typeDeContrats=');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger');
     });
   });
 
   describe('quand les filtres avancés sont ouverts', () => {
     it('affiche les filtres dans une modale', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
-      mockUseRouter({ query: { motCle: '', typeDeContrats: 'CDD,MIS' } });
+      mockUseRouter({ query: { typeDeContrats: 'CDD,MIS' } });
 
       render(
         <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
@@ -96,12 +99,12 @@ describe('RechercherOffreEmploi', () => {
         expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
       });
 
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=&typeDeContrats=CDD%2CMIS');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('typeDeContrats=CDD%2CMIS');
 
     });
 
 
-    it('appelle l\'api avec les filtre sélectionnés', async () => {
+    it('appelle l\'api avec les filtres sélectionnés', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
 
       const routerPush = jest.fn();
@@ -126,18 +129,18 @@ describe('RechercherOffreEmploi', () => {
 
       const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
 
-      mockUseRouterOnce({ query: { motCle: '', typeDeContrats: 'MIS' } });
+      mockUseRouter({ query: { page: '1', typeDeContrats: 'MIS' } });
 
       fireEvent.click(buttonAppliquerFiltres);
 
-      expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS' });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
 
 
       await waitFor(() => {
         expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
       });
 
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=&typeDeContrats=MIS');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=MIS');
     });
   });
 

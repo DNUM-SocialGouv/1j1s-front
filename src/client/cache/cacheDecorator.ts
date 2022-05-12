@@ -1,6 +1,5 @@
 import { AppRawDataStorage } from '~/client/cache/appRawDataStorage';
 
-
 export class Cachable {
   storage: AppRawDataStorage;
 
