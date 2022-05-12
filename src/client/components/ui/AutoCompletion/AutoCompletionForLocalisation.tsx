@@ -1,15 +1,24 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
-import { Localisation, TypeLocalisation } from '~/server/localisations/domain/localisation';
+import {
+  Localisation,
+  TypeLocalisation,
+} from '~/server/localisations/domain/localisation';
 
 interface AutoCompletionForLocalisationProps {
   régionList: Localisation[];
   départementList: Localisation[];
   communeList: Localisation[];
   inputName: string;
-  onChange: (toto: string) => void;
+  onChange: (value: string) => void;
 }
 
 export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisationProps) => {
@@ -21,8 +30,38 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const [codeInsee, setCodeInsee] = useState<string>('');
   const [typeLocalisation, setTypeLocalisation] = useState<TypeLocalisation | undefined>(undefined);
 
+  const autocompleteRef = useRef<HTMLDivElement>(null);
+
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
+
+  const closeSuggestionsOnClickOutside = useCallback((e) => {
+    if (!(autocompleteRef.current)!.contains(e.target)) {
+      if(codeInsee === '' && typeLocalisation === undefined) {
+        setValue('');
+        setSuggestionsActive(false);
+      }
+    }
+  }, [autocompleteRef, codeInsee, typeLocalisation]);
+
+  const closeSuggestionsOnEscape = useCallback((e) => {
+    if (e.key === KeyBoard.ESCAPE) {
+      if(codeInsee === '' && typeLocalisation === undefined) {
+        setValue('');
+        setSuggestionsActive(false);
+      }
+    }
+  }, [codeInsee, typeLocalisation]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
+    document.addEventListener('keyup', closeSuggestionsOnEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
+      document.removeEventListener('keyup', closeSuggestionsOnEscape);
+    };
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -35,13 +74,6 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     if (value.length > 1) {
       setSuggestionsActive(true);
     } else {
-      setSuggestionsActive(false);
-    }
-  };
-
-  const handleBlur = () => {
-    if(codeInsee === '' && typeLocalisation === undefined) {
-      setValue('');
       setSuggestionsActive(false);
     }
   };
@@ -79,7 +111,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         aria-labelledby={label}
         id={listbox}
       >
-        <li className={styles.localisationCatégorie}><strong>Régions</strong></li>
+        { (régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
         {régionList.map((suggestion) => {
           currentHoverIndex++;
           return (
@@ -97,7 +129,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           );
         })}
 
-        <li className={styles.localisationCatégorie}><strong>Départements</strong></li>
+        { (départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
         {départementList.map((suggestion) => {
           currentHoverIndex++;
           return (
@@ -114,7 +146,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           );
         })}
 
-        <li className={styles.localisationCatégorie}><strong>Communes</strong></li>
+        {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
         {communeList.map((suggestion) => {
           currentHoverIndex++;
           return (
@@ -136,41 +168,37 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
 
   return (
     <div>
-      <div>
-        <label className={'fr-label'} htmlFor={inputName} id={label}>
-          Localisation
-        </label>
-        <div>
-          <div
-            className='fr-search-bar'
-            id="header-search"
-            role="combobox"
-            aria-expanded={suggestionsActive}
+      <label className={'fr-label'} htmlFor={inputName} id={label}>
+        Localisation
+      </label>
+      <div ref={autocompleteRef}>
+        <div
+          className='fr-search-bar'
+          id="header-search"
+          role="combobox"
+          aria-expanded={suggestionsActive}
+          aria-controls={listbox}
+          aria-owns={listbox}
+          aria-haspopup="listbox"
+        >
+          <input
+            type="text"
+            id={inputName}
+            autoComplete="off"
+            aria-autocomplete="list"
             aria-controls={listbox}
-            aria-owns={listbox}
-            aria-haspopup="listbox"
-          >
-            <input
-              type="text"
-              id={inputName}
-              autoComplete="off"
-              aria-autocomplete="list"
-              aria-controls={listbox}
-              aria-activedescendant={inputName}
-              placeholder={'Exemple: Paris, Béziers...'}
-              className="fr-input"
-              value={value}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              onBlur={handleBlur}
-            />
-            <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
-            <input type="hidden" name="codeInsee" value={codeInsee}/>
-          </div>
-          {suggestionsActive && <Suggestions />}
+            aria-activedescendant={inputName}
+            placeholder={'Exemple: Paris, Béziers...'}
+            className="fr-input"
+            value={value}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+          />
+          <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
+          <input type="hidden" name="codeInsee" value={codeInsee}/>
         </div>
+        {suggestionsActive && <Suggestions />}
       </div>
-
     </div>
   );
 };

@@ -21,8 +21,8 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   const { query } = request;
 
   return {
-    motClé: query.motCle ? String(query.motCle) : '',
     localisation: localisationMapper(query),
+    motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),
     typeDeContrats: query.typeDeContrats ? toTypeDeContrats(query.typeDeContrats) : [],
   };
