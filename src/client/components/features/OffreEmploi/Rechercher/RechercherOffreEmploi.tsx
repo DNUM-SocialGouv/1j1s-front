@@ -254,11 +254,10 @@ export function RechercherOffreEmploi() {
         </ul>
       }
       {
-        nombreRésultats !== 0 &&
+        nombreRésultats > OFFRE_PER_PAGE &&
           <div className={styles.pagination}>
-            <Pagination onClick={changePage} currentPage={page} pageCount={pageCount} surrendingPages={0}/>
+            <Pagination onClick={changePage} currentPage={page} pageCount={pageCount}/>
           </div>
-
       }
     </main>
   );
