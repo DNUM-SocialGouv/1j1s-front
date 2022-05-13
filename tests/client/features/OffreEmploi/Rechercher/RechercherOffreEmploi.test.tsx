@@ -10,8 +10,10 @@ import {
   waitFor,
   within,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
 
@@ -31,9 +33,10 @@ describe('RechercherOffreEmploi', () => {
   describe('quand on arrive sur la page', () => {
     it('affiche un formulaire pour la recherche d\'offres d\'emploi et aucun résultat', () => {
       const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
       render(
-        <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
@@ -49,9 +52,10 @@ describe('RechercherOffreEmploi', () => {
   describe('quand la recherche est lancée', () => {
     it('affiche les résultats de recherche et le nombre de résultats', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'boulanger' } });
       render(
-        <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
@@ -73,10 +77,11 @@ describe('RechercherOffreEmploi', () => {
   describe('quand les filtres avancés sont ouverts', () => {
     it('affiche les filtres dans une modale', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { typeDeContrats: 'CDD,MIS' } });
 
       render(
-        <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploi />
         </DependenciesProvider>,
       );
@@ -106,11 +111,12 @@ describe('RechercherOffreEmploi', () => {
 
     it('appelle l\'api avec les filtres sélectionnés', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
 
       const routerPush = jest.fn();
       mockUseRouter({ push: routerPush });
       render(
-        <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
@@ -151,10 +157,11 @@ describe('RechercherOffreEmploi', () => {
 
     it('propose les filtres avancés en accordéon', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
 
       render(
-        <DependenciesProvider offreEmploiService={offreEmploiServiceMock}>
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
@@ -164,6 +171,71 @@ describe('RechercherOffreEmploi', () => {
       const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
 
       expect(filtreRechercheDesktop).toBeInTheDocument();
+    });
+  });
+
+  describe('Quand on recherche par localisation', () => {
+    it('N\'affiche pas le menu déroulant quand on tape 1 caractère', async () => {
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+
+      const user = userEvent.setup();
+      const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
+
+      user.type(inputLocalisation, 'P');
+
+      const resultContainer = screen.queryByTestId('ResultsContainer');
+      expect(resultContainer).toBeNull();
+    });
+
+    it('quand on tape plus d\'1 caractère, le menu apparaît', async () => {
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+      const user = userEvent.setup();
+      const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
+      user.type(inputLocalisation, 'Pa');
+      const resultContainer = await screen.findByTestId('ResultsContainer');
+      expect(resultContainer).toBeInTheDocument();
+    });
+
+    it('quand l\'utilisateur clique, l\'input change', async () => {
+      //NOT WORKING
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+      const user = userEvent.setup();
+      const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
+      console.log('Before : ', inputLocalisation.value);
+      user.type(inputLocalisation, 'Pa');
+      const resultContainer = await screen.findByTestId('ResultsContainer');
+      const resultListitem = within(resultContainer).getAllByRole('option');
+      user.click(resultListitem[0]);
+      expect(true).toBe(false);
+    });
+
+    it('quand l\'utilisateur clique sur rechercher, on passe la localisation dans la query', async () => {
+      //To Do
+      expect(true).toBe(false);
     });
   });
 });

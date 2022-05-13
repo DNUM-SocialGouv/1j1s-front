@@ -110,6 +110,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         role="listbox"
         aria-labelledby={label}
         id={listbox}
+        data-testid="ResultsContainer"
       >
         { (régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
         {régionList.map((suggestion) => {
@@ -184,6 +185,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           <input
             type="text"
             id={inputName}
+            data-testid="InputLocalisation"
             autoComplete="off"
             aria-autocomplete="list"
             aria-controls={listbox}

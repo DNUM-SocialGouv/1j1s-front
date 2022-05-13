@@ -48,3 +48,11 @@ export function aLongList(): LocalisationList {
     }),
   };
 }
+
+export function aLocalisationList(): LocalisationList {
+  return {
+    communeList: [],
+    départementList: [{ code: '75', codeInsee: '75', libelle:'Paris' }],
+    régionList: [],
+  };
+}
