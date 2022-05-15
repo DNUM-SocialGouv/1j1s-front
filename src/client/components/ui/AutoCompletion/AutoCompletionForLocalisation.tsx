@@ -18,17 +18,21 @@ interface AutoCompletionForLocalisationProps {
   départementList: Localisation[];
   communeList: Localisation[];
   inputName: string;
+  inputLocalisation: string;
   onChange: (value: string) => void;
 }
 
 export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisationProps) => {
-  const { régionList, départementList, communeList, inputName, onChange } = props;
+  const { régionList, départementList, communeList, inputName, onChange, inputLocalisation } = props;
 
   const [suggestionIndex, setSuggestionIndex] = useState(1);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
-  const [value, setValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [codeInsee, setCodeInsee] = useState<string>('');
   const [typeLocalisation, setTypeLocalisation] = useState<TypeLocalisation | undefined>(undefined);
+
+  const [currentHoverTypeLocalisation, setCurrentHoverTypeLocalisation]= useState(TypeLocalisation.REGION);
+  const [currentIndex, setCurrenIndex] = useState(0);
 
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
@@ -38,22 +42,25 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const closeSuggestionsOnClickOutside = useCallback((e) => {
     if (!(autocompleteRef.current)!.contains(e.target)) {
       if(codeInsee === '' && typeLocalisation === undefined) {
-        setValue('');
-        setSuggestionsActive(false);
+        setInputValue('');
       }
+      setSuggestionsActive(false);
     }
   }, [autocompleteRef, codeInsee, typeLocalisation]);
 
   const closeSuggestionsOnEscape = useCallback((e) => {
     if (e.key === KeyBoard.ESCAPE) {
       if(codeInsee === '' && typeLocalisation === undefined) {
-        setValue('');
+        setInputValue('');
         setSuggestionsActive(false);
       }
     }
   }, [codeInsee, typeLocalisation]);
 
   useEffect(() => {
+    if (inputLocalisation) {
+      setInputValue(inputLocalisation);
+    }
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
     document.addEventListener('keyup', closeSuggestionsOnEscape);
 
@@ -67,21 +74,16 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     const { value } = e.target;
 
     onChange(value);
-    setValue(value);
+    setInputValue(value);
     setCodeInsee('');
     setTypeLocalisation(undefined);
-
-    if (value.length > 1) {
-      setSuggestionsActive(true);
-    } else {
-      setSuggestionsActive(false);
-    }
+    setSuggestionsActive(!!(value.length > 1));
   };
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>, typeLocalisation: TypeLocalisation) => {
     const { value } = e.currentTarget;
     const { innerText } = e.target as HTMLElement;
-    setValue(innerText);
+    setInputValue(innerText);
     setCodeInsee(String(value));
     setTypeLocalisation(typeLocalisation);
     setSuggestionsActive(false);
@@ -98,8 +100,50 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
       setSuggestionIndex(suggestionIndex + 1);
     }
     else if (event.key === KeyBoard.ENTER) {
-      setSuggestionsActive(false);
+      event.preventDefault();
+      let location;
+      if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
+        location = départementList;
+      }
+      else if (currentHoverTypeLocalisation === TypeLocalisation.REGION) {
+        location = régionList;
+      }
+      else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE) {
+        location = communeList;
+      }
+
+      if((codeInsee === '' && typeLocalisation === undefined) || inputValue && inputValue !== `${location[currentIndex].libelle} (${location[currentIndex].code})`) {
+        setTypeLocalisation(currentHoverTypeLocalisation);
+        setCodeInsee(location[currentIndex].codeInsee);
+        setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
+
+        setSuggestionsActive(false);
+      }
+      else if (inputValue) {
+        setSuggestionsActive(true);
+      }
     }
+  };
+
+  const getSuggestion = (suggestion, currentHoverIndex, typeLocalisation, index) => {
+    if (currentHoverIndex === suggestionIndex) {
+      setCurrentHoverTypeLocalisation(typeLocalisation);
+      setCurrenIndex(index);
+    }
+    const { libelle, code, codeInsee } = suggestion;
+
+    return (
+      <li
+        className={inputValue === `${libelle} (${code})` ? styles.active : currentHoverIndex === suggestionIndex ? styles.active : ''}
+        key={currentHoverIndex}
+        onClick={(e) => handleClick(e, typeLocalisation)}
+        role="option"
+        aria-selected={inputValue === `${libelle} (${code})`}
+        value={codeInsee}
+      >
+        {libelle} ({code})
+      </li>
+    );
   };
 
   const Suggestions = () => {
@@ -113,55 +157,21 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         data-testid="ResultsContainer"
       >
         { (régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
-        {régionList.map((suggestion) => {
+        {régionList.map((suggestion, index) => {
           currentHoverIndex++;
-          return (
-            <li
-              data-list="région"
-              className={currentHoverIndex === suggestionIndex ? styles.active : ''}
-              key={currentHoverIndex}
-              onClick={(e) => handleClick(e, TypeLocalisation.REGION)}
-              role="option"
-              aria-selected={false}
-              value={suggestion.codeInsee}
-            >
-              {suggestion.libelle} ({suggestion.code})
-            </li>
-          );
+          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
         })}
 
         { (départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
-        {départementList.map((suggestion) => {
+        {départementList.map((suggestion, index) => {
           currentHoverIndex++;
-          return (
-            <li
-              className={currentHoverIndex === suggestionIndex ? styles.active : ''}
-              key={currentHoverIndex}
-              onClick={(e) => handleClick(e, TypeLocalisation.DEPARTEMENT)}
-              role="option"
-              aria-selected={false}
-              value={suggestion.codeInsee}
-            >
-              {suggestion.libelle} ({suggestion.code})
-            </li>
-          );
+          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
         })}
 
         {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
-        {communeList.map((suggestion) => {
+        {communeList.map((suggestion, index) => {
           currentHoverIndex++;
-          return (
-            <li
-              className={currentHoverIndex === suggestionIndex ? styles.active : ''}
-              key={currentHoverIndex}
-              onClick={(e) => handleClick(e, TypeLocalisation.COMMUNE)}
-              role="option"
-              aria-selected={false}
-              value={suggestion.codeInsee}
-            >
-              {suggestion.libelle} ({suggestion.code})
-            </li>
-          );
+          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
       </ul>
     );
@@ -192,9 +202,10 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
             aria-activedescendant={inputName}
             placeholder={'Exemple: Paris, Béziers...'}
             className="fr-input"
-            value={value}
+            value={inputValue}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            onClick={() => setSuggestionsActive(!!codeInsee)}
           />
           <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
           <input type="hidden" name="codeInsee" value={codeInsee}/>

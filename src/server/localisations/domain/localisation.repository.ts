@@ -9,4 +9,5 @@ export interface LocalisationRepository {
   getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]>;
   getRégionListByNom(régionRecherchée: string): Promise<Localisation[]>;
   getAdresseList(adresseRecherchée: string): Promise<Adresse[]>;
+  getLocalisationByCode(typeLocalisation: string, codeInsee: string): Promise<Localisation>;
 }

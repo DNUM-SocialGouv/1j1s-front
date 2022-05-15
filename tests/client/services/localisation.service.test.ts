@@ -2,10 +2,17 @@
  * @jest-environment jsdom
  */
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
-import { aCommuneList, aDépartementList } from '@tests/fixtures/domain/localisation.fixture';
+import {
+  aCommune,
+  aCommuneList,
+  aDépartement,
+  aDépartementList,
+  aRégion,
+} from '@tests/fixtures/domain/localisation.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { LocalisationService } from '~/client/services/localisation.service';
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 
 describe('LocalisationService', () => {
@@ -113,6 +120,53 @@ describe('LocalisationService', () => {
         }],
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=Haut');
+    });
+  });
+
+  describe('récupérerLocalisationAvecCodeInsee', () => {
+    it('renvoie le département', async () => {
+      const httpClientService = aHttpClientService();
+      const localisationService = new LocalisationService(httpClientService);
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aDépartement()));
+
+      const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.DEPARTEMENT,'78');
+
+      expect(result).toEqual({
+        code: '34',
+        codeInsee: '34',
+        libelle: 'Hérault',
+      });
+      expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=DEPARTEMENT&codeInsee=78');
+    });
+
+    it('renvoie larégion', async () => {
+      const httpClientService = aHttpClientService();
+      const localisationService = new LocalisationService(httpClientService);
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRégion()));
+
+      const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.REGION,'76');
+
+      expect(result).toEqual({
+        code: '76',
+        codeInsee: '76',
+        libelle: 'Occitanie',
+      });
+      expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=REGION&codeInsee=76');
+    });
+
+    it('renvoie la commune', async () => {
+      const httpClientService = aHttpClientService();
+      const localisationService = new LocalisationService(httpClientService);
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aCommune()));
+
+      const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.COMMUNE,'36048');
+
+      expect(result).toEqual({
+        code: '34290',
+        codeInsee: '34001',
+        libelle: 'Abeilhan',
+      });
+      expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=COMMUNE&codeInsee=36048');
     });
   });
 });

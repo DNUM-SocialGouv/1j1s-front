@@ -7,6 +7,9 @@ import {
   aRechercheCommuneResponse,
   aRechercheDépartementResponse,
   aRechercheRégionResponse,
+  aRécupérationCommuneResponse,
+  aRécupérationDépartementResponse,
+  aRécupérationRégionResponse,
 } from '@tests/fixtures/services/apiGeoHttpClientService.fixture';
 
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
@@ -14,22 +17,22 @@ import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHt
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 describe('ApiGeoLocalisationRepository', () => {
+  let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
+
+  let apiGeoHttpClientService: ApiGeoHttpClientService;
+  let apiAdresseHttpClientService: ApiAdresseHttpClientService;
+
+  beforeEach(() => {
+    apiGeoHttpClientService = aApiGeoHttpClientService();
+    apiAdresseHttpClientService = aApiAdresseHttpClientService();
+
+    apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
+      apiGeoHttpClientService,
+      apiAdresseHttpClientService,
+    );
+  });
+
   describe('getAdresseList', () => {
-    let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
-
-    let apiGeoHttpClientService: ApiGeoHttpClientService;
-    let apiAdresseHttpClientService: ApiAdresseHttpClientService;
-
-    beforeEach(() => {
-      apiGeoHttpClientService = aApiGeoHttpClientService();
-      apiAdresseHttpClientService = aApiAdresseHttpClientService();
-
-      apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
-        apiGeoHttpClientService,
-        apiAdresseHttpClientService,
-      );
-    });
-
     it('retourne la liste des adresses trouvées par l\'api geo gouv', async () => {
       jest.spyOn(apiAdresseHttpClientService, 'get').mockResolvedValue(aRechercheAdresseResponse());
 
@@ -48,7 +51,9 @@ describe('ApiGeoLocalisationRepository', () => {
         },
       ]);
     });
-
+  });
+  
+  describe('getCommuneListByNom', () => {
     it('retourne la liste des communes par nom trouvées par l\'api decoupage administratif', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheCommuneResponse());
 
@@ -67,7 +72,9 @@ describe('ApiGeoLocalisationRepository', () => {
         },
       ]);
     });
+  });
 
+  describe('getDépartementListByNom', () => {
     it('retourne la liste des départements par nom trouvées par l\'api decoupage administratif', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheDépartementResponse());
 
@@ -81,7 +88,9 @@ describe('ApiGeoLocalisationRepository', () => {
         },
       ]);
     });
+  });
 
+  describe('getRégionListByNom', () => {
     it('retourne la liste des régions par nom trouvées par l\'api decoupage administratif', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheRégionResponse());
 
@@ -95,7 +104,9 @@ describe('ApiGeoLocalisationRepository', () => {
         },
       ]);
     });
+  });
 
+  describe('getCommuneListByCodePostal', () => {
     it('retourne la liste des communes par code postal trouvées par l\'api decoupage administratif', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheCommuneResponse());
 
@@ -114,7 +125,9 @@ describe('ApiGeoLocalisationRepository', () => {
         },
       ]);
     });
+  });
 
+  describe('getCommuneListByNuméroDépartement', () => {
     it('retourne la liste des communes du département par numéro du département trouvées par l\'api decoupage administratif', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheCommuneResponse());
 
@@ -133,7 +146,9 @@ describe('ApiGeoLocalisationRepository', () => {
         },
       ]);
     });
+  });
 
+  describe('getDépartementListByNuméroDépartement', () => {
     it('retourne la liste du département par numéro du département trouvées par l\'api decoupage administratif', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheDépartementResponse());
 
@@ -146,6 +161,53 @@ describe('ApiGeoLocalisationRepository', () => {
           libelle: 'Yvelines',
         },
       ]);
+    });
+  });
+
+  describe('getLocalisationByCode', () => {
+    describe('quand la localisation est un département', () => {
+      it('retourne le département trouvé par l\'api decoupage administratif', async () => {
+        jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRécupérationDépartementResponse());
+
+        const result = await apiGeoLocalisationRepository.getLocalisationByCode('departements', '78');
+
+        expect(result).toEqual({
+          code: '78',
+          codeInsee: '78',
+          libelle: 'Yvelines',
+        },
+        );
+      });
+    });
+
+    describe('quand la localisation est une commune', () => {
+      it('retourne la commune trouvé par l\'api decoupage administratif', async () => {
+        jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRécupérationCommuneResponse());
+
+        const result = await apiGeoLocalisationRepository.getLocalisationByCode('communes', '36048');
+
+        expect(result).toEqual({
+          code: '36048',
+          codeInsee: '36048',
+          libelle: 'Chavin',
+        },
+        );
+      });
+    });
+
+    describe('quand la localisation est une région', () => {
+      it('retourne la région trouvé par l\'api decoupage administratif', async () => {
+        jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRécupérationRégionResponse());
+
+        const result = await apiGeoLocalisationRepository.getLocalisationByCode('regions', '32');
+
+        expect(result).toEqual({
+          code: '32',
+          codeInsee: '32',
+          libelle: 'Hauts-de-France',
+        },
+        );
+      });
     });
   });
 });

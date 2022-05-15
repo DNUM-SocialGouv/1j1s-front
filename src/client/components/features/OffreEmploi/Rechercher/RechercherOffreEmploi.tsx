@@ -56,6 +56,7 @@ export function RechercherOffreEmploi() {
 
   const [typeDeContratInput, setTypeDeContratInput] = useState('');
   const [inputValue, setInputValue] = useState<string>('');
+  const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
   const OFFRE_PER_PAGE = 30;
@@ -66,6 +67,8 @@ export function RechercherOffreEmploi() {
     const filtreList: string[] = [];
     Object.keys(queryParams).map((key) => {
       if (key === QueryParams.PAGE) return;
+      if (key === QueryParams.TYPE_LOCALISATION) return;
+      if (key === QueryParams.CODE_INSEE) return;
       if (key === QueryParams.TYPE_DE_CONTRATS) {
         const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
         const typeDeContratList = typeDeContrats.split(',');
@@ -97,6 +100,17 @@ export function RechercherOffreEmploi() {
     if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputValue(getQueryValue(QueryParams.MOT_CLÉ));
     if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setTypeDeContratInput(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
     if (isKeyInQueryParams(QueryParams.PAGE)) setPage(Number(getQueryValue(QueryParams.PAGE)));
+    if (isKeyInQueryParams(QueryParams.CODE_INSEE) && isKeyInQueryParams(QueryParams.TYPE_LOCALISATION)) {
+      getLocalisation();
+    }
+  }
+
+  async function getLocalisation() {
+    const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
+    setInputLocalisation(`${localisation.libelle} (${localisation.code})`);
+    if (!filtres.includes(localisation.libelle)) {
+      setFiltres([...filtres, localisation.libelle]);
+    }
   }
 
   function toggleFiltresAvancés() {
@@ -173,6 +187,7 @@ export function RechercherOffreEmploi() {
           communeList={localisationList.communeList}
           départementList={localisationList.départementList}
           inputName="localisations"
+          inputLocalisation={inputLocalisation}
           onChange={rechercherLocalisation}/>
 
         <ButtonGroup size="md">

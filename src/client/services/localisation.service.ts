@@ -1,5 +1,8 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { LocalisationList } from '~/server/localisations/domain/localisation';
+import {
+  Localisation,
+  LocalisationList,
+} from '~/server/localisations/domain/localisation';
 
 
 export class LocalisationService {
@@ -23,6 +26,11 @@ export class LocalisationService {
     }
 
     const response = await this.httpClientService.get<LocalisationList>(`localisations?recherche=${recherche}`);
+    return response.data;
+  }
+
+  async récupérerLocalisationAvecCodeInsee(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
+    const response = await this.httpClientService.get<Localisation>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
     return response.data;
   }
 }

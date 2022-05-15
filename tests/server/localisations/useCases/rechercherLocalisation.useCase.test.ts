@@ -1,4 +1,9 @@
-import { aCommuneList, aDépartementList, aRégionList } from '@tests/fixtures/domain/localisation.fixture';
+import {
+  aCommuneList,
+  aDépartementList,
+  aLocalisationRepository,
+  aRégionList,
+} from '@tests/fixtures/domain/localisation.fixture';
 
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
@@ -7,15 +12,7 @@ describe('RechercherLocalisationUseCase', () => {
   let localisationRepository: LocalisationRepository;
 
   beforeEach(() => {
-    localisationRepository = {
-      getAdresseList: jest.fn(),
-      getCommuneListByCodePostal: jest.fn(),
-      getCommuneListByNom: jest.fn(),
-      getCommuneListByNuméroDépartement: jest.fn(),
-      getDépartementListByNom: jest.fn(),
-      getDépartementListByNuméroDépartement : jest.fn(),
-      getRégionListByNom: jest.fn(),
-    };
+    localisationRepository = aLocalisationRepository();
   });
 
   describe('quand la recherche contient 2 chiffres on va rechercher le département et les communes par le code du département', () => {
