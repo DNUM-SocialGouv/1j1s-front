@@ -66,7 +66,22 @@ export function RechercherOffreEmploi() {
         const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
         const typeDeContratList = typeDeContrats.split(',');
         typeDeContratList.map((contrat: string) => {
-          filtreList.push(contrat);
+          switch (contrat) {
+            case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
+              filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt);
+              break;
+            case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
+              filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt);
+              break;
+            case(OffreEmploi.CONTRAT_CDI.valeur):
+              filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt);
+              break;
+            case(OffreEmploi.CONTRAT_CDD.valeur):
+              filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt);
+              break;
+            default:
+              filtreList.push(contrat);
+          }
         });
       } else {
         filtreList.push(getQueryValue(key));
