@@ -3,6 +3,19 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
+<<<<<<< HEAD
+=======
+.nombreRésultats > h2 {
+  font-size:1.25rem;
+  padding:16px;
+  margin:0;
+}
+
+.nombreRésultats > strong {
+  font-size:1.25rem;
+}
+
+>>>>>>> 37780e9 (Fix: switch strong en H2)
 .pagination {
   display: flex;
   padding: 16px;
@@ -47,3 +60,16 @@
 .résultatRechercheOffreEmploiList > li {
   margin-top: 24px;
 }
+<<<<<<< HEAD
+=======
+
+.modalFiltre {
+  top:0;
+  transition: all 0.5s linear;
+}
+
+.modalFiltre > div {
+  top:500px;
+  transition: all 0.5s linear;
+}
+>>>>>>> 37780e9 (Fix: switch strong en H2)
