@@ -3,16 +3,6 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
-.nombreRésultats > h2 {
-  font-size:1.25rem;
-  padding:16px;
-  margin:0;
-}
-
-.nombreRésultats > strong {
-  font-size:1.25rem;
-}
-
 .pagination {
   display: flex;
   padding: 16px;
@@ -56,14 +46,4 @@
 
 .résultatRechercheOffreEmploiList > li {
   margin-top: 24px;
-}
-
-.modalFiltre {
-  top:0;
-  transition: all 0.5s linear;
-}
-
-.modalFiltre > div {
-  top:500px;
-  transition: all 0.5s linear;
 }
