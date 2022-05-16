@@ -216,6 +216,7 @@ describe('RechercherOffreEmploi', () => {
       //NOT WORKING
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
+      const user = userEvent.setup();
 
       mockUseRouter({});
       render(
@@ -223,7 +224,7 @@ describe('RechercherOffreEmploi', () => {
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
-      const user = userEvent.setup();
+
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
       console.log('Before : ', inputLocalisation.value);
       user.type(inputLocalisation, 'Pa');
@@ -235,7 +236,32 @@ describe('RechercherOffreEmploi', () => {
 
     it('quand l\'utilisateur clique sur rechercher, on passe la localisation dans la query', async () => {
       //To Do
-      expect(true).toBe(false);
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+      const user = userEvent.setup();
+      const routerPush = jest.fn();
+      
+      mockUseRouter({ push: routerPush });
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+
+      const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
+      const buttonRechercher = screen.getByTestId('ButtonRechercher');
+      user.type(inputLocalisation, 'Pa');
+      const resultContainer = await screen.findByTestId('ResultsContainer');
+      const resultListitem = within(resultContainer).getAllByRole('option');
+      user.click(resultListitem[0]);
+
+      mockUseRouter({ query: { codeInsee: '75', page: '1', typeLocalisation: 'DEPARTEMENT' } });
+
+      user.click(buttonRechercher);
+      await waitFor(() => {
+        expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
+      });
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75&page=1&typeLocalisation=DEPARTEMENT');
     });
   });
 });
