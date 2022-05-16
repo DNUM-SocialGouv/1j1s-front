@@ -3,6 +3,10 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
+.nombreRésultats > strong {
+  font-size:1.25rem;
+}
+
 .pagination {
   display: flex;
   padding: 16px;
@@ -46,4 +50,14 @@
 
 .résultatRechercheOffreEmploiList > li {
   margin-top: 24px;
+}
+
+.modalFiltre {
+  top:0;
+  transition: all 0.3s ease;
+}
+
+.modalFiltre > div {
+  top:500px;
+  transition: all 0.5s linear;
 }
