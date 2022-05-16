@@ -231,7 +231,7 @@ describe('RechercherOffreEmploi', () => {
       const resultContainer = await screen.findByTestId('ResultsContainer');
       const resultListitem = within(resultContainer).getAllByRole('option');
       user.click(resultListitem[0]);
-      expect(true).toBe(false);
+      expect(inputLocalisation.value).toBe('Paris (75)');
     });
 
     it('quand l\'utilisateur clique sur rechercher, on passe la localisation dans la query', async () => {
@@ -262,6 +262,7 @@ describe('RechercherOffreEmploi', () => {
         expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
       });
       expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75&page=1&typeLocalisation=DEPARTEMENT');
+      expect(inputLocalisation.value).toBe('Paris (75)');
     });
   });
 });
