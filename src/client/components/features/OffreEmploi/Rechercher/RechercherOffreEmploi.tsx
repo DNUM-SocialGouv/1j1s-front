@@ -285,7 +285,7 @@ export function RechercherOffreEmploi() {
           { filtres.length > 0 &&
           <TagList list={filtres} />
           }
-          <strong>{nombreRésultats} offres d&apos;emplois</strong>
+          <h2>{nombreRésultats} offres d&apos;emplois</h2>
         </div>
       }
 

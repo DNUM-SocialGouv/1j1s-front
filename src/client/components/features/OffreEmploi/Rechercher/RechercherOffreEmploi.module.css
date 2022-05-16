@@ -3,6 +3,12 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
+.nombreRésultats > h2 {
+  font-size:1.25rem;
+  padding:16px;
+  margin:0;
+}
+
 .nombreRésultats > strong {
   font-size:1.25rem;
 }
@@ -54,7 +60,7 @@
 
 .modalFiltre {
   top:0;
-  transition: all 0.3s ease;
+  transition: all 0.5s linear;
 }
 
 .modalFiltre > div {
