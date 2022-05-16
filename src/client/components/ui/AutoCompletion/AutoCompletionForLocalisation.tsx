@@ -207,8 +207,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
             onKeyDown={handleKeyDown}
             onClick={() => setSuggestionsActive(!!codeInsee)}
           />
-          <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
-          <input type="hidden" name="codeInsee" value={codeInsee}/>
+          <input type="hidden" data-testid="TypeLocalisation" name="typeLocalisation" value={typeLocalisation}/>
+          <input type="hidden" data-testid="ValueLocalisation" name="codeInsee" value={codeInsee}/>
         </div>
         {suggestionsActive && <Suggestions />}
       </div>

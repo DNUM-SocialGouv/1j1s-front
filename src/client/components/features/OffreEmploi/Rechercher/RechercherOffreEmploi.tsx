@@ -177,7 +177,7 @@ export function RechercherOffreEmploi() {
           value={inputValue}
           name="motCle"
           autoFocus
-          placeholder="exemple : boulanger, informatique..."
+          placeholder="Exemple : boulanger, informatique..."
           onChange={(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)}
         />
         <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>

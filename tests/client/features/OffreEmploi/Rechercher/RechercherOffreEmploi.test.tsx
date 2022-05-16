@@ -212,8 +212,7 @@ describe('RechercherOffreEmploi', () => {
       expect(resultContainer).toBeInTheDocument();
     });
 
-    it('quand l\'utilisateur clique, l\'input change', async () => {
-      //NOT WORKING
+    it('quand l\'utilisateur clique sur une option, l\'input change', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       const user = userEvent.setup();
@@ -224,18 +223,19 @@ describe('RechercherOffreEmploi', () => {
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
-
+      const hiddenTypeLocalisation = screen.getByTestId('TypeLocalisation') as HTMLInputElement;
+      const hiddenCodeInsee = screen.getByTestId('ValueLocalisation') as HTMLInputElement;
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
       console.log('Before : ', inputLocalisation.value);
       user.type(inputLocalisation, 'Pa');
       const resultContainer = await screen.findByTestId('ResultsContainer');
       const resultListitem = within(resultContainer).getAllByRole('option');
-      user.click(resultListitem[0]);
-      expect(inputLocalisation.value).toBe('Paris (75)');
+      await user.click(resultListitem[0]);
+      expect(hiddenTypeLocalisation.value).toBe('DEPARTEMENT');
+      expect(hiddenCodeInsee.value).toBe('75');
     });
 
-    it('quand l\'utilisateur clique sur rechercher, on passe la localisation dans la query', async () => {
-      //To Do
+    it('quand l\'utilisateur lance la recherche, la localisation est dans la query', async () => {
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       const user = userEvent.setup();
@@ -247,22 +247,15 @@ describe('RechercherOffreEmploi', () => {
           <RechercherOffreEmploiPage/>
         </DependenciesProvider>,
       );
-
+      const hiddenTypeLocalisation = screen.getByTestId('TypeLocalisation') as HTMLInputElement;
+      const hiddenCodeInsee = screen.getByTestId('ValueLocalisation') as HTMLInputElement;
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-      const buttonRechercher = screen.getByTestId('ButtonRechercher');
       user.type(inputLocalisation, 'Pa');
       const resultContainer = await screen.findByTestId('ResultsContainer');
       const resultListitem = within(resultContainer).getAllByRole('option');
-      user.click(resultListitem[0]);
-
-      mockUseRouter({ query: { codeInsee: '75', page: '1', typeLocalisation: 'DEPARTEMENT' } });
-
-      user.click(buttonRechercher);
-      await waitFor(() => {
-        expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
-      });
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75&page=1&typeLocalisation=DEPARTEMENT');
-      expect(inputLocalisation.value).toBe('Paris (75)');
+      await user.click(resultListitem[0]);
+      expect(hiddenTypeLocalisation.value).toBe('DEPARTEMENT');
+      expect(hiddenCodeInsee.value).toBe('75');
     });
   });
 });
