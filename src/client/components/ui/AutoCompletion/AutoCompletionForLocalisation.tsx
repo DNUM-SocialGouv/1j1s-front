@@ -20,10 +20,11 @@ interface AutoCompletionForLocalisationProps {
   inputName: string;
   inputLocalisation: string;
   onChange: (value: string) => void;
+  onUpdateInputLocalisation: () => void;
 }
 
 export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisationProps) => {
-  const { régionList, départementList, communeList, inputName, onChange, inputLocalisation } = props;
+  const { régionList, départementList, communeList, inputName, onChange, inputLocalisation, onUpdateInputLocalisation } = props;
 
   const [suggestionIndex, setSuggestionIndex] = useState(1);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
@@ -39,8 +40,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
 
-  const closeSuggestionsOnClickOutside = useCallback((e) => {
-    if (!(autocompleteRef.current)!.contains(e.target)) {
+  const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
+    if (!(autocompleteRef.current)!.contains(e.target as Node)) {
       if(codeInsee === '' && typeLocalisation === '') {
         setInputValue('');
       }
@@ -48,7 +49,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
   }, [autocompleteRef, codeInsee, typeLocalisation]);
 
-  const closeSuggestionsOnEscape = useCallback((e) => {
+  const closeSuggestionsOnEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === KeyBoard.ESCAPE) {
       if(codeInsee === '' && typeLocalisation === '') {
         setInputValue('');
@@ -101,7 +102,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
-      let location;
+      let location: Localisation[] = [];
       if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
         location = départementList;
       }
@@ -112,15 +113,14 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         location = communeList;
       }
       if((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${location[currentIndex].code}`)) {
+        onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
         setCodeInsee(location[currentIndex].codeInsee);
         setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
 
         setSuggestionsActive(false);
       }
-      else if (inputValue) {
-        setSuggestionsActive(true);
-      }
+
     }
   };
 

@@ -32,6 +32,8 @@ import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
+import { LocalisationService } from '~/client/services/localisation.service';
+import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { transformFormToEntries } from '~/client/utils/form.util';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
@@ -41,8 +43,9 @@ export function RechercherOffreEmploi() {
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
   const { isSmallScreen } = useBreakpoint();
 
-  const offreEmploiService = useDependency('offreEmploiService');
-  const localisationService = useDependency('localisationService');
+  const  offreEmploiService  = useDependency('offreEmploiService') as OffreEmploiService;
+  const localisationService = useDependency('localisationService') as LocalisationService;
+
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
@@ -75,16 +78,16 @@ export function RechercherOffreEmploi() {
         typeDeContratList.map((contrat: string) => {
           switch (contrat) {
             case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt);
+              filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt!);
               break;
             case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt);
+              filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt!);
               break;
             case(OffreEmploi.CONTRAT_CDI.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt);
+              filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt!);
               break;
             case(OffreEmploi.CONTRAT_CDD.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt);
+              filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt!);
               break;
             default:
               filtreList.push(contrat);
@@ -163,11 +166,7 @@ export function RechercherOffreEmploi() {
 
   async function rechercherLocalisation(recherche: string) {
     const résultats = await localisationService.rechercheLocalisation(recherche);
-    if(résultats) {
-      setLocalisationList(résultats);
-    } else {
-      setLocalisationList({ communeList: [], départementList: [], régionList: [] });
-    }
+    setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
   }
 
   return (
@@ -203,7 +202,8 @@ export function RechercherOffreEmploi() {
           départementList={localisationList.départementList}
           inputName="localisations"
           inputLocalisation={inputLocalisation}
-          onChange={rechercherLocalisation}/>
+          onChange={rechercherLocalisation}
+          onUpdateInputLocalisation={() => setInputLocalisation('')}/>
 
         <ButtonGroup size="md">
           <Button

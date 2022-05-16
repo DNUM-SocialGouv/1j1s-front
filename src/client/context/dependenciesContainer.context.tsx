@@ -1,8 +1,9 @@
 import React, { createContext, useContext } from 'react';
 
-import { Dependencies } from '~/client/dependencies.container';
-import { LocalisationService } from '~/client/services/localisation.service';
-import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
+import {
+  Dependencies,
+  Dependency,
+} from '~/client/dependencies.container';
 
 class DependencyException extends Error {
   constructor(key: string) {
@@ -24,9 +25,9 @@ export function DependenciesProvider({
   );
 }
 
-export function useDependency(key: keyof Dependencies): OffreEmploiService | LocalisationService {
+export function useDependency(key: keyof Dependencies): Dependency {
   const dependencies = useContext(DependenciesContainerContext);
-  const dependency: OffreEmploiService | LocalisationService | undefined = dependencies[key];
+  const dependency: Dependency | undefined = dependencies[key];
   if(!dependency) {
     throw new DependencyException(key);
   }

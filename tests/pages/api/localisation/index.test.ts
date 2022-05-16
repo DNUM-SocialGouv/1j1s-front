@@ -49,7 +49,7 @@ describe('récupérer une localisation', () => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
         expect(json).toEqual({
-          code: '02377',
+          code: '02140',
           codeInsee: '02377',
           libelle: 'Haution',
         });
@@ -57,7 +57,6 @@ describe('récupérer une localisation', () => {
       url: '/localisation?typeLocalisation=COMMUNE&codeInsee=02377',
     });
   });
-
 
   it('retourne la localisation pour une région', async () => {
     nock('https://geo.api.gouv.fr/')

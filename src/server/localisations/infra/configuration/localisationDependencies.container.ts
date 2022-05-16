@@ -4,7 +4,7 @@ import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHt
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 export interface LocalisationDependenciesContainer {
-  readonly récupererLocalisation: RécupérerLocalisationAvecCodeInseeUseCase;
+  readonly récupérerLocalisation: RécupérerLocalisationAvecCodeInseeUseCase;
 };
 
 export const récupérerLocalisationAvecDependenciesContainer = (
@@ -14,6 +14,6 @@ export const récupérerLocalisationAvecDependenciesContainer = (
   const localisationRepository = new ApiGeoLocalisationRepository(apiGeoGouvHttpClientService,apiAdresseHttpClientService);
 
   return {
-    récupererLocalisation: new RécupérerLocalisationAvecCodeInseeUseCase(localisationRepository),
+    récupérerLocalisation: new RécupérerLocalisationAvecCodeInseeUseCase(localisationRepository),
   };
 };

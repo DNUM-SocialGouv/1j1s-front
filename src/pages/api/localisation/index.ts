@@ -5,7 +5,7 @@ import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
 export async function récupérerLocalisationAvecCodeInseeHandler(req: NextApiRequest, res: NextApiResponse<Localisation>) {
-  const résultatRécupérationLocalisation = await dependencies.localisationDependencies.récupererLocalisation.handle(String(req.query.typeLocalisation), String(req.query.codeInsee));
+  const résultatRécupérationLocalisation = await dependencies.localisationDependencies.récupérerLocalisation.handle(String(req.query.typeLocalisation), String(req.query.codeInsee));
   return res.status(200).json(résultatRécupérationLocalisation);
 }
 

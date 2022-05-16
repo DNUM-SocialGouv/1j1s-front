@@ -189,7 +189,7 @@ describe('RechercherOffreEmploi', () => {
       const user = userEvent.setup();
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
 
-      user.type(inputLocalisation, 'P');
+      await user.type(inputLocalisation, 'P');
 
       const resultContainer = screen.queryByTestId('ResultsContainer');
       expect(resultContainer).toBeNull();
@@ -207,7 +207,7 @@ describe('RechercherOffreEmploi', () => {
       );
       const user = userEvent.setup();
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-      user.type(inputLocalisation, 'Pa');
+      await user.type(inputLocalisation, 'Pa');
       const resultContainer = await screen.findByTestId('ResultsContainer');
       expect(resultContainer).toBeInTheDocument();
     });
@@ -226,8 +226,7 @@ describe('RechercherOffreEmploi', () => {
       const hiddenTypeLocalisation = screen.getByTestId('TypeLocalisation') as HTMLInputElement;
       const hiddenCodeInsee = screen.getByTestId('ValueLocalisation') as HTMLInputElement;
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-      console.log('Before : ', inputLocalisation.value);
-      user.type(inputLocalisation, 'Pa');
+      await user.type(inputLocalisation, 'Pa');
       const resultContainer = await screen.findByTestId('ResultsContainer');
       const resultListitem = within(resultContainer).getAllByRole('option');
       await user.click(resultListitem[0]);
@@ -250,7 +249,7 @@ describe('RechercherOffreEmploi', () => {
       const hiddenTypeLocalisation = screen.getByTestId('TypeLocalisation') as HTMLInputElement;
       const hiddenCodeInsee = screen.getByTestId('ValueLocalisation') as HTMLInputElement;
       const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-      user.type(inputLocalisation, 'Pa');
+      await user.type(inputLocalisation, 'Pa');
       const resultContainer = await screen.findByTestId('ResultsContainer');
       const resultListitem = within(resultContainer).getAllByRole('option');
       await user.click(resultListitem[0]);

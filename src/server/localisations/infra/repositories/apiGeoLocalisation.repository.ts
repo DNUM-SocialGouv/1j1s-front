@@ -95,7 +95,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       .get<ApiDecoupageAdministratifResponse>(`${typeLocalisation}/${codeInsee}`);
     const { code, nom } = response.data;
     return {
-      code,
+      code: typeLocalisation === 'communes' ?  response.data.codesPostaux[0] : code,
       codeInsee: code,
       libelle: nom,
     };
