@@ -284,7 +284,7 @@ export function RechercherOffreEmploi() {
           { filtres.length > 0 &&
           <TagList list={filtres} />
           }
-          <h2>{nombreRésultats} offres d&apos;emplois</h2>
+          <h2>{nombreRésultats} offres d&apos;emplois pour {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
         </div>
       }
 
@@ -306,6 +306,7 @@ export function RechercherOffreEmploi() {
           <div className={styles.pagination}>
             <Pagination onClick={changePage} currentPage={page} pageCount={pageCount}/>
           </div>
+
       }
     </main>
   );
