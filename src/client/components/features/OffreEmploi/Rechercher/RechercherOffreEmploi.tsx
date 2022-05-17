@@ -258,7 +258,6 @@ export function RechercherOffreEmploi() {
             </Button>
           </ModalFooter>
         </Modal>
-
         {
           isFiltresAvancésDesktopOpen && (
             <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
