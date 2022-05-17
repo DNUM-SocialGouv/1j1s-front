@@ -115,11 +115,13 @@ export function RechercherOffreEmploi() {
   }, [offreEmploiService, mapQueryParamsToFiltreList, queryParams, hasQueryParams]);
 
   function setParamètresUrl() {
-    if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputValue(getQueryValue(QueryParams.MOT_CLÉ));
-    if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setTypeDeContratInput(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
-    if (isKeyInQueryParams(QueryParams.PAGE)) setPage(Number(getQueryValue(QueryParams.PAGE)));
+    setInputValue(isKeyInQueryParams(QueryParams.MOT_CLÉ) ? getQueryValue(QueryParams.MOT_CLÉ) : '');
+    setTypeDeContratInput(isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS) ? getQueryValue(QueryParams.TYPE_DE_CONTRATS) : '');
+    setPage(isKeyInQueryParams(QueryParams.PAGE) ? Number(getQueryValue(QueryParams.PAGE)) : 1);
     if (isKeyInQueryParams(QueryParams.CODE_INSEE) && isKeyInQueryParams(QueryParams.TYPE_LOCALISATION)) {
       getLocalisation();
+    } else {
+      setInputLocalisation('');
     }
   }
 
@@ -165,6 +167,7 @@ export function RechercherOffreEmploi() {
   }
 
   async function rechercherLocalisation(recherche: string) {
+    setInputLocalisation(recherche);
     const résultats = await localisationService.rechercheLocalisation(recherche);
     setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
   }
@@ -192,7 +195,7 @@ export function RechercherOffreEmploi() {
           name="motCle"
           autoFocus
           placeholder="Exemple : boulanger, informatique..."
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.currentTarget.value)}
         />
         <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
 

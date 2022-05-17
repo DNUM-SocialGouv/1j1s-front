@@ -41,7 +41,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const listbox = 'autocomplete-listbox';
 
   const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
-    if (!(autocompleteRef.current)!.contains(e.target as Node)) {
+    if (!(autocompleteRef.current)?.contains(e.target as Node)) {
       if(suggestionsActive && codeInsee === '' && typeLocalisation === '') {
         setInputValue('');
       }
@@ -78,7 +78,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     setInputValue(value);
     setCodeInsee('');
     setTypeLocalisation('');
-    setSuggestionsActive(!!(value.length > 1));
+    setSuggestionsActive(value.length > 1);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>, typeLocalisation: TypeLocalisation, codeInsee: string) => {
@@ -124,7 +124,6 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
 
         setSuggestionsActive(false);
       }
-
     }
   };
 

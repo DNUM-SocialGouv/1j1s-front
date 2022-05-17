@@ -8,4 +8,5 @@ export const enum KeyBoard {
   ENTER = 'Enter',
   ESCAPE = 'Escape',
   BACKSPACE = 'Backspace',
+  DELETE = 'Delete',
 }
