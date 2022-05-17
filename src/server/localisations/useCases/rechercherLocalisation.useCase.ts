@@ -1,4 +1,4 @@
-import { Localisation } from '~/server/localisations/domain/localisation';
+import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 
 export class RechercherLocalisationUseCase {
@@ -41,9 +41,3 @@ export class RechercherLocalisationUseCase {
     return new RegExp(/^\d*$/).test(recherche) && recherche.length === length;
   }
 }
-
-export interface LocalisationList {
-  communeList: Localisation[]
-  départementList: Localisation[]
-  régionList: Localisation[]
-} 

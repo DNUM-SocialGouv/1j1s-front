@@ -54,3 +54,32 @@ export function aRechercheRégionResponse(): AxiosResponse {
     },
   ]);
 }
+
+export function aRécupérationCommuneResponse(): AxiosResponse {
+  return anAxiosResponse({
+    code: '36048',
+    codeDepartement: '36',
+    codeRegion: '24',
+    codesPostaux: ['36200'],
+    nom: 'Chavin',
+    population: 271,
+  },
+  );
+}
+
+export function aRécupérationDépartementResponse(): AxiosResponse {
+  return anAxiosResponse({
+    code: '78',
+    codeRegion: '11',
+    nom: 'Yvelines',
+  },
+  );
+}
+
+export function aRécupérationRégionResponse(): AxiosResponse {
+  return anAxiosResponse({
+    code: '32',
+    nom: 'Hauts-de-France',
+  },
+  );
+}

@@ -1,6 +1,9 @@
 import React, { createContext, useContext } from 'react';
 
-import { Dependencies, Dependency } from '~/client/dependencies.container';
+import {
+  Dependencies,
+  Dependency,
+} from '~/client/dependencies.container';
 
 class DependencyException extends Error {
   constructor(key: string) {

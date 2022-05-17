@@ -1,3 +1,5 @@
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+
 export type OffreEmploiId = string;
 
 export interface OffreEmploi {
@@ -6,7 +8,7 @@ export interface OffreEmploi {
   description?: string
   lieuTravail?: string
   entreprise: OffreEmploi.Entreprise
-  typeContrat: OffreEmploi.TypeDeContrat
+  typeContrat?: OffreEmploi.TypeDeContrat
   expérience?: OffreEmploi.Expérience
   duréeTravail?: OffreEmploi.DuréeTravail
   urlOffreOrigine: string
@@ -30,7 +32,7 @@ export namespace OffreEmploi {
   }
 
   export interface TypeDeContrat {
-    libelléCourt: string
+    libelléCourt?: string
     libelléLong: string
     valeur: string
   }
@@ -76,6 +78,12 @@ export interface OffreEmploiFiltre {
   motClé?: string
   typeDeContrats: string[]
   page: number
+  localisation?: OffreEmploiFiltreLocalisation
+}
+
+export interface OffreEmploiFiltreLocalisation {
+  typeLocalisation: TypeLocalisation
+  codeInsee: string
 }
 
 export const NOMBRE_RÉSULTATS_PAR_PAGE = 30;

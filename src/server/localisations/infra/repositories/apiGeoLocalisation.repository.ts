@@ -88,6 +88,18 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       libelle: commune.nom,
     }));
   }
+
+
+  async getLocalisationByCode(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
+    const response = await this.apiGeoGouvHttpClientService
+      .get<ApiDecoupageAdministratifResponse>(`${typeLocalisation}/${codeInsee}`);
+    const { code, nom } = response.data;
+    return {
+      code: typeLocalisation === 'communes' ?  response.data.codesPostaux[0] : code,
+      codeInsee: code,
+      libelle: nom,
+    };
+  }
 }
 
 interface ApiGeoAdresseResponse {

@@ -8,7 +8,9 @@ import {
 export const enum QueryParams {
   MOT_CLÉ = 'motCle',
   TYPE_DE_CONTRATS = 'typeDeContrats',
-  PAGE = 'page'
+  PAGE = 'page',
+  TYPE_LOCALISATION = 'typeLocalisation',
+  CODE_INSEE = 'codeInsee'
 }
 
 export default function useQueryParams() {

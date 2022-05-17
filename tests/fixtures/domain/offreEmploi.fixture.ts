@@ -1,3 +1,4 @@
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
   OffreEmploiFiltre, RésultatsRechercheOffreEmploi,
@@ -68,6 +69,10 @@ export function aValetOffreEmploi(): OffreEmploi {
 
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
+    localisation: {
+      codeInsee: '34',
+      typeLocalisation: TypeLocalisation.REGION,
+    },
     motClé: 'boulanger',
     page: 1,
     typeDeContrats: ['CDD', 'CDI'],
