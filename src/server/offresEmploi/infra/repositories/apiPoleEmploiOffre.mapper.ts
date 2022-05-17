@@ -60,7 +60,7 @@ function mapLieuTravail(lieuTravailResponse?: OffreEmploiResponse.LieuTravail): 
   const lieuTravail = lieuTravailResponse.libelle.split(' - ');
   const ville = lieuTravail[1];
   const département = lieuTravail[0];
-  return `${ville} (${département})`;
+  return ville ? `${ville} (${département})` : `${département}`;
 }
 
 function mapExpérience(expérienceExigéeResponse?: OffreEmploiResponse.Expérience): OffreEmploi.Expérience | undefined {
