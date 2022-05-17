@@ -42,7 +42,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
 
   const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
     if (!(autocompleteRef.current)!.contains(e.target as Node)) {
-      if(codeInsee === '' && typeLocalisation === '') {
+      if(suggestionsActive && codeInsee === '' && typeLocalisation === '') {
         setInputValue('');
       }
       setSuggestionsActive(false);
@@ -59,7 +59,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   }, [codeInsee, typeLocalisation]);
 
   useEffect(() => {
-    if (inputLocalisation) {
+    if (inputLocalisation !== '') {
       setInputValue(inputLocalisation);
     }
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
@@ -81,11 +81,11 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     setSuggestionsActive(!!(value.length > 1));
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLLIElement>, typeLocalisation: TypeLocalisation) => {
-    const { value } = e.currentTarget;
+  const handleClick = (e: React.MouseEvent<HTMLLIElement>, typeLocalisation: TypeLocalisation, codeInsee: string) => {
     const { innerText } = e.target as HTMLElement;
+    onUpdateInputLocalisation();
     setInputValue(innerText);
-    setCodeInsee(String(value));
+    setCodeInsee(codeInsee);
     setTypeLocalisation(typeLocalisation);
     setSuggestionsActive(false);
   };
@@ -102,17 +102,21 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
+      const isSuggestionListEmpty = départementList.length === 0 && régionList.length === 0 && communeList.length === 0;
       let location: Localisation[] = [];
-      if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
-        location = départementList;
+      if (!isSuggestionListEmpty) {
+
+        if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
+          location = départementList;
+        }
+        else if (currentHoverTypeLocalisation === TypeLocalisation.REGION) {
+          location = régionList;
+        }
+        else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE) {
+          location = communeList;
+        }
       }
-      else if (currentHoverTypeLocalisation === TypeLocalisation.REGION) {
-        location = régionList;
-      }
-      else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE) {
-        location = communeList;
-      }
-      if((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${location[currentIndex].code}`)) {
+      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${location[currentIndex].code}`))) {
         onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
         setCodeInsee(location[currentIndex].codeInsee);
@@ -131,12 +135,11 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
 
     const { libelle, code, codeInsee } = suggestion;
-
     return (
       <li
         className={inputValue === `${libelle} (${code})` ? styles.active : currentHoverIndex === suggestionIndex ? styles.active : ''}
         key={currentHoverIndex}
-        onClick={(e) => handleClick(e, typeLocalisation)}
+        onClick={(e) => handleClick(e, typeLocalisation, codeInsee)}
         role="option"
         aria-selected={inputValue === `${libelle} (${code})`}
         value={codeInsee}
