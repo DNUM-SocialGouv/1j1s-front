@@ -82,3 +82,11 @@ export function aLocalisationList(): LocalisationList {
     régionList: [],
   };
 }
+
+export function aLocalisationListWithEmptyValue(): LocalisationList {
+  return {
+    communeList: [],
+    départementList: [],
+    régionList: [],
+  };
+}

@@ -152,31 +152,39 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const Suggestions = () => {
     let currentHoverIndex = 0;
     return (
-      <ul
-        className={styles.autocompletionSuggestion}
-        role="listbox"
-        aria-labelledby={label}
-        id={listbox}
-        data-testid="ResultsContainer"
-      >
-        { (régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
-        {régionList.map((suggestion, index) => {
-          currentHoverIndex++;
-          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
-        })}
+      <>
+        {(régionList.length === 0 && départementList.length === 0 && communeList.length === 0) ?
+          <span className={styles.autocompletionSuggestion} data-testid="NoResultContainer">
+            Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...
+          </span>
+          :
+          <ul
+            className={styles.autocompletionSuggestion}
+            role="listbox"
+            aria-labelledby={label}
+            id={listbox}
+            data-testid="ResultsContainer"
+          >
+            {(régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
+            {régionList.map((suggestion, index) => {
+              currentHoverIndex++;
+              return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
+            })}
 
-        { (départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
-        {départementList.map((suggestion, index) => {
-          currentHoverIndex++;
-          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
-        })}
+            {(départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
+            {départementList.map((suggestion, index) => {
+              currentHoverIndex++;
+              return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
+            })}
 
-        {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
-        {communeList.map((suggestion, index) => {
-          currentHoverIndex++;
-          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
-        })}
-      </ul>
+            {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
+            {communeList.map((suggestion, index) => {
+              currentHoverIndex++;
+              return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
+            })}
+          </ul>
+        }
+      </>
     );
   };
 
