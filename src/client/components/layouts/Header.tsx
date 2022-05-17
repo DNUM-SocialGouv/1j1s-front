@@ -37,7 +37,7 @@ export function Header() {
             height="66"
           />
         </HeaderOperator>
-        <Service className={styles.title} title="1jeune1solution" description="" />
+        <Service title="1jeune1solution" description="" />
       </HeaderBody>
       <HeaderNav >
         <div className={styles.navLinks}>

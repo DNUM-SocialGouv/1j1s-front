@@ -9,10 +9,6 @@
   margin:0;
 }
 
-.nombreRésultats > strong {
-  font-size:1.25rem;
-}
-
 .pagination {
   display: flex;
   padding: 16px;
