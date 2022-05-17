@@ -13,8 +13,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import styles from '~/client/components/layouts/Header.module.css';
-
 export function Header() {
   const router = useRouter();
   const [path, setPath] = useState(() => router.pathname || '');
@@ -40,12 +38,10 @@ export function Header() {
         <Service title="1jeune1solution" description="" />
       </HeaderBody>
       <HeaderNav >
-        <div className={styles.navLinks}>
-          <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
-          <NavItem title="Offres">
-            <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
-          </NavItem>
-        </div>
+        <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
+        <NavItem title="Offres">
+          <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
+        </NavItem>
       </HeaderNav>
     </HeaderDSFR>
   );
