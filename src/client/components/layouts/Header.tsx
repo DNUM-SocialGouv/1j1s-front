@@ -37,7 +37,7 @@ export function Header() {
         </HeaderOperator>
         <Service title="1jeune1solution" description="" />
       </HeaderBody>
-      <HeaderNav >
+      <HeaderNav>
         <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
         <NavItem title="Offres">
           <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
