@@ -9,11 +9,11 @@ interface TagListProps {
 
 export function TagList({ children, list, ...rest }: React.PropsWithChildren<TagListProps>) {
   return (
-    <ul className={styles.tagList} {...rest}>
+    <ul data-testid="TagList" className={styles.tagList} {...rest}>
       {
         list.map((tag) => (
           tag && (
-            <li key={tag}>
+            <li key={tag} data-testid="TagListItem">
               <Tag>{tag}</Tag>
             </li>
           )

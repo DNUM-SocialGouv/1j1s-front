@@ -35,6 +35,7 @@ describe('RechercherOffreEmploi', () => {
 
   describe('quand on arrive sur la page', () => {
     it('affiche un formulaire pour la recherche d\'offres d\'emploi et aucun résultat', () => {
+      // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
@@ -44,20 +45,49 @@ describe('RechercherOffreEmploi', () => {
         </DependenciesProvider>,
       );
 
+      // WHEN
       const résultatRechercheOffreEmploiList = screen.queryAllByTestId('RésultatRechercheOffreEmploi');
       const rechercheOffreEmploiNombreRésultats = screen.queryByTestId('RechercheOffreEmploiNombreRésultats');
 
+      // THEN
       expect(résultatRechercheOffreEmploiList).toHaveLength(0);
       expect(rechercheOffreEmploiNombreRésultats).not.toBeInTheDocument();
+    });
+
+    it('avec une url contenant le motCle boulanger, le codeInsee 75 et le type de localisation DEPARTEMENT, affiche la liste de tag avec boulanger et Paris (75)', async () => {
+      // GIVEN
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+      mockUseRouter({ query: { codeInsee: '34', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+
+      // WHEN
+      await waitFor(() => {
+        expect(screen.getByTestId('TagList')).toBeInTheDocument();
+      });
+
+      // THEN
+      const tagList = screen.getAllByTestId('TagListItem');
+      expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '34');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=34&motCle=boulanger&typeLocalisation=DEPARTEMENT');
+      expect(tagList[0].textContent).toEqual('boulanger');
+      expect(tagList[1].textContent).toEqual('Hérault (34)');
     });
   });
 
   describe('pour la version mobile', () => {
     describe('quand on recherche par mot clé', () => {
       it('affiche les résultats de recherche et le nombre de résultats', async () => {
+        // GIVEN
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationService();
-        mockUseRouter({ query: { motCle: 'boulanger' } });
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffreEmploiPage/>
@@ -68,21 +98,28 @@ describe('RechercherOffreEmploi', () => {
         const inputRechercheMotClé = within(containerRechercheMotClé).getByRole('textbox');
         fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        mockUseRouter({ query: { motCle: 'boulanger', page: '1' } });
+
+        // WHEN
         fireEvent.click(buttonRechercher);
         const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherOffreEmploi');
         const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
 
+        // THEN
+        expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' });
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
         expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois');
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
       });
     });
 
     describe('quand on recherche par type de contrat', () => {
       it('affiche les types de contrat dans une modale', async () => {
+        // GIVEN
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationService();
-        mockUseRouter({ query: { typeDeContrats: 'CDD,MIS' } });
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
@@ -91,40 +128,8 @@ describe('RechercherOffreEmploi', () => {
         );
 
         const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-        fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByTestId('FiltreTypeDeContrats');
-        const inputRechercheMotClé = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
-        fireEvent.click(inputRechercheMotClé[0]);
-        fireEvent.click(inputRechercheMotClé[2]);
 
-        expect(filtreRechercheMobile).toBeInTheDocument();
-
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
-
-        fireEvent.click(buttonAppliquerFiltres);
-
-        await waitFor(() => {
-          expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
-        });
-
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('typeDeContrats=CDD%2CMIS');
-
-      });
-
-      it('appelle l\'api avec les types de contrat sélectionnés', async () => {
-        const offreEmploiServiceMock = anOffreEmploiService();
-        const localisationServiceMock = aLocalisationService();
-
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
-          </DependenciesProvider>,
-        );
-
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
+        // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
         const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByTestId('FiltreTypeDeContrats');
@@ -133,30 +138,29 @@ describe('RechercherOffreEmploi', () => {
         fireEvent.click(inputRechercheMotClé[2]);
         fireEvent.click(inputRechercheMotClé[0]);
 
-
         expect(filtreRechercheMobile).toBeInTheDocument();
 
         const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
-
         mockUseRouter({ query: { page: '1', typeDeContrats: 'MIS' } });
 
+        // WHEN
         fireEvent.click(buttonAppliquerFiltres);
-
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
-
-
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
 
+        // THEN
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=MIS');
       });
     });
 
     describe('quand on recherche par localisation', () => {
       it('quand aucun résultat n\'est trouvé, on affiche un message d\'information', async () => {
+        // GIVEN
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationServiceWithEmptyRésultat();
+        const user = userEvent.setup();
 
         mockUseRouter({});
         render(
@@ -164,42 +168,22 @@ describe('RechercherOffreEmploi', () => {
             <RechercherOffreEmploiPage/>
           </DependenciesProvider>,
         );
+        const inputLocalisation = screen.getByTestId('InputLocalisation');
 
-        const user = userEvent.setup();
-        const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-
+        // WHEN
         await user.type(inputLocalisation, 'no result');
 
-        const resultContainer = screen.queryByTestId('NoResultContainer');
-        expect(resultContainer).toBeInTheDocument();
-      });
-
-      it('quand on recherche avec une saisie non valide on n\'affiche pas le menu déroulant', async () => {
-        const offreEmploiServiceMock = anOffreEmploiService();
-        const localisationServiceMock = aLocalisationService();
-
-        mockUseRouter({});
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
-          </DependenciesProvider>,
-        );
-
-        const user = userEvent.setup();
-        const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-
-        await user.type(inputLocalisation, 'P');
-
-        const resultContainer = screen.queryByTestId('ResultsContainer');
-        expect(resultContainer).toBeNull();
+        // THEN
+        const localisationNoResultMessage = screen.queryByTestId('LocalisationNoResultMessage');
+        expect(localisationNoResultMessage).toBeInTheDocument();
       });
 
       it('quand on recherche avec une saisie valide, appelle l\'api avec la localisation sélectionnée', async () => {
+        // GIVEN
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationService();
         const user = userEvent.setup();
         const routerPush = jest.fn();
-
         mockUseRouter({ push: routerPush });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
@@ -207,19 +191,26 @@ describe('RechercherOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
+        const inputLocalisation = screen.getByTestId('InputLocalisation');
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
 
+        // WHEN
         await user.type(inputLocalisation, 'Pa');
-        const resultContainer = await screen.findByTestId('ResultsContainer');
-        const resultListitem = within(resultContainer).getAllByRole('option');
-        user.click(resultListitem[0]);
+        const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+
+        // WHEN
+        expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
+        const resultListitem = within(résultatsLocalisation).getAllByRole('option');
+        fireEvent.click(resultListitem[0]);
+
         mockUseRouter({ query: { codeInsee: '75', page: '1', typeLocalisation: 'DEPARTEMENT' } });
-        user.click(buttonRechercher);
+        fireEvent.click(buttonRechercher);
+
+        // THEN
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
-
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=DEPARTEMENT&codeInsee=75&page=1' });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75&page=1&typeLocalisation=DEPARTEMENT');
       });
     });
@@ -231,6 +222,7 @@ describe('RechercherOffreEmploi', () => {
     });
 
     it('on propose les filtres avancés en accordéon', async () => {
+      // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
@@ -242,9 +234,12 @@ describe('RechercherOffreEmploi', () => {
       );
 
       const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
+
+      // WHEN
       fireEvent.click(buttonFiltresRecherche);
       const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
 
+      // THEN
       expect(filtreRechercheDesktop).toBeInTheDocument();
     });
   });

@@ -1,11 +1,15 @@
-import { aLocalisationList, aLocalisationListWithEmptyValue } from '@tests/fixtures/domain/localisation.fixture';
+import {
+  aDépartement,
+  aLocalisationList,
+  aLocalisationListWithEmptyValue,
+} from '@tests/fixtures/domain/localisation.fixture';
 
 import { LocalisationService } from '~/client/services/localisation.service';
 
 export function aLocalisationService(): LocalisationService {
   return {
     rechercheLocalisation: jest.fn().mockResolvedValue(aLocalisationList()),
-    récupérerLocalisationAvecCodeInsee: jest.fn().mockResolvedValue(aLocalisationList()),
+    récupérerLocalisationAvecCodeInsee: jest.fn().mockResolvedValue(aDépartement()),
   } as unknown as LocalisationService;
 }
 
