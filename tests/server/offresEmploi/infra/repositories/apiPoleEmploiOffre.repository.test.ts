@@ -3,12 +3,16 @@ import {
   anOffreEmploiFiltre,
   aRésultatsRechercheOffreEmploi,
 } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aBarmanOffreEmploiAxiosResponse,
   aPoleEmploiHttpClient,
   aRésultatRechercheOffreEmploiAxiosResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
+import { Failure, Success } from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
+import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
@@ -48,9 +52,9 @@ describe('ApiPoleEmploiOffreRepository', () => {
           .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
-        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre);
+        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
 
-        expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(result.result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
           'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
         );
@@ -64,71 +68,114 @@ describe('ApiPoleEmploiOffreRepository', () => {
           .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse({ filtresPossibles: undefined }));
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
-        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre);
+        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
 
-        expect(result).toEqual(aRésultatsRechercheOffreEmploi({ nombreRésultats: 0 }));
+        expect(result.result).toEqual(aRésultatsRechercheOffreEmploi({ nombreRésultats: 0 }));
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
           'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
         );
       });
     });
-  });
 
-  describe('buildParamètresRecherche', () => {
-    describe('quand tous les paramètres sont présents dans le filtre', () => {
-      it('retourne les paramètres de recherche', () => {
+    describe('quand l\'api pole emploi répond avec une 500', () => {
+      it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(Promise.reject({ response: { status: 500 } }));
         const offreEmploiFiltre = anOffreEmploiFiltre();
-        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-        expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34');
-      });
-    });
+        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
 
-    describe('quand un paramètre est absent', () => {
-      it('quand motClé est absent, retourne motsCles vide dans les paramètres de l\'url', () => {
-        const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
-        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
-
-        expect(result).toEqual('motsCles=&range=0-29&typeContrat=CDD%2CCDI&region=34');
+        expect(result.errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
       });
 
-      it('quand la localisation est absente, ne retourne pas la localisation dans les paramètres de l\'url', () => {
-        const offreEmploiFiltre = anOffreEmploiFiltre({ localisation: undefined });
-        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+      describe('quand l\'api pole emploi répond avec une 400', () => {
+        it('on renvoie une failure avec une error ERREUR_DE_SAISIE', async () => {
+          jest
+            .spyOn(poleEmploiHttpClientService, 'get')
+            .mockResolvedValue(Promise.reject({ response: { status: 400 } }));
+          const offreEmploiFiltre = anOffreEmploiFiltre();
 
-        expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI');
-      });
-    });
+          const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
 
-    describe('quand la page vaut 1', () => {
-      it('retourne les paramètres de recherche', () => {
-        const offreEmploiFiltre = anOffreEmploiFiltre();
-        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
-
-        expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34');
-      });
-    });
-
-    describe('quand la page vaut 3', () => {
-      it('retourne les paramètres de recherche', () => {
-        const offreEmploiFiltre = anOffreEmploiFiltre({
-          motClé: 'électricien',
-          page: 3,
+          expect(result.errorType).toEqual(ErrorType.DEMANDE_INCORRECTE);
         });
-        const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-        expect(result).toEqual('motsCles=%C3%A9lectricien&range=60-89&typeContrat=CDD%2CCDI&region=34');
+        describe('quand l\'api pole emploi répond avec une 204', () => {
+          it('on renvoie un success avec un resultat vide', async () => {
+            jest
+              .spyOn(poleEmploiHttpClientService, 'get')
+              .mockResolvedValue(anAxiosResponse({}, 204));
+            const offreEmploiFiltre = anOffreEmploiFiltre();
+
+            const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+            expect(result.result.nombreRésultats).toEqual(0);
+            expect(result.result.résultats).toEqual([]);
+          });
+        });
+
+        describe('quand l\'api pole emploi répond avec une erreur non traité', () => {
+          it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
+            jest
+              .spyOn(poleEmploiHttpClientService, 'get')
+              .mockResolvedValue(Promise.reject({ response: { status: 503 } }));
+            const offreEmploiFiltre = anOffreEmploiFiltre();
+
+            const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
+
+            expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+          });
+        });
       });
-    });
-  });
 
-  describe('quand le mot clé est absent', () => {
-    it('retourne des paramètres de recherche avec motsCles à vide', () => {
-      const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
-      const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+      describe('buildParamètresRecherche', () => {
+        describe('quand tous les paramètres sont présents dans le filtre', () => {
+          it('retourne les paramètres de recherche', () => {
+            const offreEmploiFiltre = anOffreEmploiFiltre();
+            const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-      expect(result).toEqual('motsCles=&range=0-29&typeContrat=CDD%2CCDI&region=34');
+            expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34');
+          });
+        });
+
+        describe('quand un paramètre est absent', () => {
+          it('quand motClé est absent, retourne motsCles vide dans les paramètres de l\'url', () => {
+            const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
+            const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+            expect(result).toEqual('motsCles=&range=0-29&typeContrat=CDD%2CCDI&region=34');
+          });
+
+          it('quand la localisation est absente, ne retourne pas la localisation dans les paramètres de l\'url', () => {
+            const offreEmploiFiltre = anOffreEmploiFiltre({ localisation: undefined });
+            const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+            expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI');
+          });
+        });
+
+        describe('quand la page vaut 1', () => {
+          it('retourne les paramètres de recherche', () => {
+            const offreEmploiFiltre = anOffreEmploiFiltre();
+            const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+            expect(result).toEqual('motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34');
+          });
+        });
+
+        describe('quand la page vaut 3', () => {
+          it('retourne les paramètres de recherche', () => {
+            const offreEmploiFiltre = anOffreEmploiFiltre({
+              motClé: 'électricien',
+              page: 3,
+            });
+            const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
+
+            expect(result).toEqual('motsCles=%C3%A9lectricien&range=60-89&typeContrat=CDD%2CCDI&region=34');
+          });
+        });
+      });
     });
   });
 });
-
