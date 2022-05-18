@@ -142,6 +142,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         role="option"
         aria-selected={inputValue === `${libelle} (${code})`}
         value={codeInsee}
+        data-testid="RésultatLocalisationItem"
       >
         {libelle} ({code})
       </li>
@@ -153,7 +154,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     return (
       <>
         {(régionList.length === 0 && départementList.length === 0 && communeList.length === 0) ?
-          <span className={styles.autocompletionSuggestion} data-testid="NoResultContainer">
+          <span className={styles.autocompletionSuggestion} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...
           </span>
           :
@@ -162,7 +163,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
             role="listbox"
             aria-labelledby={label}
             id={listbox}
-            data-testid="ResultsContainer"
+            data-testid="RésultatsLocalisation"
           >
             {(régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
             {régionList.map((suggestion, index) => {
@@ -217,8 +218,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
             onKeyDown={handleKeyDown}
             onClick={() => setSuggestionsActive(!!codeInsee)}
           />
-          <input type="hidden" data-testid="TypeLocalisation" name="typeLocalisation" value={typeLocalisation}/>
-          <input type="hidden" data-testid="ValueLocalisation" name="codeInsee" value={codeInsee}/>
+          <input type="hidden" name="typeLocalisation" value={typeLocalisation}/>
+          <input type="hidden" name="codeInsee" value={codeInsee}/>
         </div>
         {suggestionsActive && <Suggestions />}
       </div>

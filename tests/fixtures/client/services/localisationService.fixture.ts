@@ -5,7 +5,11 @@ import { LocalisationService } from '~/client/services/localisation.service';
 export function aLocalisationService(): LocalisationService {
   return {
     rechercheLocalisation: jest.fn().mockResolvedValue(aLocalisationList()),
-    récupérerLocalisationAvecCodeInsee: jest.fn().mockResolvedValue(aLocalisationList()),
+    récupérerLocalisationAvecCodeInsee: jest.fn().mockResolvedValue({
+      code: '75',
+      codeInsee: '75000',
+      libelle: 'Paris',
+    }),
   } as unknown as LocalisationService;
 }
 

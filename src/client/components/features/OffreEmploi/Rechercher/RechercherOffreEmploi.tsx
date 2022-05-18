@@ -18,7 +18,6 @@ import { useRouter } from 'next/router';
 import React, {
   ChangeEvent,
   FormEvent,
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -57,8 +56,8 @@ export function RechercherOffreEmploi() {
   const [isFiltresAvancésDesktopOpen, setIsFiltresAvancésDesktopOpen] = useState(false);
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
 
-  const [typeDeContratInput, setTypeDeContratInput] = useState('');
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputTypeDeContrat, setInputTypeDeContrat] = useState('');
+  const [inputMotCle, setInputMotCle] = useState<string>('');
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
@@ -66,72 +65,68 @@ export function RechercherOffreEmploi() {
   const [page, setPage] = useState(1);
   const pageCount = Math.round(nombreRésultats / OFFRE_PER_PAGE);
 
-  const mapQueryParamsToFiltreList = useCallback(() => {
-    const filtreList: string[] = [];
-    Object.keys(queryParams).map((key) => {
-      if (key === QueryParams.PAGE) return;
-      if (key === QueryParams.TYPE_LOCALISATION) return;
-      if (key === QueryParams.CODE_INSEE) return;
-      if (key === QueryParams.TYPE_DE_CONTRATS) {
-        const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
-        const typeDeContratList = typeDeContrats.split(',');
-        typeDeContratList.map((contrat: string) => {
-          switch (contrat) {
-            case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt!);
-              break;
-            case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt!);
-              break;
-            case(OffreEmploi.CONTRAT_CDI.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt!);
-              break;
-            case(OffreEmploi.CONTRAT_CDD.valeur):
-              filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt!);
-              break;
-            default:
-              filtreList.push(contrat);
-          }
-        });
-      } else {
-        filtreList.push(getQueryValue(key));
-      }
-    });
-    setFiltres(filtreList);
-  }, [queryParams]);
-
   useEffect(() => {
     if (hasQueryParams) {
-      setParamètresUrl();
-      mapQueryParamsToFiltreList();
+      const fetchOffreEmploi = async () => {
+        const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
+        setOffreEmploiList(response.résultats);
+        setNombreRésultats(response.nombreRésultats);
+        setIsLoading(false);
+      };
 
-      offreEmploiService.rechercherOffreEmploi(getQueryString())
-        .then((res) => {
-          setOffreEmploiList(res.résultats);
-          setNombreRésultats(res.nombreRésultats);
-          setIsLoading(false);
-        });
-    }
-  }, [offreEmploiService, mapQueryParamsToFiltreList, queryParams, hasQueryParams]);
+      const setInputValuesTagList = async () => {
+        setPage(isKeyInQueryParams(QueryParams.PAGE) ? Number(getQueryValue(QueryParams.PAGE)) : 1);
 
-  function setParamètresUrl() {
-    setInputValue(isKeyInQueryParams(QueryParams.MOT_CLÉ) ? getQueryValue(QueryParams.MOT_CLÉ) : '');
-    setTypeDeContratInput(isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS) ? getQueryValue(QueryParams.TYPE_DE_CONTRATS) : '');
-    setPage(isKeyInQueryParams(QueryParams.PAGE) ? Number(getQueryValue(QueryParams.PAGE)) : 1);
-    if (isKeyInQueryParams(QueryParams.CODE_INSEE) && isKeyInQueryParams(QueryParams.TYPE_LOCALISATION)) {
-      getLocalisation();
-    } else {
-      setInputLocalisation('');
-    }
-  }
+        const urlSearchParams = new URLSearchParams(getQueryString());
+        const urlSearchParamsObject = Object.fromEntries(urlSearchParams);
+        const filtreList: string[] = [];
 
-  async function getLocalisation() {
-    const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
-    setInputLocalisation(`${localisation.libelle} (${localisation.code})`);
-    if (!filtres.includes(localisation.libelle)) {
-      setFiltres([...filtres, localisation.libelle]);
+        if(isKeyInQueryParams(QueryParams.MOT_CLÉ)) {
+          const motCle = getQueryValue(QueryParams.MOT_CLÉ);
+          setInputMotCle(motCle);
+          filtreList.push(motCle);
+        }
+
+        if(isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
+          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
+          const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
+          setInputLocalisation(formattedLocalisation);
+          filtreList.push(formattedLocalisation);
+        }
+
+        if(isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) {
+          setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
+          const typeDeContrats: string = urlSearchParamsObject[QueryParams.TYPE_DE_CONTRATS];
+          const typeDeContratList = typeDeContrats.split(',');
+          typeDeContratList.map((contrat: string) => {
+            switch (contrat) {
+              case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
+                filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt!);
+                break;
+              case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
+                filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt!);
+                break;
+              case(OffreEmploi.CONTRAT_CDI.valeur):
+                filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt!);
+                break;
+              case(OffreEmploi.CONTRAT_CDD.valeur):
+                filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt!);
+                break;
+              default:
+                filtreList.push(contrat);
+            }
+          });
+        }
+
+        setFiltres(filtreList);
+      };
+
+      (async () => {
+        await fetchOffreEmploi();
+        await setInputValuesTagList();
+      })();
     }
-  }
+  }, [queryParams]);
 
   function toggleFiltresAvancés() {
     if (isSmallScreen) {
@@ -149,7 +144,7 @@ export function RechercherOffreEmploi() {
   }
 
   function toggleTypeDeContrat(value: string) {
-    setTypeDeContratInput(typeDeContratInput.appendOrRemoveSubStr(value));
+    setInputTypeDeContrat(inputTypeDeContrat.appendOrRemoveSubStr(value));
   }
 
   async function changePage(page: number) {
@@ -163,7 +158,7 @@ export function RechercherOffreEmploi() {
     const formEntries = transformFormToEntries(event.currentTarget);
     const query = new URLSearchParams(formEntries).toString();
     const QUERY_FIRST_PAGE = 'page=1';
-    return await router.push({ query: query ? `${query}&${QUERY_FIRST_PAGE}` : `${QUERY_FIRST_PAGE}` });
+    return router.push({ query: query ? `${query}&${QUERY_FIRST_PAGE}` : `${QUERY_FIRST_PAGE}` });
   }
 
   async function rechercherLocalisation(recherche: string) {
@@ -191,13 +186,13 @@ export function RechercherOffreEmploi() {
           data-testid="InputRechercheMotClé"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          value={inputValue}
+          value={inputMotCle}
           name="motCle"
           autoFocus
           placeholder="Exemple : boulanger, informatique..."
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.currentTarget.value)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
         />
-        <input type="hidden" name="typeDeContrats" value={typeDeContratInput}/>
+        <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
 
         <AutoCompletionForLocalisation
           régionList={localisationList.régionList}
@@ -240,13 +235,14 @@ export function RechercherOffreEmploi() {
             <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
               {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                 <Checkbox
+                  data-testid="FiltreTypeDeContratsItem"
                   key={index}
                   label={typeDeContrat.libelléLong}
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
                   value={typeDeContrat.valeur}
-                  checked={typeDeContratInput.includes(typeDeContrat.valeur)}
+                  checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
                 />
               ))}
             </CheckboxGroup>
@@ -275,7 +271,7 @@ export function RechercherOffreEmploi() {
                     // @ts-ignore
                     onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
                     value={typeDeContrat.valeur}
-                    checked={typeDeContratInput.includes(typeDeContrat.valeur)}
+                    checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
                   />
                 ))}
               </CheckboxGroup>

@@ -50,6 +50,27 @@ describe('RechercherOffreEmploi', () => {
       expect(résultatRechercheOffreEmploiList).toHaveLength(0);
       expect(rechercheOffreEmploiNombreRésultats).not.toBeInTheDocument();
     });
+
+    it('avec une url contenant le motCle boulanger, le codeInsee 75 et le type de localisation DEPARTEMENT, affiche la liste de tag avec boulanger et Paris (75)', async () => {
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+      mockUseRouter({ query: { codeInsee: '75', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+
+      await waitFor(() => {
+        expect(screen.getByTestId('TagList')).toBeInTheDocument();
+      });
+
+      const tagList = screen.getAllByTestId('TagListItem');
+      expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '75');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75&motCle=boulanger&typeLocalisation=DEPARTEMENT');
+      expect(tagList[0].textContent).toEqual('boulanger');
+      expect(tagList[1].textContent).toEqual('Paris (75)');
+    });
   });
 
   describe('pour la version mobile', () => {
@@ -57,7 +78,9 @@ describe('RechercherOffreEmploi', () => {
       it('affiche les résultats de recherche et le nombre de résultats', async () => {
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationService();
-        mockUseRouter({ query: { motCle: 'boulanger' } });
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffreEmploiPage/>
@@ -68,13 +91,17 @@ describe('RechercherOffreEmploi', () => {
         const inputRechercheMotClé = within(containerRechercheMotClé).getByRole('textbox');
         fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        mockUseRouter({ query: { motCle: 'boulanger', page: '1' } });
         fireEvent.click(buttonRechercher);
+
         const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherOffreEmploi');
         const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
 
+        expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' });
+
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
         expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois');
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
       });
     });
 
@@ -82,7 +109,8 @@ describe('RechercherOffreEmploi', () => {
       it('affiche les types de contrat dans une modale', async () => {
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationService();
-        mockUseRouter({ query: { typeDeContrats: 'CDD,MIS' } });
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
@@ -97,42 +125,7 @@ describe('RechercherOffreEmploi', () => {
         const inputRechercheMotClé = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
         fireEvent.click(inputRechercheMotClé[0]);
         fireEvent.click(inputRechercheMotClé[2]);
-
-        expect(filtreRechercheMobile).toBeInTheDocument();
-
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
-
-        fireEvent.click(buttonAppliquerFiltres);
-
-        await waitFor(() => {
-          expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
-        });
-
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('typeDeContrats=CDD%2CMIS');
-
-      });
-
-      it('appelle l\'api avec les types de contrat sélectionnés', async () => {
-        const offreEmploiServiceMock = anOffreEmploiService();
-        const localisationServiceMock = aLocalisationService();
-
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
-          </DependenciesProvider>,
-        );
-
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-        fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByTestId('FiltreTypeDeContrats');
-        const inputRechercheMotClé = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
         fireEvent.click(inputRechercheMotClé[0]);
-        fireEvent.click(inputRechercheMotClé[2]);
-        fireEvent.click(inputRechercheMotClé[0]);
-
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
@@ -143,7 +136,6 @@ describe('RechercherOffreEmploi', () => {
         fireEvent.click(buttonAppliquerFiltres);
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
-
 
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
@@ -170,28 +162,8 @@ describe('RechercherOffreEmploi', () => {
 
         await user.type(inputLocalisation, 'no result');
 
-        const resultContainer = screen.queryByTestId('NoResultContainer');
+        const resultContainer = screen.queryByTestId('LocalisationNoResultMessage');
         expect(resultContainer).toBeInTheDocument();
-      });
-
-      it('quand on recherche avec une saisie non valide on n\'affiche pas le menu déroulant', async () => {
-        const offreEmploiServiceMock = anOffreEmploiService();
-        const localisationServiceMock = aLocalisationService();
-
-        mockUseRouter({});
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
-          </DependenciesProvider>,
-        );
-
-        const user = userEvent.setup();
-        const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
-
-        await user.type(inputLocalisation, 'P');
-
-        const resultContainer = screen.queryByTestId('ResultsContainer');
-        expect(resultContainer).toBeNull();
       });
 
       it('quand on recherche avec une saisie valide, appelle l\'api avec la localisation sélectionnée', async () => {
@@ -199,7 +171,6 @@ describe('RechercherOffreEmploi', () => {
         const localisationServiceMock = aLocalisationService();
         const user = userEvent.setup();
         const routerPush = jest.fn();
-
         mockUseRouter({ push: routerPush });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
@@ -207,15 +178,23 @@ describe('RechercherOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const inputLocalisation = screen.getByTestId('InputLocalisation') as HTMLInputElement;
+        const inputLocalisation = screen.getByTestId('InputLocalisation');
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
 
         await user.type(inputLocalisation, 'Pa');
-        const resultContainer = await screen.findByTestId('ResultsContainer');
+        const resultContainer = await screen.findByTestId('RésultatsLocalisation');
+
+        expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
+
         const resultListitem = within(resultContainer).getAllByRole('option');
-        user.click(resultListitem[0]);
+        fireEvent.click(resultListitem[0]);
+
         mockUseRouter({ query: { codeInsee: '75', page: '1', typeLocalisation: 'DEPARTEMENT' } });
-        user.click(buttonRechercher);
+
+        fireEvent.click(buttonRechercher);
+
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=DEPARTEMENT&codeInsee=75&page=1' });
+
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
