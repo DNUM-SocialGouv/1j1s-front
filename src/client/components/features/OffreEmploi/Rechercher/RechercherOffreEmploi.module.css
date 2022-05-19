@@ -11,8 +11,10 @@
 
 .pagination {
   display: flex;
-  padding: 16px;
+  padding: 16px 0;
 }
+
+
 
 .pagination > nav {
   margin: auto;
