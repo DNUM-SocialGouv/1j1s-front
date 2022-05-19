@@ -12,8 +12,7 @@ interface ConsulterOffreEmploiProps {
 
 export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps) {
   const descriptionOffreEmploi = useSanitize(offreEmploi.description);
-  const salaireOffreEmploi = useSanitize(offreEmploi.salaire);
-
+  
   return (
     <main id="contenu">
       <article className={styles.offreEmploiContainer}>
