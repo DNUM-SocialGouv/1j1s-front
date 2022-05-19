@@ -2,8 +2,12 @@ export interface OffreEmploiResponse {
   id: string
   intitule: string
   description?: string
+  formations?: OffreEmploiResponse.Formation[]
+  competences?: OffreEmploiResponse.Compétence[]
+  qualitesProfessionnelles?: OffreEmploiResponse.QualitéeProfessionnelle[]
   lieuTravail?: OffreEmploiResponse.LieuTravail
   entreprise?: OffreEmploiResponse.Entreprise
+  salaire?: OffreEmploiResponse.Salaire
   typeContrat: OffreEmploiResponse.TypeContrat
   experienceExige?: OffreEmploiResponse.Expérience
   dureeTravailLibelleConverti?: OffreEmploiResponse.DuréeTravail
@@ -24,6 +28,23 @@ export namespace OffreEmploiResponse {
   export interface Entreprise {
     nom?: string
     logo?: string
+  }
+
+  export interface Salaire {
+    libelle?: string
+  }
+
+  export interface Formation {
+    niveauLibelle?: string
+    commentaire?: string
+  }
+
+  export interface QualitéeProfessionnelle {
+    libelle?: string
+  }
+
+  export interface Compétence {
+    libelle?: string
   }
 
   export interface OrigineOffre {

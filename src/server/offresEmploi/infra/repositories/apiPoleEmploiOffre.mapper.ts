@@ -4,6 +4,7 @@ import {
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
 import TypeDeContrat = OffreEmploi.TypeDeContrat;
+import Formation = OffreEmploi.Formation;
 
 export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheOffreEmploiResponse): RésultatsRechercheOffreEmploi {
   return {
@@ -14,6 +15,7 @@ export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheO
 
 export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreEmploi {
   return {
+    compétences: mapCompétence(offreEmploiResponse.competences),
     description: offreEmploiResponse.description,
     duréeTravail: mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti),
     entreprise: {
@@ -21,9 +23,12 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
       nom: offreEmploiResponse.entreprise?.nom,
     },
     expérience: mapExpérience(offreEmploiResponse.experienceExige),
+    formations: mapFormation(offreEmploiResponse.formations),
     id: offreEmploiResponse.id,
     intitulé: offreEmploiResponse.intitule,
     lieuTravail: mapLieuTravail(offreEmploiResponse.lieuTravail),
+    qualitéesProfessionnelle: mapQualitéeProfessionnelle(offreEmploiResponse.qualitesProfessionnelles),
+    salaire: offreEmploiResponse.salaire?.libelle,
     typeContrat: mapTypeContrat(offreEmploiResponse.typeContrat),
     urlOffreOrigine: offreEmploiResponse.origineOffre.urlOrigine,
   };
@@ -51,6 +56,37 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeCon
     case 'SAI':
       return OffreEmploi.CONTRAT_SAISONNIER;
   }
+}
+function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): Formation[] | undefined {
+  if (!formationResponse) {
+    return undefined;
+  }
+  return formationResponse.map((formation) => ({
+    commentaire: formation.commentaire,
+    libellé: formation.niveauLibelle,
+  }));
+}
+
+function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): (string | undefined)[] | undefined {
+  if (!compétenceResponse) {
+    return undefined;
+  }
+  return compétenceResponse.map((compétence) => {
+    if(compétence.libelle !== undefined){
+      return compétence.libelle;
+    }
+  });
+}
+
+function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): (string | undefined)[] | undefined {
+  if (!qualitéeProfessionnelleResponse) {
+    return undefined;
+  }
+  return qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => {
+    if(qualitéeProfessionnelle.libelle !== undefined){
+      return qualitéeProfessionnelle.libelle;
+    }
+  });
 }
 
 function mapLieuTravail(lieuTravailResponse?: OffreEmploiResponse.LieuTravail): string | undefined {

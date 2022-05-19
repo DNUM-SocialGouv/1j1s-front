@@ -6,7 +6,11 @@ export interface OffreEmploi {
   id: OffreEmploiId
   intitulé: string
   description?: string
+  formations?: OffreEmploi.Formation[]
+  compétences?: OffreEmploi.Compétence[]
+  qualitéesProfessionnelle?: OffreEmploi.QualitéeProfessionnelle[]
   lieuTravail?: string
+  salaire?: string
   entreprise: OffreEmploi.Entreprise
   typeContrat?: OffreEmploi.TypeDeContrat
   expérience?: OffreEmploi.Expérience
@@ -29,6 +33,20 @@ export namespace OffreEmploi {
   export interface Entreprise {
     nom?: string
     logo?: string
+  }
+  
+  export interface Formation {
+    libellé?: string
+    commentaire?: string
+  }
+  
+  export interface Compétence {
+    niveau?: string
+    commentaire?: string
+  }
+
+  export interface QualitéeProfessionnelle {
+    libelle?: string
   }
 
   export interface TypeDeContrat {

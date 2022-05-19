@@ -31,7 +31,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
       `partenaire/offresdemploi/v2/offres/${id}`,
     );
-
+    console.log(mapOffreEmploi(response.data));
     return mapOffreEmploi(response.data);
   }
 
