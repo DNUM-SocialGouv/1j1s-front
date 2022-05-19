@@ -39,6 +39,7 @@ import { transformFormToEntries } from '~/client/utils/form.util';
 import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
 
 export function RechercherOffreEmploi() {
   const router = useRouter();
@@ -63,13 +64,22 @@ export function RechercherOffreEmploi() {
   const [inputTypeDeContrat, setInputTypeDeContrat] = useState('');
   const [inputExpérience, setInputExpérience] = useState('');
   const [inputTempsDeTravail, setInputTempsDeTravail] = useState('');
+  const [inputDomaine, setInputDomaine] = useState('');
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
+  const [référentielDomaineList, setRéférentielDomaineList] = useState<RéférentielDomaine[] | []>([]);
   const OFFRE_PER_PAGE = 30;
 
   useEffect(() => {
+    const fetchRéférentielDomaineList = (async () => {
+      return offreEmploiService.récupérerRéférentielDomaine();
+    });
+    fetchRéférentielDomaineList().then((response) => {
+      setRéférentielDomaineList(response);
+    });
+
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
@@ -182,6 +192,10 @@ export function RechercherOffreEmploi() {
     setInputExpérience(inputExpérience.appendOrRemoveSubStr(value));
   }
 
+  function toggleDomaine(value: string) {
+    setInputDomaine(inputDomaine.appendOrRemoveSubStr(value));
+  }
+
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -207,7 +221,6 @@ export function RechercherOffreEmploi() {
           Des milliers d’offres d’emplois sélectionnées pour vous par Pôle Emploi
         </Title>
       </Hero>
-
       <form
         ref={rechercheOffreEmploiForm}
         className={styles.rechercheOffreEmploi}
@@ -228,6 +241,7 @@ export function RechercherOffreEmploi() {
         <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
         <input type="hidden" name="tempsPlein" value={inputTempsDeTravail}/>
         <input type="hidden" name="experienceExigence" value={inputExpérience}/>
+        <input type="hidden" name="domaine" value={inputDomaine}/>
 
         <AutoCompletionForLocalisation
           régionList={localisationList.régionList}
@@ -309,6 +323,22 @@ export function RechercherOffreEmploi() {
                 />
               ))}
             </CheckboxGroup>
+
+            { référentielDomaineList &&
+            <CheckboxGroup legend="Domaine">
+              {référentielDomaineList.map((domaine, index) => (
+                <Checkbox
+                  key={index}
+                  label={domaine.libelle}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
+                  value={domaine.code}
+                  checked={inputDomaine.includes(domaine.code)}
+                />
+              ))}
+            </CheckboxGroup>
+            }
 
           </ModalContent>
           <ModalFooter className={styles.filtresAvancésModalFooter}>
