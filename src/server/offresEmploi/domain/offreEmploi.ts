@@ -40,10 +40,6 @@ export namespace OffreEmploi {
     commentaire?: string
   }
 
-  export interface QualitéeProfessionnelle {
-    libellé?: string
-  }
-
   export interface TypeDeContrat {
     libelléCourt?: string
     libelléLong: string
