@@ -40,10 +40,12 @@ export namespace OffreEmploi {
     commentaire?: string
   }
 
+  type contrat = 'CDD' | 'CDI' | 'SAI' | 'MIS'
+
   export interface TypeDeContrat {
     libelléCourt?: string
     libelléLong: string
-    valeur: string
+    valeur: contrat
   }
 
   export const CONTRAT_CDD: TypeDeContrat = {
@@ -75,6 +77,62 @@ export namespace OffreEmploi {
     OffreEmploi.CONTRAT_CDI,
     OffreEmploi.CONTRAT_INTÉRIMAIRE,
     OffreEmploi.CONTRAT_SAISONNIER,
+  ];
+
+
+  export interface TempsDeTravail {
+    libellé: string
+    valeur: boolean | undefined
+  }
+
+  export const TEMPS_PLEIN : TempsDeTravail =  {
+    libellé: 'Temps plein',
+    valeur: true,
+  };
+
+  export const TEMPS_PARTIEL : TempsDeTravail =  {
+    libellé: 'Temps partiel',
+    valeur: false,
+  };
+
+  export const TEMPS_INDIFFERENT : TempsDeTravail =  {
+    libellé: 'Indifférent',
+    valeur: undefined,
+  };
+
+  export const TEMPS_DE_TRAVAIL_LIST: TempsDeTravail[] = [
+    OffreEmploi.TEMPS_PLEIN,
+    OffreEmploi.TEMPS_PARTIEL,
+    OffreEmploi.TEMPS_INDIFFERENT,
+  ];
+
+
+  type expérience = 'D' | 'S' | 'E'
+
+  export interface ExpérienceAttendu {
+    libellé: string
+    valeur: expérience
+  }
+
+  export const EXPÉRIENCE_DEBUTANT: ExpérienceAttendu = {
+    libellé: 'Moins de 1 an',
+    valeur: 'D',
+  };
+
+  export const EXPÉRIENCE_EXIGÉE: ExpérienceAttendu = {
+    libellé: 'Plus de 3 ans',
+    valeur: 'E',
+  };
+
+  export const EXPÉRIENCE_SOUHAITÉ: ExpérienceAttendu = {
+    libellé: 'De 1 à 3 ans',
+    valeur: 'S',
+  };
+  
+  export const EXPÉRIENCE: ExpérienceAttendu[] = [
+    OffreEmploi.EXPÉRIENCE_DEBUTANT,
+    OffreEmploi.EXPÉRIENCE_EXIGÉE,
+    OffreEmploi.EXPÉRIENCE_SOUHAITÉ,
   ];
 }
 

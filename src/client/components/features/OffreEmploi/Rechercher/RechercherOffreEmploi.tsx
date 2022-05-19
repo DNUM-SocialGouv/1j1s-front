@@ -10,6 +10,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
+  Radio,
+  RadioGroup,
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
@@ -59,6 +61,8 @@ export function RechercherOffreEmploi() {
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
 
   const [inputTypeDeContrat, setInputTypeDeContrat] = useState('');
+  const [inputExpérience, setInputExpérience] = useState('');
+  const [inputTempsDeTravail, setInputTempsDeTravail] = useState('');
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
@@ -79,14 +83,18 @@ export function RechercherOffreEmploi() {
       };
 
       const setInputValuesTagList = async () => {
-        const urlSearchParams = new URLSearchParams(getQueryString());
-        const urlSearchParamsObject = Object.fromEntries(urlSearchParams);
         const filtreList: string[] = [];
 
         if(isKeyInQueryParams(QueryParams.MOT_CLÉ)) {
           const motCle = getQueryValue(QueryParams.MOT_CLÉ);
           setInputMotCle(motCle);
           filtreList.push(motCle);
+        }
+
+        if(isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) {
+          const isTempsPlein = getQueryValue(QueryParams.TEMPS_PLEIN);
+          setInputTempsDeTravail(isTempsPlein);
+          filtreList.push(OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur!.toString() === isTempsPlein)!.libellé);
         }
 
         if(isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
@@ -97,8 +105,8 @@ export function RechercherOffreEmploi() {
         }
 
         if(isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) {
-          setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
-          const typeDeContrats: string = urlSearchParamsObject[QueryParams.TYPE_DE_CONTRATS];
+          const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
+          setInputTypeDeContrat(typeDeContrats);
           const typeDeContratList = typeDeContrats.split(',');
           typeDeContratList.map((contrat: string) => {
             switch (contrat) {
@@ -116,6 +124,27 @@ export function RechercherOffreEmploi() {
                 break;
               default:
                 filtreList.push(contrat);
+            }
+          });
+        }
+
+        if(isKeyInQueryParams(QueryParams.EXPÉRIENCE)) {
+          const typeExpérience: string = getQueryValue(QueryParams.EXPÉRIENCE);
+          setInputExpérience(typeExpérience);
+          const typeExpérienceList = typeExpérience.split(',');
+          typeExpérienceList.map((expérience: string) => {
+            switch (expérience) {
+              case (OffreEmploi.EXPÉRIENCE_DEBUTANT.valeur):
+                filtreList.push(OffreEmploi.EXPÉRIENCE_DEBUTANT.libellé);
+                break;
+              case(OffreEmploi.EXPÉRIENCE_EXIGÉE.valeur):
+                filtreList.push(OffreEmploi.EXPÉRIENCE_EXIGÉE.libellé);
+                break;
+              case(OffreEmploi.EXPÉRIENCE_SOUHAITÉ.valeur):
+                filtreList.push(OffreEmploi.EXPÉRIENCE_SOUHAITÉ.libellé);
+                break;
+              default:
+                filtreList.push(expérience);
             }
           });
         }
@@ -147,6 +176,10 @@ export function RechercherOffreEmploi() {
 
   function toggleTypeDeContrat(value: string) {
     setInputTypeDeContrat(inputTypeDeContrat.appendOrRemoveSubStr(value));
+  }
+
+  function toggleExpérience(value: string) {
+    setInputExpérience(inputExpérience.appendOrRemoveSubStr(value));
   }
 
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
@@ -193,6 +226,8 @@ export function RechercherOffreEmploi() {
           onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
         />
         <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+        <input type="hidden" name="tempsPlein" value={inputTempsDeTravail}/>
+        <input type="hidden" name="experienceExigence" value={inputExpérience}/>
 
         <AutoCompletionForLocalisation
           régionList={localisationList.régionList}
@@ -246,6 +281,35 @@ export function RechercherOffreEmploi() {
                 />
               ))}
             </CheckboxGroup>
+
+            <RadioGroup legend="Temps de travail">
+              {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
+                <Radio
+                  key={index}
+                  label={tempsDeTravail.libellé}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  checked={inputTempsDeTravail === `${tempsDeTravail.valeur}`}
+                  onChange={() => setInputTempsDeTravail(`${tempsDeTravail.valeur}`)}
+                  value={`${tempsDeTravail.valeur}`}
+                />
+              ))}
+            </RadioGroup>
+
+            <CheckboxGroup legend="Niveau demandé">
+              {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
+                <Checkbox
+                  key={index}
+                  label={expérience.libellé}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
+                  value={expérience.valeur}
+                  checked={inputExpérience.includes(expérience.valeur)}
+                />
+              ))}
+            </CheckboxGroup>
+
           </ModalContent>
           <ModalFooter className={styles.filtresAvancésModalFooter}>
             <Button
