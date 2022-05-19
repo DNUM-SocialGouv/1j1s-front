@@ -43,7 +43,7 @@ export function RechercherOffreEmploi() {
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
   const { isSmallScreen } = useBreakpoint();
 
-  const  offreEmploiService  = useDependency('offreEmploiService') as OffreEmploiService;
+  const offreEmploiService  = useDependency('offreEmploiService') as OffreEmploiService;
   const localisationService = useDependency('localisationService') as LocalisationService;
 
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
@@ -158,6 +158,8 @@ export function RechercherOffreEmploi() {
     const résultats = await localisationService.rechercheLocalisation(recherche);
     setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
   }
+
+  const shouldDisplayErrorMessage = hasQueryParams && !isLoading && offreEmploiList.length == 0;
 
   return (
     <main id="contenu">
@@ -281,12 +283,13 @@ export function RechercherOffreEmploi() {
       }
 
       {isLoading && <p>Recherche des offres</p>}
-      {!isLoading && offreEmploiList.length == 0 &&
-      <div className={styles.errorMessage}>
-        <ErrorMessage title="0 résultat"
+      {shouldDisplayErrorMessage &&
+        <ErrorMessage
+          className={styles.errorMessage}
+          title="0 résultat"
           explanationText="Malheureusement, aucune offre ne correspond à votre recherche !"
-          solutionText="Vérifiez l&apos;orthographe, essayez d&apos;autres mots clés ou élargissez votre zone géographique de recherche." />
-      </div>
+          solutionText="Vérifiez l&apos;orthographe, essayez d&apos;autres mots clés ou élargissez votre zone géographique de recherche."
+        />
       }
       {
         offreEmploiList.length > 0 && !isLoading &&

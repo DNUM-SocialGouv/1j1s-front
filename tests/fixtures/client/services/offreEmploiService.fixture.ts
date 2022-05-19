@@ -7,3 +7,9 @@ export function anOffreEmploiService(): OffreEmploiService {
     rechercherOffreEmploi: jest.fn().mockResolvedValue(aRésultatsRechercheOffreEmploi()),
   } as unknown as OffreEmploiService;
 }
+
+export function emptyOffreEmploiService(): Partial<OffreEmploiService> {
+  return {
+    rechercherOffreEmploi: jest.fn().mockResolvedValue(aRésultatsRechercheOffreEmploi({ nombreRésultats: 0, résultats: [] })),
+  };
+}
