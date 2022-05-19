@@ -4,7 +4,6 @@ import {
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
 import TypeDeContrat = OffreEmploi.TypeDeContrat;
-import Formation = OffreEmploi.Formation;
 
 export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheOffreEmploiResponse): RésultatsRechercheOffreEmploi {
   return {
@@ -57,7 +56,7 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeCon
       return OffreEmploi.CONTRAT_SAISONNIER;
   }
 }
-function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): Formation[] | undefined {
+function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] | undefined {
   if (!formationResponse) {
     return undefined;
   }
@@ -67,26 +66,22 @@ function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): Form
   }));
 }
 
-function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): (string | undefined)[] | undefined {
+function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): OffreEmploi.Compétence[] | undefined {
   if (!compétenceResponse) {
     return undefined;
   }
-  return compétenceResponse.map((compétence) => {
-    if(compétence.libelle !== undefined){
-      return compétence.libelle;
-    }
-  });
+  return compétenceResponse.map((compétence) => ({
+    libellé: compétence.libelle,
+  }));
 }
 
-function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): (string | undefined)[] | undefined {
+function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): OffreEmploi.QualitéeProfessionnelle[] | undefined {
   if (!qualitéeProfessionnelleResponse) {
     return undefined;
   }
-  return qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => {
-    if(qualitéeProfessionnelle.libelle !== undefined){
-      return qualitéeProfessionnelle.libelle;
-    }
-  });
+  return qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => ({
+    libellé: qualitéeProfessionnelle.libelle,
+  }));
 }
 
 function mapLieuTravail(lieuTravailResponse?: OffreEmploiResponse.LieuTravail): string | undefined {

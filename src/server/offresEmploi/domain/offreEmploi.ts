@@ -41,12 +41,11 @@ export namespace OffreEmploi {
   }
   
   export interface Compétence {
-    niveau?: string
-    commentaire?: string
+    libellé?: string
   }
 
   export interface QualitéeProfessionnelle {
-    libelle?: string
+    libellé?: string
   }
 
   export interface TypeDeContrat {
