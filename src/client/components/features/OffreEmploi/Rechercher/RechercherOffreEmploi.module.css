@@ -55,3 +55,7 @@
 .résultatRechercheOffreEmploiList > li {
   margin-top: 24px;
 }
+
+.errorMessage {
+  padding: 16px;
+}
