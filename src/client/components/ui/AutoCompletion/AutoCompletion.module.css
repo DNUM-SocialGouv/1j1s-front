@@ -23,3 +23,8 @@
   pointer-events: none;
   user-select: none;
 }
+
+.autocompletionInput {
+  margin-top: 0.5rem !important;
+  border-radius: 0.25rem 0.25rem 0 0 !important;
+}

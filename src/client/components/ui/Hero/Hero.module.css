@@ -14,3 +14,11 @@
 .hero > *:last-child {
   margin-bottom: 0;
 }
+
+.hero > h1 {
+  font-size:1.75rem;
+}
+
+.hero > h2 {
+  font-size:1.5rem;
+}

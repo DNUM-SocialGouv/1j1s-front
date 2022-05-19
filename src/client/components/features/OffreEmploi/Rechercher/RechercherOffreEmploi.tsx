@@ -10,7 +10,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
-  Pagination,
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
@@ -27,6 +26,7 @@ import styles from '~/client/components/features/OffreEmploi/Rechercher/Recherch
 import { RésultatRechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -62,8 +62,6 @@ export function RechercherOffreEmploi() {
   const [filtres, setFiltres] = useState<string[]>([]);
 
   const OFFRE_PER_PAGE = 30;
-  const [page, setPage] = useState(1);
-  const pageCount = Math.round(nombreRésultats / OFFRE_PER_PAGE);
 
   useEffect(() => {
     if (hasQueryParams) {
@@ -75,8 +73,6 @@ export function RechercherOffreEmploi() {
       };
 
       const setInputValuesTagList = async () => {
-        setPage(isKeyInQueryParams(QueryParams.PAGE) ? Number(getQueryValue(QueryParams.PAGE)) : 1);
-
         const urlSearchParams = new URLSearchParams(getQueryString());
         const urlSearchParamsObject = Object.fromEntries(urlSearchParams);
         const filtreList: string[] = [];
@@ -145,11 +141,6 @@ export function RechercherOffreEmploi() {
 
   function toggleTypeDeContrat(value: string) {
     setInputTypeDeContrat(inputTypeDeContrat.appendOrRemoveSubStr(value));
-  }
-
-  async function changePage(page: number) {
-    setPage(page);
-    await router.push({ query: { ...router.query, page } });
   }
 
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
@@ -258,7 +249,6 @@ export function RechercherOffreEmploi() {
             </Button>
           </ModalFooter>
         </Modal>
-
         {
           isFiltresAvancésDesktopOpen && (
             <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
@@ -285,7 +275,7 @@ export function RechercherOffreEmploi() {
           { filtres.length > 0 &&
           <TagList list={filtres} />
           }
-          <strong>{nombreRésultats} offres d&apos;emplois</strong>
+          <h2>{nombreRésultats} offres d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
         </div>
       }
 
@@ -305,8 +295,9 @@ export function RechercherOffreEmploi() {
       {
         nombreRésultats > OFFRE_PER_PAGE &&
           <div className={styles.pagination}>
-            <Pagination onClick={changePage} currentPage={page} pageCount={pageCount}/>
+            <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE} />
           </div>
+
       }
     </main>
   );

@@ -28,3 +28,15 @@ p {
   white-space: nowrap;
   width: 1px;
 }
+
+@media screen and (max-width: 400px) {
+  .fr-pagination__link--first,
+  .fr-pagination__link--prev {
+    margin-right: 0.25rem !important;
+  }
+
+  .fr-pagination__link--next,
+  .fr-pagination__link--last {
+    margin-left: 0.25rem!important;
+  }
+}
