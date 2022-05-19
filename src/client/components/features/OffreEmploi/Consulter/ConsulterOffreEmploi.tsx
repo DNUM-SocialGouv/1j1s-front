@@ -12,7 +12,8 @@ interface ConsulterOffreEmploiProps {
 
 export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps) {
   const descriptionOffreEmploi = useSanitize(offreEmploi.description);
-  
+  const salaireOffreEmploi = useSanitize(offreEmploi.salaire);
+
   return (
     <main id="contenu">
       <article className={styles.offreEmploiContainer}>
@@ -27,6 +28,10 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
           offreEmploi.duréeTravail,
         ]} />
         {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
+        <div className={styles.offreEmploiFormations}>{offreEmploi.formations?.map((x) => <p key={0}>{x?.libellé} , {x?.commentaire}</p>)}</div>
+        <ul>{offreEmploi.compétences?.map((x) => <li key={0}>{x}</li>)}</ul>
+        <ul>{offreEmploi.qualitéesProfessionnelle?.map((x) => <li key={0}>{x}</li>)}</ul>
+        {offreEmploi.salaire && <p dangerouslySetInnerHTML={{ __html: salaireOffreEmploi }}/>}
         <ButtonGroup size="md">
           <Link
             href={offreEmploi.urlOffreOrigine}
