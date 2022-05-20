@@ -27,17 +27,35 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
           offreEmploi.typeContrat?.libelléCourt,
           offreEmploi.duréeTravail,
         ]} />
-        {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
-        <div className={styles.offreEmploiFormations}>{offreEmploi.formations?.map((x) => <p>{x?.libellé} , {x?.commentaire}</p>)}</div>
-        {offreEmploi.compétences &&
-            <ul>
-              {offreEmploi.compétences?.map((compétence, index) =>
-                <li key={index}>{compétence}</li>)
-              }
-            </ul>
-        }
-        <ul>{offreEmploi.qualitéesProfessionnelle?.map((x) => <li>{x}</li>)}</ul>
-        {offreEmploi.salaire && <p dangerouslySetInnerHTML={{ __html: salaireOffreEmploi }}/>}
+        <div>
+          {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
+          {offreEmploi.compétences &&
+            <><Title as="h2" look="h4">Connaissances et compétences requises :</Title>
+              <ul>
+                {offreEmploi.compétences?.map((compétence, index) => <li key={index}>{compétence}</li>)}
+              </ul>
+            </>
+          }
+          {offreEmploi.qualitéesProfessionnelle &&
+            <><Title as="h2" look="h4">Qualités professionnelles :</Title>
+              <ul>
+                {offreEmploi.qualitéesProfessionnelle?.map((qualitéesProfessionnelle, index) => <li
+                  key={index}>{qualitéesProfessionnelle}</li>)}
+              </ul>
+            </>
+          }
+          {offreEmploi.formations &&
+            <><Title as="h2" look="h4">Formation requise </Title>
+              <ul>
+                {offreEmploi.formations?.map((formation, index) => <li
+                  key={index}>{formation.libellé} & {formation.commentaire}</li>)}
+              </ul>
+            </>
+          }
+          {offreEmploi.salaire &&
+           <div><strong>Salaire</strong><p>{salaireOffreEmploi}</p></div>
+          }
+        </div>
         <ButtonGroup size="md">
           <Link
             href={offreEmploi.urlOffreOrigine}
