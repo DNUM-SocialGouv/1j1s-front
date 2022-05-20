@@ -6,6 +6,7 @@ import {
   OffreEmploiResponse,
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
+import { RéférentielDomaineResponse } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.response';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
 export function aPoleEmploiHttpClient(): PoleEmploiHttpClientService {
@@ -145,4 +146,15 @@ export function aRechercheJobÉtudiantResponse(): AxiosResponse {
   return anAxiosResponse({
     resultats: aJobÉtudiantList(),
   });
+}
+
+function aRéférentielDomaineList(): RéférentielDomaineResponse[] {
+  return [
+    { code: 'M16', libelle: 'Secteur agroalimentaire' },
+    { code: 'M15', libelle: 'Secteur public' },
+  ];
+}
+
+export function aRéférentielDomainesResponse(): AxiosResponse {
+  return anAxiosResponse(aRéférentielDomaineList());
 }

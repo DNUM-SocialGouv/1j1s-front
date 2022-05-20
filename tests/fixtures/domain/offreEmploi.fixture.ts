@@ -3,6 +3,7 @@ import {
   OffreEmploi,
   OffreEmploiFiltre, RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
+import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
 
 export function aRésultatsRechercheOffreEmploi(override?: Partial<RésultatsRechercheOffreEmploi>): RésultatsRechercheOffreEmploi {
   return {
@@ -93,4 +94,18 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     typeDeContrats: ['CDD', 'CDI'],
     ...override,
   };
+}
+
+function aRéférentielDomaine(override?: Partial<RéférentielDomaine>): RéférentielDomaine {
+  return {
+    code: 'M16',
+    libelle: 'Secteur agroalimentaire',
+    ...override,
+  };
+}
+export function aRésultatRéférentielDomaine(): RéférentielDomaine[] {
+  return [
+    aRéférentielDomaine(),
+    aRéférentielDomaine({ code: 'M15', libelle: 'Secteur public' }),
+  ];
 }

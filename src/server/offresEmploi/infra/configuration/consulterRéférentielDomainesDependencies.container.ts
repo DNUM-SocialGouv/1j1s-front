@@ -1,4 +1,4 @@
-import { ApiPoleEmploiRéférentielRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentielRepository';
+import { ApiPoleEmploiRéférentielRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ConsulterRéférentielDomainesUseCase } from '~/server/offresEmploi/useCases/consulterRéférentielDomaines.useCase';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
