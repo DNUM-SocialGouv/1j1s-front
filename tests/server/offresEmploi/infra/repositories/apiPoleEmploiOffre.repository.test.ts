@@ -108,10 +108,10 @@ describe('ApiPoleEmploiOffreRepository', () => {
               .mockResolvedValue(anAxiosResponse({}, 204));
             const offreEmploiFiltre = anOffreEmploiFiltre();
 
-            const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
+            const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
 
-            expect(result.result.nombreRésultats).toEqual(0);
-            expect(result.result.résultats).toEqual([]);
+            expect(result.nombreRésultats).toEqual(0);
+            expect(result.résultats).toEqual([]);
           });
         });
 
