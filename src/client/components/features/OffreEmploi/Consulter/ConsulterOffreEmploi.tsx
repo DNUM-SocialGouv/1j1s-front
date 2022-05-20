@@ -28,9 +28,15 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
           offreEmploi.duréeTravail,
         ]} />
         {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
-        <div className={styles.offreEmploiFormations}>{offreEmploi.formations?.map((x) => <p key={0}>{x?.libellé} , {x?.commentaire}</p>)}</div>
-        <ul>{offreEmploi.compétences?.map((x) => <li key={0}>{x?.libellé}</li>)}</ul>
-        <ul>{offreEmploi.qualitéesProfessionnelle?.map((x) => <li key={0}>{x?.libellé}</li>)}</ul>
+        <div className={styles.offreEmploiFormations}>{offreEmploi.formations?.map((x) => <p>{x?.libellé} , {x?.commentaire}</p>)}</div>
+        {offreEmploi.compétences &&
+            <ul>
+              {offreEmploi.compétences?.map((compétence, index) =>
+                <li key={index}>{compétence}</li>)
+              }
+            </ul>
+        }
+        <ul>{offreEmploi.qualitéesProfessionnelle?.map((x) => <li>{x}</li>)}</ul>
         {offreEmploi.salaire && <p dangerouslySetInnerHTML={{ __html: salaireOffreEmploi }}/>}
         <ButtonGroup size="md">
           <Link

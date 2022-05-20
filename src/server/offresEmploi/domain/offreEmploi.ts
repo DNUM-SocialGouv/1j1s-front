@@ -7,7 +7,7 @@ export interface OffreEmploi {
   intitulé: string
   description?: string
   formations?: OffreEmploi.Formation[]
-  compétences?: OffreEmploi.Compétence[]
+  compétences?: string[]
   qualitéesProfessionnelle?: OffreEmploi.QualitéeProfessionnelle[]
   lieuTravail?: string
   salaire?: string
