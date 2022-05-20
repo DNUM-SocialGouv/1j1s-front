@@ -8,7 +8,7 @@ export interface OffreEmploi {
   description?: string
   formations?: OffreEmploi.Formation[]
   compétences?: string[]
-  qualitéesProfessionnelle?: OffreEmploi.QualitéeProfessionnelle[]
+  qualitéesProfessionnelle?: string[]
   lieuTravail?: string
   salaire?: string
   entreprise: OffreEmploi.Entreprise
@@ -38,10 +38,6 @@ export namespace OffreEmploi {
   export interface Formation {
     libellé?: string
     commentaire?: string
-  }
-  
-  export interface Compétence {
-    libellé?: string
   }
 
   export interface QualitéeProfessionnelle {

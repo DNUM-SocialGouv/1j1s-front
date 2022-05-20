@@ -56,14 +56,16 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeCon
       return OffreEmploi.CONTRAT_SAISONNIER;
   }
 }
-function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] | undefined {
+
+export function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] | undefined {
   if (!formationResponse) {
     return undefined;
   }
-  return formationResponse.map((formation) => ({
-    commentaire: formation.commentaire,
-    libellé: formation.niveauLibelle,
+  const formationMappée = formationResponse.map((formation) => ({
+    ...formation.commentaire && { commentaire : formation.commentaire },
+    ...formation.niveauLibelle && { libellé : formation.niveauLibelle },
   }));
+  return formationMappée.filter((formation) => Object.keys(formation).length !== 0);
 }
 
 export function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): string[] | undefined {
@@ -73,13 +75,12 @@ export function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compét
   return compétenceMappée.filter((compétence) => !!compétence) as string[];
 }
 
-function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): OffreEmploi.QualitéeProfessionnelle[] | undefined {
+export function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): string[] | undefined {
   if (!qualitéeProfessionnelleResponse) {
     return undefined;
   }
-  return qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => ({
-    libellé: qualitéeProfessionnelle.libelle,
-  }));
+  const qualitéeProfessionnelleMappée = qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => (qualitéeProfessionnelle.libelle));
+  return qualitéeProfessionnelleMappée.filter((qualitéeProfessionnelle) => !!qualitéeProfessionnelle) as string[];
 }
 
 function mapLieuTravail(lieuTravailResponse?: OffreEmploiResponse.LieuTravail): string | undefined {
