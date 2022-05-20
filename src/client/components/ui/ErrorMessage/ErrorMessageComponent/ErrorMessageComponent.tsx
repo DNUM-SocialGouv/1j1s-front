@@ -1,16 +1,15 @@
 import { Title } from '@dataesr/react-dsfr';
-import React from 'react';
 
-import styles from '~/client/components/ui/ErrorMessage/ErrorMessage.module.css';
+import styles from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent.module.css';
 
 interface ErrorMessageProps {
   className?: string,
   explanationText: string,
-  solutionText: string,
+  solutionText?: string,
   title: string
 }
 
-export const ErrorMessage = (props: ErrorMessageProps) => {
+export const ErrorMessageComponent = (props: ErrorMessageProps) => {
   const { className, explanationText, solutionText, title } = props;
   return (
     <div className={className}>

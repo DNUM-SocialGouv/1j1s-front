@@ -25,7 +25,7 @@ import React, {
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { RésultatRechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
-import { ErrorMessage } from '~/client/components/ui/ErrorMessage/ErrorMessage';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { TagList } from '~/client/components/ui/TagList/TagList';
@@ -283,14 +283,7 @@ export function RechercherOffreEmploi() {
       }
 
       {isLoading && <p>Recherche des offres</p>}
-      {shouldDisplayErrorMessage &&
-        <ErrorMessage
-          className={styles.errorMessage}
-          title="0 résultat"
-          explanationText="Malheureusement, aucune offre ne correspond à votre recherche !"
-          solutionText="Vérifiez l&apos;orthographe, essayez d&apos;autres mots clés ou élargissez votre zone géographique de recherche."
-        />
-      }
+      {shouldDisplayErrorMessage && <NoResultErrorMessage className={styles.errorMessage}/>}
       {
         offreEmploiList.length > 0 && !isLoading &&
         <ul className={styles.résultatRechercheOffreEmploiList}>
