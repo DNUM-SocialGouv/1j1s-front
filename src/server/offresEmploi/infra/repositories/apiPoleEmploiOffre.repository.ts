@@ -1,3 +1,5 @@
+import { createFailure, createSuccess,Either } from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   NOMBRE_RÉSULTATS_PAR_PAGE,
@@ -33,14 +35,28 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     return mapOffreEmploi(response.data);
   }
 
-  async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<RésultatsRechercheOffreEmploi> {
+  async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     LoggerService.info(`Recherche offre emploi avec filtres ${JSON.stringify(offreEmploiFiltre)}`);
     const paramètresRecherche = this.buildParamètresRecherche(offreEmploiFiltre);
-    const response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse>(
-      `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
-    );
 
-    return mapRésultatsRechercheOffreEmploi(response.data);
+    try {
+      const response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse>(
+        `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
+      );
+      if (response.status === 204) {
+        return createSuccess({ nombreRésultats: 0, résultats: [] });
+      } else {
+        return createSuccess(mapRésultatsRechercheOffreEmploi(response.data));
+      }
+    } catch (e: any) {
+      if(e.response.status === 500) {
+        return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+      }
+      if(e.response.status === 400) {
+        return createFailure(ErrorType.DEMANDE_INCORRECTE);
+      }
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    }
   }
 
   buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): string {

@@ -1,4 +1,5 @@
 import {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
@@ -40,5 +41,19 @@ export function anAxiosResponse<T>(
     headers,
     status: status || 200,
     statusText: '',
+  };
+}
+
+export function anAxiosError(): AxiosError {
+  return {
+    cause: new Error(),
+    config: {},
+    isAxiosError: true,
+    message: '',
+    name: '',
+    response: anAxiosResponse({}),
+    stack: '',
+    status: '400',
+    toJSON(): object {return {};},
   };
 }
