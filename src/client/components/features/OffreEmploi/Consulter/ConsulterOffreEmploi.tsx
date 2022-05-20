@@ -30,14 +30,14 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         <div>
           {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
           {offreEmploi.compétences &&
-            <><Title as="h2" look="h4">Connaissances et compétences requises :</Title>
+            <><Title as="h2" look="h6">Connaissances et compétences requises :</Title>
               <ul>
                 {offreEmploi.compétences?.map((compétence, index) => <li key={index}>{compétence}</li>)}
               </ul>
             </>
           }
           {offreEmploi.qualitéesProfessionnelle &&
-            <><Title as="h2" look="h4">Qualités professionnelles :</Title>
+            <><Title as="h2" look="h6">Qualités professionnelles :</Title>
               <ul>
                 {offreEmploi.qualitéesProfessionnelle?.map((qualitéesProfessionnelle, index) => <li
                   key={index}>{qualitéesProfessionnelle}</li>)}
@@ -45,7 +45,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
             </>
           }
           {offreEmploi.formations &&
-            <><Title as="h2" look="h4">Formation requise </Title>
+            <><Title as="h2" look="h6">Formation requise </Title>
               <ul>
                 {offreEmploi.formations?.map((formation, index) => <li
                   key={index}>{formation.libellé} & {formation.commentaire}</li>)}
@@ -53,7 +53,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
             </>
           }
           {offreEmploi.salaire &&
-           <div><strong>Salaire</strong><p>{salaireOffreEmploi}</p></div>
+           <p><strong>Salaire : </strong>{salaireOffreEmploi}</p>
           }
         </div>
         <ButtonGroup size="md">
