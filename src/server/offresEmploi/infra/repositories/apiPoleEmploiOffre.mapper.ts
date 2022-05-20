@@ -66,13 +66,11 @@ function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): Offr
   }));
 }
 
-function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): OffreEmploi.Compétence[] | undefined {
-  if (!compétenceResponse) {
-    return undefined;
-  }
-  return compétenceResponse.map((compétence) => ({
-    libellé: compétence.libelle,
-  }));
+export function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): string[] | undefined {
+  if (!compétenceResponse) return undefined;
+
+  const compétenceMappée = compétenceResponse.map((compétence) => (compétence.libelle));
+  return compétenceMappée.filter((compétence) => !!compétence) as string[];
 }
 
 function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): OffreEmploi.QualitéeProfessionnelle[] | undefined {
