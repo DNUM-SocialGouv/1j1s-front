@@ -29,25 +29,25 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         ]} />
         <div>
           {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
-          {offreEmploi.compétencesList &&
+          {offreEmploi.compétenceList.length !== 0 &&
             <><Title as="h2" look="h6">Connaissances et compétences requises :</Title>
               <ul>
-                {offreEmploi.compétencesList?.map((compétence, index) => <li key={index}>{compétence}</li>)}
+                {offreEmploi.compétenceList.map((compétence, index) => <li key={index}>{compétence}</li>)}
               </ul>
             </>
           }
-          {offreEmploi.qualitéesProfessionnellesList &&
+          {offreEmploi.qualitéeProfessionnelleList.length !== 0 &&
             <><Title as="h2" look="h6">Qualités professionnelles :</Title>
               <ul>
-                {offreEmploi.qualitéesProfessionnellesList?.map((qualitéesProfessionnelle, index) => <li
-                  key={index}>{qualitéesProfessionnelle}</li>)}
+                {offreEmploi.qualitéeProfessionnelleList.map((qualitéeProfessionnelle, index) => <li
+                  key={index}>{qualitéeProfessionnelle}</li>)}
               </ul>
             </>
           }
-          {offreEmploi.formationsList &&
+          {offreEmploi.formationList.length !== 0 &&
             <><Title as="h2" look="h6">Formation requise </Title>
               <ul>
-                {offreEmploi.formationsList?.map((formation, index) => <li
+                {offreEmploi.formationList.map((formation, index) => <li
                   key={index}>{formation.libellé} & {formation.commentaire}</li>)}
               </ul>
             </>

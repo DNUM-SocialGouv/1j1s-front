@@ -14,7 +14,7 @@ export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheO
 
 export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreEmploi {
   return {
-    compétencesList: mapCompétenceList(offreEmploiResponse.competences),
+    compétenceList: mapCompétenceList(offreEmploiResponse.competences),
     description: offreEmploiResponse.description,
     duréeTravail: mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti),
     entreprise: {
@@ -22,11 +22,11 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
       nom: offreEmploiResponse.entreprise?.nom,
     },
     expérience: mapExpérience(offreEmploiResponse.experienceExige),
-    formationsList: mapFormationList(offreEmploiResponse.formations),
+    formationList: mapFormationList(offreEmploiResponse.formations),
     id: offreEmploiResponse.id,
     intitulé: offreEmploiResponse.intitule,
     lieuTravail: mapLieuTravail(offreEmploiResponse.lieuTravail),
-    qualitéesProfessionnellesList: mapQualitéeProfessionnelleList(offreEmploiResponse.qualitesProfessionnelles),
+    qualitéeProfessionnelleList: mapQualitéeProfessionnelleList(offreEmploiResponse.qualitesProfessionnelles),
     salaire: offreEmploiResponse.salaire?.libelle,
     typeContrat: mapTypeContrat(offreEmploiResponse.typeContrat),
     urlOffreOrigine: offreEmploiResponse.origineOffre.urlOrigine,
@@ -57,27 +57,27 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeCon
   }
 }
 
-export function mapFormationList(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] | undefined {
+export function mapFormationList(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] {
   if (!formationResponse) {
-    return undefined;
+    return [];
   }
-  const formationMappée = formationResponse.map((formation) => ({
+  const formationResponseSanitized = formationResponse.filter((formation) => formation.niveauLibelle !== undefined && formation.commentaire !== undefined);
+  return formationResponseSanitized.map((formation) => ({
     ...formation.commentaire && { commentaire : formation.commentaire },
     ...formation.niveauLibelle && { libellé : formation.niveauLibelle },
   }));
-  return formationMappée.filter((formation) => Object.keys(formation).length !== 0);
 }
 
-export function mapCompétenceList(compétenceResponse?: OffreEmploiResponse.Compétence[]): string[] | undefined {
-  if (!compétenceResponse) return undefined;
+export function mapCompétenceList(compétenceResponse?: OffreEmploiResponse.Compétence[]): string[] {
+  if (!compétenceResponse) return [];
 
   const compétenceMappée = compétenceResponse.map((compétence) => (compétence.libelle));
   return compétenceMappée.filter((compétence) => !!compétence) as string[];
 }
 
-export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): string[] | undefined {
+export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): string[] {
   if (!qualitéeProfessionnelleResponse) {
-    return undefined;
+    return [];
   }
   const qualitéeProfessionnelleMappée = qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => (qualitéeProfessionnelle.libelle));
   return qualitéeProfessionnelleMappée.filter((qualitéeProfessionnelle) => !!qualitéeProfessionnelle) as string[];

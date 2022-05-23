@@ -23,7 +23,7 @@ describe('mapper', () => {
         const compétenceResponse = undefined;
         //when
         const mappedOffreEmploiCompétenceList = mapCompétenceList(compétenceResponse);
-        const résultatAttendu = undefined;
+        const résultatAttendu: string[] = [];
         //then
         expect(mappedOffreEmploiCompétenceList).toEqual(résultatAttendu);
       });
@@ -62,7 +62,7 @@ describe('mapper', () => {
         const qualitéesProfessionnelleResponse = undefined;
         //when
         const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelleList(qualitéesProfessionnelleResponse);
-        const résultatAttendu = undefined;
+        const résultatAttendu: string[] = [];
         //then
         expect(mappedOffreEmploiQualitéeProfessionnelleList).toEqual(résultatAttendu);
       });
@@ -100,7 +100,7 @@ describe('mapper', () => {
           const formationResponse = undefined;
           //when
           const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
-          const résultatAttendu = undefined;
+          const résultatAttendu: OffreEmploi.Formation[] = [];
           //then
           expect(mappedOffreEmploiFormationList).toEqual(résultatAttendu);
         });
@@ -108,7 +108,7 @@ describe('mapper', () => {
 
       describe('quand on récupère une liste de formations', () => {
         it('retourne les formations', () => {
-        //given
+          //given
           const formationResponse = anOffreEmploiResponseFormationList();
           //when
           const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
