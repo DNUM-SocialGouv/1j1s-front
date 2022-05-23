@@ -14,7 +14,7 @@ export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheO
 
 export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreEmploi {
   return {
-    compétences: mapCompétence(offreEmploiResponse.competences),
+    compétencesList: mapCompétenceList(offreEmploiResponse.competences),
     description: offreEmploiResponse.description,
     duréeTravail: mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti),
     entreprise: {
@@ -22,11 +22,11 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
       nom: offreEmploiResponse.entreprise?.nom,
     },
     expérience: mapExpérience(offreEmploiResponse.experienceExige),
-    formations: mapFormation(offreEmploiResponse.formations),
+    formationsList: mapFormationList(offreEmploiResponse.formations),
     id: offreEmploiResponse.id,
     intitulé: offreEmploiResponse.intitule,
     lieuTravail: mapLieuTravail(offreEmploiResponse.lieuTravail),
-    qualitéesProfessionnelle: mapQualitéeProfessionnelle(offreEmploiResponse.qualitesProfessionnelles),
+    qualitéesProfessionnellesList: mapQualitéeProfessionnelleList(offreEmploiResponse.qualitesProfessionnelles),
     salaire: offreEmploiResponse.salaire?.libelle,
     typeContrat: mapTypeContrat(offreEmploiResponse.typeContrat),
     urlOffreOrigine: offreEmploiResponse.origineOffre.urlOrigine,
@@ -57,7 +57,7 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeCon
   }
 }
 
-export function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] | undefined {
+export function mapFormationList(formationResponse?: OffreEmploiResponse.Formation[]): OffreEmploi.Formation[] | undefined {
   if (!formationResponse) {
     return undefined;
   }
@@ -68,14 +68,14 @@ export function mapFormation(formationResponse?: OffreEmploiResponse.Formation[]
   return formationMappée.filter((formation) => Object.keys(formation).length !== 0);
 }
 
-export function mapCompétence(compétenceResponse?: OffreEmploiResponse.Compétence[]): string[] | undefined {
+export function mapCompétenceList(compétenceResponse?: OffreEmploiResponse.Compétence[]): string[] | undefined {
   if (!compétenceResponse) return undefined;
 
   const compétenceMappée = compétenceResponse.map((compétence) => (compétence.libelle));
   return compétenceMappée.filter((compétence) => !!compétence) as string[];
 }
 
-export function mapQualitéeProfessionnelle(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): string[] | undefined {
+export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse?: OffreEmploiResponse.QualitéeProfessionnelle[]): string[] | undefined {
   if (!qualitéeProfessionnelleResponse) {
     return undefined;
   }

@@ -9,9 +9,9 @@ import {
 
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import {
-  mapCompétence,
-  mapFormation,
-  mapQualitéeProfessionnelle,
+  mapCompétenceList,
+  mapFormationList,
+  mapQualitéeProfessionnelleList,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
 
 
@@ -22,7 +22,7 @@ describe('mapper', () => {
         //given
         const compétenceResponse = undefined;
         //when
-        const mappedOffreEmploiCompétenceList = mapCompétence(compétenceResponse);
+        const mappedOffreEmploiCompétenceList = mapCompétenceList(compétenceResponse);
         const résultatAttendu = undefined;
         //then
         expect(mappedOffreEmploiCompétenceList).toEqual(résultatAttendu);
@@ -34,7 +34,7 @@ describe('mapper', () => {
         //given
         const compétenceResponse = anOffreEmploiResponseCompétenceList();
         //when
-        const mappedOffreEmploiCompétenceList = mapCompétence(compétenceResponse);
+        const mappedOffreEmploiCompétenceList = mapCompétenceList(compétenceResponse);
 
         const résultatAttendu: string[] = [
           'Réaliser la prescription médicale',
@@ -46,7 +46,7 @@ describe('mapper', () => {
       it('retourne seulement les libellés qui ne sont pas undefined', () => {
         const compétenceResponse = anOffreEmploiResponseCompétenceListAvecCompétenceNonDéfinie();
 
-        const mappedOffreEmploiCompétenceList = mapCompétence(compétenceResponse);
+        const mappedOffreEmploiCompétenceList = mapCompétenceList(compétenceResponse);
         const résultatAttendu: string[] = [
           'Réaliser la prescription médicale',
         ];
@@ -61,7 +61,7 @@ describe('mapper', () => {
         //given
         const qualitéesProfessionnelleResponse = undefined;
         //when
-        const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelle(qualitéesProfessionnelleResponse);
+        const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelleList(qualitéesProfessionnelleResponse);
         const résultatAttendu = undefined;
         //then
         expect(mappedOffreEmploiQualitéeProfessionnelleList).toEqual(résultatAttendu);
@@ -73,7 +73,7 @@ describe('mapper', () => {
         //given
         const qualitéesProfessionnelleResponse = anOffreEmploiResponseQualitéeProfessionnelleList();
         //when
-        const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelle(qualitéesProfessionnelleResponse);
+        const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelleList(qualitéesProfessionnelleResponse);
 
         const résultatAttendu: string[] = [
           'Capacité d\'adaptation',
@@ -85,7 +85,7 @@ describe('mapper', () => {
       it('retourne seulement les libellés qui ne sont pas undefined', () => {
         const qualitéesProfessionnelleResponse = anOffreEmploiResponseQualitéeProfessionnelleListAvecQualitéeNonDéfinie();
 
-        const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelle(qualitéesProfessionnelleResponse);
+        const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelleList(qualitéesProfessionnelleResponse);
         const résultatAttendu: string[] = [
           'Capacité d\'adaptation',
         ];
@@ -99,7 +99,7 @@ describe('mapper', () => {
         //given
           const formationResponse = undefined;
           //when
-          const mappedOffreEmploiFormationList = mapFormation(formationResponse);
+          const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
           const résultatAttendu = undefined;
           //then
           expect(mappedOffreEmploiFormationList).toEqual(résultatAttendu);
@@ -111,7 +111,7 @@ describe('mapper', () => {
         //given
           const formationResponse = anOffreEmploiResponseFormationList();
           //when
-          const mappedOffreEmploiFormationList = mapFormation(formationResponse);
+          const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
 
           const résultatAttendu: OffreEmploi.Formation[] = [
             { commentaire: 'DE docteur en médecine', libellé: 'Bac+5 et plus ou équivalents' },
@@ -124,7 +124,7 @@ describe('mapper', () => {
         it('retourne seulement les champs qui ne sont pas undefined', () => {
           const formationResponse = anOffreEmploiResponseFormationListAvecFormationNonDéfinie();
 
-          const mappedOffreEmploiFormationList = mapFormation(formationResponse);
+          const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
           const résultatAttendu: OffreEmploi.Formation[] = [
             { commentaire: 'DE docteur en médecine', libellé: 'Bac+5 et plus ou équivalents' },
           ];

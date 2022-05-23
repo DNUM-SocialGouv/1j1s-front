@@ -6,9 +6,9 @@ export interface OffreEmploi {
   id: OffreEmploiId
   intitulé: string
   description?: string
-  formations?: OffreEmploi.Formation[]
-  compétences?: string[]
-  qualitéesProfessionnelle?: string[]
+  formationsList?: OffreEmploi.Formation[]
+  compétencesList?: string[]
+  qualitéesProfessionnellesList?: string[]
   lieuTravail?: string
   salaire?: string
   entreprise: OffreEmploi.Entreprise
