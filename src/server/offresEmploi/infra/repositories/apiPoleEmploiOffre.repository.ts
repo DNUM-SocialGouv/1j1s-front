@@ -63,12 +63,21 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
 
-    const params = new URLSearchParams({
+    const queryList = {
+      domaine: offreEmploiFiltre.domaine.join(','),
+      experienceExigence: offreEmploiFiltre.experienceExigence.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
+      tempsPlein: offreEmploiFiltre.tempsPlein,
       typeContrat: offreEmploiFiltre.typeDeContrats.join(','),
       ...localisation,
+    };
+    Object.keys(queryList).forEach((key: string) => {
+      if (!queryList[key]) delete queryList[key];
     });
+
+    const params = new URLSearchParams(queryList);
+
     return params.toString();
   }
 

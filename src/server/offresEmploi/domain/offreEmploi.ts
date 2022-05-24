@@ -151,6 +151,9 @@ export interface OffreEmploiFiltre {
   typeDeContrats: string[]
   page: number
   localisation?: OffreEmploiFiltreLocalisation
+  tempsPlein?: string
+  domaine: string[]
+  experienceExigence: string[]
 }
 
 export interface OffreEmploiFiltreLocalisation {

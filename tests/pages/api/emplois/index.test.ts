@@ -33,9 +33,9 @@ describe('rechercher une offre d\'emploi', () => {
 
   it('retourne une erreur 500 quand le service est indisponible', async () => {
     nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/offres/search?motsCles=&range=29970-29999&typeContrat=')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=29970-29999')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?motsCles=&range=29970-29999&typeContrat=')
+      .get('/partenaire/offresdemploi/v2/offres/search?&range=29970-29999')
       .reply(500, aServeurIndisponibleError());
 
     nock('https://entreprise.pole-emploi.fr')
