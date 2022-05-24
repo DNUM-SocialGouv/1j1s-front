@@ -155,10 +155,10 @@ describe('RechercherOffreEmploi', () => {
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
         const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByTestId('FiltreTypeDeContrats');
-        const inputRechercheMotClé = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
-        fireEvent.click(inputRechercheMotClé[0]);
-        fireEvent.click(inputRechercheMotClé[2]);
-        fireEvent.click(inputRechercheMotClé[0]);
+        const inputTypeDeContrat = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
+        fireEvent.click(inputTypeDeContrat[0]);
+        fireEvent.click(inputTypeDeContrat[2]);
+        fireEvent.click(inputTypeDeContrat[0]);
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
@@ -174,6 +174,46 @@ describe('RechercherOffreEmploi', () => {
         // THEN
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=MIS');
+      });
+    });
+
+    describe('quand on recherche par temps de travail', () => {
+      it('affiche les temps de travail dans la modale', async () => {
+        // GIVEN
+        const offreEmploiServiceMock = anOffreEmploiService();
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+            <RechercherOffreEmploi />
+          </DependenciesProvider>,
+        );
+
+        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
+
+        // WHEN
+        fireEvent.click(buttonFiltresRecherche);
+        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
+        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByTestId('FiltreTempsDeTravail');
+        const inputTempsDeTravail = within(containerFiltreTempsDeTravail).getAllByRole('radio');
+        fireEvent.click(inputTempsDeTravail[0]);
+
+        expect(filtreRechercheMobile).toBeInTheDocument();
+
+        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
+        mockUseRouter({ query: { page: '1', tempsPlein: 'true' } });
+
+        // WHEN
+        fireEvent.click(buttonAppliquerFiltres);
+        await waitFor(() => {
+          expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
+        });
+
+        // THEN
+        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsPlein=true&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsPlein=true');
       });
     });
 
@@ -263,6 +303,78 @@ describe('RechercherOffreEmploi', () => {
       // THEN
 
       expect(filtreRechercheDesktop).toBeInTheDocument();
+    });
+
+    describe('filtre type de contrat', () => {
+      it('ouvre la liste des options au click et appelle l\'api avec les filtres sélectionnées', async () => {
+        const offreEmploiServiceMock = anOffreEmploiService();
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+            <RechercherOffreEmploi />
+          </DependenciesProvider>,
+        );
+
+        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
+
+        fireEvent.click(buttonFiltresRecherche);
+        const button = await screen.findByTestId('SelectButton-Type de contrat');
+        fireEvent.click(button);
+
+        const typeDeContratList = await screen.findByTestId('OptionList');
+
+        expect(typeDeContratList).toBeInTheDocument();
+
+        const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
+        fireEvent.click(inputTypeDeContrat[0]);
+
+        mockUseRouter({ query: { page: '1', typeDeContrats: 'CDD' } });
+        const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        fireEvent.click(buttonRechercher);
+
+
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=CDD');
+      });
+    });
+
+    describe('filtre temps de travail', () => {
+      it('ouvre la liste des options au click et appelle l\'api avec les filtres sélectionnées', async () => {
+        const offreEmploiServiceMock = anOffreEmploiService();
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+            <RechercherOffreEmploi />
+          </DependenciesProvider>,
+        );
+
+        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
+
+        fireEvent.click(buttonFiltresRecherche);
+        const button = await screen.findByTestId('SelectButton-Temps de travail');
+        fireEvent.click(button);
+
+        const typeDeContratList = await screen.findByTestId('OptionList');
+
+        expect(typeDeContratList).toBeInTheDocument();
+
+        const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
+        fireEvent.click(inputTypeDeContrat[0]);
+
+        mockUseRouter({ query: { page: '1', tempsPlein: 'true' } });
+        const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        fireEvent.click(buttonRechercher);
+
+
+        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsPlein=true&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsPlein=true');
+      });
     });
   });
 

@@ -30,6 +30,7 @@ import { UnexpectedErrorMessage } from '~/client/components/ui/ErrorMessage/Unex
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { SelectCheckbox } from '~/client/components/ui/Select/SelectCheckbox/SelectCheckbox';
+import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { SelectRadio } from '~/client/components/ui/Select/SelectRadio/SelectRadio';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -47,6 +48,7 @@ import {
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
+
 
 export function RechercherOffreEmploi() {
   const router = useRouter();
@@ -90,7 +92,6 @@ export function RechercherOffreEmploi() {
     fetchRéférentielDomaineList().then((response) => {
       setRéférentielDomaineList(response);
     });
-
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
@@ -137,10 +138,10 @@ export function RechercherOffreEmploi() {
               case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
                 filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt!);
                 break;
-              case(OffreEmploi.CONTRAT_CDI.valeur):
+              case (OffreEmploi.CONTRAT_CDI.valeur):
                 filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt!);
                 break;
-              case(OffreEmploi.CONTRAT_CDD.valeur):
+              case (OffreEmploi.CONTRAT_CDD.valeur):
                 filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt!);
                 break;
               default:
@@ -295,7 +296,6 @@ export function RechercherOffreEmploi() {
             <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
               {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                 <Checkbox
-                  data-testid="FiltreTypeDeContratsItem"
                   key={index}
                   label={typeDeContrat.libelléLong}
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -306,7 +306,7 @@ export function RechercherOffreEmploi() {
                 />
               ))}
             </CheckboxGroup>
-            <RadioGroup legend="Temps de travail">
+            <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
               {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                 <Radio
                   key={index}
@@ -362,33 +362,37 @@ export function RechercherOffreEmploi() {
         {
           isFiltresAvancésDesktopOpen && (
             <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-              <SelectCheckbox
-                titre="Type de contrat"
-                optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-                onChange={toggleTypeDeContrat}
-                currentInput={inputTypeDeContrat}
-              />
+              <Select titre="Type de contrat">
+                <SelectCheckbox
+                  optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+                  onChange={toggleTypeDeContrat}
+                  currentInput={inputTypeDeContrat}
+                />
+              </Select>
 
-              <SelectRadio
-                titre="Temps de travail"
-                optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
-                onChange={(value) => setInputTempsDeTravail(value)}
-                currentInput={inputTempsDeTravail}
-              />
+              <Select titre="Temps de travail">
+                <SelectRadio
+                  optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+                  onChange={(value) => setInputTempsDeTravail(value)}
+                  currentInput={inputTempsDeTravail}
+                />
+              </Select>
 
-              <SelectCheckbox
-                titre="Niveau demandé"
-                optionList={mapExpérienceAttenduToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
-                onChange={toggleExpérience}
-                currentInput={inputExpérience}
-              />
+              <Select titre="Niveau demandé">
+                <SelectCheckbox
+                  optionList={mapExpérienceAttenduToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
+                  onChange={toggleExpérience}
+                  currentInput={inputExpérience}
+                />
+              </Select>
 
-              <SelectCheckbox
-                titre="Domaine"
-                optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-                onChange={toggleDomaine}
-                currentInput={inputDomaine}
-              />
+              <Select titre="Domaine">
+                <SelectCheckbox
+                  optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+                  onChange={toggleDomaine}
+                  currentInput={inputDomaine}
+                />
+              </Select>
 
             </div>
           )}
@@ -431,3 +435,4 @@ export function RechercherOffreEmploi() {
     </main>
   );
 }
+
