@@ -16,75 +16,75 @@ export function aStrapiHttpClientService(): StrapiHttpClientService {
 
 export function aPageAccueilArticleListAxiosResponse(): AxiosResponse {
   return anAxiosResponse({
-    'data': {
-      'attributes': {
-        'articles': [
+    data: {
+      attributes: {
+        articles: [
           {
-            'description': 'Un parcours entièrement personnalisé qui peut durer de 6 à 12 mois* en fonction de mon profil, pour m\'aider à définir mon projet professionnel et à trouver un emploi.',
-            'id': 1,
-            'image': {
-              'data': {
-                'attributes': {
-                  'alternativeText': 'logo1j1s_france_relance_33a08b6529.svg',
-                  'caption': 'logo1j1s_france_relance_33a08b6529.svg',
-                  'createdAt': '2022-05-03T14:38:40.092Z',
-                  'ext': '.svg',
-                  'formats': null,
-                  'hash': 'logo1j1s_france_relance_33a08b6529_461e6db5fe',
-                  'height': null,
-                  'mime': 'image/svg+xml',
-                  'name': 'logo1j1s_france_relance_33a08b6529.svg',
-                  'previewUrl': null,
-                  'provider': 'local',
-                  'provider_metadata': null,
-                  'size': 18.42,
-                  'updatedAt': '2022-05-03T14:38:40.092Z',
-                  'url': '/uploads/logo1j1s_france_relance_33a08b6529_461e6db5fe.svg',
-                  'width': null,
+            description: 'Un parcours entièrement personnalisé qui peut durer de 6 à 12 mois* en fonction de mon profil, pour m\'aider à définir mon projet professionnel et à trouver un emploi.',
+            id: 1,
+            image: {
+              data: {
+                attributes: {
+                  alternativeText: 'logo1j1s_france_relance_33a08b6529.svg',
+                  caption: 'logo1j1s_france_relance_33a08b6529.svg',
+                  createdAt: '2022-05-03T14:38:40.092Z',
+                  ext: '.svg',
+                  formats: null,
+                  hash: 'logo1j1s_france_relance_33a08b6529_461e6db5fe',
+                  height: null,
+                  mime: 'image/svg+xml',
+                  name: 'logo1j1s_france_relance_33a08b6529.svg',
+                  previewUrl: null,
+                  provider: 'local',
+                  provider_metadata: null,
+                  size: 18.42,
+                  updatedAt: '2022-05-03T14:38:40.092Z',
+                  url: '/uploads/logo1j1s_france_relance_33a08b6529_461e6db5fe.svg',
+                  width: null,
                 },
-                'id': 6,
+                id: 6,
               },
             },
-            'lien': 'contrat-engagement-jeune',
-            'titre': 'Je découvre le Contrat d\'Engagement Jeune',
+            lien: 'contrat-engagement-jeune',
+            titre: 'Je découvre le Contrat d\'Engagement Jeune',
           },
           {
-            'description': 'Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc.',
-            'id': 2,
-            'image': {
-              'data': {
-                'attributes': {
-                  'alternativeText': 'logo1j1s_france_relance_33a08b6529.svg',
-                  'caption': 'logo1j1s_france_relance_33a08b6529.svg',
-                  'createdAt': '2022-05-03T14:38:40.092Z',
-                  'ext': '.svg',
-                  'formats': null,
-                  'hash': 'logo1j1s_france_relance_33a08b6529_461e6db5fe',
-                  'height': null,
-                  'mime': 'image/svg+xml',
-                  'name': 'logo1j1s_france_relance_33a08b6529.svg',
-                  'previewUrl': null,
-                  'provider': 'local',
-                  'provider_metadata': null,
-                  'size': 18.42,
-                  'updatedAt': '2022-05-03T14:38:40.092Z',
-                  'url': '/uploads/logo1j1s_france_relance_33a08b6529_461e6db5fe.svg',
-                  'width': null,
+            description: 'Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc.',
+            id: 2,
+            image: {
+              data: {
+                attributes: {
+                  alternativeText: 'logo1j1s_france_relance_33a08b6529.svg',
+                  caption: 'logo1j1s_france_relance_33a08b6529.svg',
+                  createdAt: '2022-05-03T14:38:40.092Z',
+                  ext: '.svg',
+                  formats: null,
+                  hash: 'logo1j1s_france_relance_33a08b6529_461e6db5fe',
+                  height: null,
+                  mime: 'image/svg+xml',
+                  name: 'logo1j1s_france_relance_33a08b6529.svg',
+                  previewUrl: null,
+                  provider: 'local',
+                  provider_metadata: null,
+                  size: 18.42,
+                  updatedAt: '2022-05-03T14:38:40.092Z',
+                  url: '/uploads/logo1j1s_france_relance_33a08b6529_461e6db5fe.svg',
+                  width: null,
                 },
-                'id': 6,
+                id: 6,
               },
             },
-            'lien': 'mes-aides',
-            'titre': 'J’accède à mes aides financières',
+            lien: 'mes-aides',
+            titre: 'J’accède à mes aides financières',
           },
         ],
-        'createdAt': '2022-04-12T13:43:44.068Z',
-        'publishedAt': '2022-05-03T14:40:37.886Z',
-        'updatedAt': '2022-05-03T14:40:37.889Z',
+        createdAt: '2022-04-12T13:43:44.068Z',
+        publishedAt: '2022-05-03T14:40:37.886Z',
+        updatedAt: '2022-05-03T14:40:37.889Z',
       },
-      'id': 1,
+      id: 1,
     },
-    'meta': {},
+    meta: {},
   });
 }
 

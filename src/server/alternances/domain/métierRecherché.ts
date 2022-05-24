@@ -1,4 +1,4 @@
 export interface MétierRecherché {
-  intitule: string;
-  répertoireOpérationnelMétiersEmplois: string[];
+  intitulé: string;
+  codeROMEList: string[];
 }

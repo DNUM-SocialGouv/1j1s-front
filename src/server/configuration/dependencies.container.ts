@@ -1,7 +1,7 @@
 import {
-  MétierRecherchéDependencies,
-  métierRecherchéDependenciesContainer,
-} from '~/server/alternances/configuration/métierRecherché.dependencies';
+  AlternanceDependencies,
+  alternanceDependenciesContainer,
+} from '~/server/alternances/configuration/alternanceDependencies';
 import {
   JobsÉtudiantDependencies,
   jobsÉtudiantDependenciesContainer,
@@ -25,7 +25,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   jobÉtudiantDependencies: JobsÉtudiantDependencies;
-  metierRechercheDependencies: MétierRecherchéDependencies;
+  alternanceDependencies: AlternanceDependencies;
   cmsDependencies: StrapiCmsService;
   localisationDependencies: LocalisationsDependencies;
 };
@@ -40,20 +40,20 @@ export const dependenciesContainer = (): Dependencies => {
 
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
   const jobÉtudiantDependencies = jobsÉtudiantDependenciesContainer(poleEmploiHttpClientService);
-  const metierRechercheDependencies = métierRecherchéDependenciesContainer(laBonneAlternanceHttpClient);
+  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
     apiAdresseHttpClientService,
   );
 
   return {
+    alternanceDependencies,
     cmsDependencies: new StrapiCmsService(
       strapiHttpClientService,
       serverConfigurationService,
     ),
     jobÉtudiantDependencies,
     localisationDependencies,
-    metierRechercheDependencies,
     offreEmploiDependencies,
   };
 };

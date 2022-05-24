@@ -9,9 +9,9 @@ describe('récupérer une localisation', () => {
     nock('https://geo.api.gouv.fr/')
       .get('/departements/68')
       .reply(200, {
-        'code': '68',
-        'codeRegion': '44',
-        'nom': 'Haut-Rhin',
+        code: '68',
+        codeRegion: '44',
+        nom: 'Haut-Rhin',
       });
 
     await testApiHandler<Localisation>({
@@ -33,14 +33,14 @@ describe('récupérer une localisation', () => {
     nock('https://geo.api.gouv.fr/')
       .get('/communes/02377')
       .reply(200, {
-        'code': '02377',
-        'codeDepartement': '02',
-        'codeRegion': '32',
-        'codesPostaux': [
+        code: '02377',
+        codeDepartement: '02',
+        codeRegion: '32',
+        codesPostaux: [
           '02140',
         ],
-        'nom': 'Haution',
-        'population': 135,
+        nom: 'Haution',
+        population: 135,
       });
 
     await testApiHandler<Localisation>({
@@ -62,8 +62,8 @@ describe('récupérer une localisation', () => {
     nock('https://geo.api.gouv.fr/')
       .get('/regions/32')
       .reply(200, {
-        'code': '32',
-        'nom': 'Hauts-de-France',
+        code: '32',
+        nom: 'Hauts-de-France',
       });
 
     await testApiHandler<Localisation>({

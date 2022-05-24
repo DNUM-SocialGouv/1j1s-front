@@ -7,4 +7,4 @@ export function aHttpClientService(): HttpClientService {
     post: jest.fn(),
     put: jest.fn(),
   } as unknown as HttpClientService;
-};
+}
