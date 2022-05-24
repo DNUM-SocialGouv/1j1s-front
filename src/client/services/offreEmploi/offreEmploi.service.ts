@@ -8,10 +8,9 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-
 export class OffreEmploiService extends Cachable {
 
-  constructor(private readonly httpClientService: HttpClientService, protected readonly appRawDataStorage: AppRawDataStorage ) {
+  constructor(private httpClientService: HttpClientService, protected appRawDataStorage: AppRawDataStorage ) {
     super(appRawDataStorage);
   }
 

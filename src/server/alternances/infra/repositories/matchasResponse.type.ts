@@ -10,11 +10,11 @@ export interface MatchasResultResponse {
 
 export interface MatchasJobResponse {
   id: string;
-  romeDetails: MatchasJobRomeDetailsResponse,
+  romeDetails?: MatchasJobRomeDetailsResponse,
 }
 
 export interface MatchasJobRomeDetailsResponse {
-  definition: string,
+  definition?: string,
 }
 
 export interface MatchasCompanyResponse {

@@ -10,6 +10,8 @@ export async function rechercherAlternanceHandler(req: NextApiRequest, res: Next
   return res.status(200).json(résultatsRechercheAlternance);
 }
 
+export default rechercherAlternanceHandler;
+
 function alternanceRequestMapper(request: NextApiRequest): AlternanceFiltre {
   const { query } = request;
 
