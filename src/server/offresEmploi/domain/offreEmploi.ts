@@ -134,6 +134,11 @@ export namespace OffreEmploi {
     OffreEmploi.EXPÉRIENCE_EXIGÉE,
     OffreEmploi.EXPÉRIENCE_SOUHAITÉ,
   ];
+
+  export interface CheckboxFiltre {
+    libellé: string
+    valeur: string
+  }
 }
 
 export interface RésultatsRechercheOffreEmploi {

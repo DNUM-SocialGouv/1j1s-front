@@ -62,6 +62,11 @@ Une variable représentant une collection sera suffixée par le mot `List` afin 
 ### Code
 * inutile d'ajouter le prefix d'attribut **readonly** dans les paramètres de fonctions ou constructor
 
+* privilégier le retour de [ ] pour les list quand ce dernier est null ou undefined
+
+### Css
+* privilégier un maximum les classes du design système de l'Etat
+
 #### Fichiers et dossiers
 * composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.css`
 * tout le reste : camelCase, `httpClient.service.ts`, `offre-emploi.ts`, `offreEmploi.repository.ts`

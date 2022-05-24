@@ -1,0 +1,26 @@
+.options {
+    z-index: 2;
+    position: absolute;
+    padding: 8px;
+    width: 300px;
+    border: 1px solid var(--grey-925);
+    background-color: var(--grey-1000);
+    margin: 0;
+}
+
+.option:not(:last-child) {
+    border-bottom: 1px solid var(--grey-925);
+}
+
+.optionName {
+    padding-left: 8px;
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px 4px 0px 0px;
+    padding: 8px 20px 8px 12px;
+    border: 1px solid #929292;
+    width: 300px;
+}

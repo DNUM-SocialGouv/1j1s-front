@@ -28,7 +28,7 @@ export class ApiPoleEmploiRéférentielRepository implements RéférentielReposi
       if(e.response.status === 500) {
         return createFailure(ErrorType.SERVICE_INDISPONIBLE);
       }
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
-
   }
 }
