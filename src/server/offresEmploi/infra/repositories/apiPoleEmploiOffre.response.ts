@@ -32,6 +32,7 @@ export namespace OffreEmploiResponse {
 
   export interface Salaire {
     libelle?: string
+    commentaire?: string
   }
 
   export interface Formation {

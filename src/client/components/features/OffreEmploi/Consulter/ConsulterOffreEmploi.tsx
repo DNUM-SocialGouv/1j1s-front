@@ -45,15 +45,15 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
             </>
           }
           {offreEmploi.formationList.length !== 0 &&
-            <><Title as="h2" look="h6">Formation requise </Title>
+            <><Title as="h2" look="h6">Formation requise :</Title>
               <ul>
                 {offreEmploi.formationList.map((formation, index) => <li
-                  key={index}>{formation.libellé} & {formation.commentaire}</li>)}
+                  key={index}>{formation.libellé} - {formation.commentaire}</li>)}
               </ul>
             </>
           }
           {offreEmploi.salaire &&
-           <p><strong>Salaire : </strong>{salaireOffreEmploi}</p>
+              <p className={styles.offreEmploiSalaire}><Title as="h2" look="h6">Salaire : </Title>{salaireOffreEmploi}</p>
           }
         </div>
         <ButtonGroup size="md">
