@@ -1,6 +1,6 @@
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 
-export class ListeMétierRecherchéUseCase {
+export class RechercherMétierUseCase {
   constructor(private alternanceRepository: AlternanceRepository) {}
 
   async handle(métierRecherché: string) {

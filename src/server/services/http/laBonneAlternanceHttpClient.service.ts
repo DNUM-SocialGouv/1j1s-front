@@ -5,8 +5,8 @@ import { ClientService } from '~/server/services/http/client.service';
 
 export class LaBonneAlternanceHttpClient extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_POLE_EMPLOI_BASE_URL } = configurationService.getConfiguration();
-    super(API_POLE_EMPLOI_BASE_URL);
+    const { API_LA_BONNE_ALTERNANCE_BASE_URL } = configurationService.getConfiguration();
+    super(API_LA_BONNE_ALTERNANCE_BASE_URL);
   }
 
   get<Response>(

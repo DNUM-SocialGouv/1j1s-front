@@ -11,33 +11,33 @@ describe('rechercher une localisation', () => {
       .get('/communes?nom=haut')
       .reply(200, [
         {
-          '_score': 0.27028179470661845,
-          'code': '02377',
-          'codeDepartement': '02',
-          'codeRegion': '32',
-          'codesPostaux': [
+          _score: 0.27028179470661845,
+          code: '02377',
+          codeDepartement: '02',
+          codeRegion: '32',
+          codesPostaux: [
             '02140',
           ],
-          'nom': 'Haution',
-          'population': 135,
+          nom: 'Haution',
+          population: 135,
         },
       ]);
     nock('https://geo.api.gouv.fr/')
       .get('/departements?nom=haut')
       .reply(200, [
         {
-          '_score': 0.44991452174209456,
-          'code': '68',
-          'codeRegion': '44',
-          'nom': 'Haut-Rhin',
+          _score: 0.44991452174209456,
+          code: '68',
+          codeRegion: '44',
+          nom: 'Haut-Rhin',
         },
       ]);
     nock('https://geo.api.gouv.fr/')
       .get('/regions?nom=haut')
       .reply(200, [{
-        '_score': 0.6917635957182404,
-        'code': '32',
-        'nom': 'Hauts-de-France',
+        _score: 0.6917635957182404,
+        code: '32',
+        nom: 'Hauts-de-France',
       }]);
 
     await testApiHandler<LocalisationList>({

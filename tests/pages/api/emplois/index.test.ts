@@ -37,9 +37,9 @@ describe('rechercher une offre d\'emploi', () => {
       .get('/partenaire/offresdemploi/v2/offres/search?motsCles=&range=29970-29999&typeContrat=')
       .reply(500,
         {
-          'codeErreur': '1652879820005',
-          'codeHttp': 500,
-          'message': 'Service indisponible',
+          codeErreur: '1652879820005',
+          codeHttp: 500,
+          message: 'Service indisponible',
         },
       );
 
