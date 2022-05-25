@@ -1,26 +1,25 @@
-.résultatRechercheOffreEmploiList {
+.serviceCardList {
     display: flex;
     flex-direction: column;
     padding: 0 16px;
     list-style: none;
 }
 
+.serviceCardList > li:not(:first-child) {
+    margin-top:20px;
+}
+
 .card {
-    display: block;
     background: #ffffff;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0px 4px 4px 0px #00000040;
     border: 1px solid var(--grey-925);
 }
 
 .cardHeader {
     display: flex;
-    border-bottom: 2px solid var(--grey-925);
+    justify-content: center;
     padding: 16px;
-}
-
-.cardHeader > span {
-    margin-left:auto !important;
-    margin-right:auto !important;
+    border-bottom: 2px solid var(--grey-925);
 }
 
 .cardBody {
@@ -29,6 +28,16 @@
     flex-direction: column;
 }
 
-.cardBody > *:not(:last-child) {
-    margin-bottom: 20px !important;
+.cardBody > p {
+    margin:0px;
+}
+
+.cardBody > h2 {
+    margin-bottom:5px;
+}
+
+@media only screen and (min-width: 768px) {
+    .card {
+        display:flex;
+    }
 }
