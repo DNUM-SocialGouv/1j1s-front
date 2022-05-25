@@ -38,7 +38,7 @@ describe('RechercherOffreEmploi', () => {
   });
 
   describe('quand on arrive sur la page', () => {
-    it('affiche un formulaire pour la recherche d\'offres d\'emploi et aucun résultat', () => {
+    it('affiche un formulaire pour la recherche d\'offres d\'emploi et aucun résultat', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
@@ -56,6 +56,7 @@ describe('RechercherOffreEmploi', () => {
       // THEN
       expect(résultatRechercheOffreEmploiList).toHaveLength(0);
       expect(rechercheOffreEmploiNombreRésultats).not.toBeInTheDocument();
+
     });
 
     it('n\'affiche pas de message d\'erreur personnalisé', () => {
@@ -136,7 +137,7 @@ describe('RechercherOffreEmploi', () => {
     });
 
     describe('quand on recherche par type de contrat', () => {
-      it('affiche les types de contrat dans une modale', async () => {
+      it('affiche les types de contrat dans la modale', async () => {
         // GIVEN
         const offreEmploiServiceMock = anOffreEmploiService();
         const localisationServiceMock = aLocalisationService();
@@ -263,6 +264,7 @@ describe('RechercherOffreEmploi', () => {
         // WHEN
         expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
         const resultListitem = within(résultatsLocalisation).getAllByRole('option');
+        
         fireEvent.click(resultListitem[0]);
 
         mockUseRouter({ query: { codeInsee: '75', page: '1', typeLocalisation: 'DEPARTEMENT' } });
@@ -299,10 +301,13 @@ describe('RechercherOffreEmploi', () => {
       // WHEN
 
       fireEvent.click(buttonFiltresRecherche);
-      const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
-      // THEN
 
-      expect(filtreRechercheDesktop).toBeInTheDocument();
+      const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
+      
+      // THEN
+      await waitFor(() => {
+        expect(filtreRechercheDesktop).toBeInTheDocument();
+      });
     });
 
     describe('filtre type de contrat', () => {
@@ -319,21 +324,32 @@ describe('RechercherOffreEmploi', () => {
         );
 
         const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-
         fireEvent.click(buttonFiltresRecherche);
+
         const button = await screen.findByTestId('SelectButton-Type de contrat');
         fireEvent.click(button);
 
         const typeDeContratList = await screen.findByTestId('OptionList');
 
-        expect(typeDeContratList).toBeInTheDocument();
+        await waitFor(() => {
+          expect(typeDeContratList).toBeInTheDocument();
+        });
 
         const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
         fireEvent.click(inputTypeDeContrat[0]);
 
-        mockUseRouter({ query: { page: '1', typeDeContrats: 'CDD' } });
+
+
+
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        mockUseRouter({ query: { page: '1', typeDeContrats: 'CDD' } });
         fireEvent.click(buttonRechercher);
+
+
+        const nombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
+
+        expect(nombreRésultats).toBeInTheDocument();
+
 
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' });
@@ -362,14 +378,20 @@ describe('RechercherOffreEmploi', () => {
 
         const typeDeContratList = await screen.findByTestId('OptionList');
 
-        expect(typeDeContratList).toBeInTheDocument();
+        await waitFor(() => {
+          expect(typeDeContratList).toBeInTheDocument();
+        });
 
         const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
         fireEvent.click(inputTypeDeContrat[0]);
 
-        mockUseRouter({ query: { page: '1', tempsPlein: 'true' } });
+
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        mockUseRouter({ query: { page: '1', tempsPlein: 'true' } });
         fireEvent.click(buttonRechercher);
+
+        const nombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
+        expect(nombreRésultats).toBeInTheDocument();
 
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'tempsPlein=true&page=1' });
