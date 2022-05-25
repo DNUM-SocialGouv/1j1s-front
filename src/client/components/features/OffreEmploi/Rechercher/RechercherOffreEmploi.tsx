@@ -161,7 +161,7 @@ export function RechercherOffreEmploi() {
     <main id="contenu" className={styles.container}>
       <Hero>
         <Title as="h1" look="h3">
-          Des milliers d’offres d’emplois sélectionnées pour vous par Pôle Emploi
+          Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
         </Title>
       </Hero>
       <div className={styles.layout}>

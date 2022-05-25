@@ -78,6 +78,16 @@
   margin-top: 24px;
 }
 
+.serviceCardList {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.serviceCardList > * + * {
+  margin-top: 20px;
+}
+
+
 .errorMessage {
   padding: 16px;
 }
