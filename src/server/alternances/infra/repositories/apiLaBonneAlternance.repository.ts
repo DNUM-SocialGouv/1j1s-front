@@ -1,6 +1,7 @@
-import { Alternance, AlternanceFiltre, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { AlternanceFiltre, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
+import { mapMaBonneAlternanceResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { MatchasResponse } from '~/server/alternances/infra/repositories/matchasResponse.type';
 import { PeJobsResponse } from '~/server/alternances/infra/repositories/peJobsResponse.type';
 import { LaBonneAlternanceHttpClient } from '~/server/services/http/laBonneAlternanceHttpClient.service';
@@ -30,27 +31,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       `jobs?romes=${alternanceFiltre.codeRomeList.toString()}&caller=${this.REQUIRED_PARAMETER_FOR_MA_BONNE_ALTERNANCE}`,
     );
 
-    const alternanceFromPoleEmploiList = response.data.peJobs.results.map<Alternance>((peJob) => ({
-      description: peJob.job.description,
-      entreprise: {
-        logo: null,
-        nom: peJob.company.name,
-      },
-      id: peJob.job.id,
-      intitulé: peJob.title,
-    }));
-
-    const alternanceFromMatchaList = response.data.matchas.results.map<Alternance>((matcha) => ({
-      description: matcha.job.romeDetails.definition,
-      entreprise: {
-        logo: matcha.company.logo,
-        nom: matcha.company.name,
-      },
-      id: matcha.job.id,
-      intitulé: matcha.title,
-    }));
-
-    const résultats = [...alternanceFromPoleEmploiList, ...alternanceFromMatchaList];
+    const résultats = mapMaBonneAlternanceResponse(response.data);
 
     return {
       nombreRésultats: résultats.length,
@@ -68,7 +49,7 @@ interface RechercheMetierDataResponse {
   romes: string[];
 }
 
-interface AlternanceResponse {
+export interface AlternanceResponse {
   peJobs: PeJobsResponse,
   matchas: MatchasResponse,
 }

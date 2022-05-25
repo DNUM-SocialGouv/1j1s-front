@@ -18,6 +18,5 @@ export interface MatchasJobRomeDetailsResponse {
 }
 
 export interface MatchasCompanyResponse {
-  logo: string | null;
   name: string,
 }

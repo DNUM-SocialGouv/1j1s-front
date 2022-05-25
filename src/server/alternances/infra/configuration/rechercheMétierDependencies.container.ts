@@ -1,15 +1,15 @@
 import { ApiLaBonneAlternanceRepository } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import { RechercheMétierUseCase } from '~/server/alternances/useCases/rechercheMétierUseCase';
+import { RechercherMétierUseCase } from '~/server/alternances/useCases/rechercherMétierUseCase';
 import { LaBonneAlternanceHttpClient } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export interface RechercherMétierDependenciesContainer {
-  readonly rechercherMétier: RechercheMétierUseCase;
+  readonly rechercherMétier: RechercherMétierUseCase;
 }
 
 export function rechercherMétierDependenciesContainer (laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient): RechercherMétierDependenciesContainer {
   const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient);
 
   return {
-    rechercherMétier: new RechercheMétierUseCase(apiLaBonneAlternanceRepository),
+    rechercherMétier: new RechercherMétierUseCase(apiLaBonneAlternanceRepository),
   };
 }

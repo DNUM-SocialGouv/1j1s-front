@@ -10,7 +10,6 @@ export interface Alternance {
 export namespace Alternance {
   export interface Entreprise {
     nom: string
-    logo: string | null
   }
 }
 
