@@ -1,4 +1,8 @@
-import { createFailure, createSuccess,Either } from '~/server/errors/either';
+import {
+  createFailure,
+  createSuccess,
+  Either,
+} from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
@@ -48,10 +52,10 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
         return createSuccess(mapRésultatsRechercheOffreEmploi(response.data));
       }
     } catch (e: any) {
-      if(e.response.status === 500) {
+      if (e.response.status === 500) {
         return createFailure(ErrorType.SERVICE_INDISPONIBLE);
       }
-      if(e.response.status === 400) {
+      if (e.response.status === 400) {
         return createFailure(ErrorType.DEMANDE_INCORRECTE);
       }
       return createFailure(ErrorType.ERREUR_INATTENDUE);
@@ -63,17 +67,18 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
 
-    const queryList = {
-      domaine: offreEmploiFiltre.domaine.join(','),
+    const queryList: Record<string, any> = {
       experienceExigence: offreEmploiFiltre.experienceExigence.join(','),
+      grandDomaine: offreEmploiFiltre.grandDomaine.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
       tempsPlein: offreEmploiFiltre.tempsPlein,
       typeContrat: offreEmploiFiltre.typeDeContrats.join(','),
       ...localisation,
     };
+
     Object.keys(queryList).forEach((key: string) => {
-      if (!queryList[key]) delete queryList[key];
+      if (!queryList[key.toString()]) delete queryList[key];
     });
 
     const params = new URLSearchParams(queryList);

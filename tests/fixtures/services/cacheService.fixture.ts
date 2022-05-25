@@ -8,7 +8,7 @@ interface Cache {
 export class MockedCacheService implements CacheService {
   store: Cache[] = [];
 
-  get(key: string): Promise<string | null> {
+  async get(key: string): Promise<string | number | symbol | null> {
     const result = this.store.find((value) => value.key === key);
     if (result === undefined) {
       return Promise.resolve(null);
@@ -17,7 +17,7 @@ export class MockedCacheService implements CacheService {
     }
   }
 
-  set(key: string, value: Record<string, unknown>): void {
+  async set(key: string, value: Record<string | number | symbol, unknown>) {
     this.store.push({
       key: key,
       value: Promise.resolve(JSON.stringify(value)),

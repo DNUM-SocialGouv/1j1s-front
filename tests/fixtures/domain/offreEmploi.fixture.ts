@@ -85,8 +85,8 @@ export function aValetOffreEmploi(): OffreEmploi {
 
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
-    domaine: [],
     experienceExigence: [],
+    grandDomaine: [],
     localisation: {
       codeInsee: '34',
       typeLocalisation: TypeLocalisation.REGION,

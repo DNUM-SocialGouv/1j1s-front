@@ -35,8 +35,8 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   const { query } = request;
 
   return {
-    domaine: query.domaine ? toArray(query.domaine) : [],
     experienceExigence: query.experienceExigence ? toArray(query.experienceExigence) : [],
+    grandDomaine: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: localisationMapper(query),
     motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),

@@ -7,7 +7,6 @@ import { HttpClientService } from '~/client/services/httpClient.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
-import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
 
 
 export class OffreEmploiService extends Cachable {
@@ -32,8 +31,4 @@ export class OffreEmploiService extends Cachable {
     }
   }
 
-  async récupérerRéférentielDomaine(): Promise<RéférentielDomaine[]> {
-    const response = await this.httpClientService.get<RéférentielDomaine[]>('referentiel');
-    return response.data;
-  }
 }

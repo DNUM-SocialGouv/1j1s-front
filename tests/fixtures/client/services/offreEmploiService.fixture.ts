@@ -1,7 +1,4 @@
-import {
-  aRésultatRéférentielDomaine,
-  aRésultatsRechercheOffreEmploi,
-} from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 

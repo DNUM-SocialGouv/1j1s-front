@@ -4,7 +4,6 @@
 import { InMemoryAppRawDataStorage } from '@tests/client/cache/InMemory.appRawDataStorage';
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import {
-  aRésultatRéférentielDomaine,
   aRésultatsRechercheOffreEmploi,
 } from '@tests/fixtures/domain/offreEmploi.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
@@ -76,17 +75,4 @@ describe('OffreEmploiService', () => {
     });
   });
 
-  describe('récupérerRéférentielDomaine', () => {
-    it('appel référentiel offre emploi pour les domaines', async () => {
-      const httpClientService = aHttpClientService();
-      const offreEmploiService = new OffreEmploiService(httpClientService, storage);
-
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatRéférentielDomaine()));
-
-      const result = await offreEmploiService.récupérerRéférentielDomaine();
-
-      expect(result).toEqual(aRésultatRéférentielDomaine());
-      expect(httpClientService.get).toHaveBeenCalledTimes(1);
-    });
-  });
 });

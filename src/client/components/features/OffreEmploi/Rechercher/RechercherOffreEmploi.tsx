@@ -47,10 +47,11 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
-import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
+import { référentielDomaineList } from '~/server/offresEmploi/domain/référentiel';
 
 
 export function RechercherOffreEmploi() {
+  const domaineList = référentielDomaineList;
   const router = useRouter();
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
   const { isSmallScreen } = useBreakpoint();
@@ -82,16 +83,9 @@ export function RechercherOffreEmploi() {
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
-  const [référentielDomaineList, setRéférentielDomaineList] = useState<RéférentielDomaine[] | []>([]);
   const OFFRE_PER_PAGE = 30;
 
   useEffect(() => {
-    const fetchRéférentielDomaineList = (async () => {
-      return offreEmploiService.récupérerRéférentielDomaine();
-    });
-    fetchRéférentielDomaineList().then((response) => {
-      setRéférentielDomaineList(response);
-    });
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
@@ -111,6 +105,11 @@ export function RechercherOffreEmploi() {
           const motCle = getQueryValue(QueryParams.MOT_CLÉ);
           setInputMotCle(motCle);
           filtreList.push(motCle);
+        }
+
+        if (isKeyInQueryParams(QueryParams.DOMAINE)) {
+          const domaines = getQueryValue(QueryParams.DOMAINE);
+          setInputDomaine(domaines);
         }
 
         if (isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) {
@@ -133,16 +132,16 @@ export function RechercherOffreEmploi() {
           typeDeContratList.map((contrat: string) => {
             switch (contrat) {
               case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt!);
+                filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt);
                 break;
               case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt!);
+                filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt);
                 break;
               case (OffreEmploi.CONTRAT_CDI.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt!);
+                filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt);
                 break;
               case (OffreEmploi.CONTRAT_CDD.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt!);
+                filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt);
                 break;
               default:
                 filtreList.push(contrat);
@@ -253,7 +252,7 @@ export function RechercherOffreEmploi() {
         <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
         <input type="hidden" name="tempsPlein" value={inputTempsDeTravail}/>
         <input type="hidden" name="experienceExigence" value={inputExpérience}/>
-        <input type="hidden" name="domaine" value={inputDomaine}/>
+        <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
         <AutoCompletionForLocalisation
           régionList={localisationList.régionList}
@@ -332,9 +331,9 @@ export function RechercherOffreEmploi() {
                 />
               ))}
             </CheckboxGroup>
-            {référentielDomaineList &&
+
             <CheckboxGroup legend="Domaine">
-              {référentielDomaineList.map((domaine, index) => (
+              {domaineList.map((domaine, index) => (
                 <Checkbox
                   key={index}
                   label={domaine.libelle}
@@ -342,11 +341,10 @@ export function RechercherOffreEmploi() {
                   // @ts-ignore
                   onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
                   value={domaine.code}
-                  checked={inputDomaine.includes(domaine.code)}
+                  checked={inputDomaine.split(',').includes(domaine.code)}
                 />
               ))}
             </CheckboxGroup>
-            }
           </ModalContent>
           <ModalFooter className={styles.filtresAvancésModalFooter}>
             <Button
@@ -385,15 +383,14 @@ export function RechercherOffreEmploi() {
                   currentInput={inputExpérience}
                 />
               </Select>
-
-              <Select titre="Domaine">
+              {<Select titre="Domaine">
                 <SelectCheckbox
-                  optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+                  optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
                   onChange={toggleDomaine}
                   currentInput={inputDomaine}
                 />
               </Select>
-
+              }
             </div>
           )}
       </form>

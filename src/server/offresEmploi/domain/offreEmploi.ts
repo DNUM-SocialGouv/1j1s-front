@@ -43,7 +43,7 @@ export namespace OffreEmploi {
   type contrat = 'CDD' | 'CDI' | 'SAI' | 'MIS'
 
   export interface TypeDeContrat {
-    libelléCourt?: string
+    libelléCourt: string
     libelléLong: string
     valeur: contrat
   }
@@ -152,7 +152,7 @@ export interface OffreEmploiFiltre {
   page: number
   localisation?: OffreEmploiFiltreLocalisation
   tempsPlein?: string
-  domaine: string[]
+  grandDomaine: string[]
   experienceExigence: string[]
 }
 

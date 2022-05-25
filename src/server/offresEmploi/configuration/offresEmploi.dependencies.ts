@@ -3,10 +3,6 @@ import {
   consulterOffreEmploiDependenciesContainer,
 } from '~/server/offresEmploi/infra/configuration/consulterOffreEmploiDependencies.container';
 import {
-  ConsulterRéférentielDomainesDependenciesContainer,
-  consulterRéférentielDomainesDependenciesContainer,
-} from '~/server/offresEmploi/infra/configuration/consulterRéférentielDomainesDependencies.container';
-import {
   RechercherOffreEmploiDependenciesContainer,
   rechercherOffreEmploiDependenciesContainer,
 } from '~/server/offresEmploi/infra/configuration/rechercherOffreEmploiDependencies.container';
@@ -14,7 +10,6 @@ import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHt
 
 export type OffresEmploiDependencies = ConsulterOffreEmploiDependenciesContainer
   & RechercherOffreEmploiDependenciesContainer
-  & ConsulterRéférentielDomainesDependenciesContainer;
 
 export const offresEmploiDependenciesContainer = (
   poleEmploiHttpClientService: PoleEmploiHttpClientService,
@@ -22,6 +17,5 @@ export const offresEmploiDependenciesContainer = (
   return {
     ...consulterOffreEmploiDependenciesContainer(poleEmploiHttpClientService),
     ...rechercherOffreEmploiDependenciesContainer(poleEmploiHttpClientService),
-    ...consulterRéférentielDomainesDependenciesContainer(poleEmploiHttpClientService),
   };
 };

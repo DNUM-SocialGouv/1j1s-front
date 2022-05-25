@@ -12,7 +12,8 @@ export const enum QueryParams {
   TYPE_LOCALISATION = 'typeLocalisation',
   CODE_INSEE = 'codeInsee',
   TEMPS_PLEIN = 'tempsPlein',
-  EXPÉRIENCE = 'experienceExigence'
+  EXPÉRIENCE = 'experienceExigence',
+  DOMAINE = 'grandDomaine',
 }
 
 export default function useQueryParams() {

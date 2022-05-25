@@ -4,7 +4,7 @@ import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel
 export function mapTypeDeContratToOffreEmploiCheckboxFiltre(typeDeContratList: OffreEmploi.TypeDeContrat[]): OffreEmploi.CheckboxFiltre[] {
   return typeDeContratList.map((typeDeContrat) => {
     return {
-      libellé: typeDeContrat.libelléCourt ?? '', // TODO OLIV: how can it be not mandatory
+      libellé: typeDeContrat.libelléCourt,
       valeur: typeDeContrat.valeur as string,
     };
   });
