@@ -71,6 +71,7 @@ export function RechercherAlternance() {
             icon="ri-search-line"
             iconPosition="right"
             data-testid="ButtonRechercherAlternance"
+            className={styles.buttonRechercherMobile}
           >
             Rechercher
           </Button>

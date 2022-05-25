@@ -14,7 +14,7 @@ export interface MatchasJobResponse {
 }
 
 export interface MatchasJobRomeDetailsResponse {
-  definition?: string,
+  definition: string,
 }
 
 export interface MatchasCompanyResponse {

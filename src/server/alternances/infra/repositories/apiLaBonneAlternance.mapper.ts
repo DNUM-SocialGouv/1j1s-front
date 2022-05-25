@@ -12,7 +12,7 @@ export function mapMaBonneAlternanceResponse(response: AlternanceResponse) {
   }));
 
   const alternanceFromMatchaList = response.matchas.results.map<Alternance>((matcha) => ({
-    description: matcha.job.romeDetails.definition,
+    description: matcha.job.romeDetails?.definition ?? '',
     entreprise: {
       nom: matcha.company.name,
     },

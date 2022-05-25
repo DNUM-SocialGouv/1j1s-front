@@ -1,5 +1,4 @@
 import { ButtonGroup, Icon, Text } from '@dataesr/react-dsfr';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,13 +12,11 @@ interface RésultatRechercherAlternanceProps {
 
 export function RésultatRechercherAlternance(props: RésultatRechercherAlternanceProps) {
   const { alternance } = props;
-  const defaultLogo = '/images/pole-emploi.svg';
 
   return (
     <Link href={`/apprentissage/${alternance.id}`}>
       <a className={styles.card} data-testid="RésultatRechercherAlternance">
         <header className={styles.cardHeader}>
-          <Image alt="" src={alternance.entreprise.logo || defaultLogo} width="48" height="48"/>
           <div>
             <strong>{alternance.intitulé}</strong>
             {alternance.entreprise?.nom && <div>{alternance.entreprise?.nom}</div>}
