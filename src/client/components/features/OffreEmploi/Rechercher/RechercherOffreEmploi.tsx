@@ -29,9 +29,8 @@ import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMess
 import { UnexpectedErrorMessage } from '~/client/components/ui/ErrorMessage/UnexpectedErrorMessage';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
-import { SelectCheckbox } from '~/client/components/ui/Select/SelectCheckbox/SelectCheckbox';
-import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
-import { SelectRadio } from '~/client/components/ui/Select/SelectRadio/SelectRadio';
+import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
+import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -41,7 +40,7 @@ import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.se
 import { transformFormToEntries } from '~/client/utils/form.util';
 import { ErrorType } from '~/server/errors/error.types';
 import {
-  mapExpérienceAttenduToOffreEmploiCheckboxFiltre,
+  mapExpérienceAttendueToOffreEmploiCheckboxFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
@@ -134,7 +133,7 @@ export function RechercherOffreEmploi() {
               case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
                 filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt);
                 break;
-              case(OffreEmploi.CONTRAT_SAISONNIER.valeur):
+              case (OffreEmploi.CONTRAT_SAISONNIER.valeur):
                 filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt);
                 break;
               case (OffreEmploi.CONTRAT_CDI.valeur):
@@ -274,16 +273,19 @@ export function RechercherOffreEmploi() {
           </Button>
         </ButtonGroup>
 
-        <Button
-          styleAsLink
-          className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
-          icon="ri-filter-fill"
-          iconPosition="left"
-          onClick={toggleFiltresAvancés}
-          data-testid="ButtonFiltrerRecherche"
-        >
-          Filtrer ma recherche
-        </Button>
+        { isSmallScreen &&
+          <Button
+            styleAsLink
+            className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
+            icon="ri-filter-fill"
+            iconPosition="left"
+            onClick={toggleFiltresAvancés}
+            data-testid="ButtonFiltrerRecherche"
+          >
+            Filtrer ma recherche
+          </Button>
+        }
+
         <Modal
           isOpen={isFiltresAvancésMobileOpen}
           hide={() => setIsFiltresAvancésMobileOpen(false)}
@@ -357,42 +359,38 @@ export function RechercherOffreEmploi() {
             </Button>
           </ModalFooter>
         </Modal>
-        {
-          isFiltresAvancésDesktopOpen && (
-            <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-              <Select titre="Type de contrat">
-                <SelectCheckbox
-                  optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-                  onChange={toggleTypeDeContrat}
-                  currentInput={inputTypeDeContrat}
-                />
-              </Select>
+        { !isSmallScreen && (
+          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
+            <SelectMultiple
+              titre={inputTypeDeContrat !== '' && inputTypeDeContrat.split(',').length > 0 ? `Type de contrat (${inputTypeDeContrat.split(',').length})` : 'Type de contrat'}
+              optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+              onChange={toggleTypeDeContrat}
+              currentInput={inputTypeDeContrat}
+            />
 
-              <Select titre="Temps de travail">
-                <SelectRadio
-                  optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
-                  onChange={(value) => setInputTempsDeTravail(value)}
-                  currentInput={inputTempsDeTravail}
-                />
-              </Select>
+            <SelectSingle
+              titre={inputTempsDeTravail !== '' && inputTempsDeTravail.split(',').length > 0 ? `Temps de travail (${inputTempsDeTravail.split(',').length})` : 'Temps de travail'}
+              optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+              onChange={(value) => setInputTempsDeTravail(value)}
+              currentInput={inputTempsDeTravail}
+            />
 
-              <Select titre="Niveau demandé">
-                <SelectCheckbox
-                  optionList={mapExpérienceAttenduToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
-                  onChange={toggleExpérience}
-                  currentInput={inputExpérience}
-                />
-              </Select>
-              {<Select titre="Domaine">
-                <SelectCheckbox
-                  optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
-                  onChange={toggleDomaine}
-                  currentInput={inputDomaine}
-                />
-              </Select>
-              }
-            </div>
-          )}
+            <SelectMultiple
+              titre={inputExpérience !== '' && inputExpérience.split(',').length > 0 ? `Niveau demandé (${inputExpérience.split(',').length})` : 'Niveau demandé'}
+              optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
+              onChange={toggleExpérience}
+              currentInput={inputExpérience}
+            />
+
+            <SelectMultiple
+              titre={inputDomaine !== '' && inputDomaine.split(',').length > 0 ? `Domaine (${inputDomaine.split(',').length})` : 'Domaine'}
+              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
+              onChange={toggleDomaine}
+              currentInput={inputDomaine}
+            />
+
+          </div>
+        )}
       </form>
 
       {

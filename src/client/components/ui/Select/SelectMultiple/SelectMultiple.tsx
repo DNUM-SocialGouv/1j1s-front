@@ -1,18 +1,20 @@
-import { Radio } from '@dataesr/react-dsfr';
+import { Checkbox } from '@dataesr/react-dsfr';
 import React, { ChangeEvent } from 'react';
 
 import styles from '~/client/components/ui/Select/Select.module.css';
+import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-interface SelectRadioProps {
-  optionList : OffreEmploi.TempsDeTravail[]
-  onChange: (value: string) => void
+interface SelectCheckboxProps {
+  titre: string
+  optionList : OffreEmploi.CheckboxFiltre[]
+  onChange: (value: string) => void;
   currentInput: string
 }
 
-export function SelectRadio(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput } = props;
+export function SelectMultiple(props: SelectCheckboxProps) {
+  const { optionList, onChange, currentInput, titre } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -21,9 +23,9 @@ export function SelectRadio(props: SelectRadioProps) {
   };
 
   return (
-    <>
+    <Select titre={titre}>
       {optionList.map((option, index) => (
-        <Radio
+        <Checkbox
           id={option.libellé}
           key={index}
           className={styles.option}
@@ -31,12 +33,12 @@ export function SelectRadio(props: SelectRadioProps) {
           // @ts-ignore
           role="option"
           label={option.libellé}
-          value={`${option.valeur}`}
+          value={option.valeur}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          checked={currentInput.includes(`${option.valeur}`)}
+          checked={currentInput.includes(option.valeur)}
         />
       ))}
-    </>
+    </Select>
   );
 }

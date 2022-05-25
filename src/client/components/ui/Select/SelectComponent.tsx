@@ -1,6 +1,5 @@
 import { Icon } from '@dataesr/react-dsfr';
 import React, {
-  ReactNode,
   useCallback,
   useEffect,
   useRef,
@@ -13,10 +12,9 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface CustomSelectProps {
   titre: string
-  children: ReactNode
 }
 
-export function SelectComponent(props: CustomSelectProps) {
+export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps>) {
   const { titre, children } = props;
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -27,7 +25,7 @@ export function SelectComponent(props: CustomSelectProps) {
     if (!(optionsRef.current)?.contains(e.target as Node)) {
       setIsOptionsOpen(false);
     }
-  }, [isOptionsOpen]);
+  }, []);
 
   const closeOptionsOnEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === KeyBoard.ESCAPE) {

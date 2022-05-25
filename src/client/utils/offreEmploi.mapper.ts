@@ -10,7 +10,7 @@ export function mapTypeDeContratToOffreEmploiCheckboxFiltre(typeDeContratList: O
   });
 }
 
-export function mapExpérienceAttenduToOffreEmploiCheckboxFiltre(expérienceList: OffreEmploi.ExpérienceAttendu[]): OffreEmploi.CheckboxFiltre[] {
+export function mapExpérienceAttendueToOffreEmploiCheckboxFiltre(expérienceList: OffreEmploi.ExpérienceAttendu[]): OffreEmploi.CheckboxFiltre[] {
   return expérienceList.map((expérience) => {
     return {
       libellé: expérience.libellé,

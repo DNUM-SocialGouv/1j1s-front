@@ -30,9 +30,9 @@
 }
 
 .filtreRechercheDesktop {
+  display: flex;
+  justify-content: space-between;
   margin-top: 16px;
-  padding-left: 16px;
-  border-left: solid 2px var(--blue-france-113);
 }
 
 .filtresAvancésModalFooter {
