@@ -296,11 +296,6 @@ describe('RechercherOffreEmploi', () => {
         </DependenciesProvider>,
       );
 
-      const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-
-      // WHEN
-
-      fireEvent.click(buttonFiltresRecherche);
 
       const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
       
@@ -323,8 +318,6 @@ describe('RechercherOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-        fireEvent.click(buttonFiltresRecherche);
 
         const button = await screen.findByTestId('SelectButton-Type de contrat');
         fireEvent.click(button);
@@ -370,9 +363,6 @@ describe('RechercherOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-
-        fireEvent.click(buttonFiltresRecherche);
         const button = await screen.findByTestId('SelectButton-Temps de travail');
         fireEvent.click(button);
 

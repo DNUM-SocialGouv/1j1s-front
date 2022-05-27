@@ -82,6 +82,9 @@ export function RechercherOffreEmploi() {
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
 
+
+
+
   const OFFRE_PER_PAGE = 30;
 
   useEffect(() => {
@@ -179,6 +182,10 @@ export function RechercherOffreEmploi() {
     }
   }, [queryParams]);
 
+  function générerTitreFiltre(titre: string, inputCourant: string): string {
+    return `${titre} ${inputCourant !== '' && inputCourant.split(',').length > 0 ? `(${inputCourant.split(',').length})` : ''}`;
+  }
+  
   function toggleFiltresAvancés() {
     if (isSmallScreen) {
       setIsFiltresAvancésMobileOpen(true);
@@ -362,28 +369,28 @@ export function RechercherOffreEmploi() {
         { !isSmallScreen && (
           <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
             <SelectMultiple
-              titre={inputTypeDeContrat !== '' && inputTypeDeContrat.split(',').length > 0 ? `Type de contrat (${inputTypeDeContrat.split(',').length})` : 'Type de contrat'}
+              titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
               onChange={toggleTypeDeContrat}
               currentInput={inputTypeDeContrat}
             />
 
             <SelectSingle
-              titre={inputTempsDeTravail !== '' && inputTempsDeTravail.split(',').length > 0 ? `Temps de travail (${inputTempsDeTravail.split(',').length})` : 'Temps de travail'}
+              titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
               onChange={(value) => setInputTempsDeTravail(value)}
               currentInput={inputTempsDeTravail}
             />
 
             <SelectMultiple
-              titre={inputExpérience !== '' && inputExpérience.split(',').length > 0 ? `Niveau demandé (${inputExpérience.split(',').length})` : 'Niveau demandé'}
+              titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
               optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
               onChange={toggleExpérience}
               currentInput={inputExpérience}
             />
 
             <SelectMultiple
-              titre={inputDomaine !== '' && inputDomaine.split(',').length > 0 ? `Domaine (${inputDomaine.split(',').length})` : 'Domaine'}
+              titre={générerTitreFiltre('Domaine', inputDomaine)}
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
               onChange={toggleDomaine}
               currentInput={inputDomaine}
