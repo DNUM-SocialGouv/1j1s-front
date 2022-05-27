@@ -1,8 +1,8 @@
 import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
+import styles from '~/client/components/ui/ServiceCard/List/ServiceCardList.module.css';
 import { ServiceCard } from '~/client/components/ui/ServiceCard/ServiceCardComponent';
-import styles from '~/client/components/ui/ServiceCard/ServiceCardList.module.css';
 
 export function ServiceCardlist() {
   return(

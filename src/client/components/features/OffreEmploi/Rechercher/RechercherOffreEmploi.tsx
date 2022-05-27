@@ -31,7 +31,7 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
-import { ServiceCardlist } from '~/client/components/ui/ServiceCard/ServiceCardList';
+import { ServiceCardlist } from '~/client/components/ui/ServiceCard/List/ServiceCardList';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
