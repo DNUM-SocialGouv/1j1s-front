@@ -42,7 +42,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
 
   const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
     if (!(autocompleteRef.current)?.contains(e.target as Node)) {
-      if(suggestionsActive && codeInsee === '' && typeLocalisation === '') {
+      if(codeInsee === '' && typeLocalisation === '') {
         setInputValue('');
       }
       setSuggestionsActive(false);
@@ -152,44 +152,43 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const Suggestions = () => {
     let currentHoverIndex = 0;
     return (
-      <>
-        {(régionList.length === 0 && départementList.length === 0 && communeList.length === 0) ?
-          <span className={styles.autocompletionSuggestion} data-testid="LocalisationNoResultMessage">
-            Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...
-          </span>
-          :
-          <ul
-            className={styles.autocompletionSuggestion}
-            role="listbox"
-            aria-labelledby={label}
-            id={listbox}
-            data-testid="RésultatsLocalisation"
-          >
-            {(régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
-            {régionList.map((suggestion, index) => {
-              currentHoverIndex++;
-              return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
-            })}
+      <ul
+        className={styles.autocompletionSuggestion}
+        role="listbox"
+        aria-labelledby={label}
+        id={listbox}
+        data-testid="RésultatsLocalisation"
+      >
+        {(régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
+        {régionList.map((suggestion, index) => {
+          currentHoverIndex++;
+          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
+        })}
 
-            {(départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
-            {départementList.map((suggestion, index) => {
-              currentHoverIndex++;
-              return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
-            })}
+        {(départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
+        {départementList.map((suggestion, index) => {
+          currentHoverIndex++;
+          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
+        })}
 
-            {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
-            {communeList.map((suggestion, index) => {
-              currentHoverIndex++;
-              return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
-            })}
-          </ul>
+        {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
+        {communeList.map((suggestion, index) => {
+          currentHoverIndex++;
+          return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
+        })}
+        {(régionList.length === 0 && départementList.length === 0 && communeList.length === 0) &&
+          <li className={styles.noSuggestion} data-testid="LocalisationNoResultMessage">
+            Aucune proposition ne correspond à votre saisie.
+            Vérifiez que votre saisie correspond bien à un lieu.
+            Exemple : Paris, ...
+          </li>
         }
-      </>
+      </ul>
     );
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <label className={'fr-label'} htmlFor={inputName} id={label}>
         Localisation
       </label>

@@ -34,6 +34,14 @@
   padding: 0 !important;
 }
 
+.filtresAvancésModalTitle > span {
+  font-size: 14px;
+}
+
+.filtresAvancésModalContenu legend {
+  font-weight: bold !important;
+}
+
 .filtresAvancésModalFooter {
   justify-content: center;
 }
