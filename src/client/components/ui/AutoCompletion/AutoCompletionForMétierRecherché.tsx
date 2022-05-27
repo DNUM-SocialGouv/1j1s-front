@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -9,19 +9,26 @@ interface AutoCompletionForMétierRecherchéProps {
   placeholder?: string;
   inputName: string;
   onChange: (value: string) => void;
+  className?: string;
+  handleErrorMessageActive: boolean;
+  resetErrorMessageActive: () => void;
 }
 
-export const AutoCompletionForMTierRecherch = (props: AutoCompletionForMétierRecherchéProps) => {
-  const { suggestionList, inputName, placeholder, onChange } = props;
+export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
+  const { suggestionList, inputName, placeholder, onChange, className, handleErrorMessageActive, resetErrorMessageActive } = props;
 
   const [suggestions, setSuggestions] = useState<MétierRecherché[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
+  const [errorMessageActive, setErrorMessageActive] = useState(false);
   const [value, setValue] = useState('');
   const [inputHiddenSelectedMétier, setInputHiddenSelectedMétier] = useState<string[]>([]);
 
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
+
+  useEffect(() => {setErrorMessageActive(handleErrorMessageActive);}, [handleErrorMessageActive]);
+  useEffect(() => {if(suggestionList.length === 0) setInputHiddenSelectedMétier([]); }, [suggestionList]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -46,6 +53,11 @@ export const AutoCompletionForMTierRecherch = (props: AutoCompletionForMétierRe
     setSuggestionsActive(false);
   };
 
+  const handleClickResetErrorMessageDisplay = () => {
+    setErrorMessageActive(false);
+    resetErrorMessageActive();
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ARROW_UP) {
       if (suggestionIndex === 0) {
@@ -67,36 +79,46 @@ export const AutoCompletionForMTierRecherch = (props: AutoCompletionForMétierRe
 
   const Suggestions = () => {
     return (
-      <ul
-        className={styles.autocompletionSuggestion}
-        role="listbox"
-        aria-labelledby={label}
-        id={listbox}
-        data-testid="RésultatsRechercheMétier"
-      >
-        {suggestions.map((suggestion, index) => {
-          return (
-            <li
-              className={index === suggestionIndex ? styles.active : ''}
-              key={index}
-              onClick={(event) => handleClick(event, suggestion.codeROMEList)}
-              role="option"
-              aria-selected={false}
+      <>
+        {
+          (suggestionList.length === 0) ?
+            <span className={styles.autocompletionSuggestion} data-testid="MétierRecherchéNoResultMessage">
+            Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, cuisinier...
+            </span>
+            :
+            <ul
+              className={styles.autocompletionSuggestion}
+              role="listbox"
+              aria-labelledby={label}
+              id={listbox}
+              data-testid="RésultatsRechercheMétier"
             >
-              {suggestion.intitulé}
-            </li>
-          );
-        })}
-      </ul>
+              {suggestions.map((suggestion, index) => {
+                return (
+                  <li
+                    className={index === suggestionIndex ? styles.active : ''}
+                    key={index}
+                    onClick={(event) => handleClick(event, suggestion.codeROMEList)}
+                    role="option"
+                    aria-selected={false}
+                  >
+                    {suggestion.intitulé}
+                  </li>
+                );
+              })}
+            </ul>
+        }
+      </>
+
     );
   };
 
   return (
-    <div>
+    <div className={className}>
       <label className={'fr-label'} htmlFor={inputName} id={label}>
-        Métier
+        Métier { errorMessageActive ? <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span> : <></>}
       </label>
-      <div>
+      <div className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
           className='fr-search-bar'
           id="header-search"
@@ -116,6 +138,7 @@ export const AutoCompletionForMTierRecherch = (props: AutoCompletionForMétierRe
             placeholder={placeholder ?? 'Rechercher'}
             className="fr-input"
             value={value}
+            onClick={handleClickResetErrorMessageDisplay}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             autoComplete="off"

@@ -4,6 +4,12 @@
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
 }
 
+@media only screen and (min-width:640px) {
+  .card {
+    border-left: 4px solid #000091;
+  }
+}
+
 .cardHeader {
   display: flex;
   padding: 24px;
@@ -22,4 +28,14 @@
 
 .cardBody > *:not(:last-child) {
   margin-bottom: 20px !important;
+}
+.cardBodyDesktop {
+  display: flex;
+  padding: 0 24px 24px 24px;
+  flex-direction: column;
+}
+
+.cardHeaderDesktop {
+  display: flex;
+  padding: 24px;
 }

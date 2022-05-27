@@ -7,3 +7,9 @@ export function aMétierRecherchéService(): MétierRecherchéService {
     rechercherMétier: jest.fn().mockResolvedValue(aMétierRecherchéList()),
   } as unknown as MétierRecherchéService;
 }
+
+export function aMétierRecherchéServiceWithEmptyResponse(): MétierRecherchéService {
+  return {
+    rechercherMétier: jest.fn().mockResolvedValue([]),
+  } as unknown as MétierRecherchéService;
+}

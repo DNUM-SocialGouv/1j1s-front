@@ -11,7 +11,6 @@ export class AlternanceService extends Cachable {
 
   @cache({ key: 'rechercherAlternance' })
   async rechercherAlternance(queryString = ''): Promise<RésultatsRechercheAlternance> {
-    console.log(`alternances?${queryString}`);
     const response = await this.httpClientService.get<RésultatsRechercheAlternance>(`alternances?${queryString}`);
     return response.data;
   }

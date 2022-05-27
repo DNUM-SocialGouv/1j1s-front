@@ -6,7 +6,10 @@ import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { anAlternanceService } from '@tests/fixtures/client/services/alternanceService.fixture';
-import { aMétierRecherchéService } from '@tests/fixtures/client/services/métierRecherchéService.fixture';
+import {
+  aMétierRecherchéService,
+  aMétierRecherchéServiceWithEmptyResponse,
+} from '@tests/fixtures/client/services/métierRecherchéService.fixture';
 import React from 'react';
 
 import { RechercherAlternance } from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
@@ -53,6 +56,59 @@ describe('RechercherAlternance', () => {
         expect(screen.getByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
       });
       expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101');
+    });
+  });
+
+  describe('quand le métier recherché n\'a pas été trouvé' , () => {
+    it('on affiche un message d\'information et on n\'appelle pas l`\'api', async () => {
+      // GIVEN
+      const alternanceService = anAlternanceService();
+      const métierRecherchéService = aMétierRecherchéServiceWithEmptyResponse();
+      const user = userEvent.setup();
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <RechercherAlternance />
+        </DependenciesProvider>,
+      );
+      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
+      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+
+      // WHEN
+      await user.type(inputRechercheMétier, 'fake métier');
+
+      // WHEN
+      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('fake métier');
+      fireEvent.click(buttonRechercherAlternance);
+
+      // THEN
+      expect(await screen.findByTestId('MétierRecherchéNoResultMessage')).toBeInTheDocument();
+      expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('quand il n\'y a aucun métier recherché' , () => {
+    it('on affiche un message d\'erreur et on n\'appelle pas l`\'api', async () => {
+      // GIVEN
+      const alternanceService = anAlternanceService();
+      const métierRecherchéService = aMétierRecherchéService();
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <RechercherAlternance />
+        </DependenciesProvider>,
+      );
+      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+
+      // WHEN
+      fireEvent.click(buttonRechercherAlternance);
+
+      // THEN
+      expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
+      expect(métierRecherchéService.rechercherMétier).not.toHaveBeenCalled();
+      expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
     });
   });
 });

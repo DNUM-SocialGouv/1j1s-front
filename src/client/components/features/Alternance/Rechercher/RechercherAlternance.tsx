@@ -5,12 +5,14 @@ import styles from '~/client/components/features/Alternance/Rechercher/Recherche
 import {
   RésultatRechercherAlternance,
 } from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance';
-import { AutoCompletionForMTierRecherch } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
+import {
+  AutoCompletionForMétierRecherché,
+} from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
-import { transformFormToEntries } from '~/client/utils/form.util';
+import { getValueFromForm, transformFormToEntries } from '~/client/utils/form.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
@@ -24,26 +26,35 @@ export function RechercherAlternance() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
+  const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
   const [métierRecherchéSuggestionList, setMétierRecherchéSuggestionList] = useState<MétierRecherché[]>([]);
 
 
   async function rechercherIntituléMétier(intitulé: string) {
-    setIsLoading(true);
     setInputIntituleMétier(intitulé);
     const response = await métierRecherchéService.rechercherMétier(intitulé);
     setMétierRecherchéSuggestionList(response);
-    setIsLoading(false);
   }
 
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsLoading(true);
-    const formEntries = transformFormToEntries(event.currentTarget);
-    const query = new URLSearchParams(formEntries).toString();
-    const response = await alternanceService.rechercherAlternance(query);
-    setNombreRésultats(response.nombreRésultats);
-    setAlternanceList(response.résultats);
-    setIsLoading(false);
+    if(inputIntituleMétier.length === 0) {
+      setInputIntituleMétierObligatoireErrorMessage(true);
+    } else {
+      const formEntries = transformFormToEntries(event.currentTarget);
+      if(getValueFromForm(event.currentTarget, 'codeRomes')) {
+        setIsLoading(true);
+        const query = new URLSearchParams(formEntries).toString();
+        const response = await alternanceService.rechercherAlternance(query);
+        setNombreRésultats(response.nombreRésultats);
+        setAlternanceList(response.résultats);
+        setIsLoading(false);
+      }
+    }
+  }
+
+  function resetErrorMessage() {
+    setInputIntituleMétierObligatoireErrorMessage(false);
   }
 
   return (
@@ -59,10 +70,13 @@ export function RechercherAlternance() {
         onSubmit={rechercherAlternance}
         role="search"
       >
-        <AutoCompletionForMTierRecherch
+        <AutoCompletionForMétierRecherché
+          className={styles.rechercheAlternanceInput}
           inputName="Métier"
           suggestionList={métierRecherchéSuggestionList}
           onChange={rechercherIntituléMétier}
+          resetErrorMessageActive={resetErrorMessage}
+          handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
         />
 
         <ButtonGroup size="md">
@@ -71,7 +85,7 @@ export function RechercherAlternance() {
             icon="ri-search-line"
             iconPosition="right"
             data-testid="ButtonRechercherAlternance"
-            className={styles.buttonRechercherMobile}
+            className={styles.buttonRechercher}
           >
             Rechercher
           </Button>

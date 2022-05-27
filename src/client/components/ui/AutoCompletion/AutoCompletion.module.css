@@ -35,3 +35,11 @@
 .noSuggestion {
   padding: 0.5rem;
 }
+
+.errorMessageInputRechercheMétier {
+  border-style: solid; border-color: red;
+}
+
+.errorMessageLabelRechercheMétier {
+  color: red;
+}

@@ -3,7 +3,7 @@ type AlternanceId = string;
 export interface Alternance {
   id: AlternanceId;
   intitulé: string;
-  description: string | null;
+  description?: string;
   entreprise: Alternance.Entreprise;
 }
 

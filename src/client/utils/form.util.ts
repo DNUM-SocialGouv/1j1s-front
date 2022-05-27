@@ -7,3 +7,14 @@ export function transformFormToEntries(formElement: HTMLFormElement): string[][]
     ),
   ).filter((element) => element[1] !== '' && element[0] !== 'checkbox');
 };
+
+export function getValueFromForm(formElement: HTMLFormElement, keyValue: string): string | undefined {
+  const formData = new FormData(formElement);
+  const object = Object.fromEntries(formData)[keyValue];
+
+  if(object) {
+    return object as string;
+  } else {
+    return undefined;
+  }
+}

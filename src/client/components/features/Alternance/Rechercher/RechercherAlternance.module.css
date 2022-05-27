@@ -25,6 +25,29 @@
   border-bottom: 1px solid var(--grey-950);
 }
 
+.rechercheAlternanceInput {
+  border: red;
+}
+
+@media only screen and (min-width:640px) {
+  .rechercheAlternance {
+    flex-direction: row;
+  }
+
+  .rechercheAlternanceInput {
+    flex-grow: 1;
+  }
+
+  .buttonRechercher {
+    margin-top: 1.5rem;
+  }
+
+  .rechercheAlternance > div:not(:last-child) {
+    margin-bottom: 0;
+    margin-right: 40px;
+  }
+}
+
 .buttonFiltrerRecherche {
   align-self: flex-start;
 }

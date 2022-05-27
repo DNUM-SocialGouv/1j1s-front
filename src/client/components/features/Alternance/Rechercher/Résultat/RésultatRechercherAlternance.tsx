@@ -3,7 +3,8 @@ import Link from 'next/link';
 import React from 'react';
 
 import styles
-  from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi.module.css';
+  from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance.module.css';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { Alternance } from '~/server/alternances/domain/alternance';
 
 interface RésultatRechercherAlternanceProps {
@@ -13,19 +14,21 @@ interface RésultatRechercherAlternanceProps {
 export function RésultatRechercherAlternance(props: RésultatRechercherAlternanceProps) {
   const { alternance } = props;
 
+  const { isSmallScreen } = useBreakpoint();
+
   return (
     <Link href={`/apprentissage/${alternance.id}`}>
       <a className={styles.card} data-testid="RésultatRechercherAlternance">
-        <header className={styles.cardHeader}>
+        <header className={isSmallScreen ? styles.cardHeader : styles.cardHeaderDesktop}>
           <div>
             <strong>{alternance.intitulé}</strong>
             {alternance.entreprise?.nom && <div>{alternance.entreprise?.nom}</div>}
           </div>
         </header>
-        <div className={styles.cardBody}>
+        <div className={isSmallScreen ? styles.cardBody : styles.cardBodyDesktop}>
           <p>
             <strong>Description:</strong>{' '}
-            {alternance.description?.slice(0, 100)} [...]
+            {isSmallScreen ? alternance.description?.slice(0, 100) : alternance.description?.slice(0, 350)} [...]
           </p>
 
           <ButtonGroup size="md" align="right">
