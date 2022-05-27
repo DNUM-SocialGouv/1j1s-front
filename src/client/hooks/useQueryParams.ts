@@ -29,7 +29,7 @@ export default function useQueryParams() {
 
   useEffect(() => {
     setQueryParams(router.query);
-  }, [router.query]);
+  }, [setQueryParams, router.query]);
 
   return {
     getQueryString,

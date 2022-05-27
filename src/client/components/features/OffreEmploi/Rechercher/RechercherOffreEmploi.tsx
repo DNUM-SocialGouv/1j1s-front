@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
+import { FiltresOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/FiltresOffreEmploi';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import {
   RésultatRechercherOffreEmploi,
@@ -30,7 +31,6 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
-import { TagList } from '~/client/components/ui/TagList/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
@@ -81,7 +81,7 @@ export function RechercherOffreEmploi() {
   const [inputDomaine, setInputDomaine] = useState('');
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
-  const [filtres, setFiltres] = useState<string[]>([]);
+  const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
 
   const OFFRE_PER_PAGE = 30;
 
@@ -99,85 +99,23 @@ export function RechercherOffreEmploi() {
         setIsLoading(false);
       };
 
-      const setInputValuesTagList = async () => {
-        const filtreList: string[] = [];
-
-        if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) {
-          const motCle = getQueryValue(QueryParams.MOT_CLÉ);
-          setInputMotCle(motCle);
-          filtreList.push(motCle);
-        }
-
-        if (isKeyInQueryParams(QueryParams.DOMAINE)) {
-          const domaines = getQueryValue(QueryParams.DOMAINE);
-          setInputDomaine(domaines);
-        }
-
-        if (isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) {
-          const isTempsPlein = getQueryValue(QueryParams.TEMPS_PLEIN);
-          setInputTempsDeTravail(isTempsPlein);
-          const tempsDeTravail = OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== undefined && temps.valeur.toString() === isTempsPlein);
-          if (tempsDeTravail) filtreList.push(tempsDeTravail.libellé);
-        }
-
+      const setInputValues = async () => {
+        if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputMotCle(getQueryValue(QueryParams.MOT_CLÉ));
+        if (isKeyInQueryParams(QueryParams.DOMAINE)) setInputDomaine(getQueryValue(QueryParams.DOMAINE));
+        if (isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) setInputTempsDeTravail(getQueryValue(QueryParams.TEMPS_PLEIN));
+        if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
+        if (isKeyInQueryParams(QueryParams.EXPÉRIENCE)) setInputExpérience(getQueryValue(QueryParams.EXPÉRIENCE));
         if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
           const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
           const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
+          setFormattedLocalisation(formattedLocalisation);
           setInputLocalisation(formattedLocalisation);
-          filtreList.push(formattedLocalisation);
         }
-
-        if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) {
-          const typeDeContrats: string = getQueryValue(QueryParams.TYPE_DE_CONTRATS);
-          setInputTypeDeContrat(typeDeContrats);
-          const typeDeContratList = typeDeContrats.split(',');
-          typeDeContratList.map((contrat: string) => {
-            switch (contrat) {
-              case (OffreEmploi.CONTRAT_INTÉRIMAIRE.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_INTÉRIMAIRE.libelléCourt);
-                break;
-              case (OffreEmploi.CONTRAT_SAISONNIER.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_SAISONNIER.libelléCourt);
-                break;
-              case (OffreEmploi.CONTRAT_CDI.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_CDI.libelléCourt);
-                break;
-              case (OffreEmploi.CONTRAT_CDD.valeur):
-                filtreList.push(OffreEmploi.CONTRAT_CDD.libelléCourt);
-                break;
-              default:
-                filtreList.push(contrat);
-            }
-          });
-        }
-
-        if (isKeyInQueryParams(QueryParams.EXPÉRIENCE)) {
-          const typeExpérience: string = getQueryValue(QueryParams.EXPÉRIENCE);
-          setInputExpérience(typeExpérience);
-          const typeExpérienceList = typeExpérience.split(',');
-          typeExpérienceList.map((expérience: string) => {
-            switch (expérience) {
-              case (OffreEmploi.EXPÉRIENCE_DEBUTANT.valeur):
-                filtreList.push(OffreEmploi.EXPÉRIENCE_DEBUTANT.libellé);
-                break;
-              case(OffreEmploi.EXPÉRIENCE_EXIGÉE.valeur):
-                filtreList.push(OffreEmploi.EXPÉRIENCE_EXIGÉE.libellé);
-                break;
-              case(OffreEmploi.EXPÉRIENCE_SOUHAITÉ.valeur):
-                filtreList.push(OffreEmploi.EXPÉRIENCE_SOUHAITÉ.libellé);
-                break;
-              default:
-                filtreList.push(expérience);
-            }
-          });
-        }
-
-        setFiltres(filtreList);
       };
 
       (async () => {
         await fetchOffreEmploi();
-        await setInputValuesTagList();
+        await setInputValues();
       })();
     }
   }, [queryParams, isSmallScreen]);
@@ -394,9 +332,7 @@ export function RechercherOffreEmploi() {
 
         { nombreRésultats !== 0 &&
           <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
-            {filtres.length > 0 &&
-            <TagList list={filtres}/>
-            }
+            <FiltresOffreEmploi localisation={formattedLocalisation}/>
             <h2>{nombreRésultats} offres
               d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
           </div>
