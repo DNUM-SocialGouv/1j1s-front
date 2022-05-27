@@ -2,7 +2,6 @@ import '~/client/utils/string/string.util';
 
 import {
   Button,
-  ButtonGroup,
   Checkbox,
   CheckboxGroup,
   Modal,
@@ -81,9 +80,6 @@ export function RechercherOffreEmploi() {
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [filtres, setFiltres] = useState<string[]>([]);
-
-
-
 
   const OFFRE_PER_PAGE = 30;
 
@@ -185,7 +181,7 @@ export function RechercherOffreEmploi() {
   function générerTitreFiltre(titre: string, inputCourant: string): string {
     return `${titre} ${inputCourant !== '' && inputCourant.split(',').length > 0 ? `(${inputCourant.split(',').length})` : ''}`;
   }
-  
+
   function toggleFiltresAvancés() {
     if (isSmallScreen) {
       setIsFiltresAvancésMobileOpen(true);
@@ -232,208 +228,221 @@ export function RechercherOffreEmploi() {
   const hasError = !!errorType && hasNoResult;
 
   return (
-    <main id="contenu">
+    <main id="contenu" className={styles.container}>
       <Hero>
         <Title as="h1" look="h3">
           Des milliers d’offres d’emplois sélectionnées pour vous par Pôle Emploi
         </Title>
       </Hero>
-      <form
-        ref={rechercheOffreEmploiForm}
-        className={styles.rechercheOffreEmploi}
-        onSubmit={rechercherOffreEmploi}
-        role="search"
-      >
-        <TextInput
-          label="Métier, mot-clé..."
-          data-testid="InputRechercheMotClé"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          value={inputMotCle}
-          name="motCle"
-          autoFocus
-          placeholder="Exemple : boulanger, informatique..."
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-        />
-        <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-        <input type="hidden" name="tempsPlein" value={inputTempsDeTravail}/>
-        <input type="hidden" name="experienceExigence" value={inputExpérience}/>
-        <input type="hidden" name="grandDomaine" value={inputDomaine}/>
+      <div className={styles.layout}>
+        <form
+          ref={rechercheOffreEmploiForm}
+          className={styles.rechercheOffreEmploiForm}
+          onSubmit={rechercherOffreEmploi}
+          role="search"
+        >
+          <div className={styles.inputButtonWrapper}>
+            <TextInput
+              label="Métier, mot-clé..."
+              data-testid="InputRechercheMotClé"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              value={inputMotCle}
+              name="motCle"
+              autoFocus
+              placeholder="Exemple : boulanger, informatique..."
+              onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
+            />
+            <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+            <input type="hidden" name="tempsPlein" value={inputTempsDeTravail}/>
+            <input type="hidden" name="experienceExigence" value={inputExpérience}/>
+            <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
-        <AutoCompletionForLocalisation
-          régionList={localisationList.régionList}
-          communeList={localisationList.communeList}
-          départementList={localisationList.départementList}
-          inputName="localisations"
-          inputLocalisation={inputLocalisation}
-          onChange={rechercherLocalisation}
-          onUpdateInputLocalisation={() => setInputLocalisation('')}/>
+            <AutoCompletionForLocalisation
+              régionList={localisationList.régionList}
+              communeList={localisationList.communeList}
+              départementList={localisationList.départementList}
+              inputName="localisations"
+              inputLocalisation={inputLocalisation}
+              onChange={rechercherLocalisation}
+              onUpdateInputLocalisation={() => setInputLocalisation('')}
+            />
 
-        <ButtonGroup size="md">
-          <Button
-            submit={true}
-            icon="ri-search-line"
-            iconPosition="right"
-            data-testid="ButtonRechercher"
-          >
-            Rechercher
-          </Button>
-        </ButtonGroup>
+            <Button
+              className={styles.buttonRechercher}
+              submit={true}
+              icon="ri-search-line"
+              iconPosition="right"
+              data-testid="ButtonRechercher"
+            >
+              Rechercher
+            </Button>
 
-        { isSmallScreen &&
-          <Button
-            styleAsLink
-            className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
-            icon="ri-filter-fill"
-            iconPosition="left"
-            onClick={toggleFiltresAvancés}
-            data-testid="ButtonFiltrerRecherche"
-          >
-            Filtrer ma recherche
-          </Button>
+            { isSmallScreen &&
+            <Button
+              styleAsLink
+              className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
+              icon="ri-filter-fill"
+              iconPosition="left"
+              onClick={toggleFiltresAvancés}
+              data-testid="ButtonFiltrerRecherche"
+            >
+              Filtrer ma recherche
+            </Button>
+            }
+
+            <Modal
+              isOpen={isFiltresAvancésMobileOpen}
+              hide={() => setIsFiltresAvancésMobileOpen(false)}
+              data-testid="FiltreRechercheMobile"
+            >
+              <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
+              <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
+              <ModalContent>
+                <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
+                  {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                    <Checkbox
+                      key={index}
+                      label={typeDeContrat.libelléLong}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                      value={typeDeContrat.valeur}
+                      checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
+                    />
+                  ))}
+                </CheckboxGroup>
+                <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
+                  {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
+                    <Radio
+                      key={index}
+                      label={tempsDeTravail.libellé}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      checked={inputTempsDeTravail === `${tempsDeTravail.valeur}`}
+                      onChange={() => setInputTempsDeTravail(`${tempsDeTravail.valeur}`)}
+                      value={`${tempsDeTravail.valeur}`}
+                    />
+                  ))}
+                </RadioGroup>
+                <CheckboxGroup legend="Niveau demandé">
+                  {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
+                    <Checkbox
+                      key={index}
+                      label={expérience.libellé}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
+                      value={expérience.valeur}
+                      checked={inputExpérience.includes(expérience.valeur)}
+                    />
+                  ))}
+                </CheckboxGroup>
+
+                <CheckboxGroup legend="Domaine">
+                  {domaineList.map((domaine, index) => (
+                    <Checkbox
+                      key={index}
+                      label={domaine.libelle}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
+                      value={domaine.code}
+                      checked={inputDomaine.split(',').includes(domaine.code)}
+                    />
+                  ))}
+                </CheckboxGroup>
+              </ModalContent>
+              <ModalFooter className={styles.filtresAvancésModalFooter}>
+                <Button
+                  onClick={applyFiltresAvancés}
+                  icon="ri-arrow-right-s-line"
+                  iconPosition="right"
+                  data-testid="ButtonAppliquerFiltres"
+                >
+                  Appliquer les filtres
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
+
+
+
+          { !isSmallScreen && (
+            <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
+              <SelectMultiple
+                titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
+                optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+                onChange={toggleTypeDeContrat}
+                currentInput={inputTypeDeContrat}
+              />
+
+              <SelectSingle
+                titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+                optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+                onChange={(value) => setInputTempsDeTravail(value)}
+                currentInput={inputTempsDeTravail}
+              />
+
+              <SelectMultiple
+                titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+                optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
+                onChange={toggleExpérience}
+                currentInput={inputExpérience}
+              />
+
+              <SelectMultiple
+                titre={générerTitreFiltre('Domaine', inputDomaine)}
+                optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
+                onChange={toggleDomaine}
+                currentInput={inputDomaine}
+              />
+
+            </div>
+          )}
+        </form>
+
+        {
+          nombreRésultats !== 0 &&
+          <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+            {filtres.length > 0 &&
+            <TagList list={filtres}/>
+            }
+            <h2>{nombreRésultats} offres
+              d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
+          </div>
         }
 
-        <Modal
-          isOpen={isFiltresAvancésMobileOpen}
-          hide={() => setIsFiltresAvancésMobileOpen(false)}
-          data-testid="FiltreRechercheMobile"
-        >
-          <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
-          <ModalTitle icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
-          <ModalContent>
-            <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
-              {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                <Checkbox
-                  key={index}
-                  label={typeDeContrat.libelléLong}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                  value={typeDeContrat.valeur}
-                  checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-                />
-              ))}
-            </CheckboxGroup>
-            <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
-              {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
-                <Radio
-                  key={index}
-                  label={tempsDeTravail.libellé}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  checked={inputTempsDeTravail === `${tempsDeTravail.valeur}`}
-                  onChange={() => setInputTempsDeTravail(`${tempsDeTravail.valeur}`)}
-                  value={`${tempsDeTravail.valeur}`}
-                />
-              ))}
-            </RadioGroup>
-            <CheckboxGroup legend="Niveau demandé">
-              {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
-                <Checkbox
-                  key={index}
-                  label={expérience.libellé}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
-                  value={expérience.valeur}
-                  checked={inputExpérience.includes(expérience.valeur)}
-                />
-              ))}
-            </CheckboxGroup>
 
-            <CheckboxGroup legend="Domaine">
-              {domaineList.map((domaine, index) => (
-                <Checkbox
-                  key={index}
-                  label={domaine.libelle}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
-                  value={domaine.code}
-                  checked={inputDomaine.split(',').includes(domaine.code)}
-                />
-              ))}
-            </CheckboxGroup>
-          </ModalContent>
-          <ModalFooter className={styles.filtresAvancésModalFooter}>
-            <Button
-              onClick={applyFiltresAvancés}
-              icon="ri-arrow-right-s-line"
-              iconPosition="right"
-              data-testid="ButtonAppliquerFiltres"
-            >
-              Appliquer les filtres
-            </Button>
-          </ModalFooter>
-        </Modal>
-        { !isSmallScreen && (
-          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-            <SelectMultiple
-              titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
-              optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-              onChange={toggleTypeDeContrat}
-              currentInput={inputTypeDeContrat}
-            />
+        {isLoading && <p>Recherche des offres en attente de loader</p>}
+        {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
+        {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
+        {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
+        {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
+      
+        {
+          offreEmploiList.length > 0 && !isLoading &&
+          <ul className={styles.résultatRechercheOffreEmploiList}>
+            {offreEmploiList.map((offreEmploi: OffreEmploi) => {
+              return (
+                <li key={offreEmploi.id}>
+                  <RésultatRechercherOffreEmploi offreEmploi={offreEmploi}/>
+                </li>
+              );
+            })}
+          </ul>
+        }
 
-            <SelectSingle
-              titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
-              optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
-              onChange={(value) => setInputTempsDeTravail(value)}
-              currentInput={inputTempsDeTravail}
-            />
-
-            <SelectMultiple
-              titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
-              optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
-              onChange={toggleExpérience}
-              currentInput={inputExpérience}
-            />
-
-            <SelectMultiple
-              titre={générerTitreFiltre('Domaine', inputDomaine)}
-              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
-              onChange={toggleDomaine}
-              currentInput={inputDomaine}
-            />
-
+        {
+          nombreRésultats > OFFRE_PER_PAGE &&
+          <div className={styles.pagination}>
+            <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
           </div>
-        )}
-      </form>
+        }
+        
 
-      {
-        nombreRésultats !== 0 &&
-        <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
-          {filtres.length > 0 &&
-          <TagList list={filtres}/>
-          }
-          <h2>{nombreRésultats} offres
-            d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
-        </div>
-      }
+      </div>
 
-      {isLoading && <p>Recherche des offres</p>}
-      {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
-      {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
-      {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
-      {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
-      {
-        offreEmploiList.length > 0 && !isLoading &&
-        <ul className={styles.résultatRechercheOffreEmploiList}>
-          {offreEmploiList.map((offreEmploi: OffreEmploi) => {
-            return (
-              <li key={offreEmploi.id}>
-                <RésultatRechercherOffreEmploi offreEmploi={offreEmploi}/>
-              </li>
-            );
-          })}
-        </ul>
-      }
-      {
-        nombreRésultats > OFFRE_PER_PAGE &&
-        <div className={styles.pagination}>
-          <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
-        </div>
-      }
     </main>
   );
 }
