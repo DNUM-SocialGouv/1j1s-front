@@ -23,7 +23,16 @@ describe('MétierRecherchéService', () => {
 
       const result = await offreAlternanceService.rechercherMétier(offreEmploiQuery);
 
-      expect(result).toEqual(['D1103', 'D1101', 'H2101']);
+      expect(result).toEqual([
+        {
+          codeROMEList: ['D1103', 'D1101', 'H2101'],
+          intitulé: 'Boucherie, charcuterie, traiteur',
+        },
+        {
+          codeROMEList: ['D1102', 'D1104'],
+          intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+        },
+      ]);
       expect(httpClientService.get).toHaveBeenCalledWith('alternances/metiers/search?intitule=bou');
     });
   });
