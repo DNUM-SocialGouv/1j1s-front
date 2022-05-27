@@ -1,5 +1,7 @@
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
-import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
+import {
+  OffreEmploi,
+  RéférentielDomaine,
+} from '~/server/offresEmploi/domain/offreEmploi';
 
 export function mapTypeDeContratToOffreEmploiCheckboxFiltre(typeDeContratList: OffreEmploi.TypeDeContrat[]): OffreEmploi.CheckboxFiltre[] {
   return typeDeContratList.map((typeDeContrat) => {
@@ -26,4 +28,8 @@ export function mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList: 
       valeur: domaine.code,
     };
   });
+}
+
+export function générerTitreFiltre(titre: string, inputCourant: string): string {
+  return `${titre} ${inputCourant !== '' && inputCourant.split(',').length > 0 ? `(${inputCourant.split(',').length})` : ''}`;
 }

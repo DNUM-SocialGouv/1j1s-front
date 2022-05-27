@@ -51,6 +51,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       } else {
         return createSuccess(mapRésultatsRechercheOffreEmploi(response.data));
       }
+      // eslint-disable-next-line
     } catch (e: any) {
       if (e.response.status === 500) {
         return createFailure(ErrorType.SERVICE_INDISPONIBLE);
@@ -67,6 +68,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
 
+    // eslint-disable-next-line
     const queryList: Record<string, any> = {
       experienceExigence: offreEmploiFiltre.experienceExigence.join(','),
       grandDomaine: offreEmploiFiltre.grandDomaine.join(','),

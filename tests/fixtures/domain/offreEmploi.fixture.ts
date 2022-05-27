@@ -1,9 +1,10 @@
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
-  OffreEmploiFiltre, RésultatsRechercheOffreEmploi,
+  OffreEmploiFiltre,
+  RéférentielDomaine,
+  RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
-import { RéférentielDomaine } from '~/server/offresEmploi/domain/référentiel';
 
 export function aRésultatsRechercheOffreEmploi(override?: Partial<RésultatsRechercheOffreEmploi>): RésultatsRechercheOffreEmploi {
   return {

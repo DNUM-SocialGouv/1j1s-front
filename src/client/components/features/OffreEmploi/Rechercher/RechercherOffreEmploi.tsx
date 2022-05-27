@@ -39,13 +39,16 @@ import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.se
 import { transformFormToEntries } from '~/client/utils/form.util';
 import { ErrorType } from '~/server/errors/error.types';
 import {
+  générerTitreFiltre,
   mapExpérienceAttendueToOffreEmploiCheckboxFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
-import { référentielDomaineList } from '~/server/offresEmploi/domain/référentiel';
+import {
+  OffreEmploi,
+  référentielDomaineList,
+} from '~/server/offresEmploi/domain/offreEmploi';
 
 
 export function RechercherOffreEmploi() {
@@ -70,7 +73,6 @@ export function RechercherOffreEmploi() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
-  const [isFiltresAvancésDesktopOpen, setIsFiltresAvancésDesktopOpen] = useState(false);
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
 
   const [inputTypeDeContrat, setInputTypeDeContrat] = useState('');
@@ -84,6 +86,7 @@ export function RechercherOffreEmploi() {
   const OFFRE_PER_PAGE = 30;
 
   useEffect(() => {
+    if (!isSmallScreen) setIsFiltresAvancésMobileOpen(false);
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
@@ -113,7 +116,8 @@ export function RechercherOffreEmploi() {
         if (isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) {
           const isTempsPlein = getQueryValue(QueryParams.TEMPS_PLEIN);
           setInputTempsDeTravail(isTempsPlein);
-          filtreList.push(OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur!.toString() === isTempsPlein)!.libellé);
+          const tempsDeTravail = OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== undefined && temps.valeur.toString() === isTempsPlein);
+          if (tempsDeTravail) filtreList.push(tempsDeTravail.libellé);
         }
 
         if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
@@ -176,19 +180,7 @@ export function RechercherOffreEmploi() {
         await setInputValuesTagList();
       })();
     }
-  }, [queryParams]);
-
-  function générerTitreFiltre(titre: string, inputCourant: string): string {
-    return `${titre} ${inputCourant !== '' && inputCourant.split(',').length > 0 ? `(${inputCourant.split(',').length})` : ''}`;
-  }
-
-  function toggleFiltresAvancés() {
-    if (isSmallScreen) {
-      setIsFiltresAvancésMobileOpen(true);
-    } else {
-      setIsFiltresAvancésDesktopOpen(!isFiltresAvancésDesktopOpen);
-    }
-  }
+  }, [queryParams, isSmallScreen]);
 
   function applyFiltresAvancés() {
     setIsFiltresAvancésMobileOpen(false);
@@ -284,7 +276,7 @@ export function RechercherOffreEmploi() {
               className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
               icon="ri-filter-fill"
               iconPosition="left"
-              onClick={toggleFiltresAvancés}
+              onClick={() => setIsFiltresAvancésMobileOpen(true)}
               data-testid="ButtonFiltrerRecherche"
             >
               Filtrer ma recherche
@@ -366,8 +358,6 @@ export function RechercherOffreEmploi() {
             </Modal>
           </div>
 
-
-
           { !isSmallScreen && (
             <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
               <SelectMultiple
@@ -402,8 +392,7 @@ export function RechercherOffreEmploi() {
           )}
         </form>
 
-        {
-          nombreRésultats !== 0 &&
+        { nombreRésultats !== 0 &&
           <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
             {filtres.length > 0 &&
             <TagList list={filtres}/>
@@ -414,14 +403,14 @@ export function RechercherOffreEmploi() {
         }
 
 
-        {isLoading && <p>Recherche des offres en attente de loader</p>}
-        {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
-        {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
-        {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
-        {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
+        { isLoading && <p>Recherche des offres en attente de loader</p>}
+        { hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
+        { hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
+        { hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
+        { hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
       
-        {
-          offreEmploiList.length > 0 && !isLoading &&
+        
+        { offreEmploiList.length > 0 && !isLoading &&
           <ul className={styles.résultatRechercheOffreEmploiList}>
             {offreEmploiList.map((offreEmploi: OffreEmploi) => {
               return (
@@ -433,14 +422,12 @@ export function RechercherOffreEmploi() {
           </ul>
         }
 
-        {
-          nombreRésultats > OFFRE_PER_PAGE &&
+        { nombreRésultats > OFFRE_PER_PAGE &&
           <div className={styles.pagination}>
             <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
           </div>
         }
         
-
       </div>
 
     </main>

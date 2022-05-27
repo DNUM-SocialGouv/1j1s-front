@@ -11,7 +11,7 @@ export default function usePagination() {
 
   useEffect(() => {
     setPage(isKeyInQueryParams(QueryParams.PAGE) ? Number(getQueryValue(QueryParams.PAGE)) : 1);
-  });
+  }, [setPage, isKeyInQueryParams, getQueryValue]);
   return {
     page,
     setPage,
