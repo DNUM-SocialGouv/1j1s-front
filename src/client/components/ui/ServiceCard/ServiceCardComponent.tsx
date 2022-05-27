@@ -1,4 +1,4 @@
-import { ButtonGroup, Icon } from '@dataesr/react-dsfr';
+import { Icon } from '@dataesr/react-dsfr';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -14,17 +14,15 @@ interface ServiceCardProps {
 export function ServiceCard({ logo, children, alt, link }: React.PropsWithChildren<ServiceCardProps>) {
   return (
     <Link href={link}>
-      <div className={styles.card}>
+      <a className={styles.card} data-testid="ServiceCard">
         <div className={styles.cardLogo}>
           <Image alt={alt} src={logo} width='100%' height='100%'/>
         </div>
         <div className={styles.cardBody}>
           {children}
-          <ButtonGroup className='fr-link' align="right">
-            <Icon name='ri-arrow-right-line' size="lg" iconPosition="right"/>
-          </ButtonGroup>
+          <Icon name='ri-external-link-line fr-link' size="lg"/>
         </div>
-      </div>
+      </a>
     </Link>
   );
 }
