@@ -32,7 +32,7 @@ describe('OffreEmploiService', () => {
 
         const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery);
 
-        expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffreEmploi() });
         expect(httpClientService.get).toHaveBeenCalledWith('emplois?page=1&motCle=barman&typeDeContrats=CDD%2CCDI');
       });
     });
@@ -49,7 +49,7 @@ describe('OffreEmploiService', () => {
         const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery);
 
         expect(apiEmploi).toHaveBeenCalledTimes(1);
-        expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffreEmploi() });
         expect(httpClientService.get).toHaveBeenCalledWith('emplois?page=1&motCle=barman&typeDeContrats=CDD%2CCDI');
       });
     });

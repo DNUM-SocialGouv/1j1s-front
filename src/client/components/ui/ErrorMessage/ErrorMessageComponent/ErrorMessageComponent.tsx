@@ -1,7 +1,5 @@
 import { Title } from '@dataesr/react-dsfr';
 
-import styles from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent.module.css';
-
 interface ErrorMessageProps {
   className?: string,
   explanationText: string,
@@ -14,8 +12,8 @@ export const ErrorMessageComponent = (props: ErrorMessageProps) => {
   return (
     <div className={className}>
       <Title as="h2">{title}</Title>
-      <p className={styles.explanationText}>{explanationText}</p>
-      <p className={styles.solutionText}>{solutionText}</p>
+      <p className="fr-text--bold">{explanationText}</p>
+      <p>{solutionText}</p>
     </div>
   );
 };

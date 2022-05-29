@@ -14,18 +14,17 @@ import {
   Title,
 } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
-import { RésultatRechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
+import {
+  RésultatRechercherOffreEmploi,
+} from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
+import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
+import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMessage/UnavailableServiceErrorMessage';
+import { UnexpectedErrorMessage } from '~/client/components/ui/ErrorMessage/UnexpectedErrorMessage';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { TagList } from '~/client/components/ui/TagList/TagList';
@@ -35,6 +34,7 @@ import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { transformFormToEntries } from '~/client/utils/form.util';
+import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
@@ -53,6 +53,7 @@ export function RechercherOffreEmploi() {
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
   const [isFiltresAvancésDesktopOpen, setIsFiltresAvancésDesktopOpen] = useState(false);
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
@@ -68,8 +69,12 @@ export function RechercherOffreEmploi() {
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
-        setOffreEmploiList(response.résultats);
-        setNombreRésultats(response.nombreRésultats);
+        if (response.instance === 'success') {
+          setOffreEmploiList(response.result.résultats);
+          setNombreRésultats(response.result.nombreRésultats);
+        } else {
+          setErrorType(response.errorType);
+        }
         setIsLoading(false);
       };
 
@@ -159,7 +164,8 @@ export function RechercherOffreEmploi() {
     setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
   }
 
-  const shouldDisplayErrorMessage = hasQueryParams && !isLoading && offreEmploiList.length == 0;
+  const hasNoResult = hasQueryParams && !isLoading && offreEmploiList.length === 0;
+  const hasError = !!errorType && hasNoResult;
 
   return (
     <main id="contenu">
@@ -283,7 +289,10 @@ export function RechercherOffreEmploi() {
       }
 
       {isLoading && <p>Recherche des offres</p>}
-      {shouldDisplayErrorMessage && <NoResultErrorMessage className={styles.errorMessage}/>}
+      {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
+      {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
+      {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
+      {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
       {
         offreEmploiList.length > 0 && !isLoading &&
         <ul className={styles.résultatRechercheOffreEmploiList}>
