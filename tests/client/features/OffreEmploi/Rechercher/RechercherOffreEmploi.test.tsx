@@ -17,11 +17,15 @@ import {
   aLocalisationService,
   aLocalisationServiceWithEmptyRésultat,
 } from '@tests/fixtures/client/services/localisationService.fixture';
-import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
+import {
+  anOffreEmploiService,
+  emptyOffreEmploiService,
+} from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
 
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import RechercherOffreEmploiPage from '~/pages/emplois';
 
 describe('RechercherOffreEmploi', () => {
@@ -52,6 +56,24 @@ describe('RechercherOffreEmploi', () => {
       // THEN
       expect(résultatRechercheOffreEmploiList).toHaveLength(0);
       expect(rechercheOffreEmploiNombreRésultats).not.toBeInTheDocument();
+    });
+
+    it('n\'affiche pas de message d\'erreur personnalisé', () => {
+      // GIVEN
+      const offreEmploiServiceMock = anOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+      mockUseRouter({});
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploiPage/>
+        </DependenciesProvider>,
+      );
+
+      // WHEN
+      const errorMessage = screen.queryByText('0 résultat');
+
+      // THEN
+      expect(errorMessage).toBeFalsy();
     });
 
     it('avec une url contenant le motCle boulanger, le codeInsee 75 et le type de localisation DEPARTEMENT, affiche la liste de tag avec boulanger et Paris (75)', async () => {
@@ -225,8 +247,7 @@ describe('RechercherOffreEmploi', () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
-      mockUseRouter({});
-
+      mockUseRouter({ push: jest.fn() });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffreEmploiPage/>
@@ -236,11 +257,35 @@ describe('RechercherOffreEmploi', () => {
       const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
 
       // WHEN
+
       fireEvent.click(buttonFiltresRecherche);
       const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
-
       // THEN
+
       expect(filtreRechercheDesktop).toBeInTheDocument();
+    });
+  });
+
+  describe('après avoir effectué une recherche sans résultats', () => {
+    it('affiche un message d\'erreur personnalisé', async () => {
+      // GIVEN
+      const offreEmploiServiceMock = emptyOffreEmploiService() as OffreEmploiService;
+      const localisationServiceMock = aLocalisationService();
+      mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
+
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploi />
+        </DependenciesProvider>,
+      );
+
+      await waitFor(async () => {
+        // WHEN
+        const errorMessage = await screen.findByText('0 résultat');
+
+        // THEN
+        expect(errorMessage).toBeInTheDocument();
+      });
     });
   });
 });

@@ -14,8 +14,6 @@
   padding: 16px 0;
 }
 
-
-
 .pagination > nav {
   margin: auto;
 }
@@ -55,3 +53,17 @@
 .résultatRechercheOffreEmploiList > li {
   margin-top: 24px;
 }
+
+.errorMessage {
+  padding: 16px;
+}
+
+@media (min-width: 36em) {
+  .errorMessage {
+    text-align: center;
+    max-width: 36em;
+    margin: auto;
+    padding: 2em 0;
+  }
+}
+
