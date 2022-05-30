@@ -14,13 +14,13 @@ interface ServiceCardProps {
 export function ServiceCard({ logo, children, alt, link }: React.PropsWithChildren<ServiceCardProps>) {
   return (
     <Link href={link}>
-      <a className={styles.card} data-testid="ServiceCard">
+      <a className={styles.card} data-testid='ServiceCard'>
         <div className={styles.cardLogo}>
           <Image alt={alt} src={logo} width='100%' height='100%'/>
         </div>
         <div className={styles.cardBody}>
           {children}
-          <Icon name='ri-external-link-line fr-link' size="lg"/>
+          <Icon name='ri-external-link-line fr-link' size='lg'/>
         </div>
       </a>
     </Link>

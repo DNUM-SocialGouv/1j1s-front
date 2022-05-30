@@ -19,6 +19,7 @@
 .cardBody > span > span {
     display:flex;
     justify-content: right;
+    margin:0;
 }
 
 .cardBody > p {
