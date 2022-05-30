@@ -17,8 +17,8 @@ import { Alternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 export function RechercherAlternance() {
-  const alternanceService  = useDependency('alternanceService') as AlternanceService;
-  const métierRecherchéService  = useDependency('métierRecherchéService') as MétierRecherchéService;
+  const alternanceService = useDependency('alternanceService') as AlternanceService;
+  const métierRecherchéService = useDependency('métierRecherchéService') as MétierRecherchéService;
 
   const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
@@ -38,11 +38,11 @@ export function RechercherAlternance() {
 
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if(inputIntituleMétier.length === 0) {
+    if (inputIntituleMétier.length === 0) {
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
       const formEntries = transformFormToEntries(event.currentTarget);
-      if(getValueFromForm(event.currentTarget, 'codeRomes')) {
+      if (getValueFromForm(event.currentTarget, 'codeRomes')) {
         setIsLoading(true);
         const query = new URLSearchParams(formEntries).toString();
         const response = await alternanceService.rechercherAlternance(query);
@@ -103,13 +103,11 @@ export function RechercherAlternance() {
       {
         alternanceList.length > 0 && !isLoading &&
         <ul className={styles.résultatRechercheAlternanceList}>
-          {alternanceList.map((alternance: Alternance) => {
-            return (
-              <li key={alternance.id}>
-                <RésultatRechercherAlternance alternance={alternance}/>
-              </li>
-            );
-          })}
+          {alternanceList.map((alternance: Alternance) => (
+            <li key={alternance.id}>
+              <RésultatRechercherAlternance alternance={alternance}/>
+            </li>
+          ))}
         </ul>
       }
     </main>

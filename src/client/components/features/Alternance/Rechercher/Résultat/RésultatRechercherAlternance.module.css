@@ -20,6 +20,16 @@
   margin-left: 24px;
 }
 
+@media only screen and (min-width:640px) {
+  .cardHeader {
+    border-bottom: none;
+  }
+
+  .cardHeader > * + * {
+    margin-left: 0;
+  }
+}
+
 .cardBody {
   display: flex;
   padding: 16px;
@@ -27,15 +37,11 @@
 }
 
 .cardBody > *:not(:last-child) {
-  margin-bottom: 20px !important;
-}
-.cardBodyDesktop {
-  display: flex;
-  padding: 0 24px 24px 24px;
-  flex-direction: column;
+  margin-bottom: 20px;
 }
 
-.cardHeaderDesktop {
-  display: flex;
-  padding: 24px;
+@media only screen and (min-width:640px) {
+  .cardBody {
+    padding: 0 24px 24px 24px;
+  }
 }

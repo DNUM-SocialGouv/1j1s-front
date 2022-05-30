@@ -19,13 +19,13 @@ export function RésultatRechercherAlternance(props: RésultatRechercherAlternan
   return (
     <Link href={`/apprentissage/${alternance.id}`}>
       <a className={styles.card} data-testid="RésultatRechercherAlternance">
-        <header className={isSmallScreen ? styles.cardHeader : styles.cardHeaderDesktop}>
+        <header className={styles.cardHeader}>
           <div>
             <strong>{alternance.intitulé}</strong>
             {alternance.entreprise?.nom && <div>{alternance.entreprise?.nom}</div>}
           </div>
         </header>
-        <div className={isSmallScreen ? styles.cardBody : styles.cardBodyDesktop}>
+        <div className={styles.cardBody}>
           <p>
             <strong>Description:</strong>{' '}
             {isSmallScreen ? alternance.description?.slice(0, 100) : alternance.description?.slice(0, 350)} [...]
