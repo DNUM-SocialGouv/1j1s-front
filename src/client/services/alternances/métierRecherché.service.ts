@@ -6,7 +6,7 @@ export class MétierRecherchéService {
   constructor(private httpClientService: HttpClientService) {}
 
   async rechercherMétier(intitulé: string): Promise<MétierRecherché[]> {
-    const response = await this.httpClientService.get<MétierRecherché[]>(`alternances/metiers/search?intitule=${intitulé}`);
+    const response = await this.httpClientService.get<MétierRecherché[]>(`metiers/search?intitule=${intitulé}`);
     return response.data;
   }
 

@@ -11,8 +11,8 @@ export function mapMaBonneAlternanceResponse(response: AlternanceResponse) {
     intitulé: peJob.title,
   }));
 
-  const alternanceFromMatchaList = response.matchas.results.map<Alternance>((matcha) => ({
-    description: matcha.job.romeDetails?.definition ?? '',
+  const alternanceFromMatchaList = response.matchas.results.map((matcha) => ({
+    description: matcha.job.romeDetails?.definition,
     entreprise: {
       nom: matcha.company.name,
     },

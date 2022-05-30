@@ -33,7 +33,7 @@ describe('MétierRecherchéService', () => {
           intitulé: 'Boulangerie, pâtisserie, chocolaterie',
         },
       ]);
-      expect(httpClientService.get).toHaveBeenCalledWith('alternances/metiers/search?intitule=bou');
+      expect(httpClientService.get).toHaveBeenCalledWith('metiers/search?intitule=bou');
     });
   });
 });

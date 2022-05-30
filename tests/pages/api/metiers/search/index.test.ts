@@ -2,7 +2,7 @@ import { aRechercheMétierResponse } from '@tests/fixtures/services/laBonneAlter
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import handlerRechercheMétier from '~/pages/api/alternances/metiers/search';
+import handlerRechercheMétier from '~/pages/api/metiers/search';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 describe('rechercher un métier', () => {
@@ -27,7 +27,7 @@ describe('rechercher un métier', () => {
           },
         ]);
       },
-      url: '/alternances/metiers/search?intitule=bou',
+      url: '/metiers/search?intitule=bou',
     });
   });
 });

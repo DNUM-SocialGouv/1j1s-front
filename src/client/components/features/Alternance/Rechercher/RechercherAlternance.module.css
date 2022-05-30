@@ -9,15 +9,6 @@
   margin:0;
 }
 
-.pagination {
-  display: flex;
-  padding: 16px 0;
-}
-
-.pagination > nav {
-  margin: auto;
-}
-
 .rechercheAlternance {
   display: flex;
   flex-direction: column;

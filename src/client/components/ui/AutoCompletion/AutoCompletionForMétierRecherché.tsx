@@ -1,38 +1,52 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 interface AutoCompletionForMétierRecherchéProps {
-  suggestionList: MétierRecherché[];
   placeholder?: string;
   inputName: string;
-  onChange: (value: string) => void;
   className?: string;
   handleErrorMessageActive: boolean;
-  resetErrorMessageActive: () => void;
+  resetHandleErrorMessageActive: () => void;
 }
 
 export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
-  const { suggestionList, inputName, placeholder, onChange, className, handleErrorMessageActive, resetErrorMessageActive } = props;
+  const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive } = props;
 
+  const métierRecherchéService  = useDependency('métierRecherchéService') as MétierRecherchéService;
+
+  const [suggestionList, setSuggestionList] = useState<MétierRecherché[]>([]);
   const [suggestions, setSuggestions] = useState<MétierRecherché[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
   const [errorMessageActive, setErrorMessageActive] = useState(false);
   const [value, setValue] = useState('');
-  const [inputHiddenSelectedMétier, setInputHiddenSelectedMétier] = useState<string[]>([]);
+  const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>([]);
+  const [inputHiddenSelectedMétierIntitulé, setInputHiddenSelectedMétierIntitulé] = useState<string>('');
 
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
 
   useEffect(() => {setErrorMessageActive(handleErrorMessageActive);}, [handleErrorMessageActive]);
-  useEffect(() => {if(suggestionList.length === 0) setInputHiddenSelectedMétier([]); }, [suggestionList]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  async function rechercherIntituléMétier(intitulé: string) {
+    setValue(intitulé);
+    if(intitulé.length !== 0) {
+      const response = await métierRecherchéService.rechercherMétier(intitulé);
+      setSuggestionList(response);
+      setErrorMessageActive(false);
+      setSuggestionIndex(0);
+    }
+  }
+
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const { value } = e.target;
-    onChange(value);
+    await rechercherIntituléMétier(value);
     setValue(value);
     if (value.length > 1) {
       const filterSuggestions = suggestionList.filter(
@@ -45,17 +59,21 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
     }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLLIElement>, selectedValue: string[]) => {
-    const { innerText } = e.target as HTMLElement;
+  const handleClick = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: MétierRecherché) => {
+    e.preventDefault();
     setSuggestions([]);
-    setValue(innerText);
-    setInputHiddenSelectedMétier(selectedValue);
+    setValue(selectedMétierRecherché.intitulé);
+    setInputHiddenSelectedCodeRomes(selectedMétierRecherché.codeROMEList);
+    setInputHiddenSelectedMétierIntitulé(selectedMétierRecherché.intitulé);
     setSuggestionsActive(false);
   };
 
   const handleClickResetErrorMessageDisplay = () => {
+    resetHandleErrorMessageActive();
     setErrorMessageActive(false);
-    resetErrorMessageActive();
+    setInputHiddenSelectedCodeRomes([]);
+    setInputHiddenSelectedMétierIntitulé('');
+    setSuggestionsActive(false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -72,8 +90,13 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       setSuggestionIndex(suggestionIndex + 1);
     }
     else if (event.key === KeyBoard.ENTER) {
-      setValue(suggestions[suggestionIndex].intitulé);
-      setSuggestionsActive(false);
+      if(suggestionsActive) {
+        setValue(suggestions[suggestionIndex].intitulé);
+        setInputHiddenSelectedCodeRomes(suggestions[suggestionIndex].codeROMEList);
+        setInputHiddenSelectedMétierIntitulé(suggestions[suggestionIndex].intitulé);
+        setSuggestionsActive(false);
+        event.preventDefault();
+      }
     }
   };
 
@@ -98,7 +121,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
                   <li
                     className={index === suggestionIndex ? styles.active : ''}
                     key={index}
-                    onClick={(event) => handleClick(event, suggestion.codeROMEList)}
+                    onClick={(event) => handleClick(event, suggestion)}
                     role="option"
                     aria-selected={false}
                   >
@@ -143,7 +166,8 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             onKeyDown={handleKeyDown}
             autoComplete="off"
           />
-          <input type="hidden" value={inputHiddenSelectedMétier} name="codeRomes"/>
+          <input type="hidden" value={inputHiddenSelectedCodeRomes} name="codeRomes"/>
+          <input type="hidden" value={inputHiddenSelectedMétierIntitulé} name="métierSélectionné"/>
         </div>
         {suggestionsActive && <Suggestions />}
       </div>

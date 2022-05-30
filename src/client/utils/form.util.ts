@@ -1,5 +1,6 @@
-export function transformFormToEntries(formElement: HTMLFormElement): string[][] {
+export function transformFormToEntries(formElement: HTMLFormElement, keyToDelete = ''): string[][] {
   const formData = new FormData(formElement);
+  if(keyToDelete !== '') formData.delete(keyToDelete);
   return Array.from(
     formData,
     ([key, value]) => (
@@ -8,12 +9,12 @@ export function transformFormToEntries(formElement: HTMLFormElement): string[][]
   ).filter((element) => element[1] !== '' && element[0] !== 'checkbox');
 };
 
-export function getValueFromForm(formElement: HTMLFormElement, keyValue: string): string | undefined {
+export function getFormValue(formElement: HTMLFormElement, keyValue: string): string | undefined {
   const formData = new FormData(formElement);
-  const object = Object.fromEntries(formData)[keyValue];
+  const value = Object.fromEntries(formData)[keyValue];
 
-  if(object) {
-    return object as string;
+  if(value) {
+    return value as string;
   } else {
     return undefined;
   }

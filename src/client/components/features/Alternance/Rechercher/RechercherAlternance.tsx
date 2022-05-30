@@ -11,14 +11,11 @@ import {
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
-import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
-import { getValueFromForm, transformFormToEntries } from '~/client/utils/form.util';
+import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 export function RechercherAlternance() {
-  const alternanceService = useDependency('alternanceService') as AlternanceService;
-  const métierRecherchéService = useDependency('métierRecherchéService') as MétierRecherchéService;
+  const alternanceService  = useDependency('alternanceService') as AlternanceService;
 
   const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
@@ -27,33 +24,28 @@ export function RechercherAlternance() {
 
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
-  const [métierRecherchéSuggestionList, setMétierRecherchéSuggestionList] = useState<MétierRecherché[]>([]);
-
-
-  async function rechercherIntituléMétier(intitulé: string) {
-    setInputIntituleMétier(intitulé);
-    const response = await métierRecherchéService.rechercherMétier(intitulé);
-    setMétierRecherchéSuggestionList(response);
-  }
 
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (inputIntituleMétier.length === 0) {
+    const codeRomeList = getFormValue(event.currentTarget, 'codeRomes');
+    const intituléMétierSélectionné = getFormValue(event.currentTarget, 'métierSélectionné');
+    if(codeRomeList === undefined || codeRomeList.length === 0) {
+      console.log('PASSE');
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
-      const formEntries = transformFormToEntries(event.currentTarget);
-      if (getValueFromForm(event.currentTarget, 'codeRomes')) {
+      if(codeRomeList) {
         setIsLoading(true);
-        const query = new URLSearchParams(formEntries).toString();
+        const query = new URLSearchParams(transformFormToEntries(event.currentTarget, 'métierSélectionné')).toString();
         const response = await alternanceService.rechercherAlternance(query);
         setNombreRésultats(response.nombreRésultats);
+        setInputIntituleMétier(intituléMétierSélectionné ? intituléMétierSélectionné : '...');
         setAlternanceList(response.résultats);
         setIsLoading(false);
       }
     }
   }
 
-  function resetErrorMessage() {
+  function resetHandleErrorMessageActive() {
     setInputIntituleMétierObligatoireErrorMessage(false);
   }
 
@@ -61,7 +53,7 @@ export function RechercherAlternance() {
     <main id="contenu">
       <Hero>
         <Title as="h1" look="h3">
-          Des milliers d’offres d’alternances sélectionnées pour vous par La Bonne Alternance
+          Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut pour réaliser votre projet d’alternance
         </Title>
       </Hero>
 
@@ -73,10 +65,8 @@ export function RechercherAlternance() {
         <AutoCompletionForMétierRecherché
           className={styles.rechercheAlternanceInput}
           inputName="Métier"
-          suggestionList={métierRecherchéSuggestionList}
-          onChange={rechercherIntituléMétier}
-          resetErrorMessageActive={resetErrorMessage}
           handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
+          resetHandleErrorMessageActive={resetHandleErrorMessageActive}
         />
 
         <ButtonGroup size="md">
@@ -93,7 +83,7 @@ export function RechercherAlternance() {
       </form>
 
       {
-        nombreRésultats !== 0 &&
+        !isLoading && nombreRésultats !== 0 &&
         <div className={styles.nombreRésultats} data-testid="RechercheAlternanceNombreRésultats">
           <h2>{nombreRésultats} offres d&apos;alternances pour {inputIntituleMétier}</h2>
         </div>

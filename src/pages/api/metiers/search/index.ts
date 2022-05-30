@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
+import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
 export async function handlerRechercheMétier(req: NextApiRequest, res: NextApiResponse<MétierRecherché[]>) {
@@ -10,4 +11,4 @@ export async function handlerRechercheMétier(req: NextApiRequest, res: NextApiR
   return res.status(200).json(métierRecherchéList);
 }
 
-export default handlerRechercheMétier;
+export default monitoringHandler(handlerRechercheMétier);
