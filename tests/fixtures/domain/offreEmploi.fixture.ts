@@ -26,7 +26,11 @@ export function aBarmanOffreEmploi(): OffreEmploi {
       nom: 'LE PLEIN AIR',
     },
     expérience: OffreEmploi.Expérience.DEBUTANT_ACCEPTE,
-    formationList: [],
+    formationList: [
+      { commentaire: 'Bac Pro Automobile',
+        libellé: 'Bac ou équivalent' },
+      { commentaire: 'Bac Pro Moto',
+        libellé: 'Bac ou supérieur' }],
     id: '132LKFB',
     intitulé: 'Barman / Barmaid (H/F)',
     lieuTravail: 'BOURG LES VALENCE (26)',
@@ -46,7 +50,9 @@ export function aMaçonOffreEmploi(): OffreEmploi {
       nom: 'RAS 1040',
     },
     expérience: OffreEmploi.Expérience.EXPERIENCE_EXIGEE,
-    formationList: [],
+    formationList: [
+      { commentaire: 'Bac pro Maçon',
+        libellé: 'Bac ou supérieur' }],
     id: '130WPHC',
     intitulé: 'Maçon / Maçonne',
     lieuTravail: undefined,

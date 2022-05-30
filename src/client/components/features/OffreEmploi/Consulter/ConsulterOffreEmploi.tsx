@@ -30,23 +30,32 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         <div>
           {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
           {offreEmploi.compétenceList.length !== 0 &&
-            <><Title as="h2" look="h6">Connaissances et compétences requises :</Title>
+            <>
+              <Title as="h2" look="h6">Connaissances et compétences requises :</Title>
               <ul>
                 {offreEmploi.compétenceList.map((compétence, index) => <li key={index}>{compétence}</li>)}
               </ul>
             </>
           }
           {offreEmploi.qualitéeProfessionnelleList.length !== 0 &&
-            <><Title as="h2" look="h6">Qualités professionnelles :</Title>
+            <>
+              <Title as="h2" look="h6">Qualités professionnelles :</Title>
               <ul>
                 {offreEmploi.qualitéeProfessionnelleList.map((qualitéeProfessionnelle, index) => <li
                   key={index}>{qualitéeProfessionnelle}</li>)}
               </ul>
             </>
           }
-          {offreEmploi.formationList.length !== 0 &&
-            <><Title as="h2" look="h6">Formation requise :</Title>
-              <ul>
+          {offreEmploi.formationList.length == 1 &&
+            <>
+              {offreEmploi.formationList.map((formation, index) =>
+                <p className={styles.offreEmploiSalaire} key={index} data-testid="FormationParagraph"><Title as="h2" look="h6">Formation requise :</Title> {formation.libellé} - {formation.commentaire}</p>)}
+            </>
+          }
+          {offreEmploi.formationList.length > 1 &&
+            <>
+              <Title as="h2" look="h6">Formation requise :</Title>
+              <ul data-testid="FormationList">
                 {offreEmploi.formationList.map((formation, index) => <li
                   key={index}>{formation.libellé} - {formation.commentaire}</li>)}
               </ul>
