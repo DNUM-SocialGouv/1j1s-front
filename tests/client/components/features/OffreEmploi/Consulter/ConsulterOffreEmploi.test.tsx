@@ -3,7 +3,7 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
-import { aMaçonOffreEmploi, aValetOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aBarmanOffreEmploi, aMaçonOffreEmploi, aValetOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 
@@ -38,5 +38,29 @@ describe('ConsulterOffreEmploi', () => {
 
     expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreEmploi.urlOffreOrigine);
     expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');
+  });
+
+  it('affiche la formation requise dans un paragraphe', () => {
+    const offreEmploi = aMaçonOffreEmploi();
+
+    render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
+
+    const formationParagraph = screen.getByTestId('FormationParagraph');
+    const formationList = screen.queryByTestId('FormationList');
+
+    expect(formationList).not.toBeInTheDocument();
+    expect(formationParagraph).toBeInTheDocument();
+  });
+
+  it('affiche les formations requises dans une liste', () => {
+    const offreEmploi = aBarmanOffreEmploi();
+
+    render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
+
+    const formationParagraph = screen.queryByTestId('FormationParagraph');
+    const formationList = screen.getByTestId('FormationList');
+
+    expect(formationParagraph).not.toBeInTheDocument();
+    expect(formationList).toBeInTheDocument();
   });
 });

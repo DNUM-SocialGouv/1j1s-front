@@ -43,6 +43,12 @@ function aBarmanOffreEmploiResponse(): OffreEmploiResponse {
       nom: 'LE PLEIN AIR',
     },
     experienceExige: 'D',
+    formations: [
+      { commentaire: 'Bac Pro Automobile',
+        niveauLibelle: 'Bac ou équivalent' },
+      { commentaire: 'Bac Pro Moto',
+        niveauLibelle: 'Bac ou supérieur' },
+    ],
     id: '132LKFB',
     intitule: 'Barman / Barmaid (H/F)',
     lieuTravail: {
@@ -64,6 +70,10 @@ function aMaçonOffreEmploiResponse(): OffreEmploiResponse {
       nom: 'RAS 1040',
     },
     experienceExige: 'E',
+    formations:[
+      { commentaire: 'Bac pro Maçon',
+        niveauLibelle: 'Bac ou supérieur' },
+    ],
     id: '130WPHC',
     intitule: 'Maçon / Maçonne',
     lieuTravail: undefined,
