@@ -229,7 +229,7 @@ export function RechercherOffreEmploi() {
               <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
               <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
               <ModalContent className={styles.filtresAvancésModalContenu}>
-                <CheckboxGroup legend="Type de contrat" data-testid="FiltreTypeDeContrats">
+                <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
                   {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                     <Checkbox
                       key={index}

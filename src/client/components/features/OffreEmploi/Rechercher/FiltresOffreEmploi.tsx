@@ -78,7 +78,7 @@ export function FiltresOffreEmploi(props: FiltresOffreEmploiProps) {
       }
       setFiltres(filtreList);
     }
-  }, [hasQueryParams, queryParams, localisation ]);
+  }, [queryParams, localisation]);
 
   return (
     <>

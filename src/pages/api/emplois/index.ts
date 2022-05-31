@@ -35,13 +35,13 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   const { query } = request;
 
   return {
-    experienceExigence: query.experienceExigence ? toArray(query.experienceExigence) : [],
-    grandDomaine: query.grandDomaine ? toArray(query.grandDomaine) : [],
+    experienceExigenceList: query.experienceExigence ? toArray(query.experienceExigence) : [],
+    grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: localisationMapper(query),
     motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),
     tempsPlein: query.tempsPlein ? String(query.tempsPlein) : '',
-    typeDeContrats: query.typeDeContrats ? toArray(query.typeDeContrats) : [],
+    typeDeContratList: query.typeDeContrats ? toArray(query.typeDeContrats) : [],
   };
 
   function localisationMapper(query: { [key: string]: string | string[]; }): OffreEmploiFiltreLocalisation | undefined {

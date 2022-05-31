@@ -70,12 +70,12 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
-      experienceExigence: offreEmploiFiltre.experienceExigence.join(','),
-      grandDomaine: offreEmploiFiltre.grandDomaine.join(','),
+      experienceExigence: offreEmploiFiltre.experienceExigenceList.join(','),
+      grandDomaine: offreEmploiFiltre.grandDomaineList.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
       tempsPlein: offreEmploiFiltre.tempsPlein,
-      typeContrat: offreEmploiFiltre.typeDeContrats.join(','),
+      typeContrat: offreEmploiFiltre.typeDeContratList.join(','),
       ...localisation,
     };
 

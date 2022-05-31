@@ -40,12 +40,12 @@ export namespace OffreEmploi {
     commentaire?: string
   }
 
-  type contrat = 'CDD' | 'CDI' | 'SAI' | 'MIS'
+  type Contrat = 'CDD' | 'CDI' | 'SAI' | 'MIS'
 
   export interface TypeDeContrat {
     libelléCourt: string
     libelléLong: string
-    valeur: contrat
+    valeur: Contrat
   }
 
   export const CONTRAT_CDD: TypeDeContrat = {
@@ -147,12 +147,12 @@ export interface RésultatsRechercheOffreEmploi {
 
 export interface OffreEmploiFiltre {
   motClé?: string
-  typeDeContrats: string[]
+  typeDeContratList: string[]
   page: number
   localisation?: OffreEmploiFiltreLocalisation
   tempsPlein?: string
-  grandDomaine: string[]
-  experienceExigence: string[]
+  grandDomaineList: string[]
+  experienceExigenceList: string[]
 }
 
 export interface OffreEmploiFiltreLocalisation {

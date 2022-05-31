@@ -86,15 +86,15 @@ export function aValetOffreEmploi(): OffreEmploi {
 
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
-    experienceExigence: [],
-    grandDomaine: [],
+    experienceExigenceList: [],
+    grandDomaineList: [],
     localisation: {
       codeInsee: '34',
       typeLocalisation: TypeLocalisation.REGION,
     },
     motClé: 'boulanger',
     page: 1,
-    typeDeContrats: ['CDD', 'CDI'],
+    typeDeContratList: ['CDD', 'CDI'],
     ...override,
   };
 }
