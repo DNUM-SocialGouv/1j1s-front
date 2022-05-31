@@ -83,7 +83,7 @@ export function FiltresOffreEmploi(props: FiltresOffreEmploiProps) {
   return (
     <>
       { filtres.length > 0 &&
-       <TagList list={filtres}/>
+       <TagList list={filtres} data-testid="TagList"/>
       }
     </>
 

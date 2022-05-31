@@ -37,13 +37,13 @@ import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { transformFormToEntries } from '~/client/utils/form.util';
-import { ErrorType } from '~/server/errors/error.types';
 import {
   générerTitreFiltre,
   mapExpérienceAttendueToOffreEmploiCheckboxFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
+import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
