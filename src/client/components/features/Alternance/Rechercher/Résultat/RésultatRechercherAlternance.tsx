@@ -12,12 +12,13 @@ interface RésultatRechercherAlternanceProps {
 
 export function RésultatRechercherAlternance(props: RésultatRechercherAlternanceProps) {
   const { alternance } = props;
+  const defaultLogo = '/images/labonnealternance.svg';
 
   return (
     <Link href={`/apprentissage/${alternance.id}`}>
       <a className={styles.card} data-testid="RésultatRechercherAlternance">
         <header className={styles.cardHeader}>
-          {alternance.entreprise.logo && <Image alt="" src={alternance.entreprise.logo} width="48" height="48"/>}
+          <Image alt="" src={alternance.entreprise.logo || defaultLogo} width="56" height="56"/>
           <div>
             <div className={styles.intitule}>{alternance.intitulé}</div>
             {alternance.entreprise?.nom && <div>{alternance.entreprise?.nom}</div>}
