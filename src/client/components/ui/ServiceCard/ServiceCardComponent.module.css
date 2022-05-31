@@ -1,0 +1,51 @@
+.card {
+    display:block;
+    background: var(--grey-1000);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+.cardLogo {
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--grey-925);
+    padding: 16px;
+}
+
+.cardBody {
+    flex-direction: column;
+    padding: 20px;
+}
+
+.cardBody > span > span {
+    display:flex;
+    justify-content: right;
+    margin:0;
+}
+
+.cardBody > p {
+    margin: 0;
+    font-size:0.875rem;
+}
+
+.cardBody > h2 {
+    margin-bottom: 5px;
+}
+
+@media only screen and (min-width: 48em) {
+    .card {
+        display: flex;
+        background-image: none;
+        border: 1px solid var(--grey-925);
+    }
+
+    .cardLogo {
+        flex-shrink: 0;
+        width: 280px;
+        border: 0px;
+        padding: 0;
+    }
+
+    .cardBody {
+        width: 100%;
+    }
+}

@@ -31,6 +31,7 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { ServiceCardlist } from '~/client/components/ui/ServiceCard/List/ServiceCardList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
@@ -161,7 +162,7 @@ export function RechercherOffreEmploi() {
     <main id="contenu" className={styles.container}>
       <Hero>
         <Title as="h1" look="h3">
-          Des milliers d’offres d’emplois sélectionnées pour vous par Pôle Emploi
+          Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
         </Title>
       </Hero>
       <div className={styles.layout}>
@@ -363,6 +364,7 @@ export function RechercherOffreEmploi() {
             <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
           </div>
         }
+        <ServiceCardlist/>
       </div>
     </main>
   );
