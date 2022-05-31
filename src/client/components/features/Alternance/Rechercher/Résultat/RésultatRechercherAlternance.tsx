@@ -1,4 +1,5 @@
 import { ButtonGroup, Icon, Text } from '@dataesr/react-dsfr';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -16,8 +17,11 @@ export function RésultatRechercherAlternance(props: RésultatRechercherAlternan
     <Link href={`/apprentissage/${alternance.id}`}>
       <a className={styles.card} data-testid="RésultatRechercherAlternance">
         <header className={styles.cardHeader}>
-          <div className={styles.intitule}>{alternance.intitulé}</div>
-          {alternance.entreprise?.nom && <div>{alternance.entreprise?.nom}</div>}
+          {alternance.entreprise.logo && <Image alt="" src={alternance.entreprise.logo} width="48" height="48"/>}
+          <div>
+            <div className={styles.intitule}>{alternance.intitulé}</div>
+            {alternance.entreprise?.nom && <div>{alternance.entreprise?.nom}</div>}
+          </div>
         </header>
         <div className={styles.cardBody}>
           <p className={styles.cardDescription}>

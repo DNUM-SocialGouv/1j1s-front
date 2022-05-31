@@ -78,7 +78,7 @@ export function RechercherAlternance() {
       {
         !isLoading && nombreRésultats !== 0 &&
         <div className={styles.nombreRésultats} data-testid="RechercheAlternanceNombreRésultats">
-          <h2>{nombreRésultats} offres d&apos;alternances pour {inputIntituleMétier}</h2>
+          <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
         </div>
       }
 

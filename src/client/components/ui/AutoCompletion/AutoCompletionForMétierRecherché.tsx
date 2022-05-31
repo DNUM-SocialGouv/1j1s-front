@@ -102,7 +102,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
     return suggestionList.length === 0 ?
       (
         <span className={styles.autocompletionSuggestion} data-testid="MétierRecherchéNoResultMessage">
-            Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, cuisinier...
+            Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulangerie, cuisine...
         </span>
       ) : (
         <ul

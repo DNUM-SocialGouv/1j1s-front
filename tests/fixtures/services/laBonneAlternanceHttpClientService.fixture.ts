@@ -2355,6 +2355,7 @@ export function aAlternanceListResponse(): AxiosResponse {
             capacity: null,
             cfd: null,
             company: {
+              logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
               name: 'AUCHAN SUPERMARCHE',
             },
             contact: {
