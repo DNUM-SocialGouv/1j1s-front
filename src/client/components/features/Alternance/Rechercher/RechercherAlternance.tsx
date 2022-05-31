@@ -2,12 +2,8 @@ import { Button, ButtonGroup, Title } from '@dataesr/react-dsfr';
 import React, { FormEvent, useState } from 'react';
 
 import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
-import {
-  RésultatRechercherAlternance,
-} from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance';
-import {
-  AutoCompletionForMétierRecherché,
-} from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
+import { RésultatRechercherAlternance } from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance';
+import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
@@ -15,7 +11,7 @@ import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
 
 export function RechercherAlternance() {
-  const alternanceService  = useDependency('alternanceService') as AlternanceService;
+  const alternanceService  = useDependency<AlternanceService>('alternanceService');
 
   const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
@@ -29,19 +25,16 @@ export function RechercherAlternance() {
     event.preventDefault();
     const codeRomeList = getFormValue(event.currentTarget, 'codeRomes');
     const intituléMétierSélectionné = getFormValue(event.currentTarget, 'métierSélectionné');
-    if(codeRomeList === undefined || codeRomeList.length === 0) {
-      console.log('PASSE');
+    if(!codeRomeList?.length) {
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
-      if(codeRomeList) {
-        setIsLoading(true);
-        const query = new URLSearchParams(transformFormToEntries(event.currentTarget, 'métierSélectionné')).toString();
-        const response = await alternanceService.rechercherAlternance(query);
-        setNombreRésultats(response.nombreRésultats);
-        setInputIntituleMétier(intituléMétierSélectionné ? intituléMétierSélectionné : '...');
-        setAlternanceList(response.résultats);
-        setIsLoading(false);
-      }
+      setIsLoading(true);
+      const query = new URLSearchParams(transformFormToEntries(event.currentTarget, 'métierSélectionné')).toString();
+      const response = await alternanceService.rechercherAlternance(query);
+      setNombreRésultats(response.nombreRésultats);
+      setInputIntituleMétier(intituléMétierSélectionné || '...');
+      setAlternanceList(response.résultats);
+      setIsLoading(false);
     }
   }
 

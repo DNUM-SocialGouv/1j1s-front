@@ -17,7 +17,7 @@ interface AutoCompletionForMétierRecherchéProps {
 export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
   const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive } = props;
 
-  const métierRecherchéService  = useDependency('métierRecherchéService') as MétierRecherchéService;
+  const métierRecherchéService = useDependency<MétierRecherchéService>('métierRecherchéService');
 
   const [suggestionList, setSuggestionList] = useState<MétierRecherché[]>([]);
   const [suggestions, setSuggestions] = useState<MétierRecherché[]>([]);
@@ -31,11 +31,13 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
 
-  useEffect(() => {setErrorMessageActive(handleErrorMessageActive);}, [handleErrorMessageActive]);
+  useEffect(() => {
+    setErrorMessageActive(handleErrorMessageActive);
+  }, [handleErrorMessageActive]);
 
   async function rechercherIntituléMétier(intitulé: string) {
     setValue(intitulé);
-    if(intitulé.length !== 0) {
+    if (intitulé.length !== 0) {
       const response = await métierRecherchéService.rechercherMétier(intitulé);
       setSuggestionList(response);
       setErrorMessageActive(false);
@@ -82,68 +84,59 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
         return;
       }
       setSuggestionIndex(suggestionIndex - 1);
-    }
-    else if (event.key === KeyBoard.ARROW_DOWN) {
+    } else if (event.key === KeyBoard.ARROW_DOWN) {
       if (suggestionIndex + 1 === suggestions.length) {
         return;
       }
       setSuggestionIndex(suggestionIndex + 1);
-    }
-    else if (event.key === KeyBoard.ENTER) {
-      if(suggestionsActive) {
-        setValue(suggestions[suggestionIndex].intitulé);
-        setInputHiddenSelectedCodeRomes(suggestions[suggestionIndex].codeROMEList);
-        setInputHiddenSelectedMétierIntitulé(suggestions[suggestionIndex].intitulé);
-        setSuggestionsActive(false);
-        event.preventDefault();
-      }
+    } else if (event.key === KeyBoard.ENTER && suggestionsActive) {
+      setValue(suggestions[suggestionIndex].intitulé);
+      setInputHiddenSelectedCodeRomes(suggestions[suggestionIndex].codeROMEList);
+      setInputHiddenSelectedMétierIntitulé(suggestions[suggestionIndex].intitulé);
+      setSuggestionsActive(false);
+      event.preventDefault();
     }
   };
 
   const Suggestions = () => {
-    return (
-      <>
-        {
-          (suggestionList.length === 0) ?
-            <span className={styles.autocompletionSuggestion} data-testid="MétierRecherchéNoResultMessage">
+    return suggestionList.length === 0 ?
+      (
+        <span className={styles.autocompletionSuggestion} data-testid="MétierRecherchéNoResultMessage">
             Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, cuisinier...
-            </span>
-            :
-            <ul
-              className={styles.autocompletionSuggestion}
-              role="listbox"
-              aria-labelledby={label}
-              id={listbox}
-              data-testid="RésultatsRechercheMétier"
-            >
-              {suggestions.map((suggestion, index) => {
-                return (
-                  <li
-                    className={index === suggestionIndex ? styles.active : ''}
-                    key={index}
-                    onClick={(event) => handleClick(event, suggestion)}
-                    role="option"
-                    aria-selected={false}
-                  >
-                    {suggestion.intitulé}
-                  </li>
-                );
-              })}
-            </ul>
-        }
-      </>
-
-    );
+        </span>
+      ) : (
+        <ul
+          className={styles.autocompletionSuggestion}
+          role="listbox"
+          aria-labelledby={label}
+          id={listbox}
+          data-testid="RésultatsRechercheMétier"
+        >
+          {suggestions.map((suggestion, index) => {
+            return (
+              <li
+                className={index === suggestionIndex ? styles.active : ''}
+                key={index}
+                onClick={(event) => handleClick(event, suggestion)}
+                role="option"
+                aria-selected={false}
+              >
+                {suggestion.intitulé}
+              </li>
+            );
+          })}
+        </ul>
+      );
   };
 
   return (
     <div className={className}>
-      <label className={'fr-label'} htmlFor={inputName} id={label}>
-        Métier { errorMessageActive ? <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span> : <></>}
+      <label className="fr-label" htmlFor={inputName} id={label}>
+        Métier {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
       <div className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
-          className='fr-search-bar'
+          className="fr-search-bar"
           id="header-search"
           role="combobox"
           aria-expanded={suggestionsActive}

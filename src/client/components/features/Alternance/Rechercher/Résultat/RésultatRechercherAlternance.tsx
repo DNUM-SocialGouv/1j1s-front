@@ -2,8 +2,7 @@ import { ButtonGroup, Icon, Text } from '@dataesr/react-dsfr';
 import Link from 'next/link';
 import React from 'react';
 
-import styles
-  from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance.module.css';
+import styles from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance.module.css';
 import { Alternance } from '~/server/alternances/domain/alternance';
 
 interface RésultatRechercherAlternanceProps {
