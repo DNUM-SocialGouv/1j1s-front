@@ -14,7 +14,7 @@ import { Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
-import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { OffreEmploi, RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
@@ -37,7 +37,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       const expected = aBarmanOffreEmploi();
       const offreEmploiId = expected.id;
 
-      const result = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId);
+      const { result } = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Success<OffreEmploi>;
 
       expect(result).toEqual(expected);
       expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
