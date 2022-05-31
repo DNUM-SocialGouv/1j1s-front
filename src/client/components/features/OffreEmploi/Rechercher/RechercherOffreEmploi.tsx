@@ -31,8 +31,8 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { ServiceCardlist } from '~/client/components/ui/ServiceCard/List/ServiceCardList';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
@@ -84,13 +84,12 @@ export function RechercherOffreEmploi() {
 
   const OFFRE_PER_PAGE = 30;
 
-  const DEFAULT_TITLE = 'Rechercher un emploi | 1jeune1solution';
-  const AUCUN_RESULTAT_TITLE = 'Rechercher un emploi - Aucun résultat | 1jeune1solution';
-  const SERVICE_INDISPONIBLE_TITLE = 'Rechercher un emploi - Service indisponible | 1jeune1solution';
-  const DEMANDE_INCORRECTE_TITLE = 'Rechercher un emploi - Demande incorrecte | 1jeune1solution';
-  const ERREUR_INATTENDUE_TITLE = 'Rechercher un emploi - Erreur innattendue | 1jeune1solution';
+  const AUCUN_RESULTAT_TITLE = '- Aucun résultat';
+  const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
+  const DEMANDE_INCORRECTE_TITLE = '- Demande incorrecte';
+  const ERREUR_INATTENDUE_TITLE = '- Erreur innattendue';
 
-  const [title, setTitle] = useState<string>(DEFAULT_TITLE);
+  const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     if (!isSmallScreen) setIsFiltresAvancésMobileOpen(false);
@@ -101,7 +100,7 @@ export function RechercherOffreEmploi() {
           if(response.result.nombreRésultats === 0) {
             setTitle(AUCUN_RESULTAT_TITLE);
           } else {
-            setTitle(DEFAULT_TITLE);
+            setTitle('');
           }
           setOffreEmploiList(response.result.résultats);
           setNombreRésultats(response.result.nombreRésultats);
@@ -186,7 +185,7 @@ export function RechercherOffreEmploi() {
   return (
     <>
       <HeadTag
-        title={title}
+        title={'Rechercher un emploi ' + title + ' | 1jeune1solutiontitle'}
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={styles.container}>
@@ -395,8 +394,8 @@ export function RechercherOffreEmploi() {
             </div>
           }
 
-        <ServiceCardlist/>
-      </div>
+          <ServiceCardlist/>
+        </div>
 
       </main>
     </>
