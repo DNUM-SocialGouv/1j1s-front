@@ -83,7 +83,7 @@
 @media screen and (min-width: 48em) {
   .layout {
     width: 100%;
-    max-width: 1000px;
+    max-width: 78rem;
     margin: auto;
   }
 
