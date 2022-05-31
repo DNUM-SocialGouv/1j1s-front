@@ -366,7 +366,6 @@ export function RechercherOffreEmploi() {
         }
         <ServiceCardlist/>
       </div>
-      }
     </main>
   );
 }
