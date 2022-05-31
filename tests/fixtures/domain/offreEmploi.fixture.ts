@@ -1,7 +1,9 @@
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
-  OffreEmploiFiltre, RésultatsRechercheOffreEmploi,
+  OffreEmploiFiltre,
+  RéférentielDomaine,
+  RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 
 export function aRésultatsRechercheOffreEmploi(override?: Partial<RésultatsRechercheOffreEmploi>): RésultatsRechercheOffreEmploi {
@@ -84,13 +86,29 @@ export function aValetOffreEmploi(): OffreEmploi {
 
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
+    experienceExigenceList: [],
+    grandDomaineList: [],
     localisation: {
       codeInsee: '34',
       typeLocalisation: TypeLocalisation.REGION,
     },
     motClé: 'boulanger',
     page: 1,
-    typeDeContrats: ['CDD', 'CDI'],
+    typeDeContratList: ['CDD', 'CDI'],
     ...override,
   };
+}
+
+function aRéférentielDomaine(override?: Partial<RéférentielDomaine>): RéférentielDomaine {
+  return {
+    code: 'M16',
+    libelle: 'Secteur agroalimentaire',
+    ...override,
+  };
+}
+export function aRésultatRéférentielDomaine(): RéférentielDomaine[] {
+  return [
+    aRéférentielDomaine(),
+    aRéférentielDomaine({ code: 'M15', libelle: 'Secteur public' }),
+  ];
 }

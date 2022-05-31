@@ -3,7 +3,9 @@
  */
 import { InMemoryAppRawDataStorage } from '@tests/client/cache/InMemory.appRawDataStorage';
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
-import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import {
+  aRésultatsRechercheOffreEmploi,
+} from '@tests/fixtures/domain/offreEmploi.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { AppRawDataStorage } from '~/client/cache/appRawDataStorage';
@@ -72,4 +74,5 @@ describe('OffreEmploiService', () => {
       });
     });
   });
+
 });

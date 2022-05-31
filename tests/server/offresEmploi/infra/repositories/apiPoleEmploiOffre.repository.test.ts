@@ -144,7 +144,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
             const offreEmploiFiltre = anOffreEmploiFiltre({ motClé: undefined });
             const result = apiPoleEmploiOffreRepository.buildParamètresRecherche(offreEmploiFiltre);
 
-            expect(result).toEqual('motsCles=&range=0-29&typeContrat=CDD%2CCDI&region=34');
+            expect(result).toEqual('range=0-29&typeContrat=CDD%2CCDI&region=34');
           });
 
           it('quand la localisation est absente, ne retourne pas la localisation dans les paramètres de l\'url', () => {

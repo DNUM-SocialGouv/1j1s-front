@@ -35,10 +35,13 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   const { query } = request;
 
   return {
+    experienceExigenceList: query.experienceExigence ? toArray(query.experienceExigence) : [],
+    grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: localisationMapper(query),
     motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),
-    typeDeContrats: query.typeDeContrats ? toTypeDeContrats(query.typeDeContrats) : [],
+    tempsDeTravail: query.tempsDeTravail ? String(query.tempsDeTravail) : '',
+    typeDeContratList: query.typeDeContrats ? toArray(query.typeDeContrats) : [],
   };
 
   function localisationMapper(query: { [key: string]: string | string[]; }): OffreEmploiFiltreLocalisation | undefined {
@@ -64,6 +67,6 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   }
 }
 
-function toTypeDeContrats(typeDeContrats: string | string[]): string[] {
-  return typeDeContrats.toString().split(',');
+function toArray(query: string | string[]): string[] {
+  return query.toString().split(',');
 }

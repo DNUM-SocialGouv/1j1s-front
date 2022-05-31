@@ -13,6 +13,15 @@ interface ConsulterOffreEmploiProps {
 export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps) {
   const descriptionOffreEmploi = useSanitize(offreEmploi.description);
   const salaireOffreEmploi = useSanitize(offreEmploi.salaire);
+  
+  function getList() {
+    return [
+      offreEmploi.lieuTravail,
+      offreEmploi.expérience,
+      offreEmploi.typeContrat?.libelléCourt,
+      offreEmploi.duréeTravail,
+    ].filter((element) => element !== undefined);
+  }
 
   return (
     <main id="contenu">
@@ -21,12 +30,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
           <Title as="h1" look="h3">{offreEmploi.intitulé}</Title>
           {offreEmploi.entreprise.nom && <span className="fr-text--lead">{offreEmploi.entreprise.nom}</span>}
         </header>
-        <TagList data-testid="ÉtiquetteOffreEmploiList" list={[
-          offreEmploi.lieuTravail,
-          offreEmploi.expérience,
-          offreEmploi.typeContrat?.libelléCourt,
-          offreEmploi.duréeTravail,
-        ]} />
+        <TagList data-testid="ÉtiquetteOffreEmploiList" list={getList()} />
         <div>
           {offreEmploi.description && <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>}
           {offreEmploi.compétenceList.length !== 0 &&

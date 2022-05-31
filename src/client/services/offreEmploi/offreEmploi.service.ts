@@ -30,4 +30,5 @@ export class OffreEmploiService extends Cachable {
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }
+
 }

@@ -19,8 +19,9 @@ export class StrapiCmsService {
     const response = await this.strapiHttpClientService.get<DataCmsResponse<PageAccueilCmsResponse>>(
       `${STRAPI_URL_API}${StrapiContentType.PAGE_ACCUEIL}${nestedContentTypeQueryParams}`,
     );
-
-    return response.data.data.attributes!.articles.map(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return response.data.data.attributes.articles.map(
       (article: PageAccueilCmsResponse.ArticleCmsResponse) => {
         const { titre, description, lien } = article;
         const { width, height, url } = article.image.data.attributes;

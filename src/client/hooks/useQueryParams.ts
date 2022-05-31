@@ -10,7 +10,10 @@ export const enum QueryParams {
   TYPE_DE_CONTRATS = 'typeDeContrats',
   PAGE = 'page',
   TYPE_LOCALISATION = 'typeLocalisation',
-  CODE_INSEE = 'codeInsee'
+  CODE_INSEE = 'codeInsee',
+  TEMPS_DE_TRAVAIL = 'tempsDeTravail',
+  EXPÉRIENCE = 'experienceExigence',
+  DOMAINE = 'grandDomaine',
 }
 
 export default function useQueryParams() {
@@ -26,7 +29,7 @@ export default function useQueryParams() {
 
   useEffect(() => {
     setQueryParams(router.query);
-  }, [router.query]);
+  }, [setQueryParams, router.query]);
 
   return {
     getQueryString,

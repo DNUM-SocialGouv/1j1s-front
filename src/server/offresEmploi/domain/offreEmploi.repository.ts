@@ -8,5 +8,5 @@ import {
 
 export interface OffreEmploiRepository {
   getOffreEmploi(id: OffreEmploiId): Promise<OffreEmploi>
-  searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>>;
+  searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>>
 }

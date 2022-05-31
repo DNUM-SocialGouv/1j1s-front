@@ -1,4 +1,5 @@
 import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aServeurIndisponibleError } from '@tests/fixtures/server/errors/errorResponse.fixture';
 import { aRésultatRechercheOffreEmploiAxiosResponse } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
@@ -32,16 +33,10 @@ describe('rechercher une offre d\'emploi', () => {
 
   it('retourne une erreur 500 quand le service est indisponible', async () => {
     nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/offres/search?motsCles=&range=29970-29999&typeContrat=')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=29970-29999')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?motsCles=&range=29970-29999&typeContrat=')
-      .reply(500,
-        {
-          codeErreur: '1652879820005',
-          codeHttp: 500,
-          message: 'Service indisponible',
-        },
-      );
+      .get('/partenaire/offresdemploi/v2/offres/search?&range=29970-29999')
+      .reply(500, aServeurIndisponibleError());
 
     nock('https://entreprise.pole-emploi.fr')
       .post('/connexion/oauth2/access_token?realm=partenaire')

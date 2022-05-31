@@ -1,4 +1,8 @@
-import { createFailure, createSuccess,Either } from '~/server/errors/either';
+import {
+  createFailure,
+  createSuccess,
+  Either,
+} from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
@@ -47,11 +51,12 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       } else {
         return createSuccess(mapRésultatsRechercheOffreEmploi(response.data));
       }
+      // eslint-disable-next-line
     } catch (e: any) {
-      if(e.response.status === 500) {
+      if (e.response.status === 500) {
         return createFailure(ErrorType.SERVICE_INDISPONIBLE);
       }
-      if(e.response.status === 400) {
+      if (e.response.status === 400) {
         return createFailure(ErrorType.DEMANDE_INCORRECTE);
       }
       return createFailure(ErrorType.ERREUR_INATTENDUE);
@@ -63,12 +68,29 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
 
-    const params = new URLSearchParams({
+    function mapTempsDeTravail() {
+      if (offreEmploiFiltre.tempsDeTravail === 'tempsPlein') return 'true';
+      if (offreEmploiFiltre.tempsDeTravail === 'tempsPartiel') return 'false';
+      return '';
+    }
+
+    // eslint-disable-next-line
+    const queryList: Record<string, any> = {
+      experienceExigence: offreEmploiFiltre.experienceExigenceList.join(','),
+      grandDomaine: offreEmploiFiltre.grandDomaineList.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
-      typeContrat: offreEmploiFiltre.typeDeContrats.join(','),
+      tempsPlein: mapTempsDeTravail(),
+      typeContrat: offreEmploiFiltre.typeDeContratList.join(','),
       ...localisation,
+    };
+
+    Object.keys(queryList).forEach((key: string) => {
+      if (!queryList[key.toString()]) delete queryList[key];
     });
+
+    const params = new URLSearchParams(queryList);
+
     return params.toString();
   }
 
