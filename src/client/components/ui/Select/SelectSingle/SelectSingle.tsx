@@ -33,10 +33,10 @@ export function SelectSingle(props: SelectRadioProps) {
           // @ts-ignore
           role="option"
           label={option.libellé}
-          value={`${option.valeur}`}
+          value={option.valeur}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          checked={currentInput.includes(`${option.valeur}`)}
+          checked={currentInput.includes(option.valeur)}
         />
       ))}
     </Select>

@@ -204,7 +204,7 @@ describe('RechercherOffreEmploi', () => {
         expect(filtreRechercheMobile).toBeInTheDocument();
 
         const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
-        mockUseRouter({ query: { page: '1', tempsPlein: 'true' } });
+        mockUseRouter({ query: { page: '1', tempsDeTravail: 'tempsPlein' } });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -213,8 +213,8 @@ describe('RechercherOffreEmploi', () => {
         });
 
         // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsPlein=true&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsPlein=true');
+        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein');
       });
     });
 
@@ -377,15 +377,15 @@ describe('RechercherOffreEmploi', () => {
 
 
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
-        mockUseRouter({ query: { page: '1', tempsPlein: 'true' } });
+        mockUseRouter({ query: { page: '1', tempsDeTravail: 'tempsPlein' } });
         fireEvent.click(buttonRechercher);
 
         const nombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
         expect(nombreRésultats).toBeInTheDocument();
 
 
-        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsPlein=true&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsPlein=true');
+        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein');
       });
     });
   });

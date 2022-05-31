@@ -36,7 +36,7 @@ export function SelectMultiple(props: SelectCheckboxProps) {
           value={option.valeur}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          checked={currentInput.includes(option.valeur)}
+          checked={currentInput.split(',').includes(option.valeur)}
         />
       ))}
     </Select>

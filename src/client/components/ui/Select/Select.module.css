@@ -6,6 +6,8 @@
     border: 1px solid var(--grey-925);
     background-color: var(--grey-1000);
     margin: 0;
+    max-height: 300px;
+   overflow-y: auto;
 }
 
 .option:not(:last-child) {

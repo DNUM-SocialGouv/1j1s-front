@@ -102,7 +102,7 @@ export function RechercherOffreEmploi() {
       const setInputValues = async () => {
         if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputMotCle(getQueryValue(QueryParams.MOT_CLÉ));
         if (isKeyInQueryParams(QueryParams.DOMAINE)) setInputDomaine(getQueryValue(QueryParams.DOMAINE));
-        if (isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) setInputTempsDeTravail(getQueryValue(QueryParams.TEMPS_PLEIN));
+        if (isKeyInQueryParams(QueryParams.TEMPS_DE_TRAVAIL)) setInputTempsDeTravail(getQueryValue(QueryParams.TEMPS_DE_TRAVAIL));
         if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
         if (isKeyInQueryParams(QueryParams.EXPÉRIENCE)) setInputExpérience(getQueryValue(QueryParams.EXPÉRIENCE));
         if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
@@ -184,7 +184,7 @@ export function RechercherOffreEmploi() {
               onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
             />
             <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-            <input type="hidden" name="tempsPlein" value={inputTempsDeTravail}/>
+            <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
             <input type="hidden" name="experienceExigence" value={inputExpérience}/>
             <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 

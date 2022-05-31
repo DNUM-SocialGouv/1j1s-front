@@ -68,13 +68,19 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
 
+    function mapTempsDeTravail() {
+      if (offreEmploiFiltre.tempsDeTravail === 'tempsPlein') return 'true';
+      if (offreEmploiFiltre.tempsDeTravail === 'tempsPartiel') return 'false';
+      return '';
+    }
+
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
       experienceExigence: offreEmploiFiltre.experienceExigenceList.join(','),
       grandDomaine: offreEmploiFiltre.grandDomaineList.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
-      tempsPlein: offreEmploiFiltre.tempsPlein,
+      tempsPlein: mapTempsDeTravail(),
       typeContrat: offreEmploiFiltre.typeDeContratList.join(','),
       ...localisation,
     };

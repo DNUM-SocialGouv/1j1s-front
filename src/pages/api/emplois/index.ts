@@ -40,7 +40,7 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
     localisation: localisationMapper(query),
     motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),
-    tempsPlein: query.tempsPlein ? String(query.tempsPlein) : '',
+    tempsDeTravail: query.tempsDeTravail ? String(query.tempsDeTravail) : '',
     typeDeContratList: query.typeDeContrats ? toArray(query.typeDeContrats) : [],
   };
 

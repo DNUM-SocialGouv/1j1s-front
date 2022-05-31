@@ -80,24 +80,26 @@ export namespace OffreEmploi {
   ];
 
 
+  type Temps = 'tempsPlein' | 'tempsPartiel' | 'indifférent'
+  
   export interface TempsDeTravail {
     libellé: string
-    valeur: boolean | undefined
+    valeur: Temps
   }
 
   export const TEMPS_PLEIN : TempsDeTravail =  {
     libellé: 'Temps plein',
-    valeur: true,
+    valeur: 'tempsPlein',
   };
 
   export const TEMPS_PARTIEL : TempsDeTravail =  {
     libellé: 'Temps partiel',
-    valeur: false,
+    valeur: 'tempsPartiel',
   };
 
   export const TEMPS_INDIFFERENT : TempsDeTravail =  {
     libellé: 'Indifférent',
-    valeur: undefined,
+    valeur: 'indifférent',
   };
 
   export const TEMPS_DE_TRAVAIL_LIST: TempsDeTravail[] = [
@@ -130,8 +132,8 @@ export namespace OffreEmploi {
   
   export const EXPÉRIENCE: ExpérienceAttendu[] = [
     OffreEmploi.EXPÉRIENCE_DEBUTANT,
-    OffreEmploi.EXPÉRIENCE_EXIGÉE,
     OffreEmploi.EXPÉRIENCE_SOUHAITÉ,
+    OffreEmploi.EXPÉRIENCE_EXIGÉE,
   ];
 
   export interface CheckboxFiltre {
@@ -150,7 +152,7 @@ export interface OffreEmploiFiltre {
   typeDeContratList: string[]
   page: number
   localisation?: OffreEmploiFiltreLocalisation
-  tempsPlein?: string
+  tempsDeTravail?: string
   grandDomaineList: string[]
   experienceExigenceList: string[]
 }

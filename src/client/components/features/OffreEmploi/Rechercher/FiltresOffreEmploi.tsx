@@ -24,9 +24,9 @@ export function FiltresOffreEmploi(props: FiltresOffreEmploiProps) {
         filtreList.push(motCle);
       }
 
-      if (isKeyInQueryParams(QueryParams.TEMPS_PLEIN)) {
-        const isTempsPlein = getQueryValue(QueryParams.TEMPS_PLEIN);
-        const tempsDeTravail = OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== undefined && temps.valeur.toString() === isTempsPlein);
+      if (isKeyInQueryParams(QueryParams.TEMPS_DE_TRAVAIL)) {
+        const valeurTempsDeTravail = getQueryValue(QueryParams.TEMPS_DE_TRAVAIL);
+        const tempsDeTravail = OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== 'indifférent' && temps.valeur === valeurTempsDeTravail);
         if (tempsDeTravail) filtreList.push(tempsDeTravail.libellé);
       }
 
