@@ -77,7 +77,7 @@ describe('RechercherOffreEmploi', () => {
       expect(errorMessage).toBeFalsy();
     });
 
-    it('avec une url contenant le motCle boulanger, le codeInsee 75 et le type de localisation DEPARTEMENT, affiche la liste de tag avec boulanger et Paris (75)', async () => {
+    it('avec une url contenant le motCle boulanger, le codeInsee 734 et le type de localisation DEPARTEMENT, affiche la liste de tag avec Hérault (34)', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
@@ -94,11 +94,14 @@ describe('RechercherOffreEmploi', () => {
       });
 
       // THEN
-      const tagList = screen.getAllByTestId('TagListItem');
+      await waitFor(() => {
+        expect( screen.getAllByTestId('TagListItem')[0].textContent).toEqual('Hérault (34)');
+      });
       expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '34');
       expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=34&motCle=boulanger&typeLocalisation=DEPARTEMENT');
-      expect(tagList[0].textContent).toEqual('boulanger');
-      expect(tagList[1].textContent).toEqual('Hérault (34)');
+
+
+
     });
   });
 

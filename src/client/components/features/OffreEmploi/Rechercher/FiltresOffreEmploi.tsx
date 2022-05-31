@@ -19,11 +19,6 @@ export function FiltresOffreEmploi(props: FiltresOffreEmploiProps) {
     if (hasQueryParams) {
       const filtreList: string[] = [];
 
-      if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) {
-        const motCle = getQueryValue(QueryParams.MOT_CLÉ);
-        filtreList.push(motCle);
-      }
-
       if (isKeyInQueryParams(QueryParams.TEMPS_DE_TRAVAIL)) {
         const valeurTempsDeTravail = getQueryValue(QueryParams.TEMPS_DE_TRAVAIL);
         const tempsDeTravail = OffreEmploi.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== 'indifférent' && temps.valeur === valeurTempsDeTravail);

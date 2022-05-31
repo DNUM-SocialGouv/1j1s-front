@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta
           name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0"
+          content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0"
         />
       </Head>
       <Layout>
