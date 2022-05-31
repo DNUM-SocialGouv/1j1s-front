@@ -1,13 +1,17 @@
+.container {
+    position: relative;
+}
+
 .options {
     z-index: 2;
     position: absolute;
     padding: 8px;
-    min-width: 180px;
+    width: 100%;
     border: 1px solid var(--grey-925);
     background-color: var(--grey-1000);
     margin: 0;
     max-height: 300px;
-   overflow-y: auto;
+    overflow-y: auto;
 }
 
 .option:not(:last-child) {
@@ -25,5 +29,4 @@
     padding: 8px 8px 8px 12px;
     border: 1px solid var(--grey-425);
     border-bottom: 2px solid var(--border-plain-grey);
-    min-width: 180px;
 }

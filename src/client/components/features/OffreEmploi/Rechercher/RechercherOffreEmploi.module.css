@@ -35,7 +35,7 @@
 }
 
 .filtresAvancésModalTitle > span {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .filtresAvancésModalContenu legend {
@@ -52,8 +52,8 @@
 }
 
 .nombreRésultats > h2 {
-  font-size :1.25rem;
-  margin :0;
+  font-size: 1.25rem;
+  margin: 0;
 }
 
 .pagination {
@@ -80,9 +80,9 @@
   padding: 16px;
 }
   
-@media screen and (min-width: 36em) {
+@media screen and (min-width: 48em) {
   .layout {
-   width: 100%;
+    width: 100%;
     max-width: 1000px;
     margin: auto;
   }
@@ -96,21 +96,32 @@
     display: flex;
     width: 100%;
     align-items: flex-end;
-    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
     padding-top: 0px;
     padding-bottom: 0px;
   }
+  
   .inputButtonWrapper > div {
-    min-width: 36%;
+   flex-grow: 1;
   }
 
   .buttonRechercher {
-    max-width: 180px;
+   width: initial;
   }
 
   .filtreRechercheDesktop {
     display: flex;
-    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filtreRechercheDesktop > div {
+    flex-grow: 1;
+  }
+
+  .filtreRechercheDesktop > div > button {
+    width: 100%;
   }
 
   .errorMessage {

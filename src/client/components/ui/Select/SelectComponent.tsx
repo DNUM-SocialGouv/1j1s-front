@@ -44,7 +44,7 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
   });
 
   return (
-    <div ref={optionsRef}>
+    <div ref={optionsRef} className={styles.container}>
       <button
         type="button"
         data-testid={`SelectButton-${titre}`}
