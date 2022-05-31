@@ -19,7 +19,7 @@
 }
 
 .autocompletionSuggestion > li:hover, .active {
-  background-color: rgba(3,15,143,.05);
+  background-color: rgba(3, 15, 143, .05);
 }
 
 .localisationCatégorie {
@@ -34,4 +34,13 @@
 
 .noSuggestion {
   padding: 0.5rem;
+}
+
+.errorMessageInputRechercheMétier {
+  border-style: solid;
+  border-color: var(--error-425-625);
+}
+
+.errorMessageLabelRechercheMétier {
+  color: var(--error-425-625);
 }

@@ -3,13 +3,14 @@ type AlternanceId = string;
 export interface Alternance {
   id: AlternanceId;
   intitulé: string;
-  description: string;
+  description?: string;
   entreprise: Alternance.Entreprise;
 }
 
 export namespace Alternance {
   export interface Entreprise {
     nom: string
+    logo?: string
   }
 }
 

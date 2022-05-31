@@ -25,11 +25,11 @@ export function DependenciesProvider({
   );
 }
 
-export function useDependency(key: keyof Dependencies): Dependency {
+export function useDependency<D = Dependency>(key: keyof Dependencies): D {
   const dependencies = useContext(DependenciesContainerContext);
   const dependency: Dependency | undefined = dependencies[key];
   if(!dependency) {
     throw new DependencyException(key);
   }
-  return dependency;
+  return dependency as unknown as D;
 }

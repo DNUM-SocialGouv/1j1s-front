@@ -57,8 +57,8 @@ export function RechercherOffreEmploi() {
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
   const { isSmallScreen } = useBreakpoint();
 
-  const offreEmploiService = useDependency('offreEmploiService') as OffreEmploiService;
-  const localisationService = useDependency('localisationService') as LocalisationService;
+  const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
+  const localisationService = useDependency<LocalisationService>('localisationService');
 
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
@@ -344,8 +344,8 @@ export function RechercherOffreEmploi() {
         { hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
         { hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
         { hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
-      
-        
+
+
         { offreEmploiList.length > 0 && !isLoading &&
           <ul className={styles.résultatRechercheOffreEmploiList}>
             {offreEmploiList.map((offreEmploi: OffreEmploi) => {
@@ -363,9 +363,7 @@ export function RechercherOffreEmploi() {
             <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
           </div>
         }
-        
       </div>
-
     </main>
   );
 }

@@ -1,22 +1,23 @@
 export interface MatchasResponse {
-  results: MatchasResultResponse[],
+  results: MatchasResultResponse[]
 }
 
 export interface MatchasResultResponse {
-  title: string,
-  company: MatchasCompanyResponse,
-  job: MatchasJobResponse,
+  title: string
+  company: MatchasCompanyResponse
+  job: MatchasJobResponse
 }
 
 export interface MatchasJobResponse {
-  id: string;
-  romeDetails: MatchasJobRomeDetailsResponse,
+  id: string
+  romeDetails?: MatchasJobRomeDetailsResponse
 }
 
 export interface MatchasJobRomeDetailsResponse {
-  definition: string,
+  definition: string
 }
 
 export interface MatchasCompanyResponse {
-  name: string,
+  name: string
+  logo?: string
 }

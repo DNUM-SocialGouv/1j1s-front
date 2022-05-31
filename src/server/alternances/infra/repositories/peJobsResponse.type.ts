@@ -15,4 +15,5 @@ export interface PeJobsJobResponse {
 
 export interface PeJobsCompanyResponse {
   name: string,
+  logo?: string,
 }
