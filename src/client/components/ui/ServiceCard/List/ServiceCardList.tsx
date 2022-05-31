@@ -11,7 +11,7 @@ export function ServiceCardlist() {
         alt={'Logo du centre d\'information et de documentation pour la jeunesse'}
         link={'https://www.cidj.com/orientation-metiers'}>
         <Title as='h2' look='h6'>Besoin d&apos;informations sur les métiers ?</Title>
-        <p><b style={{ color: '#5F2885' }}>Renseignez-vous sur les différents secteurs d&apos;activités et métiers avec le CIDJ.</b> Vous
+        <p><b style={{ color: '#5F2885' }}>Renseignez-vous sur les différents secteurs d&apos;activité et métiers avec le CIDJ.</b> Vous
                 y trouverez des fiches métiers par secteur, centre d&apos;intérêt et opportunités de recrutement afin
                 d&apos;affiner vos choix d&apos;orientation.</p>
       </ServiceCard>
@@ -27,7 +27,7 @@ export function ServiceCardlist() {
         link={'https://www.service-civique.gouv.fr/trouver-ma-mission?page=1'}>
         <Title as='h2' look='h6'>Le Service Civique, pour acquérir de l&apos;expérience et préparer son
                 avenir</Title>
-        <p><b style={{ color: '#0C7EC4' }}>Avec ou sans diplôme, engagez vous dans des missions d&apos;intérêt général en France ou à l&apos;étranger.</b> Indemnisé
+        <p><b style={{ color: '#0C7EC4' }}>Avec ou sans diplôme, engagez-vous dans des missions d&apos;intérêt général en France ou à l&apos;étranger.</b> Indemnisé
                 580€/mois, il vous permettra d&apos;acquérir ou de développer vos compétences dans de nombreux
                 domaines.(Ouvert aux 16-25 ans. 30 ans pour les jeunes en situation de handicap)</p>
       </ServiceCard>
