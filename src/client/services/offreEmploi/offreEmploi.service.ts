@@ -19,6 +19,7 @@ export class OffreEmploiService extends Cachable {
     try {
       const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}`);
       return createSuccess(response.data);
+      // eslint-disable-next-line
     } catch (e: any) {
       if(e.response.status === 500) {
         return createFailure(ErrorType.SERVICE_INDISPONIBLE);

@@ -360,16 +360,16 @@ export function RechercherOffreEmploi() {
             )}
           </form>
 
+          { isLoading && <p>Recherche des offres en attente de loader</p>}
+          { !isLoading && <FiltresOffreEmploi localisation={formattedLocalisation}/>}
+
           { nombreRésultats !== 0 &&
-            <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
-              <FiltresOffreEmploi localisation={formattedLocalisation}/>
-              <h2>{nombreRésultats} offres
-                d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
-            </div>
+          <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+            <h2>{nombreRésultats} offres
+              d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
+          </div>
           }
 
-
-          { isLoading && <p>Recherche des offres en attente de loader</p>}
           { hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
           { hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
           { hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
