@@ -42,8 +42,8 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
     }
   }, [autocompleteRef, inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
 
-  const closeSuggestionsOnEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === KeyBoard.ESCAPE) {
+  const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
+    if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
       if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
         setValue('');
       }
@@ -53,13 +53,13 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
 
   useEffect(() => {
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
-    document.addEventListener('keyup', closeSuggestionsOnEscape);
+    document.addEventListener('keyup', closeSuggestionsOnKeyUp);
 
     return () => {
       document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
-      document.removeEventListener('keyup', closeSuggestionsOnEscape);
+      document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
     };
-  },[closeSuggestionsOnClickOutside, closeSuggestionsOnEscape]);
+  },[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
   useEffect(() => {
     setErrorMessageActive(handleErrorMessageActive);
@@ -164,7 +164,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       <label className="fr-label" htmlFor={inputName} id={label}>
         Métier {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
-      <div className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
+      <div ref={autocompleteRef} className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
           className="fr-search-bar"
           id="header-search"

@@ -49,8 +49,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
   }, [autocompleteRef, codeInsee, typeLocalisation]);
 
-  const closeSuggestionsOnEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === KeyBoard.ESCAPE) {
+  const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
+    if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
       if(codeInsee === '' && typeLocalisation === '') {
         setInputValue('');
         setSuggestionsActive(false);
@@ -63,13 +63,13 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
       setInputValue(inputLocalisation);
     }
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
-    document.addEventListener('keyup', closeSuggestionsOnEscape);
+    document.addEventListener('keyup', closeSuggestionsOnKeyUp);
 
     return () => {
       document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
-      document.removeEventListener('keyup', closeSuggestionsOnEscape);
+      document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
     };
-  },[inputLocalisation, closeSuggestionsOnClickOutside, closeSuggestionsOnEscape]);
+  },[inputLocalisation, closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
