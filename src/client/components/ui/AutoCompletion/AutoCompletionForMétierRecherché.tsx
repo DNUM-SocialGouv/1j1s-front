@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -28,8 +28,38 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>([]);
   const [inputHiddenSelectedMétierIntitulé, setInputHiddenSelectedMétierIntitulé] = useState<string>('');
 
+  const autocompleteRef = useRef<HTMLDivElement>(null);
+
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
+
+  const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
+    if (!(autocompleteRef.current)?.contains(e.target as Node)) {
+      if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
+        setValue('');
+      }
+      setSuggestionsActive(false);
+    }
+  }, [autocompleteRef, inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
+
+  const closeSuggestionsOnEscape = useCallback((e: KeyboardEvent) => {
+    if (e.key === KeyBoard.ESCAPE) {
+      if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
+        setValue('');
+      }
+      setSuggestionsActive(false);
+    }
+  }, [inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
+    document.addEventListener('keyup', closeSuggestionsOnEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
+      document.removeEventListener('keyup', closeSuggestionsOnEscape);
+    };
+  },[closeSuggestionsOnClickOutside, closeSuggestionsOnEscape]);
 
   useEffect(() => {
     setErrorMessageActive(handleErrorMessageActive);
