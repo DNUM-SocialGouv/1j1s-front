@@ -82,6 +82,7 @@ describe('RechercherOffreEmploi', () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
+      mockUseRouter({});
       mockUseRouter({ query: { codeInsee: '34', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
