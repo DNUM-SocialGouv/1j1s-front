@@ -1,19 +1,14 @@
 import axios from 'axios';
 
-import { AppRawDataStorage } from '~/client/cache/appRawDataStorage';
-import { Cachable, cache } from '~/client/cache/cacheDecorator';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-export class OffreEmploiService extends Cachable {
+export class OffreEmploiService {
 
-  constructor(private httpClientService: HttpClientService, protected appRawDataStorage: AppRawDataStorage ) {
-    super(appRawDataStorage);
-  }
+  constructor(private httpClientService: HttpClientService) {}
 
-  @cache({ key: 'rechercherOffreEmploi' })
   async rechercherOffreEmploi(queryString = ''): Promise<Either<RésultatsRechercheOffreEmploi>> {
     try {
       const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}`);
