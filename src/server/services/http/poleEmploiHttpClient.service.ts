@@ -1,7 +1,10 @@
+import * as Sentry from '@sentry/nextjs';
+import { Severity } from '@sentry/nextjs';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { ClientService } from '~/server/services/http/client.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 interface PoleEmploiTokenResponse {
   access_token: string;
@@ -12,6 +15,18 @@ export class PoleEmploiHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
     const { API_POLE_EMPLOI_BASE_URL } = configurationService.getConfiguration();
     super(API_POLE_EMPLOI_BASE_URL);
+
+    this.client.interceptors.request.use((value) => {
+      LoggerService.info(`API POLE EMPLOI ${value.url}`);
+      Sentry.withScope(function(scope) {
+        scope.setLevel(Severity.Info);
+
+        // The exception has the event level set by the scope (info).
+        Sentry.captureMessage(`API POLE EMPLOI ${value.url}`);
+      });
+      Sentry.captureMessage(`API POLE EMPLOI ${value.url}`);
+      return value;
+    });
 
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,

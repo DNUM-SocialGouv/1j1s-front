@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/nextjs';
+
 import {
   createFailure,
   createSuccess,
@@ -41,6 +43,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     LoggerService.info(`Recherche offre emploi avec filtres ${JSON.stringify(offreEmploiFiltre)}`);
     const paramètresRecherche = this.buildParamètresRecherche(offreEmploiFiltre);
+    Sentry.captureMessage(`API POLE EMPLOI /partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`);
 
     try {
       const response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse>(
