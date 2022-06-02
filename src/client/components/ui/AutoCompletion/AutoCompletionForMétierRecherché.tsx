@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -28,8 +28,38 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>([]);
   const [inputHiddenSelectedMétierIntitulé, setInputHiddenSelectedMétierIntitulé] = useState<string>('');
 
+  const autocompleteRef = useRef<HTMLDivElement>(null);
+
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
+
+  const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
+    if (!(autocompleteRef.current)?.contains(e.target as Node)) {
+      if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
+        setValue('');
+      }
+      setSuggestionsActive(false);
+    }
+  }, [autocompleteRef, inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
+
+  const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
+    if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
+      if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
+        setValue('');
+      }
+      setSuggestionsActive(false);
+    }
+  }, [inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
+    document.addEventListener('keyup', closeSuggestionsOnKeyUp);
+
+    return () => {
+      document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
+      document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
+    };
+  },[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
   useEffect(() => {
     setErrorMessageActive(handleErrorMessageActive);
@@ -134,7 +164,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       <label className="fr-label" htmlFor={inputName} id={label}>
         Métier {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
-      <div className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
+      <div ref={autocompleteRef} className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
           className="fr-search-bar"
           id="header-search"
