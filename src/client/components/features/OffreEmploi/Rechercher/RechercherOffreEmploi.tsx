@@ -19,16 +19,14 @@ import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'reac
 
 import { FiltresOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/FiltresOffreEmploi';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
-import {
-  RésultatRechercherOffreEmploi,
-} from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
+import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMessage/UnavailableServiceErrorMessage';
 import { UnexpectedErrorMessage } from '~/client/components/ui/ErrorMessage/UnexpectedErrorMessage';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
+import { PaginationComponent } from '~/client/components/ui/Pagination/PaginationComponent';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { ServiceCardlist } from '~/client/components/ui/ServiceCard/List/ServiceCardList';
@@ -48,7 +46,6 @@ import {
 import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
-
 
 export function RechercherOffreEmploi() {
   const domaineList = référentielDomaineList;
@@ -83,6 +80,7 @@ export function RechercherOffreEmploi() {
   const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
 
   const OFFRE_PER_PAGE = 30;
+  const defaultLogo = '/images/pole-emploi.svg';
 
   const AUCUN_RESULTAT_TITLE = '- Aucun résultat';
   const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
@@ -381,7 +379,19 @@ export function RechercherOffreEmploi() {
               {offreEmploiList.map((offreEmploi: OffreEmploi) => {
                 return (
                   <li key={offreEmploi.id}>
-                    <RésultatRechercherOffreEmploi offreEmploi={offreEmploi}/>
+                    <RésultatRechercherOffre
+                      lienOffre={`/emplois/${offreEmploi.id}`}
+                      intituléOffre={offreEmploi.intitulé}
+                      logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
+                      nomEntreprise={offreEmploi.entreprise?.nom}
+                      descriptionOffre={offreEmploi.description}
+                      étiquetteOffreList={[
+                        offreEmploi.lieuTravail,
+                        offreEmploi.expérience,
+                        offreEmploi.typeContrat?.libelléCourt,
+                        offreEmploi.duréeTravail,
+                      ]}
+                    />
                   </li>
                 );
               })}
@@ -390,7 +400,7 @@ export function RechercherOffreEmploi() {
 
           { nombreRésultats > OFFRE_PER_PAGE &&
             <div className={styles.pagination}>
-              <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
+              <PaginationComponent nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
             </div>
           }
 

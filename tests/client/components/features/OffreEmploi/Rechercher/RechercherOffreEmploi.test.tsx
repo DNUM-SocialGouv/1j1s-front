@@ -128,7 +128,7 @@ describe('RechercherOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonRechercher);
-        const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherOffreEmploi');
+        const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherOffre');
         const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
 
         // THEN

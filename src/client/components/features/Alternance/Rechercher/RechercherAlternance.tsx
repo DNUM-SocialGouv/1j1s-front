@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Title } from '@dataesr/react-dsfr';
 import React, { FormEvent, useState } from 'react';
 
 import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
-import { RésultatRechercherAlternance } from '~/client/components/features/Alternance/Rechercher/Résultat/RésultatRechercherAlternance';
+import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -20,6 +20,7 @@ export function RechercherAlternance() {
 
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
+  const defaultLogo = '/images/labonnealternance.svg';
 
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -88,7 +89,14 @@ export function RechercherAlternance() {
         <ul className={styles.résultatRechercheAlternanceList}>
           {alternanceList.map((alternance: Alternance) => (
             <li key={alternance.id}>
-              <RésultatRechercherAlternance alternance={alternance}/>
+              <RésultatRechercherOffre
+                lienOffre={`/apprentissage/${alternance.id}`}
+                intituléOffre={alternance.intitulé}
+                logoEntreprise={alternance.entreprise.logo || defaultLogo}
+                nomEntreprise={alternance.entreprise?.nom}
+                descriptionOffre={alternance.description}
+                étiquetteOffreList={[]}
+              />
             </li>
           ))}
         </ul>
