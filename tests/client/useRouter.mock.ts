@@ -9,14 +9,16 @@ interface MockUseRouter {
   pathname?: string
   query?: ParsedUrlQuery
   asPath?: string
+  prefetch?: jest.Mock
   push?: jest.Mock
   replace?: jest.Mock
 }
 
-export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', push = jest.fn(), replace = jest.fn() }: MockUseRouter) {
+export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), replace = jest.fn() }: MockUseRouter) {
   useRouter.mockImplementation(() => ({
     asPath,
     pathname,
+    prefetch,
     push,
     query,
     replace,
