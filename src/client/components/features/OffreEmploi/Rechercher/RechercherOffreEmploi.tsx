@@ -19,16 +19,14 @@ import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'reac
 
 import { FiltresOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/FiltresOffreEmploi';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
-import {
-  RésultatRechercherOffreEmploi,
-} from '~/client/components/features/OffreEmploi/Rechercher/Résultat/RésultatRechercherOffreEmploi';
+import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMessage/UnavailableServiceErrorMessage';
 import { UnexpectedErrorMessage } from '~/client/components/ui/ErrorMessage/UnexpectedErrorMessage';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { PaginationComponent as Pagination } from '~/client/components/ui/Pagination/PaginationComponent';
+import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { ServiceCardlist } from '~/client/components/ui/ServiceCard/List/ServiceCardList';
@@ -48,7 +46,6 @@ import {
 import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
-
 
 export function RechercherOffreEmploi() {
   const domaineList = référentielDomaineList;
@@ -83,11 +80,12 @@ export function RechercherOffreEmploi() {
   const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
 
   const OFFRE_PER_PAGE = 30;
+  const defaultLogo = '/images/pole-emploi.svg';
 
-  const AUCUN_RESULTAT_TITLE = '- Aucun résultat';
+  const AUCUN_RÉSULTAT_TITLE = '- Aucun résultat';
   const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
   const DEMANDE_INCORRECTE_TITLE = '- Demande incorrecte';
-  const ERREUR_INATTENDUE_TITLE = '- Erreur innattendue';
+  const ERREUR_INATTENDUE_TITLE = '- Erreur inattendue';
 
   const [title, setTitle] = useState<string>('');
 
@@ -97,8 +95,8 @@ export function RechercherOffreEmploi() {
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
         if (response.instance === 'success') {
-          if(response.result.nombreRésultats === 0) {
-            setTitle(AUCUN_RESULTAT_TITLE);
+          if (response.result.nombreRésultats === 0) {
+            setTitle(AUCUN_RÉSULTAT_TITLE);
           } else {
             setTitle('');
           }
@@ -185,7 +183,7 @@ export function RechercherOffreEmploi() {
   return (
     <>
       <HeadTag
-        title={'Rechercher un emploi ' + title + ' | 1jeune1solutiontitle'}
+        title={`Rechercher un emploi ${title} | 1jeune1solution`}
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={styles.container}>
@@ -238,7 +236,7 @@ export function RechercherOffreEmploi() {
                 Rechercher
               </Button>
 
-              { isSmallScreen &&
+              {isSmallScreen &&
                 <Button
                   styleAsLink
                   className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
@@ -257,7 +255,8 @@ export function RechercherOffreEmploi() {
                 data-testid="FiltreRechercheMobile"
               >
                 <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
-                <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">Filtrer ma recherche</ModalTitle>
+                <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">Filtrer ma
+                  recherche</ModalTitle>
                 <ModalContent className={styles.filtresAvancésModalContenu}>
                   <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
                     {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
@@ -326,7 +325,7 @@ export function RechercherOffreEmploi() {
               </Modal>
             </div>
 
-            { !isSmallScreen && (
+            {!isSmallScreen && (
               <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
                 <SelectMultiple
                   titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
@@ -334,69 +333,73 @@ export function RechercherOffreEmploi() {
                   onChange={toggleTypeDeContrat}
                   currentInput={inputTypeDeContrat}
                 />
-
                 <SelectSingle
                   titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
                   optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
                   onChange={(value) => setInputTempsDeTravail(value)}
                   currentInput={inputTempsDeTravail}
                 />
-
                 <SelectMultiple
                   titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
                   optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
                   onChange={toggleExpérience}
                   currentInput={inputExpérience}
                 />
-
                 <SelectMultiple
                   titre={générerTitreFiltre('Domaine', inputDomaine)}
                   optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
                   onChange={toggleDomaine}
                   currentInput={inputDomaine}
                 />
-
               </div>
             )}
           </form>
 
-          { isLoading && <p>Recherche des offres en attente de loader</p>}
-          { !isLoading && <FiltresOffreEmploi localisation={formattedLocalisation}/>}
+          {isLoading && <p>Recherche des offres en attente de loader</p>}
+          {!isLoading && <FiltresOffreEmploi localisation={formattedLocalisation}/>}
 
-          { nombreRésultats !== 0 &&
-          <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
-            <h2>{nombreRésultats} offres
-              d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}</h2>
-          </div>
-          }
-
-          { hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
-          { hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
-          { hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
-          { hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
-
-
-          { offreEmploiList.length > 0 && !isLoading &&
-            <ul className={styles.résultatRechercheOffreEmploiList}>
-              {offreEmploiList.map((offreEmploi: OffreEmploi) => {
-                return (
-                  <li key={offreEmploi.id}>
-                    <RésultatRechercherOffreEmploi offreEmploi={offreEmploi}/>
-                  </li>
-                );
-              })}
-            </ul>
-          }
-
-          { nombreRésultats > OFFRE_PER_PAGE &&
-            <div className={styles.pagination}>
-              <Pagination nombreRésultats={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
+          {nombreRésultats !== 0 &&
+            <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+              <h2>
+                {nombreRésultats} offres d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
+              </h2>
             </div>
           }
 
+          {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
+          {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
+          {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
+          {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
+
+          {offreEmploiList.length > 0 && !isLoading &&
+            <ul className={styles.résultatRechercheOffreEmploiList}>
+              {offreEmploiList.map((offreEmploi: OffreEmploi) => (
+                <li key={offreEmploi.id}>
+                  <RésultatRechercherOffre
+                    lienOffre={`/emplois/${offreEmploi.id}`}
+                    intituléOffre={offreEmploi.intitulé}
+                    logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
+                    nomEntreprise={offreEmploi.entreprise?.nom}
+                    descriptionOffre={offreEmploi.description}
+                    étiquetteOffreList={[
+                      offreEmploi.lieuTravail,
+                      offreEmploi.expérience,
+                      offreEmploi.typeContrat?.libelléCourt,
+                      offreEmploi.duréeTravail,
+                    ]}
+                  />
+                </li>
+              ))}
+            </ul>
+          }
+
+          {nombreRésultats > OFFRE_PER_PAGE &&
+            <div className={styles.pagination}>
+              <Pagination itemListLength={nombreRésultats} itemPerPage={OFFRE_PER_PAGE} />
+            </div>
+          }
           <ServiceCardlist/>
         </div>
-
       </main>
     </>
   );

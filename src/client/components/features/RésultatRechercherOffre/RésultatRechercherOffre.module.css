@@ -1,0 +1,60 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-default-grey);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  padding: 24px;
+  border-bottom: 4px solid var(--blue-france-sun-113-625);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+@media screen and (min-width: 48em) {
+  .card {
+    padding: 32px 40px;
+    border-left: 4px solid var(--blue-france-sun-113-625);
+  }
+
+  .cardHeader {
+    border-bottom: none;
+    padding: 0 40px 0 0;
+  }
+
+  .cardBody {
+    padding: 0;
+  }
+}
+
+.cardBody > *:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.logoEntreprise {
+  flex-shrink: 0;
+}
+
+.offreLead {
+  margin-left: 24px;
+  line-height: 1.5;
+}
+
+.descriptionLabel {
+  font-weight: 500;
+}
+
+.descriptionOffre {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--grey-425-625);
+}

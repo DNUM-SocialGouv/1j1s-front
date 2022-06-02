@@ -1,8 +1,7 @@
+import axios from 'axios';
+
 import { AppRawDataStorage } from '~/client/cache/appRawDataStorage';
-import {
-  Cachable,
-  cache,
-} from '~/client/cache/cacheDecorator';
+import { Cachable, cache } from '~/client/cache/cacheDecorator';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
@@ -19,13 +18,14 @@ export class OffreEmploiService extends Cachable {
     try {
       const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}`);
       return createSuccess(response.data);
-      // eslint-disable-next-line
-    } catch (e: any) {
-      if(e.response.status === 500) {
-        return createFailure(ErrorType.SERVICE_INDISPONIBLE);
-      }
-      if(e.response.status === 400) {
-        return createFailure(ErrorType.DEMANDE_INCORRECTE);
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        if(e.response?.status === 500) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+        if(e.response?.status === 400) {
+          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+        }
       }
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
