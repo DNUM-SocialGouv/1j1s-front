@@ -9,13 +9,14 @@ import { MétierRecherché } from '~/server/alternances/domain/métierRecherché
 interface AutoCompletionForMétierRecherchéProps {
   placeholder?: string;
   inputName: string;
+  inputIntituleMétier: string;
   className?: string;
   handleErrorMessageActive: boolean;
   resetHandleErrorMessageActive: () => void;
 }
 
 export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
-  const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive } = props;
+  const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive, inputIntituleMétier } = props;
 
   const métierRecherchéService = useDependency<MétierRecherchéService>('métierRecherchéService');
 
@@ -62,8 +63,11 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   },[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
   useEffect(() => {
+    if (inputIntituleMétier !== '') {
+      setValue(inputIntituleMétier);
+    }
     setErrorMessageActive(handleErrorMessageActive);
-  }, [handleErrorMessageActive]);
+  }, [handleErrorMessageActive, inputIntituleMétier]);
 
   async function rechercherIntituléMétier(intitulé: string) {
     setValue(intitulé);
@@ -190,7 +194,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             autoComplete="off"
           />
           <input type="hidden" value={inputHiddenSelectedCodeRomes} name="codeRomes"/>
-          <input type="hidden" value={inputHiddenSelectedMétierIntitulé} name="métierSélectionné"/>
+          <input type="hidden" value={inputHiddenSelectedMétierIntitulé} name="metierSelectionne"/>
         </div>
         {suggestionsActive && <Suggestions />}
       </div>

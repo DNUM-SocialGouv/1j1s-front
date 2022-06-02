@@ -38,8 +38,6 @@
 }
 
 @media screen and (min-width: 48em) {
-
-
   .filtreRechercheDesktop {
     display: flex;
     gap: 1rem;

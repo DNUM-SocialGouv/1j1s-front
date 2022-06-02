@@ -3,6 +3,7 @@
  */
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { anAlternanceService } from '@tests/fixtures/client/services/alternanceService.fixture';
 import {
@@ -28,6 +29,8 @@ describe('RechercherAlternance', () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
+      const routerPush = jest.fn();
+      mockUseRouter({ push: routerPush });
       const user = userEvent.setup();
 
       render(
@@ -35,17 +38,21 @@ describe('RechercherAlternance', () => {
           <RechercherAlternance />
         </DependenciesProvider>,
       );
+
       const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
       const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+
 
       // WHEN
       await user.type(inputRechercheMétier, 'bou');
       const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
       expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
 
+      mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
+
       // WHEN
-      const resultListitem = within(résultatsRechercheMétier).getAllByRole('option');
-      fireEvent.click(resultListitem[0]);
+      const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
+      fireEvent.click(resultListItem[0]);
 
       fireEvent.click(buttonRechercherAlternance);
 
@@ -60,6 +67,8 @@ describe('RechercherAlternance', () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéServiceWithEmptyResponse();
+      const routerPush = jest.fn();
+      mockUseRouter({ push: routerPush });
       const user = userEvent.setup();
 
       render(
@@ -88,6 +97,7 @@ describe('RechercherAlternance', () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
+      mockUseRouter({ query: {} });
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
@@ -111,6 +121,7 @@ describe('RechercherAlternance', () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
+      mockUseRouter({ query: {} });
       const user = userEvent.setup();
 
       render(

@@ -8,7 +8,7 @@ export interface Alternance {
   niveauRequis?: string
   ville?: string
   typeDeContrats?: string[]
-  tagList: string[]
+  étiquetteList: string[]
 }
 
 export namespace Alternance {

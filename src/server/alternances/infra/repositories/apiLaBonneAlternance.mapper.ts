@@ -6,7 +6,7 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
     const ville = mapNomVille(peJob.place.city);
     const niveauRequis = 'Alternance' as string;
     const typeDeContrats = [peJob.job.contractType];
-    const tagList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
+    const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
 
     return {
       description: peJob.job.description,
@@ -17,9 +17,9 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
       id: peJob.job.id,
       intitulé: peJob.title,
       niveauRequis,
-      tagList,
       typeDeContrats,
       ville,
+      étiquetteList,
     };
 
   });
@@ -28,7 +28,7 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
     const ville = mapNomVille(matcha.place.city);
     const niveauRequis = matcha.diplomaLevel;
     const typeDeContrats = matcha.job.contractType;
-    const tagList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
+    const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
 
     return {
       description: matcha.job.romeDetails?.definition,
@@ -39,9 +39,9 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
       id: matcha.job.id,
       intitulé: matcha.title,
       niveauRequis,
-      tagList,
       typeDeContrats,
       ville,
+      étiquetteList,
     };
   });
 

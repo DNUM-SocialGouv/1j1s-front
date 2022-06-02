@@ -13,23 +13,29 @@ export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheO
 }
 
 export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreEmploi {
+  const lieuTravail = mapLieuTravail(offreEmploiResponse.lieuTravail);
+  const expérience = mapExpérience(offreEmploiResponse.experienceExige);
+  const typeContrat = mapTypeContrat(offreEmploiResponse.typeContrat);
+  const duréeTravail = mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti);
+  const étiquetteList = [lieuTravail, expérience, typeContrat.libelléCourt, duréeTravail].filter((tag) => tag !== undefined) as string[];
   return {
     compétenceList: mapCompétenceList(offreEmploiResponse.competences),
     description: offreEmploiResponse.description,
-    duréeTravail: mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti),
+    duréeTravail,
     entreprise: {
       logo: offreEmploiResponse.entreprise?.logo,
       nom: offreEmploiResponse.entreprise?.nom,
     },
-    expérience: mapExpérience(offreEmploiResponse.experienceExige),
+    expérience,
     formationList: mapFormationList(offreEmploiResponse.formations),
     id: offreEmploiResponse.id,
     intitulé: offreEmploiResponse.intitule,
-    lieuTravail: mapLieuTravail(offreEmploiResponse.lieuTravail),
+    lieuTravail,
     qualitéeProfessionnelleList: mapQualitéeProfessionnelleList(offreEmploiResponse.qualitesProfessionnelles),
     salaire: offreEmploiResponse.salaire?.libelle || offreEmploiResponse.salaire?.commentaire,
-    typeContrat: mapTypeContrat(offreEmploiResponse.typeContrat),
+    typeContrat,
     urlOffreOrigine: offreEmploiResponse.origineOffre.urlOrigine,
+    étiquetteList,
   };
 }
 

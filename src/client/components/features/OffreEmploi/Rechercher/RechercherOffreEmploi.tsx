@@ -363,7 +363,7 @@ export function RechercherOffreEmploi() {
           {!isLoading && <FiltresOffreEmploi localisation={formattedLocalisation}/>}
 
           {nombreRésultats !== 0 &&
-            <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+            <div className={commonStyles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
               <h2>
                 {nombreRésultats} offres d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
               </h2>
@@ -385,12 +385,7 @@ export function RechercherOffreEmploi() {
                     logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
                     nomEntreprise={offreEmploi.entreprise?.nom}
                     descriptionOffre={offreEmploi.description}
-                    étiquetteOffreList={[
-                      offreEmploi.lieuTravail,
-                      offreEmploi.expérience,
-                      offreEmploi.typeContrat?.libelléCourt,
-                      offreEmploi.duréeTravail,
-                    ]}
+                    étiquetteOffreList={offreEmploi.étiquetteList}
                   />
                 </li>
               ))}

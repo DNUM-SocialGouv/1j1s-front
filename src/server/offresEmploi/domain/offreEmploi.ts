@@ -16,6 +16,7 @@ export interface OffreEmploi {
   expérience?: OffreEmploi.Expérience
   duréeTravail?: OffreEmploi.DuréeTravail
   urlOffreOrigine: string
+  étiquetteList: string[]
 }
 
 export namespace OffreEmploi {
