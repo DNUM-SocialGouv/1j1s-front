@@ -5,6 +5,10 @@ export interface Alternance {
   intitulé: string;
   description?: string;
   entreprise: Alternance.Entreprise;
+  niveauRequis?: string
+  ville?: string
+  typeDeContrats?: string[]
+  tagList: string[]
 }
 
 export namespace Alternance {

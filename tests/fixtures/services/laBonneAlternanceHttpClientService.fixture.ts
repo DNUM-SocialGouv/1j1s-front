@@ -52,7 +52,7 @@ export function aRechercheMétierResponse(): AxiosResponse {
   });
 }
 
-export function aAlternanceListResponse(): AxiosResponse {
+export function anAlternanceListResponse(): AxiosResponse {
   return anAxiosResponse(
     {
       matchas: {
