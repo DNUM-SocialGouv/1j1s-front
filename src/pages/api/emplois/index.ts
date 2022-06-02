@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { ErrorType } from '~/server/errors/error.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
@@ -46,19 +47,20 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
 
   function localisationMapper(query: { [key: string]: string | string[]; }): OffreEmploiFiltreLocalisation | undefined {
     const { codeInsee, typeLocalisation } = query;
+    console.log(codeInsee);
     if(typeLocalisation === TypeLocalisation.REGION) {
       return {
-        codeInsee: String(codeInsee),
+        codeInsee: CodeInsee.createCodeInsee(String(codeInsee)),
         typeLocalisation: TypeLocalisation.REGION,
       };
     } else if(typeLocalisation === TypeLocalisation.DEPARTEMENT) {
       return {
-        codeInsee: String(codeInsee),
+        codeInsee: CodeInsee.createCodeInsee(String(codeInsee)),
         typeLocalisation: TypeLocalisation.DEPARTEMENT,
       };
     } else if(typeLocalisation === TypeLocalisation.COMMUNE) {
       return {
-        codeInsee: String(codeInsee),
+        codeInsee: CodeInsee.createCodeInsee(String(codeInsee)),
         typeLocalisation: TypeLocalisation.COMMUNE,
       };
     } else {

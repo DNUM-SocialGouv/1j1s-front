@@ -21,6 +21,7 @@ import {
   anOffreEmploiService,
   emptyOffreEmploiService,
 } from '@tests/fixtures/client/services/offreEmploiService.fixture';
+import { aLocalisationListWithCommuneAndDépartement } from '@tests/fixtures/domain/localisation.fixture';
 import React from 'react';
 
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
@@ -77,7 +78,7 @@ describe('RechercherOffreEmploi', () => {
       expect(errorMessage).toBeFalsy();
     });
 
-    it('avec une url contenant le motCle boulanger, le codeInsee 734 et le type de localisation DEPARTEMENT, affiche la liste de tag avec Hérault (34)', async () => {
+    it('avec une url contenant le motCle boulanger, le codeInsee 34 et le type de localisation DEPARTEMENT, affiche la liste de tag avec Hérault (34)', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
@@ -99,9 +100,6 @@ describe('RechercherOffreEmploi', () => {
       });
       expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '34');
       expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=34&motCle=boulanger&typeLocalisation=DEPARTEMENT');
-
-
-
     });
   });
 
@@ -244,10 +242,10 @@ describe('RechercherOffreEmploi', () => {
         expect(localisationNoResultMessage).toBeInTheDocument();
       });
 
-      it('quand on recherche avec une saisie valide, appelle l\'api avec la localisation sélectionnée', async () => {
+      it('quand on recherche avec une saisie valide, appelle l\'api avec la localisation sélectionnée ayant plusieurs code postaux', async () => {
         // GIVEN
         const offreEmploiServiceMock = anOffreEmploiService();
-        const localisationServiceMock = aLocalisationService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
         const user = userEvent.setup();
         const routerPush = jest.fn();
         mockUseRouter({ push: routerPush });
@@ -268,17 +266,17 @@ describe('RechercherOffreEmploi', () => {
         expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
         const resultListitem = within(résultatsLocalisation).getAllByRole('option');
         
-        fireEvent.click(resultListitem[0]);
+        fireEvent.click(resultListitem[1]);
 
-        mockUseRouter({ query: { codeInsee: '75', page: '1', typeLocalisation: 'DEPARTEMENT' } });
+        mockUseRouter({ query: { codeInsee: '75001_75056', page: '1', typeLocalisation: 'COMMUNE' } });
         fireEvent.click(buttonRechercher);
 
         // THEN
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=DEPARTEMENT&codeInsee=75&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75&page=1&typeLocalisation=DEPARTEMENT');
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeInsee=75001_75056&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75001_75056&page=1&typeLocalisation=COMMUNE');
       });
     });
   });

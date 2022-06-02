@@ -1,3 +1,4 @@
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 export type OffreEmploiId = string;
@@ -160,7 +161,7 @@ export interface OffreEmploiFiltre {
 
 export interface OffreEmploiFiltreLocalisation {
   typeLocalisation: TypeLocalisation
-  codeInsee: string
+  codeInsee: CodeInsee
 }
 
 export const NOMBRE_RÉSULTATS_PAR_PAGE = 30;

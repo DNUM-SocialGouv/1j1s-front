@@ -1,8 +1,13 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import {
   Localisation,
   LocalisationList,
 } from '~/server/localisations/domain/localisation';
+import {
+  LocalisationApiResponse,
+  LocalisationListApiResponse,
+} from '~/server/localisations/infra/controllers/LocalisationListApiResponse';
 
 
 export class LocalisationService {
@@ -25,12 +30,21 @@ export class LocalisationService {
       return null;
     }
 
-    const response = await this.httpClientService.get<LocalisationList>(`localisations?recherche=${recherche}`);
-    return response.data;
+    const { data } = await this.httpClientService.get<LocalisationListApiResponse>(`localisations?recherche=${recherche}`);
+    const { communeList, régionList, départementList } = data;
+    return {
+      communeList: communeList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: CodeInsee.createCodeInsee(codeInsee), libelle })),
+      départementList: départementList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: CodeInsee.createCodeInsee(codeInsee), libelle })),
+      régionList: régionList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: CodeInsee.createCodeInsee(codeInsee), libelle })),
+    };
   }
 
   async récupérerLocalisationAvecCodeInsee(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
-    const response = await this.httpClientService.get<Localisation>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
-    return response.data;
+    const response = await this.httpClientService.get<LocalisationApiResponse>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
+    return {
+      code: response.data.code,
+      codeInsee: CodeInsee.createCodeInsee(response.data.codeInsee),
+      libelle: response.data.libelle,
+    };
   }
 }

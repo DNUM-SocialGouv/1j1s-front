@@ -1,3 +1,4 @@
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import {
   Localisation,
   TypeLocalisation,
@@ -8,9 +9,9 @@ export class RécupérerLocalisationAvecCodeInseeUseCase {
   constructor(private localisationRepository: LocalisationRepository) {
   }
 
-  async handle(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
+  async handle(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation> {
     const localisation = RécupérerLocalisationAvecCodeInseeUseCase.getTypeLocalisation(typeLocalisation);
-    return await this.localisationRepository.getLocalisationByCode(localisation, codeInsee);
+    return await this.localisationRepository.getLocalisationByTypeLocalisationAndCodeInsee(localisation, codeInsee);
   }
 
   private static getTypeLocalisation(typeLocalisation: string) {

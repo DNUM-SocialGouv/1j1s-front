@@ -3,15 +3,16 @@
  */
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import {
-  aCommune,
-  aCommuneList,
-  aDépartement,
-  aDépartementList,
-  aRégion,
+  aCommuneApiResponse,
+  aCommuneListApiResponse,
+  aDépartementApiResponse,
+  aDépartementListApiResponse,
+  aRégionApiResponse,
 } from '@tests/fixtures/domain/localisation.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { LocalisationService } from '~/client/services/localisation.service';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 
@@ -52,8 +53,8 @@ describe('LocalisationService', () => {
       const localisationService = new LocalisationService(httpClientService);
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
-        communeList: aCommuneList(),
-        départementList: aDépartementList(),
+        communeList: aCommuneListApiResponse(),
+        départementList: aDépartementListApiResponse(),
         régionList: [],
       }));
 
@@ -63,19 +64,19 @@ describe('LocalisationService', () => {
         communeList: [
           {
             code: '34290',
-            codeInsee: '34001',
+            codeInsee: CodeInsee.createCodeInsee('34001'),
             libelle: 'Abeilhan',
           },
           {
             code: '34230',
-            codeInsee: '34002',
+            codeInsee: CodeInsee.createCodeInsee('34002'),
             libelle: 'Adissan',
           },
         ],
         départementList: [
           {
             code: '34',
-            codeInsee: '34',
+            codeInsee: CodeInsee.createCodeInsee('34'),
             libelle: 'Hérault',
           },
         ],
@@ -90,14 +91,17 @@ describe('LocalisationService', () => {
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
         communeList: [{
+          code: '02140',
           codeInsee: '02377',
           libelle: 'Haution',
         }],
         départementList: [{
+          code: '68',
           codeInsee: '68',
           libelle: 'Haut-Rhin',
         }],
         régionList: [{
+          code: '32',
           codeInsee: '32',
           libelle: 'Haut-de-France',
         }],
@@ -107,15 +111,18 @@ describe('LocalisationService', () => {
 
       expect(result).toEqual({
         communeList: [{
-          codeInsee: '02377',
+          code: '02140',
+          codeInsee: CodeInsee.createCodeInsee('02377'),
           libelle: 'Haution',
         }],
         départementList: [{
-          codeInsee: '68',
+          code: '68',
+          codeInsee: CodeInsee.createCodeInsee('68'),
           libelle: 'Haut-Rhin',
         }],
         régionList: [{
-          codeInsee: '32',
+          code: '32',
+          codeInsee: CodeInsee.createCodeInsee('32'),
           libelle: 'Haut-de-France',
         }],
       });
@@ -127,13 +134,13 @@ describe('LocalisationService', () => {
     it('renvoie le département', async () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aDépartement()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aDépartementApiResponse()));
 
       const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.DEPARTEMENT,'78');
 
       expect(result).toEqual({
         code: '34',
-        codeInsee: '34',
+        codeInsee: CodeInsee.createCodeInsee('34'),
         libelle: 'Hérault',
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=DEPARTEMENT&codeInsee=78');
@@ -142,13 +149,13 @@ describe('LocalisationService', () => {
     it('renvoie larégion', async () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRégion()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRégionApiResponse()));
 
       const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.REGION,'76');
 
       expect(result).toEqual({
         code: '76',
-        codeInsee: '76',
+        codeInsee: CodeInsee.createCodeInsee('76'),
         libelle: 'Occitanie',
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=REGION&codeInsee=76');
@@ -157,13 +164,13 @@ describe('LocalisationService', () => {
     it('renvoie la commune', async () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aCommune()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aCommuneApiResponse()));
 
       const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.COMMUNE,'36048');
 
       expect(result).toEqual({
         code: '34290',
-        codeInsee: '34001',
+        codeInsee: CodeInsee.createCodeInsee('34001'),
         libelle: 'Abeilhan',
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=COMMUNE&codeInsee=36048');

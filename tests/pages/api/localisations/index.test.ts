@@ -2,8 +2,8 @@ import { aLongList } from '@tests/fixtures/domain/localisation.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherLocalisationHandler, sanitizeRéponse } from '~/pages/api/localisations';
-import { LocalisationList } from '~/server/localisations/domain/localisation';
+import { mapApiResponse, rechercherLocalisationHandler } from '~/pages/api/localisations';
+import { LocalisationListApiResponse } from '~/server/localisations/infra/controllers/LocalisationListApiResponse';
 
 describe('rechercher une localisation', () => {
   it('retourne la liste des localisations recherchées', async () => {
@@ -40,7 +40,7 @@ describe('rechercher une localisation', () => {
         nom: 'Hauts-de-France',
       }]);
 
-    await testApiHandler<LocalisationList>({
+    await testApiHandler<LocalisationListApiResponse>({
       handler: (req, res) => rechercherLocalisationHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
@@ -68,7 +68,7 @@ describe('rechercher une localisation', () => {
   });
 
   it('la réponse de la recherche contient 20 éléments maximum', () => {
-    const { communeList, départementList, régionList } = sanitizeRéponse(aLongList());
+    const { communeList, départementList, régionList } = mapApiResponse(aLongList());
 
     expect(communeList.length).toEqual(20);
     expect(départementList.length).toEqual(20);

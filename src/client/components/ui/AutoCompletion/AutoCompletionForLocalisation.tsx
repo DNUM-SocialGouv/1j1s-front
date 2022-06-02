@@ -1,17 +1,8 @@
-import React, {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
-import {
-  Localisation,
-  TypeLocalisation,
-} from '~/server/localisations/domain/localisation';
+import { Localisation, TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 interface AutoCompletionForLocalisationProps {
   régionList: Localisation[];
@@ -119,7 +110,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
       if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${location[currentIndex].code}`))) {
         onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
-        setCodeInsee(location[currentIndex].codeInsee);
+        setCodeInsee(location[currentIndex].codeInsee.value);
         setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
 
         setSuggestionsActive(false);
@@ -138,10 +129,10 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
       <li
         className={inputValue === `${libelle} (${code})` ? styles.active : currentHoverIndex === suggestionIndex ? styles.active : ''}
         key={currentHoverIndex}
-        onClick={(e) => handleClick(e, typeLocalisation, codeInsee)}
+        onClick={(e) => handleClick(e, typeLocalisation, codeInsee.value)}
         role="option"
         aria-selected={inputValue === `${libelle} (${code})`}
-        value={codeInsee}
+        value={codeInsee.value}
         data-testid="RésultatLocalisationItem"
       >
         {libelle} ({code})
