@@ -80,7 +80,7 @@ export function RechercherOffreEmploi() {
   const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
 
   const OFFRE_PER_PAGE = 30;
-  const defaultLogo = '/images/pole-emploi.svg';
+  const defaultLogo = '/images/logos/pole-emploi.svg';
 
   const AUCUN_RÉSULTAT_TITLE = '- Aucun résultat';
   const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';

@@ -29,7 +29,7 @@ export function Header() {
         <Logo splitCharacter={10}>République Française</Logo>
         <HeaderOperator>
           <Image
-            src="/images/france-relance.svg"
+            src="/images/logos/france-relance.svg"
             alt="France Relance"
             width="200"
             height="66"

@@ -24,7 +24,7 @@ export function Footer() {
         <Logo asLink={<></>}>Ministère du travail, de l&apos;emploi et de l&apos;insertion</Logo>
         <FooterOperator>
           <Image
-            src="/images/france-relance.svg"
+            src="/images/logos/france-relance.svg"
             alt="France Relance"
             width="200"
             height="66"
@@ -50,7 +50,7 @@ export function Footer() {
         <FooterPartnersTitle>Nos partenaires</FooterPartnersTitle>
         <FooterPartnersLogo
           href="/"
-          imageSrc="/images/france-relance.svg"
+          imageSrc="/images/logos/france-relance.svg"
           imageAlt="France relance"
         />
       </FooterPartners>

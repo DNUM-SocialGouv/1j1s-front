@@ -20,7 +20,7 @@ export function RechercherAlternance() {
 
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
-  const defaultLogo = '/images/labonnealternance.svg';
+  const defaultLogo = '/images/logos/la-bonne-alternance.svg';
 
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -45,7 +45,7 @@ export function RechercherAlternance() {
 
   return (
     <main id="contenu">
-      <Hero>
+      <Hero image="/images/banners/offres-alternance.jpg">
         <Title as="h1" look="h3">
           Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut pour réaliser votre projet d’alternance
         </Title>
