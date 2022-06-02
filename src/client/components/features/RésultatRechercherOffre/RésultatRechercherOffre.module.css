@@ -34,10 +34,6 @@
   }
 }
 
-.intitule {
-  font-weight: 700;
-}
-
 .cardBody > *:not(:last-child) {
   margin-bottom: 20px;
 }

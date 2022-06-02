@@ -24,7 +24,7 @@ export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
         <header className={styles.cardHeader}>
           <Image alt="" src={logoEntreprise} width="56" height="56" />
           <div className={styles.offreLead}>
-            <div className={styles.intitule}>{intituléOffre}</div>
+            <div className="fr-text--bold">{intituléOffre}</div>
             {nomEntreprise && <div>{nomEntreprise}</div>}
           </div>
         </header>
