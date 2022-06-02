@@ -18,6 +18,7 @@ export class ServerConfigurationService implements ConfigurationService {
       REDIS_PORT: Number(ServerConfigurationService.getOrThrowError('REDIS_PORT')),
       REDIS_USERNAME: ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
       STRAPI_BASE_URL: ServerConfigurationService.getOrThrowError('STRAPI_BASE_URL'),
+      STRAPI_TOKEN_API: ServerConfigurationService.getOrThrowError('STRAPI_TOKEN_API'),
       STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
     };
   }
@@ -54,6 +55,7 @@ export interface EnvironmentVariables {
   readonly REDIS_USERNAME: string;
   readonly STRAPI_URL_API: string;
   readonly STRAPI_BASE_URL: string;
+  readonly STRAPI_TOKEN_API: string;
   readonly API_GEO_BASE_URL: string;
   readonly API_ADRESSE_BASE_URL: string;
   readonly FRONT_URL: string;

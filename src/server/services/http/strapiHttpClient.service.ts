@@ -5,8 +5,8 @@ import { ClientService } from '~/server/services/http/client.service';
 
 export class StrapiHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { STRAPI_URL_API } = configurationService.getConfiguration();
-    super(STRAPI_URL_API);
+    const { STRAPI_URL_API, STRAPI_TOKEN_API } = configurationService.getConfiguration();
+    super(STRAPI_URL_API, { Authorization: `Bearer ${STRAPI_TOKEN_API}` });
   }
 
   get<Response>(
