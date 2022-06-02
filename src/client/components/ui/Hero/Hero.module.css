@@ -1,24 +1,23 @@
 .hero {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 24px;
-  min-height: 228px;
+  justify-content: space-between;
   background-color: var(--blue-france-113);
+}
+
+.heroContent {
+  padding: 80px;
+  font-size: 2rem;
 }
 
 .hero *, .hero [class^="fr-"] {
   color: var(--grey-1000);
 }
 
-.hero > *:last-child {
+.heroContent > *:last-child {
   margin-bottom: 0;
 }
 
-.hero > h1 {
-  font-size:1.75rem;
-}
-
-.hero > h2 {
-  font-size:1.5rem;
+.heroImage {
+  position: relative;
+  width: 100%;
 }

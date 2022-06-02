@@ -187,7 +187,7 @@ export function RechercherOffreEmploi() {
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={styles.container}>
-        <Hero>
+        <Hero image="/images/header-emploi.svg">
           <Title as="h1" look="h3">
             Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
           </Title>
