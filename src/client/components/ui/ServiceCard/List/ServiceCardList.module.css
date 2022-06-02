@@ -1,7 +1,0 @@
-.serviceCardList {
-    margin-bottom: 48px;
-}
-
-.serviceCardList > * + * {
-    margin-top: 28px;
-}
