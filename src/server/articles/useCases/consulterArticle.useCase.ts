@@ -4,7 +4,7 @@ import { ArticleRepository } from '~/server/articles/domain/article.repository';
 export class ConsulterArticleUseCase {
   constructor(private articleRepository: ArticleRepository) {}
 	
-  async handle(slug: string): Promise<Article> {
+  async handle(slug: string): Promise<Article | null> {
     return this.articleRepository.getArticle(slug);
   }
 }

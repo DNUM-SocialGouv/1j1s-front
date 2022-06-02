@@ -7,9 +7,10 @@ import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient
 export class ApiStrapiArticleRepository implements ArticleRepository {
   constructor(private strapiHttpClientService: StrapiHttpClientService) {}
 
-  async getArticle(slug: string): Promise<Article> {
+  async getArticle(slug: string): Promise<Article | null> {
     const filters = `[slug][$eq]=${slug}`;
     const { data: response } = await this.strapiHttpClientService.get<ArticleResponse>(`articles?filters${filters}`);
+    if (response.data.length === 0) return null;
     return mapArticle(response);
   }
 }
