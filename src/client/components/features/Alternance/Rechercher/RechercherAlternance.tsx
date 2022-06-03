@@ -74,7 +74,7 @@ export function RechercherAlternance() {
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={commonStyles.container}>
-        <Hero>
+        <Hero image="/images/banners/offres-alternance.jpg">
           <Title as="h1" look="h3">
             Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut pour réaliser votre projet d’alternance
           </Title>

@@ -6,10 +6,11 @@
 
 .heroContent {
   padding: 80px;
-  font-size: 2rem;
 }
 
 .hero *, .hero [class^="fr-"] {
+  line-height: 1.25;
+  font-size: 2rem;
   color: var(--grey-1000);
 }
 

@@ -11,7 +11,7 @@ import { RésultatRechercherOffre } from '~/client/components/features/Résultat
 describe('RésultatRechercherOffre', () => {
   it('affiche une carte emploi avec un résumé de l\'offre', () => {
     const offreEmploi = aBarmanOffreEmploi();
-    const defaultLogo = '/images/pole-emploi.svg';
+    const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
       <RésultatRechercherOffre
@@ -33,7 +33,7 @@ describe('RésultatRechercherOffre', () => {
 
   it('affiche une carte alternance avec un résumé de l\'offre', () => {
     const offreAlternance = anApprentiBoucher();
-    const defaultLogo = '/images/pole-emploi.svg';
+    const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
       <RésultatRechercherOffre

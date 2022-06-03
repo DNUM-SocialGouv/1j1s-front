@@ -8,7 +8,7 @@ export default function Accueil() {
   return (
     <>
       <HeadTag title="Toutes les solutions pour l'avenir des jeunes" />
-      <Hero>
+      <Hero image="/images/banners/homepage.jpg">
         <h1>A chacun sa solution.</h1>
         <p>Vous avez entre 13 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
       </Hero>
