@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { ErrorType } from '~/server/errors/error.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
@@ -37,33 +38,21 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   return {
     experienceExigenceList: query.experienceExigence ? toArray(query.experienceExigence) : [],
     grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
-    localisation: localisationMapper(query),
+    localisation: mapLocalisation(query),
     motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),
     tempsDeTravail: query.tempsDeTravail ? String(query.tempsDeTravail) : '',
     typeDeContratList: query.typeDeContrats ? toArray(query.typeDeContrats) : [],
   };
 
-  function localisationMapper(query: { [key: string]: string | string[]; }): OffreEmploiFiltreLocalisation | undefined {
+  function mapLocalisation(query: { [key: string]: string | string[] }): OffreEmploiFiltreLocalisation | undefined {
     const { codeInsee, typeLocalisation } = query;
-    if(typeLocalisation === TypeLocalisation.REGION) {
-      return {
-        codeInsee: String(codeInsee),
-        typeLocalisation: TypeLocalisation.REGION,
-      };
-    } else if(typeLocalisation === TypeLocalisation.DEPARTEMENT) {
-      return {
-        codeInsee: String(codeInsee),
-        typeLocalisation: TypeLocalisation.DEPARTEMENT,
-      };
-    } else if(typeLocalisation === TypeLocalisation.COMMUNE) {
-      return {
-        codeInsee: String(codeInsee),
-        typeLocalisation: TypeLocalisation.COMMUNE,
-      };
-    } else {
-      return undefined;
-    }
+    return (typeLocalisation as TypeLocalisation in TypeLocalisation)
+      ? {
+        codeInsee: CodeInsee.createCodeInsee(String(codeInsee)),
+        typeLocalisation: typeLocalisation as TypeLocalisation,
+      }
+      : undefined;
   }
 }
 

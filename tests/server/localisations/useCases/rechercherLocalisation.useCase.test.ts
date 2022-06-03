@@ -5,6 +5,7 @@ import {
   aRégionList,
 } from '@tests/fixtures/domain/localisation.fixture';
 
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 
@@ -26,19 +27,19 @@ describe('RechercherLocalisationUseCase', () => {
           communeList: [
             {
               code: '34290',
-              codeInsee: '34001',
+              codeInsee: CodeInsee.createCodeInsee('34001'),
               libelle: 'Abeilhan',
             },
             {
               code: '34230',
-              codeInsee: '34002',
+              codeInsee: CodeInsee.createCodeInsee('34002'),
               libelle: 'Adissan',
             },
           ],
           départementList: [
             {
               code: '34',
-              codeInsee: '34',
+              codeInsee: CodeInsee.createCodeInsee('34'),
               libelle: 'Hérault',
             },
           ],
@@ -59,12 +60,12 @@ describe('RechercherLocalisationUseCase', () => {
             communeList: [
               {
                 code: '34290',
-                codeInsee: '34001',
+                codeInsee: CodeInsee.createCodeInsee('34001'),
                 libelle: 'Abeilhan',
               },
               {
                 code: '34230',
-                codeInsee: '34002',
+                codeInsee: CodeInsee.createCodeInsee('34002'),
                 libelle: 'Adissan',
               },
             ],
@@ -87,26 +88,26 @@ describe('RechercherLocalisationUseCase', () => {
           communeList: [
             {
               code: '34290',
-              codeInsee: '34001',
+              codeInsee: CodeInsee.createCodeInsee('34001'),
               libelle: 'Abeilhan',
             },
             {
               code: '34230',
-              codeInsee: '34002',
+              codeInsee: CodeInsee.createCodeInsee('34002'),
               libelle: 'Adissan',
             },
           ],
           départementList: [
             {
               code: '34',
-              codeInsee: '34',
+              codeInsee: CodeInsee.createCodeInsee('34'),
               libelle: 'Hérault',
             },
           ],
           régionList: [
             {
               code: '76',
-              codeInsee: '76',
+              codeInsee: CodeInsee.createCodeInsee('76'),
               libelle: 'Occitanie',
             },
           ],

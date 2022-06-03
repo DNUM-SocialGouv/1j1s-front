@@ -11,9 +11,9 @@ import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/off
 describe('rechercher une offre d\'emploi', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&region=34')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75001')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&region=34')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75001')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://entreprise.pole-emploi.fr')
@@ -27,7 +27,7 @@ describe('rechercher une offre d\'emploi', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
-      url: '/emplois?page=1&motCle=boulanger&typeDeContrats=CDD,CDI&codeInsee=34&typeLocalisation=REGION',
+      url: '/emplois?page=1&motCle=boulanger&typeDeContrats=CDD,CDI&codeInsee=75056_75001&typeLocalisation=COMMUNE',
     });
   });
 

@@ -2,7 +2,7 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { récupérerLocalisationAvecCodeInseeHandler } from '~/pages/api/localisation';
-import { Localisation } from '~/server/localisations/domain/localisation';
+import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/LocalisationListApiResponse';
 
 describe('récupérer une localisation', () => {
   it('retourne la localisation pour un département', async () => {
@@ -14,7 +14,7 @@ describe('récupérer une localisation', () => {
         nom: 'Haut-Rhin',
       });
 
-    await testApiHandler<Localisation>({
+    await testApiHandler<LocalisationApiResponse>({
       handler: (req, res) => récupérerLocalisationAvecCodeInseeHandler(req, res),
       test: async({ fetch }) => {
         const res = await fetch({ method: 'GET' });
@@ -43,7 +43,7 @@ describe('récupérer une localisation', () => {
         population: 135,
       });
 
-    await testApiHandler<Localisation>({
+    await testApiHandler<LocalisationApiResponse>({
       handler: (req, res) => récupérerLocalisationAvecCodeInseeHandler(req, res),
       test: async({ fetch }) => {
         const res = await fetch({ method: 'GET' });
@@ -66,7 +66,7 @@ describe('récupérer une localisation', () => {
         nom: 'Hauts-de-France',
       });
 
-    await testApiHandler<Localisation>({
+    await testApiHandler<LocalisationApiResponse>({
       handler: (req, res) => récupérerLocalisationAvecCodeInseeHandler(req, res),
       test: async({ fetch }) => {
         const res = await fetch({ method: 'GET' });

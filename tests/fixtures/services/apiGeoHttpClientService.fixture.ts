@@ -34,6 +34,86 @@ export function aRechercheCommuneResponse(): AxiosResponse {
   ]);
 }
 
+export function aRechercheCommuneResponseAvecPlusieursCodePostaux(): AxiosResponse {
+  return anAxiosResponse([
+    {
+      _score: 0.3835418052804487,
+      code: '81202',
+      codeDepartement: '81',
+      codeRegion: '76',
+      codesPostaux: [
+        '81310',
+      ],
+      nom: 'Parisot',
+      population: 960,
+    },
+    {
+      _score: 0.4327093153684474,
+      code: '75056',
+      codeDepartement: '75',
+      codeRegion: '11',
+      codesPostaux: [
+        '75001',
+        '75002',
+        '75003',
+        '75004',
+        '75005',
+        '75006',
+        '75007',
+        '75008',
+        '75009',
+        '75010',
+        '75011',
+        '75012',
+        '75013',
+        '75014',
+        '75015',
+        '75116',
+        '75016',
+        '75017',
+        '75018',
+        '75019',
+        '75020',
+      ],
+      nom: 'Paris',
+      population: 2165423,
+    },
+  ]);
+}
+
+export function aCommuneResponseAvecPlusieursCodePostaux(): AxiosResponse {
+  return anAxiosResponse({
+    code: '75056',
+    codeDepartement: '75',
+    codeRegion: '11',
+    codesPostaux: [
+      '75001',
+      '75002',
+      '75003',
+      '75004',
+      '75005',
+      '75006',
+      '75007',
+      '75008',
+      '75009',
+      '75010',
+      '75011',
+      '75012',
+      '75013',
+      '75014',
+      '75015',
+      '75116',
+      '75016',
+      '75017',
+      '75018',
+      '75019',
+      '75020',
+    ],
+    nom: 'Paris',
+    population: 2165423,
+  });
+}
+
 export function aRechercheDépartementResponse(): AxiosResponse {
   return anAxiosResponse([
     {

@@ -97,13 +97,12 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   private static buildParamètreLocalisation(offreEmploiFiltre: OffreEmploiFiltre): object | undefined {
     if (offreEmploiFiltre.localisation) {
       const typeLocalisation = offreEmploiFiltre.localisation.typeLocalisation;
-      const codeInsee = offreEmploiFiltre.localisation.codeInsee;
       if (typeLocalisation === TypeLocalisation.REGION) {
-        return { region: codeInsee };
+        return { region: offreEmploiFiltre.localisation.codeInsee.value };
       } else if (typeLocalisation === TypeLocalisation.DEPARTEMENT) {
-        return { departement: codeInsee };
+        return { departement: offreEmploiFiltre.localisation.codeInsee.value };
       } else if (typeLocalisation === TypeLocalisation.COMMUNE) {
-        return { commune: codeInsee };
+        return { commune: offreEmploiFiltre.localisation.codeInsee.valueOrCodePostal };
       }
     } else {
       return undefined;

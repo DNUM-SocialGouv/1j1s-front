@@ -22,8 +22,8 @@ import styles from '~/client/components/features/OffreEmploi/Rechercher/Recherch
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
-import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
+import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
@@ -190,7 +190,7 @@ export function RechercherOffreEmploi() {
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={commonStyles.container}>
-        <Hero>
+        <Hero image="/images/banners/offres-emploi.jpg">
           <Title as="h1" look="h3">
             Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
           </Title>

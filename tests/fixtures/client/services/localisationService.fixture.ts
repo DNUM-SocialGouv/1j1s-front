@@ -6,9 +6,9 @@ import {
 
 import { LocalisationService } from '~/client/services/localisation.service';
 
-export function aLocalisationService(): LocalisationService {
+export function aLocalisationService(retourRechercheLocalisation = aLocalisationList()): LocalisationService {
   return {
-    rechercheLocalisation: jest.fn().mockResolvedValue(aLocalisationList()),
+    rechercheLocalisation: jest.fn().mockResolvedValue(retourRechercheLocalisation),
     récupérerLocalisationAvecCodeInsee: jest.fn().mockResolvedValue(aDépartement()),
   } as unknown as LocalisationService;
 }

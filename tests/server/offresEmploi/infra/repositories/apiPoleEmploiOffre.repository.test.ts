@@ -12,6 +12,8 @@ import {
 
 import { Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
@@ -57,6 +59,25 @@ describe('ApiPoleEmploiOffreRepository', () => {
         expect(result.result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
           'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
+        );
+      });
+
+      it('recherche les offres d\'emploi de pole emploi avec une localisation a plusieurs codes postaux', async () => {
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
+        const offreEmploiFiltre = anOffreEmploiFiltre({
+          localisation: {
+            codeInsee: CodeInsee.createCodeInsee('75056_75001'),
+            typeLocalisation: TypeLocalisation.COMMUNE,
+          },
+        });
+
+        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+        expect(result.result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
+          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&commune=75001',
         );
       });
     });
