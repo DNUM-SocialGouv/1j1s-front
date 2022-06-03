@@ -16,10 +16,11 @@ export async function rechercherLocalisationHandler(req: NextApiRequest, res: Ne
 
 export function mapApiResponse(localisationList: LocalisationList): LocalisationListApiResponse {
   const { communeList, départementList, régionList } = localisationList;
-  const communeListApiResponse: LocalisationApiResponse[] = communeList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: codeInsee.value, libelle }));
-  const départementListApiResponse: LocalisationApiResponse[] = départementList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: codeInsee.value, libelle }));
-  const régionListApiResponse: LocalisationApiResponse[] = régionList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: codeInsee.value, libelle }));
-  return { communeList: communeListApiResponse.slice(0,20), départementList: départementListApiResponse.slice(0,20), régionList: régionListApiResponse.slice(0,20) };
+
+  const communeListApiResponse: LocalisationApiResponse[] = communeList.slice(0,20).map(({ code, codeInsee, libelle }) => ({ code, codeInsee: codeInsee.value, libelle }));
+  const départementListApiResponse: LocalisationApiResponse[] = départementList.slice(0,20).map(({ code, codeInsee, libelle }) => ({ code, codeInsee: codeInsee.value, libelle }));
+  const régionListApiResponse: LocalisationApiResponse[] = régionList.slice(0,20).map(({ code, codeInsee, libelle }) => ({ code, codeInsee: codeInsee.value, libelle }));
+  return { communeList: communeListApiResponse, départementList: départementListApiResponse, régionList: régionListApiResponse };
 }
 export default monitoringHandler(rechercherLocalisationHandler);
 
