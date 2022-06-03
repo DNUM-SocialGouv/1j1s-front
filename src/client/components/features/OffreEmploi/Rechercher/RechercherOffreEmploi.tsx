@@ -23,6 +23,7 @@ import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
+import commonStyles from '~/client/components/features/RechercherOffre.module.css';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
@@ -188,20 +189,20 @@ export function RechercherOffreEmploi() {
         title={`Rechercher un emploi ${title} | 1jeune1solution`}
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
-      <main id="contenu" className={styles.container}>
-        <Hero image="/images/banners/offres-emploi.jpg">
+      <main id="contenu" className={commonStyles.container}>
+        <Hero>
           <Title as="h1" look="h3">
             Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
           </Title>
         </Hero>
-        <div className={styles.layout}>
+        <div className={commonStyles.layout}>
           <form
             ref={rechercheOffreEmploiForm}
-            className={styles.rechercheOffreEmploiForm}
+            className={commonStyles.rechercheOffreForm}
             onSubmit={rechercherOffreEmploi}
             role="search"
           >
-            <div className={styles.inputButtonWrapper}>
+            <div className={commonStyles.inputButtonWrapper}>
               <TextInput
                 label="Métier, mot-clé..."
                 data-testid="InputRechercheMotClé"
@@ -229,7 +230,7 @@ export function RechercherOffreEmploi() {
               />
 
               <Button
-                className={styles.buttonRechercher}
+                className={commonStyles.buttonRechercher}
                 submit={true}
                 icon="ri-search-line"
                 iconPosition="right"
@@ -362,7 +363,7 @@ export function RechercherOffreEmploi() {
           {!isLoading && <FiltresOffreEmploi localisation={formattedLocalisation}/>}
 
           {nombreRésultats !== 0 &&
-            <div className={styles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
+            <div className={commonStyles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
               <h2>
                 {nombreRésultats} offres d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
               </h2>
@@ -375,7 +376,7 @@ export function RechercherOffreEmploi() {
           {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
 
           {offreEmploiList.length > 0 && !isLoading &&
-            <ul className={styles.résultatRechercheOffreEmploiList}>
+            <ul className={commonStyles.résultatRechercheOffreList}>
               {offreEmploiList.map((offreEmploi: OffreEmploi) => (
                 <li key={offreEmploi.id}>
                   <RésultatRechercherOffre
@@ -384,12 +385,7 @@ export function RechercherOffreEmploi() {
                     logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
                     nomEntreprise={offreEmploi.entreprise?.nom}
                     descriptionOffre={offreEmploi.description}
-                    étiquetteOffreList={[
-                      offreEmploi.lieuTravail,
-                      offreEmploi.expérience,
-                      offreEmploi.typeContrat?.libelléCourt,
-                      offreEmploi.duréeTravail,
-                    ]}
+                    étiquetteOffreList={offreEmploi.étiquetteList}
                   />
                 </li>
               ))}

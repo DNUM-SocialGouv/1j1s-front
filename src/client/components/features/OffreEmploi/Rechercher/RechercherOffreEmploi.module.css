@@ -1,35 +1,3 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.layout {
-  padding: 0 1rem;
-}
-
-.rechercheOffreEmploiForm {
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid var(--grey-950);
-}
-
-.inputButtonWrapper {
-  padding-top: 24px;
-  padding-bottom: 32px;
-}
-
-.inputButtonWrapper > * {
-  margin-bottom: 1.5rem;
-}
-
-.buttonRechercher {
-  width: 100%;
-}
-
-.buttonRechercher > span {
-  margin: auto;
-}
-
 .buttonFiltrerRecherche {
   padding: 0 !important;
 }
@@ -46,36 +14,13 @@
   justify-content: center;
 }
 
-.nombreRésultats {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--grey-950);
-}
-
-.nombreRésultats > h2 {
-  font-size: 1.25rem;
-  margin: 0;
-}
-
 .pagination {
   display: flex;
   padding: 16px 0;
 }
 
-
-
 .pagination > nav {
   margin: auto;
-}
-
-.résultatRechercheOffreEmploiList {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  list-style: none;
-}
-
-.résultatRechercheOffreEmploiList > li {
-  margin-top: 24px;
 }
 
 .errorMessage {
@@ -93,35 +38,6 @@
 }
 
 @media screen and (min-width: 48em) {
-  .layout {
-    width: 100%;
-    max-width: 78rem;
-    margin: auto;
-  }
-
-  .rechercheOffreEmploiForm {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  .inputButtonWrapper {
-    display: flex;
-    width: 100%;
-    align-items: flex-end;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
-
-  .inputButtonWrapper > div {
-   flex-grow: 1;
-  }
-
-  .buttonRechercher {
-   width: initial;
-  }
-
   .filtreRechercheDesktop {
     display: flex;
     gap: 1rem;

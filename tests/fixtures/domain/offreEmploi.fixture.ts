@@ -2,7 +2,6 @@ import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
   OffreEmploiFiltre,
-  RéférentielDomaine,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 
@@ -39,6 +38,7 @@ export function aBarmanOffreEmploi(): OffreEmploi {
     qualitéeProfessionnelleList: [],
     typeContrat: OffreEmploi.CONTRAT_SAISONNIER,
     urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
+    étiquetteList: ['BOURG LES VALENCE (26)', 'Débutant accepté', 'Saisonnier', 'Temps partiel'],
   };
 }
 
@@ -61,6 +61,7 @@ export function aMaçonOffreEmploi(): OffreEmploi {
     qualitéeProfessionnelleList: [],
     typeContrat: OffreEmploi.CONTRAT_INTÉRIMAIRE,
     urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/130WPHC',
+    étiquetteList: ['Expérience exigée', 'Intérim', 'Temps partiel'],
   };
 }
 
@@ -81,6 +82,7 @@ export function aValetOffreEmploi(): OffreEmploi {
     qualitéeProfessionnelleList: [],
     typeContrat: OffreEmploi.CONTRAT_CDD,
     urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132MDKM',
+    étiquetteList: ['BALARUC LES BAINS (34)', 'Expérience souhaitée', 'CDD', 'Temps partiel'],
   };
 }
 
@@ -97,18 +99,4 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     typeDeContratList: ['CDD', 'CDI'],
     ...override,
   };
-}
-
-function aRéférentielDomaine(override?: Partial<RéférentielDomaine>): RéférentielDomaine {
-  return {
-    code: 'M16',
-    libelle: 'Secteur agroalimentaire',
-    ...override,
-  };
-}
-export function aRésultatRéférentielDomaine(): RéférentielDomaine[] {
-  return [
-    aRéférentielDomaine(),
-    aRéférentielDomaine({ code: 'M15', libelle: 'Secteur public' }),
-  ];
 }

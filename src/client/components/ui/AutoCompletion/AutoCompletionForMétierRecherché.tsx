@@ -9,13 +9,14 @@ import { MétierRecherché } from '~/server/alternances/domain/métierRecherché
 interface AutoCompletionForMétierRecherchéProps {
   placeholder?: string;
   inputName: string;
+  inputIntituleMétier: string;
   className?: string;
   handleErrorMessageActive: boolean;
   resetHandleErrorMessageActive: () => void;
 }
 
 export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
-  const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive } = props;
+  const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive, inputIntituleMétier } = props;
 
   const métierRecherchéService = useDependency<MétierRecherchéService>('métierRecherchéService');
 
@@ -62,8 +63,11 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   },[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
   useEffect(() => {
+    if (inputIntituleMétier !== '') {
+      setValue(inputIntituleMétier);
+    }
     setErrorMessageActive(handleErrorMessageActive);
-  }, [handleErrorMessageActive]);
+  }, [handleErrorMessageActive, inputIntituleMétier]);
 
   async function rechercherIntituléMétier(intitulé: string) {
     setValue(intitulé);
@@ -162,7 +166,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   return (
     <div className={className}>
       <label className="fr-label" htmlFor={inputName} id={label}>
-        Métier {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
+        Métier, mot-clé... {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
       <div ref={autocompleteRef} className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
@@ -182,7 +186,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             aria-controls={listbox}
             aria-activedescendant={inputName}
             placeholder={placeholder ?? 'Rechercher'}
-            className="fr-input"
+            className={['fr-input', styles.autocompletionInput].join(' ')}
             value={value}
             onClick={handleClickResetErrorMessageDisplay}
             onChange={handleChange}
@@ -190,7 +194,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             autoComplete="off"
           />
           <input type="hidden" value={inputHiddenSelectedCodeRomes} name="codeRomes"/>
-          <input type="hidden" value={inputHiddenSelectedMétierIntitulé} name="métierSélectionné"/>
+          <input type="hidden" value={inputHiddenSelectedMétierIntitulé} name="metierSelectionne"/>
         </div>
         {suggestionsActive && <Suggestions />}
       </div>
