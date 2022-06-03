@@ -19,6 +19,9 @@ import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'reac
 
 import { FiltresOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/FiltresOffreEmploi';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
+import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
+import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
+import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
@@ -29,7 +32,6 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
-import { ServiceCardlist } from '~/client/components/ui/ServiceCard/List/ServiceCardList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -80,7 +82,7 @@ export function RechercherOffreEmploi() {
   const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
 
   const OFFRE_PER_PAGE = 30;
-  const defaultLogo = '/images/pole-emploi.svg';
+  const defaultLogo = '/images/logos/pole-emploi.svg';
 
   const AUCUN_RÉSULTAT_TITLE = '- Aucun résultat';
   const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
@@ -187,7 +189,7 @@ export function RechercherOffreEmploi() {
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={styles.container}>
-        <Hero>
+        <Hero image="/images/banners/offres-emploi.jpg">
           <Title as="h1" look="h3">
             Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
           </Title>
@@ -255,8 +257,9 @@ export function RechercherOffreEmploi() {
                 data-testid="FiltreRechercheMobile"
               >
                 <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
-                <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">Filtrer ma
-                  recherche</ModalTitle>
+                <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">
+                  Filtrer ma recherche
+                </ModalTitle>
                 <ModalContent className={styles.filtresAvancésModalContenu}>
                   <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
                     {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
@@ -398,10 +401,20 @@ export function RechercherOffreEmploi() {
               <Pagination itemListLength={nombreRésultats} itemPerPage={OFFRE_PER_PAGE} />
             </div>
           }
-          <ServiceCardlist/>
+
+          <ul className={styles.partnerList}>
+            <li>
+              <CIDJPartner titleAs="h2" />
+            </li>
+            <li>
+              <LaBonneBoitePartner titleAs="h2" />
+            </li>
+            <li>
+              <ServiceCiviquePartner titleAs="h2" />
+            </li>
+          </ul>
         </div>
       </main>
     </>
   );
 }
-

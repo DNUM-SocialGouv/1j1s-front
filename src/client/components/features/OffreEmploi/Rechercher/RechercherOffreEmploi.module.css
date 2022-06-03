@@ -82,6 +82,16 @@
   padding: 16px;
 }
 
+.partnerList {
+  margin: 40px 0 48px 0;
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.partnerList > * + * {
+  margin-top: 28px;
+}
+
 @media screen and (min-width: 48em) {
   .layout {
     width: 100%;
@@ -132,6 +142,5 @@
     margin: auto;
     padding: 2em 0;
   }
-
 }
 
