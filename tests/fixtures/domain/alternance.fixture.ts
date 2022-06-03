@@ -1,4 +1,7 @@
-import { RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
+import {
+  Alternance,
+  RésultatsRechercheAlternance,
+} from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRechercheAlternance>): RésultatsRechercheAlternance {
@@ -73,4 +76,19 @@ export function aMétierRecherchéList(): MétierRecherché[] {
       intitulé: 'Boulangerie, pâtisserie, chocolaterie',
     },
   ];
+}
+
+export function anApprentiBoucher(): Alternance {
+  return {
+    description: 'Nous sommes à la recherche d\'un(e) apprenti(e) boucher(ère) dans le cadre d\'un CAP.\n\nVous serez formé(e)  entre un centre de formation des apprentis et un employeur.\n\n Passionné(e) par l\'univers de la boucherie, vous souhaitez en faire votre métier, nous sommes prêts à vous former !',
+    entreprise: {
+      nom: 'SUPERMARCHE MATCH',
+    },
+    id: '134BYGN',
+    intitulé: 'Apprenti/e boucher/ère (H/F)',
+    niveauRequis: 'Alternance',
+    typeDeContrats: ['CDD'],
+    ville: 'CHATEAU SALINS (57)',
+    étiquetteList: ['CHATEAU SALINS (57)', 'Alternance', 'CDD'],
+  };
 }

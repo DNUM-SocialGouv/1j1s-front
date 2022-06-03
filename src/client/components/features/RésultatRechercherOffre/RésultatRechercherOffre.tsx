@@ -12,7 +12,7 @@ interface RésultatRechercherOffreProps {
   descriptionOffre?: string
   logoEntreprise: string
   nomEntreprise?: string
-  étiquetteOffreList: Array<string | undefined>
+  étiquetteOffreList: string[]
 }
 
 export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
