@@ -2,7 +2,7 @@ import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } fro
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticleProps';
+import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { Article, ArticleSlug } from '~/server/articles/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
