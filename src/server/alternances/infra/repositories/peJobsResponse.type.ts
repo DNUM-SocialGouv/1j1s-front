@@ -2,7 +2,9 @@ export interface PeJobsResponse {
   results: PeJobsResultResponse[]
 }
 
+type IdeaType = 'peJob'
 export interface PeJobsResultResponse {
+  ideaType: IdeaType
   title: string
   company: PeJobsCompanyResponse
   job: PeJobsJobResponse

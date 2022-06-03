@@ -1,4 +1,7 @@
-import { Alternance } from '~/server/alternances/domain/alternance';
+import {
+  Alternance,
+  IdeaType,
+} from '~/server/alternances/domain/alternance';
 import { AlternanceResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 
 export function mapAlternance(response: AlternanceResponse): Alternance[] {
@@ -15,6 +18,7 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
         nom: peJob.company.name,
       },
       id: peJob.job.id,
+      ideaType: peJob.ideaType,
       intitulé: peJob.title,
       niveauRequis,
       typeDeContrats,
@@ -37,6 +41,7 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
         nom: matcha.company.name,
       },
       id: matcha.job.id,
+      ideaType: matcha.ideaType,
       intitulé: matcha.title,
       niveauRequis,
       typeDeContrats,
@@ -52,4 +57,34 @@ export function mapNomVille(ville: string | null): string | undefined {
   if (ville === null) return undefined;
   const villeFormatté = ville.split(' - ');
   return `${villeFormatté[1]} (${villeFormatté[0]})`;
+}
+
+export function mapOffreAlternance(ideaType: IdeaType, response) { // TODO OLIV
+  if (ideaType === 'matcha') {
+    const alternance = response.matchas[0];
+    return {
+      description: alternance.job.description,
+      entreprise: {
+        logo: alternance.company.logo || undefined,
+        nom: alternance.company.name,
+      },
+      id: alternance.job.id,
+      ideaType: alternance.ideaType,
+      intitulé: alternance.title,
+    };
+  }
+  if (ideaType === 'peJob') {
+    const alternance = response.peJobs[0];
+    return {
+      description: alternance.job.description,
+      entreprise: {
+        logo: alternance.company.logo || undefined,
+        nom: alternance.company.name,
+      },
+      id: alternance.job.id,
+      ideaType: alternance.ideaType,
+      intitulé: alternance.title,
+    };
+  }
+
 }

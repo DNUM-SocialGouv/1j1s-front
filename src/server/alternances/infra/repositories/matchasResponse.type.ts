@@ -1,8 +1,9 @@
 export interface MatchasResponse {
   results: MatchasResultResponse[]
 }
-
+type IdeaType = 'matcha'
 export interface MatchasResultResponse {
+  ideaType: IdeaType
   title: string
   company: MatchasCompanyResponse
   job: MatchasJobResponse

@@ -5,10 +5,10 @@ import {
 } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 
 import { ApiLaBonneAlternanceRepository } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import { LaBonneAlternanceHttpClient } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 describe('ApiLaBonneAlternanceRepository', () => {
-  let laBonneAlternanceHttpClient: LaBonneAlternanceHttpClient;
+  let laBonneAlternanceHttpClient: LaBonneAlternanceHttpClientService;
 
   beforeEach(() => {
     laBonneAlternanceHttpClient = aLaBonneAlternanceHttpClient();

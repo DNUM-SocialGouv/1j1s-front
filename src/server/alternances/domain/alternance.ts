@@ -1,7 +1,10 @@
-type AlternanceId = string;
+export type AlternanceId = string;
+
+export type IdeaType = 'peJob' | 'matcha'
 
 export interface Alternance {
   id: AlternanceId;
+  ideaType: IdeaType;
   intitulé: string;
   description?: string;
   entreprise: Alternance.Entreprise;
