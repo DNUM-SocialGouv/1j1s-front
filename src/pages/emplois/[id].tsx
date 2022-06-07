@@ -42,7 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
 
   return {
     props: {
-      offreEmploi: JSON.parse(JSON.stringify(offreEmploi)),
+      offreEmploi: JSON.parse(JSON.stringify(offreEmploi.result)),
     },
     revalidate: 86400,
   };
