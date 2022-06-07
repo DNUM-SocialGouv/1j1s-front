@@ -10,19 +10,28 @@ export interface PeJobsResultResponse {
   job: PeJobsJobResponse
   diplomaLevel: string | null
   place: PeJobsPlaceResponse
+  contact: PeJobsContactResponse
+  url: string
 }
 
 export interface PeJobsJobResponse {
   id: string
   description: string
   contractType: string
+  contractDescription: string
+  duration: string
 }
 
 export interface PeJobsPlaceResponse {
   city: string
+  fullAddress: string
 }
 
 export interface PeJobsCompanyResponse {
   name: string
   logo?: string
+}
+export interface PeJobsContactResponse {
+  info?: string
+  phone?: string
 }

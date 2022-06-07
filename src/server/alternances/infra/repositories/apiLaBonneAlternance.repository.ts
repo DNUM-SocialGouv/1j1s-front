@@ -1,4 +1,7 @@
+import axios from 'axios';
+
 import {
+  Alternance,
   AlternanceFiltre,
   AlternanceId,
   IdeaType,
@@ -12,6 +15,12 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { MatchasResponse } from '~/server/alternances/infra/repositories/matchasResponse.type';
 import { PeJobsResponse } from '~/server/alternances/infra/repositories/peJobsResponse.type';
+import {
+  createFailure,
+  createSuccess,
+  Either,
+} from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
@@ -39,7 +48,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
       `jobs?romes=${alternanceFiltre.codeRomeList.toString()}&caller=${this.REQUIRED_PARAMETER_FOR_MA_BONNE_ALTERNANCE}`,
     );
-    console.log('in getlist', response.data);
     const résultats = mapAlternance(response.data);
 
     return {
@@ -48,12 +56,25 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     };
   }
 
-  async getOffreAlternance(id: AlternanceId, ideaType: IdeaType): Promise<any> { //TODO OLIV
-    LoggerService.info(`Récupération offre alternance ${id}`);
-    const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
-      `jobs/${ideaType === 'matcha' ? 'matcha' : 'job'}/${id}`,
-    ); // TODO OLIV
-    return mapOffreAlternance(ideaType, response.data);
+  async getOffreAlternance(id: AlternanceId, ideaType: IdeaType): Promise<Either<Alternance>> {
+    LoggerService.info(`Récupération offre alternance ${id} dans ${ideaType}`);
+    try {
+      const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
+        `jobs/${ideaType === 'matcha' ? 'matcha' : 'job'}/${id}`,
+      );
+      console.log('[response in getOffreAlternance]', response);
+      return createSuccess(mapOffreAlternance(ideaType, response.data));
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        if(e.response?.status === 500) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+        if(e.response?.status === 400) {
+          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+        }
+      }
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    }
   }
 }
 

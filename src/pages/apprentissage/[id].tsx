@@ -43,13 +43,13 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
   const ideaType = split[0] as IdeaType;
   const alternanceId = split[1] as AlternanceId;
   const offreAlternance = await dependencies.alternanceDependencies.consulterOffreAlternance.handle(alternanceId, ideaType);
-  if (!offreAlternance) {
+  if (offreAlternance.instance === 'failure') {
     throw new AlternanceNotFoundException(alternanceId, ideaType);
   }
 
   return {
     props: {
-      offreAlternance: JSON.parse(JSON.stringify(offreAlternance)),
+      offreAlternance: JSON.parse(JSON.stringify(offreAlternance.result)),
     },
     revalidate: 86400,
   };
