@@ -13,8 +13,14 @@ import {
   mapAlternance,
   mapOffreAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import { MatchasResponse } from '~/server/alternances/infra/repositories/matchasResponse.type';
-import { PeJobsResponse } from '~/server/alternances/infra/repositories/peJobsResponse.type';
+import {
+  MatchasResponse,
+  MatchasResultResponse,
+} from '~/server/alternances/infra/repositories/matchasResponse.type';
+import {
+  PeJobsResponse,
+  PeJobsResultResponse,
+} from '~/server/alternances/infra/repositories/peJobsResponse.type';
 import {
   createFailure,
   createSuccess,
@@ -59,10 +65,9 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   async getOffreAlternance(id: AlternanceId, ideaType: IdeaType): Promise<Either<Alternance>> {
     LoggerService.info(`Récupération offre alternance ${id} dans ${ideaType}`);
     try {
-      const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
+      const response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
         `jobs/${ideaType === 'matcha' ? 'matcha' : 'job'}/${id}`,
       );
-      console.log('[response in getOffreAlternance]', response);
       return createSuccess(mapOffreAlternance(ideaType, response.data));
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -88,6 +93,25 @@ interface RechercheMetierDataResponse {
 }
 
 export interface AlternanceResponse {
-  peJobs: PeJobsResponse,
-  matchas: MatchasResponse,
+  peJobs: PeJobsResponse
+  matchas: MatchasResponse
 }
+
+export type AlternanceDetailResponse = AlternancePeJobsResponse | AlternanceMatchasResponse
+
+export interface AlternancePeJobsResponse {
+  peJobs: PeJobsResultResponse[]
+}
+
+export interface AlternanceMatchasResponse {
+  matchas: MatchasResultResponse[]
+}
+
+export function isAlternanceDetailResponsePeJob(alternance: AlternanceDetailResponse): alternance is AlternancePeJobsResponse {
+  return Object.keys(alternance)[0] === 'peJobs';
+}
+
+export function isAlternanceDetailResponseMatcha(alternance: AlternanceDetailResponse): alternance is AlternanceMatchasResponse {
+  return Object.keys(alternance)[0] ===  'matchas';
+}
+

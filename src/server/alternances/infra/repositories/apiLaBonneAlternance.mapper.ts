@@ -5,7 +5,11 @@ import {
   AlternancePeJob,
   IdeaType,
 } from '~/server/alternances/domain/alternance';
-import { AlternanceResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
+import {
+  AlternanceDetailResponse,
+  AlternanceResponse,
+  isAlternanceDetailResponseMatcha,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
   MatchasContactResponse,
   MatchasResultResponse,
@@ -87,8 +91,8 @@ function mapContactPeJob(contact: PeJobsContactResponse): AlternancePeJob.Contac
   };
 }
 
-export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceResponse): Alternance {
-  if (ideaType === 'matcha') {
+export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetailResponse): Alternance {
+  if (isAlternanceDetailResponseMatcha(response)) {
     const alternance: MatchasResultResponse = response.matchas[0];
     const ville = mapNomVille(alternance.place.city);
     const niveauRequis = alternance.diplomaLevel;

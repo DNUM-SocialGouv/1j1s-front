@@ -39,6 +39,7 @@ export interface MatchasCompanyResponse {
   name: string
   logo?: string
 }
+
 export interface MatchasContactResponse {
   name: string
   phone?: string
