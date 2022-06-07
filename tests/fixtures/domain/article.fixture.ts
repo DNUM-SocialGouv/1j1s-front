@@ -43,7 +43,7 @@ export function anArticleResponse(override?: Partial<ArticleResponse>): ArticleR
 }
 
 export function anArticleAxiosResponse(override?: Partial<ArticleResponse>): AxiosResponse<ArticleResponse> {
-  return anAxiosResponse(anArticleResponse(override));
+  return anAxiosResponse<ArticleResponse>(anArticleResponse(override));
 }
 
 
