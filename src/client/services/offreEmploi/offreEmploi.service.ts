@@ -9,9 +9,9 @@ export class OffreEmploiService {
 
   constructor(private httpClientService: HttpClientService) {}
 
-  async rechercherOffreEmploi(queryString = ''): Promise<Either<RésultatsRechercheOffreEmploi>> {
+  async rechercherOffreEmploi(queryString = '', defaultQueryParameters?: string): Promise<Either<RésultatsRechercheOffreEmploi>> {
     try {
-      const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}`);
+      const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}${defaultQueryParameters ? `&${defaultQueryParameters}` : ''}`);
       return createSuccess(response.data);
     } catch (e) {
       if (axios.isAxiosError(e)) {

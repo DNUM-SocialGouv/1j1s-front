@@ -1,4 +1,3 @@
-import { aJobÉtudiantList } from '@tests/fixtures/domain/jobÉtudiant.fixture';
 import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
@@ -139,10 +138,4 @@ function aFiltresPossiblesResponse(): RésultatsRechercheOffreEmploiResponse.Fil
       ],
     },
   ];
-}
-
-export function aRechercheJobÉtudiantResponse(): AxiosResponse {
-  return anAxiosResponse({
-    resultats: aJobÉtudiantList(),
-  });
 }

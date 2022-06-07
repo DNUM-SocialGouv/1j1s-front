@@ -157,6 +157,7 @@ export interface OffreEmploiFiltre {
   tempsDeTravail?: string
   grandDomaineList: string[]
   experienceExigenceList: string[]
+  natureContrat: string
 }
 
 export interface OffreEmploiFiltreLocalisation {

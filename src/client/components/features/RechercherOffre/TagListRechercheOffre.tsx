@@ -10,7 +10,7 @@ import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 interface FiltresOffreEmploiProps {
   localisation: string
 }
-export function FiltresOffreEmploi(props: FiltresOffreEmploiProps) {
+export function TagListRechercheOffre(props: FiltresOffreEmploiProps) {
   const { localisation } = props;
   const [filtres, setFiltres] = useState<string[]>([]);
   const { isKeyInQueryParams, getQueryValue, hasQueryParams, queryParams } = useQueryParams();
