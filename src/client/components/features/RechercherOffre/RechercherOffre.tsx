@@ -17,12 +17,12 @@ import {
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
-import { FiltresOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/FiltresOffreEmploi';
-import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
+import styles from '~/client/components/features/RechercherOffre/RechercherOffre.module.css';
+import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
@@ -50,7 +50,19 @@ import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
-export function RechercherOffreEmploi() {
+
+export interface RechercherOffreProps {
+  prefixTitle: string
+  description: string
+  heroTitle: string
+  defaultQueryParameters?: string
+  isNiveauDemandéActive: boolean
+  isTypeDeContratActive: boolean
+  descriptionNombreRésultat: string
+  barreDeRecherchePlaceHolder: string
+}
+
+export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTypeDeContratActive, descriptionNombreRésultat }: RechercherOffreProps) {
   const domaineList = référentielDomaineList;
   const router = useRouter();
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
@@ -96,7 +108,7 @@ export function RechercherOffreEmploi() {
     if (!isSmallScreen) setIsFiltresAvancésMobileOpen(false);
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
-        const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
+        const response = await offreEmploiService.rechercherOffreEmploi(getQueryString(), defaultQueryParameters);
         if (response.instance === 'success') {
           if (response.result.nombreRésultats === 0) {
             setTitle(AUCUN_RÉSULTAT_TITLE);
@@ -186,14 +198,12 @@ export function RechercherOffreEmploi() {
   return (
     <>
       <HeadTag
-        title={`Rechercher un emploi ${title} | 1jeune1solution`}
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
+        title={`${prefixTitle} ${title} | 1jeune1solution`}
+        description={description}
       />
       <main id="contenu" className={commonStyles.container}>
         <Hero image="/images/banners/offres-emploi.jpg">
-          <Title as="h1" look="h3">
-            Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi
-          </Title>
+          <Title as="h1" look="h3">{heroTitle}</Title>
         </Hero>
         <div className={commonStyles.layout}>
           <form
@@ -211,7 +221,7 @@ export function RechercherOffreEmploi() {
                 value={inputMotCle}
                 name="motCle"
                 autoFocus
-                placeholder="Exemple : boulanger, informatique..."
+                placeholder={barreDeRecherchePlaceHolder}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
               />
               <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
@@ -262,19 +272,21 @@ export function RechercherOffreEmploi() {
                   Filtrer ma recherche
                 </ModalTitle>
                 <ModalContent className={styles.filtresAvancésModalContenu}>
-                  <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
-                    {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                      <Checkbox
-                        key={index}
-                        label={typeDeContrat.libelléLong}
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                        value={typeDeContrat.valeur}
-                        checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-                      />
-                    ))}
-                  </CheckboxGroup>
+                  {
+                    isTypeDeContratActive && <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
+                      {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                        <Checkbox
+                          key={index}
+                          label={typeDeContrat.libelléLong}
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-ignore
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                          value={typeDeContrat.valeur}
+                          checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
+                        />
+                      ))}
+                    </CheckboxGroup>
+                  }
                   <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
                     {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                       <Radio
@@ -288,20 +300,21 @@ export function RechercherOffreEmploi() {
                       />
                     ))}
                   </RadioGroup>
-                  <CheckboxGroup legend="Niveau demandé">
-                    {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
-                      <Checkbox
-                        key={index}
-                        label={expérience.libellé}
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
-                        value={expérience.valeur}
-                        checked={inputExpérience.includes(expérience.valeur)}
-                      />
-                    ))}
-                  </CheckboxGroup>
-
+                  {
+                    isNiveauDemandéActive && <CheckboxGroup legend="Niveau demandé">
+                      {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
+                        <Checkbox
+                          key={index}
+                          label={expérience.libellé}
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-ignore
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
+                          value={expérience.valeur}
+                          checked={inputExpérience.includes(expérience.valeur)}
+                        />
+                      ))}
+                    </CheckboxGroup>
+                  }
                   <CheckboxGroup legend="Domaine">
                     {domaineList.map((domaine, index) => (
                       <Checkbox
@@ -331,24 +344,28 @@ export function RechercherOffreEmploi() {
 
             {!isSmallScreen && (
               <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-                <SelectMultiple
-                  titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
-                  optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-                  onChange={toggleTypeDeContrat}
-                  currentInput={inputTypeDeContrat}
-                />
+                {
+                  isTypeDeContratActive && <SelectMultiple
+                    titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
+                    optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+                    onChange={toggleTypeDeContrat}
+                    currentInput={inputTypeDeContrat}
+                  />
+                }
                 <SelectSingle
                   titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
                   optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
                   onChange={(value) => setInputTempsDeTravail(value)}
                   currentInput={inputTempsDeTravail}
                 />
-                <SelectMultiple
-                  titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
-                  optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
-                  onChange={toggleExpérience}
-                  currentInput={inputExpérience}
-                />
+                {
+                  isNiveauDemandéActive && <SelectMultiple
+                    titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+                    optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
+                    onChange={toggleExpérience}
+                    currentInput={inputExpérience}
+                  />
+                }
                 <SelectMultiple
                   titre={générerTitreFiltre('Domaine', inputDomaine)}
                   optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
@@ -360,12 +377,12 @@ export function RechercherOffreEmploi() {
           </form>
 
           {isLoading && <p>Recherche des offres en attente de loader</p>}
-          {!isLoading && <FiltresOffreEmploi localisation={formattedLocalisation}/>}
+          {!isLoading && <TagListRechercheOffre localisation={formattedLocalisation}/>}
 
           {nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
               <h2>
-                {nombreRésultats} offres d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
+                {nombreRésultats} {descriptionNombreRésultat} {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
               </h2>
             </div>
           }
@@ -414,3 +431,5 @@ export function RechercherOffreEmploi() {
     </>
   );
 }
+
+

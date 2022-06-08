@@ -83,6 +83,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       tempsPlein: mapTempsDeTravail(),
       typeContrat: offreEmploiFiltre.typeDeContratList.join(','),
       ...localisation,
+      dureeContratMax: offreEmploiFiltre.dureeContratMax,
     };
 
     Object.keys(queryList).forEach((key: string) => {

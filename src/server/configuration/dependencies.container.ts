@@ -3,10 +3,6 @@ import {
   alternanceDependenciesContainer,
 } from '~/server/alternances/configuration/alternanceDependencies';
 import {
-  JobsÉtudiantDependencies,
-  jobsÉtudiantDependenciesContainer,
-} from '~/server/jobsÉtudiant/configuration/jobsÉtudiant.dependencies';
-import {
   localisationDependenciesContainer,
   LocalisationsDependencies,
 } from '~/server/localisations/configuration/localisations.dependencies';
@@ -24,7 +20,6 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
-  jobÉtudiantDependencies: JobsÉtudiantDependencies;
   alternanceDependencies: AlternanceDependencies;
   cmsDependencies: StrapiCmsService;
   localisationDependencies: LocalisationsDependencies;
@@ -39,7 +34,6 @@ export const dependenciesContainer = (): Dependencies => {
   const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
 
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
-  const jobÉtudiantDependencies = jobsÉtudiantDependenciesContainer(poleEmploiHttpClientService);
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
@@ -52,7 +46,6 @@ export const dependenciesContainer = (): Dependencies => {
       strapiHttpClientService,
       serverConfigurationService,
     ),
-    jobÉtudiantDependencies,
     localisationDependencies,
     offreEmploiDependencies,
   };

@@ -24,12 +24,11 @@ import {
 import { aLocalisationListWithCommuneAndDépartement } from '@tests/fixtures/domain/localisation.fixture';
 import React from 'react';
 
-import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
+import { RechercherOffre } from '~/client/components/features/RechercherOffre/RechercherOffre';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
-import RechercherOffreEmploiPage from '~/pages/emplois';
 
-describe('RechercherOffreEmploi', () => {
+describe('RechercherOffre', () => {
   beforeEach(() => {
     mockSmallScreen();
   });
@@ -46,7 +45,15 @@ describe('RechercherOffreEmploi', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffreEmploiPage/>
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -67,7 +74,15 @@ describe('RechercherOffreEmploi', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffreEmploiPage/>
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -86,7 +101,15 @@ describe('RechercherOffreEmploi', () => {
       mockUseRouter({ query: { codeInsee: '34', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffreEmploiPage/>
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -100,7 +123,7 @@ describe('RechercherOffreEmploi', () => {
         expect( screen.getAllByTestId('TagListItem')[0].textContent).toEqual('Hérault (34)');
       });
       expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '34');
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=34&motCle=boulanger&typeLocalisation=DEPARTEMENT');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=34&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
     });
   });
 
@@ -115,7 +138,15 @@ describe('RechercherOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat="offres d'emplois"
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -134,7 +165,7 @@ describe('RechercherOffreEmploi', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' });
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
         expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois');
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1', undefined);
       });
     });
 
@@ -148,7 +179,15 @@ describe('RechercherOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploi />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -176,7 +215,7 @@ describe('RechercherOffreEmploi', () => {
 
         // THEN
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=MIS');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=MIS', undefined);
       });
     });
 
@@ -190,7 +229,15 @@ describe('RechercherOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploi />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -216,7 +263,7 @@ describe('RechercherOffreEmploi', () => {
 
         // THEN
         expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein', undefined);
       });
     });
 
@@ -230,7 +277,15 @@ describe('RechercherOffreEmploi', () => {
         mockUseRouter({});
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
         const inputLocalisation = screen.getByTestId('InputLocalisation');
@@ -252,7 +307,15 @@ describe('RechercherOffreEmploi', () => {
         mockUseRouter({ push: routerPush });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploiPage/>
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -277,7 +340,7 @@ describe('RechercherOffreEmploi', () => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeInsee=75001_75056&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75001_75056&page=1&typeLocalisation=COMMUNE');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75001_75056&page=1&typeLocalisation=COMMUNE', undefined);
       });
     });
   });
@@ -294,7 +357,15 @@ describe('RechercherOffreEmploi', () => {
       mockUseRouter({ push: jest.fn() });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffreEmploiPage/>
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -316,7 +387,15 @@ describe('RechercherOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploi />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -348,7 +427,7 @@ describe('RechercherOffreEmploi', () => {
 
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=CDD');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=CDD', undefined);
       });
     });
 
@@ -361,7 +440,15 @@ describe('RechercherOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploi />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -387,7 +474,7 @@ describe('RechercherOffreEmploi', () => {
 
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein');
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein', undefined);
       });
     });
   });
@@ -401,7 +488,15 @@ describe('RechercherOffreEmploi', () => {
 
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffreEmploi />
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
