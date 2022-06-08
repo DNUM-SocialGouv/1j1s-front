@@ -45,7 +45,7 @@ describe('ApiStrapiArticleMapper', () => {
             id: '2',
           }],
         });
-        const expectedArticle = anArticle({ contenu: 'Contenu', slug: 'mon-article-1', titre: 'Mon article 1' });
+        const expectedArticle = anArticle({ contenu: '<p>Contenu</p>\n', slug: 'mon-article-1', titre: 'Mon article 1' });
         const article = mapArticle(articleResponse);
         expect(article).toEqual(expectedArticle);
       });

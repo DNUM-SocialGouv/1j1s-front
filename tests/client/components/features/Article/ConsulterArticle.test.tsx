@@ -10,7 +10,7 @@ import { ConsulterArticle } from '~/client/components/features/Article/Consulter
 const article = anArticle();
 
 describe('ConsulterArticle', () => {
-  it('affiche l\'article', () => {
+  it('affiche le titre de l\'article', () => {
     render(<ConsulterArticle article={article} />);
     const titre = screen.getByText('Mon article');
     expect(titre).toBeInTheDocument();
