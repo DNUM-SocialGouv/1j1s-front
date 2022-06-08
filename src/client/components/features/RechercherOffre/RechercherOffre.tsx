@@ -56,11 +56,13 @@ export interface RechercherOffreProps {
   description: string
   heroTitle: string
   defaultQueryParameters?: string
-  isNiveauDemandéActive?: boolean
+  isNiveauDemandéActive: boolean
+  isTypeDeContratActive: boolean
   descriptionNombreRésultat: string
+  barreDeRecherchePlaceHolder: string
 }
 
-export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive }: RechercherOffreProps) {
+export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTypeDeContratActive, descriptionNombreRésultat }: RechercherOffreProps) {
   const domaineList = référentielDomaineList;
   const router = useRouter();
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
@@ -219,7 +221,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                 value={inputMotCle}
                 name="motCle"
                 autoFocus
-                placeholder="Exemple : boulanger, informatique..."
+                placeholder={barreDeRecherchePlaceHolder}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
               />
               <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
@@ -270,19 +272,21 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                   Filtrer ma recherche
                 </ModalTitle>
                 <ModalContent className={styles.filtresAvancésModalContenu}>
-                  <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
-                    {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                      <Checkbox
-                        key={index}
-                        label={typeDeContrat.libelléLong}
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                        value={typeDeContrat.valeur}
-                        checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-                      />
-                    ))}
-                  </CheckboxGroup>
+                  {
+                    isTypeDeContratActive && <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
+                      {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                        <Checkbox
+                          key={index}
+                          label={typeDeContrat.libelléLong}
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-ignore
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                          value={typeDeContrat.valeur}
+                          checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
+                        />
+                      ))}
+                    </CheckboxGroup>
+                  }
                   <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
                     {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                       <Radio
@@ -340,12 +344,14 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
 
             {!isSmallScreen && (
               <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-                <SelectMultiple
-                  titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
-                  optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-                  onChange={toggleTypeDeContrat}
-                  currentInput={inputTypeDeContrat}
-                />
+                {
+                  isTypeDeContratActive && <SelectMultiple
+                    titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
+                    optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+                    onChange={toggleTypeDeContrat}
+                    currentInput={inputTypeDeContrat}
+                  />
+                }
                 <SelectSingle
                   titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
                   optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
@@ -376,7 +382,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
           {nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
               <h2>
-                {nombreRésultats} offres d&apos;emplois {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
+                {nombreRésultats} {descriptionNombreRésultat} {getQueryValue(QueryParams.MOT_CLÉ) ? `pour ${getQueryValue(QueryParams.MOT_CLÉ)}` : ''}
               </h2>
             </div>
           }

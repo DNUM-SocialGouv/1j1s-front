@@ -45,7 +45,15 @@ describe('RechercherOffre', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -66,7 +74,15 @@ describe('RechercherOffre', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -85,7 +101,15 @@ describe('RechercherOffre', () => {
       mockUseRouter({ query: { codeInsee: '34', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -114,7 +138,15 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat="offres d'emplois"
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -147,7 +179,15 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -189,7 +229,15 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -229,7 +277,15 @@ describe('RechercherOffre', () => {
         mockUseRouter({});
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
         const inputLocalisation = screen.getByTestId('InputLocalisation');
@@ -251,7 +307,15 @@ describe('RechercherOffre', () => {
         mockUseRouter({ push: routerPush });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -293,7 +357,15 @@ describe('RechercherOffre', () => {
       mockUseRouter({ push: jest.fn() });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 
@@ -315,7 +387,15 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -360,7 +440,15 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+            <RechercherOffre
+              prefixTitle=""
+              description=""
+              heroTitle=""
+              descriptionNombreRésultat=""
+              isTypeDeContratActive={true}
+              isNiveauDemandéActive={true}
+              barreDeRecherchePlaceHolder=""
+            />
           </DependenciesProvider>,
         );
 
@@ -400,7 +488,15 @@ describe('RechercherOffre', () => {
 
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre prefixTitle="" description="" heroTitle="" descriptionNombreRésultat="" />
+          <RechercherOffre
+            prefixTitle=""
+            description=""
+            heroTitle=""
+            descriptionNombreRésultat=""
+            isTypeDeContratActive={true}
+            isNiveauDemandéActive={true}
+            barreDeRecherchePlaceHolder=""
+          />
         </DependenciesProvider>,
       );
 

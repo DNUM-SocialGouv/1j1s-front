@@ -5,12 +5,14 @@ import { RechercherOffre } from '~/client/components/features/RechercherOffre/Re
 export default function RechercherJobSaisonnierPage() {
   return (
     <RechercherOffre
-      prefixTitle="Rechercher un job saisonnier"
-      description="Plus de 400 000 offres de job saisonnier pour vous"
-      heroTitle="Des milliers de jobs saisonnier sélectionnés pour vous par Pôle Emploi"
+      prefixTitle="Rechercher un emploi saisonnier"
+      description="Plus de 400 000 offres d'emplois saisonniers pour vous"
+      heroTitle="Des milliers d'emplois saisonniers sélectionnés pour vous par Pôle Emploi"
       defaultQueryParameters="typeContrat=CDD,MIS,SAI&dureeContratMax=2"
       isNiveauDemandéActive={false}
-      descriptionNombreRésultat="jobs saisonnier"
+      isTypeDeContratActive={false}
+      descriptionNombreRésultat="offres d'emplois saisonniers"
+      barreDeRecherchePlaceHolder="Exemple : serveur, tourisme..."
     />
   );
 }

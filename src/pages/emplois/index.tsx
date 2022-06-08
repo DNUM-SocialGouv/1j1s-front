@@ -7,9 +7,11 @@ export default function RechercherOffreEmploiPage() {
     <RechercherOffre
       prefixTitle="Rechercher un emploi"
       description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
-      heroTitle="Des milliers d&apos;offres d&apos;emplois sélectionnées pour vous par Pôle Emploi"
+      heroTitle="Des milliers d'offres d'emplois sélectionnées pour vous par Pôle Emploi"
       isNiveauDemandéActive={true}
-      descriptionNombreRésultat="offres d&apos;emplois"
+      isTypeDeContratActive={true}
+      descriptionNombreRésultat="offres d'emplois"
+      barreDeRecherchePlaceHolder="Exemple : boulanger, informatique..."
     />
   );
 }
