@@ -6,6 +6,8 @@
 
 .heroContent {
   padding: 80px;
+  min-width:50%;
+  box-sizing: border-box;
 }
 
 .hero *, .hero [class^="fr-"] {
