@@ -35,14 +35,19 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
   }
 
   const { id } = context.params;
-  const article = await dependencies.articleDependencies.consulterArticle.handle(id);
+  const response = await dependencies.articleDependencies.consulterArticle.handle(id);
+
+  if (response.instance === 'failure') {
+    return { notFound: true };
+  }
 
   return {
     props: {
-      article: JSON.parse(JSON.stringify(article)),
+      article: JSON.parse(JSON.stringify(response.result)),
     },
     revalidate: 86400,
   };
+
 }
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
