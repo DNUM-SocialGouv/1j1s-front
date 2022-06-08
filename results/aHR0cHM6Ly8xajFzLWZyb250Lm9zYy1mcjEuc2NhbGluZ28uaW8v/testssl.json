@@ -1,0 +1,2141 @@
+[
+         {
+              "id"           : "service",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "HTTP"
+          }
+,         {
+              "id"           : "pre_128cipher",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No 128 cipher limit bug"
+          }
+,         {
+              "id"           : "SSLv2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "SSLv3",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "TLS1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "TLS1_1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "TLS1_2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "TLS1_3",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered with final"
+          }
+,         {
+              "id"           : "ALPN_HTTP2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "h2"
+          }
+,         {
+              "id"           : "ALPN",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "http/1.1"
+          }
+,         {
+              "id"           : "cipherlist_NULL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_aNULL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_EXPORT",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_LOW",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_3DES_IDEA",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "cwe"          : "CWE-310",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_AVERAGE",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "cwe"          : "CWE-310",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "cipherlist_GOOD",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_STRONG",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "cipherorder_TLSv1_2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "cipher_order",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "server"
+          }
+,         {
+              "id"           : "protocol_negotiated",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "Default protocol TLS1.3"
+          }
+,         {
+              "id"           : "cipher_negotiated",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)"
+          }
+,         {
+              "id"           : "FS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "FS_ciphers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "DHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES256-SHA384"
+          }
+,         {
+              "id"           : "FS_ECDHE_curves",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "prime256v1 secp384r1 secp521r1"
+          }
+,         {
+              "id"           : "TLS_extensions",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "'renegotiation info/#65281' 'server name/#0' 'EC point formats/#11' 'session ticket/#35' 'next protocol/#13172' 'supported versions/#43' 'key share/#51' 'supported_groups/#10' 'max fragment length/#1' 'application layer protocol negotiation/#16' 'encrypt-then-mac/#22' 'extended master secret/#23'"
+          }
+,         {
+              "id"           : "TLS_session_ticket",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "valid for 300 seconds only (<daily)"
+          }
+,         {
+              "id"           : "SSL_sessionID_support",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "yes"
+          }
+,         {
+              "id"           : "sessionresumption_ticket",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not supported"
+          }
+,         {
+              "id"           : "sessionresumption_ID",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not supported"
+          }
+,         {
+              "id"           : "TLS_timestamp",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "random"
+          }
+,         {
+              "id"           : "certificate_compression",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "none"
+          }
+,         {
+              "id"           : "clientAuth",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "none"
+          }
+,         {
+              "id"           : "cert_numbers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "1"
+          }
+,         {
+              "id"           : "cert_signatureAlgorithm",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "SHA256 with RSA"
+          }
+,         {
+              "id"           : "cert_keySize",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "RSA 2048 bits (exponent is 65537)"
+          }
+,         {
+              "id"           : "cert_keyUsage",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Digital Signature, Key Encipherment"
+          }
+,         {
+              "id"           : "cert_extKeyUsage",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLS Web Server Authentication, TLS Web Client Authentication"
+          }
+,         {
+              "id"           : "cert_serialNumber",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "CACEECA0DD99542877CF69C4C21EF6AC"
+          }
+,         {
+              "id"           : "cert_serialNumberLen",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "16"
+          }
+,         {
+              "id"           : "cert_fingerprintSHA1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "7C8A7E297A02B00FC722DE2747A6ADA871FB7B11"
+          }
+,         {
+              "id"           : "cert_fingerprintSHA256",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "7CDB5E536E1ECDF46330CA3B1A1BB490389FD15A0596F171E3F836F749BE04E1"
+          }
+,         {
+              "id"           : "cert",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "-----BEGIN CERTIFICATE----- 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 -----END CERTIFICATE-----"
+          }
+,         {
+              "id"           : "cert_commonName",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "*.osc-fr1.scalingo.io"
+          }
+,         {
+              "id"           : "cert_commonName_wo_SNI",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "*.osc-fr1.scalingo.io"
+          }
+,         {
+              "id"           : "cert_subjectAltName",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "*.osc-fr1.scalingo.io osc-fr1.scalingo.io"
+          }
+,         {
+              "id"           : "cert_trust",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "Ok via SAN wildcard and CN wildcard (same w/o SNI)"
+          }
+,         {
+              "id"           : "cert_chain_of_trust",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "passed."
+          }
+,         {
+              "id"           : "cert_certificatePolicies_EV",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "no"
+          }
+,         {
+              "id"           : "cert_expirationStatus",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "335 >= 60 days"
+          }
+,         {
+              "id"           : "cert_notBefore",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "2022-05-09 00:00"
+          }
+,         {
+              "id"           : "cert_notAfter",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "2023-05-09 23:59"
+          }
+,         {
+              "id"           : "cert_extlifeSpan",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "certificate has no extended life time according to browser forum"
+          }
+,         {
+              "id"           : "cert_eTLS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not present"
+          }
+,         {
+              "id"           : "cert_crlDistributionPoints",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "http://crl.usertrust.com/GandiStandardSSLCA2.crl"
+          }
+,         {
+              "id"           : "cert_ocspURL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "http://ocsp.usertrust.com"
+          }
+,         {
+              "id"           : "OCSP_stapling",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cert_mustStapleExtension",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "DNS_CAArecord",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "issue=comodoca.com, issue=digicert.com;, issue=letsencrypt.org, issue=pki.goog;, issuewild=comodoca.com, issuewild=digicert.com;, issuewild=letsencrypt.org, issuewild=pki.goog;"
+          }
+,         {
+              "id"           : "certificate_transparency",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "yes (certificate extension)"
+          }
+,         {
+              "id"           : "certs_countServer",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "2"
+          }
+,         {
+              "id"           : "certs_list_ordering_problem",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "no"
+          }
+,         {
+              "id"           : "cert_caIssuers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Gandi Standard SSL CA 2 (Gandi from FR)"
+          }
+,         {
+              "id"           : "intermediate_cert <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "-----BEGIN CERTIFICATE----- MIIF6TCCA9GgAwIBAgIQBeTcO5Q4qzuFl8umoZhQ4zANBgkqhkiG9w0BAQwFADCB iDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0pl cnNleSBDaXR5MR4wHAYDVQQKExVUaGUgVVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNV BAMTJVVTRVJUcnVzdCBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTQw OTEyMDAwMDAwWhcNMjQwOTExMjM1OTU5WjBfMQswCQYDVQQGEwJGUjEOMAwGA1UE CBMFUGFyaXMxDjAMBgNVBAcTBVBhcmlzMQ4wDAYDVQQKEwVHYW5kaTEgMB4GA1UE AxMXR2FuZGkgU3RhbmRhcmQgU1NMIENBIDIwggEiMA0GCSqGSIb3DQEBAQUAA4IB DwAwggEKAoIBAQCUBC2meZV0/9UAPPWu2JSxKXzAjwsLibmCg5duNyj1ohrP0pIL m6jTh5RzhBCf3DXLwi2SrCG5yzv8QMHBgyHwv/j2nPqcghDA0I5O5Q1MsJFckLSk QFEW2uSEEi0FXKEfFxkkUap66uEHG4aNAXLy59SDIzme4OFMH2sio7QQZrDtgpbX bmq08j+1QvzdirWrui0dOnWbMdw+naxb00ENbLAb9Tr1eeohovj0M1JLJC0epJmx bUi8uBL+cnB89/sCdfSN3tbawKAyGlLfOGsuRTg/PwSWAP2h9KK71RfWJ3wbWFmV XooS/ZyrgT5SKEhRhWvzkbKGPym1bgNi7tYFAgMBAAGjggF1MIIBcTAfBgNVHSME GDAWgBRTeb9aqitKz1SA4dibwJ3ysgNmyzAdBgNVHQ4EFgQUs5Cn2MmvTs1hPJ98 rV1/Qf1pMOowDgYDVR0PAQH/BAQDAgGGMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYD VR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMCIGA1UdIAQbMBkwDQYLKwYBBAGy MQECAhowCAYGZ4EMAQIBMFAGA1UdHwRJMEcwRaBDoEGGP2h0dHA6Ly9jcmwudXNl cnRydXN0LmNvbS9VU0VSVHJ1c3RSU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNy bDB2BggrBgEFBQcBAQRqMGgwPwYIKwYBBQUHMAKGM2h0dHA6Ly9jcnQudXNlcnRy dXN0LmNvbS9VU0VSVHJ1c3RSU0FBZGRUcnVzdENBLmNydDAlBggrBgEFBQcwAYYZ aHR0cDovL29jc3AudXNlcnRydXN0LmNvbTANBgkqhkiG9w0BAQwFAAOCAgEAWGf9 crJq13xhlhl+2UNG0SZ9yFP6ZrBrLafTqlb3OojQO3LJUP33WbKqaPWMcwO7lWUX zi8c3ZgTopHJ7qFAbjyY1lzzsiI8Le4bpOHeICQW8owRc5E69vrOJAKHypPstLbI FhfFcvwnQPYT/pOmnVHvPCvYd1ebjGU6NSU2t7WKY28HJ5OxYI2A25bUeo8tqxyI yW5+1mUfr13KFj8oRtygNeX56eXVlogMT8a3d2dIhCe2H7Bo26y/d7CQuKLJHDJd ArolQ4FCR7vY4Y8MDEZf7kYzawMUgtN+zY+vkNaOJH1AQrRqahfGlZfh8jjNp+20 J0CT33KpuMZmYzc4ZCIwojvxuch7yPspOqsactIGEk72gtQjbz7Dk+XYtsDe3CMW 1hMwt6CaDixVBgBwAc/qOR2A24j3pSC4W/0xJmmPLQphgzpHphNULB7j7UTKvGof KA5R2d4On3XNDgOVyvnFqSot/kGkoUeuDcL5OWYzSlvhhChZbH2UF3bkRYKtcCD9 0m9jqNf6oDP6N8v3smWe2lBvP+Sn845dWDKXcCMu5/3EFZucJ48y7RetWIExKREa m9T8bJUox04FB6b9HbwZ4ui3uRGKLXASUoWNjDNKD/yZkuBjcNqllEdjB+dYxzFf BT02Vf6Dsuimrdfp5gJ0iHRc2jTbkNJtUQoj1iM= -----END CERTIFICATE-----"
+          }
+,         {
+              "id"           : "intermediate_cert_fingerprintSHA256 <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "B9F2164323638DCE0B92218B43C41C1B2B2696389329DB19F5CF7AD49B5CB372"
+          }
+,         {
+              "id"           : "intermediate_cert_notBefore <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "2014-09-12 00:00"
+          }
+,         {
+              "id"           : "intermediate_cert_notAfter <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "2024-09-11 23:59"
+          }
+,         {
+              "id"           : "intermediate_cert_expiration <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "ok > 40 days"
+          }
+,         {
+              "id"           : "intermediate_cert_chain <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Gandi Standard SSL CA 2 <-- USERTrust RSA Certification Authority"
+          }
+,         {
+              "id"           : "intermediate_cert_badOCSP",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "intermediate certificate(s) is/are ok"
+          }
+,         {
+              "id"           : "HTTP_status_code",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "200 OK ('/')"
+          }
+,         {
+              "id"           : "HTTP_clock_skew",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "0 seconds from localtime"
+          }
+,         {
+              "id"           : "HTTP_headerTime",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "1654715261"
+          }
+,         {
+              "id"           : "HSTS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "HPKP",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No support for HTTP Public Key Pinning"
+          }
+,         {
+              "id"           : "banner_server",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No Server banner line in header, interesting!"
+          }
+,         {
+              "id"           : "banner_application",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "X-Powered-By: Next.js"
+          }
+,         {
+              "id"           : "cookie_count",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "0 at '/'"
+          }
+,         {
+              "id"           : "security_headers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "MEDIUM",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "banner_reverseproxy",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "cwe"          : "CWE-200",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "heartbleed",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-0160",
+              "cwe"          : "CWE-119",
+              "finding"      : "not vulnerable, no heartbeat extension"
+          }
+,         {
+              "id"           : "CCS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-0224",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "ticketbleed",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2016-9244",
+              "cwe"          : "CWE-200",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "ROBOT",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2017-17382 CVE-2017-17427 CVE-2017-17428 CVE-2017-13098 CVE-2017-1000385 CVE-2017-13099 CVE-2016-6883 CVE-2012-5081 CVE-2017-6168",
+              "cwe"          : "CWE-203",
+              "finding"      : "not vulnerable, no RSA key transport cipher"
+          }
+,         {
+              "id"           : "secure_renego",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-310",
+              "finding"      : "supported"
+          }
+,         {
+              "id"           : "secure_client_renego",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2011-1473",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "CRIME_TLS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2012-4929",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "BREACH",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "MEDIUM",
+              "cve"          : "CVE-2013-3587",
+              "cwe"          : "CWE-310",
+              "finding"      : "potentially VULNERABLE, gzip deflate HTTP compression detected  - only supplied '/' tested"
+          }
+,         {
+              "id"           : "POODLE_SSL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-3566",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable, no SSLv3"
+          }
+,         {
+              "id"           : "fallback_SCSV",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "no protocol below TLS 1.2 offered"
+          }
+,         {
+              "id"           : "SWEET32",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2016-2183 CVE-2016-6329",
+              "cwe"          : "CWE-327",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "FREAK",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2015-0204",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "DROWN",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2016-0800 CVE-2016-0703",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable on this host and port"
+          }
+,         {
+              "id"           : "DROWN_hint",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "cve"          : "CVE-2016-0800 CVE-2016-0703",
+              "cwe"          : "CWE-310",
+              "finding"      : "Make sure you don't use this certificate elsewhere with SSLv2 enabled services, see https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=7CDB5E536E1ECDF46330CA3B1A1BB490389FD15A0596F171E3F836F749BE04E1"
+          }
+,         {
+              "id"           : "LOGJAM",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2015-4000",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable, no DH EXPORT ciphers,"
+          }
+,         {
+              "id"           : "LOGJAM-common_primes",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2015-4000",
+              "cwe"          : "CWE-310",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "BEAST",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2011-3389",
+              "cwe"          : "CWE-20",
+              "finding"      : "not vulnerable, no SSL3 or TLS1"
+          }
+,         {
+              "id"           : "LUCKY13",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "cve"          : "CVE-2013-0169",
+              "cwe"          : "CWE-310",
+              "finding"      : "potentially vulnerable, uses TLS CBC ciphers"
+          }
+,         {
+              "id"           : "winshock",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-6321",
+              "cwe"          : "CWE-94",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "RC4",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2013-2566 CVE-2015-2808",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "clientsimulation-android_60",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES128-GCM-SHA256"
+          }
+,         {
+              "id"           : "clientsimulation-android_70",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_90",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_X",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_11",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_12",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-chrome_79_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-chrome_101_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-firefox_66_win81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-firefox_100_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-ie_6_xp",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_8_win7",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_8_xp",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_win7",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 DHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_win81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 DHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_winphone81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-edge_15_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-edge_101_win10_21h2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-safari_121_ios_122",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-safari_130_osx_10146",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-safari_154_osx_1231",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-java_7u25",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-java_8u161",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-java1102",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-java1703",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-go_1178",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-libressl_283",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_102e",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_110l",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_111d",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_303",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-apple_mail_16_0",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-thunderbird_91_9",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "rating_spec",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "SSL Labs's 'SSL Server Rating Guide' (version 2009q from 2020-01-30)"
+          }
+,         {
+              "id"           : "rating_doc",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide"
+          }
+,         {
+              "id"           : "protocol_support_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "100"
+          }
+,         {
+              "id"           : "protocol_support_score_weighted",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "30"
+          }
+,         {
+              "id"           : "key_exchange_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "90"
+          }
+,         {
+              "id"           : "key_exchange_score_weighted",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "27"
+          }
+,         {
+              "id"           : "cipher_strength_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "60"
+          }
+,         {
+              "id"           : "cipher_strength_score_weighted",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "24"
+          }
+,         {
+              "id"           : "final_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "81"
+          }
+,         {
+              "id"           : "overall_grade",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "A"
+          }
+,         {
+              "id"           : "grade_cap_reason_1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/5.104.101.30",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Grade capped to A. HSTS is not offered"
+          }
+,         {
+              "id"           : "service",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "HTTP"
+          }
+,         {
+              "id"           : "pre_128cipher",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No 128 cipher limit bug"
+          }
+,         {
+              "id"           : "SSLv2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "SSLv3",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "TLS1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "TLS1_1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "TLS1_2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "TLS1_3",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered with final"
+          }
+,         {
+              "id"           : "ALPN_HTTP2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "h2"
+          }
+,         {
+              "id"           : "ALPN",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "http/1.1"
+          }
+,         {
+              "id"           : "cipherlist_NULL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_aNULL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_EXPORT",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_LOW",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-327",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_3DES_IDEA",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "cwe"          : "CWE-310",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_AVERAGE",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "cwe"          : "CWE-310",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "cipherlist_GOOD",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cipherlist_STRONG",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "cipherorder_TLSv1_2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "cipher_order",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "server"
+          }
+,         {
+              "id"           : "protocol_negotiated",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "Default protocol TLS1.3"
+          }
+,         {
+              "id"           : "cipher_negotiated",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)"
+          }
+,         {
+              "id"           : "FS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "offered"
+          }
+,         {
+              "id"           : "FS_ciphers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "DHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES256-SHA384"
+          }
+,         {
+              "id"           : "FS_ECDHE_curves",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "prime256v1 secp384r1 secp521r1"
+          }
+,         {
+              "id"           : "TLS_extensions",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "'renegotiation info/#65281' 'server name/#0' 'EC point formats/#11' 'session ticket/#35' 'next protocol/#13172' 'supported versions/#43' 'key share/#51' 'supported_groups/#10' 'max fragment length/#1' 'application layer protocol negotiation/#16' 'encrypt-then-mac/#22' 'extended master secret/#23'"
+          }
+,         {
+              "id"           : "TLS_session_ticket",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "valid for 300 seconds only (<daily)"
+          }
+,         {
+              "id"           : "SSL_sessionID_support",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "yes"
+          }
+,         {
+              "id"           : "sessionresumption_ticket",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not supported"
+          }
+,         {
+              "id"           : "sessionresumption_ID",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not supported"
+          }
+,         {
+              "id"           : "TLS_timestamp",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "random"
+          }
+,         {
+              "id"           : "certificate_compression",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "none"
+          }
+,         {
+              "id"           : "clientAuth",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "none"
+          }
+,         {
+              "id"           : "cert_numbers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "1"
+          }
+,         {
+              "id"           : "cert_signatureAlgorithm",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "SHA256 with RSA"
+          }
+,         {
+              "id"           : "cert_keySize",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "RSA 2048 bits (exponent is 65537)"
+          }
+,         {
+              "id"           : "cert_keyUsage",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Digital Signature, Key Encipherment"
+          }
+,         {
+              "id"           : "cert_extKeyUsage",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLS Web Server Authentication, TLS Web Client Authentication"
+          }
+,         {
+              "id"           : "cert_serialNumber",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "CACEECA0DD99542877CF69C4C21EF6AC"
+          }
+,         {
+              "id"           : "cert_serialNumberLen",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "16"
+          }
+,         {
+              "id"           : "cert_fingerprintSHA1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "7C8A7E297A02B00FC722DE2747A6ADA871FB7B11"
+          }
+,         {
+              "id"           : "cert_fingerprintSHA256",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "7CDB5E536E1ECDF46330CA3B1A1BB490389FD15A0596F171E3F836F749BE04E1"
+          }
+,         {
+              "id"           : "cert",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "-----BEGIN CERTIFICATE----- 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 -----END CERTIFICATE-----"
+          }
+,         {
+              "id"           : "cert_commonName",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "*.osc-fr1.scalingo.io"
+          }
+,         {
+              "id"           : "cert_commonName_wo_SNI",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "*.osc-fr1.scalingo.io"
+          }
+,         {
+              "id"           : "cert_subjectAltName",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "*.osc-fr1.scalingo.io osc-fr1.scalingo.io"
+          }
+,         {
+              "id"           : "cert_trust",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "Ok via SAN wildcard and CN wildcard (same w/o SNI)"
+          }
+,         {
+              "id"           : "cert_chain_of_trust",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "passed."
+          }
+,         {
+              "id"           : "cert_certificatePolicies_EV",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "no"
+          }
+,         {
+              "id"           : "cert_expirationStatus",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "335 >= 60 days"
+          }
+,         {
+              "id"           : "cert_notBefore",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "2022-05-09 00:00"
+          }
+,         {
+              "id"           : "cert_notAfter",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "2023-05-09 23:59"
+          }
+,         {
+              "id"           : "cert_extlifeSpan",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "certificate has no extended life time according to browser forum"
+          }
+,         {
+              "id"           : "cert_eTLS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "not present"
+          }
+,         {
+              "id"           : "cert_crlDistributionPoints",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "http://crl.usertrust.com/GandiStandardSSLCA2.crl"
+          }
+,         {
+              "id"           : "cert_ocspURL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "http://ocsp.usertrust.com"
+          }
+,         {
+              "id"           : "OCSP_stapling",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "cert_mustStapleExtension",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "DNS_CAArecord",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "issue=comodoca.com, issue=digicert.com;, issue=letsencrypt.org, issue=pki.goog;, issuewild=comodoca.com, issuewild=digicert.com;, issuewild=letsencrypt.org, issuewild=pki.goog;"
+          }
+,         {
+              "id"           : "certificate_transparency",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "yes (certificate extension)"
+          }
+,         {
+              "id"           : "certs_countServer",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "2"
+          }
+,         {
+              "id"           : "certs_list_ordering_problem",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "no"
+          }
+,         {
+              "id"           : "cert_caIssuers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Gandi Standard SSL CA 2 (Gandi from FR)"
+          }
+,         {
+              "id"           : "intermediate_cert <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "-----BEGIN CERTIFICATE----- MIIF6TCCA9GgAwIBAgIQBeTcO5Q4qzuFl8umoZhQ4zANBgkqhkiG9w0BAQwFADCB iDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0pl cnNleSBDaXR5MR4wHAYDVQQKExVUaGUgVVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNV BAMTJVVTRVJUcnVzdCBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTQw OTEyMDAwMDAwWhcNMjQwOTExMjM1OTU5WjBfMQswCQYDVQQGEwJGUjEOMAwGA1UE CBMFUGFyaXMxDjAMBgNVBAcTBVBhcmlzMQ4wDAYDVQQKEwVHYW5kaTEgMB4GA1UE AxMXR2FuZGkgU3RhbmRhcmQgU1NMIENBIDIwggEiMA0GCSqGSIb3DQEBAQUAA4IB DwAwggEKAoIBAQCUBC2meZV0/9UAPPWu2JSxKXzAjwsLibmCg5duNyj1ohrP0pIL m6jTh5RzhBCf3DXLwi2SrCG5yzv8QMHBgyHwv/j2nPqcghDA0I5O5Q1MsJFckLSk QFEW2uSEEi0FXKEfFxkkUap66uEHG4aNAXLy59SDIzme4OFMH2sio7QQZrDtgpbX bmq08j+1QvzdirWrui0dOnWbMdw+naxb00ENbLAb9Tr1eeohovj0M1JLJC0epJmx bUi8uBL+cnB89/sCdfSN3tbawKAyGlLfOGsuRTg/PwSWAP2h9KK71RfWJ3wbWFmV XooS/ZyrgT5SKEhRhWvzkbKGPym1bgNi7tYFAgMBAAGjggF1MIIBcTAfBgNVHSME GDAWgBRTeb9aqitKz1SA4dibwJ3ysgNmyzAdBgNVHQ4EFgQUs5Cn2MmvTs1hPJ98 rV1/Qf1pMOowDgYDVR0PAQH/BAQDAgGGMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYD VR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMCIGA1UdIAQbMBkwDQYLKwYBBAGy MQECAhowCAYGZ4EMAQIBMFAGA1UdHwRJMEcwRaBDoEGGP2h0dHA6Ly9jcmwudXNl cnRydXN0LmNvbS9VU0VSVHJ1c3RSU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNy bDB2BggrBgEFBQcBAQRqMGgwPwYIKwYBBQUHMAKGM2h0dHA6Ly9jcnQudXNlcnRy dXN0LmNvbS9VU0VSVHJ1c3RSU0FBZGRUcnVzdENBLmNydDAlBggrBgEFBQcwAYYZ aHR0cDovL29jc3AudXNlcnRydXN0LmNvbTANBgkqhkiG9w0BAQwFAAOCAgEAWGf9 crJq13xhlhl+2UNG0SZ9yFP6ZrBrLafTqlb3OojQO3LJUP33WbKqaPWMcwO7lWUX zi8c3ZgTopHJ7qFAbjyY1lzzsiI8Le4bpOHeICQW8owRc5E69vrOJAKHypPstLbI FhfFcvwnQPYT/pOmnVHvPCvYd1ebjGU6NSU2t7WKY28HJ5OxYI2A25bUeo8tqxyI yW5+1mUfr13KFj8oRtygNeX56eXVlogMT8a3d2dIhCe2H7Bo26y/d7CQuKLJHDJd ArolQ4FCR7vY4Y8MDEZf7kYzawMUgtN+zY+vkNaOJH1AQrRqahfGlZfh8jjNp+20 J0CT33KpuMZmYzc4ZCIwojvxuch7yPspOqsactIGEk72gtQjbz7Dk+XYtsDe3CMW 1hMwt6CaDixVBgBwAc/qOR2A24j3pSC4W/0xJmmPLQphgzpHphNULB7j7UTKvGof KA5R2d4On3XNDgOVyvnFqSot/kGkoUeuDcL5OWYzSlvhhChZbH2UF3bkRYKtcCD9 0m9jqNf6oDP6N8v3smWe2lBvP+Sn845dWDKXcCMu5/3EFZucJ48y7RetWIExKREa m9T8bJUox04FB6b9HbwZ4ui3uRGKLXASUoWNjDNKD/yZkuBjcNqllEdjB+dYxzFf BT02Vf6Dsuimrdfp5gJ0iHRc2jTbkNJtUQoj1iM= -----END CERTIFICATE-----"
+          }
+,         {
+              "id"           : "intermediate_cert_fingerprintSHA256 <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "B9F2164323638DCE0B92218B43C41C1B2B2696389329DB19F5CF7AD49B5CB372"
+          }
+,         {
+              "id"           : "intermediate_cert_notBefore <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "2014-09-12 00:00"
+          }
+,         {
+              "id"           : "intermediate_cert_notAfter <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "2024-09-11 23:59"
+          }
+,         {
+              "id"           : "intermediate_cert_expiration <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "ok > 40 days"
+          }
+,         {
+              "id"           : "intermediate_cert_chain <#1>",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Gandi Standard SSL CA 2 <-- USERTrust RSA Certification Authority"
+          }
+,         {
+              "id"           : "intermediate_cert_badOCSP",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "intermediate certificate(s) is/are ok"
+          }
+,         {
+              "id"           : "HTTP_status_code",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "200 OK ('/')"
+          }
+,         {
+              "id"           : "HTTP_clock_skew",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "0 seconds from localtime"
+          }
+,         {
+              "id"           : "HTTP_headerTime",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "1654715404"
+          }
+,         {
+              "id"           : "HSTS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "finding"      : "not offered"
+          }
+,         {
+              "id"           : "HPKP",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No support for HTTP Public Key Pinning"
+          }
+,         {
+              "id"           : "banner_server",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No Server banner line in header, interesting!"
+          }
+,         {
+              "id"           : "banner_application",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "X-Powered-By: Next.js"
+          }
+,         {
+              "id"           : "cookie_count",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "0 at '/'"
+          }
+,         {
+              "id"           : "security_headers",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "MEDIUM",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "banner_reverseproxy",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "cwe"          : "CWE-200",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "heartbleed",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-0160",
+              "cwe"          : "CWE-119",
+              "finding"      : "not vulnerable, no heartbeat extension"
+          }
+,         {
+              "id"           : "CCS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-0224",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "ticketbleed",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2016-9244",
+              "cwe"          : "CWE-200",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "ROBOT",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2017-17382 CVE-2017-17427 CVE-2017-17428 CVE-2017-13098 CVE-2017-1000385 CVE-2017-13099 CVE-2016-6883 CVE-2012-5081 CVE-2017-6168",
+              "cwe"          : "CWE-203",
+              "finding"      : "not vulnerable, no RSA key transport cipher"
+          }
+,         {
+              "id"           : "secure_renego",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cwe"          : "CWE-310",
+              "finding"      : "supported"
+          }
+,         {
+              "id"           : "secure_client_renego",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2011-1473",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "CRIME_TLS",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2012-4929",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "BREACH",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "MEDIUM",
+              "cve"          : "CVE-2013-3587",
+              "cwe"          : "CWE-310",
+              "finding"      : "potentially VULNERABLE, gzip deflate HTTP compression detected  - only supplied '/' tested"
+          }
+,         {
+              "id"           : "POODLE_SSL",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-3566",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable, no SSLv3"
+          }
+,         {
+              "id"           : "fallback_SCSV",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "no protocol below TLS 1.2 offered"
+          }
+,         {
+              "id"           : "SWEET32",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2016-2183 CVE-2016-6329",
+              "cwe"          : "CWE-327",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "FREAK",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2015-0204",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "DROWN",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2016-0800 CVE-2016-0703",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable on this host and port"
+          }
+,         {
+              "id"           : "DROWN_hint",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "cve"          : "CVE-2016-0800 CVE-2016-0703",
+              "cwe"          : "CWE-310",
+              "finding"      : "Make sure you don't use this certificate elsewhere with SSLv2 enabled services, see https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=7CDB5E536E1ECDF46330CA3B1A1BB490389FD15A0596F171E3F836F749BE04E1"
+          }
+,         {
+              "id"           : "LOGJAM",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2015-4000",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable, no DH EXPORT ciphers,"
+          }
+,         {
+              "id"           : "LOGJAM-common_primes",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2015-4000",
+              "cwe"          : "CWE-310",
+              "finding"      : "--"
+          }
+,         {
+              "id"           : "BEAST",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2011-3389",
+              "cwe"          : "CWE-20",
+              "finding"      : "not vulnerable, no SSL3 or TLS1"
+          }
+,         {
+              "id"           : "LUCKY13",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "LOW",
+              "cve"          : "CVE-2013-0169",
+              "cwe"          : "CWE-310",
+              "finding"      : "potentially vulnerable, uses TLS CBC ciphers"
+          }
+,         {
+              "id"           : "winshock",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2014-6321",
+              "cwe"          : "CWE-94",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "RC4",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "cve"          : "CVE-2013-2566 CVE-2015-2808",
+              "cwe"          : "CWE-310",
+              "finding"      : "not vulnerable"
+          }
+,         {
+              "id"           : "clientsimulation-android_60",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES128-GCM-SHA256"
+          }
+,         {
+              "id"           : "clientsimulation-android_70",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_90",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_X",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_11",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-android_12",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-chrome_79_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-chrome_101_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-firefox_66_win81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-firefox_100_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-ie_6_xp",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_8_win7",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_8_xp",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_win7",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 DHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_win81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 DHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_winphone81",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-ie_11_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-edge_15_win10",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-edge_101_win10_21h2",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-safari_121_ios_122",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-safari_130_osx_10146",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-safari_154_osx_1231",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-java_7u25",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "No connection"
+          }
+,         {
+              "id"           : "clientsimulation-java_8u161",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-java1102",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-java1703",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-go_1178",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-libressl_283",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_102e",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_110l",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_111d",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-openssl_303",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-apple_mail_16_0",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384"
+          }
+,         {
+              "id"           : "clientsimulation-thunderbird_91_9",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "TLSv1.3 TLS_AES_256_GCM_SHA384"
+          }
+,         {
+              "id"           : "rating_spec",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "SSL Labs's 'SSL Server Rating Guide' (version 2009q from 2020-01-30)"
+          }
+,         {
+              "id"           : "rating_doc",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide"
+          }
+,         {
+              "id"           : "protocol_support_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "100"
+          }
+,         {
+              "id"           : "protocol_support_score_weighted",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "30"
+          }
+,         {
+              "id"           : "key_exchange_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "90"
+          }
+,         {
+              "id"           : "key_exchange_score_weighted",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "27"
+          }
+,         {
+              "id"           : "cipher_strength_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "60"
+          }
+,         {
+              "id"           : "cipher_strength_score_weighted",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "24"
+          }
+,         {
+              "id"           : "final_score",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "81"
+          }
+,         {
+              "id"           : "overall_grade",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "OK",
+              "finding"      : "A"
+          }
+,         {
+              "id"           : "grade_cap_reason_1",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "Grade capped to A. HSTS is not offered"
+          }
+,         {
+              "id"           : "scanTime",
+              "ip"           : "1j1s-front.osc-fr1.scalingo.io/109.232.236.90",
+              "port"         : "443",
+              "severity"     : "INFO",
+              "finding"      : "289"
+          }
+]

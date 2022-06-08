@@ -1,0 +1,116 @@
+{
+  "trackers": [
+    {
+      "type": "jsdelivr",
+      "url": "https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css",
+      "details": {
+        "id": "jsdelivr",
+        "message": "Host files locally"
+      }
+    }
+  ],
+  "cookies": [
+    {
+      "name": "_pk_ses.71.2ac6",
+      "value": "1",
+      "domain": "1j1s-front.osc-fr1.scalingo.io",
+      "path": "/",
+      "expires": 1654716985,
+      "size": 16,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "sameSite": "Lax",
+      "sameParty": false,
+      "sourceScheme": "Secure",
+      "sourcePort": 443
+    },
+    {
+      "name": "_pk_id.71.2ac6",
+      "value": "49e091dde54ef562.1654715185.",
+      "domain": "1j1s-front.osc-fr1.scalingo.io",
+      "path": "/",
+      "expires": 1688670385,
+      "size": 42,
+      "httpOnly": false,
+      "secure": false,
+      "session": false,
+      "sameSite": "Lax",
+      "sameParty": false,
+      "sourceScheme": "Secure",
+      "sourcePort": 443
+    }
+  ],
+  "headers": {
+    "content-encoding": "gzip",
+    "content-type": "text/html; charset=utf-8",
+    "date": "Wed, 08 Jun 2022 19:06:22 GMT",
+    "etag": "\"28af-6FXvjrbBwJCNpE+eM2bhc0Gl5gQ\"",
+    "vary": "Accept-Encoding",
+    "x-powered-by": "Next.js",
+    "x-request-id": "78256f5d-4083-4280-af51-9ddc80512bd0"
+  },
+  "endpoints": [
+    {
+      "hostname": "1j1s-front.osc-fr1.scalingo.io",
+      "ip": "5.104.101.30",
+      "geoip": {
+        "continent": {
+          "code": "EU",
+          "geoname_id": 6255148,
+          "names": {
+            "de": "Europa",
+            "en": "Europe",
+            "es": "Europa",
+            "fr": "Europe",
+            "ja": "ヨーロッパ",
+            "pt-BR": "Europa",
+            "ru": "Европа",
+            "zh-CN": "欧洲"
+          }
+        },
+        "country": {
+          "geoname_id": 3017382,
+          "is_in_european_union": true,
+          "iso_code": "FR",
+          "names": {
+            "de": "Frankreich",
+            "en": "France",
+            "es": "Francia",
+            "fr": "France",
+            "ja": "フランス共和国",
+            "pt-BR": "França",
+            "ru": "Франция",
+            "zh-CN": "法国"
+          }
+        },
+        "location": {
+          "accuracy_radius": 500,
+          "latitude": 48.8582,
+          "longitude": 2.3387,
+          "time_zone": "Europe/Paris"
+        },
+        "registered_country": {
+          "geoname_id": 3017382,
+          "is_in_european_union": true,
+          "iso_code": "FR",
+          "names": {
+            "de": "Frankreich",
+            "en": "France",
+            "es": "Francia",
+            "fr": "France",
+            "ja": "フランス共和国",
+            "pt-BR": "França",
+            "ru": "Франция",
+            "zh-CN": "法国"
+          }
+        }
+      }
+    },
+    {
+      "hostname": "cdn.jsdelivr.net",
+      "ip": "104.16.87.20",
+      "geoip": null
+    }
+  ]
+}

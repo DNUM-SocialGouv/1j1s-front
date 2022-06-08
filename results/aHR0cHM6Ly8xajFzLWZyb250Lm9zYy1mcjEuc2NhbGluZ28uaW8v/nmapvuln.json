@@ -1,0 +1,1 @@
+{"host":"1j1s-front.osc-fr1.scalingo.io","protocol":"tcp","closed_ports":"998","open_ports":[{"service":{"name":"http","id":"80","vulnerabilities":[]}},{"service":{"name":"https","id":"443","vulnerabilities":[]}}],"grade":"A"}
