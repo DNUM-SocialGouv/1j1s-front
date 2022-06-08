@@ -30,12 +30,23 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   ) {
   }
 
-  async getOffreEmploi(id: OffreEmploiId): Promise<OffreEmploi> {
+  async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
     LoggerService.info(`Récupération offre emploi ${id}`);
-    const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
-      `partenaire/offresdemploi/v2/offres/${id}`,
-    );
-    return mapOffreEmploi(response.data);
+    try {
+      const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
+        `partenaire/offresdemploi/v2/offres/${id}`,
+      );
+      if (response.status === 204) {
+        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+      } else {
+        return createSuccess(mapOffreEmploi(response.data));
+      }
+    } catch (e: any) {
+      if(e.response.status === 500){
+        return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+      }
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    }
   }
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
