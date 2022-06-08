@@ -7,10 +7,11 @@ import { TagList } from '~/client/components/ui/TagList/TagList';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-interface FiltresOffreEmploiProps {
+interface TagListRechercheOffreProps {
   localisation: string
 }
-export function TagListRechercheOffre(props: FiltresOffreEmploiProps) {
+
+export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
   const { localisation } = props;
   const [filtres, setFiltres] = useState<string[]>([]);
   const { isKeyInQueryParams, getQueryValue, hasQueryParams, queryParams } = useQueryParams();

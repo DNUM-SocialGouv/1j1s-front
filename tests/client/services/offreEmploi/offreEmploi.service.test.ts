@@ -31,10 +31,10 @@ describe('OffreEmploiService', () => {
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 
-      const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery, 'natureContrat=E1');
+      const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery, 'dureeContratMax=2');
 
       expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffreEmploi() });
-      expect(httpClientService.get).toHaveBeenCalledWith('emplois?page=1&motCle=barman&typeDeContrats=CDD%2CCDI&natureContrat=E1');
+      expect(httpClientService.get).toHaveBeenCalledWith('emplois?page=1&motCle=barman&typeDeContrats=CDD%2CCDI&dureeContratMax=2');
     });
 
   });

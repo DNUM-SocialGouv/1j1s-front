@@ -99,6 +99,6 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     page: 1,
     typeDeContratList: ['CDD', 'CDI'],
     ...override,
-    natureContrat: '',
+    dureeContratMax: '',
   };
 }

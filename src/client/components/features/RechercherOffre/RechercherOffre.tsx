@@ -57,6 +57,7 @@ export interface RechercherOffreProps {
   heroTitle: string
   defaultQueryParameters?: string
   isNiveauDemandéActive?: boolean
+  descriptionNombreRésultat: string
 }
 
 export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive }: RechercherOffreProps) {
