@@ -28,7 +28,7 @@ export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
             {nomEntreprise && <div>{nomEntreprise}</div>}
           </div>
         </header>
-        <div className={styles.cardBody}>
+        <section className={styles.cardBody}>
           {étiquetteOffreList.length > 0 && <TagList data-testid="ÉtiquetteOffreList" list={étiquetteOffreList} />}
           <p className={styles.descriptionOffre}>
             <span className={styles.descriptionLabel}>Description :</span>
@@ -40,7 +40,7 @@ export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
               <Icon name="ri-arrow-right-s-line" size="2x" iconPosition="right" />
             </Text>
           </ButtonGroup>
-        </div>
+        </section>
       </a>
     </Link>
   );
