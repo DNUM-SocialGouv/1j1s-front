@@ -14,6 +14,10 @@ import {
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
+import { InstantMeiliSearchInstance } from '@meilisearch/instant-meilisearch/src/types';
+import instantsearch from 'instantsearch.js';
+import { hits, searchBox } from 'instantsearch.js/es/widgets';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -195,6 +199,53 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
 
   const hasNoResult = hasQueryParams && !isLoading && offreEmploiList.length === 0;
   const hasError = !!errorType && hasNoResult;
+
+  const meiliSearchClient: InstantMeiliSearchInstance = instantMeiliSearch(
+    'http://localhost:7700',
+    'masterKey',
+    {
+      placeholderSearch: true,
+    },
+  );
+
+  const search = instantsearch({
+    indexName: 'stages',
+    searchClient: meiliSearchClient,
+  });
+
+  let count = 0;
+
+  useEffect(() => {
+    search.addWidgets([
+      searchBox({
+        container: '#search-box',
+        placeholder: 'Search for products',
+        showLoadingIndicator: true,
+      }),
+      hits({
+        container: '#hits',
+        templates: {
+          item: `
+            <div>
+              <div class="hit-name">
+                {{#helpers.highlight}}{ "attribute": "titre" }{{/helpers.highlight}}
+              </div>
+              <div class="hit-description">
+                {{#helpers.snippet}}{ "attribute": "description" }{{/helpers.snippet}}
+              </div>
+            </div>
+          `,
+        },
+      }),
+    ]);
+
+    console.log('Widgets added');
+
+    if (count === 0) {
+      search.start();
+      count++;
+    }
+  }, []);
 
   return (
     <>
@@ -388,9 +439,12 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
           }
 
           {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
-          {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
-          {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
-          {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
+          {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE &&
+            <UnexpectedErrorMessage className={styles.errorMessage}/>}
+          {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE &&
+            <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
+          {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE &&
+            <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
 
           {offreEmploiList.length > 0 && !isLoading &&
             <ul className={commonStyles.résultatRechercheOffreList}>
@@ -411,21 +465,26 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
 
           {nombreRésultats > OFFRE_PER_PAGE &&
             <div className={styles.pagination}>
-              <Pagination itemListLength={nombreRésultats} itemPerPage={OFFRE_PER_PAGE} />
+              <Pagination itemListLength={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
             </div>
           }
 
           <ul className={styles.partnerList}>
             <li>
-              <CIDJPartner titleAs="h2" />
+              <CIDJPartner titleAs="h2"/>
             </li>
             <li>
-              <LaBonneBoitePartner titleAs="h2" />
+              <LaBonneBoitePartner titleAs="h2"/>
             </li>
             <li>
-              <ServiceCiviquePartner titleAs="h2" />
+              <ServiceCiviquePartner titleAs="h2"/>
             </li>
           </ul>
+        </div>
+        <div className={'searchInternshipOffer'}>
+          <label htmlFor={'search-box'}/>
+          <div id="search-box" style={{ border: '1px black solid', height: '100px' }}></div>
+          <div id="hits"></div>
         </div>
       </main>
     </>
