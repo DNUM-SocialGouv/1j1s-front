@@ -4,17 +4,24 @@ jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          node-version: 12.x
-      - name: npm install, build
-        run: |
-          npm install
-          npm run build
+          node-version: ${{ matrix.node-version }}
       - name: run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.8.x
-          lhci autorun
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            https://1j1s-front.osc-fr1.scalingo.io/
+            https://1j1s-front.osc-fr1.scalingo.io/emplois
+            https://1j1s-front.osc-fr1.scalingo.io/apprentissage
+            https://1j1s-front.osc-fr1.scalingo.io/jobs-ete
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary
+
