@@ -28,9 +28,9 @@ export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
       <main id="contenu" className={commonStyles.container}>
         <article className={commonStyles.layout}>
           <header className={commonStyles.titre}>
-            <Title as="h1" look="h3">{offreAlternance.intitulé}</Title>
+            <Title as="h1" look="h3" data-testid="titre">{offreAlternance.intitulé}</Title>
             <h2>{offreAlternance.entreprise.nom}</h2>
-            <TagList list={offreAlternance.étiquetteList} />
+            <TagList list={offreAlternance.étiquetteList} data-testid="ÉtiquetteOffreAlternanceList"/>
           </header>
           <section className={commonStyles.contenu}>
             {offreAlternance.description &&
@@ -103,7 +103,7 @@ export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
           <header className={commonStyles.titre}>
             <Title as="h1" look="h3">{offreAlternance.intitulé}</Title>
             {offreAlternance.entreprise.nom && <h2>{offreAlternance.entreprise.nom}</h2>}
-            <TagList list={offreAlternance.étiquetteList} />
+            <TagList list={offreAlternance.étiquetteList} data-testid="ÉtiquetteOffreAlternanceList"/>
           </header>
           <section className={commonStyles.contenu}>
             <Button size="md" className={commonStyles.buttonPostuler}>
@@ -113,7 +113,7 @@ export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
                 icon="ri-external-link-line"
                 iconPosition="right"
                 display="flex"
-                data-testid="LinkPostulerOffreEmploi"
+                data-testid="LinkPostuler"
               >
                 Postuler
               </Link>

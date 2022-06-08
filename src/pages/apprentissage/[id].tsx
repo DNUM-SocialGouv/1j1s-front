@@ -9,7 +9,6 @@ import {
   AlternanceId,
   IdeaType,
 } from '~/server/alternances/domain/alternance';
-import { AlternanceNotFoundException } from '~/server/alternances/domain/alternanceNotFound.exception';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -44,7 +43,7 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
   const alternanceId = split[1] as AlternanceId;
   const offreAlternance = await dependencies.alternanceDependencies.consulterOffreAlternance.handle(alternanceId, ideaType);
   if (offreAlternance.instance === 'failure') {
-    throw new AlternanceNotFoundException(alternanceId, ideaType);
+    return { notFound: true };
   }
 
   return {
