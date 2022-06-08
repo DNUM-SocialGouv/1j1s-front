@@ -12,7 +12,9 @@ on:
   push:
     branches:
       - master
-      - main
+      - develop
+  pull_request:
+    branches: [ develop ]
     paths:
       - 'dashlord.yaml'
       - 'dashlord.yml'

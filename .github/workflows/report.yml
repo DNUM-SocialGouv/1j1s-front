@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
   workflow_run:
    workflows: ["DashLord scans"]
-   branches: [main]
+   branches: [develop]
+   pull_request:
+     branches: [ develop ]
    types: 
      - completed
 
@@ -29,7 +31,7 @@ jobs:
 
       # build the report
       - id: dashlord-report
-        uses: SocialGouv/dashlord-actions/report@main
+        uses: SocialGouv/dashlord-actions/report@develop
         with:
           base-path: /1j1s-front
 
