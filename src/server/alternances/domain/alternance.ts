@@ -1,20 +1,10 @@
 export type AlternanceId = string;
 
-export type IdeaType = 'peJob' | 'matcha'
-
-export function isAlternanceFromPoleEmploi(alternance: RésultatRechercheAlternance): alternance is AlternanceFromPoleEmploi {
-  return alternance.ideaType === 'peJob';
-}
-
-export function isAlternanceFromMatcha(alternance: RésultatRechercheAlternance): alternance is AlternanceFromMatcha {
-  return alternance.ideaType ===  'matcha';
-}
-
-export type RésultatRechercheAlternance = AlternanceFromPoleEmploi | AlternanceFromMatcha
+export type From = 'peJob' | 'matcha'
 
 export interface Alternance {
   id: AlternanceId;
-  ideaType: IdeaType;
+  from: From;
   intitulé: string;
   description?: string;
   entreprise: Alternance.Entreprise;
@@ -23,33 +13,6 @@ export interface Alternance {
   typeDeContrats?: string[]
   étiquetteList: string[]
   adresse: string
-}
-
-export interface AlternanceFromPoleEmploi extends Alternance {
-  url?: string
-  contact: AlternanceFromPoleEmploi.Contact
-  duréeContrat: string
-}
-
-export namespace AlternanceFromPoleEmploi {
-  export interface Contact {
-    info?: string
-    téléphone?: string
-  }
-}
-export interface AlternanceFromMatcha extends Alternance {
-  débutContrat: string
-  rythmeAlternance: string
-  competencesDeBase: string[]
-  duréeContrat: number
-  contact: AlternanceFromMatcha.Contact
-}
-
-export namespace AlternanceFromMatcha {
-  export interface Contact {
-    nom?: string
-    téléphone?: string
-  }
 }
 
 export namespace Alternance {

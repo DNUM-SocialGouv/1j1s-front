@@ -6,9 +6,9 @@ import { ConsulterOffreAlternance } from '~/client/components/features/Alternanc
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import {
   AlternanceId,
-  IdeaType,
-  RésultatRechercheAlternance,
+  From,
 } from '~/server/alternances/domain/alternance';
+import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -39,9 +39,9 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
   }
   const { id } = context.params;
   const split = id.split('-');
-  const ideaType = split[0] as IdeaType;
+  const from = split[0] as From;
   const alternanceId = split[1] as AlternanceId;
-  const offreAlternance = await dependencies.alternanceDependencies.consulterOffreAlternance.handle(alternanceId, ideaType);
+  const offreAlternance = await dependencies.alternanceDependencies.consulterOffreAlternance.handle(alternanceId, from);
   if (offreAlternance.instance === 'failure') {
     return { notFound: true };
   }

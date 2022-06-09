@@ -3,12 +3,12 @@ import axios from 'axios';
 import {
   AlternanceFiltre,
   AlternanceId,
-  IdeaType,
-  RésultatRechercheAlternance,
+  From,
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
+import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
 import {
   mapAlternance,
   mapOffreAlternance,
@@ -62,13 +62,13 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     };
   }
 
-  async getOffreAlternance(id: AlternanceId, ideaType: IdeaType): Promise<Either<RésultatRechercheAlternance>> {
-    LoggerService.info(`Récupération offre alternance ${id} dans ${ideaType}`);
+  async getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>> {
+    LoggerService.info(`Récupération offre alternance ${id} dans ${from}`);
     try {
       const response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
-        `jobs/${ideaType === 'matcha' ? 'matcha' : 'job'}/${id}`,
+        `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       );
-      return createSuccess(mapOffreAlternance(ideaType, response.data));
+      return createSuccess(mapOffreAlternance(response.data));
     } catch (e) {
       if (axios.isAxiosError(e)) {
         if(e.response?.status === 500) {

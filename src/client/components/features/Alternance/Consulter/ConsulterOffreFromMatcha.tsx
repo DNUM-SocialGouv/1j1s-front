@@ -2,9 +2,7 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import useSanitize from '~/client/hooks/useSanitize';
-import {
-  AlternanceFromMatcha,
-} from '~/server/alternances/domain/alternance';
+import { AlternanceFromMatcha } from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreFromMatchaProps {
   offreAlternance: AlternanceFromMatcha
@@ -68,7 +66,7 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
       <address className={commonStyles.contact}>
         <h3>Information sur l&apos;entreprise :</h3>
         <ul>
-          { offreAlternance.contact &&  <li>Adresse : {offreAlternance.adresse}</li>}
+          { offreAlternance.adresse &&  <li>Adresse : {offreAlternance.adresse}</li>}
           { offreAlternance.contact.téléphone && <li>Contact : {offreAlternance.contact.téléphone}</li>}
         </ul>
       </address>

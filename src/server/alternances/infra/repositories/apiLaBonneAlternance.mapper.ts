@@ -1,10 +1,11 @@
 import {
   Alternance,
+} from '~/server/alternances/domain/alternance';
+import {
   AlternanceFromMatcha,
   AlternanceFromPoleEmploi,
-  IdeaType,
   RésultatRechercheAlternance,
-} from '~/server/alternances/domain/alternance';
+} from '~/server/alternances/infra/repositories/alternance.type';
 import {
   AlternanceDetailResponse,
   AlternanceResponse,
@@ -33,8 +34,8 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
         logo: peJob.company.logo || undefined,
         nom: peJob.company.name,
       },
+      from: peJob.ideaType,
       id: peJob.job.id,
-      ideaType: peJob.ideaType,
       intitulé: peJob.title,
       niveauRequis,
       typeDeContrats,
@@ -57,8 +58,8 @@ export function mapAlternance(response: AlternanceResponse): Alternance[] {
         logo: matcha.company.logo || undefined,
         nom: matcha.company.name,
       },
+      from: matcha.ideaType,
       id: matcha.job.id,
-      ideaType: matcha.ideaType,
       intitulé: matcha.title,
       niveauRequis,
       typeDeContrats,
@@ -91,7 +92,7 @@ function mapContactPeJob(contact: PeJobsContactResponse): AlternanceFromPoleEmpl
   };
 }
 
-export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetailResponse): RésultatRechercheAlternance {
+export function mapOffreAlternance(response: AlternanceDetailResponse): RésultatRechercheAlternance {
   if (isAlternanceDetailResponseMatcha(response)) {
     const alternance: MatchasResultResponse = response.matchas[0];
     const ville = mapNomVille(alternance.place.city);
@@ -109,8 +110,8 @@ export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetai
         logo: alternance.company.logo || undefined,
         nom: alternance.company.name,
       },
+      from: alternance.ideaType,
       id: alternance.job.id,
-      ideaType: alternance.ideaType,
       intitulé: alternance.title,
       niveauRequis,
       rythmeAlternance: alternance.job.rythmeAlternance,
@@ -135,8 +136,8 @@ export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetai
         logo: alternance.company.logo || undefined,
         nom: alternance.company.name,
       },
+      from: alternance.ideaType,
       id: alternance.job.id,
-      ideaType: alternance.ideaType,
       intitulé: alternance.title,
       niveauRequis,
       typeDeContrats,

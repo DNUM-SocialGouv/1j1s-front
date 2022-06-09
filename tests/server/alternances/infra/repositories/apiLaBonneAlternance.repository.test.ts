@@ -76,8 +76,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
             logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
             nom: 'AUCHAN SUPERMARCHE',
           },
+          from: 'peJob',
           id: '134CMXJ',
-          ideaType: 'peJob',
           intitulé: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
           niveauRequis: 'Alternance',
           typeDeContrats: ['CDD'],
@@ -91,8 +91,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
             logo: undefined,
             nom: 'SUPERMARCHE MATCH',
           },
+          from: 'peJob',
           id: '134BYGN',
-          ideaType: 'peJob',
           intitulé: 'Apprenti/e boucher/ère (H/F)',
           niveauRequis: 'Alternance',
           typeDeContrats: ['CDD'],
@@ -106,8 +106,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
             logo: undefined,
             nom: 'BOUCHERIE STEPHANE VEIT',
           },
+          from: 'matcha',
           id: '628a64ed2ff4860027ae1501',
-          ideaType: 'matcha',
           intitulé: 'Boucherie',
           niveauRequis: 'Cap, autres formations niveau (Infrabac)',
           typeDeContrats: ['Apprentissage', 'Professionnalisation'],
@@ -121,8 +121,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
             logo: undefined,
             nom: 'BOUCHERIE STEPHANE VEIT',
           },
+          from: 'matcha',
           id: '628a65a72ff4860027ae1531',
-          ideaType: 'matcha',
           intitulé: 'Boucherie',
           niveauRequis: 'Cap, autres formations niveau (Infrabac)',
           typeDeContrats: ['Apprentissage', 'Professionnalisation'],
@@ -143,9 +143,9 @@ describe('ApiLaBonneAlternanceRepository', () => {
           .mockResolvedValue(anApprentiBoucherFromPoleEmploiAxiosResponse());
         const expected = anApprentiBoucherFromPoleEmploi();
         const offreAlternanceId = '134BYGN';
-        const ideaType = 'peJob';
+        const from = 'peJob';
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, ideaType) as Success<AlternanceDetailResponse>;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Success<AlternanceDetailResponse>;
         expect(result.result).toEqual(expected);
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
           `jobs/job/${offreAlternanceId}`,
@@ -162,9 +162,9 @@ describe('ApiLaBonneAlternanceRepository', () => {
           .mockResolvedValue(anApprentiBoucherFromMatchaAxiosResponse());
         const expected = anApprentiBoucherFromMatcha();
         const offreAlternanceId = '628a65a72ff4860027ae1531';
-        const ideaType = 'matcha';
+        const from = 'matcha';
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, ideaType) as Success<AlternanceDetailResponse>;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Success<AlternanceDetailResponse>;
         expect(result.result).toEqual(expected);
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
           `jobs/matcha/${offreAlternanceId}`,
@@ -176,13 +176,13 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
         const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService);
         const offreAlternanceId = 'fake-idea';
-        const ideaType = 'matcha';
+        const from = 'matcha';
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
           .mockResolvedValue(Promise.reject({ response: { status: 500 } }));
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, ideaType) as Failure;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
 
         expect(result.errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
       });
@@ -192,13 +192,13 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('on renvoie une failure avec une error DEMANDE_INCORRECTE', async () => {
         const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService);
         const offreAlternanceId = 'fake-idea';
-        const ideaType = 'matcha';
+        const from = 'matcha';
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
           .mockResolvedValue(Promise.reject({ response: { status: 400 } }));
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, ideaType) as Failure;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
 
         expect(result.errorType).toEqual(ErrorType.DEMANDE_INCORRECTE);
       });
@@ -208,13 +208,13 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
         const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService);
         const offreAlternanceId = 'fake-idea';
-        const ideaType = 'matcha';
+        const from = 'matcha';
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
           .mockResolvedValue(Promise.reject({ response: { status: 666 } }));
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, ideaType) as Failure;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
 
         expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
       });

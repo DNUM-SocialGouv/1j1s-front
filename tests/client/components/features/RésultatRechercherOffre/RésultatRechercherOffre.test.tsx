@@ -38,7 +38,7 @@ describe('RésultatRechercherOffre', () => {
     render(
       <RésultatRechercherOffre
         intituléOffre={offreAlternance.intitulé}
-        lienOffre={`/apprentissage/${offreAlternance.ideaType}-${offreAlternance.id}`}
+        lienOffre={`/apprentissage/${offreAlternance.from}-${offreAlternance.id}`}
         descriptionOffre={offreAlternance.description}
         logoEntreprise={offreAlternance.entreprise.logo || defaultLogo}
         nomEntreprise={offreAlternance.entreprise.nom}
@@ -50,6 +50,6 @@ describe('RésultatRechercherOffre', () => {
     const lienVersOffreAlternance = screen.getByTestId('RésultatRechercherOffre');
 
     expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(3);
-    expect(lienVersOffreAlternance).toHaveAttribute('href', `/apprentissage/${offreAlternance.ideaType}-${offreAlternance.id}`);
+    expect(lienVersOffreAlternance).toHaveAttribute('href', `/apprentissage/${offreAlternance.from}-${offreAlternance.id}`);
   });
 });

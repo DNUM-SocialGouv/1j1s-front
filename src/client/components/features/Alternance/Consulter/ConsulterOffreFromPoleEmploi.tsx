@@ -6,9 +6,7 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import useSanitize from '~/client/hooks/useSanitize';
-import {
-  AlternanceFromPoleEmploi,
-} from '~/server/alternances/domain/alternance';
+import { AlternanceFromPoleEmploi } from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreFromPoleEmploiProps {
   offreAlternance: AlternanceFromPoleEmploi
@@ -48,7 +46,7 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
         {offreAlternance.typeDeContrats && offreAlternance.typeDeContrats.length > 0 &&
         <div>
           <h3>Type de contrat :</h3> { ' ' }
-          <p>{offreAlternance.typeDeContrats.join('/')}</p>
+          <p>{offreAlternance.typeDeContrats[0]}</p>
         </div>
         }
         { offreAlternance.duréeContrat &&

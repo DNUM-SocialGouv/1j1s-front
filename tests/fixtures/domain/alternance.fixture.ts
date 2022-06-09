@@ -1,9 +1,9 @@
 import {
   Alternance,
-  RésultatRechercheAlternance,
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
+import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
 
 export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRechercheAlternance>): RésultatsRechercheAlternance {
   return {
@@ -16,8 +16,8 @@ export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRech
           logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
           nom: 'AUCHAN SUPERMARCHE',
         },
+        from: 'peJob',
         id: '134CMXJ',
-        ideaType: 'peJob',
         intitulé: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
         niveauRequis: 'Alternance',
         typeDeContrats: ['CDD'],
@@ -31,8 +31,8 @@ export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRech
           logo: undefined,
           nom: 'SUPERMARCHE MATCH',
         },
+        from: 'peJob',
         id: '134BYGN',
-        ideaType: 'peJob',
         intitulé: 'Apprenti/e boucher/ère (H/F)',
         niveauRequis: 'Alternance',
         typeDeContrats: ['CDD'],
@@ -46,8 +46,8 @@ export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRech
           logo: undefined,
           nom: 'BOUCHERIE STEPHANE VEIT',
         },
+        from: 'matcha',
         id: '628a64ed2ff4860027ae1501',
-        ideaType: 'matcha',
         intitulé: 'Boucherie',
         niveauRequis: 'Cap, autres formations niveau (Infrabac)',
         typeDeContrats: ['Apprentissage', 'Professionnalisation'],
@@ -61,8 +61,8 @@ export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRech
           logo: undefined,
           nom: 'BOUCHERIE STEPHANE VEIT',
         },
+        from: 'matcha',
         id: '628a65a72ff4860027ae1531',
-        ideaType: 'matcha',
         intitulé: 'Boucherie',
         niveauRequis: 'Cap, autres formations niveau (Infrabac)',
         typeDeContrats: ['Apprentissage', 'Professionnalisation'],
@@ -95,8 +95,8 @@ export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
       logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
       nom: 'AUCHAN SUPERMARCHE',
     },
+    from: 'peJob',
     id: '134CMXJ',
-    ideaType: 'peJob',
     intitulé: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
     niveauRequis: 'Alternance',
     typeDeContrats: ['CDD'],
@@ -113,8 +113,8 @@ export function anApprentiBoucherOffreFromMatcha(): Alternance {
       logo: undefined,
       nom: 'BOUCHERIE STEPHANE VEIT',
     },
+    from: 'matcha',
     id: '628a65a72ff4860027ae1531',
-    ideaType: 'matcha',
     intitulé: 'Boucherie',
     niveauRequis: 'Cap, autres formations niveau (Infrabac)',
     typeDeContrats: ['Apprentissage', 'Professionnalisation'],

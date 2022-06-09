@@ -9,10 +9,10 @@ import commonStyles from '~/client/components/features/ConsulterOffre.module.css
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import {
-  isAlternanceFromMatcha,
-  isAlternanceFromPoleEmploi,
+  AlternanceFromMatcha,
+  AlternanceFromPoleEmploi,
   RésultatRechercheAlternance,
-} from '~/server/alternances/domain/alternance';
+} from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreAlternanceProps {
   offreAlternance: RésultatRechercheAlternance
@@ -20,6 +20,15 @@ interface ConsulterOffreAlternanceProps {
 
 export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
   const { offreAlternance } = props;
+
+  function isAlternanceFromPoleEmploi(alternance: RésultatRechercheAlternance): alternance is AlternanceFromPoleEmploi {
+    return alternance.from === 'peJob';
+  }
+
+  function isAlternanceFromMatcha(alternance: RésultatRechercheAlternance): alternance is AlternanceFromMatcha {
+    return alternance.from ===  'matcha';
+  }
+
 
   return (
     <ConsulterOffreLayout>
