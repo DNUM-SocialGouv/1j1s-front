@@ -3,6 +3,10 @@ import {
   alternanceDependenciesContainer,
 } from '~/server/alternances/configuration/alternanceDependencies';
 import {
+  ArticleDependencies,
+  articleDependenciesContainer,
+} from '~/server/articles/configuration/articleDependencies.container';
+import {
   localisationDependenciesContainer,
   LocalisationsDependencies,
 } from '~/server/localisations/configuration/localisations.dependencies';
@@ -19,6 +23,7 @@ import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
 export type Dependencies = {
+  articleDependencies: ArticleDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   alternanceDependencies: AlternanceDependencies;
   cmsDependencies: StrapiCmsService;
@@ -33,6 +38,7 @@ export const dependenciesContainer = (): Dependencies => {
   const apiGeoGouvHttpClientService = new ApiGeoHttpClientService(serverConfigurationService);
   const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
 
+  const articleDependencies = articleDependenciesContainer(strapiHttpClientService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
   const localisationDependencies = localisationDependenciesContainer(
@@ -42,6 +48,7 @@ export const dependenciesContainer = (): Dependencies => {
 
   return {
     alternanceDependencies,
+    articleDependencies,
     cmsDependencies: new StrapiCmsService(
       strapiHttpClientService,
       serverConfigurationService,
