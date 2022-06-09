@@ -5,15 +5,15 @@ import React from 'react';
 import { ConsulterOffreAlternance } from '~/client/components/features/Alternance/Consulter/ConsulterOffreAlternance';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import {
-  Alternance,
   AlternanceId,
   IdeaType,
+  RésultatRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 interface ConsulterOffreAlternancePageProps {
-  offreAlternance: Alternance;
+  offreAlternance: RésultatRechercheAlternance;
 }
 
 export default function ConsulterOffreAlternancePage(props: ConsulterOffreAlternancePageProps) {

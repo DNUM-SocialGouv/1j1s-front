@@ -5,6 +5,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre.module.css';
 import { TagList } from '~/client/components/ui/TagList/TagList';
+import useSanitize from '~/client/hooks/useSanitize';
 
 interface RésultatRechercherOffreProps {
   lienOffre: string
@@ -17,7 +18,7 @@ interface RésultatRechercherOffreProps {
 
 export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
   const { lienOffre, intituléOffre, descriptionOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
-
+  const description = useSanitize(descriptionOffre);
   return (
     <Link href={lienOffre}>
       <a className={styles.card} data-testid="RésultatRechercherOffre">
@@ -30,10 +31,10 @@ export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
         </header>
         <section className={styles.cardBody}>
           {étiquetteOffreList.length > 0 && <TagList data-testid="ÉtiquetteOffreList" list={étiquetteOffreList} />}
-          <p className={styles.descriptionOffre}>
+          <div className={styles.descriptionOffre}>
             <span className={styles.descriptionLabel}>Description :</span>
-            {` ${descriptionOffre}`}
-          </p>
+            <p dangerouslySetInnerHTML={{ __html: description }}/>
+          </div>
           <ButtonGroup size="md" align="right">
             <Text size="sm" spacing="m-0" className="fr-link">
               En savoir plus

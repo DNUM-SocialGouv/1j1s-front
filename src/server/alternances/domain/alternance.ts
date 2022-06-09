@@ -2,22 +2,22 @@ export type AlternanceId = string;
 
 export type IdeaType = 'peJob' | 'matcha'
 
-export function isAlternancePeJob(alternance: Alternance): alternance is AlternancePeJob {
+export function isAlternanceFromPoleEmploi(alternance: RésultatRechercheAlternance): alternance is AlternanceFromPoleEmploi {
   return alternance.ideaType === 'peJob';
 }
 
-export function isAlternanceMatcha(alternance: Alternance): alternance is AlternanceMatcha {
+export function isAlternanceFromMatcha(alternance: RésultatRechercheAlternance): alternance is AlternanceFromMatcha {
   return alternance.ideaType ===  'matcha';
 }
 
-export type Alternance = AlternancePeJob | AlternanceMatcha
+export type RésultatRechercheAlternance = AlternanceFromPoleEmploi | AlternanceFromMatcha
 
-export interface AlternanceBase {
+export interface Alternance {
   id: AlternanceId;
   ideaType: IdeaType;
   intitulé: string;
   description?: string;
-  entreprise: AlternanceBase.Entreprise;
+  entreprise: Alternance.Entreprise;
   niveauRequis?: string
   ville?: string
   typeDeContrats?: string[]
@@ -25,34 +25,34 @@ export interface AlternanceBase {
   adresse: string
 }
 
-export interface AlternancePeJob extends AlternanceBase {
+export interface AlternanceFromPoleEmploi extends Alternance {
   url?: string
-  contact: AlternancePeJob.Contact
+  contact: AlternanceFromPoleEmploi.Contact
   duréeContrat: string
 }
 
-export namespace AlternancePeJob {
+export namespace AlternanceFromPoleEmploi {
   export interface Contact {
     info?: string
     téléphone?: string
   }
 }
-export interface AlternanceMatcha extends AlternanceBase {
+export interface AlternanceFromMatcha extends Alternance {
   débutContrat: string
   rythmeAlternance: string
   competencesDeBase: string[]
   duréeContrat: number
-  contact: AlternanceMatcha.Contact
+  contact: AlternanceFromMatcha.Contact
 }
 
-export namespace AlternanceMatcha {
+export namespace AlternanceFromMatcha {
   export interface Contact {
     nom?: string
     téléphone?: string
   }
 }
 
-export namespace AlternanceBase {
+export namespace Alternance {
   export interface Entreprise {
     nom: string
     logo?: string
@@ -65,5 +65,5 @@ export interface AlternanceFiltre {
 
 export interface RésultatsRechercheAlternance {
   nombreRésultats: number
-  résultats: AlternanceBase[]
+  résultats: Alternance[]
 }

@@ -1,6 +1,6 @@
 import {
   Alternance,
-  AlternanceBase,
+  RésultatRechercheAlternance,
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
@@ -87,7 +87,7 @@ export function aMétierRecherchéList(): MétierRecherché[] {
   ];
 }
 
-export function anApprentiBoucherOffreFromPoleEmploi(): AlternanceBase {
+export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
   return {
     adresse: '15 - AURILLAC 15000',
     description: 'Vos missions principales :\n \n- Réaliser les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires. \n- Effectuer la vente de produits de boucherie.',
@@ -105,7 +105,7 @@ export function anApprentiBoucherOffreFromPoleEmploi(): AlternanceBase {
   };
 }
 
-export function anApprentiBoucherOffreFromMatcha(): AlternanceBase {
+export function anApprentiBoucherOffreFromMatcha(): Alternance {
   return {
     adresse: '77 RUE DES BOURGUIGNONS 92270 BOIS-COLOMBES',
     description: 'Réalise les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires.\\nPeut effectuer la vente de produits de boucherie.\\nPeut gérer un commerce de détail alimentaire (boucherie, boucherie-charcuterie, ...).',
@@ -123,7 +123,7 @@ export function anApprentiBoucherOffreFromMatcha(): AlternanceBase {
   };
 }
 
-export function anApprentiBoucherFromPoleEmploi(): Alternance {
+export function anApprentiBoucherFromPoleEmploi(): RésultatRechercheAlternance {
   return {
     ...anApprentiBoucherOffreFromPoleEmploi(),
     contact: {
@@ -135,7 +135,7 @@ export function anApprentiBoucherFromPoleEmploi(): Alternance {
   };
 }
 
-export function anApprentiBoucherFromMatcha(): Alternance {
+export function anApprentiBoucherFromMatcha(): RésultatRechercheAlternance {
   return {
     ...anApprentiBoucherOffreFromMatcha(),
     competencesDeBase: [

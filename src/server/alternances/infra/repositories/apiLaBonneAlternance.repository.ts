@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 import {
-  Alternance,
   AlternanceFiltre,
   AlternanceId,
   IdeaType,
+  RésultatRechercheAlternance,
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
@@ -62,7 +62,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     };
   }
 
-  async getOffreAlternance(id: AlternanceId, ideaType: IdeaType): Promise<Either<Alternance>> {
+  async getOffreAlternance(id: AlternanceId, ideaType: IdeaType): Promise<Either<RésultatRechercheAlternance>> {
     LoggerService.info(`Récupération offre alternance ${id} dans ${ideaType}`);
     try {
       const response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(

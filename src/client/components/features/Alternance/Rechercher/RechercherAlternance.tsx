@@ -16,13 +16,13 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
-import { AlternanceBase } from '~/server/alternances/domain/alternance';
+import { Alternance } from '~/server/alternances/domain/alternance';
 
 export function RechercherAlternance() {
   const alternanceService  = useDependency<AlternanceService>('alternanceService');
   const router = useRouter();
   const { hasQueryParams, isKeyInQueryParams, getQueryValue, queryParams } = useQueryParams();
-  const [alternanceList, setAlternanceList] = useState<AlternanceBase[]>([]);
+  const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -116,7 +116,7 @@ export function RechercherAlternance() {
 
           {alternanceList.length > 0 && !isLoading &&
           <ul className={commonStyles.résultatRechercheOffreList}>
-            {alternanceList.map((alternance: AlternanceBase) => (
+            {alternanceList.map((alternance: Alternance) => (
               <li key={alternance.id}>
                 <RésultatRechercherOffre
                   lienOffre={`/apprentissage/${alternance.ideaType}-${alternance.id}`}

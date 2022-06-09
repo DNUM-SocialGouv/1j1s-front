@@ -33,7 +33,7 @@ describe('RésultatRechercherOffre', () => {
 
   it('affiche une carte alternance avec un résumé de l\'offre', () => {
     const offreAlternance = anApprentiBoucherOffreFromPoleEmploi();
-    const defaultLogo = '/images/pole-emploi.svg';
+    const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
       <RésultatRechercherOffre

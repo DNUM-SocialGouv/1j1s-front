@@ -17,7 +17,7 @@ jest.mock('dompurify', () => {
 });
 
 describe('ConsulterOffreAlternance', () => {
-  describe('quand l\'offre d\'alternance  provient de matcha', () => {
+  describe('quand l\'offre d\'alternance provient de matcha', () => {
     it('affiche l\'offre d\'alternance', () => {
       const offreAlternance = anApprentiBoucherFromMatcha();
 

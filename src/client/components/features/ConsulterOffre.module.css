@@ -1,12 +1,3 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.layout {
-  padding: 0 1rem;
-}
-
 .titre {
   margin: 1.5rem 0;
   text-align: center;
@@ -47,29 +38,19 @@
   padding-left: 1.5rem;
 }
 
-.contenu > article > span {
-  display: block;
-}
-
-.contenu > article > span h3, .contenu > article > span p  {
+.informations  h3, .informations  p {
   display: inline;
 }
 
+.contact {
+  font-style: inherit;
+}
 .contact ul {
   padding-left: 0.5rem;
-  list-style-type: none;
+  list-style: "*";
 }
 
 @media only screen and (min-width: 48em) {
-  .layout {
-    width: 100%;
-    max-width: 78rem;
-    border: 1px solid #E5E5E5;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 2rem auto 3.5rem auto;
-    padding: 0 6rem 2rem 6rem;
-  }
-
   .titre {
     display: flex;;
     flex-direction: column;

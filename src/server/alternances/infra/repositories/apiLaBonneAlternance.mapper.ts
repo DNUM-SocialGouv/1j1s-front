@@ -1,9 +1,9 @@
 import {
   Alternance,
-  AlternanceBase,
-  AlternanceMatcha,
-  AlternancePeJob,
+  AlternanceFromMatcha,
+  AlternanceFromPoleEmploi,
   IdeaType,
+  RésultatRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import {
   AlternanceDetailResponse,
@@ -19,7 +19,7 @@ import {
   PeJobsResultResponse,
 } from '~/server/alternances/infra/repositories/peJobsResponse.type';
 
-export function mapAlternance(response: AlternanceResponse): AlternanceBase[] {
+export function mapAlternance(response: AlternanceResponse): Alternance[] {
   const alternanceFromPoleEmploiList = response.peJobs.results.map((peJob) => {
     const ville = mapNomVille(peJob.place.city);
     const niveauRequis = 'Alternance' as string;
@@ -77,28 +77,28 @@ export function mapNomVille(ville: string | null): string | undefined {
 }
 
 
-function mapContactMatcha(contact: MatchasContactResponse): AlternanceMatcha.Contact {
+function mapContactMatcha(contact: MatchasContactResponse): AlternanceFromMatcha.Contact {
   return {
     nom: contact.name,
     téléphone: contact.phone,
   };
 }
 
-function mapContactPeJob(contact: PeJobsContactResponse): AlternancePeJob.Contact {
+function mapContactPeJob(contact: PeJobsContactResponse): AlternanceFromPoleEmploi.Contact {
   return {
     info: contact.info,
     téléphone: contact.phone,
   };
 }
 
-export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetailResponse): Alternance {
+export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetailResponse): RésultatRechercheAlternance {
   if (isAlternanceDetailResponseMatcha(response)) {
     const alternance: MatchasResultResponse = response.matchas[0];
     const ville = mapNomVille(alternance.place.city);
     const niveauRequis = alternance.diplomaLevel;
     const typeDeContrats = alternance.job.contractType;
     const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
-    const alternanceMatcha: AlternanceMatcha = {
+    const alternanceMatcha: AlternanceFromMatcha = {
       adresse: alternance.place.fullAddress,
       competencesDeBase: alternance.job.romeDetails.competencesDeBase.flatMap((compétence) => compétence.libelle),
       contact: mapContactMatcha(alternance.contact),
@@ -126,7 +126,7 @@ export function mapOffreAlternance(ideaType: IdeaType, response: AlternanceDetai
     const niveauRequis = 'Alternance' as string;
     const typeDeContrats = [alternance.job.contractType];
     const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
-    const alternancePeJob: AlternancePeJob = {
+    const alternancePeJob: AlternanceFromPoleEmploi = {
       adresse: alternance.place.fullAddress,
       contact: mapContactPeJob(alternance.contact),
       description: alternance.job.description,
