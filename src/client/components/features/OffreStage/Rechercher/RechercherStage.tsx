@@ -37,6 +37,7 @@ export default function RechercherStage() {
         templates: {
           item: `
             <div>
+            <a href='/stages/{{id}}'>{{titre}}</a>
               <div class="hit-name">
                 {{#helpers.highlight}}{ "attribute": "titre" }{{/helpers.highlight}}
               </div>
