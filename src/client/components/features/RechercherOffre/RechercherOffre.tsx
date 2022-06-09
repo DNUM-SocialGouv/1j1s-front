@@ -14,10 +14,6 @@ import {
   TextInput,
   Title,
 } from '@dataesr/react-dsfr';
-import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import { InstantMeiliSearchInstance } from '@meilisearch/instant-meilisearch/src/types';
-import instantsearch from 'instantsearch.js';
-import { hits, searchBox } from 'instantsearch.js/es/widgets';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -199,53 +195,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
 
   const hasNoResult = hasQueryParams && !isLoading && offreEmploiList.length === 0;
   const hasError = !!errorType && hasNoResult;
-
-  const meiliSearchClient: InstantMeiliSearchInstance = instantMeiliSearch(
-    'http://localhost:7700',
-    'masterKey',
-    {
-      placeholderSearch: true,
-    },
-  );
-
-  const search = instantsearch({
-    indexName: 'stages',
-    searchClient: meiliSearchClient,
-  });
-
-  let count = 0;
-
-  useEffect(() => {
-    search.addWidgets([
-      searchBox({
-        container: '#search-box',
-        placeholder: 'Search for products',
-        showLoadingIndicator: true,
-      }),
-      hits({
-        container: '#hits',
-        templates: {
-          item: `
-            <div>
-              <div class="hit-name">
-                {{#helpers.highlight}}{ "attribute": "titre" }{{/helpers.highlight}}
-              </div>
-              <div class="hit-description">
-                {{#helpers.snippet}}{ "attribute": "description" }{{/helpers.snippet}}
-              </div>
-            </div>
-          `,
-        },
-      }),
-    ]);
-
-    console.log('Widgets added');
-
-    if (count === 0) {
-      search.start();
-      count++;
-    }
-  }, []);
 
   return (
     <>
@@ -480,11 +429,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
               <ServiceCiviquePartner titleAs="h2"/>
             </li>
           </ul>
-        </div>
-        <div className={'searchInternshipOffer'}>
-          <label htmlFor={'search-box'}/>
-          <div id="search-box" style={{ border: '1px black solid', height: '100px' }}></div>
-          <div id="hits"></div>
         </div>
       </main>
     </>
