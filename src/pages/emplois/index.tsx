@@ -12,6 +12,7 @@ export default function RechercherOffreEmploiPage() {
       isTypeDeContratActive={true}
       descriptionNombreRésultat="offres d'emplois"
       barreDeRecherchePlaceHolder="Exemple : boulanger, informatique..."
+      urlLienOffre="emplois"
     />
   );
 }
