@@ -1,3 +1,7 @@
+import * as Sentry from '@sentry/nextjs';
+import * as CaptureContext from '@sentry/types';
+import { AxiosError } from 'axios';
+
 import {
   createFailure,
   createSuccess,
@@ -22,7 +26,6 @@ import {
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
@@ -31,7 +34,6 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   }
 
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
-    LoggerService.info(`Récupération offre emploi ${id}`);
     try {
       const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
         `partenaire/offresdemploi/v2/offres/${id}`,
@@ -50,11 +52,11 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   }
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
-    LoggerService.info(`Recherche offre emploi avec filtres ${JSON.stringify(offreEmploiFiltre)}`);
     const paramètresRecherche = this.buildParamètresRecherche(offreEmploiFiltre);
+    let response;
 
     try {
-      const response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse>(
+      response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse>(
         `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
       );
       if (response.status === 204) {
@@ -64,12 +66,17 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       }
       // eslint-disable-next-line
     } catch (e: any) {
-      if (e.response.status === 500) {
-        return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+      if(e.response !== undefined) {
+        const error = e as AxiosError;
+        if (error.response?.status === 500) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+        if (error.response?.status === 400) {
+          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+        }
       }
-      if (e.response.status === 400) {
-        return createFailure(ErrorType.DEMANDE_INCORRECTE);
-      }
+      Sentry.captureMessage(`API_POLE_EMPLOI ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`API_POLE_EMPLOI ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }

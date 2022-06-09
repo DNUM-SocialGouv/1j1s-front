@@ -17,7 +17,7 @@ export function mapOffreEmploi(offreEmploiResponse: OffreEmploiResponse): OffreE
   const expérience = mapExpérience(offreEmploiResponse.experienceExige);
   const typeContrat = mapTypeContrat(offreEmploiResponse.typeContrat);
   const duréeTravail = mapDuréeTravail(offreEmploiResponse.dureeTravailLibelleConverti);
-  const étiquetteList = [lieuTravail, expérience, typeContrat.libelléCourt, duréeTravail].filter((tag) => tag !== undefined) as string[];
+  const étiquetteList = [lieuTravail, expérience, typeContrat && typeContrat.libelléCourt, duréeTravail].filter((tag) => tag !== undefined) as string[];
   return {
     compétenceList: mapCompétenceList(offreEmploiResponse.competences),
     description: offreEmploiResponse.description,
@@ -50,7 +50,7 @@ function mapDuréeTravail(duréeTravailResponse?: OffreEmploiResponse.DuréeTrav
   }
 }
 
-function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeContrat {
+function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeContrat | undefined {
   switch (typeContrat) {
     case 'CDD':
       return OffreEmploi.CONTRAT_CDD;
@@ -60,6 +60,8 @@ function mapTypeContrat(typeContrat: OffreEmploiResponse.TypeContrat): TypeDeCon
       return OffreEmploi.CONTRAT_INTÉRIMAIRE;
     case 'SAI':
       return OffreEmploi.CONTRAT_SAISONNIER;
+    default:
+      return undefined;
   }
 }
 

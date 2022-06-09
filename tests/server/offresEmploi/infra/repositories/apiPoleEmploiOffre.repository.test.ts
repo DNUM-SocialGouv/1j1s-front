@@ -3,7 +3,7 @@ import {
   anOffreEmploiFiltre,
   aRésultatsRechercheOffreEmploi,
 } from '@tests/fixtures/domain/offreEmploi.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { anAxiosErreur, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aBarmanOffreEmploiAxiosResponse,
   aPoleEmploiHttpClient,
@@ -102,7 +102,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(Promise.reject({ response: { status: 500 } }));
+          .mockResolvedValue(Promise.reject(anAxiosErreur(500)));
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
         const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
@@ -114,7 +114,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
         it('on renvoie une failure avec une error ERREUR_DE_SAISIE', async () => {
           jest
             .spyOn(poleEmploiHttpClientService, 'get')
-            .mockResolvedValue(Promise.reject({ response: { status: 400 } }));
+            .mockResolvedValue(Promise.reject(anAxiosErreur(400)));
           const offreEmploiFiltre = anOffreEmploiFiltre();
 
           const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
