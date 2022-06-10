@@ -40,7 +40,7 @@ export const dependenciesContainer = (): Dependencies => {
 
   const articleDependencies = articleDependenciesContainer(strapiHttpClientService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
-  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
+  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient, serverConfigurationService);
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
     apiAdresseHttpClientService,

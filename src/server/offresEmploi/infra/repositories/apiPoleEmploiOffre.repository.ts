@@ -121,7 +121,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       } else if (typeLocalisation === TypeLocalisation.DEPARTEMENT) {
         return { departement: offreEmploiFiltre.localisation.codeInsee.value };
       } else if (typeLocalisation === TypeLocalisation.COMMUNE) {
-        return { commune: offreEmploiFiltre.localisation.codeInsee.valueOrCodePostal };
+        return { commune: offreEmploiFiltre.localisation.codeInsee.valueQuandMultipleCodesPostaux };
       }
     } else {
       return undefined;

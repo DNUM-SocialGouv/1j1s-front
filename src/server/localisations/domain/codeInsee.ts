@@ -11,12 +11,12 @@ export class CodeInsee {
     return this._value;
   }
 
-  get valueOrCodePostal() {
+  get valueQuandMultipleCodesPostaux() {
     const splitValue = this._value.split(CODE_INSEE_SEPARATEUR);
     return splitValue.length > 1 ? this._value.split(CODE_INSEE_SEPARATEUR)[1] : this._value;
   }
 
-  get valueWithCodePostal() {
+  get valueAvecCodePostal() {
     return this._value.split(CODE_INSEE_SEPARATEUR)[0];
   }
 

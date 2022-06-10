@@ -9,16 +9,20 @@ import React, {
 import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
+import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
+import { LocalisationService } from '~/client/services/localisation.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { LocalisationList } from '~/server/localisations/domain/localisation';
 
 export function RechercherAlternance() {
+  const localisationService = useDependency<LocalisationService>('localisationService');
   const alternanceService  = useDependency<AlternanceService>('alternanceService');
   const router = useRouter();
   const { hasQueryParams, isKeyInQueryParams, getQueryValue, queryParams } = useQueryParams();
@@ -27,14 +31,27 @@ export function RechercherAlternance() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
+
+  const [localisationList, setLocalisationList] = useState<LocalisationList>({
+    communeList: [],
+    départementList: [],
+    régionList: [],
+  });
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
+
+
 
   useEffect(() => {
     if(hasQueryParams) {
       const fetchOffreAlternance = async () => {
-        const response = await alternanceService.rechercherAlternance(`codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}`);
+        let params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}`;
+        if(getQueryValue(QueryParams.CODE_INSEE)){
+          params += `&codeInsee=${getQueryValue(QueryParams.CODE_INSEE)}`;
+        }
+        const response = await alternanceService.rechercherAlternance(params);
         setNombreRésultats(response.nombreRésultats);
         setAlternanceList(response.résultats);
         setIsLoading(false);
@@ -67,6 +84,12 @@ export function RechercherAlternance() {
     setInputIntituleMétierObligatoireErrorMessage(false);
   }
 
+  async function rechercherLocalisation(recherche: string) {
+    setInputLocalisation(recherche);
+    const résultats = await localisationService.rechercheLocalisation(recherche);
+    setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
+  }
+
   return (
     <>
       <HeadTag
@@ -93,7 +116,15 @@ export function RechercherAlternance() {
                 handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
                 resetHandleErrorMessageActive={resetHandleErrorMessageActive}
               />
-
+              <AutoCompletionForLocalisation
+                régionList={[]}
+                communeList={localisationList.communeList}
+                départementList={[]}
+                inputName="localisations"
+                inputLocalisation={inputLocalisation}
+                onChange={rechercherLocalisation}
+                onUpdateInputLocalisation={() => setInputLocalisation('')}
+              />
               <Button
                 submit={true}
                 icon="ri-search-line"

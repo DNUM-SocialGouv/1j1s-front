@@ -7,6 +7,7 @@ export class ServerConfigurationService implements ConfigurationService {
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
       API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
+      CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE: ServerConfigurationService.getOrThrowError('CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE'),
       FRONT_URL: ServerConfigurationService.getOrThrowError('FRONT_URL'),
       POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
       POLE_EMPLOI_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_SECRET'),
@@ -48,6 +49,7 @@ export interface EnvironmentVariables {
   readonly POLE_EMPLOI_CONNECT_SCOPE: string;
   readonly API_POLE_EMPLOI_BASE_URL: string;
   readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
+  readonly CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE: string;
   readonly REDIS_DB: number;
   readonly REDIS_HOST: string;
   readonly REDIS_PASSWORD: string;

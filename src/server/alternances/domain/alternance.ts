@@ -1,6 +1,10 @@
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
+
 export type AlternanceId = string;
 
 export type From = 'peJob' | 'matcha'
+
+type AlternanceId = string;
 
 export interface Alternance {
   id: AlternanceId;
@@ -30,6 +34,7 @@ export namespace Alternance {
 
 export interface AlternanceFiltre {
   codeRomeList: string[]
+  codeInsee?: CodeInsee
 }
 
 export interface RésultatsRechercheAlternance {

@@ -20,6 +20,7 @@ import {
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 
 jest.mock('axios', () => {
   return {
@@ -58,14 +59,14 @@ describe('ApiLaBonneAlternanceRepository', () => {
   });
 
   describe('getAlternanceList', () => {
-    it('retourne la liste des alternances recherchées par l\'api la bonne alternance', async () => {
+    it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
       const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService);
 
       jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(anAlternanceListResponse());
 
-      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeRomeList: ['D1103','D1101','H2101'] });
+      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeInsee: CodeInsee.createCodeInsee('75056'), codeRomeList: ['D1103','D1101','H2101'] });
 
-      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?romes=D1103,D1101,H2101&caller=1j1s@octo.com');
+      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75056&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
       expect(result.nombreRésultats).toEqual(4);
       expect(result.résultats,
       ).toEqual([
@@ -218,6 +219,25 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
       });
+    });
+  });
+  describe('buildParamètresRechercheAltenance', () => {
+    it('quand on cherche des codeRomes', () => {
+      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService);
+
+      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({ codeRomeList: ['D1103', 'D1101', 'H2101'] });
+
+      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+    });
+    it('quand on cherche avec un lieu', () => {
+      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService);
+
+      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
+        codeInsee: CodeInsee.createCodeInsee('75035'),
+        codeRomeList: ['D1103', 'D1101', 'H2101'],
+      });
+
+      expect(result).toEqual('insee=75035&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
     });
   });
 });

@@ -10,6 +10,7 @@ import {
   RechercherMétierDependenciesContainer,
   rechercherMétierDependenciesContainer,
 } from '~/server/alternances/infra/configuration/rechercheMétierDependencies.container';
+
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export type AlternanceDependencies =
