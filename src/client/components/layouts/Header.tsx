@@ -4,14 +4,18 @@ import {
   HeaderNav,
   HeaderOperator,
   Logo,
-  NavItem,
   NavSubItem,
   Service,
 } from '@dataesr/react-dsfr';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const NavItem = dynamic(() => import('@dataesr/react-dsfr').then((reactDSFR) => reactDSFR.NavItem), { ssr: false });
 
 export function Header() {
   const router = useRouter();
@@ -57,7 +61,7 @@ interface NavItemLinkProps {
 function NavItemLink({ children, current, link }: React.PropsWithChildren<NavItemLinkProps>) {
   return (
     <Link href={link}>
-      <a className="fr-nav__link" {... (current && { 'aria-current': 'page' })}>
+      <a className="fr-nav__link" data-testid={`navLink_${link}`} {... (current && { 'aria-current': 'page' })}>
         {children}
       </a>
     </Link>

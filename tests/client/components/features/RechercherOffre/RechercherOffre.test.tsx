@@ -337,9 +337,9 @@ describe('RechercherOffre', () => {
 
         // WHEN
         expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
-        const resultListitem = within(résultatsLocalisation).getAllByRole('option');
-        
-        fireEvent.click(resultListitem[1]);
+        const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
+
+        fireEvent.click(résultatLocalisationList[1]);
 
         mockUseRouter({ query: { codeInsee: '75001_75056', page: '1', typeLocalisation: 'COMMUNE' } });
         fireEvent.click(buttonRechercher);
@@ -424,8 +424,6 @@ describe('RechercherOffre', () => {
         fireEvent.click(inputTypeDeContrat[0]);
 
 
-
-
         const buttonRechercher = screen.getByTestId('ButtonRechercher');
         mockUseRouter({ query: { page: '1', typeDeContrats: 'CDD' } });
         fireEvent.click(buttonRechercher);
@@ -434,8 +432,6 @@ describe('RechercherOffre', () => {
         const nombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
 
         expect(nombreRésultats).toBeInTheDocument();
-
-
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=CDD', undefined);

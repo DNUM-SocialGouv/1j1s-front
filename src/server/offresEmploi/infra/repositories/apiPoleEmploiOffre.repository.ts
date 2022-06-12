@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import * as CaptureContext from '@sentry/types';
-import { AxiosError } from 'axios';
+import axios  from 'axios';
 
 import {
   createFailure,
@@ -43,9 +43,11 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       } else {
         return createSuccess(mapOffreEmploi(response.data));
       }
-    } catch (e: any) {
-      if(e.response.status === 500){
-        return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        if (e.response?.status === 500) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
       }
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
@@ -64,14 +66,12 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       } else {
         return createSuccess(mapRésultatsRechercheOffreEmploi(response.data));
       }
-      // eslint-disable-next-line
-    } catch (e: any) {
-      if(e.response !== undefined) {
-        const error = e as AxiosError;
-        if (error.response?.status === 500) {
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        if (e.response?.status === 500) {
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
         }
-        if (error.response?.status === 400) {
+        if (e.response?.status === 400) {
           return createFailure(ErrorType.DEMANDE_INCORRECTE);
         }
       }

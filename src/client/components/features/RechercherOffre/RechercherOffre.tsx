@@ -182,9 +182,9 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
     event.preventDefault();
     setIsLoading(true);
     const formEntries = transformFormToEntries(event.currentTarget);
+    formEntries.push(['page', '1']);
     const query = new URLSearchParams(formEntries).toString();
-    const QUERY_FIRST_PAGE = 'page=1';
-    return router.push({ query: query ? `${query}&${QUERY_FIRST_PAGE}` : `${QUERY_FIRST_PAGE}` });
+    return router.push({ query });
   }
 
   async function rechercherLocalisation(recherche: string) {
@@ -211,7 +211,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
             ref={rechercheOffreEmploiForm}
             className={commonStyles.rechercheOffreForm}
             onSubmit={rechercherOffreEmploi}
-            role="search"
           >
             <div className={commonStyles.inputButtonWrapper}>
               <TextInput

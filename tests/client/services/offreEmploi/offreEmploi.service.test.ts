@@ -14,29 +14,27 @@ describe('OffreEmploiService', () => {
     it('appelle emploi avec le filtre', async () => {
       const httpClientService = aHttpClientService();
       const offreEmploiService = new OffreEmploiService(httpClientService);
-      const offreEmploiQuery = 'page=1&motCle=barman&typeDeContrats=CDD%2CCDI';
+      const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI&page=1';
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 
       const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery);
 
       expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffreEmploi() });
-      expect(httpClientService.get).toHaveBeenCalledWith('emplois?page=1&motCle=barman&typeDeContrats=CDD%2CCDI');
+      expect(httpClientService.get).toHaveBeenCalledWith('emplois?motCle=barman&typeDeContrats=CDD%2CCDI&page=1');
     });
 
     it('appelle emploi avec le filtre par défaut', async () => {
       const httpClientService = aHttpClientService();
       const offreEmploiService = new OffreEmploiService(httpClientService);
-      const offreEmploiQuery = 'page=1&motCle=barman&typeDeContrats=CDD%2CCDI';
+      const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI&page=1';
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
 
       const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery, 'dureeContratMax=2');
 
       expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffreEmploi() });
-      expect(httpClientService.get).toHaveBeenCalledWith('emplois?page=1&motCle=barman&typeDeContrats=CDD%2CCDI&dureeContratMax=2');
+      expect(httpClientService.get).toHaveBeenCalledWith('emplois?motCle=barman&typeDeContrats=CDD%2CCDI&page=1&dureeContratMax=2');
     });
-
   });
-
 });
