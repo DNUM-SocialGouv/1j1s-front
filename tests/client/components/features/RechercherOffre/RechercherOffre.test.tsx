@@ -53,7 +53,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
-            urlLienOffre=""
+            urlLienOffre="emploi"
           />
         </DependenciesProvider>,
       );
@@ -83,7 +83,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
-            urlLienOffre=""
+            urlLienOffre="emploi"
           />
         </DependenciesProvider>,
       );
@@ -111,7 +111,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
-            urlLienOffre=""
+            urlLienOffre="emploi"
           />
         </DependenciesProvider>,
       );
@@ -150,7 +150,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -192,7 +192,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -243,7 +243,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -292,7 +292,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -323,7 +323,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -374,7 +374,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
-            urlLienOffre=""
+            urlLienOffre="emploi"
           />
         </DependenciesProvider>,
       );
@@ -405,7 +405,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -455,7 +455,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
-              urlLienOffre=""
+              urlLienOffre="emploi"
             />
           </DependenciesProvider>,
         );
@@ -504,7 +504,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
-            urlLienOffre=""
+            urlLienOffre="emploi"
           />
         </DependenciesProvider>,
       );

@@ -75,7 +75,7 @@ export function RechercherAlternance() {
       />
       <main id="contenu" className={commonStyles.container}>
         <Hero image="/images/banners/offres-alternance.jpg">
-          <Title as="h1" look="h3">
+          <Title as="h1" look="h4">
             Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut pour réaliser votre projet d’alternance
           </Title>
         </Hero>

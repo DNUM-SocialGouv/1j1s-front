@@ -10,7 +10,7 @@
 
 .hero *, .hero [class^="fr-"] {
   line-height: 1.25;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--grey-1000);
 }
 

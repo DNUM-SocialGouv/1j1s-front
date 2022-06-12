@@ -35,7 +35,7 @@ export function anAxiosErreur(status: number): AxiosError {
     cause: undefined,
     code: '',
     config: undefined as unknown as AxiosRequestConfig,
-    isAxiosError: false,
+    isAxiosError: true,
     message: 'AxiosError',
     name: '',
     request: {},

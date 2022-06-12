@@ -204,7 +204,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
       />
       <main id="contenu" className={commonStyles.container}>
         <Hero image="/images/banners/offres-emploi.jpg">
-          <Title as="h1" look="h3">{heroTitle}</Title>
+          <Title as="h1" look="h4">{heroTitle}</Title>
         </Hero>
         <div className={commonStyles.layout}>
           <form
