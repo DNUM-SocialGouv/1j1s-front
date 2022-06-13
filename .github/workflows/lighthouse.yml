@@ -14,14 +14,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: |
-            https://1j1s-front.osc-fr1.scalingo.io/
-            https://1j1s-front.osc-fr1.scalingo.io/emplois
-            https://1j1s-front.osc-fr1.scalingo.io/apprentissage
-            https://1j1s-front.osc-fr1.scalingo.io/jobs-ete
-          budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary
+        run: |
+          npm install -g @lhci/cli@0.3.x
+          lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
 
