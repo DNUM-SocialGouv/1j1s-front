@@ -9,5 +9,4 @@ export class AlternanceService {
     const response = await this.httpClientService.get<RésultatsRechercheAlternance>(`alternances?${queryString}`);
     return response.data;
   }
-
 }

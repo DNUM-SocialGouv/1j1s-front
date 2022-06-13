@@ -93,12 +93,12 @@ describe('RechercherOffre', () => {
       expect(errorMessage).toBeFalsy();
     });
 
-    it('avec une url contenant le motCle boulanger, le codeInsee 34 et le type de localisation DEPARTEMENT, affiche la liste de tag avec Hérault (34)', async () => {
+    it('avec une url contenant le motCle boulanger, le codeInsee 26 et le type de localisation DEPARTEMENT, affiche la liste de tag avec BOURG LES VALENCE (26)', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
-      mockUseRouter({ query: { codeInsee: '34', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
+      mockUseRouter({ query: { codeInsee: '26', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
@@ -120,10 +120,11 @@ describe('RechercherOffre', () => {
 
       // THEN
       await waitFor(() => {
-        expect( screen.getAllByTestId('TagListItem')[0].textContent).toEqual('Hérault (34)');
+        expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('BOURG LES VALENCE (26)');
+
       });
-      expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '34');
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=34&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
+      expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '26');
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=26&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
     });
   });
 

@@ -1,0 +1,63 @@
+.titre {
+  margin: 1.5rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--grey-950);
+  padding-bottom: 1rem;
+}
+
+.titre h1 {
+  margin: 0;
+}
+
+.titre h2 {
+  font-size: 1.25rem;
+}
+
+.buttonPostuler {
+  margin: 0 auto 2rem;
+}
+
+.buttonPostuler > a {
+  margin: auto;
+}
+
+.contenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.contenu * {
+  font-size: 0.875rem;
+}
+
+.contenu h3 {
+  margin-bottom: 0.5rem;
+}
+
+.competences {
+  padding-left: 1.5rem;
+}
+
+.informations  h3, .informations  p {
+  display: inline;
+}
+
+.contact {
+  font-style: inherit;
+}
+.contact ul {
+  padding-left: 0.5rem;
+  list-style: "*";
+}
+
+@media only screen and (min-width: 48em) {
+  .titre {
+    display: flex;;
+    flex-direction: column;
+    border-bottom: 0px;
+  }
+
+  .titre > ul {
+    margin: auto;
+  }
+}

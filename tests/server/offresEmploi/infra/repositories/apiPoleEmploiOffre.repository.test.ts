@@ -54,9 +54,9 @@ describe('ApiPoleEmploiOffreRepository', () => {
           .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
-        const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
+        const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
 
-        expect(result.result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
           'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
         );

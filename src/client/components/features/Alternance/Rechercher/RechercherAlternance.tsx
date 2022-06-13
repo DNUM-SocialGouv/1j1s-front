@@ -119,7 +119,7 @@ export function RechercherAlternance() {
             {alternanceList.map((alternance: Alternance) => (
               <li key={alternance.id}>
                 <RésultatRechercherOffre
-                  lienOffre={`/apprentissage/${alternance.id}`}
+                  lienOffre={`/apprentissage/${alternance.from}-${alternance.id}`}
                   intituléOffre={alternance.intitulé}
                   logoEntreprise={alternance.entreprise.logo || defaultLogo}
                   nomEntreprise={alternance.entreprise?.nom}

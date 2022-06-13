@@ -79,7 +79,7 @@ export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
   return (
     <>
       { filtres.length > 0 &&
-       <TagList list={filtres} data-testid="TagList"/>
+       <TagList list={filtres} />
       }
     </>
 

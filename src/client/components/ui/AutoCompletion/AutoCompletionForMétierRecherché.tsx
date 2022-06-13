@@ -166,7 +166,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   return (
     <div className={className}>
       <label className="fr-label" htmlFor={inputName} id={label}>
-        Métier, mot-clé... {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
+        Secteur, domaine, mot-clé... {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
       <div ref={autocompleteRef} className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
@@ -185,7 +185,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             aria-autocomplete="list"
             aria-controls={listbox}
             aria-activedescendant={inputName}
-            placeholder={placeholder ?? 'Rechercher'}
+            placeholder={placeholder ?? 'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
             className={['fr-input', styles.autocompletionInput].join(' ')}
             value={value}
             onClick={handleClickResetErrorMessageDisplay}

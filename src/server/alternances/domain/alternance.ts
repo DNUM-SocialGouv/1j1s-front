@@ -1,7 +1,10 @@
-type AlternanceId = string;
+export type AlternanceId = string;
+
+export type From = 'peJob' | 'matcha'
 
 export interface Alternance {
   id: AlternanceId;
+  from: From;
   intitulé: string;
   description?: string;
   entreprise: Alternance.Entreprise;
@@ -9,6 +12,7 @@ export interface Alternance {
   ville?: string
   typeDeContrats?: string[]
   étiquetteList: string[]
+  adresse: string
 }
 
 export namespace Alternance {

@@ -25,9 +25,9 @@ export function PageNotFound(){
         </ButtonGroup>
       </div>
       {!isSmallScreen &&
-            <div className={styles.errorLogo}>
-              <Image src={'/images/logos/technical-error.svg'} width='185' height='205' objectFit='cover'/>
-            </div>
+        <div className={styles.errorLogo}>
+          <Image alt="" src={'/images/logos/technical-error.svg'} width='185' height='205'/>
+        </div>
       }
     </div>
   );

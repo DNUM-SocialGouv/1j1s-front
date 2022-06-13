@@ -3,7 +3,7 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { ClientService } from '~/server/services/http/client.service';
 
-export class LaBonneAlternanceHttpClient extends ClientService {
+export class LaBonneAlternanceHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
     const { API_LA_BONNE_ALTERNANCE_BASE_URL } = configurationService.getConfiguration();
     super(API_LA_BONNE_ALTERNANCE_BASE_URL);
