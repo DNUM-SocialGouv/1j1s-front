@@ -1,6 +1,5 @@
-export function transformFormToEntries(formElement: HTMLFormElement, keyToDelete = ''): string[][] {
+export function transformFormToEntries(formElement: HTMLFormElement): string[][] {
   const formData = new FormData(formElement);
-  if(keyToDelete !== '') formData.delete(keyToDelete);
   return Array.from(
     formData,
     ([key, value]) => (

@@ -27,7 +27,7 @@ describe('rechercher une offre d\'emploi', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
-      url: '/emplois?page=1&motCle=boulanger&typeDeContrats=CDD,CDI&codeInsee=75056_75001&typeLocalisation=COMMUNE',
+      url: '/emplois?motCle=boulanger&typeDeContrats=CDD,CDI&codeInsee=75056_75001&typeLocalisation=COMMUNE&page=1',
     });
   });
 

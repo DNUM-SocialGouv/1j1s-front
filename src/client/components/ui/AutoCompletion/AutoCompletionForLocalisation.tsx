@@ -72,8 +72,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     setSuggestionsActive(value.length > 1);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLLIElement>, typeLocalisation: TypeLocalisation, codeInsee: string) => {
-    const { innerText } = e.target as HTMLElement;
+  const handleClick = (innerText: string, typeLocalisation: TypeLocalisation, codeInsee: string) => {
     onUpdateInputLocalisation();
     setInputValue(innerText);
     setCodeInsee(codeInsee);
@@ -125,17 +124,19 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
 
     const { libelle, code, codeInsee } = suggestion;
+    const innerText = `${libelle} (${code})`;
+
     return (
       <li
         className={inputValue === `${libelle} (${code})` ? styles.active : currentHoverIndex === suggestionIndex ? styles.active : ''}
         key={currentHoverIndex}
-        onClick={(e) => handleClick(e, typeLocalisation, codeInsee.value)}
+        onClick={() => handleClick(innerText, typeLocalisation, codeInsee.value)}
         role="option"
         aria-selected={inputValue === `${libelle} (${code})`}
         value={codeInsee.value}
         data-testid="RésultatLocalisationItem"
       >
-        {libelle} ({code})
+        {innerText}
       </li>
     );
   };
