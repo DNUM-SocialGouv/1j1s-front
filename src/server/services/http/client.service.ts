@@ -1,18 +1,30 @@
-import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-  AxiosResponse,
-} from 'axios';
+import * as Sentry from '@sentry/nextjs';
+import * as CaptureContext from '@sentry/types';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 export abstract class ClientService {
   readonly client: AxiosInstance;
 
-  protected constructor(baseURL: string, headers: AxiosRequestHeaders = {}) {
+  protected constructor(
+    apiName: string,
+    baseURL: string,
+    overrideInterceptorsResponse = false,
+    headers: AxiosRequestHeaders = {},
+  ) {
     this.client = axios.create({
       baseURL,
       headers,
     });
+
+    if(!overrideInterceptorsResponse) {
+      this.client.interceptors.response.use(
+        (response: AxiosResponse) => response,
+        async (error) => {
+          Sentry.captureMessage(`${apiName} ${error.response.status + ' ' + error.config.baseURL+error.config.url}`, CaptureContext.Severity.Error);
+          return Promise.reject(error);
+        },
+      );
+    }
   }
 
   abstract get<Response>(
