@@ -53,6 +53,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
+            urlLienOffre=""
           />
         </DependenciesProvider>,
       );
@@ -82,6 +83,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
+            urlLienOffre=""
           />
         </DependenciesProvider>,
       );
@@ -109,6 +111,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
+            urlLienOffre=""
           />
         </DependenciesProvider>,
       );
@@ -147,6 +150,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -188,6 +192,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -238,6 +243,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -286,6 +292,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -316,6 +323,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -366,6 +374,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
+            urlLienOffre=""
           />
         </DependenciesProvider>,
       );
@@ -396,6 +405,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -449,6 +459,7 @@ describe('RechercherOffre', () => {
               isTypeDeContratActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
+              urlLienOffre=""
             />
           </DependenciesProvider>,
         );
@@ -497,6 +508,7 @@ describe('RechercherOffre', () => {
             isTypeDeContratActive={true}
             isNiveauDemandéActive={true}
             barreDeRecherchePlaceHolder=""
+            urlLienOffre=""
           />
         </DependenciesProvider>,
       );

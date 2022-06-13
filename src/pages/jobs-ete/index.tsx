@@ -13,6 +13,7 @@ export default function RechercherJobSaisonnierPage() {
       isTypeDeContratActive={false}
       descriptionNombreRésultat="offres d'emplois saisonniers"
       barreDeRecherchePlaceHolder="Exemple : serveur, tourisme..."
+      urlLienOffre="jobs-ete"
     />
   );
 }

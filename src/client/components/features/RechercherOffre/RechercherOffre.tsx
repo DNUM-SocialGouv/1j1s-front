@@ -60,9 +60,10 @@ export interface RechercherOffreProps {
   isTypeDeContratActive: boolean
   descriptionNombreRésultat: string
   barreDeRecherchePlaceHolder: string
+  urlLienOffre: string
 }
 
-export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTypeDeContratActive, descriptionNombreRésultat }: RechercherOffreProps) {
+export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTypeDeContratActive, descriptionNombreRésultat, urlLienOffre }: RechercherOffreProps) {
   const domaineList = référentielDomaineList;
   const router = useRouter();
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
@@ -397,7 +398,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
               {offreEmploiList.map((offreEmploi: OffreEmploi) => (
                 <li key={offreEmploi.id}>
                   <RésultatRechercherOffre
-                    lienOffre={`/emplois/${offreEmploi.id}`}
+                    lienOffre={`/${urlLienOffre}/${offreEmploi.id}`}
                     intituléOffre={offreEmploi.intitulé}
                     logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
                     nomEntreprise={offreEmploi.entreprise?.nom}
