@@ -175,14 +175,14 @@ describe('RechercherAlternance', () => {
       // WHEN
       await user.type(inputRechercheMétier, 'bou');
       const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
+
+      // THEN
       expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
-
-
 
       // WHEN
       const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
       fireEvent.click(resultListItem[0]);
-      // WHEN
+
       await user.type(inputLocalisation, 'Pa');
       const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
@@ -202,7 +202,6 @@ describe('RechercherAlternance', () => {
       });
       expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeInsee=75001_75056' });
       expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeInsee=75056');
-
     });
   });
 });
