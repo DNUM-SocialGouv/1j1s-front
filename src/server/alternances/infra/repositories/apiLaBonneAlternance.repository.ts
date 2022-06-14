@@ -1,11 +1,11 @@
 import axios from 'axios';
+
 import {
   AlternanceFiltre,
   AlternanceId,
   From,
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
-import { ConfigurationService } from '~/server/services/configuration.service';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
@@ -27,8 +27,10 @@ import {
   Either,
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
+import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
+import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   constructor(
@@ -82,15 +84,14 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
     const { CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE } = this.configurationService.getConfiguration();
-    const queryList: Record<string, any> = {
+    // eslint-disable-next-line
+    const queryList: Record<string, any > = {
       insee: alternanceFiltre.codeInsee?.valueAvecCodePostal,
       romes: alternanceFiltre.codeRomeList.toString(),
     };
-    Object.keys(queryList).forEach((key: string) => {
-      if (!queryList[key.toString()]) delete queryList[key];
-    });
+    removeUndefinedValueInQueryParameterList(queryList);
     const params = new URLSearchParams(queryList);
-    return params.toString() + `&caller=${CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE}`;
+    return `${params.toString()}&caller=${CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE}`;
   }
 }
 
