@@ -4,8 +4,6 @@ export type AlternanceId = string;
 
 export type From = 'peJob' | 'matcha'
 
-type AlternanceId = string;
-
 export interface Alternance {
   id: AlternanceId;
   from: From;
