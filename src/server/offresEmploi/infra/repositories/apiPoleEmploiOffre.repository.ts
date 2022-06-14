@@ -26,6 +26,7 @@ import {
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
@@ -104,9 +105,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
       dureeHebdoMax: offreEmploiFiltre.dureeHebdoMax,
     };
 
-    Object.keys(queryList).forEach((key: string) => {
-      if (!queryList[key.toString()]) delete queryList[key];
-    });
+    removeUndefinedValueInQueryParameterList(queryList);
 
     const params = new URLSearchParams(queryList);
 
