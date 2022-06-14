@@ -5,8 +5,8 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 import { Localisation, TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 interface AutoCompletionForLocalisationProps {
-  régionList: Localisation[];
-  départementList: Localisation[];
+  régionList?: Localisation[];
+  départementList?: Localisation[];
   communeList: Localisation[];
   inputName: string;
   inputLocalisation: string;
@@ -92,8 +92,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
-      const isSuggestionListEmpty = départementList.length === 0 && régionList.length === 0 && communeList.length === 0;
-      let location: Localisation[] = [];
+      const isSuggestionListEmpty = (départementList && départementList.length === 0) && (régionList && régionList.length === 0) && communeList.length === 0;
+      let location: Localisation[] | undefined = [];
       if (!isSuggestionListEmpty) {
 
         if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
@@ -106,12 +106,13 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           location = communeList;
         }
       }
-      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${location[currentIndex].code}`))) {
+      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${!(location) || location[currentIndex].code}`))) {
         onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
-        setCodeInsee(location[currentIndex].codeInsee.value);
-        setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
-
+        if (location) {
+          setCodeInsee(location[currentIndex].codeInsee.value);
+          setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
+        }
         setSuggestionsActive(false);
       }
     }
@@ -151,14 +152,14 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         id={listbox}
         data-testid="RésultatsLocalisation"
       >
-        {(régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
-        {régionList.map((suggestion, index) => {
+        {(régionList && régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
+        {régionList && régionList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
         })}
 
-        {(départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
-        {départementList.map((suggestion, index) => {
+        {(départementList && départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
+        {départementList && départementList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
         })}
@@ -168,7 +169,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {(régionList.length === 0 && départementList.length === 0 && communeList.length === 0) &&
+        {(régionList && régionList.length === 0 && départementList && départementList.length === 0 && communeList.length === 0) &&
           <li className={styles.noSuggestion} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.
