@@ -57,13 +57,14 @@ export interface RechercherOffreProps {
   heroTitle: string
   defaultQueryParameters?: string
   isNiveauDemandéActive: boolean
+  isTempsDeTravailActive: boolean
   isTypeDeContratActive: boolean
   descriptionNombreRésultat: string
   barreDeRecherchePlaceHolder: string
   urlLienOffre: string
 }
 
-export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTypeDeContratActive, descriptionNombreRésultat, urlLienOffre }: RechercherOffreProps) {
+export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTempsDeTravailActive, isTypeDeContratActive, descriptionNombreRésultat, urlLienOffre }: RechercherOffreProps) {
   const domaineList = référentielDomaineList;
   const router = useRouter();
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
@@ -287,7 +288,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                       ))}
                     </CheckboxGroup>
                   }
-                  <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
+                  { isTempsDeTravailActive && <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
                     {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                       <Radio
                         key={index}
@@ -299,7 +300,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                         value={`${tempsDeTravail.valeur}`}
                       />
                     ))}
-                  </RadioGroup>
+                  </RadioGroup> }
                   {
                     isNiveauDemandéActive && <CheckboxGroup legend="Niveau demandé">
                       {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
@@ -352,12 +353,12 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                     currentInput={inputTypeDeContrat}
                   />
                 }
-                <SelectSingle
+                { isTempsDeTravailActive && <SelectSingle
                   titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
                   optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
                   onChange={(value) => setInputTempsDeTravail(value)}
                   currentInput={inputTempsDeTravail}
-                />
+                /> }
                 {
                   isNiveauDemandéActive && <SelectMultiple
                     titre={générerTitreFiltre('Niveau demandé', inputExpérience)}

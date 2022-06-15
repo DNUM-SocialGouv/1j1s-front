@@ -89,6 +89,7 @@ export function aValetOffreEmploi(): OffreEmploi {
 
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
+    dureeHebdoMax: '',
     experienceExigenceList: [],
     grandDomaineList: [],
     localisation: {
@@ -99,6 +100,5 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     page: 1,
     typeDeContratList: ['CDD', 'CDI'],
     ...override,
-    dureeContratMax: '',
   };
 }

@@ -2,18 +2,19 @@ import React from 'react';
 
 import { RechercherOffre } from '~/client/components/features/RechercherOffre/RechercherOffre';
 
-export default function RechercherJobSaisonnierPage() {
+export default function RechercherJobEtudiantPage() {
   return (
     <RechercherOffre
-      prefixTitle="Rechercher un emploi saisonnier"
+      prefixTitle="Rechercher un job étudiants"
       description="Plus de 400 000 offres de jobs étudiants pour vous"
       heroTitle="Des milliers de jobs étudiants sélectionnés pour vous par Pôle Emploi"
-      defaultQueryParameters="typeContrat=CDD,MIS,SAI&dureeContratMax=2"
+      defaultQueryParameters="typeDeContrats=CDD,MIS,SAI&dureeHebdoMax=1600&tempsDeTravail=tempsPartiel"
       isNiveauDemandéActive={false}
+      isTempsDeTravailActive={false}
       isTypeDeContratActive={false}
       descriptionNombreRésultat="offres de jobs étudiants"
       barreDeRecherchePlaceHolder="Exemple : serveur, tourisme..."
-      urlLienOffre="jobs-ete"
+      urlLienOffre="jobs-etudiants"
     />
   );
 }

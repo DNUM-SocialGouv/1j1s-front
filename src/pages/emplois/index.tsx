@@ -9,6 +9,7 @@ export default function RechercherOffreEmploiPage() {
       description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       heroTitle="Des milliers d'offres d'emplois sélectionnées pour vous par Pôle Emploi"
       isNiveauDemandéActive={true}
+      isTempsDeTravailActive={true}
       isTypeDeContratActive={true}
       descriptionNombreRésultat="offres d'emplois"
       barreDeRecherchePlaceHolder="Exemple : boulanger, informatique..."

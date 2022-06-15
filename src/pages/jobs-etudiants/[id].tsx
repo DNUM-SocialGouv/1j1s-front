@@ -8,19 +8,19 @@ import { PageContextParamsException } from '~/server/exceptions/pageContextParam
 import { OffreEmploi, OffreEmploiId } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
 
-interface ConsulterJobEtePageProps {
-  jobEte: OffreEmploi;
+interface ConsulterJobEtudiantPageProps {
+  jobEtudiant: OffreEmploi;
 }
 
-export default function ConsulterJobEtePage(props: ConsulterJobEtePageProps) {
-  const { jobEte } = props;
+export default function ConsulterJobEtudiantPage(props: ConsulterJobEtudiantPageProps) {
+  const { jobEtudiant } = props;
 
-  if (!jobEte) return null;
+  if (!jobEtudiant) return null;
 
   return (
     <>
-      <HeadTag title={`${jobEte.intitulé} | 1jeune1solution`} />
-      <ConsulterOffreEmploi offreEmploi={jobEte} />
+      <HeadTag title={`${jobEtudiant.intitulé} | 1jeune1solution`} />
+      <ConsulterOffreEmploi offreEmploi={jobEtudiant} />
     </>
   );
 }
@@ -29,7 +29,7 @@ interface EmploiContext extends ParsedUrlQuery {
   id: OffreEmploiId;
 }
 
-export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobEtePageProps>> {
+export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobEtudiantPageProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
@@ -42,7 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
 
   return {
     props: {
-      jobEte: JSON.parse(JSON.stringify(offreEmploi.result)),
+      jobEtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
     },
     revalidate: 86400,
   };
