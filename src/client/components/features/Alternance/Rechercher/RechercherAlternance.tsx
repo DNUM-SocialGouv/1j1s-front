@@ -19,7 +19,7 @@ import { AlternanceService } from '~/client/services/alternances/alternance.serv
 import { LocalisationService } from '~/client/services/localisation.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { LocalisationList } from '~/server/localisations/domain/localisation';
+import { Localisation } from '~/server/localisations/domain/localisation';
 
 
 
@@ -37,11 +37,7 @@ export function RechercherAlternance() {
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
 
-  const [localisationList, setLocalisationList] = useState<LocalisationList>({
-    communeList: [],
-    départementList: [],
-    régionList: [],
-  });
+  const [communeList, setCommuneList] = useState<Localisation[]>([]);
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
 
 
@@ -93,9 +89,10 @@ export function RechercherAlternance() {
   async function rechercherLocalisation(recherche: string) {
     setInputLocalisation(recherche);
     const résultats = await localisationService.rechercheLocalisation(recherche);
-    setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
+    if(résultats){
+      setCommuneList(résultats.communeList!);
+    }
   }
-
   return (
     <>
       <HeadTag
@@ -123,7 +120,7 @@ export function RechercherAlternance() {
                 resetHandleErrorMessageActive={resetHandleErrorMessageActive}
               />
               <AutoCompletionForLocalisation
-                communeList={localisationList.communeList}
+                communeList={communeList}
                 inputName="localisations"
                 inputLocalisation={inputLocalisation}
                 onChange={rechercherLocalisation}

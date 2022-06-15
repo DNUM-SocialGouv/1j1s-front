@@ -7,7 +7,7 @@ import { Localisation, TypeLocalisation } from '~/server/localisations/domain/lo
 interface AutoCompletionForLocalisationProps {
   régionList?: Localisation[];
   départementList?: Localisation[];
-  communeList: Localisation[];
+  communeList?: Localisation[];
   inputName: string;
   inputLocalisation: string;
   onChange: (value: string) => void;
@@ -92,10 +92,14 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
-      const isSuggestionListEmpty = (départementList && départementList.length === 0) && (régionList && régionList.length === 0) && communeList.length === 0;
+
+      const hasDépartement = départementList && départementList.length === 0;
+      const hasRégion = régionList && régionList.length === 0;
+      const hasCommune =communeList && communeList.length === 0;
+
+      const isSuggestionListEmpty = (hasDépartement) && (hasRégion) && (hasCommune);
       let localisation: Localisation[] = [];
       if (!isSuggestionListEmpty) {
-
         if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
           if(départementList){
             localisation = départementList;
@@ -170,12 +174,12 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
         })}
 
-        {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
-        {communeList.map((suggestion, index) => {
+        {(communeList && communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
+        {communeList && communeList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {(régionList && régionList.length === 0 && départementList && départementList.length === 0 && communeList.length === 0) &&
+        {(régionList && régionList.length === 0 && départementList && départementList.length === 0 && communeList && communeList.length === 0) &&
           <li className={styles.noSuggestion} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.
