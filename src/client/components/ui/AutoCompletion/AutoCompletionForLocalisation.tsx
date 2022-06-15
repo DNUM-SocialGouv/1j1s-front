@@ -93,25 +93,31 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
       const isSuggestionListEmpty = (départementList && départementList.length === 0) && (régionList && régionList.length === 0) && communeList.length === 0;
-      let location: Localisation[] | undefined = [];
+      let localisation: Localisation[] = [];
       if (!isSuggestionListEmpty) {
 
         if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
-          location = départementList;
+          if(départementList){
+            localisation = départementList;
+          }
         }
         else if (currentHoverTypeLocalisation === TypeLocalisation.REGION) {
-          location = régionList;
+          if(régionList){
+            localisation = régionList;
+          }
         }
         else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE) {
-          location = communeList;
+          if(communeList){
+            localisation = communeList;
+          }
         }
       }
-      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${!(location) || location[currentIndex].code}`))) {
+      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${localisation[currentIndex].code}`))) {
         onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
-        if (location) {
-          setCodeInsee(location[currentIndex].codeInsee.value);
-          setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
+        if (localisation) {
+          setCodeInsee(localisation[currentIndex].codeInsee.value);
+          setInputValue(`${localisation[currentIndex].libelle} (${localisation[currentIndex].code})`);
         }
         setSuggestionsActive(false);
       }

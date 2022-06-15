@@ -60,9 +60,11 @@ export function RechercherAlternance() {
 
       const setInputValues = async () => {
         if (isKeyInQueryParams(QueryParams.MÉTIER_SÉLECTIONNÉ)) setInputIntituleMétier(getQueryValue(QueryParams.MÉTIER_SÉLECTIONNÉ));
-        const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
-        const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
-        setInputLocalisation(formattedLocalisation);
+        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
+          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
+          const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
+          setInputLocalisation(formattedLocalisation);
+        }
       };
 
       (async () => {
