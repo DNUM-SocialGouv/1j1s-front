@@ -215,7 +215,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
           >
             <div className={commonStyles.inputButtonWrapper}>
               <TextInput
-                label="Métier, mot-clé..."
+                label="Métier, mot-clé"
                 data-testid="InputRechercheMotClé"
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
