@@ -6,12 +6,12 @@ export default function RechercherJobSaisonnierPage() {
   return (
     <RechercherOffre
       prefixTitle="Rechercher un emploi saisonnier"
-      description="Plus de 400 000 offres d'emplois saisonniers pour vous"
-      heroTitle="Des milliers d'emplois saisonniers sélectionnés pour vous par Pôle Emploi"
+      description="Plus de 400 000 offres de jobs étudiants pour vous"
+      heroTitle="Des milliers de jobs étudiants sélectionnés pour vous par Pôle Emploi"
       defaultQueryParameters="typeContrat=CDD,MIS,SAI&dureeContratMax=2"
       isNiveauDemandéActive={false}
       isTypeDeContratActive={false}
-      descriptionNombreRésultat="offres d'emplois saisonniers"
+      descriptionNombreRésultat="offres de jobs étudiants"
       barreDeRecherchePlaceHolder="Exemple : serveur, tourisme..."
       urlLienOffre="jobs-ete"
     />
