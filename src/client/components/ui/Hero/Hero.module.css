@@ -1,7 +1,7 @@
 .hero {
   display: flex;
   justify-content: space-between;
-  background-color: var(--blue-france-113);
+  background-color: var(--1J1S-blue);
 }
 
 .heroContent {
