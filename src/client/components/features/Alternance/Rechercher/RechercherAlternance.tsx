@@ -121,7 +121,7 @@ export function RechercherAlternance() {
                 <RésultatRechercherOffre
                   lienOffre={`/apprentissage/${alternance.from}-${alternance.id}`}
                   intituléOffre={alternance.intitulé}
-                  logoEntreprise={alternance.entreprise.logo || defaultLogo}
+                  logoEntreprise={alternance.entreprise?.logo || defaultLogo}
                   nomEntreprise={alternance.entreprise?.nom}
                   descriptionOffre={alternance.description}
                   étiquetteOffreList={alternance.étiquetteList}

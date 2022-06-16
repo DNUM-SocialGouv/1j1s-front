@@ -5,25 +5,25 @@ type IdeaType = 'matcha'
 export interface MatchasResultResponse {
   ideaType: IdeaType
   title: string
-  company: MatchasCompanyResponse
+  company?: MatchasCompanyResponse
   job: MatchasJobResponse
-  diplomaLevel: string
-  place: MatchasPlaceResponse
-  contact: MatchasContactResponse
+  diplomaLevel?: string
+  place?: MatchasPlaceResponse
+  contact?: MatchasContactResponse
 }
 
 export interface MatchasJobResponse {
   id: string
   romeDetails: MatchasJobRomeDetailsResponse
-  contractType: string[]
-  jobStartDate: string
+  contractType?: string[]
+  jobStartDate?: string
   dureeContrat: number
   rythmeAlternance: string
 }
 
 export interface MatchasPlaceResponse {
-  city: string
-  fullAddress: string
+  city?: string
+  fullAddress?: string
 }
 
 export interface MatchasCompetencesDeBaseResponse {
@@ -36,11 +36,11 @@ export interface MatchasJobRomeDetailsResponse {
 }
 
 export interface MatchasCompanyResponse {
-  name: string
+  name?: string
   logo?: string
 }
 
 export interface MatchasContactResponse {
-  name: string
+  name?: string
   phone?: string
 }
