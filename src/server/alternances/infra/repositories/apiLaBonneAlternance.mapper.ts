@@ -85,7 +85,8 @@ function mapContactMatcha(contact: MatchasContactResponse): AlternanceFromMatcha
   };
 }
 
-function mapContactPeJob(contact: PeJobsContactResponse): AlternanceFromPoleEmploi.Contact {
+function mapContactPeJob(contact: PeJobsContactResponse): AlternanceFromPoleEmploi.Contact | undefined {
+  if (!contact) return undefined;
   return {
     info: contact.info,
     téléphone: contact.phone,
@@ -123,6 +124,7 @@ export function mapOffreAlternance(response: AlternanceDetailResponse): Résulta
   }
   else {
     const alternance: PeJobsResultResponse = response.peJobs[0];
+    console.log('in mapper', alternance);
     const ville = mapNomVille(alternance.place.city);
     const niveauRequis = 'Alternance' as string;
     const typeDeContrats = [alternance.job.contractType];

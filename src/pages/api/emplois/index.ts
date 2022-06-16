@@ -36,7 +36,7 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   const { query } = request;
 
   return {
-    dureeContratMax: query.dureeContratMax ? String(query.dureeContratMax) : '',
+    dureeHebdoMax: query.dureeHebdoMax ? String(query.dureeHebdoMax) : '',
     experienceExigenceList: query.experienceExigence ? toArray(query.experienceExigence) : [],
     grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: mapLocalisation(query),

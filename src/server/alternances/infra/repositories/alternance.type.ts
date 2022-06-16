@@ -26,7 +26,7 @@ export namespace AlternanceFromMatcha {
 
 export interface AlternanceFromPoleEmploi extends Alternance {
   url?: string
-  contact: AlternanceFromPoleEmploi.Contact
+  contact?: AlternanceFromPoleEmploi.Contact
   duréeContrat: string
 }
 
