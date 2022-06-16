@@ -1,5 +1,3 @@
-import '@gouvfr/dsfr/dist/dsfr/dsfr.css';
-import '@gouvfr/dsfr/dist/utility/icons/icons-map/icons-map.css';
 import '~/styles/globals.css';
 
 import { AppProps } from 'next/app';
@@ -26,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0"
         />
+        <meta name="description" content="Toutes les solutions pour l'avenir des jeunes"/>
       </Head>
       <Layout>
         {
