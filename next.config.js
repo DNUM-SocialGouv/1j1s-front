@@ -18,7 +18,25 @@ const moduleExports = {
   images: {
     domains: [CMS_HOST, API_POLE_EMPLOI_HOST],
   },
+  optimization: {
+    mergeDuplicateChunks: true,
+  },
   reactStrictMode: true,
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.optimization.splitChunks.cacheGroups = {
+        ...config.optimization.splitChunks.cacheGroups,
+        '@sentry': {
+          name: '@sentry',
+          priority: 10,
+          reuseExistingChunk: false,
+          test: /[\\/]node_modules[\\/](@sentry)[\\/]/,
+        },
+      };
+    }
+
+    return config;
+  },
 };
 
 const sentryWebpackPluginOptions = {
