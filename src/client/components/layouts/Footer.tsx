@@ -47,7 +47,7 @@ export function Footer() {
         </FooterBodyItem>
       </FooterBody>
       <FooterPartners>
-        <FooterPartnersTitle>Nos partenaires</FooterPartnersTitle>
+        <FooterPartnersTitle as='p'>Nos partenaires</FooterPartnersTitle>
         <FooterPartnersLogo
           href="/"
           imageSrc="/images/logos/france-relance.svg"
