@@ -13,7 +13,7 @@ module.exports = {
         'https://1j1s-front.osc-fr1.scalingo.io/',
         'https://1j1s-front.osc-fr1.scalingo.io/emplois',
         'https://1j1s-front.osc-fr1.scalingo.io/apprentissage',
-        'https://1j1s-front.osc-fr1.scalingo.io/jobs-ete',
+        'https://1j1s-front.osc-fr1.scalingo.io/jobs-etudiants',
       ],
     },
     upload: {
