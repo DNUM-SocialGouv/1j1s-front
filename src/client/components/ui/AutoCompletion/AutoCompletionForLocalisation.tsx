@@ -193,6 +193,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
       </label>
       <div ref={autocompleteRef}>
         <div
+          className="fr-search-bar"
           id="header-search"
           role="combobox"
           aria-expanded={suggestionsActive}
