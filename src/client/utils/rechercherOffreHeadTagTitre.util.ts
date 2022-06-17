@@ -5,7 +5,7 @@ const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
 const DEMANDE_INCORRECTE_TITLE = '- Demande incorrecte';
 const ERREUR_INATTENDUE_TITLE = '- Erreur inattendue';
 
-export function getOffreHeadTagTitre(prefixTitle: string, errorType?: ErrorType): string {
+export function getRechercherOffreHeadTagTitre(prefixTitle: string, errorType?: ErrorType): string {
   let title = '';
   switch (errorType) {
     case ErrorType.SERVICE_INDISPONIBLE: {

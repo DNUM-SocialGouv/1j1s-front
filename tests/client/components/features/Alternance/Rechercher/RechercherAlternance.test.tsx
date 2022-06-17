@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
   fireEvent,
   render,
@@ -19,6 +18,7 @@ import {
   anAlternanceServiceWithErrorServiceIndisponible,
   anEmptyAlternanceService,
 } from '@tests/fixtures/client/services/alternanceService.fixture';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
   aMétierRecherchéService,
   aMétierRecherchéServiceWithEmptyResponse,
@@ -224,10 +224,11 @@ describe('RechercherAlternance', () => {
         // GIVEN
         const alternanceService = anEmptyAlternanceService();
         const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
         mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
 
         render(
-          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
             <RechercherAlternance />
           </DependenciesProvider>,
         );
@@ -247,10 +248,11 @@ describe('RechercherAlternance', () => {
         // GIVEN
         const alternanceService = anAlternanceServiceWithErrorInattendue();
         const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
         mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
 
         render(
-          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
             <RechercherAlternance />
           </DependenciesProvider>,
         );
@@ -270,10 +272,11 @@ describe('RechercherAlternance', () => {
         // GIVEN
         const alternanceService = anAlternanceServiceWithErrorServiceIndisponible();
         const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
         mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
 
         render(
-          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
             <RechercherAlternance />
           </DependenciesProvider>,
         );
@@ -293,10 +296,11 @@ describe('RechercherAlternance', () => {
         // GIVEN
         const alternanceService = anAlternanceServiceWithErrorDemandeIncorrecte();
         const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
         mockUseRouter({ query: { codeRomes: 'D1', metierSelectionne: 'b' } });
 
         render(
-          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
             <RechercherAlternance />
           </DependenciesProvider>,
         );

@@ -43,7 +43,7 @@ import {
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
-import { getOffreHeadTagTitre } from '~/client/utils/offreHeadTagTitre.util';
+import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
@@ -105,11 +105,11 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString(), defaultQueryParameters);
         if (response.instance === 'success') {
-          setTitle(getOffreHeadTagTitre(`${prefixTitle}${response.result.nombreRésultats === 0 ? '- Aucun résultat' : ''}`));
+          setTitle(getRechercherOffreHeadTagTitre(`${prefixTitle}${response.result.nombreRésultats === 0 ? '- Aucun résultat' : ''}`));
           setOffreEmploiList(response.result.résultats);
           setNombreRésultats(response.result.nombreRésultats);
         } else {
-          setTitle(getOffreHeadTagTitre(prefixTitle, response.errorType));
+          setTitle(getRechercherOffreHeadTagTitre(prefixTitle, response.errorType));
           setErrorType(response.errorType);
         }
         setIsLoading(false);

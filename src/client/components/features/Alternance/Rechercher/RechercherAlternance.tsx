@@ -19,10 +19,10 @@ import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
-import { getOffreHeadTagTitre } from '~/client/utils/offreHeadTagTitre.util';
+import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { Localisation } from '~/server/localisations/domain/localisation';
 import { ErrorType } from '~/server/errors/error.types';
+import { Localisation } from '~/server/localisations/domain/localisation';
 
 export function RechercherAlternance() {
   const localisationService = useDependency<LocalisationService>('localisationService');
@@ -36,7 +36,7 @@ export function RechercherAlternance() {
   const [errorType, setErrorType] = useState<ErrorType | undefined>(undefined);
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
-
+  const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [communeList, setCommuneList] = useState<Localisation[]>([]);
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
 
@@ -49,11 +49,11 @@ export function RechercherAlternance() {
         const params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}${localisationParam}`;
         const response = await alternanceService.rechercherAlternance(params);
         if (response.instance === 'success') {
-          setTitle(getOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
           setAlternanceList(response.result.résultats);
           setNombreRésultats(response.result.nombreRésultats);
         } else {
-          setTitle(getOffreHeadTagTitre('Rechercher une alternance', response.errorType));
+          setTitle(getRechercherOffreHeadTagTitre('Rechercher une alternance', response.errorType));
           setErrorType(response.errorType);
         }
         setIsLoading(false);
