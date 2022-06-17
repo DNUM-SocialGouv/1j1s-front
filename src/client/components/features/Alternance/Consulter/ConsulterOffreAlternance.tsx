@@ -34,7 +34,7 @@ export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
     <ConsulterOffreLayout>
       <header className={commonStyles.titre}>
         <Title as="h1" look="h3" data-testid="titre">{offreAlternance.intitulé}</Title>
-        { offreAlternance.entreprise?.nom && <h2>{offreAlternance.entreprise.nom}</h2>}
+        { offreAlternance.entreprise?.nom && <h2>{offreAlternance.entreprise.nom}</h2> }
 
         <TagList list={offreAlternance.étiquetteList} data-testid="ÉtiquetteOffreAlternanceList"/>
       </header>

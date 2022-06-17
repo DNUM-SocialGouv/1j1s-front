@@ -27,17 +27,17 @@ import {
   Either,
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
+import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
+import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   constructor(
     private laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService,
+    private configurationService: ConfigurationService,
   ) {
   }
-
-  // adresse mail à changer c'est pour identifier l'appelant idéalement une adresse mail de contact dnum
-  private REQUIRED_PARAMETER_FOR_MA_BONNE_ALTERNANCE = '1j1s@octo.com';
 
   async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
     const response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse>(
@@ -52,7 +52,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   async getAlternanceList(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
     const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
-      `jobs?romes=${alternanceFiltre.codeRomeList.toString()}&caller=${this.REQUIRED_PARAMETER_FOR_MA_BONNE_ALTERNANCE}`,
+      `jobs?${this.buildParamètresRecherche(alternanceFiltre)}`,
     );
     const résultats = mapAlternance(response.data);
 
@@ -80,6 +80,18 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       }
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
+  }
+
+  buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
+    const { CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE } = this.configurationService.getConfiguration();
+    // eslint-disable-next-line
+    const queryList: Record<string, any > = {
+      insee: alternanceFiltre.codeInsee?.valueAvecCodePostal,
+      romes: alternanceFiltre.codeRomeList.toString(),
+    };
+    removeUndefinedValueInQueryParameterList(queryList);
+    const params = new URLSearchParams(queryList);
+    return `${params.toString()}&caller=${CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE}`;
   }
 }
 

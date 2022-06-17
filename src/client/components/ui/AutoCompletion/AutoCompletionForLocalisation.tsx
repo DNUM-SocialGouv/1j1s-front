@@ -5,9 +5,9 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 import { Localisation, TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 interface AutoCompletionForLocalisationProps {
-  régionList: Localisation[];
-  départementList: Localisation[];
-  communeList: Localisation[];
+  régionList?: Localisation[];
+  départementList?: Localisation[];
+  communeList?: Localisation[];
   inputName: string;
   inputLocalisation: string;
   onChange: (value: string) => void;
@@ -25,6 +25,11 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
 
   const [currentHoverTypeLocalisation, setCurrentHoverTypeLocalisation]= useState(TypeLocalisation.REGION);
   const [currentIndex, setCurrenIndex] = useState(0);
+
+  const hasDépartement = départementList && départementList.length > 0;
+  const hasRégion = régionList && régionList.length > 0;
+  const hasCommune =communeList && communeList.length > 0;
+  const isSuggestionListEmpty = !hasDépartement && !hasRégion && !hasCommune;
 
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
@@ -80,6 +85,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     setSuggestionsActive(false);
   };
 
+
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ARROW_UP) {
       if (suggestionIndex === 0) {
@@ -92,26 +99,26 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     }
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
-      const isSuggestionListEmpty = départementList.length === 0 && régionList.length === 0 && communeList.length === 0;
-      let location: Localisation[] = [];
-      if (!isSuggestionListEmpty) {
 
-        if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
-          location = départementList;
+      let localisation: Localisation[] = [];
+      if (!isSuggestionListEmpty) {
+        if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT && départementList) {
+          localisation = départementList;
         }
-        else if (currentHoverTypeLocalisation === TypeLocalisation.REGION) {
-          location = régionList;
+        else if (currentHoverTypeLocalisation === TypeLocalisation.REGION && régionList) {
+          localisation = régionList;
         }
-        else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE) {
-          location = communeList;
+        else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE && communeList) {
+          localisation = communeList;
         }
       }
-      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${location[currentIndex].code}`))) {
+      if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${localisation[currentIndex].code}`))) {
         onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
-        setCodeInsee(location[currentIndex].codeInsee.value);
-        setInputValue(`${location[currentIndex].libelle} (${location[currentIndex].code})`);
-
+        if (localisation) {
+          setCodeInsee(localisation[currentIndex].codeInsee.value);
+          setInputValue(`${localisation[currentIndex].libelle} (${localisation[currentIndex].code})`);
+        }
         setSuggestionsActive(false);
       }
     }
@@ -151,24 +158,24 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         id={listbox}
         data-testid="RésultatsLocalisation"
       >
-        {(régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
-        {régionList.map((suggestion, index) => {
+        {hasRégion && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
+        {régionList && régionList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
         })}
 
-        {(départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
-        {départementList.map((suggestion, index) => {
+        {hasDépartement && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
+        {départementList && départementList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
         })}
 
-        {(communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
-        {communeList.map((suggestion, index) => {
+        {hasCommune && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
+        {communeList && communeList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {(régionList.length === 0 && départementList.length === 0 && communeList.length === 0) &&
+        {isSuggestionListEmpty &&
           <li className={styles.noSuggestion} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.

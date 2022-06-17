@@ -93,7 +93,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
 
   async getLocalisationByTypeLocalisationAndCodeInsee(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation> {
     const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse>(`${typeLocalisation}/${codeInsee.valueWithCodePostal}`);
+      .get<ApiDecoupageAdministratifResponse>(`${typeLocalisation}/${codeInsee.valueAvecCodePostal}`);
     const { code, nom, codesPostaux } = response.data;
     return {
       code: typeLocalisation === 'communes' ?  response.data.codesPostaux[0] : code,

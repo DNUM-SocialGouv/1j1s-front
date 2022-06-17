@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { AlternanceFiltre, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
@@ -17,6 +18,7 @@ function alternanceRequestMapper(request: NextApiRequest): AlternanceFiltre {
   const { query } = request;
 
   return {
+    codeInsee: CodeInsee.createCodeInsee(query.codeInsee.toString()),
     codeRomeList: query.codeRomes.toString().split(','),
   };
 }
