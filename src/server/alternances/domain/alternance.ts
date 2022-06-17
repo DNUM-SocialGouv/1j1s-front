@@ -7,18 +7,24 @@ export interface Alternance {
   from: From;
   intitulé: string;
   description?: string;
-  entreprise: Alternance.Entreprise;
+  entreprise?: Alternance.Entreprise;
   niveauRequis?: string
   ville?: string
   typeDeContrats?: string[]
   étiquetteList: string[]
-  adresse: string
+  adresse?: string
+  contact?: Alternance.Contact
 }
 
 export namespace Alternance {
   export interface Entreprise {
-    nom: string
+    nom?: string
     logo?: string
+  }
+
+  export interface Contact {
+    nom?: string
+    téléphone?: string
   }
 }
 

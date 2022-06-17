@@ -56,12 +56,12 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
         </div>
         }
       </div>
-      { (offreAlternance.adresse || offreAlternance.contact) &&
+      { (offreAlternance.adresse || offreAlternance.contact?.téléphone) &&
       <address className={commonStyles.contact}>
         <h3>Information sur l&apos;entreprise :</h3>
         <ul>
           { offreAlternance.adresse &&  <li>Adresse : {offreAlternance.adresse}</li>}
-          { offreAlternance.contact && offreAlternance.contact.téléphone && <li>Contact : {offreAlternance.contact.téléphone}</li>}
+          { offreAlternance.contact?.téléphone && <li>Contact : {offreAlternance.contact.téléphone}</li>}
         </ul>
       </address>
       }

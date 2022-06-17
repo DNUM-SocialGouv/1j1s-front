@@ -10,23 +10,14 @@ export namespace AlternanceFromPoleEmploi {
 }
 
 export interface AlternanceFromMatcha extends Alternance {
-  débutContrat: string
-  rythmeAlternance: string
-  competencesDeBase: string[]
-  duréeContrat: number
-  contact: AlternanceFromMatcha.Contact
-}
-
-export namespace AlternanceFromMatcha {
-  export interface Contact {
-    nom?: string
-    téléphone?: string
-  }
+  débutContrat?: string
+  rythmeAlternance?: string
+  competencesDeBase?: string[]
+  duréeContrat?: number
 }
 
 export interface AlternanceFromPoleEmploi extends Alternance {
-  url?: string
-  contact?: AlternanceFromPoleEmploi.Contact
-  duréeContrat: string
+  url: string
+  duréeContrat?: string
 }
 

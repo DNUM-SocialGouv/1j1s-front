@@ -20,7 +20,7 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
         <p dangerouslySetInnerHTML={{ __html: descriptionOffreAlternance }}/>
       </div>
       }
-      {offreAlternance.competencesDeBase.length > 0 &&
+      {offreAlternance.competencesDeBase && offreAlternance.competencesDeBase.length > 0 &&
       <div>
         <h3>Compétences visées :</h3>
         <ul className={commonStyles.competences}>
@@ -49,6 +49,12 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
           <p>{offreAlternance.typeDeContrats.join('/')}</p>
         </div>
         }
+        {offreAlternance.débutContrat  &&
+        <div>
+          <h3>Début du contrat :</h3> { ' ' }
+          <p>{offreAlternance.débutContrat}</p>
+        </div>
+        }
         { offreAlternance.duréeContrat &&
         <div>
           <h3>Durée du contrat :</h3> { ' ' }
@@ -62,12 +68,12 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
         </div>
         }
       </div>
-      { (offreAlternance.adresse || offreAlternance.contact.téléphone) &&
+      { (offreAlternance.adresse || offreAlternance.contact?.téléphone) &&
       <address className={commonStyles.contact}>
         <h3>Information sur l&apos;entreprise :</h3>
         <ul>
           { offreAlternance.adresse &&  <li>Adresse : {offreAlternance.adresse}</li>}
-          { offreAlternance.contact.téléphone && <li>Contact : {offreAlternance.contact.téléphone}</li>}
+          { offreAlternance.contact?.téléphone && <li>Contact : {offreAlternance.contact.téléphone}</li>}
         </ul>
       </address>
       }

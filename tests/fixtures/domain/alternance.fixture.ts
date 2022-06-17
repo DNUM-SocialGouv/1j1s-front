@@ -90,6 +90,10 @@ export function aMétierRecherchéList(): MétierRecherché[] {
 export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
   return {
     adresse: '15 - AURILLAC 15000',
+    contact: {
+      nom: 'AUCHAN SUPERMARCHE - Mme BROUSSE',
+      téléphone: undefined,
+    },
     description: 'Vos missions principales :\n \n- Réaliser les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires. \n- Effectuer la vente de produits de boucherie.',
     entreprise: {
       logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
@@ -108,6 +112,10 @@ export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
 export function anApprentiBoucherOffreFromMatcha(): Alternance {
   return {
     adresse: '77 RUE DES BOURGUIGNONS 92270 BOIS-COLOMBES',
+    contact: {
+      nom: 'STEPHANE VEIT',
+      téléphone: '0646057107',
+    },
     description: 'Réalise les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires.\\nPeut effectuer la vente de produits de boucherie.\\nPeut gérer un commerce de détail alimentaire (boucherie, boucherie-charcuterie, ...).',
     entreprise: {
       logo: undefined,
@@ -126,10 +134,6 @@ export function anApprentiBoucherOffreFromMatcha(): Alternance {
 export function anApprentiBoucherFromPoleEmploi(): RésultatRechercheAlternance {
   return {
     ...anApprentiBoucherOffreFromPoleEmploi(),
-    contact: {
-      info: 'Pour postuler, utiliser le lien suivant : https://candidat.pole-emploi.fr/offres/recherche/detail/134CMXJ',
-      téléphone: undefined,
-    },
     duréeContrat: '35H Travail en équipe',
     url: 'https://candidat.pole-emploi.fr/offres/recherche/detail/134CMXJ',
   };
@@ -167,12 +171,8 @@ export function anApprentiBoucherFromMatcha(): RésultatRechercheAlternance {
       'Traçabilité des produits',
       'Techniques de transformation des viandes',
     ],
-    contact: {
-      nom: 'STEPHANE VEIT',
-      téléphone: '0646057107',
-    },
     duréeContrat: 1,
-    débutContrat: '2022-01-09T00:00:00.000Z',
+    débutContrat: '09/01/2022',
     rythmeAlternance: '2 semaines / 3 semaines',
   };
 }

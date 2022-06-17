@@ -6,32 +6,32 @@ type IdeaType = 'peJob'
 export interface PeJobsResultResponse {
   ideaType: IdeaType
   title: string
-  company: PeJobsCompanyResponse
+  company?: PeJobsCompanyResponse
   job: PeJobsJobResponse
-  diplomaLevel: string | null
-  place: PeJobsPlaceResponse
-  contact: PeJobsContactResponse
+  diplomaLevel?: string
+  place?: PeJobsPlaceResponse
+  contact?: PeJobsContactResponse
   url: string
 }
 
 export interface PeJobsJobResponse {
   id: string
   description: string
-  contractType: string
-  contractDescription: string
-  duration: string
+  contractType?: string
+  contractDescription?: string
+  duration?: string
 }
 
 export interface PeJobsPlaceResponse {
-  city: string
-  fullAddress: string
+  city?: string
+  fullAddress?: string
 }
 
 export interface PeJobsCompanyResponse {
-  name: string
+  name?: string
   logo?: string
 }
 export interface PeJobsContactResponse {
-  info?: string
+  name?: string
   phone?: string
 }
