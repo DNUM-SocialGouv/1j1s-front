@@ -26,6 +26,11 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
   const [currentHoverTypeLocalisation, setCurrentHoverTypeLocalisation]= useState(TypeLocalisation.REGION);
   const [currentIndex, setCurrenIndex] = useState(0);
 
+  const hasDépartement = départementList && départementList.length > 0;
+  const hasRégion = régionList && régionList.length > 0;
+  const hasCommune =communeList && communeList.length > 0;
+  const isSuggestionListEmpty = !hasDépartement && !hasRégion && !hasCommune;
+
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
   const label = 'autocomplete-label';
@@ -80,6 +85,8 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     setSuggestionsActive(false);
   };
 
+
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ARROW_UP) {
       if (suggestionIndex === 0) {
@@ -93,11 +100,6 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
     else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
 
-      const hasDépartement = départementList && départementList.length === 0;
-      const hasRégion = régionList && régionList.length === 0;
-      const hasCommune =communeList && communeList.length === 0;
-
-      const isSuggestionListEmpty = (hasDépartement) && (hasRégion) && (hasCommune);
       let localisation: Localisation[] = [];
       if (!isSuggestionListEmpty) {
         if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
@@ -162,24 +164,24 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         id={listbox}
         data-testid="RésultatsLocalisation"
       >
-        {(régionList && régionList.length > 0) && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
+        {hasRégion && <li className={styles.localisationCatégorie}><strong>Régions</strong></li>}
         {régionList && régionList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
         })}
 
-        {(départementList && départementList.length > 0) && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
+        {hasDépartement && <li className={styles.localisationCatégorie}><strong>Départements</strong></li>}
         {départementList && départementList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
         })}
 
-        {(communeList && communeList.length > 0) && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
+        {hasCommune && <li className={styles.localisationCatégorie}><strong>Communes</strong></li>}
         {communeList && communeList.map((suggestion, index) => {
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {(régionList && régionList.length === 0 && départementList && départementList.length === 0 && communeList && communeList.length === 0) &&
+        {(isSuggestionListEmpty) &&
           <li className={styles.noSuggestion} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.

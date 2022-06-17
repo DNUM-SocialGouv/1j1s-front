@@ -13,7 +13,7 @@ export enum TypeLocalisation {
 }
 
 export interface LocalisationList {
-  communeList?: Localisation[]
-  départementList?: Localisation[]
-  régionList?: Localisation[]
+  communeList: Localisation[]
+  départementList: Localisation[]
+  régionList: Localisation[]
 }

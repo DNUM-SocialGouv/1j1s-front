@@ -89,9 +89,7 @@ export function RechercherAlternance() {
   async function rechercherLocalisation(recherche: string) {
     setInputLocalisation(recherche);
     const résultats = await localisationService.rechercheLocalisation(recherche);
-    if(résultats){
-      setCommuneList(résultats.communeList!);
-    }
+    setCommuneList(résultats && résultats.communeList ? résultats.communeList : []);
   }
   return (
     <>
