@@ -1,4 +1,4 @@
-import { Title } from '@dataesr/react-dsfr';
+import { MediaImage, Title } from '@dataesr/react-dsfr';
 
 import styles from '~/client/components/features/Article/ConsulterArticle.module.css';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -10,6 +10,8 @@ interface ConsulterArticleProps {
 
 export function ConsulterArticle({ article }: ConsulterArticleProps) {
   const titre = useSanitize(article.titre);
+  const imageUrl = useSanitize(article.image?.url);
+  const imageAlt = useSanitize(article.image?.alternativeText);
   const contenu = useSanitize(article.contenu);
 
   const createMarkup = (markup: string) => ({ __html: markup });
@@ -17,6 +19,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
   return (
     <main className={`${styles.consulterArticle} fr-container`}>
       <Title as="h1" className={styles.titre}>{titre}</Title>
+      {imageUrl && <MediaImage src={imageUrl} alt={imageAlt} />}
       <article dangerouslySetInnerHTML={createMarkup(contenu)} />
     </main>
   );

@@ -25,7 +25,7 @@ describe('ApiStrapiArticleRepository', () => {
         const result = await apiStrapiArticleRepository.getArticle(slug) as Success<Article>;
 
         expect(result.result).toEqual(expectedArticle);
-        expect(strapiHttpClientService.get).toHaveBeenCalledWith(`articles?filters[slug][$eq]=${slug}`);
+        expect(strapiHttpClientService.get).toHaveBeenCalledWith(`articles?filters[slug][$eq]=${slug}&populate[0]=image`);
       });
     });
     describe('Si aucun article n\'est trouvé', () => {
