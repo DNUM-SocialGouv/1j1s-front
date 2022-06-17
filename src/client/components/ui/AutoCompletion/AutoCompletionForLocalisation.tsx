@@ -102,20 +102,14 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
 
       let localisation: Localisation[] = [];
       if (!isSuggestionListEmpty) {
-        if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT) {
-          if(départementList){
-            localisation = départementList;
-          }
+        if (currentHoverTypeLocalisation === TypeLocalisation.DEPARTEMENT && départementList) {
+          localisation = départementList;
         }
-        else if (currentHoverTypeLocalisation === TypeLocalisation.REGION) {
-          if(régionList){
-            localisation = régionList;
-          }
+        else if (currentHoverTypeLocalisation === TypeLocalisation.REGION && régionList) {
+          localisation = régionList;
         }
-        else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE) {
-          if(communeList){
-            localisation = communeList;
-          }
+        else if (currentHoverTypeLocalisation === TypeLocalisation.COMMUNE && communeList) {
+          localisation = communeList;
         }
       }
       if(!isSuggestionListEmpty && ((codeInsee === '' && typeLocalisation === '') || (inputValue && inputValue !== `${localisation[currentIndex].code}`))) {
@@ -181,7 +175,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
           currentHoverIndex++;
           return getSuggestion(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {(isSuggestionListEmpty) &&
+        {isSuggestionListEmpty &&
           <li className={styles.noSuggestion} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.

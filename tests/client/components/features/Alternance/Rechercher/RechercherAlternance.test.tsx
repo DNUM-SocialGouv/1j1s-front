@@ -154,6 +154,7 @@ describe('RechercherAlternance', () => {
       expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
     });
   });
+
   describe('Recherche par lieu', () => {
     it('quand on recherche avec un lieu', async () => {
       // GIVEN
