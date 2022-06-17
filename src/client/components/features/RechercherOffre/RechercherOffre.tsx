@@ -25,10 +25,7 @@ import styles from '~/client/components/features/RechercherOffre/RechercherOffre
 import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
-import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
-import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
-import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMessage/UnavailableServiceErrorMessage';
-import { UnexpectedErrorMessage } from '~/client/components/ui/ErrorMessage/UnexpectedErrorMessage';
+import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
@@ -46,6 +43,7 @@ import {
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
+import { getOffreHeadTagTitre } from '~/client/utils/offreHeadTagTitre.util';
 import { ErrorType } from '~/server/errors/error.types';
 import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
@@ -84,7 +82,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorType, setErrorType] = useState<ErrorType | null>(null);
+  const [errorType, setErrorType] = useState<ErrorType | undefined>(undefined);
 
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
 
@@ -99,11 +97,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   const OFFRE_PER_PAGE = 30;
   const defaultLogo = '/images/logos/pole-emploi.svg';
 
-  const AUCUN_RÉSULTAT_TITLE = '- Aucun résultat';
-  const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
-  const DEMANDE_INCORRECTE_TITLE = '- Demande incorrecte';
-  const ERREUR_INATTENDUE_TITLE = '- Erreur inattendue';
-
   const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
@@ -112,28 +105,11 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
       const fetchOffreEmploi = async () => {
         const response = await offreEmploiService.rechercherOffreEmploi(getQueryString(), defaultQueryParameters);
         if (response.instance === 'success') {
-          if (response.result.nombreRésultats === 0) {
-            setTitle(AUCUN_RÉSULTAT_TITLE);
-          } else {
-            setTitle('');
-          }
+          setTitle(getOffreHeadTagTitre(`${prefixTitle}${response.result.nombreRésultats === 0 ? '- Aucun résultat' : ''}`));
           setOffreEmploiList(response.result.résultats);
           setNombreRésultats(response.result.nombreRésultats);
         } else {
-          switch (response.errorType) {
-            case ErrorType.SERVICE_INDISPONIBLE: {
-              setTitle(SERVICE_INDISPONIBLE_TITLE);
-              break;
-            }
-            case ErrorType.DEMANDE_INCORRECTE: {
-              setTitle(DEMANDE_INCORRECTE_TITLE);
-              break;
-            }
-            case ErrorType.ERREUR_INATTENDUE: {
-              setTitle(ERREUR_INATTENDUE_TITLE);
-              break;
-            }
-          }
+          setTitle(getOffreHeadTagTitre(prefixTitle, response.errorType));
           setErrorType(response.errorType);
         }
         setIsLoading(false);
@@ -195,12 +171,11 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   }
 
   const hasNoResult = hasQueryParams && !isLoading && offreEmploiList.length === 0;
-  const hasError = !!errorType && hasNoResult;
 
   return (
     <>
       <HeadTag
-        title={`${prefixTitle} ${title} | 1jeune1solution`}
+        title={title}
         description={description}
       />
       <main id="contenu" className={commonStyles.container}>
@@ -388,10 +363,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
             </div>
           }
 
-          {hasNoResult && !hasError && <NoResultErrorMessage className={styles.errorMessage}/>}
-          {hasNoResult && errorType === ErrorType.ERREUR_INATTENDUE && <UnexpectedErrorMessage className={styles.errorMessage}/>}
-          {hasNoResult && errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
-          {hasNoResult && errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage}/>}
+          <ErrorComponent errorType={errorType} showError={hasNoResult} />
 
           {offreEmploiList.length > 0 && !isLoading &&
             <ul className={commonStyles.résultatRechercheOffreList}>

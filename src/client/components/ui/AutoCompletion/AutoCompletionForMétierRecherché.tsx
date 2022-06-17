@@ -133,34 +133,36 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   };
 
   const Suggestions = () => {
-    return suggestionList.length === 0 ?
-      (
-        <span className={styles.autocompletionSuggestion} data-testid="MétierRecherchéNoResultMessage">
-            Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulangerie, cuisine...
-        </span>
-      ) : (
-        <ul
-          className={styles.autocompletionSuggestion}
-          role="listbox"
-          aria-labelledby={label}
-          id={listbox}
-          data-testid="RésultatsRechercheMétier"
-        >
-          {suggestions.map((suggestion, index) => {
-            return (
-              <li
-                className={index === suggestionIndex ? styles.active : ''}
-                key={index}
-                onClick={(event) => handleClick(event, suggestion)}
-                role="option"
-                aria-selected={false}
-              >
-                {suggestion.intitulé}
-              </li>
-            );
-          })}
-        </ul>
-      );
+    return (
+      <ul
+        className={styles.autocompletionSuggestion}
+        role="listbox"
+        aria-labelledby={label}
+        id={listbox}
+        data-testid="RésultatsRechercheMétier"
+      >
+        {suggestions.length > 0 && suggestions.map((suggestion, index) => {
+          return (
+            <li
+              className={index === suggestionIndex ? styles.active : ''}
+              key={index}
+              onClick={(event) => handleClick(event, suggestion)}
+              role="option"
+              aria-selected={false}
+            >
+              {suggestion.intitulé}
+            </li>
+          );
+        })}
+        {suggestions.length === 0 &&
+        <li className={styles.noSuggestion} data-testid="MétierRecherchéNoResultMessage">
+          Aucune proposition ne correspond à votre saisie.
+          Vérifiez que votre saisie correspond bien à un métier.
+          Exemple : boulangerie, cuisine...
+        </li>
+        }
+      </ul>
+    );
   };
 
   return (

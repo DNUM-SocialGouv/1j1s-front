@@ -1,12 +1,24 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { anAlternanceService } from '@tests/fixtures/client/services/alternanceService.fixture';
-import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
+import {
+  anAlternanceService,
+  anAlternanceServiceWithErrorDemandeIncorrecte,
+  anAlternanceServiceWithErrorInattendue,
+  anAlternanceServiceWithErrorServiceIndisponible,
+  anEmptyAlternanceService,
+} from '@tests/fixtures/client/services/alternanceService.fixture';
 import {
   aMétierRecherchéService,
   aMétierRecherchéServiceWithEmptyResponse,
@@ -203,6 +215,100 @@ describe('RechercherAlternance', () => {
       });
       expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeInsee=75001_75056' });
       expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeInsee=75056');
+    });
+  });
+
+  describe('quand la recherche est infructueuse', () => {
+    describe('quand il n\'y a aucun résultat', () => {
+      it('retourne le message d\'erreur correspondant', async () => {
+        // GIVEN
+        const alternanceService = anEmptyAlternanceService();
+        const métierRecherchéService = aMétierRecherchéService();
+        mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
+
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+
+        await waitFor(async () => {
+          // WHEN
+          const errorMessage = await screen.findByText('0 résultat');
+
+          // THEN
+          expect(errorMessage).toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('quand il y a une erreur inattendue', () => {
+      it('retourne le message d\'erreur correspondant', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceServiceWithErrorInattendue();
+        const métierRecherchéService = aMétierRecherchéService();
+        mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
+
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+
+        // WHEN
+        const unexpectedErrorMessage = await screen.findByTestId('UnexpectedErrorMessage');
+
+        // THEN
+        await waitFor(() => {
+          expect(unexpectedErrorMessage).toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('quand le service est indisponible', () => {
+      it('retourne le message d\'erreur correspondant', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceServiceWithErrorServiceIndisponible();
+        const métierRecherchéService = aMétierRecherchéService();
+        mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
+
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+
+        // WHEN
+        const unavailableServiceErrorMessage = await screen.findByTestId('UnavailableServiceErrorMessage');
+
+        // THEN
+        await waitFor(() => {
+          expect(unavailableServiceErrorMessage).toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('quand la demande est incorrecte', () => {
+      it('retourne le message d\'erreur correspondant', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceServiceWithErrorDemandeIncorrecte();
+        const métierRecherchéService = aMétierRecherchéService();
+        mockUseRouter({ query: { codeRomes: 'D1', metierSelectionne: 'b' } });
+
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+
+        // WHEN
+        const incorrectRequestErrorMessage = await screen.findByTestId('IncorrectRequestErrorMessage');
+
+        // THEN
+        await waitFor(() => {
+          expect(incorrectRequestErrorMessage).toBeInTheDocument();
+        });
+      });
     });
   });
 });
