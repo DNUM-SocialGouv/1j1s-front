@@ -258,7 +258,7 @@ describe('RechercherAlternance', () => {
         );
 
         // WHEN
-        const unexpectedErrorMessage = await screen.findByTestId('UnexpectedErrorMessage');
+        const unexpectedErrorMessage = await screen.findByText('Erreur inattendue');
 
         // THEN
         await waitFor(() => {
@@ -282,7 +282,7 @@ describe('RechercherAlternance', () => {
         );
 
         // WHEN
-        const unavailableServiceErrorMessage = await screen.findByTestId('UnavailableServiceErrorMessage');
+        const unavailableServiceErrorMessage = await screen.findByText('Service indisponible');
 
         // THEN
         await waitFor(() => {
@@ -306,11 +306,33 @@ describe('RechercherAlternance', () => {
         );
 
         // WHEN
-        const incorrectRequestErrorMessage = await screen.findByTestId('IncorrectRequestErrorMessage');
+        const incorrectRequestErrorMessage = await screen.findByText('Erreur - Demande incorrecte');
 
         // THEN
         await waitFor(() => {
           expect(incorrectRequestErrorMessage).toBeInTheDocument();
+        });
+      });
+
+      it('retourne un titre d\'onglet adapté', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceServiceWithErrorDemandeIncorrecte();
+        const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
+        mockUseRouter({ query: { codeRomes: 'D1', metierSelectionne: 'b' } });
+
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+
+        // WHEN
+        const incorrectRequestErrorMessage = await screen.findByText('Erreur - Demande incorrecte');
+        // THEN
+        await waitFor(() => {
+          expect(incorrectRequestErrorMessage).toBeInTheDocument();
+
         });
       });
     });

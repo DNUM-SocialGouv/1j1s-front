@@ -10,12 +10,10 @@ import { ErrorType } from '~/server/errors/error.types';
 
 interface ErrorProps {
   errorType?: ErrorType
-  showError: boolean
 }
 
 export const ErrorComponent = (props: ErrorProps) => {
-  const { errorType, showError } = props;
-  if (!showError) return null;
+  const { errorType } = props;
   return (
     <>
       {!errorType && <NoResultErrorMessage className={styles.errorMessage}/>}

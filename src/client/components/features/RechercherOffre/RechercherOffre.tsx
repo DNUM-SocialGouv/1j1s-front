@@ -362,8 +362,8 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
               </h2>
             </div>
           }
-
-          <ErrorComponent errorType={errorType} showError={hasNoResult} />
+          
+          { hasNoResult && <ErrorComponent errorType={errorType} /> }
 
           {offreEmploiList.length > 0 && !isLoading &&
             <ul className={commonStyles.résultatRechercheOffreList}>

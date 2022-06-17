@@ -151,8 +151,8 @@ export function RechercherAlternance() {
               <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
             </div>
           }
+          { hasNoResult && <ErrorComponent errorType={errorType} /> }
 
-          <ErrorComponent errorType={errorType} showError={hasNoResult} />
 
           {alternanceList.length > 0 && !isLoading &&
           <ul className={commonStyles.résultatRechercheOffreList}>
