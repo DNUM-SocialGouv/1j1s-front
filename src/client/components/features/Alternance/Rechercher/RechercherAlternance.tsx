@@ -11,6 +11,7 @@ import commonStyles from '~/client/components/features/RechercherOffre.module.cs
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
+import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -18,10 +19,10 @@ import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
+import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { ErrorType } from '~/server/errors/error.types';
 import { Localisation } from '~/server/localisations/domain/localisation';
-
-
 
 export function RechercherAlternance() {
   const localisationService = useDependency<LocalisationService>('localisationService');
@@ -32,25 +33,29 @@ export function RechercherAlternance() {
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const [inputLocalisation, setInputLocalisation] = useState<string>('');
+  const [errorType, setErrorType] = useState<ErrorType | undefined>(undefined);
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
-
+  const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [communeList, setCommuneList] = useState<Localisation[]>([]);
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
 
-
+  const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     if(hasQueryParams) {
       const fetchOffreAlternance = async () => {
-
         const localisationParam = isKeyInQueryParams(QueryParams.CODE_INSEE) ? `&codeInsee=${getQueryValue(QueryParams.CODE_INSEE)}` : '';
         const params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}${localisationParam}`;
         const response = await alternanceService.rechercherAlternance(params);
-        setNombreRésultats(response.nombreRésultats);
-        setAlternanceList(response.résultats);
+        if (response.instance === 'success') {
+          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setAlternanceList(response.result.résultats);
+          setNombreRésultats(response.result.nombreRésultats);
+        } else {
+          setTitle(getRechercherOffreHeadTagTitre('Rechercher une alternance', response.errorType));
+          setErrorType(response.errorType);
+        }
         setIsLoading(false);
       };
 
@@ -91,10 +96,13 @@ export function RechercherAlternance() {
     const résultats = await localisationService.rechercheLocalisation(recherche);
     setCommuneList(résultats && résultats.communeList ? résultats.communeList : []);
   }
+  
+  const hasNoResult = hasQueryParams && !isLoading && alternanceList.length === 0;
+
   return (
     <>
       <HeadTag
-        title={'Rechercher une alternance | 1jeune1solution'}
+        title={title}
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={commonStyles.container}>
@@ -143,6 +151,8 @@ export function RechercherAlternance() {
               <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
             </div>
           }
+          { hasNoResult && <ErrorComponent errorType={errorType} /> }
+
 
           {alternanceList.length > 0 && !isLoading &&
           <ul className={commonStyles.résultatRechercheOffreList}>
