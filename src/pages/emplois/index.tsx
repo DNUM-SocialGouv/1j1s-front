@@ -7,7 +7,7 @@ export default function RechercherOffreEmploiPage() {
     <RechercherOffre
       prefixTitle="Rechercher un emploi"
       description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
-      heroTitle="Des milliers d'offres d'emplois sélectionnées pour vous par Pôle Emploi"
+      heroTitle={<>Des milliers d&apos;<b>offres d&apos;emplois<br/>sélectionnées pour vous</b> par<br/>Pôle Emploi</>}
       isNiveauDemandéActive={true}
       isTempsDeTravailActive={true}
       isTypeDeContratActive={true}

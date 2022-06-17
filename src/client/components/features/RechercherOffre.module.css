@@ -13,6 +13,10 @@
     border-bottom: 1px solid var(--grey-950);
 }
 
+.filtresRechercherOffre {
+    flex: 1 0;
+}
+
 .inputButtonWrapper {
     padding-top: 24px;
     padding-bottom: 32px;
@@ -59,12 +63,16 @@
     }
 
     .rechercheOffreForm {
+        flex-direction: row;
+        align-items: flex-start;
         padding-top: 40px;
         padding-bottom: 40px;
     }
 
     .buttonRechercher {
         width: initial;
+        margin-top: 32px;
+        margin-left: 40px;
     }
 
     .inputButtonWrapper {

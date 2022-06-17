@@ -22,17 +22,12 @@ export function PageNotFound(){
               <a>Retourner à l&apos;accueil</a>
             </Link>
           </Button>
-          <Button secondary>
-            <Link href="#">
-              Contactez-nous
-            </Link>
-          </Button>
         </ButtonGroup>
       </div>
       {!isSmallScreen &&
-          <div className={styles.errorLogo}>
-            <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205'/>
-          </div>
+        <div className={styles.errorLogo}>
+          <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205'/>
+        </div>
       }
     </div>
   );

@@ -7,7 +7,7 @@ export default function RechercherJobEtudiantPage() {
     <RechercherOffre
       prefixTitle="Rechercher un job étudiants"
       description="Plus de 400 000 offres de jobs étudiants pour vous"
-      heroTitle="Des milliers de jobs étudiants sélectionnés pour vous par Pôle Emploi"
+      heroTitle={<>Des milliers de <b>jobs étudiants<br/>sélectionnés pour vous</b> par<br/>Pôle Emploi</>}
       defaultQueryParameters="typeDeContrats=CDD,MIS,SAI&dureeHebdoMax=1600&tempsDeTravail=tempsPartiel"
       isNiveauDemandéActive={false}
       isTempsDeTravailActive={false}

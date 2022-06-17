@@ -4,32 +4,39 @@
 }
 
 .heroContent {
-  padding: 72px 1.5rem;
-  max-width:78rem;
-  margin:0 auto;
+  max-width: 78rem;
+  padding: 36px 1.5rem;
+  margin: 0 auto;
 }
 
-.hero *, .hero [class^="fr-"] {
-  line-height: 1.25;
-  font-size: 1.5rem;
-  color: var(--grey-1000);
-}
-
-.heroText > *:last-child {
+.heroTitle {
   margin-bottom: 0;
+  line-height: 1.6;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--grey-1000);
 }
 
 .heroImage {
   position: absolute;
-  top:0;
-  right:0;
-  height:100%;
-  object-fit: contain;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@media only screen and (min-width: 48em) {
+  .heroContent {
+    padding: 42px 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
 }
 
 @media only screen and (min-width: 78em) {
-  .heroText {
-    width: 60%;
-    padding-right: 80px;
+  .heroContent {
+    padding: 80px 1.5rem;
   }
 }

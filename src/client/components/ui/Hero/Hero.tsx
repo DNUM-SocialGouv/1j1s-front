@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.css';
@@ -8,17 +9,19 @@ interface HeroProps {
 }
 
 export function Hero({ children, image, ...rest }: React.PropsWithChildren<HeroProps>) {
-  const { isExtraLargeScreen } = useBreakpoint();
+  const { isLargeScreen } = useBreakpoint();
 
   return (
     <div className={styles.hero} {...rest}>
       <div className={styles.heroContent}>
-        <div className={styles.heroText}>
+        <h1 className={styles.heroTitle}>
           {children}
-        </div>
+        </h1>
       </div>
-      {image && isExtraLargeScreen && (
-        <img className={styles.heroImage} src={image} alt=""/>
+      {image && isLargeScreen && (
+        <div className={styles.heroImage}>
+          <Image src={image} alt="" layout="fill" objectFit="contain" objectPosition="right"/>
+        </div>
       )}
     </div>
   );
