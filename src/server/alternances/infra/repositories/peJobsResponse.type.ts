@@ -8,7 +8,7 @@ export interface PeJobsResultResponse {
   title: string
   company?: PeJobsCompanyResponse
   job: PeJobsJobResponse
-  diplomaLevel: string | null
+  diplomaLevel?: string
   place?: PeJobsPlaceResponse
   contact?: PeJobsContactResponse
   url: string
