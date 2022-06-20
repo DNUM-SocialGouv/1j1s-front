@@ -80,4 +80,22 @@ describe('récupérer une localisation', () => {
       url: '/localisation?typeLocalisation=REGION&codeInsee=32',
     });
   });
+
+  it('retourne une erreur 500', async () => {
+    nock('https://geo.api.gouv.fr/')
+      .get('/communes/9999')
+      .reply(200, {
+        code: null,
+        nom: null,
+      });
+
+    await testApiHandler<LocalisationApiResponse>({
+      handler: (req, res) => récupérerLocalisationAvecCodeInseeHandler(req, res),
+      test: async({ fetch }) => {
+        const res = await fetch({ method: 'GET' });
+        expect(res.status).toEqual(500);
+      },
+      url: '/localisation?typeLocalisation=COMMUNE&codeInsee=9999',
+    });
+  });
 });

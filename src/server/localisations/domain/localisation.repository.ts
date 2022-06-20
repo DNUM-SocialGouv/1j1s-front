@@ -10,5 +10,5 @@ export interface LocalisationRepository {
   getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]>;
   getRégionListByNom(régionRecherchée: string): Promise<Localisation[]>;
   getAdresseList(adresseRecherchée: string): Promise<Adresse[]>;
-  getLocalisationByTypeLocalisationAndCodeInsee(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation>;
+  getLocalisationByTypeLocalisationAndCodeInsee(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation | undefined>;
 }

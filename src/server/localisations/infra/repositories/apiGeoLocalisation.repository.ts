@@ -1,3 +1,6 @@
+import * as Sentry from '@sentry/nextjs';
+import * as CaptureContext from '@sentry/types';
+
 import { Adresse } from '~/server/localisations/domain/adresse';
 import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { Localisation } from '~/server/localisations/domain/localisation';
@@ -12,98 +15,108 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
   ) {
   }
 
-  async getAdresseList(adresseRecherchée: string): Promise<Adresse[]> {
-    const response = await this.apiAdresseHttpClientService.get<ApiGeoAdresseResponse>(
-      `search/?q=${adresseRecherchée}`,
-    );
+  API_GEO_GOUV_PREFIX_LOG = 'API_GEO_GOUV';
 
-    return response.data.features.map((adresse) => ({
-      codeInsee: adresse.properties.citycode,
-      libelle: adresse.properties.label,
-      ville: adresse.properties.city,
-    }));
+  async getAdresseList(adresseRecherchée: string): Promise<Adresse[]> {
+    let response;
+
+    try {
+      response = await this.apiAdresseHttpClientService.get<ApiGeoAdresseResponse>(
+        `search/?q=${adresseRecherchée}`,
+      );
+      return response.data.features.map((adresse) => ({
+        codeInsee: adresse.properties.citycode,
+        libelle: adresse.properties.label,
+        ville: adresse.properties.city,
+      }));
+    } catch (e: unknown) {
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+      return [];
+    }
   }
 
   async getCommuneListByNom(communeRecherchée: string): Promise<Localisation[]> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse[]>(`communes?nom=${communeRecherchée}`);
-
-    return response.data.map((commune) => ({
-      code: commune.codesPostaux[0],
-      codeInsee: ApiGeoLocalisationRepository.getCodeInsee(commune.codesPostaux, commune.code),
-      libelle: commune.nom,
-    }));
+    return await this.requestForSearchByCommune(`communes?nom=${communeRecherchée}`);
   }
 
   async getDépartementListByNom(départementRecherché: string): Promise<Localisation[]> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse[]>(`departements?nom=${départementRecherché}`);
-
-    return response.data.map((commune) => ({
-      code: commune.code,
-      codeInsee: CodeInsee.createCodeInsee(commune.code),
-      libelle: commune.nom,
-    }));
+    return await this.requestForSearchByDépartementOrRegion(`departements?nom=${départementRecherché}`);
   }
 
   async getRégionListByNom(régionRecherchée: string): Promise<Localisation[]> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse[]>(`regions?nom=${régionRecherchée}`);
-
-    return response.data.map((commune) => ({
-      code: commune.code,
-      codeInsee: CodeInsee.createCodeInsee(commune.code),
-      libelle: commune.nom,
-    }));
+    return await this.requestForSearchByDépartementOrRegion(`regions?nom=${régionRecherchée}`);
   }
 
   async getCommuneListByCodePostal(codePostalRecherchée: string): Promise<Localisation[]> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse[]>(`communes?codePostal=${codePostalRecherchée}`);
-
-    return response.data.map((commune) => ({
-      code: commune.codesPostaux[0],
-      codeInsee: ApiGeoLocalisationRepository.getCodeInsee(commune.codesPostaux, commune.code),
-      libelle: commune.nom,
-    }));
+    return await this.requestForSearchByCommune(`communes?codePostal=${codePostalRecherchée}`);
   }
 
   async getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse[]>(`departements/${numéroDépartementRecherché}/communes`);
-
-    return response.data.map((commune) => ({
-      code: commune.codesPostaux[0],
-      codeInsee: ApiGeoLocalisationRepository.getCodeInsee(commune.codesPostaux, commune.code),
-      libelle: commune.nom,
-    }));
+    return await this.requestForSearchByCommune(`departements/${numéroDépartementRecherché}/communes`);
   }
 
   async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse[]>(`departements?code=${numéroDépartementRecherché}`);
-
-    return response.data.map((commune) => ({
-      code: commune.code,
-      codeInsee: CodeInsee.createCodeInsee(commune.code),
-      libelle: commune.nom,
-    }));
+    return await this.requestForSearchByDépartementOrRegion(`departements?code=${numéroDépartementRecherché}`);
   }
 
+  async getLocalisationByTypeLocalisationAndCodeInsee(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation | undefined> {
+    let response;
 
-  async getLocalisationByTypeLocalisationAndCodeInsee(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation> {
-    const response = await this.apiGeoHttpClientService
-      .get<ApiDecoupageAdministratifResponse>(`${typeLocalisation}/${codeInsee.valueAvecCodePostal}`);
-    const { code, nom, codesPostaux } = response.data;
-    return {
-      code: typeLocalisation === 'communes' ?  response.data.codesPostaux[0] : code,
-      codeInsee: ApiGeoLocalisationRepository.getCodeInsee(codesPostaux, code),
-      libelle: nom,
-    };
+    try {
+      response = await this.apiGeoHttpClientService
+        .get<ApiDecoupageAdministratifResponse>(`${typeLocalisation}/${codeInsee.valueAvecCodePostal}`);
+      const { code, nom, codesPostaux } = response.data;
+
+      return {
+        code: typeLocalisation === 'communes' ?  response.data.codesPostaux[0] : code,
+        codeInsee: ApiGeoLocalisationRepository.getCodeInsee(codesPostaux, code),
+        libelle: nom,
+      };
+    } catch (e: unknown) {
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+      return undefined;
+    }
   }
 
   private static getCodeInsee(codesPostaux: string[], code: string) {
     return codesPostaux ? codesPostaux.length > 1 ? CodeInsee.createCodeInseeAvecCodePostal(code, codesPostaux[0]) : CodeInsee.createCodeInsee(code) : CodeInsee.createCodeInsee(code);
+  }
+
+  private async requestForSearchByCommune(endpoint: string) {
+    let response;
+
+    try {
+      response = await this.apiGeoHttpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
+      return response.data.map((commune) => ({
+        code: commune.codesPostaux[0],
+        codeInsee: ApiGeoLocalisationRepository.getCodeInsee(commune.codesPostaux, commune.code),
+        libelle: commune.nom,
+      }));
+    } catch (e: unknown) {
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+      return [];
+    }
+  }
+
+  private async requestForSearchByDépartementOrRegion(endpoint: string) {
+    let response;
+
+    try {
+      response = await this.apiGeoHttpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
+
+      return response.data.map((localisation) => ({
+        code: localisation.code,
+        codeInsee: CodeInsee.createCodeInsee(localisation.code),
+        libelle: localisation.nom,
+      }));
+    } catch (e: unknown) {
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+      return [];
+    }
   }
 }
 
