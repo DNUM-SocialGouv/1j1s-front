@@ -2,7 +2,8 @@ import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixt
 import { AxiosResponse } from 'axios';
 
 import { Article } from '~/server/articles/domain/article';
-import { ArticleResponse } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
+import { Strapi } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
+
 
 export function anArticle(override?: Partial<Article>): Article {
   return {
@@ -13,7 +14,7 @@ export function anArticle(override?: Partial<Article>): Article {
   };
 }
 
-export function anArticleResponse(override?: Partial<ArticleResponse>): ArticleResponse {
+export function anArticleResponse(override?: Partial<Strapi.ArticleContentType>): Strapi.ArticleContentType {
   return {
     data: [{
       attributes: {
@@ -26,7 +27,7 @@ export function anArticleResponse(override?: Partial<ArticleResponse>): ArticleR
 	      titre: 'Mon article',
 	      updatedAt: '2022-06-02T15:49:50.645Z',
       },
-      id: '1234',
+      id: 1,
     }],
     meta: {
 	    pagination: {
@@ -40,8 +41,8 @@ export function anArticleResponse(override?: Partial<ArticleResponse>): ArticleR
   };
 }
 
-export function anArticleAxiosResponse(override?: Partial<ArticleResponse>): AxiosResponse<ArticleResponse> {
-  return anAxiosResponse<ArticleResponse>(anArticleResponse(override));
+export function anArticleAxiosResponse(override?: Partial<Strapi.ArticleContentType>): AxiosResponse<Strapi.ArticleContentType> {
+  return anAxiosResponse<Strapi.ArticleContentType>(anArticleResponse(override));
 }
 
 

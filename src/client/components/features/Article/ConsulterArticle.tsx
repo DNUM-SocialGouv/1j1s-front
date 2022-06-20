@@ -10,6 +10,8 @@ interface ConsulterArticleProps {
 
 export function ConsulterArticle({ article }: ConsulterArticleProps) {
   const titre = useSanitize(article.titre);
+  const banniereUrl = useSanitize(article.banniere?.url);
+  const banniereAlt = useSanitize(article.banniere?.alternativeText);
   const contenu = useSanitize(article.contenu);
 
   const createMarkup = (markup: string) => ({ __html: markup });
@@ -17,6 +19,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
   return (
     <main className={`${styles.consulterArticle} fr-container`}>
       <Title as="h1" className={styles.titre}>{titre}</Title>
+      {banniereUrl && <img src={banniereUrl} alt={banniereAlt} />}
       <article dangerouslySetInnerHTML={createMarkup(contenu)} />
     </main>
   );
