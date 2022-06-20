@@ -10,7 +10,7 @@ export class ApiStrapiArticleRepository implements ArticleRepository {
   constructor(private strapiHttpClientService: StrapiHttpClientService) {}
 
   async getArticle(slug: ArticleSlug): Promise<Either<Article>> {
-    const filters = `[slug][$eq]=${slug}&populate[0]=image`;
+    const filters = `[slug][$eq]=${slug}&populate[0]=banniere`;
     try {
       const { data: response } = await this.strapiHttpClientService.get<Strapi.ArticleContentType>(`articles?filters${filters}`);
       const article = mapArticle(response);

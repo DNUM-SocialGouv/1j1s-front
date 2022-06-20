@@ -33,7 +33,7 @@ export namespace Strapi {
 
 	export interface ArticleAttributes extends PublicationContentTypeAttributes {
 		titre: string
-		image?: Image
+		banniere?: Image
 		slug: string
 		contenu?: string
 	}

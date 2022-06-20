@@ -3,7 +3,6 @@ import { AxiosResponse } from 'axios';
 
 import { Article } from '~/server/articles/domain/article';
 import { Strapi } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
-import ArticleContentType = Strapi.ArticleContentType
 
 
 export function anArticle(override?: Partial<Article>): Article {
@@ -43,7 +42,7 @@ export function anArticleResponse(override?: Partial<Strapi.ArticleContentType>)
 }
 
 export function anArticleAxiosResponse(override?: Partial<Strapi.ArticleContentType>): AxiosResponse<Strapi.ArticleContentType> {
-  return anAxiosResponse<ArticleContentType>(anArticleResponse(override));
+  return anAxiosResponse<Strapi.ArticleContentType>(anArticleResponse(override));
 }
 
 
