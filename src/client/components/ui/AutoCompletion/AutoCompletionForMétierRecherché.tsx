@@ -172,7 +172,6 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       </label>
       <div ref={autocompleteRef} className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div
-          className="fr-search-bar"
           id="header-search"
           role="combobox"
           aria-expanded={suggestionsActive}
