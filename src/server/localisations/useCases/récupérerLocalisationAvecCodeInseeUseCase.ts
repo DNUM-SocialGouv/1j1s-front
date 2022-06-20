@@ -9,7 +9,7 @@ export class RécupérerLocalisationAvecCodeInseeUseCase {
   constructor(private localisationRepository: LocalisationRepository) {
   }
 
-  async handle(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation> {
+  async handle(typeLocalisation: string, codeInsee: CodeInsee): Promise<Localisation | undefined> {
     const localisation = RécupérerLocalisationAvecCodeInseeUseCase.getTypeLocalisation(typeLocalisation);
     return await this.localisationRepository.getLocalisationByTypeLocalisationAndCodeInsee(localisation, codeInsee);
   }

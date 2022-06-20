@@ -10,8 +10,11 @@ export async function récupérerLocalisationAvecCodeInseeHandler(req: NextApiRe
     String(req.query.typeLocalisation),
     CodeInsee.createCodeInsee(String(req.query.codeInsee)),
   );
-  const { code, codeInsee, libelle } = résultatRécupérationLocalisation;
-  return res.status(200).json({ code, codeInsee: codeInsee.value, libelle });
+  if(résultatRécupérationLocalisation) {
+    const { code, codeInsee, libelle } = résultatRécupérationLocalisation;
+    return res.status(200).json({ code, codeInsee: codeInsee.value, libelle });
+  }
+  return res.status(500);
 }
 
 export default monitoringHandler(récupérerLocalisationAvecCodeInseeHandler);

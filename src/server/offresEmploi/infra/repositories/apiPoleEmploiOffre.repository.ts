@@ -34,9 +34,12 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   ) {
   }
 
+  API_POLE_EMPLOI_PREFIX_LOG = 'API_POLE_EMPLOI';
+
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
+    let response;
     try {
-      const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
+      response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
         `partenaire/offresdemploi/v2/offres/${id}`,
       );
       if (response.status === 204) {
@@ -50,6 +53,8 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
         }
       }
+      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }
@@ -76,8 +81,8 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
           return createFailure(ErrorType.DEMANDE_INCORRECTE);
         }
       }
-      Sentry.captureMessage(`API_POLE_EMPLOI ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`API_POLE_EMPLOI ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }

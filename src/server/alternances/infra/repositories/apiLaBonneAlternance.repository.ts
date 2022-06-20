@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/nextjs';
+import * as CaptureContext from '@sentry/types';
 import axios from 'axios';
 
 import {
@@ -29,7 +31,6 @@ import {
 import { ErrorType } from '~/server/errors/error.types';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
@@ -39,33 +40,56 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   ) {
   }
 
-  async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
-    const response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse>(
-      `metiers?title=${métierRecherché}`,
-    );
+  API_LA_BONNE_ALTERNANCE_PREFIX_LOG = 'API_LA_BONNE_ALTERNANCE';
 
-    return response.data.labelsAndRomes.map((rechercheMetier) => ({
-      codeROMEList: rechercheMetier.romes,
-      intitulé: rechercheMetier.label,
-    }));
+  async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
+    let response;
+    try {
+      response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse>(
+        `metiers?title=${métierRecherché}`,
+      );
+
+      return response.data.labelsAndRomes.map((rechercheMetier) => ({
+        codeROMEList: rechercheMetier.romes,
+        intitulé: rechercheMetier.label,
+      }));
+    } catch (e: unknown) {
+      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+
+      return [];
+    }
+
   }
 
   async getAlternanceList(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
-    const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
-      `jobs?${this.buildParamètresRecherche(alternanceFiltre)}`,
-    );
-    const résultats = mapAlternance(response.data);
+    let response;
 
-    return {
-      nombreRésultats: résultats.length,
-      résultats,
-    };
+    try {
+      response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
+        `jobs?${this.buildParamètresRecherche(alternanceFiltre)}`,
+      );
+      const résultats = mapAlternance(response.data);
+
+      return {
+        nombreRésultats: résultats.length,
+        résultats,
+      };
+    } catch (e: unknown) {
+      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
+
+      return {
+        nombreRésultats: 0,
+        résultats: [],
+      };
+    }
   }
 
   async getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>> {
-    LoggerService.info(`Récupération offre alternance ${id} dans ${from}`);
+    let response;
     try {
-      const response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
+      response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
         `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       );
       return createSuccess(mapOffreAlternance(response.data));
@@ -78,6 +102,8 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
           return createFailure(ErrorType.DEMANDE_INCORRECTE);
         }
       }
+      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }
