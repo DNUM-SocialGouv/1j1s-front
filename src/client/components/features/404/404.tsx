@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, Title } from '@dataesr/react-dsfr';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from '~/client/components/features/404/404.module.css';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -17,16 +18,15 @@ export function PageNotFound(){
           size="sm"
           isInlineFrom="sm">
           <Button>
-                    Retourner à l&apos;accueil
-          </Button>
-          <Button secondary>
-                    Contactez-nous
+            <Link href="/">
+              <a>Retourner à l&apos;accueil</a>
+            </Link>
           </Button>
         </ButtonGroup>
       </div>
       {!isSmallScreen &&
         <div className={styles.errorLogo}>
-          <Image alt="" src={'/images/logos/technical-error.svg'} width='185' height='205'/>
+          <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205'/>
         </div>
       }
     </div>

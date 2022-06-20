@@ -1,4 +1,4 @@
-import { Button, Title } from '@dataesr/react-dsfr';
+import { Button } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, {
   FormEvent,
@@ -106,10 +106,10 @@ export function RechercherAlternance() {
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
       <main id="contenu" className={commonStyles.container}>
-        <Hero image="/images/banners/offres-alternance.jpg">
-          <Title as="h1" look="h4">
-            Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut pour réaliser votre projet d’alternance
-          </Title>
+        <Hero image="/images/banners/offre-alternance.webp">
+          Avec la <b>Bonne Alternance</b>, trouvez <br />
+          l’entreprise qu’il vous faut pour <br/>
+          <b>réaliser votre projet d’alternance</b>
         </Hero>
         <div className={commonStyles.layout}>
           <form

@@ -45,7 +45,7 @@ export function Header() {
         <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
         <NavItem title="Offres">
           <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
-          <NavSubItem title="Alternances" asLink={<NavItemLink link="/apprentissage" current={path === '/apprentissage'} />} />
+          <NavSubItem title="Contrats d'alternance" asLink={<NavItemLink link="/apprentissage" current={path === '/apprentissage'} />} />
           <NavSubItem title="Jobs étudiants" asLink={<NavItemLink link="/jobs-etudiants" current={path === '/jobs-etudiants'} />} />
         </NavItem>
       </HeaderNav>

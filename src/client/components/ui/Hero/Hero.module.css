@@ -1,24 +1,42 @@
 .hero {
-  display: flex;
-  justify-content: space-between;
+  position: relative;
   background-color: var(--1J1S-blue);
 }
 
 .heroContent {
-  padding: 80px;
+  max-width: 78rem;
+  padding: 36px 1.5rem;
+  margin: 0 auto;
 }
 
-.hero *, .hero [class^="fr-"] {
-  line-height: 1.25;
-  font-size: 1.5rem;
+.heroTitle {
+  margin-bottom: 0;
+  line-height: 1.6;
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--grey-1000);
 }
 
-.heroContent > *:last-child {
-  margin-bottom: 0;
+.heroImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
 }
 
-.heroImage {
-  position: relative;
-  width: 100%;
+@media only screen and (min-width: 48em) {
+  .heroContent {
+    padding: 42px 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 78em) {
+  .heroContent {
+    padding: 80px 1.5rem;
+  }
 }

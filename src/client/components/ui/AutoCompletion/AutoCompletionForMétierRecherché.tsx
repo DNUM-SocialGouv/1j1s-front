@@ -168,7 +168,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   return (
     <div className={className}>
       <label className="fr-label" htmlFor={inputName} id={label}>
-        Secteur, domaine, mot-clé... {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
+        Secteur, domaine, mot-clé {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
       <div ref={autocompleteRef} className={errorMessageActive ? styles.errorMessageInputRechercheMétier : ''}>
         <div

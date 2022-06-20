@@ -9,16 +9,18 @@ interface HeroProps {
 }
 
 export function Hero({ children, image, ...rest }: React.PropsWithChildren<HeroProps>) {
-  const { isSmallScreen } = useBreakpoint();
+  const { isLargeScreen } = useBreakpoint();
 
   return (
     <div className={styles.hero} {...rest}>
       <div className={styles.heroContent}>
-        {children}
+        <h1 className={styles.heroTitle}>
+          {children}
+        </h1>
       </div>
-      {image && !isSmallScreen && (
+      {image && isLargeScreen && (
         <div className={styles.heroImage}>
-          <Image src={image} alt="" layout="fill" objectFit="cover" />
+          <Image src={image} alt="" layout="fill" objectFit="contain" objectPosition="right"/>
         </div>
       )}
     </div>
