@@ -40,7 +40,7 @@ export function RechercherAlternance() {
   const [communeList, setCommuneList] = useState<Localisation[]>([]);
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
 
   useEffect(() => {
     if(hasQueryParams) {
