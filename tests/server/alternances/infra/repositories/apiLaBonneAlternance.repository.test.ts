@@ -2,6 +2,9 @@ import {
   anApprentiBoucherFromMatcha,
   anApprentiBoucherFromPoleEmploi,
 } from '@tests/fixtures/domain/alternance.fixture';
+import {
+  aApiPoleEmploiRéférentielRepository,
+} from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository.fixture';
 import { ConfigurationServiceFixture } from '@tests/fixtures/services/configuration.service.fixture';
 import {
   aLaBonneAlternanceHttpClient,
@@ -20,6 +23,9 @@ import {
   Success,
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
+import {
+  ApiPoleEmploiRéférentielRepository,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 jest.mock('axios', () => {
@@ -28,18 +34,26 @@ jest.mock('axios', () => {
   };
 });
 
-
 describe('ApiLaBonneAlternanceRepository', () => {
+  let apiLaBonneAlternanceRepository: ApiLaBonneAlternanceRepository;
   let laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService;
-  const configurationServiceFixture = new ConfigurationServiceFixture();
+  let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
+
 
   beforeEach(() => {
+    const configurationServiceFixture = new ConfigurationServiceFixture();
     laBonneAlternanceHttpClientService = aLaBonneAlternanceHttpClient();
+    apiPoleEmploiRéférentielRepository = aApiPoleEmploiRéférentielRepository();
+    apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(
+      laBonneAlternanceHttpClientService,
+      configurationServiceFixture,
+      apiPoleEmploiRéférentielRepository,
+    );
   });
 
   describe('getMétierRecherchéList', () => {
     it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
-      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
+
 
       jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(aRechercheMétierResponse());
 
@@ -61,13 +75,12 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
   describe('getAlternanceList', () => {
     it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
-      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
-
       jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(anAlternanceListResponse());
+      jest.spyOn(apiPoleEmploiRéférentielRepository, 'findCodeInseeInRéférentielCommune').mockResolvedValue('75101');
 
-      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeInsee: '75056', codeRomeList: ['D1103','D1101','H2101'] });
+      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeInsee: '75001', codeRomeList: ['D1103','D1101','H2101'] });
 
-      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75056&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
       expect(result.nombreRésultats).toEqual(4);
       expect(result.résultats,
       ).toEqual([
@@ -138,7 +151,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
   describe('getOffreAlternance', () => {
     describe('quand l\'offre provient de pole emploi', () => {
       it('récupère l\'offre d\'alternance selon l\'id', async () => {
-        const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
@@ -157,7 +169,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l\'offre provient de matcha', () => {
       it('récupère l\'offre d\'alternance selon l\'id', async () => {
-        const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
@@ -176,7 +187,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l\'api répond avec une 400', () => {
       it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
-        const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
         const offreAlternanceId = 'fake-idea';
         const from = 'matcha';
 
@@ -192,7 +202,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l\'api répond avec une 500', () => {
       it('on renvoie une failure avec une error DEMANDE_INCORRECTE', async () => {
-        const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
         const offreAlternanceId = 'fake-idea';
         const from = 'matcha';
 
@@ -208,7 +217,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l\'api répond avec une erreur non traité', () => {
       it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
-        const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
         const offreAlternanceId = 'fake-idea';
         const from = 'matcha';
 
@@ -223,22 +231,20 @@ describe('ApiLaBonneAlternanceRepository', () => {
     });
   });
   describe('buildParamètresRechercheAltenance', () => {
-    it('quand on cherche des codeRomes', () => {
-      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
-
-      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({ codeRomeList: ['D1103', 'D1101', 'H2101'] });
+    it('quand on cherche des codeRomes', async () => {
+      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ codeRomeList: ['D1103', 'D1101', 'H2101'] });
 
       expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
     });
-    it('quand on cherche avec un lieu', () => {
-      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
 
-      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
+    it('quand on cherche avec un lieu', async () => {
+      jest.spyOn(apiPoleEmploiRéférentielRepository, 'findCodeInseeInRéférentielCommune').mockResolvedValue('75101');
+      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({
         codeInsee: '75035',
         codeRomeList: ['D1103', 'D1101', 'H2101'],
       });
 
-      expect(result).toEqual('insee=75035&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(result).toEqual('insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
     });
   });
 });
