@@ -40,8 +40,8 @@ describe('RésultatRechercherOffre', () => {
         intituléOffre={offreAlternance.intitulé}
         lienOffre={`/apprentissage/${offreAlternance.from}-${offreAlternance.id}`}
         descriptionOffre={offreAlternance.description}
-        logoEntreprise={offreAlternance.entreprise.logo || defaultLogo}
-        nomEntreprise={offreAlternance.entreprise.nom}
+        logoEntreprise={offreAlternance.entreprise?.logo || defaultLogo}
+        nomEntreprise={offreAlternance.entreprise?.nom}
         étiquetteOffreList={offreAlternance.étiquetteList}
       />,
     );
