@@ -53,7 +53,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorType, setErrorType] = useState<ErrorType | undefined>(undefined);
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>(`Rechercher une mission de ${category === 'service-civique' ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
   const hasNoResult = hasQueryParams(queryParams) && !isLoading && missionList.length === 0;
 
@@ -87,6 +87,10 @@ export function RechercherMission(props: RechercherMissionProps) {
     }
   }, [queryParams]);
 
+  function getDomaineLibellé(valeur: string): string {
+    return  domaineList.filter((domain) => domain.valeur === valeur)[0].libellé;
+  }
+  
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -137,7 +141,7 @@ export function RechercherMission(props: RechercherMissionProps) {
           {
             !isLoading && nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} >
-              <h2>{nombreRésultats} de missions pour {inputDomaine}</h2>
+              <h2>{nombreRésultats} de missions pour { getDomaineLibellé(inputDomaine)}</h2>
             </div>
           }
           { hasNoResult && <ErrorComponent errorType={errorType} /> }

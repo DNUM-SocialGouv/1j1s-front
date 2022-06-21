@@ -15,8 +15,7 @@ export const enum QueryParams {
   EXPÉRIENCE = 'experienceExigence',
   DOMAINE = 'grandDomaine',
   MÉTIER_SÉLECTIONNÉ = 'metierSelectionne',
-  CODE_ROMES = 'codeRomes',
-  MISSION_DOMAINE = 'domain'
+  CODE_ROMES = 'codeRomes'
 }
 
 export default function useQueryParams() {
