@@ -3,6 +3,7 @@ import { MétierRecherchéService } from '~/client/services/alternances/métierR
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
+import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
@@ -11,6 +12,7 @@ export type Dependencies = {
   offreEmploiService: OffreEmploiService
   alternanceService: AlternanceService
   métierRecherchéService: MétierRecherchéService
+  missionEngagementService: MissionEngagementService
 }
 
 export default function dependenciesContainer(sessionId: string): Dependencies {
@@ -20,10 +22,12 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const localisationService = new LocalisationService(httpClientService);
   const alternanceService = new AlternanceService(httpClientService);
   const métierRecherchéService = new MétierRecherchéService(httpClientService);
+  const missionEngagementService = new MissionEngagementService(httpClientService);
 
   return {
     alternanceService,
     localisationService,
+    missionEngagementService,
     métierRecherchéService,
     offreEmploiService,
   };

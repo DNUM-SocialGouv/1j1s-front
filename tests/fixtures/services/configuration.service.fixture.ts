@@ -5,6 +5,8 @@ export class ConfigurationServiceFixture implements ConfigurationService {
   getConfiguration(): EnvironmentVariables {
     return {
       API_ADRESSE_BASE_URL: 'https://api-adresse.data.gouv.fr/',
+      API_ENGAGEMENT_API_KEY_TOKEN: 'API_ENGAGEMENT_API_KEY_TOKEN',
+      API_ENGAGEMENT_BASE_URL: 'https://api.api-engagement.beta.gouv.fr/v0/',
       API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
       API_LA_BONNE_ALTERNANCE_BASE_URL: 'https://labonnealternance.apprentissage.beta.gouv.fr/api/V1/',
       API_POLE_EMPLOI_BASE_URL: 'https://api.emploi-store.fr/',

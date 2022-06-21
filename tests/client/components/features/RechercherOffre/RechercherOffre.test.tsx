@@ -26,7 +26,6 @@ import React from 'react';
 
 import { RechercherOffre } from '~/client/components/features/RechercherOffre/RechercherOffre';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 
 describe('RechercherOffre', () => {
   beforeEach(() => {
@@ -367,7 +366,7 @@ describe('RechercherOffre', () => {
       mockLargeScreen();
     });
 
-    it('on propose les filtres avancés en accordéon', async () => {
+    it('on propose les filtres avancés sous forme de select', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
@@ -501,7 +500,7 @@ describe('RechercherOffre', () => {
   describe('après avoir effectué une recherche sans résultats', () => {
     it('affiche un message d\'erreur personnalisé', async () => {
       // GIVEN
-      const offreEmploiServiceMock = emptyOffreEmploiService() as OffreEmploiService;
+      const offreEmploiServiceMock = emptyOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 

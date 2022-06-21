@@ -48,6 +48,10 @@ export function Header() {
           <NavSubItem title="Contrats d'alternance" asLink={<NavItemLink link="/apprentissage" current={path === '/apprentissage'} />} />
           <NavSubItem title="Jobs étudiants" asLink={<NavItemLink link="/jobs-etudiants" current={path === '/jobs-etudiants'} />} />
         </NavItem>
+        <NavItem title="Engagement et bénévolat">
+          <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/service-civique'} />} />
+          <NavSubItem title="Bénévolat" asLink={<NavItemLink link="/benevolat" current={path === '/benevolat'} />} />
+        </NavItem>
       </HeaderNav>
     </HeaderDSFR>
   );

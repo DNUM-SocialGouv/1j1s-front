@@ -1,6 +1,4 @@
-import {
-  Alternance,
-} from '~/server/alternances/domain/alternance';
+import { Alternance } from '~/server/alternances/domain/alternance';
 import {
   AlternanceFromMatcha,
   AlternanceFromPoleEmploi,
@@ -19,6 +17,7 @@ import {
   PeJobsContactResponse,
   PeJobsResultResponse,
 } from '~/server/alternances/infra/repositories/peJobsResponse.type';
+import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
 
 export function mapAlternance(response: AlternanceResponse): Alternance[] {
   const alternanceFromPoleEmploiList = response.peJobs.results.map((peJob) => {
@@ -83,12 +82,6 @@ function mapContact(contact: MatchasContactResponse | PeJobsContactResponse | un
     nom: contact.name,
     téléphone: contact.phone,
   };
-}
-
-export function mapDateDébutContrat(débutContrat:string | undefined): string | undefined {
-  if (!débutContrat) return undefined;
-  const date = new Date(débutContrat);
-  return date.toLocaleDateString('fr-FR');
 }
 
 export function mapOffreAlternance(response: AlternanceDetailResponse): RésultatRechercheAlternance {

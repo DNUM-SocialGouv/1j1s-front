@@ -1,7 +1,7 @@
 import {
-  mapDateDébutContrat,
   mapNomVille,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
 
 describe('mapNomVille', () => {
   describe('quand la ville est communiquée', () => {
