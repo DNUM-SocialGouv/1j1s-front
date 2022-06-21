@@ -31,7 +31,7 @@ describe('ApiStrapiArticleMapper', () => {
               titre: 'Mon article 1',
               updatedAt: '2022-06-02T15:49:50.645Z',
             },
-            id: '1',
+            id: 1,
           },
           {
             attributes: {
@@ -42,7 +42,7 @@ describe('ApiStrapiArticleMapper', () => {
               titre: 'Mon article 2',
               updatedAt: '2022-06-02T15:49:50.645Z',
             },
-            id: '2',
+            id: 2,
           }],
         });
         const expectedArticle = anArticle({ contenu: '<p>Contenu</p>\n', slug: 'mon-article-1', titre: 'Mon article 1' });
