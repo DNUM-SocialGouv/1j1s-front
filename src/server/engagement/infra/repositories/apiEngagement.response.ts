@@ -58,7 +58,7 @@ export interface MissionEngagementResponse {
   organizationStatusJuridique?: string
   domainLogo: string
   metadata?: string
-
+  openToMinors?: string
   id?: string
 }
 

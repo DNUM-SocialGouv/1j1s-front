@@ -100,7 +100,7 @@ export function RechercherMission(props: RechercherMissionProps) {
     <>
       <HeadTag
         title={title || `Rechercher une mission de ${category === 'service-civique' ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
-        description={'##description à ajouter##'}
+        description='Se rendre utile tout en préparant son avenir grâce aux missions de service civique'
       />
       <main id="contenu" className={commonStyles.container}>
         <Hero image="/images/banners/mission-service-civique.webp">
@@ -149,7 +149,7 @@ export function RechercherMission(props: RechercherMissionProps) {
                 <RésultatRechercherOffre
                   lienOffre={''}
                   intituléOffre={mission.titre}
-                  logoEntreprise={defaultLogo}
+                  logoEntreprise={mission.logo || defaultLogo}
                   nomEntreprise={mission.nomEntreprise}
                   descriptionOffre={mission.description}
                   étiquetteOffreList={mission.étiquetteList}

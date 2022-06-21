@@ -14,6 +14,8 @@ export interface Mission {
   étiquetteList: Array<string>
   logo?: string
   débutContrat?: string
+  openToMinors?: string
+
 }
 
 export interface RésultatsRechercheMission {

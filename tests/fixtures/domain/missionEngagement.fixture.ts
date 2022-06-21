@@ -33,7 +33,10 @@ function anAmbassadeurDuDonDeVêtementMission(): Mission {
     logo: 'https://apicivique.s3.eu-west-3.amazonaws.com/app/publishers/5f5931496c7ea514150a818f/logo_JVA_gouv_carre_light.png',
     nomEntreprise: 'EBS Le Relais Val De Seine',
     titre: 'Je deviens Ambassadeur du don des vêtements',
-    étiquetteList: [],
+    étiquetteList: [
+      'Poissy (78300)',
+      '09/05/2022',
+    ],
   };
 }
 
@@ -45,6 +48,9 @@ function aSoutienAuxEnfantsEttAuxJeunesMission(): Mission {
     logo: 'https://apicivique.s3.eu-west-3.amazonaws.com/app/publishers/5f5931496c7ea514150a818f/logo_JVA_gouv_carre_light.png',
     nomEntreprise: 'Pass-Age',
     titre: 'J’apporte un soutien aux enfants et jeunes, notamment dans les quartiers populaires, les zones rurales et territoires fragiles',
-    étiquetteList: [],
+    étiquetteList: [
+      'Rueil-Malmaison (92500)',
+      '01/01/2022',
+    ],
   };
 }

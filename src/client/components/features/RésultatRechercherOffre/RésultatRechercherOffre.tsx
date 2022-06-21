@@ -19,6 +19,7 @@ interface RésultatRechercherOffreProps {
 export function RésultatRechercherOffre(props: RésultatRechercherOffreProps) {
   const { lienOffre, intituléOffre, descriptionOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
   const description = useSanitize(descriptionOffre);
+
   return (
     <Link href={lienOffre}>
       <a className={styles.card} data-testid="RésultatRechercherOffre">
