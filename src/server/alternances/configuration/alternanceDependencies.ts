@@ -27,8 +27,8 @@ export const alternanceDependenciesContainer = (
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): AlternanceDependencies => {
   return {
-    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient, configurationService),
+    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository),
     ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository),
-    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient, configurationService),
+    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository),
   };
 };

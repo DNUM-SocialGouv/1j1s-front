@@ -19,7 +19,7 @@ export const offresEmploiDependenciesContainer = (
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): OffresEmploiDependencies => {
   return {
-    ...consulterOffreEmploiDependenciesContainer(poleEmploiHttpClientService),
+    ...consulterOffreEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository),
     ...rechercherOffreEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository),
   };
 };
