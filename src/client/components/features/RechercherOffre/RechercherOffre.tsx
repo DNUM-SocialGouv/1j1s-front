@@ -96,7 +96,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   const OFFRE_PER_PAGE = 30;
   const defaultLogo = '/images/logos/pole-emploi.svg';
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>(`${prefixTitle} | 1jeune1solution`);
 
   useEffect(() => {
     if (!isSmallScreen) setIsFiltresAvancésMobileOpen(false);
