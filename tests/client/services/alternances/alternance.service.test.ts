@@ -9,10 +9,10 @@ import { AlternanceService } from '~/client/services/alternances/alternance.serv
 
 describe('AlternanceService', () => {
   describe('rechercherAlternance', () => {
-    it('appelle alternance avec le filtre', async () => {
+    it('appelle alternance avec les filtres', async () => {
       const httpClientService = aHttpClientService();
       const offreAlternanceService = new AlternanceService(httpClientService);
-      const query = 'codeRomes=D1103,D1101,H2101';
+      const query = 'codeRomes=D1103,D1101,H2101&insee=43135&radius=30';
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheAlternance()));
 
@@ -83,7 +83,7 @@ describe('AlternanceService', () => {
           ],
         },
       });
-      expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeRomes=D1103,D1101,H2101');
+      expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeRomes=D1103,D1101,H2101&insee=43135&radius=30');
     });
   });
 });

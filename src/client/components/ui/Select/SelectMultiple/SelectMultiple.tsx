@@ -11,10 +11,11 @@ interface SelectCheckboxProps {
   optionList : OffreEmploi.CheckboxFiltre[]
   onChange: (value: string) => void;
   currentInput: string
+  label: string
 }
 
 export function SelectMultiple(props: SelectCheckboxProps) {
-  const { optionList, onChange, currentInput, titre } = props;
+  const { optionList, onChange, currentInput, titre, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -23,7 +24,7 @@ export function SelectMultiple(props: SelectCheckboxProps) {
   };
 
   return (
-    <Select titre={titre}>
+    <Select titre={titre} label={label}>
       {optionList.map((option, index) => (
         <Checkbox
           id={option.libellé}

@@ -246,5 +246,27 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
       expect(result).toEqual('insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
     });
+    it('quand on cherche avec un lieu et un rayon', () => {
+      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
+
+      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
+        codeInsee: CodeInsee.createCodeInsee('75035'),
+        codeRomeList: ['D1103', 'D1101', 'H2101'],
+        radius:'30',
+      });
+
+      expect(result).toEqual('insee=75035&radius=30&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+    });
+    it('quand on cherche sans lieu et un rayon undefined, on renvoi juste le codeRome', () => {
+      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
+
+      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
+        codeInsee: undefined,
+        codeRomeList: ['D1103', 'D1101', 'H2101'],
+        radius:undefined,
+      });
+
+      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+    });
   });
 });

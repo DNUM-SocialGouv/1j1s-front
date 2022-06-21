@@ -12,10 +12,11 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface CustomSelectProps {
   titre: string
+  label: string
 }
 
 export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps>) {
-  const { titre, children } = props;
+  const { titre, children, label } = props;
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
@@ -47,7 +48,7 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
     <div ref={optionsRef} className={styles.container}>
       <button
         type="button"
-        data-testid={`SelectButton-${titre}`}
+        data-testid={`SelectButton-${label}`}
         aria-haspopup="listbox"
         aria-expanded={isOptionsOpen}
         className={styles.button}

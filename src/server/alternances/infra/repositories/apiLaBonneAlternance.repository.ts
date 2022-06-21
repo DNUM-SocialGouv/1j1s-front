@@ -124,6 +124,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
       insee: codeInseeCommune,
+      radius: alternanceFiltre.radius,
       romes: alternanceFiltre.codeRomeList.toString(),
     };
     removeUndefinedValueInQueryParameterList(queryList);

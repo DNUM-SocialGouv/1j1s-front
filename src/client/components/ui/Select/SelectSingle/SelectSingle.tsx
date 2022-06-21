@@ -7,17 +7,22 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 import {
   MissionEngagement,
 } from '~/server/engagement/domain/engagement';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 interface SelectRadioProps {
-  titre: string
-  optionList : OffreEmploi.TempsDeTravail[] | Array<MissionEngagement.Domaine>
-  onChange: (value: string) => void
-  currentInput: string
+    titre: string
+    optionList : OptionListObject[] | Array<MissionEngagement.Domaine>
+    onChange: (value: string) => void
+    currentInput: string
+    label: string
+}
+
+export interface OptionListObject {
+    libellé: string
+    valeur: string
 }
 
 export function SelectSingle(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput, titre } = props;
+  const { optionList, onChange, currentInput, titre, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -26,7 +31,7 @@ export function SelectSingle(props: SelectRadioProps) {
   };
 
   return (
-    <Select titre={titre}>
+    <Select titre={titre} label={label}>
       {optionList.map((option, index) => (
         <Radio
           id={option.libellé}
