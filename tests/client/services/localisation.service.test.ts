@@ -12,7 +12,6 @@ import {
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { LocalisationService } from '~/client/services/localisation.service';
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 
@@ -64,19 +63,16 @@ describe('LocalisationService', () => {
         communeList: [
           {
             code: '34290',
-            codeInsee: CodeInsee.createCodeInsee('34001'),
             libelle: 'Abeilhan',
           },
           {
             code: '34230',
-            codeInsee: CodeInsee.createCodeInsee('34002'),
             libelle: 'Adissan',
           },
         ],
         départementList: [
           {
             code: '34',
-            codeInsee: CodeInsee.createCodeInsee('34'),
             libelle: 'Hérault',
           },
         ],
@@ -92,17 +88,14 @@ describe('LocalisationService', () => {
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
         communeList: [{
           code: '02140',
-          codeInsee: '02377',
           libelle: 'Haution',
         }],
         départementList: [{
           code: '68',
-          codeInsee: '68',
           libelle: 'Haut-Rhin',
         }],
         régionList: [{
           code: '32',
-          codeInsee: '32',
           libelle: 'Haut-de-France',
         }],
       }));
@@ -112,17 +105,14 @@ describe('LocalisationService', () => {
       expect(result).toEqual({
         communeList: [{
           code: '02140',
-          codeInsee: CodeInsee.createCodeInsee('02377'),
           libelle: 'Haution',
         }],
         départementList: [{
           code: '68',
-          codeInsee: CodeInsee.createCodeInsee('68'),
           libelle: 'Haut-Rhin',
         }],
         régionList: [{
           code: '32',
-          codeInsee: CodeInsee.createCodeInsee('32'),
           libelle: 'Haut-de-France',
         }],
       });
@@ -140,7 +130,6 @@ describe('LocalisationService', () => {
 
       expect(result).toEqual({
         code: '34',
-        codeInsee: CodeInsee.createCodeInsee('34'),
         libelle: 'Hérault',
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=DEPARTEMENT&codeInsee=78');
@@ -155,7 +144,6 @@ describe('LocalisationService', () => {
 
       expect(result).toEqual({
         code: '76',
-        codeInsee: CodeInsee.createCodeInsee('76'),
         libelle: 'Occitanie',
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=REGION&codeInsee=76');
@@ -170,7 +158,6 @@ describe('LocalisationService', () => {
 
       expect(result).toEqual({
         code: '34290',
-        codeInsee: CodeInsee.createCodeInsee('34001'),
         libelle: 'Abeilhan',
       });
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=COMMUNE&codeInsee=36048');

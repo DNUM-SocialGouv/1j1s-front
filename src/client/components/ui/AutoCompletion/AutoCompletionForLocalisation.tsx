@@ -116,7 +116,7 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
         onUpdateInputLocalisation();
         setTypeLocalisation(currentHoverTypeLocalisation);
         if (localisation) {
-          setCodeInsee(localisation[currentIndex].codeInsee.value);
+          setCodeInsee(localisation[currentIndex].code);
           setInputValue(`${localisation[currentIndex].libelle} (${localisation[currentIndex].code})`);
         }
         setSuggestionsActive(false);
@@ -130,17 +130,17 @@ export const AutoCompletionForLocalisation = (props: AutoCompletionForLocalisati
       setTimeout(() => setCurrenIndex(index), 0);
     }
 
-    const { libelle, code, codeInsee } = suggestion;
+    const { libelle, code } = suggestion;
     const innerText = `${libelle} (${code})`;
 
     return (
       <li
         className={inputValue === `${libelle} (${code})` ? styles.active : currentHoverIndex === suggestionIndex ? styles.active : ''}
         key={currentHoverIndex}
-        onClick={() => handleClick(innerText, typeLocalisation, codeInsee.value)}
+        onClick={() => handleClick(innerText, typeLocalisation, code)}
         role="option"
         aria-selected={inputValue === `${libelle} (${code})`}
-        value={codeInsee.value}
+        value={code}
         data-testid="RésultatLocalisationItem"
       >
         {innerText}

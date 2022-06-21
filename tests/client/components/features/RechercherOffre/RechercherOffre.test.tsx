@@ -46,6 +46,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -76,6 +77,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -104,6 +106,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -143,6 +146,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -185,6 +189,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -236,12 +241,12 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
               descriptionNombreRésultat=""
               isTypeDeContratActive={true}
-              isTempsDeTravailActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
               urlLienOffre="emploi"
@@ -286,6 +291,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -317,6 +323,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -342,15 +349,15 @@ describe('RechercherOffre', () => {
 
         fireEvent.click(résultatLocalisationList[1]);
 
-        mockUseRouter({ query: { codeInsee: '75001_75056', page: '1', typeLocalisation: 'COMMUNE' } });
+        mockUseRouter({ query: { codeInsee: '75001', page: '1', typeLocalisation: 'COMMUNE' } });
         fireEvent.click(buttonRechercher);
 
         // THEN
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeInsee=75001_75056&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75001_75056&page=1&typeLocalisation=COMMUNE', undefined);
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeInsee=75001&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75001&page=1&typeLocalisation=COMMUNE', undefined);
       });
     });
   });
@@ -368,6 +375,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -399,6 +407,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -449,12 +458,12 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
               descriptionNombreRésultat=""
               isTypeDeContratActive={true}
-              isTempsDeTravailActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
               urlLienOffre="emploi"
@@ -499,6 +508,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""

@@ -16,12 +16,12 @@ export class RedisCacheService implements CacheService {
     });
   }
 
-  async get(key: string): Promise<string | number | symbol | null> {
+  async get<T>(key: string): Promise<T | null> {
     const value = await this.client.get(key);
-    return value ? JSON.parse(value) : null;
+    return value ? JSON.parse(value) as T : null;
   }
 
-  async set(key: string, value: Record<string | number | symbol, unknown>, expiresInHours: number) {
+  async set(key: string, value: unknown, expiresInHours: number) {
     await this.client.set(key, JSON.stringify(value));
     this.client.expire(key, 3600 *  expiresInHours);
   }

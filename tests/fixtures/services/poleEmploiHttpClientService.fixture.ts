@@ -29,6 +29,35 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<R
   });
 }
 
+export function aRésultatRéférentielCommuneResponse() {
+  return anAxiosResponse([
+    {
+      code: '76322',
+      codeDepartement: '76',
+      codePostal: '76120',
+      libelle: 'LE GRAND QUEVILLY',
+    },
+    {
+      code: '44109',
+      codeDepartement: '44',
+      codePostal: '44000',
+      libelle: 'NANTES',
+    },
+    {
+      code: '76615',
+      codeDepartement: '76',
+      codePostal: '76133',
+      libelle: 'ST MARTIN DU BEC',
+    },
+    {
+      code: '75101',
+      codeDepartement: '75',
+      codePostal: '75001',
+      libelle: 'PARIS 01',
+    },
+  ]);
+}
+
 export function aBarmanOffreEmploiAxiosResponse(): AxiosResponse<OffreEmploiResponse> {
   return anAxiosResponse(aBarmanOffreEmploiResponse());
 }

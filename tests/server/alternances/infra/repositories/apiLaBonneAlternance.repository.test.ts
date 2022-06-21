@@ -20,7 +20,6 @@ import {
   Success,
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 jest.mock('axios', () => {
@@ -66,7 +65,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
       jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(anAlternanceListResponse());
 
-      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeInsee: CodeInsee.createCodeInsee('75056'), codeRomeList: ['D1103','D1101','H2101'] });
+      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeInsee: '75056', codeRomeList: ['D1103','D1101','H2101'] });
 
       expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75056&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
       expect(result.nombreRésultats).toEqual(4);
@@ -235,7 +234,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
       const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
 
       const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
-        codeInsee: CodeInsee.createCodeInsee('75035'),
+        codeInsee: '75035',
         codeRomeList: ['D1103', 'D1101', 'H2101'],
       });
 

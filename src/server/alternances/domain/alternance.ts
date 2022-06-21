@@ -1,4 +1,4 @@
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
+
 
 export type AlternanceId = string;
 
@@ -32,7 +32,7 @@ export namespace Alternance {
 
 export interface AlternanceFiltre {
   codeRomeList: string[]
-  codeInsee?: CodeInsee
+  codeInsee?: string
 }
 
 export interface RésultatsRechercheAlternance {

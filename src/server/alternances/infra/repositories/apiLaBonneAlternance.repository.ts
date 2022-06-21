@@ -111,8 +111,8 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
     const { CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE } = this.configurationService.getConfiguration();
     // eslint-disable-next-line
-    const queryList: Record<string, any > = {
-      insee: alternanceFiltre.codeInsee?.valueAvecCodePostal,
+    const queryList: Record<string, any> = {
+      insee: alternanceFiltre.codeInsee,
       romes: alternanceFiltre.codeRomeList.toString(),
     };
     removeUndefinedValueInQueryParameterList(queryList);

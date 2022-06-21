@@ -205,7 +205,7 @@ describe('RechercherAlternance', () => {
 
       fireEvent.click(resultListitem[0]);
 
-      mockUseRouter({ query: { codeInsee: '75056', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
+      mockUseRouter({ query: { codeInsee: '75001', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
       
       fireEvent.click(buttonRechercher);
 
@@ -213,8 +213,8 @@ describe('RechercherAlternance', () => {
       await waitFor(() => {
         expect(screen.getByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
       });
-      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeInsee=75001_75056' });
-      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeInsee=75056');
+      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeInsee=75001' });
+      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeInsee=75001');
     });
   });
 

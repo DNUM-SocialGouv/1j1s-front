@@ -1,5 +1,4 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import {
   Localisation,
   LocalisationList,
@@ -33,9 +32,9 @@ export class LocalisationService {
     const { data } = await this.httpClientService.get<LocalisationListApiResponse>(`localisations?recherche=${recherche}`);
     const { communeList, régionList, départementList } = data;
     return {
-      communeList: communeList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: CodeInsee.createCodeInsee(codeInsee), libelle })),
-      départementList: départementList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: CodeInsee.createCodeInsee(codeInsee), libelle })),
-      régionList: régionList.map(({ code, codeInsee, libelle }) => ({ code, codeInsee: CodeInsee.createCodeInsee(codeInsee), libelle })),
+      communeList: communeList.map(({ code, libelle }) => ({ code, libelle })),
+      départementList: départementList.map(({ code, libelle }) => ({ code, libelle })),
+      régionList: régionList.map(({ code, libelle }) => ({ code, libelle })),
     };
   }
 
@@ -43,7 +42,6 @@ export class LocalisationService {
     const response = await this.httpClientService.get<LocalisationApiResponse>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
     return {
       code: response.data.code,
-      codeInsee: CodeInsee.createCodeInsee(response.data.codeInsee),
       libelle: response.data.libelle,
     };
   }

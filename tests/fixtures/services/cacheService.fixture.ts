@@ -2,25 +2,27 @@ import { CacheService } from '~/server/services/cache/cache.service';
 
 interface Cache {
   key: string;
-  value: Promise<string>;
+  value: string;
+  expiresInHours: number;
 }
 
 export class MockedCacheService implements CacheService {
   store: Cache[] = [];
 
-  async get(key: string): Promise<string | number | symbol | null> {
+  get<T>(key: string): Promise<T | null> {
     const result = this.store.find((value) => value.key === key);
     if (result === undefined) {
       return Promise.resolve(null);
     } else {
-      return result.value;
+      return Promise.resolve(JSON.parse(result.value) as T);
     }
   }
 
-  async set(key: string, value: Record<string | number | symbol, unknown>) {
+  set(key: string, value: unknown, expiresInHours: number): void {
     this.store.push({
+      expiresInHours,
       key: key,
-      value: Promise.resolve(JSON.stringify(value)),
+      value: JSON.stringify(value),
     });
   }
 }
