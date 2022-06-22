@@ -45,7 +45,7 @@ export function RechercherAlternance() {
   useEffect(() => {
     if(hasQueryParams) {
       const fetchOffreAlternance = async () => {
-        const localisationParam = isKeyInQueryParams(QueryParams.CODE_INSEE) ? `&codeInsee=${getQueryValue(QueryParams.CODE_INSEE)}` : '';
+        const localisationParam = isKeyInQueryParams(QueryParams.CODE_LOCALISATION) ? `&codeLocalisation=${getQueryValue(QueryParams.CODE_LOCALISATION)}` : '';
         const params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}${localisationParam}`;
         const response = await alternanceService.rechercherAlternance(params);
         if (response.instance === 'success') {
@@ -61,8 +61,8 @@ export function RechercherAlternance() {
 
       const setInputValues = async () => {
         if (isKeyInQueryParams(QueryParams.MÉTIER_SÉLECTIONNÉ)) setInputIntituleMétier(getQueryValue(QueryParams.MÉTIER_SÉLECTIONNÉ));
-        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
-          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
+        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
+          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
           const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
           setInputLocalisation(formattedLocalisation);
         }

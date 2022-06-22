@@ -1,4 +1,4 @@
 export interface CacheService {
-  get(key: string): Promise<string | number | symbol | null>;
-  set(key: string, value: Record<string | number | symbol, unknown>, expiresInHours: number): void;
+  get<T>(key: string): Promise<T | null>;
+  set(key: string, value: unknown, expiresInHours: number): void;
 }

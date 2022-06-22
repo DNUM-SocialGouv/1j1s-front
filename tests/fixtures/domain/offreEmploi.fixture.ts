@@ -1,4 +1,4 @@
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
+
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
@@ -93,7 +93,7 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     experienceExigenceList: [],
     grandDomaineList: [],
     localisation: {
-      codeInsee: CodeInsee.createCodeInsee('34'),
+      codeLocalisation: '34',
       typeLocalisation: TypeLocalisation.REGION,
     },
     motClé: 'boulanger',

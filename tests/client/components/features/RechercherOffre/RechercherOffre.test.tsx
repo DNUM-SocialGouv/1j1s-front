@@ -46,6 +46,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -76,6 +77,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -95,15 +97,16 @@ describe('RechercherOffre', () => {
       expect(errorMessage).toBeFalsy();
     });
 
-    it('avec une url contenant le motCle boulanger, le codeInsee 26 et le type de localisation DEPARTEMENT, affiche la liste de tag avec BOURG LES VALENCE (26)', async () => {
+    it('avec une url contenant le motCle boulanger, le codeLocalisation 26 et le type de localisation DEPARTEMENT, affiche la liste de tag avec BOURG LES VALENCE (26)', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
-      mockUseRouter({ query: { codeInsee: '26', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
+      mockUseRouter({ query: { codeLocalisation: '26', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -127,7 +130,7 @@ describe('RechercherOffre', () => {
 
       });
       expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '26');
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=26&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
     });
   });
 
@@ -143,6 +146,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -185,6 +189,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -236,12 +241,12 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
               descriptionNombreRésultat=""
               isTypeDeContratActive={true}
-              isTempsDeTravailActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
               urlLienOffre="emploi"
@@ -286,6 +291,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -317,6 +323,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -342,15 +349,15 @@ describe('RechercherOffre', () => {
 
         fireEvent.click(résultatLocalisationList[1]);
 
-        mockUseRouter({ query: { codeInsee: '75001_75056', page: '1', typeLocalisation: 'COMMUNE' } });
+        mockUseRouter({ query: { codeLocalisation: '75001', page: '1', typeLocalisation: 'COMMUNE' } });
         fireEvent.click(buttonRechercher);
 
         // THEN
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeInsee=75001_75056&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeInsee=75001_75056&page=1&typeLocalisation=COMMUNE', undefined);
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeLocalisation=75001&page=1' });
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=75001&page=1&typeLocalisation=COMMUNE', undefined);
       });
     });
   });
@@ -368,6 +375,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""
@@ -399,6 +407,7 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
@@ -449,12 +458,12 @@ describe('RechercherOffre', () => {
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
             <RechercherOffre
+              isTempsDeTravailActive={true}
               prefixTitle=""
               description=""
               heroTitle=""
               descriptionNombreRésultat=""
               isTypeDeContratActive={true}
-              isTempsDeTravailActive={true}
               isNiveauDemandéActive={true}
               barreDeRecherchePlaceHolder=""
               urlLienOffre="emploi"
@@ -499,6 +508,7 @@ describe('RechercherOffre', () => {
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
+            isTempsDeTravailActive={true}
             prefixTitle=""
             description=""
             heroTitle=""

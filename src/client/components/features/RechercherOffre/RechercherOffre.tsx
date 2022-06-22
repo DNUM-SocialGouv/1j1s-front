@@ -120,8 +120,8 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
         if (isKeyInQueryParams(QueryParams.TEMPS_DE_TRAVAIL)) setInputTempsDeTravail(getQueryValue(QueryParams.TEMPS_DE_TRAVAIL));
         if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
         if (isKeyInQueryParams(QueryParams.EXPÉRIENCE)) setInputExpérience(getQueryValue(QueryParams.EXPÉRIENCE));
-        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
-          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_INSEE));
+        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
+          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
           const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
           setFormattedLocalisation(formattedLocalisation);
           setInputLocalisation(formattedLocalisation);

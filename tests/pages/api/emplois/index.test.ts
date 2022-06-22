@@ -1,6 +1,9 @@
 import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 import { aServeurIndisponibleError } from '@tests/fixtures/server/errors/errorResponse.fixture';
-import { aRésultatRechercheOffreEmploiAxiosResponse } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import {
+  aRésultatRechercheOffreEmploiAxiosResponse,
+  aRésultatRéférentielCommuneResponse,
+} from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -11,10 +14,14 @@ import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/off
 describe('rechercher une offre d\'emploi', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75001')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75001')
+      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
+
+    nock('https://api.emploi-store.fr')
+      .get('/partenaire/offresdemploi/v2/referentiel/communes')
+      .reply(200, aRésultatRéférentielCommuneResponse().data);
 
     nock('https://entreprise.pole-emploi.fr')
       .post('/connexion/oauth2/access_token?realm=partenaire')
@@ -27,7 +34,7 @@ describe('rechercher une offre d\'emploi', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
-      url: '/emplois?motCle=boulanger&typeDeContrats=CDD,CDI&codeInsee=75056_75001&typeLocalisation=COMMUNE&page=1',
+      url: '/emplois?motCle=boulanger&typeDeContrats=CDD,CDI&codeLocalisation=75001&typeLocalisation=COMMUNE&page=1',
     });
   });
 

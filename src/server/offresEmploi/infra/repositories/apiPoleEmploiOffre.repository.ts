@@ -1,12 +1,8 @@
 import * as Sentry from '@sentry/nextjs';
 import * as CaptureContext from '@sentry/types';
-import axios  from 'axios';
+import axios from 'axios';
 
-import {
-  createFailure,
-  createSuccess,
-  Either,
-} from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
@@ -25,12 +21,16 @@ import {
   OffreEmploiResponse,
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
+import {
+  ApiPoleEmploiRéférentielRepository,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
     private poleEmploiHttpClientService: PoleEmploiHttpClientService,
+    private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {
   }
 
@@ -60,7 +60,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   }
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
-    const paramètresRecherche = this.buildParamètresRecherche(offreEmploiFiltre);
+    const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
     let response;
 
     try {
@@ -87,10 +87,10 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     }
   }
 
-  buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): string {
+  async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string> {
     const range = `${(offreEmploiFiltre.page - 1) * NOMBRE_RÉSULTATS_PAR_PAGE}-${offreEmploiFiltre.page * NOMBRE_RÉSULTATS_PAR_PAGE - 1}`;
 
-    const localisation = ApiPoleEmploiOffreRepository.buildParamètreLocalisation(offreEmploiFiltre);
+    const localisation = await this.buildParamètreLocalisation(offreEmploiFiltre);
 
     function mapTempsDeTravail() {
       if (offreEmploiFiltre.tempsDeTravail === 'tempsPlein') return 'true';
@@ -117,15 +117,16 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     return params.toString();
   }
 
-  private static buildParamètreLocalisation(offreEmploiFiltre: OffreEmploiFiltre): object | undefined {
+  private async buildParamètreLocalisation(offreEmploiFiltre: OffreEmploiFiltre) {
     if (offreEmploiFiltre.localisation) {
       const typeLocalisation = offreEmploiFiltre.localisation.typeLocalisation;
       if (typeLocalisation === TypeLocalisation.REGION) {
-        return { region: offreEmploiFiltre.localisation.codeInsee.value };
+        return { region: offreEmploiFiltre.localisation.codeLocalisation };
       } else if (typeLocalisation === TypeLocalisation.DEPARTEMENT) {
-        return { departement: offreEmploiFiltre.localisation.codeInsee.value };
+        return { departement: offreEmploiFiltre.localisation.codeLocalisation };
       } else if (typeLocalisation === TypeLocalisation.COMMUNE) {
-        return { commune: offreEmploiFiltre.localisation.codeInsee.valueQuandMultipleCodesPostaux };
+        const codeInseeInRéférentiel = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(offreEmploiFiltre.localisation.codeLocalisation);
+        return { commune: codeInseeInRéférentiel };
       }
     } else {
       return undefined;

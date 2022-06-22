@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { ErrorType } from '~/server/errors/error.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
@@ -47,10 +46,10 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   };
 
   function mapLocalisation(query: { [key: string]: string | string[] }): OffreEmploiFiltreLocalisation | undefined {
-    const { codeInsee, typeLocalisation } = query;
+    const { codeLocalisation, typeLocalisation } = query;
     return (typeLocalisation as TypeLocalisation in TypeLocalisation)
       ? {
-        codeInsee: CodeInsee.createCodeInsee(String(codeInsee)),
+        codeLocalisation: String(codeLocalisation),
         typeLocalisation: typeLocalisation as TypeLocalisation,
       }
       : undefined;

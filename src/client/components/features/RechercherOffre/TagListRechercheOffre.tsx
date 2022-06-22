@@ -69,7 +69,7 @@ export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
         });
       }
 
-      if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_INSEE)) {
+      if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
         filtreList.push(localisation);
       }
       setFiltres(filtreList);

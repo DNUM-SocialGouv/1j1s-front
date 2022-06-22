@@ -29,6 +29,9 @@ import {
   Either,
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
+import {
+  ApiPoleEmploiRéférentielRepository,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
@@ -37,6 +40,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   constructor(
     private laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService,
     private configurationService: ConfigurationService,
+    private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {
   }
 
@@ -64,10 +68,11 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   async getAlternanceList(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
     let response;
+    const paramètresRecherche = await this.buildParamètresRecherche(alternanceFiltre);
 
     try {
       response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
-        `jobs?${this.buildParamètresRecherche(alternanceFiltre)}`,
+        `jobs?${paramètresRecherche}`,
       );
       const résultats = mapAlternance(response.data);
 
@@ -108,11 +113,17 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     }
   }
 
-  buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
+  async buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
     const { CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE } = this.configurationService.getConfiguration();
+
+    let codeInseeCommune;
+    if(alternanceFiltre.codeLocalisation) {
+      codeInseeCommune = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(alternanceFiltre.codeLocalisation);
+    }
+
     // eslint-disable-next-line
-    const queryList: Record<string, any > = {
-      insee: alternanceFiltre.codeInsee?.valueAvecCodePostal,
+    const queryList: Record<string, any> = {
+      insee: codeInseeCommune,
       romes: alternanceFiltre.codeRomeList.toString(),
     };
     removeUndefinedValueInQueryParameterList(queryList);

@@ -1,8 +1,5 @@
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
-
 export interface Localisation {
   libelle: string;
-  codeInsee: CodeInsee;
   code: string;
 }
 

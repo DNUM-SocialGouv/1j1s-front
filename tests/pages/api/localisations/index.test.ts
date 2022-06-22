@@ -48,17 +48,14 @@ describe('rechercher une localisation', () => {
         expect(json).toEqual({
           communeList: [{
             code: '02140',
-            codeInsee: '02377',
             libelle: 'Haution',
           }],
           départementList: [{
             code: '68',
-            codeInsee: '68',
             libelle: 'Haut-Rhin',
           }],
           régionList: [{
             code: '32',
-            codeInsee: '32',
             libelle: 'Hauts-de-France',
           }],
         });

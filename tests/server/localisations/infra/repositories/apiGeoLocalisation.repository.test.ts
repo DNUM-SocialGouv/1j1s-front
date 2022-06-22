@@ -3,14 +3,17 @@ import {
   aRechercheAdresseResponse,
 } from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
 import {
-  aApiGeoHttpClientService, aCommuneResponseAvecPlusieursCodePostaux,
-  aRechercheCommuneResponse, aRechercheCommuneResponseAvecPlusieursCodePostaux,
+  aApiGeoHttpClientService,
+  aRechercheCommuneResponse,
+  aRechercheCommuneResponseAvecPlusieursCodePostaux,
   aRechercheDépartementResponse,
   aRechercheRégionResponse,
 } from '@tests/fixtures/services/apiGeoHttpClientService.fixture';
 
-import { CodeInsee } from '~/server/localisations/domain/codeInsee';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
+import {
+  ApiPoleEmploiRéférentielRepository,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
@@ -19,6 +22,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
   let apiGeoHttpClientService: ApiGeoHttpClientService;
   let apiAdresseHttpClientService: ApiAdresseHttpClientService;
+  let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
   beforeEach(() => {
     apiGeoHttpClientService = aApiGeoHttpClientService();
@@ -27,6 +31,7 @@ describe('ApiGeoLocalisationRepository', () => {
     apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
       apiGeoHttpClientService,
       apiAdresseHttpClientService,
+      apiPoleEmploiRéférentielRepository,
     );
   });
   
@@ -60,18 +65,16 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '36200',
-          codeInsee: CodeInsee.createCodeInsee('36048'),
           libelle: 'Chavin',
         },
         {
           code: '92370',
-          codeInsee: CodeInsee.createCodeInsee('92022'),
           libelle: 'Chaville',
         },
       ]);
     });
 
-    it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
+    it('quand les communes contiennent plusieurs code postaux retourne le premier code postal et pas le code insee lui meme', async () => {
       jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aRechercheCommuneResponseAvecPlusieursCodePostaux());
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
@@ -79,12 +82,10 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '81310',
-          codeInsee: CodeInsee.createCodeInsee('81202'),
           libelle: 'Parisot',
         },
         {
           code: '75001',
-          codeInsee: CodeInsee.createCodeInsee('75056_75001'),
           libelle: 'Paris',
         },
       ]);
@@ -100,7 +101,6 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '78',
-          codeInsee: CodeInsee.createCodeInsee('78'),
           libelle: 'Yvelines',
         },
       ]);
@@ -116,7 +116,6 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '32',
-          codeInsee: CodeInsee.createCodeInsee('32'),
           libelle: 'Hauts-de-France',
         },
       ]);
@@ -132,12 +131,10 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '36200',
-          codeInsee: CodeInsee.createCodeInsee('36048'),
           libelle: 'Chavin',
         },
         {
           code: '92370',
-          codeInsee: CodeInsee.createCodeInsee('92022'),
           libelle: 'Chaville',
         },
       ]);
@@ -151,12 +148,10 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '81310',
-          codeInsee: CodeInsee.createCodeInsee('81202'),
           libelle: 'Parisot',
         },
         {
           code: '75001',
-          codeInsee: CodeInsee.createCodeInsee('75056_75001'),
           libelle: 'Paris',
         },
       ]);
@@ -172,12 +167,10 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '36200',
-          codeInsee: CodeInsee.createCodeInsee('36048'),
           libelle: 'Chavin',
         },
         {
           code: '92370',
-          codeInsee: CodeInsee.createCodeInsee('92022'),
           libelle: 'Chaville',
         },
       ]);
@@ -191,12 +184,10 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '81310',
-          codeInsee: CodeInsee.createCodeInsee('81202'),
           libelle: 'Parisot',
         },
         {
           code: '75001',
-          codeInsee: CodeInsee.createCodeInsee('75056_75001'),
           libelle: 'Paris',
         },
       ]);
@@ -212,25 +203,9 @@ describe('ApiGeoLocalisationRepository', () => {
       expect(result).toEqual([
         {
           code: '78',
-          codeInsee: CodeInsee.createCodeInsee('78'),
           libelle: 'Yvelines',
         },
       ]);
-    });
-  });
-
-  describe('getLocalisationByTypeLocalisationAndCodeInsee', () => {
-    it('quand le codeInsee contient un underscore on appel le endpoint avec la deuxième valeur dans le codeInsee', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(aCommuneResponseAvecPlusieursCodePostaux());
-
-      const result = await apiGeoLocalisationRepository.getLocalisationByTypeLocalisationAndCodeInsee('communes', CodeInsee.createCodeInsee('75056_75001'));
-
-      expect(result).toEqual({
-        code: '75001',
-        codeInsee: CodeInsee.createCodeInsee('75056_75001'),
-        libelle: 'Paris',
-      });
-      expect(apiGeoHttpClientService.get).toHaveBeenCalledWith('communes/75056');
     });
   });
 

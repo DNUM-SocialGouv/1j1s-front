@@ -1,6 +1,5 @@
 export interface LocalisationApiResponse {
   libelle: string;
-  codeInsee: string;
   code: string;
 }
 

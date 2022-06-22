@@ -1,3 +1,5 @@
+import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
+
 import {
   AlternanceDependencies,
   alternanceDependenciesContainer,
@@ -14,6 +16,11 @@ import {
   OffresEmploiDependencies,
   offresEmploiDependenciesContainer,
 } from '~/server/offresEmploi/configuration/offresEmploi.dependencies';
+import {
+  ApiPoleEmploiRéférentielRepository,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
+import { CacheService } from '~/server/services/cache/cache.service';
+import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { StrapiCmsService } from '~/server/services/cms/infra/repositories/strapiCms.service';
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
@@ -32,18 +39,26 @@ export type Dependencies = {
 
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
+  let cacheService: CacheService;
+  if(process.env.NODE_ENV === 'test') {
+    cacheService = new MockedCacheService();
+  } else {
+    cacheService  = new RedisCacheService(serverConfigurationService);
+  }
   const poleEmploiHttpClientService = new PoleEmploiHttpClientService(serverConfigurationService);
   const laBonneAlternanceHttpClient = new LaBonneAlternanceHttpClientService(serverConfigurationService);
   const strapiHttpClientService = new StrapiHttpClientService(serverConfigurationService);
   const apiGeoGouvHttpClientService = new ApiGeoHttpClientService(serverConfigurationService);
   const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
+  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiHttpClientService, cacheService);
 
   const articleDependencies = articleDependenciesContainer(strapiHttpClientService);
-  const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService);
-  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient, serverConfigurationService);
+  const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);
+  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient, serverConfigurationService, apiPoleEmploiRéférentielRepository);
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
     apiAdresseHttpClientService,
+    apiPoleEmploiRéférentielRepository,
   );
 
   return {

@@ -1,12 +1,8 @@
-import {
-  Alternance,
-  RésultatsRechercheAlternance,
-} from '~/server/alternances/domain/alternance';
+import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
   AlternanceFromMatcha,
   AlternanceFromPoleEmploi,
-  RésultatRechercheAlternance,
 } from '~/server/alternances/infra/repositories/alternance.type';
 
 export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRechercheAlternance>): RésultatsRechercheAlternance {
