@@ -290,8 +290,8 @@ describe('RechercherAlternance', () => {
       await waitFor(() => {
         expect(screen.getByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
       });
-      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeInsee=75001_75056&radius=10' });
-      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeInsee=75056&radius=10');
+      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeLocalisation=75001&radius=10' });
+      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&radius=10');
     });
   });
 

@@ -230,7 +230,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
       });
     });
   });
-  describe('buildParamètresRechercheAltenance', () => {
+
+  describe('buildParamètresRechercheAlternance', () => {
     it('quand on cherche des codeRomes', async () => {
       const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ codeRomeList: ['D1103', 'D1101', 'H2101'] });
 
@@ -246,24 +247,22 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
       expect(result).toEqual('insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
     });
-    it('quand on cherche avec un lieu et un rayon', () => {
-      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
 
-      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
-        codeInsee: CodeInsee.createCodeInsee('75035'),
+    it('quand on cherche avec un lieu et un rayon', async () => {
+      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({
+        codeLocalisation: '75035',
         codeRomeList: ['D1103', 'D1101', 'H2101'],
         radius:'30',
       });
 
-      expect(result).toEqual('insee=75035&radius=30&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(result).toEqual('radius=30&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
     });
-    it('quand on cherche sans lieu et un rayon undefined, on renvoi juste le codeRome', () => {
-      const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClientService, configurationServiceFixture);
 
-      const result = apiLaBonneAlternanceRepository.buildParamètresRecherche({
-        codeInsee: undefined,
+    it('quand on cherche sans lieu et un rayon undefined, on retourne juste le codeRome', async () => {
+      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({
+        codeLocalisation: undefined,
         codeRomeList: ['D1103', 'D1101', 'H2101'],
-        radius:undefined,
+        radius: undefined,
       });
 
       expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
