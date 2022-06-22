@@ -14,7 +14,7 @@ export class MissionEngagementService {
 
   async rechercherMission(queryString = '', category: string): Promise<Either<RésultatsRechercheMission>> {
     try {
-      const response = await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'missions-service-civique' : 'missions-benevolat'}?${queryString}`);
+      const response = await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
       return createSuccess(response.data);
     } catch (e) {
       if (axios.isAxiosError(e)) {

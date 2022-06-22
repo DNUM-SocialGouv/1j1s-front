@@ -8,8 +8,8 @@ import { ClientService } from '~/server/services/http/client.service';
 
 export class EngagementHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_ENGAGEMENT_BASE_URL } = configurationService.getConfiguration();
-    super('API_ENGAGEMENT', API_ENGAGEMENT_BASE_URL, false, { apikey : process.env.API_ENGAGEMENT_API_KEY_TOKEN || '' });
+    const { API_ENGAGEMENT_BASE_URL, API_ENGAGEMENT_API_KEY_TOKEN } = configurationService.getConfiguration();
+    super('API_ENGAGEMENT', API_ENGAGEMENT_BASE_URL, false, { apikey : API_ENGAGEMENT_API_KEY_TOKEN });
   }
 
   get<Response>(

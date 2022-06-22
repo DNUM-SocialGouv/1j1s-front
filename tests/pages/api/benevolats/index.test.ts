@@ -3,7 +3,7 @@ import { aRésultatRechercheMissionAxiosResponse } from '@tests/fixtures/service
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherMissionHandler } from '~/pages/api/missions-benevolat';
+import { rechercherMissionHandler } from '~/pages/api/benevolats';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
@@ -20,7 +20,7 @@ describe('rechercher une mission du service civique', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatRechercheMission());
       },
-      url: 'missions-benevolat?page=1',
+      url: 'benevolats?page=1',
     });
   });
 });

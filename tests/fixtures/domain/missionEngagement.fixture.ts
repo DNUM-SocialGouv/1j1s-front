@@ -31,7 +31,7 @@ function anAmbassadeurDuDonDeVêtementMission(): Mission {
     débutContrat: '09/05/2022',
     id: '6278e8ced7dda60703c3ca40',
     logo: 'https://apicivique.s3.eu-west-3.amazonaws.com/app/publishers/5f5931496c7ea514150a818f/logo_JVA_gouv_carre_light.png',
-    nomEntreprise: 'EBS Le Relais Val De Seine',
+    nomEntreprise: 'Ebs le relais val de seine',
     titre: 'Je deviens Ambassadeur du don des vêtements',
     étiquetteList: [
       'Poissy (78300)',

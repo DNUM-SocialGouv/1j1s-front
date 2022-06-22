@@ -10,7 +10,7 @@ export interface Mission {
   id: string
   description: string
   titre: string
-  nomEntreprise: string
+  nomEntreprise?: string
   étiquetteList: Array<string>
   logo?: string
   débutContrat?: string

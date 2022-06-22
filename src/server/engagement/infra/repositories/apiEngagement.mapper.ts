@@ -17,18 +17,18 @@ export function mapRésultatsRechercheMission(response: RésultatsRechercheMissi
 
 function mapMission(missionList: Array<MissionEngagementResponse>): Array<Mission> {
   return missionList.map((mission: MissionEngagementResponse) => {
-    const openToMinors = mission.openToMinors === 'true' ? 'dès 16 ans' : undefined;
+    const accessibleAuxJeunes = mission.openToMinors === 'true' ? 'dès 16 ans' : undefined;
     const city = mission.city || '';
     const postalCode = mission.postalCode ? `(${mission.postalCode})` : '';
     const location = city.length > 0 || postalCode.length > 0 ? `${city} ${postalCode}` : undefined;
-    const étiquetteList = [openToMinors, location, mapDateDébutContrat(mission.startAt)].filter((tag: string |undefined) => tag !== undefined) as string[];
+    const étiquetteList = [accessibleAuxJeunes, location, mapDateDébutContrat(mission.startAt)].filter((tag: string |undefined) => tag !== undefined) as string[];
 
     return {
       description: mission.description,
       débutContrat: mapDateDébutContrat(mission.startAt),
       id: mission.id || mission.clientId,
       logo: mission.publisherLogo,
-      nomEntreprise: mission.organizationName,
+      nomEntreprise: mission.associationName || mission.organizationName,
       titre: mission.title,
       étiquetteList,
     };
