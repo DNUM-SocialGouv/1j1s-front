@@ -14,6 +14,8 @@ module.exports = {
         'https://1j1s-front.osc-fr1.scalingo.io/emplois',
         'https://1j1s-front.osc-fr1.scalingo.io/apprentissage',
         'https://1j1s-front.osc-fr1.scalingo.io/jobs-etudiants',
+        'https://1j1s-front.osc-fr1.scalingo.io/service-civique',
+        'https://1j1s-front.osc-fr1.scalingo.io/benevolat',
       ],
     },
     upload: {

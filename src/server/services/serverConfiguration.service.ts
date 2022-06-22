@@ -4,6 +4,8 @@ export class ServerConfigurationService implements ConfigurationService {
   getConfiguration(): EnvironmentVariables {
     return {
       API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
+      API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
+      API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
       API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
@@ -26,7 +28,7 @@ export class ServerConfigurationService implements ConfigurationService {
 
   private static getOrThrowError(name: string): string {
     const environmentVariable = process.env[name];
-    if (environmentVariable === undefined) {
+    if (!environmentVariable) {
       throw new EnvironmentVariablesException(
         `Variable ${name} missing from environment!`,
       );
@@ -49,6 +51,8 @@ export interface EnvironmentVariables {
   readonly POLE_EMPLOI_CONNECT_SCOPE: string;
   readonly API_POLE_EMPLOI_BASE_URL: string;
   readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
+  readonly API_ENGAGEMENT_BASE_URL: string;
+  readonly API_ENGAGEMENT_API_KEY_TOKEN: string;
   readonly CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE: string;
   readonly REDIS_DB: number;
   readonly REDIS_HOST: string;

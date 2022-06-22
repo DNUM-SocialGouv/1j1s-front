@@ -4,11 +4,14 @@ import React, { ChangeEvent } from 'react';
 import styles from '~/client/components/ui/Select/Select.module.css';
 import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { KeyBoard } from '~/client/utils/keyboard.util';
+import {
+  MissionEngagement,
+} from '~/server/engagement/domain/engagement';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 interface SelectRadioProps {
   titre: string
-  optionList : OffreEmploi.TempsDeTravail[]
+  optionList : OffreEmploi.TempsDeTravail[] | Array<MissionEngagement.Domaine>
   onChange: (value: string) => void
   currentInput: string
 }
