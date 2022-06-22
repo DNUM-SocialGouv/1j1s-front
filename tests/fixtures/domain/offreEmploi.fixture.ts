@@ -93,7 +93,7 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     experienceExigenceList: [],
     grandDomaineList: [],
     localisation: {
-      codeInsee: '34',
+      codeLocalisation: '34',
       typeLocalisation: TypeLocalisation.REGION,
     },
     motClé: 'boulanger',

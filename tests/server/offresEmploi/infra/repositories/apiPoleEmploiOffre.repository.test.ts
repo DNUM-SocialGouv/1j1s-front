@@ -77,7 +77,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         const offreEmploiFiltre = anOffreEmploiFiltre({
           localisation: {
-            codeInsee: '75001',
+            codeLocalisation: '75001',
             typeLocalisation: TypeLocalisation.COMMUNE,
           },
         });

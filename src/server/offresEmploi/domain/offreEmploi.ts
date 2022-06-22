@@ -162,7 +162,7 @@ export interface OffreEmploiFiltre {
 
 export interface OffreEmploiFiltreLocalisation {
   typeLocalisation: TypeLocalisation
-  codeInsee: string
+  codeLocalisation: string
 }
 
 export const NOMBRE_RÉSULTATS_PAR_PAGE = 30;

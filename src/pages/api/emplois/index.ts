@@ -46,10 +46,10 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   };
 
   function mapLocalisation(query: { [key: string]: string | string[] }): OffreEmploiFiltreLocalisation | undefined {
-    const { codeInsee, typeLocalisation } = query;
+    const { codeLocalisation, typeLocalisation } = query;
     return (typeLocalisation as TypeLocalisation in TypeLocalisation)
       ? {
-        codeInsee: String(codeInsee),
+        codeLocalisation: String(codeLocalisation),
         typeLocalisation: typeLocalisation as TypeLocalisation,
       }
       : undefined;

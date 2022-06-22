@@ -25,7 +25,7 @@ describe('rechercher une alternance', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheAlternance());
       },
-      url: '/alternances?codeInsee=75001&codeRomes=D1103,D1101,H2101',
+      url: '/alternances?codeLocalisation=75001&codeRomes=D1103,D1101,H2101',
     });
   });
 });

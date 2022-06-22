@@ -10,7 +10,7 @@ export const enum QueryParams {
   TYPE_DE_CONTRATS = 'typeDeContrats',
   PAGE = 'page',
   TYPE_LOCALISATION = 'typeLocalisation',
-  CODE_INSEE = 'codeInsee',
+  CODE_LOCALISATION = 'codeLocalisation',
   TEMPS_DE_TRAVAIL = 'tempsDeTravail',
   EXPÉRIENCE = 'experienceExigence',
   DOMAINE = 'grandDomaine',

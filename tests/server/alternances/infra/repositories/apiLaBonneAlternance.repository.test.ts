@@ -78,7 +78,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
       jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(anAlternanceListResponse());
       jest.spyOn(apiPoleEmploiRéférentielRepository, 'findCodeInseeInRéférentielCommune').mockResolvedValue('75101');
 
-      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeInsee: '75001', codeRomeList: ['D1103','D1101','H2101'] });
+      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeLocalisation: '75001', codeRomeList: ['D1103','D1101','H2101'] });
 
       expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
       expect(result.nombreRésultats).toEqual(4);
@@ -240,7 +240,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
     it('quand on cherche avec un lieu', async () => {
       jest.spyOn(apiPoleEmploiRéférentielRepository, 'findCodeInseeInRéférentielCommune').mockResolvedValue('75101');
       const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({
-        codeInsee: '75035',
+        codeLocalisation: '75035',
         codeRomeList: ['D1103', 'D1101', 'H2101'],
       });
 

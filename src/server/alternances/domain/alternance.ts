@@ -1,5 +1,3 @@
-
-
 export type AlternanceId = string;
 
 export type From = 'peJob' | 'matcha'
@@ -32,7 +30,7 @@ export namespace Alternance {
 
 export interface AlternanceFiltre {
   codeRomeList: string[]
-  codeInsee?: string
+  codeLocalisation?: string
 }
 
 export interface RésultatsRechercheAlternance {

@@ -68,10 +68,11 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   async getAlternanceList(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
     let response;
+    const paramètresRecherche = await this.buildParamètresRecherche(alternanceFiltre);
 
     try {
       response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse>(
-        `jobs?${await this.buildParamètresRecherche(alternanceFiltre)}`,
+        `jobs?${paramètresRecherche}`,
       );
       const résultats = mapAlternance(response.data);
 
@@ -116,8 +117,8 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     const { CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE } = this.configurationService.getConfiguration();
 
     let codeInseeCommune;
-    if(alternanceFiltre.codeInsee) {
-      codeInseeCommune = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(alternanceFiltre.codeInsee);
+    if(alternanceFiltre.codeLocalisation) {
+      codeInseeCommune = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(alternanceFiltre.codeLocalisation);
     }
 
     // eslint-disable-next-line
