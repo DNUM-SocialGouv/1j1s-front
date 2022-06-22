@@ -12,7 +12,7 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface CustomSelectProps {
   titre: string
-  attribut?: boolean
+  attribut?: number
 }
 
 export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps>) {
@@ -53,6 +53,7 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
         data-testid={`SelectButton-${titre}`}
         aria-haspopup="listbox"
         aria-expanded={isOptionsOpen}
+        style={{ width: `${attribut ? attribut + 3:''}ch` } }
         className={`${styles.button} ${additionalCss}`}
         onClick={() => setIsOptionsOpen(!isOptionsOpen)}
       >

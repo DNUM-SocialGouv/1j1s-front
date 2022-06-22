@@ -11,7 +11,6 @@ interface SelectRadioProps {
   onChange: (value: string) => void;
   currentInput: string;
   label?: string;
-  hasMinWidth?: boolean
 }
 
 export interface Option {
@@ -20,7 +19,7 @@ export interface Option {
 }
 
 export function SelectSingle(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput, titre, label, hasMinWidth } = props;
+  const { optionList, onChange, currentInput, titre, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -28,8 +27,13 @@ export function SelectSingle(props: SelectRadioProps) {
     }
   };
 
+  function getMaxLongueur(optionList: Option[] ) {
+    const optionListLength = optionList.map((option) => option.libellé.length);
+    return Math.max(...optionListLength);
+  }
+
   const getSelectComponent = () => (
-    <Select titre={titre} attribut={hasMinWidth}>
+    <Select titre={titre} attribut={getMaxLongueur(optionList)}>
       {optionList.map((option, index) => (
         <Radio
           id={option.libellé}
