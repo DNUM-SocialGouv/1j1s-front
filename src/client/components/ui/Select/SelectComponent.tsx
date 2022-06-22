@@ -12,11 +12,11 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface CustomSelectProps {
   titre: string
-  label: string
+  attribut?: boolean
 }
 
 export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps>) {
-  const { titre, children, label } = props;
+  const { titre, children, attribut } = props;
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
@@ -34,6 +34,8 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
     }
   }, []);
 
+  const additionalCss = attribut ? `${styles.attribut}` : '';
+
   useEffect(() => {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
     document.addEventListener('keyup', closeOptionsOnEscape);
@@ -48,10 +50,10 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
     <div ref={optionsRef} className={styles.container}>
       <button
         type="button"
-        data-testid={`SelectButton-${label}`}
+        data-testid={`SelectButton-${titre}`}
         aria-haspopup="listbox"
         aria-expanded={isOptionsOpen}
-        className={styles.button}
+        className={`${styles.button} ${additionalCss}`}
         onClick={() => setIsOptionsOpen(!isOptionsOpen)}
       >
         <span>{titre}</span>

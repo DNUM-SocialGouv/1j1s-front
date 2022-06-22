@@ -207,19 +207,7 @@ describe('RechercherAlternance', () => {
 
       fireEvent.click(resultListitem[0]);
 
-      const button = await screen.findByTestId('SelectButton-Rayon');
-      fireEvent.click(button);
-
-      const optionsRadius = await screen.findByTestId('OptionList');
-
-      await waitFor(() => {
-        expect(optionsRadius).toBeInTheDocument();
-      });
-
-      const inputRadius = within(optionsRadius).getAllByRole('option');
-      fireEvent.click(inputRadius[0]);
-
-      mockUseRouter({ query: { codeLocalisation: '75001', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boucherie', radius: '' } });
+      mockUseRouter({ query: { codeLocalisation: '75001', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boucherie' } });
       
       fireEvent.click(buttonRechercher);
 
@@ -231,7 +219,7 @@ describe('RechercherAlternance', () => {
       expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeLocalisation=75001');
     });
 
-    it('quand on recherche avec un lieu avec un rayon', async () => {
+    it('quand on recherche avec un lieu et un rayon', async () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
@@ -270,7 +258,7 @@ describe('RechercherAlternance', () => {
 
       fireEvent.click(resultListitem[0]);
 
-      const button = await screen.findByTestId('SelectButton-Rayon');
+      const button = await screen.findByText('Indifférent');
       fireEvent.click(button);
 
       const optionsRadius = await screen.findByTestId('OptionList');

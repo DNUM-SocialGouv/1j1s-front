@@ -1,4 +1,5 @@
-import { OptionListObject } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Option } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+
 export type AlternanceId = string;
 
 export type From = 'peJob' | 'matcha'
@@ -40,8 +41,8 @@ export interface RésultatsRechercheAlternance {
   résultats: Alternance[]
 }
 
-export const Radius: OptionListObject[] = [
-  { libellé: 'Indifférent', valeur: '' },
+export const radiusList: Option[] = [
+  { libellé: 'Indifférent', valeur: 'indifférent' },
   { libellé: '10', valeur: '10' },
   { libellé: '30', valeur: '30' },
   { libellé: '60', valeur: '60' },

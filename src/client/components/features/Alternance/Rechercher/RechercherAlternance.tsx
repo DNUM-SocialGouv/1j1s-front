@@ -14,7 +14,7 @@ import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoComple
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { SelectSingleForRadius } from '~/client/components/ui/Select/SelectSingle/SelectSingleForRadius';
+import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
@@ -22,7 +22,8 @@ import { AlternanceService } from '~/client/services/alternances/alternance.serv
 import { LocalisationService } from '~/client/services/localisation.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
-import { Alternance, Radius } from '~/server/alternances/domain/alternance';
+import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { Alternance, radiusList } from '~/server/alternances/domain/alternance';
 import { ErrorType } from '~/server/errors/error.types';
 import { Localisation } from '~/server/localisations/domain/localisation';
 
@@ -43,7 +44,7 @@ export function RechercherAlternance() {
   const [communeList, setCommuneList] = useState<Localisation[]>([]);
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
   const [radius, setRadius] = useState('');
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
 
   useEffect(() => {
     if(hasQueryParams) {
@@ -89,21 +90,6 @@ export function RechercherAlternance() {
       setIsLoading(true);
       const query = new URLSearchParams(transformFormToEntries(event.currentTarget)).toString();
       return router.push( { query });
-    }
-  }
-  function setRadiusInProps(value: string) {
-    if(value === 'Indifférent'){
-      setRadius('');
-    }else{
-      setRadius(value);
-    }
-  }
-
-  function setIndifférentForNoRadius(value: string) {
-    if(value === ''){
-      return 'Indifférent';
-    }else{
-      return value;
     }
   }
 
@@ -152,12 +138,13 @@ export function RechercherAlternance() {
                 onChange={rechercherLocalisation}
                 onUpdateInputLocalisation={() => setInputLocalisation('')}
               />
-              <SelectSingleForRadius
+              <SelectSingle
                 label="Rayon"
-                titre={setIndifférentForNoRadius(radius)}
-                optionList={Radius}
-                onChange={(value) => setRadiusInProps(value)}
+                titre={récupérerLibelléDepuisValeur(radiusList, radius) || 'Indifférent'}
+                optionList={radiusList}
+                onChange={(value) => setRadius(value === 'Indifférent' ? '' : value)}
                 currentInput={radius}
+                hasMinWidth
               />
               <Button
                 submit={true}

@@ -314,7 +314,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                   {
                     isTypeDeContratActive && <SelectMultiple
                       titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
-                      label={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
                       optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
                       onChange={toggleTypeDeContrat}
                       currentInput={inputTypeDeContrat}
@@ -322,7 +321,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                   }
                   {isTempsDeTravailActive && <SelectSingle
                     titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
-                    label={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
                     optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
                     onChange={(value) => setInputTempsDeTravail(value)}
                     currentInput={inputTempsDeTravail}
@@ -333,7 +331,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                       optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
                       onChange={toggleExpérience}
                       currentInput={inputExpérience}
-                      label={''}
                     />
                   }
                   <SelectMultiple
@@ -341,7 +338,6 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                     optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList)}
                     onChange={toggleDomaine}
                     currentInput={inputDomaine}
-                    label={''}
                   />
                 </div>
               )}
