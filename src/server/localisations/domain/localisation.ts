@@ -1,6 +1,6 @@
 export interface Localisation {
-  libelle: string;
-  code: string;
+  nom: string
+  code: string
 }
 
 export enum TypeLocalisation {
@@ -9,7 +9,7 @@ export enum TypeLocalisation {
   COMMUNE = 'COMMUNE',
 }
 
-export interface LocalisationList {
+export interface RechercheLocalisation {
   communeList: Localisation[]
   départementList: Localisation[]
   régionList: Localisation[]

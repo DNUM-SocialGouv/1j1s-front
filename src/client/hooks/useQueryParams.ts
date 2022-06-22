@@ -11,6 +11,7 @@ export const enum QueryParams {
   PAGE = 'page',
   TYPE_LOCALISATION = 'typeLocalisation',
   CODE_LOCALISATION = 'codeLocalisation',
+  LIBELLE_LOCALISATION = 'libelleLocalisation',
   TEMPS_DE_TRAVAIL = 'tempsDeTravail',
   EXPÉRIENCE = 'experienceExigence',
   DOMAINE = 'grandDomaine',

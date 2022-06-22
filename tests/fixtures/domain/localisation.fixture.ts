@@ -1,6 +1,9 @@
-import { Localisation, LocalisationList } from '~/server/localisations/domain/localisation';
+import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/LocalisationListApiResponse';
+import {
+  LocalisationApiResponse,
+  RechercheLocalisationApiResponse,
+} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 export function aLocalisationRepository(): LocalisationRepository {
   return {
@@ -9,7 +12,7 @@ export function aLocalisationRepository(): LocalisationRepository {
     getCommuneListByNom: jest.fn(),
     getCommuneListByNuméroDépartement: jest.fn(),
     getDépartementListByNom: jest.fn(),
-    getDépartementListByNuméroDépartement : jest.fn(),
+    getDépartementListByNuméroDépartement: jest.fn(),
     getLocalisationByTypeLocalisationAndCodeInsee: jest.fn(),
     getRégionListByNom: jest.fn(),
   };
@@ -18,7 +21,7 @@ export function aLocalisationRepository(): LocalisationRepository {
 export function aCommune(override?: Partial<Localisation>): Localisation {
   return {
     code: '34290',
-    libelle: 'Abeilhan',
+    nom: 'Abeilhan',
     ...override,
   };
 }
@@ -26,7 +29,8 @@ export function aCommune(override?: Partial<Localisation>): Localisation {
 export function aCommuneApiResponse(override?: Partial<LocalisationApiResponse>): LocalisationApiResponse {
   return {
     code: '34290',
-    libelle: 'Abeilhan',
+    libelle: 'Abeilhan (34290)',
+    nom: 'Abeilhan',
     ...override,
   };
 }
@@ -36,7 +40,7 @@ export function aCommuneList(): Localisation[] {
     aCommune(),
     aCommune({
       code: '34230',
-      libelle: 'Adissan',
+      nom: 'Adissan',
     }),
   ];
 }
@@ -46,7 +50,8 @@ export function aCommuneListApiResponse(): LocalisationApiResponse[] {
     aCommuneApiResponse(),
     aCommuneApiResponse({
       code: '34230',
-      libelle: 'Adissan',
+      libelle: 'Adissan (34230)',
+      nom: 'Adissan',
     }),
   ];
 }
@@ -54,14 +59,15 @@ export function aCommuneListApiResponse(): LocalisationApiResponse[] {
 export function aDépartement(): Localisation {
   return {
     code: '34',
-    libelle: 'Hérault',
+    nom: 'Hérault',
   };
 }
 
 export function aDépartementApiResponse(): LocalisationApiResponse {
   return {
     code: '34',
-    libelle: 'Hérault',
+    libelle: 'Hérault (34)',
+    nom: 'Hérault',
   };
 }
 
@@ -80,14 +86,15 @@ export function aDépartementListApiResponse(): LocalisationApiResponse[] {
 export function aRégion(): Localisation {
   return {
     code: '76',
-    libelle: 'Occitanie',
+    nom: 'Occitanie',
   };
 }
 
 export function aRégionApiResponse(): LocalisationApiResponse {
   return {
     code: '76',
-    libelle: 'Occitanie',
+    libelle: 'Occitanie (76)',
+    nom: 'Occitanie',
   };
 }
 
@@ -97,37 +104,37 @@ export function aRégionList(): Localisation[] {
   ];
 }
 
-export function aLongList(): LocalisationList {
+export function aLongList(): RechercheLocalisation {
   return {
     communeList: [...Array(22)].map(() => {
-      return { code: '76', libelle:'fake' };
+      return { code: '76', nom: 'fake' };
     }),
     départementList: [...Array(22)].map(() => {
-      return { code: '76', libelle:'fake' };
+      return { code: '76', nom: 'fake' };
     }),
     régionList: [...Array(22)].map(() => {
-      return { code: '76', libelle:'fake' };
+      return { code: '76', nom: 'fake' };
     }),
   };
 }
 
-export function aLocalisationList(): LocalisationList {
+export function aLocalisationList(): RechercheLocalisationApiResponse {
   return {
     communeList: [],
-    départementList: [{ code: '75', libelle:'Paris' }],
+    départementList: [{ code: '75', libelle: 'Paris (75)', nom: 'Paris' }],
     régionList: [],
   };
 }
 
-export function aLocalisationListWithCommuneAndDépartement(): LocalisationList {
+export function aLocalisationListWithCommuneAndDépartement(): RechercheLocalisationApiResponse {
   return {
-    communeList: [{ code: '75001', libelle:'Paris' }],
-    départementList: [{ code: '75', libelle:'Paris' }],
+    communeList: [{ code: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+    départementList: [{ code: '75', libelle: 'Paris (75)', nom: 'Paris' }],
     régionList: [],
   };
 }
 
-export function aLocalisationListWithEmptyValue(): LocalisationList {
+export function aLocalisationListWithEmptyValue(): RechercheLocalisationApiResponse {
   return {
     communeList: [],
     départementList: [],

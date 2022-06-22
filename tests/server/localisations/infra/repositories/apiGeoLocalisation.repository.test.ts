@@ -10,6 +10,7 @@ import {
   aRechercheRégionResponse,
 } from '@tests/fixtures/services/apiGeoHttpClientService.fixture';
 
+import { Localisation } from '~/server/localisations/domain/localisation';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import {
   ApiPoleEmploiRéférentielRepository,
@@ -62,16 +63,18 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('jou');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '36200',
-          libelle: 'Chavin',
+          nom: 'Chavin',
         },
         {
           code: '92370',
-          libelle: 'Chaville',
+          nom: 'Chaville',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
 
     it('quand les communes contiennent plusieurs code postaux retourne le premier code postal et pas le code insee lui meme', async () => {
@@ -79,16 +82,18 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '81310',
-          libelle: 'Parisot',
+          nom: 'Parisot',
         },
         {
           code: '75001',
-          libelle: 'Paris',
+          nom: 'Paris',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
   });
 
@@ -98,12 +103,14 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getDépartementListByNom('jou');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '78',
-          libelle: 'Yvelines',
+          nom: 'Yvelines',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
   });
 
@@ -113,12 +120,14 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getRégionListByNom('jou');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '32',
-          libelle: 'Hauts-de-France',
+          nom: 'Hauts-de-France',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
   });
 
@@ -128,16 +137,18 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('92370');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '36200',
-          libelle: 'Chavin',
+          nom: 'Chavin',
         },
         {
           code: '92370',
-          libelle: 'Chaville',
+          nom: 'Chaville',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
 
     it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
@@ -145,16 +156,18 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('75');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '81310',
-          libelle: 'Parisot',
+          nom: 'Parisot',
         },
         {
           code: '75001',
-          libelle: 'Paris',
+          nom: 'Paris',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
   });
 
@@ -164,16 +177,18 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '36200',
-          libelle: 'Chavin',
+          nom: 'Chavin',
         },
         {
           code: '92370',
-          libelle: 'Chaville',
+          nom: 'Chaville',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
 
     it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
@@ -181,16 +196,18 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '81310',
-          libelle: 'Parisot',
+          nom: 'Parisot',
         },
         {
           code: '75001',
-          libelle: 'Paris',
+          nom: 'Paris',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
   });
 
@@ -200,13 +217,14 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
 
-      expect(result).toEqual([
+      const expected: Localisation[] = [
         {
           code: '78',
-          libelle: 'Yvelines',
+          nom: 'Yvelines',
         },
-      ]);
+      ];
+
+      expect(result).toEqual(expected);
     });
   });
-
 });

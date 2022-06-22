@@ -119,13 +119,13 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
   private async buildParamètreLocalisation(offreEmploiFiltre: OffreEmploiFiltre) {
     if (offreEmploiFiltre.localisation) {
-      const typeLocalisation = offreEmploiFiltre.localisation.typeLocalisation;
+      const typeLocalisation = offreEmploiFiltre.localisation.type;
       if (typeLocalisation === TypeLocalisation.REGION) {
-        return { region: offreEmploiFiltre.localisation.codeLocalisation };
+        return { region: offreEmploiFiltre.localisation.code };
       } else if (typeLocalisation === TypeLocalisation.DEPARTEMENT) {
-        return { departement: offreEmploiFiltre.localisation.codeLocalisation };
+        return { departement: offreEmploiFiltre.localisation.code };
       } else if (typeLocalisation === TypeLocalisation.COMMUNE) {
-        const codeInseeInRéférentiel = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(offreEmploiFiltre.localisation.codeLocalisation);
+        const codeInseeInRéférentiel = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(offreEmploiFiltre.localisation.code);
         return { commune: codeInseeInRéférentiel };
       }
     } else {

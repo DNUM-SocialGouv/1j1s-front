@@ -7,12 +7,7 @@ import { TagList } from '~/client/components/ui/TagList/TagList';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-interface TagListRechercheOffreProps {
-  localisation: string
-}
-
-export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
-  const { localisation } = props;
+export function TagListRechercheOffre() {
   const [filtres, setFiltres] = useState<string[]>([]);
   const { isKeyInQueryParams, getQueryValue, hasQueryParams, queryParams } = useQueryParams();
 
@@ -69,12 +64,13 @@ export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
         });
       }
 
-      if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
-        filtreList.push(localisation);
+      if (isKeyInQueryParams(QueryParams.LIBELLE_LOCALISATION)) {
+        const libelleLocalisation = getQueryValue(QueryParams.LIBELLE_LOCALISATION);
+        filtreList.push(libelleLocalisation);
       }
       setFiltres(filtreList);
     }
-  }, [queryParams, localisation]);
+  }, [queryParams]);
 
   return (
     <>
@@ -82,6 +78,5 @@ export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
        <TagList list={filtres} />
       }
     </>
-
   );
 }

@@ -44,16 +44,16 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
     tempsDeTravail: query.tempsDeTravail ? String(query.tempsDeTravail) : '',
     typeDeContratList: query.typeDeContrats ? toArray(query.typeDeContrats) : [],
   };
+}
 
-  function mapLocalisation(query: { [key: string]: string | string[] }): OffreEmploiFiltreLocalisation | undefined {
-    const { codeLocalisation, typeLocalisation } = query;
-    return (typeLocalisation as TypeLocalisation in TypeLocalisation)
-      ? {
-        codeLocalisation: String(codeLocalisation),
-        typeLocalisation: typeLocalisation as TypeLocalisation,
-      }
-      : undefined;
-  }
+function mapLocalisation(query: { [key: string]: string | string[] }): OffreEmploiFiltreLocalisation | undefined {
+  const { codeLocalisation, typeLocalisation } = query;
+  return (typeLocalisation as TypeLocalisation in TypeLocalisation)
+    ? {
+      code: String(codeLocalisation),
+      type: typeLocalisation as TypeLocalisation,
+    }
+    : undefined;
 }
 
 function toArray(query: string | string[]): string[] {

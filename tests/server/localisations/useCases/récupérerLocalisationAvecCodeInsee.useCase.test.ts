@@ -1,10 +1,10 @@
 import { aCommune, aDépartement, aLocalisationRepository, aRégion } from '@tests/fixtures/domain/localisation.fixture';
 
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+import { Localisation, TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
   RécupérerLocalisationAvecCodeInseeUseCase,
-} from '~/server/localisations/useCases/récupérerLocalisationAvecCodeInseeUseCase';
+} from '~/server/localisations/useCases/récupérerLocalisationAvecCodeInsee.useCase';
 
 describe('RécupérerLocalisationAvecCodeInseeUseCase', () => {
   let localisationRepository: LocalisationRepository;
@@ -18,9 +18,9 @@ describe('RécupérerLocalisationAvecCodeInseeUseCase', () => {
       const localisationUseCase = new RécupérerLocalisationAvecCodeInseeUseCase(localisationRepository);
       const localisationRepositoryMocked = jest.spyOn(localisationRepository, 'getLocalisationByTypeLocalisationAndCodeInsee').mockResolvedValue(aCommune());
 
-      const expected = {
+      const expected: Localisation = {
         code: '34290',
-        libelle: 'Abeilhan',
+        nom: 'Abeilhan',
       };
 
       const result = await localisationUseCase.handle(TypeLocalisation.COMMUNE, '34001');
@@ -35,9 +35,9 @@ describe('RécupérerLocalisationAvecCodeInseeUseCase', () => {
       const localisationUseCase = new RécupérerLocalisationAvecCodeInseeUseCase(localisationRepository);
       const localisationRepositoryMocked = jest.spyOn(localisationRepository, 'getLocalisationByTypeLocalisationAndCodeInsee').mockResolvedValue(aDépartement());
 
-      const expected = {
+      const expected: Localisation = {
         code: '34',
-        libelle: 'Hérault',
+        nom: 'Hérault',
       };
       const result = await localisationUseCase.handle(TypeLocalisation.DEPARTEMENT, '34');
 
@@ -51,9 +51,9 @@ describe('RécupérerLocalisationAvecCodeInseeUseCase', () => {
       const localisationUseCase = new RécupérerLocalisationAvecCodeInseeUseCase(localisationRepository);
       const localisationRepositoryMocked = jest.spyOn(localisationRepository, 'getLocalisationByTypeLocalisationAndCodeInsee').mockResolvedValue(aRégion());
 
-      const expected = {
+      const expected: Localisation = {
         code: '76',
-        libelle: 'Occitanie',
+        nom: 'Occitanie',
       };
       const result = await localisationUseCase.handle(TypeLocalisation.REGION, '76');
 

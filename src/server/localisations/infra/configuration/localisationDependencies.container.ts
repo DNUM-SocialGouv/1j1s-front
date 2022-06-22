@@ -1,5 +1,5 @@
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import { RécupérerLocalisationAvecCodeInseeUseCase } from '~/server/localisations/useCases/récupérerLocalisationAvecCodeInseeUseCase';
+import { RécupérerLocalisationAvecCodeInseeUseCase } from '~/server/localisations/useCases/récupérerLocalisationAvecCodeInsee.useCase';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';

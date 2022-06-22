@@ -1,4 +1,4 @@
-import { LocalisationList } from '~/server/localisations/domain/localisation';
+import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 
 export class RechercherLocalisationUseCase {
@@ -8,7 +8,7 @@ export class RechercherLocalisationUseCase {
   private DEPARTEMENT_LENGTH = 2;
   private CODE_POSTAL_LENGTH = 5;
 
-  async handle(recherche: string): Promise<LocalisationList> {
+  async handle(recherche: string): Promise<RechercheLocalisation> {
     if(RechercherLocalisationUseCase.checkRechercheOnlyNumber(this.DEPARTEMENT_LENGTH, recherche)) {
       return {
         communeList : await this.localisationRepository.getCommuneListByNuméroDépartement(recherche),

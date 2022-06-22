@@ -13,7 +13,10 @@ import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixt
 
 import { LocalisationService } from '~/client/services/localisation.service';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
-
+import {
+  LocalisationApiResponse,
+  RechercheLocalisationApiResponse,
+} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 describe('LocalisationService', () => {
   describe('rechercheLocalisation', () => {
@@ -23,7 +26,7 @@ describe('LocalisationService', () => {
         const httpClientService = aHttpClientService();
         const localisationService = new LocalisationService(httpClientService);
 
-        const result = await localisationService.rechercheLocalisation(value);
+        const result = await localisationService.rechercherLocalisation(value);
 
         expect(result).toEqual(null);
       });
@@ -33,7 +36,7 @@ describe('LocalisationService', () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
 
-      const result = await localisationService.rechercheLocalisation('$$');
+      const result = await localisationService.rechercherLocalisation('$$');
 
       expect(result).toEqual(null);
     });
@@ -42,7 +45,7 @@ describe('LocalisationService', () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
 
-      const result = await localisationService.rechercheLocalisation('a');
+      const result = await localisationService.rechercherLocalisation('a');
 
       expect(result).toEqual(null);
     });
@@ -57,27 +60,32 @@ describe('LocalisationService', () => {
         régionList: [],
       }));
 
-      const result = await localisationService.rechercheLocalisation('34');
+      const result = await localisationService.rechercherLocalisation('34');
 
-      expect(result).toEqual({
+      const expected: RechercheLocalisationApiResponse = {
         communeList: [
           {
             code: '34290',
-            libelle: 'Abeilhan',
+            libelle: 'Abeilhan (34290)',
+            nom: 'Abeilhan',
           },
           {
             code: '34230',
-            libelle: 'Adissan',
+            libelle: 'Adissan (34230)',
+            nom: 'Adissan',
           },
         ],
         départementList: [
           {
             code: '34',
-            libelle: 'Hérault',
+            libelle: 'Hérault (34)',
+            nom: 'Hérault',
           },
         ],
         régionList: [],
-      });
+      };
+
+      expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=34');
     });
 
@@ -85,37 +93,47 @@ describe('LocalisationService', () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
 
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
+      const rechercheLocalisationApiResponse: RechercheLocalisationApiResponse = {
         communeList: [{
           code: '02140',
-          libelle: 'Haution',
+          libelle: 'Haution (02140)',
+          nom: 'Haution',
         }],
         départementList: [{
           code: '68',
-          libelle: 'Haut-Rhin',
+          libelle: 'Haut-Rhin (68)',
+          nom: 'Haut-Rhin',
         }],
         régionList: [{
           code: '32',
-          libelle: 'Haut-de-France',
+          libelle: 'Haut-de-France (32)',
+          nom: 'Haut-de-France',
         }],
-      }));
+      };
 
-      const result = await localisationService.rechercheLocalisation('Haut');
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(rechercheLocalisationApiResponse));
 
-      expect(result).toEqual({
+      const result = await localisationService.rechercherLocalisation('Haut');
+
+      const expected: RechercheLocalisationApiResponse = {
         communeList: [{
           code: '02140',
-          libelle: 'Haution',
+          libelle: 'Haution (02140)',
+          nom: 'Haution',
         }],
         départementList: [{
           code: '68',
-          libelle: 'Haut-Rhin',
+          libelle: 'Haut-Rhin (68)',
+          nom: 'Haut-Rhin',
         }],
         régionList: [{
           code: '32',
-          libelle: 'Haut-de-France',
+          libelle: 'Haut-de-France (32)',
+          nom: 'Haut-de-France',
         }],
-      });
+      };
+
+      expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=Haut');
     });
   });
@@ -128,10 +146,13 @@ describe('LocalisationService', () => {
 
       const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.DEPARTEMENT,'78');
 
-      expect(result).toEqual({
+      const expected: LocalisationApiResponse = {
         code: '34',
-        libelle: 'Hérault',
-      });
+        libelle: 'Hérault (34)',
+        nom: 'Hérault',
+      };
+
+      expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=DEPARTEMENT&codeInsee=78');
     });
 
@@ -142,10 +163,13 @@ describe('LocalisationService', () => {
 
       const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.REGION,'76');
 
-      expect(result).toEqual({
+      const expected: LocalisationApiResponse = {
         code: '76',
-        libelle: 'Occitanie',
-      });
+        libelle: 'Occitanie (76)',
+        nom: 'Occitanie',
+      };
+
+      expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=REGION&codeInsee=76');
     });
 
@@ -156,10 +180,13 @@ describe('LocalisationService', () => {
 
       const result = await localisationService.récupérerLocalisationAvecCodeInsee(TypeLocalisation.COMMUNE,'36048');
 
-      expect(result).toEqual({
+      const expected: LocalisationApiResponse = {
         code: '34290',
-        libelle: 'Abeilhan',
-      });
+        libelle: 'Abeilhan (34290)',
+        nom: 'Abeilhan',
+      };
+
+      expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=COMMUNE&codeInsee=36048');
     });
   });

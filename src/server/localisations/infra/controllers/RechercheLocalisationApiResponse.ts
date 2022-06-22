@@ -1,9 +1,10 @@
 export interface LocalisationApiResponse {
-  libelle: string;
-  code: string;
+  nom: string
+  code: string
+  libelle: string
 }
 
-export interface LocalisationListApiResponse {
+export interface RechercheLocalisationApiResponse {
   communeList: LocalisationApiResponse[]
   départementList: LocalisationApiResponse[]
   régionList: LocalisationApiResponse[]
