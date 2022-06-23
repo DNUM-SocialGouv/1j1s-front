@@ -23,7 +23,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@dataesr/react-dsfr": "^1.1.11",
     "@gouvfr/dsfr": "^1.5.0",
-    "@sentry/nextjs": "^6.19.6",
+    "@sentry/nextjs": "^7.0.0",
     "@socialgouv/matomo-next": "^1.3.0",
     "axios": "^0.27.2",
     "dompurify": "^2.3.6",
