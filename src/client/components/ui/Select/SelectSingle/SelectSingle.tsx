@@ -33,7 +33,7 @@ export function SelectSingle(props: SelectRadioProps) {
   }
 
   const getSelectComponent = () => (
-    <Select titre={titre} attribut={getMaxLongueur(optionList)}>
+    <Select titre={titre} tailleMinimumButton={getMaxLongueur(optionList)}>
       {optionList.map((option, index) => (
         <Radio
           id={option.libellé}

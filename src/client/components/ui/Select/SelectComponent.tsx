@@ -12,15 +12,18 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface CustomSelectProps {
   titre: string
-  attribut?: number
+  tailleMinimumButton?: number
 }
 
 export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps>) {
-  const { titre, children, attribut } = props;
+  const { titre, children, tailleMinimumButton } = props;
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   const optionsRef = useRef<HTMLDivElement>(null);
+
+  const MARGE = 3;
+  const additionalCss = tailleMinimumButton ? { minWidth: `${tailleMinimumButton + MARGE}ch` } : {};
 
   const closeOptionsOnClickOutside = useCallback((e: MouseEvent) => {
     if (!(optionsRef.current)?.contains(e.target as Node)) {
@@ -33,8 +36,6 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
       setIsOptionsOpen(false);
     }
   }, []);
-
-  const additionalCss = attribut ? `${styles.attribut}` : '';
 
   useEffect(() => {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
@@ -53,8 +54,8 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
         data-testid={`SelectButton-${titre}`}
         aria-haspopup="listbox"
         aria-expanded={isOptionsOpen}
-        style={{ width: `${attribut ? attribut + 3:''}ch` } }
-        className={`${styles.button} ${additionalCss}`}
+        style={additionalCss}
+        className={styles.button}
         onClick={() => setIsOptionsOpen(!isOptionsOpen)}
       >
         <span>{titre}</span>

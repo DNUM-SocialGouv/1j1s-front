@@ -144,7 +144,6 @@ export function RechercherAlternance() {
                 optionList={radiusList}
                 onChange={(value) => setRadius(value === 'Indifférent' ? '' : value)}
                 currentInput={radius}
-                hasMinWidth
               />
               <Button
                 submit={true}
