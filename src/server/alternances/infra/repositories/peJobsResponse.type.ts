@@ -19,6 +19,7 @@ export interface PeJobsJobResponse {
   description: string
   contractType?: string
   contractDescription?: string
+  contractDuration?: string
   duration?: string
 }
 

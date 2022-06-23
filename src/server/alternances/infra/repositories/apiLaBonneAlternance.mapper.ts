@@ -123,7 +123,7 @@ export function mapOffreAlternance(response: AlternanceDetailResponse): Résulta
       adresse: alternance.place?.fullAddress,
       contact: mapContact(alternance.contact),
       description: alternance.job.description,
-      duréeContrat: alternance.job.duration,
+      duréeContrat: alternance.job.contractDescription,
       entreprise: {
         logo: alternance.company?.logo || undefined,
         nom: alternance.company?.name || undefined,
@@ -132,6 +132,7 @@ export function mapOffreAlternance(response: AlternanceDetailResponse): Résulta
       id: alternance.job.id,
       intitulé: alternance.title,
       niveauRequis,
+      rythmeAlternance: alternance.job.duration,
       typeDeContrats,
       url: alternance.url,
       ville,
