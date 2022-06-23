@@ -50,30 +50,33 @@ export function RechercherMission(props: RechercherMissionProps) {
   const missionEngagementService =useDependency<MissionEngagementService>('missionEngagementService');
   const router = useRouter();
   const queryParams = router.query;
+  const isServiceCivique = category === 'service-civique';
   const [missionList, setMissionList] = useState<Mission[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorType, setErrorType] = useState<ErrorType | undefined>(undefined);
-  const [title, setTitle] = useState<string>(`Rechercher une mission de ${category === 'service-civique' ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
+  const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
   const hasNoResult = hasQueryParams(queryParams) && !isLoading && missionList.length === 0;
 
   const [inputDomaine, setInputDomaine] = useState('');
 
+
   const OFFRE_PER_PAGE = 30;
-  const defaultLogo = category === 'service-civique' ? '/images/logos/service-civique.svg' : '/images/logos/service-civique.svg';
+  const defaultLogo = isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/service-civique.svg';
 
   useEffect(() => {
     if(hasQueryParams(queryParams)) {
       const fetchMission = async () => {
         const response = await missionEngagementService.rechercherMission(getQueryString(queryParams), category);
+
         if (response.instance === 'success') {
-          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de  ${category === 'service-civique' ? 'service civique' : 'bénévolat'} ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
           setMissionList(response.result.résultats);
           setNombreRésultats(response.result.nombreRésultats);
         } else {
-          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de ${category === 'service-civique' ? 'service civique' : 'bénévolat'}`, response.errorType));
+          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
           setErrorType(response.errorType);
         }
         setIsLoading(false);
@@ -101,14 +104,14 @@ export function RechercherMission(props: RechercherMissionProps) {
   return (
     <>
       <HeadTag
-        title={title || `Rechercher une mission de ${category === 'service-civique' ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
+        title={title || `Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
         description='Se rendre utile tout en préparant son avenir grâce aux missions de service civique'
       />
       <main id="contenu" className={commonStyles.container}>
         <Hero image="/images/banners/mission-service-civique.webp">
           <b>Se rendre utile</b> tout en <b>préparant</b><br />
           <b>son avenir</b> grâce aux missions de<br/>
-          <b>{ category === 'service-civique' ? 'Service Civique' : 'Bénévolat'}</b>
+          <b>{ isServiceCivique ? 'Service Civique' : 'Bénévolat'}</b>
         </Hero>
         <div className={commonStyles.layout}>
           <form
@@ -119,7 +122,7 @@ export function RechercherMission(props: RechercherMissionProps) {
             <div className={commonStyles.inputButtonWrapper}>
               <SelectSingle
                 titre={générerTitreFiltre('Sélectionnez un domaine', inputDomaine)}
-                optionList={category === 'service-civique' ? serviceCiviqueDomaineList : bénévolatDomaineList}
+                optionList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}
                 onChange={(value) => setInputDomaine(value)}
                 currentInput={inputDomaine}
               />
@@ -139,7 +142,7 @@ export function RechercherMission(props: RechercherMissionProps) {
           {
             !isLoading && nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} >
-              <h2>{nombreRésultats} de missions pour { récupérerLibelléDepuisValeur(category === 'service-civique' ? serviceCiviqueDomaineList : bénévolatDomaineList, inputDomaine)}</h2>
+              <h2>{nombreRésultats} de missions pour { récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, inputDomaine)}</h2>
             </div>
           }
           { hasNoResult && <ErrorComponent errorType={errorType} /> }
