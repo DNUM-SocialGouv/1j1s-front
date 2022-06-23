@@ -27,13 +27,13 @@ export function SelectSingle(props: SelectRadioProps) {
     }
   };
 
-  function getMaxLongueur(optionList: Option[] ) {
+  function getLongueurMaximalOptions(optionList: Option[] ) {
     const optionListLength = optionList.map((option) => option.libellé.length);
     return Math.max(...optionListLength);
   }
 
   const getSelectComponent = () => (
-    <Select titre={titre} tailleMinimumButton={getMaxLongueur(optionList)}>
+    <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
       {optionList.map((option, index) => (
         <Radio
           id={option.libellé}
