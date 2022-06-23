@@ -30,15 +30,22 @@ export namespace MissionEngagement {
   }
 }
 
-
-export const domaineList: Array<MissionEngagement.Domaine>  = [
+export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
+  {
+    libellé: 'Culture Loisirs',
+    valeur: 'culture-loisirs',
+  },
+  {
+    libellé: 'Éducation',
+    valeur: 'education',
+  },
   {
     libellé: 'Environnement',
     valeur: 'environnement',
   },
   {
-    libellé: 'Solidarité insertion',
-    valeur: 'solidarite-insertion',
+    libellé: 'Mémoire et citoyenneté',
+    valeur: 'mémoire et citoyenneté',
   },
   {
     libellé: 'Prévention protection',
@@ -49,6 +56,25 @@ export const domaineList: Array<MissionEngagement.Domaine>  = [
     valeur: 'sante',
   },
   {
+    libellé: 'Solidarité insertion',
+    valeur: 'solidarite-insertion',
+  },
+  {
+    libellé: 'Sport',
+    valeur: 'sport',
+  },
+  {
+    libellé: 'Vivre ensemble',
+    valeur: 'vivre-ensemble',
+  },
+  {
+    libellé: 'Autre',
+    valeur: 'autre',
+  },
+];
+
+export const serviceCiviqueDomaineList: Array<MissionEngagement.Domaine>  = [
+  {
     libellé: 'Culture Loisirs',
     valeur: 'culture-loisirs',
   },
@@ -57,28 +83,28 @@ export const domaineList: Array<MissionEngagement.Domaine>  = [
     valeur: 'education',
   },
   {
-    libellé: 'Emploi',
-    valeur: 'emploi',
-  },
-  {
-    libellé: 'Sport',
-    valeur: 'sport',
+    libellé: 'Environnement',
+    valeur: 'environnement',
   },
   {
     libellé: 'Humanitaire',
     valeur: 'humanitaire',
   },
   {
-    libellé: 'Animaux',
-    valeur: 'animaux',
+    libellé: 'Santé',
+    valeur: 'sante',
+  },
+  {
+    libellé: 'Solidarité insertion',
+    valeur: 'solidarite-insertion',
+  },
+  {
+    libellé: 'Sport',
+    valeur: 'sport',
   },
   {
     libellé: 'Vivre ensemble',
     valeur: 'vivre-ensemble',
-  },
-  {
-    libellé: 'Mémoire et citoyenneté',
-    valeur: 'mémoire et citoyenneté',
   },
   {
     libellé: 'Autre',

@@ -4,16 +4,16 @@ interface Location {
 }
 
 export interface MissionEngagementResponse {
-  location: Location
+  location?: Location
   clientId: string
   publisherId: string
   city?: string
   description: string
-  organizationName: string
+  organizationName?: string
   associationName?: string
-  postalCode: string
+  postalCode?: string
   publisherLogo: string
-  startAt: string
+  startAt?: string
   title: string
   openToMinors?: string
   id?: string

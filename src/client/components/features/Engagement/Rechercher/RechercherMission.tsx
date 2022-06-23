@@ -31,8 +31,9 @@ import {
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import {
-  domaineList,
+  bénévolatDomaineList,
   Mission,
+  serviceCiviqueDomaineList,
 } from '~/server/engagement/domain/engagement';
 import { ErrorType } from '~/server/errors/error.types';
 
@@ -117,8 +118,8 @@ export function RechercherMission(props: RechercherMissionProps) {
           >
             <div className={commonStyles.inputButtonWrapper}>
               <SelectSingle
-                titre={générerTitreFiltre('Domaine', inputDomaine)}
-                optionList={domaineList}
+                titre={générerTitreFiltre('Sélectionnez un domaine', inputDomaine)}
+                optionList={category === 'service-civique' ? serviceCiviqueDomaineList : bénévolatDomaineList}
                 onChange={(value) => setInputDomaine(value)}
                 currentInput={inputDomaine}
               />
@@ -138,7 +139,7 @@ export function RechercherMission(props: RechercherMissionProps) {
           {
             !isLoading && nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} >
-              <h2>{nombreRésultats} de missions pour { récupérerLibelléDepuisValeur(domaineList, inputDomaine)}</h2>
+              <h2>{nombreRésultats} de missions pour { récupérerLibelléDepuisValeur(category === 'service-civique' ? serviceCiviqueDomaineList : bénévolatDomaineList, inputDomaine)}</h2>
             </div>
           }
           { hasNoResult && <ErrorComponent errorType={errorType} /> }
