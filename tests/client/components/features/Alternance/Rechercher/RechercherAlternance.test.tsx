@@ -253,7 +253,7 @@ describe('RechercherAlternance', () => {
       const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
       // WHEN
-      expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
+      expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
       const resultListitem = within(résultatsLocalisation).getAllByRole('option');
 
       fireEvent.click(resultListitem[0]);
