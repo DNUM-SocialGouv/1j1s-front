@@ -43,8 +43,8 @@ export interface RésultatsRechercheAlternance {
 
 export const radiusList: Option[] = [
   { libellé: 'Indifférent', valeur: 'indifférent' },
-  { libellé: '10', valeur: '10' },
-  { libellé: '30', valeur: '30' },
-  { libellé: '60', valeur: '60' },
-  { libellé: '100', valeur: '100' },
+  { libellé: '10 km', valeur: '10' },
+  { libellé: '30 km', valeur: '30' },
+  { libellé: '60 km', valeur: '60' },
+  { libellé: '100 km', valeur: '100' },
 ];

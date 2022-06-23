@@ -36,12 +36,11 @@ export default monitoringHandler(rechercherMissionHandler);
 function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre {
   const { query } = request;
 
-  const BENEVOLT_ID = '5f592d415655a711feb4460e';
   const JE_VEUX_AIDER_ID = '5f5931496c7ea514150a818f';
   return {
     domain: query.domain ? String(query.domain) : '',
     from: Number(query.page),
-    publisher: `${JE_VEUX_AIDER_ID},${BENEVOLT_ID}`,
+    publisher: JE_VEUX_AIDER_ID,
     size: OFFRE_PER_PAGE,
   };
 }

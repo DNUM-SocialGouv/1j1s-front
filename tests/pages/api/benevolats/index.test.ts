@@ -10,7 +10,7 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 describe('rechercher une mission du service civique', () => {
   it('retourne la liste des missions filtrées', async () => {
     nock('https://api.api-engagement.beta.gouv.fr/v0')
-      .get('/mission/search?publisher=5f5931496c7ea514150a818f,5f592d415655a711feb4460e&size=30&from=1')
+      .get('/mission/search?publisher=5f5931496c7ea514150a818f&size=30&from=1')
       .reply(200, aRésultatRechercheMissionAxiosResponse().data);
 
     await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({

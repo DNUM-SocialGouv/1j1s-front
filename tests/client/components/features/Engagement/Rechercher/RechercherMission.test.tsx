@@ -37,7 +37,7 @@ describe('RechercherMission', () => {
           </DependenciesProvider>,
         );
 
-        const button =  screen.getByText('Domaine');
+        const button =  screen.getByText('Sélectionnez un domaine');
         fireEvent.click(button);
 
         const domaineList = await screen.findByTestId('OptionList');
@@ -52,12 +52,12 @@ describe('RechercherMission', () => {
 
         const buttonRechercher = screen.getByText('Rechercher');
 
-        mockUseRouter({ query: { domain: 'environnement', page: '1' } });
+        mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
         fireEvent.click(buttonRechercher);
 
         expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
-        expect(routerPush).toHaveBeenCalledWith({ query: 'domain=environnement&page=1' });
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'bénévolat');
+        expect(routerPush).toHaveBeenCalledWith({ query: 'domain=culture-loisirs&page=1' });
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'bénévolat');
       });
     });
 
@@ -74,7 +74,7 @@ describe('RechercherMission', () => {
           </DependenciesProvider>,
         );
 
-        const button = screen.getByText('Domaine');
+        const button = screen.getByText('Sélectionnez un domaine');
         fireEvent.click(button);
 
         const domaineList = await screen.findByTestId('OptionList');
@@ -89,12 +89,12 @@ describe('RechercherMission', () => {
 
         const buttonRechercher = screen.getByText('Rechercher');
 
-        mockUseRouter({ query: { domain: 'environnement', page: '1' } });
+        mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
         fireEvent.click(buttonRechercher);
 
         expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
-        expect(routerPush).toHaveBeenCalledWith({ query: 'domain=environnement&page=1' });
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'service-civique');
+        expect(routerPush).toHaveBeenCalledWith({ query: 'domain=culture-loisirs&page=1' });
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'service-civique');
       });
     });
 
