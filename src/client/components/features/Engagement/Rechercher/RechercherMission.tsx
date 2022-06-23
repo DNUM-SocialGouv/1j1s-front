@@ -29,6 +29,7 @@ import {
   isKeyInQueryParams,
 } from '~/client/utils/queryParams.utils';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
+import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import {
   domaineList,
   Mission,
@@ -86,10 +87,6 @@ export function RechercherMission(props: RechercherMissionProps) {
       })();
     }
   }, [queryParams]);
-
-  function getDomaineLibellé(valeur: string): string {
-    return  domaineList.filter((domain) => domain.valeur === valeur)[0].libellé;
-  }
   
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -141,7 +138,7 @@ export function RechercherMission(props: RechercherMissionProps) {
           {
             !isLoading && nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} >
-              <h2>{nombreRésultats} de missions pour { getDomaineLibellé(inputDomaine)}</h2>
+              <h2>{nombreRésultats} de missions pour { récupérerLibelléDepuisValeur(domaineList, inputDomaine)}</h2>
             </div>
           }
           { hasNoResult && <ErrorComponent errorType={errorType} /> }

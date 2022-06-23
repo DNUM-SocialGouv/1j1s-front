@@ -31,8 +31,12 @@
     border-bottom: 2px solid var(--border-plain-grey);
 }
 
+.selectLabel {
+    margin-bottom: 0.5rem;
+}
+
 @media screen and (min-width: 48em) {
     .button {
-        font-size: 1rem;;
+        font-size: 1rem;
     }
 }

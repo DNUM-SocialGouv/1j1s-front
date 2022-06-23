@@ -182,9 +182,11 @@ describe('RechercherAlternance', () => {
           <RechercherAlternance />
         </DependenciesProvider>,
       );
+
       const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
       const inputLocalisation = screen.getByTestId('InputLocalisation');
       const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+
       // WHEN
       await user.type(inputRechercheMétier, 'bou');
       const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
@@ -205,7 +207,7 @@ describe('RechercherAlternance', () => {
 
       fireEvent.click(resultListitem[0]);
 
-      mockUseRouter({ query: { codeLocalisation: '75001', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
+      mockUseRouter({ query: { codeLocalisation: '75001', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boucherie' } });
       
       fireEvent.click(buttonRechercher);
 
@@ -215,6 +217,69 @@ describe('RechercherAlternance', () => {
       });
       expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeLocalisation=75001' });
       expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeLocalisation=75001');
+    });
+
+    it('quand on recherche avec un lieu et un rayon', async () => {
+      // GIVEN
+      const alternanceService = anAlternanceService();
+      const métierRecherchéService = aMétierRecherchéService();
+      const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
+
+      const user = userEvent.setup();
+      const routerPush = jest.fn();
+      mockUseRouter({ push: routerPush });
+      render(
+        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
+          <RechercherAlternance />
+        </DependenciesProvider>,
+      );
+
+      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
+      const inputLocalisation = screen.getByTestId('InputLocalisation');
+      const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+
+      // WHEN
+      await user.type(inputRechercheMétier, 'bou');
+      const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
+
+      // THEN
+      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
+
+      // WHEN
+      const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
+      fireEvent.click(resultListItem[0]);
+
+      await user.type(inputLocalisation, 'Pa');
+      const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+
+      // WHEN
+      expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
+      const resultListitem = within(résultatsLocalisation).getAllByRole('option');
+
+      fireEvent.click(resultListitem[0]);
+
+      const button = await screen.findByText('Indifférent');
+      fireEvent.click(button);
+
+      const optionsRadius = await screen.findByTestId('OptionList');
+
+      await waitFor(() => {
+        expect(optionsRadius).toBeInTheDocument();
+      });
+
+      const inputRadius = within(optionsRadius).getAllByRole('option');
+      fireEvent.click(inputRadius[1]);
+
+      mockUseRouter({ query: { codeInsee: '75056', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boucherie', radius: '10' } });
+
+      fireEvent.click(buttonRechercher);
+
+      // THEN
+      await waitFor(() => {
+        expect(screen.getByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
+      });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeLocalisation=75001&radius=10' });
+      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&radius=10');
     });
   });
 

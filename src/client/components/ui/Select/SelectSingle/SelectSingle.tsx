@@ -4,20 +4,22 @@ import React, { ChangeEvent } from 'react';
 import styles from '~/client/components/ui/Select/Select.module.css';
 import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { KeyBoard } from '~/client/utils/keyboard.util';
-import {
-  MissionEngagement,
-} from '~/server/engagement/domain/engagement';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 interface SelectRadioProps {
-  titre: string
-  optionList : OffreEmploi.TempsDeTravail[] | Array<MissionEngagement.Domaine>
-  onChange: (value: string) => void
-  currentInput: string
+  titre: string;
+  optionList: Option[];
+  onChange: (value: string) => void;
+  currentInput: string;
+  label?: string;
+}
+
+export interface Option {
+  libellé: string;
+  valeur: string;
 }
 
 export function SelectSingle(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput, titre } = props;
+  const { optionList, onChange, currentInput, titre, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -25,8 +27,13 @@ export function SelectSingle(props: SelectRadioProps) {
     }
   };
 
-  return (
-    <Select titre={titre}>
+  function getLongueurMaximalOptions(optionList: Option[] ) {
+    const optionListLength = optionList.map((option) => option.libellé.length);
+    return Math.max(...optionListLength);
+  }
+
+  const getSelectComponent = () => (
+    <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
       {optionList.map((option, index) => (
         <Radio
           id={option.libellé}
@@ -39,9 +46,24 @@ export function SelectSingle(props: SelectRadioProps) {
           value={option.valeur}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          checked={currentInput.includes(option.valeur)}
+          checked={currentInput === option.valeur}
         />
       ))}
     </Select>
+  );
+
+  return (
+    <>
+      {label
+        ?
+        (<div>
+          <label className={`${styles.selectLabel} fr-label`}>
+            {label}
+          </label>
+          {getSelectComponent()}
+        </div>)
+        : getSelectComponent()
+      }
+    </>
   );
 }

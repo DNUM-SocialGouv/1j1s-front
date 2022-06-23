@@ -1,3 +1,5 @@
+import { Option } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+
 export type AlternanceId = string;
 
 export type From = 'peJob' | 'matcha'
@@ -30,6 +32,7 @@ export namespace Alternance {
 
 export interface AlternanceFiltre {
   codeRomeList: string[]
+  radius?: string
   codeLocalisation?: string
 }
 
@@ -37,3 +40,11 @@ export interface RésultatsRechercheAlternance {
   nombreRésultats: number
   résultats: Alternance[]
 }
+
+export const radiusList: Option[] = [
+  { libellé: 'Indifférent', valeur: 'indifférent' },
+  { libellé: '10', valeur: '10' },
+  { libellé: '30', valeur: '30' },
+  { libellé: '60', valeur: '60' },
+  { libellé: '100', valeur: '100' },
+];

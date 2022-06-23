@@ -8,11 +8,13 @@ import React, {
 
 import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
+import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
@@ -20,7 +22,8 @@ import { AlternanceService } from '~/client/services/alternances/alternance.serv
 import { LocalisationService } from '~/client/services/localisation.service';
 import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { Alternance, radiusList } from '~/server/alternances/domain/alternance';
 import { ErrorType } from '~/server/errors/error.types';
 import { Localisation } from '~/server/localisations/domain/localisation';
 
@@ -37,16 +40,18 @@ export function RechercherAlternance() {
   const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
+  const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
   const [communeList, setCommuneList] = useState<Localisation[]>([]);
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
-
+  const [radius, setRadius] = useState('');
   const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
 
   useEffect(() => {
     if(hasQueryParams) {
       const fetchOffreAlternance = async () => {
         const localisationParam = isKeyInQueryParams(QueryParams.CODE_LOCALISATION) ? `&codeLocalisation=${getQueryValue(QueryParams.CODE_LOCALISATION)}` : '';
-        const params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}${localisationParam}`;
+        const radiusParam = isKeyInQueryParams(QueryParams.RADIUS) ? `&radius=${getQueryValue(QueryParams.RADIUS)}` : '';
+        const params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}${localisationParam}${radiusParam}`;
         const response = await alternanceService.rechercherAlternance(params);
         if (response.instance === 'success') {
           setTitle(getRechercherOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -65,6 +70,7 @@ export function RechercherAlternance() {
           const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
           const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
           setInputLocalisation(formattedLocalisation);
+          setFormattedLocalisation(formattedLocalisation);
         }
       };
 
@@ -107,7 +113,7 @@ export function RechercherAlternance() {
       />
       <main id="contenu" className={commonStyles.container}>
         <Hero image="/images/banners/offre-alternance.webp">
-          Avec la <b>Bonne Alternance</b>, trouvez <br />
+          Avec la <b>Bonne Alternance</b>, trouvez <br/>
           l’entreprise qu’il vous faut pour <br/>
           <b>réaliser votre projet d’alternance</b>
         </Hero>
@@ -132,6 +138,13 @@ export function RechercherAlternance() {
                 onChange={rechercherLocalisation}
                 onUpdateInputLocalisation={() => setInputLocalisation('')}
               />
+              <SelectSingle
+                label="Rayon"
+                titre={récupérerLibelléDepuisValeur(radiusList, radius) || 'Indifférent'}
+                optionList={radiusList}
+                onChange={(value) => setRadius(value === 'Indifférent' ? '' : value)}
+                currentInput={radius}
+              />
               <Button
                 submit={true}
                 icon="ri-search-line"
@@ -142,33 +155,36 @@ export function RechercherAlternance() {
                 Rechercher
               </Button>
             </div>
+            <input type="hidden" name="radius" value={radius}/>
+
           </form>
 
-          { isLoading && <p>Recherche des offres en attente de loader</p>}
-          {
-            !isLoading && nombreRésultats !== 0 &&
+          {isLoading && <p>Recherche des offres en attente de loader</p>}
+          {!isLoading && <TagListRechercheOffre localisation={formattedLocalisation}/>}
+          {nombreRésultats !== 0 &&
+
             <div className={commonStyles.nombreRésultats} data-testid="RechercheAlternanceNombreRésultats">
               <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
             </div>
           }
-          { hasNoResult && <ErrorComponent errorType={errorType} /> }
+          {hasNoResult && <ErrorComponent errorType={errorType}/>}
 
 
           {alternanceList.length > 0 && !isLoading &&
-          <ul className={commonStyles.résultatRechercheOffreList}>
-            {alternanceList.map((alternance: Alternance) => (
-              <li key={alternance.id}>
-                <RésultatRechercherOffre
-                  lienOffre={`/apprentissage/${alternance.from}-${alternance.id}`}
-                  intituléOffre={alternance.intitulé}
-                  logoEntreprise={alternance.entreprise?.logo || defaultLogo}
-                  nomEntreprise={alternance.entreprise?.nom}
-                  descriptionOffre={alternance.description}
-                  étiquetteOffreList={alternance.étiquetteList}
-                />
-              </li>
-            ))}
-          </ul>
+            <ul className={commonStyles.résultatRechercheOffreList}>
+              {alternanceList.map((alternance: Alternance) => (
+                <li key={alternance.id}>
+                  <RésultatRechercherOffre
+                    lienOffre={`/apprentissage/${alternance.from}-${alternance.id}`}
+                    intituléOffre={alternance.intitulé}
+                    logoEntreprise={alternance.entreprise?.logo || defaultLogo}
+                    nomEntreprise={alternance.entreprise?.nom}
+                    descriptionOffre={alternance.description}
+                    étiquetteOffreList={alternance.étiquetteList}
+                  />
+                </li>
+              ))}
+            </ul>
           }
         </div>
       </main>
