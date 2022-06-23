@@ -58,7 +58,7 @@
     "eslint-plugin-testing-library": "^5.3.1",
     "husky": "^8.0.0",
     "jest": "^27.5.1",
-    "lint-staged": "^12.4.0",
+    "lint-staged": "^13.0.0",
     "next-test-api-route-handler": "^3.1.2",
     "nock": "^13.2.4",
     "node-mocks-http": "^1.11.0",
