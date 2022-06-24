@@ -16,7 +16,7 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
     <section className={commonStyles.contenu}>
       {offreAlternance.description &&
       <div>
-        <h3>Description de l&apos;entreprise :</h3>
+        <h3>Description du poste :</h3>
         <p dangerouslySetInnerHTML={{ __html: descriptionOffreAlternance }}/>
       </div>
       }
@@ -33,14 +33,8 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
       <div className={commonStyles.informations}>
         { offreAlternance.niveauRequis &&
         <div>
-          <h3>Niveau Requis :</h3> { ' ' }
+          <h3>Nature du contrat :</h3> { ' ' }
           <p>{offreAlternance.niveauRequis}</p>
-        </div>
-        }
-        { offreAlternance.débutContrat &&
-        <div>
-          <h3>Début du contrat :</h3> { ' ' }
-          <p>{offreAlternance.débutContrat}</p>
         </div>
         }
         {offreAlternance.typeDeContrats && offreAlternance.typeDeContrats.length > 0 &&

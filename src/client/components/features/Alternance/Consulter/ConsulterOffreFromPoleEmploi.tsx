@@ -32,7 +32,7 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
       </Button>
       {offreAlternance.description &&
       <div>
-        <h3>Description de l&apos;entreprise :</h3>
+        <h3>Description du poste :</h3>
         <p dangerouslySetInnerHTML={{ __html: descriptionOffreAlternance }}/>
       </div>
       }
@@ -54,6 +54,12 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
           <h3>Durée du contrat :</h3> { ' ' }
           <p>{offreAlternance.duréeContrat}</p>
         </div>
+        }
+        { offreAlternance.rythmeAlternance &&
+          <div>
+            <h3>Rythme de l&apos;alternance : </h3> { ' ' }
+            <p>{offreAlternance.rythmeAlternance}</p>
+          </div>
         }
       </div>
       { (offreAlternance.adresse || offreAlternance.contact?.téléphone) &&

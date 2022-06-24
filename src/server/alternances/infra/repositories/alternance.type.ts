@@ -19,5 +19,6 @@ export interface AlternanceFromMatcha extends Alternance {
 export interface AlternanceFromPoleEmploi extends Alternance {
   url: string
   duréeContrat?: string
+  rythmeAlternance?: string
 }
 
