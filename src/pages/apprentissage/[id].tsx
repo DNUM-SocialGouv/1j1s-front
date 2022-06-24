@@ -16,9 +16,7 @@ interface ConsulterOffreAlternancePageProps {
   offreAlternance: RésultatRechercheAlternance;
 }
 
-export default function ConsulterOffreAlternancePage(props: ConsulterOffreAlternancePageProps) {
-  const { offreAlternance } = props;
-
+export default function ConsulterOffreAlternancePage({ offreAlternance }: ConsulterOffreAlternancePageProps) {
   if (!offreAlternance) return null;
 
   return (
@@ -43,7 +41,7 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
   const alternanceId = split[1] as AlternanceId;
   const offreAlternance = await dependencies.alternanceDependencies.consulterOffreAlternance.handle(alternanceId, from);
   if (offreAlternance.instance === 'failure') {
-    return { notFound: true };
+    return { notFound: true, revalidate: 1 };
   }
 
   return {

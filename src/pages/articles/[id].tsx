@@ -12,9 +12,7 @@ interface ConsulterArticlePageProps {
 	article: Article
 }
 
-export default function ConsulterArticlePage(props: ConsulterArticlePageProps) {
-  const { article } = props;
-
+export default function ConsulterArticlePage({ article }: ConsulterArticlePageProps) {
   if (!article) return null;
 
   return (
@@ -38,7 +36,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
   const response = await dependencies.articleDependencies.consulterArticle.handle(id);
 
   if (response.instance === 'failure') {
-    return { notFound: true };
+    return { notFound: true, revalidate: 1 };
   }
 
   return {

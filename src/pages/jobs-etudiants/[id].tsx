@@ -12,9 +12,7 @@ interface ConsulterJobEtudiantPageProps {
   jobEtudiant: OffreEmploi;
 }
 
-export default function ConsulterJobEtudiantPage(props: ConsulterJobEtudiantPageProps) {
-  const { jobEtudiant } = props;
-
+export default function ConsulterJobEtudiantPage({ jobEtudiant }: ConsulterJobEtudiantPageProps) {
   if (!jobEtudiant) return null;
 
   return (
@@ -37,7 +35,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
   const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
 
   if (offreEmploi.instance === 'failure') {
-    return { notFound: true };
+    return { notFound: true, revalidate: 1 };
   }
 
   return {
