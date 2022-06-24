@@ -383,5 +383,3 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
     </>
   );
 }
-
-

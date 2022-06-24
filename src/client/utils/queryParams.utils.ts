@@ -7,3 +7,7 @@ export const isKeyInQueryParams = (queryParams: ParsedUrlQuery, key: string): bo
 export const getQueryValue = (queryParams: ParsedUrlQuery, key: string): string => <string>queryParams[key];
 
 export const getQueryString = (queryParams: ParsedUrlQuery): string => new URLSearchParams(Object.entries(queryParams) as unknown as URLSearchParams).toString();
+
+export function getSingleQueryParam(queryParam: string | string[] | undefined): string | undefined {
+  return typeof queryParam === 'string' ? queryParam : undefined;
+}
