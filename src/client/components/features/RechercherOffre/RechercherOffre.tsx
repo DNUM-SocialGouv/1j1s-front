@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
+import { InputLocalisation } from '~/client/components/features/InputLocalisation/InputLocalisation';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
@@ -23,7 +24,6 @@ import commonStyles from '~/client/components/features/RechercherOffre.module.cs
 import styles from '~/client/components/features/RechercherOffre/RechercherOffre.module.css';
 import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
 import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
-import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
@@ -33,7 +33,6 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
-import { LocalisationService } from '~/client/services/localisation.service';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { transformFormToEntries } from '~/client/utils/form.util';
 import {
@@ -44,7 +43,6 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { ErrorType } from '~/server/errors/error.types';
-import { LocalisationList } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
 
@@ -68,16 +66,10 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   const { isSmallScreen } = useBreakpoint();
 
   const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
-  const localisationService = useDependency<LocalisationService>('localisationService');
 
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
-  const [localisationList, setLocalisationList] = useState<LocalisationList>({
-    communeList: [],
-    départementList: [],
-    régionList: [],
-  });
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -90,8 +82,9 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   const [inputTempsDeTravail, setInputTempsDeTravail] = useState('');
   const [inputDomaine, setInputDomaine] = useState('');
   const [inputMotCle, setInputMotCle] = useState<string>('');
-  const [inputLocalisation, setInputLocalisation] = useState<string>('');
-  const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
+  const [inputTypeLocalisation, setInputTypeLocalisation] = useState<string>('');
+  const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState<string>('');
+  const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
 
   const OFFRE_PER_PAGE = 30;
   const defaultLogo = '/images/logos/pole-emploi.svg';
@@ -114,26 +107,22 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
         setIsLoading(false);
       };
 
-      const setInputValues = async () => {
-        if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputMotCle(getQueryValue(QueryParams.MOT_CLÉ));
-        if (isKeyInQueryParams(QueryParams.DOMAINE)) setInputDomaine(getQueryValue(QueryParams.DOMAINE));
-        if (isKeyInQueryParams(QueryParams.TEMPS_DE_TRAVAIL)) setInputTempsDeTravail(getQueryValue(QueryParams.TEMPS_DE_TRAVAIL));
-        if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
-        if (isKeyInQueryParams(QueryParams.EXPÉRIENCE)) setInputExpérience(getQueryValue(QueryParams.EXPÉRIENCE));
-        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
-          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
-          const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
-          setFormattedLocalisation(formattedLocalisation);
-          setInputLocalisation(formattedLocalisation);
-        }
-      };
-
       (async () => {
         await fetchOffreEmploi();
-        await setInputValues();
       })();
     }
   }, [queryParams, isSmallScreen]);
+
+  useEffect(() => {
+    if (isKeyInQueryParams(QueryParams.MOT_CLÉ)) setInputMotCle(getQueryValue(QueryParams.MOT_CLÉ));
+    if (isKeyInQueryParams(QueryParams.DOMAINE)) setInputDomaine(getQueryValue(QueryParams.DOMAINE));
+    if (isKeyInQueryParams(QueryParams.TEMPS_DE_TRAVAIL)) setInputTempsDeTravail(getQueryValue(QueryParams.TEMPS_DE_TRAVAIL));
+    if (isKeyInQueryParams(QueryParams.TYPE_DE_CONTRATS)) setInputTypeDeContrat(getQueryValue(QueryParams.TYPE_DE_CONTRATS));
+    if (isKeyInQueryParams(QueryParams.EXPÉRIENCE)) setInputExpérience(getQueryValue(QueryParams.EXPÉRIENCE));
+    if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION)) setInputTypeLocalisation(getQueryValue(QueryParams.TYPE_LOCALISATION));
+    if (isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) setInputCodeLocalisation(getQueryValue(QueryParams.CODE_LOCALISATION));
+    if (isKeyInQueryParams(QueryParams.LIBELLE_LOCALISATION)) setInputLibelleLocalisation(getQueryValue(QueryParams.LIBELLE_LOCALISATION));
+  }, [queryParams]);
 
   function applyFiltresAvancés() {
     setIsFiltresAvancésMobileOpen(false);
@@ -160,13 +149,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
     const formEntries = transformFormToEntries(event.currentTarget);
     formEntries.push(['page', '1']);
     const query = new URLSearchParams(formEntries).toString();
-    return router.push({ query });
-  }
-
-  async function rechercherLocalisation(recherche: string) {
-    setInputLocalisation(recherche);
-    const résultats = await localisationService.rechercheLocalisation(recherche);
-    setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
+    return router.push({ query }, undefined, { shallow: true });
   }
 
   const hasNoResult = hasQueryParams && !isLoading && offreEmploiList.length === 0;
@@ -200,20 +183,15 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
                   placeholder={barreDeRecherchePlaceHolder}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
                 />
+                <InputLocalisation
+                  libellé={inputLibelleLocalisation}
+                  code={inputCodeLocalisation}
+                  type={inputTypeLocalisation}
+                />
                 <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
                 <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
                 <input type="hidden" name="experienceExigence" value={inputExpérience}/>
                 <input type="hidden" name="grandDomaine" value={inputDomaine}/>
-
-                <AutoCompletionForLocalisation
-                  régionList={localisationList.régionList}
-                  communeList={localisationList.communeList}
-                  départementList={localisationList.départementList}
-                  inputName="localisations"
-                  inputLocalisation={inputLocalisation}
-                  onChange={rechercherLocalisation}
-                  onUpdateInputLocalisation={() => setInputLocalisation('')}
-                />
 
                 {isSmallScreen &&
                   <Button
@@ -354,7 +332,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
           </form>
 
           {isLoading && <p>Recherche des offres en attente de loader</p>}
-          {!isLoading && <TagListRechercheOffre localisation={formattedLocalisation}/>}
+          {!isLoading && <TagListRechercheOffre/>}
 
           {nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} data-testid="RechercheOffreEmploiNombreRésultats">
@@ -363,8 +341,8 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
               </h2>
             </div>
           }
-          
-          { hasNoResult && <ErrorComponent errorType={errorType} /> }
+
+          {hasNoResult && <ErrorComponent errorType={errorType}/>}
 
           {offreEmploiList.length > 0 && !isLoading &&
             <ul className={commonStyles.résultatRechercheOffreList}>
@@ -385,19 +363,19 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
 
           {nombreRésultats > OFFRE_PER_PAGE &&
             <div className={styles.pagination}>
-              <Pagination itemListLength={nombreRésultats} itemPerPage={OFFRE_PER_PAGE} />
+              <Pagination itemListLength={nombreRésultats} itemPerPage={OFFRE_PER_PAGE}/>
             </div>
           }
 
           <ul className={styles.partnerList}>
             <li>
-              <CIDJPartner titleAs="h2" />
+              <CIDJPartner titleAs="h2"/>
             </li>
             <li>
-              <LaBonneBoitePartner titleAs="h2" />
+              <LaBonneBoitePartner titleAs="h2"/>
             </li>
             <li>
-              <ServiceCiviquePartner titleAs="h2" />
+              <ServiceCiviquePartner titleAs="h2"/>
             </li>
           </ul>
         </div>

@@ -101,7 +101,7 @@ describe('RechercherOffre', () => {
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({});
-      mockUseRouter({ query: { codeLocalisation: '26', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
+      mockUseRouter({ query: { codeLocalisation: '26', libelleLocalisation: 'BOURG LES VALENCE (26)', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
           <RechercherOffre
@@ -128,8 +128,7 @@ describe('RechercherOffre', () => {
         expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('BOURG LES VALENCE (26)');
 
       });
-      expect(localisationServiceMock.récupérerLocalisationAvecCodeInsee).toHaveBeenCalledWith('DEPARTEMENT', '26');
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG+LES+VALENCE+%2826%29&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
     });
   });
 
@@ -170,7 +169,7 @@ describe('RechercherOffre', () => {
         const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
 
         // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' });
+        expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
         expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois');
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1', undefined);
@@ -224,7 +223,7 @@ describe('RechercherOffre', () => {
         });
 
         // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' });
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { shallow: true });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=MIS', undefined);
       });
     });
@@ -274,7 +273,7 @@ describe('RechercherOffre', () => {
         });
 
         // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' });
+        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein', undefined);
       });
     });
@@ -308,8 +307,9 @@ describe('RechercherOffre', () => {
         await user.type(inputLocalisation, 'no result');
 
         // THEN
-        const localisationNoResultMessage = screen.queryByTestId('LocalisationNoResultMessage');
-        expect(localisationNoResultMessage).toBeInTheDocument();
+        await waitFor(() => {
+          expect(screen.getByTestId('LocalisationNoResultMessage')).toBeInTheDocument();
+        });
       });
 
       it('quand on recherche avec une saisie valide, appelle l\'api avec la localisation sélectionnée ayant plusieurs code postaux', async () => {
@@ -343,20 +343,20 @@ describe('RechercherOffre', () => {
         const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
         // WHEN
-        expect(localisationServiceMock.rechercheLocalisation).toHaveBeenCalledWith('Pa');
+        expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
         const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
 
         fireEvent.click(résultatLocalisationList[1]);
 
-        mockUseRouter({ query: { codeLocalisation: '75001', page: '1', typeLocalisation: 'COMMUNE' } });
+        mockUseRouter({ query: { codeLocalisation: '75001', libelleLocalisation: 'Paris (75001)', page: '1', typeLocalisation: 'COMMUNE' } });
         fireEvent.click(buttonRechercher);
 
         // THEN
         await waitFor(() => {
           expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
         });
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeLocalisation=COMMUNE&codeLocalisation=75001&page=1' });
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=75001&page=1&typeLocalisation=COMMUNE', undefined);
+        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=75001&libelleLocalisation=Paris+%2875001%29&page=1&typeLocalisation=COMMUNE', undefined);
+        expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75001&page=1' }, undefined, { shallow: true });
       });
     });
   });
@@ -442,7 +442,7 @@ describe('RechercherOffre', () => {
 
         expect(nombreRésultats).toBeInTheDocument();
 
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' });
+        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' }, undefined, { shallow: true });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&typeDeContrats=CDD', undefined);
       });
     });
@@ -491,7 +491,7 @@ describe('RechercherOffre', () => {
         expect(nombreRésultats).toBeInTheDocument();
 
 
-        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' });
+        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('page=1&tempsDeTravail=tempsPlein', undefined);
       });
     });

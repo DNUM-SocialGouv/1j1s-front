@@ -8,11 +8,10 @@ import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 interface TagListRechercheOffreProps {
-  localisation: string
+  localisation?: string
 }
 
-export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
-  const { localisation } = props;
+export function TagListRechercheOffre({ localisation }: TagListRechercheOffreProps) {
   const [filtres, setFiltres] = useState<string[]>([]);
   const { isKeyInQueryParams, getQueryValue, hasQueryParams, queryParams } = useQueryParams();
 
@@ -69,19 +68,24 @@ export function TagListRechercheOffre(props: TagListRechercheOffreProps) {
         });
       }
 
-      if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
+      if (isKeyInQueryParams(QueryParams.LIBELLE_LOCALISATION)) {
+        const libelleLocalisation = getQueryValue(QueryParams.LIBELLE_LOCALISATION);
+        filtreList.push(libelleLocalisation);
+      }
+
+      if (localisation && isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
         filtreList.push(localisation);
       }
+
       setFiltres(filtreList);
     }
-  }, [queryParams, localisation]);
+  }, [queryParams]);
 
   return (
     <>
-      { filtres.length > 0 &&
-       <TagList list={filtres} />
+      {filtres.length > 0 &&
+        <TagList list={filtres}/>
       }
     </>
-
   );
 }

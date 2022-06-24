@@ -80,7 +80,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
 
       return {
         code: typeLocalisation === 'communes' ?  response.data.codesPostaux[0] : code,
-        libelle: nom,
+        nom: nom,
       };
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
@@ -89,14 +89,14 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }
   }
 
-  private async requestForSearchByCommune(endpoint: string) {
+  private async requestForSearchByCommune(endpoint: string): Promise<Localisation[]> {
     let response;
 
     try {
       response = await this.apiGeoHttpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
       return response.data.map((commune) => ({
         code: commune.codesPostaux[0],
-        libelle: commune.nom,
+        nom: commune.nom,
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
@@ -105,7 +105,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     }
   }
 
-  private async requestForSearchByDépartementOrRegion(endpoint: string) {
+  private async requestForSearchByDépartementOrRegion(endpoint: string): Promise<Localisation[]> {
     let response;
 
     try {
@@ -113,7 +113,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
 
       return response.data.map((localisation) => ({
         code: localisation.code,
-        libelle: localisation.nom,
+        nom: localisation.nom,
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);

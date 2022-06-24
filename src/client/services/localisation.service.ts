@@ -1,12 +1,9 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import {
-  Localisation,
-  LocalisationList,
-} from '~/server/localisations/domain/localisation';
+import { Localisation } from '~/server/localisations/domain/localisation';
 import {
   LocalisationApiResponse,
-  LocalisationListApiResponse,
-} from '~/server/localisations/infra/controllers/LocalisationListApiResponse';
+  RechercheLocalisationApiResponse,
+} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 
 export class LocalisationService {
@@ -17,9 +14,9 @@ export class LocalisationService {
   private REGEX_ALL_DIGITS = new RegExp(/^\d*$/);
   private FORBIDDEN_CHAR_LENGTH = [1, 3, 4];
 
-  async rechercheLocalisation(recherche: string): Promise<LocalisationList | null>  {
+  async rechercherLocalisation(recherche: string): Promise<RechercheLocalisationApiResponse | null>  {
     const localisationsLength = recherche.length;
-    if(localisationsLength === 1){
+    if(localisationsLength === 1) {
       return null;
     }
     if(!this.REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS.test(recherche)){
@@ -29,20 +26,12 @@ export class LocalisationService {
       return null;
     }
 
-    const { data } = await this.httpClientService.get<LocalisationListApiResponse>(`localisations?recherche=${recherche}`);
-    const { communeList, régionList, départementList } = data;
-    return {
-      communeList: communeList.map(({ code, libelle }) => ({ code, libelle })),
-      départementList: départementList.map(({ code, libelle }) => ({ code, libelle })),
-      régionList: régionList.map(({ code, libelle }) => ({ code, libelle })),
-    };
+    const { data } = await this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
+    return data;
   }
 
   async récupérerLocalisationAvecCodeInsee(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
     const response = await this.httpClientService.get<LocalisationApiResponse>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
-    return {
-      code: response.data.code,
-      libelle: response.data.libelle,
-    };
+    return response.data;
   }
 }

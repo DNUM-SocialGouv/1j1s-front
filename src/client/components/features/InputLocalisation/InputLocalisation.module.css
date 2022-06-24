@@ -1,0 +1,37 @@
+.wrapper {
+  position: relative;
+}
+
+.suggestionLocalisationList {
+  z-index: 2;
+  position: absolute;
+  border: 1px solid var(--grey-925);
+  background-color: var(--grey-1000);
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.suggestionLocalisationList > li {
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+.suggestionLocalisationList > li:hover, .hover, .suggestionLocalisationList > li[aria-selected=true] {
+  background-color: rgba(3, 15, 143, .05);
+}
+
+.libelleLocalisationInput {
+  margin-top: 0.5rem !important;
+  border-radius: 0.25rem 0.25rem 0 0 !important;
+}
+
+.catégorieRésultatLocalisation {
+  pointer-events: none;
+  user-select: none;
+}
+
+.aucunRésultatLocalisation {
+  padding: 0.5rem;
+}

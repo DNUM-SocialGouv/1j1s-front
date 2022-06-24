@@ -68,7 +68,7 @@ export function RechercherAlternance() {
         if (isKeyInQueryParams(QueryParams.MÉTIER_SÉLECTIONNÉ)) setInputIntituleMétier(getQueryValue(QueryParams.MÉTIER_SÉLECTIONNÉ));
         if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
           const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
-          const formattedLocalisation = `${localisation.libelle} (${localisation.code})`;
+          const formattedLocalisation = `${localisation.nom} (${localisation.code})`;
           setInputLocalisation(formattedLocalisation);
           setFormattedLocalisation(formattedLocalisation);
         }
@@ -99,7 +99,7 @@ export function RechercherAlternance() {
 
   async function rechercherLocalisation(recherche: string) {
     setInputLocalisation(recherche);
-    const résultats = await localisationService.rechercheLocalisation(recherche);
+    const résultats = await localisationService.rechercherLocalisation(recherche);
     setCommuneList(résultats && résultats.communeList ? résultats.communeList : []);
   }
   
