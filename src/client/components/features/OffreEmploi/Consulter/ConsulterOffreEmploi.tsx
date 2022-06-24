@@ -41,7 +41,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         </Button>
         {offreEmploi.description &&
         <div>
-          <h3>Description de l&apos;entreprise :</h3>
+          <h3>Description du poste :</h3>
           <p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>
         </div>
         }
