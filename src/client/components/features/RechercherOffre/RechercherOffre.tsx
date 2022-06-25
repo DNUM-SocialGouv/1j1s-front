@@ -34,7 +34,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
-import { transformFormToEntries } from '~/client/utils/form.util';
+import { getFormAsQuery } from '~/client/utils/form.util';
 import {
   générerTitreFiltre,
   mapExpérienceAttendueToOffreEmploiCheckboxFiltre,
@@ -59,7 +59,7 @@ export interface RechercherOffreProps {
   urlLienOffre: string
 }
 
-export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQueryParameters, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTempsDeTravailActive, isTypeDeContratActive, descriptionNombreRésultat, urlLienOffre }: RechercherOffreProps) {
+export function RechercherOffre({ prefixTitle, description, heroTitle, isNiveauDemandéActive, barreDeRecherchePlaceHolder, isTempsDeTravailActive, isTypeDeContratActive, descriptionNombreRésultat, urlLienOffre }: RechercherOffreProps) {
   const domaineList = référentielDomaineList;
   const router = useRouter();
   const { queryParams, hasQueryParams, isKeyInQueryParams, getQueryValue, getQueryString } = useQueryParams();
@@ -95,7 +95,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
     if (!isSmallScreen) setIsFiltresAvancésMobileOpen(false);
     if (hasQueryParams) {
       const fetchOffreEmploi = async () => {
-        const response = await offreEmploiService.rechercherOffreEmploi(getQueryString(), defaultQueryParameters);
+        const response = await offreEmploiService.rechercherOffreEmploi(getQueryString());
         if (response.instance === 'success') {
           setTitle(getRechercherOffreHeadTagTitre(`${prefixTitle}${response.result.nombreRésultats === 0 ? '- Aucun résultat' : ''}`));
           setOffreEmploiList(response.result.résultats);
@@ -146,9 +146,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
   async function rechercherOffreEmploi(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    const formEntries = transformFormToEntries(event.currentTarget);
-    formEntries.push(['page', '1']);
-    const query = new URLSearchParams(formEntries).toString();
+    const query = getFormAsQuery(event.currentTarget);
     return router.push({ query }, undefined, { shallow: true });
   }
 

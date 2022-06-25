@@ -1,19 +1,22 @@
 import React from 'react';
 
-import { RechercherOffre } from '~/client/components/features/RechercherOffre/RechercherOffre';
+import {
+  FormulaireRechercheOffreEmploi,
+} from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
+import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
+import commonStyles from '~/client/components/features/RechercherOffre.module.css';
+import { Hero } from '~/client/components/ui/Hero/Hero';
 
 export default function RechercherOffreEmploiPage() {
   return (
-    <RechercherOffre
-      prefixTitle="Rechercher un emploi"
-      description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
-      heroTitle={<>Des milliers d&apos;<b>offres d&apos;emplois<br/>sélectionnées pour vous</b> par<br/>Pôle Emploi</>}
-      isNiveauDemandéActive={true}
-      isTempsDeTravailActive={true}
-      isTypeDeContratActive={true}
-      descriptionNombreRésultat="offres d'emplois"
-      barreDeRecherchePlaceHolder="Exemple : boulanger, informatique..."
-      urlLienOffre="emplois"
-    />
+    <main id="contenu" className={commonStyles.container}>
+      <Hero image="/images/banners/offre-emploi.webp">
+        Des milliers d&apos;<b>offres d&apos;emplois<br/>
+        sélectionnées pour vous</b> par<br/>
+        Pôle Emploi
+      </Hero>
+      <FormulaireRechercheOffreEmploi />
+      <RechercherOffreEmploi />
+    </main>
   );
 }

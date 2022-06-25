@@ -22,7 +22,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { LocalisationService } from '~/client/services/localisation.service';
-import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
+import { getFormAsQuery,getFormValue } from '~/client/utils/form.util';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { Alternance, radiusList } from '~/server/alternances/domain/alternance';
@@ -93,7 +93,7 @@ export function RechercherAlternance() {
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
       setIsLoading(true);
-      const query = new URLSearchParams(transformFormToEntries(event.currentTarget)).toString();
+      const query = getFormAsQuery(event.currentTarget, false);
       return router.push( { query });
     }
   }

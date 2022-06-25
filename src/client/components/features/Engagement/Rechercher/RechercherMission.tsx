@@ -18,7 +18,7 @@ import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectS
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { transformFormToEntries } from '~/client/utils/form.util';
+import { getFormAsQuery } from '~/client/utils/form.util';
 import {
   générerTitreFiltre,
 } from '~/client/utils/offreEmploi.mapper';
@@ -95,9 +95,7 @@ export function RechercherMission(props: RechercherMissionProps) {
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    const formEntries = transformFormToEntries(event.currentTarget);
-    formEntries.push(['page', '1']);
-    const query = new URLSearchParams(formEntries).toString();
+    const query = getFormAsQuery(event.currentTarget);
     return router.push({ query });
   }
 
