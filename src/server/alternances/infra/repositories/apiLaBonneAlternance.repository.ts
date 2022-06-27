@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import * as CaptureContext from '@sentry/types';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 import {
   AlternanceFiltre,
@@ -59,7 +59,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
 
       return [];
     }
@@ -82,7 +81,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       };
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
 
       return {
         nombreRésultats: 0,
@@ -97,8 +95,11 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
         `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       );
-      return createSuccess(mapOffreAlternance(response.data));
+
+      const alternance = mapOffreAlternance(response.data);
+      return alternance ? createSuccess(alternance) : createFailure(ErrorType.ERREUR_INATTENDUE);
     } catch (e) {
+      console.log(e);
       if (axios.isAxiosError(e)) {
         if(e.response?.status === 500) {
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
@@ -108,7 +109,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
         }
       }
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }

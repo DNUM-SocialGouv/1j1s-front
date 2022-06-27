@@ -1,13 +1,12 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
 import {
-  AlternanceFromMatcha,
   AlternanceFromPoleEmploi,
   RésultatRechercheAlternance,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import {
   AlternanceDetailResponse,
   AlternanceResponse,
-  isAlternanceDetailResponseMatcha,
+  isAlternanceDetailResponseMatcha, isAlternanceDetailResponsePeJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
   MatchasContactResponse,
@@ -84,18 +83,18 @@ function mapContact(contact: MatchasContactResponse | PeJobsContactResponse | un
   };
 }
 
-export function mapOffreAlternance(response: AlternanceDetailResponse): RésultatRechercheAlternance {
+export function mapOffreAlternance(response: AlternanceDetailResponse): RésultatRechercheAlternance | undefined {
   if (isAlternanceDetailResponseMatcha(response)) {
     const alternance: MatchasResultResponse = response.matchas[0];
     const ville = mapNomVille(alternance.place?.city);
     const niveauRequis = alternance.diplomaLevel;
     const typeDeContrats = alternance.job.contractType ?? [];
     const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
-    const alternanceMatcha: AlternanceFromMatcha = {
+    return {
       adresse: alternance.place?.fullAddress,
-      competencesDeBase: alternance.job.romeDetails.competencesDeBase.flatMap((compétence) => compétence.libelle),
+      competencesDeBase: alternance.job.romeDetails?.competencesDeBase ? alternance.job.romeDetails.competencesDeBase?.flatMap((compétence) => compétence.libelle) : undefined,
       contact: mapContact(alternance.contact),
-      description: alternance.job.romeDetails.definition,
+      description: alternance.job.romeDetails?.definition ? alternance.job.romeDetails.definition : undefined,
       duréeContrat: alternance.job.dureeContrat,
       débutContrat: mapDateDébutContrat(alternance.job.jobStartDate),
       entreprise: {
@@ -111,15 +110,15 @@ export function mapOffreAlternance(response: AlternanceDetailResponse): Résulta
       ville,
       étiquetteList,
     };
-    return alternanceMatcha;
   }
-  else {
+
+  if(isAlternanceDetailResponsePeJob(response)) {
     const alternance: PeJobsResultResponse = response.peJobs[0];
     const ville = mapNomVille(alternance.place?.city);
     const niveauRequis = 'Alternance' as string;
     const typeDeContrats = alternance.job.contractType ? [alternance.job.contractType] : [];
     const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
-    const alternancePeJob: AlternanceFromPoleEmploi = {
+    return {
       adresse: alternance.place?.fullAddress,
       contact: mapContact(alternance.contact),
       description: alternance.job.description,
@@ -138,7 +137,7 @@ export function mapOffreAlternance(response: AlternanceDetailResponse): Résulta
       ville,
       étiquetteList,
     };
-    return alternancePeJob;
   }
 
+  return undefined;
 }

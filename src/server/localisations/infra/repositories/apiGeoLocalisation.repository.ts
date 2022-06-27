@@ -34,7 +34,6 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return [];
     }
   }
@@ -84,7 +83,6 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       };
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return undefined;
     }
   }
@@ -100,7 +98,6 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return [];
     }
   }
@@ -117,7 +114,6 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_GEO_GOUV_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return [];
     }
   }
