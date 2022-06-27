@@ -8,7 +8,7 @@ import React, {
 
 import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
-import { LaBonneAlternancePartner } from '~/client/components/features/Partner/LaBonneAlternancePartner';
+import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
 import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
@@ -194,7 +194,7 @@ export function RechercherAlternance() {
               <SimulationAlternancePartner titleAs="h2"/>
             </li>
             <li>
-              <LaBonneAlternancePartner titleAs="h2"/>
+              <LaBonneBoitePartner titleAs="h2"/>
             </li>
             <li>
               <CIDJPartner titleAs="h2"/>
