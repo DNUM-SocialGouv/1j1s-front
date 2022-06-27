@@ -44,6 +44,7 @@ export function RechercherAlternance() {
   const [inputLocalisation, setInputLocalisation] = useState<string>('');
   const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
   const [communeList, setCommuneList] = useState<Localisation[]>([]);
+  const [inputCodeRome, setInputCodeRome] = useState<string>('');
   const defaultLogo = '/images/logos/la-bonne-alternance.svg';
   const [radius, setRadius] = useState('');
   const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
@@ -68,6 +69,7 @@ export function RechercherAlternance() {
 
       const setInputValues = async () => {
         if (isKeyInQueryParams(QueryParams.MÉTIER_SÉLECTIONNÉ)) setInputIntituleMétier(getQueryValue(QueryParams.MÉTIER_SÉLECTIONNÉ));
+        if (isKeyInQueryParams(QueryParams.CODE_ROMES)) setInputCodeRome(getQueryValue(QueryParams.CODE_ROMES));
         if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
           const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
           const formattedLocalisation = `${localisation.nom} (${localisation.code})`;
@@ -86,6 +88,7 @@ export function RechercherAlternance() {
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const codeRomeList = getFormValue(event.currentTarget, 'codeRomes');
+    console.log('codeRomeList', codeRomeList);
     if(!codeRomeList?.length) {
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
@@ -130,6 +133,7 @@ export function RechercherAlternance() {
                 className={styles.rechercheAlternanceInput}
                 inputName="metierSelectionne"
                 inputIntituleMétier={inputIntituleMétier}
+                code={inputCodeRome}
                 handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
                 resetHandleErrorMessageActive={resetHandleErrorMessageActive}
               />
@@ -164,7 +168,6 @@ export function RechercherAlternance() {
           {isLoading && <p>Recherche des offres en attente de loader</p>}
           {!isLoading && <TagListRechercheOffre localisation={formattedLocalisation}/>}
           {nombreRésultats !== 0 &&
-
             <div className={commonStyles.nombreRésultats} data-testid="RechercheAlternanceNombreRésultats">
               <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
             </div>

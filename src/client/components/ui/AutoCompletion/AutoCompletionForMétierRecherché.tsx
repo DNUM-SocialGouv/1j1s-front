@@ -13,10 +13,19 @@ interface AutoCompletionForMétierRecherchéProps {
   className?: string;
   handleErrorMessageActive: boolean;
   resetHandleErrorMessageActive: () => void;
+  code: string
 }
 
 export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
-  const { inputName, placeholder, className, handleErrorMessageActive, resetHandleErrorMessageActive, inputIntituleMétier } = props;
+  const {
+    inputName,
+    placeholder,
+    className,
+    handleErrorMessageActive,
+    resetHandleErrorMessageActive,
+    inputIntituleMétier,
+    code,
+  } = props;
 
   const métierRecherchéService = useDependency<MétierRecherchéService>('métierRecherchéService');
 
@@ -26,7 +35,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const [suggestionsActive, setSuggestionsActive] = useState(false);
   const [errorMessageActive, setErrorMessageActive] = useState(false);
   const [value, setValue] = useState('');
-  const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>([]);
+  const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>(code.split(',') || []);
   const [inputHiddenSelectedMétierIntitulé, setInputHiddenSelectedMétierIntitulé] = useState<string>('');
 
   const autocompleteRef = useRef<HTMLDivElement>(null);
@@ -107,7 +116,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const handleClickResetErrorMessageDisplay = () => {
     resetHandleErrorMessageActive();
     setErrorMessageActive(false);
-    setInputHiddenSelectedCodeRomes([]);
+    setInputHiddenSelectedCodeRomes(code.split(',') || []);
     setInputHiddenSelectedMétierIntitulé('');
     setSuggestionsActive(false);
   };
