@@ -99,7 +99,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       const alternance = mapOffreAlternance(response.data);
       return alternance ? createSuccess(alternance) : createFailure(ErrorType.ERREUR_INATTENDUE);
     } catch (e) {
-      console.log(e);
       if (axios.isAxiosError(e)) {
         if(e.response?.status === 500) {
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
