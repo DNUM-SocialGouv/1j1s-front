@@ -8,7 +8,6 @@ import React, {
 
 import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
-import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
 import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
@@ -192,9 +191,6 @@ export function RechercherAlternance() {
           <ul className={commonStyles.partnerList}>
             <li>
               <SimulationAlternancePartner titleAs="h2"/>
-            </li>
-            <li>
-              <LaBonneBoitePartner titleAs="h2"/>
             </li>
             <li>
               <CIDJPartner titleAs="h2"/>
