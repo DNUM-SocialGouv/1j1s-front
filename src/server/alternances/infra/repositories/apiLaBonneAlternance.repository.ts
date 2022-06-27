@@ -29,12 +29,13 @@ import {
   Either,
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
-import {
-  ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
+import { ApiPoleEmploiRéférentielRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
+
+const NOT_FOUND_PEJOB = 'not_found';
+const NOT_FOUND_MATCHA = 'error';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   constructor(
@@ -94,9 +95,15 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   async getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>> {
     let response;
     try {
-      response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
+      response = await this.laBonneAlternanceHttpClientService.get<AlternancePeJobsResponse | AlternanceMatchasResponse | AlternanceNotFoundResponse>(
         `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       );
+      if (isAlternanceDetailNotFoundResponse(response.data)) {
+        if (response.data.result === NOT_FOUND_PEJOB || response.data.result === NOT_FOUND_MATCHA) {
+          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+        }
+        return createFailure(ErrorType.ERREUR_INATTENDUE);
+      }
       return createSuccess(mapOffreAlternance(response.data));
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -147,8 +154,6 @@ export interface AlternanceResponse {
   matchas: MatchasResponse
 }
 
-export type AlternanceDetailResponse = AlternancePeJobsResponse | AlternanceMatchasResponse
-
 export interface AlternancePeJobsResponse {
   peJobs: PeJobsResultResponse[]
 }
@@ -157,11 +162,19 @@ export interface AlternanceMatchasResponse {
   matchas: MatchasResultResponse[]
 }
 
-export function isAlternanceDetailResponsePeJob(alternance: AlternanceDetailResponse): alternance is AlternancePeJobsResponse {
+interface AlternanceNotFoundResponse {
+  result: string
+}
+
+function isAlternanceDetailNotFoundResponse(response: AlternancePeJobsResponse | AlternanceMatchasResponse | AlternanceNotFoundResponse): response is AlternanceNotFoundResponse {
+  return 'result' in response;
+}
+
+export function isAlternanceDetailResponsePeJob(alternance: AlternancePeJobsResponse | AlternanceMatchasResponse): alternance is AlternancePeJobsResponse {
   return Object.keys(alternance)[0] === 'peJobs';
 }
 
-export function isAlternanceDetailResponseMatcha(alternance: AlternanceDetailResponse): alternance is AlternanceMatchasResponse {
+export function isAlternanceDetailResponseMatcha(alternance: AlternancePeJobsResponse | AlternanceMatchasResponse): alternance is AlternanceMatchasResponse {
   return Object.keys(alternance)[0] ===  'matchas';
 }
 

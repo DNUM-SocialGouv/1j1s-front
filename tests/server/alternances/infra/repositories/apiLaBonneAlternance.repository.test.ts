@@ -6,6 +6,7 @@ import {
   aApiPoleEmploiRéférentielRepository,
 } from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository.fixture';
 import { ConfigurationServiceFixture } from '@tests/fixtures/services/configuration.service.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aLaBonneAlternanceHttpClient,
   anAlternanceListResponse,
@@ -15,7 +16,8 @@ import {
 } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 
 import {
-  AlternanceDetailResponse,
+  AlternanceMatchasResponse,
+  AlternancePeJobsResponse,
   ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
@@ -151,7 +153,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
   describe('getOffreAlternance', () => {
     describe('quand l\'offre provient de pole emploi', () => {
       it('récupère l\'offre d\'alternance selon l\'id', async () => {
-
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
           .mockResolvedValue(anApprentiBoucherFromPoleEmploiAxiosResponse());
@@ -159,8 +160,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
         const offreAlternanceId = '134BYGN';
         const from = 'peJob';
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
-        expect(result.result).toEqual(expected);
+        const { result } = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternancePeJobsResponse | AlternanceMatchasResponse>;
+        expect(result).toEqual(expected);
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
           `jobs/job/${offreAlternanceId}`,
         );
@@ -177,15 +178,55 @@ describe('ApiLaBonneAlternanceRepository', () => {
         const offreAlternanceId = '628a65a72ff4860027ae1531';
         const from = 'matcha';
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
-        expect(result.result).toEqual(expected);
+        const { result } = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternancePeJobsResponse | AlternanceMatchasResponse>;
+        expect(result).toEqual(expected);
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
           `jobs/matcha/${offreAlternanceId}`,
         );
       });
     });
 
-    describe('quand l\'api répond avec une 400', () => {
+    describe('quand l\'offre d\'alternance n\'est pas trouvé', () => {
+      describe('quand l\'offre provient de pole emploi', () => {
+        it('on renvoie une failure avec une error CONTENU_INDISPONIBLE', async () => {
+          jest .spyOn(laBonneAlternanceHttpClientService, 'get') .mockResolvedValue(anAxiosResponse({
+            result: 'not_found',
+          }));
+          const offreAlternanceId = '134BYGNZ';
+          const from = 'peJob';
+
+          const  result  = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
+          expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+        });
+      });
+
+      describe('quand l\'offre provient de matcha', () => {
+        it('on renvoie une failure avec une error CONTENU_INDISPONIBLE', async () => {
+          jest .spyOn(laBonneAlternanceHttpClientService, 'get') .mockResolvedValue(anAxiosResponse({
+            result: 'error',
+          }));
+          const offreAlternanceId = '134BYGNZ';
+          const from = 'matcha';
+
+          const  result  = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
+          expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+        });
+      });
+
+      describe('quand l\'offre ne retourne ni error ni not_found', () => {
+        it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
+          jest .spyOn(laBonneAlternanceHttpClientService, 'get') .mockResolvedValue(anAxiosResponse({
+            result: 'message_result',
+          }));
+          const offreAlternanceId = '134BYGNZ';
+          const from = 'peJob';
+
+          const  result  = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
+          expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+        });
+      });
+    });
+    describe('quand l\'api répond avec une 500', () => {
       it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
         const offreAlternanceId = 'fake-idea';
         const from = 'matcha';
@@ -200,7 +241,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
       });
     });
 
-    describe('quand l\'api répond avec une 500', () => {
+    describe('quand l\'api répond avec une 400', () => {
       it('on renvoie une failure avec une error DEMANDE_INCORRECTE', async () => {
         const offreAlternanceId = 'fake-idea';
         const from = 'matcha';

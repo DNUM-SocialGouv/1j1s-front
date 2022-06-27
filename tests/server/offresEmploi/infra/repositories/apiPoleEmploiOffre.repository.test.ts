@@ -23,6 +23,12 @@ import {
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
+jest.mock('axios', () => {
+  return {
+    isAxiosError: jest.fn().mockReturnValue(true),
+  };
+});
+
 describe('ApiPoleEmploiOffreRepository', () => {
   let poleEmploiHttpClientService: PoleEmploiHttpClientService;
   let apiPoleEmploiOffreRepository: ApiPoleEmploiOffreRepository;
@@ -35,19 +41,62 @@ describe('ApiPoleEmploiOffreRepository', () => {
   });
 
   describe('getOffreEmploi', () => {
-    it('récupère l\'offre d\'emploi selon l\'id', async () => {
-      jest
-        .spyOn(poleEmploiHttpClientService, 'get')
-        .mockResolvedValue(aBarmanOffreEmploiAxiosResponse());
-      const expected = aBarmanOffreEmploi();
-      const offreEmploiId = expected.id;
+    describe('quand l\'offre d\'emploi est trouvé', () => {
+      it('récupère l\'offre d\'emploi selon l\'id', async () => {
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(aBarmanOffreEmploiAxiosResponse());
+        const expected = aBarmanOffreEmploi();
+        const offreEmploiId = expected.id;
 
-      const { result } = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Success<OffreEmploi>;
+        const { result } = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Success<OffreEmploi>;
 
-      expect(result).toEqual(expected);
-      expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
-        'partenaire/offresdemploi/v2/offres/132LKFB',
-      );
+        expect(result).toEqual(expected);
+        expect(poleEmploiHttpClientService.get).toHaveBeenCalledWith(
+          'partenaire/offresdemploi/v2/offres/132LKFB',
+        );
+      });
+    });
+
+    describe('quand l\'offre d\'emploi n\'est pas trouvé', () => {
+      it('on renvoie une failure avec une error CONTENU_INDISPONIBLE', async () => {
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(Promise.resolve({ status: 204 } ));
+        const offreEmploiId = '132LKFB';
+
+        const result  = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Failure;
+        console.log(result);
+        expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+      });
+    });
+
+    describe('quand l\'api répond avec une 500', () => {
+      it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
+        const offreEmploiId = 'fake-id';
+
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(Promise.reject({ response: { status: 500 } }));
+
+        const result = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId)  as Failure;
+
+        expect(result.errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
+      });
+    });
+
+    describe('quand l\'api répond avec une erreur non traité', () => {
+      it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
+        const offreEmploiId = 'fake-id';
+
+        jest
+          .spyOn(poleEmploiHttpClientService, 'get')
+          .mockResolvedValue(Promise.reject({ response: { status: 666 } }));
+
+        const result = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId)  as Failure;
+
+        expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+      });
     });
   });
 

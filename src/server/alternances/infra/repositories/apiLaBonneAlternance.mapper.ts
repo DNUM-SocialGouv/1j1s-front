@@ -5,7 +5,8 @@ import {
   RésultatRechercheAlternance,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import {
-  AlternanceDetailResponse,
+  AlternanceMatchasResponse,
+  AlternancePeJobsResponse,
   AlternanceResponse,
   isAlternanceDetailResponseMatcha,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
@@ -84,7 +85,7 @@ function mapContact(contact: MatchasContactResponse | PeJobsContactResponse | un
   };
 }
 
-export function mapOffreAlternance(response: AlternanceDetailResponse): RésultatRechercheAlternance {
+export function mapOffreAlternance(response: AlternancePeJobsResponse | AlternanceMatchasResponse): RésultatRechercheAlternance {
   if (isAlternanceDetailResponseMatcha(response)) {
     const alternance: MatchasResultResponse = response.matchas[0];
     const ville = mapNomVille(alternance.place?.city);
