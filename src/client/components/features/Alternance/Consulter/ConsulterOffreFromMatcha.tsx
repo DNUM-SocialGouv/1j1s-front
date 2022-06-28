@@ -33,7 +33,7 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
       <div className={commonStyles.informations}>
         { offreAlternance.niveauRequis &&
         <div>
-          <h3>Nature du contrat :</h3> { ' ' }
+          <h3>Niveau requis :</h3> { ' ' }
           <p>{offreAlternance.niveauRequis}</p>
         </div>
         }

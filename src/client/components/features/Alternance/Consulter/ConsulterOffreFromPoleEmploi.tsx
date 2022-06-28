@@ -39,7 +39,7 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
       <div className={commonStyles.informations}>
         { offreAlternance.niveauRequis &&
         <div>
-          <h3>Niveau requis :</h3> { ' ' }
+          <h3>Nature du contrat :</h3> { ' ' }
           <p>{offreAlternance.niveauRequis}</p>
         </div>
         }
