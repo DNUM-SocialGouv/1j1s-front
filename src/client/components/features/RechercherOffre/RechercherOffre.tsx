@@ -367,7 +367,7 @@ export function RechercherOffre({ prefixTitle, description, heroTitle, defaultQu
             </div>
           }
 
-          <ul className={styles.partnerList}>
+          <ul className={commonStyles.partnerList}>
             <li>
               <CIDJPartner titleAs="h2"/>
             </li>
