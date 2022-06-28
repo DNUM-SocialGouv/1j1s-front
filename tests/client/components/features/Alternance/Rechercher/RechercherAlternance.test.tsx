@@ -95,7 +95,7 @@ describe('RechercherAlternance', () => {
       const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
 
 
-      // WHEN
+      // WHEN USER TYPES IN INPUT
       await user.type(inputRechercheMétier, 'bou');
       const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
       expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');

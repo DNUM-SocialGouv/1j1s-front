@@ -37,7 +37,6 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
 
   const métierRecherchéService = useDependency<MétierRecherchéService>('métierRecherchéService');
 
-  // const [suggestionList, setSuggestionList] = useState<MétierRecherché[]>([]);
   const [suggestions, setSuggestions] = useState<MétierRecherché[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [suggestionsActive, setSuggestionsActive] = useState(false);
@@ -69,7 +68,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
     }
   }, [inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
 
-  useEffect(() => {
+  const gérerPerteDeFocus = () => {
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
     document.addEventListener('keyup', closeSuggestionsOnKeyUp);
 
@@ -77,28 +76,31 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
       document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
     };
-  },[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
+  };
+  useEffect(gérerPerteDeFocus,[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
   const clearMétierRecherché = useCallback(() => {
     setInputHiddenSelectedMétierIntitulé('');
     setInputHiddenSelectedCodeRomes([]);
   }, []);
 
-  useEffect(() => {
+  const réinitialiserMétierRecherché = () => {
     if (libelléMétier === '') {
       clearMétierRecherché();
     }
     setErrorMessageActive(handleErrorMessageActive);
-  }, [handleErrorMessageActive, libelléMétier, code, libellé, clearMétierRecherché]);
+  };
+  useEffect(réinitialiserMétierRecherché, [handleErrorMessageActive, libelléMétier, code, libellé, clearMétierRecherché]);
 
-  useEffect(() => {
+  const initialiserMétierRecherché = () => {
     if (libellé === '' || code.length === 0) {
       clearMétierRecherché();
     } else {
       setInputHiddenSelectedMétierIntitulé(libellé);
       setInputHiddenSelectedCodeRomes(code.split(','));
     }
-  }, [libellé, code, clearMétierRecherché]);
+  };
+  useEffect(initialiserMétierRecherché, [libellé, code, clearMétierRecherché]);
 
   const rechercherIntituléMétier = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
