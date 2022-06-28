@@ -8,11 +8,11 @@ export function anOffreEmploiService(): OffreEmploiService {
   } as unknown as OffreEmploiService;
 }
 
-export function emptyOffreEmploiService(): Partial<OffreEmploiService> {
+export function emptyOffreEmploiService(): OffreEmploiService {
   return {
     rechercherOffreEmploi: jest.fn().mockResolvedValue({
       instance: 'success',
       result: aRésultatsRechercheOffreEmploi({ nombreRésultats: 0, résultats: [] }),
     }),
-  };
+  } as unknown as OffreEmploiService;
 }

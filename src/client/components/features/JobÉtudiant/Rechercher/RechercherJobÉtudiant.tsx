@@ -3,13 +3,15 @@ import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
-  FormulaireRechercheOffreEmploi,
-} from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
+  FormulaireRechercheJobÉtudiant,
+} from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
-import { ÉtiquettesRechercherSolution } from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
+import {
+  ÉtiquettesRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
 import {
   LienSolution,
   RechercherSolutionLayout,
@@ -23,17 +25,17 @@ import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHe
 import { ErrorType } from '~/server/errors/error.types';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
+const PREFIX_TITRE_PAGE = 'Rechercher un job étudiants';
 const OFFRE_PER_PAGE = 30;
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
-export function RechercherOffreEmploi() {
+export function RechercherJobÉtudiant() {
   const router = useRouter();
   const offreEmploiQuery = useOffreEmploiQuery();
   const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
 
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-  const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
+  const [jobÉtudiantList, setJobÉtudiantList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);
@@ -45,7 +47,7 @@ export function RechercherOffreEmploi() {
         .then((response) => {
           if (response.instance === 'success') {
             setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-            setOffreEmploiList(response.result.résultats);
+            setJobÉtudiantList(response.result.résultats);
             setNombreRésultats(response.result.nombreRésultats);
           } else {
             setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
@@ -58,9 +60,9 @@ export function RechercherOffreEmploi() {
 
   const messageRésultatRecherche: string = useMemo(() => {
     if (offreEmploiQuery.motCle) {
-      return `${nombreRésultats} offres d'emplois pour ${offreEmploiQuery.motCle}`;
+      return `${nombreRésultats} offres de jobs étudiants pour ${offreEmploiQuery.motCle}`;
     } else {
-      return `${nombreRésultats} offres d'emplois`;
+      return `${nombreRésultats} offres de jobs étudiants`;
     }
   }, [nombreRésultats, offreEmploiQuery.motCle]);
 
@@ -68,19 +70,19 @@ export function RechercherOffreEmploi() {
     <>
       <HeadTag
         title={title}
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
+        description="Des milliers de jobs étudiants sélectionnés pour vous"
       />
       <main id="contenu">
         <RechercherSolutionLayout
-          bannière={<BannièreOffreEmploi/>}
+          bannière={<BannièreJobÉtudiant/>}
           erreurRecherche={erreurRecherche}
           étiquettesRecherche={<ÉtiquettesRechercherSolution/>}
-          formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
+          formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
           isLoading={isLoading}
-          listeSolution={offreEmploiList}
+          listeSolution={jobÉtudiantList}
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
-          mapToLienSolution={mapOffreEmploiToLienSolution}
+          mapToLienSolution={mapJobÉtudiantToLienSolution}
           paginationOffset={OFFRE_PER_PAGE}
         />
         <ul className={styles.partnerList}>
@@ -99,23 +101,23 @@ export function RechercherOffreEmploi() {
   );
 }
 
-function mapOffreEmploiToLienSolution(offreEmploi: OffreEmploi): LienSolution {
+function mapJobÉtudiantToLienSolution(offreEmploi: OffreEmploi): LienSolution {
   return {
     descriptionOffre: offreEmploi.description,
     id: offreEmploi.id,
     intituléOffre: offreEmploi.intitulé,
-    lienOffre: `/emplois/${offreEmploi.id}`,
+    lienOffre: `/jobs-etudiants/${offreEmploi.id}`,
     logoEntreprise: offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI,
     nomEntreprise: offreEmploi.entreprise.nom,
     étiquetteOffreList: offreEmploi.étiquetteList,
   };
 }
 
-function BannièreOffreEmploi() {
+function BannièreJobÉtudiant() {
   return (
     <Hero image="/images/banners/offre-emploi.webp">
-      Des milliers d&apos;<b>offres d&apos;emplois<br/>
-      sélectionnées pour vous</b> par<br/>
+      Des milliers de <b>jobs étudiants<br/>
+      sélectionnés pour vous</b> par<br/>
       Pôle Emploi
     </Hero>
   );

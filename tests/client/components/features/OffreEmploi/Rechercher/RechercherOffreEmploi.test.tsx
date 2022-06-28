@@ -24,7 +24,7 @@ import {
 import { aLocalisationListWithCommuneAndDépartement } from '@tests/fixtures/domain/localisation.fixture';
 import React from 'react';
 
-import { RechercherOffre } from '~/client/components/features/RechercherOffre/RechercherOffre';
+import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('RechercherOffre', () => {
@@ -44,23 +44,13 @@ describe('RechercherOffre', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre
-            isTempsDeTravailActive={true}
-            prefixTitle=""
-            description=""
-            heroTitle=""
-            descriptionNombreRésultat=""
-            isTypeDeContratActive={true}
-            isNiveauDemandéActive={true}
-            barreDeRecherchePlaceHolder=""
-            urlLienOffre="emploi"
-          />
+          <RechercherOffreEmploi />
         </DependenciesProvider>,
       );
 
       // WHEN
       const résultatRechercheOffreEmploiList = screen.queryAllByTestId('RésultatRechercheOffreEmploi');
-      const rechercheOffreEmploiNombreRésultats = screen.queryByTestId('RechercheOffreEmploiNombreRésultats');
+      const rechercheOffreEmploiNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
 
       // THEN
       expect(résultatRechercheOffreEmploiList).toHaveLength(0);
@@ -75,17 +65,7 @@ describe('RechercherOffre', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre
-            isTempsDeTravailActive={true}
-            prefixTitle=""
-            description=""
-            heroTitle=""
-            descriptionNombreRésultat=""
-            isTypeDeContratActive={true}
-            isNiveauDemandéActive={true}
-            barreDeRecherchePlaceHolder=""
-            urlLienOffre="emploi"
-          />
+          <RechercherOffreEmploi />
         </DependenciesProvider>,
       );
 
@@ -104,17 +84,7 @@ describe('RechercherOffre', () => {
       mockUseRouter({ query: { codeLocalisation: '26', libelleLocalisation: 'BOURG LES VALENCE (26)', motCle: 'boulanger', typeLocalisation: 'DEPARTEMENT' } });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre
-            isTempsDeTravailActive={true}
-            prefixTitle=""
-            description=""
-            heroTitle=""
-            descriptionNombreRésultat=""
-            isTypeDeContratActive={true}
-            isNiveauDemandéActive={true}
-            barreDeRecherchePlaceHolder=""
-            urlLienOffre="emploi"
-          />
+          <RechercherOffreEmploi />
         </DependenciesProvider>,
       );
 
@@ -128,7 +98,7 @@ describe('RechercherOffre', () => {
         expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('BOURG LES VALENCE (26)');
 
       });
-      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG+LES+VALENCE+%2826%29&motCle=boulanger&typeLocalisation=DEPARTEMENT', undefined);
+      expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&motCle=boulanger&typeLocalisation=DEPARTEMENT');
     });
   });
 
@@ -143,17 +113,7 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat="offres d'emplois"
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
 
@@ -166,7 +126,7 @@ describe('RechercherOffre', () => {
         // WHEN
         fireEvent.click(buttonRechercher);
         const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherOffre');
-        const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
+        const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('NombreRésultatsSolution');
 
         // THEN
         expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
@@ -186,17 +146,7 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat=""
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
 
@@ -219,7 +169,7 @@ describe('RechercherOffre', () => {
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
         await waitFor(() => {
-          expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
+          expect(screen.getByTestId('NombreRésultatsSolution')).toBeInTheDocument();
         });
 
         // THEN
@@ -238,17 +188,7 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat=""
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
 
@@ -269,7 +209,7 @@ describe('RechercherOffre', () => {
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
         await waitFor(() => {
-          expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
+          expect(screen.getByTestId('NombreRésultatsSolution')).toBeInTheDocument();
         });
 
         // THEN
@@ -288,17 +228,7 @@ describe('RechercherOffre', () => {
         mockUseRouter({});
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat=""
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
         const inputLocalisation = screen.getByTestId('InputLocalisation');
@@ -321,17 +251,7 @@ describe('RechercherOffre', () => {
         mockUseRouter({ push: routerPush });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat=""
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
 
@@ -353,7 +273,7 @@ describe('RechercherOffre', () => {
 
         // THEN
         await waitFor(() => {
-          expect(screen.getByTestId('RechercheOffreEmploiNombreRésultats')).toBeInTheDocument();
+          expect(screen.getByTestId('NombreRésultatsSolution')).toBeInTheDocument();
         });
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=75001&libelleLocalisation=Paris+%2875001%29&page=1&typeLocalisation=COMMUNE', undefined);
         expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75001&page=1' }, undefined, { shallow: true });
@@ -373,17 +293,7 @@ describe('RechercherOffre', () => {
       mockUseRouter({ push: jest.fn() });
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre
-            isTempsDeTravailActive={true}
-            prefixTitle=""
-            description=""
-            heroTitle=""
-            descriptionNombreRésultat=""
-            isTypeDeContratActive={true}
-            isNiveauDemandéActive={true}
-            barreDeRecherchePlaceHolder=""
-            urlLienOffre="emploi"
-          />
+          <RechercherOffreEmploi />
         </DependenciesProvider>,
       );
 
@@ -405,17 +315,7 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat=""
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
 
@@ -438,7 +338,7 @@ describe('RechercherOffre', () => {
         fireEvent.click(buttonRechercher);
 
 
-        const nombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
+        const nombreRésultats = await screen.findByTestId('NombreRésultatsSolution');
 
         expect(nombreRésultats).toBeInTheDocument();
 
@@ -456,17 +356,7 @@ describe('RechercherOffre', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffre
-              isTempsDeTravailActive={true}
-              prefixTitle=""
-              description=""
-              heroTitle=""
-              descriptionNombreRésultat=""
-              isTypeDeContratActive={true}
-              isNiveauDemandéActive={true}
-              barreDeRecherchePlaceHolder=""
-              urlLienOffre="emploi"
-            />
+            <RechercherOffreEmploi />
           </DependenciesProvider>,
         );
 
@@ -487,7 +377,7 @@ describe('RechercherOffre', () => {
         mockUseRouter({ query: { page: '1', tempsDeTravail: 'tempsPlein' } });
         fireEvent.click(buttonRechercher);
 
-        const nombreRésultats = await screen.findByTestId('RechercheOffreEmploiNombreRésultats');
+        const nombreRésultats = await screen.findByTestId('NombreRésultatsSolution');
         expect(nombreRésultats).toBeInTheDocument();
 
 
@@ -506,17 +396,7 @@ describe('RechercherOffre', () => {
 
       render(
         <DependenciesProvider localisationService={localisationServiceMock} offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffre
-            isTempsDeTravailActive={true}
-            prefixTitle=""
-            description=""
-            heroTitle=""
-            descriptionNombreRésultat=""
-            isTypeDeContratActive={true}
-            isNiveauDemandéActive={true}
-            barreDeRecherchePlaceHolder=""
-            urlLienOffre="emploi"
-          />
+          <RechercherOffreEmploi />
         </DependenciesProvider>,
       );
 

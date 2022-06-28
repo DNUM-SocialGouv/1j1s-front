@@ -6,7 +6,7 @@ import { render, screen, within } from '@testing-library/react';
 import { anApprentiBoucherOffreFromPoleEmploi } from '@tests/fixtures/domain/alternance.fixture';
 import { aBarmanOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
-import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
 describe('RésultatRechercherOffre', () => {
   it('affiche une carte emploi avec un résumé de l\'offre', () => {
@@ -14,7 +14,7 @@ describe('RésultatRechercherOffre', () => {
     const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
-      <RésultatRechercherOffre
+      <RésultatRechercherSolution
         intituléOffre={offreEmploi.intitulé}
         lienOffre={`/emplois/${offreEmploi.id}`}
         descriptionOffre={offreEmploi.description}
@@ -36,7 +36,7 @@ describe('RésultatRechercherOffre', () => {
     const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
-      <RésultatRechercherOffre
+      <RésultatRechercherSolution
         intituléOffre={offreAlternance.intitulé}
         lienOffre={`/apprentissage/${offreAlternance.from}-${offreAlternance.id}`}
         descriptionOffre={offreAlternance.description}
