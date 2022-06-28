@@ -55,7 +55,7 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
 
   return {
-    fallback: true,
+    fallback: 'blocking',
     paths: [],
   };
 }

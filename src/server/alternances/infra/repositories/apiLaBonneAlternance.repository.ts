@@ -15,19 +15,9 @@ import {
   mapAlternance,
   mapOffreAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import {
-  MatchasResponse,
-  MatchasResultResponse,
-} from '~/server/alternances/infra/repositories/matchasResponse.type';
-import {
-  PeJobsResponse,
-  PeJobsResultResponse,
-} from '~/server/alternances/infra/repositories/peJobsResponse.type';
-import {
-  createFailure,
-  createSuccess,
-  Either,
-} from '~/server/errors/either';
+import { MatchasResponse, MatchasResultResponse } from '~/server/alternances/infra/repositories/matchasResponse.type';
+import { PeJobsResponse, PeJobsResultResponse } from '~/server/alternances/infra/repositories/peJobsResponse.type';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import {
   ApiPoleEmploiRéférentielRepository,
@@ -59,7 +49,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
 
       return [];
     }
@@ -82,7 +71,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       };
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
 
       return {
         nombreRésultats: 0,
@@ -97,7 +85,9 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse>(
         `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       );
-      return createSuccess(mapOffreAlternance(response.data));
+
+      const alternance = mapOffreAlternance(response.data);
+      return alternance ? createSuccess(alternance) : createFailure(ErrorType.ERREUR_INATTENDUE);
     } catch (e) {
       if (axios.isAxiosError(e)) {
         if(e.response?.status === 500) {
@@ -108,7 +98,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
         }
       }
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }

@@ -54,7 +54,6 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
         }
       }
       Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }
@@ -82,7 +81,6 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
         }
       }
       Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }

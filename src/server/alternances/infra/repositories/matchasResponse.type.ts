@@ -14,7 +14,7 @@ export interface MatchasResultResponse {
 
 export interface MatchasJobResponse {
   id: string
-  romeDetails: MatchasJobRomeDetailsResponse
+  romeDetails?: MatchasJobRomeDetailsResponse
   contractType?: string[]
   jobStartDate?: string
   dureeContrat: number
@@ -32,7 +32,7 @@ export interface MatchasCompetencesDeBaseResponse {
 
 export interface MatchasJobRomeDetailsResponse {
   definition: string
-  competencesDeBase: MatchasCompetencesDeBaseResponse[]
+  competencesDeBase?: MatchasCompetencesDeBaseResponse[]
 }
 
 export interface MatchasCompanyResponse {

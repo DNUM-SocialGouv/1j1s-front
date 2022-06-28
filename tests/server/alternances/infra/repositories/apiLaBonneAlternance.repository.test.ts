@@ -6,6 +6,7 @@ import {
   aApiPoleEmploiRéférentielRepository,
 } from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository.fixture';
 import { ConfigurationServiceFixture } from '@tests/fixtures/services/configuration.service.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aLaBonneAlternanceHttpClient,
   anAlternanceListResponse,
@@ -18,10 +19,7 @@ import {
   AlternanceDetailResponse,
   ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import {
-  Failure,
-  Success,
-} from '~/server/errors/either';
+import { Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import {
   ApiPoleEmploiRéférentielRepository,
@@ -223,6 +221,24 @@ describe('ApiLaBonneAlternanceRepository', () => {
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
           .mockResolvedValue(Promise.reject({ response: { status: 666 } }));
+
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
+
+        expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+      });
+    });
+
+    describe('quand l\'api répond une 200 avec une réponse en erreur', () => {
+      it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
+        const offreAlternanceId = 'fake-idea';
+        const from = 'matcha';
+
+        jest
+          .spyOn(laBonneAlternanceHttpClientService, 'get')
+          .mockResolvedValue(anAxiosResponse({
+            message: 'Offre non trouvée',
+            result: 'not_found',
+          }));
 
         const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
 
