@@ -87,9 +87,9 @@ export function RechercherAlternance() {
 
   async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const métierSéléctionné = getFormValue(event.currentTarget, 'metierSelectionne');
     const codeRomeList = getFormValue(event.currentTarget, 'codeRomes');
-    console.log('codeRomeList', codeRomeList);
-    if(!codeRomeList?.length) {
+    if(!codeRomeList?.length || !métierSéléctionné) {
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
       setIsLoading(true);
@@ -132,7 +132,7 @@ export function RechercherAlternance() {
               <AutoCompletionForMétierRecherché
                 className={styles.rechercheAlternanceInput}
                 inputName="metierSelectionne"
-                inputIntituleMétier={inputIntituleMétier}
+                libellé={inputIntituleMétier}
                 code={inputCodeRome}
                 handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
                 resetHandleErrorMessageActive={resetHandleErrorMessageActive}
@@ -176,7 +176,7 @@ export function RechercherAlternance() {
 
 
           {alternanceList.length > 0 && !isLoading &&
-            <ul className={commonStyles.résultatRechercheOffreList}>
+            <ul className={commonStyles.résultatRechercheOffreList}  data-testid="RésultatRechercherList">
               {alternanceList.map((alternance: Alternance) => (
                 <li key={alternance.id}>
                   <RésultatRechercherOffre
