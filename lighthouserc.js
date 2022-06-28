@@ -21,7 +21,7 @@ module.exports = {
     upload: {
       serverBaseUrl: 'https://mysterious-cove-34282.herokuapp.com',
       target: 'lhci',
-      token: 'a6148b25-d912-4550-82b1-24eb96fe60ec',
+      token: '883e14e0-d128-4850-a70a-249f51f09ee0',
     },
   },
 };
