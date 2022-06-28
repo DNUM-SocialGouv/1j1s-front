@@ -21,7 +21,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
     beforeEach(() => {
       mockSmallScreen();
     });
-    
+
     describe('quand on recherche par mot clé', () => {
       it('ajoute le mot clé recherché aux query params', async () => {
         // GIVEN
@@ -45,76 +45,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // THEN
         expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
-      });
-    });
-
-    describe('quand on recherche par type de contrat', () => {
-      it('ajoute les types de contrat aux query params', async () => {
-        // GIVEN
-        const localisationServiceMock = aLocalisationService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
-          </DependenciesProvider>,
-        );
-
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-
-        // WHEN
-        fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByTestId('FiltreTypeDeContrats');
-        const inputTypeDeContrat = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
-        fireEvent.click(inputTypeDeContrat[0]);
-        fireEvent.click(inputTypeDeContrat[2]);
-        fireEvent.click(inputTypeDeContrat[0]);
-
-        expect(filtreRechercheMobile).toBeInTheDocument();
-
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
-
-        // WHEN
-        fireEvent.click(buttonAppliquerFiltres);
-
-        // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { shallow: true });
-      });
-    });
-
-    describe('quand on recherche par temps de travail', () => {
-      it('ajoute les temps de travail aux query params', async () => {
-        // GIVEN
-        const localisationServiceMock = aLocalisationService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
-          </DependenciesProvider>,
-        );
-
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
-
-        // WHEN
-        fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByTestId('FiltreTempsDeTravail');
-        const inputTempsDeTravail = within(containerFiltreTempsDeTravail).getAllByRole('radio');
-        fireEvent.click(inputTempsDeTravail[0]);
-
-        expect(filtreRechercheMobile).toBeInTheDocument();
-
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
-
-        // WHEN
-        fireEvent.click(buttonAppliquerFiltres);
-
-        // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
       });
     });
 
@@ -202,74 +132,12 @@ describe('FormulaireRechercheOffreEmploi', () => {
           <FormulaireRechercheOffreEmploi />
         </DependenciesProvider>,
       );
-      
+
       const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
 
       // THEN
       await waitFor(() => {
         expect(filtreRechercheDesktop).toBeInTheDocument();
-      });
-    });
-
-    describe('quand on filtre par type de contrat', () => {
-      it('ajoute les types de contrat aux query params', async () => {
-        const localisationServiceMock = aLocalisationService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
-          </DependenciesProvider>,
-        );
-        
-        const button = await screen.findByTestId('SelectButton-Type de contrat');
-        fireEvent.click(button);
-
-        const typeDeContratList = await screen.findByTestId('OptionList');
-
-        await waitFor(() => {
-          expect(typeDeContratList).toBeInTheDocument();
-        });
-
-        const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
-        fireEvent.click(inputTypeDeContrat[0]);
-
-        const buttonRechercher = screen.getByTestId('ButtonRechercher');
-        fireEvent.click(buttonRechercher);
-        
-        expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' }, undefined, { shallow: true });
-      });
-    });
-
-    describe('quand on filtre par temps de travail', () => {
-      it('ajoute les temps de travail aux query params', async () => {
-        const localisationServiceMock = aLocalisationService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
-          </DependenciesProvider>,
-        );
-
-        const button = await screen.findByTestId('SelectButton-Temps de travail');
-        fireEvent.click(button);
-
-        const typeDeContratList = await screen.findByTestId('OptionList');
-
-        await waitFor(() => {
-          expect(typeDeContratList).toBeInTheDocument();
-        });
-
-        const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
-        fireEvent.click(inputTypeDeContrat[0]);
-
-        const buttonRechercher = screen.getByTestId('ButtonRechercher');
-        fireEvent.click(buttonRechercher);
-
-        expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
       });
     });
   });

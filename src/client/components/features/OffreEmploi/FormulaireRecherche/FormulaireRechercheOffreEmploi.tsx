@@ -1,3 +1,5 @@
+import '~/client/utils/string/string.util';
+
 import {
   Button,
   Checkbox,
@@ -92,6 +94,7 @@ export function FormulaireRechercheOffreEmploi() {
   return (
     <form
       ref={rechercheOffreEmploiForm}
+      role="form"
       className={styles.rechercheOffreForm}
       onSubmit={updateRechercherOffreEmploiQueryParams}
     >

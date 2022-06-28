@@ -22,7 +22,7 @@ export function RésultatRechercherSolution(props: RésultatRechercherSolutionPr
 
   return (
     <Link href={lienOffre}>
-      <a className={styles.card} data-testid="RésultatRechercherOffre">
+      <a className={styles.card} data-testid="RésultatRechercherSolution">
         <header className={styles.cardHeader}>
           <Image alt="" src={logoEntreprise} width="56" height="56" />
           <div className={styles.offreLead}>

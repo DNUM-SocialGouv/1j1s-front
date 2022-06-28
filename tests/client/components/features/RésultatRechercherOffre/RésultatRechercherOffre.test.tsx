@@ -8,7 +8,7 @@ import { aBarmanOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
-describe('RésultatRechercherOffre', () => {
+describe('RésultatRechercherSolution', () => {
   it('affiche une carte emploi avec un résumé de l\'offre', () => {
     const offreEmploi = aBarmanOffreEmploi();
     const defaultLogo = '/images/logos/pole-emploi.svg';
@@ -25,7 +25,7 @@ describe('RésultatRechercherOffre', () => {
     );
 
     const étiquettesOffreEmploiList = screen.getByTestId('ÉtiquetteOffreList');
-    const lienVersOffreEmploi = screen.getByTestId('RésultatRechercherOffre');
+    const lienVersOffreEmploi = screen.getByTestId('RésultatRechercherSolution');
 
     expect(within(étiquettesOffreEmploiList).queryAllByRole('listitem')).toHaveLength(4);
     expect(lienVersOffreEmploi).toHaveAttribute('href', `/emplois/${offreEmploi.id}`);
@@ -47,7 +47,7 @@ describe('RésultatRechercherOffre', () => {
     );
 
     const étiquettesOffreAlternanceList = screen.getByTestId('ÉtiquetteOffreList');
-    const lienVersOffreAlternance = screen.getByTestId('RésultatRechercherOffre');
+    const lienVersOffreAlternance = screen.getByTestId('RésultatRechercherSolution');
 
     expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(3);
     expect(lienVersOffreAlternance).toHaveAttribute('href', `/apprentissage/${offreAlternance.from}-${offreAlternance.id}`);

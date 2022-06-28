@@ -54,7 +54,7 @@ export function RechercherSolutionLayout<T extends Record<string, unknown>>(prop
             <div className={styles.nombreRésultats} data-testid="NombreRésultatsSolution">
               <h2>{messageRésultatRecherche}</h2>
             </div>
-            {listeSolution && !erreurRecherche ?
+            {listeSolution.length > 0 ?
               <>
                 <ul className={styles.listeSolutions}>
                   {listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
