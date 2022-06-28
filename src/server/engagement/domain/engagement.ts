@@ -32,7 +32,7 @@ export namespace MissionEngagement {
 
 export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
   {
-    libellé: 'Culture Loisirs',
+    libellé: 'Culture et loisirs',
     valeur: 'culture-loisirs',
   },
   {
@@ -48,7 +48,7 @@ export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
     valeur: 'mémoire et citoyenneté',
   },
   {
-    libellé: 'Prévention protection',
+    libellé: 'Prévention et protection',
     valeur: 'prevention-protection',
   },
   {
@@ -56,7 +56,7 @@ export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
     valeur: 'sante',
   },
   {
-    libellé: 'Solidarité insertion',
+    libellé: 'Solidarité et insertion',
     valeur: 'solidarite-insertion',
   },
   {
@@ -75,7 +75,7 @@ export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
 
 export const serviceCiviqueDomaineList: Array<MissionEngagement.Domaine>  = [
   {
-    libellé: 'Culture Loisirs',
+    libellé: 'Culture et Loisirs',
     valeur: 'culture-loisirs',
   },
   {
@@ -95,7 +95,7 @@ export const serviceCiviqueDomaineList: Array<MissionEngagement.Domaine>  = [
     valeur: 'sante',
   },
   {
-    libellé: 'Solidarité insertion',
+    libellé: 'Solidarité et insertion',
     valeur: 'solidarite-insertion',
   },
   {

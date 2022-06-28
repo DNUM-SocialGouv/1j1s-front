@@ -11,10 +11,5 @@ export function transformFormToEntries(formElement: HTMLFormElement): string[][]
 export function getFormValue(formElement: HTMLFormElement, keyValue: string): string | undefined {
   const formData = new FormData(formElement);
   const value = Object.fromEntries(formData)[keyValue];
-
-  if(value) {
-    return value as string;
-  } else {
-    return undefined;
-  }
+  return value ? value as string : undefined;
 }
