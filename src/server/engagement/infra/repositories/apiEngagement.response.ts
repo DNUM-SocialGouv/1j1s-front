@@ -12,8 +12,13 @@ export interface MissionEngagementResponse {
   organizationName?: string
   associationName?: string
   postalCode?: string
+  departmentName?: string
+  departmentCode?: string
+  region?: string
+  applicationUrl?: string
   publisherLogo: string
   startAt?: string
+  duration?: number
   title: string
   openToMinors?: string
   id?: string
@@ -22,4 +27,8 @@ export interface MissionEngagementResponse {
 export interface RésultatsRechercheMissionEngagementResponse {
   total: number
   hits: Array<MissionEngagementResponse>
+}
+
+export interface RésultatMissionEngagementResponse {
+  data: MissionEngagementResponse
 }
