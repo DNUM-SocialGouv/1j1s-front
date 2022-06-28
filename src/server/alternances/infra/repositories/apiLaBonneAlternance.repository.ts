@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import * as CaptureContext from '@sentry/types';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import {
   AlternanceFiltre,
@@ -15,19 +15,9 @@ import {
   mapAlternance,
   mapOffreAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import {
-  MatchasResponse,
-  MatchasResultResponse,
-} from '~/server/alternances/infra/repositories/matchasResponse.type';
-import {
-  PeJobsResponse,
-  PeJobsResultResponse,
-} from '~/server/alternances/infra/repositories/peJobsResponse.type';
-import {
-  createFailure,
-  createSuccess,
-  Either,
-} from '~/server/errors/either';
+import { MatchasResponse, MatchasResultResponse } from '~/server/alternances/infra/repositories/matchasResponse.type';
+import { PeJobsResponse, PeJobsResultResponse } from '~/server/alternances/infra/repositories/peJobsResponse.type';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import {
   ApiPoleEmploiRéférentielRepository,

@@ -6,7 +6,7 @@ import {
   aApiPoleEmploiRéférentielRepository,
 } from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository.fixture';
 import { ConfigurationServiceFixture } from '@tests/fixtures/services/configuration.service.fixture';
-import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aLaBonneAlternanceHttpClient,
   anAlternanceListResponse,
@@ -19,10 +19,7 @@ import {
   AlternanceDetailResponse,
   ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import {
-  Failure,
-  Success,
-} from '~/server/errors/either';
+import { Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import {
   ApiPoleEmploiRéférentielRepository,

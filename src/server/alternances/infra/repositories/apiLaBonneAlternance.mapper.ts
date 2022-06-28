@@ -1,12 +1,10 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
-import {
-  AlternanceFromPoleEmploi,
-  RésultatRechercheAlternance,
-} from '~/server/alternances/infra/repositories/alternance.type';
+import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
 import {
   AlternanceDetailResponse,
   AlternanceResponse,
-  isAlternanceDetailResponseMatcha, isAlternanceDetailResponsePeJob,
+  isAlternanceDetailResponseMatcha,
+  isAlternanceDetailResponsePeJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
   MatchasContactResponse,
