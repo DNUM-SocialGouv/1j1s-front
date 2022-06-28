@@ -43,7 +43,7 @@ export function RechercherJobÉtudiant() {
   useEffect(() => {
     const queryString = stringify(router.query);
     if (queryString) {
-      offreEmploiService.rechercherOffreEmploi(queryString)
+      offreEmploiService.rechercherJobÉtudiant(queryString)
         .then((response) => {
           if (response.instance === 'success') {
             setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));

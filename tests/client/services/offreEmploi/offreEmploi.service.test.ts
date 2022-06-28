@@ -24,4 +24,19 @@ describe('OffreEmploiService', () => {
       expect(httpClientService.get).toHaveBeenCalledWith('emplois?motCle=barman&typeDeContrats=CDD%2CCDI&page=1');
     });
   });
+
+  describe('rechercherJobÉtudiant', () => {
+    it('appelle emploi avec la requête', async () => {
+      const httpClientService = aHttpClientService();
+      const offreEmploiService = new OffreEmploiService(httpClientService);
+      const offreEmploiQuery = 'motCle=barman&page=1';
+
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
+
+      const result = await offreEmploiService.rechercherJobÉtudiant(offreEmploiQuery);
+
+      expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffreEmploi() });
+      expect(httpClientService.get).toHaveBeenCalledWith('jobs-etudiants?motCle=barman&page=1');
+    });
+  });
 });

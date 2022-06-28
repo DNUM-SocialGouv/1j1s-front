@@ -13,10 +13,10 @@ import {
 } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
 
-import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
+import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-describe('RechercherOffreEmploi', () => {
+describe('RechercherJobÉtudiant', () => {
   beforeEach(() => {
     mockSmallScreen();
   });
@@ -26,7 +26,7 @@ describe('RechercherOffreEmploi', () => {
   });
 
   describe('quand le composant est affiché sans recherche', () => {
-    it('affiche un formulaire pour la recherche d\'offres d\'emploi, sans résultat ou message d\'erreur', async () => {
+    it('affiche un formulaire pour la recherche de jobs étudiants, sans résultat ou message d\'erreur', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
@@ -36,7 +36,7 @@ describe('RechercherOffreEmploi', () => {
           localisationService={localisationServiceMock}
           offreEmploiService={offreEmploiServiceMock}
         >
-          <RechercherOffreEmploi/>
+          <RechercherJobÉtudiant/>
         </DependenciesProvider>,
       );
 
@@ -73,15 +73,16 @@ describe('RechercherOffreEmploi', () => {
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            offreEmploiService={offreEmploiServiceMock}>
-            <RechercherOffreEmploi/>
+            offreEmploiService={offreEmploiServiceMock}
+          >
+            <RechercherJobÉtudiant/>
           </DependenciesProvider>,
         );
 
         // THEN
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
+        expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         await waitFor(() => {
-          expect(screen.getByText('3 offres d\'emplois')).toBeInTheDocument();
+          expect(screen.getByText('3 offres de jobs étudiants')).toBeInTheDocument();
         });
         expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('BOURG LES VALENCE (26)');
       });
@@ -99,7 +100,7 @@ describe('RechercherOffreEmploi', () => {
             localisationService={localisationServiceMock}
             offreEmploiService={offreEmploiServiceMock}
           >
-            <RechercherOffreEmploi/>
+            <RechercherJobÉtudiant/>
           </DependenciesProvider>,
         );
 
@@ -109,8 +110,8 @@ describe('RechercherOffreEmploi', () => {
 
         // THEN
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
-        expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois pour boulanger');
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
+        expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres de jobs étudiants pour boulanger');
+        expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('motCle=boulanger&page=1');
       });
     });
   });
@@ -127,7 +128,7 @@ describe('RechercherOffreEmploi', () => {
           localisationService={localisationServiceMock}
           offreEmploiService={offreEmploiServiceMock}
         >
-          <RechercherOffreEmploi/>
+          <RechercherJobÉtudiant/>
         </DependenciesProvider>,
       );
 

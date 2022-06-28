@@ -98,9 +98,6 @@ export function FormulaireRechercheJobÉtudiant() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
-          <input type="hidden" name="typeDeContrats" value="CDD,MIS,SAI"/>
-          <input type="hidden" name="tempsDeTravail" value="tempsPartiel"/>
-          <input type="hidden" name="dureeHebdoMax" value="1600"/>
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
