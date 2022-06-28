@@ -54,6 +54,7 @@ export function Header() {
         </NavItem>
         <NavItem title="Employeur">
           <NavSubItem title="On s'amuse" asLink={<NavItemLink link="/violet" current={path === '/violet'} />} />
+          <NavSubItem title="Les entreprises s'engagent" asLink={<NavItemLink link="https://lesentreprises-sengagent.gouv.fr/agir-pour/jeunes" current={path === ''} />} />
         </NavItem>
       </HeaderNav>
     </HeaderDSFR>
