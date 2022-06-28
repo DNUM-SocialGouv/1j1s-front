@@ -1,3 +1,4 @@
+export type MissionId = string;
 
 export interface MissionEngagementFiltre {
   publisher: string
@@ -8,13 +9,16 @@ export interface MissionEngagementFiltre {
 }
 
 export interface Mission {
-  id: string
+  id: MissionId
   description: string
   titre: string
   nomEntreprise?: string
   étiquetteList: Array<string>
   logo?: string
+  url?: string
+  localisation?: string
   débutContrat?: string
+  duréeContrat?: number
   openToMinors?: string
 }
 
