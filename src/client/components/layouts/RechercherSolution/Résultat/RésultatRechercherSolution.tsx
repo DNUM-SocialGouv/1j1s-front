@@ -3,20 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.css';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 
-export interface RésultatRechercherSolutionProps {
-  lienOffre: string
-  intituléOffre: string
-  descriptionOffre?: string
-  logoEntreprise: string
-  nomEntreprise?: string
-  étiquetteOffreList: string[]
-}
-
-export function RésultatRechercherSolution(props: RésultatRechercherSolutionProps) {
+export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   const { lienOffre, intituléOffre, descriptionOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
   const description = useSanitize(descriptionOffre);
 

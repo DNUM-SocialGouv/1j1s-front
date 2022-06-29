@@ -2,21 +2,24 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.css';
-import {
-  RésultatRechercherSolution,
-  RésultatRechercherSolutionProps,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErrorType } from '~/server/errors/error.types';
 
-export interface LienSolution extends RésultatRechercherSolutionProps {
+export interface LienSolution {
   id: string
+  lienOffre: string
+  intituléOffre: string
+  descriptionOffre?: string
+  logoEntreprise: string
+  nomEntreprise?: string
+  étiquetteOffreList: string[]
 }
 
 interface RechercherSolutionLayoutProps<T> {
   bannière: React.ReactNode
-  erreurRecherche: ErrorType | undefined
+  erreurRecherche?: ErrorType
   étiquettesRecherche: React.ReactNode
   formulaireRecherche: React.ReactNode
   isLoading: boolean
@@ -27,7 +30,7 @@ interface RechercherSolutionLayoutProps<T> {
   mapToLienSolution(data: T): LienSolution
 }
 
-export function RechercherSolutionLayout<T extends Record<string, unknown>>(props: RechercherSolutionLayoutProps<T>) {
+export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps<T>) {
   const {
     bannière,
     erreurRecherche,

@@ -25,7 +25,7 @@ import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHe
 import { ErrorType } from '~/server/errors/error.types';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
-const PREFIX_TITRE_PAGE = 'Rechercher un job étudiants';
+const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
 const OFFRE_PER_PAGE = 30;
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
@@ -43,6 +43,7 @@ export function RechercherJobÉtudiant() {
   useEffect(() => {
     const queryString = stringify(router.query);
     if (queryString) {
+      setIsLoading(true);
       offreEmploiService.rechercherJobÉtudiant(queryString)
         .then((response) => {
           if (response.instance === 'success') {

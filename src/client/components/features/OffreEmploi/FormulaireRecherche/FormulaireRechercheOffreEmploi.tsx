@@ -14,7 +14,7 @@ import {
   TextInput,
 } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import { InputLocalisation } from '~/client/components/features/InputLocalisation/InputLocalisation';
 import styles
@@ -49,7 +49,7 @@ export function FormulaireRechercheOffreEmploi() {
   const { isSmallScreen } = useBreakpoint();
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(function initFormValues() {
     setInputMotCle(queryParams.motCle || '');
     setInputDomaine(queryParams.grandDomaine || '');
     setInputTempsDeTravail(queryParams.tempsDeTravail || '');
@@ -58,33 +58,33 @@ export function FormulaireRechercheOffreEmploi() {
     setInputTypeLocalisation(queryParams.typeLocalisation || '');
     setInputCodeLocalisation(queryParams.codeLocalisation || '');
     setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
-  }, [queryParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useEffect(() => {
+  useEffect(function fermerFiltresAvancésSurÉcranLarge() {
     if (!isSmallScreen) {
       setIsFiltresAvancésMobileOpen(false);
     }
   }, [isSmallScreen]);
 
-
-  function applyFiltresAvancés() {
+  const applyFiltresAvancés = useCallback(() => {
     setIsFiltresAvancésMobileOpen(false);
     rechercheOffreEmploiForm.current?.dispatchEvent(
       new Event('submit', { bubbles: true, cancelable: true }),
     );
-  }
+  }, []);
 
-  function toggleTypeDeContrat(value: string) {
+  const toggleTypeDeContrat = useCallback((value: string) => {
     setInputTypeDeContrat(inputTypeDeContrat.appendOrRemoveSubStr(value));
-  }
+  }, [inputTypeDeContrat]);
 
-  function toggleExpérience(value: string) {
+  const toggleExpérience = useCallback((value: string) => {
     setInputExpérience(inputExpérience.appendOrRemoveSubStr(value));
-  }
+  }, [inputExpérience]);
 
-  function toggleDomaine(value: string) {
+  const toggleDomaine = useCallback((value: string) => {
     setInputDomaine(inputDomaine.appendOrRemoveSubStr(value));
-  }
+  }, [inputDomaine]);
 
   function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

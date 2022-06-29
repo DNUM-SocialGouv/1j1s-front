@@ -41,6 +41,7 @@ export function RechercherOffreEmploi() {
   useEffect(() => {
     const queryString = stringify(router.query);
     if (queryString) {
+      setIsLoading(true);
       offreEmploiService.rechercherOffreEmploi(queryString)
         .then((response) => {
           if (response.instance === 'success') {
