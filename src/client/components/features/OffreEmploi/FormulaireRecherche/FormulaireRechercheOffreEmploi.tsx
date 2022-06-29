@@ -17,7 +17,8 @@ import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
 import { InputLocalisation } from '~/client/components/features/InputLocalisation/InputLocalisation';
-import styles from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+import styles
+  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -85,7 +86,7 @@ export function FormulaireRechercheOffreEmploi() {
     setInputDomaine(inputDomaine.appendOrRemoveSubStr(value));
   }
 
-  async function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
+  function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const query = getFormAsQuery(event.currentTarget);
     return router.push({ query }, undefined, { shallow: true });
@@ -144,22 +145,20 @@ export function FormulaireRechercheOffreEmploi() {
               Filtrer ma recherche
             </ModalTitle>
             <ModalContent className={styles.filtresAvancésModalContenu}>
-              {
-                <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
-                  {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-                    <Checkbox
-                      key={index}
-                      label={typeDeContrat.libelléLong}
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-                      value={typeDeContrat.valeur}
-                      checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-                    />
-                  ))}
-                </CheckboxGroup>
-              }
-              {<RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
+              <CheckboxGroup legend="Type de Contrat" data-testid="FiltreTypeDeContrats">
+                {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                  <Checkbox
+                    key={index}
+                    label={typeDeContrat.libelléLong}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+                    value={typeDeContrat.valeur}
+                    checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
+                  />
+                ))}
+              </CheckboxGroup>
+              <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
                 {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                   <Radio
                     key={index}
@@ -171,22 +170,20 @@ export function FormulaireRechercheOffreEmploi() {
                     value={`${tempsDeTravail.valeur}`}
                   />
                 ))}
-              </RadioGroup>}
-              {
-                <CheckboxGroup legend="Niveau demandé">
-                  {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
-                    <Checkbox
-                      key={index}
-                      label={expérience.libellé}
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
-                      value={expérience.valeur}
-                      checked={inputExpérience.includes(expérience.valeur)}
-                    />
-                  ))}
-                </CheckboxGroup>
-              }
+              </RadioGroup>
+              <CheckboxGroup legend="Niveau demandé">
+                {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
+                  <Checkbox
+                    key={index}
+                    label={expérience.libellé}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
+                    value={expérience.valeur}
+                    checked={inputExpérience.includes(expérience.valeur)}
+                  />
+                ))}
+              </CheckboxGroup>
               <CheckboxGroup legend="Domaine">
                 {référentielDomaineList.map((domaine, index) => (
                   <Checkbox

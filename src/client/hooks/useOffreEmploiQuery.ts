@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 interface OffreEmploiQueryParams {
-  motCle: string | undefined
-  typeDeContrats: string | undefined
-  typeLocalisation: string | undefined
-  codeLocalisation: string | undefined
-  libelleLocalisation: string | undefined
-  tempsDeTravail: string | undefined
-  experienceExigence: string | undefined
-  grandDomaine: string | undefined
+  motCle?: string
+  typeDeContrats?: string
+  typeLocalisation?: string
+  codeLocalisation?: string
+  libelleLocalisation?: string
+  tempsDeTravail?: string
+  experienceExigence?: string
+  grandDomaine?: string
 }
 
 export function useOffreEmploiQuery(): OffreEmploiQueryParams {

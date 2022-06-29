@@ -21,7 +21,7 @@ export function RésultatRechercherSolution(props: RésultatRechercherSolutionPr
   const description = useSanitize(descriptionOffre);
 
   return (
-    <Link href={lienOffre}>
+    <Link href={lienOffre} prefetch={false}>
       <a className={styles.card} data-testid="RésultatRechercherSolution">
         <header className={styles.cardHeader}>
           <Image alt="" src={logoEntreprise} width="56" height="56" />
