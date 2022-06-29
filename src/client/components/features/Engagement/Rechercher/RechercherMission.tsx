@@ -8,9 +8,8 @@ import React, {
   useState,
 } from 'react';
 
-import commonStyles from '~/client/components/features/RechercherOffre.module.css';
-import styles from '~/client/components/features/RechercherOffre/RechercherOffre.module.css';
-import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
+import styles from '~/client/components/features/RechercherOffre.module.css';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
@@ -18,7 +17,7 @@ import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectS
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { transformFormToEntries } from '~/client/utils/form.util';
+import { getFormAsQuery } from '~/client/utils/form.util';
 import {
   générerTitreFiltre,
 } from '~/client/utils/offreEmploi.mapper';
@@ -95,9 +94,7 @@ export function RechercherMission(props: RechercherMissionProps) {
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    const formEntries = transformFormToEntries(event.currentTarget);
-    formEntries.push(['page', '1']);
-    const query = new URLSearchParams(formEntries).toString();
+    const query = getFormAsQuery(event.currentTarget);
     return router.push({ query });
   }
 
@@ -107,19 +104,19 @@ export function RechercherMission(props: RechercherMissionProps) {
         title={title || `Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
         description='Se rendre utile tout en préparant son avenir grâce aux missions de service civique'
       />
-      <main id="contenu" className={commonStyles.container}>
+      <main id="contenu" className={styles.container}>
         <Hero image="/images/banners/mission-service-civique.webp">
           <b>Se rendre utile</b> tout en <b>préparant</b><br />
           <b>son avenir</b> grâce aux missions de<br/>
           <b>{ isServiceCivique ? 'Service Civique' : 'Bénévolat'}</b>
         </Hero>
-        <div className={commonStyles.layout}>
+        <div className={styles.layout}>
           <form
-            className={commonStyles.rechercheOffreForm}
+            className={styles.rechercheOffreForm}
             onSubmit={rechercherMission}
             role="search"
           >
-            <div className={commonStyles.inputButtonWrapper}>
+            <div className={styles.inputButtonWrapper}>
               <SelectSingle
                 titre={générerTitreFiltre('Sélectionnez un domaine', inputDomaine)}
                 optionList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}
@@ -129,7 +126,7 @@ export function RechercherMission(props: RechercherMissionProps) {
               <input type="hidden" name="domain" value={inputDomaine}/>
               <Button
                 submit={true}
-                className={commonStyles.buttonRechercher}
+                className={styles.buttonRechercher}
                 icon="ri-search-line"
                 iconPosition="right"
               >
@@ -141,17 +138,17 @@ export function RechercherMission(props: RechercherMissionProps) {
           { isLoading && <p>Recherche des missions en attente de loader</p>}
           {
             !isLoading && nombreRésultats !== 0 &&
-            <div className={commonStyles.nombreRésultats} >
+            <div className={styles.nombreRésultats} >
               <h2>{nombreRésultats} de missions pour { récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, inputDomaine)}</h2>
             </div>
           }
           { hasNoResult && <ErrorComponent errorType={errorType} /> }
 
           {missionList.length > 0 && !isLoading &&
-          <ul className={commonStyles.résultatRechercheOffreList} data-testid={'RésultatRechercherOffreList'}>
+          <ul className={styles.résultatRechercheOffreList} data-testid={'RésultatRechercherOffreList'}>
             {missionList.map((mission: Mission) => (
               <li key={mission.id}>
-                <RésultatRechercherOffre
+                <RésultatRechercherSolution
                   lienOffre={''}
                   intituléOffre={mission.titre}
                   logoEntreprise={mission.logo || defaultLogo}

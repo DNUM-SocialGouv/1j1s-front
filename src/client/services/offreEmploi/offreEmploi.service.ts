@@ -9,9 +9,9 @@ export class OffreEmploiService {
 
   constructor(private httpClientService: HttpClientService) {}
 
-  async rechercherOffreEmploi(queryString = '', defaultQueryParameters?: string): Promise<Either<RésultatsRechercheOffreEmploi>> {
+  async rechercherOffreEmploi(query: string): Promise<Either<RésultatsRechercheOffreEmploi>> {
     try {
-      const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${queryString}${defaultQueryParameters ? `&${defaultQueryParameters}` : ''}`);
+      const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`emplois?${query}`);
       return createSuccess(response.data);
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -26,4 +26,20 @@ export class OffreEmploiService {
     }
   }
 
+  async rechercherJobÉtudiant(query: string): Promise<Either<RésultatsRechercheOffreEmploi>> {
+    try {
+      const response = await this.httpClientService.get<RésultatsRechercheOffreEmploi>(`jobs-etudiants?${query}`);
+      return createSuccess(response.data);
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        if(e.response?.status === 500) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+        if(e.response?.status === 400) {
+          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+        }
+      }
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    }
+  }
 }

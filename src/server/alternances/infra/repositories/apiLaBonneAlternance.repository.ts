@@ -43,9 +43,9 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
         `metiers?title=${métierRecherché}`,
       );
 
-      return response.data.labelsAndRomes.map((rechercheMetier) => ({
-        codeROMEList: rechercheMetier.romes,
-        intitulé: rechercheMetier.label,
+      return response.data.labelsAndRomes.map((rechercheMétier) => ({
+        codeROMEList: rechercheMétier.romes,
+        intitulé: rechercheMétier.label,
       }));
     } catch (e: unknown) {
       Sentry.captureMessage(`${this.API_LA_BONNE_ALTERNANCE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);

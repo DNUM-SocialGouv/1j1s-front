@@ -6,15 +6,15 @@ import { render, screen, within } from '@testing-library/react';
 import { anApprentiBoucherOffreFromPoleEmploi } from '@tests/fixtures/domain/alternance.fixture';
 import { aBarmanOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
-import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
-describe('RésultatRechercherOffre', () => {
+describe('RésultatRechercherSolution', () => {
   it('affiche une carte emploi avec un résumé de l\'offre', () => {
     const offreEmploi = aBarmanOffreEmploi();
     const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
-      <RésultatRechercherOffre
+      <RésultatRechercherSolution
         intituléOffre={offreEmploi.intitulé}
         lienOffre={`/emplois/${offreEmploi.id}`}
         descriptionOffre={offreEmploi.description}
@@ -25,7 +25,7 @@ describe('RésultatRechercherOffre', () => {
     );
 
     const étiquettesOffreEmploiList = screen.getByTestId('ÉtiquetteOffreList');
-    const lienVersOffreEmploi = screen.getByTestId('RésultatRechercherOffre');
+    const lienVersOffreEmploi = screen.getByTestId('RésultatRechercherSolution');
 
     expect(within(étiquettesOffreEmploiList).queryAllByRole('listitem')).toHaveLength(4);
     expect(lienVersOffreEmploi).toHaveAttribute('href', `/emplois/${offreEmploi.id}`);
@@ -36,7 +36,7 @@ describe('RésultatRechercherOffre', () => {
     const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(
-      <RésultatRechercherOffre
+      <RésultatRechercherSolution
         intituléOffre={offreAlternance.intitulé}
         lienOffre={`/apprentissage/${offreAlternance.from}-${offreAlternance.id}`}
         descriptionOffre={offreAlternance.description}
@@ -47,7 +47,7 @@ describe('RésultatRechercherOffre', () => {
     );
 
     const étiquettesOffreAlternanceList = screen.getByTestId('ÉtiquetteOffreList');
-    const lienVersOffreAlternance = screen.getByTestId('RésultatRechercherOffre');
+    const lienVersOffreAlternance = screen.getByTestId('RésultatRechercherSolution');
 
     expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(3);
     expect(lienVersOffreAlternance).toHaveAttribute('href', `/apprentissage/${offreAlternance.from}-${offreAlternance.id}`);

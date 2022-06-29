@@ -1,11 +1,19 @@
-export function transformFormToEntries(formElement: HTMLFormElement): string[][] {
+export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryParam = true): string {
   const formData = new FormData(formElement);
-  return Array.from(
+  const formEntries = Array.from(
     formData,
     ([key, value]) => (
       [key, typeof value === 'string' ? value : value.name]
     ),
-  ).filter((element) => element[1] !== '' && element[0] !== 'checkbox');
+  ).filter((element) => {
+    // FIXME: checkbox check should be removed, here because of a test and react-dsfr lib
+    return element[1] !== '' && element[0] !== 'checkbox';
+  });
+  if (appendPageQueryParam) {
+    formEntries.push(['page', '1']);
+  }
+
+  return new URLSearchParams(formEntries).toString();
 };
 
 export function getFormValue(formElement: HTMLFormElement, keyValue: string): string | undefined {

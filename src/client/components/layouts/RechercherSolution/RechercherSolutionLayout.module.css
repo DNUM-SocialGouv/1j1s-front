@@ -1,0 +1,35 @@
+.rechercheSolution {
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.nombreRésultats {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--grey-950);
+}
+
+.nombreRésultats > h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.listeSolutions {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}
+
+.listeSolutions > li {
+  margin-top: 24px;
+}
+
+.pagination {
+  display: flex;
+  padding: 16px 0;
+}
+
+.pagination > nav {
+  margin: auto;
+}

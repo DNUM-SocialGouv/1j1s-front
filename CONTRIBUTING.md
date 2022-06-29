@@ -61,8 +61,15 @@ Une variable représentant une collection sera suffixée par le mot `List` afin 
 
 ### Code
 * inutile d'ajouter le prefix d'attribut **readonly** dans les paramètres de fonctions ou constructor
-
 * privilégier le retour de [ ] pour les list quand ce dernier est null ou undefined
+* privilégier les fonctions nommées et avec le constructeur `function`
+* nommer la callback des useEffect
+
+```javascript
+useEffect(function myFunction() {
+  /*  contenu de la fonction */
+}, []);
+```
 
 ### Css
 * privilégier un maximum les classes du design système de l'Etat

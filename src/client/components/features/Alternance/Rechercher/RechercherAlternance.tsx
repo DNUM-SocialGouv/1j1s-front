@@ -10,8 +10,10 @@ import styles from '~/client/components/features/Alternance/Rechercher/Recherche
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import commonStyles from '~/client/components/features/RechercherOffre.module.css';
-import { TagListRechercheOffre } from '~/client/components/features/RechercherOffre/TagListRechercheOffre';
-import { RésultatRechercherOffre } from '~/client/components/features/RésultatRechercherOffre/RésultatRechercherOffre';
+import {
+  ÉtiquettesRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
@@ -22,7 +24,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { LocalisationService } from '~/client/services/localisation.service';
-import { getFormValue, transformFormToEntries } from '~/client/utils/form.util';
+import { getFormAsQuery,getFormValue } from '~/client/utils/form.util';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { Alternance, radiusList } from '~/server/alternances/domain/alternance';
@@ -93,7 +95,7 @@ export function RechercherAlternance() {
       setInputIntituleMétierObligatoireErrorMessage(true);
     } else {
       setIsLoading(true);
-      const query = new URLSearchParams(transformFormToEntries(event.currentTarget)).toString();
+      const query = getFormAsQuery(event.currentTarget, false);
       return router.push( { query });
     }
   }
@@ -166,7 +168,7 @@ export function RechercherAlternance() {
           </form>
 
           {isLoading && <p>Recherche des offres en attente de loader</p>}
-          {!isLoading && <TagListRechercheOffre localisation={formattedLocalisation}/>}
+          {!isLoading && <ÉtiquettesRechercherSolution localisation={formattedLocalisation}/>}
           {nombreRésultats !== 0 &&
             <div className={commonStyles.nombreRésultats} data-testid="RechercheAlternanceNombreRésultats">
               <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
@@ -179,7 +181,7 @@ export function RechercherAlternance() {
             <ul className={commonStyles.résultatRechercheOffreList}  data-testid="RésultatRechercherList">
               {alternanceList.map((alternance: Alternance) => (
                 <li key={alternance.id}>
-                  <RésultatRechercherOffre
+                  <RésultatRechercherSolution
                     lienOffre={`/apprentissage/${alternance.from}-${alternance.id}`}
                     intituléOffre={alternance.intitulé}
                     logoEntreprise={alternance.entreprise?.logo || defaultLogo}
