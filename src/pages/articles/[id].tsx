@@ -50,7 +50,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   return {
-    fallback: 'blocking',
+    fallback: true,
     paths: [],
   };
 }

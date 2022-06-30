@@ -36,3 +36,9 @@ export default function Accueil() {
     </>
   );
 }
+
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
