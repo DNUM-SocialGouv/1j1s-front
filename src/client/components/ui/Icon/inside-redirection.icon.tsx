@@ -1,4 +1,4 @@
-import { SvgProps } from '~/client/components/ui/Icon/Icon';
+import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function InsideRedirectionIcon({ color = '#3A3A3A' }: SvgProps) {
   return (

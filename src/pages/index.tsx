@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { BookIcon } from '~/client/components/ui/Icon/svg/book.icon';
-import { BriefCaseIcon } from '~/client/components/ui/Icon/svg/brief-case.icon';
-import { CompassIcon } from '~/client/components/ui/Icon/svg/compass.icon';
-import { TrophyIcon } from '~/client/components/ui/Icon/svg/trophy.icon';
+import { BookIcon } from '~/client/components/ui/Icon/book.icon';
+import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
+import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
+import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function Accueil() {

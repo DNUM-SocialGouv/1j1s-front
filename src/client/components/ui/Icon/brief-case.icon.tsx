@@ -1,4 +1,4 @@
-import { SvgProps } from '~/client/components/ui/Icon/Icon';
+import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function BriefCaseIcon({ color = '#000091' }: SvgProps) {
   return (

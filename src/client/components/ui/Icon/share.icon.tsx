@@ -1,4 +1,4 @@
-import { SvgProps } from '~/client/components/ui/Icon/Icon';
+import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function ShareIcon({ color = '#566BB1' }: SvgProps) {
   return (
