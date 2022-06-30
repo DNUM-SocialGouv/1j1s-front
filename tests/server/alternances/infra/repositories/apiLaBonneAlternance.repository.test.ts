@@ -5,7 +5,6 @@ import {
 import {
   aApiPoleEmploiRéférentielRepository,
 } from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository.fixture';
-import { ConfigurationServiceFixture } from '@tests/fixtures/services/configuration.service.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aLaBonneAlternanceHttpClient,
@@ -37,14 +36,11 @@ describe('ApiLaBonneAlternanceRepository', () => {
   let laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService;
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
-
   beforeEach(() => {
-    const configurationServiceFixture = new ConfigurationServiceFixture();
     laBonneAlternanceHttpClientService = aLaBonneAlternanceHttpClient();
     apiPoleEmploiRéférentielRepository = aApiPoleEmploiRéférentielRepository();
     apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(
       laBonneAlternanceHttpClientService,
-      configurationServiceFixture,
       apiPoleEmploiRéférentielRepository,
     );
   });
@@ -78,7 +74,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
       const result = await apiLaBonneAlternanceRepository.getAlternanceList({ codeLocalisation: '75001', codeRomeList: ['D1103','D1101','H2101'] });
 
-      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75101&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
       expect(result.nombreRésultats).toEqual(4);
       expect(result.résultats,
       ).toEqual([
@@ -251,7 +247,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
     it('quand on cherche des codeRomes', async () => {
       const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ codeRomeList: ['D1103', 'D1101', 'H2101'] });
 
-      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
     });
 
     it('quand on cherche avec un lieu', async () => {
@@ -261,7 +257,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
         codeRomeList: ['D1103', 'D1101', 'H2101'],
       });
 
-      expect(result).toEqual('insee=75101&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(result).toEqual('insee=75101&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
     });
 
     it('quand on cherche avec un lieu et un rayon', async () => {
@@ -271,7 +267,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
         radius:'30',
       });
 
-      expect(result).toEqual('radius=30&romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(result).toEqual('radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
     });
 
     it('quand on cherche sans lieu et un rayon undefined, on retourne juste le codeRome', async () => {
@@ -281,7 +277,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
         radius: undefined,
       });
 
-      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1j1s@octo.com');
+      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
     });
   });
 });

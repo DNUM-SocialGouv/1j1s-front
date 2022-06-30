@@ -3,7 +3,6 @@ import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/c
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export interface ConsulterOffreAlternanceDependenciesContainer {
@@ -12,10 +11,9 @@ export interface ConsulterOffreAlternanceDependenciesContainer {
 
 export const consulterOffreAlternanceDependenciesContainer = (
   laBonneAlternanceHttpClient: LaBonneAlternanceHttpClientService,
-  configurationService: ConfigurationService,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): ConsulterOffreAlternanceDependenciesContainer => {
-  const alternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository);
+  const alternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository);
 
   return {
     consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(alternanceRepository),
