@@ -13,7 +13,6 @@ import {
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export type AlternanceDependencies =
@@ -23,12 +22,11 @@ export type AlternanceDependencies =
 
 export const alternanceDependenciesContainer = (
   laBonneAlternanceHttpClient: LaBonneAlternanceHttpClientService,
-  configurationService: ConfigurationService,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): AlternanceDependencies => {
   return {
-    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository),
-    ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository),
-    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository),
+    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository),
+    ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository),
+    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository),
   };
 };

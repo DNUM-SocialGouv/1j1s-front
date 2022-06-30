@@ -10,8 +10,8 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 describe('rechercher une alternance', () => {
   it('retourne la liste des alternances filtrée', async () => {
-    nock('https://labonnealternance.apprentissage.beta.gouv.fr/api/V1/')
-      .get('/jobs?insee=75101&romes=D1103%2CD1101%2CH2101&radius=30&caller=1j1s@gouv.fr')
+    nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
+      .get('/jobs?insee=75101&romes=D1103%2CD1101%2CH2101&radius=30&caller=1jeune1solution')
       .reply(200, anAlternanceListResponse().data);
 
     nock('https://api.emploi-store.fr')

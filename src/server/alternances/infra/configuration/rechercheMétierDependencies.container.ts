@@ -3,7 +3,6 @@ import { RechercherMétierUseCase } from '~/server/alternances/useCases/recherch
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export interface RechercherMétierDependenciesContainer {
@@ -12,10 +11,9 @@ export interface RechercherMétierDependenciesContainer {
 
 export function rechercherMétierDependenciesContainer(
   laBonneAlternanceHttpClient: LaBonneAlternanceHttpClientService,
-  configurationService: ConfigurationService,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): RechercherMétierDependenciesContainer {
-  const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient, configurationService, apiPoleEmploiRéférentielRepository);
+  const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository);
 
   return {
     rechercherMétier: new RechercherMétierUseCase(apiLaBonneAlternanceRepository),

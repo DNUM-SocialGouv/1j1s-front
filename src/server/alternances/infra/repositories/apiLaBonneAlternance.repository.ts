@@ -22,19 +22,19 @@ import { ErrorType } from '~/server/errors/error.types';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ConfigurationService } from '~/server/services/configuration.service';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
+
+  private readonly API_LA_BONNE_ALTERNANCE_PREFIX_LOG = 'API_LA_BONNE_ALTERNANCE';
+  private readonly API_LA_BONNE_ALTERNANCE_CALLER = '1jeune1solution';
+
   constructor(
     private laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService,
-    private configurationService: ConfigurationService,
     private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {
   }
-
-  API_LA_BONNE_ALTERNANCE_PREFIX_LOG = 'API_LA_BONNE_ALTERNANCE';
 
   async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
     let response;
@@ -103,8 +103,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
-    const { CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE } = this.configurationService.getConfiguration();
-
     let codeInseeCommune;
     if(alternanceFiltre.codeLocalisation) {
       codeInseeCommune = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(alternanceFiltre.codeLocalisation);
@@ -118,7 +116,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     };
     removeUndefinedValueInQueryParameterList(queryList);
     const params = new URLSearchParams(queryList);
-    return `${params.toString()}&caller=${CONTACT_MAIL_FOR_MA_BONNE_ALTERNANCE}`;
+    return `${params.toString()}&caller=${this.API_LA_BONNE_ALTERNANCE_CALLER}`;
   }
 }
 

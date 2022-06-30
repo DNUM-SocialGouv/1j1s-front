@@ -7,7 +7,7 @@ import { MétierRecherché } from '~/server/alternances/domain/métierRecherché
 
 describe('rechercher un métier', () => {
   it('retourne la liste des métiers recherchées et leurs codes ROMES', async () => {
-    nock('https://labonnealternance.apprentissage.beta.gouv.fr/api/V1/')
+    nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
       .get('/metiers?title=bou')
       .reply(200, aRechercheMétierResponse().data);
 
