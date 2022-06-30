@@ -18,7 +18,7 @@ function alternanceRequestMapper(request: NextApiRequest): AlternanceFiltre {
 
   return {
     codeLocalisation: query.codeLocalisation ? query.codeLocalisation.toString() : undefined,
-    codeRomeList: query.codeRomes.toString().split(','),
+    codeRomeList: query.codeRomes ? query.codeRomes.toString().split(',') : [],
     radius: query.radius ? query.radius.toString(): undefined,
   };
 }

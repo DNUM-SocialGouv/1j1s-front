@@ -46,7 +46,7 @@ function jobÉtudiantRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
   };
 }
 
-function mapLocalisation(query: { [key: string]: string | string[] }): OffreEmploiFiltreLocalisation | undefined {
+function mapLocalisation(query: { [key: string]: string | string[] | undefined }): OffreEmploiFiltreLocalisation | undefined {
   const { codeLocalisation, typeLocalisation } = query;
   return (typeLocalisation as TypeLocalisation in TypeLocalisation)
     ? {
