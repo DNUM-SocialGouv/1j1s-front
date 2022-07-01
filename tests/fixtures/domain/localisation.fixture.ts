@@ -7,7 +7,6 @@ import {
 
 export function aLocalisationRepository(): LocalisationRepository {
   return {
-    getAdresseList: jest.fn(),
     getCommuneListByCodePostal: jest.fn(),
     getCommuneListByNom: jest.fn(),
     getCommuneListByNuméroDépartement: jest.fn(),

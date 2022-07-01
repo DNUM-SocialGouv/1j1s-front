@@ -1,4 +1,8 @@
 import {
+  ListeCommuneDependenciesContainer,
+  rechercherCommuneDependenciesContainer,
+} from '~/server/localisations/infra/configuration/listCommuneDependencies.container';
+import {
   ListeLocalisationDependenciesContainer,
   listeLocalisationDependenciesContainer,
 } from '~/server/localisations/infra/configuration/listeLocalisationDependencies.container';
@@ -13,7 +17,7 @@ import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHt
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 
-export type LocalisationsDependencies = ListeLocalisationDependenciesContainer & LocalisationDependenciesContainer;
+export type LocalisationsDependencies = ListeLocalisationDependenciesContainer & LocalisationDependenciesContainer & ListeCommuneDependenciesContainer;
 
 export const localisationDependenciesContainer = (
   apiGeoGouvHttpClientService: ApiGeoHttpClientService,
@@ -21,7 +25,8 @@ export const localisationDependenciesContainer = (
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): LocalisationsDependencies => {
   return {
-    ...listeLocalisationDependenciesContainer(apiGeoGouvHttpClientService, apiAdresseHttpClientService, apiPoleEmploiRéférentielRepository),
-    ...récupérerLocalisationAvecDependenciesContainer(apiGeoGouvHttpClientService, apiAdresseHttpClientService, apiPoleEmploiRéférentielRepository),
+    ...listeLocalisationDependenciesContainer(apiGeoGouvHttpClientService, apiPoleEmploiRéférentielRepository),
+    ...récupérerLocalisationAvecDependenciesContainer(apiGeoGouvHttpClientService, apiPoleEmploiRéférentielRepository),
+    ...rechercherCommuneDependenciesContainer(apiAdresseHttpClientService),
   };
 };

@@ -3,7 +3,6 @@ import { RécupérerLocalisationAvecCodeInseeUseCase } from '~/server/localisati
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 export interface LocalisationDependenciesContainer {
@@ -12,12 +11,10 @@ export interface LocalisationDependenciesContainer {
 
 export const récupérerLocalisationAvecDependenciesContainer = (
   apiGeoGouvHttpClientService: ApiGeoHttpClientService,
-  apiAdresseHttpClientService: ApiAdresseHttpClientService,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): LocalisationDependenciesContainer => {
   const localisationRepository = new ApiGeoLocalisationRepository(
     apiGeoGouvHttpClientService,
-    apiAdresseHttpClientService,
     apiPoleEmploiRéférentielRepository,
   );
 

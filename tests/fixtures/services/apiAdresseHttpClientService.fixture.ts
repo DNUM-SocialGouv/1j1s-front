@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 
-export function aApiAdresseHttpClientService(): ApiAdresseHttpClientService {
+export function anApiAdresseHttpClientService(): ApiAdresseHttpClientService {
   return {
     client: anAxiosInstance(),
     get: jest.fn(),
