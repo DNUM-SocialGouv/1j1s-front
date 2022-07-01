@@ -48,7 +48,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   return {
-    fallback: 'blocking',
+    fallback: true,
     paths: [],
   };
 }
