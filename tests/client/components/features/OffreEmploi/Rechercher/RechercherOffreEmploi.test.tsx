@@ -42,7 +42,7 @@ describe('RechercherOffreEmploi', () => {
 
       // WHEN
       const formulaireRechercheOffreEmploi = screen.getByRole('form');
-      const résultatRechercheOffreEmploiList = screen.queryAllByTestId('RésultatRechercheOffreEmploi');
+      const résultatRechercheOffreEmploiList = screen.queryAllByTestId('RésultatRechercherSolution');
       const rechercheOffreEmploiNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
       const errorMessage = screen.queryByText('0 résultat');
 

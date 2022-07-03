@@ -1,13 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aMissionEngagementService } from '@tests/fixtures/client/services/missionEngagementService.fixture';
@@ -25,79 +19,93 @@ describe('RechercherMission', () => {
     jest.resetAllMocks();
   });
 
-  describe('quand on recherche par domaine', () => {
-    describe('quand on est dans bénévolat', () => {
-      it('appelle l\'api avec le domaine séléctionné et la catégorie bénévolat', async () => {
-        const missionEngagementServiceMock = aMissionEngagementService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-        render(
-          <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={'bénévolat'} />
-          </DependenciesProvider>,
-        );
+  describe('quand aucune recherche n\'est lancée', () => {
+    it('affiche un formulaire de recherche, sans résultat ou message d\'erreur', () => {
+      const missionEngagementServiceMock = aMissionEngagementService();
+      mockUseRouter({});
+      render(
+        <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
+          <RechercherMission category="bénévolat" />
+        </DependenciesProvider>,
+      );
 
-        const button =  screen.getByText('Sélectionnez un domaine');
-        fireEvent.click(button);
+      // WHEN
+      const formulaireRechercheMissionEngagement = screen.getByRole('form');
+      const résultatRechercheMissionEngagementList = screen.queryAllByTestId('RésultatRechercherSolution');
+      const rechercheMissionEngagementNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
+      const errorMessage = screen.queryByText('0 résultat');
 
-        const domaineList = await screen.findByTestId('OptionList');
-
-        await waitFor(() => {
-          expect(domaineList).toBeInTheDocument();
-        });
-
-        const inputDomaine = within(domaineList).getAllByRole('option');
-        fireEvent.click(inputDomaine[0]);
-
-
-        const buttonRechercher = screen.getByText('Rechercher');
-
-        mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
-        fireEvent.click(buttonRechercher);
-
-        expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
-        expect(routerPush).toHaveBeenCalledWith({ query: 'domain=culture-loisirs&page=1' });
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'bénévolat');
-      });
+      // THEN
+      expect(formulaireRechercheMissionEngagement).toBeInTheDocument();
+      expect(résultatRechercheMissionEngagementList).toHaveLength(0);
+      expect(rechercheMissionEngagementNombreRésultats).not.toBeInTheDocument();
+      expect(errorMessage).not.toBeInTheDocument();
     });
+  });
 
-    describe('quand on est dans service civique', () => {
-      it('appelle l\'api avec le domaine séléctionné et la catégorie service civique', async () => {
+  describe('quand on recherche un service civique', () => {
+    describe('quand on recherche par domaine', () => {
+      it('appelle l\'api service civique avec le domaine séléctionné', async () => {
         const missionEngagementServiceMock = aMissionEngagementService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
+        mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
         render(
           <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission
-              category={'service-civique'}
-            />
+            <RechercherMission category="service-civique" />
           </DependenciesProvider>,
         );
 
-        const button = screen.getByText('Sélectionnez un domaine');
-        fireEvent.click(button);
-
-        const domaineList = await screen.findByTestId('OptionList');
-
-        await waitFor(() => {
-          expect(domaineList).toBeInTheDocument();
-        });
-
-        const inputDomaine = within(domaineList).getAllByRole('option');
-        fireEvent.click(inputDomaine[0]);
-
-
-        const buttonRechercher = screen.getByText('Rechercher');
-
-        mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
-        fireEvent.click(buttonRechercher);
-
         expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
-        expect(routerPush).toHaveBeenCalledWith({ query: 'domain=culture-loisirs&page=1' });
         expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'service-civique');
       });
     });
 
+    describe('quand on recherche par distance', () => {
+      it('appelle l\'api service civique avec la distance sélectionnée', async () => {
+        const missionEngagementServiceMock = aMissionEngagementService();
+        mockUseRouter({ query: { distance: '30', page: '1' } });
+        render(
+          <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
+            <RechercherMission category="service-civique" />
+          </DependenciesProvider>,
+        );
+
+        expect(screen.getByRole('button', { name: '30 km' })).toBeInTheDocument();
+        expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=30&page=1', 'service-civique');
+      });
+    });
   });
 
+  describe('quand on recherche un bénévolat', () => {
+    describe('quand on recherche par domaine', () => {
+      it('appelle l\'api bénévolat avec le domaine séléctionné', async () => {
+        const missionEngagementServiceMock = aMissionEngagementService();
+        mockUseRouter({ query: { domain: 'environnement', page: '1' } });
+        render(
+          <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
+            <RechercherMission category="bénévolat"/>
+          </DependenciesProvider>,
+        );
+
+        expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'bénévolat');
+      });
+    });
+
+    describe('quand on recherche par distance', () => {
+      it('appelle l\'api bénévolat avec la distance sélectionnée', async () => {
+        const missionEngagementServiceMock = aMissionEngagementService();
+        mockUseRouter({ query: { distance: '100', page: '1' } });
+        render(
+          <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
+            <RechercherMission category="bénévolat" />
+          </DependenciesProvider>,
+        );
+
+        expect(screen.getByRole('button', { name: '100 km' })).toBeInTheDocument();
+        expect(await screen.findByTestId('RésultatRechercherOffreList')).toBeInTheDocument();
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=100&page=1', 'bénévolat');
+      });
+    });
+  });
 });

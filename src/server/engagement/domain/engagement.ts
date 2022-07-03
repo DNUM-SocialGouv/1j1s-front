@@ -2,6 +2,7 @@
 export interface MissionEngagementFiltre {
   publisher: string
   domain: string
+  distance?: number
   from: number
   size: number
 }
@@ -15,7 +16,6 @@ export interface Mission {
   logo?: string
   débutContrat?: string
   openToMinors?: string
-
 }
 
 export interface RésultatsRechercheMission {

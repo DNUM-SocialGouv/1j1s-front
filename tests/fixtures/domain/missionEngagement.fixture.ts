@@ -1,17 +1,63 @@
 import {
-  Mission,
+  Mission, MissionEngagement,
   MissionEngagementFiltre,
   RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 
 export function aMissionEngagementFiltre(override?: Partial<MissionEngagementFiltre>): MissionEngagementFiltre {
   return {
+    distance: undefined,
     domain:'sante',
     from: 1,
     publisher: 'a-publisher-id',
     size: 30,
     ...override,
   };
+}
+
+export function aMissionEngagementDomainList(): MissionEngagement.Domaine[] {
+  return [
+    {
+      libellé: 'Culture et loisirs',
+      valeur: 'culture-loisirs',
+    },
+    {
+      libellé: 'Éducation',
+      valeur: 'education',
+    },
+    {
+      libellé: 'Environnement',
+      valeur: 'environnement',
+    },
+    {
+      libellé: 'Mémoire et citoyenneté',
+      valeur: 'mémoire et citoyenneté',
+    },
+    {
+      libellé: 'Prévention et protection',
+      valeur: 'prevention-protection',
+    },
+    {
+      libellé: 'Santé',
+      valeur: 'sante',
+    },
+    {
+      libellé: 'Solidarité et insertion',
+      valeur: 'solidarite-insertion',
+    },
+    {
+      libellé: 'Sport',
+      valeur: 'sport',
+    },
+    {
+      libellé: 'Vivre ensemble',
+      valeur: 'vivre-ensemble',
+    },
+    {
+      libellé: 'Autre',
+      valeur: 'autre',
+    },
+  ];
 }
 
 export function aRésultatRechercheMission(override?: Partial<RésultatsRechercheMission>): RésultatsRechercheMission {
