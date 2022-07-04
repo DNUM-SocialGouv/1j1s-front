@@ -13,8 +13,8 @@ interface RedirectionCardProps {
 	children?: React.ReactNode
 	imageUrl?: string
 	imageAltText?: string
-	link: string
-	linkLabel: string
+	link?: string
+	linkLabel?: string
 	title: string
 	type?: string
 }
@@ -22,7 +22,7 @@ interface RedirectionCardProps {
 export const RedirectionCard: React.FunctionComponent<RedirectionCardProps> = (props: RedirectionCardProps) => {
   const { children, imageUrl, imageAltText, link, linkLabel, title, type } = props;
 	
-  const icon = type === 'external' ? <ExternalRedirectionIcon color="#5269B5" /> : <ArrowRightIcon />;
+  const icon = type === RedirectionType.EXTERNAL ? <ExternalRedirectionIcon color="#5269B5" /> : <ArrowRightIcon color="#5269B5" />;
 
   return (
     <article className={styles.card}>
