@@ -52,7 +52,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
         }
         {missionEngagement.débutContrat &&
           <div className={commonStyles.contenuInline}>
-            <h3>Quand ? </h3><p>À partir du {missionEngagement.débutContrat} ({`${missionEngagement.duréeContrat} Mois`})</p>
+            <h3>Quand ? </h3><p>À partir du {missionEngagement.débutContrat} {missionEngagement.duréeContrat ? `(${missionEngagement.duréeContrat} Mois)`: ''}</p>
           </div>
         }
       </section>
