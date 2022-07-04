@@ -47,7 +47,7 @@ export function RechercherMission(props: RechercherMissionProps) {
   const OFFRE_PER_PAGE = 30;
 
   const defaultLogo = useMemo(() => {
-    return isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/service-civique.svg';
+    return isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg';
   }, [isServiceCivique]);
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export function RechercherMission(props: RechercherMissionProps) {
                   <RésultatRechercherSolution
                     lienOffre={''}
                     intituléOffre={mission.titre}
-                    logoEntreprise={mission.logo || defaultLogo}
+                    logoEntreprise={defaultLogo}
                     nomEntreprise={mission.nomEntreprise}
                     descriptionOffre={mission.description}
                     étiquetteOffreList={mission.étiquetteList}
