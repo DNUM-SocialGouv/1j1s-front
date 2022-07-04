@@ -5,7 +5,8 @@ import {
 import { AxiosResponse } from 'axios';
 
 import {
-  MissionEngagementResponse, RésultatMissionEngagementResponse,
+  MissionEngagementResponse,
+  RésultatMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
 import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';

@@ -1,9 +1,11 @@
 import {
-  aMissionEngagementFiltre, aRésultatMission,
+  aMissionEngagementFiltre,
+  aRésultatMission,
   aRésultatRechercheMission,
 } from '@tests/fixtures/domain/missionEngagement.fixture';
 import {
-  anEngagementHttpClientService, aRésultatMissionAxiosResponse,
+  anEngagementHttpClientService,
+  aRésultatMissionAxiosResponse,
   aRésultatRechercheMissionAxiosResponse,
 } from '@tests/fixtures/services/engagementHttpClientService.fixture';
 import { anAxiosErreur } from '@tests/fixtures/services/httpClientService.fixture';
