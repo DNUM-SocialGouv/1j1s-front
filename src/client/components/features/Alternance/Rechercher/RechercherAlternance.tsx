@@ -148,9 +148,9 @@ export function RechercherAlternance() {
               />
               <SelectSingle
                 label="Rayon"
-                titre={récupérerLibelléDepuisValeur(radiusList, radius) || 'Indifférent'}
+                titre={récupérerLibelléDepuisValeur(radiusList, radius)}
                 optionList={radiusList}
-                onChange={(value) => setRadius(value === 'Indifférent' ? '' : value)}
+                onChange={setRadius}
                 currentInput={radius}
               />
               <Button

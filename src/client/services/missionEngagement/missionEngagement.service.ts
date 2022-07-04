@@ -12,7 +12,7 @@ import { ErrorType } from '~/server/errors/error.types';
 export class MissionEngagementService {
   constructor(private httpClientService: HttpClientService) {}
 
-  async rechercherMission(queryString = '', category: string): Promise<Either<RésultatsRechercheMission>> {
+  async rechercherMission(queryString: string, category: string): Promise<Either<RésultatsRechercheMission>> {
     try {
       const response = await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
       return createSuccess(response.data);

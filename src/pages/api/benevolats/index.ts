@@ -38,6 +38,7 @@ function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre 
 
   const JE_VEUX_AIDER_ID = '5f5931496c7ea514150a818f';
   return {
+    distance: query.distance ? Number(query.distance) : undefined,
     domain: query.domain ? String(query.domain) : '',
     from: Number(query.page),
     publisher: JE_VEUX_AIDER_ID,

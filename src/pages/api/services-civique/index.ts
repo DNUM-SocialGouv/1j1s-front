@@ -39,6 +39,7 @@ function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre 
   const SERVICE_CIVIQUE_ID = '5f99dbe75eb1ad767733b206';
 
   return {
+    distance: query.distance ? Number(query.distance) : undefined,
     domain: query.domain ? String(query.domain) : '',
     from: Number(query.page),
     publisher: SERVICE_CIVIQUE_ID,
