@@ -106,7 +106,7 @@ export function RechercherMission(props: RechercherMissionProps) {
               {missionList.map((mission: Mission) => (
                 <li key={mission.id}>
                   <RésultatRechercherSolution
-                    lienOffre={''}
+                    lienOffre={`/${category}/${mission.id}`}
                     intituléOffre={mission.titre}
                     logoEntreprise={defaultLogo}
                     nomEntreprise={mission.nomEntreprise}
