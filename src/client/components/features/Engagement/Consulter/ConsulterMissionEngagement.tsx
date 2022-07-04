@@ -41,17 +41,17 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
           </Link>
         </Button>
         {missionEngagement.localisation &&
-          <div className={commonStyles.contenuInline}>
+          <div className={commonStyles.contenuAdaptatif}>
             <h3>Où ? </h3><p dangerouslySetInnerHTML={{ __html: localisationMissionEngagement }}/>
           </div>
         }
         {missionEngagement.description &&
-          <div className={commonStyles.contenuInline}>
+          <div className={commonStyles.contenuAdaptatif}>
             <h3>Quoi ? </h3><p dangerouslySetInnerHTML={{ __html: descriptionMissionEngagement }}/>
           </div>
         }
         {missionEngagement.débutContrat &&
-          <div className={commonStyles.contenuInline}>
+          <div className={commonStyles.contenuAdaptatif}>
             <h3>Quand ? </h3><p>À partir du {missionEngagement.débutContrat} {missionEngagement.duréeContrat ? `(${missionEngagement.duréeContrat} Mois)`: ''}</p>
           </div>
         }

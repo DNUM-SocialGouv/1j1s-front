@@ -1,5 +1,5 @@
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
 
 export default function RechercherMissionBénévolatPage() {
-  return ( <RechercherMission category='benevolat' />);
+  return ( <RechercherMission category='bénévolat' />);
 }

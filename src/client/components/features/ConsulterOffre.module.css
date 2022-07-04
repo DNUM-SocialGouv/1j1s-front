@@ -42,7 +42,7 @@
   display: inline;
 }
 
-.contenuInline  h3, .contenuInline  p {
+.contenuAdaptatif  h3, .contenuAdaptatif  p {
   display: inline;
 }
 
@@ -65,7 +65,7 @@
     margin: auto;
   }
 
-  .contenuInline  h3, .contenuInline  p {
+  .contenuAdaptatif  h3, .contenuAdaptatif  p {
     display: block;
   }
 }

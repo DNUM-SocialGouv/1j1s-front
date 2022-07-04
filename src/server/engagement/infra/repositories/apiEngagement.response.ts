@@ -31,6 +31,7 @@ export interface RésultatsRechercheMissionEngagementResponse {
   total: number
   hits: Array<MissionEngagementResponse>
 }
+
 export interface RésultatsMissionEngagementResponse {
   ok: boolean
   data: ConsulterMissionEngagementResponse
