@@ -1,6 +1,6 @@
 import {
   aMissionEngagementFiltre,
-  aRésultatMission,
+  anAmbassadeurDuDonDeVêtementMissionSolo,
   aRésultatRechercheMission,
 } from '@tests/fixtures/domain/missionEngagement.fixture';
 import {
@@ -18,6 +18,12 @@ import {
 } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
+
+jest.mock('axios', () => {
+  return {
+    isAxiosError: jest.fn().mockReturnValue(true),
+  };
+});
 
 describe('ApiEngagementRepository', () => {
   let engagementHttpClientService: EngagementHttpClientService;
@@ -91,7 +97,7 @@ describe('ApiEngagementRepository', () => {
 
         const { result } = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Success<Mission>;
 
-        expect(result).toEqual(aRésultatMission());
+        expect(result).toEqual(anAmbassadeurDuDonDeVêtementMissionSolo());
         expect(engagementHttpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
       });
     });
@@ -106,18 +112,6 @@ describe('ApiEngagementRepository', () => {
           const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Failure;
 
           expect(result.errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
-        });
-      });
-
-      describe('quand l\'api engagement répond avec une 400', () => {
-        it('on renvoie une failure avec une error ERREUR_DE_SAISIE', async () => {
-          jest
-            .spyOn(engagementHttpClientService, 'get')
-            .mockResolvedValue(Promise.reject(anAxiosErreur(400)));
-
-          const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Failure;
-
-          expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE); //Should be DEMANDE_INCORRECTE
         });
       });
 

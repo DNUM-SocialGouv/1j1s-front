@@ -5,8 +5,7 @@ import {
 import { AxiosResponse } from 'axios';
 
 import {
-  MissionEngagementResponse,
-  RésultatMissionEngagementResponse,
+  ConsulterMissionEngagementResponse, MissionEngagementResponse, RésultatsMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
 import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
@@ -31,14 +30,15 @@ export function aRésultatRechercheMissionAxiosResponse(override?: Partial<Résu
   });
 }
 
-export function aRésultatMissionAxiosResponse(override?: Partial<RésultatMissionEngagementResponse>): AxiosResponse<RésultatMissionEngagementResponse> {
+export function aRésultatMissionAxiosResponse(override?: Partial<RésultatsMissionEngagementResponse>): AxiosResponse<RésultatsMissionEngagementResponse> {
   return anAxiosResponse({
     data: anAmbassadeurDuDonDeVêtementMissionResponse(),
+    ok: true,
     ...override,
   });
 }
 
-function anAmbassadeurDuDonDeVêtementMissionResponse(): MissionEngagementResponse {
+export function anAmbassadeurDuDonDeVêtementMissionResponse(): MissionEngagementResponse | ConsulterMissionEngagementResponse {
   return {
     applicationUrl: 'www.poissy.com',
     associationName: 'Ebs le relais val de seine',
@@ -63,7 +63,7 @@ function anAmbassadeurDuDonDeVêtementMissionResponse(): MissionEngagementRespon
   };
 }
 
-function aSoutienAuxEnfantsEttAuxJeunesMissionResponse(): MissionEngagementResponse {
+function aSoutienAuxEnfantsEttAuxJeunesMissionResponse(): MissionEngagementResponse | ConsulterMissionEngagementResponse{
   return {
     applicationUrl: 'www.rueil-malmaison.com',
     associationName: 'Pass-Age',

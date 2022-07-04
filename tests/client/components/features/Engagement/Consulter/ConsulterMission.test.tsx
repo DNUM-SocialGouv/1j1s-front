@@ -3,7 +3,9 @@
  */
 import { render, screen, within } from '@testing-library/react';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { aRésultatMission } from '@tests/fixtures/domain/missionEngagement.fixture';
+import {
+  anAmbassadeurDuDonDeVêtementMissionSolo,
+} from '@tests/fixtures/domain/missionEngagement.fixture';
 import React from 'react';
 
 import { ConsulterMissionEngagement } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
@@ -19,7 +21,7 @@ describe('ConsulterMission', () => {
 
   describe('quand on consulte une mission', () => {
     it('affiche l\'offre de mission', async () => {
-      const offreMission = aRésultatMission();
+      const offreMission = anAmbassadeurDuDonDeVêtementMissionSolo();
 
       render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 

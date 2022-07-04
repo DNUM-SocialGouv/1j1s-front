@@ -10,11 +10,11 @@ import {
 } from '~/server/engagement/domain/engagement';
 import { EngagementRepository } from '~/server/engagement/domain/engagement.repository';
 import {
-  mapRésultatMission,
+  mapMission,
   mapRésultatsRechercheMission,
 } from '~/server/engagement/infra/repositories/apiEngagement.mapper';
 import {
-  RésultatMissionEngagementResponse,
+  RésultatsMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
 import {
@@ -36,16 +36,16 @@ export class ApiEngagementRepository implements EngagementRepository {
     let response;
 
     try {
-      response = await this.engagementHttpClientService.get<RésultatMissionEngagementResponse>(
+      response = await this.engagementHttpClientService.get<RésultatsMissionEngagementResponse>(
         `mission/${id}`,
       );
 
       if (response.status === 204) {
         return createFailure(ErrorType.CONTENU_INDISPONIBLE);
       } else {
-        return createSuccess(mapRésultatMission(response.data));
+        return createSuccess(mapMission(response.data));
       }
-    } catch (e: unknown) {
+    } catch (e) {
       if (axios.isAxiosError(e)) {
         if (e.response?.status === 500) {
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
