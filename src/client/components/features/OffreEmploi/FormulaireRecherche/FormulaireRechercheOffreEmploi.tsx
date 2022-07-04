@@ -58,8 +58,7 @@ export function FormulaireRechercheOffreEmploi() {
     setInputTypeLocalisation(queryParams.typeLocalisation || '');
     setInputCodeLocalisation(queryParams.codeLocalisation || '');
     setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [queryParams]);
 
   useEffect(function fermerFiltresAvancésSurÉcranLarge() {
     if (!isSmallScreen) {

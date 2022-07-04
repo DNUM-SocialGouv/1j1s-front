@@ -17,7 +17,9 @@ export const enum QueryParams {
   DOMAINE = 'grandDomaine',
   MÉTIER_SÉLECTIONNÉ = 'metierSelectionne',
   CODE_ROMES = 'codeRomes',
-  RADIUS = 'radius'
+  RADIUS = 'radius',
+  LONGITUDE = 'longitude',
+  LATITUDE = 'latitude'
 }
 
 export default function useQueryParams() {

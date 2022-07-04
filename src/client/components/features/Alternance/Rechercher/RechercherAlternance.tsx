@@ -1,116 +1,70 @@
-import { Button } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
 import React, {
-  FormEvent,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
-import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
-import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
-import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
-import commonStyles from '~/client/components/features/RechercherOffre.module.css';
+import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import {
   ÉtiquettesRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { AutoCompletionForLocalisation } from '~/client/components/ui/AutoCompletion/AutoCompletionForLocalisation';
-import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
-import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import {
+  LienSolution,
+  RechercherSolutionLayout,
+} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import useQueryParams, { QueryParams } from '~/client/hooks/useQueryParams';
+import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
-import { LocalisationService } from '~/client/services/localisation.service';
-import { getFormAsQuery,getFormValue } from '~/client/utils/form.util';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { Alternance, radiusList } from '~/server/alternances/domain/alternance';
+import { Alternance } from '~/server/alternances/domain/alternance';
 import { ErrorType } from '~/server/errors/error.types';
-import { Localisation } from '~/server/localisations/domain/localisation';
+
+const LOGO_ALTERNANCE = '/images/logos/la-bonne-alternance.svg';
 
 export function RechercherAlternance() {
-  const localisationService = useDependency<LocalisationService>('localisationService');
-  const alternanceService  = useDependency<AlternanceService>('alternanceService');
   const router = useRouter();
-  const { hasQueryParams, isKeyInQueryParams, getQueryValue, queryParams } = useQueryParams();
+  const queryParams = useAlternanceQuery();
+  const alternanceService  = useDependency<AlternanceService>('alternanceService');
+
+
+  const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
   const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorType, setErrorType] = useState<ErrorType | undefined>(undefined);
-  const [inputIntituleMétier, setInputIntituleMétier] = useState<string>('');
-  const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
-  const [inputLocalisation, setInputLocalisation] = useState<string>('');
-  const [formattedLocalisation, setFormattedLocalisation] = useState<string>('');
-  const [communeList, setCommuneList] = useState<Localisation[]>([]);
-  const [inputCodeRome, setInputCodeRome] = useState<string>('');
-  const defaultLogo = '/images/logos/la-bonne-alternance.svg';
-  const [radius, setRadius] = useState('');
-  const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
+  const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);
 
   useEffect(() => {
-    if(hasQueryParams) {
-      const fetchOffreAlternance = async () => {
-        const localisationParam = isKeyInQueryParams(QueryParams.CODE_LOCALISATION) ? `&codeLocalisation=${getQueryValue(QueryParams.CODE_LOCALISATION)}` : '';
-        const radiusParam = isKeyInQueryParams(QueryParams.RADIUS) ? `&radius=${getQueryValue(QueryParams.RADIUS)}` : '';
-        const params = `codeRomes=${getQueryValue(QueryParams.CODE_ROMES)}${localisationParam}${radiusParam}`;
-        const response = await alternanceService.rechercherAlternance(params);
-        if (response.instance === 'success') {
-          setTitle(getRechercherOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-          setAlternanceList(response.result.résultats);
-          setNombreRésultats(response.result.nombreRésultats);
-        } else {
-          setTitle(getRechercherOffreHeadTagTitre('Rechercher une alternance', response.errorType));
-          setErrorType(response.errorType);
-        }
-        setIsLoading(false);
-      };
-
-      const setInputValues = async () => {
-        if (isKeyInQueryParams(QueryParams.MÉTIER_SÉLECTIONNÉ)) setInputIntituleMétier(getQueryValue(QueryParams.MÉTIER_SÉLECTIONNÉ));
-        if (isKeyInQueryParams(QueryParams.CODE_ROMES)) setInputCodeRome(getQueryValue(QueryParams.CODE_ROMES));
-        if (isKeyInQueryParams(QueryParams.TYPE_LOCALISATION) && isKeyInQueryParams(QueryParams.CODE_LOCALISATION)) {
-          const localisation = await localisationService.récupérerLocalisationAvecCodeInsee(getQueryValue(QueryParams.TYPE_LOCALISATION), getQueryValue(QueryParams.CODE_LOCALISATION));
-          const formattedLocalisation = `${localisation.nom} (${localisation.code})`;
-          setInputLocalisation(formattedLocalisation);
-          setFormattedLocalisation(formattedLocalisation);
-        }
-      };
-
-      (async () => {
-        await fetchOffreAlternance();
-        await setInputValues();
-      })();
-    }
-  }, [queryParams]);
-
-  async function rechercherAlternance(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const métierSéléctionné = getFormValue(event.currentTarget, 'metierSelectionne');
-    const codeRomeList = getFormValue(event.currentTarget, 'codeRomes');
-    if(!codeRomeList?.length || !métierSéléctionné) {
-      setInputIntituleMétierObligatoireErrorMessage(true);
-    } else {
+    const queryString = stringify(router.query);
+    if (queryString) {
       setIsLoading(true);
-      const query = getFormAsQuery(event.currentTarget, false);
-      return router.push( { query });
+      alternanceService.rechercherAlternance(queryString)
+        .then((response) => {
+          if (response.instance === 'success') {
+            setTitle(getRechercherOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+            setAlternanceList(response.result.résultats);
+            setNombreRésultats(response.result.nombreRésultats);
+          } else {
+            setTitle(getRechercherOffreHeadTagTitre('Rechercher une alternance', response.errorType));
+            setErreurRecherche(response.errorType);
+          }
+          setIsLoading(false);
+        });
     }
-  }
+  }, [router.query, alternanceService]);
 
-  function resetHandleErrorMessageActive() {
-    setInputIntituleMétierObligatoireErrorMessage(false);
-  }
+  const messageRésultatRecherche: string = useMemo(() => {
+    if (queryParams.metierSelectionne) {
+      return `${nombreRésultats} contrats d'alternances pour ${queryParams.metierSelectionne}`;
+    } else {
+      return `${nombreRésultats} contrats d'alternances`;
+    }
+  }, [nombreRésultats, queryParams.metierSelectionne]);
 
-  async function rechercherLocalisation(recherche: string) {
-    setInputLocalisation(recherche);
-    const résultats = await localisationService.rechercherLocalisation(recherche);
-    setCommuneList(résultats && résultats.communeList ? résultats.communeList : []);
-  }
-  
-  const hasNoResult = hasQueryParams && !isLoading && alternanceList.length === 0;
 
   return (
     <>
@@ -118,91 +72,41 @@ export function RechercherAlternance() {
         title={title}
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
-      <main id="contenu" className={commonStyles.container}>
-        <Hero image="/images/banners/offre-alternance.webp">
-          Avec la <b>Bonne Alternance</b>, trouvez <br/>
-          l’entreprise qu’il vous faut pour <br/>
-          <b>réaliser votre projet d’alternance</b>
-        </Hero>
-        <div className={commonStyles.layout}>
-          <form
-            className={commonStyles.rechercheOffreForm}
-            onSubmit={rechercherAlternance}
-            role="search"
-          >
-            <div className={commonStyles.inputButtonWrapper}>
-              <AutoCompletionForMétierRecherché
-                className={styles.rechercheAlternanceInput}
-                inputName="metierSelectionne"
-                libellé={inputIntituleMétier}
-                code={inputCodeRome}
-                handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
-                resetHandleErrorMessageActive={resetHandleErrorMessageActive}
-              />
-              <AutoCompletionForLocalisation
-                communeList={communeList}
-                inputName="localisations"
-                inputLocalisation={inputLocalisation}
-                onChange={rechercherLocalisation}
-                onUpdateInputLocalisation={() => setInputLocalisation('')}
-              />
-              <SelectSingle
-                label="Rayon"
-                titre={récupérerLibelléDepuisValeur(radiusList, radius)}
-                optionList={radiusList}
-                onChange={setRadius}
-                currentInput={radius}
-              />
-              <Button
-                submit={true}
-                icon="ri-search-line"
-                iconPosition="right"
-                data-testid="ButtonRechercherAlternance"
-                className={commonStyles.buttonRechercher}
-              >
-                Rechercher
-              </Button>
-            </div>
-            <input type="hidden" name="radius" value={radius}/>
-
-          </form>
-
-          {isLoading && <p>Recherche des offres en attente de loader</p>}
-          {!isLoading && <ÉtiquettesRechercherSolution localisation={formattedLocalisation}/>}
-          {nombreRésultats !== 0 &&
-            <div className={commonStyles.nombreRésultats} data-testid="RechercheAlternanceNombreRésultats">
-              <h2>{nombreRésultats} contrats d&apos;alternances pour {inputIntituleMétier}</h2>
-            </div>
-          }
-          {hasNoResult && <ErrorComponent errorType={errorType}/>}
-
-
-          {alternanceList.length > 0 && !isLoading &&
-            <ul className={commonStyles.résultatRechercheOffreList}  data-testid="RésultatRechercherList">
-              {alternanceList.map((alternance: Alternance) => (
-                <li key={alternance.id}>
-                  <RésultatRechercherSolution
-                    lienOffre={`/apprentissage/${alternance.from}-${alternance.id}`}
-                    intituléOffre={alternance.intitulé}
-                    logoEntreprise={alternance.entreprise?.logo || defaultLogo}
-                    nomEntreprise={alternance.entreprise?.nom}
-                    descriptionOffre={alternance.description}
-                    étiquetteOffreList={alternance.étiquetteList}
-                  />
-                </li>
-              ))}
-            </ul>
-          }
-          <ul className={commonStyles.partnerList}>
-            <li>
-              <SimulationAlternancePartner titleAs="h2"/>
-            </li>
-            <li>
-              <CIDJPartner titleAs="h2"/>
-            </li>
-          </ul>
-        </div>
+      <main id="contenu">
+        <RechercherSolutionLayout
+          bannière={<BannièreAlternance/>}
+          erreurRecherche={erreurRecherche}
+          étiquettesRecherche={<ÉtiquettesRechercherSolution/>}
+          formulaireRecherche={<FormulaireRechercheAlternance/>}
+          isLoading={isLoading}
+          listeSolution={alternanceList}
+          messageRésultatRecherche={messageRésultatRecherche}
+          nombreSolutions={nombreRésultats}
+          mapToLienSolution={mapAlternanceToLienSolution}
+        />
       </main>
     </>
+  );
+}
+
+function mapAlternanceToLienSolution(alternance: Alternance): LienSolution {
+  return {
+    descriptionOffre: alternance.description,
+    id: alternance.id,
+    intituléOffre: alternance.intitulé,
+    lienOffre: `/apprentissage/${alternance.from}-${alternance.id}`,
+    logoEntreprise: alternance.entreprise?.logo || LOGO_ALTERNANCE,
+    nomEntreprise: alternance.entreprise?.nom,
+    étiquetteOffreList: alternance.étiquetteList,
+  };
+}
+
+function BannièreAlternance() {
+  return (
+    <Hero image="/images/banners/offre-alternance.webp">
+      Avec la <b>Bonne Alternance</b>, trouvez <br/>
+      l’entreprise qu’il vous faut pour <br/>
+      <b>réaliser votre projet d’alternance</b>
+    </Hero>
   );
 }

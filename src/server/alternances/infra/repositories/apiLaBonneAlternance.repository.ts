@@ -103,15 +103,25 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
-    let codeInseeCommune;
-    if(alternanceFiltre.codeLocalisation) {
-      codeInseeCommune = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(alternanceFiltre.codeLocalisation);
+    const DEFAULT_RADIUS_VALUE = '30';
+    function getRadius() {
+      if (alternanceFiltre.radius) {
+        return alternanceFiltre.radius;
+      }
+      if (!alternanceFiltre.radius && alternanceFiltre.latitude && alternanceFiltre.longitude) {
+        return DEFAULT_RADIUS_VALUE;
+      }
+      if (!alternanceFiltre.radius && !alternanceFiltre.latitude && !alternanceFiltre.longitude) {
+        return undefined;
+      }
     }
 
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
-      insee: codeInseeCommune,
-      radius: alternanceFiltre.radius,
+      insee: alternanceFiltre.code,
+      latitude: alternanceFiltre.latitude,
+      longitude: alternanceFiltre.longitude,
+      radius: getRadius(),
       romes: alternanceFiltre.codeRomeList.toString(),
     };
     removeUndefinedValueInQueryParameterList(queryList);

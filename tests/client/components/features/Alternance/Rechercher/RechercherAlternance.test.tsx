@@ -21,7 +21,6 @@ import {
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
   aMétierRecherchéService,
-  aMétierRecherchéServiceWithEmptyResponse,
 } from '@tests/fixtures/client/services/métierRecherchéService.fixture';
 import { aLocalisationListWithCommuneAndDépartement } from '@tests/fixtures/domain/localisation.fixture';
 import React from 'react';
@@ -38,291 +37,182 @@ describe('RechercherAlternance', () => {
     jest.resetAllMocks();
   });
 
-  describe('quand on recherche par métier', () => {
-    it('affiche le nombre de résultat pour la recherche', async () => {
+  describe('quand le composant est affiché sans recherche', () => {
+    it('affiche un formulaire pour la recherche d\'offres d\'alternance, sans résultat ou message d\'erreur', async () => {
+      // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
       const localisationServiceMock = aLocalisationService();
 
-      const routerPush = jest.fn();
-      mockUseRouter({ push: routerPush });
-      const user = userEvent.setup();
+      mockUseRouter({});
 
       render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
+        <DependenciesProvider
+          alternanceService={alternanceService}
+          métierRecherchéService={métierRecherchéService}
+          localisationService={localisationServiceMock}>
           <RechercherAlternance />
         </DependenciesProvider>,
       );
 
-      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
-
-
       // WHEN
-      await user.type(inputRechercheMétier, 'bou');
-      const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
-      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
-
-      mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
-
-      // WHEN
-      const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
-      fireEvent.click(resultListItem[0]);
-
-      fireEvent.click(buttonRechercherAlternance);
+      const formulaireRechercheAlternance = screen.getByRole('form');
+      const résultatRechercheAlternanceList = screen.queryAllByTestId('RésultatRechercheAlternance');
+      const rechercheOffreEmploiNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
+      const errorMessage = screen.queryByText('0 résultat');
 
       // THEN
-      expect(await screen.findByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
-      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101');
-    });
-
-    it('affiche la liste des résultats', async () => {
-      const alternanceService = anAlternanceService();
-      const métierRecherchéService = aMétierRecherchéService();
-      const localisationServiceMock = aLocalisationService();
-
-      const routerPush = jest.fn();
-      mockUseRouter({ push: routerPush });
-      const user = userEvent.setup();
-
-      render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-          <RechercherAlternance />
-        </DependenciesProvider>,
-      );
-
-      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
-
-
-      // WHEN USER TYPES IN INPUT
-      await user.type(inputRechercheMétier, 'bou');
-      const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
-      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
-
-      mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
-
-      // WHEN
-      const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
-      fireEvent.click(resultListItem[0]);
-
-      fireEvent.click(buttonRechercherAlternance);
-
-      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101');
-
-      expect(await screen.findByTestId('RésultatRechercherList')).toBeInTheDocument();
-
+      expect(formulaireRechercheAlternance).toBeInTheDocument();
+      expect(résultatRechercheAlternanceList).toHaveLength(0);
+      expect(rechercheOffreEmploiNombreRésultats).not.toBeInTheDocument();
+      expect(errorMessage).not.toBeInTheDocument();
     });
   });
 
-  describe('quand le métier recherché n\'a pas été trouvé' , () => {
-    it('on affiche un message d\'information et on n\'appelle pas l\'api', async () => {
-      // GIVEN
-      const alternanceService = anAlternanceService();
-      const métierRecherchéService = aMétierRecherchéServiceWithEmptyResponse();
-      const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
+  describe('quand le composant est affiché pour une recherche avec résultats', () => {
+    describe('quand on recherche par métier', () => {
+      it('affiche les résultats de recherche et le nombre de résultats', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceService();
+        const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService();
+        mockUseRouter({});
+        mockUseRouter({
+          query: {
+            codeRomes: 'D1103%2CD1101%2CH2101',
+            metierSelectionne: 'boulanger',
+          },
+        });
 
-      const routerPush = jest.fn();
-      mockUseRouter({ push: routerPush });
-      const user = userEvent.setup();
+        // WHEN
+        render(
+          <DependenciesProvider
+            alternanceService={alternanceService}
+            métierRecherchéService={métierRecherchéService}
+            localisationService={localisationServiceMock}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
 
-      render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-          <RechercherAlternance />
-        </DependenciesProvider>,
-      );
-      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+        // THEN
+        expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%252CD1101%252CH2101&metierSelectionne=boulanger');
+        await waitFor(() => {
+          expect(screen.getByText('4 contrats d\'alternances pour boulanger')).toBeInTheDocument();
+        });
 
-      // WHEN
-      await user.type(inputRechercheMétier, 'fake métier');
+        const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
+        expect(résultatRechercheAlternanceList).toHaveLength(4);
 
-      // WHEN
-      await waitFor(() => {
-        expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('fake métier');
       });
-      fireEvent.click(buttonRechercherAlternance);
-
-      // THEN
-      expect(await screen.findByTestId('MétierRecherchéNoResultMessage')).toBeInTheDocument();
-      expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('quand il n\'y a aucun métier recherché' , () => {
-    it('on affiche un message d\'erreur et on n\'appelle pas l`\'api', async () => {
-      // GIVEN
-      const alternanceService = anAlternanceService();
-      const métierRecherchéService = aMétierRecherchéService();
-      const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
-
-      mockUseRouter({ query: {} });
-
-      render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-          <RechercherAlternance />
-        </DependenciesProvider>,
-      );
-      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
-
-      // WHEN
-      fireEvent.click(buttonRechercherAlternance);
-
-      // THEN
-      expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
-      expect(métierRecherchéService.rechercherMétier).not.toHaveBeenCalled();
-      expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('quand l\'utilisateur sélectionne un métier puis enlève la recherche' , () => {
-    it('on affiche un message d\'erreur et on n\'appelle pas l`\'api', async () => {
-      // GIVEN
-      const alternanceService = anAlternanceService();
-      const métierRecherchéService = aMétierRecherchéService();
-      const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
-      mockUseRouter({ query: {} });
-      const user = userEvent.setup();
-
-      render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-          <RechercherAlternance />
-        </DependenciesProvider>,
-      );
-      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
-
-      // WHEN
-      await user.type(inputRechercheMétier, 'fake métier');
-      await user.clear(inputRechercheMétier);
-
-      // WHEN
-      fireEvent.click(buttonRechercherAlternance);
-
-      // THEN
-      expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
-      expect(alternanceService.rechercherAlternance).not.toHaveBeenCalledWith('');
-      expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Recherche par lieu', () => {
-    it('quand on recherche avec un lieu', async () => {
-      // GIVEN
-      const alternanceService = anAlternanceService();
-      const métierRecherchéService = aMétierRecherchéService();
-      const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
-
-      const user = userEvent.setup();
-      const routerPush = jest.fn();
-      mockUseRouter({ push: routerPush });
-      render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-          <RechercherAlternance />
-        </DependenciesProvider>,
-      );
-
-      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const inputLocalisation = screen.getByTestId('InputLocalisation');
-      const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
-
-      // WHEN
-      await user.type(inputRechercheMétier, 'bou');
-      const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
-
-      // THEN
-      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
-
-      // WHEN
-      const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
-      fireEvent.click(resultListItem[0]);
-
-      await user.type(inputLocalisation, 'Pa');
-      const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
-
-      // WHEN
-      expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
-      const resultListitem = within(résultatsLocalisation).getAllByRole('option');
-
-      fireEvent.click(resultListitem[0]);
-
-      mockUseRouter({ query: { codeLocalisation: '75001', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boucherie' } });
-      
-      fireEvent.click(buttonRechercher);
-
-      // THEN
-      await waitFor(() => {
-        expect(screen.getByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
-      });
-      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeLocalisation=75001' });
-      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&codeLocalisation=75001');
     });
 
-    it('quand on recherche avec un lieu et un rayon', async () => {
-      // GIVEN
-      const alternanceService = anAlternanceService();
-      const métierRecherchéService = aMétierRecherchéService();
-      const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
+    describe('quand on recherche par métier et par lieu', () => {
+      it('affiche les résultats de recherche et le nombre de résultats et les étiquettes', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceService();
+        const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService();
 
-      const user = userEvent.setup();
-      const routerPush = jest.fn();
-      mockUseRouter({ push: routerPush });
-      render(
-        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-          <RechercherAlternance />
-        </DependenciesProvider>,
-      );
+        const user = userEvent.setup();
+        const routerPush = jest.fn();
+        mockUseRouter({
+          push: routerPush,
+          query: {
+            codeRomes: 'D1103%2CD1101%2CH2101',
+            metierSelectionne: 'boucherie',
+          },
+        });
+        render(
+          <DependenciesProvider
+            alternanceService={alternanceService}
+            métierRecherchéService={métierRecherchéService}
+            localisationService={localisationServiceMock}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
 
-      const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const inputLocalisation = screen.getByTestId('InputLocalisation');
-      const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+        const inputCommune = screen.getByTestId('InputCommune');
+        const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
 
-      // WHEN
-      await user.type(inputRechercheMétier, 'bou');
-      const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
+        await user.type(inputCommune, 'Pa');
+        const résultatsCommune = await screen.findByTestId('RésultatsCommune');
 
-      // THEN
-      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('bou');
+        // WHEN
+        expect(localisationServiceMock.rechercherCommune).toHaveBeenCalledWith('Pa');
+        const resultListCommune = within(résultatsCommune).getAllByRole('option');
 
-      // WHEN
-      const resultListItem = within(résultatsRechercheMétier).getAllByRole('option');
-      fireEvent.click(resultListItem[0]);
+        fireEvent.click(resultListCommune[0]);
 
-      await user.type(inputLocalisation, 'Pa');
-      const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
-      // WHEN
-      expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
-      const resultListitem = within(résultatsLocalisation).getAllByRole('option');
 
-      fireEvent.click(resultListitem[0]);
+        fireEvent.click(buttonRechercher);
 
-      const button = await screen.findByText('Indifférent');
-      fireEvent.click(button);
-
-      const optionsRadius = await screen.findByTestId('OptionList');
-
-      await waitFor(() => {
-        expect(optionsRadius).toBeInTheDocument();
+        const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
+        expect(résultatRechercheAlternanceList).toHaveLength(4);
+        expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('AURILLAC (15)');
       });
 
-      const inputRadius = within(optionsRadius).getAllByRole('option');
-      fireEvent.click(inputRadius[1]);
+    });
 
-      mockUseRouter({ query: { codeInsee: '75056', codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boucherie', radius: '10' } });
+    describe('quand il n\'y a aucun métier recherché' , () => {
+      it('on affiche un message d\'erreur et on n\'appelle pas l`\'api', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceService();
+        const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
 
-      fireEvent.click(buttonRechercher);
+        mockUseRouter({ query: {} });
 
-      // THEN
-      await waitFor(() => {
-        expect(screen.getByTestId('RechercheAlternanceNombreRésultats')).toBeInTheDocument();
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+        const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+
+        // WHEN
+        fireEvent.click(buttonRechercherAlternance);
+
+        // THEN
+        expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
+        expect(métierRecherchéService.rechercherMétier).not.toHaveBeenCalled();
+        expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
       });
-      expect(routerPush).toHaveBeenCalledWith({ query: 'codeRomes=D1103%2CD1101%2CH2101&metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&typeLocalisation=COMMUNE&codeLocalisation=75001&radius=10' });
-      expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%2CD1101%2CH2101&radius=10');
+    });
+
+    describe('quand l\'utilisateur sélectionne un métier puis enlève la recherche' , () => {
+      it('on affiche un message d\'erreur et on n\'appelle pas l`\'api', async () => {
+        // GIVEN
+        const alternanceService = anAlternanceService();
+        const métierRecherchéService = aMétierRecherchéService();
+        const localisationServiceMock = aLocalisationService();
+        mockUseRouter({ query: {} });
+        const user = userEvent.setup();
+
+        render(
+          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
+            <RechercherAlternance />
+          </DependenciesProvider>,
+        );
+        const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
+        const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+
+        // WHEN
+        await user.type(inputRechercheMétier, 'fake métier');
+        await user.clear(inputRechercheMétier);
+
+        // WHEN
+        fireEvent.click(buttonRechercherAlternance);
+
+        // THEN
+        expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
+        expect(alternanceService.rechercherAlternance).not.toHaveBeenCalledWith('');
+        expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
+      });
     });
   });
 
-  describe('quand la recherche est infructueuse', () => {
+  describe('quand le composant est affiché pour une recherche infructueuse', () => {
     describe('quand il n\'y a aucun résultat', () => {
       it('retourne le message d\'erreur correspondant', async () => {
         // GIVEN

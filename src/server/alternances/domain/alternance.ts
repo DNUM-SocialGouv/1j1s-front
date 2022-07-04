@@ -33,7 +33,9 @@ export namespace Alternance {
 export interface AlternanceFiltre {
   codeRomeList: string[]
   radius?: string
-  codeLocalisation?: string
+  code?: string
+  longitude?: string
+  latitude?: string
 }
 
 export interface RésultatsRechercheAlternance {
