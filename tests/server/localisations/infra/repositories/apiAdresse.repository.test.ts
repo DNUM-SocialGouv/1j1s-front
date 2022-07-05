@@ -34,8 +34,8 @@ describe('ApiAdresseRepository', () => {
             {
               code: '93005',
               coordonnées: {
-                lat: 48.926541,
-                lon: 2.493832,
+                latitude: 48.926541,
+                longitude: 2.493832,
               },
               libelle: '20 Avenue Jules Jouy 93600 Aulnay-sous-Bois',
               ville: 'Aulnay-sous-Bois',
@@ -43,8 +43,8 @@ describe('ApiAdresseRepository', () => {
             {
               code: '28201',
               coordonnées: {
-                lat: 48.510887,
-                lon: 1.553914,
+                latitude: 48.510887,
+                longitude: 1.553914,
               },
               libelle: '20 Avenue de la Gare 28300 Jouy',
               ville: 'Jouy',

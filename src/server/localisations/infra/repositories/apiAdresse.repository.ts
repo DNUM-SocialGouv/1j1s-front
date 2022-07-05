@@ -22,19 +22,18 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
 
   async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
     let response;
-
     try {
       response = await this.apiAdresseHttpClientService.get<ApiAdresseResponse>(
         `search/?q=${adresseRecherchée}&type=municipality&limit=20`,
       );
-      const communeList = response.data.features.map((adresse) => ({
-        code: adresse.properties.citycode,
+      const communeList = response.data.features.map(({ properties, geometry }) => ({
+        code: properties.citycode,
         coordonnées: {
-          lat: adresse.geometry.coordinates[1],
-          lon: adresse.geometry.coordinates[0],
+          latitude: geometry.coordinates[1],
+          longitude: geometry.coordinates[0],
         },
-        libelle: adresse.properties.label,
-        ville: adresse.properties.city,
+        libelle: properties.label,
+        ville: properties.city,
       }));
       return createSuccess({ résultats: communeList });
     } catch (e) {

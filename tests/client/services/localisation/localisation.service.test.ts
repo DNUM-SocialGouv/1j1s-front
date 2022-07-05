@@ -209,8 +209,8 @@ describe('LocalisationService', () => {
             {
               code: '75056',
               coordonnées: {
-                lat: 48.859,
-                lon: 2.347,
+                latitude: 48.859,
+                longitude: 2.347,
               },
               libelle: 'Paris',
               ville: 'Paris',
@@ -218,8 +218,8 @@ describe('LocalisationService', () => {
             {
               code: '75115',
               coordonnées: {
-                lat: 48.863367,
-                lon: 2.397152,
+                latitude: 48.863367,
+                longitude: 2.397152,
               },
               libelle: 'Paris 15e Arrondissement',
               ville: 'Paris 15e Arrondissement',
