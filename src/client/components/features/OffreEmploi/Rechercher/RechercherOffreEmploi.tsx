@@ -58,11 +58,16 @@ export function RechercherOffreEmploi() {
   }, [router.query, offreEmploiService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
-    if (offreEmploiQuery.motCle) {
-      return `${nombreRésultats} offres d'emplois pour ${offreEmploiQuery.motCle}`;
+    const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
+    if (nombreRésultats > 1) {
+      messageRésultatRechercheSplit.push('offres d\'emplois');
     } else {
-      return `${nombreRésultats} offres d'emplois`;
+      messageRésultatRechercheSplit.push('offre d\'emploi');
     }
+    if (offreEmploiQuery.motCle) {
+      messageRésultatRechercheSplit.push(`pour ${offreEmploiQuery.motCle}`);
+    }
+    return messageRésultatRechercheSplit.join(' ');
   }, [nombreRésultats, offreEmploiQuery.motCle]);
 
   return (

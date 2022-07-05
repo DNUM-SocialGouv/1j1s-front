@@ -3,14 +3,14 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
   anOffreEmploiService,
-  emptyOffreEmploiService,
-} from '@tests/fixtures/client/services/offreEmploiService.fixture';
+  aNoResultOffreEmploiService,
+  aSingleResultOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
 
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
@@ -80,9 +80,7 @@ describe('RechercherOffreEmploi', () => {
 
         // THEN
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
-        await waitFor(() => {
-          expect(screen.getByText('3 offres d\'emplois')).toBeInTheDocument();
-        });
+        expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
         expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('BOURG LES VALENCE (26)');
       });
     });
@@ -105,20 +103,44 @@ describe('RechercherOffreEmploi', () => {
 
         // WHEN
         const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherSolution');
-        const rechercheOffreEmploiNombreRésultats = await screen.findByTestId('NombreRésultatsSolution');
+        const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres d\'emplois pour boulanger');
 
         // THEN
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
-        expect(rechercheOffreEmploiNombreRésultats).toHaveTextContent('3 offres d\'emplois pour boulanger');
+        expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
       });
+    });
+  });
+
+  describe('quand le composant est affiché avec une recherche comportant un seul résultat', () => {
+    it('affiche le nombre de résultat au singulier', async () => {
+      // GIVEN
+      const offreEmploiServiceMock = aSingleResultOffreEmploiService();
+      const localisationServiceMock = aLocalisationService();
+      mockUseRouter({ query: { motCle: 'barman', page: '1' } });
+
+      render(
+        <DependenciesProvider
+          localisationService={localisationServiceMock}
+          offreEmploiService={offreEmploiServiceMock}
+        >
+          <RechercherOffreEmploi/>
+        </DependenciesProvider>,
+      );
+
+      // WHEN
+      const messageNombreRésultats = await screen.findByText('1 offre d\'emploi pour barman');
+
+      // THEN
+      expect(messageNombreRésultats).toBeInTheDocument();
     });
   });
 
   describe('quand le composant est affiché avec une recherche sans résultats', () => {
     it('affiche un message dédié', async () => {
       // GIVEN
-      const offreEmploiServiceMock = emptyOffreEmploiService();
+      const offreEmploiServiceMock = aNoResultOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 
@@ -131,13 +153,11 @@ describe('RechercherOffreEmploi', () => {
         </DependenciesProvider>,
       );
 
-      await waitFor(async () => {
-        // WHEN
-        const errorMessage = await screen.findByText('0 résultat');
+      // WHEN
+      const errorMessage = await screen.findByText('0 résultat');
 
-        // THEN
-        expect(errorMessage).toBeInTheDocument();
-      });
+      // THEN
+      expect(errorMessage).toBeInTheDocument();
     });
   });
 });

@@ -60,11 +60,16 @@ export function RechercherJobÉtudiant() {
   }, [router.query, offreEmploiService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
-    if (offreEmploiQuery.motCle) {
-      return `${nombreRésultats} offres de jobs étudiants pour ${offreEmploiQuery.motCle}`;
+    const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
+    if (nombreRésultats > 1) {
+      messageRésultatRechercheSplit.push('offres de jobs étudiants');
     } else {
-      return `${nombreRésultats} offres de jobs étudiants`;
+      messageRésultatRechercheSplit.push('offre de job étudiant');
     }
+    if (offreEmploiQuery.motCle) {
+      messageRésultatRechercheSplit.push(`pour ${offreEmploiQuery.motCle}`);
+    }
+    return messageRésultatRechercheSplit.join(' ');
   }, [nombreRésultats, offreEmploiQuery.motCle]);
 
   return (
