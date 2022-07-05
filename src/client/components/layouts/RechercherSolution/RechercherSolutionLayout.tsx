@@ -59,7 +59,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
             </div>
             {listeSolution.length > 0 ?
               <>
-                <ul className={styles.listeSolutions} data-testid="RésultatRechercherOffreList">
+                <ul className={styles.listeSolutions}>
                   {listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
                     <li key={lienSolution.id}>
                       <RésultatRechercherSolution
