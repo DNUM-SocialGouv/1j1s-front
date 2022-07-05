@@ -1,0 +1,22 @@
+.button {
+  background-color: #566BB1;
+  border-radius: 20px;
+  color: #FFF;
+  padding: .5rem 1.5rem;
+  font-size: 1rem;
+  display: inline-flex;
+  width: 100%;
+  height: 2.5rem;
+  justify-content: center;
+}
+
+.buttonLabel {
+  margin-right: 10px;
+}
+
+.buttonAsLink {
+  color: #566BB1;
+  display: inline-flex;
+  width: 100%;
+  justify-content: left;
+}
