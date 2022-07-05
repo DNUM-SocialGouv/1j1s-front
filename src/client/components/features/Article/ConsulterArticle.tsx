@@ -19,7 +19,8 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
   return (
     <main className={`${styles.consulterArticle} fr-container`}>
       <Title as="h1" className={styles.titre}>{titre}</Title>
-      {banniereUrl && <img src={banniereUrl} alt={banniereAlt} />}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {banniereUrl && <img src={banniereUrl} alt={banniereAlt} decoding="async" loading="lazy" />}
       <article dangerouslySetInnerHTML={createMarkup(contenu)} />
     </main>
   );

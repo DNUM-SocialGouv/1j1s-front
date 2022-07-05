@@ -1,0 +1,64 @@
+.card {
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(200px + 13.75rem);
+    overflow: hidden;
+}
+
+.cardImageWrapper {
+    flex: 0 1 200px;
+    overflow: hidden;
+}
+
+.cardImage {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.cardContent {
+    min-height: 9.75rem;
+    padding: 1.5rem;
+    overflow: auto;
+}
+
+.cardContent > p {
+    margin: 0;
+}
+
+.cardTitle {
+    font-size: 1.125em;
+    margin-bottom: 16px;
+}
+
+.cardDescription > * {
+    font-size: 0.875em;
+}
+
+.cardAction {
+    background-color: white;
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    text-align: right;
+    width: 100%;
+}
+
+.cardAction .cardLink {
+    box-shadow: none;
+    color: var(--1J1S-blue);
+    display: inline-block;
+    font-size: 0.875em;
+}
+
+.cardAction .cardLink:hover {
+    box-shadow: var(--link-underline);
+}
+
+.cardAction .cardLink > * {
+    vertical-align: middle;
+}
+
+.cardLinkLabel {
+    margin-right: 0.25rem;
+}
