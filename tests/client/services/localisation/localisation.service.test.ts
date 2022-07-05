@@ -9,6 +9,7 @@ import {
   aDépartementListApiResponse,
   aRégionApiResponse,
 } from '@tests/fixtures/domain/localisation.fixture';
+import { aRésultatsRechercheCommune } from '@tests/fixtures/domain/localisationAvecCoordonnées.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { LocalisationService } from '~/client/services/localisation.service';
@@ -188,6 +189,45 @@ describe('LocalisationService', () => {
 
       expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisation?typeLocalisation=COMMUNE&codeInsee=36048');
+    });
+  });
+
+  describe('rechercherCommune', () => {
+    it('appelle communes avec la recherche', async () => {
+      const httpClientService = aHttpClientService();
+      const localisationService = new LocalisationService(httpClientService);
+      const query='pari';
+
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheCommune()));
+
+      const result = await localisationService.rechercherCommune(query);
+
+      expect(result).toEqual({
+        instance: 'success',
+        result: {
+          résultats: [
+            {
+              code: '75056',
+              coordonnées: {
+                latitude: 48.859,
+                longitude: 2.347,
+              },
+              libelle: 'Paris',
+              ville: 'Paris',
+            },
+            {
+              code: '75115',
+              coordonnées: {
+                latitude: 48.863367,
+                longitude: 2.397152,
+              },
+              libelle: 'Paris 15e Arrondissement',
+              ville: 'Paris 15e Arrondissement',
+            },
+          ],
+        },
+      });
+      expect(httpClientService.get).toHaveBeenCalledWith('communes?q=pari');
     });
   });
 });

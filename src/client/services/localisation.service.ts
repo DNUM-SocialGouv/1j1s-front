@@ -1,5 +1,14 @@
+import axios from 'axios';
+
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { Localisation } from '~/server/localisations/domain/localisation';
+import {
+  createFailure,
+  createSuccess,
+  Either,
+} from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
+import {  Localisation } from '~/server/localisations/domain/localisation';
+import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
   LocalisationApiResponse,
   RechercheLocalisationApiResponse,
@@ -33,5 +42,19 @@ export class LocalisationService {
   async récupérerLocalisationAvecCodeInsee(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
     const response = await this.httpClientService.get<LocalisationApiResponse>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
     return response.data;
+  }
+
+  async rechercherCommune(recherche:string): Promise<Either<RésultatsRechercheCommune>> {
+    try {
+      const response = await this.httpClientService.get<RésultatsRechercheCommune>(`communes?q=${recherche}`);
+      return createSuccess(response.data);
+    }  catch (e) {
+      if (axios.isAxiosError(e)) {
+        if(e.response?.status === 500) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+      }
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    }
   }
 }

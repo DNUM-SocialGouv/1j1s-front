@@ -5,8 +5,8 @@ import { ClientService } from '~/server/services/http/client.service';
 
 export class ApiAdresseHttpClientService extends ClientService {
   constructor(private configurationService: ConfigurationService) {
-    const { API_GEO_BASE_URL } = configurationService.getConfiguration();
-    super('API_GEO', API_GEO_BASE_URL);
+    const { API_ADRESSE_BASE_URL } = configurationService.getConfiguration();
+    super('API_ADRESSE_BASE_URL', API_ADRESSE_BASE_URL);
   }
 
   get<Response>(

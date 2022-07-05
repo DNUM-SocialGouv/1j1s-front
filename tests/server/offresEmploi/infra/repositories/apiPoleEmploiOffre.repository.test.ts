@@ -84,7 +84,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(Promise.reject({ response: { status: 666 } }));
+          .mockRejectedValue(anAxiosErreur(666));
 
         const result = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Failure;
 

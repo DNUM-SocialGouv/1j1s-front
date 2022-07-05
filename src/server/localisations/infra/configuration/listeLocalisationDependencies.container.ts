@@ -3,7 +3,6 @@ import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/r
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 export interface ListeLocalisationDependenciesContainer {
@@ -12,12 +11,10 @@ export interface ListeLocalisationDependenciesContainer {
 
 export const listeLocalisationDependenciesContainer = (
   apiGeoGouvHttpClientService: ApiGeoHttpClientService,
-  apiAdresseHttpClientService: ApiAdresseHttpClientService,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): ListeLocalisationDependenciesContainer => {
   const localisationRepository = new ApiGeoLocalisationRepository(
     apiGeoGouvHttpClientService,
-    apiAdresseHttpClientService,
     apiPoleEmploiRéférentielRepository,
   );
 
