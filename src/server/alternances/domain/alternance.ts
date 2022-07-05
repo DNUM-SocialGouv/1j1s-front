@@ -44,6 +44,14 @@ export interface RésultatsRechercheAlternance {
 }
 
 export const radiusList: Option[] = [
+  { libellé: '10 km', valeur: '10' },
+  { libellé: '30 km', valeur: '30' },
+  { libellé: '60 km', valeur: '60' },
+  { libellé: '100 km', valeur: '100' },
+];
+
+// TODO delete and plug to radiusList
+export const radiusListEngagement: Option[] = [
   { libellé: 'Indifférent', valeur: '' },
   { libellé: '10 km', valeur: '10' },
   { libellé: '30 km', valeur: '30' },

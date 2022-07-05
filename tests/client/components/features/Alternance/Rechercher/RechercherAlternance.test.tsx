@@ -58,13 +58,11 @@ describe('RechercherAlternance', () => {
       // WHEN
       const formulaireRechercheAlternance = screen.getByRole('form');
       const résultatRechercheAlternanceList = screen.queryAllByTestId('RésultatRechercheAlternance');
-      const rechercheOffreEmploiNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
       const errorMessage = screen.queryByText('0 résultat');
 
       // THEN
       expect(formulaireRechercheAlternance).toBeInTheDocument();
       expect(résultatRechercheAlternanceList).toHaveLength(0);
-      expect(rechercheOffreEmploiNombreRésultats).not.toBeInTheDocument();
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
@@ -134,17 +132,13 @@ describe('RechercherAlternance', () => {
         const inputCommune = screen.getByTestId('InputCommune');
         const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
 
-        await user.type(inputCommune, 'Pa');
+        await user.type(inputCommune, 'par');
         const résultatsCommune = await screen.findByTestId('RésultatsCommune');
 
         // WHEN
-        expect(localisationServiceMock.rechercherCommune).toHaveBeenCalledWith('Pa');
         const resultListCommune = within(résultatsCommune).getAllByRole('option');
 
         fireEvent.click(resultListCommune[0]);
-
-
-
         fireEvent.click(buttonRechercher);
 
         const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');

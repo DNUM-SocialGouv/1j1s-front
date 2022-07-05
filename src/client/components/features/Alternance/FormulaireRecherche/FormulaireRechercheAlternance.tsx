@@ -7,18 +7,15 @@ import React, {
   useState,
 } from 'react';
 
-import styles from '~/client/components/features/Alternance/Rechercher/RechercherAlternance.module.css';
+import styles
+  from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.css';
 import { InputCommune } from '~/client/components/features/InputCommune/InputCommune';
-import commonStyles from '~/client/components/features/RechercherOffre.module.css';
 import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import {
   getFormAsQuery,
   getFormValue,
 } from '~/client/utils/form.util';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { radiusList } from '~/server/alternances/domain/alternance';
 
 export function FormulaireRechercheAlternance() {
   const rechercheAlternanceForm = useRef<HTMLFormElement>(null);
@@ -32,10 +29,9 @@ export function FormulaireRechercheAlternance() {
   const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
   const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
   const [inputCodeRome, setInputCodeRome] = useState<string>('');
-  const [inputRadius, setInputRadius] = useState<string>('');
+  const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
 
   const [inputIntituleMétierObligatoireErrorMessage, setInputIntituleMétierObligatoireErrorMessage] = useState<boolean>(false);
-
 
   useEffect(function initFormValues() {
     setInputIntituléMétier(queryParams.metierSelectionne || '');
@@ -44,7 +40,7 @@ export function FormulaireRechercheAlternance() {
     setInputLatitudeCommune(queryParams.latitudeCommune || '');
     setInputCodeCommune(queryParams.codeCommune || '');
     setInputLibelleCommune(queryParams.libelleCommune || '');
-    setInputRadius(queryParams.radius || '');
+    setInputDistanceCommune(queryParams.distanceCommune || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParams]);
 
@@ -65,16 +61,16 @@ export function FormulaireRechercheAlternance() {
 
   return (
     <form
-      className={commonStyles.rechercheOffreForm}
+      className={styles.rechercheAlternanceForm}
       onSubmit={updateRechercherAlternanceQueryParams}
       role="form"
       ref={rechercheAlternanceForm}
     >
-      <div className={commonStyles.inputButtonWrapper}>
+      <div className={styles.inputButtonWrapper}>
         <AutoCompletionForMétierRecherché
           className={styles.rechercheAlternanceInput}
           libellé={inputIntituléMétier}
-          code={inputCodeRome}
+          code={inputCodeRome.length ? inputCodeRome.split(',') : []}
           handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
           resetHandleErrorMessageActive={resetHandleErrorMessageActive}
         />
@@ -83,26 +79,18 @@ export function FormulaireRechercheAlternance() {
           libellé={inputLibelleCommune}
           latitude={inputLatitudeCommune}
           longitude={inputLongitudeCommune}
-        />
-        <SelectSingle
-          label="Rayon"
-          titre={récupérerLibelléDepuisValeur(radiusList, inputRadius) || 'Indifférent'}
-          optionList={radiusList}
-          onChange={(value) => setInputRadius(value === 'Indifférent' ? '' : value)}
-          currentInput={inputRadius}
+          distance={inputDistanceCommune}
         />
         <Button
           submit={true}
           icon="ri-search-line"
           iconPosition="right"
           data-testid="ButtonRechercherAlternance"
-          className={commonStyles.buttonRechercher}
+          className={styles.buttonRechercher}
         >
           Rechercher
         </Button>
       </div>
-      <input type="hidden" name="radius" value={inputRadius}/>
-
     </form>
   );
 }

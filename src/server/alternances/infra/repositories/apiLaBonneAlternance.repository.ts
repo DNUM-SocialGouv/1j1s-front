@@ -19,9 +19,6 @@ import { MatchasResponse, MatchasResultResponse } from '~/server/alternances/inf
 import { PeJobsResponse, PeJobsResultResponse } from '~/server/alternances/infra/repositories/peJobsResponse.type';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
-import {
-  ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
@@ -32,7 +29,6 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   constructor(
     private laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService,
-    private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {
   }
 
@@ -103,25 +99,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async buildParamètresRecherche(alternanceFiltre: AlternanceFiltre) {
-    const DEFAULT_RADIUS_VALUE = '30';
-    function getRadius() {
-      if (alternanceFiltre.radius) {
-        return alternanceFiltre.radius;
-      }
-      if (!alternanceFiltre.radius && alternanceFiltre.latitude && alternanceFiltre.longitude) {
-        return DEFAULT_RADIUS_VALUE;
-      }
-      if (!alternanceFiltre.radius && !alternanceFiltre.latitude && !alternanceFiltre.longitude) {
-        return undefined;
-      }
-    }
-
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
       insee: alternanceFiltre.code,
       latitude: alternanceFiltre.latitude,
       longitude: alternanceFiltre.longitude,
-      radius: getRadius(),
+      radius: alternanceFiltre.radius,
       romes: alternanceFiltre.codeRomeList.toString(),
     };
     removeUndefinedValueInQueryParameterList(queryList);

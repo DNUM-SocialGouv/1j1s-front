@@ -15,18 +15,15 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 interface AutoCompletionForMétierRecherchéProps {
-  placeholder?: string;
-  inputName: string;
   libellé: string;
   className?: string;
   handleErrorMessageActive: boolean;
   resetHandleErrorMessageActive: () => void;
-  code: string
+  code: Array<string>
 }
 
 export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
   const {
-    placeholder,
     className,
     handleErrorMessageActive,
     resetHandleErrorMessageActive,
@@ -41,32 +38,38 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const [suggestionsActive, setSuggestionsActive] = useState(false);
   const [errorMessageActive, setErrorMessageActive] = useState(false);
   const [libelléMétier, setLibelléMétier] = useState(libellé || '');
-  const [codeRomesMétier, setCodeRomesMétier] = useState<string[]>(code.split(',') || []);
+  const [codeRomesMétier, setCodeRomesMétier] = useState<string[]>(code || []);
 
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
 
+  const clearMétierRecherché = useCallback(() => {
+    setLibelléMétier('');
+    setCodeRomesMétier([]);
+  }, []);
+
+  const cancelMétierRecherchéSelect = useCallback(() => {
+    if(codeRomesMétier.length === 0) {
+      clearMétierRecherché();
+    }
+    setSuggestionsActive(false);
+  }, [codeRomesMétier, clearMétierRecherché]);
+
   const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
     if (!(autocompleteRef.current)?.contains(e.target as Node)) {
-      if(codeRomesMétier.length === 0 && libelléMétier === '') {
-        setLibelléMétier('');
-      }
-      setSuggestionsActive(false);
+      cancelMétierRecherchéSelect();
     }
-  }, [autocompleteRef, libelléMétier, codeRomesMétier]);
+  }, [autocompleteRef, cancelMétierRecherchéSelect]);
 
   const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
-      if(codeRomesMétier.length === 0 && libelléMétier === '') {
-        setLibelléMétier('');
-      }
-      setSuggestionsActive(false);
+      cancelMétierRecherchéSelect();
     }
-  }, [libelléMétier, codeRomesMétier]);
+  }, [cancelMétierRecherchéSelect]);
 
-  const gérerPerteDeFocus = () => {
+  useEffect(function gérerPerteDeFocus() {
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
     document.addEventListener('keyup', closeSuggestionsOnKeyUp);
 
@@ -74,46 +77,43 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
       document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
     };
-  };
-  useEffect(gérerPerteDeFocus,[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
+  }, [closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
-  const clearMétierRecherché = useCallback(() => {
-    setLibelléMétier('');
-    setCodeRomesMétier([]);
+  useEffect(() => {
+    return () => {
+      handleChange.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const réinitialiserMétierRecherché = () => {
+  useEffect(function réinitialiserMétierRecherché() {
     if (libelléMétier === '') {
       clearMétierRecherché();
     }
     setErrorMessageActive(handleErrorMessageActive);
-  };
-  useEffect(réinitialiserMétierRecherché, [handleErrorMessageActive, libelléMétier, clearMétierRecherché]);
+  }, [handleErrorMessageActive, libelléMétier, clearMétierRecherché]);
 
-  const initialiserMétierRecherché = () => {
+  useEffect(function initialiserMétierRecherché() {
     if (libellé === '' || code.length === 0) {
       clearMétierRecherché();
     } else {
       setLibelléMétier(libellé);
-      setCodeRomesMétier(code.split(','));
+      setCodeRomesMétier(code);
     }
-  };
-  useEffect(initialiserMétierRecherché, [libellé, code, clearMétierRecherché]);
+  }, [libellé, code, clearMétierRecherché]);
 
   const rechercherIntituléMétier = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value.length > 1) {
-      const response = await métierRecherchéService.rechercherMétier(value);
-      const filterSuggestions = response.filter(
-        (suggestion) => suggestion.intitulé.toLowerCase().indexOf(value) > -1,
-      );
-      setSuggestions(filterSuggestions);
-      setSuggestionsActive(true);
-      setErrorMessageActive(false);
-      setSuggestionIndex(0);
-      setLibelléMétier('');
-      setCodeRomesMétier([]);
-    }
+    const response = await métierRecherchéService.rechercherMétier(value);
+    const filterSuggestions = response.filter(
+      (suggestion) => suggestion.intitulé.toLowerCase().indexOf(value) > -1,
+    );
+    setSuggestions(filterSuggestions);
+    setSuggestionIndex(0);
+    setErrorMessageActive(false);
+    setCodeRomesMétier([]);
+    setSuggestionsActive(value.length > 1);
+
 
   }, [métierRecherchéService]);
 
@@ -121,21 +121,16 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
     return debounce(rechercherIntituléMétier, 300);
   }, [rechercherIntituléMétier]);
 
-
-
   const handleClick = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: MétierRecherché) => {
-    e.preventDefault();
-    setSuggestions([]);
     setLibelléMétier(selectedMétierRecherché.intitulé);
     setCodeRomesMétier(selectedMétierRecherché.codeROMEList);
-    setLibelléMétier(selectedMétierRecherché.intitulé);
     setSuggestionsActive(false);
   };
 
   const handleClickResetErrorMessageDisplay = () => {
     resetHandleErrorMessageActive();
     setErrorMessageActive(false);
-    setCodeRomesMétier(code.split(',') || []);
+    setCodeRomesMétier(code || []);
     setLibelléMétier(libellé || '');
     setSuggestionsActive(false);
   };
@@ -152,11 +147,10 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       }
       setSuggestionIndex(suggestionIndex + 1);
     } else if (event.key === KeyBoard.ENTER && suggestionsActive) {
+      event.preventDefault();
       setLibelléMétier(suggestions[suggestionIndex].intitulé);
       setCodeRomesMétier(suggestions[suggestionIndex].codeROMEList);
-      setLibelléMétier(suggestions[suggestionIndex].intitulé);
       setSuggestionsActive(false);
-      event.preventDefault();
     }
   };
 
@@ -215,7 +209,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             aria-autocomplete="list"
             aria-controls={listbox}
             aria-activedescendant="rechercherMétier"
-            placeholder={placeholder ?? 'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
+            placeholder={'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
             className={['fr-input', styles.autocompletionInput, errorMessageActive ? 'fr-input--error' : ''].join(' ')}
             value={libelléMétier}
             onClick={handleClickResetErrorMessageDisplay}

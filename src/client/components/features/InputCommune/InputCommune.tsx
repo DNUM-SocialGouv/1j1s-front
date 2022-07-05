@@ -2,9 +2,12 @@ import debounce from 'lodash/debounce';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/features/InputLocalisation/InputLocalisation.module.css';
+import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
+import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { radiusList } from '~/server/alternances/domain/alternance';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 interface InputCommuneProps {
@@ -12,10 +15,12 @@ interface InputCommuneProps {
   libellé: string
   latitude: string
   longitude: string
+  distance: string
 }
 
 export const InputCommune = (props: InputCommuneProps) => {
-  const { code, libellé, latitude, longitude } = props;
+  const { code, libellé, latitude, longitude, distance } = props;
+
   const localisationService = useDependency<LocalisationService>('localisationService');
 
   const [suggestionIndex, setSuggestionIndex] = useState(1);
@@ -24,19 +29,23 @@ export const InputCommune = (props: InputCommuneProps) => {
   const [codeCommune, setCodeCommune] = useState<string>(code || '');
   const [latitudeCommune, setLatitudeCommune] = useState<string>(latitude || '');
   const [longitudeCommune, setLongitudeCommune] = useState<string>(longitude || '');
+  const [distanceCommune, setDistanceCommune] = useState<string>(distance || '');
 
   const [currentIndex, setCurrenIndex] = useState(0);
 
-  const [communeList, setCommuneList] = useState([]);
+  const [communeList, setCommuneList] = useState<Commune[]>([]);
 
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
   const LOCALISATION_LABEL_ID = 'autocomplete-label';
   const LOCALISATION_SUGGESTIONS_ID = 'autocomplete-list-box';
 
+  const DEFAULT_RADIUS_VALUE = '10';
+
   const clearCommune = useCallback(() => {
     setCodeCommune('');
     setLatitudeCommune('');
+    setDistanceCommune('');
     setLongitudeCommune('');
     setLibelléCommune('');
   }, []);
@@ -60,7 +69,7 @@ export const InputCommune = (props: InputCommuneProps) => {
     }
   }, [cancelCommuneSelect]);
 
-  useEffect(() => {
+  useEffect(function gérerPerteDeFocus() {
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
     document.addEventListener('keyup', closeSuggestionsOnKeyUp);
 
@@ -70,37 +79,39 @@ export const InputCommune = (props: InputCommuneProps) => {
     };
   }, [closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
-  useEffect(() => {
+  useEffect(function réinitialiserCommune() {
     if (libelléCommune === '') {
       clearCommune();
     }
-  }, [libelléCommune, codeCommune, clearCommune]);
+  }, [libelléCommune, clearCommune]);
 
-  useEffect(() => {
+  useEffect(function initialiserCommune() {
     if (libellé === '' || code === '') {
       clearCommune();
     } else {
       setCodeCommune(code);
       setLatitudeCommune(latitude);
+      setDistanceCommune(distance);
       setLongitudeCommune(longitude);
       setLibelléCommune(libellé);
     }
-  }, [libellé, code, longitude, latitude, clearCommune]);
+  }, [libellé, code, longitude, latitude, distance, clearCommune]);
 
   const rechercherCommune = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const response  = await localisationService.rechercherCommune(value);
-    if(response.instance === 'success') {
-      setCommuneList(response.result.résultats ?? []);
-      setCodeCommune('');
-      setLatitudeCommune('');
-      setLongitudeCommune('');
-      setSuggestionsActive(value.length > 1);
-      setSuggestionIndex(1);
-    } else {
-      // TODO: implement error management
+    if (value.length > 1) {
+      const response  = await localisationService.rechercherCommune(value);
+      if(response.instance === 'success') {
+        setCommuneList(response.result.résultats ?? []);
+        setCodeCommune('');
+        setLatitudeCommune('');
+        setLongitudeCommune('');
+        setSuggestionsActive(value.length > 1);
+        setSuggestionIndex(1);
+      } else {
+        // TODO: implement error management
+      }
     }
-
   }, [localisationService]);
 
   const handleChange = useMemo(() => {
@@ -121,8 +132,9 @@ export const InputCommune = (props: InputCommuneProps) => {
   const handleClick = (commune: Commune) => {
     setLibelléCommune(commune.libelle);
     setCodeCommune(commune.code);
-    setLatitudeCommune(commune.coordonnées.lat.toString());
-    setLongitudeCommune(commune.coordonnées.lon.toString());
+    setLatitudeCommune(commune.coordonnées.latitude.toString());
+    setLongitudeCommune(commune.coordonnées.longitude.toString());
+    setDistanceCommune(distanceCommune || DEFAULT_RADIUS_VALUE);
     setSuggestionsActive(false);
   };
 
@@ -136,14 +148,13 @@ export const InputCommune = (props: InputCommuneProps) => {
       setSuggestionIndex(suggestionIndex + 1);
     } else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
-
-
       if (!isSuggestionListEmpty() && ((codeCommune === '') || (libelléCommune && libelléCommune !== `${communeList[currentIndex].code}`))) {
         if (communeList) {
           setCodeCommune(communeList[currentIndex].code);
-          setLatitudeCommune(communeList[currentIndex].coordonnées.lat);
-          setLongitudeCommune(communeList[currentIndex].coordonnées.lon);
+          setLatitudeCommune(communeList[currentIndex].coordonnées.latitude.toString());
+          setLongitudeCommune(communeList[currentIndex].coordonnées.longitude.toString());
           setLibelléCommune(communeList[currentIndex].libelle);
+          setDistanceCommune(distanceCommune || DEFAULT_RADIUS_VALUE);
         }
         setSuggestionsActive(false);
       }
@@ -197,44 +208,57 @@ export const InputCommune = (props: InputCommuneProps) => {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <label className="fr-label" htmlFor="rechercherCommune" id={LOCALISATION_LABEL_ID}>
-        Commune
-      </label>
-      <div ref={autocompleteRef}>
-        <div
-          id="header-search"
-          role="combobox"
-          aria-expanded={suggestionsActive}
-          aria-controls={LOCALISATION_SUGGESTIONS_ID}
-          aria-owns={LOCALISATION_SUGGESTIONS_ID}
-          aria-haspopup="listbox"
-        >
-          <input
-            type="text"
-            id="rechercherCommune"
-            name="libelleCommune"
-            data-testid="InputCommune"
-            autoComplete="off"
-            aria-autocomplete="list"
+    <>
+      <div className={styles.wrapper}>
+        <label className="fr-label" htmlFor="rechercherCommune" id={LOCALISATION_LABEL_ID}>
+          Commune
+        </label>
+        <div ref={autocompleteRef}>
+          <div
+            id="header-search"
+            role="combobox"
+            aria-expanded={suggestionsActive}
             aria-controls={LOCALISATION_SUGGESTIONS_ID}
-            aria-activedescendant="rechercherCommune"
-            placeholder={'Exemple: Paris, Béziers...'}
-            className={['fr-input', styles.libelleLocalisationInput].join(' ')}
-            value={libelléCommune}
-            onChange={(event) => {
-              setLibelléCommune(event.target.value);
-              handleChange(event);
-            }}
-            onKeyDown={handleKeyDown}
-            onClick={() => setSuggestionsActive(!!codeCommune)}
-          />
-          <input type="hidden" name="codeCommune" value={codeCommune} data-testid="codeCommune" />
-          <input type="hidden" name="latitudeCommune" value={latitudeCommune} data-testid="latitudeCommune" />
-          <input type="hidden" name="longitudeCommune" value={longitudeCommune} data-testid="longitudeCommune" />
+            aria-owns={LOCALISATION_SUGGESTIONS_ID}
+            aria-haspopup="listbox"
+          >
+            <input
+              type="text"
+              id="rechercherCommune"
+              name="libelleCommune"
+              data-testid="InputCommune"
+              autoComplete="off"
+              aria-autocomplete="list"
+              aria-controls={LOCALISATION_SUGGESTIONS_ID}
+              aria-activedescendant="rechercherCommune"
+              placeholder={'Exemple: Paris, Béziers...'}
+              className={['fr-input', styles.libelleLocalisationInput].join(' ')}
+              value={libelléCommune}
+              onChange={(event) => {
+                setLibelléCommune(event.target.value);
+                handleChange(event);
+              }}
+              onKeyDown={handleKeyDown}
+              onClick={() => setSuggestionsActive(!!codeCommune)}
+            />
+            <input type="hidden" name="codeCommune" value={codeCommune} data-testid="codeCommune" />
+            <input type="hidden" name="latitudeCommune" value={latitudeCommune} data-testid="latitudeCommune" />
+            <input type="hidden" name="longitudeCommune" value={longitudeCommune} data-testid="longitudeCommune" />
+          </div>
+          {suggestionsActive && <SuggestionsCommuneList/>}
         </div>
-        {suggestionsActive && <SuggestionsCommuneList/>}
       </div>
-    </div>
+      { codeCommune &&
+      <SelectSingle
+        label="Rayon"
+        titre={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
+        optionList={radiusList}
+        onChange={setDistanceCommune}
+        currentInput={distanceCommune}
+      />
+      }
+      <input type="hidden" name="distanceCommune" value={distanceCommune} />
+    </>
+
   );
 };

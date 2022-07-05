@@ -21,7 +21,7 @@ describe('rechercher une alternance', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheAlternance());
       },
-      url: '/alternances?codeCommune=75101&codeRomes=D1103,D1101,H2101&radius=30&longitudeCommune=2&latitudeCommune=48',
+      url: '/alternances?codeCommune=75101&codeRomes=D1103,D1101,H2101&distanceCommune=30&longitudeCommune=2&latitudeCommune=48',
     });
   });
 });

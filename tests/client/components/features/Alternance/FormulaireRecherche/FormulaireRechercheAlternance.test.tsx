@@ -66,7 +66,7 @@ describe('FormulaireRechercheAlternance', () => {
   });
 
   describe('quand on recherche par métier et par lieu', () => {
-    it('ajouter le lieu aux query params', async () => {
+    it('ajoute le lieu et le rayon par défaut aux query params', async () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
@@ -101,7 +101,7 @@ describe('FormulaireRechercheAlternance', () => {
       fireEvent.click(buttonRechercher);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'metierSelectionne=Boucherie%25252C%252Bcharcuterie%25252C%252Btraiteur&codeRomes=D1103%25252CD1101%25252CH2101&libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'metierSelectionne=Boucherie%25252C%252Bcharcuterie%25252C%252Btraiteur&codeRomes=D1103%25252CD1101%25252CH2101&libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1' }, undefined, { shallow: true });
     });
   });
 
@@ -118,6 +118,7 @@ describe('FormulaireRechercheAlternance', () => {
         query: {
           codeCommune: '75056',
           codeRomes: 'D1103%252CD1101%252CH2101',
+          distanceCommune: '10',
           latitudeCommune: '48.859',
           libelleCommune: 'Paris',
           longitudeCommune: '2.347',
@@ -133,7 +134,7 @@ describe('FormulaireRechercheAlternance', () => {
         </DependenciesProvider>,
       );
 
-      const button = await screen.findByText('Indifférent');
+      const button = await screen.findByText('10 km');
       fireEvent.click(button);
 
       const optionsRadius = await screen.findByTestId('OptionList');
@@ -149,7 +150,7 @@ describe('FormulaireRechercheAlternance', () => {
       fireEvent.click(buttonRechercher);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'metierSelectionne=Boucherie%25252C%252Bcharcuterie%25252C%252Btraiteur&codeRomes=D1103%25252CD1101%25252CH2101&libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&radius=10&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'metierSelectionne=Boucherie%25252C%252Bcharcuterie%25252C%252Btraiteur&codeRomes=D1103%25252CD1101%25252CH2101&libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });
     });
   });
 });

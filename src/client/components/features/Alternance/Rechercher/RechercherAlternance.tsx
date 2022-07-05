@@ -58,11 +58,13 @@ export function RechercherAlternance() {
   }, [router.query, alternanceService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
-    if (queryParams.metierSelectionne) {
-      return `${nombreRésultats} contrats d'alternances pour ${queryParams.metierSelectionne}`;
+    const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
+    if (nombreRésultats > 1) {
+      messageRésultatRechercheSplit.push(`contrats d'alternances pour ${queryParams.metierSelectionne}`);
     } else {
-      return `${nombreRésultats} contrats d'alternances`;
+      messageRésultatRechercheSplit.push(`contrat d'alternance pour ${queryParams.metierSelectionne}`);
     }
+    return messageRésultatRechercheSplit.join(' ');
   }, [nombreRésultats, queryParams.metierSelectionne]);
 
 

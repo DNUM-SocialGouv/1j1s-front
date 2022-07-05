@@ -10,18 +10,18 @@ interface AlternanceQueryParams {
   libelleCommune?: string
   longitudeCommune?: string
   latitudeCommune?: string
-  radius?: string
+  distanceCommune?: string
 }
 
 export function useAlternanceQuery(): AlternanceQueryParams {
   const [alternanceQueryParams, setAlternanceQueryParams] = useState<AlternanceQueryParams>({
     codeCommune: undefined,
     codeRomes: undefined,
+    distanceCommune: undefined,
     latitudeCommune: undefined,
     libelleCommune: undefined,
     longitudeCommune: undefined,
     metierSelectionne: undefined,
-    radius: undefined,
   });
 
   const { query } = useRouter();
@@ -30,11 +30,11 @@ export function useAlternanceQuery(): AlternanceQueryParams {
     setAlternanceQueryParams({
       codeCommune: getSingleQueryParam(query.codeCommune),
       codeRomes: getSingleQueryParam(query.codeRomes),
+      distanceCommune: getSingleQueryParam(query.distanceCommune),
       latitudeCommune: getSingleQueryParam(query.latitudeCommune),
       libelleCommune: getSingleQueryParam(query.libelleCommune),
       longitudeCommune: getSingleQueryParam(query.longitudeCommune),
       metierSelectionne: getSingleQueryParam(query.metierSelectionne),
-      radius: getSingleQueryParam(query.radius),
     });
   }, [query]);
 

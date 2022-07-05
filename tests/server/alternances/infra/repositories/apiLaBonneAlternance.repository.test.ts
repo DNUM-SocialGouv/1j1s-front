@@ -71,7 +71,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
     it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
       jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(anAlternanceListResponse());
 
-      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01' });
+      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
 
       expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
       expect(result.nombreRésultats).toEqual(4);
@@ -252,7 +252,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
     });
 
     it('quand on cherche avec un lieu', async () => {
-      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01' });
+      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
 
       expect(result).toEqual('insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
     });
