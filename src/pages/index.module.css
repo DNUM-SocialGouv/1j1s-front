@@ -1,7 +1,41 @@
-.grid {
-    padding: 2rem;
+.cardList {
+    padding: 18px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 375px;
-    gap: 2rem;
+    gap: 24px;
+}
+
+.section {
+    padding: 24px;
+}
+
+.sectionHeader {
+    text-align: center;
+}
+
+.sectionHeader > svg {
+    display: block;
+    margin: auto;
+}
+
+.sectionHeader > h2 {
+    display: block;
+    margin: auto;
+}
+
+.section1 {
+    background-color: #E8EDFF;
+}
+
+.section2 {
+    background-color: #FEF3FD;
+}
+
+.section3 {
+    background-color: #F1FEF5;
+}
+
+.section4 {
+    background-color: #FFF4ED;
 }

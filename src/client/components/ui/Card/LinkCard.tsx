@@ -45,7 +45,7 @@ export const LinkCard: React.FunctionComponent<LinkCardProps> = (props: LinkCard
     <article className={styles.card}>
 	    <div className={styles.cardImageWrapper}>
 		    {/* eslint-disable-next-line @next/next/no-img-element */}
-	      {imageUrl && imageAltText && <img className={styles.cardImage} src={imageUrl} alt={imageAltText} decoding="async" loading="lazy" />}
+	      {imageUrl && <img className={styles.cardImage} src={imageUrl} alt={imageAltText} decoding="async" loading="lazy" />}
 	    </div>
 	    <div className={styles.cardContent}>
 	      <h6 className={styles.cardTitle}>{title}</h6>
