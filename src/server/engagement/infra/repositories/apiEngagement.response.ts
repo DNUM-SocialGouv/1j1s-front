@@ -19,7 +19,20 @@ export interface MissionEngagementResponse {
   id?: string
 }
 
+export interface ConsulterMissionEngagementResponse extends MissionEngagementResponse {
+  departmentName?: string
+  departmentCode?: string
+  region?: string
+  applicationUrl?: string
+  duration?: number
+}
+
 export interface RésultatsRechercheMissionEngagementResponse {
   total: number
   hits: Array<MissionEngagementResponse>
+}
+
+export interface RésultatsMissionEngagementResponse {
+  ok: boolean
+  data: ConsulterMissionEngagementResponse
 }

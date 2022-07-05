@@ -70,8 +70,25 @@ export function aRésultatRechercheMission(override?: Partial<RésultatsRecherch
     ...override,
   };
 }
+export function anAmbassadeurDuDonDeVêtementMissionSolo(): Mission {
+  return {
+    description: ' • Faire connaître les activités du Relais et inciter au don de textiles dans\n   votre quartier \n • Prévenir en cas de débordement ou de dégradation constatés d’une borne\n • Sensibiliser vos voisins \n • Participer à des évènements de collecte de collecte à proximité de son\n   domicile\n\n\\n\\nObjectifs: \\n\n\nNous désirons innover en développant un réseau d’ambassadeurs bénévoles autour\ndu geste du don dans la ville de Poissy, chaque ambassadeur se voyant assigné un\npoint de collecte - « une borne » - à proximité de son domicile et pouvant par\nla suite organiser des animations autour de la réduction des déchets et du tri\ndes textiles. ',
+    duréeContrat: 8,
+    débutContrat: '9 mai 2022',
+    id: '6278e8ced7dda60703c3ca40',
+    localisation: 'Poissy (78 - Yvelines - Île-de-France)',
+    logo: 'https://apicivique.s3.eu-west-3.amazonaws.com/app/publishers/5f5931496c7ea514150a818f/logo_JVA_gouv_carre_light.png',
+    nomEntreprise: 'Ebs le relais val de seine',
+    titre: 'Je deviens Ambassadeur du don des vêtements',
+    url: 'www.poissy.com',
+    étiquetteList: [
+      'Poissy (78300)',
+      'Dès le 9 mai 2022',
+    ],
+  };
+}
 
-function anAmbassadeurDuDonDeVêtementMission(): Mission {
+export function anAmbassadeurDuDonDeVêtementMission(): Mission {
   return {
     description: ' • Faire connaître les activités du Relais et inciter au don de textiles dans\n   votre quartier \n • Prévenir en cas de débordement ou de dégradation constatés d’une borne\n • Sensibiliser vos voisins \n • Participer à des évènements de collecte de collecte à proximité de son\n   domicile\n\n\\n\\nObjectifs: \\n\n\nNous désirons innover en développant un réseau d’ambassadeurs bénévoles autour\ndu geste du don dans la ville de Poissy, chaque ambassadeur se voyant assigné un\npoint de collecte - « une borne » - à proximité de son domicile et pouvant par\nla suite organiser des animations autour de la réduction des déchets et du tri\ndes textiles. ',
     débutContrat: '09/05/2022',

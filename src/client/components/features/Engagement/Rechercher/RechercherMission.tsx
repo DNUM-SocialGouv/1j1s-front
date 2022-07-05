@@ -103,7 +103,7 @@ function mapMissionBénévolatToLienSolution(mission: Mission): LienSolution {
     id: mission.id,
     intituléOffre: mission.titre,
     lienOffre: `/benevolat/${mission.id}`,
-    logoEntreprise: mission.logo ? mission.logo : '/images/logos/je-veux-aider.svg',
+    logoEntreprise: '/images/logos/je-veux-aider.svg',
     nomEntreprise: mission.nomEntreprise,
     étiquetteOffreList: mission.étiquetteList,
   };
@@ -115,7 +115,7 @@ function mapMissionServiceCiviqueToLienSolution(mission: Mission): LienSolution 
     id: mission.id,
     intituléOffre: mission.titre,
     lienOffre: `/service-civique/${mission.id}`,
-    logoEntreprise: mission.logo ? mission.logo : '/images/logos/service-civique.svg',
+    logoEntreprise: '/images/logos/service-civique.svg',
     nomEntreprise: mission.nomEntreprise,
     étiquetteOffreList: mission.étiquetteList,
   };

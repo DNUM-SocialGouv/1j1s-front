@@ -42,6 +42,10 @@
   display: inline;
 }
 
+.contenuAdaptatif  h3, .contenuAdaptatif  p {
+  display: inline;
+}
+
 .contact {
   font-style: inherit;
 }
@@ -59,5 +63,9 @@
 
   .titre > ul {
     margin: auto;
+  }
+
+  .contenuAdaptatif  h3, .contenuAdaptatif  p {
+    display: block;
   }
 }
