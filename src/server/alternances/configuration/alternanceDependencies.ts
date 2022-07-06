@@ -10,9 +10,6 @@ import {
   RechercherMétierDependenciesContainer,
   rechercherMétierDependenciesContainer,
 } from '~/server/alternances/infra/configuration/rechercheMétierDependencies.container';
-import {
-  ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export type AlternanceDependencies =
@@ -22,11 +19,10 @@ export type AlternanceDependencies =
 
 export const alternanceDependenciesContainer = (
   laBonneAlternanceHttpClient: LaBonneAlternanceHttpClientService,
-  apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): AlternanceDependencies => {
   return {
-    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository),
-    ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository),
-    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient, apiPoleEmploiRéférentielRepository),
+    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient),
+    ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient),
+    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient),
   };
 };

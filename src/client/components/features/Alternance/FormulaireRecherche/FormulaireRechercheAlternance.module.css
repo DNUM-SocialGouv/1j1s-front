@@ -1,0 +1,51 @@
+.rechercheAlternanceForm {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--grey-950);
+}
+
+.inputButtonWrapper {
+    padding-top: 24px;
+    padding-bottom: 32px;
+}
+
+.inputButtonWrapper > * {
+    margin-bottom: 1.5rem;
+}
+
+.buttonRechercher {
+    width: 100%;
+}
+
+.buttonRechercher > span {
+    margin: auto;
+}
+
+@media only screen and (min-width: 48em) {
+    .rechercheAlternanceForm {
+        flex-direction: row;
+        align-items: flex-start;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .buttonRechercher {
+        width: initial;
+        margin-top: 32px;
+        margin-left: 40px;
+    }
+
+    .inputButtonWrapper {
+        display: flex;
+        width: 100%;
+        align-items: flex-end;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .inputButtonWrapper > div {
+        flex-grow: 1;
+    }
+}

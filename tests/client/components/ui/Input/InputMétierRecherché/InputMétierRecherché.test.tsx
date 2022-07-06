@@ -16,11 +16,11 @@ import {
 } from '@tests/fixtures/client/services/métierRecherchéService.fixture';
 import React from 'react';
 
-import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
+import { InputMétierRecherché } from '~/client/components/ui/Input/InputMétierRecherché/InputMétierRecherché';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 
-describe('AutoCompletionForMétierRecherché', () => {
+describe('InputMétierRecherché', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -34,7 +34,7 @@ describe('AutoCompletionForMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <AutoCompletionForMétierRecherché
+          <InputMétierRecherché
             inputName=""
             libellé=""
             handleErrorMessageActive={false}
@@ -62,7 +62,7 @@ describe('AutoCompletionForMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <AutoCompletionForMétierRecherché inputName="" libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code=""/>
+          <InputMétierRecherché inputName="" libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code=""/>
         </DependenciesProvider>,
       );
 
@@ -87,7 +87,7 @@ describe('AutoCompletionForMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <AutoCompletionForMétierRecherché inputName="" libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code=""/>
+          <InputMétierRecherché inputName="" libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code=""/>
         </DependenciesProvider>,
       );
       const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
@@ -114,7 +114,7 @@ describe('AutoCompletionForMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <AutoCompletionForMétierRecherché inputName="" libellé="" handleErrorMessageActive={true} resetHandleErrorMessageActive={jest.fn()} code=""/>
+          <InputMétierRecherché inputName="" libellé="" handleErrorMessageActive={true} resetHandleErrorMessageActive={jest.fn()} code=""/>
         </DependenciesProvider>,
       );
 

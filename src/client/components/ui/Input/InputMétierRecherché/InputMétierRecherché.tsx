@@ -8,27 +8,21 @@ import React, {
   useState,
 } from 'react';
 
-import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
+import styles from '~/client/components/ui/Input/Input.module.css';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
-interface AutoCompletionForMétierRecherchéProps {
-  placeholder?: string;
-  inputName: string;
+interface InputMétierRecherchéProps {
   libellé: string;
-  className?: string;
   handleErrorMessageActive: boolean;
   resetHandleErrorMessageActive: () => void;
-  code: string
+  code: string[]
 }
 
-export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
+export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
   const {
-    inputName,
-    placeholder,
-    className,
     handleErrorMessageActive,
     resetHandleErrorMessageActive,
     libellé,
@@ -42,33 +36,38 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const [suggestionsActive, setSuggestionsActive] = useState(false);
   const [errorMessageActive, setErrorMessageActive] = useState(false);
   const [libelléMétier, setLibelléMétier] = useState(libellé || '');
-  const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>(code.split(',') || []);
-  const [inputHiddenSelectedMétierIntitulé, setInputHiddenSelectedMétierIntitulé] = useState<string>('');
+  const [codeRomesMétier, setCodeRomesMétier] = useState<string[]>(code || []);
 
   const autocompleteRef = useRef<HTMLDivElement>(null);
 
   const label = 'autocomplete-label';
   const listbox = 'autocomplete-listbox';
 
+  const clearMétierRecherché = useCallback(() => {
+    setLibelléMétier('');
+    setCodeRomesMétier([]);
+  }, []);
+
+  const cancelMétierRecherchéSelect = useCallback(() => {
+    if(codeRomesMétier.length === 0) {
+      clearMétierRecherché();
+    }
+    setSuggestionsActive(false);
+  }, [codeRomesMétier, clearMétierRecherché]);
+
   const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
     if (!(autocompleteRef.current)?.contains(e.target as Node)) {
-      if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
-        setLibelléMétier('');
-      }
-      setSuggestionsActive(false);
+      cancelMétierRecherchéSelect();
     }
-  }, [autocompleteRef, inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
+  }, [autocompleteRef, cancelMétierRecherchéSelect]);
 
   const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
-      if(inputHiddenSelectedCodeRomes.length === 0 && inputHiddenSelectedMétierIntitulé === '') {
-        setLibelléMétier('');
-      }
-      setSuggestionsActive(false);
+      cancelMétierRecherchéSelect();
     }
-  }, [inputHiddenSelectedMétierIntitulé, inputHiddenSelectedCodeRomes]);
+  }, [cancelMétierRecherchéSelect]);
 
-  const gérerPerteDeFocus = () => {
+  useEffect(function gérerPerteDeFocus() {
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
     document.addEventListener('keyup', closeSuggestionsOnKeyUp);
 
@@ -76,46 +75,43 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
       document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
     };
-  };
-  useEffect(gérerPerteDeFocus,[closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
+  }, [closeSuggestionsOnClickOutside, closeSuggestionsOnKeyUp]);
 
-  const clearMétierRecherché = useCallback(() => {
-    setInputHiddenSelectedMétierIntitulé('');
-    setInputHiddenSelectedCodeRomes([]);
+  useEffect(() => {
+    return () => {
+      handleChange.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const réinitialiserMétierRecherché = () => {
+  useEffect(function réinitialiserMétierRecherché() {
     if (libelléMétier === '') {
       clearMétierRecherché();
     }
     setErrorMessageActive(handleErrorMessageActive);
-  };
-  useEffect(réinitialiserMétierRecherché, [handleErrorMessageActive, libelléMétier, code, libellé, clearMétierRecherché]);
+  }, [handleErrorMessageActive, libelléMétier, clearMétierRecherché]);
 
-  const initialiserMétierRecherché = () => {
+  useEffect(function initialiserMétierRecherché() {
     if (libellé === '' || code.length === 0) {
       clearMétierRecherché();
     } else {
-      setInputHiddenSelectedMétierIntitulé(libellé);
-      setInputHiddenSelectedCodeRomes(code.split(','));
+      setLibelléMétier(libellé);
+      setCodeRomesMétier(code);
     }
-  };
-  useEffect(initialiserMétierRecherché, [libellé, code, clearMétierRecherché]);
+  }, [libellé, code, clearMétierRecherché]);
 
   const rechercherIntituléMétier = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value.length > 1) {
-      const response = await métierRecherchéService.rechercherMétier(value);
-      const filterSuggestions = response.filter(
-        (suggestion) => suggestion.intitulé.toLowerCase().indexOf(value) > -1,
-      );
-      setSuggestions(filterSuggestions);
-      setSuggestionsActive(true);
-      setErrorMessageActive(false);
-      setSuggestionIndex(0);
-      setInputHiddenSelectedMétierIntitulé('');
-      setInputHiddenSelectedCodeRomes([]);
-    }
+    const response = await métierRecherchéService.rechercherMétier(value);
+    const filterSuggestions = response.filter(
+      (suggestion) => suggestion.intitulé.toLowerCase().indexOf(value) > -1,
+    );
+    setSuggestions(filterSuggestions);
+    setSuggestionIndex(0);
+    setErrorMessageActive(false);
+    setCodeRomesMétier([]);
+    setSuggestionsActive(value.length > 1);
+
 
   }, [métierRecherchéService]);
 
@@ -123,22 +119,17 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
     return debounce(rechercherIntituléMétier, 300);
   }, [rechercherIntituléMétier]);
 
-
-
   const handleClick = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: MétierRecherché) => {
-    e.preventDefault();
-    setSuggestions([]);
     setLibelléMétier(selectedMétierRecherché.intitulé);
-    setInputHiddenSelectedCodeRomes(selectedMétierRecherché.codeROMEList);
-    setInputHiddenSelectedMétierIntitulé(selectedMétierRecherché.intitulé);
+    setCodeRomesMétier(selectedMétierRecherché.codeROMEList);
     setSuggestionsActive(false);
   };
 
   const handleClickResetErrorMessageDisplay = () => {
     resetHandleErrorMessageActive();
     setErrorMessageActive(false);
-    setInputHiddenSelectedCodeRomes(code.split(',') || []);
-    setInputHiddenSelectedMétierIntitulé(libellé || '');
+    setCodeRomesMétier(code || []);
+    setLibelléMétier(libellé || '');
     setSuggestionsActive(false);
   };
 
@@ -154,18 +145,17 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
       }
       setSuggestionIndex(suggestionIndex + 1);
     } else if (event.key === KeyBoard.ENTER && suggestionsActive) {
-      setLibelléMétier(suggestions[suggestionIndex].intitulé);
-      setInputHiddenSelectedCodeRomes(suggestions[suggestionIndex].codeROMEList);
-      setInputHiddenSelectedMétierIntitulé(suggestions[suggestionIndex].intitulé);
-      setSuggestionsActive(false);
       event.preventDefault();
+      setLibelléMétier(suggestions[suggestionIndex].intitulé);
+      setCodeRomesMétier(suggestions[suggestionIndex].codeROMEList);
+      setSuggestionsActive(false);
     }
   };
 
   const Suggestions = () => {
     return (
       <ul
-        className={styles.autocompletionSuggestion}
+        className={styles.suggestionList}
         role="listbox"
         aria-labelledby={label}
         id={listbox}
@@ -174,7 +164,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
         {suggestions.length > 0 && suggestions.map((suggestion, index) => {
           return (
             <li
-              className={index === suggestionIndex ? styles.active : ''}
+              className={index === suggestionIndex ? styles.hover : ''}
               key={index}
               onClick={(event) => handleClick(event, suggestion)}
               role="option"
@@ -185,7 +175,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
           );
         })}
         {suggestions.length === 0 &&
-        <li className={styles.noSuggestion} data-testid="MétierRecherchéNoResultMessage">
+        <li className={styles.aucunRésultat} data-testid="MétierRecherchéNoResultMessage">
           Aucune proposition ne correspond à votre saisie.
           Vérifiez que votre saisie correspond bien à un métier.
           Exemple : boulangerie, cuisine...
@@ -196,8 +186,8 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   };
 
   return (
-    <div className={className}>
-      <label className="fr-label" htmlFor={inputName} id={label}>
+    <div className={styles.wrapper}>
+      <label className="fr-label" htmlFor="rechercherMétier" id={label}>
         Secteur, domaine, mot-clé {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
       <div ref={autocompleteRef}>
@@ -211,13 +201,14 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
         >
           <input
             type="text"
-            id={inputName}
+            id="rechercherMétier"
+            name="metierSelectionne"
             data-testid="InputRechercheMétier"
             aria-autocomplete="list"
             aria-controls={listbox}
-            aria-activedescendant={inputName}
-            placeholder={placeholder ?? 'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
-            className={['fr-input', styles.autocompletionInput, errorMessageActive ? 'fr-input--error' : ''].join(' ')}
+            aria-activedescendant="rechercherMétier"
+            placeholder={'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
+            className={['fr-input', styles.libelleInput, errorMessageActive ? 'fr-input--error' : ''].join(' ')}
             value={libelléMétier}
             onClick={handleClickResetErrorMessageDisplay}
             onChange={(event) => {
@@ -227,8 +218,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             onKeyDown={handleKeyDown}
             autoComplete="off"
           />
-          <input type="hidden" value={inputHiddenSelectedCodeRomes} name="codeRomes"/>
-          <input type="hidden" value={inputHiddenSelectedMétierIntitulé} name="metierSelectionne"/>
+          <input type="hidden" value={codeRomesMétier} name="codeRomes"/>
         </div>
         {suggestionsActive && <Suggestions />}
       </div>

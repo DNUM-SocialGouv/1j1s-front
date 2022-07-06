@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.suggestionLocalisationList {
+.suggestionList {
   z-index: 2;
   position: absolute;
   border: 1px solid var(--grey-925);
@@ -13,25 +13,25 @@
   padding-left: 0;
 }
 
-.suggestionLocalisationList > li {
+.suggestionList > li {
   padding-left: 0.5rem;
   cursor: pointer;
 }
 
-.suggestionLocalisationList > li:hover, .hover, .suggestionLocalisationList > li[aria-selected=true] {
+.suggestionList > li:hover, .hover, .suggestionList > li[aria-selected=true] {
   background-color: rgba(3, 15, 143, .05);
 }
 
-.libelleLocalisationInput {
+.libelleInput {
   margin-top: 0.5rem !important;
   border-radius: 0.25rem 0.25rem 0 0 !important;
 }
 
-.catégorieRésultatLocalisation {
+.catégorieRésultat {
   pointer-events: none;
   user-select: none;
 }
 
-.aucunRésultatLocalisation {
+.aucunRésultat {
   padding: 0.5rem;
 }

@@ -13,7 +13,7 @@ import {
 import { aLocalisationListWithCommuneAndDépartement } from '@tests/fixtures/domain/localisation.fixture';
 import React from 'react';
 
-import { InputLocalisation } from '~/client/components/features/InputLocalisation/InputLocalisation';
+import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('InputLocalisation', () => {

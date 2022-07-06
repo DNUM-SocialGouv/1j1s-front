@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import styles from '~/client/components/features/InputLocalisation/InputLocalisation.module.css';
+import styles from '~/client/components/ui/Input/Input.module.css';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -180,34 +180,34 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
     let currentHoverIndex = 0;
     return (
       <ul
-        className={styles.suggestionLocalisationList}
+        className={styles.suggestionList}
         role="listbox"
         aria-labelledby={LOCALISATION_LABEL_ID}
         id={LOCALISATION_SUGGESTIONS_ID}
         data-testid="RésultatsLocalisation"
       >
         {localisationList.régionList.length > 0 &&
-          <li className={styles.catégorieRésultatLocalisation}><strong>Régions</strong></li>}
+          <li className={styles.catégorieRésultat}><strong>Régions</strong></li>}
         {localisationList.régionList.map((suggestion, index) => {
           currentHoverIndex++;
           return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.REGION, index);
         })}
 
         {localisationList.départementList.length > 0 &&
-          <li className={styles.catégorieRésultatLocalisation}><strong>Départements</strong></li>}
+          <li className={styles.catégorieRésultat}><strong>Départements</strong></li>}
         {localisationList.départementList.map((suggestion, index) => {
           currentHoverIndex++;
           return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.DEPARTEMENT, index);
         })}
 
         {localisationList.communeList.length > 0 &&
-          <li className={styles.catégorieRésultatLocalisation}><strong>Communes</strong></li>}
+          <li className={styles.catégorieRésultat}><strong>Communes</strong></li>}
         {localisationList.communeList.map((suggestion, index) => {
           currentHoverIndex++;
           return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
         {isSuggestionListEmpty() &&
-          <li className={styles.aucunRésultatLocalisation} data-testid="LocalisationNoResultMessage">
+          <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.
             Exemple : Paris, ...
@@ -241,7 +241,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
             aria-controls={LOCALISATION_SUGGESTIONS_ID}
             aria-activedescendant="rechercherLocalisation"
             placeholder={'Exemple: Paris, Béziers...'}
-            className={['fr-input', styles.libelleLocalisationInput].join(' ')}
+            className={['fr-input', styles.libelleInput].join(' ')}
             value={libelléLocalisation}
             onChange={(event) => {
               setLibelléLocalisation(event.target.value);

@@ -8,7 +8,7 @@ import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQu
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { générerTitreFiltre } from '~/client/utils/offreEmploi.mapper';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { radiusList } from '~/server/alternances/domain/alternance';
+import { radiusListEngagement } from '~/server/alternances/domain/alternance';
 import { MissionEngagement } from '~/server/engagement/domain/engagement';
 
 interface FormulaireRechercheMissionEngagementProps {
@@ -20,7 +20,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
   const queryParams = useMissionEngagementQuery();
 
   const [domainValue, setDomainValue] = useState('');
-  const [distanceValue, setDistanceValue] = useState('');
+  const [distanceValue, setDistanceValue] = useState('10');
 
   useEffect(function initFormValues() {
     setDomainValue(queryParams.domain || '');
@@ -48,8 +48,8 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         />
         <SelectSingle
           label="Rayon"
-          titre={récupérerLibelléDepuisValeur(radiusList, distanceValue)}
-          optionList={radiusList}
+          titre={récupérerLibelléDepuisValeur(radiusListEngagement, distanceValue)}
+          optionList={radiusListEngagement}
           onChange={setDistanceValue}
           currentInput={distanceValue}
         />
