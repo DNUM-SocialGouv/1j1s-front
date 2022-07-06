@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
@@ -53,6 +54,17 @@ export default function Accueil() {
             >
               <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
             </LinkCard>
+            <AccordionComponent label="Voir plus d'offres" ariaId={1}>
+              <LinkCard
+                imageUrl="/images/homepage/stage.png"
+                link="/jobs-ete"
+                linkLabel="Voir les offres"
+                title="Jobs d'été"
+                type="internal"
+              >
+                <p>Des milliers d&apos;offres d&apos;emploi pour travailler cet été ou cet hiver</p>
+              </LinkCard>
+            </AccordionComponent>
           </div>
         </section>
 
@@ -117,6 +129,17 @@ export default function Accueil() {
               <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
             </LinkCard>
           </div>
+          <AccordionComponent label="Voir plus de services" ariaId={2}>
+            <LinkCard
+              imageUrl="/images/homepage/stage.png"
+              link="/"
+              linkLabel="En savoir plus"
+              title="Je souhaite être accompagné(e)"
+              type="internal"
+            >
+              <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
+            </LinkCard>
+          </AccordionComponent>
         </section>
 
         <section className={[styles.section, styles.section4].join(' ')}>

@@ -1,0 +1,21 @@
+.accordionButton {
+    font-size: 1rem;
+    display: block;
+    margin: auto;
+}
+
+.accordionButton > svg {
+    vertical-align: middle;
+}
+
+.accordionButtonLabel {
+    margin-right: 1rem;
+}
+
+.closed {
+    display: none;
+}
+
+.open {
+    display: block;
+}
