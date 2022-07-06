@@ -14,9 +14,9 @@ import {
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import { InputLocalisation } from '~/client/components/features/InputLocalisation/InputLocalisation';
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';

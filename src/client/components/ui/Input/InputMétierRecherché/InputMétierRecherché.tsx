@@ -8,23 +8,21 @@ import React, {
   useState,
 } from 'react';
 
-import styles from '~/client/components/ui/AutoCompletion/AutoCompletion.module.css';
+import styles from '~/client/components/ui/Input/Input.module.css';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
-interface AutoCompletionForMétierRecherchéProps {
+interface InputMétierRecherchéProps {
   libellé: string;
-  className?: string;
   handleErrorMessageActive: boolean;
   resetHandleErrorMessageActive: () => void;
-  code: Array<string>
+  code: string[]
 }
 
-export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMétierRecherchéProps) => {
+export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
   const {
-    className,
     handleErrorMessageActive,
     resetHandleErrorMessageActive,
     libellé,
@@ -157,7 +155,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   const Suggestions = () => {
     return (
       <ul
-        className={styles.autocompletionSuggestion}
+        className={styles.suggestionList}
         role="listbox"
         aria-labelledby={label}
         id={listbox}
@@ -166,7 +164,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
         {suggestions.length > 0 && suggestions.map((suggestion, index) => {
           return (
             <li
-              className={index === suggestionIndex ? styles.active : ''}
+              className={index === suggestionIndex ? styles.hover : ''}
               key={index}
               onClick={(event) => handleClick(event, suggestion)}
               role="option"
@@ -177,7 +175,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
           );
         })}
         {suggestions.length === 0 &&
-        <li className={styles.noSuggestion} data-testid="MétierRecherchéNoResultMessage">
+        <li className={styles.aucunRésultat} data-testid="MétierRecherchéNoResultMessage">
           Aucune proposition ne correspond à votre saisie.
           Vérifiez que votre saisie correspond bien à un métier.
           Exemple : boulangerie, cuisine...
@@ -188,7 +186,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
   };
 
   return (
-    <div className={className}>
+    <div className={styles.wrapper}>
       <label className="fr-label" htmlFor="rechercherMétier" id={label}>
         Secteur, domaine, mot-clé {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
@@ -210,7 +208,7 @@ export const AutoCompletionForMétierRecherché = (props: AutoCompletionForMéti
             aria-controls={listbox}
             aria-activedescendant="rechercherMétier"
             placeholder={'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
-            className={['fr-input', styles.autocompletionInput, errorMessageActive ? 'fr-input--error' : ''].join(' ')}
+            className={['fr-input', styles.libelleInput, errorMessageActive ? 'fr-input--error' : ''].join(' ')}
             value={libelléMétier}
             onClick={handleClickResetErrorMessageDisplay}
             onChange={(event) => {

@@ -9,8 +9,8 @@ import React, {
 
 import styles
   from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.css';
-import { InputCommune } from '~/client/components/features/InputCommune/InputCommune';
-import { AutoCompletionForMétierRecherché } from '~/client/components/ui/AutoCompletion/AutoCompletionForMétierRecherché';
+import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
+import { InputMétierRecherché } from '~/client/components/ui/Input/InputMétierRecherché/InputMétierRecherché';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import {
   getFormAsQuery,
@@ -41,7 +41,6 @@ export function FormulaireRechercheAlternance() {
     setInputCodeCommune(queryParams.codeCommune || '');
     setInputLibelleCommune(queryParams.libelleCommune || '');
     setInputDistanceCommune(queryParams.distanceCommune || '');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParams]);
 
   function resetHandleErrorMessageActive() {
@@ -67,8 +66,7 @@ export function FormulaireRechercheAlternance() {
       ref={rechercheAlternanceForm}
     >
       <div className={styles.inputButtonWrapper}>
-        <AutoCompletionForMétierRecherché
-          className={styles.rechercheAlternanceInput}
+        <InputMétierRecherché
           libellé={inputIntituléMétier}
           code={inputCodeRome.length ? inputCodeRome.split(',') : []}
           handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}

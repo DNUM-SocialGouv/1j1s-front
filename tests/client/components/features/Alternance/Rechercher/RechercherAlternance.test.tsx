@@ -17,6 +17,7 @@ import {
   anAlternanceServiceWithErrorInattendue,
   anAlternanceServiceWithErrorServiceIndisponible,
   anEmptyAlternanceService,
+  aSingleResultAlternanceService,
 } from '@tests/fixtures/client/services/alternanceService.fixture';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
@@ -68,6 +69,7 @@ describe('RechercherAlternance', () => {
   });
 
   describe('quand le composant est affiché pour une recherche avec résultats', () => {
+
     describe('quand on recherche par métier', () => {
       it('affiche les résultats de recherche et le nombre de résultats', async () => {
         // GIVEN
@@ -203,6 +205,38 @@ describe('RechercherAlternance', () => {
         expect(alternanceService.rechercherAlternance).not.toHaveBeenCalledWith('');
         expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('quand le composant est affiché avec une recherche comportant un seul résultat', () => {
+    it('affiche le nombre de résultat au singulier', async () => {
+      // GIVEN
+      const alternanceService = aSingleResultAlternanceService();
+      const métierRecherchéService = aMétierRecherchéService();
+      const localisationServiceMock = aLocalisationService();
+      mockUseRouter({});
+      mockUseRouter({
+        query: {
+          codeRomes: 'D1103%2CD1101%2CH2101',
+          metierSelectionne: 'boulanger',
+        },
+      });
+
+      // WHEN
+      render(
+        <DependenciesProvider
+          alternanceService={alternanceService}
+          métierRecherchéService={métierRecherchéService}
+          localisationService={localisationServiceMock}>
+          <RechercherAlternance />
+        </DependenciesProvider>,
+      );
+
+      // WHEN
+      const resultMessage = await screen.findByText('1 contrat d\'alternance pour boulanger');
+
+      // THEN
+      expect(resultMessage).toBeInTheDocument();
     });
   });
 

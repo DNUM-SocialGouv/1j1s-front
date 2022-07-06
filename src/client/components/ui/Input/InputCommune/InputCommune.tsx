@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import styles from '~/client/components/features/InputLocalisation/InputLocalisation.module.css';
+import styles from '~/client/components/ui/Input/Input.module.css';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
@@ -30,8 +30,6 @@ export const InputCommune = (props: InputCommuneProps) => {
   const [latitudeCommune, setLatitudeCommune] = useState<string>(latitude || '');
   const [longitudeCommune, setLongitudeCommune] = useState<string>(longitude || '');
   const [distanceCommune, setDistanceCommune] = useState<string>(distance || '');
-
-  const [currentIndex, setCurrenIndex] = useState(0);
 
   const [communeList, setCommuneList] = useState<Commune[]>([]);
 
@@ -114,13 +112,13 @@ export const InputCommune = (props: InputCommuneProps) => {
     }
   }, [localisationService]);
 
-  const handleChange = useMemo(() => {
+  const debounceRechercheCommune = useMemo(() => {
     return debounce(rechercherCommune, 300);
   }, [rechercherCommune]);
 
   useEffect(() => {
     return () => {
-      handleChange.cancel();
+      debounceRechercheCommune.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -148,12 +146,12 @@ export const InputCommune = (props: InputCommuneProps) => {
       setSuggestionIndex(suggestionIndex + 1);
     } else if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
-      if (!isSuggestionListEmpty() && ((codeCommune === '') || (libelléCommune && libelléCommune !== `${communeList[currentIndex].code}`))) {
+      if (!isSuggestionListEmpty() && ((codeCommune === '') || (libelléCommune && libelléCommune !== `${communeList[suggestionIndex].code}`))) {
         if (communeList) {
-          setCodeCommune(communeList[currentIndex].code);
-          setLatitudeCommune(communeList[currentIndex].coordonnées.latitude.toString());
-          setLongitudeCommune(communeList[currentIndex].coordonnées.longitude.toString());
-          setLibelléCommune(communeList[currentIndex].libelle);
+          setCodeCommune(communeList[suggestionIndex].code);
+          setLatitudeCommune(communeList[suggestionIndex].coordonnées.latitude.toString());
+          setLongitudeCommune(communeList[suggestionIndex].coordonnées.longitude.toString());
+          setLibelléCommune(communeList[suggestionIndex].libelle);
           setDistanceCommune(distanceCommune || DEFAULT_RADIUS_VALUE);
         }
         setSuggestionsActive(false);
@@ -161,43 +159,29 @@ export const InputCommune = (props: InputCommuneProps) => {
     }
   };
 
-  const SuggestionCommuneListItem = (suggestion: Commune, currentHoverIndex: number, index: number) => {
-    if (currentHoverIndex === suggestionIndex) {
-      setTimeout(() => setCurrenIndex(index), 0);
-    }
-
-    return (
-      <li
-        className={currentHoverIndex === suggestionIndex ? styles.hover : ''}
-        key={currentHoverIndex}
-        onClick={() => handleClick(suggestion)}
-        role="option"
-        aria-selected={libelléCommune === suggestion.libelle}
-        value={suggestion.libelle}
-      >
-        {suggestion.libelle}
-      </li>
-    );
-  };
-
   function SuggestionsCommuneList() {
-    let currentHoverIndex = 0;
     return (
       <ul
-        className={styles.suggestionLocalisationList}
+        className={styles.suggestionList}
         role="listbox"
         aria-labelledby={LOCALISATION_LABEL_ID}
         id={LOCALISATION_SUGGESTIONS_ID}
         data-testid="RésultatsCommune"
       >
-        {communeList.length > 0 &&
-        <li className={styles.catégorieRésultatLocalisation}><strong>Communes</strong></li>}
-        {communeList.map((suggestion, index) => {
-          currentHoverIndex++;
-          return SuggestionCommuneListItem(suggestion, currentHoverIndex, index);
-        })}
+        {communeList.length > 0 && communeList.map((suggestion, index) => (
+          <li
+            className={index === suggestionIndex ? styles.hover : ''}
+            key={index}
+            onClick={() => handleClick(suggestion)}
+            role="option"
+            aria-selected={libelléCommune === suggestion.libelle}
+            value={suggestion.libelle}
+          >
+            {suggestion.libelle}
+          </li>
+        ))}
         {communeList.length === 0 &&
-        <li className={styles.aucunRésultatLocalisation} data-testid="CommuneNoResultMessage">
+        <li className={styles.aucunRésultat} data-testid="CommuneNoResultMessage">
           Aucune proposition ne correspond à votre saisie.
           Vérifiez que votre saisie correspond bien à un lieu.
           Exemple : Paris, ...
@@ -211,7 +195,7 @@ export const InputCommune = (props: InputCommuneProps) => {
     <>
       <div className={styles.wrapper}>
         <label className="fr-label" htmlFor="rechercherCommune" id={LOCALISATION_LABEL_ID}>
-          Commune
+          Localisation
         </label>
         <div ref={autocompleteRef}>
           <div
@@ -232,11 +216,11 @@ export const InputCommune = (props: InputCommuneProps) => {
               aria-controls={LOCALISATION_SUGGESTIONS_ID}
               aria-activedescendant="rechercherCommune"
               placeholder={'Exemple: Paris, Béziers...'}
-              className={['fr-input', styles.libelleLocalisationInput].join(' ')}
+              className={['fr-input', styles.libelleInput].join(' ')}
               value={libelléCommune}
               onChange={(event) => {
                 setLibelléCommune(event.target.value);
-                handleChange(event);
+                debounceRechercheCommune(event);
               }}
               onKeyDown={handleKeyDown}
               onClick={() => setSuggestionsActive(!!codeCommune)}
@@ -257,7 +241,7 @@ export const InputCommune = (props: InputCommuneProps) => {
         currentInput={distanceCommune}
       />
       }
-      <input type="hidden" name="distanceCommune" value={distanceCommune} />
+      <input type="hidden" name="distanceCommune" value={distanceCommune} data-testid="distanceCommune"/>
     </>
 
   );

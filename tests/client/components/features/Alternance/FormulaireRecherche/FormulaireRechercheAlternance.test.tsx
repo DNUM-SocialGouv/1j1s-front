@@ -66,7 +66,7 @@ describe('FormulaireRechercheAlternance', () => {
   });
 
   describe('quand on recherche par métier et par lieu', () => {
-    it('ajoute le lieu et le rayon par défaut aux query params', async () => {
+    it('ajoute le métier et le lieu et le rayon par défaut aux query params', async () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
@@ -106,7 +106,7 @@ describe('FormulaireRechercheAlternance', () => {
   });
 
   describe('quand on recherche par métier,lieu et rayon', () => {
-    it('ajouter le rayon aux query params', async () => {
+    it('ajoute le métier, le lieu et le rayon aux query params', async () => {
       // GIVEN
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();

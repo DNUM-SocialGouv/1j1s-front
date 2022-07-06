@@ -12,7 +12,7 @@ import {
 } from '@tests/fixtures/client/services/localisationService.fixture';
 import React from 'react';
 
-import { InputCommune } from '~/client/components/features/InputCommune/InputCommune';
+import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('InputCommune', () => {
@@ -29,7 +29,7 @@ describe('InputCommune', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock}>
-          <InputCommune code="" libellé="" latitude="" longitude="" />
+          <InputCommune code="" libellé="" latitude="" longitude="" distance=""/>
         </DependenciesProvider>,
       );
       const inputCommune = screen.getByTestId('InputCommune');
@@ -52,7 +52,7 @@ describe('InputCommune', () => {
 
       render(
         <DependenciesProvider localisationService={localisationServiceMock}>
-          <InputCommune code="" libellé="" latitude="" longitude="" />
+          <InputCommune code="" libellé="" latitude="" longitude="" distance=""/>
         </DependenciesProvider>,
       );
 
@@ -74,10 +74,11 @@ describe('InputCommune', () => {
       fireEvent.click(résultatCommuneList[0]);
 
       // THEN
-      expect(screen.getByRole('textbox', { name: 'Commune' })).toHaveValue('Paris');
+      expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris');
       expect(screen.getByTestId('codeCommune')).toHaveValue('75056');
       expect(screen.getByTestId('latitudeCommune')).toHaveValue('48.859');
       expect(screen.getByTestId('longitudeCommune')).toHaveValue('2.347');
+      expect(screen.getByTestId('distanceCommune')).toHaveValue('10');
     });
   });
 
@@ -88,15 +89,16 @@ describe('InputCommune', () => {
 
       render(
         <DependenciesProvider localisationService={localisationServiceMock}>
-          <InputCommune code="75056" libellé="Paris" latitude="48.859" longitude="2.347" />
+          <InputCommune code="75056" libellé="Paris" latitude="48.859" longitude="2.347" distance="20"/>
         </DependenciesProvider>,
       );
 
       // THEN
-      expect(screen.getByRole('textbox', { name: 'Commune' })).toHaveValue('Paris');
+      expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris');
       expect(screen.getByTestId('codeCommune')).toHaveValue('75056');
       expect(screen.getByTestId('latitudeCommune')).toHaveValue('48.859');
       expect(screen.getByTestId('longitudeCommune')).toHaveValue('2.347');
+      expect(screen.getByTestId('distanceCommune')).toHaveValue('20');
     });
   });
 });
