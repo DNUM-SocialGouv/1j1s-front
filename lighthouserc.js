@@ -19,9 +19,9 @@ module.exports = {
       ],
     },
     upload: {
-      serverBaseUrl: 'https://mysterious-cove-34282.herokuapp.com',
+      serverBaseUrl: 'https://1j1s-front-lighthouse-report.osc-fr1.scalingo.io',
       target: 'lhci',
-      token: 'a6148b25-d912-4550-82b1-24eb96fe60ec',
+      token: 'a9ce962a-1745-41f9-9f73-4d3727b3e910',
     },
   },
 };
