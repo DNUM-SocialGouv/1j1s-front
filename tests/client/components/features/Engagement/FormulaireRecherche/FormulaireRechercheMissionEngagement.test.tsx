@@ -1,8 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import { aMissionEngagementDomainList } from '@tests/fixtures/domain/missionEngagement.fixture';
 import React from 'react';
 
@@ -18,9 +20,10 @@ describe('FormulaireRechercheMissionEngagement', () => {
       const routerPush = jest.fn();
       mockUseRouter({ push: routerPush });
       const domainList = aMissionEngagementDomainList();
+      const localisationServiceMock = aLocalisationService();
 
       render(
-        <DependenciesProvider>
+        <DependenciesProvider localisationService={localisationServiceMock}>
           <FormulaireRechercheMissionEngagement domainList={domainList}/>
         </DependenciesProvider>,
       );
@@ -45,15 +48,23 @@ describe('FormulaireRechercheMissionEngagement', () => {
       const routerPush = jest.fn();
       mockUseRouter({ push: routerPush });
       const domainList = aMissionEngagementDomainList();
+      const localisationServiceMock = aLocalisationService();
 
       render(
-        <DependenciesProvider>
+        <DependenciesProvider localisationService={localisationServiceMock}>
           <FormulaireRechercheMissionEngagement domainList={domainList}/>
         </DependenciesProvider>,
       );
 
-      const sélectionnerUnRayonButton = screen.getByRole('button', { name: 'Indifférent' });
-      fireEvent.click(sélectionnerUnRayonButton);
+      const user = userEvent.setup();
+      const inputCommune = screen.getByTestId('InputCommune');
+      await user.type(inputCommune, 'Pari');
+      const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+      const resultListCommune = within(résultatsCommune).getAllByRole('option');
+      fireEvent.click(resultListCommune[0]);
+      const selectButtonRadius = screen.getByRole('button', { name: '10 km' });
+      fireEvent.click(selectButtonRadius);
+
       const rayon30kmOption = screen.getByRole('option', { name: '30 km' });
       fireEvent.click(rayon30kmOption);
       const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -62,7 +73,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
       fireEvent.submit(rechercherMissionButton);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'distance=30&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });
     });
   });
 });
