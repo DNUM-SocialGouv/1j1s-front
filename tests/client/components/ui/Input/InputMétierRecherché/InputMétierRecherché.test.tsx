@@ -35,11 +35,10 @@ describe('InputMétierRecherché', () => {
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
           <InputMétierRecherché
-            inputName=""
             libellé=""
             handleErrorMessageActive={false}
             resetHandleErrorMessageActive={jest.fn()}
-            code=""
+            code={[]}
           />
         </DependenciesProvider>,
       );
@@ -62,7 +61,7 @@ describe('InputMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <InputMétierRecherché inputName="" libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code=""/>
+          <InputMétierRecherché libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code={[]}/>
         </DependenciesProvider>,
       );
 
@@ -87,7 +86,7 @@ describe('InputMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <InputMétierRecherché inputName="" libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code=""/>
+          <InputMétierRecherché libellé="" handleErrorMessageActive={false} resetHandleErrorMessageActive={jest.fn()} code={[]}/>
         </DependenciesProvider>,
       );
       const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
@@ -114,7 +113,7 @@ describe('InputMétierRecherché', () => {
 
       render(
         <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
-          <InputMétierRecherché inputName="" libellé="" handleErrorMessageActive={true} resetHandleErrorMessageActive={jest.fn()} code=""/>
+          <InputMétierRecherché libellé="" handleErrorMessageActive={true} resetHandleErrorMessageActive={jest.fn()} code={[]}/>
         </DependenciesProvider>,
       );
 
@@ -123,7 +122,6 @@ describe('InputMétierRecherché', () => {
       await waitFor(() => {
         expect(erreurMessage).toBeInTheDocument();
       });
-
     });
   });
 });
