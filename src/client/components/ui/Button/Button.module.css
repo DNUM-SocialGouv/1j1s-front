@@ -15,6 +15,7 @@
 }
 
 .buttonAsLink {
+  cursor: pointer;
   color: #566BB1;
   display: inline-flex;
   width: 100%;

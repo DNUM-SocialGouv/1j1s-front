@@ -1,7 +1,6 @@
 import '~/client/utils/string/string.util';
 
 import {
-  Button,
   Checkbox,
   CheckboxGroup,
   Modal,
@@ -16,6 +15,11 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonAsLink } from '~/client/components/ui/Button/ButtonAsLink';
+import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
+import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
+import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -100,16 +104,12 @@ export function FormulaireRechercheJobÉtudiant() {
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <Button
-              styleAsLink
-              className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
-              icon="ri-filter-fill"
-              iconPosition="left"
-              onClick={() => setIsFiltresAvancésMobileOpen(true)}
-              data-testid="ButtonFiltrerRecherche"
-            >
-              Filtrer ma recherche
-            </Button>
+            <div onClick={() => setIsFiltresAvancésMobileOpen(true)} >
+              <ButtonAsLink
+                label="Filtrer ma recherche"
+                icon={<FilterIcon />}
+              />
+            </div>
           }
 
           <Modal
@@ -137,14 +137,13 @@ export function FormulaireRechercheJobÉtudiant() {
               </CheckboxGroup>
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
-              <Button
-                onClick={applyFiltresAvancés}
-                icon="ri-arrow-right-s-line"
-                iconPosition="right"
-                data-testid="ButtonAppliquerFiltres"
-              >
-                Appliquer les filtres
-              </Button>
+              <div onClick={() => applyFiltresAvancés}>
+                <Button
+                  label="Appliquer les filtres"
+                  icon={<ArrowRightIcon />}
+                  idForTest="ButtonAppliquerFiltres"
+                />
+              </div>
             </ModalFooter>
           </Modal>
         </div>
@@ -160,15 +159,14 @@ export function FormulaireRechercheJobÉtudiant() {
           </div>
         )}
       </div>
-      <Button
-        className={styles.buttonRechercher}
-        submit={true}
-        icon="ri-search-line"
-        iconPosition="right"
-        data-testid="ButtonRechercher"
-      >
-        Rechercher
-      </Button>
+      <div className={styles.buttonRechercher}>
+        <Button
+          label="Rechercher"
+          icon={<MagnifyingGlassIcon />}
+          type="submit"
+          idForTest="ButtonRechercher"
+        />
+      </div>
     </form>
   );
 }

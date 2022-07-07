@@ -17,7 +17,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
-import { Buttonion } from '~/client/components/ui/Button/Button';
+import { Button } from '~/client/components/ui/Button/Button';
 import { ButtonAsLink } from '~/client/components/ui/Button/ButtonAsLink';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
@@ -199,7 +199,7 @@ export function FormulaireRechercheOffreEmploi() {
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={() => applyFiltresAvancés}>
-                <Buttonion
+                <Button
                   label="Appliquer les filtres"
                   icon={<ArrowRightIcon />}
                   idForTest="ButtonAppliquerFiltres"
@@ -239,7 +239,7 @@ export function FormulaireRechercheOffreEmploi() {
         )}
       </div>
       <div className={styles.buttonRechercher}>
-        <Buttonion
+        <Button
           label="Rechercher"
           icon={<MagnifyingGlassIcon />}
           type="submit"

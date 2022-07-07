@@ -9,7 +9,7 @@ interface ButtonProps {
   idForTest: string
 }
 
-export function Buttonion({ label, icon, type = 'button', idForTest } : ButtonProps) {
+export function Button({ label, icon, type = 'button', idForTest } : ButtonProps) {
   return (
     <button className={styles.button} type={type} data-testid={idForTest}>
       <span className={styles.buttonLabel}>{label}</span>
