@@ -54,7 +54,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
           Object.keys(router.query).length > 0 &&
           <>
             {étiquettesRecherche}
-            <div className={styles.nombreRésultats} data-testid="NombreRésultatsSolution">
+            <div className={styles.nombreRésultats}>
               <h2>{messageRésultatRecherche}</h2>
             </div>
             {listeSolution.length > 0 ?

@@ -66,11 +66,21 @@ export function RechercherMission(props: RechercherMissionProps) {
   }, [router.query, missionEngagementService, category, isServiceCivique]);
 
   const messageRésultatRecherche = useMemo(() => {
-    if (domain) {
-      return `${nombreRésultats} de missions pour ${récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domain)}`;
+    const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
+    if (nombreRésultats > 1) {
+      messageRésultatRechercheSplit.push('missions');
     } else {
-      return `${nombreRésultats} de missions`;
+      messageRésultatRechercheSplit.push('mission');
     }
+    if (isServiceCivique) {
+      messageRésultatRechercheSplit.push('de service civique');
+    } else {
+      messageRésultatRechercheSplit.push('de bénévolat');
+    }
+    if (domain) {
+      messageRésultatRechercheSplit.push(`pour ${récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domain)}`);
+    }
+    return messageRésultatRechercheSplit.join(' ');
   }, [domain, isServiceCivique, nombreRésultats]);
 
   return (
