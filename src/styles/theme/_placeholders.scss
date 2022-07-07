@@ -1,0 +1,20 @@
+@import "variables";
+
+%background-surface {
+  background: $color-surface;
+  color: $color-on-surface;
+}
+
+%background-primary {
+  background: $color-primary;
+  color: $color-on-primary;
+}
+
+%background-secondary {
+  background: $color-secondary;
+  color: $color-on-secondary;
+}
+
+%box-shadow {
+  box-shadow: $box-shadow;
+}

@@ -1,36 +1,6 @@
-:root {
-  --1J1S-blue: #5269B5;
-}
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Marianne", sans-serif;
-}
-
 a {
   color: inherit;
   text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-p {
-  margin: 0;
-}
-
-.hide {
-  clip: rect(0,0,0,0);
-  border: 0;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  white-space: nowrap;
-  width: 1px;
 }
 
 @media screen and (max-width: 400px) {
@@ -41,6 +11,6 @@ p {
 
   .fr-pagination__link--next,
   .fr-pagination__link--last {
-    margin-left: 0.25rem!important;
+    margin-left: 0.25rem !important;
   }
 }

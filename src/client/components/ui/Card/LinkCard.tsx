@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 
-import styles from '~/client/components/ui/Card/LinkCard.module.css';
+import styles from '~/client/components/ui/Card/LinkCard.module.scss';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 

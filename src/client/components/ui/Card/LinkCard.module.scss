@@ -1,4 +1,7 @@
+@import "@styles/utilities";
+
 .card {
+    @extend %box-shadow;
     border-radius: 20px;
     box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
     display: flex;
@@ -46,7 +49,7 @@
 
 .cardAction .cardLink {
     box-shadow: none;
-    color: var(--1J1S-blue);
+    color: $color-primary;
     display: inline-block;
     font-size: 0.875em;
 }

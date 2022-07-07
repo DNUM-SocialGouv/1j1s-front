@@ -1,0 +1,14 @@
+$breakpoint-sm: 36em;
+$breakpoint-md: 48em;
+$breakpoint-lg: 62em;
+$breakpoint-xl: 78em;
+
+@mixin media($size) {
+  @if $size == medium {
+    @media (min-width: $breakpoint-md) { @content; }
+  } @else if $size == large {
+    @media (min-width: $breakpoint-lg) { @content; }
+  } @else if $size == xlarge {
+    @media (min-width: $breakpoint-xl) { @content; }
+  }
+}

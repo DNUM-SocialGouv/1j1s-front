@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import styles from '~/client/components/ui/Hero/Hero.module.css';
+import styles from '~/client/components/ui/Hero/Hero.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroProps {
@@ -9,16 +9,16 @@ interface HeroProps {
 }
 
 export function Hero({ children, image, ...rest }: React.PropsWithChildren<HeroProps>) {
-  const { isLargeScreen } = useBreakpoint();
+  const { isXLargeScreen } = useBreakpoint();
 
   return (
     <div className={styles.hero} {...rest}>
       <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>
+        <span className={styles.heroTitle}>
           {children}
-        </h1>
+        </span>
       </div>
-      {image && isLargeScreen && (
+      {image && isXLargeScreen && (
         <div className={styles.heroImage}>
           <Image src={image} alt="" layout="fill" objectFit="contain" objectPosition="right"/>
         </div>

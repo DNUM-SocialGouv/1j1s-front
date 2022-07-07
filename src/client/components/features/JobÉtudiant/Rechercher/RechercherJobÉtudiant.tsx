@@ -116,10 +116,8 @@ function mapJobÉtudiantToLienSolution(offreEmploi: OffreEmploi): LienSolution {
 
 function BannièreJobÉtudiant() {
   return (
-    <Hero image="/images/banners/offre-emploi.webp">
-      Des milliers de <b>jobs étudiants<br/>
-      sélectionnés pour vous</b> par<br/>
-      Pôle Emploi
+    <Hero>
+      Des milliers de <b>jobs étudiants sélectionnés pour vous</b> par Pôle Emploi
     </Hero>
   );
 }

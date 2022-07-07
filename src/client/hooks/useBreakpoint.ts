@@ -7,9 +7,13 @@ enum BREAKPOINT {
   SM = '36em',
   MD = '48em',
   LG = '62em',
+  XL = '78em',
 }
 
 function getScreenSize() {
+  if (window.matchMedia(`(min-width: ${BREAKPOINT.XL})`).matches) {
+    return BREAKPOINT.XL;
+  }
   if (window.matchMedia(`(min-width: ${BREAKPOINT.LG})`).matches) {
     return BREAKPOINT.LG;
   }
@@ -35,5 +39,6 @@ export default function useBreakpoint() {
     isLargeScreen: screenSize === BREAKPOINT.LG,
     isMediumScreen: screenSize === BREAKPOINT.MD,
     isSmallScreen: screenSize === BREAKPOINT.SM,
+    isXLargeScreen: screenSize === BREAKPOINT.XL,
   };
 }
