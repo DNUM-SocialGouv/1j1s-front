@@ -105,10 +105,8 @@ function mapAlternanceToLienSolution(alternance: Alternance): LienSolution {
 
 function BannièreAlternance() {
   return (
-    <Hero image="/images/banners/offre-alternance.webp">
-      Avec la <b>Bonne Alternance</b>, trouvez <br/>
-      l’entreprise qu’il vous faut pour <br/>
-      <b>réaliser votre projet d’alternance</b>
+    <Hero>
+      Avec la <b>Bonne Alternance</b>, trouvez l’entreprise qu’il vous faut pour <b>réaliser votre projet d’alternance</b>
     </Hero>
   );
 }

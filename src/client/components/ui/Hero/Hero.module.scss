@@ -1,6 +1,8 @@
+@import "@styles/utilities";
+
 .hero {
+  @extend %background-primary;
   position: relative;
-  background-color: var(--1J1S-blue);
 }
 
 .heroContent {
@@ -10,11 +12,10 @@
 }
 
 .heroTitle {
+  @extend %headline;
+  display: inline-block;
+  max-width: 50rem;
   margin-bottom: 0;
-  line-height: 1.6;
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: var(--grey-1000);
 }
 
 .heroImage {
@@ -25,17 +26,13 @@
   width: 100%;
 }
 
-@media only screen and (min-width: 48em) {
+@include media(medium){
   .heroContent {
     padding: 42px 1.5rem;
   }
-
-  .heroTitle {
-    font-size: 1.5rem;
-  }
 }
 
-@media only screen and (min-width: 78em) {
+@include media(xlarge){
   .heroContent {
     padding: 80px 1.5rem;
   }

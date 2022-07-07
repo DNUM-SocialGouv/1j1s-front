@@ -127,10 +127,8 @@ interface BannièreMissionProps {
 
 function BannièreMission({ isServiceCivique }: BannièreMissionProps) {
   return (
-    <Hero image="/images/banners/mission-service-civique.webp">
-      <b>Se rendre utile</b> tout en <b>préparant</b><br/>
-      <b>son avenir</b> grâce aux missions de<br/>
-      <b>{isServiceCivique ? 'Service Civique' : 'Bénévolat'}</b>
+    <Hero>
+      <b>Se rendre utile</b> tout en <b>préparant son avenir</b> grâce aux missions de <b>{isServiceCivique ? 'Service Civique' : 'Bénévolat'}</b>
     </Hero>
   );
 }

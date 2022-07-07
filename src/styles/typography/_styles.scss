@@ -1,0 +1,43 @@
+@import "@styles/media/mixins";
+@import "mixins";
+@import "placeholders";
+@import "variables";
+
+@include font-face($font-family, "Marianne-Light", 300);
+@include font-face($font-family, "Marianne-Light_Italic", 300, italic);
+@include font-face($font-family, "Marianne-Regular", 400);
+@include font-face($font-family, "Marianne-Regular_Italic", 400, italic);
+@include font-face($font-family, "Marianne-Medium", 500);
+@include font-face($font-family, "Marianne-Medium_Italic", 500, italic);
+
+body {
+  font-family: Marianne, arial, sans-serif;
+}
+
+.text-regular, .paragraph {
+  @extend %text-regular;
+}
+
+.text-large {
+  @extend %text-large;
+}
+
+.text-small {
+  @extend %text-small;
+}
+
+.headline {
+  @extend %headline;
+}
+
+.subheading {
+  @extend %subheading;
+}
+
+.bold {
+  @extend %bold;
+}
+
+.italic {
+  @extend %italic;
+}
