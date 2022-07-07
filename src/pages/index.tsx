@@ -54,8 +54,10 @@ export default function Accueil() {
             >
               <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
             </LinkCard>
+          </div>
 
-            <AccordionComponent ariaId={1}>
+          <AccordionComponent ariaId={1}>
+            <div className={styles.cardList}>
               <LinkCard
                 imageUrl="/images/homepage/jobs-ete.png"
                 link="/jobs-ete"
@@ -83,9 +85,9 @@ export default function Accueil() {
               >
                 <p>Retrouvez des offres d&apos;emploi, des stages, des VIE | VIA et des aides financières pour une expérience en Europe.</p>
               </LinkCard>
-            </AccordionComponent>
+            </div>
+          </AccordionComponent>
 
-          </div>
         </section>
 
         <section className={[styles.section, styles.section2].join(' ')}>
