@@ -26,14 +26,11 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
   const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
   const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
   const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
-  const [inputCodeRome, setInputCodeRome] = useState<string>('');
   const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
 
-  inputCodeRome == '1';
 
   useEffect(function initFormValues() {
     setDomainValue(queryParams.domain || '');
-    setInputCodeRome(queryParams.codeRomes || '');
     setInputLongitudeCommune(queryParams.longitudeCommune || '');
     setInputLatitudeCommune(queryParams.latitudeCommune || '');
     setInputCodeCommune(queryParams.codeCommune || '');
