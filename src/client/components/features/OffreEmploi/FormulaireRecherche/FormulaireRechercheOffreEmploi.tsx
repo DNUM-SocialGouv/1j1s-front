@@ -18,7 +18,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
-import { ButtonAsLink } from '~/client/components/ui/Button/ButtonAsLink';
+import { ButtonWithoutBorder } from '~/client/components/ui/Button/ButtonWithoutBorder';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
@@ -127,7 +127,8 @@ export function FormulaireRechercheOffreEmploi() {
 
           {isSmallScreen &&
             <div onClick={() => setIsFiltresAvancésMobileOpen(true)} >
-              <ButtonAsLink
+              <ButtonWithoutBorder
+                idForTest="ButtonFiltrerRecherche"
                 label="Filtrer ma recherche"
                 icon={<FilterIcon />}
               />
@@ -198,7 +199,7 @@ export function FormulaireRechercheOffreEmploi() {
               </CheckboxGroup>
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
-              <div onClick={() => applyFiltresAvancés}>
+              <div onClick={applyFiltresAvancés}>
                 <Button
                   label="Appliquer les filtres"
                   icon={<ArrowRightIcon />}

@@ -1,8 +1,9 @@
-import { Button } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
 import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.css';
+import { Button } from '~/client/components/ui/Button/Button';
+import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -55,14 +56,13 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         />
         <input type="hidden" name="domain" value={domainValue}/>
         <input type="hidden" name="distance" value={distanceValue}/>
-        <Button
-          submit={true}
-          className={styles.rechercherMissionEngagementButton}
-          icon="ri-search-line"
-          iconPosition="right"
-        >
-          Rechercher
-        </Button>
+        <div className={styles.rechercherMissionEngagementButton}>
+          <Button
+            label="Rechercher"
+            icon={<MagnifyingGlassIcon />}
+            type="submit"
+          />
+        </div>
       </div>
     </form>
   );

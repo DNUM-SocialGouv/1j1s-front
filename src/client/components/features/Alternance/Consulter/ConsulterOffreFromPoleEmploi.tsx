@@ -1,10 +1,7 @@
-import {
-  Button,
-  Link,
-} from '@dataesr/react-dsfr';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
+import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
 import useSanitize from '~/client/hooks/useSanitize';
 import { AlternanceFromPoleEmploi } from '~/server/alternances/infra/repositories/alternance.type';
 
@@ -18,18 +15,14 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
 
   return (
     <section className={commonStyles.contenu}>
-      <Button size="md" className={commonStyles.buttonPostuler}>
-        <Link
+      <div className={commonStyles.buttonAsLink}>
+        <ButtonLink
+          label="Je postule sur Pôle Emploi"
           href={offreAlternance.url}
           target="_blank"
-          icon="ri-external-link-line"
-          iconPosition="right"
-          display="flex"
-          data-testid="LinkPostuler"
-        >
-          Postuler
-        </Link>
-      </Button>
+          idForTest="LinkPostulerOffreEmploi"
+        />
+      </div>
       {offreAlternance.description &&
       <div>
         <h3>Description du poste :</h3>

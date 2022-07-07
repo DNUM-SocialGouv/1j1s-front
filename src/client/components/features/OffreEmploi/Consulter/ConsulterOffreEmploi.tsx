@@ -1,12 +1,14 @@
 import {
-  Button,
-  Link,
   Title,
 } from '@dataesr/react-dsfr';
+import Link from 'next/link';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
+import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
@@ -26,19 +28,14 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         <TagList data-testid="ÉtiquetteOffreEmploiList" list={offreEmploi.étiquetteList} />
       </header>
       <section className={commonStyles.contenu}>
-        <Button size="md" className={commonStyles.buttonPostuler}>
-          <Link
+        <div className={commonStyles.buttonAsLink}>
+          <ButtonLink
+            label="Je postule sur Pôle Emploi"
             href={offreEmploi.urlOffreOrigine}
             target="_blank"
-            className="fr-btn--md fr-btn"
-            icon="ri-external-link-line"
-            iconPosition="right"
-            display="flex"
-            data-testid="LinkPostulerOffreEmploi"
-          >
-            Je postule sur Pôle Emploi
-          </Link>
-        </Button>
+            idForTest="LinkPostulerOffreEmploi"
+          />
+        </div>
         {offreEmploi.description &&
         <div>
           <h3>Description du poste :</h3>

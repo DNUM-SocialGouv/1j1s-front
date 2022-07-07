@@ -3,18 +3,19 @@
   border-radius: 20px;
   color: #FFF;
   padding: .5rem 1.5rem;
-  font-size: 1rem;
   display: inline-flex;
   width: 100%;
   height: 2.5rem;
   justify-content: center;
+  align-items: center;
 }
 
 .buttonLabel {
   margin-right: 10px;
+  font-size: 1rem;
 }
 
-.buttonAsLink {
+.buttonWithoutBorder {
   cursor: pointer;
   color: #566BB1;
   display: inline-flex;

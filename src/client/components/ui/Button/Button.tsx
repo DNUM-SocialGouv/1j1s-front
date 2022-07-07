@@ -6,7 +6,7 @@ interface ButtonProps {
   label: string
   type?: 'submit' | 'button' | 'reset' | undefined
   icon?: React.ReactNode
-  idForTest: string
+  idForTest?: string
 }
 
 export function Button({ label, icon, type = 'button', idForTest } : ButtonProps) {

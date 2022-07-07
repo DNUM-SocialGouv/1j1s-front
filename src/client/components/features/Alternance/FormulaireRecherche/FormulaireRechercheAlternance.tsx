@@ -1,4 +1,3 @@
-import { Button } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, {
   FormEvent,
@@ -9,6 +8,8 @@ import React, {
 
 import styles
   from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.css';
+import { Button } from '~/client/components/ui/Button/Button';
+import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
 import { InputMétierRecherché } from '~/client/components/ui/Input/InputMétierRecherché/InputMétierRecherché';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -79,15 +80,14 @@ export function FormulaireRechercheAlternance() {
           longitude={inputLongitudeCommune}
           distance={inputDistanceCommune}
         />
-        <Button
-          submit={true}
-          icon="ri-search-line"
-          iconPosition="right"
-          data-testid="ButtonRechercherAlternance"
-          className={styles.buttonRechercher}
-        >
-          Rechercher
-        </Button>
+        <div className={styles.buttonRechercher}>
+          <Button
+            label="Rechercher"
+            icon={<MagnifyingGlassIcon />}
+            type="submit"
+            idForTest="ButtonRechercherAlternance"
+          />
+        </div>
       </div>
     </form>
   );

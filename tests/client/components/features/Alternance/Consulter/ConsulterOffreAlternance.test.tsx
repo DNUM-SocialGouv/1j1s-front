@@ -63,7 +63,7 @@ describe('ConsulterOffreAlternance', () => {
 
       render(<ConsulterOffreAlternance offreAlternance={offreAlternance} />);
 
-      const linkPostulerOffreAlternance = screen.getByTestId('LinkPostuler');
+      const linkPostulerOffreAlternance = screen.getByTestId('LinkPostulerOffreEmploi');
 
       expect(linkPostulerOffreAlternance).toHaveAttribute('href', offreAlternance.url);
       expect(linkPostulerOffreAlternance).toHaveAttribute('target', '_blank');
