@@ -79,7 +79,7 @@ export class ApiEngagementRepository implements EngagementRepository {
     }
   }
 
-  buildParamètresRecherche(missionEngagementFiltre: MissionEngagementFiltre): string {
+  private buildParamètresRecherche(missionEngagementFiltre: MissionEngagementFiltre): string {
     const { from, domain, publisher, size } = missionEngagementFiltre;
     // eslint-disable-next-line
     const queryList: Record<string, any > = {

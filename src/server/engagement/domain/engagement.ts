@@ -4,6 +4,8 @@ export interface MissionEngagementFiltre {
   publisher: string
   domain: string
   distance?: number
+  lat?: number
+  lon?: number
   from: number
   size: number
 }

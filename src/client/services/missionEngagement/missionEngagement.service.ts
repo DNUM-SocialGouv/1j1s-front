@@ -13,8 +13,9 @@ export class MissionEngagementService {
   constructor(private httpClientService: HttpClientService) {}
 
   async rechercherMission(queryString: string, category: string): Promise<Either<RésultatsRechercheMission>> {
+    const resource = category === 'service-civique' ? 'services-civique' : 'benevolats';
     try {
-      const response = await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
+      const response = await this.httpClientService.get<RésultatsRechercheMission>(`${resource}?${queryString}`);
       return createSuccess(response.data);
     } catch (e) {
       if (axios.isAxiosError(e)) {

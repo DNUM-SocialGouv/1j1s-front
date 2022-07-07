@@ -7,7 +7,7 @@ import { rechercherMissionHandler } from '~/pages/api/benevolats';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
-describe('rechercher une mission du service civique', () => {
+describe('rechercher une mission de bénévolat', () => {
   it('retourne la liste des missions filtrées', async () => {
     nock('https://api.api-engagement.beta.gouv.fr/v0')
       .get('/mission/search?publisher=5f5931496c7ea514150a818f&size=30&from=1')
