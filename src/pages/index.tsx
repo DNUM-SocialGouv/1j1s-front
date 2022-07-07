@@ -21,12 +21,12 @@ export default function Accueil() {
         votre avenir sur 1J1S !
       </Hero>
       <main id="contenu">
-        <section className={[styles.section, styles.section1].join(' ')}>
+        <section className={`${styles.section} ${styles.section1}`}>
           <h2 className={styles.sectionHeader}>
             <BriefCaseIcon />
             Découvrez nos offres
           </h2>
-          <div className={styles.cardList}>
+          <div className={`${styles.cardList} ${styles.cardListPadding}`}>
             <LinkCard
               imageUrl="/images/homepage/emploi.png"
               link="/emplois"
@@ -57,15 +57,15 @@ export default function Accueil() {
           </div>
 
           <AccordionComponent ariaId={1}>
-            <div className={styles.cardList}>
+            <div className={`${styles.cardList} ${styles.cardListPaddingAccordion}`}>
               <LinkCard
-                imageUrl="/images/homepage/jobs-ete.png"
-                link="/jobs-ete"
+                imageUrl="/images/homepage/jobs-etudiants.png"
+                link="/jobs-etudiants"
                 linkLabel="Voir les offres"
-                title="Jobs d'été"
+                title="Jobs étudiants"
                 type="internal"
               >
-                <p>Des milliers d&apos;offres d&apos;emploi pour travailler cet été ou cet hiver</p>
+                <p>Des milliers d&apos;offres d&apos;emplois pour les étudiants</p>
               </LinkCard>
               <LinkCard
                 imageUrl="/images/homepage/entrepreneur.png"
@@ -90,7 +90,7 @@ export default function Accueil() {
 
         </section>
 
-        <section className={[styles.section, styles.section2].join(' ')}>
+        <section className={`${styles.section} ${styles.section2}`}>
           <h2 className={styles.sectionHeader}>
             <BookIcon />
             Besoin de vous former ?
@@ -117,12 +117,12 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className={[styles.section, styles.section3].join(' ')}>
+        <section className={`${styles.section} ${styles.section3}`}>
           <h2 className={styles.sectionHeader}>
             <CompassIcon />
             Aides, orientation et accompagnement
           </h2>
-          <div className={styles.cardList}>
+          <div className={`${styles.cardList} ${styles.cardListPadding}`}>
             <LinkCard
               imageUrl="/images/homepage/cej.png"
               link="/contrat-engagement-jeune"
@@ -151,20 +151,24 @@ export default function Accueil() {
               <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
             </LinkCard>
           </div>
+
           <AccordionComponent ariaId={2}>
-            <LinkCard
-              imageUrl="/images/homepage/accompagne.png"
-              link="/"
-              linkLabel="En savoir plus"
-              title="Je souhaite être accompagné(e)"
-              type="internal"
-            >
-              <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
-            </LinkCard>
+            <div className={`${styles.cardList} ${styles.cardListPaddingAccordion}`}>
+              <LinkCard
+                imageUrl="/images/homepage/accompagne.png"
+                link="/"
+                linkLabel="En savoir plus"
+                title="Je souhaite être accompagné(e)"
+                type="internal"
+              >
+                <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
+              </LinkCard>
+            </div>
           </AccordionComponent>
+
         </section>
 
-        <section className={[styles.section, styles.section4].join(' ')}>
+        <section className={`${styles.section} ${styles.section4}`}>
           <h2 className={styles.sectionHeader}>
             <TrophyIcon />
             Engagement et bénévolat

@@ -1,17 +1,25 @@
+.cardListPadding {
+    padding: 0 1.125rem 1.5rem 1.125rem;
+}
+
+.cardListPaddingAccordion {
+    padding: 0 1.125rem 1.5rem 1.125rem;
+}
+
 .cardList {
-    padding: 0 18px 24px 18px;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 375px;
-    gap: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-direction: column;
 }
 
 .section {
-    padding: 24px;
+    padding: 1.5rem;
 }
 
 .sectionHeader {
     text-align: center;
+    margin-top: 0;
     margin-bottom: 2rem;
 }
 
@@ -31,6 +39,7 @@
 
 .section2 {
     background-color: #FEF3FD;
+    padding-bottom: 2rem;
 }
 
 .section3 {
@@ -39,24 +48,27 @@
 
 .section4 {
     background-color: #FFF4ED;
+    padding-bottom: 2rem;
 }
 
 
 @media only screen and (min-width:48em){
-    .cardList {
-        grid-template-columns: repeat(3, 1fr);
+
+    .cardListPaddingAccordion {
+        padding: 1.125rem 1.125rem 1.5rem 1.125rem;
     }
+
     .cardList {
-        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        flex-direction: row;
     }
 
     .cardList > article {
         width: 360px;
-        margin: auto;
     }
 
-    .cardList > * >article {
-        width: 360px;
-        margin: auto;
+    .sectionHeader {
+        margin-bottom: 3rem;
+        margin-top: 1rem;
     }
 }

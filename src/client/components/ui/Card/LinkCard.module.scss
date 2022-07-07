@@ -6,7 +6,7 @@
     box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
     display: flex;
     flex-direction: column;
-    max-height: calc(200px + 13.75rem);
+    max-height: calc(250px + 13.75rem);
     overflow: hidden;
     background-color: white;
 }
@@ -23,7 +23,7 @@
 }
 
 .cardContent {
-    min-height: 11.75rem;
+    min-height: 13.75rem;
     padding: 1.5rem;
     overflow: auto;
 }
