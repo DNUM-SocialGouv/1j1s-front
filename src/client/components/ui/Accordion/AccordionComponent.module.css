@@ -1,7 +1,7 @@
 .accordionButton {
     font-size: 1rem;
     display: block;
-    margin: auto;
+    margin: 10px auto auto;
 }
 
 .accordionButton > svg {
@@ -13,9 +13,19 @@
 }
 
 .closed {
-    display: none;
+    visibility: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.4s;
 }
 
 .open {
-    display: block;
+    visibility: visible;
+    max-height: 100%;
+    opacity: 1;
+    transition: all 0.4s;
+}
+
+.open > article:not(:last-child) {
+    margin-bottom: 24px;
 }

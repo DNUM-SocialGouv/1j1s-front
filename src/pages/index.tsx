@@ -54,9 +54,10 @@ export default function Accueil() {
             >
               <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
             </LinkCard>
-            <AccordionComponent label="Voir plus d'offres" ariaId={1}>
+
+            <AccordionComponent ariaId={1}>
               <LinkCard
-                imageUrl="/images/homepage/stage.png"
+                imageUrl="/images/homepage/jobs-ete.png"
                 link="/jobs-ete"
                 linkLabel="Voir les offres"
                 title="Jobs d'été"
@@ -64,7 +65,26 @@ export default function Accueil() {
               >
                 <p>Des milliers d&apos;offres d&apos;emploi pour travailler cet été ou cet hiver</p>
               </LinkCard>
+              <LinkCard
+                imageUrl="/images/homepage/entrepreneur.png"
+                link="/"
+                linkLabel="Voir les offres"
+                title="Je veux devenir entrepreneur"
+                type="internal"
+              >
+                <p>Retrouvez les conseils, outils et structures d’accompagnement pour vous aider à entreprendre.</p>
+              </LinkCard>
+              <LinkCard
+                imageUrl="/images/homepage/europe.png"
+                link="/"
+                linkLabel="Voir les offres"
+                title="Une expérience en europe"
+                type="internal"
+              >
+                <p>Retrouvez des offres d&apos;emploi, des stages, des VIE | VIA et des aides financières pour une expérience en Europe.</p>
+              </LinkCard>
             </AccordionComponent>
+
           </div>
         </section>
 
@@ -129,9 +149,9 @@ export default function Accueil() {
               <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
             </LinkCard>
           </div>
-          <AccordionComponent label="Voir plus de services" ariaId={2}>
+          <AccordionComponent ariaId={2}>
             <LinkCard
-              imageUrl="/images/homepage/stage.png"
+              imageUrl="/images/homepage/accompagne.png"
               link="/"
               linkLabel="En savoir plus"
               title="Je souhaite être accompagné(e)"

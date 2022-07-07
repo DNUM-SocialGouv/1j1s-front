@@ -39,3 +39,23 @@
 .section4 {
     background-color: #FFF4ED;
 }
+
+
+@media only screen and (min-width:48em){
+    .cardList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .cardList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cardList > article {
+        width: 360px;
+        margin: auto;
+    }
+
+    .cardList > * >article {
+        width: 360px;
+        margin: auto;
+    }
+}
