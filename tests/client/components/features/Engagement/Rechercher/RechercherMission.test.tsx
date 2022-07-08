@@ -5,11 +5,11 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
   aMissionEngagementService,
   aSingleResultMissionEngagementService,
 } from '@tests/fixtures/client/services/missionEngagementService.fixture';
-import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import React from 'react';
 
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
@@ -72,9 +72,11 @@ describe('RechercherMission', () => {
     describe('quand la recherche n\'a qu\'un seul résultat', () => {
       it('affiche le nombre de résultat au singulier', async () => {
         const missionEngagementServiceMock = aSingleResultMissionEngagementService();
+        const localisationServiceMock = aLocalisationService();
+
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
-          <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
+          <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
             <RechercherMission category="service-civique"/>
           </DependenciesProvider>,
         );
@@ -133,9 +135,11 @@ describe('RechercherMission', () => {
     describe('quand la recherche n\'a qu\'un seul résultat', () => {
       it('affiche le nombre de résultat au singulier', async () => {
         const missionEngagementServiceMock = aSingleResultMissionEngagementService();
+        const localisationServiceMock = aLocalisationService();
+
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
-          <DependenciesProvider missionEngagementService={missionEngagementServiceMock} >
+          <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
             <RechercherMission category="bénévolat"/>
           </DependenciesProvider>,
         );
