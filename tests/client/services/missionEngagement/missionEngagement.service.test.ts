@@ -10,7 +10,7 @@ describe('MissionEngagementService', () => {
       it('appelle services-civique avec le filtre', async () => {
         const httpClientService = aHttpClientService();
         const missionEngagementService = new MissionEngagementService(httpClientService);
-        const catégorie = 'service-civique';
+        const catégorie = 'services-civique';
         const missionEngagementQuery = 'domain=sante&page=2';
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatRechercheMission()));
