@@ -159,6 +159,7 @@ describe('RechercherMission', () => {
             <RechercherMission category="bénévolat" />
           </DependenciesProvider>,
         );
+
         const user = userEvent.setup();
         const inputCommune = screen.getByTestId('InputCommune');
         await user.type(inputCommune, 'Pari');

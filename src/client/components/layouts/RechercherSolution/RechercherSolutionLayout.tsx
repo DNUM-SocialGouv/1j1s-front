@@ -44,6 +44,8 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
   } = props;
   const router = useRouter();
 
+  const hasRouterQuery = Object.keys(router.query).length > 0;
+
   return (
     <>
       {bannière}
@@ -51,7 +53,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
         {formulaireRecherche}
         {
           // TODO: add loading as attribute
-          Object.keys(router.query).length > 0 &&
+          hasRouterQuery &&
           <>
             {étiquettesRecherche}
 
