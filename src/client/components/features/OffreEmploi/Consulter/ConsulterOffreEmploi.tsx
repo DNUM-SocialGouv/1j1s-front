@@ -1,14 +1,9 @@
-import {
-  Title,
-} from '@dataesr/react-dsfr';
-import Link from 'next/link';
+import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { Button } from '~/client/components/ui/Button/Button';
 import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';

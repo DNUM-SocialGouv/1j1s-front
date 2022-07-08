@@ -9,6 +9,17 @@
   align-items: center;
 }
 
+.buttonPrimary {
+  border-radius: 20px;
+  border: 2px solid;
+  color: #161616;
+  padding: 0 1.5rem;
+  display: inline-flex;
+  height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .button:hover {
   background-color: #F5F5FE;
 }
