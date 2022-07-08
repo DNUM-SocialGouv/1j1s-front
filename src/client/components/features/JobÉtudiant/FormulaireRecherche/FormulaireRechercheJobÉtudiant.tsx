@@ -16,7 +16,6 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
-import { ButtonWithoutBorder } from '~/client/components/ui/Button/ButtonWithoutBorder';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
@@ -104,13 +103,13 @@ export function FormulaireRechercheJobÉtudiant() {
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <div onClick={() => setIsFiltresAvancésMobileOpen(true)} >
-              <ButtonWithoutBorder
-                idForTest="ButtonFiltrerRecherche"
-                label="Filtrer ma recherche"
-                icon={<FilterIcon />}
-              />
-            </div>
+            <Button
+              idForTest="ButtonFiltrerRecherche"
+              icon={<FilterIcon />}
+              onClick={() => setIsFiltresAvancésMobileOpen(true)}
+            >
+              Filtrer ma recherche
+            </Button>
           }
 
           <Modal
@@ -140,10 +139,11 @@ export function FormulaireRechercheJobÉtudiant() {
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
                 <Button
-                  label="Appliquer les filtres"
                   icon={<ArrowRightIcon />}
                   idForTest="ButtonAppliquerFiltres"
-                />
+                >
+                  Appliquer les filtres
+                </Button>
               </div>
             </ModalFooter>
           </Modal>
@@ -162,11 +162,12 @@ export function FormulaireRechercheJobÉtudiant() {
       </div>
       <div className={styles.buttonRechercher}>
         <Button
-          label="Rechercher"
           icon={<MagnifyingGlassIcon />}
           type="submit"
           idForTest="ButtonRechercher"
-        />
+        >
+          Rechercher
+        </Button>
       </div>
     </form>
   );

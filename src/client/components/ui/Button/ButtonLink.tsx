@@ -3,18 +3,16 @@ import React from 'react';
 
 import styles from '~/client/components/ui/Button/Button.module.css';
 
-interface ButtonAsLinkProps {
+interface ButtonLinkProps extends React.AnchorHTMLAttributes<unknown> {
   label: string
-  href?: string
-  target?: string
   icon?: React.ReactNode
   idForTest: string
 }
 
-export function ButtonLink({ label, href, target = '', icon, idForTest } : ButtonAsLinkProps) {
+export function ButtonLink({ label, icon, idForTest, ...rest } : ButtonLinkProps) {
   return (
-    <Link data-testid={idForTest} href={href || ''}>
-      <a className={styles.button} target={target} data-testid={idForTest}>
+    <Link data-testid={idForTest} href={rest.href ? rest.href : ''}>
+      <a className={styles.button}  data-testid={idForTest} {...rest}>
         <span className={styles.buttonLabel}>{label}</span>
         {icon && icon }
       </a>

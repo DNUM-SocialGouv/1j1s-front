@@ -28,6 +28,10 @@
   justify-content: center;
 }
 
+.buttonRechercher > button {
+  width: 100%;
+}
+
 @media only screen and (min-width: 48em) {
   .rechercheOffreForm {
     flex-direction: row;
@@ -37,7 +41,6 @@
   }
 
   .buttonRechercher {
-    width: initial;
     margin-top: 32px;
     margin-left: 40px;
   }

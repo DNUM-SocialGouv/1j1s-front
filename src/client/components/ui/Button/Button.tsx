@@ -2,18 +2,29 @@ import React from 'react';
 
 import styles from '~/client/components/ui/Button/Button.module.css';
 
-interface ButtonProps {
-  label: string
-  type?: 'submit' | 'button' | 'reset' | undefined
+interface ButtonProps extends React.ButtonHTMLAttributes<unknown> {
   icon?: React.ReactNode
+  iconPosition?: 'right' | 'left'
   idForTest?: string
+  disableStyle?: boolean
 }
 
-export function Button({ label, icon, type = 'button', idForTest } : ButtonProps) {
+export function Button({ children, icon, iconPosition = 'right', idForTest, disableStyle = false, ...rest } : React.PropsWithChildren<ButtonProps>) {
   return (
-    <button className={styles.button} type={type} data-testid={idForTest}>
-      <span className={styles.buttonLabel}>{label}</span>
-      {icon && <span>{icon}</span>}
+    <button className={disableStyle ? styles.unbutton : styles.button} data-testid={idForTest} {...rest}>
+      {
+        iconPosition === 'right' ?
+          <>
+            <span className={styles.buttonLabelAtRight}>{children}</span>
+            {icon && <span>{icon}</span>}
+          </>
+          :
+          <>
+            {icon && <span>{icon}</span>}
+            <span className={styles.buttonLabelAtLeft}>{children}</span>
+          </>
+      }
+
     </button>
   );
 }

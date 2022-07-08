@@ -82,11 +82,12 @@ export function FormulaireRechercheAlternance() {
         />
         <div className={styles.buttonRechercher}>
           <Button
-            label="Rechercher"
             icon={<MagnifyingGlassIcon />}
             type="submit"
             idForTest="ButtonRechercherAlternance"
-          />
+          >
+            Rechercher
+          </Button>
         </div>
       </div>
     </form>

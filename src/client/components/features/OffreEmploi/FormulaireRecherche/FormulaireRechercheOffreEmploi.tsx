@@ -18,7 +18,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
-import { ButtonWithoutBorder } from '~/client/components/ui/Button/ButtonWithoutBorder';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
@@ -126,13 +126,17 @@ export function FormulaireRechercheOffreEmploi() {
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <div onClick={() => setIsFiltresAvancésMobileOpen(true)} >
-              <ButtonWithoutBorder
+            <div>
+              <Button
                 idForTest="ButtonFiltrerRecherche"
-                label="Filtrer ma recherche"
                 icon={<FilterIcon />}
-              />
+                onClick={() => setIsFiltresAvancésMobileOpen(true)}
+                disableStyle={true}
+              >
+                Filtrer ma recherche
+              </Button>
             </div>
+
           }
 
           <Modal
@@ -201,10 +205,12 @@ export function FormulaireRechercheOffreEmploi() {
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
                 <Button
-                  label="Appliquer les filtres"
-                  icon={<ArrowRightIcon />}
+                  icon={<AngleRightIcon color="#FFF" />}
                   idForTest="ButtonAppliquerFiltres"
-                />
+                  iconPosition="right"
+                >
+                  Appliquer les filtres
+                </Button>
               </div>
             </ModalFooter>
           </Modal>
@@ -241,11 +247,12 @@ export function FormulaireRechercheOffreEmploi() {
       </div>
       <div className={styles.buttonRechercher}>
         <Button
-          label="Rechercher"
           icon={<MagnifyingGlassIcon />}
           type="submit"
           idForTest="ButtonRechercher"
-        />
+        >
+          Rechercher
+        </Button>
       </div>
     </form>
   );

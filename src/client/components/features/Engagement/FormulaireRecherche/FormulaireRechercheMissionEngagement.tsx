@@ -58,10 +58,11 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         <input type="hidden" name="distance" value={distanceValue}/>
         <div className={styles.rechercherMissionEngagementButton}>
           <Button
-            label="Rechercher"
             icon={<MagnifyingGlassIcon />}
             type="submit"
-          />
+          >
+            Rechercher
+          </Button>
         </div>
       </div>
     </form>
