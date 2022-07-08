@@ -1,9 +1,5 @@
-.cardListPadding {
-    padding: 0 1.125rem 1.5rem 1.125rem;
-}
-
-.cardListPaddingAccordion {
-    padding: 0 1.125rem 1.5rem 1.125rem;
+.cardListPadding, .cardListPaddingAccordion {
+    padding-bottom: 1.5rem;
 }
 
 .cardList {
@@ -15,6 +11,7 @@
 
 .section {
     padding: 1.5rem;
+    margin: 1.5rem 0;
 }
 
 .sectionHeader {
@@ -53,9 +50,8 @@
 
 
 @media only screen and (min-width:48em){
-
     .cardListPaddingAccordion {
-        padding: 1.125rem 1.125rem 1.5rem 1.125rem;
+        padding: 0.5rem 1.125rem 1.5rem 1.125rem;
     }
 
     .cardList {
@@ -70,5 +66,9 @@
     .sectionHeader {
         margin-bottom: 3rem;
         margin-top: 1rem;
+    }
+
+    .section2, .section4 {
+        padding-bottom: 3rem;
     }
 }
