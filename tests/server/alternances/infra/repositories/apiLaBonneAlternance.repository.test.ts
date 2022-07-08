@@ -2,9 +2,6 @@ import {
   anApprentiBoucherFromMatcha,
   anApprentiBoucherFromPoleEmploi,
 } from '@tests/fixtures/domain/alternance.fixture';
-import {
-  aApiPoleEmploiRéférentielRepository,
-} from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aLaBonneAlternanceHttpClient,
@@ -20,9 +17,6 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
-import {
-  ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 jest.mock('axios', () => {
@@ -34,14 +28,11 @@ jest.mock('axios', () => {
 describe('ApiLaBonneAlternanceRepository', () => {
   let apiLaBonneAlternanceRepository: ApiLaBonneAlternanceRepository;
   let laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService;
-  let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
   beforeEach(() => {
     laBonneAlternanceHttpClientService = aLaBonneAlternanceHttpClient();
-    apiPoleEmploiRéférentielRepository = aApiPoleEmploiRéférentielRepository();
     apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(
       laBonneAlternanceHttpClientService,
-      apiPoleEmploiRéférentielRepository,
     );
   });
 

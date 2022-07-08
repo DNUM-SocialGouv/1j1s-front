@@ -62,7 +62,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('on renvoie une failure avec une error CONTENU_INDISPONIBLE', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(Promise.resolve({ status: 204 } ));
+          .mockResolvedValue(anAxiosResponse({}, 204));
         const offreEmploiId = '132LKFB';
 
         const result  = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Failure;
