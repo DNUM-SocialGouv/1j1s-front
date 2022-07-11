@@ -6,7 +6,7 @@ import {
 
 export function aMissionEngagementFiltre(override?: Partial<MissionEngagementFiltre>): MissionEngagementFiltre {
   return {
-    distance: '10km',
+    distance: '10',
     domain:'sante',
     from: 1,
     lat: 2.3522,
