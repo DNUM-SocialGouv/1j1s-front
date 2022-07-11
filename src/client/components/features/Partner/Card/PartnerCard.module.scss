@@ -1,3 +1,5 @@
+@import "@styles/utilities";
+
 .card {
   display: block;
   background: var(--grey-1000);
@@ -33,6 +35,18 @@
   margin-bottom: 5px;
 }
 
+.cardIcon {
+  text-align:right;
+  color: $color-primary;
+  font-size: 0.875em;
+}
+
+.cardIcon > svg {
+  vertical-align: middle;
+}
+.cardLabelIcon {
+  margin-right: 10px;
+}
 .headline:after {
   content: " ";
 }

@@ -7,6 +7,10 @@ import React, {
 } from 'react';
 
 import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
+import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
+import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
+import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
   ÉtiquettesRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
@@ -86,6 +90,17 @@ export function RechercherAlternance() {
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapAlternanceToLienSolution}
         />
+        <ul className={styles.partnerList}>
+          <li>
+            <ServiceCiviquePartner/>
+          </li>
+          <li>
+            <LaBonneBoitePartner/>
+          </li>
+          <li>
+            <CIDJPartner/>
+          </li>
+        </ul>
       </main>
     </>
   );
