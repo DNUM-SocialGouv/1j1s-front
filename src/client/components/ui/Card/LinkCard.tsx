@@ -29,7 +29,7 @@ export const LinkCard: React.FunctionComponent<LinkCardProps> = (props: LinkCard
   }, [isLinkExternalType]);
   const computedLink = useMemo(function () {
     return isLinkExternalType
-      ? <a className={styles.cardLink} href={link}>
+      ? <a className={styles.cardLink} href={link} target="_blank" rel="noreferrer">
 	        <span className={styles.cardLinkLabel}>{linkLabel}</span>
 	        {icon}
       </a>
@@ -48,7 +48,7 @@ export const LinkCard: React.FunctionComponent<LinkCardProps> = (props: LinkCard
 	      {imageUrl && <img className={styles.cardImage} src={imageUrl} alt={imageAltText} decoding="async" loading="lazy" />}
 	    </div>
 	    <div className={styles.cardContent}>
-	      <h6 className={styles.cardTitle}>{title}</h6>
+	      <h3 className={styles.cardTitle}>{title}</h3>
 		    <div className={styles.cardDescription}>{children}</div>
       </div>
 	    <div className={styles.cardAction}>{link && linkLabel && computedLink}</div>

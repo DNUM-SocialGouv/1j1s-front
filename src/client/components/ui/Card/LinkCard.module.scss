@@ -56,6 +56,11 @@
     box-shadow: var(--link-underline);
 }
 
+.cardAction .cardLink:after {
+    content: none;
+}
+
+
 .cardAction .cardLink > * {
     vertical-align: middle;
 }

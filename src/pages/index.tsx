@@ -13,7 +13,7 @@ import styles from '~/pages/index.module.css';
 export default function Accueil() {
   return (
     <>
-      <HeadTag title="Toutes les solutions pour l'avenir des jeunes" />
+      <HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
       <Hero image="/images/banners/homepage.webp">
         <b>A chacun sa solution.</b><br />
         Vous avez entre 13 et 30 ans ?<br/>

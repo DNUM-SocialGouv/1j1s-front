@@ -27,6 +27,7 @@ export function AccordionComponent({ ariaId, children } : React.PropsWithChildre
       <div className={isOpen ? styles.open : styles.closed}
         id={`section-${ariaId}`}
         role="region"
+        aria-hidden={isOpen}
         aria-labelledby={`accordion-${ariaId}`}>
         {children}
       </div>
@@ -34,7 +35,7 @@ export function AccordionComponent({ ariaId, children } : React.PropsWithChildre
         ref={ref}
         onClick={toggleAccordion} 
         type="button" 
-        aria-expanded="true" 
+        aria-expanded={isOpen}
         aria-controls={`section-${ariaId}`} 
         id={`accordion-${ariaId}`}>
         <span className={styles.accordionButtonLabel}>{isOpen ? 'Voir moins' : 'Voir plus'}</span>
