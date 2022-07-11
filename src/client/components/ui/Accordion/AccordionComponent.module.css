@@ -1,0 +1,37 @@
+.accordionButton {
+    font-size: 1rem;
+    display: block;
+    margin: auto;
+}
+
+.accordionButton > svg {
+    vertical-align: middle;
+}
+
+.accordionButtonLabel {
+    margin-right: 1rem;
+}
+
+.closed {
+    visibility: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+.open {
+    visibility: visible;
+    max-height: 100%;
+    opacity: 1;
+    transition: all 0.4s;
+}
+
+.open > article:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+@media only screen and (min-width:48em){
+    .accordionButton {
+        margin: 1.5rem auto;
+    }
+}
