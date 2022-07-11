@@ -104,7 +104,7 @@ export function FormulaireRechercheJobÉtudiant() {
 
           {isSmallScreen &&
             <Button
-              idForTest="ButtonFiltrerRecherche"
+              dataTestId="ButtonFiltrerRecherche"
               icon={<FilterIcon />}
               onClick={() => setIsFiltresAvancésMobileOpen(true)}
             >
@@ -140,7 +140,7 @@ export function FormulaireRechercheJobÉtudiant() {
               <div onClick={applyFiltresAvancés}>
                 <Button
                   icon={<ArrowRightIcon />}
-                  idForTest="ButtonAppliquerFiltres"
+                  dataTestId="ButtonAppliquerFiltres"
                 >
                   Appliquer les filtres
                 </Button>
@@ -164,7 +164,7 @@ export function FormulaireRechercheJobÉtudiant() {
         <Button
           icon={<MagnifyingGlassIcon />}
           type="submit"
-          idForTest="ButtonRechercher"
+          dataTestId="ButtonRechercher"
         >
           Rechercher
         </Button>

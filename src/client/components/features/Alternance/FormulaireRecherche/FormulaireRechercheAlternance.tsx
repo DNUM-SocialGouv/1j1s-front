@@ -84,7 +84,7 @@ export function FormulaireRechercheAlternance() {
           <Button
             icon={<MagnifyingGlassIcon />}
             type="submit"
-            idForTest="ButtonRechercherAlternance"
+            dataTestId="ButtonRechercherAlternance"
           >
             Rechercher
           </Button>

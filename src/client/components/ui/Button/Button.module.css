@@ -20,9 +20,8 @@
   align-items: center;
 }
 
-.button:hover {
-  background-color: #F5F5FE;
-}
+/* TODO remplacer le hover du bouton quand on aura viré la lib react dsfr */
+.button:hover {}
 
 .unbutton {
   border-radius: 20px;
@@ -40,12 +39,4 @@
 .buttonLabelAtLeft {
   margin-left: 10px;
   font-size: 1rem;
-}
-
-.buttonWithoutBorder {
-  cursor: pointer;
-  color: #566BB1;
-  display: inline-flex;
-  width: 100%;
-  justify-content: left;
 }

@@ -3,9 +3,9 @@ import React from 'react';
 import styles from '~/client/components/ui/Button/Button.module.css';
 import { ButtonProps } from '~/client/components/ui/Button/buttonprops.type';
 
-export function Button({ children, icon, iconPosition = 'right', idForTest, disableStyle = false, ...rest } : React.PropsWithChildren<ButtonProps>) {
+export function Button({ children, icon, iconPosition = 'right', dataTestId, isInvertedStyle = false, ...rest } : React.PropsWithChildren<ButtonProps>) {
   return (
-    <button className={disableStyle ? styles.unbutton : styles.button} data-testid={idForTest} {...rest}>
+    <button className={isInvertedStyle ? styles.unbutton : styles.button} data-testid={dataTestId} {...rest}>
       {
         iconPosition === 'right' ?
           <>

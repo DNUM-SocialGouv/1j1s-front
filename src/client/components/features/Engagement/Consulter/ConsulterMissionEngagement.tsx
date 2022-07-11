@@ -29,7 +29,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
             label="Je postule sur Pôle Emploi"
             href={missionEngagement.url}
             target="_blank"
-            idForTest="LinkPostulerOffreEmploi"
+            dataTestId="LinkPostulerOffreEmploi"
           />
         </div>
         {missionEngagement.localisation &&

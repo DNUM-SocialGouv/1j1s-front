@@ -28,7 +28,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
             label="Je postule sur Pôle Emploi"
             href={offreEmploi.urlOffreOrigine}
             target="_blank"
-            idForTest="LinkPostulerOffreEmploi"
+            dataTestId="LinkPostulerOffreEmploi"
           />
         </div>
         {offreEmploi.description &&
