@@ -9,8 +9,6 @@ import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectS
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { générerTitreFiltre } from '~/client/utils/offreEmploi.mapper';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { radiusListEngagement } from '~/server/alternances/domain/alternance';
 import { MissionEngagement } from '~/server/engagement/domain/engagement';
 
 interface FormulaireRechercheMissionEngagementProps {
@@ -56,13 +54,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
           optionList={domainList}
           onChange={(value) => setDomainValue(value)}
           currentInput={domainValue}
-        />
-        <SelectSingle
-          label="Rayon"
-          titre={récupérerLibelléDepuisValeur(radiusListEngagement, inputDistanceCommune)}
-          optionList={radiusListEngagement}
-          onChange={setInputDistanceCommune}
-          currentInput={inputDistanceCommune}
         />
         <input type="hidden" name="domain" value={domainValue}/>
         <InputCommune

@@ -16,7 +16,7 @@ const OFFRE_PER_PAGE = 30;
 
 export async function rechercherMissionHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheMission | ErrorHttpResponse>) {
   const résultatRechercherMission = await dependencies.engagementDependencies.rechercherMissionEngagement.handle(missionRequestMapper(req));
-  console.log(résultatRechercherMission);
+
   switch (résultatRechercherMission.instance) {
     case 'success':
       return res.status(200).json(résultatRechercherMission.result);

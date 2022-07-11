@@ -77,10 +77,14 @@ export function ÉtiquettesRechercherSolution({ localisation }: ÉtiquettesReche
         filtreList.push(localisation);
       }
 
+      if (isKeyInQueryParams(QueryParams.LIBELLE_COMMUNE) && isKeyInQueryParams(QueryParams.CODE_COMMUNE)) {
+        const libelleCommuneLocalisation = getQueryValue(QueryParams.LIBELLE_COMMUNE);
+        filtreList.push(libelleCommuneLocalisation);
+      }
+
       setFiltres(filtreList);
     }
   }, [queryParams]);
-
   return (
     <>
       {filtres.length > 0 &&
