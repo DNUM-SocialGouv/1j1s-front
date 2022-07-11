@@ -6,21 +6,23 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  height: 27.5rem;
 }
 
 .heroContent {
   max-width: 78rem;
-  padding: 36px 1.5rem;
+  padding: 36px;
   margin: 0 auto;
   flex-shrink: 5;
   flex-grow: 5;
 }
 
 .heroTitle {
-  @extend %headline;
-  display: inline-block;
   margin-bottom: 0;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 
@@ -32,11 +34,12 @@
 }
 
 .cta[href] {
+  line-height: 1.5em;
   display: inline-block;
   background: #F6F7FB;
   color: #161616;
   font-size: 18px;
-  padding: 2px 6px 2px 12px;
+  padding: 4px 0px 4px 12px;
   border-radius: 20px;
   text-decoration: none;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
@@ -44,14 +47,20 @@
 }
 
 @include media(medium){
+  .hero {
+    height: 27.5rem;
+  }
   .heroContent {
-    padding: 42px 1.5rem;
+    padding: 42px;
   }
 }
 
 @include media(xlarge){
+  .hero {
+    height: 27.5rem;
+  }
   .heroContent {
-    padding: 80px 1.5rem;
+    padding: 80px;
   }
 }
 
