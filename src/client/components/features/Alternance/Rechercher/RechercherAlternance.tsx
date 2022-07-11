@@ -9,8 +9,7 @@ import React, {
 import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
-import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
-import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
+import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import {
   ÉtiquettesRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
@@ -92,10 +91,7 @@ export function RechercherAlternance() {
         />
         <ul className={styles.partnerList}>
           <li>
-            <ServiceCiviquePartner/>
-          </li>
-          <li>
-            <LaBonneBoitePartner/>
+            <SimulationAlternancePartner/>
           </li>
           <li>
             <CIDJPartner/>
