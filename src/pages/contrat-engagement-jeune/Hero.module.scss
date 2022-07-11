@@ -1,0 +1,57 @@
+@import "@styles/utilities";
+
+.hero {
+  background: #ea711b;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 27.5rem;
+}
+
+.heroContent {
+  max-width: 78rem;
+  padding: 36px 1.5rem;
+  margin: 0 auto;
+  flex-shrink: 5;
+  flex-grow: 5;
+}
+
+.heroTitle {
+  @extend %headline;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+
+.heroImage {
+  position: relative;
+  width: 800px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.cta[href] {
+  display: inline-block;
+  background: #F6F7FB;
+  color: #161616;
+  font-size: 18px;
+  padding: 2px 6px 2px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #161616;
+}
+
+@include media(medium){
+  .heroContent {
+    padding: 42px 1.5rem;
+  }
+}
+
+@include media(xlarge){
+  .heroContent {
+    padding: 80px 1.5rem;
+  }
+}
+
