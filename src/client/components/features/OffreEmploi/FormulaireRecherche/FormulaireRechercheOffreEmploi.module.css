@@ -10,23 +10,10 @@
 
 .inputButtonWrapper {
   padding-top: 24px;
-  padding-bottom: 32px;
 }
 
 .inputButtonWrapper > * {
   margin-bottom: 1.5rem;
-}
-
-.buttonRechercher {
-  width: 100%;
-}
-
-.buttonRechercher > span {
-  margin: auto;
-}
-
-.buttonFiltrerRecherche {
-  padding: 0 !important;
 }
 
 .filtresAvancésModalTitle > span {
@@ -41,6 +28,10 @@
   justify-content: center;
 }
 
+.buttonRechercher > button {
+  width: 100%;
+}
+
 @media only screen and (min-width: 48em) {
   .rechercheOffreForm {
     flex-direction: row;
@@ -50,7 +41,6 @@
   }
 
   .buttonRechercher {
-    width: initial;
     margin-top: 32px;
     margin-left: 40px;
   }

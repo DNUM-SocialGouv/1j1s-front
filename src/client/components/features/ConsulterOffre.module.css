@@ -54,11 +54,15 @@
   list-style: "*";
 }
 
+.buttonAsLink {
+  margin-bottom: 20px;
+}
+
 @media only screen and (min-width: 48em) {
   .titre {
     display: flex;;
     flex-direction: column;
-    border-bottom: 0px;
+    border-bottom: 0;
   }
 
   .titre > ul {
@@ -67,5 +71,9 @@
 
   .contenuAdaptatif  h3, .contenuAdaptatif  p {
     display: block;
+  }
+
+  .buttonAsLink {
+    margin: auto;
   }
 }

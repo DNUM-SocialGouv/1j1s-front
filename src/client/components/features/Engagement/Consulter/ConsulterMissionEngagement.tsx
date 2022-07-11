@@ -1,12 +1,9 @@
-import {
-  Button,
-  Link,
-  Title,
-} from '@dataesr/react-dsfr';
+import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
 import { TagList } from '~/client/components/ui/TagList/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { Mission } from '~/server/engagement/domain/engagement';
@@ -27,19 +24,14 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
         <TagList data-testid="ÉtiquetteMissionEngagementList" list={missionEngagement.étiquetteList} />
       </header>
       <section className={commonStyles.contenu}>
-        <Button size="md" className={commonStyles.buttonPostuler}>
-          <Link
+        <div className={commonStyles.buttonAsLink}>
+          <ButtonLink
+            label="Je postule sur Pôle Emploi"
             href={missionEngagement.url}
             target="_blank"
-            className="fr-btn--md fr-btn"
-            icon="ri-external-link-line"
-            iconPosition="right"
-            display="flex"
-            data-testid="LinkPostulerMissionEngagement"
-          >
-            Postuler
-          </Link>
-        </Button>
+            dataTestId="LinkPostulerOffreEmploi"
+          />
+        </div>
         {missionEngagement.localisation &&
           <div className={commonStyles.contenuAdaptatif}>
             <h3>Où ? </h3><p dangerouslySetInnerHTML={{ __html: localisationMissionEngagement }}/>

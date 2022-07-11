@@ -1,7 +1,6 @@
 import '~/client/utils/string/string.util';
 
 import {
-  Button,
   Checkbox,
   CheckboxGroup,
   Modal,
@@ -18,6 +17,10 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+import { Button } from '~/client/components/ui/Button/Button';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
+import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
@@ -122,16 +125,17 @@ export function FormulaireRechercheOffreEmploi() {
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <Button
-              styleAsLink
-              className={`${styles.buttonFiltrerRecherche} fr-text--sm`}
-              icon="ri-filter-fill"
-              iconPosition="left"
-              onClick={() => setIsFiltresAvancésMobileOpen(true)}
-              data-testid="ButtonFiltrerRecherche"
-            >
-              Filtrer ma recherche
-            </Button>
+            <div>
+              <Button
+                dataTestId="ButtonFiltrerRecherche"
+                icon={<FilterIcon />}
+                onClick={() => setIsFiltresAvancésMobileOpen(true)}
+                isInvertedStyle={true}
+              >
+                Filtrer ma recherche
+              </Button>
+            </div>
+
           }
 
           <Modal
@@ -198,14 +202,15 @@ export function FormulaireRechercheOffreEmploi() {
               </CheckboxGroup>
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
-              <Button
-                onClick={applyFiltresAvancés}
-                icon="ri-arrow-right-s-line"
-                iconPosition="right"
-                data-testid="ButtonAppliquerFiltres"
-              >
-                Appliquer les filtres
-              </Button>
+              <div onClick={applyFiltresAvancés}>
+                <Button
+                  icon={<AngleRightIcon color="#FFF" />}
+                  dataTestId="ButtonAppliquerFiltres"
+                  iconPosition="right"
+                >
+                  Appliquer les filtres
+                </Button>
+              </div>
             </ModalFooter>
           </Modal>
         </div>
@@ -239,15 +244,15 @@ export function FormulaireRechercheOffreEmploi() {
           </div>
         )}
       </div>
-      <Button
-        className={styles.buttonRechercher}
-        submit={true}
-        icon="ri-search-line"
-        iconPosition="right"
-        data-testid="ButtonRechercher"
-      >
-        Rechercher
-      </Button>
+      <div className={styles.buttonRechercher}>
+        <Button
+          icon={<MagnifyingGlassIcon />}
+          type="submit"
+          dataTestId="ButtonRechercher"
+        >
+          Rechercher
+        </Button>
+      </div>
     </form>
   );
 }
