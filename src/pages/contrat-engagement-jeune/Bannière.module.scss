@@ -44,11 +44,12 @@
 
 .cta[href] {
   line-height: 1.5em;
-  display: inline-block;
+  display: inline-flex;
+  align-items: end;
   background: #F6F7FB;
   color: #161616;
   font-size: 18px;
-  padding: 4px 0px 4px 12px;
+  padding: 6px 4px 6px 12px;
   border-radius: 20px;
   text-decoration: none;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
