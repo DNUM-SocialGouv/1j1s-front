@@ -38,7 +38,14 @@ function Hero() {
       </div>
       {displayImage && (
         <div className={styles.heroImage}>
-          <Image src={heroBannerImage} priority alt={ accroche } layout="fill" objectFit="contain" objectPosition="right"/>
+          <Image
+            priority
+            src={heroBannerImage}
+            alt={ accroche }
+            layout="fill"
+            objectFit="contain"
+            objectPosition="right"
+          />
         </div>
       )}
     </div>
