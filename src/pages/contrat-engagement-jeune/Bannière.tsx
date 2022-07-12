@@ -1,9 +1,9 @@
-import { Icon } from '@dataesr/react-dsfr';
 import Image from 'next/image';
 import React from 'react';
 
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import bannièreStyles from '~/pages/contrat-engagement-jeune/Bannière.module.scss';
+import styles from '~/pages/contrat-engagement-jeune/Bannière.module.scss';
 
 import bannièreImage from '../../../public/images/banners/CEJ_bannière.jpg';
 
@@ -13,7 +13,6 @@ export default function Bannière () {
   const displayImage = isLargeScreen || isXLargeScreen;
   const titre = 'Je découvre le Contrat d\'Engagement Jeune';
   const accroche = 'Finie la galère, trouvez un métier qui va vous plaire.';
-  const styles = bannièreStyles;
 
   return (
     <div className={styles.bannière}>
@@ -21,7 +20,7 @@ export default function Bannière () {
         <span className={styles.bannièreTitle}>
           <h1 className={ styles.titre } >{ titre }</h1>
           { !displayImage && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
-          <a href="#" className={ styles.cta }>Je me lance &nbsp;<Icon name="ri-arrow-right-s-line" /></a>
+          <a href="#" className={ styles.cta }>Je me lance &nbsp;<AngleRightIcon /></a>
         </span>
       </div>
       {displayImage && (
