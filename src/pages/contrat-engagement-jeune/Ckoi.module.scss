@@ -1,17 +1,25 @@
 .section {
-   padding: 10rem 0;
+   padding: 5rem 0;
+   background: #f6f7fb;
 }
 
 .container {
     display: grid;
-    gap: 1.5rem;
+    gap: 3rem;
     grid-template-columns: repeat(2, 1fr);
     margin: 0 auto;
     max-width: 78rem;
+    padding: 0 1.5rem;
     place-items: center;
 }
 
 .illustration {
-    height: 100%;
-    place-self: stretch;
+  position: relative;
+  place-self: stretch;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.article p:last-child {
+  margin-bottom: 0;
 }
