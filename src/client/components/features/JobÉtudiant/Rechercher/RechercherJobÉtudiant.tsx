@@ -93,13 +93,13 @@ export function RechercherJobÉtudiant() {
         />
         <ul className={styles.partnerList}>
           <li>
-            <CIDJPartner titleAs="h2"/>
+            <CIDJPartner/>
           </li>
           <li>
-            <LaBonneBoitePartner titleAs="h2"/>
+            <LaBonneBoitePartner/>
           </li>
           <li>
-            <ServiceCiviquePartner titleAs="h2"/>
+            <ServiceCiviquePartner/>
           </li>
         </ul>
       </main>

@@ -1,15 +1,12 @@
-import { Icon, Title } from '@dataesr/react-dsfr';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import styles from '~/client/components/features/Partner/Card/PartnerCard.module.css';
+import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
+import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
+import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 
-export interface PartnerTitleProps {
-  titleAs: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-}
-
-interface PartnerCardProps extends PartnerTitleProps {
+interface PartnerCardProps {
   alt: string
   logo: string
   link: string
@@ -17,11 +14,13 @@ interface PartnerCardProps extends PartnerTitleProps {
   headline: string
   headlineColor: string
   description: string
+  linkLabel: string
+  internal: boolean
 }
 
 export function PartnerCard(props: PartnerCardProps) {
-  const { logo, alt, link, title, titleAs, headline, headlineColor, description } = props;
-
+  const { logo, alt, link, title, headline, linkLabel, headlineColor, internal, description } = props;
+  const icon = internal ? <ArrowRightIcon color="#5269B5"/> : <ExternalRedirectionIcon color="#5269B5" />;
   return (
     <Link href={link}>
       <a className={styles.card} data-testid='PartnerCard'>
@@ -29,12 +28,15 @@ export function PartnerCard(props: PartnerCardProps) {
           <Image alt={alt} src={logo} width='100%' height='100%'/>
         </div>
         <div className={styles.cardBody}>
-          <Title as={titleAs} look='h6'>{title}</Title>
+          <h6>{title}</h6>
           <p>
             <strong style={{ color: headlineColor }} className={styles.headline}>{headline}</strong>
             {description}
           </p>
-          <Icon name='ri-external-link-line fr-link' size='lg'/>
+          <div className={styles.cardIcon}>
+            <span className={styles.cardLabelIcon}>{linkLabel}</span>
+            {icon}
+          </div>
         </div>
       </a>
     </Link>

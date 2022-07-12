@@ -91,13 +91,13 @@ export function RechercherOffreEmploi() {
         />
         <ul className={styles.partnerList}>
           <li>
-            <CIDJPartner titleAs="h2"/>
+            <ServiceCiviquePartner/>
           </li>
           <li>
-            <LaBonneBoitePartner titleAs="h2"/>
+            <LaBonneBoitePartner/>
           </li>
           <li>
-            <ServiceCiviquePartner titleAs="h2"/>
+            <CIDJPartner/>
           </li>
         </ul>
       </main>
