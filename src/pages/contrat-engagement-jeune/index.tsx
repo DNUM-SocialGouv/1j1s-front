@@ -3,44 +3,44 @@ import Image from 'next/image';
 import React from 'react';
 
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import heroStyles from '~/pages/contrat-engagement-jeune/Hero.module.scss';
+import bannièreStyles from '~/pages/contrat-engagement-jeune/Bannière.module.scss';
 
-import heroBannerImage from '../../../public/images/banners/CEJ_banner_hero.jpg';
+import bannièreImage from '../../../public/images/banners/CEJ_bannière.jpg';
 
 
 export default function ContratEngagementJeune() {
   return (
-    <Hero />
+    <Bannière />
   );
 }
 
-function Hero() {
+function Bannière () {
   const { isLargeScreen, isXLargeScreen } = useBreakpoint();
   const displayImage = isLargeScreen || isXLargeScreen;
   const titre = 'Je découvre le Contrat d\'Engagement Jeune';
   const accroche = 'Finie la galère, trouvez un métier qui va vous plaire.';
-  const styles = heroStyles;
+  const styles = bannièreStyles;
 
   const children = (
     <>
       <h1 className={ styles.titre } >{ titre }</h1>
-      { !displayImage && (<p className={ styles.heroAccroche}>{ accroche }</p>) }
+      { !displayImage && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
       <a href="#" className={ styles.cta }>Je me lance &nbsp;<Icon name="ri-arrow-right-s-line" /></a>
     </>
   );
 
   return (
-    <div className={styles.hero}>
-      <div className={styles.heroContent}>
-        <span className={styles.heroTitle}>
+    <div className={styles.bannière}>
+      <div className={styles.bannièreContent}>
+        <span className={styles.bannièreTitle}>
           {children}
         </span>
       </div>
       {displayImage && (
-        <div className={styles.heroImage}>
+        <div className={styles.bannièreImage}>
           <Image
             priority
-            src={heroBannerImage}
+            src={bannièreImage}
             alt={ accroche }
             layout="fill"
             objectFit="contain"
