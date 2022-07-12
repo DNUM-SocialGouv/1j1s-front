@@ -16,6 +16,7 @@ const OFFRE_PER_PAGE = 30;
 
 export async function rechercherMissionHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheMission | ErrorHttpResponse>) {
   const résultatRechercherMission = await dependencies.engagementDependencies.rechercherMissionEngagement.handle(missionRequestMapper(req));
+
   switch (résultatRechercherMission.instance) {
     case 'success':
       return res.status(200).json(résultatRechercherMission.result);
@@ -38,9 +39,11 @@ function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre 
 
   const JE_VEUX_AIDER_ID = '5f5931496c7ea514150a818f';
   return {
-    distance: query.distance ? Number(query.distance) : undefined,
+    distance: query.distanceCommune ? String(query.distanceCommune) : undefined,
     domain: query.domain ? String(query.domain) : '',
     from: Number(query.page),
+    lat: query.latitudeCommune ? Number(query.latitudeCommune) : undefined,
+    lon: query.longitudeCommune ? Number(query.longitudeCommune) : undefined,
     publisher: JE_VEUX_AIDER_ID,
     size: OFFRE_PER_PAGE,
   };

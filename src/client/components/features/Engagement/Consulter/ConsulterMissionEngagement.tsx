@@ -26,7 +26,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>
           <ButtonLink
-            label="Je postule sur Pôle Emploi"
+            label="Postuler"
             href={missionEngagement.url}
             target="_blank"
             dataTestId="LinkPostulerOffreEmploi"

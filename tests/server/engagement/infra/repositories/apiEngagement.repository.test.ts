@@ -42,7 +42,7 @@ describe('ApiEngagementRepository', () => {
 
         const { result } = await apiEngagementRepository.searchMissionEngagement(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
         expect(result).toEqual(aRésultatRechercheMission());
-        expect(engagementHttpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=1&publisher=a-publisher-id&size=30');
+        expect(engagementHttpClientService.get).toHaveBeenCalledWith('mission/search?distance=10km&domain=sante&from=1&lat=2.3522&lon=48.8566&publisher=a-publisher-id&size=30');
       });
     });
 

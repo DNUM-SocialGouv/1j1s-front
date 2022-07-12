@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { HttpClientService } from '~/client/services/httpClient.service';
+import { TypeEngagement } from '~/client/utils/engagementsCategory.utils';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import {
   createFailure,
@@ -13,8 +14,9 @@ export class MissionEngagementService {
   constructor(private httpClientService: HttpClientService) {}
 
   async rechercherMission(queryString: string, category: string): Promise<Either<RésultatsRechercheMission>> {
+    const resource = category === TypeEngagement.SERVICE_CIVIQUE ? TypeEngagement.SERVICE_CIVIQUE : TypeEngagement.BENEVOLAT;
     try {
-      const response = await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
+      const response = await this.httpClientService.get<RésultatsRechercheMission>(`${resource}?${queryString}`);
       return createSuccess(response.data);
     } catch (e) {
       if (axios.isAxiosError(e)) {

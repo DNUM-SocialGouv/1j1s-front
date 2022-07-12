@@ -4,12 +4,11 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { générerTitreFiltre } from '~/client/utils/offreEmploi.mapper';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { radiusListEngagement } from '~/server/alternances/domain/alternance';
 import { MissionEngagement } from '~/server/engagement/domain/engagement';
 
 interface FormulaireRechercheMissionEngagementProps {
@@ -21,11 +20,20 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
   const queryParams = useMissionEngagementQuery();
 
   const [domainValue, setDomainValue] = useState('');
-  const [distanceValue, setDistanceValue] = useState('10');
+  const [inputLibelleCommune, setInputLibelleCommune] = useState<string>('');
+  const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
+  const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
+  const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
+  const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
+
 
   useEffect(function initFormValues() {
     setDomainValue(queryParams.domain || '');
-    setDistanceValue(queryParams.distance || '');
+    setInputLongitudeCommune(queryParams.longitudeCommune || '');
+    setInputLatitudeCommune(queryParams.latitudeCommune || '');
+    setInputCodeCommune(queryParams.codeCommune || '');
+    setInputLibelleCommune(queryParams.libelleCommune || '');
+    setInputDistanceCommune(queryParams.distanceCommune || '');
   }, [queryParams]);
 
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
@@ -47,15 +55,14 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
           onChange={(value) => setDomainValue(value)}
           currentInput={domainValue}
         />
-        <SelectSingle
-          label="Rayon"
-          titre={récupérerLibelléDepuisValeur(radiusListEngagement, distanceValue)}
-          optionList={radiusListEngagement}
-          onChange={setDistanceValue}
-          currentInput={distanceValue}
-        />
         <input type="hidden" name="domain" value={domainValue}/>
-        <input type="hidden" name="distance" value={distanceValue}/>
+        <InputCommune
+          code={inputCodeCommune}
+          libellé={inputLibelleCommune}
+          latitude={inputLatitudeCommune}
+          longitude={inputLongitudeCommune}
+          distance={inputDistanceCommune}
+        />
         <div className={styles.rechercherMissionEngagementButton}>
           <Button
             icon={<MagnifyingGlassIcon />}
