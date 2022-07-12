@@ -1,4 +1,4 @@
-/* eslint-disable no-unescaped-entities */
+/* eslint-disable react/no-unescaped-entities */
 import Image from 'next/image';
 import React from 'react';
 
@@ -11,9 +11,9 @@ export default function Ckoi() {
     <section className={ styles.section }>
       <div className={ styles.container }>
         <aside className= { styles.illustration }>
-          <Image src={ illustration } objectFit='fill' alt='' />
+          <Image src={ illustration } objectFit='cover' layout='fill' alt='' />
         </aside>
-        <article>
+        <article className={ styles.article }>
           <h2>Le Contrat d'Engagement Jeune, qu'est-ce que c'est ?</h2>
           <p><strong>Un parcours entièrement personnalisé qui peut durer de 6 à 12 mois*</strong> en fonction de mon profil, pour m'aider à définir mon projet professionnel et à trouver un emploi.</p>
           <p>Quand je signe mon contrat, je bénéficie de :</p>
