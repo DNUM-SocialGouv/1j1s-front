@@ -1,0 +1,17 @@
+.section {
+   padding: 10rem 0;
+}
+
+.container {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+    max-width: 78rem;
+    place-items: center;
+}
+
+.illustration {
+    height: 100%;
+    place-self: stretch;
+}
