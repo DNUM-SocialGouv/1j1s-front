@@ -5,6 +5,8 @@ import React from 'react';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import heroStyles from '~/pages/contrat-engagement-jeune/Hero.module.scss';
 
+import heroBannerImage from '../../../public/images/banners/CEJ_banner_hero.jpg';
+
 
 export default function ContratEngagementJeune() {
   return (
@@ -15,7 +17,6 @@ export default function ContratEngagementJeune() {
 function Hero() {
   const { isLargeScreen, isXLargeScreen } = useBreakpoint();
   const displayImage = isLargeScreen || isXLargeScreen;
-  const image = '/images/banners/CEJ_banner_hero.jpg';
   const titre = 'Je découvre le Contrat d\'Engagement Jeune';
   const accroche = 'Finie la galère, trouvez un métier qui va vous plaire.';
   const styles = heroStyles;
@@ -37,7 +38,7 @@ function Hero() {
       </div>
       {displayImage && (
         <div className={styles.heroImage}>
-          <Image src={image} alt={ accroche } layout="fill" objectFit="contain" objectPosition="right"/>
+          <Image src={heroBannerImage} priority alt={ accroche } layout="fill" objectFit="contain" objectPosition="right"/>
         </div>
       )}
     </div>
