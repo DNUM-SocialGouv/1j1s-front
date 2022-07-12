@@ -19,7 +19,7 @@ export function PageNotFound(){
           <p className="fr-text--bold">La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</p>
           <p className="fr-text--md">Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
 
-          <ButtonLink label="Retourner à l'accueil" />
+          <ButtonLink label="Retourner à l'accueil" href="/" />
         </div>
         {!isSmallScreen &&
         <div className={styles.errorLogo}>
