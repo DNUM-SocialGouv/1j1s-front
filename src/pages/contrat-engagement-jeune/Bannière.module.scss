@@ -9,7 +9,6 @@
 }
 
 .bannièreContent {
-  max-width: 78rem;
   padding: 36px;
   margin: 0 auto;
   flex-shrink: 5;
@@ -62,6 +61,7 @@
   }
   .bannièreContent {
     padding: 42px;
+    padding-left: $gutter;
   }
 }
 
@@ -71,6 +71,7 @@
   }
   .bannièreContent {
     padding: 80px;
+    padding-left: calc((100vw - $breakpoint-xl)/2 + $gutter);
   }
 }
 

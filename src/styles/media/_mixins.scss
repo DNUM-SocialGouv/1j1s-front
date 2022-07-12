@@ -2,6 +2,7 @@ $breakpoint-sm: 36em;
 $breakpoint-md: 48em;
 $breakpoint-lg: 62em;
 $breakpoint-xl: 78em;
+$gutter: 1.5rem;
 
 @mixin media($size) {
   @if $size == medium {
