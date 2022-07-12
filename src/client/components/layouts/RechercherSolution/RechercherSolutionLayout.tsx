@@ -54,11 +54,11 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
         {
           // TODO: add loading as attribute
           hasRouterQuery &&
-          <>
-            {étiquettesRecherche}
 
+          <>
             {listeSolution.length > 0 ?
               <>
+                {étiquettesRecherche}
                 <div className={styles.nombreRésultats}>
                   <h2>{messageRésultatRecherche}</h2>
                 </div>
