@@ -15,7 +15,9 @@ export function Hero({ children, image, ...rest }: React.PropsWithChildren<HeroP
     <div className={styles.hero} {...rest}>
       <div className={styles.heroContent}>
         <span className={styles.heroTitle}>
-          {children}
+          <h1>
+            {children}
+          </h1>
         </span>
       </div>
       {image && isXLargeScreen && (
