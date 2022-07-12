@@ -36,13 +36,14 @@ export default monitoringHandler(rechercherMissionHandler);
 function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre {
   const { query } = request;
   const SERVICE_CIVIQUE_ID = '5f99dbe75eb1ad767733b206';
-
+  console.log('service civique on');
   return {
     distance: query.distanceCommune ? String(query.distanceCommune) : undefined,
     domain: query.domain ? String(query.domain) : '',
     from: Number(query.page),
     lat: query.latitudeCommune ? Number(query.latitudeCommune) : undefined,
     lon: query.longitudeCommune ? Number(query.longitudeCommune) : undefined,
+    openToMinors: query.ouvertsAuxMineurs ? String(query.ouvertsAuxMineurs) : '',
     publisher: SERVICE_CIVIQUE_ID,
     size: OFFRE_PER_PAGE,
   };

@@ -11,6 +11,7 @@ export function aMissionEngagementFiltre(override?: Partial<MissionEngagementFil
     from: 1,
     lat: 2.3522,
     lon: 48.8566,
+    openToMinors: 'yes',
     publisher: 'a-publisher-id',
     size: 30,
     ...override,

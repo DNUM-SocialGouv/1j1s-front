@@ -60,6 +60,7 @@ export class ApiEngagementRepository implements EngagementRepository {
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
     let response;
     const paramètresRecherche = this.buildParamètresRecherche(missionEngagementFiltre);
+    console.log(paramètresRecherche);
     try {
       const response = await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse>(`mission/search?${paramètresRecherche}`);
       return createSuccess(mapRésultatsRechercheMission(response.data));
@@ -79,7 +80,7 @@ export class ApiEngagementRepository implements EngagementRepository {
   }
 
   private buildParamètresRecherche(missionEngagementFiltre: MissionEngagementFiltre): string {
-    const { from, domain, publisher, size, lon, lat, distance } = missionEngagementFiltre;
+    const { from, domain, publisher, size, lon, lat, distance, openToMinors } = missionEngagementFiltre;
     // eslint-disable-next-line
     const queryList: Record<string, any > = {
       distance : distance ? `${distance}km`: distance,
@@ -87,6 +88,7 @@ export class ApiEngagementRepository implements EngagementRepository {
       from,
       lat,
       lon,
+      openToMinors,
       publisher,
       size,
     };

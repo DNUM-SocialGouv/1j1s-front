@@ -12,6 +12,7 @@ interface MissionEngagementQueryParams {
   libelleCommune?: string
   longitudeCommune?: string
   metierSelectionne?: string
+  ouvertsAuxMineurs?: string
 }
 
 export function useMissionEngagementQuery(): MissionEngagementQueryParams {
@@ -24,6 +25,7 @@ export function useMissionEngagementQuery(): MissionEngagementQueryParams {
     libelleCommune: undefined,
     longitudeCommune: undefined,
     metierSelectionne: undefined,
+    ouvertsAuxMineurs: undefined,
   });
 
   const { query } = useRouter();
@@ -37,6 +39,7 @@ export function useMissionEngagementQuery(): MissionEngagementQueryParams {
       latitudeCommune: getSingleQueryParam(query.latitudeCommune),
       libelleCommune: getSingleQueryParam(query.libelleCommune),
       longitudeCommune: getSingleQueryParam(query.longitudeCommune),
+      ouvertsAuxMineurs: getSingleQueryParam(query.ouvertsAuxMineurs),
     });
   }, [query]);
 

@@ -21,6 +21,11 @@
   margin: auto;
 }
 
+.minorCheckboxWrapper {
+  flex-basis: 100%;
+  margin: 0;
+}
+
 @media only screen and (min-width: 48em) {
   .rechercheMissionEngagementForm {
     flex-direction: row;
