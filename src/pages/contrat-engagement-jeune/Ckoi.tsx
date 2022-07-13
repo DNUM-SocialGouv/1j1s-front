@@ -14,13 +14,13 @@ export default function Ckoi() {
           <Image src={ illustration } objectFit='cover' layout='fill' alt='' />
         </aside>
         <article className={ styles.article }>
-          <h2>Le Contrat d'Engagement Jeune, qu'est-ce que c'est ?</h2>
+          <h2 className={ styles.titre }>Le Contrat d'Engagement Jeune, qu'est-ce que c'est ?</h2>
           <p><strong>Un parcours entièrement personnalisé qui peut durer de 6 à 12 mois*</strong> en fonction de mon profil, pour m'aider à définir mon projet professionnel et à trouver un emploi.</p>
           <p>Quand je signe mon contrat, je bénéficie de :</p>
           <ul>
-            <li><strong>Un accompagnement personnalisé avec un conseiller dédié</strong> qui me suit tout au long de mon parcours et jusqu'à ce que j'accède à un emploi durable</li>
-            <li><strong>Un programme intensif</strong> de 15 à 20 heures par semaine composé de différents types d'activités</li>
-            <li><strong>Une allocation pouvant aller jusqu'à 500 euros par mois</strong> en fonction de mes ressources et à condition que je respecte mes engagements</li>
+            <li><strong className={ styles.titre }>Un accompagnement personnalisé avec un conseiller dédié</strong> qui me suit tout au long de mon parcours et jusqu'à ce que j'accède à un emploi durable</li>
+            <li><strong className={ styles.titre }>Un programme intensif</strong> de 15 à 20 heures par semaine composé de différents types d'activités</li>
+            <li><strong className={ styles.titre }>Une allocation pouvant aller jusqu'à 500 euros par mois</strong> en fonction de mes ressources et à condition que je respecte mes engagements</li>
           </ul>
           <p>* La durée de l'accompagnement peut exceptionnellement aller jusqu'à 18 mois</p>
         </article>
