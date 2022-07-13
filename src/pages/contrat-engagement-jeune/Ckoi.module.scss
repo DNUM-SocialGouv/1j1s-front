@@ -1,14 +1,12 @@
 @import "@styles/utilities";
 
 .section {
-   padding: 5rem 0;
    background: #f6f7fb;
 }
 
 .container {
     display: grid;
     gap: 3rem;
-    grid-template-rows: repeat(2, 1fr);
     margin: 0 auto;
     max-width: 78rem;
     padding: 0 1.5rem;
@@ -35,4 +33,8 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
   }
+  .section {
+    padding: 5rem 0;
+    background: #f6f7fb;
+ }
 }
