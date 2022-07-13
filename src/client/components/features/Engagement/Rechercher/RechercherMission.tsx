@@ -53,7 +53,7 @@ export function RechercherMission(props: RechercherMissionProps) {
         .rechercherMission(queryString, category)
         .then((response) => {
           if (response.instance === 'success') {
-            setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+            setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
             setMissionList(response.result.résultats);
             setNombreRésultats(response.result.nombreRésultats);
           } else {
