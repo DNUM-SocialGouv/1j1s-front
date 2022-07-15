@@ -21,7 +21,7 @@ export function mapRésultatsRechercheMission(response: RésultatsRechercheMissi
 
 export function mapMission(mission: RésultatsMissionEngagementResponse): Mission {
   const { data } = mission;
-  const accessibleAuxJeunes = data.openToMinors === 'true' ? 'dès 16 ans' : undefined;
+  const accessibleAuxJeunes = data.openToMinors ? 'Dès 16 ans' : undefined;
   const city = data.city || '';
   const departmentName = data.departmentName || '';
   const departmentCode = data.departmentCode || '';
@@ -69,7 +69,7 @@ export function mapFullLocalisation(city: string, departmentName: string, depart
 
 export function mapMissionList(missionList: Array<MissionEngagementResponse>): Array<Mission> {
   return missionList.map((mission: MissionEngagementResponse) => {
-    const accessibleAuxJeunes = mission.openToMinors === 'true' ? 'Dès 16 ans' : undefined;
+    const accessibleAuxJeunes = mission.openToMinors ? 'Dès 16 ans' : undefined;
     const city = mission.city || '';
     const postalCode = mission.postalCode ? `(${mission.postalCode})` : '';
     const localisation = city.length > 0 || postalCode.length > 0 ? `${city} ${postalCode}` : undefined;
