@@ -15,13 +15,14 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
+import { TypeEngagement } from '~/client/utils/engagementsCategory.utils';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { bénévolatDomaineList, Mission, serviceCiviqueDomaineList } from '~/server/engagement/domain/engagement';
 import { ErrorType } from '~/server/errors/error.types';
 
 interface RechercherMissionProps {
-  category: 'bénévolat' | 'service-civique'
+  category: TypeEngagement.BENEVOLAT | TypeEngagement.SERVICE_CIVIQUE
 }
 
 export function RechercherMission(props: RechercherMissionProps) {
@@ -32,7 +33,9 @@ export function RechercherMission(props: RechercherMissionProps) {
   const [missionList, setMissionList] = useState<Mission[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
-  const isServiceCivique = useMemo(() => category === 'service-civique', [category]);
+  const isServiceCivique = useMemo(() => {
+    return category === TypeEngagement.SERVICE_CIVIQUE;
+  }, [category]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);

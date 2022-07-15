@@ -1,6 +1,6 @@
 import { Checkbox } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
-import React, { FormEvent, useCallback, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
@@ -26,7 +26,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
   const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
   const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
   const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
-  const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<string>('');
+  const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean | string>('');
 
 
   useEffect(function initFormValues() {
@@ -44,11 +44,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
     const query = getFormAsQuery(event.currentTarget);
     return router.push({ query }, undefined, { shallow: true });
   }
-
-  const toggleOuvertsAuxMineurs = useCallback((value: string) => {
-    setOuvertAuxMineurs(ouvertAuxMineurs.appendOrRemoveSubStr(value));
-  }, [ouvertAuxMineurs]);
-
 
   return (
     <form
@@ -82,14 +77,14 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         <div className={styles.minorCheckboxWrapper}>
           <Checkbox
             size="sm"
-            label={'Dès 16 ans'}
+            label='Dès 16 ans'
+            id='ouvertAuxMineurs'
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            onChange={(e) => e.checked === true ? toggleOuvertsAuxMineurs(''): toggleOuvertsAuxMineurs('yes')}
-            checked={ouvertAuxMineurs === 'yes'}
-            value={ouvertAuxMineurs}
+            checked={ouvertAuxMineurs}
+            onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
           />
-          <input type="hidden" name="ouvertsAuxMineurs" value={ouvertAuxMineurs}/>
+          <input type='hidden' name='ouvertsAuxMineurs' value={String(ouvertAuxMineurs)}/>
         </div>
       </div>
     </form>

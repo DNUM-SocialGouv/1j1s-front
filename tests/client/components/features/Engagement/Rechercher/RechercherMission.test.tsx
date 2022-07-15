@@ -14,6 +14,7 @@ import React from 'react';
 
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { TypeEngagement } from '~/client/utils/engagementsCategory.utils';
 
 describe('RechercherMission', () => {
   beforeEach(() => {
@@ -32,7 +33,7 @@ describe('RechercherMission', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-          <RechercherMission category="bénévolat" />
+          <RechercherMission category={TypeEngagement.BENEVOLAT} />
         </DependenciesProvider>,
       );
 
@@ -59,13 +60,13 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category="service-civique" />
+            <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE} />
           </DependenciesProvider>,
         );
 
         expect(await screen.findByText('2 missions de service civique pour Culture et Loisirs')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'service-civique');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'services-civique');
       });
     });
 
@@ -77,7 +78,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category="service-civique"/>
+            <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE}/>
           </DependenciesProvider>,
         );
 
@@ -93,7 +94,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { distance: '30', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category="service-civique" />
+            <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE} />
           </DependenciesProvider>,
         );
         const user = userEvent.setup();
@@ -108,7 +109,7 @@ describe('RechercherMission', () => {
         expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
         expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=30&page=1', 'service-civique');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=30&page=1', 'services-civique');
       });
     });
   });
@@ -122,13 +123,13 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category="bénévolat"/>
+            <RechercherMission category={TypeEngagement.BENEVOLAT}/>
           </DependenciesProvider>,
         );
 
         expect(await screen.findByText('2 missions de bénévolat pour Environnement')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'bénévolat');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'bénévolats');
       });
     });
 
@@ -140,7 +141,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category="bénévolat"/>
+            <RechercherMission category={TypeEngagement.BENEVOLAT}/>
           </DependenciesProvider>,
         );
 
@@ -156,7 +157,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { distance: '100', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category="bénévolat" />
+            <RechercherMission category={TypeEngagement.BENEVOLAT} />
           </DependenciesProvider>,
         );
 
@@ -172,7 +173,7 @@ describe('RechercherMission', () => {
         expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
         expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=100&page=1', 'bénévolat');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=100&page=1', 'bénévolats');
       });
     });
   });

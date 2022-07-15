@@ -42,6 +42,32 @@ describe('FormulaireRechercheMissionEngagement', () => {
     });
   });
 
+  describe('quand on filtre ouverts aux mineurs', () => {
+    it('ajoute le filtre aux query params', async () => {
+      // GIVEN
+      const routerPush = jest.fn();
+      mockUseRouter({ push: routerPush });
+      const domainList = aMissionEngagementDomainList();
+      const localisationServiceMock = aLocalisationService();
+
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock}>
+          <FormulaireRechercheMissionEngagement domainList={domainList}/>
+        </DependenciesProvider>,
+      );
+
+      const ouvertsAuxMineursCheckbox = screen.getByRole('checkbox', { name: 'Dès 16 ans' });
+      fireEvent.click(ouvertsAuxMineursCheckbox);
+      const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
+
+      // WHEN
+      fireEvent.submit(rechercherMissionButton);
+
+      // THEN
+      expect(routerPush).toHaveBeenCalledWith({ query: 'ouvertsAuxMineurs=true&page=1' }, undefined, { shallow: true });
+    });
+  });
+
   describe('quand on recherche par localisation', () => {
     it('ajoute les distances aux query params', async () => {
       // GIVEN
