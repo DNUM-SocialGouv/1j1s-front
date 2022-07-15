@@ -1,8 +1,6 @@
 import '~/client/utils/string/string.util';
 
 import {
-  Checkbox,
-  CheckboxGroup,
   Modal,
   ModalClose,
   ModalContent,
@@ -16,6 +14,8 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
+import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
+import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
@@ -127,8 +127,6 @@ export function FormulaireRechercheJobÉtudiant() {
                   <Checkbox
                     key={index}
                     label={domaine.libelle}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
                     value={domaine.code}
                     checked={inputDomaine.split(',').includes(domaine.code)}

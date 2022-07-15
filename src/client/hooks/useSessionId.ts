@@ -1,5 +1,5 @@
 import { uuid4 } from '@sentry/utils';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SESSION_ID = 'session_Id';
 

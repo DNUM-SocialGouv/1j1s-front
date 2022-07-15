@@ -66,7 +66,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByTestId('FiltreTypeDeContrats');
+        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByRole('group', { name: 'Type de contrat' });
         const inputTypeDeContrat = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
         fireEvent.click(inputTypeDeContrat[0]);
         fireEvent.click(inputTypeDeContrat[2]);
@@ -169,8 +169,8 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByRole('group', { name: 'Domaine' });
-        const inputDomaine = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
+        const containerFiltreDomaine = within(filtreRechercheMobile).getByRole('group', { name: 'Domaine' });
+        const inputDomaine = within(containerFiltreDomaine).getAllByRole('checkbox');
         fireEvent.click(inputDomaine[0]);
         fireEvent.click(inputDomaine[2]);
         fireEvent.click(inputDomaine[0]);
