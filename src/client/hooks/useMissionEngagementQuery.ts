@@ -12,7 +12,7 @@ interface MissionEngagementQueryParams {
   libelleCommune?: string
   longitudeCommune?: string
   metierSelectionne?: string
-  ouvertsAuxMineurs?: string
+  ouvertsAuxMineurs?: boolean
 }
 
 export function useMissionEngagementQuery(): MissionEngagementQueryParams {
@@ -39,7 +39,7 @@ export function useMissionEngagementQuery(): MissionEngagementQueryParams {
       latitudeCommune: getSingleQueryParam(query.latitudeCommune),
       libelleCommune: getSingleQueryParam(query.libelleCommune),
       longitudeCommune: getSingleQueryParam(query.longitudeCommune),
-      ouvertsAuxMineurs: getSingleQueryParam(query.ouvertsAuxMineurs),
+      ouvertsAuxMineurs: query.ouvertsAuxMineurs === 'true',
     });
   }, [query]);
 

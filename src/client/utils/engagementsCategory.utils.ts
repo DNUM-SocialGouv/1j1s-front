@@ -1,4 +1,4 @@
 export enum TypeEngagement {
-  BENEVOLAT = 'benevolats',
+  BENEVOLAT = 'bénévolats',
   SERVICE_CIVIQUE = 'services-civique',
 }

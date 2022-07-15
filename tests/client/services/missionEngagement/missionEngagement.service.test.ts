@@ -35,7 +35,7 @@ describe('MissionEngagementService', () => {
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
         expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-        expect(httpClientService.get).toHaveBeenCalledWith('benevolats?domain=sante&page=2');
+        expect(httpClientService.get).toHaveBeenCalledWith('bénévolats?domain=sante&page=2');
 
       });
     });
