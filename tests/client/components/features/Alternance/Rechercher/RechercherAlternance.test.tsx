@@ -119,6 +119,7 @@ describe('RechercherAlternance', () => {
           push: routerPush,
           query: {
             codeRomes: 'D1103%2CD1101%2CH2101',
+            libelleCommune: 'AURILLAC (15)',
             metierSelectionne: 'boucherie',
           },
         });
@@ -145,7 +146,9 @@ describe('RechercherAlternance', () => {
 
         const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
         expect(résultatRechercheAlternanceList).toHaveLength(4);
-        expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('AURILLAC (15)');
+        const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
+        expect(filtresRecherche).toBeInTheDocument();
+        expect(within(filtresRecherche).getByText('AURILLAC (15)')).toBeInTheDocument();
       });
 
     });

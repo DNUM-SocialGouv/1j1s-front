@@ -10,13 +10,11 @@ import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
-  ÉtiquettesRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
-import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
@@ -82,7 +80,7 @@ export function RechercherJobÉtudiant() {
         <RechercherSolutionLayout
           bannière={<BannièreJobÉtudiant/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<ÉtiquettesRechercherSolution/>}
+          étiquettesRecherche={<TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche" />}
           formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
           isLoading={isLoading}
           listeSolution={jobÉtudiantList}

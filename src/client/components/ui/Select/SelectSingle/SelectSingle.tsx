@@ -1,4 +1,5 @@
 import { Radio } from '@dataesr/react-dsfr';
+import classNames from 'classnames';
 import React, { ChangeEvent } from 'react';
 
 import styles from '~/client/components/ui/Select/Select.module.css';
@@ -27,7 +28,7 @@ export function SelectSingle(props: SelectRadioProps) {
     }
   };
 
-  function getLongueurMaximalOptions(optionList: Option[] ) {
+  function getLongueurMaximalOptions(optionList: Option[]) {
     const optionListLength = optionList.map((option) => option.libellé.length);
     return Math.max(...optionListLength);
   }
@@ -54,15 +55,15 @@ export function SelectSingle(props: SelectRadioProps) {
 
   return (
     <>
-      {label
-        ?
-        (<div>
-          <label className={`${styles.selectLabel} fr-label`}>
-            {label}
-          </label>
-          {getSelectComponent()}
-        </div>)
-        : getSelectComponent()
+      {
+        label ? (
+          <div>
+            <label className={classNames(styles.selectLabel, 'fr-label')}>
+              {label}
+            </label>
+            {getSelectComponent()}
+          </div>
+        ) : getSelectComponent()
       }
     </>
   );

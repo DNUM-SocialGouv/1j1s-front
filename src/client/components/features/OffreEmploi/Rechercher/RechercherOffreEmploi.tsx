@@ -5,11 +5,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheOffreEmploi,
 } from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
+import {
+  ÉtiquettesFiltreOffreEmploi,
+} from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
-import { ÉtiquettesRechercherSolution } from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
 import {
   LienSolution,
   RechercherSolutionLayout,
@@ -80,7 +82,7 @@ export function RechercherOffreEmploi() {
         <RechercherSolutionLayout
           bannière={<BannièreOffreEmploi/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<ÉtiquettesRechercherSolution/>}
+          étiquettesRecherche={<ÉtiquettesFiltreOffreEmploi />}
           formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
           isLoading={isLoading}
           listeSolution={offreEmploiList}

@@ -5,7 +5,7 @@ import React from 'react';
 
 import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.css';
-import { TagList } from '~/client/components/ui/TagList/TagList';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 
 export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
@@ -23,7 +23,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
           </div>
         </header>
         <section className={styles.cardBody}>
-          {étiquetteOffreList.length > 0 && <TagList data-testid="ÉtiquetteOffreList" list={étiquetteOffreList} />}
+          {étiquetteOffreList.length > 0 && <TagList list={étiquetteOffreList} aria-label="Caractéristiques de l'offre" />}
           <div className={styles.descriptionOffre}>
             <span className={styles.descriptionLabel}>Description :</span>
             <p dangerouslySetInnerHTML={{ __html: description }}/>

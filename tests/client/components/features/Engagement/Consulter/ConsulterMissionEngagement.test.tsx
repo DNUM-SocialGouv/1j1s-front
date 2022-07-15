@@ -25,8 +25,8 @@ describe('ConsulterMission', () => {
 
       render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 
-      const nomAssociation =  screen.getByText('Ebs le relais val de seine');
-      const tagList = screen.getByTestId('ÉtiquetteMissionEngagementList');
+      const nomAssociation = screen.getByText('Ebs le relais val de seine');
+      const tagList = screen.getByRole('list', { name: 'Caractéristiques de la mission' });
 
       expect(nomAssociation).toBeInTheDocument();
       expect(within(tagList).queryAllByRole('listitem')).toHaveLength(2);

@@ -24,10 +24,10 @@ describe('RésultatRechercherSolution', () => {
       />,
     );
 
-    const étiquettesOffreEmploiList = screen.getByTestId('ÉtiquetteOffreList');
+    const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l\'offre' });
     const lienVersOffreEmploi = screen.getByTestId('RésultatRechercherSolution');
 
-    expect(within(étiquettesOffreEmploiList).queryAllByRole('listitem')).toHaveLength(4);
+    expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(4);
     expect(lienVersOffreEmploi).toHaveAttribute('href', `/emplois/${offreEmploi.id}`);
   });
 
@@ -46,7 +46,7 @@ describe('RésultatRechercherSolution', () => {
       />,
     );
 
-    const étiquettesOffreAlternanceList = screen.getByTestId('ÉtiquetteOffreList');
+    const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l\'offre' });
     const lienVersOffreAlternance = screen.getByTestId('RésultatRechercherSolution');
 
     expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(3);

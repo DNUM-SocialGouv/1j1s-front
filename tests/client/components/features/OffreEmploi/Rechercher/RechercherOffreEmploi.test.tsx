@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
@@ -81,7 +81,9 @@ describe('RechercherOffreEmploi', () => {
         // THEN
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
-        expect(screen.getAllByTestId('TagListItem')[0].textContent).toEqual('BOURG LES VALENCE (26)');
+        const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+        expect(filtresRecherche).toBeInTheDocument();
+        expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26)')).toBeInTheDocument();
       });
     });
 

@@ -5,15 +5,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
-import styles from '~/client/components/features/RechercherOffre.module.css';
-import {
-  ÉtiquettesRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
 import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -30,14 +27,12 @@ interface RechercherMissionProps {
 export function RechercherMission(props: RechercherMissionProps) {
   const { category } = props;
   const missionEngagementService = useDependency<MissionEngagementService>('missionEngagementService');
-  const { domain } = useMissionEngagementQuery();
+  const missionEngagementQuery = useMissionEngagementQuery();
   const router = useRouter();
   const [missionList, setMissionList] = useState<Mission[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
-  const isServiceCivique = useMemo(() => {
-    return category === 'service-civique';
-  }, [category]);
+  const isServiceCivique = useMemo(() => category === 'service-civique', [category]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);
@@ -77,11 +72,11 @@ export function RechercherMission(props: RechercherMissionProps) {
     } else {
       messageRésultatRechercheSplit.push('de bénévolat');
     }
-    if (domain) {
-      messageRésultatRechercheSplit.push(`pour ${récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domain)}`);
+    if (missionEngagementQuery.domain) {
+      messageRésultatRechercheSplit.push(`pour ${récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, missionEngagementQuery.domain)}`);
     }
     return messageRésultatRechercheSplit.join(' ');
-  }, [domain, isServiceCivique, nombreRésultats]);
+  }, [missionEngagementQuery.domain, isServiceCivique, nombreRésultats]);
 
   return (
     <>
@@ -89,11 +84,11 @@ export function RechercherMission(props: RechercherMissionProps) {
         title={title || `Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
         description="Se rendre utile tout en préparant son avenir grâce aux missions de service civique"
       />
-      <main id="contenu" className={styles.container}>
+      <main id="contenu">
         <RechercherSolutionLayout
           bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<ÉtiquettesRechercherSolution/>}
+          étiquettesRecherche={<TagList list={[missionEngagementQuery.libelleCommune]} aria-label="Filtres de la recherche" />}
           formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
           isLoading={isLoading}
           listeSolution={missionList}
