@@ -6,11 +6,11 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 
 describe('MissionEngagementService', () => {
   describe('rechercherMission', () => {
-    describe('quand la catégorie est service-civique', () => {
+    describe('quand la catégorie est services-civique', () => {
       it('appelle services-civique avec le filtre', async () => {
         const httpClientService = aHttpClientService();
         const missionEngagementService = new MissionEngagementService(httpClientService);
-        const catégorie = 'services-civique';
+        const catégorie = 'service-civique';
         const missionEngagementQuery = 'domain=sante&page=2';
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatRechercheMission()));

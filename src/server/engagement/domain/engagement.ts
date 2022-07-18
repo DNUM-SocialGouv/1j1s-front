@@ -3,6 +3,7 @@ export type MissionId = string;
 export interface MissionEngagementFiltre {
   publisher: string
   domain: string
+  openToMinors?: boolean
   distance?: string
   lat?: number
   lon?: number

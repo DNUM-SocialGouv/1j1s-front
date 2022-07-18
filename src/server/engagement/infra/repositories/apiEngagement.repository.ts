@@ -79,14 +79,15 @@ export class ApiEngagementRepository implements EngagementRepository {
   }
 
   private buildParamètresRecherche(missionEngagementFiltre: MissionEngagementFiltre): string {
-    const { from, domain, publisher, size, lon, lat, distance } = missionEngagementFiltre;
+    const { from, domain, publisher, size, lon, lat, distance, openToMinors } = missionEngagementFiltre;
     // eslint-disable-next-line
-    const queryList: Record<string, any > = {
+    const queryList: Record<string, any> = {
       distance : distance ? `${distance}km`: distance,
       domain,
       from,
       lat,
       lon,
+      openToMinors : openToMinors ? 'yes': undefined,
       publisher,
       size,
     };

@@ -43,6 +43,7 @@ function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre 
     from: Number(query.page),
     lat: query.latitudeCommune ? Number(query.latitudeCommune) : undefined,
     lon: query.longitudeCommune ? Number(query.longitudeCommune) : undefined,
+    openToMinors: query.ouvertsAuxMineurs ? true : undefined,
     publisher: SERVICE_CIVIQUE_ID,
     size: OFFRE_PER_PAGE,
   };

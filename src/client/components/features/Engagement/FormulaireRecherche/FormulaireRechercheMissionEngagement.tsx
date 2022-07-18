@@ -1,7 +1,8 @@
+import { Checkbox } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.css';
+import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
@@ -25,6 +26,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
   const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
   const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
   const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
+  const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean>(false);
 
 
   useEffect(function initFormValues() {
@@ -34,6 +36,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
     setInputCodeCommune(queryParams.codeCommune || '');
     setInputLibelleCommune(queryParams.libelleCommune || '');
     setInputDistanceCommune(queryParams.distanceCommune || '');
+    setOuvertAuxMineurs(queryParams.ouvertsAuxMineurs || false);
   }, [queryParams]);
 
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
@@ -63,6 +66,18 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
           longitude={inputLongitudeCommune}
           distance={inputDistanceCommune}
         />
+        <div className={styles.minorCheckboxWrapper}>
+          <Checkbox
+            size="sm"
+            label="Dès 16 ans"
+            id="ouvertAuxMineurs"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore&
+            checked={ouvertAuxMineurs}
+            onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
+          />
+          <input type="hidden" name="ouvertsAuxMineurs" value={String(ouvertAuxMineurs)}/>
+        </div>
         <div className={styles.rechercherMissionEngagementButton}>
           <Button
             icon={<MagnifyingGlassIcon />}

@@ -7,7 +7,7 @@ export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryPara
     ),
   ).filter((element) => {
     // FIXME: checkbox check should be removed, here because of a test and react-dsfr lib
-    return element[1] !== '' && element[0] !== 'checkbox';
+    return element[1] !== '' && element[1] !== 'false' && element[0] !== 'checkbox';
   });
   if (appendPageQueryParam) {
     formEntries.push(['page', '1']);

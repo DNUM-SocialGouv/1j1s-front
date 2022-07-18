@@ -1,3 +1,5 @@
+@import "@styles/utilities";
+
 .rechercheMissionEngagementForm {
   display: flex;
   flex-direction: column;
@@ -21,7 +23,13 @@
   margin: auto;
 }
 
-@media only screen and (min-width: 48em) {
+.minorCheckboxWrapper {
+  order: 1;
+  flex-basis: 0%;
+  margin: 0;
+}
+
+@include media(medium) {
   .rechercheMissionEngagementForm {
     flex-direction: row;
     align-items: flex-start;
@@ -47,5 +55,10 @@
 
   .inputButtonWrapper > div {
     flex-grow: 1;
+  }
+
+  .minorCheckboxWrapper {
+    flex-basis: 100%;
+    margin: 0;
   }
 }

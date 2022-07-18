@@ -33,13 +33,13 @@
   width: 100%;
 }
 
-@include media(medium){
+@include media(medium) {
   .heroContent {
     padding: 42px 1.5rem;
   }
 }
 
-@include media(xlarge){
+@include media(xlarge) {
   .heroContent {
     padding: 80px 1.5rem;
   }

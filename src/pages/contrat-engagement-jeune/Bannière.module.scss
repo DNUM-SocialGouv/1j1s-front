@@ -55,7 +55,7 @@
   border: 1px solid #161616;
 }
 
-@include media(medium){
+@include media(medium) {
   .bannière {
     height: 27.5rem;
   }
@@ -65,7 +65,7 @@
   }
 }
 
-@include media(xlarge){
+@include media(xlarge) {
   .bannière {
     height: 27.5rem;
   }
