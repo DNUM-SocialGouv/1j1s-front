@@ -60,6 +60,7 @@ export class ApiEngagementRepository implements EngagementRepository {
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
     let response;
     const paramètresRecherche = this.buildParamètresRecherche(missionEngagementFiltre);
+    console.log(paramètresRecherche);
     try {
       const response = await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse>(`mission/search?${paramètresRecherche}`);
       return createSuccess(mapRésultatsRechercheMission(response.data));
