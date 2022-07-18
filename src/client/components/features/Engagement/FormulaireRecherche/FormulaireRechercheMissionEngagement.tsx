@@ -26,7 +26,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
   const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
   const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
   const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
-  const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean | string>('');
+  const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean>(false);
 
 
   useEffect(function initFormValues() {
@@ -36,7 +36,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
     setInputCodeCommune(queryParams.codeCommune || '');
     setInputLibelleCommune(queryParams.libelleCommune || '');
     setInputDistanceCommune(queryParams.distanceCommune || '');
-    setOuvertAuxMineurs(queryParams.ouvertsAuxMineurs || '');
+    setOuvertAuxMineurs(queryParams.ouvertsAuxMineurs || false);
   }, [queryParams]);
 
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
@@ -77,14 +77,14 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         <div className={styles.minorCheckboxWrapper}>
           <Checkbox
             size="sm"
-            label='Dès 16 ans'
-            id='ouvertAuxMineurs'
+            label="Dès 16 ans"
+            id="ouvertAuxMineurs"
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+            // @ts-ignore&
             checked={ouvertAuxMineurs}
             onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
           />
-          <input type='hidden' name='ouvertsAuxMineurs' value={String(ouvertAuxMineurs)}/>
+          <input type="hidden" name="ouvertsAuxMineurs" value={String(ouvertAuxMineurs)}/>
         </div>
       </div>
     </form>
