@@ -91,7 +91,7 @@ export function RechercherMission(props: RechercherMissionProps) {
         <RechercherSolutionLayout
           bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<TagList list={[missionEngagementQuery.libelleCommune]} aria-label="Filtres de la recherche" />}
+          étiquettesRecherche={<TagList list={[missionEngagementQuery.libelleCommune, missionEngagementQuery.ouvertsAuxMineurs ? 'Dès 16 ans' : undefined]} aria-label="Filtres de la recherche" />}
           formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
           isLoading={isLoading}
           listeSolution={missionList}
@@ -123,7 +123,7 @@ function mapMissionServiceCiviqueToLienSolution(mission: Mission): LienSolution 
     id: mission.id,
     intituléOffre: mission.titre,
     lienOffre: `/service-civique/${mission.id}`,
-    logoEntreprise: '/images/logos/services-civique.svg',
+    logoEntreprise: '/images/logos/service-civique.svg',
     nomEntreprise: mission.nomEntreprise,
     étiquetteOffreList: mission.étiquetteList,
   };
