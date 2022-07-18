@@ -1,0 +1,45 @@
+@import "@styles/utilities";
+
+.section {
+  padding: 3rem 0;
+  background: #ea711b;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 78rem;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.titre {
+  color: white;
+  width: 510px;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 55px;
+}
+
+.liste > li {
+  list-style: none;
+  background-color: white;
+  padding: 20px;
+  margin: 24px;
+  font-size: 20px;
+}
+
+.arrow {
+  background-color: $color-primary;
+  margin-right: 1rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 60px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
