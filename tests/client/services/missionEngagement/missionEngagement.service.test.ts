@@ -10,7 +10,7 @@ describe('MissionEngagementService', () => {
       it('appelle services-civique avec le filtre', async () => {
         const httpClientService = aHttpClientService();
         const missionEngagementService = new MissionEngagementService(httpClientService);
-        const catégorie = 'services-civique';
+        const catégorie = 'service-civique';
         const missionEngagementQuery = 'domain=sante&page=2';
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatRechercheMission()));
@@ -18,7 +18,7 @@ describe('MissionEngagementService', () => {
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
         expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-        expect(httpClientService.get).toHaveBeenCalledWith('services-civique?domain=sante&page=2');
+        expect(httpClientService.get).toHaveBeenCalledWith('service-civique?domain=sante&page=2');
 
       });
     });
@@ -35,7 +35,7 @@ describe('MissionEngagementService', () => {
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
         expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-        expect(httpClientService.get).toHaveBeenCalledWith('bénévolats?domain=sante&page=2');
+        expect(httpClientService.get).toHaveBeenCalledWith('bénévolat?domain=sante&page=2');
 
       });
     });

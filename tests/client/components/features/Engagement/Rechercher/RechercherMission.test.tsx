@@ -66,7 +66,7 @@ describe('RechercherMission', () => {
 
         expect(await screen.findByText('2 missions de service civique pour Culture et Loisirs')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'services-civique');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=culture-loisirs&page=1', 'service-civique');
       });
     });
 
@@ -109,7 +109,7 @@ describe('RechercherMission', () => {
         expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
         expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=30&page=1', 'services-civique');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=30&page=1', 'service-civique');
       });
     });
   });
@@ -129,7 +129,7 @@ describe('RechercherMission', () => {
 
         expect(await screen.findByText('2 missions de bénévolat pour Environnement')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'bénévolats');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('domain=environnement&page=1', 'bénévolat');
       });
     });
 
@@ -173,7 +173,7 @@ describe('RechercherMission', () => {
         expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
         expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
         expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=100&page=1', 'bénévolats');
+        expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith('distance=100&page=1', 'bénévolat');
       });
     });
   });

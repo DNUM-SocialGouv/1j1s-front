@@ -42,7 +42,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
     });
   });
 
-  describe('quand on filtre ouverts aux mineurs', () => {
+  describe('quand on filtre avec ouverts aux mineurs', () => {
     it('ajoute le filtre aux query params', async () => {
       // GIVEN
       const routerPush = jest.fn();
