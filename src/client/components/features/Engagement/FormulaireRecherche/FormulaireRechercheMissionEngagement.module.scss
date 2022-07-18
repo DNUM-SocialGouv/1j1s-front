@@ -28,7 +28,7 @@
   margin: 0;
 }
 
-@include media(medium){
+@include media(medium) {
   .rechercheMissionEngagementForm {
     flex-direction: row;
     align-items: flex-start;
