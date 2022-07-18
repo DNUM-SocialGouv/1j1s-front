@@ -15,7 +15,7 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { TypeEngagement } from '~/client/utils/engagementsCategory.utils';
+import { TypeEngagement } from '~/client/utils/engagementsCategory.enum';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { bénévolatDomaineList, Mission, serviceCiviqueDomaineList } from '~/server/engagement/domain/engagement';

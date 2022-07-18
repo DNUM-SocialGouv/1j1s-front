@@ -14,7 +14,7 @@ import React from 'react';
 
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { TypeEngagement } from '~/client/utils/engagementsCategory.utils';
+import { TypeEngagement } from '~/client/utils/engagementsCategory.enum';
 
 describe('RechercherMission', () => {
   beforeEach(() => {

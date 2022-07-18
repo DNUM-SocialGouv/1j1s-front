@@ -2,7 +2,7 @@ import { Checkbox } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.css';
+import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
