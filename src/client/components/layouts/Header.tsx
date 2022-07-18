@@ -52,7 +52,7 @@ export function Header() {
           <NavSubItem title="Contrat Engagement Jeune" asLink={<NavItemLink link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />} />
         </NavItem>
         <NavItem title="Engagement et bénévolat">
-          <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/service-civique'} />} />
+          <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/services-civique'} />} />
           <NavSubItem title="Bénévolat" asLink={<NavItemLink link="/benevolat" current={path === '/benevolat'} />} />
         </NavItem>
         <NavItem title="Employeur">

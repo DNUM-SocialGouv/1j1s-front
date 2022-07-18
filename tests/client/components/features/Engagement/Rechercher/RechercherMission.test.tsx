@@ -14,7 +14,7 @@ import React from 'react';
 
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { TypeEngagement } from '~/client/utils/engagementsCategory.enum';
+import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 
 describe('RechercherMission', () => {
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe('RechercherMission', () => {
       mockUseRouter({});
       render(
         <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-          <RechercherMission category={TypeEngagement.BENEVOLAT} />
+          <RechercherMission category={EngagementCategory.BENEVOLAT} />
         </DependenciesProvider>,
       );
 
@@ -60,7 +60,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE} />
+            <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
           </DependenciesProvider>,
         );
 
@@ -78,7 +78,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE}/>
+            <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
           </DependenciesProvider>,
         );
 
@@ -94,7 +94,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { distance: '30', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE} />
+            <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
           </DependenciesProvider>,
         );
         const user = userEvent.setup();
@@ -123,7 +123,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={TypeEngagement.BENEVOLAT}/>
+            <RechercherMission category={EngagementCategory.BENEVOLAT}/>
           </DependenciesProvider>,
         );
 
@@ -141,7 +141,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { domain: 'environnement', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={TypeEngagement.BENEVOLAT}/>
+            <RechercherMission category={EngagementCategory.BENEVOLAT}/>
           </DependenciesProvider>,
         );
 
@@ -157,7 +157,7 @@ describe('RechercherMission', () => {
         mockUseRouter({ query: { distance: '100', page: '1' } });
         render(
           <DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-            <RechercherMission category={TypeEngagement.BENEVOLAT} />
+            <RechercherMission category={EngagementCategory.BENEVOLAT} />
           </DependenciesProvider>,
         );
 

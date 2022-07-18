@@ -1,6 +1,6 @@
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
-import { TypeEngagement } from '~/client/utils/engagementsCategory.enum';
+import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 
 export default function RechercherMissionServiceCiviquePage() {
-  return <RechercherMission category={TypeEngagement.SERVICE_CIVIQUE}/>;
+  return <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>;
 }

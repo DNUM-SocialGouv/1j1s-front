@@ -6,7 +6,7 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 
 describe('MissionEngagementService', () => {
   describe('rechercherMission', () => {
-    describe('quand la catégorie est service-civique', () => {
+    describe('quand la catégorie est services-civique', () => {
       it('appelle services-civique avec le filtre', async () => {
         const httpClientService = aHttpClientService();
         const missionEngagementService = new MissionEngagementService(httpClientService);
@@ -18,7 +18,7 @@ describe('MissionEngagementService', () => {
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
         expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-        expect(httpClientService.get).toHaveBeenCalledWith('service-civique?domain=sante&page=2');
+        expect(httpClientService.get).toHaveBeenCalledWith('services-civique?domain=sante&page=2');
 
       });
     });
@@ -35,7 +35,7 @@ describe('MissionEngagementService', () => {
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
         expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-        expect(httpClientService.get).toHaveBeenCalledWith('bénévolat?domain=sante&page=2');
+        expect(httpClientService.get).toHaveBeenCalledWith('benevolats?domain=sante&page=2');
 
       });
     });
