@@ -4,11 +4,14 @@
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid var(--grey-950);
+  padding-bottom: 40px;
+  &__Container {
+    flex: 1 0;
+  }
 }
 
 .inputButtonWrapper {
   padding-top: 24px;
-  padding-bottom: 32px;
 }
 
 .inputButtonWrapper > * {
@@ -16,17 +19,13 @@
 }
 
 .rechercherMissionEngagementButton {
-  width: 100%;
+  > button {
+    width: 100%;
+  }
 }
 
 .rechercherMissionEngagementButton > span {
   margin: auto;
-}
-
-.minorCheckboxWrapper {
-  order: 1;
-  flex-basis: 0%;
-  margin: 0;
 }
 
 @include media(medium) {
@@ -34,7 +33,6 @@
     flex-direction: row;
     align-items: flex-start;
     padding-top: 40px;
-    padding-bottom: 40px;
   }
 
   .rechercherMissionEngagementButton {
@@ -51,14 +49,17 @@
     flex-wrap: wrap;
     padding-top: 0px;
     padding-bottom: 0px;
+    > div {
+      flex-grow: 1;
+    }
   }
 
-  .inputButtonWrapper > div {
-    flex-grow: 1;
-  }
-
-  .minorCheckboxWrapper {
-    flex-basis: 100%;
-    margin: 0;
+  .accessibleAuxMineursWrapper {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    > div {
+      flex-grow: 1;
+    }
   }
 }

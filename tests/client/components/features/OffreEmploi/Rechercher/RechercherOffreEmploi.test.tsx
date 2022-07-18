@@ -54,7 +54,7 @@ describe('RechercherOffreEmploi', () => {
     });
   });
 
-  describe('quand le composant est affiché avec une recherche avec résultats', () => {
+  describe('quand le composant est affiché pour une recherche avec résultats', () => {
     describe('quand la recherche ne comporte pas de mot clé', () => {
       it('affiche les critères de recherche sous forme d\'étiquettes', async () => {
         // GIVEN
@@ -115,7 +115,7 @@ describe('RechercherOffreEmploi', () => {
     });
   });
 
-  describe('quand le composant est affiché avec une recherche comportant un seul résultat', () => {
+  describe('quand le composant est affiché pour une recherche comportant un seul résultat', () => {
     it('affiche le nombre de résultat au singulier', async () => {
       // GIVEN
       const offreEmploiServiceMock = aSingleResultOffreEmploiService();
@@ -139,7 +139,7 @@ describe('RechercherOffreEmploi', () => {
     });
   });
 
-  describe('quand le composant est affiché avec une recherche sans résultats', () => {
+  describe('quand le composant est affiché pour une recherche sans résultats', () => {
     it('affiche un message dédié', async () => {
       // GIVEN
       const offreEmploiServiceMock = aNoResultOffreEmploiService();

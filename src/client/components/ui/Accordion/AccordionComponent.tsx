@@ -1,17 +1,16 @@
 import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Accordion/AccordionComponent.module.css';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 
-interface AccordionComponentProps {
-  ariaId: number
-}
 
-export function AccordionComponent({ ariaId, children } : React.PropsWithChildren<AccordionComponentProps>) {
+export function AccordionComponent({ children } : React.PropsWithChildren) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const ariaId = uuidv4();
 
   function toggleAccordion() {
     toggle(!isOpen);
@@ -28,7 +27,6 @@ export function AccordionComponent({ ariaId, children } : React.PropsWithChildre
       <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
         id={`section-${ariaId}`}
         role="region"
-        aria-hidden={isOpen}
         aria-labelledby={`accordion-${ariaId}`}>
         {children}
       </div>
