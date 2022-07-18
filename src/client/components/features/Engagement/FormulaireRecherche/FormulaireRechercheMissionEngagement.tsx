@@ -66,14 +66,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
           longitude={inputLongitudeCommune}
           distance={inputDistanceCommune}
         />
-        <div className={styles.rechercherMissionEngagementButton}>
-          <Button
-            icon={<MagnifyingGlassIcon />}
-            type="submit"
-          >
-            Rechercher
-          </Button>
-        </div>
         <div className={styles.minorCheckboxWrapper}>
           <Checkbox
             size="sm"
@@ -85,6 +77,14 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
             onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
           />
           <input type="hidden" name="ouvertsAuxMineurs" value={String(ouvertAuxMineurs)}/>
+        </div>
+        <div className={styles.rechercherMissionEngagementButton}>
+          <Button
+            icon={<MagnifyingGlassIcon />}
+            type="submit"
+          >
+            Rechercher
+          </Button>
         </div>
       </div>
     </form>

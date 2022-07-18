@@ -24,7 +24,8 @@
 }
 
 .minorCheckboxWrapper {
-  flex-basis: 100%;
+  order: 1;
+  flex-basis: 0%;
   margin: 0;
 }
 
@@ -54,5 +55,10 @@
 
   .inputButtonWrapper > div {
     flex-grow: 1;
+  }
+
+  .minorCheckboxWrapper {
+    flex-basis: 100%;
+    margin: 0;
   }
 }
