@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/ui/Button/Button.module.css';
@@ -5,7 +6,7 @@ import { ButtonProps } from '~/client/components/ui/Button/buttonprops.type';
 
 export function Button({ children, icon, iconPosition = 'right', dataTestId, isInvertedStyle = false, ...rest } : React.PropsWithChildren<ButtonProps>) {
   return (
-    <button className={isInvertedStyle ? styles.unbutton : styles.button} data-testid={dataTestId} {...rest}>
+    <button className={classNames({ [styles.unbutton]: isInvertedStyle, [styles.button]: !isInvertedStyle })} data-testid={dataTestId} {...rest}>
       {
         iconPosition === 'right' ?
           <>

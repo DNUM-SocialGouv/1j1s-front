@@ -4,7 +4,7 @@ import React from 'react';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
-import { TagList } from '~/client/components/ui/TagList/TagList';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
@@ -20,7 +20,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
       <header className={commonStyles.titre}>
         <Title as="h1" look="h3">{offreEmploi.intitulé}</Title>
         {offreEmploi.entreprise.nom && <h2>{offreEmploi.entreprise.nom}</h2>}
-        <TagList data-testid="ÉtiquetteOffreEmploiList" list={offreEmploi.étiquetteList} />
+        <TagList list={offreEmploi.étiquetteList} aria-label="Caractéristiques de l'offre d'emploi" />
       </header>
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>

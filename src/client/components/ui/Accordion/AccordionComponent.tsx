@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 
 import styles from '~/client/components/ui/Accordion/AccordionComponent.module.css';
@@ -24,7 +25,7 @@ export function AccordionComponent({ ariaId, children } : React.PropsWithChildre
 
   return (
     <>
-      <div className={isOpen ? styles.open : styles.closed}
+      <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
         id={`section-${ariaId}`}
         role="region"
         aria-hidden={isOpen}

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
@@ -21,12 +22,12 @@ export default function Accueil() {
         votre avenir sur 1J1S !
       </Hero>
       <main id="contenu">
-        <section className={`${styles.section} ${styles.section1}`}>
+        <section className={classNames(styles.section, styles.section1)}>
           <h2 className={styles.sectionHeader}>
             <BriefCaseIcon />
             Découvrez nos offres
           </h2>
-          <div className={`${styles.cardList} ${styles.cardListPadding}`}>
+          <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
               imageUrl="/images/homepage/emploi.png"
               link="/emplois"
@@ -57,7 +58,7 @@ export default function Accueil() {
           </div>
 
           <AccordionComponent ariaId={1}>
-            <div className={`${styles.cardList} ${styles.cardListPaddingAccordion}`}>
+            <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
               <LinkCard
                 imageUrl="/images/homepage/jobs-etudiants.png"
                 link="/jobs-etudiants"
@@ -90,7 +91,7 @@ export default function Accueil() {
 
         </section>
 
-        <section className={`${styles.section} ${styles.section2}`}>
+        <section className={classNames(styles.section, styles.section2)}>
           <h2 className={styles.sectionHeader}>
             <BookIcon />
             Besoin de vous former ?
@@ -117,12 +118,12 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className={`${styles.section} ${styles.section3}`}>
+        <section className={classNames(styles.section, styles.section3)}>
           <h2 className={styles.sectionHeader}>
             <CompassIcon />
             Aides, orientation et accompagnement
           </h2>
-          <div className={`${styles.cardList} ${styles.cardListPadding}`}>
+          <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
               imageUrl="/images/homepage/cej.png"
               link="/contrat-engagement-jeune"
@@ -153,7 +154,7 @@ export default function Accueil() {
           </div>
 
           <AccordionComponent ariaId={2}>
-            <div className={`${styles.cardList} ${styles.cardListPaddingAccordion}`}>
+            <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
               <LinkCard
                 imageUrl="/images/homepage/accompagne.png"
                 link="/"
@@ -165,10 +166,9 @@ export default function Accueil() {
               </LinkCard>
             </div>
           </AccordionComponent>
-
         </section>
 
-        <section className={`${styles.section} ${styles.section4}`}>
+        <section className={classNames(styles.section, styles.section4)}>
           <h2 className={styles.sectionHeader}>
             <TrophyIcon />
             Engagement et bénévolat

@@ -11,13 +11,11 @@ import styles from '~/client/components/features/OffreEmploi/Rechercher/Recherch
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import {
-  ÉtiquettesRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Étiquettes/ÉtiquettesRechercherSolution';
-import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -81,7 +79,7 @@ export function RechercherAlternance() {
         <RechercherSolutionLayout
           bannière={<BannièreAlternance/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<ÉtiquettesRechercherSolution/>}
+          étiquettesRecherche={<TagList list={[queryParams.libelleCommune]} aria-label="Filtres de la recherche" />}
           formulaireRecherche={<FormulaireRechercheAlternance/>}
           isLoading={isLoading}
           listeSolution={alternanceList}

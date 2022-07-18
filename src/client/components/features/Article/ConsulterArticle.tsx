@@ -1,4 +1,5 @@
 import { Title } from '@dataesr/react-dsfr';
+import classNames from 'classnames';
 
 import styles from '~/client/components/features/Article/ConsulterArticle.module.css';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -17,7 +18,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
   const createMarkup = (markup: string) => ({ __html: markup });
   
   return (
-    <main className={`${styles.consulterArticle} fr-container`}>
+    <main className={classNames('fr-container', styles.consulterArticle)}>
       <Title as="h1" className={styles.titre}>{titre}</Title>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {banniereUrl && <img src={banniereUrl} alt={banniereAlt} decoding="async" loading="lazy" />}

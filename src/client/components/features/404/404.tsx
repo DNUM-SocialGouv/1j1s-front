@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
@@ -13,7 +14,7 @@ export function PageNotFound(){
       <HeadTag
         title={'Page indisponible | 1jeune1solution'}
       />
-      <div className={`${styles.flexContainer} fr-container fr-my-14v`}>
+      <div className={classNames(styles.flexContainer, 'fr-container', 'fr-my-14v')}>
         <div className="fr-mx-4v">
           <h3>Page non trouvée</h3>
           <p className="fr-text--bold">La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</p>

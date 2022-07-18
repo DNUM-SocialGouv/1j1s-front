@@ -1,13 +1,11 @@
-import {
-  Title,
-} from '@dataesr/react-dsfr';
+import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
 import { ConsulterOffreFromMatcha } from '~/client/components/features/Alternance/Consulter/ConsulterOffreFromMatcha';
 import { ConsulterOffreFromPoleEmploi } from '~/client/components/features/Alternance/Consulter/ConsulterOffreFromPoleEmploi';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { TagList } from '~/client/components/ui/TagList/TagList';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
   AlternanceFromMatcha,
   AlternanceFromPoleEmploi,
@@ -35,8 +33,7 @@ export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
       <header className={commonStyles.titre}>
         <Title as="h1" look="h3" data-testid="titre">{offreAlternance.intitulé}</Title>
         { offreAlternance.entreprise?.nom && <h2>{offreAlternance.entreprise.nom}</h2> }
-
-        <TagList list={offreAlternance.étiquetteList} data-testid="ÉtiquetteOffreAlternanceList"/>
+        <TagList list={offreAlternance.étiquetteList} aria-label="Caractéristiques du contrat d'alternance" />
       </header>
       { isAlternanceFromPoleEmploi(offreAlternance) && <ConsulterOffreFromPoleEmploi offreAlternance={offreAlternance} />}
       { isAlternanceFromMatcha(offreAlternance) && <ConsulterOffreFromMatcha offreAlternance={offreAlternance} />}

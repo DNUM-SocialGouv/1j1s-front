@@ -21,7 +21,7 @@ describe('ConsulterOffreEmploi', () => {
 
     const nomEntreprise = screen.getByText('RAS 1040');
     const intituléOffreEmploi = screen.getByText('Maçon / Maçonne');
-    const étiquettesOffreEmploiList = screen.getByTestId('ÉtiquetteOffreEmploiList');
+    const étiquettesOffreEmploiList = screen.getByRole('list', { name: 'Caractéristiques de l\'offre d\'emploi' });
 
 
     expect(nomEntreprise).toBeInTheDocument();

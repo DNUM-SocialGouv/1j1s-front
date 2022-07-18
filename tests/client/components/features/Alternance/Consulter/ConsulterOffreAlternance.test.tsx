@@ -24,7 +24,7 @@ describe('ConsulterOffreAlternance', () => {
       render(<ConsulterOffreAlternance offreAlternance={offreAlternance} />);
 
       const nomEntreprise = screen.getByText('BOUCHERIE STEPHANE VEIT');
-      const étiquettesOffreAlternanceList = screen.getByTestId('ÉtiquetteOffreAlternanceList');
+      const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques du contrat d\'alternance' });
 
 
       expect(nomEntreprise).toBeInTheDocument();
@@ -50,7 +50,7 @@ describe('ConsulterOffreAlternance', () => {
 
       const nomEntreprise = screen.getByText('AUCHAN SUPERMARCHE');
       const intituléOffreAlternance = screen.getByText('APPRENTI (E) BOUCHER (ERE) (H/F)');
-      const étiquettesOffreAlternanceList = screen.getByTestId('ÉtiquetteOffreAlternanceList');
+      const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques du contrat d\'alternance' });
 
 
       expect(nomEntreprise).toBeInTheDocument();
