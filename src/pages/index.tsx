@@ -57,7 +57,7 @@ export default function Accueil() {
             </LinkCard>
           </div>
 
-          <AccordionComponent ariaId={1}>
+          <AccordionComponent>
             <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
               <LinkCard
                 imageUrl="/images/homepage/jobs-etudiants.png"
@@ -153,7 +153,7 @@ export default function Accueil() {
             </LinkCard>
           </div>
 
-          <AccordionComponent ariaId={2}>
+          <AccordionComponent>
             <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
               <LinkCard
                 imageUrl="/images/homepage/accompagne.png"

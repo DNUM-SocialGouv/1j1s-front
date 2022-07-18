@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {
   useEffect,
   useRef,
@@ -5,7 +6,6 @@ import React, {
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Checkbox/Checkbox.module.scss';
-import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface CheckboxProps extends React.InputHTMLAttributes<unknown> {
   id?: string
@@ -20,19 +20,13 @@ export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
     checkboxId.current = id || uuidv4();
   }, [id]);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === KeyBoard.ENTER) {
-      event.preventDefault();
-    }
-  };
-
   return (
-    <div className={[styles.checkbox, className ? className : ''].join(' ')}>
+    <div className={classNames(styles.checkbox, className ? className : '')}>
       <input
         type="checkbox"
+        {...rest}
         id={checkboxId.current}
-        onKeyDown={handleKeyDown}
-        {...rest}/>
+      />
       <label className={styles.label} htmlFor={checkboxId.current}>{label}</label>
     </div>
   );

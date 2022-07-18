@@ -21,14 +21,13 @@
 
 .checkbox input[type=checkbox] + label {
   position: relative;
-  padding: 0.75rem 0;
+  padding: 0.75rem 0 .75rem 2rem;
   -webkit-tap-highlight-color: transparent;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-left: 2rem;
 }
 
 .checkbox input[type=checkbox] + label::before {
@@ -36,7 +35,7 @@
   display: block;
   position: absolute;
   top: 0;
-  left: -2rem;
+  left: 0;
   margin-top: 0.75rem;
   width: 1.5rem;
   height: 1.5rem;
@@ -51,7 +50,4 @@
 .checkbox input[type=checkbox]:checked + label::before {
   background-color: $color-primary;
   background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fff' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
-  &hover {
-    background-color: $color-primary;
-  }
 }

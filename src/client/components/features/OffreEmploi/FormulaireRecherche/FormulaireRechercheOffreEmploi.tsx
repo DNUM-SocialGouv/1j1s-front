@@ -151,7 +151,7 @@ export function FormulaireRechercheOffreEmploi() {
               <CheckboxGroup legend="Type de contrat">
                 {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                   <Checkbox
-                    key={'Type de contrat'+index}
+                    key={`Type de contrat${index}`}
                     label={typeDeContrat.libelléLong}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
                     value={typeDeContrat.valeur}
@@ -175,7 +175,7 @@ export function FormulaireRechercheOffreEmploi() {
               <CheckboxGroup legend="Niveau demandé">
                 {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
                   <Checkbox
-                    key={'Niveau demandé'+index}
+                    key={`Niveau demandé${index}`}
                     label={expérience.libellé}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
                     value={expérience.valeur}
@@ -186,7 +186,7 @@ export function FormulaireRechercheOffreEmploi() {
               <CheckboxGroup legend="Domaine">
                 {référentielDomaineList.map((domaine, index) => (
                   <Checkbox
-                    key={'Domaine'+index}
+                    key={`Domaine${index}`}
                     label={domaine.libelle}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
                     value={domaine.code}

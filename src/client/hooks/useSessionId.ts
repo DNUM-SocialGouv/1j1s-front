@@ -1,5 +1,5 @@
-import { uuid4 } from '@sentry/utils';
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const SESSION_ID = 'session_Id';
 
@@ -9,7 +9,7 @@ function useSessionId (): string | undefined {
   useEffect(() => {
     let sessionId = sessionStorage.getItem(SESSION_ID);
     if (!sessionId) {
-      sessionId = uuid4();
+      sessionId = uuidv4();
       sessionStorage.setItem(SESSION_ID, sessionId);
     }
     setValue(sessionId);

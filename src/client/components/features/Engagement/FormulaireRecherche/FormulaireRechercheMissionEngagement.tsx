@@ -1,9 +1,9 @@
-import { Checkbox } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
 import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
+import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
@@ -51,41 +51,42 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
       onSubmit={rechercherMission}
       role="form"
     >
-      <div className={styles.inputButtonWrapper}>
-        <SelectSingle
-          titre={générerTitreFiltre('Sélectionnez un domaine', domainValue)}
-          optionList={domainList}
-          onChange={(value) => setDomainValue(value)}
-          currentInput={domainValue}
-        />
-        <input type="hidden" name="domain" value={domainValue}/>
-        <InputCommune
-          code={inputCodeCommune}
-          libellé={inputLibelleCommune}
-          latitude={inputLatitudeCommune}
-          longitude={inputLongitudeCommune}
-          distance={inputDistanceCommune}
-        />
-        <div className={styles.minorCheckboxWrapper}>
+      <div className={styles.rechercheMissionEngagementForm__Container}>
+        <div className={styles.inputButtonWrapper}>
+          <SelectSingle
+            titre={générerTitreFiltre('Sélectionnez un domaine', domainValue)}
+            optionList={domainList}
+            onChange={(value) => setDomainValue(value)}
+            currentInput={domainValue}
+          />
+          <input type="hidden" name="domain" value={domainValue}/>
+          <InputCommune
+            code={inputCodeCommune}
+            libellé={inputLibelleCommune}
+            latitude={inputLatitudeCommune}
+            longitude={inputLongitudeCommune}
+            distance={inputDistanceCommune}
+          />
+        </div>
+
+        <div className={styles.accessibleAuxMineursWrapper}>
           <Checkbox
-            size="sm"
             label="Dès 16 ans"
             id="ouvertAuxMineurs"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore&
             checked={ouvertAuxMineurs}
             onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
           />
           <input type="hidden" name="ouvertsAuxMineurs" value={String(ouvertAuxMineurs)}/>
         </div>
-        <div className={styles.rechercherMissionEngagementButton}>
-          <Button
-            icon={<MagnifyingGlassIcon />}
-            type="submit"
-          >
-            Rechercher
-          </Button>
-        </div>
+      </div>
+
+      <div className={styles.rechercherMissionEngagementButton}>
+        <Button
+          icon={<MagnifyingGlassIcon />}
+          type="submit"
+        >
+          Rechercher
+        </Button>
       </div>
     </form>
   );
