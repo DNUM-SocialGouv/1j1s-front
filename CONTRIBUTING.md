@@ -114,3 +114,8 @@ Nous suivons le [Semantic Versioning](https://semver.org)
 - aria-activedescendant: identifies the currently active element when focus is on a composite widget, combobox, textbox, group, or application.
 - aria-labelledby: identifies the element (or elements) that labels the element it is applied to.
 - aria-selected: indicates the current "selected" state of various widgets
+
+### Variables d'environnement
+STAGE_CONTENT_MANAGER_BASE_URL: url du cms hébergeant les stages
+STAGE_SEARCH_ENGINE_BASE_URL: url du meilisearch hébergeant les stages
+STAGE_SEARCH_ENGINE_API_KEY: apikey d'affichage du meilisearch hébergeant les stages
