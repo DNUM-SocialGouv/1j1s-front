@@ -25,6 +25,10 @@
   color: $color-primary;
 }
 
+.accordion > button {
+  margin: 0;
+}
+
 @include media(large){
   .container{
     display: grid;
