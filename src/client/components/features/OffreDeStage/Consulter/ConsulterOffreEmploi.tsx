@@ -1,0 +1,57 @@
+import { Title } from '@dataesr/react-dsfr';
+import { marked } from 'marked';
+import React from 'react';
+
+import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
+import { OffreDeStageAttributesFromCMS } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
+import { TagList } from '~/client/components/ui/Tag/TagList';
+import useSanitize from '~/client/hooks/useSanitize';
+
+interface ConsulterOffreDeStageProps {
+  offreDeStage: OffreDeStageAttributesFromCMS
+}
+
+export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
+    
+  const afficheNomEmployeur = (nomEmployeur?: string) => {
+    if(nomEmployeur) {
+      return <h2>${nomEmployeur}</h2>;
+    }
+    return <></>;
+  };
+    
+  const salaireOffreDeStage = useSanitize(offreDeStage.remunerationBase?.toString());
+  return (
+    <ConsulterOffreLayout>
+      <header className={commonStyles.titre}>
+        <Title as="h1" look="h3">{offreDeStage.titre}</Title>
+        {afficheNomEmployeur(offreDeStage.employeur?.nom)}
+        <TagList list={[]} aria-label="Caractéristiques de l'offre d'emploi" />
+      </header>
+      <section className={commonStyles.contenu}>
+        <div className={commonStyles.buttonAsLink}>
+          <ButtonLink
+            label={`Je postule sur ${offreDeStage.source}`}
+            href={offreDeStage.urlDeCandidature}
+            target="_blank"
+            dataTestId="LinkPostulerOffreDeStage"
+          />
+        </div>
+        {offreDeStage.description &&
+        <div>
+          <h3>Description du poste :</h3>
+          <p dangerouslySetInnerHTML={{ __html: marked.parse(offreDeStage.description) }}/>
+        </div>
+        }
+        {offreDeStage.remunerationBase &&
+        <div>
+          <h3>Salaire :</h3> { ' ' }
+          <p dangerouslySetInnerHTML={{ __html: salaireOffreDeStage }}/>
+        </div>
+        }
+      </section>
+    </ConsulterOffreLayout>
+  );
+}
