@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
-import styles from '~/pages/contrat-engagement-jeune/PkCPourMoi.module.scss';
+import styles from '~/pages/contrat-engagement-jeune/PourquoiCEstFaitPourMoi.module.scss';
 
 
-export default function PkCPourMoi() {
+export default function PourquoiCEstFaitPourMoi() {
   const arrow = <span className={styles.arrow}><ArrowRightIcon color={'white'}/></span>;
 
   return (
