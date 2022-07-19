@@ -1,8 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
-import { marked } from 'marked';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React from 'react';
 
+import Marked from '~/client/components/ui/Marked/Marked';
 import styles from '~/pages/contrat-engagement-jeune/QuEstCeQueCEst.module.scss';
 
 import illustration from '../../../public/images/CEJ/what-it-is.png';
@@ -40,10 +39,3 @@ export default function QuEstCeQueCEst() {
     </section>
   );
 }
-
-function Marked ({ markdown }: { markdown: string }) {
-  const html = useMemo(() => ({ __html: marked.parse(markdown) }), [markdown]);
-  return (<div dangerouslySetInnerHTML={ html } />);
-}
-
-
