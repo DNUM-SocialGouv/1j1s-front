@@ -20,11 +20,10 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
+import { mapAlternanceToLienSolution } from '~/client/utils/alternance.utils';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { ErrorType } from '~/server/errors/error.types';
-
-const LOGO_ALTERNANCE = '/images/logos/la-bonne-alternance.svg';
 
 export function RechercherAlternance() {
   const router = useRouter();
@@ -100,17 +99,7 @@ export function RechercherAlternance() {
   );
 }
 
-function mapAlternanceToLienSolution(alternance: Alternance): LienSolution {
-  return {
-    descriptionOffre: alternance.description,
-    id: alternance.id,
-    intituléOffre: alternance.intitulé,
-    lienOffre: `/apprentissage/${alternance.from}-${alternance.id}`,
-    logoEntreprise: alternance.entreprise?.logo || LOGO_ALTERNANCE,
-    nomEntreprise: alternance.entreprise?.nom,
-    étiquetteOffreList: alternance.étiquetteList,
-  };
-}
+
 
 function BannièreAlternance() {
   return (
