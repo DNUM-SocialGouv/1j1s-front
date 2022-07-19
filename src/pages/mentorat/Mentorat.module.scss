@@ -1,43 +1,178 @@
 @import "@styles/utilities";
-.RaisonParticipationMentoratWrapper {
-  padding: 36px 28px;
-  background-color: $color-primary;
-  h1 {
-    font-size: 1.5rem;
-    color: $color-on-primary;
-  }
-  .RaisonParticipationMentoratContainer {
-    .RaisonParticipationMentoratElement {
-      &__Title {
-        display: flex;
-        align-items: center;
-        h4 {
-          @extend %text-regular;
-          @extend %bold;
-          color: $color-on-primary;
-          margin: inherit;
-        }
-        svg {
-          margin-right: 12px;
-          flex-shrink: 0;
-        }
+
+.heading {
+  position: relative;
+  padding: 56px 32px;
+
+  .headingContainerWrapper {
+    .headingContainer {
+      max-width: 35rem;
+      margin: 0 auto;
+
+      h1 {
+        font-size: 1.5rem;
+        line-height: initial;
+        color: $color-primary;
+        margin-bottom: 1rem;
       }
-      p {
+
+      h2 {
         @extend %text-regular;
-        color: $color-on-primary;
+        @extend %bold;
+        color: $color-tertiary;
+        margin-bottom: 1rem;
       }
+
+      &__textContent {
+        margin-bottom: 2.5rem;
+        p {
+          @extend %text-regular;
+        }
+        p:first-child {
+          @extend %bold;
+          margin-bottom: 0;
+        }
+      }
+
+      .buttonWrapper {
+        a {
+          width: 100%;
+        }
+      }
+    }
+
+  }
+}
+
+@include media(large) {
+  .heading {
+    padding: 0;
+
+    .headingContainerWrapper {
+      width: 50%;
+
+      .headingContainer {
+        max-width: 35.5rem;
+        margin: 0 auto;
+        padding: 80px 1rem;
+
+        &__textContent {
+          margin-bottom: 56px !important;
+        }
+
+        .buttonWrapper {
+          display: flex;
+          justify-content: center;
+          margin: auto;
+          a {
+            width: initial !important;
+          }
+        }
+      }
+    }
+
+    .imageWrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 50%;
     }
   }
 }
 
-.QuestCeQueMentoratWrapper {
-  padding: 36px 28px;
-  h1 {
-    font-size: 0.875rem;
-    color: $color-tertiary;
-  }
-  p {
-     @extend %text-regular;
-   }
 
+.content {
+  .contentContainer {
+    &OnPrimary {
+      background-color: $color-primary;
+    }
+
+    article {
+      max-width: 35rem;
+      margin: 0 auto;
+    }
+  }
+
+  .RaisonParticipationMentoratWrapper {
+    padding: 36px 28px;
+    background-color: $color-primary;
+    h1 {
+      font-size: 1.5rem;
+      color: $color-on-primary;
+    }
+    .RaisonParticipationMentoratContainer {
+      .RaisonParticipationMentoratElement {
+        &__Title {
+          display: flex;
+          align-items: center;
+          h2 {
+            @extend %text-regular;
+            @extend %bold;
+            color: $color-on-primary;
+            margin: inherit;
+          }
+          svg {
+            margin-right: 12px;
+            flex-shrink: 0;
+          }
+        }
+        p {
+          @extend %text-regular;
+          color: $color-on-primary;
+        }
+      }
+    }
+  }
+
+  .QuestCeQueMentoratWrapper {
+    padding: 36px 28px;
+    h1 {
+      font-size: 0.875rem;
+      color: $color-tertiary;
+    }
+    p {
+      @extend %text-regular;
+    }
+  }
 }
+
+@include media(large) {
+  .content {
+    display: flex;
+
+    .contentContainer {
+      background-color: $color-primary;
+      width: 50%;
+
+      &Separator {
+        border-right: 1px solid $color-on-primary;
+      }
+    }
+
+    &__articleTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      h1 {
+        line-height: initial;
+      }
+      img {
+      padding-right: 24px !important;
+      flex-shrink: 0;
+    }
+
+    }
+
+    .QuestCeQueMentoratWrapper {
+      h1 {
+        font-size: 1.5rem;
+        color: $color-on-primary;
+      }
+      background-color: $color-primary;
+      color: $color-on-primary;
+
+    }
+  }
+}
+
