@@ -26,7 +26,17 @@
   margin-bottom: 0;
 }
 
-.titre {
+.article h2 {
+  color: $color-primary;
+}
+
+.article em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.article strong {
+  font-weight: bold;
   color: $color-primary;
 }
 
