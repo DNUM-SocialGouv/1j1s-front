@@ -24,9 +24,9 @@ export default function Actions() {
           <h1 className= { styles.soustitre }>Concrètement qu&apos;est-ce qu&apos;on fait en Contrat d’Engagement Jeune ?</h1>
         </article>
         {!displayAccordion && contenu}
-        {displayAccordion && (<AccordionComponent ariaId={1}>
+        {displayAccordion && (<span className={ styles.accordion }><AccordionComponent ariaId={1}>
           {contenu}
-        </AccordionComponent>)}
+        </AccordionComponent></span>)}
       </div>
     </section>
   );
