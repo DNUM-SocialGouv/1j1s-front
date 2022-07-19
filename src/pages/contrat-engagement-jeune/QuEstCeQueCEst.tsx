@@ -3,7 +3,7 @@ import { marked } from 'marked';
 import Image from 'next/image';
 import React, { useMemo } from 'react';
 
-import styles from '~/pages/contrat-engagement-jeune/Ckoi.module.scss';
+import styles from '~/pages/contrat-engagement-jeune/QuEstCeQueCEst.module.scss';
 
 import illustration from '../../../public/images/CEJ/what-it-is.png';
 
@@ -26,7 +26,7 @@ Quand je signe mon contrat, je bénéficie de :
 
 
 
-export default function Ckoi() {
+export default function QuEstCeQueCEst() {
   return (
     <section className={ styles.section }>
       <div className={ styles.container }>

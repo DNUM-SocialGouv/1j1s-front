@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Bannière from '~/pages/contrat-engagement-jeune/Bannière';
-import Ckoi from '~/pages/contrat-engagement-jeune/Ckoi';
+import QuEstCeQueCEst from '~/pages/contrat-engagement-jeune/QuEstCeQueCEst';
 
 
 export default function ContratEngagementJeune() {
   return (
     <>
       <Bannière />
-      <Ckoi />
+      <QuEstCeQueCEst />
     </>
   );
 }
