@@ -1,0 +1,36 @@
+@import "@styles/utilities";
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  &Primary {
+    @extend %background-primary;
+    border-radius: 20px;
+    padding: 0 1.5rem;
+    height: 2.5rem;
+
+    &OnDarkBackground {
+      @extend %background-surface;
+    }
+  }
+
+  &Link {
+    color: #566BB1;
+  }
+}
+
+/* TODO remplacer le hover du bouton quand on aura viré la lib react dsfr */
+.button:hover {}
+
+.buttonLabelAtRight {
+  margin-right: 10px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.buttonLabelAtLeft {
+  margin-left: 10px;
+  font-size: 1rem;
+}

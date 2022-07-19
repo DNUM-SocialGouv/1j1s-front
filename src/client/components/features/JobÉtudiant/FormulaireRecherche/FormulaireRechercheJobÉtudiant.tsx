@@ -13,7 +13,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonPrimary } from '~/client/components/ui/Button/ButtonPrimary';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
@@ -103,13 +103,13 @@ export function FormulaireRechercheJobÉtudiant() {
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <Button
+            <ButtonPrimary
               dataTestId="ButtonFiltrerRecherche"
               icon={<FilterIcon />}
               onClick={() => setIsFiltresAvancésMobileOpen(true)}
             >
               Filtrer ma recherche
-            </Button>
+            </ButtonPrimary>
           }
 
           <Modal
@@ -136,12 +136,12 @@ export function FormulaireRechercheJobÉtudiant() {
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
-                <Button
+                <ButtonPrimary
                   icon={<ArrowRightIcon />}
                   dataTestId="ButtonAppliquerFiltres"
                 >
                   Appliquer les filtres
-                </Button>
+                </ButtonPrimary>
               </div>
             </ModalFooter>
           </Modal>
@@ -159,13 +159,13 @@ export function FormulaireRechercheJobÉtudiant() {
         )}
       </div>
       <div className={styles.buttonRechercher}>
-        <Button
+        <ButtonPrimary
           icon={<MagnifyingGlassIcon />}
           type="submit"
           dataTestId="ButtonRechercher"
         >
           Rechercher
-        </Button>
+        </ButtonPrimary>
       </div>
     </form>
   );

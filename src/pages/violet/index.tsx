@@ -14,7 +14,7 @@ export default function OnSamuse() {
       Un cadeau de l&apos;équipe <strong style={{ color: 'yellow' }}>jaune</strong>, un beau bouton :) juste ici
       <br />
       <br />
-      <ButtonPrimary icon={<MagnifyingGlassIcon color="#161616"/>}>Rechercher une entreprise</ButtonPrimary>
+      <ButtonPrimary icon={<MagnifyingGlassIcon color="#161616"/>} isInvertedStyle>Rechercher une entreprise</ButtonPrimary>
       <br />
       <br />
     </>

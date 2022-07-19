@@ -1,11 +1,12 @@
+import classNames from 'classnames';
 import React from 'react';
 
-import styles from '~/client/components/ui/Button/Button.module.css';
+import styles from '~/client/components/ui/Button/Button.module.scss';
 import { ButtonProps } from '~/client/components/ui/Button/button.props';
 
 export function ButtonPrimary({ children, icon, iconPosition = 'right', dataTestId, isInvertedStyle = false, ...rest } : React.PropsWithChildren<ButtonProps>) {
   return (
-    <button className={isInvertedStyle ? styles.unbutton : styles.buttonPrimary} data-testid={dataTestId} {...rest}>
+    <button className={classNames([styles.button], { [styles.buttonLink]: isInvertedStyle, [styles.buttonPrimary]: !isInvertedStyle })} data-testid={dataTestId} {...rest}>
       {
         iconPosition === 'right' ?
           <>

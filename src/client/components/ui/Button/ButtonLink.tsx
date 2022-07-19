@@ -1,7 +1,8 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
-import styles from '~/client/components/ui/Button/Button.module.css';
+import styles from '~/client/components/ui/Button/Button.module.scss';
 
 interface ButtonLinkProps extends React.AnchorHTMLAttributes<unknown> {
   label: string
@@ -12,7 +13,7 @@ interface ButtonLinkProps extends React.AnchorHTMLAttributes<unknown> {
 export function ButtonLink({ label, icon, dataTestId, ...rest } : ButtonLinkProps) {
   return (
     <Link data-testid={dataTestId} href={rest.href ? rest.href : ''}>
-      <a className={styles.button} data-testid={dataTestId} {...rest}>
+      <a className={classNames(styles.button, styles.buttonPrimary)} data-testid={dataTestId} {...rest}>
         <span className={styles.buttonLabel}>{label}</span>
         {icon && icon }
       </a>
