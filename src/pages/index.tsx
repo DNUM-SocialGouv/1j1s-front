@@ -9,6 +9,7 @@ import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { RadioButton } from '~/client/components/ui/RadioButton/RadioButton';
+import { RadioButtonGroup } from '~/client/components/ui/RadioButtonGroup/RadioButtonGroup';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.css';
 
@@ -22,7 +23,11 @@ export default function Accueil() {
         Découvrez toutes les solutions pour<br />
         votre avenir sur 1J1S !
       </Hero>
-      <RadioButton id={'diora'} label={'hello radio'} name={'laradio'} value={'30987'}/>
+      <RadioButtonGroup>
+        <RadioButton id={'dodo'} label={'hello radio'} name={'laradio'} value={'hello'}/>
+        <RadioButton id={'toto'} label={'hello radio bis'} name={'laradio2'} value={'world'}/>
+      </RadioButtonGroup>
+
       <main id="contenu">
         <section className={classNames(styles.section, styles.section1)}>
           <h2 className={styles.sectionHeader}>

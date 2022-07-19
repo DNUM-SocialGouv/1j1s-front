@@ -1,4 +1,24 @@
 @import "@styles/utilities";
 
-.radioWrapper {
+.radioButton {
+  position: relative;
+}
+
+.label {
+  display:block;
+  color: $color-on-surface;
+}
+
+.radioButton input[type=radio] {
+  position:absolute;
+}
+
+.radioButton input[type=radio] + label {
+  position:relative;
+}
+
+.radioButton input[type=radio] + label::before {
+  color:red;
+  position:absolute;
+  border-radius: 0.25rem;
 }
