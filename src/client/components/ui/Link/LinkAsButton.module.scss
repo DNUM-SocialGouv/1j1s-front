@@ -1,0 +1,16 @@
+@import "@styles/utilities";
+
+.linkAsButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  gap: .625rem;
+
+  &Primary {
+    @extend %background-primary;
+    border-radius: 20px;
+    padding: 0 1.5rem;
+    height: 2.5rem;
+  }
+}

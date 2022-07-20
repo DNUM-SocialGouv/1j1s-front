@@ -15,7 +15,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
-import { ButtonPrimary } from '~/client/components/ui/Button/ButtonPrimary';
+import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
@@ -126,14 +126,13 @@ export function FormulaireRechercheOffreEmploi() {
 
           {isSmallScreen &&
             <div>
-              <ButtonPrimary
-                dataTestId="ButtonFiltrerRecherche"
+              <Button
+                buttonType="linkWithRightIcon"
                 icon={<FilterIcon />}
                 onClick={() => setIsFiltresAvancésMobileOpen(true)}
-                isInvertedStyle
               >
                 Filtrer ma recherche
-              </ButtonPrimary>
+              </Button>
             </div>
 
           }
@@ -197,13 +196,12 @@ export function FormulaireRechercheOffreEmploi() {
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
-                <ButtonPrimary
+                <Button
+                  buttonType="withRightIcon"
                   icon={<AngleRightIcon color="#FFF" />}
-                  dataTestId="ButtonAppliquerFiltres"
-                  iconPosition="right"
                 >
                   Appliquer les filtres
-                </ButtonPrimary>
+                </Button>
               </div>
             </ModalFooter>
           </Modal>
@@ -239,13 +237,13 @@ export function FormulaireRechercheOffreEmploi() {
         )}
       </div>
       <div className={styles.buttonRechercher}>
-        <ButtonPrimary
+        <Button
+          buttonType="withRightIcon"
           icon={<MagnifyingGlassIcon />}
           type="submit"
-          dataTestId="ButtonRechercher"
         >
           Rechercher
-        </ButtonPrimary>
+        </Button>
       </div>
     </form>
   );

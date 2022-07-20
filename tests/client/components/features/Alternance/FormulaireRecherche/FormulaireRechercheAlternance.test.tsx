@@ -50,7 +50,7 @@ describe('FormulaireRechercheAlternance', () => {
       );
 
       const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-      const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+      const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
       // WHEN
       await user.type(inputRechercheMétier, 'boulanger');
@@ -91,7 +91,7 @@ describe('FormulaireRechercheAlternance', () => {
       );
 
       const inputCommune = screen.getByTestId('InputCommune');
-      const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+      const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
       //  WHEN
       await user.type(inputCommune, 'Pari');
@@ -138,7 +138,7 @@ describe('FormulaireRechercheAlternance', () => {
       fireEvent.click(button);
 
       const optionsRadius = await screen.findByTestId('OptionList');
-      const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+      const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
       //  WHEN
       await waitFor(() => {

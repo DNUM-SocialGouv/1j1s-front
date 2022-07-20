@@ -13,7 +13,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
-import { ButtonPrimary } from '~/client/components/ui/Button/ButtonPrimary';
+import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
@@ -103,13 +103,13 @@ export function FormulaireRechercheJobÉtudiant() {
           <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <ButtonPrimary
-              dataTestId="ButtonFiltrerRecherche"
+            <Button
+              buttonType="linkWithRightIcon"
               icon={<FilterIcon />}
               onClick={() => setIsFiltresAvancésMobileOpen(true)}
             >
               Filtrer ma recherche
-            </ButtonPrimary>
+            </Button>
           }
 
           <Modal
@@ -136,12 +136,12 @@ export function FormulaireRechercheJobÉtudiant() {
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
-                <ButtonPrimary
+                <Button
+                  buttonType="withRightIcon"
                   icon={<ArrowRightIcon />}
-                  dataTestId="ButtonAppliquerFiltres"
                 >
                   Appliquer les filtres
-                </ButtonPrimary>
+                </Button>
               </div>
             </ModalFooter>
           </Modal>
@@ -159,13 +159,13 @@ export function FormulaireRechercheJobÉtudiant() {
         )}
       </div>
       <div className={styles.buttonRechercher}>
-        <ButtonPrimary
+        <Button
+          buttonType="withRightIcon"
           icon={<MagnifyingGlassIcon />}
           type="submit"
-          dataTestId="ButtonRechercher"
         >
           Rechercher
-        </ButtonPrimary>
+        </Button>
       </div>
     </form>
   );

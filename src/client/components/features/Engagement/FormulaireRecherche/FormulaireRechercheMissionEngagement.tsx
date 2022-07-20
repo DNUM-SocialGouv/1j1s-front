@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
 import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
-import { ButtonPrimary } from '~/client/components/ui/Button/ButtonPrimary';
+import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
@@ -81,12 +81,13 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
       </div>
 
       <div className={styles.rechercherMissionEngagementButton}>
-        <ButtonPrimary
+        <Button
+          buttonType="withRightIcon"
           icon={<MagnifyingGlassIcon />}
           type="submit"
         >
           Rechercher
-        </ButtonPrimary>
+        </Button>
       </div>
     </form>
   );

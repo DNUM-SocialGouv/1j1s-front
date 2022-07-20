@@ -133,7 +133,7 @@ describe('RechercherAlternance', () => {
         );
 
         const inputCommune = screen.getByTestId('InputCommune');
-        const buttonRechercher = screen.getByTestId('ButtonRechercherAlternance');
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         await user.type(inputCommune, 'par');
         const résultatsCommune = await screen.findByTestId('RésultatsCommune');
@@ -167,10 +167,10 @@ describe('RechercherAlternance', () => {
             <RechercherAlternance />
           </DependenciesProvider>,
         );
-        const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         // WHEN
-        fireEvent.click(buttonRechercherAlternance);
+        fireEvent.click(buttonRechercher);
 
         // THEN
         expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
@@ -194,14 +194,14 @@ describe('RechercherAlternance', () => {
           </DependenciesProvider>,
         );
         const inputRechercheMétier = screen.getByTestId('InputRechercheMétier');
-        const buttonRechercherAlternance = screen.getByTestId('ButtonRechercherAlternance');
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         // WHEN
         await user.type(inputRechercheMétier, 'fake métier');
         await user.clear(inputRechercheMétier);
 
         // WHEN
-        fireEvent.click(buttonRechercherAlternance);
+        fireEvent.click(buttonRechercher);
 
         // THEN
         expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();

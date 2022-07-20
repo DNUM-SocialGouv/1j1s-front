@@ -38,7 +38,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         const containerRechercheMotClé = screen.getByTestId('InputRechercheMotClé');
         const inputRechercheMotClé = within(containerRechercheMotClé).getByRole('textbox');
         fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
-        const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         // WHEN
         fireEvent.click(buttonRechercher);
@@ -62,7 +62,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         );
 
         const inputLocalisation = screen.getByTestId('InputLocalisation');
-        const buttonRechercher = screen.getByTestId('ButtonRechercher');
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         // WHEN
         await user.type(inputLocalisation, 'Pa');
@@ -94,7 +94,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const buttonFiltresRecherche = screen.getByTestId('ButtonFiltrerRecherche');
+        const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
@@ -107,7 +107,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByTestId('ButtonAppliquerFiltres');
+        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
