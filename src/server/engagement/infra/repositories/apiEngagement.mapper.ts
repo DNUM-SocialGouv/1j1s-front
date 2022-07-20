@@ -19,9 +19,12 @@ export function mapRésultatsRechercheMission(response: RésultatsRechercheMissi
   };
 }
 
+const accessibleAuxMineurs = 'Dès 16 ans';
+const estAccessibleAuxMineurs = 'yes';
+
 export function mapMission(mission: RésultatsMissionEngagementResponse): Mission {
   const { data } = mission;
-  const accessibleAuxJeunes = data.openToMinors === 'yes' ? 'Dès 16 ans' : undefined;
+  const accessibleAuxJeunes = data.openToMinors === estAccessibleAuxMineurs ? accessibleAuxMineurs : undefined;
   const city = data.city || '';
   const departmentName = data.departmentName || '';
   const departmentCode = data.departmentCode || '';
@@ -69,7 +72,7 @@ export function mapFullLocalisation(city: string, departmentName: string, depart
 
 export function mapMissionList(missionList: Array<MissionEngagementResponse>): Array<Mission> {
   return missionList.map((mission: MissionEngagementResponse) => {
-    const accessibleAuxJeunes = mission.openToMinors === 'yes' ? 'Dès 16 ans' : undefined;
+    const accessibleAuxJeunes = mission.openToMinors === estAccessibleAuxMineurs ? accessibleAuxMineurs : undefined;
     const city = mission.city || '';
     const postalCode = mission.postalCode ? `(${mission.postalCode})` : '';
     const localisation = city.length > 0 || postalCode.length > 0 ? `${city} ${postalCode}` : undefined;

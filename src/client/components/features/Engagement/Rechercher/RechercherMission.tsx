@@ -5,12 +5,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
+import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
 import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -81,10 +81,6 @@ export function RechercherMission(props: RechercherMissionProps) {
     return messageRésultatRechercheSplit.join(' ');
   }, [missionEngagementQuery.domain, isServiceCivique, nombreRésultats]);
 
-  function récupérerLibelléDepuisValeur2(queryTagList: (string | undefined)[]) {
-    return queryTagList;
-  }
-
   return (
     <>
       <HeadTag
@@ -95,7 +91,7 @@ export function RechercherMission(props: RechercherMissionProps) {
         <RechercherSolutionLayout
           bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<TagList list={récupérerLibelléDepuisValeur2([missionEngagementQuery.libelleCommune, missionEngagementQuery.ouvertsAuxMineurs ? 'Dès 16 ans' : undefined])} aria-label="Filtres de la recherche" />}
+          étiquettesRecherche={<ÉtiquettesFiltreMission/>}
           formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
           isLoading={isLoading}
           listeSolution={missionList}
