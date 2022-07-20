@@ -26,7 +26,7 @@ export default function Actions() {
           <h1 className= { styles.soustitre }>Concrètement qu&apos;est-ce qu&apos;on fait en Contrat d’Engagement Jeune ?</h1>
         </article>
         {!displayAccordion && <Marked markdown={ contenu }/>}
-        {displayAccordion && (<span className={ styles.accordion }><AccordionComponent ariaId={1}>
+        {displayAccordion && (<span className={ styles.accordion }><AccordionComponent>
           <Marked markdown={ contenu }/>
         </AccordionComponent></span>)}
       </div>
