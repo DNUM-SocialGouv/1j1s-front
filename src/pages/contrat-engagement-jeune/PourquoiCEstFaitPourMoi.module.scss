@@ -1,44 +1,43 @@
 @import "@styles/utilities";
 
 .section {
-  background: #ea711b;
-  padding: 3rem 0 1rem;
+  background: $color-cej-background;
+  padding: 48px 0 16px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  padding: 0 1.5rem;
+  padding: 0 24px;
 }
 
 .titre {
-  color: white;
-  font-weight: 700;
+  @extend %headline;
+  @extend %bold;
+  color: $color-on-primary;
   width: 325px;
-  font-size: 20px;
-  line-height: 32px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .liste {
   padding: 0;
-}
 
-.liste > li {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  list-style: none;
-  background-color: white;
-  height: 60px;
-  font-size: 12px;
-  padding: 12px;
-  margin: 12px 0;
-  line-height: 16.5px;
-}
+  > li:first-child {
+    margin-top: 0;
+  }
 
-.liste > li:first-child {
-  margin-top: 0;
+  > li {
+    @extend %text-regular;
+    background-color: $color-surface;
+    max-width: $breakpoint-xl;
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    padding: 12px;
+    margin: 12px 0;
+  }
 }
 
 .arrow {
@@ -48,18 +47,16 @@
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  width: 20px;
-  height: 20px;
-  border-radius: 60px;
+  border-radius: 50%;
 }
 
 @include media(medium) {
   .section {
-    padding: 3rem 0;
+    padding: 48px 0;
   }
 
   .container {
-    margin : 0 auto;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
   }
@@ -67,16 +64,12 @@
   .titre {
     margin: 55px;
     width: 510px;
-    font-size: 40px;
-    line-height: 55px;
   }
 
   .liste > li {
     height: auto;
-    line-height: 40px;
     padding: 20px;
     margin: 24px;
-    font-size: 20px;
   }
 
   .arrow {

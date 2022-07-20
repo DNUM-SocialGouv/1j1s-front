@@ -9,8 +9,8 @@ export default function ContratEngagementJeune() {
   return (
     <>
       <Bannière/>
-      <PourquoiCEstFaitPourMoi/>
       <QuEstCeQueCEst />
+      <PourquoiCEstFaitPourMoi/>
     </>
   );
 }
