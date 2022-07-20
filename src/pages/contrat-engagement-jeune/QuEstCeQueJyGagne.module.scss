@@ -1,0 +1,53 @@
+@import "@styles/utilities";
+
+.section {
+  background: $color-on-primary;
+}
+
+.container {
+  max-width: $breakpoint-xl;
+}
+
+.titre > h2 {
+  color: $color-primary;
+}
+
+.titre > strong {
+  @extend %text-large;
+}
+
+.contenu {
+  @extend %text-large;
+}
+
+.contenu > ul > li > strong {
+  color: $color-primary;
+}
+
+@include media(large) {
+  .section {
+    padding: 5rem;
+  }
+
+  .container {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+    align-items: flex-start;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .titre > h2 {
+    line-height: 3.5rem;
+    font-size: 2.5rem;
+    font-weight: 400;
+  }
+
+  .titre > strong {
+    line-height: 1.75rem;
+  }
+
+  .contenu {
+    line-height: 40px;
+  }
+}
