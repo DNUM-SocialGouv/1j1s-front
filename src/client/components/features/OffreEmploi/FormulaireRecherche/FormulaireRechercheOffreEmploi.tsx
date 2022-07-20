@@ -127,10 +127,9 @@ export function FormulaireRechercheOffreEmploi() {
           {isSmallScreen &&
             <div>
               <Button
-                dataTestId="ButtonFiltrerRecherche"
+                buttonType="linkWithRightIcon"
                 icon={<FilterIcon />}
                 onClick={() => setIsFiltresAvancésMobileOpen(true)}
-                isInvertedStyle={true}
               >
                 Filtrer ma recherche
               </Button>
@@ -198,9 +197,8 @@ export function FormulaireRechercheOffreEmploi() {
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
                 <Button
+                  buttonType="withRightIcon"
                   icon={<AngleRightIcon color="#FFF" />}
-                  dataTestId="ButtonAppliquerFiltres"
-                  iconPosition="right"
                 >
                   Appliquer les filtres
                 </Button>
@@ -240,9 +238,9 @@ export function FormulaireRechercheOffreEmploi() {
       </div>
       <div className={styles.buttonRechercher}>
         <Button
+          buttonType="withRightIcon"
           icon={<MagnifyingGlassIcon />}
           type="submit"
-          dataTestId="ButtonRechercher"
         >
           Rechercher
         </Button>

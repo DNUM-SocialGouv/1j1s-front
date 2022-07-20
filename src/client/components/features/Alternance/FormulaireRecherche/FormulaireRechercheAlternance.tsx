@@ -82,9 +82,9 @@ export function FormulaireRechercheAlternance() {
         />
         <div className={styles.buttonRechercher}>
           <Button
+            buttonType="withRightIcon"
             icon={<MagnifyingGlassIcon />}
             type="submit"
-            dataTestId="ButtonRechercherAlternance"
           >
             Rechercher
           </Button>

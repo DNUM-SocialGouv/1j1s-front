@@ -3,7 +3,7 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
+import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { Mission } from '~/server/engagement/domain/engagement';
@@ -25,7 +25,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
       </header>
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>
-          <ButtonLink
+          <LinkAsButton
             label="Postuler"
             href={missionEngagement.url}
             target="_blank"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonPrimary } from '~/client/components/ui/Button/ButtonPrimary';
+import { Button } from '~/client/components/ui/Button/Button';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 
@@ -14,7 +14,13 @@ export default function OnSamuse() {
       Un cadeau de l&apos;équipe <strong style={{ color: 'yellow' }}>jaune</strong>, un beau bouton :) juste ici
       <br />
       <br />
-      <ButtonPrimary icon={<MagnifyingGlassIcon color="#161616"/>}>Rechercher une entreprise</ButtonPrimary>
+      <Button
+        buttonType="withRightIcon"
+        icon={<MagnifyingGlassIcon color="#161616"/>}
+        buttonOnDarkBackground
+      >
+        Rechercher une entreprise
+      </Button>
       <br />
       <br />
     </>
