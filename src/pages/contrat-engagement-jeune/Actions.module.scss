@@ -29,6 +29,16 @@
   margin: 0;
 }
 
+.container em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.container strong {
+  font-weight: bold;
+  color: $color-primary;
+}
+
 @include media(large){
   .container{
     display: grid;
