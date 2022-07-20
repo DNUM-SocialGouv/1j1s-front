@@ -81,6 +81,10 @@ export function RechercherMission(props: RechercherMissionProps) {
     return messageRésultatRechercheSplit.join(' ');
   }, [missionEngagementQuery.domain, isServiceCivique, nombreRésultats]);
 
+  function récupérerLibelléDepuisValeur2(queryTagList: (string | undefined)[]) {
+    return queryTagList;
+  }
+
   return (
     <>
       <HeadTag
@@ -91,7 +95,7 @@ export function RechercherMission(props: RechercherMissionProps) {
         <RechercherSolutionLayout
           bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<TagList list={[missionEngagementQuery.libelleCommune, missionEngagementQuery.ouvertsAuxMineurs ? 'Dès 16 ans' : undefined]} aria-label="Filtres de la recherche" />}
+          étiquettesRecherche={<TagList list={récupérerLibelléDepuisValeur2([missionEngagementQuery.libelleCommune, missionEngagementQuery.ouvertsAuxMineurs ? 'Dès 16 ans' : undefined])} aria-label="Filtres de la recherche" />}
           formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
           isLoading={isLoading}
           listeSolution={missionList}
