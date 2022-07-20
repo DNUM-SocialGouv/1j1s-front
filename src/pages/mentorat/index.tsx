@@ -47,7 +47,7 @@ export default function MentoratPage() {
         <div className={classNames(styles.contentContainer, styles.contentContainerOnPrimary, styles.contentContainerSeparator)}>
           <article className={styles.RaisonParticipationMentoratWrapper}>
             <div className={styles.content__articleTitle}>
-              { isMinimumLargeScreen && <Image src="/images/mentoratpage/avatar.svg" alt="" width={120} height={120}/> }
+              { isMinimumLargeScreen && <Image src="/images/mentoratpage/avatar.svg" alt=""  layout="fixed" width={120} height={120}/> }
               <h1>Pourquoi participer à l’aventure du mentorat ?</h1>
             </div>
             <RaisonParticipationsMentorat/>
@@ -57,7 +57,7 @@ export default function MentoratPage() {
         <div className={styles.contentContainer}>
           <article className={styles.QuestCeQueMentoratWrapper}>
             <div className={styles.content__articleTitle}>
-              { isMinimumLargeScreen && <Image src="/images/mentoratpage/community.svg" alt="" width={120} height={120}/> }
+              { isMinimumLargeScreen && <Image src="/images/mentoratpage/community.svg" alt="" layout="fixed" width={120} height={120}/> }
               <h1>Qu’est-ce que le mentorat ?</h1>
             </div>
             <p>Le mentorat est un engagement personnel pour le mentor comme pour le jeune mentoré, basé sur le volontariat de chaque côté, la confiance, la bienveillance et le respect mutuel. Il s&apos;inscrit dans la durée : le &quot;binôme&quot; que forment le mentor et le jeune se rencontre plusieurs heures par mois, pendant au moins six mois. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>
@@ -77,7 +77,7 @@ function RaisonParticipationsMentorat() {
       <div className={styles.RaisonParticipationMentoratElement}>
         <div className={styles.RaisonParticipationMentoratElement__Title}>
           <ArrowRightIcon color={IconColor.COLOR_ON_PRIMARY}/>
-          <h2>J’ai des difficultés à l’école</h2>
+          <p>J’ai des difficultés à l’école</p>
         </div>
         <p>Votre mentor pourra vous aider à organiser votre travail et à améliorer vos résultats scolaires</p>
       </div>
@@ -85,7 +85,7 @@ function RaisonParticipationsMentorat() {
       <div className={styles.RaisonParticipationMentoratElement}>
         <div className={styles.RaisonParticipationMentoratElement__Title}>
           <ArrowRightIcon color={IconColor.COLOR_ON_PRIMARY}/>
-          <h2>Je ne sais pas quelle orientation choisir</h2>
+          <p>Je ne sais pas quelle orientation choisir</p>
         </div>
         <p>Votre mentor pourra vous conseiller et vous guider</p>
       </div>
@@ -93,7 +93,7 @@ function RaisonParticipationsMentorat() {
       <div className={styles.RaisonParticipationMentoratElement}>
         <div className={styles.RaisonParticipationMentoratElement__Title}>
           <ArrowRightIcon color={IconColor.COLOR_ON_PRIMARY}/>
-          <h2>Je cherche un stage, une alternance, un premier emploi</h2>
+          <p>Je cherche un stage, une alternance, un premier emploi</p>
         </div>
         <p>Votre mentor pourra vous aider et vous ouvrir son réseau professionnel</p>
       </div>

@@ -106,7 +106,7 @@
         &__Title {
           display: flex;
           align-items: center;
-          h2 {
+          p {
             @extend %text-regular;
             @extend %bold;
             color: $color-on-primary;
@@ -157,11 +157,12 @@
       h1 {
         line-height: initial;
       }
-      img {
-      padding-right: 24px !important;
-      flex-shrink: 0;
-    }
-
+      span {
+        flex-shrink: 0;
+        img {
+          padding-right: 24px !important;
+        }
+      }
     }
 
     .QuestCeQueMentoratWrapper {
@@ -171,7 +172,6 @@
       }
       background-color: $color-primary;
       color: $color-on-primary;
-
     }
   }
 }
