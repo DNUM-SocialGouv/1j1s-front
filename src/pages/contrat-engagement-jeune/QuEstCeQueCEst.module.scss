@@ -1,0 +1,51 @@
+@import "@styles/utilities";
+
+.section {
+   padding: 3rem 0;
+   background: $color-background;
+}
+
+.container {
+    display: grid;
+    gap: 3rem;
+    grid-template-rows: repeat(2, 1fr);
+    margin: 0 auto;
+    max-width: 78rem;
+    padding: 0 1.5rem;
+    place-items: center;
+}
+
+.illustration {
+  position: relative;
+  place-self: stretch;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.article p:last-child {
+  margin-bottom: 0;
+}
+
+.article h2 {
+  color: $color-primary;
+}
+
+.article em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.article strong {
+  font-weight: bold;
+  color: $color-primary;
+}
+
+@include media(large){
+  .container{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+  }
+  .section {
+    padding: 5rem 0;
+ }
+}
