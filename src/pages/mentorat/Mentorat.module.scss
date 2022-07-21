@@ -4,66 +4,60 @@
   position: relative;
   padding: 56px 32px;
 
-  .headingContainerWrapper {
-    .headingContainer {
-      max-width: 35rem;
-      margin: 0 auto;
+  &Container {
+    max-width: 35rem;
+    margin: 0 auto;
 
-      h1 {
-        font-size: 1.5rem;
-        line-height: initial;
-        color: $color-primary;
-        margin-bottom: 1rem;
-      }
+    &__Title {
+      @extend %headline;
+      color: $color-primary;
+      margin-bottom: 1rem;
+    }
 
-      h2 {
-        @extend %text-regular;
+    &__TextContent {
+      @extend %text-regular;
+      &Orange {
         @extend %bold;
         color: $color-tertiary;
         margin-bottom: 1rem;
       }
-
-      &__textContent {
-        margin-bottom: 2.5rem;
-        p {
-          @extend %text-regular;
-        }
-        p:first-child {
-          @extend %bold;
-          margin-bottom: 0;
-        }
-      }
-
-      .linkAsButtonWrapper {
-        a {
-          width: 100%;
-        }
+      margin-bottom: 2.5rem;
+      p:first-child {
+        @extend %bold;
+        margin-bottom: 0;
       }
     }
 
+    .linkAsButtonWrapper {
+      a {
+        width: 100%;
+      }
+    }
   }
+
+
 }
 
 @include media(large) {
   .heading {
     padding: 0;
 
-    .headingContainerWrapper {
+    &ContainerWrapper {
       width: 50%;
+    }
 
-      .headingContainer {
-        max-width: 35.5rem;
-        margin: 0 auto;
-        padding: 80px 1rem;
+    &Container {
+      max-width: 35.5rem;
+      margin: 0 auto;
+      padding: 80px 1rem;
 
-        &__textContent {
-          margin-bottom: 56px !important;
-        }
+      &__TextContent {
+        margin-bottom: 56px !important;
+      }
 
-        .linkAsButtonWrapper {
-          a {
-            width: initial !important;
-          }
+      .linkAsButtonWrapper {
+        a {
+          width: initial !important;
         }
       }
     }

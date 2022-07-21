@@ -1,3 +1,3 @@
-export enum IconColor {
-  COLOR_ON_PRIMARY = '#FFFFFF'
+export enum Icon {
+  COLOR_ON_DARK_BACKGROUND = '#FFFFFF'
 }

@@ -25,11 +25,11 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>
           <LinkAsButton
-            label="Je postule sur Pôle Emploi"
             href={offreEmploi.urlOffreOrigine}
             target="_blank"
-            dataTestId="LinkPostulerOffreEmploi"
-          />
+          >
+            Je postule sur Pôle Emploi
+          </LinkAsButton>
         </div>
         {offreEmploi.description &&
         <div>

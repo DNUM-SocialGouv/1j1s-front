@@ -5,16 +5,14 @@ import React from 'react';
 import styles from '~/client/components/ui/Link/LinkAsButton.module.scss';
 
 interface LinkAsButtonProps extends React.AnchorHTMLAttributes<unknown> {
-  label: string
   icon?: React.ReactNode
-  dataTestId?: string
 }
 
-export function LinkAsButton({ label, icon, dataTestId, ...rest } : LinkAsButtonProps) {
+export function LinkAsButton({ children, icon, ...rest } : React.PropsWithChildren<LinkAsButtonProps>) {
   return (
-    <Link data-testid={dataTestId} href={rest.href ? rest.href : ''}>
-      <a className={classNames(styles.linkAsButton, styles.linkAsButtonPrimary)} data-testid={dataTestId} {...rest}>
-        {label}
+    <Link href={rest.href ? rest.href : ''}>
+      <a className={classNames(styles.linkAsButton, styles.linkAsButtonPrimary)} {...rest}>
+        {children}
         {icon && icon }
       </a>
     </Link>
