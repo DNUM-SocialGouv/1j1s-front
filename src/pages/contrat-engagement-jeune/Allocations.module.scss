@@ -2,13 +2,12 @@
 
 .section {
    padding: 3rem 0;
-   background: $color-primary;
+   background: $color-background;
 }
 
 .container {
     display: grid;
     gap: 3rem;
-    grid-template-rows: repeat(2, 1fr);
     margin: 0 auto;
     max-width: 78rem;
     padding: 0 1.5rem;
@@ -17,9 +16,9 @@
 
 .illustration {
     position: relative;
-    place-self: stretch center;
-    border-radius: 30px;
+    border-radius: 40px;
     overflow: hidden;
+    height: 20rem;
   }
 
 .article p:last-child {
@@ -27,15 +26,16 @@
 }
 
 .article h2 {
-  color: $color-on-primary;
+  color: $color-primary;
 }
 
 .article p {
-  color: $color-on-primary;
+  color: $color-on-background;
+  font-weight: bold;
 }
 
 .article li {
-  color: $color-on-primary;
+  color: $color-on-background;
 }
 
 .article em {
@@ -45,10 +45,24 @@
 
 .article strong {
   font-weight: bold;
-  color: $color-on-primary;
+  color: $color-primary;
+}
+
+.titre {
+  color: $color-primary;
+}
+
+.accordion > button {
+  margin: 0;
 }
 
 @include media(large) {
+
+  .section {
+    background: $color-primary;
+    padding: 0;
+    margin-top: 5rem;
+  }
 
   .container{
     gap: 5rem;
@@ -56,14 +70,8 @@
     grid-template-rows: 1fr;
   }
 
-  .section {
-    z-index: 0;
-    padding: 0;
-    margin-top: 5rem;
- }
-
   .illustration {
-    z-index: 2;
+    place-self: stretch center;
     width: 25rem;
     height: 29.5rem;
     margin-top: -30px;
@@ -72,5 +80,26 @@
   
   .article {
     padding: 0;
+  }
+
+  .article p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .article h2, .article li {
+    color: $color-on-primary;
+  }
+  
+  .article p {
+    color: $color-on-primary;
+    font-weight: normal;
+  }
+  
+  .article strong {
+    color: $color-on-primary;
+  }
+
+  .titre {
+    color: $color-on-primary;
   }
 }
