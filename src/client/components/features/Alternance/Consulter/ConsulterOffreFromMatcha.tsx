@@ -1,7 +1,9 @@
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
+import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useSanitize from '~/client/hooks/useSanitize';
+import { constructUrlWidgetPourPostulerOffreMatcha } from '~/client/utils/alternance.utils';
 import { AlternanceFromMatcha } from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreFromMatchaProps {
@@ -12,8 +14,16 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
   const { offreAlternance } = props;
   const descriptionOffreAlternance = useSanitize(offreAlternance.description);
 
+
   return (
     <section className={commonStyles.contenu}>
+      <div className={commonStyles.buttonAsLink}>
+        <LinkAsButton
+          label="Je postule"
+          href={constructUrlWidgetPourPostulerOffreMatcha(offreAlternance.id)}
+          target="_blank"
+        />
+      </div>
       {offreAlternance.description &&
       <div>
         <h3>Description du poste :</h3>

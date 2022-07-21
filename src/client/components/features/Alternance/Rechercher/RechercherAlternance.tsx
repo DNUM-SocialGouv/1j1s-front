@@ -1,19 +1,14 @@
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+import {
+  FormulaireRechercheAlternance,
+} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
-import {
-  LienSolution,
-  RechercherSolutionLayout,
-} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -29,7 +24,6 @@ export function RechercherAlternance() {
   const router = useRouter();
   const queryParams = useAlternanceQuery();
   const alternanceService  = useDependency<AlternanceService>('alternanceService');
-
 
   const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
   const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
@@ -98,8 +92,6 @@ export function RechercherAlternance() {
     </>
   );
 }
-
-
 
 function BannièreAlternance() {
   return (
