@@ -1,7 +1,3 @@
-import * as Sentry from '@sentry/nextjs';
-import * as CaptureContext from '@sentry/types';
-import axios from 'axios';
-
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
@@ -34,55 +30,40 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   ) {
   }
 
-  API_POLE_EMPLOI_PREFIX_LOG = 'API_POLE_EMPLOI';
-
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
-    let response;
-    try {
-      response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse>(
-        `partenaire/offresdemploi/v2/offres/${id}`,
-      );
-      if (response.status === 204) {
-        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
-      } else {
-        return createSuccess(mapOffreEmploi(response.data));
-      }
-    } catch (e: unknown) {
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status === 500) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+    const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse, OffreEmploi>(
+      `partenaire/offresdemploi/v2/offres/${id}`,
+      mapOffreEmploi,
+    );
+
+    switch (response.instance) {
+      case 'success': {
+        if (response.result.status === 204) {
+          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
         }
+        return createSuccess(response.result.data);
       }
-      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
+      case 'failure': return response;
     }
   }
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
-    let response;
+    const response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
+      `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
+      mapRésultatsRechercheOffreEmploi,
+    );
 
-    try {
-      response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse>(
-        `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
-      );
-      if (response.status === 204) {
-        return createSuccess({ nombreRésultats: 0, résultats: [] });
-      } else {
-        return createSuccess(mapRésultatsRechercheOffreEmploi(response.data));
-      }
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status === 500) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+    switch (response.instance) {
+      case 'success': {
+        if (response.result.status === 204) {
+          return createSuccess({ nombreRésultats: 0, résultats: [] });
         }
-        if (e.response?.status === 400) {
-          return createFailure(ErrorType.DEMANDE_INCORRECTE);
-        }
+        return createSuccess(response.result.data);
       }
-      Sentry.captureMessage(`${this.API_POLE_EMPLOI_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
+      case 'failure': return response;
     }
+
   }
 
   async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string> {

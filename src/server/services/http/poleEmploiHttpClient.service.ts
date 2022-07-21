@@ -2,8 +2,9 @@ import * as Sentry from '@sentry/nextjs';
 import * as CaptureContext from '@sentry/types';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+import { Either } from '~/server/errors/either';
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { ClientService } from '~/server/services/http/client.service';
+import { ClientResponse, ClientService } from '~/server/services/http/client.service';
 
 interface PoleEmploiTokenResponse {
   access_token: string;
@@ -35,19 +36,12 @@ export class PoleEmploiHttpClientService extends ClientService {
     );
   }
 
-  get<Response>(
+  async get<Response, Retour>(
     endpoint: string,
+    mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.get(endpoint, config);
-  }
-
-  post<Body, Response>(
-    resource: string,
-    body?: Body,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.post(resource, body, config);
+  ): Promise<Either<ClientResponse<Retour>>> {
+    return super.getRequest(endpoint, mapper, config);
   }
 
   setAuthorizationHeader(token: string) {

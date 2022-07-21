@@ -18,16 +18,24 @@ export class ApiPoleEmploiRéférentielRepository {
 
       return codeInsee ? codeInsee.code : codePostal;
     } else {
-      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[]>(
+      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
         'partenaire/offresdemploi/v2/referentiel/communes',
+        (data) => data,
       );
-      const codeInsee = response.data.find((response) => response.codePostal === codePostal);
-
-      this.cacheService.set(this.CACHE_KEY, response.data, 24);
-
-      return codeInsee ? codeInsee.code : codePostal;
+      switch (response.instance) {
+        case 'success': {
+          this.cacheService.set(this.CACHE_KEY, response.result.data, 24);
+          return mapper(response.result.data, codePostal);
+        }
+        case 'failure': return codePostal;
+      }
     }
   };
+}
+
+function mapper(response: RésultatsRéférentielCommunesResponse[], codePostalToFindInRéférentiel: string): string {
+  const finded = response.find((response) => response.codePostal === codePostalToFindInRéférentiel);
+  return finded ? finded.code : codePostalToFindInRéférentiel;
 }
 
 interface RésultatsRéférentielCommunesResponse {

@@ -1,8 +1,8 @@
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { aRésultatRechercheMission } from '@tests/fixtures/domain/missionEngagement.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
+import { createSuccess } from '~/server/errors/either';
 
 describe('MissionEngagementService', () => {
   describe('rechercherMission', () => {
@@ -13,7 +13,7 @@ describe('MissionEngagementService', () => {
         const catégorie = 'service-civique';
         const missionEngagementQuery = 'domain=sante&page=2';
 
-        jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatRechercheMission()));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
@@ -30,7 +30,7 @@ describe('MissionEngagementService', () => {
         const catégorie = 'bénévolat';
         const missionEngagementQuery = 'domain=sante&page=2';
 
-        jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatRechercheMission()));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
         const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
