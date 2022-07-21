@@ -3,9 +3,10 @@
  */
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { aMétierRecherchéList } from '@tests/fixtures/domain/alternance.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
+
+import { createSuccess } from '../../../../src/server/errors/either';
 
 describe('MétierRecherchéService', () => {
   
@@ -19,7 +20,7 @@ describe('MétierRecherchéService', () => {
       const offreAlternanceService = new MétierRecherchéService(httpClientService);
       const offreEmploiQuery = 'bou';
 
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aMétierRecherchéList()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMétierRecherchéList()));
 
       const result = await offreAlternanceService.rechercherMétier(offreEmploiQuery);
 

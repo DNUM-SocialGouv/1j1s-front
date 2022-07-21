@@ -3,9 +3,9 @@
  */
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { aRésultatsRechercheAlternance } from '@tests/fixtures/domain/alternance.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
+import { createSuccess } from '~/server/errors/either';
 
 describe('AlternanceService', () => {
   describe('rechercherAlternance', () => {
@@ -14,7 +14,7 @@ describe('AlternanceService', () => {
       const offreAlternanceService = new AlternanceService(httpClientService);
       const query = 'codeRomes=D1103,D1101,H2101&insee=43135&radius=30';
 
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheAlternance()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheAlternance()));
 
       const result = await offreAlternanceService.rechercherAlternance(query);
 

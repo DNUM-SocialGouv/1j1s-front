@@ -2,8 +2,19 @@ import * as Sentry from '@sentry/nextjs';
 import * as CaptureContext from '@sentry/types';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
+
+export type ClientResponse<T> = { status: number, data: T };
+
 export abstract class ClientService {
   readonly client: AxiosInstance;
+
+  abstract get<Response, Retour>(
+    endpoint: string,
+    mapper: (data: Response) => Retour,
+    config?: AxiosRequestConfig,
+  ): Promise<Either<ClientResponse<Retour>>>;
 
   protected constructor(
     apiName: string,
@@ -27,18 +38,36 @@ export abstract class ClientService {
     }
   }
 
-  abstract get<Response>(
-    endpoint: string,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<Response>>;
-
-  abstract post<Body, Response>(
-    resource: string,
-    body?: Body,
-    config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<Response>>;
-
   protected setAuthorizationHeader(token: string): void {
     this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
+
+  protected async getRequest<Response, Retour>(
+    endpoint: string,
+    mapper: (data: Response) => Retour,
+    config?: AxiosRequestConfig,
+  ): Promise<Either<ClientResponse<Retour>>> {
+    let response;
+
+    try {
+      response = await this.client.get(endpoint, config);
+      if(response.data) {
+        return createSuccess({
+          data: mapper(response.data),
+          status: response.status,
+        });
+      } else {
+        Sentry.captureMessage(`${endpoint} pas de donnée dans la réponse`, CaptureContext.Severity.Error);
+        return createFailure(ErrorType.ERREUR_INATTENDUE);
+      }
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        if (e.response?.status.toString().startsWith('50')) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+      }
+      Sentry.captureMessage(`${endpoint} ${e}`, CaptureContext.Severity.Error);
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    }
   }
 }

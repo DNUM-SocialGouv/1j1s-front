@@ -13,7 +13,7 @@ import {
   aRésultatRechercheOffreEmploiAxiosResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
-import { Failure, Success } from '~/server/errors/either';
+import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
@@ -39,7 +39,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('récupère l\'offre d\'emploi selon l\'id', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(aBarmanOffreEmploiAxiosResponse());
+          .mockResolvedValue(createSuccess(aBarmanOffreEmploiAxiosResponse()));
         const expected = aBarmanOffreEmploi();
         const offreEmploiId = expected.id;
 
@@ -56,7 +56,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('on renvoie une failure avec une error CONTENU_INDISPONIBLE', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(anAxiosResponse({}, 204 ));
+          .mockResolvedValue(createSuccess(anAxiosResponse({}, 204 )));
         const offreEmploiId = '132LKFB';
 
         const result  = await apiPoleEmploiOffreRepository.getOffreEmploi(offreEmploiId) as Failure;
@@ -98,7 +98,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('recherche les offres d\'emploi de pole emploi', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
+          .mockResolvedValue(createSuccess(aRésultatRechercheOffreEmploiAxiosResponse()));
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
         const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
@@ -112,7 +112,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('recherche les offres d\'emploi de pole emploi avec une localisation qui est une commune on va rechercher le code insee sur le référentiel de pole emploi', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse());
+          .mockResolvedValue(createSuccess(aRésultatRechercheOffreEmploiAxiosResponse()));
         jest
           .spyOn(apiPoleEmploiRéférentielRepository, 'findCodeInseeInRéférentielCommune')
           .mockResolvedValue('75101');
@@ -137,7 +137,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('recherche les offres d\'emploi de pole emploi', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(aRésultatRechercheOffreEmploiAxiosResponse({ filtresPossibles: undefined }));
+          .mockResolvedValue(createSuccess(aRésultatRechercheOffreEmploiAxiosResponse({ filtresPossibles: undefined })));
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
         const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
@@ -153,7 +153,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(Promise.reject(anAxiosErreur(500)));
+          .mockResolvedValue(createFailure(ErrorType.SERVICE_INDISPONIBLE));
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
         const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
@@ -165,7 +165,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
         it('on renvoie une failure avec une error ERREUR_DE_SAISIE', async () => {
           jest
             .spyOn(poleEmploiHttpClientService, 'get')
-            .mockResolvedValue(Promise.reject(anAxiosErreur(400)));
+            .mockResolvedValue(createFailure(ErrorType.DEMANDE_INCORRECTE));
           const offreEmploiFiltre = anOffreEmploiFiltre();
 
           const result = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
@@ -177,7 +177,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
           it('on renvoie un success avec un resultat vide', async () => {
             jest
               .spyOn(poleEmploiHttpClientService, 'get')
-              .mockResolvedValue(anAxiosResponse({}, 204));
+              .mockResolvedValue(createSuccess(anAxiosResponse({}, 204)));
             const offreEmploiFiltre = anOffreEmploiFiltre();
 
             const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
