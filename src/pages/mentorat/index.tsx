@@ -11,7 +11,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import styles from './Mentorat.module.scss';
 
 export default function MentoratPage() {
-  const { isLargeScreen, isXLargeScreen } = useBreakpoint();
+  const { isLargeScreen } = useBreakpoint();
 
   return (
     <>
@@ -46,10 +46,10 @@ export default function MentoratPage() {
 
           </div>
 
-          { (isLargeScreen || isXLargeScreen) &&
-          <div className={styles.imageWrapper}>
-            <Image src="/images/banners/mentorat.jpg" alt="" layout="fill" objectFit="cover" objectPosition="right"/>
-          </div>
+          { isLargeScreen &&
+            <div className={styles.imageWrapper}>
+              <Image src="/images/banners/mentorat.jpg" alt="" layout="fill" objectFit="cover" objectPosition="right"/>
+            </div>
           }
 
         </div>
@@ -58,7 +58,7 @@ export default function MentoratPage() {
           <div className={classNames(styles.contentContainer, styles.contentContainerOnPrimary, styles.contentContainerSeparator)}>
             <article className={styles.RaisonParticipationMentoratWrapper}>
               <div className={styles.content__articleTitle}>
-                { (isLargeScreen || isXLargeScreen) && <Image src="/icons/avatar.svg" alt=""  layout="fixed" width={120} height={120}/> }
+                { isLargeScreen && <Image src="/icons/avatar.svg" alt=""  layout="fixed" width={120} height={120}/> }
                 <h1>Pourquoi participer à l’aventure du mentorat ?</h1>
               </div>
               <RaisonParticipationsMentorat/>
@@ -68,7 +68,7 @@ export default function MentoratPage() {
           <div className={styles.contentContainer}>
             <article className={styles.QuestCeQueMentoratWrapper}>
               <div className={styles.content__articleTitle}>
-                { (isLargeScreen || isXLargeScreen) && <Image src="/icons/community.svg" alt="" layout="fixed" width={120} height={120}/> }
+                { isLargeScreen && <Image src="/icons/community.svg" alt="" layout="fixed" width={120} height={120}/> }
                 <h1>Qu’est-ce que le mentorat ?</h1>
               </div>
               <p>Le mentorat est un engagement personnel pour le mentor comme pour le jeune mentoré, basé sur le volontariat de chaque côté, la confiance, la bienveillance et le respect mutuel. Il s&apos;inscrit dans la durée : le &quot;binôme&quot; que forment le mentor et le jeune se rencontre plusieurs heures par mois, pendant au moins six mois. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>

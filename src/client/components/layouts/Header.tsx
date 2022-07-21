@@ -50,6 +50,7 @@ export function Header() {
         </NavItem>
         <NavItem title="Aides, orientation et accompagnement">
           <NavSubItem title="Contrat Engagement Jeune" asLink={<NavItemLink link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />} />
+          <NavSubItem title="Mes aides financières" asLink={<NavItemLink link="/mes-aides" current={path === '/mes-aides'} />} />
           <NavSubItem title="Mentorat" asLink={<NavItemLink link="/mentorat" current={path === '/mentorat'} />} />
         </NavItem>
         <NavItem title="Engagement et bénévolat">
