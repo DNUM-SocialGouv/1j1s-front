@@ -37,12 +37,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     );
 
     switch (response.instance) {
-      case 'success': {
-        if (response.result.status === 204) {
-          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
-        }
-        return createSuccess(response.result.data);
-      }
+      case 'success': return createSuccess(response.result.data);
       case 'failure': return response;
     }
   }
@@ -55,12 +50,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     );
 
     switch (response.instance) {
-      case 'success': {
-        if (response.result.status === 204) {
-          return createSuccess({ nombreRésultats: 0, résultats: [] });
-        }
-        return createSuccess(response.result.data);
-      }
+      case 'success': return createSuccess(response.result.data);
       case 'failure': return response;
     }
 

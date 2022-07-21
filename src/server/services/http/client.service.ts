@@ -51,6 +51,9 @@ export abstract class ClientService {
 
     try {
       response = await this.client.get(endpoint, config);
+      if(response.status === 204) {
+        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+      }
       if(response.data) {
         return createSuccess({
           data: mapper(response.data),
