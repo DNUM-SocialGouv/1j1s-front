@@ -16,7 +16,7 @@ describe('StrapiCmsService', () => {
 
   beforeEach(() => {
     strapiHttpClientService = aStrapiHttpClientService();
-    configurationService = new ConfigurationServiceFixture();
+    configurationService = Object.freeze(new ConfigurationServiceFixture());
     strapiCmsService = new StrapiCmsService(strapiHttpClientService, configurationService);
   });
 

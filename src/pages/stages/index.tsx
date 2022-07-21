@@ -2,7 +2,7 @@ import 'instantsearch.css/themes/satellite.css';
 
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import React, { ReactNode } from 'react';
-import { CurrentRefinements,Hits,InstantSearch, Pagination, RefinementList, SearchBox  } from 'react-instantsearch-hooks-web';
+import { CurrentRefinements,DynamicWidgets, Hits,InstantSearch, Pagination, RefinementList, SearchBox  } from 'react-instantsearch-hooks-web';
 
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.css';
 import {
@@ -17,7 +17,7 @@ const searchClient = instantMeiliSearch(
 
 const Hit = (({ hit: résultat }): ReactNode => {
   return <RésultatRechercherSolution
-    lienOffre={`/stages/${résultat.id}`}
+    lienOffre={`/stages/${résultat.slug}`}
     intituléOffre={résultat.id}
     logoEntreprise={'/images/logos/pole-emploi.svg'}
     nomEntreprise={résultat.nomEmployeur}
@@ -36,8 +36,9 @@ export default function RechercherOffreStagePage() {
       <InstantSearch searchClient={searchClient} indexName="offre-de-stage">
         <SearchBox className={'fr-input'}/>
         <CurrentRefinements/>
-        <RefinementList attribute={'dureeEnJour'} operator={'or'} />
-        <RefinementList attribute={'domaines'}/>
+        <DynamicWidgets>
+          <RefinementList attribute={'dureeEnJour'}/>
+        </DynamicWidgets>
         <Hits hitComponent={Hit}  />
         <Pagination/>
       </InstantSearch>
