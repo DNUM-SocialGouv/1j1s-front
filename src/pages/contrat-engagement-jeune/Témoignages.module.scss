@@ -1,0 +1,60 @@
+.témoignage {
+  padding: 5rem 0;
+
+  article {
+    display: grid;
+    grid-template-columns: 21.6875rem 30.1875rem 1fr 7.5625rem;
+    grid-template-rows: auto 3.125rem auto auto 3.125rem auto;
+    gap: 1.5em;
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    &::before {
+      content: '';
+      background-color: #E96F19;
+      grid-row: 2/span 4;
+      grid-column: 1/span 2;
+      border-radius: 20px;
+    }
+
+
+
+    h2 {
+      grid-row: 1;
+      grid-column: 1/span 3;
+    }
+
+    .bio {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+
+    .portrait {
+      grid-row: 3/span 2;
+      grid-column: 1;
+      justify-self: end;
+      position: relative;
+      background: red;
+      margin: 0 2em 0 3em;
+      border: solid 4px white;
+      box-shadow: 16px 16px 0px #566bb1;
+    }
+
+    .programme {
+      grid-column: 2/span 2;
+      grid-row: 4/span 3;
+      background: white;
+      border-radius: 1.25rem;
+      box-shadow: 0 0.625rem 1.25rem rgb(0 0 0 / 15%);
+      line-height: 1.5;
+
+      padding: 1.5em;
+
+      ul > li {
+        margin-top: 1.5em;
+      }
+    }
+  }
+}
