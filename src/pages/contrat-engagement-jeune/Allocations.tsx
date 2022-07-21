@@ -23,7 +23,7 @@ export default function Allocations() {
     <section className={ styles.section }>
       <div className={ styles.container }>
         <aside className= { styles.illustration }>
-          <Image src={ illustration } objectFit='cover' layout='fill' alt='' />
+          <Image src={ illustration } objectFit='cover' layout='intrinsic' alt='' />
         </aside>
         <article className={ styles.article }>
           <Marked markdown={ contenu }/>

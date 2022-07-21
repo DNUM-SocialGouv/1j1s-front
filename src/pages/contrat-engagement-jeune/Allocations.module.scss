@@ -7,17 +7,17 @@
 
 .container {
     display: grid;
-    gap: 7rem;
+    gap: 3rem;
     grid-template-rows: repeat(2, 1fr);
     margin: 0 auto;
     max-width: 78rem;
-    padding: 0;
+    padding: 0 1.5rem;
     place-items: center;
 }
 
 .illustration {
     position: relative;
-    place-self: stretch;
+    place-self: stretch center;
     border-radius: 30px;
     overflow: hidden;
   }
@@ -30,12 +30,12 @@
   color: $color-on-primary;
 }
 
-.article p{
-    color: $color-on-primary;
+.article p {
+  color: $color-on-primary;
 }
 
-.article li{
-    color: $color-on-primary;
+.article li {
+  color: $color-on-primary;
 }
 
 .article em {
@@ -48,12 +48,29 @@
   color: $color-on-primary;
 }
 
-@include media(large){
+@include media(large) {
+
   .container{
+    gap: 5rem;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
   }
+
   .section {
-    padding: 5rem 0;
+    z-index: 0;
+    padding: 0;
+    margin-top: 5rem;
  }
+
+  .illustration {
+    z-index: 2;
+    width: 25rem;
+    height: 29.5rem;
+    margin-top: -30px;
+    margin-bottom: -30px;
+  }
+  
+  .article {
+    padding: 0;
+  }
 }
