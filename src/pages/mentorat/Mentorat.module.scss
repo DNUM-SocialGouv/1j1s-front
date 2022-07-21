@@ -34,7 +34,7 @@
         }
       }
 
-      .buttonWrapper {
+      .linkAsButtonWrapper {
         a {
           width: 100%;
         }
@@ -60,10 +60,7 @@
           margin-bottom: 56px !important;
         }
 
-        .buttonWrapper {
-          display: flex;
-          justify-content: center;
-          margin: auto;
+        .linkAsButtonWrapper {
           a {
             width: initial !important;
           }
