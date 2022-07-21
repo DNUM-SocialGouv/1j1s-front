@@ -35,8 +35,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const containerRechercheMotClé = screen.getByTestId('InputRechercheMotClé');
-        const inputRechercheMotClé = within(containerRechercheMotClé).getByRole('textbox');
+        const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé' });
         fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -102,7 +101,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByTestId('FiltreTempsDeTravail');
+        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByRole('group', { name: 'Temps de travail' });
         const inputTempsDeTravail = within(containerFiltreTempsDeTravail).getAllByRole('radio');
         fireEvent.click(inputTempsDeTravail[0]);
 
@@ -115,6 +114,40 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // THEN
         expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
+      });
+    });
+
+    describe('quand on recherche par niveau demandé', () => {
+      it('ajoute le niveau demandé aux query params', async () => {
+        // GIVEN
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock}>
+            <FormulaireRechercheOffreEmploi />
+          </DependenciesProvider>,
+        );
+
+        const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+        // WHEN
+        fireEvent.click(buttonFiltresRecherche);
+        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
+        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByRole('group', { name: 'Niveau demandé' });
+        const inputExperienceExigence = within(containerFiltreTempsDeTravail).getAllByRole('radio');
+        fireEvent.click(inputExperienceExigence[0]);
+
+        expect(filtreRechercheMobile).toBeInTheDocument();
+
+        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
+
+        // WHEN
+        fireEvent.click(buttonAppliquerFiltres);
+
+        // THEN
+        expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { shallow: true });
       });
     });
 
@@ -131,7 +164,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const inputLocalisation = screen.getByTestId('InputLocalisation');
+        const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         // WHEN
@@ -223,10 +256,10 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
         
-        const button = await screen.findByTestId('SelectButton-Type de contrat');
+        const button = screen.getByRole('button', { name: 'Type de contrat' });
         fireEvent.click(button);
 
-        const typeDeContratList = await screen.findByTestId('OptionList');
+        const typeDeContratList = await screen.findByRole('listbox');
 
         await waitFor(() => {
           expect(typeDeContratList).toBeInTheDocument();
@@ -254,10 +287,10 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const button = await screen.findByTestId('SelectButton-Temps de travail');
+        const button = screen.getByRole('button', { name: 'Temps de travail' });
         fireEvent.click(button);
 
-        const typeDeContratList = await screen.findByTestId('OptionList');
+        const typeDeContratList = await screen.findByRole('listbox');
 
         await waitFor(() => {
           expect(typeDeContratList).toBeInTheDocument();

@@ -90,7 +90,7 @@ export function aValetOffreEmploi(): OffreEmploi {
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
   return {
     dureeHebdoMax: '',
-    experienceExigenceList: [],
+    experienceExigence: '',
     grandDomaineList: [],
     localisation: {
       code: '34',

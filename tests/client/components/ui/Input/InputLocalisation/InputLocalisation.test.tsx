@@ -33,7 +33,7 @@ describe('InputLocalisation', () => {
           <InputLocalisation code="" libellé="" type="" />
         </DependenciesProvider>,
       );
-      const inputLocalisation = screen.getByTestId('InputLocalisation');
+      const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
 
       // WHEN
       await user.type(inputLocalisation, 'no result');
@@ -57,7 +57,7 @@ describe('InputLocalisation', () => {
         </DependenciesProvider>,
       );
 
-      const inputLocalisation = screen.getByTestId('InputLocalisation');
+      const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
 
       // WHEN
       await user.type(inputLocalisation, 'Pa');

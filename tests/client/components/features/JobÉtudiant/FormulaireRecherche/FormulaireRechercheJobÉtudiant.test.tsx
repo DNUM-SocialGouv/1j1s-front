@@ -35,8 +35,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const containerRechercheMotClé = screen.getByTestId('InputRechercheMotClé');
-        const inputRechercheMotClé = within(containerRechercheMotClé).getByRole('textbox');
+        const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé' });
         fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -61,7 +60,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
           </DependenciesProvider>,
         );
 
-        const inputLocalisation = screen.getByTestId('InputLocalisation');
+        const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
         // WHEN

@@ -51,7 +51,6 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
     <div ref={optionsRef} className={styles.container}>
       <button
         type="button"
-        data-testid={`SelectButton-${titre}`}
         aria-haspopup="listbox"
         aria-expanded={isOptionsOpen}
         style={additionalCss}
@@ -64,7 +63,6 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
       { isOptionsOpen &&
       <div
         className={styles.options}
-        data-testid="OptionList"
         role="listbox"
       >
         {children}

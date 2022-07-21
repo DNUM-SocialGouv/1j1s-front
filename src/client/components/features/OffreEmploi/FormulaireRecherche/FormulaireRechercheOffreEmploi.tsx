@@ -29,7 +29,6 @@ import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
   générerTitreFiltre,
-  mapExpérienceAttendueToOffreEmploiCheckboxFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
@@ -80,10 +79,6 @@ export function FormulaireRechercheOffreEmploi() {
     setInputTypeDeContrat(inputTypeDeContrat.appendOrRemoveSubStr(value));
   }, [inputTypeDeContrat]);
 
-  const toggleExpérience = useCallback((value: string) => {
-    setInputExpérience(inputExpérience.appendOrRemoveSubStr(value));
-  }, [inputExpérience]);
-
   const toggleDomaine = useCallback((value: string) => {
     setInputDomaine(inputDomaine.appendOrRemoveSubStr(value));
   }, [inputDomaine]);
@@ -105,7 +100,6 @@ export function FormulaireRechercheOffreEmploi() {
         <div className={styles.inputButtonWrapper}>
           <TextInput
             label="Métier, mot-clé"
-            data-testid="InputRechercheMotClé"
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             value={inputMotCle}
@@ -158,7 +152,7 @@ export function FormulaireRechercheOffreEmploi() {
                   />
                 ))}
               </CheckboxGroup>
-              <RadioGroup legend="Temps de travail" data-testid="FiltreTempsDeTravail">
+              <RadioGroup legend="Temps de travail">
                 {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                   <Radio
                     key={index}
@@ -171,17 +165,19 @@ export function FormulaireRechercheOffreEmploi() {
                   />
                 ))}
               </RadioGroup>
-              <CheckboxGroup legend="Niveau demandé">
+              <RadioGroup legend="Niveau demandé">
                 {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
-                  <Checkbox
+                  <Radio
                     key={`Niveau demandé${index}`}
                     label={expérience.libellé}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    checked={inputExpérience === expérience.valeur}
+                    onChange={() => setInputExpérience(expérience.valeur)}
                     value={expérience.valeur}
-                    checked={inputExpérience.includes(expérience.valeur)}
                   />
                 ))}
-              </CheckboxGroup>
+              </RadioGroup>
               <CheckboxGroup legend="Domaine">
                 {référentielDomaineList.map((domaine, index) => (
                   <Checkbox
@@ -221,10 +217,10 @@ export function FormulaireRechercheOffreEmploi() {
               onChange={(value) => setInputTempsDeTravail(value)}
               currentInput={inputTempsDeTravail}
             />
-            <SelectMultiple
+            <SelectSingle
               titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
-              optionList={mapExpérienceAttendueToOffreEmploiCheckboxFiltre(OffreEmploi.EXPÉRIENCE)}
-              onChange={toggleExpérience}
+              optionList={OffreEmploi.EXPÉRIENCE}
+              onChange={(value) => setInputExpérience(value)}
               currentInput={inputExpérience}
             />
             <SelectMultiple

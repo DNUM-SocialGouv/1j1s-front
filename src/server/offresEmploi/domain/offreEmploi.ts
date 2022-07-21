@@ -156,7 +156,7 @@ export interface OffreEmploiFiltre {
   localisation?: OffreEmploiFiltreLocalisation
   tempsDeTravail?: string
   grandDomaineList: string[]
-  experienceExigenceList: string[]
+  experienceExigence?: string
   dureeHebdoMax?: string
 }
 

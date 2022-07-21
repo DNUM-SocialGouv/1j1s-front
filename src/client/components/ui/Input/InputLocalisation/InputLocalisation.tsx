@@ -235,7 +235,6 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
             type="text"
             id="rechercherLocalisation"
             name="libelleLocalisation"
-            data-testid="InputLocalisation"
             autoComplete="off"
             aria-autocomplete="list"
             aria-controls={LOCALISATION_SUGGESTIONS_ID}
