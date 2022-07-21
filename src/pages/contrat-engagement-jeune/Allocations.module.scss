@@ -21,11 +21,7 @@
     height: 20rem;
   }
 
-.article p:last-child {
-  margin-bottom: 0;
-}
-
-.article h2 {
+.article h2, .titre {
   color: $color-primary;
 }
 
@@ -48,10 +44,6 @@
   color: $color-primary;
 }
 
-.titre {
-  color: $color-primary;
-}
-
 .accordion > button {
   margin: 0;
 }
@@ -59,31 +51,22 @@
 @include media(large) {
 
   .section {
-    background: $color-primary;
     padding: 0;
+    background: $color-primary;
     margin-top: 5rem;
   }
 
   .container{
-    gap: 5rem;
+    gap: 4rem;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
   }
 
   .illustration {
-    place-self: stretch center;
     width: 25rem;
     height: 29.5rem;
     margin-top: -30px;
     margin-bottom: -30px;
-  }
-  
-  .article {
-    padding: 0;
-  }
-
-  .article p:last-child {
-    margin-bottom: 0;
   }
   
   .article h2, .article li {
@@ -95,11 +78,7 @@
     font-weight: normal;
   }
   
-  .article strong {
-    color: $color-on-primary;
-  }
-
-  .titre {
+  .article strong, .titre {
     color: $color-on-primary;
   }
 }
