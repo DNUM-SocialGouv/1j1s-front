@@ -2,26 +2,38 @@
 
 .section {
   background: $color-on-primary;
+  padding: 1.5rem;
 }
 
 .container {
   max-width: $breakpoint-xl;
 }
 
-.titre > h2 {
-  color: $color-primary;
-}
+.titre {
+  margin-bottom: 2rem;
 
-.titre > strong {
-  @extend %text-large;
+  > h2 {
+    @extend %bold;
+    color: $color-primary;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  strong {
+    @extend %text-large;
+  }
 }
 
 .contenu {
   @extend %text-large;
+
+  > ul > li > strong {
+    color: $color-primary;
+  }
 }
 
-.contenu > ul > li > strong {
-  color: $color-primary;
+.accordion > button {
+  margin: 0;
 }
 
 @include media(large) {
@@ -40,7 +52,6 @@
   .titre > h2 {
     line-height: 3.5rem;
     font-size: 2.5rem;
-    font-weight: 400;
   }
 
   .titre > strong {
