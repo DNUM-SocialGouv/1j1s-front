@@ -1,3 +1,5 @@
+import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+
 export interface Localisation {
   nom: string
   code: string
@@ -10,7 +12,7 @@ export enum TypeLocalisation {
 }
 
 export interface RechercheLocalisation {
-  communeList: Localisation[]
+  communeList: Commune[]
   départementList: Localisation[]
   régionList: Localisation[]
 }
