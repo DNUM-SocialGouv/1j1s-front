@@ -5,6 +5,6 @@ export class RechercherAlternanceUseCase {
   constructor(private alternanceRepository: AlternanceRepository) {}
 
   async handle(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
-    return await this.alternanceRepository.getAlternanceList(alternanceFiltre);
+    return await this.alternanceRepository.searchAlternance(alternanceFiltre);
   }
 }

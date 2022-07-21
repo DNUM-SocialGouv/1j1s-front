@@ -1,3 +1,10 @@
+import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import {
+  mapCompétenceList,
+  mapFormationList,
+  mapQualitéeProfessionnelleList,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
+
 import {
   anOffreEmploiResponseCompétenceList,
   anOffreEmploiResponseCompétenceListAvecCompétenceNonDéfinie,
@@ -5,14 +12,7 @@ import {
   anOffreEmploiResponseFormationListAvecFormationNonDéfinie,
   anOffreEmploiResponseQualitéeProfessionnelleList,
   anOffreEmploiResponseQualitéeProfessionnelleListAvecQualitéeNonDéfinie,
-} from '@tests/fixtures/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response.fixture';
-
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
-import {
-  mapCompétenceList,
-  mapFormationList,
-  mapQualitéeProfessionnelleList,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
+} from '../../../../fixtures/server/offresEmploi/apiPoleEmploiOffre.response.fixture';
 
 
 describe('mapper', () => {

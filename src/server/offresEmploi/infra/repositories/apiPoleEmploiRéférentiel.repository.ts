@@ -14,13 +14,10 @@ export class ApiPoleEmploiRéférentielRepository {
   async findCodeInseeInRéférentielCommune(codePostal: string): Promise<string> {
     const responseInCache = await this.cacheService.get<RésultatsRéférentielCommunesResponse[]>(this.CACHE_KEY);
     if(responseInCache) {
-      const codeInsee = responseInCache.find((response) => response.codePostal === codePostal);
-
-      return codeInsee ? codeInsee.code : codePostal;
+      return mapper(responseInCache, codePostal);
     } else {
-      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
+      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[]>(
         'partenaire/offresdemploi/v2/referentiel/communes',
-        (data) => data,
       );
       switch (response.instance) {
         case 'success': {
