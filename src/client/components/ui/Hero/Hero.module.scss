@@ -2,45 +2,40 @@
 
 .hero {
   @extend %background-primary;
-  position: relative;
-}
 
-.heroContent {
-  max-width: 78rem;
-  padding: 36px 1.5rem;
-  margin: 0 auto;
-}
-
-.heroTitle {
-  @extend %headline;
-  display: inline-block;
-  max-width: 50rem;
-  margin-bottom: 0;
-}
-
-.heroTitle h1 {
-  color: white;
-  font-size: 2rem;
-  font-weight: normal;
-  margin: 0;
-}
-
-.heroImage {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-}
-
-@include media(medium) {
-  .heroContent {
-    padding: 42px 1.5rem;
+  &Content {
+    display: flex;
   }
-}
 
-@include media(xlarge) {
-  .heroContent {
-    padding: 80px 1.5rem;
+  &Title {
+    @extend %headline;
+    display: inline-block;
+    max-width: 848px;
+    margin-bottom: 0;
+    padding: 36px 24px;
+    font-weight: initial;
+    color: inherit;
+
+    @include media(medium) {
+      padding: 42px 24px;
+    }
+
+    @include media(xlarge) {
+      padding: 80px 24px;
+    }
+  }
+
+  &Illustration {
+    position: relative;
+    display: none;
+
+    @include media(large) {
+      display: initial;
+      flex: 0 0 50%;
+    }
+
+    @include media(xlarge) {
+      margin-right: 24px;
+    }
   }
 }
