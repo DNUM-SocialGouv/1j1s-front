@@ -7,6 +7,7 @@ import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagem
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
 import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { TémoignageKévin } from '~/pages/contrat-engagement-jeune/Témoignages';
 
 export default function ContratEngagementJeune() {
   return (
@@ -21,7 +22,8 @@ export default function ContratEngagementJeune() {
         <Actions />
         <PourquoiCEstFaitPourMoi/>
         <QuEstCeQueJyGagne/>
-        <Allocations/>
+        <Allocations />
+        <TémoignageKévin />
       </main>
     </>
   );
