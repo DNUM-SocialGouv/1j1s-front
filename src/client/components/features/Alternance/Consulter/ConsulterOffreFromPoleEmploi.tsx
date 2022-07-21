@@ -17,11 +17,11 @@ export function ConsulterOffreFromPoleEmploi(props: ConsulterOffreFromPoleEmploi
     <section className={commonStyles.contenu}>
       <div className={commonStyles.buttonAsLink}>
         <LinkAsButton
-          label="Je postule sur Pôle Emploi"
           href={offreAlternance.url}
           target="_blank"
-          dataTestId="LinkPostulerOffreEmploi"
-        />
+        >
+          Je postule sur Pôle Emploi
+        </LinkAsButton>
       </div>
       {offreAlternance.description &&
       <div>

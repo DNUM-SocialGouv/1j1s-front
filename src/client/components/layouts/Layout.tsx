@@ -4,7 +4,7 @@ import React from 'react';
 import { Footer } from '~/client/components/layouts/Footer';
 import { Header } from '~/client/components/layouts/Header';
 
-export function Layout({ children }: React.PropsWithChildren<unknown>) {
+export function Layout({ children }: React.PropsWithChildren) {
   return (
     <>
       <Skiplinks>

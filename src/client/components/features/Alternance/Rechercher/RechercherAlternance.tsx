@@ -10,10 +10,7 @@ import { FormulaireRechercheAlternance } from '~/client/components/features/Alte
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
-import {
-  LienSolution,
-  RechercherSolutionLayout,
-} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';

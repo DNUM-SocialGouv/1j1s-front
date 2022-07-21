@@ -26,11 +26,11 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>
           <LinkAsButton
-            label="Postuler"
             href={missionEngagement.url}
             target="_blank"
-            dataTestId="LinkPostulerOffreEmploi"
-          />
+          >
+            Postuler
+          </LinkAsButton>
         </div>
         {missionEngagement.localisation &&
           <div className={commonStyles.contenuAdaptatif}>
