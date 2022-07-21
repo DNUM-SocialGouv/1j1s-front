@@ -12,15 +12,6 @@ export function mapTypeDeContratToOffreEmploiCheckboxFiltre(typeDeContratList: O
   });
 }
 
-export function mapExpérienceAttendueToOffreEmploiCheckboxFiltre(expérienceList: OffreEmploi.ExpérienceAttendu[]): OffreEmploi.CheckboxFiltre[] {
-  return expérienceList.map((expérience) => {
-    return {
-      libellé: expérience.libellé,
-      valeur: expérience.valeur,
-    };
-  });
-}
-
 export function mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList: RéférentielDomaine[]): OffreEmploi.CheckboxFiltre[] {
   return domaineList.map((domaine) => {
     return {

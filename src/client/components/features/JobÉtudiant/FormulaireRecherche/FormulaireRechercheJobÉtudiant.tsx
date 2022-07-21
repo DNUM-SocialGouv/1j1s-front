@@ -86,7 +86,6 @@ export function FormulaireRechercheJobÉtudiant() {
         <div className={styles.inputButtonWrapper}>
           <TextInput
             label="Métier, mot-clé"
-            data-testid="InputRechercheMotClé"
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             value={inputMotCle}

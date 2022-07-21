@@ -36,7 +36,7 @@ function jobÉtudiantRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
 
   return {
     dureeHebdoMax: '1600',
-    experienceExigenceList: [],
+    experienceExigence: '',
     grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: mapLocalisation(query),
     motClé: query.motCle ? String(query.motCle) : '',

@@ -98,7 +98,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
-      experienceExigence: offreEmploiFiltre.experienceExigenceList.join(','),
+      experienceExigence: offreEmploiFiltre.experienceExigence,
       grandDomaine: offreEmploiFiltre.grandDomaineList.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
