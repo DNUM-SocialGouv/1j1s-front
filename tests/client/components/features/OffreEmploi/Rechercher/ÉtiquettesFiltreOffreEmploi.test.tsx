@@ -6,16 +6,13 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
-import {
-  aMissionEngagementService,
-} from '@tests/fixtures/client/services/missionEngagementService.fixture';
+import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
 
-import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
+import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 
-describe('Étiquettes filtre mission', () => {
+describe('Étiquettes filtre emploi', () => {
 
   beforeEach(() => {
     mockSmallScreen();
@@ -26,21 +23,22 @@ describe('Étiquettes filtre mission', () => {
   });
 
   describe('quand une recherche est lancée', () => {
-    it('retourne une liste d\'étiquettes', async () => {
-      const missionEngagementServiceMock = aMissionEngagementService();
+    it('retourne une liste d\'étiquettes',  async () => {
+      const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
 
       mockUseRouter({
         query: {
-          ouvertsAuxMineurs: 'true',
-          page: '1',
+          codeLocalisation: '26',
+          libelleLocalisation: 'BOURG LES VALENCE (26)',
+          typeLocalisation: 'DEPARTEMENT',
         },
       });
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          missionEngagementService={missionEngagementServiceMock} >
-          <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+          offreEmploiService={offreEmploiServiceMock}>
+          <RechercherOffreEmploi/>
         </DependenciesProvider>,
       );
 
