@@ -14,10 +14,8 @@ import {
   RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
-
 export class LocalisationService {
-  constructor(private readonly httpClientService: HttpClientService ) {
-  }
+  constructor(private readonly httpClientService: HttpClientService ) {}
   private MAX_CHAR_LENGTH = 5;
   private REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS = new RegExp(/^[\da-zA-ZÀ-ÖØ-öø-ÿ-\\-\\ ]+$/);
   private REGEX_ALL_DIGITS = new RegExp(/^\d*$/);
