@@ -1,4 +1,3 @@
-import { uuid4 } from '@sentry/utils';
 import classNames from 'classnames';
 import React, { ChangeEvent } from 'react';
 
@@ -36,28 +35,24 @@ export function SelectSingle(props: SelectRadioProps) {
   }
 
   const getSelectComponent = () => (
-    <>
-      <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
-        {optionList.map((option, index) => (
-          <RadioButton
-            id={option.libellé}
-            name={uuid4()}
-            key={index}
-            className={styles.option}
-            role="option"
-            label={option.libellé}
-            value={option.valeur}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              onChange(e.target.value);
-            }}
-            onKeyDown={handleKeyDown}
-            checked={currentInput === option.valeur}
-          />
-        ))}
-      </Select>
-      <input type="hidden" name={name} value={currentInput}/>
-    </>
-
+    <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
+      {optionList.map((option, index) => (
+        <RadioButton
+          id={option.libellé}
+          name={name || option.libellé}
+          key={index}
+          className={styles.option}
+          role="option"
+          label={option.libellé}
+          value={option.valeur}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            onChange(e.target.value);
+          }}
+          onKeyDown={handleKeyDown}
+          checked={currentInput === option.valeur}
+        />
+      ))}
+    </Select>
   );
 
   return (

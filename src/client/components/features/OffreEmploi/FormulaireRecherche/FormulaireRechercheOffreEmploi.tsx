@@ -114,6 +114,11 @@ export function FormulaireRechercheOffreEmploi() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
+          <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+          <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
+          <input type="hidden" name="experienceExigence" value={inputExpérience}/>
+          <input type="hidden" name="grandDomaine" value={inputDomaine}/>
+
           {isSmallScreen &&
             <div>
               <Button

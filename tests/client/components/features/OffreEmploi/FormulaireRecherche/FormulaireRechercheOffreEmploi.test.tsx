@@ -298,11 +298,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('option');
         fireEvent.click(inputTempsDeTravail[0]);
-        fireEvent.click(button);
-
 
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-        fireEvent.click(buttonRechercher, { });
+        fireEvent.click(buttonRechercher);
 
         expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
       });
