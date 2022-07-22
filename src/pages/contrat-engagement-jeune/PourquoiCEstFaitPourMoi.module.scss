@@ -1,0 +1,81 @@
+@import "@styles/utilities";
+
+.section {
+  background: $color-cej-background;
+  padding: 48px 0 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+}
+
+.titre {
+  @extend %headline;
+  @extend %bold;
+  color: $color-on-primary;
+  width: 325px;
+  margin-bottom: 8px;
+}
+
+.liste {
+  padding: 0;
+
+  > li:first-child {
+    margin-top: 0;
+  }
+
+  > li {
+    @extend %text-regular;
+    background-color: $color-surface;
+    max-width: $breakpoint-xl;
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    padding: 12px;
+    margin: 12px 0;
+  }
+}
+
+.arrow {
+  background-color: $color-primary;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+@include media(medium) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .container {
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .titre {
+    margin: 55px;
+    width: 510px;
+  }
+
+  .liste > li {
+    height: auto;
+    padding: 20px;
+    margin: 24px;
+  }
+
+  .arrow {
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+  }
+}
+
