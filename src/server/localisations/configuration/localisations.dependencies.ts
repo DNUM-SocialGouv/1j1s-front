@@ -25,7 +25,7 @@ export const localisationDependenciesContainer = (
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): LocalisationsDependencies => {
   return {
-    ...listeLocalisationDependenciesContainer(apiGeoGouvHttpClientService, apiPoleEmploiRéférentielRepository),
+    ...listeLocalisationDependenciesContainer(apiAdresseHttpClientService, apiGeoGouvHttpClientService, apiPoleEmploiRéférentielRepository),
     ...récupérerLocalisationAvecDependenciesContainer(apiGeoGouvHttpClientService, apiPoleEmploiRéférentielRepository),
     ...rechercherCommuneDependenciesContainer(apiAdresseHttpClientService),
   };
