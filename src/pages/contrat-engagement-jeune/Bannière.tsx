@@ -9,8 +9,7 @@ import bannièreImage from '../../../public/images/banners/CEJ_bannière.jpg';
 
 
 export default function Bannière () {
-  const { isLargeScreen, isXLargeScreen } = useBreakpoint();
-  const displayImage = isLargeScreen || isXLargeScreen;
+  const { isLargeScreen } = useBreakpoint();
   const titre = 'Je découvre le Contrat d\'Engagement Jeune';
   const accroche = 'Finie la galère, trouvez un métier qui va vous plaire.';
 
@@ -19,11 +18,11 @@ export default function Bannière () {
       <div className={styles.bannièreContent}>
         <span className={styles.bannièreTitle}>
           <h1 className={ styles.titre } >{ titre }</h1>
-          { !displayImage && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
+          { !isLargeScreen && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
           <a href="#" className={ styles.cta }>Je me lance &nbsp;<AngleRightIcon /></a>
         </span>
       </div>
-      {displayImage && (
+      {isLargeScreen && (
         <div className={styles.bannièreImage}>
           <Image
             priority
