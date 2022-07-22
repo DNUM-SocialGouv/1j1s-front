@@ -1,15 +1,6 @@
-import {
-  anApiAdresseHttpClientService,
-  aRechercheAdresseResponse,
-} from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
-import { anAxiosErreur } from '@tests/fixtures/services/httpClientService.fixture';
+import { anApiAdresseHttpClientService } from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
 
-import {
-  createSuccess,
-  Failure,
-  Success,
-} from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { createSuccess, Success } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';

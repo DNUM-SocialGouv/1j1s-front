@@ -10,34 +10,34 @@ export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRech
     nombreRésultats: 2,
     résultats: [
       {
-        adresse: '92 - ISSY LES MOULINEAUX 92130',
-        description: 'Nous recherchons pour notre magasin de Issy-les-Moulineaux un(e) Apprenti(e) Boucher.\n\n\nVos missions : \n-\tAssurer les tâches de découpe, préparation et transformation des produits ; \n-\tVeiller à la présentation et rotation des produits ;\n-\tAccueillir, conseiller et servir les clients conformément à la charte HDA ;\n-\tVeiller à la propreté des linéaires, laboratoires, chambres froides, matériels et outils d\'aide à la vente ;\n-\tAssurer le bon déroulement de la chaîne du froid ;\n-\tAssurer et renseigner les documents de traçabilité ;\n-\tApplication des règles d\'hygiène.\n\n\n\nVotre profil :\n\n-\tDiplôme en Boucherie et expérience préparée ;\n-\tConnaissance des méthodes de découpe et de conservation ;\n-\tConnaissance des règles d\'hygiène et rigueur ;\n-\tQualités commerciales et sens du service client ;',
+        adresse: '15 - AURILLAC 15000',
+        description: 'Vos missions principales :\n \n- Réaliser les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires. \n- Effectuer la vente de produits de boucherie.',
         entreprise: {
-          logo: 'https://entreprise.pole-emploi.fr/static/img/logos/MYKCWy4RJwtb7tofHjEAub6WAAlRBvuM.png',
-          nom: 'LES HALLES DE L\'AVEYRON',
+          logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
+          nom: 'AUCHAN SUPERMARCHE',
         },
         from: 'peJob',
-        id: '135GXSV',
-        intitulé: 'Apprenti(e) Boucher / Bouchère  (H/F)',
+        id: '134CMXJ',
+        intitulé: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
         niveauRequis: 'Alternance',
         typeDeContrats: [
           'CDD',
         ],
-        ville: 'ISSY LES MOULINEAUX (92)',
+        ville: 'AURILLAC (15)',
         étiquetteList: [
-          'ISSY LES MOULINEAUX (92)',
+          'AURILLAC (15)',
           'Alternance',
           'CDD',
         ],
       },
       {
-        adresse: '8 AV MONTAIGNE 31830 PLAISANCE-DU-TOUCH',
+        adresse: '77 RUE DES BOURGUIGNONS 92270 BOIS-COLOMBES',
+        description: 'Réalise les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires.\\nPeut effectuer la vente de produits de boucherie.\\nPeut gérer un commerce de détail alimentaire (boucherie, boucherie-charcuterie, ...).',
         entreprise: {
-          logo: 'logo',
-          nom: 'BOUCHERIE PLAISANCE',
+          nom: 'BOUCHERIE STEPHANE VEIT',
         },
         from: 'matcha',
-        id: '62c98502d2f6710027072c30',
+        id: '628a64ed2ff4860027ae1501',
         intitulé: 'Boucherie',
         niveauRequis: 'Cap, autres formations niveau (Infrabac)',
         typeDeContrats: [

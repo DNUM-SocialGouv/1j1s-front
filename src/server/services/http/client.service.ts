@@ -60,16 +60,25 @@ export abstract class ClientService {
           status: response.status,
         });
       } else {
-        Sentry.captureMessage(`${endpoint} pas de donnée dans la réponse`, CaptureContext.Severity.Error);
+        Sentry.captureMessage(`${endpoint} NO DATA IN RESPONSE`, CaptureContext.Severity.Error);
         return createFailure(ErrorType.ERREUR_INATTENDUE);
       }
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e.response?.status.toString().startsWith('50')) {
+          Sentry.captureMessage(`${endpoint} ERREUR 50X ${e}`, CaptureContext.Severity.Error);
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
         }
+        if (e.response?.status === 400) {
+          Sentry.captureMessage(`${endpoint} ERREUR 400 ${e}`, CaptureContext.Severity.Error);
+          return createFailure(ErrorType.ERREUR_INATTENDUE);
+        }
+        if (e.response?.status === 404) {
+          Sentry.captureMessage(`${endpoint} ERREUR 404 ${e}`, CaptureContext.Severity.Error);
+          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+        }
       }
-      Sentry.captureMessage(`${endpoint} ${e}`, CaptureContext.Severity.Error);
+      Sentry.captureMessage(`${endpoint} MAPPING RESPONSE ${e}`, CaptureContext.Severity.Error);
       return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
   }

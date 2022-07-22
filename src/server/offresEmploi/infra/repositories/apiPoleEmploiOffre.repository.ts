@@ -1,5 +1,4 @@
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   NOMBRE_RÉSULTATS_PAR_PAGE,
@@ -12,7 +11,7 @@ import { OffreEmploiRepository } from '~/server/offresEmploi/domain/offreEmploi.
 import {
   mapOffreEmploi,
   mapRésultatsRechercheOffreEmploi,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploi.mapper';
 import {
   OffreEmploiResponse,
   RésultatsRechercheOffreEmploiResponse,

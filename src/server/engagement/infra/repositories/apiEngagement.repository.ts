@@ -10,8 +10,7 @@ import {
   RésultatsMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 

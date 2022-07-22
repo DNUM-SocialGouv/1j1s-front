@@ -12,7 +12,6 @@ export function aLocalisationRepository(): LocalisationRepository {
     getCommuneListByNuméroDépartement: jest.fn(),
     getDépartementListByNom: jest.fn(),
     getDépartementListByNuméroDépartement: jest.fn(),
-    getLocalisationByTypeLocalisationAndCodeInsee: jest.fn(),
     getRégionListByNom: jest.fn(),
   };
 }

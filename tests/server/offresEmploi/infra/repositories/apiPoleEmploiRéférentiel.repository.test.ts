@@ -1,5 +1,7 @@
+import {
+  aRésultatsRéférentielCommunesResponseList,
+} from '@tests/fixtures/server/offresEmploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { aPoleEmploiHttpClient } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
 import { createSuccess } from '~/server/errors/either';
@@ -31,26 +33,10 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code insee', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess(anAxiosResponse([
-            {
-              code: '21489',
-              codeDepartement: '21',
-              codePostal: '21440',
-              libelle: 'POISEUL LA GRANGE',
-            },
-            {
-              code: '55221',
-              codeDepartement: '55',
-              codePostal: '55000',
-              libelle: 'GUERPONT',
-            },
-            {
-              code: '79106',
-              codeDepartement: '79',
-              codePostal: '79110',
-              libelle: 'COUTURE D ARGENSON',
-            },
-          ])));
+          .mockResolvedValue(createSuccess({
+            data: aRésultatsRéférentielCommunesResponseList(),
+            status: 200,
+          }));
         const expected = '55221';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('55000');
@@ -63,26 +49,10 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code postal', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess(anAxiosResponse([
-            {
-              code: '21489',
-              codeDepartement: '21',
-              codePostal: '21440',
-              libelle: 'POISEUL LA GRANGE',
-            },
-            {
-              code: '55221',
-              codeDepartement: '55',
-              codePostal: '55000',
-              libelle: 'GUERPONT',
-            },
-            {
-              code: '79106',
-              codeDepartement: '79',
-              codePostal: '79110',
-              libelle: 'COUTURE D ARGENSON',
-            },
-          ])));
+          .mockResolvedValue(createSuccess({
+            data: aRésultatsRéférentielCommunesResponseList(),
+            status: 200,
+          }));
         const expected = '75101';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('75101');
