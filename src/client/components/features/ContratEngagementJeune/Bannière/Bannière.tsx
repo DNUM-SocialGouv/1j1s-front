@@ -1,11 +1,10 @@
 import Image from 'next/image';
+import bannièreImage from 'public/images/banners/CEJ_bannière.jpg';
 import React from 'react';
 
+import styles from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière.module.scss';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import styles from '~/pages/contrat-engagement-jeune/Bannière.module.scss';
-
-import bannièreImage from '../../../public/images/banners/CEJ_bannière.jpg';
 
 
 export default function Bannière () {

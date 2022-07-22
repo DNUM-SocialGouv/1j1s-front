@@ -1,0 +1,71 @@
+@import "@styles/utilities";
+
+.allocations {
+  @extend %background-surface;
+   padding: 3rem 0;
+
+  &Container {
+    display: grid;
+    gap: 3rem;
+    margin: 0 auto;
+    max-width: 78rem;
+    padding: 0 1.5rem;
+    place-items: center;
+
+    button {
+      margin: inherit;
+    }
+  }
+
+  &Illustration {
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    height: 20rem;
+  }
+
+  &Article {
+    &__Title {
+      color: $color-primary;
+    }
+    p {
+      @extend %bold;
+    }
+
+    strong {
+      color: $color-primary;
+    }
+  }
+}
+
+@include media(large) {
+
+  .allocations {
+    padding: 0;
+    background: $color-primary;
+    margin-top: 5rem;
+
+    &Container {
+      gap: 4rem;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 1fr;
+    }
+
+    &Illustration {
+      width: 25rem;
+      height: 29.5rem;
+      margin-top: -30px;
+      margin-bottom: -30px;
+    }
+
+    &Article {
+      > *, li > strong {
+        color: $color-on-primary;
+      }
+
+      p {
+        font-weight: inherit;
+      }
+    }
+  }
+}

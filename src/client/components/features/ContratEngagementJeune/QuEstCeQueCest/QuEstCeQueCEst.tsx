@@ -1,10 +1,9 @@
 import Image from 'next/image';
+import illustration from 'public/images/CEJ/what-it-is.png';
 import React from 'react';
 
+import styles from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst.module.scss';
 import Marked from '~/client/components/ui/Marked/Marked';
-import styles from '~/pages/contrat-engagement-jeune/QuEstCeQueCEst.module.scss';
-
-import illustration from '../../../public/images/CEJ/what-it-is.png';
 
 
 

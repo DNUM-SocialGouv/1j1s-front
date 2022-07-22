@@ -1,7 +1,7 @@
 import React from 'react';
 
+import styles from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi.module.scss';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
-import styles from '~/pages/contrat-engagement-jeune/PourquoiCEstFaitPourMoi.module.scss';
 
 
 export default function PourquoiCEstFaitPourMoi() {
