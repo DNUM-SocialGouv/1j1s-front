@@ -1,5 +1,4 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { Either } from '~/server/errors/either';
 

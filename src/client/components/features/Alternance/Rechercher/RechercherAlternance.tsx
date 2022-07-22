@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+import {
+  FormulaireRechercheAlternance,
+} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';

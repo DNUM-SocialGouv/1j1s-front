@@ -5,8 +5,7 @@ import { aHttpClientService } from '@tests/fixtures/client/services/httpClientSe
 import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
-import { createSuccess, Success } from '~/server/errors/either';
-import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { createSuccess } from '~/server/errors/either';
 
 describe('OffreEmploiService', () => {
   describe('rechercherOffreEmploi', () => {

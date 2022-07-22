@@ -6,10 +6,7 @@ import {
 import {
   aApiPoleEmploiRéférentielRepository,
 } from '@tests/fixtures/server/offresEmploi/apiPoleEmploiRéférentiel.repository.fixture';
-import {
-  aPoleEmploiHttpClient,
-  aRésultatRechercheOffreEmploiAxiosResponse,
-} from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import { aPoleEmploiHttpClient } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
 import { createSuccess, Success } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
@@ -17,7 +14,7 @@ import { OffreEmploi, RésultatsRechercheOffreEmploi } from '~/server/offresEmpl
 import {
   mapOffreEmploi,
   mapRésultatsRechercheOffreEmploi,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.mapper';
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploi.mapper';
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import {
   ApiPoleEmploiRéférentielRepository,
