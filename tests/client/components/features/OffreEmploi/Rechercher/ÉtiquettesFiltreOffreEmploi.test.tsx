@@ -5,12 +5,11 @@
 import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
-import { anOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
 
-import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
-import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+  ÉtiquettesFiltreOffreEmploi,
+} from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
 
 describe('Étiquettes filtre emploi', () => {
 
@@ -24,8 +23,6 @@ describe('Étiquettes filtre emploi', () => {
 
   describe('quand une recherche est lancée', () => {
     it('retourne une liste d\'étiquettes',  async () => {
-      const offreEmploiServiceMock = anOffreEmploiService();
-      const localisationServiceMock = aLocalisationService();
 
       mockUseRouter({
         query: {
@@ -34,13 +31,7 @@ describe('Étiquettes filtre emploi', () => {
           typeLocalisation: 'DEPARTEMENT',
         },
       });
-      render(
-        <DependenciesProvider
-          localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}>
-          <RechercherOffreEmploi/>
-        </DependenciesProvider>,
-      );
+      render(<ÉtiquettesFiltreOffreEmploi/>);
 
       const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
       expect(filtresRecherche).toBeInTheDocument();
