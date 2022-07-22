@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { ErrorType } from '~/server/errors/error.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
@@ -9,24 +8,13 @@ import {
   OffreEmploiFiltreLocalisation,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
+import { handleResponse } from '~/server/services/utils/apiResponse.util';
 import { dependencies } from '~/server/start';
 
 export async function rechercherOffreEmploiHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
   const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi
     .handle(offreEmploiRequestMapper(req));
-  switch (résultatsRechercheOffreEmploi.instance) {
-    case 'success':
-      return res.status(200).json(résultatsRechercheOffreEmploi.result);
-    case 'failure':
-      switch(résultatsRechercheOffreEmploi.errorType) {
-        case ErrorType.SERVICE_INDISPONIBLE:
-          return res.status(500).json({ error: résultatsRechercheOffreEmploi.errorType });
-        case ErrorType.DEMANDE_INCORRECTE:
-          return res.status(400).json({ error: résultatsRechercheOffreEmploi.errorType });
-        case ErrorType.ERREUR_INATTENDUE:
-          return res.status(503).json({ error: résultatsRechercheOffreEmploi.errorType });
-      }
-  }
+  return handleResponse<RésultatsRechercheOffreEmploi>(résultatsRechercheOffreEmploi, res);
 }
 
 export default monitoringHandler(rechercherOffreEmploiHandler);

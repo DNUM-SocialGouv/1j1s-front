@@ -10,6 +10,6 @@ import { Either } from '~/server/errors/either';
 
 export interface AlternanceRepository {
   getMétierRecherchéList(metierRechercher: string): Promise<MétierRecherché[]>;
-  getAlternanceList(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance>;
+  searchAlternance(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance>;
   getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>>
 }

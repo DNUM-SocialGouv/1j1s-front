@@ -4,6 +4,9 @@ import {
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
 import TypeDeContrat = OffreEmploi.TypeDeContrat;
+import {
+  RésultatsRéférentielCommunesResponse,
+} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 
 export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheOffreEmploiResponse): RésultatsRechercheOffreEmploi {
   return {
@@ -123,4 +126,9 @@ function getNombreRésultats(filtrePossibleResponseList: RésultatsRechercheOffr
 
   const maxNombreRésultatList = filtrePossibleResponseList.flatMap((filtrePossibleResponse) => sumRésultatsAgrégation(filtrePossibleResponse.agregation));
   return Math.max(...maxNombreRésultatList);
+}
+
+export function mapCodeInsee(response: RésultatsRéférentielCommunesResponse[], codePostalToFindInRéférentiel: string): string {
+  const finded = response.find((response) => response.codePostal === codePostalToFindInRéférentiel);
+  return finded ? finded.code : codePostalToFindInRéférentiel;
 }
