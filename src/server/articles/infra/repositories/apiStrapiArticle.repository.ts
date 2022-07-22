@@ -11,16 +11,10 @@ export class ApiStrapiArticleRepository implements ArticleRepository {
 
   async getArticle(slug: ArticleSlug): Promise<Either<Article>> {
     const filters = `[slug][$eq]=${slug}&populate[0]=banniere`;
-    const response = await this.strapiHttpClientService.get<Strapi.ArticleContentType>(`articles?filters${filters}`);
+    const response = await this.strapiHttpClientService.get<Strapi.ArticleContentType, Article>(`articles?filters${filters}`, mapArticle);
     switch (response.instance) {
-      case 'success': {
-        const article = mapArticle(response.result.data);
-        if (!article) {
-          return createFailure(ErrorType.RESSOURCE_INTROUVABLE);
-        }
-        return createSuccess(article);
-      }
-      case 'failure': return response;
+      case 'success': return createSuccess(response.result.data);
+      case 'failure': return createFailure(ErrorType.RESSOURCE_INTROUVABLE);
     }
   }
 }

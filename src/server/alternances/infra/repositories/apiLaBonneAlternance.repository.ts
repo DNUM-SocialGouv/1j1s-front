@@ -8,8 +8,8 @@ import { AlternanceRepository } from '~/server/alternances/domain/alternance.rep
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
 import {
-  buildParamètresRechercheAlternance,
-} from '~/server/alternances/infra/repositories/alternanceParametersBuilder';
+  buildParamètresRechercheLaBonneAlternance,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.builder';
 import {
   mapMétierRecherchéList,
   mapRésultatRechercheAlternance,
@@ -46,7 +46,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async searchAlternance(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
-    const paramètresRecherche = buildParamètresRechercheAlternance(alternanceFiltre);
+    const paramètresRecherche = buildParamètresRechercheLaBonneAlternance(alternanceFiltre);
     const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse, RésultatsRechercheAlternance>(
       `jobs?${paramètresRecherche}`,
       mapRésultatsRechercheAlternance,

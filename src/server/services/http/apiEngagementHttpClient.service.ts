@@ -10,10 +10,11 @@ export class EngagementHttpClientService extends ClientService {
     super('API_ENGAGEMENT', API_ENGAGEMENT_BASE_URL, false, { apikey : API_ENGAGEMENT_API_KEY_TOKEN });
   }
 
-  async get<Response>(
+  async get<Response, Retour>(
     endpoint: string,
+    mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<Either<ClientResponse<Response>>> {
-    return super.getRequest(endpoint, config);
+  ): Promise<Either<ClientResponse<Retour>>> {
+    return super.getRequest(endpoint, mapper, config);
   }
 }

@@ -1,7 +1,7 @@
 import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
-export function buildParamètresRechercheAlternance(alternanceFiltre: AlternanceFiltre) {
+export function buildParamètresRechercheLaBonneAlternance(alternanceFiltre: AlternanceFiltre) {
   // eslint-disable-next-line
   const queryList: Record<string, any> = {
     insee: alternanceFiltre.code,

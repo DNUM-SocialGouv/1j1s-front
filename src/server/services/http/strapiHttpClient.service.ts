@@ -10,10 +10,11 @@ export class StrapiHttpClientService extends ClientService {
     super('STRAPI', STRAPI_URL_API, false, { Authorization: `Bearer ${STRAPI_TOKEN_API}` });
   }
 
-  async get<Response>(
+  async get<Response, Retour>(
     endpoint: string,
+    mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<Either<ClientResponse<Response>>> {
-    return super.getRequest(endpoint, config);
+  ): Promise<Either<ClientResponse<Retour>>> {
+    return super.getRequest(endpoint, mapper, config);
   }
 }
