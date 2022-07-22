@@ -1,7 +1,7 @@
-import { Radio } from '@dataesr/react-dsfr';
 import classNames from 'classnames';
 import React, { ChangeEvent } from 'react';
 
+import { RadioButton } from '~/client/components/ui/RadioButton/RadioButton';
 import styles from '~/client/components/ui/Select/Select.module.css';
 import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -36,12 +36,11 @@ export function SelectSingle(props: SelectRadioProps) {
   const getSelectComponent = () => (
     <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
       {optionList.map((option, index) => (
-        <Radio
+        <RadioButton
           id={option.libellé}
+          name={option.libellé}
           key={index}
           className={styles.option}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           role="option"
           label={option.libellé}
           value={option.valeur}

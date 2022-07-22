@@ -1,11 +1,17 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/ui/RadioButtonGroup/RadioButtonGroup.module.scss';
 
-export function RadioButtonGroup({ children }: React.PropsWithChildren){
+interface RadioButtonGroupProps extends React.InputHTMLAttributes<unknown> {
+  legend: string
+}
+
+export function RadioButtonGroup({ children, legend, className, ...rest }: React.PropsWithChildren<RadioButtonGroupProps>){
   return(
-    <div className={styles.radioButtonGroup}>
+    <fieldset className={classNames(styles.radioButtonGroup, className)} {...rest}>
+      <legend>{legend}</legend>
       {children}
-    </div>
+    </fieldset>
   );
 }
