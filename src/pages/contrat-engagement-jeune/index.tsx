@@ -2,8 +2,8 @@ import React from 'react';
 
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
 import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
+import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
-import PourquoiCEstFaitPourMoi from '~/pages/contrat-engagement-jeune/PourquoiCEstFaitPourMoi';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function ContratEngagementJeune() {
