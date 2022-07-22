@@ -10,7 +10,6 @@ import styles from '~/client/components/ui/Checkbox/Checkbox.module.scss';
 interface CheckboxProps extends React.InputHTMLAttributes<unknown> {
   id?: string
   label: string
-  className?: string
 }
 
 export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
@@ -21,7 +20,7 @@ export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
   }, [id]);
 
   return (
-    <div className={classNames(styles.checkbox, className ? className : '')}>
+    <div className={classNames(styles.checkbox, className)}>
       <input
         type="checkbox"
         {...rest}

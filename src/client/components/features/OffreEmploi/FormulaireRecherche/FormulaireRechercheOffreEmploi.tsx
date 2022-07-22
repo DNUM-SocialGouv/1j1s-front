@@ -6,8 +6,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
-  Radio,
-  RadioGroup,
   TextInput,
 } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
@@ -22,6 +20,8 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
+import { RadioButton } from '~/client/components/ui/RadioButton/RadioButton';
+import { RadioButtonGroup } from '~/client/components/ui/RadioButtonGroup/RadioButtonGroup';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -85,6 +85,7 @@ export function FormulaireRechercheOffreEmploi() {
 
   function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const query = getFormAsQuery(event.currentTarget);
     return router.push({ query }, undefined, { shallow: true });
   }
@@ -152,32 +153,30 @@ export function FormulaireRechercheOffreEmploi() {
                   />
                 ))}
               </CheckboxGroup>
-              <RadioGroup legend="Temps de travail">
+              <RadioButtonGroup legend="Temps de travail">
                 {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
-                  <Radio
+                  <RadioButton
                     key={index}
                     label={tempsDeTravail.libellé}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
+                    name="tempsDeTravail"
                     checked={inputTempsDeTravail === `${tempsDeTravail.valeur}`}
                     onChange={() => setInputTempsDeTravail(`${tempsDeTravail.valeur}`)}
                     value={`${tempsDeTravail.valeur}`}
                   />
                 ))}
-              </RadioGroup>
-              <RadioGroup legend="Niveau demandé">
+              </RadioButtonGroup>
+              <RadioButtonGroup legend="Niveau demandé">
                 {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
-                  <Radio
+                  <RadioButton
                     key={`Niveau demandé${index}`}
                     label={expérience.libellé}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
+                    name={expérience.libellé}
                     checked={inputExpérience === expérience.valeur}
                     onChange={() => setInputExpérience(expérience.valeur)}
                     value={expérience.valeur}
                   />
                 ))}
-              </RadioGroup>
+              </RadioButtonGroup>
               <CheckboxGroup legend="Domaine">
                 {référentielDomaineList.map((domaine, index) => (
                   <Checkbox
@@ -213,12 +212,16 @@ export function FormulaireRechercheOffreEmploi() {
             />
             <SelectSingle
               titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+              name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
-              onChange={(value) => setInputTempsDeTravail(value)}
+              onChange={(value) => {
+                setInputTempsDeTravail(value);
+              }}
               currentInput={inputTempsDeTravail}
             />
             <SelectSingle
               titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+              name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={(value) => setInputExpérience(value)}
               currentInput={inputExpérience}
