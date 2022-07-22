@@ -7,5 +7,4 @@ export interface LocalisationRepository {
   getDépartementListByNom(départementRecherché: string): Promise<Localisation[]>;
   getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Localisation[]>;
   getRégionListByNom(régionRecherchée: string): Promise<Localisation[]>;
-  getLocalisationByTypeLocalisationAndCodeInsee(typeLocalisation: string, codeInsee: string): Promise<Localisation | undefined>;
 }

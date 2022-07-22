@@ -20,30 +20,27 @@ export class ApiEngagementRepository implements EngagementRepository {
   }
 
   async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
-    const response = await this.engagementHttpClientService.get<RésultatsMissionEngagementResponse>(
+    const response = await this.engagementHttpClientService.get<RésultatsMissionEngagementResponse, Mission>(
       `mission/${id}`,
+      mapMission,
     );
 
     switch (response.instance) {
-      case 'success': {
-        if (response.result.status === 204) {
-          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
-        }
-        return createSuccess(mapMission(response.result.data));
-      }
+      case 'success': return createSuccess(response.result.data);
       case 'failure': return response;
     }
   }
 
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
     const paramètresRecherche = ApiEngagementRepository.buildParamètresRecherche(missionEngagementFiltre);
-    const response = await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse>(
+    const response = await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
       `mission/search?${paramètresRecherche}`,
+      mapRésultatsRechercheMission,
     );
 
     switch (response.instance) {
       case 'success': {
-        return createSuccess(mapRésultatsRechercheMission(response.result.data));
+        return createSuccess(response.result.data);
       }
       case 'failure': return response;
     }

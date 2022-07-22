@@ -4,13 +4,6 @@ import { mapArticle } from '~/server/articles/infra/repositories/apiStrapiArticl
 
 describe('ApiStrapiArticleMapper', () => {
   describe('mapArticle', () => {
-    describe('lorsque la liste renvoyée des articles est vide', () => {
-      it('retourne un résultat non défini', () => {
-        const emptyArticleResponse = anArticleResponse({ data: [] });
-        const article = mapArticle(emptyArticleResponse);
-        expect(article).toBeUndefined();
-      });
-    });
     describe('lorsque la liste renvoyée contient 1 article', () => {
       it('retourne l\'article', () => {
         const articleResponse = anArticleResponse();
