@@ -7,11 +7,9 @@ import styles from '~/client/components/ui/RadioButton/RadioButton.module.scss';
 interface RadioButtonProps extends React.InputHTMLAttributes<unknown>{
   id?: string
   label: string
-  name: string
-  value: string
 }
 
-export function RadioButton({ id, label, name, value, className, ...rest } : RadioButtonProps) {
+export function RadioButton({ id, label, className, ...rest } : RadioButtonProps) {
   const radioButtonId = useRef(id || uuid4());
 
   useEffect(() => {
@@ -22,10 +20,8 @@ export function RadioButton({ id, label, name, value, className, ...rest } : Rad
     <div className={classNames(styles.radioButton, className)}>
       <input
         type="radio"
-        name={name}
-        value={value}
-        id={radioButtonId.current}
         {...rest}
+        id={radioButtonId.current}
       />
       <label className={styles.label} htmlFor={radioButtonId.current}>
         {label}
@@ -33,4 +29,3 @@ export function RadioButton({ id, label, name, value, className, ...rest } : Rad
     </div>
   );
 }
-

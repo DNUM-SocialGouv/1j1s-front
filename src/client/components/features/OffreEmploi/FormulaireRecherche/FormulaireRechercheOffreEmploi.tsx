@@ -85,6 +85,7 @@ export function FormulaireRechercheOffreEmploi() {
 
   function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const query = getFormAsQuery(event.currentTarget);
     return router.push({ query }, undefined, { shallow: true });
   }
@@ -157,9 +158,7 @@ export function FormulaireRechercheOffreEmploi() {
                   <RadioButton
                     key={index}
                     label={tempsDeTravail.libellé}
-                    name={tempsDeTravail.libellé}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
+                    name="tempsDeTravail"
                     checked={inputTempsDeTravail === `${tempsDeTravail.valeur}`}
                     onChange={() => setInputTempsDeTravail(`${tempsDeTravail.valeur}`)}
                     value={`${tempsDeTravail.valeur}`}
@@ -171,9 +170,10 @@ export function FormulaireRechercheOffreEmploi() {
                   <RadioButton
                     key={`Niveau demandé${index}`}
                     label={expérience.libellé}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleExpérience(e.target.value)}
+                    name={expérience.libellé}
+                    checked={inputExpérience === expérience.valeur}
+                    onChange={() => setInputExpérience(expérience.valeur)}
                     value={expérience.valeur}
-                    checked={inputExpérience.includes(expérience.valeur)}
                   />
                 ))}
               </RadioButtonGroup>
@@ -212,12 +212,16 @@ export function FormulaireRechercheOffreEmploi() {
             />
             <SelectSingle
               titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+              name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
-              onChange={(value) => setInputTempsDeTravail(value)}
+              onChange={(value) => {
+                setInputTempsDeTravail(value);
+              }}
               currentInput={inputTempsDeTravail}
             />
             <SelectSingle
               titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+              name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={(value) => setInputExpérience(value)}
               currentInput={inputExpérience}

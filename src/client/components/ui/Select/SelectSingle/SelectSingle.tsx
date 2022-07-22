@@ -12,6 +12,7 @@ interface SelectRadioProps {
   onChange: (value: string) => void;
   currentInput: string;
   label?: string;
+  name?: string;
 }
 
 export interface Option {
@@ -20,7 +21,7 @@ export interface Option {
 }
 
 export function SelectSingle(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput, titre, label } = props;
+  const { optionList, onChange, currentInput, titre, name, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -38,13 +39,15 @@ export function SelectSingle(props: SelectRadioProps) {
       {optionList.map((option, index) => (
         <RadioButton
           id={option.libellé}
-          name={option.libellé}
+          name={name || option.libellé}
           key={index}
           className={styles.option}
           role="option"
           label={option.libellé}
           value={option.valeur}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            onChange(e.target.value);
+          }}
           onKeyDown={handleKeyDown}
           checked={currentInput === option.valeur}
         />
