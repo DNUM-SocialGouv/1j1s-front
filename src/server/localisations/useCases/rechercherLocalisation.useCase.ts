@@ -62,20 +62,24 @@ export class RechercherLocalisationUseCase {
   }
 
   private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
-    const [communeList, départementList, régionList] = await Promise.all([
-      this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
-      this.localisationRepository.getDépartementListByNom(recherche),
-      this.localisationRepository.getRégionListByNom(recherche),
-    ]);
+    try {
+      const [communeList, départementList, régionList] = await Promise.all([
+        this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
+        this.localisationRepository.getDépartementListByNom(recherche),
+        this.localisationRepository.getRégionListByNom(recherche),
+      ]);
 
-    if (communeList.instance === 'success') {
-      return createSuccess({
-        communeList: communeList.result.résultats,
-        départementList,
-        régionList,
-      });
+      if (communeList.instance === 'success') {
+        return createSuccess({
+          communeList: communeList.result.résultats,
+          départementList,
+          régionList,
+        });
+      }
+      return createFailure(communeList.errorType);
+    } catch {
+      return createFailure(ErrorType.ERREUR_INATTENDUE);
     }
 
-    return createFailure(communeList.errorType);
   }
 }
