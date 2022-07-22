@@ -16,7 +16,7 @@ export interface Mission {
   description: string
   titre: string
   nomEntreprise?: string
-  étiquetteList: Array<string>
+  étiquetteList: string[]
   logo?: string
   url?: string
   localisation?: string
@@ -27,7 +27,7 @@ export interface Mission {
 
 export interface RésultatsRechercheMission {
   nombreRésultats: number
-  résultats: Array<Mission>
+  résultats: Mission[]
 }
 
 export namespace MissionEngagement {
@@ -37,7 +37,7 @@ export namespace MissionEngagement {
   }
 }
 
-export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
+export const bénévolatDomaineList: MissionEngagement.Domaine[] = [
   {
     libellé: 'Culture et loisirs',
     valeur: 'culture-loisirs',
@@ -80,7 +80,7 @@ export const bénévolatDomaineList: Array<MissionEngagement.Domaine> = [
   },
 ];
 
-export const serviceCiviqueDomaineList: Array<MissionEngagement.Domaine>  = [
+export const serviceCiviqueDomaineList: MissionEngagement.Domaine[]  = [
   {
     libellé: 'Culture et Loisirs',
     valeur: 'culture-loisirs',

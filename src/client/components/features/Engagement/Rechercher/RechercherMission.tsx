@@ -5,12 +5,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
+import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
 import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -91,7 +91,7 @@ export function RechercherMission(props: RechercherMissionProps) {
         <RechercherSolutionLayout
           bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<TagList list={[missionEngagementQuery.libelleCommune]} aria-label="Filtres de la recherche" />}
+          étiquettesRecherche={<ÉtiquettesFiltreMission/>}
           formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
           isLoading={isLoading}
           listeSolution={missionList}
@@ -123,7 +123,7 @@ function mapMissionServiceCiviqueToLienSolution(mission: Mission): LienSolution 
     id: mission.id,
     intituléOffre: mission.titre,
     lienOffre: `/service-civique/${mission.id}`,
-    logoEntreprise: '/images/logos/services-civique.svg',
+    logoEntreprise: '/images/logos/service-civique.svg',
     nomEntreprise: mission.nomEntreprise,
     étiquetteOffreList: mission.étiquetteList,
   };

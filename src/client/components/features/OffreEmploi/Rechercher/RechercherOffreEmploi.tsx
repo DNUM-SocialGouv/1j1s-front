@@ -82,7 +82,7 @@ export function RechercherOffreEmploi() {
         <RechercherSolutionLayout
           bannière={<BannièreOffreEmploi/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<ÉtiquettesFiltreOffreEmploi />}
+          étiquettesRecherche={<ÉtiquettesFiltreOffreEmploi/>}
           formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
           isLoading={isLoading}
           listeSolution={offreEmploiList}
