@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
 import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
@@ -16,6 +17,7 @@ export default function ContratEngagementJeune() {
       <main id='contenu'>
         <Bannière />
         <QuEstCeQueCEst />
+        <Actions />
         <PourquoiCEstFaitPourMoi/>
         <Allocations />
       </main>
