@@ -40,7 +40,7 @@ export class HttpClientService {
       return createSuccess(response.data as Response);
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        if(e.response?.status === 500) {
+        if(e.response?.status.toString().startsWith('50')) {
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
         }
         if(e.response?.status === 400) {

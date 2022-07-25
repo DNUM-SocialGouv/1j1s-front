@@ -8,8 +8,8 @@ import {
   OffreEmploiFiltreLocalisation,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
-import { handleResponse } from '~/server/services/utils/apiResponse.util';
 import { dependencies } from '~/server/start';
+import { handleResponse } from '~/server/utils/apiResponse.util';
 
 export async function rechercherOffreEmploiHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
   const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi

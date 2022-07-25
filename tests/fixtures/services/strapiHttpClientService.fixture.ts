@@ -1,7 +1,5 @@
-import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
-import { AxiosResponse } from 'axios';
+import { anAxiosInstance } from '@tests/fixtures/services/httpClientService.fixture';
 
-import { PageAccueilArticle } from '~/server/services/cms/infra/repositories/strapiCms.service';
 import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
 
 export function aStrapiHttpClientService(): StrapiHttpClientService {
