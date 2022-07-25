@@ -15,6 +15,11 @@
   color: $color-on-secondary;
 }
 
+%background-tertiary {
+  background: $color-background;
+  color: $color-on-background;
+}
+
 %box-shadow {
   box-shadow: $box-shadow;
 }

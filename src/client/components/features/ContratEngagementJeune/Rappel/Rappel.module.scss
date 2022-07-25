@@ -1,0 +1,27 @@
+@import "@styles/utilities";
+
+.rappel {
+    @extend %background-tertiary;
+    padding: 3rem 0;
+
+  &Container {
+    display: grid;
+    margin: 0 auto;
+    gap: 1rem;
+    max-width: 78rem;
+    padding: 0 1.5rem;
+    place-items: center;
+
+    button {
+        @extend %background-primary;
+        padding: 0.75rem 1.875rem;
+        font-size: 15px;
+    }
+
+    &__Title {
+        color: $color-primary;
+        max-width: 51.875rem;
+        text-align: center;
+    }
+  }
+}
