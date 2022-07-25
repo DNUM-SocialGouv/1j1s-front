@@ -9,8 +9,10 @@ interface LinkAsButtonProps extends React.AnchorHTMLAttributes<unknown> {
 }
 
 export function LinkAsButton({ children, icon, href, className, ...rest } : React.PropsWithChildren<LinkAsButtonProps>) {
+  if (!href) return null;
+
   return (
-    <Link href={href || ''}>
+    <Link href={href}>
       <a className={classNames(styles.linkAsButton, styles.linkAsButtonPrimary, className)} {...rest}>
         {children}
         {icon}
