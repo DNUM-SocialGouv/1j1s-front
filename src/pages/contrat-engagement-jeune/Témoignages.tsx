@@ -43,8 +43,14 @@ export function TémoignageKévin () {
 function Programme () {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const ContenuProgramme = (<Marked className={ styles.programme } markdown={ programme }/>);
+  function label (isOpen: boolean) {
+    if (!isOpen) {
+      return 'Découvrez son programme et ce que le CEJ lui apporte';
+    }
+  }
+  const buttonClassName = () => styles.buttonAccordeon;
   if (isSmallScreen || isMediumScreen) {
-    return (<AccordionComponent>{ ContenuProgramme }</AccordionComponent>);
+    return (<AccordionComponent customLabel={ label } customButtonClassName={ buttonClassName }>{ ContenuProgramme }</AccordionComponent>);
   } else {
     return ContenuProgramme;
   }

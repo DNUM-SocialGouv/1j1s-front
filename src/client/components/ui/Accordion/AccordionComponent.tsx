@@ -7,7 +7,11 @@ import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 
 
-export function AccordionComponent({ children } : React.PropsWithChildren) {
+interface AccordionProps {
+  customLabel?: (isOpen: boolean) => string | undefined
+  customButtonClassName?: (isOpen: boolean) => string
+}
+export function AccordionComponent({ children, customLabel, customButtonClassName } : React.PropsWithChildren<AccordionProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
@@ -22,6 +26,19 @@ export function AccordionComponent({ children } : React.PropsWithChildren) {
     ref.current?.setAttribute('aria-expanded', `${isOpen}`);
   }
 
+  function buttonLabel () {
+    const defaultLabel = isOpen ? 'Voir moins' : 'Voir plus';
+    if (customLabel) {
+      return customLabel(isOpen) || defaultLabel;
+    }
+    return defaultLabel;
+  }
+
+  let buttonClassName = styles.accordionButton;
+  if (customButtonClassName) {
+    buttonClassName += ` ${customButtonClassName(isOpen)}`;
+  }
+
   return (
     <>
       <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
@@ -30,15 +47,15 @@ export function AccordionComponent({ children } : React.PropsWithChildren) {
         aria-labelledby={`accordion-${ariaId}`}>
         {children}
       </div>
-      <button className={styles.accordionButton}
+      <button className={buttonClassName}
         ref={ref}
         onClick={toggleAccordion} 
         type="button" 
         aria-expanded={isOpen}
         aria-controls={`section-${ariaId}`} 
         id={`accordion-${ariaId}`}>
-        <span className={styles.accordionButtonLabel}>{isOpen ? 'Voir moins' : 'Voir plus'}</span>
-        {isOpen ? <AngleUpIcon/> : <AngleDownIcon />}
+        <span className={styles.accordionButtonLabel}>{ buttonLabel() }</span>
+        {isOpen ? <AngleUpIcon/> : <AngleDownIcon color="currentColor"/>}
       </button>
     </>
   );

@@ -71,7 +71,7 @@
         grid-column: 1;
         justify-self: end;
         position: relative;
-        padding: 0 2em 0 3em;
+        margin: 0 2em 0 3em;
         border-box: border;
         border: solid 4px white;
         box-shadow: 16px 16px 0px #566bb1;
@@ -95,8 +95,16 @@
         ul > li {
           margin-top: 1.5em;
         }
-
       }
     }
   }
+}
+
+.buttonAccordeon {
+  color: $color-primary;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-align: left;
 }
