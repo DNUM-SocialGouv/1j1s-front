@@ -9,7 +9,7 @@
     }
 
     .bio {
-      font-size: 1.1em;
+      @extend %text-large;
       margin: 0 0 1em;
       p, h3 {
         font-size: inherit;
@@ -103,8 +103,8 @@
 }
 
 .buttonAccordeon {
+  @extend %text-large;
   color: $color-primary;
-  font-size: 1.1em;
   display: flex;
   align-items: center;
   justify-content: flex-start;
