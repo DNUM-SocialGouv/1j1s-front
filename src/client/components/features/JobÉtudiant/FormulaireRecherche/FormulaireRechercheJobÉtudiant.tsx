@@ -99,16 +99,18 @@ export function FormulaireRechercheJobÉtudiant() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
-          <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
-            <Button
-              buttonType="linkWithRightIcon"
-              icon={<FilterIcon />}
-              onClick={() => setIsFiltresAvancésMobileOpen(true)}
-            >
+            <>
+              <Button
+                buttonType="linkWithRightIcon"
+                icon={<FilterIcon />}
+                onClick={() => setIsFiltresAvancésMobileOpen(true)}
+              >
               Filtrer ma recherche
-            </Button>
+              </Button>
+              <input type="hidden" name="grandDomaine" value={inputDomaine}/>
+            </>
           }
 
           <Modal
@@ -153,6 +155,7 @@ export function FormulaireRechercheJobÉtudiant() {
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
               onChange={toggleDomaine}
               currentInput={inputDomaine}
+              name="grandDomaine"
             />
           </div>
         )}

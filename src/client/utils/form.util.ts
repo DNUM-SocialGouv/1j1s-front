@@ -1,13 +1,11 @@
 export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryParam = true): string {
   const formData = new FormData(formElement);
-
   const formEntries = Array.from(
     formData,
     ([key, value]) => (
       [key, typeof value === 'string' ? value : value.name]
     ),
   ).filter((element) => {
-
     return element[1] !== '' && element[1] !== 'false';
   });
   if (appendPageQueryParam) {

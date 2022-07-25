@@ -74,7 +74,6 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     } catch (e) {
       if (axios.isAxiosError(e)) {
         if (e.response?.status === 500) {
-
           return createFailure(ErrorType.SERVICE_INDISPONIBLE);
         }
         if (e.response?.status === 400) {

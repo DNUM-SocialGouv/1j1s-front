@@ -290,7 +290,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         const button = screen.getByRole('button', { name: 'Temps de travail' });
         fireEvent.click(button);
 
-        const tempsDeTravailList = await screen.findByRole('listbox');
+        const tempsDeTravailList = await screen.findByTestId('Select-tempsDeTravail');
 
         await waitFor(() => {
           expect(tempsDeTravailList).toBeInTheDocument();

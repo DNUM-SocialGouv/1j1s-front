@@ -235,13 +235,14 @@ export const InputCommune = (props: InputCommuneProps) => {
       { codeCommune &&
       <SelectSingle
         label="Rayon"
+        name="distanceCommune"
+        dataTestId={'distanceCommune'}
         titre={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
         optionList={radiusList}
         onChange={setDistanceCommune}
         currentInput={distanceCommune}
       />
       }
-      <input type="hidden" name="distanceCommune" value={distanceCommune} data-testid="distanceCommune"/>
     </>
 
   );

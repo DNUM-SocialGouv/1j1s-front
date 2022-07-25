@@ -85,7 +85,6 @@ export function FormulaireRechercheOffreEmploi() {
 
   function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const query = getFormAsQuery(event.currentTarget);
     return router.push({ query }, undefined, { shallow: true });
   }
@@ -114,10 +113,6 @@ export function FormulaireRechercheOffreEmploi() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
-          <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-          <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-          <input type="hidden" name="experienceExigence" value={inputExpérience}/>
-          <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
             <div>
@@ -128,6 +123,10 @@ export function FormulaireRechercheOffreEmploi() {
               >
                 Filtrer ma recherche
               </Button>
+              <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+              <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
+              <input type="hidden" name="experienceExigence" value={inputExpérience}/>
+              <input type="hidden" name="grandDomaine" value={inputDomaine}/>
             </div>
 
           }
@@ -209,6 +208,7 @@ export function FormulaireRechercheOffreEmploi() {
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
               onChange={toggleTypeDeContrat}
               currentInput={inputTypeDeContrat}
+              name="typeDeContrats"
             />
             <SelectSingle
               titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
@@ -231,6 +231,7 @@ export function FormulaireRechercheOffreEmploi() {
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
               onChange={toggleDomaine}
               currentInput={inputDomaine}
+              name="grandDomaine"
             />
           </div>
         )}
