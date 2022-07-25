@@ -20,8 +20,8 @@ export default function ContratEngagementJeune() {
         <QuEstCeQueCEst />
         <Actions />
         <PourquoiCEstFaitPourMoi/>
-        <Allocations/>
         <QuEstCeQueJyGagne/>
+        <Allocations/>
       </main>
     </>
   );

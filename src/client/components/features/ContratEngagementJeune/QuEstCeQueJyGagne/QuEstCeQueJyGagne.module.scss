@@ -2,7 +2,7 @@
 
 .section {
   background: $color-on-primary;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 0;
 }
 
 .container {
@@ -24,16 +24,16 @@
   }
 }
 
-.contenu {
-  @extend %text-large;
-
-  > ul > li > strong {
-    color: $color-primary;
-  }
+.contenu ul > li > strong {
+  color: $color-primary;
 }
 
 .accordion > button {
   margin: 0;
+}
+
+.contenu, .contenu strong {
+  @extend %text-regular;
 }
 
 @include media(large) {
@@ -42,10 +42,10 @@
   }
 
   .container {
-    display: flex;
+    gap: 4rem;
+    display: grid;
     margin: 0 auto;
-    flex-direction: row;
-    align-items: flex-start;
+    align-items: start;
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -54,11 +54,7 @@
     font-size: 2.5rem;
   }
 
-  .titre > strong {
-    line-height: 1.75rem;
-  }
-
   .contenu {
-    line-height: 40px;
+    padding-right: 3rem;
   }
 }
