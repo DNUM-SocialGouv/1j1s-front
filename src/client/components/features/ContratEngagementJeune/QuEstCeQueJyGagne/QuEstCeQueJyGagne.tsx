@@ -1,8 +1,8 @@
 import React from 'react';
 
+import styles from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne.module.scss';
 import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import styles from '~/pages/contrat-engagement-jeune/QuEstCeQueJyGagne.module.scss';
 
 
 export default function QuEstCeQueJyGagne() {
