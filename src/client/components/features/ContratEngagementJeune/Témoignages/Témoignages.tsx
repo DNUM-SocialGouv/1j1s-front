@@ -22,9 +22,9 @@ const programme = `
 + **Objectif :** qu'à la fin de son programme Kévin ait trouvé un emploi dans un domaine dans lequel il s'épanouit.
 `;
 
-export function TémoignageKévin () {
+export function TémoignageKévin ({ id }: { id?: string }) {
   return (
-    <section className={ styles.témoignage}>
+    <section className={ styles.témoignage} id={ id } >
       <article>
         <h2>Ce que le Contrat d&apos;Engagement Jeune proposera à Kévin</h2>
         <div className={ styles.portrait }>

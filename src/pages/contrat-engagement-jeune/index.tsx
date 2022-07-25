@@ -23,7 +23,7 @@ export default function ContratEngagementJeune() {
         <PourquoiCEstFaitPourMoi/>
         <QuEstCeQueJyGagne/>
         <Allocations />
-        <TémoignageKévin />
+        <TémoignageKévin id="témoignage-kévin"/>
       </main>
     </>
   );
