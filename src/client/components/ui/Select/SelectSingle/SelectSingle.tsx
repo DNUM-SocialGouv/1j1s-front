@@ -11,6 +11,7 @@ interface SelectRadioProps {
   optionList: Option[];
   onChange: (value: string) => void;
   currentInput: string;
+  dataTestId?: string;
   label?: string;
   name?: string;
 }
@@ -21,7 +22,7 @@ export interface Option {
 }
 
 export function SelectSingle(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput, titre, name, label } = props;
+  const { optionList, onChange, dataTestId, currentInput, titre, name, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -35,24 +36,31 @@ export function SelectSingle(props: SelectRadioProps) {
   }
 
   const getSelectComponent = () => (
-    <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
-      {optionList.map((option, index) => (
-        <RadioButton
-          id={option.libellé}
-          name={name || option.libellé}
-          key={index}
-          className={styles.option}
-          role="option"
-          label={option.libellé}
-          value={option.valeur}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            onChange(e.target.value);
-          }}
-          onKeyDown={handleKeyDown}
-          checked={currentInput === option.valeur}
-        />
-      ))}
-    </Select>
+    <>
+      <Select
+        titre={titre}
+        name={name}
+        currentInput={currentInput}
+        dataTestId={dataTestId}
+        optionType="combobox"
+        tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
+        {optionList.map((option, index) => (
+          <RadioButton
+            id={option.libellé}
+            key={index}
+            className={styles.option}
+            role="option"
+            label={option.libellé}
+            value={option.valeur}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              onChange(e.target.value);
+            }}
+            onKeyDown={handleKeyDown}
+            checked={currentInput === option.valeur}
+          />
+        ))}
+      </Select>
+    </>
   );
 
   return (
