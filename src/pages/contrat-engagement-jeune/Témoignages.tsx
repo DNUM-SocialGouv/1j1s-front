@@ -23,24 +23,30 @@ const programme = `
 `;
 
 export function TémoignageKévin () {
-  const { isSmallScreen } = useBreakpoint();
-  let ContenuProgramme = (<Marked className={ styles.programme } markdown={ programme }/>);
-  if (isSmallScreen) {
-    ContenuProgramme = (<AccordionComponent>{ ContenuProgramme }</AccordionComponent>);
-  }
   return (
     <section className={ styles.témoignage}>
       <article>
         <h2>Ce que le Contrat d&apos;Engagement Jeune proposera à Kévin</h2>
         <div className={ styles.portrait }>
-          <Image src={ portraitKévin } alt="Portrait de Kévin" />
+          <Image src={ portraitKévin } objectFit="cover" alt="Portrait de Kévin" />
         </div>
         <div className={ styles.bio }>
           <h3>Kévin, 18 ans</h3>
           <p >Sans diplôme et sans aucune ressource financière, il pourra bénéficier du Contrat d&apos;Engagement Jeune.</p>
         </div>
-        { ContenuProgramme }
+        <Programme />
       </article>
     </section>
   );
+}
+
+function Programme () {
+  const { isSmallScreen, isMediumScreen } = useBreakpoint();
+  const ContenuProgramme = (<Marked className={ styles.programme } markdown={ programme }/>);
+  if (isSmallScreen || isMediumScreen) {
+    return (<AccordionComponent>{ ContenuProgramme }</AccordionComponent>);
+  } else {
+    return ContenuProgramme;
+  }
+
 }

@@ -25,7 +25,7 @@
     }
   }
 
-  @include media(medium) {
+  @include media(large) {
     padding: 5rem 0;
     background-color: $color-background;
 
@@ -71,7 +71,8 @@
         grid-column: 1;
         justify-self: end;
         position: relative;
-        margin: 0 2em 0 3em;
+        padding: 0 2em 0 3em;
+        border-box: border;
         border: solid 4px white;
         box-shadow: 16px 16px 0px #566bb1;
       }
