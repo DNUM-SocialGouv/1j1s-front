@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TémoignageKévin } from '~/client/components/features/ContratEngagementJeune//Témoignages/Témoignages';
+import { TémoignageKévin, TémoignageLatifa } from '~/client/components/features/ContratEngagementJeune//Témoignages/Témoignages';
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
@@ -26,6 +26,7 @@ export default function ContratEngagementJeune() {
         <QuEstCeQueJyGagne/>
         <Allocations/>
         <TémoignageKévin id="témoignage-kévin"/>
+        <TémoignageLatifa id="témoignage-latifa"/>
         <Accompagnement/>
         <Rappel/>
       </main>

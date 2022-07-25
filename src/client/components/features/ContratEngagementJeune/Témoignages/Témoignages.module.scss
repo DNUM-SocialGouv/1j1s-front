@@ -30,10 +30,39 @@
     padding: 5rem 0;
     background-color: $color-background;
 
+
+    & + & {
+      padding-top: 0;
+    }
+
+    & + & article {
+      grid-template-columns: 125px auto 480px 345px;
+      grid-template-areas:
+        ".         titre     titre     titre"
+        ".         .         .         ."
+        ".         .         bio       portrait"
+        "programme programme programme portrait"
+        "programme programme programme ."
+        "programme programme programme ."
+        ;
+
+      &::before {
+        grid-area: 2 / 3 / span 4 / span 2;
+      }
+
+      .bio {
+        margin: 0 0 0 $gutter;
+      }
+
+      h2 {
+        text-align: right;
+      }
+    }
+
     article {
       display: grid;
-      grid-template-columns: 345px 480px auto 125px;
       grid-template-rows: auto 50px auto auto 50px auto;
+      grid-template-columns: 345px 480px auto 125px;
       grid-template-areas:
         "titre    titre titre ."
         ".        .     .     ."
@@ -68,7 +97,6 @@
         grid-area: bio;
         color: $color-on-primary;
         margin: 0 $gutter 0 0;
-
       }
 
 
