@@ -9,8 +9,8 @@
     }
 
     .bio {
-      font-size: 1.2em;
-      margin: 0 0 2em;
+      font-size: 1.1em;
+      margin: 0 0 1em;
       p, h3 {
         font-size: inherit;
         margin: 0;
@@ -102,9 +102,11 @@
 
 .buttonAccordeon {
   color: $color-primary;
-  font-size: 1.2em;
+  font-size: 1.1em;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   text-align: left;
+  width: 100%;
+  padding: 0;
 }
