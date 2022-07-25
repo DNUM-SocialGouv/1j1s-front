@@ -1,0 +1,38 @@
+@import "@styles/utilities";
+
+.mesAidesBannière {
+  display: flex;
+
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+
+    @include media(large) {
+      padding: 80px 80px 80px 24px;
+    }
+  }
+
+  &CommencerSimulation {
+    align-self: center;
+    margin-top: 24px;
+
+    @include media(large) {
+      align-self: flex-start;
+    }
+  }
+
+  &Illustration {
+    position: relative;
+    display: none;
+
+    @include media(large) {
+      display: initial;
+      flex: 0 0 50%;
+    }
+
+    @include media(xlarge) {
+      margin-right: 24px;
+    }
+  }
+}
