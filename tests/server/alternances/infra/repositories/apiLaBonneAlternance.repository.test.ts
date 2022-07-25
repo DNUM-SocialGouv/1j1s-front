@@ -36,19 +36,16 @@ describe('ApiLaBonneAlternanceRepository', () => {
   describe('getMétierRecherchéList', () => {
     describe('quand l api répond avec un success', () => {
       it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess({
-          data: [
-            {
-              codeROMEList: ['D1103', 'D1101', 'H2101'],
-              intitulé: 'Boucherie, charcuterie, traiteur',
-            },
-            {
-              codeROMEList: ['D1102', 'D1104'],
-              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-            },
-          ],
-          status: 200,
-        }));
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
+          {
+            codeROMEList: ['D1103', 'D1101', 'H2101'],
+            intitulé: 'Boucherie, charcuterie, traiteur',
+          },
+          {
+            codeROMEList: ['D1102', 'D1104'],
+            intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+          },
+        ]));
 
         const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
 
@@ -81,10 +78,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
   describe('searchAlternance', () => {
     describe('quand l api retourne un success', () => {
       it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess({
-          data: aRésultatsRechercheAlternance(),
-          status: 200,
-        }));
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheAlternance()));
 
         const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
 
@@ -111,11 +105,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(
-            createSuccess({
-              data: anApprentiBoucherFromPoleEmploi(),
-              status: 200,
-            }));
+          .mockResolvedValue(createSuccess(anApprentiBoucherFromPoleEmploi()));
         const expected = anApprentiBoucherFromPoleEmploi();
         const offreAlternanceId = '134BYGN';
         const from = 'peJob';
@@ -134,10 +124,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(createSuccess({
-            data: anApprentiBoucherFromMatcha(),
-            status: 200,
-          }));
+          .mockResolvedValue(createSuccess(anApprentiBoucherFromMatcha()));
         const expected = anApprentiBoucherFromMatcha();
         const offreAlternanceId = '628a65a72ff4860027ae1531';
         const from = 'matcha';
@@ -148,21 +135,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
           `jobs/matcha/${offreAlternanceId}`,
           mapRésultatRechercheAlternance,
         );
-      });
-    });
-
-    describe('quand l\'offre n est pas disponible', () => {
-      it('renvoie une erreur CONTENU INDISPONIBLE', async () => {
-        jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(createFailure(ErrorType.SERVICE_INDISPONIBLE));
-        const offreAlternanceId = '628a65a72ff4860027ae1531';
-        const from = 'matcha';
-
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
-
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(`jobs/matcha/${offreAlternanceId}`, mapRésultatRechercheAlternance);
-        expect(result).toEqual(createFailure(ErrorType.CONTENU_INDISPONIBLE));
       });
     });
   });

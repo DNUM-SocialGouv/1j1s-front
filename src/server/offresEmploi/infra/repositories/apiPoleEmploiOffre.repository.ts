@@ -1,4 +1,4 @@
-import { createSuccess, Either } from '~/server/errors/either';
+import { Either } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   NOMBRE_RÉSULTATS_PAR_PAGE,
@@ -30,29 +30,18 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   }
 
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
-    const response = await this.poleEmploiHttpClientService.get<OffreEmploiResponse, OffreEmploi>(
+    return await this.poleEmploiHttpClientService.get<OffreEmploiResponse, OffreEmploi>(
       `partenaire/offresdemploi/v2/offres/${id}`,
       mapOffreEmploi,
     );
-
-    switch (response.instance) {
-      case 'success': return createSuccess(response.result.data);
-      case 'failure': return response;
-    }
   }
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
-    const response = await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
+    return await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
       `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
       mapRésultatsRechercheOffreEmploi,
     );
-
-    switch (response.instance) {
-      case 'success': return createSuccess(response.result.data);
-      case 'failure': return response;
-    }
-
   }
 
   async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string> {

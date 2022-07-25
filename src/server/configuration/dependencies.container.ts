@@ -66,7 +66,6 @@ export const dependenciesContainer = (): Dependencies => {
   const localisationDependencies = localisationDependenciesContainer(
     apiGeoGouvHttpClientService,
     apiAdresseHttpClientService,
-    apiPoleEmploiRéférentielRepository,
   );
 
   return {

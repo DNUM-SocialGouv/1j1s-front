@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { Either } from '~/server/errors/either';
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { ClientResponse, ClientService } from '~/server/services/http/client.service';
+import { ClientService } from '~/server/services/http/client.service';
 
 interface PoleEmploiTokenResponse {
   access_token: string;
@@ -40,7 +40,7 @@ export class PoleEmploiHttpClientService extends ClientService {
     endpoint: string,
     mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<Either<ClientResponse<Retour>>> {
+  ): Promise<Either<Retour>> {
     return super.getRequest(endpoint, mapper, config);
   }
 

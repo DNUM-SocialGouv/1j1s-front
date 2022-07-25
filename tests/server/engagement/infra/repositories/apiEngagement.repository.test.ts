@@ -29,10 +29,7 @@ describe('ApiEngagementRepository', () => {
   describe('searchMissionEngagement', () => {
     describe('quand l\'api engagement répond avec une 200', () => {
       it('recherche les missions', async () => {
-        jest.spyOn(engagementHttpClientService, 'get').mockResolvedValue(createSuccess({
-          data: aRésultatRechercheMission(),
-          status: 200,
-        }));
+        jest.spyOn(engagementHttpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
         const missionEngagementFiltre = aMissionEngagementFiltre();
 
         const { result } = await apiEngagementRepository.searchMissionEngagement(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
@@ -46,10 +43,7 @@ describe('ApiEngagementRepository', () => {
     const missionEngagementId = '62b14f22c075d0071ada2ce4';
     describe('quand l\'api engagement répond avec une 200', () => {
       it('recherche les missions', async () => {
-        jest.spyOn(engagementHttpClientService, 'get').mockResolvedValue(createSuccess({
-          data: anAmbassadeurDuDonDeVêtementMissionSolo(),
-          status: 200,
-        }));
+        jest.spyOn(engagementHttpClientService, 'get').mockResolvedValue(createSuccess(anAmbassadeurDuDonDeVêtementMissionSolo()));
 
 
         const { result } = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Success<Mission>;

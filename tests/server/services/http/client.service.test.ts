@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import { Either, Failure, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
-import { ClientResponse, ClientService } from '~/server/services/http/client.service';
+import { ClientService } from '~/server/services/http/client.service';
 
 class FakeHttpClientService extends ClientService {
   constructor() {
@@ -12,7 +12,7 @@ class FakeHttpClientService extends ClientService {
   get<Response, Retour>(
     endpoint: string,
     mapper: (data: Response) => Retour,
-  ): Promise<Either<ClientResponse<Retour>>> {
+  ): Promise<Either<Retour>> {
     return super.getRequest(endpoint, mapper);
   }
 }
@@ -45,11 +45,8 @@ describe('ClientService', () => {
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
     expect((result as unknown as Success<FakeRésultat>).result).toEqual({
-      data: {
-        titre: 'un titre en fait',
-        étiquetteList: [],
-      },
-      status: 200,
+      titre: 'un titre en fait',
+      étiquetteList: [],
     });
   });
 

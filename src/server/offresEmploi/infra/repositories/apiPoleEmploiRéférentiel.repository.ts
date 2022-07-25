@@ -23,8 +23,8 @@ export class ApiPoleEmploiRéférentielRepository {
       );
       switch (response.instance) {
         case 'success': {
-          this.cacheService.set(this.CACHE_KEY, response.result.data, 24);
-          return mapCodeInsee(response.result.data, codePostal);
+          this.cacheService.set(this.CACHE_KEY, response.result, 24);
+          return mapCodeInsee(response.result, codePostal);
         }
         case 'failure': return codePostal;
       }

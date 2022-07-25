@@ -37,10 +37,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('récupère l\'offre d\'emploi selon l\'id', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess({
-            data: aBarmanOffreEmploi(),
-            status: 200,
-          }));
+          .mockResolvedValue(createSuccess( aBarmanOffreEmploi()));
         const expected = aBarmanOffreEmploi();
         const offreEmploiId = expected.id;
 
@@ -60,10 +57,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('recherche les offres d\'emploi de pole emploi', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess({
-            data: aRésultatsRechercheOffreEmploi(),
-            status: 200,
-          }));
+          .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploi()));
         const offreEmploiFiltre = anOffreEmploiFiltre();
 
         const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Success<RésultatsRechercheOffreEmploi>;
@@ -78,10 +72,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('recherche les offres d\'emploi de pole emploi avec une localisation qui est une commune on va rechercher le code insee sur le référentiel de pole emploi', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess({
-            data: aRésultatsRechercheOffreEmploi(),
-            status: 200,
-          }));
+          .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploi()));
         jest
           .spyOn(apiPoleEmploiRéférentielRepository, 'findCodeInseeInRéférentielCommune')
           .mockResolvedValue('75101');

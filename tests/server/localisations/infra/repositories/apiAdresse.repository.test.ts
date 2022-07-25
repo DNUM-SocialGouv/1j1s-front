@@ -20,29 +20,26 @@ describe('ApiAdresseRepository', () => {
         jest
           .spyOn(apiAdresseHttpClientService, 'get')
           .mockResolvedValue(createSuccess({
-            data: {
-              résultats: [
-                {
-                  code: '93005',
-                  coordonnées: {
-                    latitude: 48.926541,
-                    longitude: 2.493832,
-                  },
-                  libelle: '20 Avenue Jules Jouy 93600 Aulnay-sous-Bois',
-                  ville: 'Aulnay-sous-Bois',
+            résultats: [
+              {
+                code: '93005',
+                coordonnées: {
+                  latitude: 48.926541,
+                  longitude: 2.493832,
                 },
-                {
-                  code: '28201',
-                  coordonnées: {
-                    latitude: 48.510887,
-                    longitude: 1.553914,
-                  },
-                  libelle: '20 Avenue de la Gare 28300 Jouy',
-                  ville: 'Jouy',
+                libelle: '20 Avenue Jules Jouy 93600 Aulnay-sous-Bois',
+                ville: 'Aulnay-sous-Bois',
+              },
+              {
+                code: '28201',
+                coordonnées: {
+                  latitude: 48.510887,
+                  longitude: 1.553914,
                 },
-              ],
-            },
-            status: 200,
+                libelle: '20 Avenue de la Gare 28300 Jouy',
+                ville: 'Jouy',
+              },
+            ],
           }));
         const recherche = 'jou';
         const expected = {

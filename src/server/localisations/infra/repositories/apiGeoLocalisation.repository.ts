@@ -4,19 +4,13 @@ import {
   ApiDecoupageAdministratifResponse,
 } from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
 import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-import {
-  ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
     private readonly apiGeoHttpClientService: ApiGeoHttpClientService,
-    private readonly apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {
   }
-
-  API_GEO_GOUV_PREFIX_LOG = 'API_GEO_GOUV';
 
   async getCommuneListByNom(communeRecherchée: string): Promise<Localisation[]> {
     return await this.request(`communes?nom=${communeRecherchée}`);
@@ -49,7 +43,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
     );
 
     switch (response.instance) {
-      case 'success': return response.result.data;
+      case 'success': return response.result;
       case 'failure': return [];
     }
   }

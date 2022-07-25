@@ -23,8 +23,7 @@ import {
 import {
   RechercheMetierResponse,
 } from '~/server/alternances/infra/repositories/responses/rechercheMetierResponse.type';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { Either } from '~/server/errors/either';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
@@ -40,7 +39,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       mapMétierRecherchéList,
     );
     switch (response.instance) {
-      case 'success': return response.result.data;
+      case 'success': return response.result;
       case 'failure': return [];
     }
   }
@@ -52,20 +51,16 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       mapRésultatsRechercheAlternance,
     );
     switch (response.instance) {
-      case 'success': return response.result.data;
+      case 'success': return response.result;
       case 'failure': return { nombreRésultats: 0, résultats: [] };
     }
   }
 
   async getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>> {
-    const response = await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse, RésultatRechercheAlternance>(
+    return await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse, RésultatRechercheAlternance>(
       `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       mapRésultatRechercheAlternance,
     );
-    switch (response.instance) {
-      case 'success': return createSuccess(response.result.data);
-      case 'failure': return createFailure(ErrorType.CONTENU_INDISPONIBLE);
-    }
   }
 }
 

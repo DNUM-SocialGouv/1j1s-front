@@ -5,8 +5,6 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosRes
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 
-export type ClientResponse<T> = { status: number, data: T };
-
 export abstract class ClientService {
   readonly client: AxiosInstance;
 
@@ -14,7 +12,7 @@ export abstract class ClientService {
     endpoint: string,
     mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<Either<ClientResponse<Retour>>>;
+  ): Promise<Either<Retour>>;
 
   protected constructor(
     apiName: string,
@@ -46,7 +44,7 @@ export abstract class ClientService {
     endpoint: string,
     mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<Either<ClientResponse<Retour>>> {
+  ): Promise<Either<Retour>> {
     let response;
 
     try {
@@ -55,10 +53,7 @@ export abstract class ClientService {
         return createFailure(ErrorType.CONTENU_INDISPONIBLE);
       }
       if(response.data) {
-        return createSuccess({
-          data: mapper(response.data),
-          status: response.status,
-        });
+        return createSuccess(mapper(response.data));
       } else {
         Sentry.captureMessage(`${endpoint} NO DATA IN RESPONSE`, CaptureContext.Severity.Error);
         return createFailure(ErrorType.ERREUR_INATTENDUE);

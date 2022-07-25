@@ -1,4 +1,4 @@
-import { createSuccess, Either } from '~/server/errors/either';
+import { Either } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
   LocalisationAvecCoordonnéesRepository,
@@ -14,14 +14,9 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
   }
 
   async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
-    const response = await this.apiAdresseHttpClientService.get<ApiAdresseResponse, RésultatsRechercheCommune>(
+    return await this.apiAdresseHttpClientService.get<ApiAdresseResponse, RésultatsRechercheCommune>(
       `search/?q=${adresseRecherchée}&type=municipality&limit=21`,
       mapRésultatsRechercheCommune,
     );
-
-    switch (response.instance) {
-      case 'success': return createSuccess(response.result.data);
-      case 'failure': return response;
-    }
   }
 }

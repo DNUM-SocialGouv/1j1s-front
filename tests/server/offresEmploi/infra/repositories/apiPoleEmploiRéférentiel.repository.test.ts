@@ -33,10 +33,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code insee', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess({
-            data: aRésultatsRéférentielCommunesResponseList(),
-            status: 200,
-          }));
+          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
         const expected = '55221';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('55000');
@@ -49,10 +46,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code postal', async () => {
         jest
           .spyOn(poleEmploiHttpClientService, 'get')
-          .mockResolvedValue(createSuccess({
-            data: aRésultatsRéférentielCommunesResponseList(),
-            status: 200,
-          }));
+          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
         const expected = '75101';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('75101');

@@ -3,41 +3,33 @@ import { aApiGeoHttpClientService } from '@tests/fixtures/services/apiGeoHttpCli
 import { createSuccess } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import {
-  ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
 describe('ApiGeoLocalisationRepository', () => {
   let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
   let apiGeoHttpClientService: ApiGeoHttpClientService;
-  let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
   beforeEach(() => {
     apiGeoHttpClientService = aApiGeoHttpClientService();
 
     apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
       apiGeoHttpClientService,
-      apiPoleEmploiRéférentielRepository,
     );
   });
 
   describe('getCommuneListByNom', () => {
     it('retourne la liste des communes par nom trouvées par l\'api decoupage administratif', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '36200',
-            nom: 'Chavin',
-          },
-          {
-            code: '92370',
-            nom: 'Chaville',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '36200',
+          nom: 'Chavin',
+        },
+        {
+          code: '92370',
+          nom: 'Chaville',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('jou');
 
@@ -56,19 +48,16 @@ describe('ApiGeoLocalisationRepository', () => {
     });
 
     it('quand les communes contiennent plusieurs code postaux retourne le premier code postal et pas le code insee lui meme', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '81310',
-            nom: 'Parisot',
-          },
-          {
-            code: '75001',
-            nom: 'Paris',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '81310',
+          nom: 'Parisot',
+        },
+        {
+          code: '75001',
+          nom: 'Paris',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
 
@@ -89,15 +78,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
   describe('getDépartementListByNom', () => {
     it('retourne la liste des départements par nom trouvées par l\'api decoupage administratif', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '78',
-            nom: 'Yvelines',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '78',
+          nom: 'Yvelines',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getDépartementListByNom('jou');
 
@@ -114,15 +100,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
   describe('getRégionListByNom', () => {
     it('retourne la liste des régions par nom trouvées par l\'api decoupage administratif', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '32',
-            nom: 'Hauts-de-France',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '32',
+          nom: 'Hauts-de-France',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getRégionListByNom('jou');
 
@@ -139,19 +122,16 @@ describe('ApiGeoLocalisationRepository', () => {
 
   describe('getCommuneListByCodePostal', () => {
     it('retourne la liste des communes par code postal trouvées par l\'api decoupage administratif', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '36200',
-            nom: 'Chavin',
-          },
-          {
-            code: '92370',
-            nom: 'Chaville',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '36200',
+          nom: 'Chavin',
+        },
+        {
+          code: '92370',
+          nom: 'Chaville',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('92370');
 
@@ -170,19 +150,16 @@ describe('ApiGeoLocalisationRepository', () => {
     });
 
     it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '81310',
-            nom: 'Parisot',
-          },
-          {
-            code: '75001',
-            nom: 'Paris',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '81310',
+          nom: 'Parisot',
+        },
+        {
+          code: '75001',
+          nom: 'Paris',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('75');
 
@@ -203,19 +180,16 @@ describe('ApiGeoLocalisationRepository', () => {
 
   describe('getCommuneListByNuméroDépartement', () => {
     it('retourne la liste des communes du département par numéro du département trouvées par l\'api decoupage administratif', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '36200',
-            nom: 'Chavin',
-          },
-          {
-            code: '92370',
-            nom: 'Chaville',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '36200',
+          nom: 'Chavin',
+        },
+        {
+          code: '92370',
+          nom: 'Chaville',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
@@ -234,19 +208,16 @@ describe('ApiGeoLocalisationRepository', () => {
     });
 
     it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '81310',
-            nom: 'Parisot',
-          },
-          {
-            code: '75001',
-            nom: 'Paris',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '81310',
+          nom: 'Parisot',
+        },
+        {
+          code: '75001',
+          nom: 'Paris',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
@@ -267,15 +238,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
   describe('getDépartementListByNuméroDépartement', () => {
     it('retourne la liste du département par numéro du département trouvées par l\'api decoupage administratif', async () => {
-      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess({
-        data: [
-          {
-            code: '78',
-            nom: 'Yvelines',
-          },
-        ],
-        status: 200,
-      }));
+      jest.spyOn(apiGeoHttpClientService, 'get').mockResolvedValue(createSuccess([
+        {
+          code: '78',
+          nom: 'Yvelines',
+        },
+      ]));
 
       const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
 
