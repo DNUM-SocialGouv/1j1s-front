@@ -1,6 +1,6 @@
 @import "@styles/utilities";
 
-.bannière {
+.mesAidesBannière {
   display: flex;
 
   &Wrapper {
@@ -16,6 +16,10 @@
   &CommencerSimulation {
     align-self: center;
     margin-top: 24px;
+
+    @include media(large) {
+      align-self: flex-start;
+    }
   }
 
   &Illustration {
