@@ -5,81 +5,59 @@ import { LocalisationRepository } from '~/server/localisations/domain/localisati
 import {
   LocalisationAvecCoordonnéesRepository,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheLocalisationUtils';
+
 
 export class RechercherLocalisationUseCase {
   constructor(private localisationRepository: LocalisationRepository, 
               private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {}
 
-  private DEPARTEMENT_LENGTH = 2;
-  private CODE_POSTAL_LENGTH = 5;
-
   async handle(recherche: string): Promise<Either<RechercheLocalisation>> {
-    if (this.isRechercheByNumeroDepartement(recherche)) {
+    if (RechercheLocalisationUtils.isRechercheByNumeroDepartement(recherche)) {
       return await this.getLocalisationByNumeroDepartement(recherche);
-    } else if (this.isRechercheByNumeroCodePostal(recherche)) {
+    } else if (RechercheLocalisationUtils.isRechercheByNumeroCodePostal(recherche)) {
       return await this.getLocalisationByNumeroCodePostal(recherche);
     } else {
       return await this.getLocalisationByNom(recherche);
     }
   }
 
-  private isRechercheByNumeroCodePostal(recherche: string): boolean {
-    return this.checkRechercheOnlyNumber(this.CODE_POSTAL_LENGTH, recherche);
-  }
-
-  private isRechercheByNumeroDepartement(recherche: string): boolean {
-    return this.checkRechercheOnlyNumber(this.DEPARTEMENT_LENGTH, recherche);
-  }
-
-  private checkRechercheOnlyNumber(length: number, recherche: string): boolean {
-    return new RegExp(/^\d*$/).test(recherche) && recherche.length === length;
-  }
-
   private async getLocalisationByNumeroDepartement(recherche: string): Promise<Either<RechercheLocalisation>> {
-    try {
-      return createSuccess({
-        communeList: [],
-        départementList: await this.localisationRepository.getDépartementListByNuméroDépartement(recherche),
-        régionList: [],
-      });
-    } catch {
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
-    }
+    return createSuccess({
+      communeList: [],
+      départementList: await this.localisationRepository.getDépartementListByNuméroDépartement(recherche),
+      régionList: [],
+    });
   }
 
   private async getLocalisationByNumeroCodePostal(recherche: string): Promise<Either<RechercheLocalisation>> {
-    const communeList = await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
+    const responseCommuneList = await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
 
-    if (communeList.instance === 'success') {
+    if (responseCommuneList.instance === 'success') {
       return createSuccess({
-        communeList: communeList.result.résultats,
+        communeList: responseCommuneList.result.résultats,
         départementList: [],
         régionList: [],
       });
     }
 
-    return createFailure(communeList.errorType);
+    return createFailure(responseCommuneList.errorType);
   }
 
   private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
-    try {
-      const [communeList, départementList, régionList] = await Promise.all([
-        this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
-        this.localisationRepository.getDépartementListByNom(recherche),
-        this.localisationRepository.getRégionListByNom(recherche),
-      ]);
+    const [responseCommuneList, responseDépartementList, responseRégionList] = await Promise.all([
+      this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
+      this.localisationRepository.getDépartementListByNom(recherche),
+      this.localisationRepository.getRégionListByNom(recherche),
+    ]);
 
-      if (communeList.instance === 'success') {
-        return createSuccess({
-          communeList: communeList.result.résultats,
-          départementList,
-          régionList,
-        });
-      }
-      return createFailure(communeList.errorType);
-    } catch {
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
+    if (responseCommuneList.instance === 'success') {
+      return createSuccess({
+        communeList: responseCommuneList.result.résultats,
+        départementList: responseDépartementList,
+        régionList: responseRégionList,
+      });
     }
-
+    return responseCommuneList;
   }
 }

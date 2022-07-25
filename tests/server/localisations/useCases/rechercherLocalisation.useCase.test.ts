@@ -39,16 +39,6 @@ describe('RechercherLocalisationUseCase', () => {
         expect(result).toEqual(expected);
       });
     });
-    describe('Lorsque la récupération de la liste de départements échoue', () => {
-      it('renvoie une erreur', async () => {
-        const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-        jest.spyOn(localisationRepository, 'getDépartementListByNuméroDépartement').mockRejectedValue(new Error());
-
-        const result = await listeLocalisationUseCase.handle('78');
-
-        expect(result.instance).toEqual('failure');
-      });
-    });
   });
   describe('Lorsque la recherche ne contient que 5 chiffres (code postal)', () => {
     describe('Lorsque la récupération de la liste des communes fonctionne', () => {
@@ -103,26 +93,6 @@ describe('RechercherLocalisationUseCase', () => {
 
       expect(result.instance).toEqual('failure');
       expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
-    });
-  });
-  describe('Lorsque la récupération de la liste des départements échoue', () => {
-    it('renvoie une erreur', async () => {
-      const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-      jest.spyOn(localisationRepository, 'getDépartementListByNuméroDépartement').mockRejectedValue(new Error());
-
-      const result = await listeLocalisationUseCase.handle('Haut') as Failure;
-
-      expect(result.instance).toEqual('failure');
-    });
-  });
-  describe('Lorsque la récupération de la liste des régions échoue', () => {
-    it('renvoie une erreur', async () => {
-      const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-      jest.spyOn(localisationRepository, 'getRégionListByNom').mockRejectedValue(new Error());
-
-      const result = await listeLocalisationUseCase.handle('Haut') as Failure;
-
-      expect(result.instance).toEqual('failure');
     });
   });
 });

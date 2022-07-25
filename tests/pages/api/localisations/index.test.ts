@@ -10,7 +10,7 @@ import { RechercheLocalisationApiResponse } from '~/server/localisations/infra/c
 describe('rechercher une localisation', () => {
   it('retourne la liste des localisations recherchées', async () => {
     nock('https://api-adresse.data.gouv.fr')
-      .get('/search/?q=haut&type=municipality&limit=20')
+      .get('/search/?q=haut&type=municipality&limit=21')
       .reply(200, aRechercheAdresseResponse().data);
     nock('https://geo.api.gouv.fr/')
       .get('/communes?nom=haut')
@@ -80,7 +80,7 @@ describe('rechercher une localisation', () => {
   it('la réponse de la recherche contient 20 éléments maximum', () => {
     const { communeList, départementList, régionList } = mapApiResponse(aLongList());
 
-    expect(communeList.length).toEqual(20);
+    expect(communeList.length).toEqual(21);
     expect(départementList.length).toEqual(20);
     expect(régionList.length).toEqual(20);
   });
