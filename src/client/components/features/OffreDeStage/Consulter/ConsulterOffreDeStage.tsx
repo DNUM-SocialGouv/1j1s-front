@@ -5,7 +5,7 @@ import React from 'react';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
 import { OffreDeStageAttributesFromCMS } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { ButtonLink } from '~/client/components/ui/Button/ButtonLink';
+import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 
@@ -32,12 +32,10 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
       </header>
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>
-          <ButtonLink
-            label={`Je postule sur ${offreDeStage.source}`}
+          <LinkAsButton
             href={offreDeStage.urlDeCandidature}
             target="_blank"
-            dataTestId="LinkPostulerOffreDeStage"
-          />
+          >{`Je postule sur ${offreDeStage.source}`}</LinkAsButton>
         </div>
         {offreDeStage.description &&
         <div>
