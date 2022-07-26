@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { ChangeEvent } from 'react';
 
-import { RadioButton } from '~/client/components/ui/RadioButton/RadioButton';
+import { Radio } from '~/client/components/ui/RadioButton/Radio';
 import styles from '~/client/components/ui/Select/Select.module.css';
 import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -45,7 +45,7 @@ export function SelectSingle(props: SelectRadioProps) {
         optionType="combobox"
         tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
         {optionList.map((option, index) => (
-          <RadioButton
+          <Radio
             id={option.libellé}
             key={index}
             className={styles.option}

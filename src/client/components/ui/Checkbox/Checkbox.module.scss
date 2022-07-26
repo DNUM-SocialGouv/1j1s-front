@@ -21,6 +21,7 @@
   input[type=checkbox] + label {
     position: relative;
     padding: 0.75rem 0 .75rem 2rem;
+    -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -37,7 +37,7 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
   }, []);
 
   const closeOptionsOnEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === KeyBoard.ESCAPE) {
+    if (e.key === KeyBoard.ESCAPE || KeyBoard.TAB) {
       setIsOptionsOpen(false);
     }
   }, []);

@@ -13,6 +13,8 @@
   input[type=radio] {
     position: absolute;
     opacity: 0;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   input[type=radio] + label {

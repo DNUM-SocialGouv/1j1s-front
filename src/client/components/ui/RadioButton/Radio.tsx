@@ -9,7 +9,7 @@ interface RadioButtonProps extends React.InputHTMLAttributes<unknown>{
   label: string
 }
 
-export function RadioButton({ id, label, className, ...rest } : RadioButtonProps) {
+export function Radio({ id, label, className, ...rest } : RadioButtonProps) {
   const radioButtonId = useRef(id || uuid4());
 
   useEffect(() => {

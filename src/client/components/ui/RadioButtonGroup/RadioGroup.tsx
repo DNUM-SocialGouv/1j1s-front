@@ -7,7 +7,7 @@ interface RadioButtonGroupProps extends React.InputHTMLAttributes<unknown> {
   legend: string
 }
 
-export function RadioButtonGroup({ children, legend, className, ...rest }: React.PropsWithChildren<RadioButtonGroupProps>){
+export function RadioGroup({ children, legend, className, ...rest }: React.PropsWithChildren<RadioButtonGroupProps>){
   return(
     <fieldset className={classNames(styles.radioButtonGroup, className)} {...rest}>
       <legend>{legend}</legend>
