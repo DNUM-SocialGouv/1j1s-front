@@ -13,14 +13,14 @@ const searchClient = instantMeiliSearch(
   'masterKey',
 );
 
-const Hit = (({ hit: résultat }: {hit: OffreDeStageIndexee}) => {
+const Résultat = (({ hit: résultat }: {hit: OffreDeStageIndexée}) => {
   return <RésultatRechercherSolution
     lienOffre={`/stages/${résultat.slug}`}
-    intituléOffre={résultat.id}
+    intituléOffre={résultat.titre}
     logoEntreprise={'/images/logos/pole-emploi.svg'}
     nomEntreprise={résultat.nomEmployeur}
     descriptionOffre={résultat.description}
-    étiquetteOffreList={résultat.domaines|| [] }
+    étiquetteOffreList = {résultat.domaines || [] }
   />;
 });
 
@@ -28,15 +28,12 @@ export default function RechercherOffreStagePage() {
   return (
     <><HeadTag
       title={'Des milliers d\'offres de stages sélectionnés pour vous'}
-      description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"/>
+      description="Des milliers d'offres de stages sélectionnées pour vous"/>
     <main id="contenu">
       <InstantSearch searchClient={searchClient} indexName="offre-de-stage">
-        <SearchBox className={'fr-input'}/>
+        <SearchBox/>
         <CurrentRefinements/>
-        <DynamicWidgets>
-          <RefinementList attribute={'dureeEnJour'}/>
-        </DynamicWidgets>
-        <Hits hitComponent={Hit}  />
+        <Hits hitComponent={Resultat}  />
         <Pagination/>
       </InstantSearch>
     </main>

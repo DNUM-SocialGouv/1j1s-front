@@ -14,7 +14,6 @@ interface ConsulterOffreDeStageProps {
 }
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
-    
   const afficheNomEmployeur = (nomEmployeur?: string) => {
     if(nomEmployeur) {
       return <h2>${nomEmployeur}</h2>;
@@ -22,7 +21,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
     return <></>;
   };
     
-  const salaireOffreDeStage = useSanitize(offreDeStage.remunerationBase?.toString());
+  const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();
   return (
     <ConsulterOffreLayout>
       <header className={commonStyles.titre}>
@@ -34,8 +33,9 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
         <div className={commonStyles.buttonAsLink}>
           <LinkAsButton
             href={offreDeStage.urlDeCandidature}
-            target="_blank"
-          >{`Je postule sur ${offreDeStage.source}`}</LinkAsButton>
+            target="_blank">
+                {`Je postule sur ${offreDeStage.source}`}
+            </LinkAsButton>
         </div>
         {offreDeStage.description &&
         <div>
@@ -46,7 +46,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
         {offreDeStage.remunerationBase &&
         <div>
           <h3>Salaire :</h3> { ' ' }
-          <p dangerouslySetInnerHTML={{ __html: salaireOffreDeStage }}/>
+          <p> {salaireOffreDeStage } €<p/>
         </div>
         }
       </section>
