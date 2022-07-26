@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import { TémoignageKévin } from '~/client/components/features/ContratEngagementJeune//Témoignages/Témoignages';
 import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
@@ -22,8 +23,9 @@ export default function ContratEngagementJeune() {
         <Actions />
         <PourquoiCEstFaitPourMoi/>
         <QuEstCeQueJyGagne/>
-        <Allocations />
+        <Allocations/>
         <TémoignageKévin id="témoignage-kévin"/>
+        <Accompagnement/>
       </main>
     </>
   );
