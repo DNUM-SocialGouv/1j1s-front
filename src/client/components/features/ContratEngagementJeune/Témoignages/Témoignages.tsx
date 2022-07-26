@@ -1,12 +1,11 @@
 import Image from 'next/image';
+import portraitKévin from 'public/images/CEJ/vignette-kevin.jpg';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages.module.scss';
 import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import Marked from '~/client/components/ui/Marked/Marked';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-
-import portraitKévin from '../../../../../../public/images/CEJ/vignette-kevin.jpg';
 
 
 const programme = `
