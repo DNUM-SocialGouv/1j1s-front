@@ -6,8 +6,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
-  Radio,
-  RadioGroup,
   TextInput,
 } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
@@ -22,6 +20,8 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
+import { Radio } from '~/client/components/ui/RadioButton/Radio';
+import { RadioGroup } from '~/client/components/ui/RadioButtonGroup/RadioGroup';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -42,10 +42,10 @@ export function FormulaireRechercheOffreEmploi() {
   const [inputExpérience, setInputExpérience] = useState('');
   const [inputTempsDeTravail, setInputTempsDeTravail] = useState('');
   const [inputDomaine, setInputDomaine] = useState('');
-  const [inputMotCle, setInputMotCle] = useState<string>('');
-  const [inputTypeLocalisation, setInputTypeLocalisation] = useState<string>('');
-  const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState<string>('');
-  const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
+  const [inputMotCle, setInputMotCle] = useState('');
+  const [inputTypeLocalisation, setInputTypeLocalisation] = useState('');
+  const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState('');
+  const [inputCodeLocalisation, setInputCodeLocalisation] = useState('');
 
   const queryParams = useOffreEmploiQuery();
   const { isSmallScreen } = useBreakpoint();
@@ -113,10 +113,6 @@ export function FormulaireRechercheOffreEmploi() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
-          <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-          <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-          <input type="hidden" name="experienceExigence" value={inputExpérience}/>
-          <input type="hidden" name="grandDomaine" value={inputDomaine}/>
 
           {isSmallScreen &&
             <div>
@@ -127,6 +123,10 @@ export function FormulaireRechercheOffreEmploi() {
               >
                 Filtrer ma recherche
               </Button>
+              <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+              <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
+              <input type="hidden" name="experienceExigence" value={inputExpérience}/>
+              <input type="hidden" name="grandDomaine" value={inputDomaine}/>
             </div>
 
           }
@@ -157,11 +157,10 @@ export function FormulaireRechercheOffreEmploi() {
                   <Radio
                     key={index}
                     label={tempsDeTravail.libellé}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    checked={inputTempsDeTravail === `${tempsDeTravail.valeur}`}
-                    onChange={() => setInputTempsDeTravail(`${tempsDeTravail.valeur}`)}
-                    value={`${tempsDeTravail.valeur}`}
+                    name="tempsDeTravail"
+                    checked={inputTempsDeTravail === tempsDeTravail.valeur}
+                    onChange={() => setInputTempsDeTravail(tempsDeTravail.valeur)}
+                    value={tempsDeTravail.valeur}
                   />
                 ))}
               </RadioGroup>
@@ -170,8 +169,7 @@ export function FormulaireRechercheOffreEmploi() {
                   <Radio
                     key={`Niveau demandé${index}`}
                     label={expérience.libellé}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
+                    name={expérience.libellé}
                     checked={inputExpérience === expérience.valeur}
                     onChange={() => setInputExpérience(expérience.valeur)}
                     value={expérience.valeur}
@@ -210,17 +208,20 @@ export function FormulaireRechercheOffreEmploi() {
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
               onChange={toggleTypeDeContrat}
               currentInput={inputTypeDeContrat}
+              name="typeDeContrats"
             />
             <SelectSingle
               titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+              name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
-              onChange={(value) => setInputTempsDeTravail(value)}
+              onChange={setInputTempsDeTravail}
               currentInput={inputTempsDeTravail}
             />
             <SelectSingle
               titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+              name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
-              onChange={(value) => setInputExpérience(value)}
+              onChange={setInputExpérience}
               currentInput={inputExpérience}
             />
             <SelectMultiple
@@ -228,6 +229,7 @@ export function FormulaireRechercheOffreEmploi() {
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
               onChange={toggleDomaine}
               currentInput={inputDomaine}
+              name="grandDomaine"
             />
           </div>
         )}

@@ -1,4 +1,3 @@
-import { Icon } from '@dataesr/react-dsfr';
 import React, {
   useCallback,
   useEffect,
@@ -6,17 +5,23 @@ import React, {
   useState,
 } from 'react';
 
+import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
+import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import styles from '~/client/components/ui/Select/Select.module.css';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
 
 interface CustomSelectProps {
   titre: string
+  optionType: string
+  name?: string
+  currentInput?: string
+  dataTestId?: string
   tailleMinimumButton?: number
 }
 
 export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps>) {
-  const { titre, children, tailleMinimumButton } = props;
+  const { titre, children, name, optionType, dataTestId, currentInput, tailleMinimumButton } = props;
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
@@ -32,7 +37,7 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
   }, []);
 
   const closeOptionsOnEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === KeyBoard.ESCAPE) {
+    if (e.key === KeyBoard.ESCAPE || KeyBoard.TAB) {
       setIsOptionsOpen(false);
     }
   }, []);
@@ -58,16 +63,18 @@ export function SelectComponent(props: React.PropsWithChildren<CustomSelectProps
         onClick={() => setIsOptionsOpen(!isOptionsOpen)}
       >
         <span>{titre}</span>
-        <Icon name="ri-arrow-down-s-line" size="lg" />
+        {isOptionsOpen ? <AngleUpIcon/> : <AngleDownIcon />}
       </button>
       { isOptionsOpen &&
       <div
         className={styles.options}
-        role="listbox"
+        data-testid={`Select-${name}`}
+        role={optionType}
       >
         {children}
       </div>
       }
+      <input type="hidden" name={name} value={currentInput} data-testid={dataTestId}/>
     </div>
   );
 }

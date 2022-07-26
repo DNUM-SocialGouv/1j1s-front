@@ -1,7 +1,7 @@
-import { Radio } from '@dataesr/react-dsfr';
 import classNames from 'classnames';
 import React, { ChangeEvent } from 'react';
 
+import { Radio } from '~/client/components/ui/RadioButton/Radio';
 import styles from '~/client/components/ui/Select/Select.module.css';
 import { SelectComponent as Select } from '~/client/components/ui/Select/SelectComponent';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -11,7 +11,9 @@ interface SelectRadioProps {
   optionList: Option[];
   onChange: (value: string) => void;
   currentInput: string;
+  dataTestId?: string;
   label?: string;
+  name?: string;
 }
 
 export interface Option {
@@ -20,7 +22,7 @@ export interface Option {
 }
 
 export function SelectSingle(props: SelectRadioProps) {
-  const { optionList, onChange, currentInput, titre, label } = props;
+  const { optionList, onChange, dataTestId, currentInput, titre, name, label } = props;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -34,23 +36,31 @@ export function SelectSingle(props: SelectRadioProps) {
   }
 
   const getSelectComponent = () => (
-    <Select titre={titre} tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
-      {optionList.map((option, index) => (
-        <Radio
-          id={option.libellé}
-          key={index}
-          className={styles.option}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          role="option"
-          label={option.libellé}
-          value={option.valeur}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-          onKeyDown={handleKeyDown}
-          checked={currentInput === option.valeur}
-        />
-      ))}
-    </Select>
+    <>
+      <Select
+        titre={titre}
+        name={name}
+        currentInput={currentInput}
+        dataTestId={dataTestId}
+        optionType="combobox"
+        tailleMinimumButton={getLongueurMaximalOptions(optionList)}>
+        {optionList.map((option, index) => (
+          <Radio
+            id={option.libellé}
+            key={index}
+            className={styles.option}
+            role="option"
+            label={option.libellé}
+            value={option.valeur}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              onChange(e.target.value);
+            }}
+            onKeyDown={handleKeyDown}
+            checked={currentInput === option.valeur}
+          />
+        ))}
+      </Select>
+    </>
   );
 
   return (

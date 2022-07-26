@@ -55,11 +55,11 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         <div className={styles.inputButtonWrapper}>
           <SelectSingle
             titre={générerTitreFiltre('Sélectionnez un domaine', domainValue)}
+            name="domain"
             optionList={domainList}
             onChange={(value) => setDomainValue(value)}
             currentInput={domainValue}
           />
-          <input type="hidden" name="domain" value={domainValue}/>
           <InputCommune
             code={inputCodeCommune}
             libellé={inputLibelleCommune}
