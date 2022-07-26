@@ -40,7 +40,7 @@ function mapCommune(communeApiResponse: Commune): LocalisationApiResponse {
 export function mapApiResponse(localisationList: RechercheLocalisation): RechercheLocalisationApiResponse {
   const { communeList, départementList, régionList } = localisationList;
 
-  const communeListApiResponse: LocalisationApiResponse[] = communeList.slice(0,21).map(mapCommune);
+  const communeListApiResponse: LocalisationApiResponse[] = communeList.map(mapCommune);
   const départementListApiResponse: LocalisationApiResponse[] = départementList.slice(0,20).map(mapLocalisation);
   const régionListApiResponse: LocalisationApiResponse[] = régionList.slice(0,20).map(mapLocalisation);
   return { communeList: communeListApiResponse, départementList: départementListApiResponse, régionList: régionListApiResponse };

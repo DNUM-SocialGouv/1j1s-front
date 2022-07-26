@@ -14,11 +14,11 @@ export class RechercherLocalisationUseCase {
 
   async handle(recherche: string): Promise<Either<RechercheLocalisation>> {
     if (RechercheLocalisationUtils.isRechercheByNumeroDepartement(recherche)) {
-      return await this.getLocalisationByNumeroDepartement(recherche);
+      return this.getLocalisationByNumeroDepartement(recherche);
     } else if (RechercheLocalisationUtils.isRechercheByNumeroCodePostal(recherche)) {
-      return await this.getLocalisationByNumeroCodePostal(recherche);
+      return this.getLocalisationByNumeroCodePostal(recherche);
     } else {
-      return await this.getLocalisationByNom(recherche);
+      return this.getLocalisationByNom(recherche);
     }
   }
 

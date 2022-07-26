@@ -23,7 +23,7 @@ describe('RechercherLocalisationUseCase', () => {
     localisationAvecCoordonneesRepository = aLocalisationAvecCoordonnéesRepository();
   });
 
-  describe('Lorsque la recherche contient ne contient que 2 chiffres (département)', () => {
+  describe('Lorsque la recherche ne contient que 2 chiffres (département)', () => {
     describe('Lorsque la récupération de la liste de départements fonctionne', () => {
       it('renvoie une liste avec le département correspondant à la recherche', async () => {
         const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);

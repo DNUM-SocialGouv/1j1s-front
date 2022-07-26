@@ -2,13 +2,13 @@ import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheL
 
 describe('RechercheLocalisationUtils', () => {
   describe('isRechercheByNumeroCodePostal', () => {
-	  describe('Lorsque la recherche ne contient moins de 5 chiffres', () => {
+	  describe('Lorsque la recherche contient moins de 5 chiffres', () => {
 		  it('renvoie faux', () => {
 			  const result = RechercheLocalisationUtils.isRechercheByNumeroCodePostal('0123');
 			  expect(result).toBe(false);
 		  });
 	  });
-	  describe('Lorsque la recherche ne contient plus de 5 chiffres', () => {
+	  describe('Lorsque la recherche contient plus de 5 chiffres', () => {
 		  it('renvoie faux', () => {
 			  const result = RechercheLocalisationUtils.isRechercheByNumeroCodePostal('012345');
 			  expect(result).toBe(false);
@@ -22,13 +22,13 @@ describe('RechercheLocalisationUtils', () => {
 	  });
   });
   describe('isRechercheByNumeroDepartement', () => {
-	  describe('Lorsque la recherche ne contient moins de 2 chiffres', () => {
+	  describe('Lorsque la recherche contient moins de 2 chiffres', () => {
 		  it('renvoie faux', () => {
 			  const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('0');
 			  expect(result).toBe(false);
 		  });
 	  });
-	  describe('Lorsque la recherche ne contient plus de 2 chiffres', () => {
+	  describe('Lorsque la recherche contient plus de 2 chiffres', () => {
 		  it('renvoie faux', () => {
 			  const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('012');
 			  expect(result).toBe(false);
@@ -43,13 +43,13 @@ describe('RechercheLocalisationUtils', () => {
   });
   describe('checkRechercheOnlyNumber', () => {
     describe('Lorsque la longueur de chaîne à vérifier est supérieure à 0', () => {
-		  describe('Lorsque la chaîne ne contient aucun caractère', () => {
+		  describe('Lorsque la chaîne contient aucun caractère', () => {
 			  it('renvoie faux', () => {
 				  const result = RechercheLocalisationUtils.checkRechercheOnlyNumber(3, '');
 				  expect(result).toBe(false);
 			  });
 		  });
-		  describe('Lorsque la chaîne ne contient des caractères autres que des chiffres', () => {
+		  describe('Lorsque la chaîne contient des caractères autres que des chiffres', () => {
 			  it('renvoie faux', () => {
 				  const result = RechercheLocalisationUtils.checkRechercheOnlyNumber(3, 'ab1');
 				  expect(result).toBe(false);
