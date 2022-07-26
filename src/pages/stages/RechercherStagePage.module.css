@@ -1,0 +1,34 @@
+input.stageInputElement {
+  max-width: 78rem;
+  height: 24px;
+  box-sizing: content-box;
+  margin: 0 auto;
+  display: inline-block;
+  width: auto;
+}
+
+.stageRootElement {
+  padding: 2rem 0;
+}
+
+.stageFormElement {
+}
+
+.stageSubmitIconElement {
+}
+
+.stageListeRootElement> ol li {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.stageListeRootElement> ol {
+  padding: 0;
+}
+
+.stageListeElement {
+}
+
+.stageItemElement {
+  padding: 0;
+}
