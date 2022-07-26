@@ -123,10 +123,10 @@ export function FormulaireRechercheOffreEmploi() {
               >
                 Filtrer ma recherche
               </Button>
-              <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-              <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-              <input type="hidden" name="experienceExigence" value={inputExpérience}/>
-              <input type="hidden" name="grandDomaine" value={inputDomaine}/>
+              <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat} />
+              <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail} />
+              <input type="hidden" name="experienceExigence" value={inputExpérience} />
+              <input type="hidden" name="grandDomaine" value={inputDomaine} />
             </div>
 
           }
@@ -203,33 +203,39 @@ export function FormulaireRechercheOffreEmploi() {
 
         {!isSmallScreen && (
           <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-            <SelectMultiple
-              titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
+            <Select
+              multiple
+              placeholder={générerTitreFiltre(true, inputTypeDeContrat)}
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-              onChange={toggleTypeDeContrat}
-              currentInput={inputTypeDeContrat}
+              onChange={setInputTypeDeContrat}
+              label={'Type de contrat'}
+              value={inputTypeDeContrat}
               name="typeDeContrats"
             />
             <Select
-              placeholder={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+              placeholder={générerTitreFiltre(false, inputTempsDeTravail)}
               name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
               onChange={setInputTempsDeTravail}
               value={inputTempsDeTravail}
+              label={'Temps de travail'}
             />
             <Select
-              placeholder={générerTitreFiltre('Niveau demandé', inputExpérience)}
+              placeholder={générerTitreFiltre(false, inputExpérience)}
               name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={setInputExpérience}
               value={inputExpérience}
+              label={'Niveau demandé'}
             />
-            <SelectMultiple
-              titre={générerTitreFiltre('Domaine', inputDomaine)}
+            <Select
+              multiple
+              placeholder={générerTitreFiltre(true, inputDomaine)}
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-              onChange={toggleDomaine}
-              currentInput={inputDomaine}
+              onChange={setInputDomaine}
+              value={inputDomaine}
               name="grandDomaine"
+              label={'Domaine'}
             />
           </div>
         )}

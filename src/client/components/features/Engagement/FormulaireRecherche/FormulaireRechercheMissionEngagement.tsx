@@ -54,7 +54,8 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
       <div className={styles.rechercheMissionEngagementForm__Container}>
         <div className={styles.inputButtonWrapper}>
           <Select
-            placeholder={générerTitreFiltre('Sélectionnez un domaine', domainValue)}
+            label="Domaine"
+            placeholder={générerTitreFiltre(false, domainValue)}
             name="domain"
             optionList={domainList}
             onChange={(value) => setDomainValue(value)}

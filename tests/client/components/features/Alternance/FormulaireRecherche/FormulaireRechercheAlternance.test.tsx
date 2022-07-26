@@ -137,7 +137,7 @@ describe('FormulaireRechercheAlternance', () => {
       const button = await screen.findByText('10 km');
       fireEvent.click(button);
 
-      const optionsRadius = await screen.findByTestId('Select-distanceCommune');
+      const optionsRadius = await screen.findByRole('listbox');
       const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
       //  WHEN

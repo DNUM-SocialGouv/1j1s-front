@@ -75,10 +75,10 @@ describe('InputCommune', () => {
 
       // THEN
       expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris');
-      expect(screen.getByTestId('codeCommune')).toHaveValue('75056');
-      expect(screen.getByTestId('latitudeCommune')).toHaveValue('48.859');
-      expect(screen.getByTestId('longitudeCommune')).toHaveValue('2.347');
-      expect(screen.getByTestId('distanceCommune')).toHaveValue('10');
+      expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
+      expect(screen.getByDisplayValue('48.859')).toBeInTheDocument();
+      expect(screen.getByDisplayValue('2.347')).toBeInTheDocument();
+      expect(screen.getByDisplayValue('10')).toBeInTheDocument();
     });
   });
 
@@ -95,10 +95,10 @@ describe('InputCommune', () => {
 
       // THEN
       expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris');
-      expect(screen.getByTestId('codeCommune')).toHaveValue('75056');
-      expect(screen.getByTestId('latitudeCommune')).toHaveValue('48.859');
-      expect(screen.getByTestId('longitudeCommune')).toHaveValue('2.347');
-      expect(screen.getByTestId('distanceCommune')).toHaveValue('20');
+      expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
+      expect(screen.getByDisplayValue('48.859')).toBeInTheDocument();
+      expect(screen.getByDisplayValue('2.347')).toBeInTheDocument();
+      expect(screen.getByDisplayValue('20')).toHaveValue('20');
     });
   });
 });

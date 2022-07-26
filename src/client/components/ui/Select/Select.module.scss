@@ -1,3 +1,5 @@
+@import "@styles/utilities";
+
 .container {
     position: relative;
 }
@@ -8,6 +10,7 @@
     padding: 8px;
     width: 100%;
     border: 1px solid var(--grey-925);
+    border-radius: 20px;
     background-color: var(--grey-1000);
     margin: 0;
     max-height: 300px;
@@ -23,23 +26,18 @@
 }
 
 .button {
+    @extend %text-regular;
     display: flex;
     width: 100%;
     justify-content: space-between;
-    border-radius: 4px 4px 0px 0px;
+    color: $color-mention-grey;
     padding: 8px 8px 8px 12px;
-    border: 1px solid var(--grey-425);
-    border-bottom: 2px solid var(--border-plain-grey);
+    border: 1.5px solid;
+    border-color: $color-primary;
+    border-radius: 20px;
 }
-
-
 
 .selectLabel {
+    display:block;
     margin-bottom: 0.5rem;
-}
-
-@media screen and (min-width: 48em) {
-    .button {
-        font-size: 1rem;
-    }
 }

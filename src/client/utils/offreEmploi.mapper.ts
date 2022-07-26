@@ -21,6 +21,8 @@ export function mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList: 
   });
 }
 
-export function générerTitreFiltre(titre: string, inputCourant: string): string {
+export function générerTitreFiltre(multiple: boolean, inputCourant: string): string {
+  let titre;
+  multiple ? titre = 'Sélectionnez vos choix': titre = 'Sélectionnez votre choix';
   return `${titre} ${inputCourant !== '' && inputCourant.split(',').length > 0 ? `(${inputCourant.split(',').length})` : ''}`;
 }

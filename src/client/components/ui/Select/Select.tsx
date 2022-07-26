@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { uuid4 } from '@sentry/utils';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
@@ -15,11 +15,10 @@ interface SelectProps {
   label: string
   name?: string
   multiple?: boolean
-
-  onChange(value: string): void;
+  onChange?: (value: string) => void;
 }
 
-interface Option {
+export interface Option {
   libellé: string;
   valeur: string;
 }
@@ -31,38 +30,49 @@ export function Select(props: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(value);
 
-  const closeOptionsOnClickOutside = useCallback((e: MouseEvent) => {
-    if (!(optionsRef.current)?.contains(e.target as Node)) {
+  const labeledBy = useRef(uuid4());
+
+  const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
+    if (!(optionsRef.current)?.contains(event.target as Node)) {
       setIsOptionsOpen(false);
     }
   }, []);
 
-  const closeOptionsOnEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === KeyBoard.ESCAPE || KeyBoard.TAB) {
+  const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
+    if (event.key === KeyBoard.ESCAPE || KeyBoard.TAB) {
       setIsOptionsOpen(false);
     }
   }, []);
 
-  const onSelectMultipleChange = useCallback((checkboxValue: boolean, changedValue: string) => {
-    const currentString = value.split(',').filter((element) => element);
-    const indexOfValue = currentString.indexOf(changedValue);
-    if (!checkboxValue) {
-      currentString.splice(indexOfValue, 1);
-    } else {
-      currentString.push(changedValue);
-    }
-    const newValue = currentString.join(',');
-    onChange(newValue);
-  }, [value]);
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
     }
-  };
+  }, []);
 
-  useEffect(() => {
+  const onSelectMultipleChange = useCallback((isValueSelected: boolean, changedValue: string) => {
+    const valueList = selectedValue ? selectedValue.split(',') : [];
+    if (isValueSelected) {
+      valueList.push(changedValue);
+    } else {
+      const indexOfValue = valueList.indexOf(changedValue);
+      valueList.splice(indexOfValue, 1);
+    }
+
+    const newSelectedValue = valueList.join(',');
+    setSelectedValue(newSelectedValue);
+    if (onChange) {
+      onChange(newSelectedValue);
+    }
+  }, [selectedValue, onChange]);
+
+  useEffect(function onValueChange() {
+    setSelectedValue(value);
+  }, [value]);
+
+  useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
     document.addEventListener('keyup', closeOptionsOnEscape);
 
@@ -78,9 +88,69 @@ export function Select(props: SelectProps) {
     return maxOptionLength ? { minWidth: `${maxOptionLength + MARGE_SELECT_WIDTH}ch` } : {};
   }, [optionList]);
 
+  const buttonLabel = useMemo(() => {
+
+    const getLibelléAvecValeur = optionList.find((option) => option.valeur === value);
+
+    if (multiple) {
+      if(!selectedValue) {
+        return placeholder;
+      } else {
+        const selectedValueLibelléArray = selectedValue
+          .split(',')
+          .map(() => getLibelléAvecValeur ? getLibelléAvecValeur.libellé : selectedValue);
+        return `${selectedValueLibelléArray[0]}... (${selectedValue.split(',').length})`;
+      }
+    }
+    if (selectedValue) return getLibelléAvecValeur ? getLibelléAvecValeur.libellé : selectedValue;
+    return placeholder;
+  }, [selectedValue, multiple, placeholder, optionList, value]);
+
+  function ListBox() {
+    return (
+      <div
+        className={styles.options}
+        role="listbox"
+      >
+        {
+          multiple
+            ? optionList.map((option, index) => (
+              <Checkbox
+                key={index}
+                className={styles.option}
+                role="option"
+                label={option.libellé}
+                value={option.valeur}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => onSelectMultipleChange(event.target.checked, option.valeur)}
+                onKeyDown={handleKeyDown}
+                checked={selectedValue.split(',').includes(option.valeur)}
+              />
+            ))
+            : optionList.map((option, index) => (
+              <Radio
+                id={option.libellé}
+                key={index}
+                className={styles.option}
+                role="option"
+                label={option.libellé}
+                value={option.valeur}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  if(onChange) {
+                    onChange(e.target.value);
+                  }
+                }}
+                onKeyDown={handleKeyDown}
+                checked={selectedValue === option.valeur}
+              />
+            ))
+        }
+      </div>
+    );
+  }
+
   return (
     <div>
-      <label className={classNames(styles.selectLabel, 'fr-label')}>
+      <label className={styles.selectLabel} id={labeledBy.current}>
         {label}
       </label>
       <div ref={optionsRef} className={styles.container}>
@@ -88,51 +158,16 @@ export function Select(props: SelectProps) {
           type="button"
           aria-haspopup="listbox"
           aria-expanded={isOptionsOpen}
+          aria-labelledby={labeledBy.current}
           style={selectWidth}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >
-          <span>{placeholder}</span>
-          {isOptionsOpen ? <AngleUpIcon/> : <AngleDownIcon/>}
+          <span>{buttonLabel}</span>
+          {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
-        {isOptionsOpen &&
-          <div
-            className={styles.options}
-            role={multiple ? 'listbox' : 'combobox'}
-          >
-            {
-              multiple
-                ? optionList.map((option, index) => (
-                  <Checkbox
-                    key={index}
-                    className={styles.option}
-                    role="option"
-                    label={option.libellé}
-                    value={option.valeur}
-                    onChange={() => onSelectMultipleChange(option.valeur)}
-                    onKeyDown={handleKeyDown}
-                    checked={value.split(',').includes(option.valeur)}
-                  />
-                ))
-                : optionList.map((option, index) => (
-                  <Radio
-                    id={option.libellé}
-                    key={index}
-                    className={styles.option}
-                    role="option"
-                    label={option.libellé}
-                    value={option.valeur}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                      onChange(e.target.value);
-                    }}
-                    onKeyDown={handleKeyDown}
-                    checked={value === option.valeur}
-                  />
-                ))
-            }
-          </div>
-        }
-        <input type="hidden" name={name} value={value}/>
+        {isOptionsOpen && <ListBox />}
+        <input type="hidden" name={name} value={selectedValue}/>
       </div>
     </div>
   );

@@ -225,9 +225,9 @@ export const InputCommune = (props: InputCommuneProps) => {
               onKeyDown={handleKeyDown}
               onClick={() => setSuggestionsActive(!!codeCommune)}
             />
-            <input type="hidden" name="codeCommune" value={codeCommune} data-testid="codeCommune" />
-            <input type="hidden" name="latitudeCommune" value={latitudeCommune} data-testid="latitudeCommune" />
-            <input type="hidden" name="longitudeCommune" value={longitudeCommune} data-testid="longitudeCommune" />
+            <input type="hidden" name="codeCommune" value={codeCommune} />
+            <input type="hidden" name="latitudeCommune" value={latitudeCommune} />
+            <input type="hidden" name="longitudeCommune" value={longitudeCommune} />
           </div>
           {suggestionsActive && <SuggestionsCommuneList/>}
         </div>
@@ -236,7 +236,6 @@ export const InputCommune = (props: InputCommuneProps) => {
       <Select
         label="Rayon"
         name="distanceCommune"
-        dataTestId={'distanceCommune'}
         placeholder={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
         optionList={radiusList}
         onChange={setDistanceCommune}

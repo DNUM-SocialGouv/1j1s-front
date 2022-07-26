@@ -103,7 +103,7 @@ describe('RechercherMission', () => {
         const résultatsCommune = await screen.findByTestId('RésultatsCommune');
         const resultListCommune = within(résultatsCommune).getAllByRole('option');
         fireEvent.click(resultListCommune[0]);
-        const selectButtonRadius = screen.getByRole('button', { name: '10 km' });
+        const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
         fireEvent.click(selectButtonRadius);
 
         expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
@@ -167,7 +167,7 @@ describe('RechercherMission', () => {
         const résultatsCommune = await screen.findByTestId('RésultatsCommune');
         const resultListCommune = within(résultatsCommune).getAllByRole('option');
         fireEvent.click(resultListCommune[0]);
-        const selectButtonRadius = screen.getByRole('button', { name: '10 km' });
+        const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
         fireEvent.click(selectButtonRadius);
 
         expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
