@@ -1,8 +1,8 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import React from 'react';
-import { CurrentRefinements,DynamicWidgets, Hits,InstantSearch, Pagination, RefinementList, SearchBox  } from 'react-instantsearch-hooks-web';
+import { CurrentRefinements, Hits,InstantSearch, Pagination, SearchBox } from 'react-instantsearch-hooks-web';
 
-import { OffreDeStageIndexee } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import {
   RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
@@ -13,11 +13,12 @@ const searchClient = instantMeiliSearch(
   'masterKey',
 );
 
-const Résultat = (({ hit: résultat }: {hit: OffreDeStageIndexée}) => {
+const IMAGE_FIXE = '/images/logos/fallback.svg';
+const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   return <RésultatRechercherSolution
     lienOffre={`/stages/${résultat.slug}`}
     intituléOffre={résultat.titre}
-    logoEntreprise={'/images/logos/pole-emploi.svg'}
+    logoEntreprise={IMAGE_FIXE}
     nomEntreprise={résultat.nomEmployeur}
     descriptionOffre={résultat.description}
     étiquetteOffreList = {résultat.domaines || [] }
@@ -33,7 +34,7 @@ export default function RechercherOffreStagePage() {
       <InstantSearch searchClient={searchClient} indexName="offre-de-stage">
         <SearchBox/>
         <CurrentRefinements/>
-        <Hits hitComponent={Resultat}  />
+        <Hits hitComponent={Résultat}  />
         <Pagination/>
       </InstantSearch>
     </main>

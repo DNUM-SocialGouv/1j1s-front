@@ -7,7 +7,6 @@ import { OffreDeStageAttributesFromCMS } from '~/client/components/features/Offr
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import useSanitize from '~/client/hooks/useSanitize';
 
 interface ConsulterOffreDeStageProps {
   offreDeStage: OffreDeStageAttributesFromCMS
@@ -34,8 +33,8 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
           <LinkAsButton
             href={offreDeStage.urlDeCandidature}
             target="_blank">
-                {`Je postule sur ${offreDeStage.source}`}
-            </LinkAsButton>
+            {`Je postule sur ${offreDeStage.source}`}
+          </LinkAsButton>
         </div>
         {offreDeStage.description &&
         <div>
@@ -46,7 +45,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
         {offreDeStage.remunerationBase &&
         <div>
           <h3>Salaire :</h3> { ' ' }
-          <p> {salaireOffreDeStage } €<p/>
+          <p> {salaireOffreDeStage } €</p>
         </div>
         }
       </section>
