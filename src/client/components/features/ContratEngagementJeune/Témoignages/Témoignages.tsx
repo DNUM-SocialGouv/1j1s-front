@@ -30,7 +30,7 @@ const programmeLatifa = `
 + Elle bénéficiera d'une allocation de 500 euros par mois, car elle n'a pas de ressources financières.
 + Après cette période et la découverte d'un métier qui l'intéresse, elle pourra se former encore pendant 3 mois
   en prépa apprentissage.
-+ **Objectif :** qu'elle puisse candidater à un contrat en apprentissage dans une entreprise.
++ **Objectif :** elle pourra candidater à un contrat en apprentissage dans une entreprise.
 `;
 
 interface TémoignageData {
