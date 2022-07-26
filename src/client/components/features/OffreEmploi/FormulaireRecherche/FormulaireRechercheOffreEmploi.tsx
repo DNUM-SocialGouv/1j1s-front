@@ -16,13 +16,14 @@ import styles
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
+import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
-import { Radio } from '~/client/components/ui/RadioButton/Radio';
-import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Radio } from '~/client/components/ui/Radio/Radio';
+import { RadioGroup } from '~/client/components/ui/RadioGroup/RadioGroup';
+import { Select } from '~/client/components/ui/Select/Select';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -209,19 +210,19 @@ export function FormulaireRechercheOffreEmploi() {
               currentInput={inputTypeDeContrat}
               name="typeDeContrats"
             />
-            <SelectSingle
-              titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+            <Select
+              placeholder={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
               name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
               onChange={setInputTempsDeTravail}
-              currentInput={inputTempsDeTravail}
+              value={inputTempsDeTravail}
             />
-            <SelectSingle
-              titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+            <Select
+              placeholder={générerTitreFiltre('Niveau demandé', inputExpérience)}
               name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={setInputExpérience}
-              currentInput={inputExpérience}
+              value={inputExpérience}
             />
             <SelectMultiple
               titre={générerTitreFiltre('Domaine', inputDomaine)}

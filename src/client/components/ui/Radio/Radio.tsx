@@ -2,14 +2,14 @@ import { uuid4 } from '@sentry/utils';
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 
-import styles from '~/client/components/ui/RadioButton/RadioButton.module.scss';
+import styles from '~/client/components/ui/Radio/Radio.module.scss';
 
-interface RadioButtonProps extends React.InputHTMLAttributes<unknown>{
+interface RadioProps extends React.InputHTMLAttributes<unknown>{
   id?: string
   label: string
 }
 
-export function Radio({ id, label, className, ...rest } : RadioButtonProps) {
+export function Radio({ id, label, className, ...rest } : RadioProps) {
   const radioButtonId = useRef(id || uuid4());
 
   useEffect(() => {

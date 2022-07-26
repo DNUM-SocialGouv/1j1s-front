@@ -6,7 +6,7 @@ import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { générerTitreFiltre } from '~/client/utils/offreEmploi.mapper';
@@ -53,12 +53,12 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
     >
       <div className={styles.rechercheMissionEngagementForm__Container}>
         <div className={styles.inputButtonWrapper}>
-          <SelectSingle
-            titre={générerTitreFiltre('Sélectionnez un domaine', domainValue)}
+          <Select
+            placeholder={générerTitreFiltre('Sélectionnez un domaine', domainValue)}
             name="domain"
             optionList={domainList}
             onChange={(value) => setDomainValue(value)}
-            currentInput={domainValue}
+            value={domainValue}
           />
           <InputCommune
             code={inputCodeCommune}
