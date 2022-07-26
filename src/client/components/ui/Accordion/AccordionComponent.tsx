@@ -55,7 +55,7 @@ export function AccordionComponent({ children, customLabel, customButtonClassNam
         aria-controls={`section-${ariaId}`} 
         id={`accordion-${ariaId}`}>
         <span className={styles.accordionButtonLabel}>{ buttonLabel() }</span>
-        {isOpen ? <AngleUpIcon/> : <AngleDownIcon color="currentColor"/>}
+        {isOpen ? <AngleUpIcon color="currentColor"/> : <AngleDownIcon color="currentColor"/>}
       </button>
     </>
   );
