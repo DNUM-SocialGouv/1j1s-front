@@ -4,20 +4,20 @@ import React, { useEffect, useState } from 'react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import {
-  OffreDeStageAttributesFromCMS,
-  OffreDeStageInternalService,
+  OffreDeStageDétail, OffreDeStageInternalService,
 } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { ErrorMessageComponent } from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent';
 
 export default function ConsulterOffreStagePage() {
   const router = useRouter();
   const chargerOffreDeStage = async (slug: string | string[]) => {
-    const result = await axios.get<OffreDeStageDetail>('http://localhost:1337/api/slugify/slugs/offre-de-stage/'+slug);
+    // FIXME: Utiliser un service
+    const result = await axios.get<OffreDeStageInternalService>('http://localhost:1337/api/slugify/slugs/offre-de-stage/'+slug);
     setOffreDeStage(result.data.data.attributes);
     setIsLoaded(true);
   };
 
-  const [offreDeStage, setOffreDeStage] = useState< OffreDeStageDetail >();
+  const [offreDeStage, setOffreDeStage] = useState< OffreDeStageDétail >();
   const [isLoaded, setIsLoaded] = useState(false);
 
 

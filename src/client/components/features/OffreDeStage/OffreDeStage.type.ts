@@ -72,10 +72,10 @@ export type OffreDeStageIndexée = {
   duree?: string
   dureeEnJour?: number
   dureeEnJourMax?: number
-  localisation?: LocalisationStageIndexee
+  localisation?: LocalisationStageIndexée
   nomEmployeur?: string
   remunerationBase: number
-  source?: SourceDesDonnees
+  source?: SourceDesDonnées
   teletravailPossible?: boolean
 };
 
@@ -108,10 +108,10 @@ export type OffreDeStageAttributesFromCMS = {
   duree?: string
   dureeEnJour?: number
   dureeEnJourMax?: number
-  localisation?: LocalisationStageIndexee
+  localisation?: LocalisationStageIndexée
   employeur?: EmployeurStageCMS
   remunerationBase?: number
-  source?: SourceDesDonnees
+  source?: SourceDesDonnées
   teletravailPossible?: boolean
 }
 
@@ -120,7 +120,9 @@ type OffreDeStageDataFromCMS = {
   attributes: OffreDeStageAttributesFromCMS
 }
 
-// sera privé pour le service et sera parsé (nottament pour les dates et le sanitize, mais on l'utilise en attendant)
+// sera privé pour le service et sera parsé (notament pour les dates et le sanitize, mais on l'utilise en attendant)
 export type OffreDeStageInternalService = {
   data: OffreDeStageDataFromCMS
 }
+
+export type OffreDeStageDétail = OffreDeStageAttributesFromCMS
