@@ -5,10 +5,8 @@ import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCa
 export function LaBonneBoitePartner() {
   return (
     <PartnerCard
-      internal={false}
       linkLabel="J'accède au site web"
       logo="/images/logos/la-bonne-boite.svg"
-      alt="La bonne boîte"
       link="https://labonneboite.pole-emploi.fr/"
       title="Et si vous contactiez directement les entreprises ?"
       headline="N'envoyez plus vos CV au hasard !"

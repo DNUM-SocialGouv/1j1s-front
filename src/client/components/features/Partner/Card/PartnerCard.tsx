@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 
 interface PartnerCardProps {
-  alt: string
   logo: string
   link: string
   title: string
@@ -15,28 +14,38 @@ interface PartnerCardProps {
   headlineColor: string
   description: string
   linkLabel: string
-  internal: boolean
 }
 
 export function PartnerCard(props: PartnerCardProps) {
-  const { logo, alt, link, title, headline, linkLabel, headlineColor, internal, description } = props;
-  const icon = internal ? <ArrowRightIcon color="#5269B5"/> : <ExternalRedirectionIcon color="#5269B5" />;
+  const { logo, link, title, headline, linkLabel, headlineColor, description } = props;
+  const isInternalLink = useMemo(function () {
+    return link.startsWith('/');
+  }, [link]);
+  const icon = useMemo(function () {
+    return isInternalLink ? <ArrowRightIcon /> : <ExternalRedirectionIcon />;
+  }, [isInternalLink]);
+
+  const externalAttributes = {
+    rel: 'noreferrer',
+    target: '_blank',
+  };
+
   return (
     <Link href={link}>
-      <a className={styles.card} data-testid='PartnerCard'>
+      <a className={styles.card}  {...(!isInternalLink && externalAttributes)}>
         <div className={styles.cardLogo}>
-          <Image alt={alt} src={logo} width='100%' height='100%'/>
+          <Image alt="" src={logo} width='100%' height='100%'/>
         </div>
         <div className={styles.cardBody}>
-          <h6>{title}</h6>
+          <h2>{title}</h2>
           <p>
             <strong style={{ color: headlineColor }} className={styles.headline}>{headline}</strong>
             {description}
           </p>
-          <div className={styles.cardIcon}>
-            <span className={styles.cardLabelIcon}>{linkLabel}</span>
+          <span className={styles.cardAction}>
+            {linkLabel}
             {icon}
-          </div>
+          </span>
         </div>
       </a>
     </Link>

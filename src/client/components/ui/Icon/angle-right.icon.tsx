@@ -2,8 +2,8 @@ import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function AngleRightIcon({ color = 'currentColor', className }: SvgProps) {
   return (
-    <svg className={className} width="24" height="24" viewBox="0 0 16 17" fill={color} xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" clipRule="evenodd" d="M8.78145 8.01464L5.48145 4.71464L6.42411 3.77197L10.6668 8.01464L6.42411 12.2573L5.48145 11.3146L8.78145 8.01464Z" />
+    <svg className={className} width="24" height="25" viewBox="0 0 24 25" fill={color} xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M13.1722 12.0139L8.22217 7.0639L9.63617 5.6499L16.0002 12.0139L9.63617 18.3779L8.22217 16.9639L13.1722 12.0139Z" fill="#566BB1"/>
     </svg>
   );
 }

@@ -5,48 +5,45 @@
   background: var(--grey-1000);
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
+  &:after {
+    content: inherit !important;
+    font: inherit !important;
+  }
+
+  &Logo {
+    display: flex;
+    justify-content: center;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid var(--grey-925-125);
+    padding: 16px;
+  }
+
+  &Action {
+    @extend %text-regular;
+    display: flex;
+    justify-content: flex-end;
+    color: $color-primary;
+    svg {
+      margin-left: 8px;
+    }
+  }
+
+  &Body {
+    flex-direction: column;
+    padding: 20px;
+
+    > p {
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+    }
+
+    > h2 {
+      @extend %text-medium;
+      margin-bottom: 5px;
+    }
+  }
 }
 
-.cardLogo {
-  display: flex;
-  justify-content: center;
-  border-radius: 20px 20px 0 0;
-  border-bottom: 1px solid var(--grey-925-125);
-  padding: 16px;
-}
-
-.cardBody {
-  flex-direction: column;
-  padding: 20px;
-}
-
-.cardBody > span > span {
-  display: flex;
-  justify-content: right;
-  margin: 0;
-}
-
-.cardBody > p {
-  margin: 0;
-  font-size: 0.875rem;
-}
-
-.cardBody > h2 {
-  margin-bottom: 5px;
-}
-
-.cardIcon {
-  text-align:right;
-  color: $color-primary;
-  font-size: 0.875em;
-}
-
-.cardIcon > svg {
-  vertical-align: middle;
-}
-.cardLabelIcon {
-  margin-right: 10px;
-}
 .headline:after {
   content: " ";
 }
@@ -56,16 +53,16 @@
     display: flex;
     background-image: none;
     border: 1px solid var(--grey-925);
-  }
 
-  .cardLogo {
-    flex-shrink: 0;
-    width: 280px;
-    border: 0px;
-    padding: 0;
-  }
+    &Logo {
+      flex-shrink: 0;
+      width: 280px;
+      border: 0px;
+      padding: 0;
+    }
 
-  .cardBody {
-    width: 100%;
+    &Body {
+      width: 100%;
+    }
   }
 }

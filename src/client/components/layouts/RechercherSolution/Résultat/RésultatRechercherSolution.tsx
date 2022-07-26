@@ -1,10 +1,10 @@
-import { ButtonGroup, Icon, Text } from '@dataesr/react-dsfr';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.css';
+import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 
@@ -28,12 +28,10 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
             <span className={styles.descriptionLabel}>Description :</span>
             <p dangerouslySetInnerHTML={{ __html: description }}/>
           </div>
-          <ButtonGroup size="md" align="right">
-            <Text size="sm" spacing="m-0" className="fr-link">
-              En savoir plus
-              <Icon name="ri-arrow-right-s-line" size="2x" iconPosition="right" />
-            </Text>
-          </ButtonGroup>
+          <span className={styles.callToAction}>
+            En savoir plus
+            <AngleRightIcon color="currentColor" />
+          </span>
         </section>
       </a>
     </Link>

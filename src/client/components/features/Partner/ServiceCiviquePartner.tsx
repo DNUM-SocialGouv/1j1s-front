@@ -5,10 +5,8 @@ import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCa
 export function ServiceCiviquePartner() {
   return (
     <PartnerCard
-      internal={true}
       linkLabel="Découvrir les missions"
       logo="/images/logos/service-civique.svg"
-      alt="Service civique"
       link="/service-civique"
       title="Le Service Civique, pour acquérir de l'expérience et préparer son avenir"
       headline="Avec ou sans diplôme, engagez-vous dans des missions d'intérêt général en France ou à l'étranger."

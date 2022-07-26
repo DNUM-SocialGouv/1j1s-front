@@ -9,7 +9,7 @@ import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-import styles from '~/pages/index.module.css';
+import styles from '~/pages/index.module.scss';
 
 export default function Accueil() {
   return (
@@ -27,29 +27,26 @@ export default function Accueil() {
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
-              imageUrl="/images/homepage/emploi.png"
-              link="/emplois"
+              imageUrl="/images/homepage/emploi.jpg"
+              link="https://labonneboite.pole-emploi.fr/"
               linkLabel="Voir les offres"
               title="Emplois"
-              type="internal"
             >
               <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/alternance.png"
+              imageUrl="/images/homepage/alternance.jpg"
               link="/apprentissage"
               linkLabel="Voir les offres"
               title="Contrats d'alternance"
-              type="internal"
             >
               <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/stage.png"
+              imageUrl="/images/homepage/stage.jpg"
               link="/stages"
               linkLabel="Voir les offres"
               title="Stages"
-              type="internal"
             >
               <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
             </LinkCard>
@@ -58,29 +55,26 @@ export default function Accueil() {
           <AccordionComponent>
             <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
               <LinkCard
-                imageUrl="/images/homepage/jobs-etudiants.png"
+                imageUrl="/images/homepage/jobs-etudiants.jpg"
                 link="/jobs-etudiants"
                 linkLabel="Voir les offres"
                 title="Jobs étudiants"
-                type="internal"
               >
                 <p>Des milliers d&apos;offres d&apos;emplois pour les étudiants</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/entrepreneur.png"
+                imageUrl="/images/homepage/entrepreneur.jpg"
                 link="/"
                 linkLabel="Voir les offres"
                 title="Je veux devenir entrepreneur"
-                type="internal"
               >
                 <p>Retrouvez les conseils, outils et structures d’accompagnement pour vous aider à entreprendre.</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/europe.png"
+                imageUrl="/images/homepage/europe.jpg"
                 link="/"
                 linkLabel="Voir les offres"
                 title="Une expérience en europe"
-                type="internal"
               >
                 <p>Retrouvez des offres d&apos;emploi, des stages, des VIE | VIA et des aides financières pour une expérience en Europe.</p>
               </LinkCard>
@@ -96,20 +90,18 @@ export default function Accueil() {
           </h2>
           <div className={styles.cardList}>
             <LinkCard
-              imageUrl="/images/homepage/formation-alternance.png"
+              imageUrl="/images/homepage/formation-alternance.jpg"
               link="/apprentissage"
               linkLabel="Voir les formations"
               title="Formations en alternance"
-              type="internal"
             >
               <p>Plus de 40 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/formation-initiales.png"
+              imageUrl="/images/homepage/formation-initiales.jpg"
               link="/"
               linkLabel="Voir les formations"
               title="Formations initiales"
-              type="internal"
             >
               <p>Plus de 20 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
             </LinkCard>
@@ -123,29 +115,26 @@ export default function Accueil() {
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
-              imageUrl="/images/homepage/cej.png"
+              imageUrl="/images/banners/CEJ_bannière.jpg"
               link="/contrat-engagement-jeune"
               linkLabel="Découvrir le CEJ"
               title="Je découvre le Contrat d’Engagement Jeune (CEJ)"
-              type="internal"
             >
               <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc. </p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/aide.png"
+              imageUrl="/images/homepage/aide.jpg"
               link="/mes-aides"
               linkLabel="Découvrir mes aides"
               title="J'accède à mes aides"
-              type="internal"
             >
               <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc. </p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/mentor.png"
+              imageUrl="/images/homepage/mentor.jpg"
               link="/mentorat"
               linkLabel="En savoir plus"
               title="Je souhaite échanger avec un mentor"
-              type="internal"
             >
               <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
             </LinkCard>
@@ -154,11 +143,10 @@ export default function Accueil() {
           <AccordionComponent>
             <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
               <LinkCard
-                imageUrl="/images/homepage/accompagne.png"
+                imageUrl="/images/homepage/accompagne.jpg"
                 link="/"
                 linkLabel="En savoir plus"
                 title="Je souhaite être accompagné(e)"
-                type="internal"
               >
                 <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
               </LinkCard>
@@ -173,20 +161,18 @@ export default function Accueil() {
           </h2>
           <div className={styles.cardList}>
             <LinkCard
-              imageUrl="/images/homepage/service-civique.png"
+              imageUrl="/images/homepage/service-civique.jpg"
               link="/service-civique"
               linkLabel="Voir les offres"
               title="Service civique"
-              type="internal"
             >
               <p>Je réalise une mission citoyenne de 6 à 12 mois, donnant le droit à une indemnisation</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/benevolat.png"
+              imageUrl="/images/homepage/benevolat.jpg"
               link="/benevolat"
               linkLabel="Voir les offres"
               title="Bénévolat"
-              type="internal"
             >
               <p>Je réalise une mission d&apos;engagement civique courte auprès d&apos;organisations publiques ou associatives</p>
             </LinkCard>

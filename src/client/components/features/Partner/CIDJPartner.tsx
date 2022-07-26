@@ -5,10 +5,8 @@ import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCa
 export function CIDJPartner() {
   return (
     <PartnerCard
-      internal={false}
       linkLabel="J'accède au site web"
       logo="/images/logos/cidj.svg"
-      alt="Centre d'information et de documentation pour la jeunesse"
       link="https://www.cidj.com/orientation-metiers"
       title="Besoin d'informations sur les métiers ?"
       headline="Renseignez-vous sur les différents secteurs d'activité et métiers avec le CIDJ."
