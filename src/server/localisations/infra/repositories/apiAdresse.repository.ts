@@ -24,7 +24,7 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
     let response;
     try {
       response = await this.apiAdresseHttpClientService.get<ApiAdresseResponse>(
-        `search/?q=${adresseRecherchée}&type=municipality&limit=20`,
+        `search/?q=${adresseRecherchée}&type=municipality&limit=21`,
       );
       const communeList = response.data.features.map(({ properties, geometry }) => ({
         code: properties.citycode,
