@@ -19,7 +19,7 @@ const programme = `
   qui propose des activités sportives à des jeunes en difficulté.
 + Pour finir, avant de se lancer sur le marché du travail, il retournera dans sa Mission Locale
   pendant 1 mois pour préparer des entretiens d'embauche avec son conseiller et démarcher des entreprises.
-+ **Objectif :** qu'à la fin de son programme Kévin ait trouvé un emploi dans un domaine dans lequel il s'épanouit.
++ **Objectif :** à la fin de son programme, Kévin aura trouvé un emploi dans un domaine dans lequel il s'épanouit.
 `;
 
 export function TémoignageKévin ({ id }: { id?: string }) {
