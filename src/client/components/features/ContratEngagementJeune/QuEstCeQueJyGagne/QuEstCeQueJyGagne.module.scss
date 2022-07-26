@@ -1,0 +1,60 @@
+@import "src/styles/utilities";
+
+.section {
+  background: $color-on-primary;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.container {
+  max-width: $breakpoint-xl;
+}
+
+.titre {
+  margin-bottom: 2rem;
+
+  > h2 {
+    @extend %bold;
+    color: $color-primary;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  strong {
+    @extend %text-large;
+  }
+}
+
+.contenu ul > li > strong {
+  color: $color-primary;
+}
+
+.accordion > button {
+  margin: 0;
+}
+
+.contenu, .contenu strong {
+  @extend %text-regular;
+}
+
+@include media(large) {
+  .section {
+    padding: 5rem;
+  }
+
+  .container {
+    gap: 4rem;
+    display: grid;
+    margin: 0 auto;
+    align-items: start;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .titre > h2 {
+    line-height: 3.5rem;
+    font-size: 2.5rem;
+  }
+
+  .contenu {
+    padding-right: 3rem;
+  }
+}

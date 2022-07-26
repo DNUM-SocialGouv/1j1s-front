@@ -5,6 +5,7 @@ import Allocations from '~/client/components/features/ContratEngagementJeune/All
 import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
+import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function ContratEngagementJeune() {
@@ -19,7 +20,8 @@ export default function ContratEngagementJeune() {
         <QuEstCeQueCEst />
         <Actions />
         <PourquoiCEstFaitPourMoi/>
-        <Allocations />
+        <QuEstCeQueJyGagne/>
+        <Allocations/>
       </main>
     </>
   );
