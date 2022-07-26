@@ -1,8 +1,8 @@
-type cmsComponent = {
+type CmsComponent = {
   id: string
 }
 
-export enum domaines {
+export enum Domaines {
   ACHAT= 'achats',
   CULTURE= 'activités sociales et culturelles',
   ADMINISTRATION = 'administration',
@@ -42,9 +42,7 @@ export enum domaines {
   NON_APPLICABLE = 'n/a' // obligatoire en unitaire et n/a par défaut
 }
 
-// export type OffreDeStage = {};
-
-type LocalisationStageIndexeur = {
+type LocalisationStageIndexee = {
   ville?: string
   departement?: string
   codePostal?: string
@@ -55,16 +53,6 @@ type LocalisationStageIndexeur = {
     lng: number
   }
 }
-enum NiveauEtudeStage {
-  NON_APPLICABLE = 'n/a',
-  PRE_BAC = 'PREBAC',
-  BAC = 'BAC',
-  BAC_PLUS_1 = 'BAC+1',
-  BAC_PLUS_2 = 'BAC+2',
-  BAC_PLUS_3 = 'BAC+3',
-  BAC_PLUS_4 = 'BAC+4',
-  BAC_PLUS_5 = 'BAC+5',
-}
 
 enum SourceDesDonnees {
   INTERNE = 'interne',
@@ -74,39 +62,34 @@ enum SourceDesDonnees {
   JOBTEASER = 'jobteaser'
 }
 
-export type OffreDeStageIndexeur = {
+export type OffreDeStageIndexee = {
   titre: string
   description: string
   dateDeDebut: string
   id: string
   slug: string
-  domaines?: Array<domaines>
+  domaines?: Array<Domaines>
   duree?: string
   dureeEnJour?: number
   dureeEnJourMax?: number
-  localisation?: LocalisationStageIndexeur
-  niveauEtude?: NiveauEtudeStage
+  localisation?: LocalisationStageIndexee
   nomEmployeur?: string
   remunerationBase: number
   source?: SourceDesDonnees
   teletravailPossible?: boolean
 };
 
-interface EmployeurStageCMS extends cmsComponent {
+interface EmployeurStageCMS extends CmsComponent {
   nom: string
   description: string
   logoUrl: string
   siteUrl: string
 }
 
-interface DomaineStageCMS extends cmsComponent {
-  nom: domaines
+interface DomaineStageCMS extends CmsComponent {
+  nom: Domaines
 }
 
-interface PrerequisStageCMS extends cmsComponent {
-  niveauEtude: NiveauEtudeStage
-  profil: string
-}
 export type OffreDeStageAttributesFromCMS = {
   titre: string
   id: string
@@ -125,13 +108,11 @@ export type OffreDeStageAttributesFromCMS = {
   duree?: string
   dureeEnJour?: number
   dureeEnJourMax?: number
-  localisation?: LocalisationStageIndexeur
-  niveauEtude?: NiveauEtudeStage
+  localisation?: LocalisationStageIndexee
   employeur?: EmployeurStageCMS
   remunerationBase?: number
   source?: SourceDesDonnees
   teletravailPossible?: boolean
-  preRequis: PrerequisStageCMS
 }
 
 type OffreDeStageDataFromCMS = {

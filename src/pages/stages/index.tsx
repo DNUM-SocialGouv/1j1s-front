@@ -2,7 +2,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import React from 'react';
 import { CurrentRefinements,DynamicWidgets, Hits,InstantSearch, Pagination, RefinementList, SearchBox  } from 'react-instantsearch-hooks-web';
 
-import { OffreDeStageIndexeur } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { OffreDeStageIndexee } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import {
   RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
@@ -13,7 +13,7 @@ const searchClient = instantMeiliSearch(
   'masterKey',
 );
 
-const Hit = (({ hit: résultat }: {hit: OffreDeStageIndexeur}) => {
+const Hit = (({ hit: résultat }: {hit: OffreDeStageIndexee}) => {
   return <RésultatRechercherSolution
     lienOffre={`/stages/${résultat.slug}`}
     intituléOffre={résultat.id}
@@ -41,6 +41,5 @@ export default function RechercherOffreStagePage() {
       </InstantSearch>
     </main>
     </>
-  )
-  ;
+  );
 }
