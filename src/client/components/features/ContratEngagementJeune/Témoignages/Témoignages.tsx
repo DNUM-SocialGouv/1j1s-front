@@ -27,7 +27,7 @@ export function TémoignageKévin ({ id }: { id?: string }) {
       <article>
         <h2>Ce que le Contrat d&apos;Engagement Jeune proposera à Kévin</h2>
         <div className={ styles.portrait }>
-          <Image src={ portraitKévin } objectFit="cover" alt="Portrait de Kévin" />
+          <Image src={ portraitKévin } objectFit="cover" alt="" />
         </div>
         <div className={ styles.bio }>
           <h3>Kévin, 18 ans</h3>
