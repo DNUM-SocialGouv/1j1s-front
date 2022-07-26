@@ -42,7 +42,7 @@ export enum Domaines {
   NON_APPLICABLE = 'n/a' // obligatoire en unitaire et n/a par défaut
 }
 
-type LocalisationStageIndexee = {
+type LocalisationStageIndexée = {
   ville?: string
   departement?: string
   codePostal?: string
@@ -54,7 +54,7 @@ type LocalisationStageIndexee = {
   }
 }
 
-enum SourceDesDonnees {
+enum SourceDesDonnées {
   INTERNE = 'interne',
   WELCOME_TO_THE_JUNGLE = 'welcome to the jungle',
   JOBIJOBA = 'jobijoba',
@@ -62,7 +62,7 @@ enum SourceDesDonnees {
   JOBTEASER = 'jobteaser'
 }
 
-export type OffreDeStageIndexee = {
+export type OffreDeStageIndexée = {
   titre: string
   description: string
   dateDeDebut: string

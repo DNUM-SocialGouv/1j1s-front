@@ -116,6 +116,7 @@ Nous suivons le [Semantic Versioning](https://semver.org)
 - aria-selected: indicates the current "selected" state of various widgets
 
 ### Variables d'environnement
+#### Liées aux stages
 STAGE_CONTENT_MANAGER_BASE_URL: url du cms hébergeant les stages
-STAGE_SEARCH_ENGINE_BASE_URL: url du meilisearch hébergeant les stages
 STAGE_SEARCH_ENGINE_API_KEY: apikey d'affichage du meilisearch hébergeant les stages
+STAGE_SEARCH_ENGINE_BASE_URL: url du meilisearch hébergeant les stages
