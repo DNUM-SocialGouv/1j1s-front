@@ -1,7 +1,7 @@
 import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
-import commonStyles from '~/client/components/features/ConsulterOffre.module.css';
+import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
