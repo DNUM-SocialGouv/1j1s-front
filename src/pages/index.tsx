@@ -22,7 +22,7 @@ export default function Accueil() {
       <main id="contenu">
         <section className={classNames(styles.section, styles.section1)}>
           <h2 className={styles.sectionHeader}>
-            <BriefCaseIcon />
+            <BriefCaseIcon color="#000091" />
             Découvrez nos offres
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
@@ -91,7 +91,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.section2)}>
           <h2 className={styles.sectionHeader}>
-            <BookIcon />
+            <BookIcon color="#A558A0"/>
             Besoin de vous former ?
           </h2>
           <div className={styles.cardList}>
@@ -118,7 +118,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.section3)}>
           <h2 className={styles.sectionHeader}>
-            <CompassIcon />
+            <CompassIcon color="#53918C" />
             Aides, orientation et accompagnement
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
@@ -168,7 +168,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.section4)}>
           <h2 className={styles.sectionHeader}>
-            <TrophyIcon />
+            <TrophyIcon color="#FF934F" />
             Engagement et bénévolat
           </h2>
           <div className={styles.cardList}>
