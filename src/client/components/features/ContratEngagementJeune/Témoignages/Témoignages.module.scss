@@ -105,10 +105,19 @@
 .buttonAccordeon {
   @extend %text-large;
   color: $color-primary;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: flex-start;
   text-align: left;
   width: 100%;
   padding: 0;
+
+  svg {
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  &[aria-expanded=true] {
+    justify-content: center;
+  }
 }
