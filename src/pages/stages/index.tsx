@@ -28,7 +28,7 @@ export default function RechercherOffreStagePage() {
   const searchClient = useDependency<SearchClient>('rechercheClientService');
   return (
     <><HeadTag
-      title={'Des milliers d’offres de stages sélectionnés pour vous'}
+      title={'Rechercher un stage | 1jeune1solution'}
       description="Des milliers d'offres de stages sélectionnées pour vous"/>
     <Hero>
                 Des milliers d’offres de stages sélectionnés pour vous
