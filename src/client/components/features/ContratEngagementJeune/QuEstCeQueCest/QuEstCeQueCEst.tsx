@@ -19,7 +19,7 @@ Quand je signe mon contrat, je bénéficie de :
 + **Un programme intensif** de 15 à 20 heures par semaine composé de différents types d'activités
 + **Une allocation pouvant aller jusqu'à 500 euros par mois** en fonction de mes ressources et à condition que je respecte mes engagements
 
-(*) La durée de l'accompagnement peut exceptionnellement aller jusqu'à 18 mois
+<sub>(*) La durée de l'accompagnement peut exceptionnellement aller jusqu'à 18 mois</sub>
 `;
 
 
