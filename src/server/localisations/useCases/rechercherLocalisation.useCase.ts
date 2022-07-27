@@ -1,43 +1,63 @@
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import {
+  LocalisationAvecCoordonnéesRepository,
+} from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheLocalisationUtils';
+
 
 export class RechercherLocalisationUseCase {
-  constructor(private localisationRepository: LocalisationRepository) {
+  constructor(private localisationRepository: LocalisationRepository, 
+              private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {}
+
+  async handle(recherche: string): Promise<Either<RechercheLocalisation>> {
+    if (RechercheLocalisationUtils.isRechercheByNumeroDepartement(recherche)) {
+      return this.getLocalisationByNumeroDepartement(recherche);
+    } else if (RechercheLocalisationUtils.isRechercheByNumeroCodePostal(recherche)) {
+      return this.getLocalisationByNumeroCodePostal(recherche);
+    } else {
+      return this.getLocalisationByNom(recherche);
+    }
   }
 
-  private DEPARTEMENT_LENGTH = 2;
-  private CODE_POSTAL_LENGTH = 5;
+  private async getLocalisationByNumeroDepartement(recherche: string): Promise<Either<RechercheLocalisation>> {
+    return createSuccess({
+      communeList: [],
+      départementList: await this.localisationRepository.getDépartementListByNuméroDépartement(recherche),
+      régionList: [],
+    });
+  }
 
-  async handle(recherche: string): Promise<RechercheLocalisation> {
-    if(RechercherLocalisationUseCase.checkRechercheOnlyNumber(this.DEPARTEMENT_LENGTH, recherche)) {
-      return {
-        communeList : await this.localisationRepository.getCommuneListByNuméroDépartement(recherche),
-        départementList : await this.localisationRepository.getDépartementListByNuméroDépartement(recherche),
-        régionList : [],
-      };
+  private async getLocalisationByNumeroCodePostal(recherche: string): Promise<Either<RechercheLocalisation>> {
+    const responseCommuneList = await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
+
+    if (responseCommuneList.instance === 'success') {
+      return createSuccess({
+        communeList: responseCommuneList.result.résultats,
+        départementList: [],
+        régionList: [],
+      });
     }
 
-    if(RechercherLocalisationUseCase.checkRechercheOnlyNumber(this.CODE_POSTAL_LENGTH, recherche)) {
-      return  {
-        communeList : await this.localisationRepository.getCommuneListByCodePostal(recherche),
-        départementList : [],
-        régionList : [],
-      };
-    }
+    return createFailure(responseCommuneList.errorType);
+  }
 
-    const [communeList, départementList, régionList] = await Promise.all([
-      this.localisationRepository.getCommuneListByNom(recherche),
+  private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
+    const [responseCommuneList, responseDépartementList, responseRégionList] = await Promise.all([
+      this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
       this.localisationRepository.getDépartementListByNom(recherche),
       this.localisationRepository.getRégionListByNom(recherche),
     ]);
-    return {
-      communeList,
-      départementList,
-      régionList,
-    };
-  }
 
-  private static checkRechercheOnlyNumber(length: number, recherche: string) {
-    return new RegExp(/^\d*$/).test(recherche) && recherche.length === length;
+    if (responseCommuneList.instance === 'success') {
+      return createSuccess({
+        communeList: responseCommuneList.result.résultats,
+        départementList: responseDépartementList,
+        régionList: responseRégionList,
+      });
+    }
+    return responseCommuneList;
   }
 }

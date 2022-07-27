@@ -105,8 +105,8 @@ export function aRégionList(): Localisation[] {
 
 export function aLongList(): RechercheLocalisation {
   return {
-    communeList: [...Array(22)].map(() => {
-      return { code: '76', nom: 'fake' };
+    communeList: [...Array(21)].map(() => {
+      return { code: '76', coordonnées: { latitude: 2, longitude: 1 }, libelle: 'fake (76)', ville: 'fake' };
     }),
     départementList: [...Array(22)].map(() => {
       return { code: '76', nom: 'fake' };

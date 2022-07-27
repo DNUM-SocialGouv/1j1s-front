@@ -1,12 +1,17 @@
 import { aLongList } from '@tests/fixtures/domain/localisation.fixture';
+import { aRechercheAdresseResponse } from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { mapApiResponse, rechercherLocalisationHandler } from '~/pages/api/localisations';
+import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RechercheLocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 describe('rechercher une localisation', () => {
   it('retourne la liste des localisations recherchées', async () => {
+    nock('https://api-adresse.data.gouv.fr')
+      .get('/search/?q=haut&type=municipality&limit=21')
+      .reply(200, aRechercheAdresseResponse().data);
     nock('https://geo.api.gouv.fr/')
       .get('/communes?nom=haut')
       .reply(200, [
@@ -40,16 +45,21 @@ describe('rechercher une localisation', () => {
         nom: 'Hauts-de-France',
       }]);
 
-    await testApiHandler<RechercheLocalisationApiResponse>({
+    await testApiHandler<RechercheLocalisationApiResponse | ErrorHttpResponse>({
       handler: (req, res) => rechercherLocalisationHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
         expect(json).toEqual({
           communeList: [{
-            code: '02140',
-            libelle: 'Haution (02140)',
-            nom: 'Haution',
+            code: '93005',
+            libelle: '20 Avenue Jules Jouy 93600 Aulnay-sous-Bois',
+            nom: 'Aulnay-sous-Bois',
+          },
+          {
+            code: '28201',
+            libelle: '20 Avenue de la Gare 28300 Jouy',
+            nom: 'Jouy',
           }],
           départementList: [{
             code: '68',
@@ -70,7 +80,7 @@ describe('rechercher une localisation', () => {
   it('la réponse de la recherche contient 20 éléments maximum', () => {
     const { communeList, départementList, régionList } = mapApiResponse(aLongList());
 
-    expect(communeList.length).toEqual(20);
+    expect(communeList.length).toEqual(21);
     expect(départementList.length).toEqual(20);
     expect(régionList.length).toEqual(20);
   });

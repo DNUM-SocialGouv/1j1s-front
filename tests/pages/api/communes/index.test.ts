@@ -11,7 +11,7 @@ describe('rechercherCommuneHandler', () => {
   describe('quand l\'api répond avec une 200', () => {
     it('retourne la liste des communes en fonction du paramètre de recherche', async() => {
       nock('https://api-adresse.data.gouv.fr/')
-        .get('/search/?type=municipality&q=paris&limit=20')
+        .get('/search/?type=municipality&q=paris&limit=21')
         .reply(200, aRechercheAdresseResponse().data);
 
       await testApiHandler<RésultatsRechercheCommune | ErrorHttpResponse>({
