@@ -46,7 +46,7 @@ export default function Accueil() {
             </LinkCard>
             <LinkCard
               imageUrl="/images/homepage/stage.png"
-              link="/"
+              link="/stages"
               linkLabel="Voir les offres"
               title="Stages"
               type="internal"
