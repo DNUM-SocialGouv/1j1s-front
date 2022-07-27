@@ -1,0 +1,9 @@
+%linkWithRightIcon {
+  @extend %text-regular;
+  display: flex;
+  justify-content: flex-end;
+  color: $color-primary;
+  svg {
+    margin-left: 8px;
+  }
+}

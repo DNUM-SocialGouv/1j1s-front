@@ -19,13 +19,7 @@
   }
 
   &Action {
-    @extend %text-regular;
-    display: flex;
-    justify-content: flex-end;
-    color: $color-primary;
-    svg {
-      margin-left: 8px;
-    }
+    @extend %linkWithRightIcon;
   }
 
   &Body {

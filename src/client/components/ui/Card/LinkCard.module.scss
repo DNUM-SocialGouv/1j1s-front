@@ -38,13 +38,6 @@
 
     &Action {
         padding: 0 1.5rem 1.5rem 1.5rem;
-
-        @extend %text-regular;
-        display: flex;
-        justify-content: flex-end;
-        color: $color-primary;
-        svg {
-            margin-left: 8px;
-        }
+        @extend %linkWithRightIcon;
     }
 }

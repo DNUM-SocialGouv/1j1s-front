@@ -62,8 +62,5 @@
 }
 
 .callToAction {
-  @extend %text-large;
-  display: flex;
-  justify-content: flex-end;
-  color: $color-primary;
+  @extend %linkWithRightIcon;
 }

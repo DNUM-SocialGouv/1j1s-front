@@ -28,7 +28,7 @@ export default function Accueil() {
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
               imageUrl="/images/homepage/emploi.jpg"
-              link="https://labonneboite.pole-emploi.fr/"
+              link="/emplois"
               linkLabel="Voir les offres"
               title="Emplois"
             >

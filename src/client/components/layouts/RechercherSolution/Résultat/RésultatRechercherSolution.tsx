@@ -30,7 +30,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
           </div>
           <span className={styles.callToAction}>
             En savoir plus
-            <AngleRightIcon color="currentColor" />
+            <AngleRightIcon/>
           </span>
         </section>
       </a>
