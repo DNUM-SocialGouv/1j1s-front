@@ -65,7 +65,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l api répond avec une failure', () => {
       it('retourne une liste vide', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.ERREUR_INATTENDUE));
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
 
         const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
 
@@ -89,7 +89,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l api retourne une failure', () => {
       it('retourne 0 nombre de résultat et une liste vide', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.ERREUR_INATTENDUE));
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
 
         const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
 

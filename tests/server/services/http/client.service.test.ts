@@ -67,7 +67,7 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+    expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
   });
 
   it('retourne une failure SERVICE_INDISPONIBLE quand le endpoint répond 500', async () => {
@@ -80,17 +80,17 @@ describe('ClientService', () => {
     expect((result as Failure).errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
   });
 
-  it('retourne une failure ERREUR_INATTENDUE quand le endpoint répond 400', async () => {
+  it('retourne une failure DEMANDE_INCORRECTE quand le endpoint répond 400', async () => {
     nock('http://baseUrl/')
       .get('/endpoint')
       .reply(400);
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+    expect((result as Failure).errorType).toEqual(ErrorType.DEMANDE_INCORRECTE);
   });
 
-  it('retourne une failure ERREUR_INATTENDUE quand le endpoint répond 404', async () => {
+  it('retourne une failure CONTENU_INDISPONIBLE quand le endpoint répond 404', async () => {
     nock('http://baseUrl/')
       .get('/endpoint')
       .reply(404);
@@ -100,13 +100,13 @@ describe('ClientService', () => {
     expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
   });
 
-  it('retourne une failure ERREUR_INATTENDUE quand le mapping échoue', async () => {
+  it('retourne une failure CONTENU_INDISPONIBLE quand le mapping échoue', async () => {
     nock('http://baseUrl/')
       .get('/endpoint')
       .reply(200, { data: null });
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+    expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
   });
 });

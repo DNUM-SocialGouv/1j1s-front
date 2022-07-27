@@ -14,7 +14,6 @@ import { mockSmallScreen } from '@tests/client/window.mock';
 import {
   anAlternanceService,
   anAlternanceServiceWithErrorDemandeIncorrecte,
-  anAlternanceServiceWithErrorInattendue,
   anAlternanceServiceWithErrorServiceIndisponible,
   anEmptyAlternanceService,
   aSingleResultAlternanceService,
@@ -264,30 +263,6 @@ describe('RechercherAlternance', () => {
 
           // THEN
           expect(errorMessage).toBeInTheDocument();
-        });
-      });
-    });
-
-    describe('quand il y a une erreur inattendue', () => {
-      it('retourne le message d\'erreur correspondant', async () => {
-        // GIVEN
-        const alternanceService = anAlternanceServiceWithErrorInattendue();
-        const métierRecherchéService = aMétierRecherchéService();
-        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
-        mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
-
-        render(
-          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-            <RechercherAlternance />
-          </DependenciesProvider>,
-        );
-
-        // WHEN
-        const unexpectedErrorMessage = await screen.findByText('Erreur inattendue');
-
-        // THEN
-        await waitFor(() => {
-          expect(unexpectedErrorMessage).toBeInTheDocument();
         });
       });
     });

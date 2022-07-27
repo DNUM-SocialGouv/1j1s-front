@@ -1,5 +1,4 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {

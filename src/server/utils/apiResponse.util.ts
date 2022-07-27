@@ -11,11 +11,9 @@ export function handleResponse<R>(résultats: Either<R>, res: NextApiResponse<R 
     case 'failure':
       switch(résultats.errorType) {
         case ErrorType.SERVICE_INDISPONIBLE:
-          return res.status(500).json({ error: résultats.errorType });
+          return res.status(503).json({ error: résultats.errorType });
         case ErrorType.DEMANDE_INCORRECTE:
           return res.status(400).json({ error: résultats.errorType });
-        case ErrorType.ERREUR_INATTENDUE:
-          return res.status(503).json({ error: résultats.errorType });
         case ErrorType.CONTENU_INDISPONIBLE:
           return res.status(404).json({ error: résultats.errorType });
       }

@@ -7,7 +7,7 @@ import {
 
 export function mapLocalisationList(response: ApiDecoupageAdministratifResponse[]): Localisation[] {
   return response.map((commune) => ({
-    code: commune.codesPostaux[0],
+    code: commune.codesPostaux ? commune.codesPostaux[0] : commune.code,
     nom: commune.nom,
   }));
 }

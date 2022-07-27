@@ -58,12 +58,12 @@ describe('RechercherLocalisationUseCase', () => {
     describe('Lorsque la récupération de la liste des communes échoue', () => {
       it('renvoie une erreur', async () => {
         const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-        jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErrorType.ERREUR_INATTENDUE));
+        jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
 
         const result = await listeLocalisationUseCase.handle('95100') as Failure;
 
         expect(result.instance).toEqual('failure');
-        expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+        expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
       });
     });
   });
@@ -87,12 +87,12 @@ describe('RechercherLocalisationUseCase', () => {
   describe('Lorsque la récupération de la liste des communes échoue', () => {
     it('renvoie une erreur', async () => {
       const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-      jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErrorType.ERREUR_INATTENDUE));
+      jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
 
       const result = await listeLocalisationUseCase.handle('Haut') as Failure;
 
       expect(result.instance).toEqual('failure');
-      expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
+      expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
     });
   });
 });

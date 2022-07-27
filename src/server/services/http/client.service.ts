@@ -55,8 +55,8 @@ export abstract class ClientService {
       if(response.data) {
         return createSuccess(mapper(response.data));
       } else {
-        Sentry.captureMessage(`${endpoint} NO DATA IN RESPONSE`, CaptureContext.Severity.Error);
-        return createFailure(ErrorType.ERREUR_INATTENDUE);
+        Sentry.captureMessage(`${endpoint} PAS DE DATA`, CaptureContext.Severity.Error);
+        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
       }
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
@@ -66,15 +66,15 @@ export abstract class ClientService {
         }
         if (e.response?.status === 400) {
           Sentry.captureMessage(`${endpoint} ERREUR 400 ${e}`, CaptureContext.Severity.Error);
-          return createFailure(ErrorType.ERREUR_INATTENDUE);
+          return createFailure(ErrorType.DEMANDE_INCORRECTE);
         }
         if (e.response?.status === 404) {
           Sentry.captureMessage(`${endpoint} ERREUR 404 ${e}`, CaptureContext.Severity.Error);
           return createFailure(ErrorType.CONTENU_INDISPONIBLE);
         }
       }
-      Sentry.captureMessage(`${endpoint} MAPPING RESPONSE ${e}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
+      Sentry.captureMessage(`${endpoint} PROBLEME MAPPING ${e}`, CaptureContext.Severity.Error);
+      return createFailure(ErrorType.CONTENU_INDISPONIBLE);
     }
   }
 }

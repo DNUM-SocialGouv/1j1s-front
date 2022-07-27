@@ -50,7 +50,7 @@ export class HttpClientService {
           return createFailure(ErrorType.CONTENU_INDISPONIBLE);
         }
       }
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
+      return createFailure(ErrorType.CONTENU_INDISPONIBLE);
     }
   }
 }
