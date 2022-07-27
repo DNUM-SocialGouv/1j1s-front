@@ -56,7 +56,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
           hasRouterQuery &&
 
           <>
-            {listeSolution.length > 0 ?
+            {!erreurRecherche && listeSolution.length > 0 ?
               <>
                 {étiquettesRecherche}
                 <div className={styles.nombreRésultats}>

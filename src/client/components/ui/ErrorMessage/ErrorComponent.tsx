@@ -17,6 +17,7 @@ export const ErrorComponent = (props: ErrorProps) => {
       {!errorType && <NoResultErrorMessage className={styles.errorMessage}/>}
       {errorType === ErrorType.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage className={styles.errorMessage}/>}
       {errorType === ErrorType.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage className={styles.errorMessage} />}
+      {errorType === ErrorType.CONTENU_INDISPONIBLE && <NoResultErrorMessage className={styles.errorMessage} />}
     </>
   );
 };

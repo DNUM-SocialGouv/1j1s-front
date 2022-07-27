@@ -42,6 +42,7 @@ export function RechercherJobÉtudiant() {
     const queryString = stringify(router.query);
     if (queryString) {
       setIsLoading(true);
+      setErreurRecherche(undefined);
       offreEmploiService.rechercherJobÉtudiant(queryString)
         .then((response) => {
           if (response.instance === 'success') {
