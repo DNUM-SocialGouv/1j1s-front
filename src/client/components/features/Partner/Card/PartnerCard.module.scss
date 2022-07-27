@@ -2,7 +2,7 @@
 
 .card {
   display: block;
-  background: var(--grey-1000);
+  background: $color-surface;
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
   &:after {
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     border-radius: 20px 20px 0 0;
-    border-bottom: 1px solid var(--grey-925-125);
+    border-bottom: 1px solid $color-separator;
     padding: 16px;
   }
 
@@ -52,7 +52,7 @@
   .card {
     display: flex;
     background-image: none;
-    border: 1px solid var(--grey-925);
+    border: 1px solid $color-separator;
 
     &Logo {
       flex-shrink: 0;

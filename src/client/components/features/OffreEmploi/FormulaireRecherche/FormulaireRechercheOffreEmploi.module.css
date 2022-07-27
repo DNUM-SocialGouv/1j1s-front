@@ -1,7 +1,6 @@
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid var(--grey-950);
 }
 
 .filtresRechercherOffre {

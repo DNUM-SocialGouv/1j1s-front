@@ -115,7 +115,7 @@ export default function Accueil() {
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
-              imageUrl="/images/banners/CEJ_bannière.jpg"
+              imageUrl="/images/homepage/cej.jpg"
               link="/contrat-engagement-jeune"
               linkLabel="Découvrir le CEJ"
               title="Je découvre le Contrat d’Engagement Jeune (CEJ)"

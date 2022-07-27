@@ -1,0 +1,24 @@
+@import "@styles/utilities";
+
+.partnerListWrapper {
+  background-color: $color-background;
+  padding: 2rem 1rem;
+}
+.partnerList {
+  max-width: 78rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+}
+
+.partnerList > * + * {
+  margin-top: 28px;
+}
+
+
+@media only screen and (min-width: 48em) {
+  .partnerList {
+    margin: auto;
+  }
+}
