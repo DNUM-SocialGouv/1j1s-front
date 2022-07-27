@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
+import { useLinkAttribute } from '~/client/hooks/useLinkAttribute';
 
 interface PartnerCardProps {
   logo: string
@@ -18,17 +19,10 @@ interface PartnerCardProps {
 
 export function PartnerCard(props: PartnerCardProps) {
   const { logo, link, title, headline, linkLabel, headlineColor, description } = props;
-  const isInternalLink = useMemo(function () {
-    return link.startsWith('/');
-  }, [link]);
+  const { isInternalLink, externalAttributes } = useLinkAttribute(link);
   const icon = useMemo(function () {
     return isInternalLink ? <ArrowRightIcon /> : <ExternalRedirectionIcon />;
   }, [isInternalLink]);
-
-  const externalAttributes = {
-    rel: 'noreferrer',
-    target: '_blank',
-  };
 
   return (
     <Link href={link}>
