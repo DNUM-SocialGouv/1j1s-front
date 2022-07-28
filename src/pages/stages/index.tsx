@@ -8,7 +8,7 @@ import { RésultatRechercherSolution } from '~/client/components/layouts/Recherc
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import styles from '~/pages/stages/RechercherStagePage.module.css';
+import styles from '~/pages/stages/RechercherStagePage.module.scss';
 
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
@@ -54,7 +54,17 @@ export default function RechercherOffreStagePage() {
             root: styles.stageListeRootElement,
           }
         }/>
-        <Pagination/>
+        <Pagination
+          totalPages={10}
+          classNames={
+            {
+              lastPageItem: styles.stagePaginationlastPageItemElement,
+              list: styles.stagePaginationListElement,
+              root: styles.stagePaginationRootElement,
+              selectedItem: styles.stagePaginationSelectedItemElement,
+            }
+          }
+        />
       </InstantSearch>
     </main>
     </>
