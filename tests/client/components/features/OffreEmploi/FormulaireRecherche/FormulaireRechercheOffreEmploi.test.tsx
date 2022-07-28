@@ -275,6 +275,68 @@ describe('FormulaireRechercheOffreEmploi', () => {
       });
     });
 
+    describe('quand on filtre par domaine', () => {
+      it('ajoute le domaine sélectionné aux query params', async () => {
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock}>
+            <FormulaireRechercheOffreEmploi />
+          </DependenciesProvider>,
+        );
+
+        const button = screen.getByRole('button', { name: 'Domaine' });
+        fireEvent.click(button);
+
+        const domaineList = await screen.findByRole('listbox');
+
+        await waitFor(() => {
+          expect(domaineList).toBeInTheDocument();
+        });
+
+        const inputDomaine = within(domaineList).getAllByRole('option');
+        fireEvent.click(inputDomaine[2]);
+
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+        fireEvent.click(buttonRechercher);
+
+        expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
+      });
+    });
+
+    describe('quand on filtre par niveau demandé', () => {
+      it('ajoute le niveau demandé sélectionné aux query params', async () => {
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock}>
+            <FormulaireRechercheOffreEmploi />
+          </DependenciesProvider>,
+        );
+
+        const button = screen.getByRole('button', { name: 'Niveau demandé' });
+        fireEvent.click(button);
+
+        const niveauDemandéList = await screen.findByTestId('Select-experienceExigence');
+
+        await waitFor(() => {
+          expect(niveauDemandéList).toBeInTheDocument();
+        });
+
+        const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('option');
+        fireEvent.click(inputNiveauDemandé[0]);
+
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+        fireEvent.click(buttonRechercher);
+
+        expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { shallow: true });
+      });
+    });
+
     describe('quand on filtre par temps de travail', () => {
       it('ajoute les temps de travail aux query params', async () => {
         const localisationServiceMock = aLocalisationService();

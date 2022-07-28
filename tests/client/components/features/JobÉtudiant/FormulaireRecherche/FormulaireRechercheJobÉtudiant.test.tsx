@@ -12,11 +12,11 @@ import { aLocalisationListWithCommuneAndDépartement } from '@tests/fixtures/dom
 import React from 'react';
 
 import {
-  FormulaireRechercheOffreEmploi,
-} from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
+  FormulaireRechercheJobÉtudiant,
+} from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-describe('FormulaireRechercheOffreEmploi', () => {
+describe('FormulaireRechercheJobÉtudiant', () => {
   describe('en version mobile', () => {
     beforeEach(() => {
       mockSmallScreen();
@@ -31,7 +31,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
+            <FormulaireRechercheJobÉtudiant />
           </DependenciesProvider>,
         );
 
@@ -56,7 +56,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         mockUseRouter({ push: routerPush });
         render(
           <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
+            <FormulaireRechercheJobÉtudiant />
           </DependenciesProvider>,
         );
 
@@ -89,7 +89,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         render(
           <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheOffreEmploi />
+            <FormulaireRechercheJobÉtudiant />
           </DependenciesProvider>,
         );
 
@@ -128,7 +128,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
       mockUseRouter({ push: jest.fn() });
       render(
         <DependenciesProvider localisationService={localisationServiceMock}>
-          <FormulaireRechercheOffreEmploi />
+          <FormulaireRechercheJobÉtudiant />
         </DependenciesProvider>,
       );
 
@@ -137,6 +137,37 @@ describe('FormulaireRechercheOffreEmploi', () => {
       // THEN
       await waitFor(() => {
         expect(filtreRechercheDesktop).toBeInTheDocument();
+      });
+    });
+
+    describe('quand on filtre par domaine', () => {
+      it('ajoute le domaine sélectionné aux query params', async () => {
+        const localisationServiceMock = aLocalisationService();
+        const routerPush = jest.fn();
+        mockUseRouter({ push: routerPush });
+
+        render(
+          <DependenciesProvider localisationService={localisationServiceMock}>
+            <FormulaireRechercheJobÉtudiant />
+          </DependenciesProvider>,
+        );
+
+        const button = screen.getByRole('button', { name: 'Domaine' });
+        fireEvent.click(button);
+
+        const domaineList = await screen.findByRole('listbox');
+
+        await waitFor(() => {
+          expect(domaineList).toBeInTheDocument();
+        });
+
+        const inputDomaine = within(domaineList).getAllByRole('option');
+        fireEvent.click(inputDomaine[2]);
+
+        const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+        fireEvent.click(buttonRechercher);
+
+        expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
       });
     });
   });
