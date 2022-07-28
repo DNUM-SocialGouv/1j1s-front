@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
+import { SeeMoreComponent } from '~/client/components/ui/SeeMore/SeeMoreComponent';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
@@ -52,8 +52,8 @@ export default function Accueil() {
             </LinkCard>
           </div>
 
-          <AccordionComponent>
-            <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
+          <SeeMoreComponent>
+            <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
                 imageUrl="/images/homepage/jobs-etudiants.jpg"
                 link="/jobs-etudiants"
@@ -79,7 +79,7 @@ export default function Accueil() {
                 <p>Retrouvez des offres d&apos;emploi, des stages, des VIE | VIA et des aides financières pour une expérience en Europe.</p>
               </LinkCard>
             </div>
-          </AccordionComponent>
+          </SeeMoreComponent>
 
         </section>
 
@@ -140,8 +140,8 @@ export default function Accueil() {
             </LinkCard>
           </div>
 
-          <AccordionComponent>
-            <div className={classNames(styles.cardList, styles.cardListPaddingAccordion)}>
+          <SeeMoreComponent>
+            <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
                 imageUrl="/images/homepage/accompagne.jpg"
                 link="/"
@@ -151,7 +151,7 @@ export default function Accueil() {
                 <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
               </LinkCard>
             </div>
-          </AccordionComponent>
+          </SeeMoreComponent>
         </section>
 
         <section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>

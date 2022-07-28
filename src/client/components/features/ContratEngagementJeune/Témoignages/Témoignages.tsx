@@ -3,8 +3,8 @@ import portraitKévin from 'public/images/CEJ/vignette-kevin.jpg';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages.module.scss';
-import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import Marked from '~/client/components/ui/Marked/Marked';
+import { SeeMoreComponent } from '~/client/components/ui/SeeMore/SeeMoreComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
@@ -49,7 +49,7 @@ function Programme () {
   }
   const buttonClassName = () => styles.buttonAccordeon;
   if (isSmallScreen || isMediumScreen) {
-    return (<AccordionComponent customLabel={ label } customButtonClassName={ buttonClassName }>{ ContenuProgramme }</AccordionComponent>);
+    return (<SeeMoreComponent customLabel={ label } customButtonClassName={ buttonClassName }>{ ContenuProgramme }</SeeMoreComponent>);
   } else {
     return ContenuProgramme;
   }

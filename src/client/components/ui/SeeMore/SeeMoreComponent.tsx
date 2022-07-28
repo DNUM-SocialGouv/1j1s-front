@@ -2,21 +2,21 @@ import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import styles from '~/client/components/ui/Accordion/AccordionComponent.module.css';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import styles from '~/client/components/ui/SeeMore/SeeMoreComponent.module.scss';
 
 
-interface AccordionProps {
+interface SeeMoreProps {
   customLabel?: (isOpen: boolean) => string | undefined
   customButtonClassName?: (isOpen: boolean) => string
 }
-export function AccordionComponent({ children, customLabel, customButtonClassName } : React.PropsWithChildren<AccordionProps>) {
+export function SeeMoreComponent({ children, customLabel, customButtonClassName } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
 
-  function toggleAccordion() {
+  function toggleSeeMore() {
     toggle(!isOpen);
   }
 
@@ -34,7 +34,7 @@ export function AccordionComponent({ children, customLabel, customButtonClassNam
     return defaultLabel;
   }
 
-  let buttonClassName = styles.accordionButton;
+  let buttonClassName = styles.seeMoreButton;
   if (customButtonClassName) {
     buttonClassName += ` ${customButtonClassName(isOpen)}`;
   }
@@ -44,17 +44,17 @@ export function AccordionComponent({ children, customLabel, customButtonClassNam
       <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
         id={`section-${ariaId}`}
         role="region"
-        aria-labelledby={`accordion-${ariaId}`}>
+        aria-labelledby={`seeMore-${ariaId}`}>
         {children}
       </div>
       <button className={buttonClassName}
         ref={ref}
-        onClick={toggleAccordion} 
+        onClick={toggleSeeMore}
         type="button" 
         aria-expanded={isOpen}
         aria-controls={`section-${ariaId}`} 
-        id={`accordion-${ariaId}`}>
-        <span className={styles.accordionButtonLabel}>{ buttonLabel() }</span>
+        id={`seeMore-${ariaId}`}>
+        <span className={styles.seeMoreButtonLabel}>{ buttonLabel() }</span>
         {isOpen ? <AngleUpIcon color="currentColor"/> : <AngleDownIcon color="currentColor"/>}
       </button>
     </>
