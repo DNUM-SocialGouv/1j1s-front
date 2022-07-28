@@ -34,8 +34,9 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
+    const caseInsensitiveMétierRecherché = métierRecherché.toLowerCase();
     const response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse, MétierRecherché[]>(
-      `metiers?title=${métierRecherché}`,
+      `metiers?title=${caseInsensitiveMétierRecherché}`,
       mapMétierRecherchéList,
     );
     switch (response.instance) {
