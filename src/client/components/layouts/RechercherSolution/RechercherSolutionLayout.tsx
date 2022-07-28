@@ -5,7 +5,7 @@ import styles from '~/client/components/layouts/RechercherSolution/RechercherSol
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 export interface LienSolution {
   id: string
@@ -19,7 +19,7 @@ export interface LienSolution {
 
 interface RechercherSolutionLayoutProps<T> {
   bannière: React.ReactNode
-  erreurRecherche?: ErrorType
+  erreurRecherche?: ErreurMétier
   étiquettesRecherche: React.ReactNode
   formulaireRecherche: React.ReactNode
   isLoading: boolean

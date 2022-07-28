@@ -13,7 +13,7 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { AlternanceDetailResponse } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import { createFailure, createSuccess, Success } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
 jest.mock('axios', () => {
@@ -96,7 +96,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l api répond avec une failure', () => {
       it('retourne une liste vide', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
         const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
 
@@ -120,7 +120,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l api retourne une failure', () => {
       it('retourne 0 nombre de résultat et une liste vide', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
         const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
 

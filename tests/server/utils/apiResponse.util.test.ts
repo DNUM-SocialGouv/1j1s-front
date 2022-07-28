@@ -1,7 +1,7 @@
 import { NextApiResponse } from 'next';
 
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { handleResponse } from '~/server/utils/apiResponse.util';
 
 interface FakeRésultat {
@@ -28,7 +28,7 @@ describe('handleResponse', () => {
     } as unknown as NextApiResponse;
     jest.spyOn(res, 'status').mockReturnValue(res);
 
-    handleResponse<FakeRésultat>(createFailure(ErrorType.SERVICE_INDISPONIBLE), res);
+    handleResponse<FakeRésultat>(createFailure(ErreurMétier.SERVICE_INDISPONIBLE), res);
 
     expect(res.status).toHaveBeenCalledWith(503);
   });
@@ -40,7 +40,7 @@ describe('handleResponse', () => {
     } as unknown as NextApiResponse;
     jest.spyOn(res, 'status').mockReturnValue(res);
 
-    handleResponse<FakeRésultat>(createFailure(ErrorType.DEMANDE_INCORRECTE), res);
+    handleResponse<FakeRésultat>(createFailure(ErreurMétier.DEMANDE_INCORRECTE), res);
 
     expect(res.status).toHaveBeenCalledWith(400);
   });
@@ -52,7 +52,7 @@ describe('handleResponse', () => {
     } as unknown as NextApiResponse;
     jest.spyOn(res, 'status').mockReturnValue(res);
 
-    handleResponse<FakeRésultat>(createFailure(ErrorType.CONTENU_INDISPONIBLE), res);
+    handleResponse<FakeRésultat>(createFailure(ErreurMétier.CONTENU_INDISPONIBLE), res);
 
     expect(res.status).toHaveBeenCalledWith(404);
   });
