@@ -19,7 +19,7 @@ import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { bénévolatDomaineList, Mission, serviceCiviqueDomaineList } from '~/server/engagement/domain/engagement';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 interface RechercherMissionProps {
   category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
@@ -38,7 +38,7 @@ export function RechercherMission(props: RechercherMissionProps) {
   }, [category]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);
+  const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
   const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
   const OFFRE_PER_PAGE = 30;

@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import { Either, Failure, Success } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ClientService } from '~/server/services/http/client.service';
 
 class FakeHttpClientService extends ClientService {
@@ -57,7 +57,7 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+    expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
   });
 
   it('retourne une failure ERREUR_INATTENDUE quand le endpoint répond 200 avec un body vide', async () => {
@@ -67,7 +67,7 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+    expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
   });
 
   it('retourne une failure SERVICE_INDISPONIBLE quand le endpoint répond 500', async () => {
@@ -77,7 +77,7 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
+    expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
   });
 
   it('retourne une failure DEMANDE_INCORRECTE quand le endpoint répond 400', async () => {
@@ -87,7 +87,7 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.DEMANDE_INCORRECTE);
+    expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
   });
 
   it('retourne une failure CONTENU_INDISPONIBLE quand le endpoint répond 404', async () => {
@@ -97,7 +97,7 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+    expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
   });
 
   it('retourne une failure CONTENU_INDISPONIBLE quand le mapping échoue', async () => {
@@ -107,6 +107,6 @@ describe('ClientService', () => {
 
     const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
 
-    expect((result as Failure).errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+    expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
   });
 });

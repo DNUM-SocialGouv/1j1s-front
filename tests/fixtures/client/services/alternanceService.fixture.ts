@@ -4,7 +4,7 @@ import {
 } from '@tests/fixtures/domain/alternance.fixture';
 
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 export function anAlternanceService(): AlternanceService {
   return {
@@ -25,12 +25,12 @@ export function aSingleResultAlternanceService(): AlternanceService {
 
 export function anAlternanceServiceWithErrorServiceIndisponible(): AlternanceService {
   return {
-    rechercherAlternance: jest.fn().mockResolvedValue({ errorType: ErrorType.SERVICE_INDISPONIBLE, instance: 'failure' }),
+    rechercherAlternance: jest.fn().mockResolvedValue({ errorType: ErreurMétier.SERVICE_INDISPONIBLE, instance: 'failure' }),
   } as unknown as AlternanceService;
 }
 
 export function anAlternanceServiceWithErrorDemandeIncorrecte(): AlternanceService {
   return {
-    rechercherAlternance: jest.fn().mockResolvedValue({ errorType: ErrorType.DEMANDE_INCORRECTE, instance: 'failure' }),
+    rechercherAlternance: jest.fn().mockResolvedValue({ errorType: ErreurMétier.DEMANDE_INCORRECTE, instance: 'failure' }),
   } as unknown as AlternanceService;
 }

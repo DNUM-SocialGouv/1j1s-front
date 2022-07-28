@@ -22,7 +22,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
@@ -38,7 +38,7 @@ export function RechercherOffreEmploi() {
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);
+  const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
 
   useEffect(() => {
     const queryString = stringify(router.query);

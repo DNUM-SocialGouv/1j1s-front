@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
 import { LoggerService } from '~/client/services/logger.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 export class HttpClientService {
   readonly client: AxiosInstance;
@@ -41,16 +41,16 @@ export class HttpClientService {
     } catch (e) {
       if (axios.isAxiosError(e)) {
         if(e.response?.status.toString().startsWith('50')) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
         }
         if(e.response?.status === 400) {
-          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+          return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
         }
         if(e.response?.status === 404) {
-          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+          return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
         }
       }
-      return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+      return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
     }
   }
 }

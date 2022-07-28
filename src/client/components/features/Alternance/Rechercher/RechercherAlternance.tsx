@@ -18,7 +18,7 @@ import { AlternanceService } from '~/client/services/alternances/alternance.serv
 import { mapAlternanceToLienSolution } from '~/client/utils/alternance.utils';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 export function RechercherAlternance() {
   const router = useRouter();
@@ -30,7 +30,7 @@ export function RechercherAlternance() {
   const [nombreRésultats, setNombreRésultats] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [erreurRecherche, setErreurRecherche] = useState<ErrorType | undefined>(undefined);
+  const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
 
   useEffect(() => {
     const queryString = stringify(router.query);

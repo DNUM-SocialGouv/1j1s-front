@@ -6,7 +6,7 @@ import {
 } from '@tests/fixtures/domain/localisationAvecCoordonnées.fixture';
 
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
@@ -58,12 +58,12 @@ describe('RechercherLocalisationUseCase', () => {
     describe('Lorsque la récupération de la liste des communes échoue', () => {
       it('renvoie une erreur', async () => {
         const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-        jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
+        jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
         const result = await listeLocalisationUseCase.handle('95100') as Failure;
 
         expect(result.instance).toEqual('failure');
-        expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+        expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
       });
     });
   });
@@ -87,12 +87,12 @@ describe('RechercherLocalisationUseCase', () => {
   describe('Lorsque la récupération de la liste des communes échoue', () => {
     it('renvoie une erreur', async () => {
       const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-      jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
+      jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
       const result = await listeLocalisationUseCase.handle('Haut') as Failure;
 
       expect(result.instance).toEqual('failure');
-      expect(result.errorType).toEqual(ErrorType.CONTENU_INDISPONIBLE);
+      expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
     });
   });
 });

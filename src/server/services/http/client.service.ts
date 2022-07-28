@@ -3,7 +3,7 @@ import * as CaptureContext from '@sentry/types';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 export abstract class ClientService {
   readonly client: AxiosInstance;
@@ -50,31 +50,31 @@ export abstract class ClientService {
     try {
       response = await this.client.get(endpoint, config);
       if(response.status === 204) {
-        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+        return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
       }
       if(response.data) {
         return createSuccess(mapper(response.data));
       } else {
         Sentry.captureMessage(`${endpoint} PAS DE DATA`, CaptureContext.Severity.Error);
-        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+        return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
       }
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e.response?.status.toString().startsWith('50')) {
           Sentry.captureMessage(`${endpoint} ERREUR 50X ${e}`, CaptureContext.Severity.Error);
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
         }
         if (e.response?.status === 400) {
           Sentry.captureMessage(`${endpoint} ERREUR 400 ${e}`, CaptureContext.Severity.Error);
-          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+          return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
         }
         if (e.response?.status === 404) {
           Sentry.captureMessage(`${endpoint} ERREUR 404 ${e}`, CaptureContext.Severity.Error);
-          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+          return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
         }
       }
       Sentry.captureMessage(`${endpoint} PROBLEME MAPPING ${e}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+      return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
     }
   }
 }
