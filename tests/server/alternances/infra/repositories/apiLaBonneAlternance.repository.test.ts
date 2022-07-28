@@ -35,31 +35,62 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
   describe('getMétierRecherchéList', () => {
     describe('quand l api répond avec un success', () => {
-      it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
-          {
-            codeROMEList: ['D1103', 'D1101', 'H2101'],
-            intitulé: 'Boucherie, charcuterie, traiteur',
-          },
-          {
-            codeROMEList: ['D1102', 'D1104'],
-            intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-          },
-        ]));
+      describe('quand le métier recherché ne comporte pas de majuscule', () => {
+        it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
+          jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
+            {
+              codeROMEList: ['D1103', 'D1101', 'H2101'],
+              intitulé: 'Boucherie, charcuterie, traiteur',
+            },
+            {
+              codeROMEList: ['D1102', 'D1104'],
+              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+            },
+          ]));
 
-        const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
+          const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
 
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
-        expect([
-          {
-            codeROMEList: ['D1103', 'D1101', 'H2101'],
-            intitulé: 'Boucherie, charcuterie, traiteur',
-          },
-          {
-            codeROMEList: ['D1102', 'D1104'],
-            intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-          },
-        ]).toEqual(result);
+          expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
+          expect([
+            {
+              codeROMEList: ['D1103', 'D1101', 'H2101'],
+              intitulé: 'Boucherie, charcuterie, traiteur',
+            },
+            {
+              codeROMEList: ['D1102', 'D1104'],
+              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+            },
+          ]).toEqual(result);
+        });
+      });
+
+      describe('quand le métier recherché comporte des majuscules', () => {
+        it('retourne la liste des métiers recherchés par l\'api la bonne alternance pour le métier sans majuscule', async () => {
+          jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
+            {
+              codeROMEList: ['D1103', 'D1101', 'H2101'],
+              intitulé: 'Boucherie, charcuterie, traiteur',
+            },
+            {
+              codeROMEList: ['D1102', 'D1104'],
+              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+            },
+          ]));
+
+          const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('Bou');
+
+          expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
+          expect([
+            {
+              codeROMEList: ['D1103', 'D1101', 'H2101'],
+              intitulé: 'Boucherie, charcuterie, traiteur',
+            },
+            {
+              codeROMEList: ['D1102', 'D1104'],
+              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+            },
+          ]).toEqual(result);
+        });
       });
     });
 
