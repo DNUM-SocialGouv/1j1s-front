@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
 import styles
-  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
+import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';

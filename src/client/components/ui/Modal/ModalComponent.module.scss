@@ -1,0 +1,65 @@
+@import "@styles/utilities";
+
+.modal {
+  position: fixed;
+  z-index: 5500;
+  padding: 0;
+  border: none;
+  background-color: hsla(0,0%,9%,.375);
+  pointer-events: none;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.2s ease-in-out all;
+
+  &:not([open]) {
+    display: unset;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s ease-in-out all;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    height: 2rem;
+  }
+}
+
+.modalBody {
+  height: calc(100vh - 2rem);
+  overflow-y: scroll;
+  background-color: white;
+  pointer-events: all;
+}
+
+.modalClose {
+  text-align: right;
+  padding: 1rem 1rem 0.5rem;
+}
+
+.modalCloseLabel {
+  color: $color-primary;
+  font-size: 0.875rem;
+  margin-right: 0.2rem;
+}
+
+.modalCloseIcon {
+  fill: $color-primary;
+  vertical-align: bottom;
+}
+
+.modalTitle {
+  padding: 0 1rem;
+}
+
+.modalContent {
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.modalFooter {
+  background-color: white;
+  padding: 1rem;
+  bottom: 0;
+  position: sticky;
+}

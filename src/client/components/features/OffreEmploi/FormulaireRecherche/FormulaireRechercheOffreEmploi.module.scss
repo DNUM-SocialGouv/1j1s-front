@@ -74,3 +74,16 @@
     width: 100%;
   }
 }
+
+.filtresAvancésModal {
+  bottom: 0;
+
+  & fieldset:not(:last-of-type) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.applyFiltersButton {
+  display: flex;
+  justify-content: center;
+}
