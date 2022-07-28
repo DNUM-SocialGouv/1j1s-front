@@ -47,6 +47,7 @@ export function RechercherMission(props: RechercherMissionProps) {
     const queryString = stringify(router.query);
     if (queryString) {
       setIsLoading(true);
+      setErreurRecherche(undefined);
       missionEngagementService
         .rechercherMission(queryString, category)
         .then((response) => {

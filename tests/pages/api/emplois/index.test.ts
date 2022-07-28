@@ -38,7 +38,7 @@ describe('rechercher une offre d\'emploi', () => {
     });
   });
 
-  it('retourne une erreur 500 quand le service est indisponible', async () => {
+  it('retourne une erreur 503 quand le service est indisponible', async () => {
     nock('https://api.emploi-store.fr')
       .get('/partenaire/offresdemploi/v2/offres/search?range=29970-29999')
       .reply(401)
@@ -54,7 +54,7 @@ describe('rechercher une offre d\'emploi', () => {
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
-        expect(res.status).toEqual(500);
+        expect(res.status).toEqual(503);
         expect(json).toEqual({ error: 'SERVICE_INDISPONIBLE' });
       },
       url: '/emplois?page=1000',

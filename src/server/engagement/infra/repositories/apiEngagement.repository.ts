@@ -1,7 +1,3 @@
-import * as Sentry from '@sentry/nextjs';
-import * as CaptureContext from '@sentry/types';
-import axios from 'axios';
-
 import {
   Mission,
   MissionEngagementFiltre,
@@ -9,20 +5,12 @@ import {
   RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import { EngagementRepository } from '~/server/engagement/domain/engagement.repository';
-import {
-  mapMission,
-  mapRésultatsRechercheMission,
-} from '~/server/engagement/infra/repositories/apiEngagement.mapper';
+import { mapMission, mapRésultatsRechercheMission } from '~/server/engagement/infra/repositories/apiEngagement.mapper';
 import {
   RésultatsMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import {
-  createFailure,
-  createSuccess,
-  Either,
-} from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { Either } from '~/server/errors/either';
 import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
@@ -30,55 +18,22 @@ export class ApiEngagementRepository implements EngagementRepository {
   constructor(private engagementHttpClientService: EngagementHttpClientService) {
   }
 
-  API_ENGAGEMENT_PREFIX_LOG = 'API_ENGAGEMENT';
-
   async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
-    let response;
-
-    try {
-      response = await this.engagementHttpClientService.get<RésultatsMissionEngagementResponse>(
-        `mission/${id}`,
-      );
-
-      if (response.status === 204) {
-        return createFailure(ErrorType.CONTENU_INDISPONIBLE);
-      } else {
-        return createSuccess(mapMission(response.data));
-      }
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status === 500) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
-        }
-      }
-      Sentry.captureMessage(`${this.API_ENGAGEMENT_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_ENGAGEMENT_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
-    }
+    return await this.engagementHttpClientService.get<RésultatsMissionEngagementResponse, Mission>(
+      `mission/${id}`,
+      mapMission,
+    );
   }
 
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
-    let response;
-    const paramètresRecherche = this.buildParamètresRecherche(missionEngagementFiltre);
-    try {
-      const response = await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse>(`mission/search?${paramètresRecherche}`);
-      return createSuccess(mapRésultatsRechercheMission(response.data));
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status === 500) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
-        }
-        if (e.response?.status === 400) {
-          return createFailure(ErrorType.DEMANDE_INCORRECTE);
-        }
-      }
-      Sentry.captureMessage(`${this.API_ENGAGEMENT_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      Sentry.captureMessage(`${this.API_ENGAGEMENT_PREFIX_LOG} ${JSON.stringify(response)}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
-    }
+    const paramètresRecherche = ApiEngagementRepository.buildParamètresRecherche(missionEngagementFiltre);
+    return await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
+      `mission/search?${paramètresRecherche}`,
+      mapRésultatsRechercheMission,
+    );
   }
 
-  private buildParamètresRecherche(missionEngagementFiltre: MissionEngagementFiltre): string {
+  private static buildParamètresRecherche(missionEngagementFiltre: MissionEngagementFiltre): string {
     const { from, domain, publisher, size, lon, lat, distance, openToMinors } = missionEngagementFiltre;
     // eslint-disable-next-line
     const queryList: Record<string, any> = {

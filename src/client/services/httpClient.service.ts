@@ -1,12 +1,9 @@
 import { uuid4 } from '@sentry/utils';
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 
 import { LoggerService } from '~/client/services/logger.service';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErrorType } from '~/server/errors/error.types';
 
 export class HttpClientService {
   readonly client: AxiosInstance;
@@ -37,30 +34,23 @@ export class HttpClientService {
   async get<Response>(
     resource: string,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.get(resource, config);
-  }
-
-  async post<Body, Response>(
-    resource: string,
-    body?: Body,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.post(resource, body, config);
-  }
-
-  async put<Body, Response>(
-    resource: string,
-    body: Body,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.put(resource, body, config);
-  }
-
-  async delete<Response>(
-    resource: string,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.delete(resource, config);
+  ): Promise<Either<Response>> {
+    try {
+      const response = await this.client.get(resource, config);
+      return createSuccess(response.data as Response);
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        if(e.response?.status.toString().startsWith('50')) {
+          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
+        }
+        if(e.response?.status === 400) {
+          return createFailure(ErrorType.DEMANDE_INCORRECTE);
+        }
+        if(e.response?.status === 404) {
+          return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+        }
+      }
+      return createFailure(ErrorType.CONTENU_INDISPONIBLE);
+    }
   }
 }

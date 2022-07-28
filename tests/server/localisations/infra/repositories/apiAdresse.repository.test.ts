@@ -1,14 +1,6 @@
-import {
-  anApiAdresseHttpClientService,
-  aRechercheAdresseResponse,
-} from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
-import { anAxiosErreur } from '@tests/fixtures/services/httpClientService.fixture';
+import { anApiAdresseHttpClientService } from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
 
-import {
-  Failure,
-  Success,
-} from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { createSuccess, Success } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
@@ -27,7 +19,28 @@ describe('ApiAdresseRepository', () => {
       it('retourne la liste des communes', async () => {
         jest
           .spyOn(apiAdresseHttpClientService, 'get')
-          .mockResolvedValue(aRechercheAdresseResponse());
+          .mockResolvedValue(createSuccess({
+            résultats: [
+              {
+                code: '93005',
+                coordonnées: {
+                  latitude: 48.926541,
+                  longitude: 2.493832,
+                },
+                libelle: '20 Avenue Jules Jouy 93600 Aulnay-sous-Bois',
+                ville: 'Aulnay-sous-Bois',
+              },
+              {
+                code: '28201',
+                coordonnées: {
+                  latitude: 48.510887,
+                  longitude: 1.553914,
+                },
+                libelle: '20 Avenue de la Gare 28300 Jouy',
+                ville: 'Jouy',
+              },
+            ],
+          }));
         const recherche = 'jou';
         const expected = {
           résultats: [
@@ -55,32 +68,6 @@ describe('ApiAdresseRepository', () => {
         const { result } = await apiAdresseRepository.getCommuneList(recherche) as Success<RésultatsRechercheCommune>;
 
         expect(result).toEqual(expected);
-      });
-    });
-
-    describe('quand l\'api répond avec une 500', () => {
-      it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
-        jest
-          .spyOn(apiAdresseHttpClientService, 'get')
-          .mockRejectedValue(anAxiosErreur(500));
-        const recherche = 'paris';
-
-        const result = await apiAdresseRepository.getCommuneList(recherche) as Failure;
-
-        expect(result.errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
-      });
-    });
-
-    describe('quand l\'api répond avec une erreur non traité', () => {
-      it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
-        jest
-          .spyOn(apiAdresseHttpClientService, 'get')
-          .mockRejectedValue(anAxiosErreur(666));
-        const recherche = 'not a commune at all';
-
-        const result = await apiAdresseRepository.getCommuneList(recherche) as Failure;
-
-        expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
       });
     });
   });

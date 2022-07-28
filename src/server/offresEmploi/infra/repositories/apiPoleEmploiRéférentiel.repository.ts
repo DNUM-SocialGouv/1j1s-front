@@ -1,3 +1,4 @@
+import { mapCodeInsee } from '~/server/offresEmploi/infra/repositories/apiPoleEmploi.mapper';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
 
@@ -14,23 +15,24 @@ export class ApiPoleEmploiRéférentielRepository {
   async findCodeInseeInRéférentielCommune(codePostal: string): Promise<string> {
     const responseInCache = await this.cacheService.get<RésultatsRéférentielCommunesResponse[]>(this.CACHE_KEY);
     if(responseInCache) {
-      const codeInsee = responseInCache.find((response) => response.codePostal === codePostal);
-
-      return codeInsee ? codeInsee.code : codePostal;
+      return mapCodeInsee(responseInCache, codePostal);
     } else {
-      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[]>(
+      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
         'partenaire/offresdemploi/v2/referentiel/communes',
+        (data) => data,
       );
-      const codeInsee = response.data.find((response) => response.codePostal === codePostal);
-
-      this.cacheService.set(this.CACHE_KEY, response.data, 24);
-
-      return codeInsee ? codeInsee.code : codePostal;
+      switch (response.instance) {
+        case 'success': {
+          this.cacheService.set(this.CACHE_KEY, response.result, 24);
+          return mapCodeInsee(response.result, codePostal);
+        }
+        case 'failure': return codePostal;
+      }
     }
   };
 }
 
-interface RésultatsRéférentielCommunesResponse {
+export interface RésultatsRéférentielCommunesResponse {
   code: string
   codePostal: string
 }

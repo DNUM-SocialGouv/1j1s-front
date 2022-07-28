@@ -36,6 +36,7 @@ export function RechercherAlternance() {
     const queryString = stringify(router.query);
     if (queryString) {
       setIsLoading(true);
+      setErreurRecherche(undefined);
       alternanceService.rechercherAlternance(queryString)
         .then((response) => {
           if (response.instance === 'success') {

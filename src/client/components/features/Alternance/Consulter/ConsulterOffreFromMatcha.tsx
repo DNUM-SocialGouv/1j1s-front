@@ -1,11 +1,8 @@
 import { Modal, ModalClose, ModalContent } from '@dataesr/react-dsfr';
-import { func } from 'prop-types';
 import React, { useState } from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useSanitize from '~/client/hooks/useSanitize';
 import { constructUrlWidgetPourPostulerOffreMatcha } from '~/client/utils/alternance.utils';
 import { AlternanceFromMatcha } from '~/server/alternances/infra/repositories/alternance.type';

@@ -1,21 +1,18 @@
 import {
   anApprentiBoucherFromMatcha,
-  anApprentiBoucherFromPoleEmploi,
+  anApprentiBoucherFromPoleEmploi, aRésultatsRechercheAlternance,
 } from '@tests/fixtures/domain/alternance.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
-import {
-  aLaBonneAlternanceHttpClient,
-  anAlternanceListResponse,
-  anApprentiBoucherFromMatchaAxiosResponse,
-  anApprentiBoucherFromPoleEmploiAxiosResponse,
-  aRechercheMétierResponse,
-} from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
+import { aLaBonneAlternanceHttpClient } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 
 import {
-  AlternanceDetailResponse,
+  mapMétierRecherchéList, mapRésultatRechercheAlternance,
+  mapRésultatsRechercheAlternance,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import {
   ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import { Failure, Success } from '~/server/errors/either';
+import { AlternanceDetailResponse } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
+import { createFailure, createSuccess, Success } from '~/server/errors/either';
 import { ErrorType } from '~/server/errors/error.types';
 import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
 
@@ -37,98 +34,68 @@ describe('ApiLaBonneAlternanceRepository', () => {
   });
 
   describe('getMétierRecherchéList', () => {
-    it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
+    describe('quand l api répond avec un success', () => {
+      it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
+          {
+            codeROMEList: ['D1103', 'D1101', 'H2101'],
+            intitulé: 'Boucherie, charcuterie, traiteur',
+          },
+          {
+            codeROMEList: ['D1102', 'D1104'],
+            intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+          },
+        ]));
 
+        const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
 
-      jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(aRechercheMétierResponse());
+        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
+        expect([
+          {
+            codeROMEList: ['D1103', 'D1101', 'H2101'],
+            intitulé: 'Boucherie, charcuterie, traiteur',
+          },
+          {
+            codeROMEList: ['D1102', 'D1104'],
+            intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+          },
+        ]).toEqual(result);
+      });
+    });
 
-      const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
+    describe('quand l api répond avec une failure', () => {
+      it('retourne une liste vide', async () => {
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
 
-      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou');
-      expect([
-        {
-          codeROMEList: ['D1103', 'D1101', 'H2101'],
-          intitulé: 'Boucherie, charcuterie, traiteur',
-        },
-        {
-          codeROMEList: ['D1102', 'D1104'],
-          intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-        },
-      ]).toEqual(result);
+        const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
+
+        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
+        expect([]).toEqual(result);
+      });
     });
   });
 
-  describe('getAlternanceList', () => {
-    it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
-      jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(anAlternanceListResponse());
+  describe('searchAlternance', () => {
+    describe('quand l api retourne un success', () => {
+      it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheAlternance()));
 
-      const result = await apiLaBonneAlternanceRepository.getAlternanceList({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
+        const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
 
-      expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
-      expect(result.nombreRésultats).toEqual(4);
-      expect(result.résultats,
-      ).toEqual([
-        {
-          adresse: '15 - AURILLAC 15000',
-          description: 'Vos missions principales :\n \n- Réaliser les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires. \n- Effectuer la vente de produits de boucherie.',
-          entreprise: {
-            logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
-            nom: 'AUCHAN SUPERMARCHE',
-          },
-          from: 'peJob',
-          id: '134CMXJ',
-          intitulé: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
-          niveauRequis: 'Alternance',
-          typeDeContrats: ['CDD'],
-          ville: 'AURILLAC (15)',
-          étiquetteList: ['AURILLAC (15)', 'Alternance', 'CDD'],
-        },
-        {
-          adresse: '57 - CHATEAU SALINS 57170',
-          description: 'Nous sommes à la recherche d\'un(e) apprenti(e) boucher(ère) dans le cadre d\'un CAP.\n\nVous serez formé(e)  entre un centre de formation des apprentis et un employeur.\n\n Passionné(e) par l\'univers de la boucherie, vous souhaitez en faire votre métier, nous sommes prêts à vous former !',
-          entreprise: {
-            logo: undefined,
-            nom: 'SUPERMARCHE MATCH',
-          },
-          from: 'peJob',
-          id: '134BYGN',
-          intitulé: 'Apprenti/e boucher/ère (H/F)',
-          niveauRequis: 'Alternance',
-          typeDeContrats: ['CDD'],
-          ville: 'CHATEAU SALINS (57)',
-          étiquetteList: ['CHATEAU SALINS (57)', 'Alternance', 'CDD'],
-        },
-        {
-          adresse: '77 RUE DES BOURGUIGNONS 92270 BOIS-COLOMBES',
-          description: 'Réalise les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires.\\nPeut effectuer la vente de produits de boucherie.\\nPeut gérer un commerce de détail alimentaire (boucherie, boucherie-charcuterie, ...).',
-          entreprise: {
-            logo: undefined,
-            nom: 'BOUCHERIE STEPHANE VEIT',
-          },
-          from: 'matcha',
-          id: '628a64ed2ff4860027ae1501',
-          intitulé: 'Boucherie',
-          niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-          typeDeContrats: ['Apprentissage', 'Professionnalisation'],
-          ville: undefined,
-          étiquetteList: ['Cap, autres formations niveau (Infrabac)', 'Apprentissage', 'Professionnalisation'],
-        },
-        {
-          adresse: '77 RUE DES BOURGUIGNONS 92270 BOIS-COLOMBES',
-          description: 'Réalise les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires.\\nPeut effectuer la vente de produits de boucherie.\\nPeut gérer un commerce de détail alimentaire (boucherie, boucherie-charcuterie, ...).',
-          entreprise: {
-            logo: undefined,
-            nom: 'BOUCHERIE STEPHANE VEIT',
-          },
-          from: 'matcha',
-          id: '628a65a72ff4860027ae1531',
-          intitulé: 'Boucherie',
-          niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-          typeDeContrats: ['Apprentissage', 'Professionnalisation'],
-          ville: undefined,
-          étiquetteList: ['Cap, autres formations niveau (Infrabac)', 'Apprentissage', 'Professionnalisation'],
-        },
-      ]);
+        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
+        expect(result).toEqual(aRésultatsRechercheAlternance());
+      });
+    });
+
+    describe('quand l api retourne une failure', () => {
+      it('retourne 0 nombre de résultat et une liste vide', async () => {
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErrorType.CONTENU_INDISPONIBLE));
+
+        const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
+
+        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
+        expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
+      });
     });
   });
 
@@ -138,7 +105,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(anApprentiBoucherFromPoleEmploiAxiosResponse());
+          .mockResolvedValue(createSuccess(anApprentiBoucherFromPoleEmploi()));
         const expected = anApprentiBoucherFromPoleEmploi();
         const offreAlternanceId = '134BYGN';
         const from = 'peJob';
@@ -147,6 +114,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
         expect(result.result).toEqual(expected);
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
           `jobs/job/${offreAlternanceId}`,
+          mapRésultatRechercheAlternance,
         );
       });
     });
@@ -156,7 +124,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         jest
           .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(anApprentiBoucherFromMatchaAxiosResponse());
+          .mockResolvedValue(createSuccess(anApprentiBoucherFromMatcha()));
         const expected = anApprentiBoucherFromMatcha();
         const offreAlternanceId = '628a65a72ff4860027ae1531';
         const from = 'matcha';
@@ -165,109 +133,9 @@ describe('ApiLaBonneAlternanceRepository', () => {
         expect(result.result).toEqual(expected);
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
           `jobs/matcha/${offreAlternanceId}`,
+          mapRésultatRechercheAlternance,
         );
       });
-    });
-
-    describe('quand l\'api répond avec une 400', () => {
-      it('on renvoie une failure avec une error SERVICE_INDISPONIBLE', async () => {
-        const offreAlternanceId = 'fake-idea';
-        const from = 'matcha';
-
-        jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(Promise.reject({ response: { status: 500 } }));
-
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
-
-        expect(result.errorType).toEqual(ErrorType.SERVICE_INDISPONIBLE);
-      });
-    });
-
-    describe('quand l\'api répond avec une 500', () => {
-      it('on renvoie une failure avec une error DEMANDE_INCORRECTE', async () => {
-        const offreAlternanceId = 'fake-idea';
-        const from = 'matcha';
-
-        jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(Promise.reject({ response: { status: 400 } }));
-
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
-
-        expect(result.errorType).toEqual(ErrorType.DEMANDE_INCORRECTE);
-      });
-    });
-
-    describe('quand l\'api répond avec une erreur non traité', () => {
-      it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
-        const offreAlternanceId = 'fake-idea';
-        const from = 'matcha';
-
-        jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(Promise.reject({ response: { status: 666 } }));
-
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
-
-        expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
-      });
-    });
-
-    describe('quand l\'api répond une 200 avec une réponse en erreur', () => {
-      it('on renvoie une failure avec une error ERREUR_INATTENDUE', async () => {
-        const offreAlternanceId = 'fake-idea';
-        const from = 'matcha';
-
-        jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
-          .mockResolvedValue(anAxiosResponse({
-            message: 'Offre non trouvée',
-            result: 'not_found',
-          }));
-
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as Failure;
-
-        expect(result.errorType).toEqual(ErrorType.ERREUR_INATTENDUE);
-      });
-    });
-  });
-
-  describe('buildParamètresRechercheAlternance', () => {
-    describe('quand on cherche des codeRomes', () => {
-      it('quand on cherche des codeRomes', async () => {
-        const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ codeRomeList: ['D1103', 'D1101', 'H2101'] });
-
-        expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
-      });
-    });
-
-    it('quand on cherche avec un lieu', async () => {
-      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
-
-      expect(result).toEqual('insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
-    });
-
-    it('quand on cherche avec un lieu et un rayon', async () => {
-      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({
-        code: '75035',
-        codeRomeList: ['D1103', 'D1101', 'H2101'],
-        latitude: '44',
-        longitude: '3',
-        radius:'40',
-      });
-
-      expect(result).toEqual('insee=75035&latitude=44&longitude=3&radius=40&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
-    });
-
-    it('quand on cherche sans lieu et un rayon undefined, on retourne juste le codeRome', async () => {
-      const result = await apiLaBonneAlternanceRepository.buildParamètresRecherche({
-        code: undefined,
-        codeRomeList: ['D1103', 'D1101', 'H2101'],
-        radius: undefined,
-      });
-
-      expect(result).toEqual('romes=D1103%2CD1101%2CH2101&caller=1jeune1solution');
     });
   });
 });

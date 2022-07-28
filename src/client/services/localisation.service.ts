@@ -1,16 +1,7 @@
-import axios from 'axios';
-
 import { HttpClientService } from '~/client/services/httpClient.service';
-import {
-  createFailure,
-  createSuccess,
-  Either,
-} from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
-import {  Localisation } from '~/server/localisations/domain/localisation';
+import { Either, Success } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
-  LocalisationApiResponse,
   RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
@@ -33,26 +24,12 @@ export class LocalisationService {
       return null;
     }
 
-    const { data } = await this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
-    return data;
-  }
-
-  async récupérerLocalisationAvecCodeInsee(typeLocalisation: string, codeInsee: string): Promise<Localisation> {
-    const response = await this.httpClientService.get<LocalisationApiResponse>(`localisation?typeLocalisation=${typeLocalisation}&codeInsee=${codeInsee}`);
-    return response.data;
+    const response = await this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
+    // TODO gérer les erreurs dans la liste déroulante ?
+    return (response as Success<RechercheLocalisationApiResponse>).result;
   }
 
   async rechercherCommune(recherche:string): Promise<Either<RésultatsRechercheCommune>> {
-    try {
-      const response = await this.httpClientService.get<RésultatsRechercheCommune>(`communes?q=${recherche}`);
-      return createSuccess(response.data);
-    }  catch (e) {
-      if (axios.isAxiosError(e)) {
-        if(e.response?.status === 500) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
-        }
-      }
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
-    }
+    return await this.httpClientService.get<RésultatsRechercheCommune>(`communes?q=${recherche}`);
   }
 }

@@ -44,6 +44,7 @@ export function RechercherOffreEmploi() {
     const queryString = stringify(router.query);
     if (queryString) {
       setIsLoading(true);
+      setErreurRecherche(undefined);
       offreEmploiService.rechercherOffreEmploi(queryString)
         .then((response) => {
           if (response.instance === 'success') {

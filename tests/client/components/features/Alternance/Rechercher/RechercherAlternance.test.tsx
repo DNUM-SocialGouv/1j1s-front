@@ -14,7 +14,6 @@ import { mockSmallScreen } from '@tests/client/window.mock';
 import {
   anAlternanceService,
   anAlternanceServiceWithErrorDemandeIncorrecte,
-  anAlternanceServiceWithErrorInattendue,
   anAlternanceServiceWithErrorServiceIndisponible,
   anEmptyAlternanceService,
   aSingleResultAlternanceService,
@@ -97,11 +96,11 @@ describe('RechercherAlternance', () => {
         // THEN
         expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%252CD1101%252CH2101&metierSelectionne=boulanger');
         await waitFor(() => {
-          expect(screen.getByText('4 contrats d\'alternances pour boulanger')).toBeInTheDocument();
+          expect(screen.getByText('2 contrats d\'alternances pour boulanger')).toBeInTheDocument();
         });
 
         const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
-        expect(résultatRechercheAlternanceList).toHaveLength(4);
+        expect(résultatRechercheAlternanceList).toHaveLength(2);
 
       });
     });
@@ -145,7 +144,7 @@ describe('RechercherAlternance', () => {
         fireEvent.click(buttonRechercher);
 
         const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
-        expect(résultatRechercheAlternanceList).toHaveLength(4);
+        expect(résultatRechercheAlternanceList).toHaveLength(2);
         const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
         expect(filtresRecherche).toBeInTheDocument();
         expect(within(filtresRecherche).getByText('AURILLAC (15)')).toBeInTheDocument();
@@ -264,30 +263,6 @@ describe('RechercherAlternance', () => {
 
           // THEN
           expect(errorMessage).toBeInTheDocument();
-        });
-      });
-    });
-
-    describe('quand il y a une erreur inattendue', () => {
-      it('retourne le message d\'erreur correspondant', async () => {
-        // GIVEN
-        const alternanceService = anAlternanceServiceWithErrorInattendue();
-        const métierRecherchéService = aMétierRecherchéService();
-        const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
-        mockUseRouter({ query: { codeRomes: 'D1103%2CD1101%2CH2101', metierSelectionne: 'boulanger' } });
-
-        render(
-          <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService} localisationService={localisationServiceMock}>
-            <RechercherAlternance />
-          </DependenciesProvider>,
-        );
-
-        // WHEN
-        const unexpectedErrorMessage = await screen.findByText('Erreur inattendue');
-
-        // THEN
-        await waitFor(() => {
-          expect(unexpectedErrorMessage).toBeInTheDocument();
         });
       });
     });

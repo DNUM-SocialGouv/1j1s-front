@@ -23,12 +23,6 @@ export function aSingleResultAlternanceService(): AlternanceService {
   } as unknown as AlternanceService;
 }
 
-export function anAlternanceServiceWithErrorInattendue(): AlternanceService {
-  return {
-    rechercherAlternance: jest.fn().mockResolvedValue({ errorType: ErrorType.ERREUR_INATTENDUE, instance: 'failure' }),
-  } as unknown as AlternanceService;
-}
-
 export function anAlternanceServiceWithErrorServiceIndisponible(): AlternanceService {
   return {
     rechercherAlternance: jest.fn().mockResolvedValue({ errorType: ErrorType.SERVICE_INDISPONIBLE, instance: 'failure' }),

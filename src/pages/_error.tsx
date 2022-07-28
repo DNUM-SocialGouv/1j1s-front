@@ -47,7 +47,7 @@ MyError.getInitialProps = async (
     return errorInitialProps;
   }
 
-  // Running on the server, the response object (`res`) is available.
+  // Running on the server, the responses object (`res`) is available.
   //
   // Next.js will pass an err on the server if a page's data fetching methods
   // threw or returned a Promise that rejected

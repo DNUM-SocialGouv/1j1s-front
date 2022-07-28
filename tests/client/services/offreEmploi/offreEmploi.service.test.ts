@@ -2,12 +2,10 @@
  * @jest-environment jsdom
  */
 import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
-import {
-  aRésultatsRechercheOffreEmploi,
-} from '@tests/fixtures/domain/offreEmploi.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
+import { createSuccess } from '~/server/errors/either';
 
 describe('OffreEmploiService', () => {
   describe('rechercherOffreEmploi', () => {
@@ -16,7 +14,7 @@ describe('OffreEmploiService', () => {
       const offreEmploiService = new OffreEmploiService(httpClientService);
       const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI&page=1';
 
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploi()));
 
       const result = await offreEmploiService.rechercherOffreEmploi(offreEmploiQuery);
 
@@ -31,7 +29,7 @@ describe('OffreEmploiService', () => {
       const offreEmploiService = new OffreEmploiService(httpClientService);
       const offreEmploiQuery = 'motCle=barman&page=1';
 
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploi()));
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploi()));
 
       const result = await offreEmploiService.rechercherJobÉtudiant(offreEmploiQuery);
 

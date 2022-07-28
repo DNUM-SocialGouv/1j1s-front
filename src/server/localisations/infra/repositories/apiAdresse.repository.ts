@@ -1,15 +1,10 @@
-import * as Sentry from '@sentry/nextjs';
-import * as CaptureContext from '@sentry/types';
-import axios from 'axios';
-
-import {
-  createFailure,
-  createSuccess,
-  Either,
-} from '~/server/errors/either';
-import { ErrorType } from '~/server/errors/error.types';
+import { Either } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { LocalisationAvecCoordonnéesRepository } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import {
+  LocalisationAvecCoordonnéesRepository,
+} from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
+import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
@@ -18,52 +13,10 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
   ) {
   }
 
-  API_ADRESSE_PREFIX_LOG = 'API_ADRESSE';
-
   async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
-    let response;
-    try {
-      response = await this.apiAdresseHttpClientService.get<ApiAdresseResponse>(
-        `search/?q=${adresseRecherchée}&type=municipality&limit=21`,
-      );
-      const communeList = response.data.features.map(({ properties, geometry }) => ({
-        code: properties.citycode,
-        coordonnées: {
-          latitude: geometry.coordinates[1],
-          longitude: geometry.coordinates[0],
-        },
-        libelle: properties.label,
-        ville: properties.city,
-      }));
-      return createSuccess({ résultats: communeList });
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status === 500) {
-          return createFailure(ErrorType.SERVICE_INDISPONIBLE);
-        }
-      }
-      Sentry.captureMessage(`${this.API_ADRESSE_PREFIX_LOG} ${e}`, CaptureContext.Severity.Error);
-      return createFailure(ErrorType.ERREUR_INATTENDUE);
-    }
+    return await this.apiAdresseHttpClientService.get<ApiAdresseResponse, RésultatsRechercheCommune>(
+      `search/?q=${adresseRecherchée}&type=municipality&limit=21`,
+      mapRésultatsRechercheCommune,
+    );
   }
-}
-
-interface ApiAdresseResponse {
-  features: ApiAdresseFeaturesResponse[];
-}
-
-interface ApiAdresseFeaturesResponse {
-  properties: ApiAdressePropertiesResponse;
-  geometry: ApiAdresseGeometryResponse;
-
-}
-
-interface ApiAdressePropertiesResponse {
-  label: string;
-  city: string;
-  citycode: string;
-}
-
-interface  ApiAdresseGeometryResponse {
-  coordinates: [number, number]
 }

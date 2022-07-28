@@ -1,5 +1,6 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 
+import { Either } from '~/server/errors/either';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { ClientService } from '~/server/services/http/client.service';
 
@@ -9,18 +10,11 @@ export class ApiAdresseHttpClientService extends ClientService {
     super('API_ADRESSE_BASE_URL', API_ADRESSE_BASE_URL);
   }
 
-  get<Response>(
+  async get<Response, Retour>(
     endpoint: string,
+    mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.get(endpoint, config);
-  }
-
-  post<Body, Response>(
-    resource: string,
-    body?: Body,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<Response>> {
-    return this.client.post(resource, body, config);
+  ): Promise<Either<Retour>> {
+    return super.getRequest(endpoint, mapper, config);
   }
 }
