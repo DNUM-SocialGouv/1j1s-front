@@ -1,0 +1,86 @@
+@import "@styles/utilities";
+
+.accompagnement {
+  @extend %background-primary;
+  padding: 3rem 0;
+
+  &Container {
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    h2 {
+      @extend %headline;
+      color: $color-on-primary;
+    }
+  }
+
+  article {
+    @extend %background-surface;
+    padding: 20px;
+    border-radius: 12px;
+
+    div {
+      @extend %text-regular;
+    }
+
+    button {
+      @extend %text-regular;
+      padding: 12px;
+      text-align: start;
+      line-height: 1.25rem;
+      border-radius: 20px;
+      border: 1px solid $color-primary;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+
+  &Question {
+    @extend %bold;
+  }
+
+  &Explication {
+    @extend %text-small;
+    line-height: 1rem;
+  }
+}
+
+@include media(large) {
+  .accompagnement {
+    padding: 5rem 0;
+
+    &Container {
+      padding: 0;
+      gap: 6rem;
+      display: grid;
+      margin: 0 auto;
+      max-width: 85rem;
+      align-items: start;
+      grid-template-columns: auto 1fr;
+
+      h2 {
+        font-size: 3rem;
+        line-height: 4rem;
+      }
+    }
+
+    article {
+      padding: 40px;
+
+      p {
+        margin-bottom: 0;
+      }
+
+      button {
+        padding: 20px;
+        min-width: 460px;
+        line-height: 2.5rem;
+      }
+    }
+
+    &Explication {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+}

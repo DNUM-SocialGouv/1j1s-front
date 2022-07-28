@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { TémoignageKévin } from '~/client/components/features/ContratEngagementJeune//Témoignages/Témoignages';
+import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
 import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
@@ -13,17 +14,18 @@ export default function ContratEngagementJeune() {
   return (
     <>
       <HeadTag
-        title='Contrat Engagement Jeune'
+        title="Contrat Engagement Jeune"
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
-      <main id='contenu'>
-        <Bannière />
-        <QuEstCeQueCEst />
-        <Actions />
+      <main id="contenu">
+        <Bannière/>
+        <QuEstCeQueCEst/>
+        <Actions/>
         <PourquoiCEstFaitPourMoi/>
         <QuEstCeQueJyGagne/>
-        <Allocations />
+        <Allocations/>
         <TémoignageKévin id="témoignage-kévin"/>
+        <Accompagnement/>
       </main>
     </>
   );
