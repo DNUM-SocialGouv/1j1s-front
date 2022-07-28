@@ -34,7 +34,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
-    const normalizedMétierRecherché = métierRecherché.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    const normalizedMétierRecherché = ApiLaBonneAlternanceRepository.normalizeStringWithoutDiacriticGlyph(métierRecherché);
     const response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse, MétierRecherché[]>(
       `metiers?title=${normalizedMétierRecherché}`,
       mapMétierRecherchéList,
@@ -42,10 +42,8 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     switch (response.instance) {
       case 'success':
         return response.result.filter((métierRecherché) => {
-          return métierRecherché.intitulé
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
+          return ApiLaBonneAlternanceRepository
+            .normalizeStringWithoutDiacriticGlyph(métierRecherché.intitulé)
             .indexOf(normalizedMétierRecherché) >= 0;
         });
       case 'failure': return [];
@@ -69,6 +67,13 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       mapRésultatRechercheAlternance,
     );
+  }
+
+  private static normalizeStringWithoutDiacriticGlyph(string: string) {
+    return string
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '');
   }
 }
 
