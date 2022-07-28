@@ -14,23 +14,23 @@ export default function Rappel() {
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
         <Button buttonType="primary">Je souhaite être contacté(e)</Button>
       </div>
-      <div className={ styles.rappelModal }>
-        <Modal
-          isOpen={isPopInOpen}
-          hide={() => setIsPopInOpen(false)}
-        >
-          <ModalTitle className={styles.rappelModal__Title}>
-            J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
-          </ModalTitle>
-          <ModalContent>
-            <form>
+      <Modal
+        isOpen={isPopInOpen}
+        hide={() => setIsPopInOpen(false)}
+      >
+        <ModalTitle className={styles.rappelTitle}>
+          <h3>J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé</h3>
+        </ModalTitle>
+        <ModalContent>
+          <form>
+            <div className={styles.rappelForm}>
               <TextInput 
                 label='Prénom'
                 name='firstname'
                 placeholder='Exemple : Jean'/>
               <TextInput 
                 label='Nom'
-                name='lasstname'
+                name='lastname'
                 placeholder='Exemple : Dupont'/>
               <TextInput
                 label='Adresse email'
@@ -40,33 +40,29 @@ export default function Rappel() {
                 label='Téléphone'
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
-              <SelectSingle 
+              <TextInput 
                 label='Age'
                 name='age'
-                optionList={[{
-                  libellé: '21',
-                  valeur: '21',
-                },{
-                  libellé: '22',
-                  valeur: '22',
-                }]}/>
+                placeholder='Sélectionnez un choix'/>
               <TextInput
                 label='Ville'
                 name='ville'
                 placeholder='Exemple : Paris'/>
-              <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} />
+            </div>
+            <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} />
+            <div className={styles.rappelButton}>
               <Button
                 buttonType="primary"
               >
-              Envoyer la demande
+                Envoyer la demande
               </Button>
-            </form>
-            <div className={styles.rappelModal__Open__Text}>
-              <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
             </div>
-          </ModalContent>
-        </Modal>
-      </div>
+          </form>
+          <div className={styles.rappelText}>
+            <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
+          </div>
+        </ModalContent>
+      </Modal>
     </section>
   );
 }
