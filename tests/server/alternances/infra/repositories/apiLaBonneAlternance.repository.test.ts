@@ -1,4 +1,5 @@
 import {
+  aMétierList,
   anApprentiBoucherFromMatcha,
   anApprentiBoucherFromPoleEmploi, aRésultatsRechercheAlternance,
 } from '@tests/fixtures/domain/alternance.fixture';
@@ -35,62 +36,22 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
   describe('getMétierRecherchéList', () => {
     describe('quand l api répond avec un success', () => {
-      describe('quand le métier recherché ne comporte pas de majuscule', () => {
-        it('retourne la liste des métiers recherchés par l\'api la bonne alternance', async () => {
-          jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
-            {
-              codeROMEList: ['D1103', 'D1101', 'H2101'],
-              intitulé: 'Boucherie, charcuterie, traiteur',
-            },
-            {
-              codeROMEList: ['D1102', 'D1104'],
-              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-            },
-          ]));
+      it('retourne la liste des métiers recherchés filtrée de l\'api la bonne alternance, insensiblement à la casse', async () => {
+        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess(aMétierList()));
 
-          const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
+        const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('énergie');
 
-          expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
-          expect([
-            {
-              codeROMEList: ['D1103', 'D1101', 'H2101'],
-              intitulé: 'Boucherie, charcuterie, traiteur',
-            },
-            {
-              codeROMEList: ['D1102', 'D1104'],
-              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-            },
-          ]).toEqual(result);
-        });
-      });
-
-      describe('quand le métier recherché comporte des majuscules', () => {
-        it('retourne la liste des métiers recherchés par l\'api la bonne alternance pour le métier sans majuscule', async () => {
-          jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess([
-            {
-              codeROMEList: ['D1103', 'D1101', 'H2101'],
-              intitulé: 'Boucherie, charcuterie, traiteur',
-            },
-            {
-              codeROMEList: ['D1102', 'D1104'],
-              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-            },
-          ]));
-
-          const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('Bou');
-
-          expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
-          expect([
-            {
-              codeROMEList: ['D1103', 'D1101', 'H2101'],
-              intitulé: 'Boucherie, charcuterie, traiteur',
-            },
-            {
-              codeROMEList: ['D1102', 'D1104'],
-              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-            },
-          ]).toEqual(result);
-        });
+        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=energie', mapMétierRecherchéList);
+        expect([
+          {
+            codeROMEList: ['H1302', 'H1206', 'H2502', 'H1102', 'I1102', 'H1502', 'H1504', 'H1209', 'H1402', 'F1203', 'I1302', 'I1304', 'F1401', 'F1402', 'H2701'],
+            intitulé: 'Energie',
+          },
+          {
+            codeROMEList: ['I1307'],
+            intitulé: 'Installation et maintenance réseaux telecom et énergie',
+          },
+        ]).toEqual(result);
       });
     });
 
@@ -111,7 +72,13 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
         jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheAlternance()));
 
-        const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
+        const result = await apiLaBonneAlternanceRepository.searchAlternance({
+          code: '75001',
+          codeRomeList: ['D1103', 'D1101', 'H2101'],
+          latitude: '48.08',
+          longitude: '2.01',
+          radius: '30',
+        });
 
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
         expect(result).toEqual(aRésultatsRechercheAlternance());
@@ -122,7 +89,13 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('retourne 0 nombre de résultat et une liste vide', async () => {
         jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
-        const result = await apiLaBonneAlternanceRepository.searchAlternance({ code: '75001', codeRomeList: ['D1103','D1101','H2101'], latitude:'48.08', longitude:'2.01', radius: '30' });
+        const result = await apiLaBonneAlternanceRepository.searchAlternance({
+          code: '75001',
+          codeRomeList: ['D1103', 'D1101', 'H2101'],
+          latitude: '48.08',
+          longitude: '2.01',
+          radius: '30',
+        });
 
         expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
         expect(result).toEqual({ nombreRésultats: 0, résultats: [] });

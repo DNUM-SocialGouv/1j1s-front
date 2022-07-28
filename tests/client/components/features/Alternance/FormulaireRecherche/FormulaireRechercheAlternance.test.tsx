@@ -53,15 +53,15 @@ describe('FormulaireRechercheAlternance', () => {
       const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
       // WHEN
-      await user.type(inputRechercheMétier, 'boulanger');
+      await user.type(inputRechercheMétier, 'boucher');
       const résultatsRechercheMétier = await screen.findByTestId('RésultatsRechercheMétier');
       const resultListMétier = within(résultatsRechercheMétier).getAllByRole('option');
-      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('boulanger');
+      expect(métierRecherchéService.rechercherMétier).toHaveBeenCalledWith('boucher');
       fireEvent.click(resultListMétier[0]);
       fireEvent.click(buttonRechercher);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'metierSelectionne=Boulangerie%2C+p%C3%A2tisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'metierSelectionne=Boucherie%2C+charcuterie%2C+traiteur&codeRomes=D1103%2CD1101%2CH2101&page=1' }, undefined, { shallow: true });
     });
   });
 

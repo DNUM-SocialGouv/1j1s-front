@@ -68,6 +68,65 @@ export function aMétierRecherchéList(): MétierRecherché[] {
   ];
 }
 
+export function aMétierList(): MétierRecherché[] {
+  return [
+    {
+      codeROMEList: [
+        'H1302', 'H1206', 'H2502',
+        'H1102', 'I1102', 'H1502',
+        'H1504', 'H1209', 'H1402',
+        'F1203', 'I1302', 'I1304',
+        'F1401', 'F1402', 'H2701',
+      ],
+      intitulé: 'Energie',
+    },
+    {
+      codeROMEList: [ 'I1307' ],
+      intitulé: 'Installation et maintenance réseaux telecom et énergie',
+    },
+    { codeROMEList: [ 'F1603', 'I1308' ], intitulé: 'Plomberie' },
+    {
+      codeROMEList: [
+        'H1209', 'H1504',
+        'H1102', 'H1206',
+        'I1102', 'H1502',
+        'H2502',
+      ],
+      intitulé: 'Génie électrique',
+    },
+    {
+      codeROMEList: [
+        'H1102', 'H1403',
+        'H1404', 'H1206',
+        'H1402', 'H1401',
+        'H1502', 'H2502',
+        'H1203',
+      ],
+      intitulé: 'Ingéniérie d\'affaires en industrie',
+    },
+    {
+      codeROMEList: [
+        'H1206', 'H1502',
+        'H2502', 'H1203',
+        'H1403', 'H1404',
+        'H1402', 'H1204',
+        'H3102', 'H3101',
+      ],
+      intitulé: 'Industrie du papier, carton, emballage',
+    },
+    {
+      codeROMEList: [
+        'I1304', 'I1602',
+        'I1305', 'H2602',
+        'I1302', 'H2901',
+        'H2909', 'H1502',
+        'H1206', 'I1102',
+      ],
+      intitulé: 'Aéronautique',
+    },
+  ];
+}
+
 export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
   return {
     adresse: '15 - AURILLAC 15000',
