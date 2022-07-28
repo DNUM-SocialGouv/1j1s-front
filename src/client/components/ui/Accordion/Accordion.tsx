@@ -1,15 +1,17 @@
+import classNames from 'classnames';
 import React from 'react';
 
-import styles from '~/client/components/ui/Accordion/Accordion.module.css';
+import { CommonProps } from '~/client/components/props';
+import styles from '~/client/components/ui/Accordion/Accordion.module.scss';
 
-interface AccordionProps {
+interface AccordionProps extends CommonProps {
   title: string
 }
 
-export function Accordion({ children, title } : React.PropsWithChildren<AccordionProps>) {
+export function Accordion({ children, title, className, ...rest } : React.PropsWithChildren<AccordionProps>) {
   return (
-    <details className={styles.details}>
-      <summary className={styles.summary}><b>{title}</b></summary>
+    <details className={classNames(styles.details, className)} {...rest}>
+      <summary>{title}</summary>
       <div className={styles.detailsContent}>{children}</div>
     </details>
   );
