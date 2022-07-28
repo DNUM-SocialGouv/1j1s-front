@@ -7,7 +7,7 @@ import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
-import { SeeMoreComponent } from '~/client/components/ui/SeeMore/SeeMoreComponent';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
@@ -52,7 +52,7 @@ export default function Accueil() {
             </LinkCard>
           </div>
 
-          <SeeMoreComponent>
+          <SeeMore>
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
                 imageUrl="/images/homepage/jobs-etudiants.jpg"
@@ -79,7 +79,7 @@ export default function Accueil() {
                 <p>Retrouvez des offres d&apos;emploi, des stages, des VIE | VIA et des aides financières pour une expérience en Europe.</p>
               </LinkCard>
             </div>
-          </SeeMoreComponent>
+          </SeeMore>
 
         </section>
 
@@ -140,7 +140,7 @@ export default function Accueil() {
             </LinkCard>
           </div>
 
-          <SeeMoreComponent>
+          <SeeMore>
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
                 imageUrl="/images/homepage/accompagne.jpg"
@@ -151,7 +151,7 @@ export default function Accueil() {
                 <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
               </LinkCard>
             </div>
-          </SeeMoreComponent>
+          </SeeMore>
         </section>
 
         <section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>

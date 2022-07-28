@@ -4,7 +4,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages.module.scss';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { SeeMoreComponent } from '~/client/components/ui/SeeMore/SeeMoreComponent';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
@@ -49,7 +49,7 @@ function Programme () {
   }
   const buttonClassName = () => styles.buttonAccordeon;
   if (isSmallScreen || isMediumScreen) {
-    return (<SeeMoreComponent customLabel={ label } customButtonClassName={ buttonClassName }>{ ContenuProgramme }</SeeMoreComponent>);
+    return (<SeeMore customLabel={ label } customButtonClassName={ buttonClassName }>{ ContenuProgramme }</SeeMore>);
   } else {
     return ContenuProgramme;
   }

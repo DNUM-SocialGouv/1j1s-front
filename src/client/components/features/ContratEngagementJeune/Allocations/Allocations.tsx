@@ -4,7 +4,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations.module.scss';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { SeeMoreComponent } from '~/client/components/ui/SeeMore/SeeMoreComponent';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const contenu = `
@@ -29,9 +29,9 @@ export default function Allocations() {
           <h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l&apos;allocation ?</h2>
           {!displayAccordion && <Marked markdown={ contenu }/>}
           {displayAccordion && (
-            <SeeMoreComponent>
+            <SeeMore>
               <Marked markdown={ contenu }/>
-            </SeeMoreComponent>)}
+            </SeeMore>)}
         </article>
       </div>
     </section>

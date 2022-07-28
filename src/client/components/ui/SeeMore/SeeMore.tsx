@@ -11,7 +11,7 @@ interface SeeMoreProps {
   customLabel?: (isOpen: boolean) => string | undefined
   customButtonClassName?: (isOpen: boolean) => string
 }
-export function SeeMoreComponent({ children, customLabel, customButtonClassName } : React.PropsWithChildren<SeeMoreProps>) {
+export function SeeMore({ children, customLabel, customButtonClassName } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
