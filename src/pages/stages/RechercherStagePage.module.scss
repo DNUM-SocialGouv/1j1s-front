@@ -1,5 +1,9 @@
 @import "@styles/utilities";
 
+.stageContainer {
+  padding-top: 1rem;
+}
+
 input.stageInputElement {
   max-width: 78rem;
   height: 24px;
@@ -10,13 +14,7 @@ input.stageInputElement {
 }
 
 .stageRootElement {
-  padding: 2rem 0;
-}
-
-.stageFormElement {
-}
-
-.stageSubmitIconElement {
+  padding: 1rem 0;
 }
 
 .stageListeRootElement> ol li {
@@ -28,43 +26,6 @@ input.stageInputElement {
   padding: 0;
 }
 
-.stageListeElement {
-}
-
 .stageItemElement {
   padding: 0;
-}
-
-.stagePaginationRootElement>ul>li {
-  display: inline-block;
-  text-decoration: none;
-  width: 32px;
-  height: 32px;
-}
-
-.stagePaginationRootElement>ul>li>a {
-  text-decoration: none;
-  box-shadow: none;
-  width: 32px;
-  height: 32px;
-  display: inline-block;
-  line-height: 32px;
-}
-
-
-.stagePaginationRootElement>ul {
-  text-align: center;
-}
-
-.stagePaginationListElement {
-  list-style-type: none;
-}
-
-.stagePaginationSelectedItemElement {
-  background-color: $color-primary;
-  color: $color-on-primary;
-}
-
-.stagePaginationlastPageItemElement::before {
-content: "suivant";
 }

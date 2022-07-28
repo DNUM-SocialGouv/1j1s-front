@@ -1,17 +1,19 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { marked } from 'marked';
 import React from 'react';
-import { Configure, CurrentRefinements, Hits, InstantSearch, Pagination, SearchBox } from 'react-instantsearch-hooks-web';
+import { ClearRefinements,Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { CustomPagination } from '~/client/components/ui/Meilisearch/Pagination';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import styles from '~/pages/stages/RechercherStagePage.module.scss';
 
-
 const IMAGE_FIXE = '/images/logos/fallback.svg';
+const HITS_PER_PAGE = 15;
+
 const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   return <RésultatRechercherSolution
     lienOffre={`/stages/${'idNonExistant' || résultat.slug}`}
@@ -33,38 +35,37 @@ export default function RechercherOffreStagePage() {
     <Hero>
                 Des milliers d’offres de stages sélectionnés pour vous
     </Hero>
-    <main id="contenu" className={'fr-container'}>
-      <InstantSearch searchClient={searchClient} indexName="offre-de-stage">
-        <Configure hitsPerPage={15}/>
-        <SearchBox classNames={
-          {
-            form: [styles.stageFormElement].join(' '),
-            input: ['fr-input', styles.stageInputElement].join(' '),
-            root: styles.stageRootElement,
-            submitIcon: styles.stageSubmitIconElement,
-          }
-        }
-        placeholder="Métiers, mots clés, …"
-        />
+    <main id="contenu" className={['fr-container', styles.stageContainer].join(' ')}>
+      <InstantSearch searchClient={searchClient} indexName="offre-de-stage" routing={true}>
+        <Configure hitsPerPage={HITS_PER_PAGE}/>
+        <label>Métiers, mots clés, …
+          <SearchBox
+            className={'recherche-principale-stage'}
+            placeholder="Métiers, mots clés, …"
+            classNames={
+              {
+                form: [styles.stageFormElement].join(' '),
+                input: ['fr-input', styles.stageInputElement].join(' '),
+                root: styles.stageRootElement,
+                submitIcon: styles.stageSubmitIconElement,
+              }
+            }
+          />
+        </label>
         <CurrentRefinements/>
-        <Hits hitComponent={Résultat} classNames={
-          {
-            item: styles.stageItemElement,
-            list: styles.stageListeElement,
-            root: styles.stageListeRootElement,
-          }
-        }/>
-        <Pagination
-          totalPages={10}
+        <ClearRefinements></ClearRefinements>
+        <Hits 
+          hitComponent={Résultat}
           classNames={
             {
-              lastPageItem: styles.stagePaginationlastPageItemElement,
-              list: styles.stagePaginationListElement,
-              root: styles.stagePaginationRootElement,
-              selectedItem: styles.stagePaginationSelectedItemElement,
+              item: styles.stageItemElement,
+              list: styles.stageListeElement,
+              root: styles.stageListeRootElement,
             }
-          }
-        />
+          }/>
+        <CustomPagination
+          padding={2}
+          hits_per_page={HITS_PER_PAGE}/>
       </InstantSearch>
     </main>
     </>
