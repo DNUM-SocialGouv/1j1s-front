@@ -1,57 +1,46 @@
-import Link from 'next/link';
-import React, { useMemo } from 'react';
+import Image from 'next/image';
+import React, {
+  useMemo,
+  useState,
+} from 'react';
 
 import styles from '~/client/components/ui/Card/LinkCard.module.scss';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
-
-enum LinkType {
-	EXTERNAL = 'external',
-	INTERNAL = 'internal'
-}
+import { Link } from '~/client/components/ui/Link/Link';
 
 interface LinkCardProps {
-	children?: React.ReactNode
-	imageUrl?: string
-	imageAltText?: string
+	imageUrl: string
 	link: string
 	linkLabel?: string
 	title: string
-	type?: 'internal' | 'external'
 }
 
-export const LinkCard: React.FunctionComponent<LinkCardProps> = (props: LinkCardProps) => {
-  const { children, imageUrl, imageAltText, link, linkLabel, title, type } = props;
-	
-  const isLinkExternalType = type === LinkType.EXTERNAL;
-  const icon = useMemo(function () {
-	  return isLinkExternalType ? <ExternalRedirectionIcon color="#5269B5" /> : <ArrowRightIcon color="#5269B5" />;
-  }, [isLinkExternalType]);
-  const computedLink = useMemo(function () {
-    return isLinkExternalType
-      ? <a className={styles.cardLink} href={link} target="_blank" rel="noreferrer">
-	        <span className={styles.cardLinkLabel}>{linkLabel}</span>
-	        {icon}
-      </a>
-      : <Link href={link}>
-        <a className={styles.cardLink}>
-          <span className={styles.cardLinkLabel}>{linkLabel}</span>
-          {icon}
-        </a>
-      </Link>;
-  }, [icon, isLinkExternalType, link, linkLabel]);
+export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.PropsWithChildren<LinkCardProps>)  {
+  const [isInternalLink, getIsInternalLink] = useState<boolean>(true);
+
+  const icon = useMemo(function() {
+    return isInternalLink ? <ArrowRightIcon /> : <ExternalRedirectionIcon />;
+  }, [isInternalLink]);
+
 
   return (
-    <article className={styles.card}>
-	    <div className={styles.cardImageWrapper}>
-		    {/* eslint-disable-next-line @next/next/no-img-element */}
-	      {imageUrl && <img className={styles.cardImage} src={imageUrl} alt={imageAltText} decoding="async" loading="lazy" />}
-	    </div>
-	    <div className={styles.cardContent}>
-	      <h3 className={styles.cardTitle}>{title}</h3>
-		    <div className={styles.cardDescription}>{children}</div>
-      </div>
-	    <div className={styles.cardAction}>{link && linkLabel && computedLink}</div>
-    </article>
+    <Link link={link} className={styles.card} getLinkType={getIsInternalLink}>
+      <article className={styles.cardArticle}>
+        <div className={styles.cardImageWrapper}>
+          <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+        </div>
+        <div className={styles.cardContent}>
+          <h3 className={styles.cardTitle}>{title}</h3>
+          <div className={styles.cardDescription}>{children}</div>
+        </div>
+        <span className={styles.cardAction}>
+          {linkLabel}
+          {icon}
+        </span>
+      </article>
+    </Link>
   );
 };
+
+

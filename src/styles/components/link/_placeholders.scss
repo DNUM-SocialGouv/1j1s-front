@@ -1,0 +1,9 @@
+%linkWithRightIcon {
+  @extend %text-regular;
+  display: inline-flex;
+  align-items: center;
+  color: $color-primary;
+  svg {
+    margin-left: 0.5ch;
+  }
+}

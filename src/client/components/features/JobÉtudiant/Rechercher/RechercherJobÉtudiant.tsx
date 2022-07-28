@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheJobÉtudiant,
 } from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
-import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
+import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.scss';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';

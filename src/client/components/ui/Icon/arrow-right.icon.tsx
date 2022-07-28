@@ -2,8 +2,9 @@ import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function ArrowRightIcon({ color = 'currentColor', className }: SvgProps) {
   return (
-    <svg className={className} width="20" height="20" viewBox="0 0 20 20" fill={color} xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" clipRule="evenodd" d="M13.4767 9.16664L9.00667 4.69664L10.185 3.51831L16.6667 9.99998L10.185 16.4816L9.00667 15.3033L13.4767 10.8333H3.33333V9.16664H13.4767Z" />
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M16.172 10.9999L10.808 5.63592L12.222 4.22192L20 11.9999L12.222 19.7779L10.808 18.3639L16.172 12.9999H4V10.9999H16.172Z" fill="#566BB1"/>
     </svg>
+
   );
 }

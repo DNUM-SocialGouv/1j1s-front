@@ -8,7 +8,7 @@ import {
 import {
   ÉtiquettesFiltreOffreEmploi,
 } from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
-import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
+import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.scss';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
@@ -92,17 +92,19 @@ export function RechercherOffreEmploi() {
           mapToLienSolution={mapOffreEmploiToLienSolution}
           paginationOffset={OFFRE_PER_PAGE}
         />
-        <ul className={styles.partnerList}>
-          <li>
-            <ServiceCiviquePartner/>
-          </li>
-          <li>
-            <LaBonneBoitePartner/>
-          </li>
-          <li>
-            <CIDJPartner/>
-          </li>
-        </ul>
+        <div className={styles.partnerListWrapper}>
+          <ul className={styles.partnerList}>
+            <li>
+              <ServiceCiviquePartner/>
+            </li>
+            <li>
+              <LaBonneBoitePartner/>
+            </li>
+            <li>
+              <CIDJPartner/>
+            </li>
+          </ul>
+        </div>
       </main>
     </>
   );

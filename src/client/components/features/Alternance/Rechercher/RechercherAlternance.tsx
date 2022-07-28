@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
-import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.css';
+import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.scss';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';

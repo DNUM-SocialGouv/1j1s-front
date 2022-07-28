@@ -5,11 +5,10 @@ import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCa
 export function SimulationAlternancePartner() {
   return (
     <PartnerCard
-      internal={false}
       linkLabel="J'accède au site web"
       logo="/images/logos/simulation-alternance.svg"
-      alt="Simulateur alternant"
       link="https://www.alternance.emploi.gouv.fr/simulateur-alternant/etape-1"
+      alt="Simulateur alternant"
       title="Vous êtes alternant ?"
       headline="Simulez en quelques clics"
       headlineColor="#000091"

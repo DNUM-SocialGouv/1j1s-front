@@ -5,13 +5,12 @@ interface ErrorMessageProps {
   explanationText: string,
   solutionText?: string,
   title: string
-  dataTestId?: string
 }
 
 export const ErrorMessageComponent = (props: ErrorMessageProps) => {
-  const { className, explanationText, solutionText, title, dataTestId } = props;
+  const { className, explanationText, solutionText, title } = props;
   return (
-    <div className={className} data-testid={dataTestId}>
+    <div className={className}>
       <Title as="h1" look="h4">{title}</Title>
       <p className="fr-text--bold">{explanationText}</p>
       <p>{solutionText}</p>

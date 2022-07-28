@@ -1,12 +1,15 @@
+@import "@styles/utilities";
+
 .rechercheSolution {
   max-width: 78rem;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1rem 1rem 1rem;
+  border-bottom: 1px solid $color-separator;
 }
 
 .nombreRésultats {
   padding: 16px 0;
-  border-bottom: 1px solid var(--grey-950);
+  border-bottom: 1px solid $color-separator;
 }
 
 .nombreRésultats > h2 {

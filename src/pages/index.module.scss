@@ -1,0 +1,92 @@
+@import "@styles/utilities";
+
+.cardListPadding, .cardListPaddingAccordion {
+    padding-bottom: 1.5rem;
+}
+
+.cardList {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-direction: column;
+}
+
+.section {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+
+    &Header {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 2rem;
+
+        > svg, h2 {
+            display: block;
+            margin: auto;
+        }
+    }
+
+    &NosOffres {
+        background-color: lighten($color-blue-navy, 67%);
+        &Header {
+            &Icon {
+                color: $color-blue-navy;
+            }
+        }
+    }
+    &BesoinDeVousFormer {
+        background-color: lighten($color-tapestry, 45%);
+        &Header {
+            &Icon {
+                color: $color-tapestry;
+            }
+        }
+    }
+    &AidesOrientationAccompagnement {
+        background-color: lighten($color-smalt-blue, 48%);
+        &Header {
+            &Icon {
+                color: $color-smalt-blue;
+            }
+        }
+    }
+    &EngagementBénévolat {
+        background-color: lighten($color-coral, 31%);
+        &Header {
+            &Icon {
+                color: $color-coral;
+            }
+        }
+    }
+
+    &BesoinDeVousFormer, &EngagementBénévolat {
+        padding-bottom: 2rem;
+    }
+}
+
+
+@media only screen and (min-width:48em){
+    .cardListPaddingAccordion {
+        padding: 0.5rem 1.125rem 1.5rem 1.125rem;
+    }
+
+    .cardList {
+        gap: 2rem;
+        flex-direction: row;
+    }
+
+    .cardList > a {
+        width: 360px;
+    }
+
+    .sectionHeader {
+        margin-bottom: 3rem;
+        margin-top: 1rem;
+    }
+
+    .section {
+        &BesoinDeVousFormer, &EngagementBénévolat {
+            padding-bottom: 3rem;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.css';
+import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
