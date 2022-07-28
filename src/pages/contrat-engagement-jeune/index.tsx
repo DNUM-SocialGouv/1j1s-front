@@ -8,6 +8,7 @@ import Bannière from '~/client/components/features/ContratEngagementJeune/Banni
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
 import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
+import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function ContratEngagementJeune() {
@@ -26,6 +27,7 @@ export default function ContratEngagementJeune() {
         <Allocations/>
         <TémoignageKévin id="témoignage-kévin"/>
         <Accompagnement/>
+        <Rappel/>
       </main>
     </>
   );
