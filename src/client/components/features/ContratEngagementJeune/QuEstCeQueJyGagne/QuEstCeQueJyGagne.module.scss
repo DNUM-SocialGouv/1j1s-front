@@ -28,10 +28,6 @@
   color: $color-primary;
 }
 
-.accordion > button {
-  margin: 0;
-}
-
 .contenu, .contenu strong {
   @extend %text-regular;
 }
