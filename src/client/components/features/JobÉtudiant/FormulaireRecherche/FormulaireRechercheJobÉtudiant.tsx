@@ -13,9 +13,9 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
@@ -123,7 +123,7 @@ export function FormulaireRechercheJobÉtudiant() {
               Filtrer ma recherche
             </ModalTitle>
             <ModalContent className={styles.filtresAvancésModalContenu}>
-              <CheckboxGroup legend="Domaine">
+              <Accordion title="Domaine">
                 {référentielDomaineList.map((domaine, index) => (
                   <Checkbox
                     key={index}
@@ -133,7 +133,7 @@ export function FormulaireRechercheJobÉtudiant() {
                     checked={inputDomaine.split(',').includes(domaine.code)}
                   />
                 ))}
-              </CheckboxGroup>
+              </Accordion>
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>

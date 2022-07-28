@@ -13,15 +13,14 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Radio } from '~/client/components/ui/RadioButton/Radio';
-import { RadioGroup } from '~/client/components/ui/RadioButtonGroup/RadioGroup';
 import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
 import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -141,7 +140,7 @@ export function FormulaireRechercheOffreEmploi() {
               Filtrer ma recherche
             </ModalTitle>
             <ModalContent className={styles.filtresAvancésModalContenu}>
-              <CheckboxGroup legend="Type de contrat">
+              <Accordion title="Type de contrat">
                 {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                   <Checkbox
                     key={`Type de contrat${index}`}
@@ -151,8 +150,8 @@ export function FormulaireRechercheOffreEmploi() {
                     checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
                   />
                 ))}
-              </CheckboxGroup>
-              <RadioGroup legend="Temps de travail">
+              </Accordion>
+              <Accordion title="Temps de travail">
                 {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                   <Radio
                     key={index}
@@ -163,8 +162,8 @@ export function FormulaireRechercheOffreEmploi() {
                     value={tempsDeTravail.valeur}
                   />
                 ))}
-              </RadioGroup>
-              <RadioGroup legend="Niveau demandé">
+              </Accordion>
+              <Accordion title="Niveau demandé">
                 {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
                   <Radio
                     key={`Niveau demandé${index}`}
@@ -175,8 +174,8 @@ export function FormulaireRechercheOffreEmploi() {
                     value={expérience.valeur}
                   />
                 ))}
-              </RadioGroup>
-              <CheckboxGroup legend="Domaine">
+              </Accordion>
+              <Accordion title="Domaine">
                 {référentielDomaineList.map((domaine, index) => (
                   <Checkbox
                     key={`Domaine${index}`}
@@ -186,7 +185,7 @@ export function FormulaireRechercheOffreEmploi() {
                     checked={inputDomaine.split(',').includes(domaine.code)}
                   />
                 ))}
-              </CheckboxGroup>
+              </Accordion>
             </ModalContent>
             <ModalFooter className={styles.filtresAvancésModalFooter}>
               <div onClick={applyFiltresAvancés}>
