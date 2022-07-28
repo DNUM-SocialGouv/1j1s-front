@@ -8,6 +8,7 @@ export function ServiceCiviquePartner() {
       linkLabel="Découvrir les missions"
       logo="/images/logos/service-civique.svg"
       link="/service-civique"
+      alt="Service civique"
       title="Le Service Civique, pour acquérir de l'expérience et préparer son avenir"
       headline="Avec ou sans diplôme, engagez-vous dans des missions d'intérêt général en France ou à l'étranger."
       headlineColor="#0C7EC4"

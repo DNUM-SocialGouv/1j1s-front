@@ -5,6 +5,7 @@
   background: $color-surface;
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
+  // TODO: must delete when removing dsfr
   &:after {
     content: inherit !important;
     font: inherit !important;
@@ -20,20 +21,23 @@
 
   &Action {
     @extend %linkWithRightIcon;
+    align-self: flex-end;
   }
 
   &Body {
+    display: flex;
     flex-direction: column;
     padding: 20px;
 
     > p {
       margin-bottom: 20px;
-      font-size: 0.875rem;
+      @extend %text-regular;
     }
 
-    > h2 {
+    &__Title {
       @extend %text-medium;
-      margin-bottom: 5px;
+      @extend %bold;
+      margin-bottom: 0.5rem;
     }
   }
 }

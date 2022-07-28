@@ -8,6 +8,7 @@ export function SimulationAlternancePartner() {
       linkLabel="J'accède au site web"
       logo="/images/logos/simulation-alternance.svg"
       link="https://www.alternance.emploi.gouv.fr/simulateur-alternant/etape-1"
+      alt="Simulateur alternant"
       title="Vous êtes alternant ?"
       headline="Simulez en quelques clics"
       headlineColor="#000091"

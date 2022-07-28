@@ -26,20 +26,40 @@
         }
     }
 
-    &1 {
-        background-color: $color-homepage-first-section;
+    &NosOffres {
+        background-color: lighten($color-blue-navy, 67%);
+        &Header {
+            &Icon {
+                color: $color-blue-navy;
+            }
+        }
     }
-    &2 {
-        background-color: $color-homepage-second-section;
+    &BesoinDeVousFormer {
+        background-color: lighten($color-tapestry, 45%);
+        &Header {
+            &Icon {
+                color: $color-tapestry;
+            }
+        }
     }
-    &3 {
-        background-color: $color-homepage-third-section;
+    &AidesOrientationAccompagnement {
+        background-color: lighten($color-smalt-blue, 48%);
+        &Header {
+            &Icon {
+                color: $color-smalt-blue;
+            }
+        }
     }
-    &4 {
-        background-color: $color-homepage-fourth-section;
+    &EngagementBénévolat {
+        background-color: lighten($color-coral, 31%);
+        &Header {
+            &Icon {
+                color: $color-coral;
+            }
+        }
     }
 
-    &2, &4 {
+    &BesoinDeVousFormer, &EngagementBénévolat {
         padding-bottom: 2rem;
     }
 }
@@ -64,7 +84,9 @@
         margin-top: 1rem;
     }
 
-    .section2, .section4 {
-        padding-bottom: 3rem;
+    .section {
+        &BesoinDeVousFormer, &EngagementBénévolat {
+            padding-bottom: 3rem;
+        }
     }
 }

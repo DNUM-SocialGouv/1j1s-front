@@ -20,9 +20,9 @@ export default function Accueil() {
         Vous avez entre 13 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !
       </Hero>
       <main id="contenu">
-        <section className={classNames(styles.section, styles.section1)}>
+        <section className={classNames(styles.section, styles.sectionNosOffres)}>
           <h2 className={styles.sectionHeader}>
-            <BriefCaseIcon color="#000091" />
+            <BriefCaseIcon className={styles.sectionNosOffresHeaderIcon} />
             Découvrez nos offres
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
@@ -83,9 +83,9 @@ export default function Accueil() {
 
         </section>
 
-        <section className={classNames(styles.section, styles.section2)}>
+        <section className={classNames(styles.section, styles.sectionBesoinDeVousFormer)}>
           <h2 className={styles.sectionHeader}>
-            <BookIcon color="#A558A0"/>
+            <BookIcon className={styles.sectionBesoinDeVousFormerHeaderIcon}/>
             Besoin de vous former ?
           </h2>
           <div className={styles.cardList}>
@@ -108,9 +108,9 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section className={classNames(styles.section, styles.section3)}>
+        <section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
           <h2 className={styles.sectionHeader}>
-            <CompassIcon color="#53918C" />
+            <CompassIcon className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
             Aides, orientation et accompagnement
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
@@ -154,9 +154,9 @@ export default function Accueil() {
           </AccordionComponent>
         </section>
 
-        <section className={classNames(styles.section, styles.section4)}>
+        <section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
           <h2 className={styles.sectionHeader}>
-            <TrophyIcon color="#FF934F" />
+            <TrophyIcon className={styles.sectionEngagementBénévolatHeaderIcon} />
             Engagement et bénévolat
           </h2>
           <div className={styles.cardList}>

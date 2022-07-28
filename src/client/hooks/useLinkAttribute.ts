@@ -6,13 +6,7 @@ export function useLinkAttribute(link: string) {
     return link.startsWith(INTERNAL_URL_PREFIX);
   }, [link]);
 
-  const externalAttributes = {
-    rel: 'noreferrer',
-    target: '_blank',
-  };
-
   return {
-    externalAttributes,
     isInternalLink,
   };
 }

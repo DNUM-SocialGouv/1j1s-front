@@ -39,5 +39,6 @@
     &Action {
         padding: 0 1.5rem 1.5rem 1.5rem;
         @extend %linkWithRightIcon;
+        align-self: flex-end;
     }
 }

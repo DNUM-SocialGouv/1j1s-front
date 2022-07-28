@@ -5,8 +5,7 @@
   padding: 2rem 1rem;
 }
 .partnerList {
-  max-width: 78rem;
-  margin: 0;
+  @extend %max-container;
   padding: 0;
   list-style: none;
 }
