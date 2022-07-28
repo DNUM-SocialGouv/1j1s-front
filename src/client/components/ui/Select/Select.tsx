@@ -11,7 +11,7 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 interface SelectProps {
   placeholder: string
   optionList: Option[]
-  value: string
+  value?: string
   label: string
   name?: string
   multiple?: boolean
@@ -30,7 +30,7 @@ export function Select(props: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(value);
+  const [selectedValue, setSelectedValue] = useState(value || '');
 
   const labeledBy = useRef(uuid4());
 
@@ -69,7 +69,7 @@ export function Select(props: SelectProps) {
   }, [selectedValue, onChange]);
 
   useEffect(function onValueChange() {
-    setSelectedValue(value);
+    setSelectedValue(value || '');
   }, [value]);
 
   useEffect(function setEventListenerOnMount() {
@@ -135,6 +135,8 @@ export function Select(props: SelectProps) {
                 label={option.libellé}
                 value={option.valeur}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  const { value } = e.target;
+                  setSelectedValue(value);
                   if(onChange) {
                     onChange(e.target.value);
                   }
