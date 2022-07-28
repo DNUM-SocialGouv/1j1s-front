@@ -68,6 +68,187 @@ export function aMétierRecherchéList(): MétierRecherché[] {
   ];
 }
 
+export function aMétierList(): MétierRecherché[] {
+  return [
+    {
+      codeROMEList: [
+        'H1302', 'H1206', 'H2502',
+        'H1102', 'I1102', 'H1502',
+        'H1504', 'H1209', 'H1402',
+        'F1203', 'I1302', 'I1304',
+        'F1401', 'F1402', 'H2701',
+      ],
+      intitulé: 'Energie',
+    },
+    {
+      codeROMEList: [ 'I1307' ],
+      intitulé: 'Installation et maintenance réseaux telecom et énergie',
+    },
+    { codeROMEList: [ 'F1603', 'I1308' ], intitulé: 'Plomberie' },
+    {
+      codeROMEList: [
+        'H1209', 'H1504',
+        'H1102', 'H1206',
+        'I1102', 'H1502',
+        'H2502',
+      ],
+      intitulé: 'Génie électrique',
+    },
+    {
+      codeROMEList: [
+        'H1102', 'H1403',
+        'H1404', 'H1206',
+        'H1402', 'H1401',
+        'H1502', 'H2502',
+        'H1203',
+      ],
+      intitulé: 'Ingéniérie d\'affaires en industrie',
+    },
+    {
+      codeROMEList: [
+        'H1206', 'H1502',
+        'H2502', 'H1203',
+        'H1403', 'H1404',
+        'H1402', 'H1204',
+        'H3102', 'H3101',
+      ],
+      intitulé: 'Industrie du papier, carton, emballage',
+    },
+    {
+      codeROMEList: [
+        'I1304', 'I1602',
+        'I1305', 'H2602',
+        'I1302', 'H2901',
+        'H2909', 'H1502',
+        'H1206', 'I1102',
+      ],
+      intitulé: 'Aéronautique',
+    },
+    {
+      codeROMEList: [
+        'H1201', 'H1505', 'H2301',
+        'H2504', 'H2701', 'H1503',
+        'H1501', 'H1206', 'H2502',
+        'I1102', 'H1402', 'H1102',
+        'H1502', 'H1506', 'H1404',
+      ],
+      intitulé: 'Chimie',
+    },
+    {
+      codeROMEList: [
+        'H1206', 'H1402', 'H2502',
+        'I1102', 'H1208', 'H1502',
+        'H1209', 'H1504', 'I1305',
+        'I1304', 'I1302', 'H2501',
+        'H2603', 'H2604', 'H2605',
+      ],
+      intitulé: 'Electronique, informatique industrielle',
+    },
+    {
+      codeROMEList: [
+        'H2502', 'H1402', 'H2403',
+        'H2404', 'H2405', 'H2406',
+        'H2407', 'H2408', 'H2409',
+        'H2410', 'H2411', 'H2412',
+        'H2413', 'H2414', 'H2415',
+      ],
+      intitulé: 'Industrie Textile',
+    },
+    {
+      codeROMEList: [
+        'H3201', 'H3202', 'H3203',
+        'H2504', 'H1206', 'H1402',
+        'H2502', 'H1502', 'H2801',
+        'H2802', 'H2803', 'H2804',
+        'H2805', 'H3402', 'H3403',
+      ],
+      intitulé: 'Plasturgie et matériaux composites',
+    },
+    {
+      codeROMEList: [
+        'F1106', 'F1602', 'F1605',
+        'I1305', 'I1309', 'I1306',
+        'I1308', 'F1201', 'H1202',
+        'H2602', 'H1502', 'H2501',
+        'H1206', 'I1102', 'H2601',
+      ],
+      intitulé: 'Electricité, climatisation, domotique, électronique',
+    },
+    {
+      codeROMEList: [
+        'H1206', 'H1401', 'H1402',
+        'H1502', 'H2502', 'H1303',
+        'H2504', 'H1501', 'H1404',
+        'I1304', 'H1302', 'I1102',
+        'I1305', 'H1207', 'H1210',
+      ],
+      intitulé: 'Biologie, santé, sciences physiques',
+    },
+    {
+      codeROMEList: [
+        'I1310', 'I1304', 'H1404',
+        'I1302', 'H2504', 'H1206',
+        'H1402', 'H2502', 'I1102',
+        'H1203', 'H2901', 'H2909',
+        'I1301', 'I1303', 'I1502',
+      ],
+      intitulé: 'Mécanique, maintenance industrielle',
+    },
+    {
+      codeROMEList: [
+        'H2102', 'H1505',
+        'H2701', 'H2906',
+        'H3301', 'H3302',
+        'H3303', 'H1206',
+        'H1502', 'H1506',
+        'H1302', 'H2502',
+        'H1401', 'H1402',
+      ],
+      intitulé: 'Industrie Agroalimentaire',
+    },
+    {
+      codeROMEList: [
+        'H1102', 'H1206', 'H2502',
+        'F1203', 'H1302', 'H1402',
+        'H1502', 'I1102', 'H1404',
+        'H1401', 'H1203', 'H2901',
+        'H2909', 'I1302', 'I1304',
+      ],
+      intitulé: 'Génie industriel, ingéniérie généraliste',
+    },
+    {
+      codeROMEList: [
+        'H1208', 'I1301', 'I1302',
+        'H1206', 'H2502', 'I1102',
+        'I1304', 'I1305', 'H1203',
+        'H1209', 'H1404', 'H1506',
+        'H2504', 'H1401', 'H2901',
+      ],
+      intitulé: 'Robotique, systèmes automatisés',
+    },
+    {
+      codeROMEList: [ 'G1204', 'L1401', 'H1206' ],
+      intitulé: 'Métiers du sport',
+    },
+    {
+      codeROMEList: [
+        'H1404', 'H1506',
+        'H1504', 'H1302',
+        'H1502', 'H1303',
+        'H1402', 'H1403',
+        'H1206', 'H1501',
+        'H1401', 'F1204',
+        'H1301',
+      ],
+      intitulé: 'Risques, qualité, hygiène, sécurité, environnement (QHSE)',
+    },
+    {
+      codeROMEList: [ 'I1503', 'H1303' ],
+      intitulé: 'Assainissement biologique, nucléaire, dépollution',
+    },
+  ];
+}
+
 export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
   return {
     adresse: '15 - AURILLAC 15000',

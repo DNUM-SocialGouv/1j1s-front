@@ -102,17 +102,12 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
 
   const rechercherIntituléMétier = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const response = await métierRecherchéService.rechercherMétier(value);
-    const filterSuggestions = response.filter(
-      (suggestion) => suggestion.intitulé.toLowerCase().indexOf(value) > -1,
-    );
-    setSuggestions(filterSuggestions);
+    const métierRecherchéList = await métierRecherchéService.rechercherMétier(value);
+    setSuggestions(métierRecherchéList);
     setSuggestionIndex(0);
     setErrorMessageActive(false);
     setCodeRomesMétier([]);
     setSuggestionsActive(value.length > 1);
-
-
   }, [métierRecherchéService]);
 
   const handleChange = useMemo(() => {

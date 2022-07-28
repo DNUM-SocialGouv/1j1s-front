@@ -34,13 +34,20 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
-    const caseInsensitiveMétierRecherché = métierRecherché.toLowerCase();
+    const normalizedMétierRecherché = métierRecherché.normalize('NFD').replace(/\p{Diacritic}/gu, '');
     const response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse, MétierRecherché[]>(
-      `metiers?title=${caseInsensitiveMétierRecherché}`,
+      `metiers?title=${normalizedMétierRecherché}`,
       mapMétierRecherchéList,
     );
     switch (response.instance) {
-      case 'success': return response.result;
+      case 'success':
+        return response.result.filter((métierRecherché) => {
+          return métierRecherché.intitulé
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/\p{Diacritic}/gu, '')
+            .indexOf(normalizedMétierRecherché) >= 0;
+        });
       case 'failure': return [];
     }
   }
