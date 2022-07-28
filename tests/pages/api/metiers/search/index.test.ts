@@ -6,28 +6,57 @@ import { handlerRechercheMétier } from '~/pages/api/metiers/search';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 describe('rechercher un métier', () => {
-  it('retourne la liste des métiers recherchées et leurs codes ROMES', async () => {
-    nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
-      .get('/metiers?title=bou')
-      .reply(200, aRechercheMétierResponse().data);
+  describe('quand le métier recherché ne comporte pas de majuscule', () => {
+    it('retourne la liste des métiers recherchées et leurs codes ROMES', async () => {
+      nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
+        .get('/metiers?title=bou')
+        .reply(200, aRechercheMétierResponse().data);
 
-    await testApiHandler<MétierRecherché[]>({
-      handler: (req, res) => handlerRechercheMétier(req, res),
-      test: async ({ fetch }) => {
-        const res = await fetch({ method: 'GET' });
-        const json = await res.json();
-        expect(json).toEqual([
-          {
-            codeROMEList: ['D1103', 'D1101', 'H2101'],
-            intitulé: 'Boucherie, charcuterie, traiteur',
-          },
-          {
-            codeROMEList: ['D1102', 'D1104'],
-            intitulé: 'Boulangerie, pâtisserie, chocolaterie',
-          },
-        ]);
-      },
-      url: '/metiers/search?intitule=bou',
+      await testApiHandler<MétierRecherché[]>({
+        handler: (req, res) => handlerRechercheMétier(req, res),
+        test: async ({ fetch }) => {
+          const res = await fetch({ method: 'GET' });
+          const json = await res.json();
+          expect(json).toEqual([
+            {
+              codeROMEList: ['D1103', 'D1101', 'H2101'],
+              intitulé: 'Boucherie, charcuterie, traiteur',
+            },
+            {
+              codeROMEList: ['D1102', 'D1104'],
+              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+            },
+          ]);
+        },
+        url: '/metiers/search?intitule=bou',
+      });
+    });
+  });
+
+  describe('quand le métier recherché comporte des majuscules', () => {
+    it('retourne la liste des métiers recherchées et leurs codes ROMES pour le métier en minuscules', async () => {
+      nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
+        .get('/metiers?title=bou')
+        .reply(200, aRechercheMétierResponse().data);
+
+      await testApiHandler<MétierRecherché[]>({
+        handler: (req, res) => handlerRechercheMétier(req, res),
+        test: async ({ fetch }) => {
+          const res = await fetch({ method: 'GET' });
+          const json = await res.json();
+          expect(json).toEqual([
+            {
+              codeROMEList: ['D1103', 'D1101', 'H2101'],
+              intitulé: 'Boucherie, charcuterie, traiteur',
+            },
+            {
+              codeROMEList: ['D1102', 'D1104'],
+              intitulé: 'Boulangerie, pâtisserie, chocolaterie',
+            },
+          ]);
+        },
+        url: '/metiers/search?intitule=Bou',
+      });
     });
   });
 });
