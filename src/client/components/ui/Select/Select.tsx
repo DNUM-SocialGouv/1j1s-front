@@ -9,7 +9,7 @@ import styles from '~/client/components/ui/Select/Select.module.scss';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface SelectProps {
-  placeholder: string
+  placeholder?: string
   optionList: Option[]
   value?: string
   label: string
@@ -91,19 +91,19 @@ export function Select(props: SelectProps) {
   const buttonLabel = useMemo(() => {
 
     const getLibelléAvecValeur = optionList.find((option) => option.valeur === value);
+    const checkLibelléValeurs = getLibelléAvecValeur ? getLibelléAvecValeur.libellé : '';
+    const defaultMultiplePlaceholder = placeholder ? placeholder : 'Sélectionnez vos choix';
+    const defaultSinglePlaceholder = placeholder ? placeholder : 'Sélectionnez votre choix';
 
     if (multiple) {
       if(!selectedValue) {
-        return placeholder;
+        return defaultMultiplePlaceholder;
       } else {
-        const selectedValueLibelléArray = selectedValue
-          .split(',')
-          .map(() => getLibelléAvecValeur ? getLibelléAvecValeur.libellé : selectedValue);
-        return `${selectedValueLibelléArray[0]}... (${selectedValue.split(',').length})`;
+        return `${defaultMultiplePlaceholder}... (${selectedValue.split(',').length})`;
       }
     }
-    if (selectedValue) return getLibelléAvecValeur ? getLibelléAvecValeur.libellé : selectedValue;
-    return placeholder;
+    if (selectedValue) return checkLibelléValeurs;
+    return defaultSinglePlaceholder;
   }, [selectedValue, multiple, placeholder, optionList, value]);
 
   function ListBox() {

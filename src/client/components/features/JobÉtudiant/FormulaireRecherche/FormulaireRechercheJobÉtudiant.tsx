@@ -25,7 +25,6 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  générerTitreFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 import { référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
@@ -147,12 +146,10 @@ export function FormulaireRechercheJobÉtudiant() {
             </ModalFooter>
           </Modal>
         </div>
-
         {!isSmallScreen && (
           <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
             <Select
               multiple
-              placeholder={générerTitreFiltre(true, inputDomaine)}
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
               onChange={setInputDomaine}
               label={'Domaine'}
@@ -162,6 +159,7 @@ export function FormulaireRechercheJobÉtudiant() {
           </div>
         )}
       </div>
+
       <div className={styles.buttonRechercher}>
         <Button
           buttonType="withRightIcon"

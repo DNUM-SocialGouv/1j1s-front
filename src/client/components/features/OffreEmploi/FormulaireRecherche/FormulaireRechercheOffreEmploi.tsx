@@ -16,19 +16,16 @@ import styles
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { CheckboxGroup } from '~/client/components/ui/CheckboxGroup/CheckboxGroup';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Radio } from '~/client/components/ui/Radio/Radio';
-import { RadioGroup } from '~/client/components/ui/RadioGroup/RadioGroup';
 import { Select } from '~/client/components/ui/Select/Select';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  générerTitreFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
@@ -205,7 +202,6 @@ export function FormulaireRechercheOffreEmploi() {
           <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
             <Select
               multiple
-              placeholder={générerTitreFiltre(true, inputTypeDeContrat)}
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
               onChange={setInputTypeDeContrat}
               label={'Type de contrat'}
@@ -213,7 +209,6 @@ export function FormulaireRechercheOffreEmploi() {
               name="typeDeContrats"
             />
             <Select
-              placeholder={générerTitreFiltre(false, inputTempsDeTravail)}
               name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
               onChange={setInputTempsDeTravail}
@@ -221,7 +216,6 @@ export function FormulaireRechercheOffreEmploi() {
               label={'Temps de travail'}
             />
             <Select
-              placeholder={générerTitreFiltre(false, inputExpérience)}
               name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={setInputExpérience}
@@ -230,7 +224,6 @@ export function FormulaireRechercheOffreEmploi() {
             />
             <Select
               multiple
-              placeholder={générerTitreFiltre(true, inputDomaine)}
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
               onChange={setInputDomaine}
               value={inputDomaine}

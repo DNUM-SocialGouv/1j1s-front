@@ -9,7 +9,6 @@ import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCom
 import { Select } from '~/client/components/ui/Select/Select';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { générerTitreFiltre } from '~/client/utils/offreEmploi.mapper';
 import { MissionEngagement } from '~/server/engagement/domain/engagement';
 
 interface FormulaireRechercheMissionEngagementProps {
@@ -55,7 +54,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
         <div className={styles.inputButtonWrapper}>
           <Select
             label="Domaine"
-            placeholder={générerTitreFiltre(false, domainValue)}
             name="domain"
             optionList={domainList}
             onChange={(value) => setDomainValue(value)}
