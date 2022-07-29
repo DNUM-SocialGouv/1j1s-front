@@ -25,6 +25,12 @@
     padding-left: 8px;
 }
 
+.listOptionButton {
+    justify-content: center;
+    padding: 10px 0;
+    display: flex;
+}
+
 .button {
     @extend %text-regular;
     display: flex;

@@ -1,6 +1,7 @@
 import { uuid4 } from '@sentry/utils';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
@@ -146,6 +147,15 @@ export function Select(props: SelectProps) {
               />
             ))
         }
+        <div className={styles.listOptionButton}>
+          <Button
+            buttonType="primary"
+            type="button"
+            onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+          >
+          Appliquer
+          </Button>
+        </div>
       </div>
     );
   }
