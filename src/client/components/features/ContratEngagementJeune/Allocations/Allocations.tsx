@@ -3,8 +3,8 @@ import illustration from 'public/images/CEJ/benefit-from-it.png';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations.module.scss';
-import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import Marked from '~/client/components/ui/Marked/Marked';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const contenu = `
@@ -29,9 +29,9 @@ export default function Allocations() {
           <h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l&apos;allocation ?</h2>
           {!displayAccordion && <Marked markdown={ contenu }/>}
           {displayAccordion && (
-            <AccordionComponent>
+            <SeeMore>
               <Marked markdown={ contenu }/>
-            </AccordionComponent>)}
+            </SeeMore>)}
         </article>
       </div>
     </section>

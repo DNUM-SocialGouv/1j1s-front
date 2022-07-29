@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne.module.scss';
-import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import Marked from '~/client/components/ui/Marked/Marked';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
@@ -28,7 +28,7 @@ export default function QuEstCeQueJyGagne() {
           {!displayAccordion && <strong>Le contrat d&apos;Engagement Jeune, c&apos;est tout bénéf&apos; pour moi !</strong>}
         </div>
         {!displayAccordion && markdown}
-        {displayAccordion && <span className={styles.accordion}><AccordionComponent> {markdown}</AccordionComponent></span>}
+        {displayAccordion && <span className={styles.accordion}><SeeMore> {markdown}</SeeMore></span>}
       </div>
     </section>
   );

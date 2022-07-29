@@ -65,11 +65,8 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTypeDeContrats = within(filtreRechercheMobile).getByRole('group', { name: 'Type de contrat' });
-        const inputTypeDeContrat = within(containerFiltreTypeDeContrats).getAllByRole('checkbox');
-        fireEvent.click(inputTypeDeContrat[0]);
-        fireEvent.click(inputTypeDeContrat[2]);
-        fireEvent.click(inputTypeDeContrat[0]);
+        const inputTypeDeContrat = within(filtreRechercheMobile).getByRole('checkbox', { name: 'Mission intérimaire' });
+        fireEvent.click(inputTypeDeContrat);
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
@@ -101,9 +98,8 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByRole('group', { name: 'Temps de travail' });
-        const inputTempsDeTravail = within(containerFiltreTempsDeTravail).getAllByRole('radio');
-        fireEvent.click(inputTempsDeTravail[0]);
+        const inputTempsDeTravail = within(filtreRechercheMobile).getByRole('radio', { name: 'Temps plein' });
+        fireEvent.click(inputTempsDeTravail);
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
@@ -135,9 +131,8 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreTempsDeTravail = within(filtreRechercheMobile).getByRole('group', { name: 'Niveau demandé' });
-        const inputExperienceExigence = within(containerFiltreTempsDeTravail).getAllByRole('radio');
-        fireEvent.click(inputExperienceExigence[0]);
+        const inputExperienceExigence = within(filtreRechercheMobile).getByRole('radio', { name: 'Moins de 1 an' });
+        fireEvent.click(inputExperienceExigence);
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
@@ -202,11 +197,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
         const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const containerFiltreDomaine = within(filtreRechercheMobile).getByRole('group', { name: 'Domaine' });
-        const inputDomaine = within(containerFiltreDomaine).getAllByRole('checkbox');
-        fireEvent.click(inputDomaine[0]);
-        fireEvent.click(inputDomaine[2]);
-        fireEvent.click(inputDomaine[0]);
+        const inputDomaine = within(filtreRechercheMobile).getByRole('checkbox', { name: 'Banque / Assurance' });
+
+        fireEvent.click(inputDomaine);
 
         expect(filtreRechercheMobile).toBeInTheDocument();
 
@@ -261,10 +254,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const typeDeContratList = await screen.findByRole('listbox');
 
-        await waitFor(() => {
-          expect(typeDeContratList).toBeInTheDocument();
-        });
-
         const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
         fireEvent.click(inputTypeDeContrat[0]);
 
@@ -291,10 +280,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
         fireEvent.click(button);
 
         const domaineList = await screen.findByRole('listbox');
-
-        await waitFor(() => {
-          expect(domaineList).toBeInTheDocument();
-        });
 
         const inputDomaine = within(domaineList).getAllByRole('option');
         fireEvent.click(inputDomaine[2]);
@@ -323,10 +308,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const niveauDemandéList = await screen.findByTestId('Select-experienceExigence');
 
-        await waitFor(() => {
-          expect(niveauDemandéList).toBeInTheDocument();
-        });
-
         const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('option');
         fireEvent.click(inputNiveauDemandé[0]);
 
@@ -353,10 +334,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
         fireEvent.click(button);
 
         const tempsDeTravailList = await screen.findByTestId('Select-tempsDeTravail');
-
-        await waitFor(() => {
-          expect(tempsDeTravailList).toBeInTheDocument();
-        });
 
         const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('option');
         fireEvent.click(inputTempsDeTravail[0]);

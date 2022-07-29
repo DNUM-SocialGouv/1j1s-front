@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Actions/Actions.module.scss';
-import { AccordionComponent } from '~/client/components/ui/Accordion/AccordionComponent';
 import Marked from '~/client/components/ui/Marked/Marked';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const contenu = `
@@ -26,9 +26,9 @@ export default function Actions() {
         </article>
         <article>{!displayAccordion && <Marked markdown={ contenu }/>}
           {displayAccordion && (
-            <AccordionComponent>
+            <SeeMore>
               <Marked markdown={ contenu }/>
-            </AccordionComponent>)}</article>
+            </SeeMore>)}</article>
       </div>
     </section>
   );
