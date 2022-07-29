@@ -21,7 +21,7 @@ export default function Accueil() {
       </Hero>
       <main id="contenu">
         <section className={classNames(styles.section, styles.sectionNosOffres)}>
-          <h2 className={styles.sectionHeader}>
+          <h2 id="offres" className={styles.sectionHeader}>
             <BriefCaseIcon className={styles.sectionNosOffresHeaderIcon} />
             Découvrez nos offres
           </h2>
@@ -84,7 +84,7 @@ export default function Accueil() {
         </section>
 
         <section className={classNames(styles.section, styles.sectionBesoinDeVousFormer)}>
-          <h2 className={styles.sectionHeader}>
+          <h2 id="formation" className={styles.sectionHeader}>
             <BookIcon className={styles.sectionBesoinDeVousFormerHeaderIcon}/>
             Besoin de vous former ?
           </h2>
@@ -109,7 +109,7 @@ export default function Accueil() {
         </section>
 
         <section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
-          <h2 className={styles.sectionHeader}>
+          <h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
             <CompassIcon className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
             Aides, orientation et accompagnement
           </h2>
@@ -155,7 +155,7 @@ export default function Accueil() {
         </section>
 
         <section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
-          <h2 className={styles.sectionHeader}>
+          <h2 id="engagement-benevolat" className={styles.sectionHeader}>
             <TrophyIcon className={styles.sectionEngagementBénévolatHeaderIcon} />
             Engagement et bénévolat
           </h2>
