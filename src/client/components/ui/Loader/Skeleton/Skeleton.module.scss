@@ -4,103 +4,92 @@
   cursor: progress;
 }
 
-.background {
-  //background: gray;
-  height: 24em;
-  border-radius: 1.5em;
-}
-
-.header {
-  //background: red;
-  height: 7em;
-  display: flex;
-  flex-direction: row;
-}
-
-.companyName {
-  //background: white;
-  flex: 1;
-  margin-left: 1.5em;
-  margin-top: 1em;
-}
-
 .gradient {
-  height: 2em;
-  margin: .5em 0;
+  height: 2rem;
+  margin: .5rem 0;
   padding: 0;
-  border-radius: .25em;
+  border-radius: .25rem;
   background-color: $color-skeleton;
   background-image: linear-gradient(90deg, $color-skeleton 30%, #C5C9D7 50%, $color-skeleton 70%);
   animation: shine 3s infinite linear backwards;
 }
+
+.card {
+  //background: gray;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  &Header {
+    //background: red;
+    height: 7rem;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $color-skeleton;
+  }
+
+  &Image {
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 3rem;
+    margin-right: 1.5rem;
+  }
+
+  &Content {
+    height: 7rem;
+    border-radius: 1rem;
+  }
+
+  &Link {
+    display: flex;
+    justify-content: flex-end;
+
+    &Label {
+      width: 7rem;
+      height: 1rem;
+      border-radius: 1rem;
+    }
+
+    &Icon {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
+      margin-left: 1rem;
+    }
+  }
+}
+
 
 @keyframes shine {
   from { background-position: 0; }
   to { background-position: 315px; }
 }
 
-.image {
-  height: 4.5em;
-  width: 4.5em;
-  border-radius: 3em;
-  margin-left: 1.5em;
-  margin-top: 1.5em;
-}
+
 
 .textBold {
-  height: 2em;
-  width: 14em;
-  border-radius: 1em;
+  height: 2rem;
+  width: 14rem;
+  border-radius: 1rem;
 }
 
 .text {
-  height: 1em;
-  width: 10em;
-  border-radius: 1em;
+  height: 1rem;
+  width: 15rem;
+  border-radius: 1rem;
 }
 
-.line {
-  height: .1em;
-}
-
-.tags {
-  height: 3em;
-  margin-left: 1.5em;
-  margin-top: 1em;
+.tagList {
   display: flex;
-  flex-direction: row;
+  list-style-type: none;
+  gap: 1.5rem;
+  padding: 0;
 }
 
 .tag {
-  width: 5em;
-  height: 1.5em;
-  border-radius: 1em;
-  margin-right: 1.5em;
+  width: 5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
 }
 
-.body {
-  height: 7em;
-  margin-left: 1.5em;
-  margin-right: 1.5em;
-  border-radius: 1em;
-}
 
-.links {
-  margin-top: 2em;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 1.5em;
-}
-
-.link {
-  width: 7em;
-  height: 1em;
-  border-radius: 1em;
-}
-
-.link2 {
-  width: 1em;
-  height: 1em;
-  border-radius: 1em;
-  margin-left: 1em;
-}
