@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalTitle, TextInput } from '@dataesr/react-dsfr';
+import { Modal, ModalContent, ModalTitle, Select, TextInput } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
@@ -20,6 +20,7 @@ export default function Rappel() {
       >
         <ModalTitle className={styles.rappelTitle}>
           <h3>J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé</h3>
+          <h4>(Tous les champs sont obligatoires)</h4>
         </ModalTitle>
         <ModalContent>
           <form>
@@ -40,10 +41,11 @@ export default function Rappel() {
                 label='Téléphone'
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
-              <TextInput 
+              <Select
                 label='Age'
                 name='age'
-                placeholder='Sélectionnez un choix'/>
+                placeholder='Temps de travail'
+                options={[{}]}/>
               <TextInput
                 label='Ville'
                 name='ville'
