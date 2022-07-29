@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 import { Button } from '~/client/components/ui/Button/Button';
@@ -23,6 +24,10 @@ export default function OnSamuse() {
       </Button>
       <br />
       <br />
+      <Link href="/#offres"><a>Offres</a></Link><br />
+      <Link href="/#formation"><a>Formation</a></Link><br />
+      <Link href="/#aides-orientation-accompagnement"><a>Aides, orientation et accompagnement</a></Link><br />
+      <Link href="/#engagement-benevolat"><a>Engagement et bénévolat</a></Link>
     </>
   );
 }
