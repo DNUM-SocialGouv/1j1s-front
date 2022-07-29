@@ -2,7 +2,8 @@
 
 .allocations {
   @extend %background-surface;
-   padding: 3rem 0;
+  padding: 3rem 0;
+  background: $color-primary;
 
   &Container {
     display: grid;
@@ -26,14 +27,16 @@
 
   &Article {
     &__Title {
-      color: $color-primary;
-    }
-    p {
-      @extend %bold;
+      color: $color-on-primary;
     }
 
-    strong {
-      color: $color-primary;
+    p {
+      @extend %bold;
+      color: $color-on-primary;
+    }
+
+    ul, strong, button {
+      color: $color-on-primary;
     }
   }
 }
