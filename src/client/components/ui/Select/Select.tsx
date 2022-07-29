@@ -90,9 +90,7 @@ export function Select(props: SelectProps) {
   }, [optionList]);
 
   const buttonLabel = useMemo(() => {
-
-    const getLibelléAvecValeur = optionList.find((option) => option.valeur === value);
-    const checkLibelléValeurs = getLibelléAvecValeur ? getLibelléAvecValeur.libellé : '';
+    const getLibelléAvecValeur = optionList.find((option) => option.valeur === selectedValue);
     const defaultMultiplePlaceholder = placeholder ? placeholder : 'Sélectionnez vos choix';
     const defaultSinglePlaceholder = placeholder ? placeholder : 'Sélectionnez votre choix';
 
@@ -103,9 +101,9 @@ export function Select(props: SelectProps) {
         return `${defaultMultiplePlaceholder}... (${selectedValue.split(',').length})`;
       }
     }
-    if (selectedValue) return checkLibelléValeurs;
+    if (selectedValue) return getLibelléAvecValeur ? getLibelléAvecValeur.libellé : '';
     return defaultSinglePlaceholder;
-  }, [selectedValue, multiple, placeholder, optionList, value]);
+  }, [multiple, placeholder, optionList, value, selectedValue]);
 
   function ListBox() {
     return (
@@ -135,11 +133,10 @@ export function Select(props: SelectProps) {
                 role="option"
                 label={option.libellé}
                 value={option.valeur}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  const { value } = e.target;
-                  setSelectedValue(value);
+                onChange={() => {
+                  setSelectedValue(option.valeur);
                   if(onChange) {
-                    onChange(e.target.value);
+                    onChange(option.valeur);
                   }
                 }}
                 onKeyDown={handleKeyDown}
@@ -175,11 +172,11 @@ export function Select(props: SelectProps) {
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >
-          <span>{buttonLabel}</span>
+          <span data-testid='Select-Placeholder'>{buttonLabel}</span>
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
         {isOptionsOpen && <ListBox />}
-        <input type="hidden" name={name} value={selectedValue}/>
+        <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
       </div>
     </div>
   );
