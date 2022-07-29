@@ -37,7 +37,7 @@
     }
 
     & + & article {
-      grid-template-columns: 125px auto 480px 345px;
+      grid-template-columns: 7.8rem auto 30rem 21.5em;
       grid-template-areas:
         ".         titre     titre     titre"
         ".         .         .         ."
@@ -67,7 +67,7 @@
     article {
       display: grid;
       grid-template-rows: auto 50px auto auto 50px auto;
-      grid-template-columns: 345px 480px auto 125px;
+      grid-template-columns:  21.5em 30rem auto 7.8rem;
       grid-template-areas:
         "titre    titre titre ."
         ".        .     .     ."
