@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalTitle, Select, TextInput } from '@dataesr/react-dsfr';
+import { Modal, ModalContent, ModalTitle, TextInput } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
@@ -8,6 +8,7 @@ import Marked from '~/client/components/ui/Marked/Marked';
 
 export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
+  const [inputAge, setInputAge] = useState('');
   return (
     <section className={styles.rappel}>
       <div className={styles.rappelContainer}>
@@ -19,8 +20,8 @@ export default function Rappel() {
         hide={() => setIsPopInOpen(false)}
       >
         <ModalTitle className={styles.rappelTitle}>
-          <h3>J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé</h3>
-          <h4>(Tous les champs sont obligatoires)</h4>
+          <h2>J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé</h2>
+          <p>(Tous les champs sont obligatoires)</p>
         </ModalTitle>
         <ModalContent>
           <form>
@@ -41,11 +42,12 @@ export default function Rappel() {
                 label='Téléphone'
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
-              <Select
-                label='Age'
-                name='age'
-                placeholder='Temps de travail'
-                options={[{}]}/>
+              <label>Age<SelectSingle
+                titre={'Sélectionnez un choix'}
+                name="experienceExigence"
+                optionList={AgeJeune.EXPÉRIENCE}
+                onChange={setInputAge}
+                currentInput={inputAge}/></label>
               <TextInput
                 label='Ville'
                 name='ville'
