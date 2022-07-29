@@ -28,18 +28,26 @@ export default function Rappel() {
             <div className={styles.rappelForm}>
               <TextInput 
                 label='Prénom'
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 name='firstname'
                 placeholder='Exemple : Jean'/>
               <TextInput 
                 label='Nom'
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 name='lastname'
                 placeholder='Exemple : Dupont'/>
               <TextInput
                 label='Adresse email'
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 name='mail'
                 placeholder='Exemple : jean.dupont@gmail.com'/>
               <TextInput
                 label='Téléphone'
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
               <label>Age<SelectSingle
@@ -50,6 +58,8 @@ export default function Rappel() {
                 currentInput={inputAge}/></label>
               <TextInput
                 label='Ville'
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 name='ville'
                 placeholder='Exemple : Paris'/>
             </div>
