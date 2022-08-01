@@ -4,6 +4,10 @@
  @extend %background-surface;
   padding: 3rem 0;
 
+  button {
+    margin: inherit;
+  }
+
   &Container {
    gap: 5rem;
    margin: 0 auto;
@@ -22,6 +26,7 @@
   &Article {
    &__Title {
      color: $color-primary;
+     font-size: 1.5rem;
     }
   }
 }
