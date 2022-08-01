@@ -2,4 +2,13 @@
 @import "reset/styles";
 
 // Base
+@import "theme/styles";
 @import "typography/styles";
+
+[contenteditable]:not([contenteditable="false"]), [tabindex], a, audio[controls], button,
+details, details > summary:first-of-type, input, input[type="checkbox"] + label::before,
+input[type="radio"] + label::before, select, textarea, video[controls] {
+  outline-color: $color-primary;
+  outline-offset: 0;
+  outline-width: 2px;
+}
