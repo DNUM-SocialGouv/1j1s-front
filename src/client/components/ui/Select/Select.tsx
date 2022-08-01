@@ -70,12 +70,12 @@ export function Select(props: SelectProps) {
     const getLibelléAvecValeur = optionList.find((option) => option.valeur === selectedValue);
     const defaultMultiplePlaceholder = placeholder ?? 'Sélectionnez vos choix';
     const defaultSinglePlaceholder = placeholder ?? 'Sélectionnez votre choix';
-
+    const selectedValueLength = selectedValue.split(',').length;
     if (multiple) {
       if(!selectedValue) {
         return defaultMultiplePlaceholder;
       } else {
-        return `${selectedValue.split(',').length} choix sélectionnés`;
+        return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
       }
     }
     if (selectedValue) return getLibelléAvecValeur ? getLibelléAvecValeur.libellé : '';

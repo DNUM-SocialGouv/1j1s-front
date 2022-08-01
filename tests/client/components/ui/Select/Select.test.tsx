@@ -112,7 +112,7 @@ describe('Select', () => {
       //THEN
       await waitFor(async () => {
         const placeholder = await screen.findByTestId( 'Select-Placeholder' );
-        expect(placeholder.textContent).toEqual('Type de contrat... (1)');
+        expect(placeholder.textContent).toEqual('1 choix sélectionné');
       });
 
       const hiddenInput = await screen.findByTestId('Select-InputHidden');
