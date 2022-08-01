@@ -1,11 +1,9 @@
 import { uuid4 } from '@sentry/utils';
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Button } from '~/client/components/ui/Button/Button';
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
-import { Radio } from '~/client/components/ui/Radio/Radio';
+import { ListBox } from '~/client/components/ui/Select/ListBox';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
@@ -33,7 +31,7 @@ export function Select(props: SelectProps) {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
 
-  const labeledBy = useRef(uuid4());
+  const labelledBy = useRef(uuid4());
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
@@ -46,28 +44,6 @@ export function Select(props: SelectProps) {
       setIsOptionsOpen(false);
     }
   }, []);
-
-  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === KeyBoard.ENTER) {
-      event.preventDefault();
-    }
-  }, []);
-
-  const onSelectMultipleChange = useCallback((isValueSelected: boolean, changedValue: string) => {
-    const valueList = selectedValue ? selectedValue.split(',') : [];
-    if (isValueSelected) {
-      valueList.push(changedValue);
-    } else {
-      const indexOfValue = valueList.indexOf(changedValue);
-      valueList.splice(indexOfValue, 1);
-    }
-
-    const newSelectedValue = valueList.join(',');
-    setSelectedValue(newSelectedValue);
-    if (onChange) {
-      onChange(newSelectedValue);
-    }
-  }, [selectedValue, onChange]);
 
   useEffect(function onValueChange() {
     setSelectedValue(value || '');
@@ -105,61 +81,9 @@ export function Select(props: SelectProps) {
     return defaultSinglePlaceholder;
   }, [multiple, placeholder, optionList, value, selectedValue]);
 
-  function ListBox() {
-    return (
-      <div
-        className={styles.options}
-        role="listbox"
-      >
-        {
-          multiple
-            ? optionList.map((option, index) => (
-              <Checkbox
-                key={index}
-                className={styles.option}
-                role="option"
-                label={option.libellé}
-                value={option.valeur}
-                onChange={(event: ChangeEvent<HTMLInputElement>) => onSelectMultipleChange(event.target.checked, option.valeur)}
-                onKeyDown={handleKeyDown}
-                checked={selectedValue.split(',').includes(option.valeur)}
-              />
-            ))
-            : optionList.map((option, index) => (
-              <Radio
-                id={option.libellé}
-                key={index}
-                className={styles.option}
-                role="option"
-                label={option.libellé}
-                value={option.valeur}
-                onChange={() => {
-                  setSelectedValue(option.valeur);
-                  if(onChange) {
-                    onChange(option.valeur);
-                  }
-                }}
-                onKeyDown={handleKeyDown}
-                checked={selectedValue === option.valeur}
-              />
-            ))
-        }
-        <div className={styles.listOptionButton}>
-          <Button
-            buttonType="primary"
-            type="button"
-            onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-          >
-          Appliquer
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <label className={styles.selectLabel} id={labeledBy.current}>
+      <label className={styles.selectLabel} id={labelledBy.current}>
         {label}
       </label>
       <div ref={optionsRef} className={styles.container}>
@@ -167,7 +91,7 @@ export function Select(props: SelectProps) {
           type="button"
           aria-haspopup="listbox"
           aria-expanded={isOptionsOpen}
-          aria-labelledby={labeledBy.current}
+          aria-labelledby={labelledBy.current}
           style={selectWidth}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
@@ -175,7 +99,14 @@ export function Select(props: SelectProps) {
           <span data-testid='Select-Placeholder'>{buttonLabel}</span>
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
-        {isOptionsOpen && <ListBox />}
+        {isOptionsOpen &&
+          <ListBox
+            selectedValue={selectedValue}
+            optionList={optionList}
+            setSelectedValue={setSelectedValue}
+            multiple={multiple ? true : false}
+            onChange={onChange}
+          />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
       </div>
     </div>

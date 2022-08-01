@@ -109,9 +109,6 @@ describe('Select', () => {
       const input = within(listbox).getAllByRole('option');
       fireEvent.click(input[1]);
 
-      const appliquer = screen.getByRole('button', { name: 'Appliquer' });
-      fireEvent.click(appliquer);
-
       //THEN
       await waitFor(async () => {
         const placeholder = await screen.findByTestId( 'Select-Placeholder' );
