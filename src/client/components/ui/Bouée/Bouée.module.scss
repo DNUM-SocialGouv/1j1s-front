@@ -1,0 +1,34 @@
+@import "@styles/utilities";
+
+.bouée {
+  position: fixed;
+  background: $color-primary;
+  color: $color-on-primary;
+  display: flex;
+  --size: 2rem;
+  height: var(--size);
+  width: var(--size);
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--size);
+  cursor: pointer;
+  right: $gutter;
+  bottom: $gutter;
+  box-shadow: 10px 10px 20px rgb(0 0 0 / 10%);
+
+  transition: 400ms ease-in-out;
+
+  &.disabled {
+    transform: translate3D(0, calc(var(--size) + $gutter), 0);
+    visibility: hidden;
+  }
+  &.enabled {
+    visibility: visible;
+    transform: translate3D(0, -0, 0);
+  }
+
+  span {
+    line-height: 1;
+    zoom: 1.2;
+  }
+}
