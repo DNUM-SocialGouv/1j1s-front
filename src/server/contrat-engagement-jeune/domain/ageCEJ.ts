@@ -1,4 +1,4 @@
-export type OffreEmploiId = string;
+export type AgeId = string;
 
 export interface OffreEmploi {
   age?: AgeJeune.Age
@@ -105,7 +105,7 @@ export namespace AgeJeune {
       valeur: '15',
     };
 
-    export const EXPÉRIENCE: AgeCEJ[] = [
+    export const AGE: AgeCEJ[] = [
       AgeJeune.SEIZE,
       AgeJeune.DIXSEPT,
       AgeJeune.DIXHUIT,

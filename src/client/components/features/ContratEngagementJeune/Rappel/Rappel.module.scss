@@ -23,5 +23,78 @@
       color: $color-primary;
       max-width: 51.875rem;
       text-align: center;
+      }
+  }
+    
+  &Title {
+    margin: 1rem;
+    text-align: center;
+
+    h2 {
+      @extend %bold;
+      font-size: 23px;
+      margin: 0;
+      padding: 0 1.8rem;
+      color: $color-on-background;
+    }
+
+    p {
+      @extend %bold;
+      font-size: 18px;
+      margin-bottom: 2rem;
+      padding: 0 1.8rem;
+      color: $color-primary;
+    }
+  }
+
+  &Form {
+    input, button {
+      background-color: $color-on-primary;
+      border: 0.5px solid $color-on-background;
+      border-radius: 30px;
+      box-shadow: none;
+    }
+
+    button {
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    input[type=radio] + label {
+
+      padding-left: 0 !important;
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
+  &Text {
+    width: 100%;
+    background-color: #eef0f7;
+    border-radius: 30px;
+
+    p{ 
+      font-size: 0.7rem;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+  }
+
+  &Button {
+    text-align: center;
+    margin: 3rem;
+  }
+}
+
+@include media(large){
+  
+  .rappel {
+    
+    &Form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      padding-bottom: 0;
     }
   }

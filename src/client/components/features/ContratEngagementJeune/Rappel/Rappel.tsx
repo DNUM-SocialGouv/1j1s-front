@@ -5,10 +5,22 @@ import styles from '~/client/components/features/ContratEngagementJeune/Rappel/R
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import Marked from '~/client/components/ui/Marked/Marked';
+import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
+import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
+
+const titre = `
+## J'ai des questions sur le Contrat d'Engagement Jeune et souhaite être rappelé(e)
+`;
+const titreMobile = `
+## J'ai des questions sur le Contrat d'Engagement Jeune
+`;
 
 export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
   const [inputAge, setInputAge] = useState('');
+
   return (
     <section className={styles.rappel}>
       <div className={styles.rappelContainer}>
@@ -50,12 +62,13 @@ export default function Rappel() {
                 // @ts-ignore
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
-              <label>Age<SelectSingle
-                titre={'Sélectionnez un choix'}
+              <SelectSingle
+                label='Age'
+                titre={récupérerLibelléDepuisValeur(AgeJeune.AGE, inputAge, 'Sélectionnez un choix')}
                 name="experienceExigence"
-                optionList={AgeJeune.EXPÉRIENCE}
+                optionList={AgeJeune.AGE}
                 onChange={setInputAge}
-                currentInput={inputAge}/></label>
+                currentInput={inputAge}/>
               <TextInput
                 label='Ville'
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
