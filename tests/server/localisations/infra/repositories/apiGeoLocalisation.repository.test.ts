@@ -1,7 +1,6 @@
 import { aApiGeoHttpClientService } from '@tests/fixtures/services/apiGeoHttpClientService.fixture';
 
 import { createSuccess } from '~/server/errors/either';
-import { Localisation } from '~/server/localisations/domain/localisation';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
 
@@ -33,7 +32,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('jou');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '36200',
           nom: 'Chavin',
@@ -42,7 +41,7 @@ describe('ApiGeoLocalisationRepository', () => {
           code: '92370',
           nom: 'Chaville',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -61,7 +60,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '81310',
           nom: 'Parisot',
@@ -70,7 +69,7 @@ describe('ApiGeoLocalisationRepository', () => {
           code: '75001',
           nom: 'Paris',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -87,12 +86,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getDépartementListByNom('jou');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '78',
           nom: 'Yvelines',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -109,12 +108,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getRégionListByNom('jou');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '32',
           nom: 'Hauts-de-France',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -135,7 +134,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('92370');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '36200',
           nom: 'Chavin',
@@ -144,7 +143,7 @@ describe('ApiGeoLocalisationRepository', () => {
           code: '92370',
           nom: 'Chaville',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -163,7 +162,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('75');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '81310',
           nom: 'Parisot',
@@ -172,7 +171,7 @@ describe('ApiGeoLocalisationRepository', () => {
           code: '75001',
           nom: 'Paris',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -193,7 +192,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '36200',
           nom: 'Chavin',
@@ -202,7 +201,7 @@ describe('ApiGeoLocalisationRepository', () => {
           code: '92370',
           nom: 'Chaville',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -221,7 +220,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '81310',
           nom: 'Parisot',
@@ -230,7 +229,7 @@ describe('ApiGeoLocalisationRepository', () => {
           code: '75001',
           nom: 'Paris',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
@@ -247,12 +246,12 @@ describe('ApiGeoLocalisationRepository', () => {
 
       const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
 
-      const expected: Localisation[] = [
+      const expected = createSuccess([
         {
           code: '78',
           nom: 'Yvelines',
         },
-      ];
+      ]);
 
       expect(result).toEqual(expected);
     });
