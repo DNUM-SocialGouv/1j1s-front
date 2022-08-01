@@ -49,41 +49,6 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
 
   const hasRouterQuery = Object.keys(router.query).length > 0;
 
-  function résultatRechercherSolution() {
-    return (
-      <>
-        {!erreurRecherche && listeSolution.length > 0 ?
-          <>
-            {étiquettesRecherche}
-            <div className={styles.nombreRésultats}>
-              <h2>{messageRésultatRecherche}</h2>
-            </div>
-            <ul className={styles.listeSolutions}>
-              {listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-                <li key={lienSolution.id}>
-                  <RésultatRechercherSolution
-                    lienOffre={lienSolution.lienOffre}
-                    intituléOffre={lienSolution.intituléOffre}
-                    logoEntreprise={lienSolution.logoEntreprise}
-                    nomEntreprise={lienSolution.nomEntreprise}
-                    descriptionOffre={lienSolution.descriptionOffre}
-                    étiquetteOffreList={lienSolution.étiquetteOffreList}
-                  />
-                </li>
-              ))}
-            </ul>
-            {paginationOffset && nombreSolutions > paginationOffset &&
-                    <div className={styles.pagination}>
-                      <Pagination itemListLength={nombreSolutions} itemPerPage={paginationOffset}/>
-                    </div>
-            }
-          </> :
-          <ErrorComponent errorType={erreurRecherche}/>
-        }
-      </>
-    );
-  }
-
   return (
     <>
       {bannière}
@@ -92,11 +57,42 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
         {
           // TODO: add loading as attribute
           hasRouterQuery &&
+            <>
+              {erreurRecherche || listeSolution.length === 0 ?
+                <ErrorComponent errorType={erreurRecherche}/> :
+                <>
+                  {étiquettesRecherche}
+                  <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+                    <h2>{messageRésultatRecherche}</h2>
+                  </Skeleton>
 
-            !isLoading ?
-            résultatRechercherSolution()
-            :
-            <Skeleton></Skeleton>
+                  <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+                    <ul>
+                      {
+                        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
+                          <li key={lienSolution.id}>
+                            <RésultatRechercherSolution
+                              lienOffre={lienSolution.lienOffre}
+                              intituléOffre={lienSolution.intituléOffre}
+                              logoEntreprise={lienSolution.logoEntreprise}
+                              nomEntreprise={lienSolution.nomEntreprise}
+                              descriptionOffre={lienSolution.descriptionOffre}
+                              étiquetteOffreList={lienSolution.étiquetteOffreList}
+                            />
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </Skeleton>
+                  {paginationOffset && nombreSolutions > paginationOffset &&
+                        <div className={styles.pagination}>
+                          <Pagination itemListLength={nombreSolutions} itemPerPage={paginationOffset}/>
+                        </div>
+                  }
+                </>
+
+              }
+            </>
         }
       </div>
     </>

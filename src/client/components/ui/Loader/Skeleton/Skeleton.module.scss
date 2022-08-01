@@ -3,6 +3,7 @@
 .wrapper {
   position: relative;
   cursor: progress;
+  list-style-type: none;
 }
 
 .gradient {
@@ -81,8 +82,8 @@
 }
 
 .text {
-  height: 1rem;
-  border-radius: 1rem;
+  height: 1em;
+  border-radius: 1em;
   &Short {
     width: 15rem;
   }
