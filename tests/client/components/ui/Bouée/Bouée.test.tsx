@@ -17,13 +17,21 @@ describe('<Bouée />', () => {
 
   const DEBOUNCE_DELAY = 50;
 
+  function mockSurface (initialY=20): [RefObject<HTMLElement>, (y: number) => void] {
+    let y = initialY;
+    const surface = {
+      getBoundingClientRect: jest.fn(() => ({ y } as DOMRect)),
+      scrollIntoView: jest.fn(),
+    };
+    const surfaceRef: RefObject<HTMLElement> = { current: surface as unknown as HTMLElement };
+    const setY = (n: number) => { y=n; };
+    return [surfaceRef, setY];
+  }
+
   describe('quand l\'élément étalon est visible', () => {
     it('affiche un bouton qui reste invisible', () => {
       // Given
-      const surface = {
-        getBoundingClientRect: jest.fn(() => ({ y: 20 })),
-      };
-      const surfaceRef: RefObject = { current: surface };
+      const [surfaceRef] = mockSurface();
       // When
       render(<Bouée surface={ surfaceRef }/>);
       // Then
@@ -33,16 +41,12 @@ describe('<Bouée />', () => {
     describe('mais qu\'on scroll vers le bas', () => {
       it('affiche le bouton', async () => {
         // Given
-        let y = 20;
-        const surface = {
-          getBoundingClientRect: jest.fn(() => ({ y: y })),
-        };
-        const surfaceRef: RefObject = { current: surface };
+        const [surfaceRef, setY] = mockSurface();
         // When
         render(<Bouée surface={ surfaceRef }/>);
-        y = -100;
+        setY(-100);
         await act(async () => {
-          window.scrollTo(200);
+          window.scrollTo({ top: 200 });
           await delay(DEBOUNCE_DELAY);
         });
         // Then
@@ -52,23 +56,18 @@ describe('<Bouée />', () => {
       describe('et qu\'on clique sur le bouton', () => {
         it('scrolle jusqu\'à l\'élément étalon', async () => {
           // Given
-          let y = 20;
-          const surface = {
-            getBoundingClientRect: jest.fn(() => ({ y: y })),
-            scrollIntoView: jest.fn(),
-          };
-          const surfaceRef: RefObject = { current: surface };
+          const [surfaceRef, setY] = mockSurface();
           // When
           render(<Bouée surface={ surfaceRef }/>);
-          y = -100;
+          setY(-100);
           await act(async () => {
-            window.scrollTo(200);
+            window.scrollTo({ top: 200 });
             await delay(DEBOUNCE_DELAY);
           });
           const button = screen.getByRole('button', { description: 'remonter en haut de la page' });
           await userEvent.click(button);
           // Then
-          expect(surface.scrollIntoView).toHaveBeenCalled();
+          expect(surfaceRef.current?.scrollIntoView).toHaveBeenCalled();
         });
       });
     });
@@ -76,10 +75,7 @@ describe('<Bouée />', () => {
   describe('quand l\'élement étalon n\'est plus visible', () => {
     it('affiche un bouton visible', async () => {
       // Given
-      const surface = {
-        getBoundingClientRect: jest.fn(() => ({ y: -100 })),
-      };
-      const surfaceRef: RefObject = { current: surface };
+      const [surfaceRef] = mockSurface(-100);
       // When
       render(<Bouée surface={ surfaceRef }/>);
       await act(() => delay(DEBOUNCE_DELAY));
