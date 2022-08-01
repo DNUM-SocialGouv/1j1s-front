@@ -58,7 +58,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
           // TODO: add loading as attribute
           hasRouterQuery &&
             <>
-              {erreurRecherche || listeSolution.length === 0 ?
+              {erreurRecherche || listeSolution.length === 0 && !isLoading ?
                 <ErrorComponent errorType={erreurRecherche}/> :
                 <>
                   {étiquettesRecherche}
