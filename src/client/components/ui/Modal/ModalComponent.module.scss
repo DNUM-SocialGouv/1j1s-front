@@ -3,6 +3,9 @@
 .modal {
   position: fixed;
   z-index: 5500;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
   padding: 0;
   border: none;
   background-color: hsla(0,0%,9%,.375);
@@ -49,12 +52,16 @@
 }
 
 .modalTitle {
+  margin-bottom: 0.5rem;
   padding: 0 1rem;
+  font-size: 1rem;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
 }
 
 .modalContent {
   margin-bottom: 1rem;
-  padding: 0 1rem;
 }
 
 .modalFooter {

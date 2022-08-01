@@ -11,6 +11,7 @@ import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -120,9 +121,14 @@ export function FormulaireRechercheOffreEmploi() {
             </div>
           }
 
-          <ModalComponent className={styles.filtresAvancésModal} isOpen={isFiltresAvancésMobileOpen} data-testid="FiltreRechercheMobile">
-            <ModalComponent.Close close={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres" />
-            <ModalComponent.Title>Filtrer ma recherche</ModalComponent.Title>
+          <ModalComponent
+            close={() => setIsFiltresAvancésMobileOpen(false)}
+            closeTitle="Fermer les filtres"
+            isOpen={isFiltresAvancésMobileOpen} data-testid="FiltreRechercheMobile">
+            <ModalComponent.Title>
+              <MenuIcon />
+              <span>Filtrer ma recherche</span>
+            </ModalComponent.Title>
             <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
               <Accordion title="Type de contrat">
                 {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
