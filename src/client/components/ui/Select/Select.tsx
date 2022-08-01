@@ -1,4 +1,5 @@
 import { uuid4 } from '@sentry/utils';
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
@@ -67,19 +68,19 @@ export function Select(props: SelectProps) {
 
   const buttonLabel = useMemo(() => {
     const getLibelléAvecValeur = optionList.find((option) => option.valeur === selectedValue);
-    const defaultMultiplePlaceholder = placeholder ? placeholder : 'Sélectionnez vos choix';
-    const defaultSinglePlaceholder = placeholder ? placeholder : 'Sélectionnez votre choix';
+    const defaultMultiplePlaceholder = placeholder ?? 'Sélectionnez vos choix';
+    const defaultSinglePlaceholder = placeholder ?? 'Sélectionnez votre choix';
 
     if (multiple) {
       if(!selectedValue) {
         return defaultMultiplePlaceholder;
       } else {
-        return `${defaultMultiplePlaceholder}... (${selectedValue.split(',').length})`;
+        return `${selectedValue.split(',').length} choix sélectionnés`;
       }
     }
     if (selectedValue) return getLibelléAvecValeur ? getLibelléAvecValeur.libellé : '';
     return defaultSinglePlaceholder;
-  }, [multiple, placeholder, optionList, value, selectedValue]);
+  }, [multiple, placeholder, optionList, selectedValue]);
 
   return (
     <div>
@@ -96,7 +97,7 @@ export function Select(props: SelectProps) {
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >
-          <span data-testid='Select-Placeholder'>{buttonLabel}</span>
+          <span className={classNames({ [styles.selectedLabel]:selectedValue })} data-testid='Select-Placeholder'>{buttonLabel}</span>
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
         {isOptionsOpen &&
@@ -104,6 +105,7 @@ export function Select(props: SelectProps) {
             selectedValue={selectedValue}
             optionList={optionList}
             setSelectedValue={setSelectedValue}
+            setOptionIsOpen={setIsOptionsOpen}
             multiple={multiple ? true : false}
             onChange={onChange}
           />}

@@ -37,10 +37,13 @@
     width: 100%;
     justify-content: space-between;
     color: $color-mention-grey;
-    padding: 8px 8px 8px 12px;
-    border: 1.5px solid;
-    border-color: $color-primary;
+    padding: 6px 6px 6px 12px;
+    border: 1.5px solid $color-primary;
     border-radius: 20px;
+}
+
+.selectedLabel {
+    color: $color-on-background;
 }
 
 .selectLabel {
