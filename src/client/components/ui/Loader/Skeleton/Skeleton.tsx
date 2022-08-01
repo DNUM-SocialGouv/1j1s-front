@@ -21,39 +21,25 @@ export const Skeleton = (props: SkeletonProps) => {
 
   function card() {
     return (
-      <div className={styles.card}>
-        <div className={styles.cardHeader}>
-          <div className={classNames(styles.gradient, styles.cardImage)}></div>
-          <div>
-            <div className={classNames(styles.gradient, styles.textBold)}></div>
-            <div className={classNames(styles.gradient, styles.text)}></div>
-          </div>
-        </div>
-        {tagList()}
-        { isSmallScreen && <div className={classNames(styles.gradient, styles.cardContent)}></div> }
-        { !isSmallScreen && (
-          <div>
-            {line()}
-            {line()}
-          </div>
-        ) }
-        <div className={styles.cardLink}>
-          <div className={classNames(styles.gradient, styles.cardLinkLabel)}></div>
-          <div className={classNames(styles.gradient, styles.cardLinkIcon)}></div>
-        </div>
+      <div className={styles.cardGrid}>
+        <div className={classNames(styles.cardGridImage)}></div>
+        <div className={classNames(styles.cardGridTextBold)}></div>
+        <div className={classNames(styles.cardGridText)}></div>
+
+        <div className={classNames(styles.cardGridLine)}></div>
+
+        <div className={classNames(styles.cardGridTag1)}></div>
+        <div className={classNames(styles.cardGridTag2)}></div>
+        <div className={classNames(styles.cardGridTag3)}></div>
+
+        <div className={classNames(styles.cardGridContent)}></div>
+
+        <div className={classNames(styles.cardGridLinkLabel)}></div>
+        <div className={classNames(styles.cardGridLinkIcon)}></div>
       </div>
     );
   }
 
-  function tagList() {
-    return (
-      <ul className={styles.tagList}>
-        <li className={classNames(styles.tag)}></li>
-        <li className={classNames(styles.tag)}></li>
-        <li className={classNames(styles.tag)}></li>
-      </ul>
-    );
-  }
 
   function tag() {
     return <div className={classNames(styles.tag)}/>;
