@@ -114,6 +114,7 @@ export function FormulaireRechercheOffreEmploi() {
               <Button
                 buttonType="linkWithRightIcon"
                 icon={<FilterIcon />}
+                type='button'
                 onClick={() => setIsFiltresAvancésMobileOpen(true)}
               >
                 Filtrer ma recherche
