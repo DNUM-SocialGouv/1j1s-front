@@ -55,7 +55,6 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
       <div className={styles.rechercheSolution}>
         {formulaireRecherche}
         {
-          // TODO: add loading as attribute
           hasRouterQuery &&
             <>
               {erreurRecherche || listeSolution.length === 0 && !isLoading ?

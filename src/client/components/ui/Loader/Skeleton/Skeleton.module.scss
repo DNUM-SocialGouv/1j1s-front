@@ -7,15 +7,17 @@
 }
 
 .gradient {
-  margin: .5rem 0;
-  padding: 0;
-  border-radius: .25rem;
-  background-color: $color-skeleton;
-  background-image: linear-gradient(90deg, $color-skeleton 0%, #C5C9D7 50%, $color-skeleton 100%);
-  animation: shine 3s infinite linear;
+  animation: shine 2.5s infinite linear;
+  background-size: 50% !important;
+  background: $color-skeleton linear-gradient(
+    100deg,
+    transparent 25%,
+    lighten($color-skeleton, 5) 43%,
+    transparent 58%
+  ) no-repeat;
 }
 
-.cardGrid {
+.card {
   display: grid;
   grid-gap: 1rem;
   height: 300px;
@@ -47,10 +49,10 @@
     background-size: 50% !important;
     animation: shine 2.5s infinite linear;
     background: linear-gradient(
-                    100deg,
-                    transparent 25%,
-                    lighten($color-skeleton, 5) 43%,
-                    transparent 58%
+      100deg,
+      transparent 25%,
+      lighten($color-skeleton, 5) 43%,
+      transparent 58%
     ) no-repeat;
   }
   &Image {
@@ -86,50 +88,6 @@
   }
 }
 
-.card {
-  position: relative;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-
-  &Header {
-    height: 7rem;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid $color-skeleton;
-  }
-
-  &Image {
-    height: 4.5rem;
-    width: 4.5rem;
-    border-radius: 3rem;
-    margin-right: 1.5rem;
-  }
-
-  &Content {
-    height: 7rem;
-    border-radius: 1rem;
-  }
-
-  &Link {
-    display: flex;
-    justify-content: flex-end;
-
-    &Label {
-      width: 7rem;
-      height: 1rem;
-      border-radius: 1rem;
-    }
-
-    &Icon {
-      width: 1rem;
-      height: 1rem;
-      border-radius: 1rem;
-      margin-left: 1rem;
-    }
-  }
-}
-
 @keyframes shine {
   0% {
     background-position: -100% 0;
@@ -145,52 +103,23 @@
   .gradient {
     animation: none;
   }
-  .cardGrid:before {
+  .card:before {
     animation: none;
   }
 }
 
-.textBold {
-  height: 2rem;
-  width: 14rem;
-  border-radius: 1rem;
-}
-
 .text {
   height: 1em;
+  width: 20rem;
+  margin: .5rem 0;
   border-radius: 1em;
-  &Short {
-    width: 15rem;
-  }
-  &Long {
-    width: 45rem;
-  }
-}
-
-.tagList {
-  display: flex;
-  list-style-type: none;
-  background-color: #FFFFFF;
-  gap: 1.5rem;
-  padding: 0;
-  &:before {
-    content: "";
-    mix-blend-mode: overlay;
-    position: absolute;
-    width: 300px;
-    height: 30px;
-    background-size: 50% !important;
-    background: linear-gradient(90deg,#ccc 30%,#666 50%,#ccc 70%);
-    //background-image: linear-gradient(90deg, $color-skeleton 30%, #C5C9D7 50%, $color-skeleton 70%);
-    animation: shine 2.5s infinite linear;
-  }
 }
 
 .tag {
   width: 5rem;
   height: 1.5rem;
-  border-radius: 1rem;
-  background-color: $color-skeleton;
+  margin: .5rem 0;
+  border-radius: 1em;
 }
 
 

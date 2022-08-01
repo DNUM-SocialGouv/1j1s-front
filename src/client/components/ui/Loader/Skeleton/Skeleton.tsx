@@ -3,7 +3,6 @@ import React from 'react';
 
 import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/Loader/Skeleton/Skeleton.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface SkeletonProps extends CommonProps {
   type: SkeletonType,
@@ -17,37 +16,36 @@ type SkeletonType = 'card' | 'tag' | 'line';
 
 export const Skeleton = (props: SkeletonProps) => {
   const { type, repeat = 1, isLoading, children, className } = props;
-  const { isSmallScreen } = useBreakpoint();
 
   function card() {
     return (
-      <div className={styles.cardGrid}>
-        <div className={classNames(styles.cardGridImage)}></div>
-        <div className={classNames(styles.cardGridTextBold)}></div>
-        <div className={classNames(styles.cardGridText)}></div>
+      <div className={styles.card}>
+        <div className={classNames(styles.cardImage)}></div>
+        <div className={classNames(styles.cardTextBold)}></div>
+        <div className={classNames(styles.cardText)}></div>
 
-        <div className={classNames(styles.cardGridLine)}></div>
+        <div className={classNames(styles.cardLine)}></div>
 
-        <div className={classNames(styles.cardGridTag1)}></div>
-        <div className={classNames(styles.cardGridTag2)}></div>
-        <div className={classNames(styles.cardGridTag3)}></div>
+        <div className={classNames(styles.cardTag1)}></div>
+        <div className={classNames(styles.cardTag2)}></div>
+        <div className={classNames(styles.cardTag3)}></div>
 
-        <div className={classNames(styles.cardGridContent)}></div>
+        <div className={classNames(styles.cardContent)}></div>
 
-        <div className={classNames(styles.cardGridLinkLabel)}></div>
-        <div className={classNames(styles.cardGridLinkIcon)}></div>
+        <div className={classNames(styles.cardLinkLabel)}></div>
+        <div className={classNames(styles.cardLinkIcon)}></div>
       </div>
     );
   }
 
 
   function tag() {
-    return <div className={classNames(styles.tag)}/>;
+    return <div className={classNames(styles.gradient, styles.tag)}/>;
   }
 
   function line() {
     return (
-      <div className={classNames(styles.gradient, styles.text, isSmallScreen ? styles.textShort : styles.textLong)}></div>
+      <div className={classNames(styles.gradient, styles.text )}></div>
     );
   }
 
@@ -63,7 +61,6 @@ export const Skeleton = (props: SkeletonProps) => {
     else
       return <></>;
 
-    // return skeleton;
     return (
       <>
         {
@@ -82,8 +79,8 @@ export const Skeleton = (props: SkeletonProps) => {
         tabIndex={0}
         role="progressbar"
         aria-busy="true"
-        aria-valuemin="0"
-        aria-valuemax="100"
+        aria-valuemin={0}
+        aria-valuemax={100}
         aria-valuetext="...En cours de chargement"
         className={classNames(styles.wrapper, className)}
       >
