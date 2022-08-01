@@ -1,0 +1,78 @@
+@import "@styles/utilities";
+
+.application {
+  padding: 0 20px 40px;
+  background: $color-primary;
+
+  &Container {
+    background: $color-on-primary;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  &Description {
+    @extend %text-regular;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &Logo {
+    display: grid;
+    grid-template-columns: 3fr 6fr;
+    background: $color-on-background;
+    color: $color-on-primary;
+    text-align: left;
+    line-height: 1rem;
+    font-size: 0.625rem;
+    font-weight: 400;
+    border-radius: 8px;
+    padding: 8px 10px;
+
+    [href] {
+      box-shadow: none;
+    }
+
+    &Container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    &Store {
+      font-weight: 500;
+    }
+  }
+}
+
+@include media(large) {
+  .application {
+    border-top: solid $color-background 3.5rem;
+
+    &Container {
+      max-width: 32rem;
+      margin: -3.5rem auto 0;
+      border-radius: 20px;
+    }
+
+    &Description {
+      line-height: 1.5rem;
+    }
+
+    &Logo {
+      margin-top: 20px;
+      font-size: 0.875rem;
+      width: 12.5rem;
+
+      &Container {
+        gap: 0.75rem;
+        justify-items: center;
+      }
+
+      &Store {
+        font-size: 1.25rem;
+        line-height: 2rem;
+      }
+    }
+  }
+}
