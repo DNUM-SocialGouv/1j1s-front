@@ -1,11 +1,11 @@
 @import "@styles/utilities";
 
-.skeleton {
+.wrapper {
+  position: relative;
   cursor: progress;
 }
 
 .gradient {
-  height: 2rem;
   margin: .5rem 0;
   padding: 0;
   border-radius: .25rem;
@@ -15,13 +15,12 @@
 }
 
 .card {
-  //background: gray;
+  position: relative;
   border-radius: 1.5rem;
   padding: 1.5rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
   &Header {
-    //background: red;
     height: 7rem;
     display: flex;
     flex-direction: row;
@@ -59,13 +58,21 @@
   }
 }
 
-
 @keyframes shine {
   from { background-position: 0; }
   to { background-position: 315px; }
 }
 
+/*@keyframes shine {
+  from { background-position: -100% 0; }
+  to { background-position: 100% 0; }
+}*/
 
+@media (prefers-reduced-motion: reduce) {
+  .gradient {
+    animation: none;
+  }
+}
 
 .textBold {
   height: 2rem;
@@ -75,21 +82,39 @@
 
 .text {
   height: 1rem;
-  width: 15rem;
   border-radius: 1rem;
+  &Short {
+    width: 15rem;
+  }
+  &Long {
+    width: 45rem;
+  }
 }
 
 .tagList {
   display: flex;
   list-style-type: none;
+  background-color: #FFFFFF;
   gap: 1.5rem;
   padding: 0;
+  &:before {
+    content: "";
+    mix-blend-mode: overlay;
+    position: absolute;
+    width: 300px;
+    height: 30px;
+    background-size: 50% !important;
+    background: linear-gradient(90deg,#ccc 30%,#666 50%,#ccc 70%);
+    //background-image: linear-gradient(90deg, $color-skeleton 30%, #C5C9D7 50%, $color-skeleton 70%);
+    animation: shine 2.5s infinite linear;
+  }
 }
 
 .tag {
   width: 5rem;
   height: 1.5rem;
   border-radius: 1rem;
+  background-color: $color-skeleton;
 }
 
 
