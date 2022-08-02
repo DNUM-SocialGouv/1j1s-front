@@ -6,7 +6,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
-  TextInput,
 } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
@@ -22,6 +21,7 @@ import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glas
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
+import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -97,8 +97,6 @@ export function FormulaireRechercheOffreEmploi() {
         <div className={styles.inputButtonWrapper}>
           <TextInput
             label="Métier, mot-clé"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             value={inputMotCle}
             name="motCle"
             autoFocus
@@ -204,7 +202,7 @@ export function FormulaireRechercheOffreEmploi() {
               multiple
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
               onChange={setInputTypeDeContrat}
-              label={'Type de contrat'}
+              label="Type de contrat"
               value={inputTypeDeContrat}
               name="typeDeContrats"
             />
@@ -213,14 +211,14 @@ export function FormulaireRechercheOffreEmploi() {
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
               onChange={setInputTempsDeTravail}
               value={inputTempsDeTravail}
-              label={'Temps de travail'}
+              label="Temps de travail"
             />
             <Select
               name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={setInputExpérience}
               value={inputExpérience}
-              label={'Niveau demandé'}
+              label="Niveau demandé"
             />
             <Select
               multiple
@@ -228,7 +226,7 @@ export function FormulaireRechercheOffreEmploi() {
               onChange={setInputDomaine}
               value={inputDomaine}
               name="grandDomaine"
-              label={'Domaine'}
+              label="Domaine"
             />
           </div>
         )}

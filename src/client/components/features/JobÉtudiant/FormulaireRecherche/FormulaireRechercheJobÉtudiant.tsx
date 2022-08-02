@@ -6,7 +6,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalTitle,
-  TextInput,
 } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
@@ -21,6 +20,7 @@ import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Select } from '~/client/components/ui/Select/Select';
+import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -85,8 +85,6 @@ export function FormulaireRechercheJobÉtudiant() {
         <div className={styles.inputButtonWrapper}>
           <TextInput
             label="Métier, mot-clé"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             value={inputMotCle}
             name="motCle"
             autoFocus
@@ -152,7 +150,7 @@ export function FormulaireRechercheJobÉtudiant() {
               multiple
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
               onChange={setInputDomaine}
-              label={'Domaine'}
+              label="Domaine"
               value={inputDomaine}
               name="grandDomaine"
             />
