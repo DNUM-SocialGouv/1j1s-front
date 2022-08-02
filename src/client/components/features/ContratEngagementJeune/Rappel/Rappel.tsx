@@ -5,9 +5,8 @@ import styles from '~/client/components/features/ContratEngagementJeune/Rappel/R
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Select } from '~/client/components/ui/Select/Select';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
 
 const titre = `
@@ -62,13 +61,12 @@ export default function Rappel() {
                 // @ts-ignore
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
-              <SelectSingle
+              <Select
                 label='Age'
-                titre={récupérerLibelléDepuisValeur(AgeJeune.AGE, inputAge, 'Sélectionnez un choix')}
-                name="experienceExigence"
+                name="ageList"
                 optionList={AgeJeune.AGE}
                 onChange={setInputAge}
-                currentInput={inputAge}
+                value={inputAge}
               />
               <TextInput
                 label='Ville'
