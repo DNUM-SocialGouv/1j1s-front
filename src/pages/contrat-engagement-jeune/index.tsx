@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { TémoignageKévin, TémoignageLatifa } from '~/client/components/features/ContratEngagementJeune//Témoignages/Témoignages';
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
@@ -9,16 +9,18 @@ import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagem
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
 import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
 import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel';
+import Bouée from '~/client/components/ui/Bouée/Bouée';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function ContratEngagementJeune() {
+  const surface = useRef<HTMLElement>(null);
   return (
     <>
       <HeadTag
         title="Contrat Engagement Jeune"
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
-      <main id="contenu">
+      <main id="contenu" ref={ surface }>
         <Bannière/>
         <QuEstCeQueCEst/>
         <Actions/>
@@ -29,6 +31,7 @@ export default function ContratEngagementJeune() {
         <TémoignageLatifa id="témoignage-latifa"/>
         <Accompagnement/>
         <Rappel/>
+        <Bouée surface={ surface } />
       </main>
     </>
   );
