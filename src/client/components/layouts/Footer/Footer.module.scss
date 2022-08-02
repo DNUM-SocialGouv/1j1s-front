@@ -1,0 +1,94 @@
+@import "@styles/utilities";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.footerHeader {
+  display: flex;
+  flex-direction: row;
+  font-size: 1rem;
+}
+
+.footerDevise {
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.footerLogo {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerLogoFranceRelance {
+  margin-left: 40px;
+}
+
+.footerLienExterne {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  padding-top: 20px;
+  color: #3A3A3A;
+  font-weight: bold;
+}
+
+.footerLienExterne > a {
+  font-size: 0.875rem;
+  box-shadow: none;
+}
+
+.footerLienExterne > a > svg {
+  width: 12px;
+  height: 12px;
+}
+
+.footerMessage {
+  font-size: 0.875rem;
+  color: #3A3A3A;
+}
+
+.footerMessage > div {
+  padding-top: 20px;
+}
+
+.footerProprietaire {
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 130px;
+}
+
+.footerLienUtile {
+  border-top: 1px solid $color-mention-grey;
+  font-size: 0.75rem;
+  color: $color-mention-grey;
+  margin-top: 20px;
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+
+.footerLienUtile > a {
+  border-right: 1px solid $color-mention-grey;
+  padding: 10px 10px 10px 0;
+  line-height: 0px;
+  box-shadow: none;
+}
+
+.footerLienUtile > a > svg {
+  width: 12px;
+  height: 12px;
+}
+
+.footerLienUtile > div {
+  margin-top: 20px;
+}
+
+.footerCopyRight > a > svg {
+  width: 12px;
+  height: 12px;
+}

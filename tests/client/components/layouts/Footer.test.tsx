@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 
-import { Footer } from '~/client/components/layouts/Footer';
+import { Footer } from '~/client/components/layouts/Footer/Footer';
 
 describe('Footer', () => {
   it('renders Footer component', () => {
