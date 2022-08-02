@@ -5,18 +5,22 @@ export class LoggerService {
     message: string,
     level: Sentry.Severity,
   ) {
-    Sentry.captureMessage(message, level);
+    Sentry.withScope(function(scope) {
+      scope.setLevel(level);
+
+      Sentry.captureMessage(message);
+    });
   }
 
   static info(message: string) {
-    this.log(message, Sentry.Severity.Info);
+    this.log(message, 'info');
   }
 
   static warn(message: string) {
-    this.log(message, Sentry.Severity.Warning);
+    this.log(message, 'warning');
   }
 
   static error(message: string) {
-    this.log(message, Sentry.Severity.Error);
+    this.log(message, 'error');
   }
 }

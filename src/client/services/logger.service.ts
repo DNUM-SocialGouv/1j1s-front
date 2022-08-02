@@ -9,21 +9,25 @@ export class LoggerService {
 
   private static log(
     message: string,
-    level: Sentry.Severity,
+    level: string,
   ) {
-    Sentry.captureMessage(message, level);
+    Sentry.withScope(function(scope) {
+      scope.setLevel(level);
+
+      Sentry.captureMessage(message);
+    });
   }
 
   info(message: string) {
-    LoggerService.log(message, Sentry.Severity.Info);
+    LoggerService.log(message, 'info');
   }
 
   warn(message: string) {
-    LoggerService.log(message, Sentry.Severity.Warning);
+    LoggerService.log(message, 'warning');
   }
 
   error(message: string) {
-    LoggerService.log(message, Sentry.Severity.Error);
+    LoggerService.log(message, 'error');
   }
 
   setTransactionId(transactionId: string): void {

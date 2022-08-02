@@ -18,7 +18,7 @@ describe('LoggerService', () => {
       const message = 'mon erreur message';
       LoggerService.error(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, Sentry.Severity.Error);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
     });
   });
 
@@ -27,7 +27,7 @@ describe('LoggerService', () => {
       const message = 'mon info message';
       LoggerService.info(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, Sentry.Severity.Info);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
     });
   });
 
@@ -36,7 +36,7 @@ describe('LoggerService', () => {
       const message = 'mon warn message';
       LoggerService.warn(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, Sentry.Severity.Warning);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
     });
   });
 });
