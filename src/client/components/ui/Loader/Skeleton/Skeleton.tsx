@@ -56,7 +56,7 @@ export const Skeleton = (props: SkeletonProps) => {
       default:
         return <></>;
     }
-  }, [card, line, tag]);
+  }, [type, card, line, tag]);
 
   const skeletonRender = useCallback((type: SkeletonType, repeat: number) => {
     return (
@@ -68,7 +68,7 @@ export const Skeleton = (props: SkeletonProps) => {
         }
       </>
     );
-  }, []);
+  }, [getSkeleton]);
 
 
   if (isLoading) {
