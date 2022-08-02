@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
     '^@tests/(.*)$': '<rootDir>/tests/$1',
     '^~/(.*)$': '<rootDir>/src/$1',
   },
-  setupFilesAfterEnv: ['./react-testing-library.setup.ts', './tests/setup.js'],
+  setupFilesAfterEnv: ['./react-testing-library.setup.ts'],
 };
 
 export default config;

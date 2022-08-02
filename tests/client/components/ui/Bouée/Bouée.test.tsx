@@ -10,9 +10,12 @@ import { RefObject } from 'react';
 import Bouée from '~/client/components/ui/Bouée/Bouée';
 
 describe('<Bouée />', () => {
-  beforeEach(() => userEvent.setup());
-  afterEach(() => {
-    jest.resetAllMocks();
+  const label = 'Remonter en haut de la page';
+  afterEach(() => jest.resetAllMocks());
+  beforeEach(() => {
+    window.scrollTo = function () {
+      this.dispatchEvent(new Event('scroll'));
+    };
   });
 
   const DEBOUNCE_DELAY = 50;
@@ -35,7 +38,7 @@ describe('<Bouée />', () => {
       // When
       render(<Bouée surface={ surfaceRef }/>);
       // Then
-      const button = screen.getByRole('button', { description: 'remonter en haut de la page', hidden: true });
+      const button = screen.getByRole('button', { description: label, hidden: true });
       expect(button).not.toBeVisible();
     });
     describe('mais qu\'on scroll vers le bas', () => {
@@ -50,7 +53,7 @@ describe('<Bouée />', () => {
           await delay(DEBOUNCE_DELAY);
         });
         // Then
-        const button = screen.getByRole('button', { description: 'remonter en haut de la page', hidden: false });
+        const button = screen.getByRole('button', { description: label, hidden: false });
         expect(button).toBeVisible();
       });
       describe('et qu\'on clique sur le bouton', () => {
@@ -64,7 +67,7 @@ describe('<Bouée />', () => {
             window.scrollTo({ top: 200 });
             await delay(DEBOUNCE_DELAY);
           });
-          const button = screen.getByRole('button', { description: 'remonter en haut de la page' });
+          const button = screen.getByRole('button', { description: label });
           await userEvent.click(button);
           // Then
           expect(surfaceRef.current?.scrollIntoView).toHaveBeenCalled();
@@ -80,7 +83,7 @@ describe('<Bouée />', () => {
       render(<Bouée surface={ surfaceRef }/>);
       await act(() => delay(DEBOUNCE_DELAY));
       // Then
-      const button = screen.getByRole('button', { description: 'remonter en haut de la page', hidden: false });
+      const button = screen.getByRole('button', { description: label, hidden: false });
       expect(button).toBeVisible();
     });
   });
