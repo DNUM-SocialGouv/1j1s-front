@@ -2,8 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosRes
 
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { LoggerService } from '../logger.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 export abstract class ClientService {
   readonly client: AxiosInstance;
@@ -29,7 +28,7 @@ export abstract class ClientService {
       this.client.interceptors.response.use(
         (response: AxiosResponse) => response,
         async (error) => {
-          LoggerService.error(`${apiName} ${error.response.status + ' ' + error.config.baseURL+error.config.url}`);
+          LoggerService.error(`${apiName} ${error.response.status} ${error.config.baseURL + error.config.url}`);
           return Promise.reject(error);
         },
       );
