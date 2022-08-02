@@ -44,6 +44,29 @@
     @extend %text-small;
     line-height: 1rem;
   }
+
+  &Modal {
+    div {
+      border-radius: 20px;
+    }
+
+    &Content {
+      @extend %text-large;
+      @extend %bold;
+      text-align: center;
+      color: $color-primary;
+
+      &Link {
+        @extend %text-regular;
+        font-weight: 500;
+        margin-top: 12px;
+
+        svg {
+          color: $color-on-primary;
+        }
+      }
+    }
+  }
 }
 
 @include media(large) {
