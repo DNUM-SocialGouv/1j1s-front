@@ -12,12 +12,11 @@ interface ListBoxProps {
   optionList: Option[]
   onChange: ((value: string) => void) | undefined;
   setSelectedValue: (value: string) => void | undefined;
-  setOptionIsOpen: (value: boolean) => void | undefined;
   selectedValue: string
 }
 
 export function ListBox(props: ListBoxProps) {
-  const { multiple, optionList, onChange, selectedValue, setOptionIsOpen, setSelectedValue } = props;
+  const { multiple, optionList, onChange, selectedValue, setSelectedValue } = props;
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -69,7 +68,6 @@ export function ListBox(props: ListBoxProps) {
               label={option.libellé}
               value={option.valeur}
               onChange={() => {
-                setOptionIsOpen(false);
                 setSelectedValue(option.valeur);
                 if(onChange) {
                   onChange(option.valeur);

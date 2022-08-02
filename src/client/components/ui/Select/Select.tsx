@@ -105,7 +105,6 @@ export function Select(props: SelectProps) {
             selectedValue={selectedValue}
             optionList={optionList}
             setSelectedValue={setSelectedValue}
-            setOptionIsOpen={setIsOptionsOpen}
             multiple={multiple ? true : false}
             onChange={onChange}
           />}
