@@ -4,24 +4,19 @@ export class LoggerService {
   private static log(
     message: string,
     level: Sentry.Severity,
-    category: string | undefined = undefined,
   ) {
-    Sentry.addBreadcrumb({
-      category,
-      level,
-      message,
-    } as Sentry.Breadcrumb);
+    Sentry.captureMessage(message, level);
   }
 
-  static info(message: string, category: string | undefined = undefined) {
-    this.log(message, Sentry.Severity.Info, category);
+  static info(message: string) {
+    this.log(message, Sentry.Severity.Info);
   }
 
-  static warn(message: string, category: string | undefined = undefined) {
-    this.log(message, Sentry.Severity.Warning, category);
+  static warn(message: string) {
+    this.log(message, Sentry.Severity.Warning);
   }
 
-  static error(message: string, category: string | undefined = undefined) {
-    this.log(message, Sentry.Severity.Error, category);
+  static error(message: string) {
+    this.log(message, Sentry.Severity.Error);
   }
 }

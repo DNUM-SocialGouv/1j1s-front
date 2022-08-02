@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-import * as SentryTypes from '@sentry/types';
 
 export class LoggerService {
   constructor(sessionId: string) {
@@ -11,34 +10,25 @@ export class LoggerService {
   private static log(
     message: string,
     level: Sentry.Severity,
-    category: string | undefined = undefined,
   ) {
-    Sentry.addBreadcrumb({
-      category,
-      level,
-      message,
-    } as Sentry.Breadcrumb);
+    Sentry.captureMessage(message, level);
   }
 
-  info(message: string, category: string | undefined = undefined) {
-    LoggerService.log(message, Sentry.Severity.Info, category);
+  info(message: string) {
+    LoggerService.log(message, Sentry.Severity.Info);
   }
 
-  warn(message: string, category: string | undefined = undefined) {
-    LoggerService.log(message, Sentry.Severity.Warning, category);
+  warn(message: string) {
+    LoggerService.log(message, Sentry.Severity.Warning);
   }
 
-  error(message: string, category: string | undefined = undefined) {
-    LoggerService.log(message, Sentry.Severity.Error, category);
+  error(message: string) {
+    LoggerService.log(message, Sentry.Severity.Error);
   }
 
   setTransactionId(transactionId: string): void {
     Sentry.configureScope((scope) => {
       scope.setTag('transaction_id', transactionId);
     });
-  }
-
-  captureMessage(message: string, captureContext?: SentryTypes.CaptureContext | SentryTypes.Severity) {
-    Sentry.captureMessage(message, captureContext);
   }
 }

@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-import * as CaptureContext from '@sentry/types';
 
 import { LoggerService } from '~/client/services/logger.service';
 
@@ -20,16 +19,9 @@ describe('LoggerService', () => {
     it('appelle le logger error avec les bons paramètres', () => {
       const loggerService = new LoggerService(sessionId);
       const message = 'mon erreur message';
-      const category = 'message derreur';
-      const expectedParameters: Sentry.Breadcrumb = {
-        category,
-        level: Sentry.Severity.Error,
-        message,
-      };
+      loggerService.error(message);
 
-      loggerService.error(message, category);
-
-      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, Sentry.Severity.Error);
     });
   });
 
@@ -37,16 +29,9 @@ describe('LoggerService', () => {
     it('appelle le logger info avec les bons paramètres', () => {
       const loggerService = new LoggerService(sessionId);
       const message = 'mon info message';
-      const category = 'message informatif';
-      const expectedParameters: Sentry.Breadcrumb = {
-        category,
-        level: Sentry.Severity.Info,
-        message,
-      };
+      loggerService.info(message);
 
-      loggerService.info(message, category);
-
-      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, Sentry.Severity.Info);
     });
   });
 
@@ -54,15 +39,9 @@ describe('LoggerService', () => {
     it('appelle le logger warn avec les bons paramètres', () => {
       const loggerService = new LoggerService(sessionId);
       const message = 'mon warn message';
-      const category = 'message de prévention';
-      const expectedParameters: Sentry.Breadcrumb = {
-        category,
-        level: Sentry.Severity.Warning,
-        message,
-      };
-      loggerService.warn(message, category);
+      loggerService.warn(message);
 
-      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, Sentry.Severity.Warning);
     });
   });
 
@@ -77,21 +56,6 @@ describe('LoggerService', () => {
       expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
         'transaction_id',
         transactionId,
-      );
-    });
-  });
-
-  describe('captureMessage', () => {
-    const message = 'mon message';
-    const captureContext = CaptureContext.Severity.Error;
-
-    it('appelle captureMessage avec les bons paramètres', () => {
-      const loggerService = new LoggerService(sessionId);
-
-      loggerService.captureMessage(message, captureContext);
-
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(
-        message, captureContext,
       );
     });
   });

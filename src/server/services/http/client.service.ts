@@ -1,9 +1,9 @@
-import * as Sentry from '@sentry/nextjs';
-import * as CaptureContext from '@sentry/types';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+
+import { LoggerService } from '../logger.service';
 
 export abstract class ClientService {
   readonly client: AxiosInstance;
@@ -29,7 +29,7 @@ export abstract class ClientService {
       this.client.interceptors.response.use(
         (response: AxiosResponse) => response,
         async (error) => {
-          Sentry.captureMessage(`${apiName} ${error.response.status + ' ' + error.config.baseURL+error.config.url}`, CaptureContext.Severity.Error);
+          LoggerService.error(`${apiName} ${error.response.status + ' ' + error.config.baseURL+error.config.url}`);
           return Promise.reject(error);
         },
       );
@@ -55,25 +55,25 @@ export abstract class ClientService {
       if(response.data) {
         return createSuccess(mapper(response.data));
       } else {
-        Sentry.captureMessage(`${endpoint} PAS DE DATA`, CaptureContext.Severity.Error);
+        LoggerService.error(`${endpoint} PAS DE DATA`);
         return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
       }
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e.response?.status.toString().startsWith('50')) {
-          Sentry.captureMessage(`${endpoint} ERREUR 50X ${e}`, CaptureContext.Severity.Error);
+          LoggerService.error(`${endpoint} ERREUR 50X ${e}`);
           return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
         }
         if (e.response?.status === 400) {
-          Sentry.captureMessage(`${endpoint} ERREUR 400 ${e}`, CaptureContext.Severity.Error);
+          LoggerService.error(`${endpoint} ERREUR 400 ${e}`);
           return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
         }
         if (e.response?.status === 404) {
-          Sentry.captureMessage(`${endpoint} ERREUR 404 ${e}`, CaptureContext.Severity.Error);
+          LoggerService.error(`${endpoint} ERREUR 404 ${e}`);
           return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
         }
       }
-      Sentry.captureMessage(`${endpoint} PROBLEME MAPPING ${e}`, CaptureContext.Severity.Error);
+      LoggerService.error(`${endpoint} PROBLEME MAPPING ${e}`);
       return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
     }
   }

@@ -1,10 +1,10 @@
-import * as Sentry from '@sentry/nextjs';
-import * as CaptureContext from '@sentry/types';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { Either } from '~/server/errors/either';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { ClientService } from '~/server/services/http/client.service';
+
+import { LoggerService } from '../logger.service';
 
 interface PoleEmploiTokenResponse {
   access_token: string;
@@ -19,7 +19,7 @@ export class PoleEmploiHttpClientService extends ClientService {
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {
-        Sentry.captureMessage(`API_POLE_EMPLOI ${error.response.status + ' ' + error.config.baseURL+error.config.url}`, CaptureContext.Severity.Error);
+        LoggerService.error(`API_POLE_EMPLOI ${error.response.status + ' ' + error.config.baseURL+error.config.url}`);
         const originalRequest = error.config;
 
         if (error.response?.status === 401 && !originalRequest.isRetryRequest) {
