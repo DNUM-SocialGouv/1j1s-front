@@ -52,7 +52,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
   return (
     <>
       {bannière}
-      <div className={styles.rechercheSolution}>
+      <div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
         {formulaireRecherche}
         {
           hasRouterQuery &&

@@ -75,10 +75,6 @@ export const Skeleton = (props: SkeletonProps) => {
     return (
       <ul
         tabIndex={0}
-        role="progressbar"
-        aria-busy="true"
-        aria-valuemin={0}
-        aria-valuemax={100}
         aria-valuetext="...En cours de chargement"
         className={classNames(styles.wrapper, className)}
       >
