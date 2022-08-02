@@ -68,7 +68,8 @@ export default function Rappel() {
                 name="experienceExigence"
                 optionList={AgeJeune.AGE}
                 onChange={setInputAge}
-                currentInput={inputAge}/>
+                currentInput={inputAge}
+              />
               <TextInput
                 label='Ville'
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
