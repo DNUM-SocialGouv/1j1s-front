@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/Loader/Skeleton/Skeleton.module.scss';
@@ -17,8 +17,8 @@ type SkeletonType = 'card' | 'tag' | 'line';
 export const Skeleton = (props: SkeletonProps) => {
   const { type, repeat = 1, isLoading, children, className } = props;
 
-  function card() {
-    return (
+  const card = useMemo(() =>
+    (
       <div className={styles.card}>
         <div className={classNames(styles.cardImage)}></div>
         <div className={classNames(styles.cardTextBold)}></div>
@@ -35,42 +35,40 @@ export const Skeleton = (props: SkeletonProps) => {
         <div className={classNames(styles.cardLinkLabel)}></div>
         <div className={classNames(styles.cardLinkIcon)}></div>
       </div>
-    );
-  }
+    ), []);
 
+  const tag = useMemo(() => (
+    <div className={classNames(styles.gradient, styles.tag)}/>
+  ), []);
 
-  function tag() {
-    return <div className={classNames(styles.gradient, styles.tag)}/>;
-  }
+  const line = useMemo(() => (
+    <div className={classNames(styles.gradient, styles.text )}></div>
+  ), []);
 
-  function line() {
-    return (
-      <div className={classNames(styles.gradient, styles.text )}></div>
-    );
-  }
+  const getSkeleton = useMemo(() => {
+    switch (type) {
+      case 'card':
+        return card;
+      case 'line':
+        return line;
+      case 'tag':
+        return tag;
+      default:
+        return <></>;
+    }
+  }, [card, line, tag]);
 
-  function skeletonRender(type: SkeletonType, repeat: number) {
-    let skeleton: React.ReactElement;
-
-    if (type == 'card')
-      skeleton = card();
-    else if (type == 'tag')
-      skeleton = tag();
-    else if (type == 'line')
-      skeleton = line();
-    else
-      return <></>;
-
+  const skeletonRender = useCallback((type: SkeletonType, repeat: number) => {
     return (
       <>
         {
           [...Array(repeat)].map((x, index) => (
-            <li key={index}>{skeleton}</li>
+            <li key={index}>{getSkeleton}</li>
           ))
         }
       </>
     );
-  }
+  }, []);
 
 
   if (isLoading) {
