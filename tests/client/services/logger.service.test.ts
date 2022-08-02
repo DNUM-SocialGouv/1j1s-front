@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
+import * as CaptureContext from '@sentry/types';
 
 import { LoggerService } from '~/client/services/logger.service';
 
@@ -76,6 +77,21 @@ describe('LoggerService', () => {
       expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
         'transaction_id',
         transactionId,
+      );
+    });
+  });
+
+  describe('captureMessage', () => {
+    const message = 'mon message';
+    const captureContext = CaptureContext.Severity.Error;
+
+    it('appelle captureMessage avec les bons paramètres', () => {
+      const loggerService = new LoggerService(sessionId);
+
+      loggerService.captureMessage(message, captureContext);
+
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(
+        message, captureContext,
       );
     });
   });

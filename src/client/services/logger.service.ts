@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
+import * as SentryTypes from '@sentry/types';
 
 export class LoggerService {
   constructor(sessionId: string) {
@@ -35,5 +36,9 @@ export class LoggerService {
     Sentry.configureScope((scope) => {
       scope.setTag('transaction_id', transactionId);
     });
+  }
+
+  captureMessage(message: string, captureContext?: SentryTypes.CaptureContext | SentryTypes.Severity) {
+    Sentry.captureMessage(message, captureContext);
   }
 }
