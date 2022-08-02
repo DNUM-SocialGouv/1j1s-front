@@ -1,3 +1,5 @@
+@import "@styles/utilities";
+
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
@@ -19,9 +21,21 @@
   font-size: 0.875rem;
 }
 
-.filtresAvancésModalContenu legend {
-  font-weight: bold !important;
+.filtresAvancésModalContenu {
+  & legend {
+    font-weight: bold !important;
+  }
+
+  & details {
+    border-top: 1px solid lighten($color-primary, 15%);
+
+    &:last-of-type {
+      border-bottom: 1px solid lighten($color-primary, 15%);
+    }
+  }
 }
+
+
 
 .filtresAvancésModalFooter {
   justify-content: center;

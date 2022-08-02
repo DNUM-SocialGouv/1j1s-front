@@ -4,6 +4,7 @@
   position: fixed;
   z-index: 5500;
   width: 100%;
+  top: 0;
   max-height: 100%;
   max-width: 100%;
   padding: 0;
@@ -29,6 +30,8 @@
 }
 
 .modalBody {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
   height: calc(100vh - 2rem);
   overflow-y: scroll;
   background-color: white;
@@ -58,6 +61,7 @@
   display: flex;
   gap: 0.4rem;
   align-items: center;
+  font-weight: normal;
 }
 
 .modalContent {

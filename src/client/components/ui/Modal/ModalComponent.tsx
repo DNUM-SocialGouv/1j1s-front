@@ -52,19 +52,13 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
     }
   }
 
-  function toggleModal(isOpen: boolean) {
-    if (modal.current && isOpen && !modal.current.open) modal.current.showModal();
-    else if (modal.current && !isOpen && modal.current.open) modal.current.close();
-  }
-
   useEffect(() => {
-    toggleModal(isOpen);
     disableDocumentBodyScroll(isOpen);
     trapModalFocus();
   }, [isOpen]);
 
   return createPortal(
-    <dialog ref={modal} className={classNames(className, styles.modal)} {...rest}>
+    <dialog ref={modal} className={classNames(className, styles.modal)} open={isOpen} {...rest}>
       <div className={styles.modalBody}>
         <div className={classNames(className, styles.modalClose)}>
           <button id="closeModalButton" type="button" title={closeTitle} onClick={() => close()}>
@@ -93,6 +87,6 @@ function ModalFooter({ children, className }: React.HTMLAttributes<HTMLDivElemen
   return <footer className={classNames(className, styles.modalFooter)}>{children}</footer>;
 }
 
+ModalComponent.Title = ModalTitle;
 ModalComponent.Content = ModalContent;
 ModalComponent.Footer = ModalFooter;
-ModalComponent.Title = ModalTitle;
