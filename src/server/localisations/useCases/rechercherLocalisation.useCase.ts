@@ -1,4 +1,5 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
@@ -22,25 +23,34 @@ export class RechercherLocalisationUseCase {
   }
 
   private async getLocalisationByNumeroDepartement(recherche: string): Promise<Either<RechercheLocalisation>> {
-    return createSuccess({
-      communeList: [],
-      départementList: await this.localisationRepository.getDépartementListByNuméroDépartement(recherche),
-      régionList: [],
-    });
+    const response = await this.localisationRepository.getDépartementListByNuméroDépartement(recherche);
+
+    switch (response.instance) {
+      case 'success': {
+        return createSuccess({
+          communeList: [],
+          départementList: response.result,
+          régionList: [],
+        });
+      };
+      case 'failure': return response;
+    }
   }
 
   private async getLocalisationByNumeroCodePostal(recherche: string): Promise<Either<RechercheLocalisation>> {
     const responseCommuneList = await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
 
-    if (responseCommuneList.instance === 'success') {
-      return createSuccess({
-        communeList: responseCommuneList.result.résultats,
-        départementList: [],
-        régionList: [],
-      });
+    switch (responseCommuneList.instance) {
+      case 'success': {
+        return createSuccess({
+          communeList: responseCommuneList.result.résultats,
+          départementList: [],
+          régionList: [],
+        });
+      }
+      case 'failure':
+        return responseCommuneList;
     }
-
-    return createFailure(responseCommuneList.errorType);
   }
 
   private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
@@ -50,13 +60,14 @@ export class RechercherLocalisationUseCase {
       this.localisationRepository.getRégionListByNom(recherche),
     ]);
 
-    if (responseCommuneList.instance === 'success') {
+    if (responseCommuneList.instance === 'success' && responseDépartementList.instance === 'success' && responseRégionList.instance === 'success') {
       return createSuccess({
         communeList: responseCommuneList.result.résultats,
-        départementList: responseDépartementList,
-        régionList: responseRégionList,
+        départementList: responseDépartementList.result,
+        régionList: responseRégionList.result,
       });
+    } else {
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     }
-    return responseCommuneList;
   }
 }
