@@ -1,0 +1,36 @@
+@import "@styles/utilities";
+
+.skipLink {
+  --ul-type: none;
+  --ol-type: none;
+  --ul-start: 0;
+  --ol-start: 0;
+  --xl-block: 0;
+  --li-bottom: 0;
+  --ol-content: none;
+  position: absolute;
+  top: 0;
+  padding-top: 1rem;
+  transform: translateY(-100%);
+  background-color: $color-separator;
+  color: $color-blue-navy;
+}
+
+.skipLink:focus-within {
+  position: relative;
+  transform: translateY(0);
+}
+
+.skipLinkList {
+  display: flex;
+  flex-direction: row;
+}
+
+.skipLinkList > li {
+  margin: 0 1rem 1.5rem;
+}
+
+.skipLinkList:focus-within {
+  position: relative;
+  transform: translateY(0);
+}

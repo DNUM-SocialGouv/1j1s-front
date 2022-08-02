@@ -41,27 +41,29 @@ export function Header() {
         </HeaderOperator>
         <Service title="1jeune1solution" description="" />
       </HeaderBody>
-      <HeaderNav>
-        <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
-        <NavItem title="Offres">
-          <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
-          <NavSubItem title="Stages" asLink={<NavItemLink link="/stages" current={path === '/stages'} />} />
-          <NavSubItem title="Contrats d'alternance" asLink={<NavItemLink link="/apprentissage" current={path === '/apprentissage'} />} />
-          <NavSubItem title="Jobs étudiants" asLink={<NavItemLink link="/jobs-etudiants" current={path === '/jobs-etudiants'} />} />
-        </NavItem>
-        <NavItem title="Aides, orientation et accompagnement">
-          <NavSubItem title="Contrat Engagement Jeune" asLink={<NavItemLink link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />} />
-          <NavSubItem title="Mes aides financières" asLink={<NavItemLink link="/mes-aides" current={path === '/mes-aides'} />} />
-          <NavSubItem title="Mentorat" asLink={<NavItemLink link="/mentorat" current={path === '/mentorat'} />} />
-        </NavItem>
-        <NavItem title="Engagement et bénévolat">
-          <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/services-civique'} />} />
-          <NavSubItem title="Bénévolat" asLink={<NavItemLink link="/benevolat" current={path === '/benevolat'} />} />
-        </NavItem>
-        <NavItem title="Employeur">
-          <NavSubItem title="On s'amuse" asLink={<NavItemLink link="/violet" current={path === '/violet'} />} />
-        </NavItem>
-      </HeaderNav>
+      <div id="header-navigation">
+        <HeaderNav>
+          <NavItem title="Accueil" asLink={<NavItemLink link="/" current={path === '/'} />} />
+          <NavItem title="Offres">
+            <NavSubItem title="Emplois" asLink={<NavItemLink link="/emplois" current={path === '/emplois'} />} />
+            <NavSubItem title="Stages" asLink={<NavItemLink link="/stages" current={path === '/stages'} />} />
+            <NavSubItem title="Contrats d'alternance" asLink={<NavItemLink link="/apprentissage" current={path === '/apprentissage'} />} />
+            <NavSubItem title="Jobs étudiants" asLink={<NavItemLink link="/jobs-etudiants" current={path === '/jobs-etudiants'} />} />
+          </NavItem>
+          <NavItem title="Aides, orientation et accompagnement">
+            <NavSubItem title="Contrat Engagement Jeune" asLink={<NavItemLink link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />} />
+            <NavSubItem title="Mes aides financières" asLink={<NavItemLink link="/mes-aides" current={path === '/mes-aides'} />} />
+            <NavSubItem title="Mentorat" asLink={<NavItemLink link="/mentorat" current={path === '/mentorat'} />} />
+          </NavItem>
+          <NavItem title="Engagement et bénévolat">
+            <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/services-civique'} />} />
+            <NavSubItem title="Bénévolat" asLink={<NavItemLink link="/benevolat" current={path === '/benevolat'} />} />
+          </NavItem>
+          <NavItem title="Employeur">
+            <NavSubItem title="On s'amuse" asLink={<NavItemLink link="/violet" current={path === '/violet'} />} />
+          </NavItem>
+        </HeaderNav>
+      </div>
     </HeaderDSFR>
   );
 }
