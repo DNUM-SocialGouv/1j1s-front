@@ -41,7 +41,7 @@ export function Select(props: SelectProps) {
   }, []);
 
   const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
-    if (event.key === KeyBoard.ESCAPE || KeyBoard.TAB) {
+    if (event.key === KeyBoard.ESCAPE) {
       setIsOptionsOpen(false);
     }
   }, []);
