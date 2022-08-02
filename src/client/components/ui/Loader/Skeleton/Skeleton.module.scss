@@ -1,0 +1,125 @@
+@import "@styles/utilities";
+
+.wrapper {
+  cursor: progress;
+  list-style-type: none;
+}
+
+.gradient {
+  animation: shine 2.5s infinite linear;
+  background-size: 50% !important;
+  background: $color-skeleton linear-gradient(
+    100deg,
+    transparent 25%,
+    lighten($color-skeleton, 5) 43%,
+    transparent 58%
+  ) no-repeat;
+}
+
+.card {
+  display: grid;
+  grid-gap: 1rem;
+  height: 300px;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  background-color: $color-surface;
+  grid-template-columns: 3.5rem 2.5fr 2.5fr 1fr 1fr 0.5fr ;
+  grid-template-rows: 1.5rem 1rem 3px 1rem 3.5fr 0.8rem ;
+  grid-template-areas:
+  "image titre titre titre titre titre"
+  "image soustitre soustitre soustitre . ."
+  "line line line line line line"
+  "tag1 tag2 tag3 . . ."
+  "content content content content content content"
+  ". . . link link icon"
+;
+  &:before {
+    content: "";
+    mix-blend-mode: lighten;
+    position: absolute;
+    border-radius: 1.5rem;
+    width: 100%;
+    height: 100%;
+    background-size: 50% !important;
+    animation: shine 2.5s infinite linear;
+    background: linear-gradient(
+      100deg,
+      transparent 25%,
+      lighten($color-skeleton, 5) 43%,
+      transparent 58%
+    ) no-repeat;
+  }
+  > * {
+    background-color: $color-skeleton;
+    border-radius: 1rem;
+  }
+  &Image {
+    grid-area: image;
+    border-radius: 3rem;
+  }
+  &TextBold {
+    grid-area: titre;
+  }
+  &Text {
+    grid-area: soustitre;
+  }
+  &Line {
+    grid-area: line;
+  }
+  &Tag1 {
+    grid-area: tag1;
+  }
+  &Tag2 {
+    grid-area: tag2;
+  }
+  &Tag3 {
+    grid-area: tag3;
+  }
+  &Content {
+    grid-area: content;
+  }
+  &LinkLabel {
+    grid-area: link;
+  }
+  &LinkIcon {
+    grid-area: icon;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient {
+    animation: none;
+  }
+  .card:before {
+    animation: none;
+  }
+}
+
+.text {
+  height: 1em;
+  width: 20rem;
+  margin: .5rem 0;
+  border-radius: 1em;
+}
+
+.tag {
+  width: 5rem;
+  height: 1.5rem;
+  margin: .5rem 0;
+  border-radius: 1em;
+}
+
+

@@ -9,6 +9,7 @@ import { mockSmallScreen } from '@tests/client/window.mock';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
   anOffreEmploiService,
+  aNoResultOffreEmploiService,
   aSingleResultOffreEmploiService,
 } from '@tests/fixtures/client/services/offreEmploiService.fixture';
 import React from 'react';
@@ -141,7 +142,7 @@ describe('RechercherJobÉtudiant', () => {
   describe('quand le composant est affiché avec une recherche sans résultats', () => {
     it('affiche un message dédié', async () => {
       // GIVEN
-      const offreEmploiServiceMock = aSingleResultOffreEmploiService();
+      const offreEmploiServiceMock = aNoResultOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 

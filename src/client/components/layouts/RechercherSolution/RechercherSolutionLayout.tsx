@@ -7,6 +7,8 @@ import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorCompone
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
+import { Skeleton } from '../../ui/Loader/Skeleton/Skeleton';
+
 export interface LienSolution {
   id: string
   lienOffre: string
@@ -41,6 +43,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     mapToLienSolution,
     nombreSolutions,
     paginationOffset,
+    isLoading,
   } = props;
   const router = useRouter();
 
@@ -49,42 +52,46 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
   return (
     <>
       {bannière}
-      <div className={styles.rechercheSolution}>
+      <div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
         {formulaireRecherche}
         {
-          // TODO: add loading as attribute
           hasRouterQuery &&
+            <>
+              {erreurRecherche || listeSolution.length === 0 && !isLoading ?
+                <ErrorComponent errorType={erreurRecherche}/> :
+                <>
+                  {étiquettesRecherche}
+                  <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+                    <h2>{messageRésultatRecherche}</h2>
+                  </Skeleton>
 
-          <>
-            {!erreurRecherche && listeSolution.length > 0 ?
-              <>
-                {étiquettesRecherche}
-                <div className={styles.nombreRésultats}>
-                  <h2>{messageRésultatRecherche}</h2>
-                </div>
-                <ul className={styles.listeSolutions}>
-                  {listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-                    <li key={lienSolution.id}>
-                      <RésultatRechercherSolution
-                        lienOffre={lienSolution.lienOffre}
-                        intituléOffre={lienSolution.intituléOffre}
-                        logoEntreprise={lienSolution.logoEntreprise}
-                        nomEntreprise={lienSolution.nomEntreprise}
-                        descriptionOffre={lienSolution.descriptionOffre}
-                        étiquetteOffreList={lienSolution.étiquetteOffreList}
-                      />
-                    </li>
-                  ))}
-                </ul>
-                {paginationOffset && nombreSolutions > paginationOffset &&
-                  <div className={styles.pagination}>
-                    <Pagination itemListLength={nombreSolutions} itemPerPage={paginationOffset}/>
-                  </div>
-                }
-              </> :
-              <ErrorComponent errorType={erreurRecherche}/>
-            }
-          </>
+                  <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+                    <ul>
+                      {
+                        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
+                          <li key={lienSolution.id}>
+                            <RésultatRechercherSolution
+                              lienOffre={lienSolution.lienOffre}
+                              intituléOffre={lienSolution.intituléOffre}
+                              logoEntreprise={lienSolution.logoEntreprise}
+                              nomEntreprise={lienSolution.nomEntreprise}
+                              descriptionOffre={lienSolution.descriptionOffre}
+                              étiquetteOffreList={lienSolution.étiquetteOffreList}
+                            />
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </Skeleton>
+                  {paginationOffset && nombreSolutions > paginationOffset &&
+                        <div className={styles.pagination}>
+                          <Pagination itemListLength={nombreSolutions} itemPerPage={paginationOffset}/>
+                        </div>
+                  }
+                </>
+
+              }
+            </>
         }
       </div>
     </>
