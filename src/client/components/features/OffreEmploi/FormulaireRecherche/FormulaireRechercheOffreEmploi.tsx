@@ -31,6 +31,7 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
+
 export function FormulaireRechercheOffreEmploi() {
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
