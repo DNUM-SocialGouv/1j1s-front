@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { CloseIcon } from '~/client/components/ui/Icon/close.icon';
@@ -12,8 +12,11 @@ interface ModalProps {
   isOpen: boolean;
 }
 
+const MODAL_ANIMATION_TIME_IN_MS = 300;
+
 export function ModalComponent({ children, className, close, closeLabel = 'Fermer', closeTitle = 'Fermer la modale', isOpen, ...rest }: ModalProps & React.HTMLAttributes<HTMLDialogElement>) {
   const modal = useRef<HTMLDialogElement>(null);
+  const [lastFocusBeforeOpen, setLastFocusBeforeOpen] = useState<HTMLElement | null>(null);
 
   function disableDocumentBodyScroll(isOpen: boolean) {
     isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'visible';
@@ -35,7 +38,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
       const firstFocusableElement = focusableElements[0] as HTMLElement;
       const firstFocusableElementAtOpen = focusableElements[1] as HTMLElement;
       const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-      setTimeout(() => firstFocusableElementAtOpen.focus(), 200);
+      setTimeout(() => firstFocusableElementAtOpen.focus(), MODAL_ANIMATION_TIME_IN_MS);
 
       window.addEventListener('keydown', (e) => {
         if (e.key !== 'Tab') return;
@@ -53,6 +56,14 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   }
 
   useEffect(() => {
+    if (isOpen) {
+      setLastFocusBeforeOpen(document.activeElement as HTMLElement);
+    } else {
+      setTimeout(() => lastFocusBeforeOpen?.focus(), MODAL_ANIMATION_TIME_IN_MS);
+    }
+  }, [isOpen, lastFocusBeforeOpen]);
+
+  useEffect(() => {
     disableDocumentBodyScroll(isOpen);
     trapModalFocus();
   }, [isOpen]);
@@ -61,7 +72,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
     <dialog ref={modal} className={classNames(className, styles.modal)} open={isOpen} {...rest}>
       <div className={styles.modalBody}>
         <div className={classNames(className, styles.modalClose)}>
-          <button id="closeModalButton" type="button" title={closeTitle} onClick={() => close()}>
+          <button id="closeModalButton" type="button" title={closeTitle} onClick={() => close() }>
             <span className={styles.modalCloseLabel}>{closeLabel}</span>
             <CloseIcon className={styles.modalCloseIcon}/>
           </button>

@@ -11,12 +11,12 @@
   border: none;
   background-color: hsla(0,0%,9%,.375);
   pointer-events: none;
+  display: block;
   visibility: visible;
   opacity: 1;
   transition: 0.2s ease-in-out all;
 
   &:not([open]) {
-    display: unset;
     visibility: hidden;
     opacity: 0;
     transition: 0.2s ease-in-out all;
@@ -57,15 +57,14 @@
 .modalTitle {
   margin-bottom: 0.5rem;
   padding: 0 1rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   display: flex;
   gap: 0.4rem;
   align-items: center;
-  font-weight: normal;
 }
 
 .modalContent {
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .modalFooter {

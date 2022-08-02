@@ -35,8 +35,6 @@
   }
 }
 
-
-
 .filtresAvancésModalFooter {
   justify-content: center;
 }
@@ -89,7 +87,6 @@
   }
 }
 
-.applyFiltersButton {
-  display: flex;
-  justify-content: center;
+.applyFiltersButton button {
+  width: 100%;
 }
