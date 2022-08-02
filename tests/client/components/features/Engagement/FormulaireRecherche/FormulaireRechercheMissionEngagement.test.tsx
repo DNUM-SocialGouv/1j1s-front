@@ -28,7 +28,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
         </DependenciesProvider>,
       );
 
-      const sélectionnerUnDomaineButton = screen.getByRole('button', { name: 'Sélectionnez un domaine' });
+      const sélectionnerUnDomaineButton = screen.getByRole('button', { name: 'Domaine' });
       fireEvent.click(sélectionnerUnDomaineButton);
       const domaineÉducationOption = screen.getByRole('option', { name: 'Éducation' });
       fireEvent.click(domaineÉducationOption);
@@ -88,7 +88,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
       const résultatsCommune = await screen.findByTestId('RésultatsCommune');
       const resultListCommune = within(résultatsCommune).getAllByRole('option');
       fireEvent.click(resultListCommune[0]);
-      const selectButtonRadius = screen.getByRole('button', { name: '10 km' });
+      const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
       fireEvent.click(selectButtonRadius);
 
       const rayon30kmOption = screen.getByRole('option', { name: '30 km' });

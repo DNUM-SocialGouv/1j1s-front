@@ -20,14 +20,12 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
-import { Radio } from '~/client/components/ui/RadioButton/Radio';
-import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Radio } from '~/client/components/ui/Radio/Radio';
+import { Select } from '~/client/components/ui/Select/Select';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  générerTitreFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
@@ -122,10 +120,10 @@ export function FormulaireRechercheOffreEmploi() {
               >
                 Filtrer ma recherche
               </Button>
-              <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-              <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-              <input type="hidden" name="experienceExigence" value={inputExpérience}/>
-              <input type="hidden" name="grandDomaine" value={inputDomaine}/>
+              <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat} />
+              <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail} />
+              <input type="hidden" name="experienceExigence" value={inputExpérience} />
+              <input type="hidden" name="grandDomaine" value={inputDomaine} />
             </div>
 
           }
@@ -202,33 +200,35 @@ export function FormulaireRechercheOffreEmploi() {
 
         {!isSmallScreen && (
           <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-            <SelectMultiple
-              titre={générerTitreFiltre('Type de contrat', inputTypeDeContrat)}
+            <Select
+              multiple
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
-              onChange={toggleTypeDeContrat}
-              currentInput={inputTypeDeContrat}
+              onChange={setInputTypeDeContrat}
+              label={'Type de contrat'}
+              value={inputTypeDeContrat}
               name="typeDeContrats"
             />
-            <SelectSingle
-              titre={générerTitreFiltre('Temps de travail', inputTempsDeTravail)}
+            <Select
               name="tempsDeTravail"
               optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
               onChange={setInputTempsDeTravail}
-              currentInput={inputTempsDeTravail}
+              value={inputTempsDeTravail}
+              label={'Temps de travail'}
             />
-            <SelectSingle
-              titre={générerTitreFiltre('Niveau demandé', inputExpérience)}
+            <Select
               name="experienceExigence"
               optionList={OffreEmploi.EXPÉRIENCE}
               onChange={setInputExpérience}
-              currentInput={inputExpérience}
+              value={inputExpérience}
+              label={'Niveau demandé'}
             />
-            <SelectMultiple
-              titre={générerTitreFiltre('Domaine', inputDomaine)}
+            <Select
+              multiple
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-              onChange={toggleDomaine}
-              currentInput={inputDomaine}
+              onChange={setInputDomaine}
+              value={inputDomaine}
               name="grandDomaine"
+              label={'Domaine'}
             />
           </div>
         )}

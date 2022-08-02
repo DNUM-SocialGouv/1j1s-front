@@ -66,6 +66,8 @@
 
   .filtreRechercheDesktop > div {
     flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 25%;
   }
 
   .filtreRechercheDesktop > div > button {

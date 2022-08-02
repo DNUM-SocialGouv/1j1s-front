@@ -20,7 +20,3 @@ export function mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList: 
     };
   });
 }
-
-export function générerTitreFiltre(titre: string, inputCourant: string): string {
-  return `${titre} ${inputCourant !== '' && inputCourant.split(',').length > 0 ? `(${inputCourant.split(',').length})` : ''}`;
-}

@@ -1,3 +1,5 @@
+@import "@styles/utilities";
+
 .container {
     position: relative;
 }
@@ -8,8 +10,9 @@
     padding: 8px;
     width: 100%;
     border: 1px solid var(--grey-925);
+    border-radius: 20px;
     background-color: var(--grey-1000);
-    margin: 0;
+    margin: 4px 0 0 0;
     max-height: 300px;
     overflow-y: auto;
 }
@@ -22,24 +25,28 @@
     padding-left: 8px;
 }
 
+.listOptionButton {
+    justify-content: center;
+    padding: 10px 0;
+    display: flex;
+}
+
 .button {
+    @extend %text-regular;
     display: flex;
     width: 100%;
     justify-content: space-between;
-    border-radius: 4px 4px 0px 0px;
-    padding: 8px 8px 8px 12px;
-    border: 1px solid var(--grey-425);
-    border-bottom: 2px solid var(--border-plain-grey);
+    color: $color-mention-grey;
+    padding: 6px 6px 6px 12px;
+    border: 1.5px solid $color-primary;
+    border-radius: 20px;
 }
 
-
+.selectedLabel {
+    color: $color-on-background;
+}
 
 .selectLabel {
+    display:block;
     margin-bottom: 0.5rem;
-}
-
-@media screen and (min-width: 48em) {
-    .button {
-        font-size: 1rem;
-    }
 }

@@ -2,7 +2,7 @@ import debounce from 'lodash/debounce';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/ui/Input/Input.module.css';
-import { SelectSingle } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -225,22 +225,21 @@ export const InputCommune = (props: InputCommuneProps) => {
               onKeyDown={handleKeyDown}
               onClick={() => setSuggestionsActive(!!codeCommune)}
             />
-            <input type="hidden" name="codeCommune" value={codeCommune} data-testid="codeCommune" />
-            <input type="hidden" name="latitudeCommune" value={latitudeCommune} data-testid="latitudeCommune" />
-            <input type="hidden" name="longitudeCommune" value={longitudeCommune} data-testid="longitudeCommune" />
+            <input type="hidden" name="codeCommune" value={codeCommune} />
+            <input type="hidden" name="latitudeCommune" value={latitudeCommune} />
+            <input type="hidden" name="longitudeCommune" value={longitudeCommune} />
           </div>
           {suggestionsActive && <SuggestionsCommuneList/>}
         </div>
       </div>
       { codeCommune &&
-      <SelectSingle
+      <Select
         label="Rayon"
         name="distanceCommune"
-        dataTestId={'distanceCommune'}
-        titre={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
+        placeholder={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
         optionList={radiusList}
         onChange={setDistanceCommune}
-        currentInput={distanceCommune}
+        value={distanceCommune}
       />
       }
     </>

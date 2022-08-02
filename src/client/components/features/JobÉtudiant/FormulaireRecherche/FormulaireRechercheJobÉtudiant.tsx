@@ -20,12 +20,11 @@ import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
-import { SelectMultiple } from '~/client/components/ui/Select/SelectMultiple/SelectMultiple';
+import { Select } from '~/client/components/ui/Select/Select';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  générerTitreFiltre,
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 import { référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
@@ -147,19 +146,20 @@ export function FormulaireRechercheJobÉtudiant() {
             </ModalFooter>
           </Modal>
         </div>
-
         {!isSmallScreen && (
           <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-            <SelectMultiple
-              titre={générerTitreFiltre('Domaine', inputDomaine)}
+            <Select
+              multiple
               optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-              onChange={toggleDomaine}
-              currentInput={inputDomaine}
+              onChange={setInputDomaine}
+              label={'Domaine'}
+              value={inputDomaine}
               name="grandDomaine"
             />
           </div>
         )}
       </div>
+
       <div className={styles.buttonRechercher}>
         <Button
           buttonType="withRightIcon"

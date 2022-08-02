@@ -306,7 +306,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         const button = screen.getByRole('button', { name: 'Niveau demandé' });
         fireEvent.click(button);
 
-        const niveauDemandéList = await screen.findByTestId('Select-experienceExigence');
+        const niveauDemandéList = await screen.findByRole('listbox');
 
         const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('option');
         fireEvent.click(inputNiveauDemandé[0]);
@@ -333,7 +333,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         const button = screen.getByRole('button', { name: 'Temps de travail' });
         fireEvent.click(button);
 
-        const tempsDeTravailList = await screen.findByTestId('Select-tempsDeTravail');
+        const tempsDeTravailList = await screen.findByRole('listbox');
 
         const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('option');
         fireEvent.click(inputTempsDeTravail[0]);

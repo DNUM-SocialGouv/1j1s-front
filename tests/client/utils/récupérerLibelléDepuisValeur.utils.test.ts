@@ -1,4 +1,4 @@
-import { Option } from '~/client/components/ui/Select/SelectSingle/SelectSingle';
+import { Option } from '~/client/components/ui/Select/Select';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 
 describe('récupérerLibelléDepuisValeur', () => {
