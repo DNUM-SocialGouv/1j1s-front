@@ -11,11 +11,7 @@ export class LoggerService {
     message: string,
     level: string,
   ) {
-    Sentry.withScope(function(scope) {
-      scope.setLevel(level);
-
-      Sentry.captureMessage(message);
-    });
+    Sentry.captureMessage(message, level);
   }
 
   info(message: string) {
