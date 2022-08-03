@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { CloseIcon } from '~/client/components/ui/Icon/close.icon';
@@ -14,21 +16,24 @@ interface IconProps {
 
 export function Icon({ name }: IconProps) {
 
-  switch (name) {
-    case 'close':
-      return <CloseIcon />;
-    case 'magnifying-glass':
-      return <MagnifyingGlassIcon />;
-    case 'filter':
-      return <FilterIcon />;
-    case 'arrow-right':
-      return <ArrowRightIcon />;
-    case 'angle-right':
-      return <AngleRightIcon />;
-    case 'menu':
-      return <MenuIcon />;
-    default:
-      return null;
-  }
+  const getIcon = useMemo(() => {
+    switch (name) {
+      case 'close':
+        return <CloseIcon />;
+      case 'magnifying-glass':
+        return <MagnifyingGlassIcon />;
+      case 'filter':
+        return <FilterIcon />;
+      case 'arrow-right':
+        return <ArrowRightIcon />;
+      case 'angle-right':
+        return <AngleRightIcon />;
+      case 'menu':
+        return <MenuIcon />;
+      default:
+        return null;
+    }
+  }, [name]);
 
+  return ( getIcon );
 }
