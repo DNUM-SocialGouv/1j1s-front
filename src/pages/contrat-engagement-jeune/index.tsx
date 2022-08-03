@@ -4,6 +4,7 @@ import { TémoignageKévin, TémoignageLatifa } from '~/client/components/featur
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
+import Application from '~/client/components/features/ContratEngagementJeune/Application/Application';
 import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
@@ -31,6 +32,7 @@ export default function ContratEngagementJeune() {
         <TémoignageLatifa id="témoignage-latifa"/>
         <Accompagnement/>
         <Rappel/>
+        <Application/>
         <Bouée surface={ surface } />
       </main>
     </>
