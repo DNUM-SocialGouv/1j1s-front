@@ -1,0 +1,37 @@
+@import "@styles/utilities";
+
+.skipLinkWrapper {
+  --ul-type: none;
+  position: absolute;
+  top: 0;
+  padding-top: 1rem;
+  transform: translateY(-100%);
+  background-color: $color-separator;
+  color: $color-blue-navy;
+  --link-underline: none;
+}
+
+.skipLinkWrapper:focus-within {
+  position: relative;
+  transform: translateY(0);
+}
+
+.skipLinkList {
+  display: flex;
+  flex-direction: row;
+}
+
+.skipLinkList > li {
+  margin: 0 1rem 1.5rem;
+}
+
+.skipLinkList:focus-within {
+  position: relative;
+  transform: translateY(0);
+}
+
+.skipLink {
+  border-radius: 1rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+}
