@@ -16,7 +16,7 @@ export default function Rappel() {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const displayScreen = isSmallScreen || isMediumScreen;
   const buttonMobile = 'Je me lance  >';
-  const buttonTitle = 'Je souhaite être rappelé(e)';
+  const buttonTitle = 'Je souhaite être contacté(e)';
   return (
     <section className={ styles.rappel }>
       <div className={ styles.rappelContainer }>
