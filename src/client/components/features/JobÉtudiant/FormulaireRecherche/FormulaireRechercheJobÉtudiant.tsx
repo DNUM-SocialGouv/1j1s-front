@@ -10,7 +10,6 @@ import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glas
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
@@ -28,7 +27,6 @@ export function FormulaireRechercheJobÉtudiant() {
   const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
 
   const queryParams = useOffreEmploiQuery();
-  const { isSmallScreen } = useBreakpoint();
   const router = useRouter();
 
   useEffect(function initFormValues() {
@@ -67,17 +65,17 @@ export function FormulaireRechercheJobÉtudiant() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
-          <Select
-            multiple
-            optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-            onChange={setInputDomaine}
-            label="Domaine"
-            value={inputDomaine}
-            name="grandDomaine"
-          />
-          {isSmallScreen && (
-            <br/>
-          )}
+
+          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRecherche">
+            <Select
+              multiple
+              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+              onChange={setInputDomaine}
+              label="Domaine"
+              value={inputDomaine}
+              name="grandDomaine"
+            />
+          </div>
         </div>
       </div>
 

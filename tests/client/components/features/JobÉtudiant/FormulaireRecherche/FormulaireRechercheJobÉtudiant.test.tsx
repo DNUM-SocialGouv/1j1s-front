@@ -79,39 +79,6 @@ describe('FormulaireRechercheJobÉtudiant', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75001&page=1' }, undefined, { shallow: true });
       });
     });
-
-    describe('quand on recherche par domaine', () => {
-      it('ajoute les domaines aux query params', async () => {
-        // GIVEN
-        const localisationServiceMock = aLocalisationService();
-        const routerPush = jest.fn();
-        mockUseRouter({ push: routerPush });
-
-        render(
-          <DependenciesProvider localisationService={localisationServiceMock}>
-            <FormulaireRechercheJobÉtudiant />
-          </DependenciesProvider>,
-        );
-
-        const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-
-        // WHEN
-        fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const inputDomaine = within(filtreRechercheMobile).getByRole('checkbox', { name: 'Banque / Assurance' });
-        fireEvent.click(inputDomaine);
-
-        expect(filtreRechercheMobile).toBeInTheDocument();
-
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
-
-        // WHEN
-        fireEvent.click(buttonAppliquerFiltres);
-
-        // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
-      });
-    });
   });
 
   describe('en version desktop', () => {
@@ -129,11 +96,11 @@ describe('FormulaireRechercheJobÉtudiant', () => {
         </DependenciesProvider>,
       );
 
-      const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
+      const filtreRecherche = await screen.findByTestId('FiltreRecherche');
 
       // THEN
       await waitFor(() => {
-        expect(filtreRechercheDesktop).toBeInTheDocument();
+        expect(filtreRecherche).toBeInTheDocument();
       });
     });
 
