@@ -1,5 +1,5 @@
 import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
@@ -7,15 +7,8 @@ import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
 
-const titre = `
-## J'ai des questions sur le Contrat d'Engagement Jeune et souhaite être rappelé(e)
-`;
-const titreMobile = `
-## J'ai des questions sur le Contrat d'Engagement Jeune
-`;
 
 export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
@@ -25,9 +18,9 @@ export default function Rappel() {
     <section className={styles.rappel}>
       <div className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
-        <Button buttonType="primary">Je souhaite être contacté(e)</Button>
+        <Button onClick={() => setIsPopInOpen(true)} buttonType="primary">Je souhaite être contacté(e)</Button>
       </div>
-      <Modal
+      <Modal className={styles.rappelModal}
         isOpen={isPopInOpen}
         hide={() => setIsPopInOpen(false)}
       >
