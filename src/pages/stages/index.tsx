@@ -16,10 +16,10 @@ const HITS_PER_PAGE = 15;
 
 const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   return <RésultatRechercherSolution
-    lienOffre={`/stages/${'idNonExistant' || résultat.slug}`}
+    lienOffre={`/stages/${ résultat.slug }`}
     intituléOffre={résultat.titre}
     logoEntreprise={IMAGE_FIXE}
-    nomEntreprise={résultat.nomEmployeur || 'Employeur'}
+    nomEntreprise={résultat.nomEmployeur}
     descriptionOffre={marked.parse(résultat.description)}
     étiquetteOffreList={résultat.domaines || []}
     key={résultat.slug}
