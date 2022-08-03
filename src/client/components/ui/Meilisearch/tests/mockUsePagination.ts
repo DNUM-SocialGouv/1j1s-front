@@ -1,17 +1,15 @@
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
 
-export function mockUsePagination(overide: Partial<PaginationRenderState>)  {
+export function mockUsePagination(override: Partial<PaginationRenderState>)  {
   const result = {
-    pages: [0,1,2],
+    createURL: jest.fn(),
     currentRefinement: 1,
-    nbHits: 100,
     isFirstPage: false,
     isLastPage: false,
+    nbHits: 100,
+    pages: [0,1,2],
     refine: jest.fn(),
-    createURL: jest.fn(),
-    ...overide,
+    ...override,
   };
   return result;
 }
-
-
