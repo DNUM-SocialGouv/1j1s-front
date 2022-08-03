@@ -17,6 +17,10 @@ import {
   LocalisationsDependencies,
 } from '~/server/localisations/configuration/localisations.dependencies';
 import {
+  MesuresJeunesDependencies,
+  mesuresJeunesDependenciesContainer,
+} from '~/server/mesuresJeunes/configuration/mesuresJeunesDependencies.container';
+import {
   OffresEmploiDependencies,
   offresEmploiDependenciesContainer,
 } from '~/server/offresEmploi/configuration/offresEmploi.dependencies';
@@ -36,6 +40,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 
 export type Dependencies = {
   articleDependencies: ArticleDependencies;
+  mesuresJeunesDependencies: MesuresJeunesDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   alternanceDependencies: AlternanceDependencies;
   cmsDependencies: StrapiCmsService;
@@ -60,6 +65,7 @@ export const dependenciesContainer = (): Dependencies => {
   const apiEngagementHttpClientService = new EngagementHttpClientService(serverConfigurationService);
 
   const articleDependencies = articleDependenciesContainer(strapiHttpClientService);
+  const mesuresJeunesDependencies = mesuresJeunesDependenciesContainer(strapiHttpClientService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
   const engagementDependencies = engagementDependenciesContainer(apiEngagementHttpClientService);
@@ -77,6 +83,7 @@ export const dependenciesContainer = (): Dependencies => {
     ),
     engagementDependencies,
     localisationDependencies,
+    mesuresJeunesDependencies,
     offreEmploiDependencies,
   };
 };
