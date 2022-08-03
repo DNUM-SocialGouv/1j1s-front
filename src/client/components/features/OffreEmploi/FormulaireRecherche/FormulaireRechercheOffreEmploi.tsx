@@ -109,8 +109,7 @@ export function FormulaireRechercheOffreEmploi() {
               <Button
                 buttonType="linkWithRightIcon"
                 icon={<FilterIcon />}
-                type='button'
-                onClick={() => setIsFiltresAvancésMobileOpen(true)}
+                onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
               >
                 Filtrer ma recherche
               </Button>
@@ -120,9 +119,8 @@ export function FormulaireRechercheOffreEmploi() {
               <input type="hidden" name="grandDomaine" value={inputDomaine} />
             </div>
           }
-
           <ModalComponent
-            close={() => setIsFiltresAvancésMobileOpen(false)}
+            close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
             closeTitle="Fermer les filtres"
             isOpen={isFiltresAvancésMobileOpen} data-testid="FiltreRechercheMobile">
             <ModalComponent.Title>
@@ -182,7 +180,10 @@ export function FormulaireRechercheOffreEmploi() {
                 <Button
                   onClick={applyFiltresAvancés}
                   buttonType="withRightIcon"
-                  icon={<AngleRightIcon color="#FFF" />}>Appliquer les filtres</Button>
+                  icon={<AngleRightIcon color="#FFF" />}
+                >
+                  Appliquer les filtres
+                </Button>
               </div>
             </ModalComponent.Footer>
           </ModalComponent>

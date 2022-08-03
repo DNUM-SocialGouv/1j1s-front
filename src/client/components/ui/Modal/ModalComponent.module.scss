@@ -27,49 +27,47 @@
     display: block;
     height: 2rem;
   }
-}
 
-.modalBody {
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  height: calc(100vh - 2rem);
-  overflow-y: scroll;
-  background-color: white;
-  pointer-events: all;
-}
+  &Body {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    height: calc(100vh - 2rem);
+    overflow-y: scroll;
+    background-color: white;
+    pointer-events: all;
+  }
 
-.modalClose {
-  text-align: right;
-  padding: 1rem 1rem 0.5rem;
-}
+  &Title {
+    margin-bottom: 0.5rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
 
-.modalCloseLabel {
-  color: $color-primary;
-  font-size: 0.875rem;
-  margin-right: 0.2rem;
-}
+  &Content {
+    margin-bottom: 0.2rem;
+  }
 
-.modalCloseIcon {
-  fill: $color-primary;
-  vertical-align: bottom;
-}
+  &Footer {
+    background-color: white;
+    padding: 1rem;
+    bottom: 0;
+    position: sticky;
+  }
 
-.modalTitle {
-  margin-bottom: 0.5rem;
-  padding: 0 1rem;
-  font-size: 0.9rem;
-  display: flex;
-  gap: 0.4rem;
-  align-items: center;
-}
-
-.modalContent {
-  margin-bottom: 0.2rem;
-}
-
-.modalFooter {
-  background-color: white;
-  padding: 1rem;
-  bottom: 0;
-  position: sticky;
+  &Close {
+    text-align: right;
+    padding: 1rem 1rem 0.5rem;
+    &Label {
+      color: $color-primary;
+      font-size: 0.875rem;
+      margin-right: 0.2rem;
+    }
+    &Icon {
+      fill: $color-primary;
+      vertical-align: bottom;
+    }
+  }
 }
