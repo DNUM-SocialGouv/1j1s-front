@@ -18,7 +18,7 @@ const RETURN_TO_PREVIOUS_PAGE_FULL_TEXT = 'Page précédente';
 
 const GO_TO_NEXT_PAGE_ABBREVIATION = 'Page suivante';
 const GO_TO_LAST_PAGE_ABBREVIATION = '››';
-let createUrlMock: jest.Mock<number>;
+let createUrlMock: jest.Mock<number | string>;
 let refineMock:  jest.Mock<number>;
 
 describe('MeilisearchPagination', () => {
