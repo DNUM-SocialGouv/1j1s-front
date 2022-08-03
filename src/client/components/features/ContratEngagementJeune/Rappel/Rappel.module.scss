@@ -53,21 +53,26 @@
   }
 
   &Form {
-    input, button {
+    input {
       background-color: $color-on-primary;
       border: 0.5px solid $color-on-background;
       border-radius: 30px;
       box-shadow: none;
     }
 
+    label {
+      margin-top: 1rem;
+    }
+
     button {
       margin-top: 8px;
-      margin-bottom: 20px;
+      border: 0.5px solid $color-on-surface;
     }
 
     input[type=radio] + label {
 
       padding-left: 0 !important;
+      margin-top: 0;
       &::before {
         display: none !important;
       }
