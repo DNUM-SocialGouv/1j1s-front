@@ -207,6 +207,7 @@ export function FormulaireRechercheOffreEmploi() {
               label="Type de contrat"
               value={inputTypeDeContrat}
               name="typeDeContrats"
+              closeOnExit={false}
             />
             <Select
               name="tempsDeTravail"
@@ -214,6 +215,7 @@ export function FormulaireRechercheOffreEmploi() {
               onChange={setInputTempsDeTravail}
               value={inputTempsDeTravail}
               label="Temps de travail"
+              closeOnExit={false}
             />
             <Select
               name="experienceExigence"
@@ -221,6 +223,7 @@ export function FormulaireRechercheOffreEmploi() {
               onChange={setInputExpérience}
               value={inputExpérience}
               label="Niveau demandé"
+              closeOnExit={false}
             />
             <Select
               multiple
@@ -229,6 +232,7 @@ export function FormulaireRechercheOffreEmploi() {
               value={inputDomaine}
               name="grandDomaine"
               label="Domaine"
+              closeOnExit={false}
             />
           </div>
         )}
