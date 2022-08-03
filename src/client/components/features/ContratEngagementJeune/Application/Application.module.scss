@@ -1,7 +1,7 @@
 @import "@styles/utilities";
 
 .application {
-  padding: 0 20px 40px;
+  padding: 40px 20px;
   background: $color-primary;
 
   &Container {
@@ -28,6 +28,7 @@
     font-weight: 400;
     border-radius: 8px;
     padding: 8px 10px;
+    margin-top: 20px;
 
     [href] {
       box-shadow: none;
@@ -47,11 +48,11 @@
 
 @include media(large) {
   .application {
-    border-top: solid $color-background 3.5rem;
+    padding: 2.5rem 0;
 
     &Container {
       max-width: 32rem;
-      margin: -3.5rem auto 0;
+      margin: 0 auto;
       border-radius: 20px;
     }
 
@@ -60,7 +61,6 @@
     }
 
     &Logo {
-      margin-top: 20px;
       font-size: 0.875rem;
       width: 12.5rem;
 

@@ -1,8 +1,8 @@
 @import "@styles/utilities";
 
 .rappel {
-    @extend %background-tertiary;
-    padding: 3rem 0;
+  @extend %background-tertiary;
+  padding: 3rem 0;
 
   &Container {
     display: grid;
@@ -13,15 +13,15 @@
     place-items: center;
 
     button {
-        @extend %background-primary;
-        padding: 0.75rem 1.875rem;
-        font-size: 15px;
+      @extend %background-primary;
+      padding: 0.75rem 1.875rem;
+      font-size: 15px;
     }
 
     h2 {
-        color: $color-primary;
-        max-width: 51.875rem;
-        text-align: center;
+      color: $color-primary;
+      max-width: 51.875rem;
+      text-align: center;
     }
   }
 }
