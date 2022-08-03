@@ -61,10 +61,12 @@
 
     button {
       margin-top: 8px;
+      border: 0.5px solid $color-on-surface;
     }
 
     input[type=radio] + label {
       padding-left: 0 !important;
+      margin-top: 0;
       &::before {
         display: none !important;
       }
@@ -73,7 +75,7 @@
 
   &Text {
     width: 100%;
-    background-color: #eef0f7;
+    background-color: $color-cadre-formulaire;
     border-radius: 30px;
 
     p{ 
