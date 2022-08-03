@@ -12,6 +12,7 @@ interface ApiAdressePropertiesResponse {
   label: string;
   city: string;
   citycode: string;
+  postcode: string;
 }
 
 interface  ApiAdresseGeometryResponse {
