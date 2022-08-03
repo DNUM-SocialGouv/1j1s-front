@@ -17,7 +17,6 @@
       padding: 0.75rem 1.875rem;
       font-size: 15px;
     }
-  }
 
     h2 {
       color: $color-primary;
@@ -34,7 +33,7 @@
       @extend %bold;
       font-size: 23px;
       margin: 0;
-      padding: 0;
+      padding: 0 1.8rem;
       color: $color-on-background;
     }
 
@@ -48,25 +47,21 @@
   }
 
   &Form {
-    input {
+    input, button {
       background-color: $color-on-primary;
       border: 0.5px solid $color-on-background;
       border-radius: 30px;
       box-shadow: none;
     }
 
-    label {
-      margin-top: 1rem;
-    }
-
     button {
       margin-top: 8px;
-      border: 0.5px solid $color-on-surface;
+      margin-bottom: 20px;
     }
 
     input[type=radio] + label {
+
       padding-left: 0 !important;
-      margin-top: 0;
       &::before {
         display: none !important;
       }
@@ -75,7 +70,7 @@
 
   &Text {
     width: 100%;
-    background-color: $color-cadre-formulaire;
+    background-color: #eef0f7;
     border-radius: 30px;
 
     p{ 
@@ -94,6 +89,7 @@
 @include media(large){
   
   .rappel {
+    
     &Form {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -101,3 +97,4 @@
       padding-bottom: 0;
     }
   }
+}
