@@ -2,8 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
-import { Icon } from '~/client/components/ui/Icon/icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -86,7 +85,7 @@ function RaisonParticipationsMentorat() {
     <section className={styles.RaisonParticipationMentoratContainer}>
       <div className={styles.RaisonParticipationMentoratElement}>
         <div className={styles.RaisonParticipationMentoratElement__Title}>
-          <ArrowRightIcon color={Icon.COLOR_ON_DARK_BACKGROUND}/>
+          <Icon name='arrow-right'/>
           <p>J’ai des difficultés à l’école</p>
         </div>
         <p>Votre mentor pourra vous aider à organiser votre travail et à améliorer vos résultats scolaires</p>
@@ -94,7 +93,7 @@ function RaisonParticipationsMentorat() {
 
       <div className={styles.RaisonParticipationMentoratElement}>
         <div className={styles.RaisonParticipationMentoratElement__Title}>
-          <ArrowRightIcon color={Icon.COLOR_ON_DARK_BACKGROUND}/>
+          <Icon name='arrow-right'/>
           <p>Je ne sais pas quelle orientation choisir</p>
         </div>
         <p>Votre mentor pourra vous conseiller et vous guider</p>
@@ -102,7 +101,7 @@ function RaisonParticipationsMentorat() {
 
       <div className={styles.RaisonParticipationMentoratElement}>
         <div className={styles.RaisonParticipationMentoratElement__Title}>
-          <ArrowRightIcon color={Icon.COLOR_ON_DARK_BACKGROUND}/>
+          <Icon name='arrow-right'/>
           <p>Je cherche un stage, une alternance, un premier emploi</p>
         </div>
         <p>Votre mentor pourra vous aider et vous ouvrir son réseau professionnel</p>

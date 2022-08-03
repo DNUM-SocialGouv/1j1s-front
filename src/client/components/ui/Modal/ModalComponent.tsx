@@ -7,7 +7,8 @@ import React, {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-import { CloseIcon } from '~/client/components/ui/Icon/close.icon';
+import { Button } from '~/client/components/ui/Button/Button';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
@@ -92,10 +93,13 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
         <dialog ref={modalRef} className={classNames(className, styles.modal)} open={isOpen} {...rest}>
           <div className={styles.modalBody}>
             <div className={classNames(className, styles.modalClose)}>
-              <button id="closeModalButton" type="button" title={closeTitle} onClick={() => close() }>
-                <span className={styles.modalCloseLabel}>{closeLabel}</span>
-                <CloseIcon className={styles.modalCloseIcon}/>
-              </button>
+              <Button
+                buttonType="linkWithRightIcon"
+                icon={<Icon name='close' />}
+                title={closeTitle}
+                onClick={() => close()}>
+                {closeLabel}
+              </Button>
             </div>
             {children}
           </div>

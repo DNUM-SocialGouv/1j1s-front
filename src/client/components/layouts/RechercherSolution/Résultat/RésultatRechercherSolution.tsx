@@ -4,7 +4,7 @@ import React from 'react';
 
 import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 
@@ -30,7 +30,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
           </div>
           <span className={styles.callToAction}>
             En savoir plus
-            <AngleRightIcon/>
+            <Icon name="angle-right" />
           </span>
         </section>
       </a>

@@ -8,10 +8,7 @@ import styles
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
-import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
@@ -109,7 +106,7 @@ export function FormulaireRechercheOffreEmploi() {
             <div>
               <Button
                 buttonType="linkWithRightIcon"
-                icon={<FilterIcon />}
+                icon={<Icon name="filter" />}
                 onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
               >
                 Filtrer ma recherche
@@ -125,7 +122,7 @@ export function FormulaireRechercheOffreEmploi() {
             closeTitle="Fermer les filtres"
             isOpen={isFiltresAvancésMobileOpen} data-testid="FiltreRechercheMobile">
             <ModalComponent.Title>
-              <MenuIcon />
+              <Icon name="menu" />
               <span>Filtrer ma recherche</span>
             </ModalComponent.Title>
             <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
@@ -181,7 +178,7 @@ export function FormulaireRechercheOffreEmploi() {
                 <Button
                   onClick={applyFiltresAvancés}
                   buttonType="withRightIcon"
-                  icon={<AngleRightIcon color="#FFF" />}
+                  icon={<Icon name="angle-right" />}
                 >
                   Appliquer les filtres
                 </Button>
@@ -232,7 +229,7 @@ export function FormulaireRechercheOffreEmploi() {
       <div className={styles.buttonRechercher}>
         <Button
           buttonType="withRightIcon"
-          icon={<MagnifyingGlassIcon />}
+          icon={<Icon name="magnifying-glass" />}
           type="submit"
         >
           Rechercher

@@ -2,6 +2,7 @@
   @extend %text-regular;
   display: inline-flex;
   align-items: center;
+  align-self: flex-end;
   color: $color-primary;
   svg {
     margin-left: 0.5ch;
