@@ -27,27 +27,28 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   function disableDocumentBodyScroll(isOpen: boolean) {
     document.body.style.overflow = isOpen ? 'hidden' : 'visible';
   }
+
   const closeModalOnClickOutside = useCallback((e: MouseEvent) => {
-    if (modalRef.current) {
-      if (!(modalRef.current)?.contains(e.target as Node)) {
-        close();
-      }
+    if (modalRef.current && !(modalRef.current)?.contains(e.target as Node)) {
+      close();
     }
 
   }, [modalRef, close]);
 
+  const closeModalOnClickEscape = useCallback((e: KeyboardEvent) => {
+    if (isOpen && e.key === KeyBoard.ESCAPE) close();
+
+  }, [isOpen, close]);
+
   useEffect(() => {
     document.addEventListener('mousedown', closeModalOnClickOutside);
+    document.addEventListener('keydown', closeModalOnClickEscape);
 
     return () => {
       document.removeEventListener('mousedown', closeModalOnClickOutside);
+      document.addEventListener('keydown', closeModalOnClickEscape);
     };
-  }, [closeModalOnClickOutside]);
-
-
-  window.addEventListener('keydown', (e) => {
-    if (isOpen && e.key === KeyBoard.ESCAPE) close();
-  });
+  }, [closeModalOnClickOutside, closeModalOnClickEscape]);
 
   function trapModalFocus() {
     if (modalRef.current !== null) {
@@ -73,7 +74,6 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   }
 
   useEffect(() => {
-    console.log('isOpen', isOpen);
     if (isOpen) {
       setLastFocusBeforeOpen(document.activeElement as HTMLElement);
     } else {
@@ -86,19 +86,23 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
     trapModalFocus();
   }, [isOpen]);
 
-  return isOpen && createPortal(
-    <dialog ref={modalRef} className={classNames(className, styles.modal)} open={isOpen} {...rest}>
-      <div className={styles.modalBody}>
-        <div className={classNames(className, styles.modalClose)}>
-          <button id="closeModalButton" type="button" title={closeTitle} onClick={() => close() }>
-            <span className={styles.modalCloseLabel}>{closeLabel}</span>
-            <CloseIcon className={styles.modalCloseIcon}/>
-          </button>
-        </div>
-        {children}
-      </div>
-    </dialog>,
-    document.body,
+  return (
+    <>
+      {isOpen && createPortal(
+        <dialog ref={modalRef} className={classNames(className, styles.modal)} open={isOpen} {...rest}>
+          <div className={styles.modalBody}>
+            <div className={classNames(className, styles.modalClose)}>
+              <button id="closeModalButton" type="button" title={closeTitle} onClick={() => close() }>
+                <span className={styles.modalCloseLabel}>{closeLabel}</span>
+                <CloseIcon className={styles.modalCloseIcon}/>
+              </button>
+            </div>
+            {children}
+          </div>
+        </dialog>,
+        document.body,
+      )}
+    </>
   );
 }
 
