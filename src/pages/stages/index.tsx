@@ -4,15 +4,18 @@ import React from 'react';
 import { ClearRefinements,Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { CustomPagination } from '~/client/components/ui/Meilisearch/Pagination';
+import { MeilsearchCustomPagination } from '~/client/components/ui/Meilisearch/MeilsearchCustomPagination';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import styles from '~/pages/stages/RechercherStagePage.module.scss';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 const HITS_PER_PAGE = 15;
+const MEILISEARCH_INDEX = 'offre-de-stage';
+const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   return <RésultatRechercherSolution
@@ -33,18 +36,18 @@ export default function RechercherOffreStagePage() {
       title={'Rechercher un stage | 1jeune1solution'}
       description="Des milliers d'offres de stages sélectionnées pour vous"/>
     <Hero>
-                Des milliers d’offres de stages sélectionnés pour vous
+      Des milliers d’offres de stages sélectionnés pour vous
     </Hero>
-    <main id="contenu" className={['fr-container', styles.stageContainer].join(' ')}>
-      <InstantSearch searchClient={searchClient} indexName="offre-de-stage" routing={true}>
+    <Container className={ [styles.stageContainer].join(' ')}>
+      <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX} routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
         <Configure hitsPerPage={HITS_PER_PAGE}/>
         <label>Métiers, mots clés, …
           <SearchBox
-            className={'recherche-principale-stage'}
+            className='recherche-principale-stage'
             placeholder="Métiers, mots clés, …"
             classNames={
               {
-                form: [styles.stageFormElement].join(' '),
+                form: styles.stageFormElement,
                 input: ['fr-input', styles.stageInputElement].join(' '),
                 root: styles.stageRootElement,
                 submitIcon: styles.stageSubmitIconElement,
@@ -63,11 +66,11 @@ export default function RechercherOffreStagePage() {
               root: styles.stageListeRootElement,
             }
           }/>
-        <CustomPagination
+        <MeilsearchCustomPagination
           padding={2}
-          hits_per_page={HITS_PER_PAGE}/>
+          hitsPerPage={HITS_PER_PAGE}/>
       </InstantSearch>
-    </main>
+    </Container>
     </>
   );
 }
