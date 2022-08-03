@@ -28,7 +28,7 @@ export abstract class ClientService {
       this.client.interceptors.response.use(
         (response: AxiosResponse) => response,
         async (error) => {
-          LoggerService.error(`${apiName} ${error.response.status} ${error.config.baseURL + error.config.url}`);
+          LoggerService.error(`${apiName} ${error.response.status} ${error.config.baseURL}${error.config.url}`);
           return Promise.reject(error);
         },
       );

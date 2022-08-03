@@ -18,7 +18,7 @@ export class PoleEmploiHttpClientService extends ClientService {
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {
-        LoggerService.error(`API_POLE_EMPLOI ${error.response.status} ${error.config.baseURL + error.config.url}`);
+        LoggerService.error(`API_POLE_EMPLOI ${error.response.status} ${error.config.baseURL}${error.config.url}`);
         const originalRequest = error.config;
 
         if (error.response?.status === 401 && !originalRequest.isRetryRequest) {
