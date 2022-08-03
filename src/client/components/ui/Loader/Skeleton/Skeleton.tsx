@@ -75,7 +75,7 @@ export const Skeleton = (props: SkeletonProps) => {
     return (
       <ul
         tabIndex={0}
-        aria-valuetext="...En cours de chargement"
+        aria-label="...En cours de chargement"
         className={classNames(styles.wrapper, className)}
       >
         {skeletonRender(type, repeat)}
