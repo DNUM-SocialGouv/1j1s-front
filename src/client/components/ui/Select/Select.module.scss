@@ -19,6 +19,7 @@
 
 .option:not(:last-child) {
     border-bottom: 1px solid var(--grey-925);
+    border-radius: 0;
 }
 
 .optionName {
