@@ -16,6 +16,7 @@ export function mapRésultatsRechercheCommune(response: ApiAdresseResponse): Ré
   return {
     résultats: response.features.map(({ properties, geometry }) => ({
       code: properties.citycode,
+      codePostal: properties.postcode,
       coordonnées: {
         latitude: geometry.coordinates[1],
         longitude: geometry.coordinates[0],

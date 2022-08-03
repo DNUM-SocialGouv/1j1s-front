@@ -23,6 +23,7 @@ describe('mapper pour les api de geo localisation', () => {
         résultats: [
           {
             code: '93005',
+            codePostal: '93600',
             coordonnées: {
               latitude: 48.926541,
               longitude: 2.493832,
@@ -32,6 +33,7 @@ describe('mapper pour les api de geo localisation', () => {
           },
           {
             code: '28201',
+            codePostal: '28300',
             coordonnées: {
               latitude: 48.510887,
               longitude: 1.553914,

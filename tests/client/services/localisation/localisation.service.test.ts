@@ -7,6 +7,7 @@ import { aRésultatsRechercheCommune } from '@tests/fixtures/domain/localisation
 
 import { LocalisationService } from '~/client/services/localisation.service';
 import { createSuccess } from '~/server/errors/either';
+import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
   RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
@@ -136,6 +137,30 @@ describe('LocalisationService', () => {
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
       const query='pari';
+      const expected: RésultatsRechercheCommune = {
+        résultats: [
+          {
+            code: '75056',
+            codePostal: '75006',
+            coordonnées: {
+              latitude: 48.859,
+              longitude: 2.347,
+            },
+            libelle: 'Paris',
+            ville: 'Paris',
+          },
+          {
+            code: '75115',
+            codePostal: '75015',
+            coordonnées: {
+              latitude: 48.863367,
+              longitude: 2.397152,
+            },
+            libelle: 'Paris 15e Arrondissement',
+            ville: 'Paris 15e Arrondissement',
+          },
+        ],
+      };
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
 
@@ -143,28 +168,7 @@ describe('LocalisationService', () => {
 
       expect(result).toEqual({
         instance: 'success',
-        result: {
-          résultats: [
-            {
-              code: '75056',
-              coordonnées: {
-                latitude: 48.859,
-                longitude: 2.347,
-              },
-              libelle: 'Paris',
-              ville: 'Paris',
-            },
-            {
-              code: '75115',
-              coordonnées: {
-                latitude: 48.863367,
-                longitude: 2.397152,
-              },
-              libelle: 'Paris 15e Arrondissement',
-              ville: 'Paris 15e Arrondissement',
-            },
-          ],
-        },
+        result: expected,
       });
       expect(httpClientService.get).toHaveBeenCalledWith('communes?q=pari');
     });
