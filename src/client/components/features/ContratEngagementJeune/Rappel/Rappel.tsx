@@ -41,18 +41,22 @@ export default function Rappel() {
               <TextInput 
                 label='Prénom'
                 name='firstname'
+                autoFocus
                 placeholder='Exemple : Jean'/>
               <TextInput 
                 label='Nom'
                 name='lastname'
+                autoFocus
                 placeholder='Exemple : Dupont'/>
               <TextInput
                 label='Adresse email'
                 name='mail'
+                autoFocus
                 placeholder='Exemple : jean.dupont@gmail.com'/>
               <TextInput
                 label='Téléphone'
                 name='phone'
+                autoFocus
                 placeholder='Exemple : 0606060606'/>
               <Select
                 label='Age'
@@ -60,10 +64,11 @@ export default function Rappel() {
                 optionList={AgeJeune.AGE}
                 onChange={setInputAge}
                 value={inputAge}
-              />
+                closeOnExit={true}/>
               <TextInput
                 label='Ville'
                 name='ville'
+                autoFocus
                 placeholder='Exemple : Paris'/>
             </div>
             <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} />

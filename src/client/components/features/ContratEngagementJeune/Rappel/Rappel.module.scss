@@ -48,7 +48,7 @@
   }
 
   &Form {
-    input, button {
+    input {
       background-color: $color-on-primary;
       border: 0.5px solid $color-on-background;
       border-radius: 30px;
@@ -61,11 +61,9 @@
 
     button {
       margin-top: 8px;
-      margin-bottom: 20px;
     }
 
     input[type=radio] + label {
-
       padding-left: 0 !important;
       &::before {
         display: none !important;
@@ -94,7 +92,6 @@
 @include media(large){
   
   .rappel {
-    
     &Form {
       display: grid;
       grid-template-columns: repeat(2, 1fr);

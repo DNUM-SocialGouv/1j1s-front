@@ -16,6 +16,7 @@ interface SelectProps {
   name?: string
   multiple?: boolean
   onChange?: (value: string) => void;
+  closeOnExit: boolean
 }
 
 export interface Option {
@@ -26,7 +27,7 @@ export interface Option {
 const MARGE_SELECT_WIDTH = 3;
 
 export function Select(props: SelectProps) {
-  const { optionList, onChange, value, placeholder, name, label, multiple } = props;
+  const { optionList, onChange, value, placeholder, name, label, multiple, closeOnExit } = props;
   const optionsRef = useRef<HTMLDivElement>(null);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -105,8 +106,10 @@ export function Select(props: SelectProps) {
             selectedValue={selectedValue}
             optionList={optionList}
             setSelectedValue={setSelectedValue}
+            setIsOptionOpen={setIsOptionsOpen}
             multiple={multiple ? true : false}
             onChange={onChange}
+            closeOnExit={closeOnExit}
           />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
       </div>
