@@ -34,24 +34,28 @@ export function Footer() {
               />
             </div>
           </div>
-          <div className={styles.footerMessage}>
-            <div>#1jeune1solution</div>
-            <div>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.</div>
+          <div className={styles.footerMessageWrapper}>
+            <div className={styles.footerMessage}>
+              <div>#1jeune1solution</div>
+              <div>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie
+                professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
+              </div>
+            </div>
+            <div className={styles.footerLienExterne}>
+              <Link href="/">
+                <a>legifrance.gouv.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
+              </Link>
+              <Link href="/">
+                <a>gouvernement.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
+              </Link>
+              <Link href="/">
+                <a>service-public.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
+              </Link>
+              <Link href="/">
+                <a>data.gouv.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className={styles.footerLienExterne}>
-          <Link href="/">
-            <a>legifrance.gouv.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
-          </Link>
-          <Link href="/">
-            <a>gouvernement.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
-          </Link>
-          <Link href="/">
-            <a>service-public.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
-          </Link>
-          <Link href="/">
-            <a>data.gouv.fr <ExternalRedirectionIcon color="#3A3A3A" /></a>
-          </Link>
         </div>
         <div className={styles.footerLienUtile}>
           <Link href="/"><a>Plan du site</a></Link>
