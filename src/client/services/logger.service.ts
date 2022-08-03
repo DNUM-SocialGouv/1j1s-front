@@ -9,7 +9,7 @@ export class LoggerService {
 
   private static log(
     message: string,
-    level: string,
+    level: Sentry.SeverityLevel,
   ) {
     Sentry.captureMessage(message, level);
   }
