@@ -1,22 +1,11 @@
 import '~/client/utils/string/string.util';
 
-import {
-  Modal,
-  ModalClose,
-  ModalContent,
-  ModalFooter,
-  ModalTitle,
-} from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
-import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
-import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -32,7 +21,6 @@ import { référentielDomaineList } from '~/server/offresEmploi/domain/offreEmpl
 export function FormulaireRechercheJobÉtudiant() {
   const rechercheJobÉtudiantForm = useRef<HTMLFormElement>(null);
 
-  const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
   const [inputDomaine, setInputDomaine] = useState('');
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [inputTypeLocalisation, setInputTypeLocalisation] = useState<string>('');
@@ -50,23 +38,6 @@ export function FormulaireRechercheJobÉtudiant() {
     setInputCodeLocalisation(queryParams.codeLocalisation || '');
     setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
   }, [queryParams]);
-
-  useEffect(function fermerFiltresAvancésSurÉcranLarge() {
-    if (!isSmallScreen) {
-      setIsFiltresAvancésMobileOpen(false);
-    }
-  }, [isSmallScreen]);
-
-  const applyFiltresAvancés = useCallback(() => {
-    setIsFiltresAvancésMobileOpen(false);
-    rechercheJobÉtudiantForm.current?.dispatchEvent(
-      new Event('submit', { bubbles: true, cancelable: true }),
-    );
-  }, []);
-
-  const toggleDomaine = useCallback((value: string) => {
-    setInputDomaine(inputDomaine.appendOrRemoveSubStr(value));
-  }, [inputDomaine]);
 
   async function updateRechercherJobÉtudiantQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -96,66 +67,18 @@ export function FormulaireRechercheJobÉtudiant() {
             code={inputCodeLocalisation}
             type={inputTypeLocalisation}
           />
-
-          {isSmallScreen &&
-            <>
-              <Button
-                buttonType="linkWithRightIcon"
-                icon={<FilterIcon />}
-                onClick={() => setIsFiltresAvancésMobileOpen(true)}
-              >
-              Filtrer ma recherche
-              </Button>
-              <input type="hidden" name="grandDomaine" value={inputDomaine}/>
-            </>
-          }
-
-          <Modal
-            isOpen={isFiltresAvancésMobileOpen}
-            hide={() => setIsFiltresAvancésMobileOpen(false)}
-            data-testid="FiltreRechercheMobile"
-          >
-            <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
-            <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">
-              Filtrer ma recherche
-            </ModalTitle>
-            <ModalContent className={styles.filtresAvancésModalContenu}>
-              <Accordion title="Domaine">
-                {référentielDomaineList.map((domaine, index) => (
-                  <Checkbox
-                    key={index}
-                    label={domaine.libelle}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
-                    value={domaine.code}
-                    checked={inputDomaine.split(',').includes(domaine.code)}
-                  />
-                ))}
-              </Accordion>
-            </ModalContent>
-            <ModalFooter className={styles.filtresAvancésModalFooter}>
-              <div onClick={applyFiltresAvancés}>
-                <Button
-                  buttonType="withRightIcon"
-                  icon={<ArrowRightIcon />}
-                >
-                  Appliquer les filtres
-                </Button>
-              </div>
-            </ModalFooter>
-          </Modal>
+          <Select
+            multiple
+            optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+            onChange={setInputDomaine}
+            label="Domaine"
+            value={inputDomaine}
+            name="grandDomaine"
+          />
+          {isSmallScreen && (
+            <br/>
+          )}
         </div>
-        {!isSmallScreen && (
-          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
-            <Select
-              multiple
-              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-              onChange={setInputDomaine}
-              label="Domaine"
-              value={inputDomaine}
-              name="grandDomaine"
-            />
-          </div>
-        )}
       </div>
 
       <div className={styles.buttonRechercher}>

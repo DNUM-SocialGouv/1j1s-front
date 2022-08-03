@@ -23,8 +23,6 @@ export interface Option {
   valeur: string;
 }
 
-const MARGE_SELECT_WIDTH = 3;
-
 export function Select(props: SelectProps) {
   const { optionList, onChange, value, placeholder, name, label, multiple } = props;
   const optionsRef = useRef<HTMLDivElement>(null);
@@ -60,12 +58,6 @@ export function Select(props: SelectProps) {
     };
   }, [closeOptionsOnClickOutside, closeOptionsOnEscape]);
 
-  const selectWidth = useMemo(() => {
-    const optionLengthList = optionList.map((option) => option.libellé.length);
-    const maxOptionLength = Math.max(...optionLengthList);
-    return maxOptionLength ? { minWidth: `${maxOptionLength + MARGE_SELECT_WIDTH}ch` } : {};
-  }, [optionList]);
-
   const buttonLabel = useMemo(() => {
     const getLibelléAvecValeur = optionList.find((option) => option.valeur === selectedValue);
     const defaultMultiplePlaceholder = placeholder ?? 'Sélectionnez vos choix';
@@ -93,7 +85,6 @@ export function Select(props: SelectProps) {
           aria-haspopup="listbox"
           aria-expanded={isOptionsOpen}
           aria-labelledby={labelledBy.current}
-          style={selectWidth}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >
