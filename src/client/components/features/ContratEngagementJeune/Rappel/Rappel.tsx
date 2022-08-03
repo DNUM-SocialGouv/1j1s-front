@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalTitle, TextInput } from '@dataesr/react-dsfr';
+import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
@@ -6,6 +6,7 @@ import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { Select } from '~/client/components/ui/Select/Select';
+import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
 
@@ -39,26 +40,18 @@ export default function Rappel() {
             <div className={styles.rappelForm}>
               <TextInput 
                 label='Prénom'
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 name='firstname'
                 placeholder='Exemple : Jean'/>
               <TextInput 
                 label='Nom'
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 name='lastname'
                 placeholder='Exemple : Dupont'/>
               <TextInput
                 label='Adresse email'
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 name='mail'
                 placeholder='Exemple : jean.dupont@gmail.com'/>
               <TextInput
                 label='Téléphone'
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
               <Select
@@ -70,8 +63,6 @@ export default function Rappel() {
               />
               <TextInput
                 label='Ville'
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 name='ville'
                 placeholder='Exemple : Paris'/>
             </div>
