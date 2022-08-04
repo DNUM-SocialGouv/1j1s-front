@@ -28,15 +28,21 @@ describe('RechercheLocalisationUtils', () => {
 			  expect(result).toBe(false);
 		  });
 	  });
-	  describe('Lorsque la recherche contient plus de 2 chiffres', () => {
+	  describe('Lorsque la recherche contient plus de 3 chiffres', () => {
 		  it('renvoie faux', () => {
-			  const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('012');
+			  const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('0123');
 			  expect(result).toBe(false);
 		  });
 	  });
 	  describe('Lorsque la recherche contient exactement 2 chiffres', () => {
 		  it('renvoie vrai', () => {
 			  const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('01');
+			  expect(result).toBe(true);
+		  });
+	  });
+	  describe('Lorsque la recherche contient exactement 3 chiffres', () => {
+		  it('renvoie vrai', () => {
+			  const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('012');
 			  expect(result).toBe(true);
 		  });
 	  });
