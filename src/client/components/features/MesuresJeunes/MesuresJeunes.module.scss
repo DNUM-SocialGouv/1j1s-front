@@ -27,36 +27,16 @@
   }
 
   &VieProfessionnelle {
-    background-color: #E8EDFF;
-    &Header {
-      &Icon {
-        color: $color-blue-navy;
-      }
-    }
+    background-color: lighten($color-blue-navy, 67%);
   }
   &OrienterFormer {
-    background-color: #FEF3FD;
-    &Header {
-      &Icon {
-        color: $color-tapestry;
-      }
-    }
+    background-color: lighten($color-tapestry, 45%);
   }
   &ParcoursAccompagnement {
-    background-color: #F1FEF5;
-    &Header {
-      &Icon {
-        color: $color-smalt-blue;
-      }
-    }
+    background-color: lighten($color-smalt-blue, 48%);
   }
   &AidesFinancières {
-    background-color: #FEF3FD;
-    &Header {
-      &Icon {
-        color: $color-coral;
-      }
-    }
+    background-color: lighten($color-coral, 31%);
   }
 
   &OrienterFormer, &AidesFinancières {

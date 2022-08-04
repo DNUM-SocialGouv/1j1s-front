@@ -10,8 +10,6 @@ interface MesuresJeunesPageProps {
 }
 
 export default function MesuresJeunesPage({ mesuresJeunes }: MesuresJeunesPageProps) {
-  if (!mesuresJeunes) return null;
-  
   return (
     <MesuresJeunesComponent mesuresJeunes={ mesuresJeunes } />
   );
