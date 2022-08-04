@@ -9,26 +9,21 @@ export class LoggerService {
 
   private static log(
     message: string,
-    level: Sentry.Severity,
-    category: string | undefined = undefined,
+    level: Sentry.SeverityLevel,
   ) {
-    Sentry.addBreadcrumb({
-      category,
-      level,
-      message,
-    } as Sentry.Breadcrumb);
+    Sentry.captureMessage(message, level);
   }
 
-  info(message: string, category: string | undefined = undefined) {
-    LoggerService.log(message, Sentry.Severity.Info, category);
+  info(message: string) {
+    LoggerService.log(message, 'info');
   }
 
-  warn(message: string, category: string | undefined = undefined) {
-    LoggerService.log(message, Sentry.Severity.Warning, category);
+  warn(message: string) {
+    LoggerService.log(message, 'warning');
   }
 
-  error(message: string, category: string | undefined = undefined) {
-    LoggerService.log(message, Sentry.Severity.Error, category);
+  error(message: string) {
+    LoggerService.log(message, 'error');
   }
 
   setTransactionId(transactionId: string): void {

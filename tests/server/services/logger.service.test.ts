@@ -16,47 +16,27 @@ describe('LoggerService', () => {
   describe('error', () => {
     it('appelle le logger error avec les bons paramètres', () => {
       const message = 'mon erreur message';
-      const category = 'message derreur';
-      const expectedParameters: Sentry.Breadcrumb = {
-        category,
-        level: Sentry.Severity.Error,
-        message,
-      };
+      LoggerService.error(message);
 
-      LoggerService.error(message, category);
-
-      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
     });
   });
 
   describe('info', () => {
     it('appelle le logger info avec les bons paramètres', () => {
       const message = 'mon info message';
-      const category = 'message informatif';
-      const expectedParameters: Sentry.Breadcrumb = {
-        category,
-        level: Sentry.Severity.Info,
-        message,
-      };
+      LoggerService.info(message);
 
-      LoggerService.info(message, category);
-
-      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
     });
   });
 
   describe('warn', () => {
     it('appelle le logger warn avec les bons paramètres', () => {
       const message = 'mon warn message';
-      const category = 'message de prévention';
-      const expectedParameters: Sentry.Breadcrumb = {
-        category,
-        level: Sentry.Severity.Warning,
-        message,
-      };
-      LoggerService.warn(message, category);
+      LoggerService.warn(message);
 
-      expect(SentryMock.addBreadcrumb).toHaveBeenCalledWith(expectedParameters);
+      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
     });
   });
 });

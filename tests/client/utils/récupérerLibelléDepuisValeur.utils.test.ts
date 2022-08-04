@@ -31,11 +31,11 @@ describe('récupérerLibelléDepuisValeur', () => {
         { libellé: '60', valeur: '60' },
         { libellé: '100', valeur: '100' },
       ];
-      const expected = '101';
+      const placeholder = 'Sélectionne';
       //when
-      const result = récupérerLibelléDepuisValeur(optionList, valeur);
+      const result = récupérerLibelléDepuisValeur(optionList, valeur, placeholder);
       //then
-      expect(result).toEqual(expected);
+      expect(result).toEqual(placeholder);
     });
   });
 

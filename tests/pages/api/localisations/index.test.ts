@@ -53,12 +53,12 @@ describe('rechercher une localisation', () => {
         expect(json).toEqual({
           communeList: [{
             code: '93005',
-            libelle: '20 Avenue Jules Jouy 93600 Aulnay-sous-Bois',
+            libelle: '20 Avenue Jules Jouy Aulnay-sous-Bois (93600)',
             nom: 'Aulnay-sous-Bois',
           },
           {
             code: '28201',
-            libelle: '20 Avenue de la Gare 28300 Jouy',
+            libelle: '20 Avenue de la Gare Jouy (28300)',
             nom: 'Jouy',
           }],
           départementList: [{

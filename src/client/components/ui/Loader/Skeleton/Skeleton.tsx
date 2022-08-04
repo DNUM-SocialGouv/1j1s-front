@@ -56,7 +56,7 @@ export const Skeleton = (props: SkeletonProps) => {
       default:
         return <></>;
     }
-  }, [card, line, tag]);
+  }, [type, card, line, tag]);
 
   const skeletonRender = useCallback((type: SkeletonType, repeat: number) => {
     return (
@@ -68,14 +68,14 @@ export const Skeleton = (props: SkeletonProps) => {
         }
       </>
     );
-  }, []);
+  }, [getSkeleton]);
 
 
   if (isLoading) {
     return (
       <ul
         tabIndex={0}
-        aria-valuetext="...En cours de chargement"
+        aria-label="...En cours de chargement"
         className={classNames(styles.wrapper, className)}
       >
         {skeletonRender(type, repeat)}
