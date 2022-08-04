@@ -1,23 +1,80 @@
-export interface DataCmsResponse<T> {
-  data: AttributesCmsResponse<T>;
+export namespace Strapi {
+
+  export interface PublicationContentType<T> {
+    data: Data<T>[]
+    meta: Meta
+  }
+
+  export interface PublicationContentSingleType<T> {
+    data: Data<T>
+    meta: Meta
+  }
+
+  export interface Data<T> {
+    id: number
+    attributes: T
+  }
+
+  export interface Meta {
+    pagination: Pagination
+  }
+
+  export interface Pagination {
+    page: number
+    pageSize: number
+    pageCount: number
+    total: number
+  }
+
+  export interface ContentTypeAttributes {
+    createdAt: string
+    updatedAt: string
+  }
+
+  export interface PublicationContentTypeAttributes extends ContentTypeAttributes {
+    publishedAt: string
+  }
+
+  export interface Image {
+    data: Data<ImageAttributes>
+  }
+
+  export interface ImageAttributes extends ContentTypeAttributes {
+    name: string,
+    alternativeText?: string,
+    caption?: string,
+    width: number,
+    height: number,
+    formats?: ImageFormatList,
+    hash: string,
+    ext: string,
+    mime: string,
+    size: number,
+    url: string,
+    previewUrl?: string,
+    provider?: string,
+    provider_metadata?: string,
+    createdAt: string,
+    updatedAt: string
+  }
+
+  export interface ImageFormatList {
+    large?: ImageFormat,
+    medium?: ImageFormat,
+    small?: ImageFormat,
+    thumbnail?: ImageFormat
+  }
+
+  export interface ImageFormat {
+    ext: string,
+    url: string,
+    hash: string,
+    mime: string,
+    name: string,
+    path: string,
+    size: number,
+    width: number
+    height: number
+  }
 }
 
-export interface AttributesCmsResponse<T> {
-  attributes: Attributes<T>;
-}
-
-declare type Attributes<T> = T | null;
-
-export interface ImageCmsResponse {
-  data: DataImageCmsResponse;
-}
-
-export interface DataImageCmsResponse {
-  attributes: AttributesImageCmsResponse;
-}
-
-export interface AttributesImageCmsResponse {
-  width: number;
-  height: number;
-  url: string;
-}

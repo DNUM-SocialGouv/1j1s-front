@@ -1,5 +1,6 @@
 import { CarteMesuresJeunes, MesuresJeunes } from '~/server/mesuresJeunes/domain/mesuresJeunes';
-import { Strapi } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.response';
+import { MesuresJeunesContentType } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.response';
+import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export function aCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
   return {
@@ -48,7 +49,7 @@ function aStrapiResponseImage(): Strapi.Image {
   };
 }
 
-export function aMesuresJeunesResponse(override?: Partial<Strapi.MesuresJeunesContentType>): Strapi.MesuresJeunesContentType {
+export function aMesuresJeunesResponse(override?: Partial<MesuresJeunesContentType>): MesuresJeunesContentType {
   return {
     data: {
       attributes: {

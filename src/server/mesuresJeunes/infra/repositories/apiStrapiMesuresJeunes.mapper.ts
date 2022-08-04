@@ -1,9 +1,9 @@
 import { CarteMesuresJeunes, MesuresJeunes } from '~/server/mesuresJeunes/domain/mesuresJeunes';
-import { Strapi } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.response';
+import { CarteMesuresJeunesResponse, MesuresJeunesContentType } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.response';
 import { parseMarkdown } from '~/server/services/utils/markdown.util';
 
-function mapCartesMesuresJeunes(listCartesMesuresJeunes: Strapi.CarteMesuresJeunes[]): CarteMesuresJeunes[] {
-  const newListCartesMesuresJeunes = listCartesMesuresJeunes.map((carteMesuresJeunes) => {
+function mapCartesMesuresJeunes(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteMesuresJeunes[] {
+  const newListCartesMesuresJeunes = cartesMesuresJeunesList.map((carteMesuresJeunes) => {
     return {
       bannière: carteMesuresJeunes.banniere.data.attributes,
       contenu: parseMarkdown(carteMesuresJeunes.contenu),
@@ -14,7 +14,7 @@ function mapCartesMesuresJeunes(listCartesMesuresJeunes: Strapi.CarteMesuresJeun
   return newListCartesMesuresJeunes;
 }
 
-export function mapMesuresJeunes(mesuresJeunesResponse: Strapi.MesuresJeunesContentType): MesuresJeunes {
+export function mapMesuresJeunes(mesuresJeunesResponse: MesuresJeunesContentType): MesuresJeunes {
   const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = mesuresJeunesResponse.data.attributes;
   return {
     accompagnement: mapCartesMesuresJeunes(accompagnement),

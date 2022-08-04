@@ -1,4 +1,4 @@
-import { Strapi } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
+import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export type ArticleSlug = string;
 

@@ -1,5 +1,5 @@
-import { RécupérerCartesJeunesUseCase } from '~/server/mesuresJeunes/useCases/récupérerCartesJeunes.useCase';
+import { RécupérerMesuresJeunesUseCase } from '~/server/mesuresJeunes/useCases/récupérerMesuresJeunesUseCase';
 
 export interface RécupérerMesuresJeunesDependenciesContainer {
-  readonly récupérerMesuresJeunes: RécupérerCartesJeunesUseCase
+  readonly récupérerMesuresJeunes: RécupérerMesuresJeunesUseCase
 }

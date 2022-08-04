@@ -4,7 +4,7 @@ import {
 import {
   ApiStrapiMesuresJeunesRepository,
 } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.repository';
-import { RécupérerCartesJeunesUseCase } from '~/server/mesuresJeunes/useCases/récupérerCartesJeunes.useCase';
+import { RécupérerMesuresJeunesUseCase } from '~/server/mesuresJeunes/useCases/récupérerMesuresJeunesUseCase';
 import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
 
 export type MesuresJeunesDependencies = RécupérerMesuresJeunesDependenciesContainer
@@ -13,6 +13,6 @@ export const mesuresJeunesDependenciesContainer = (strapiHttpClientService: Stra
   const mesuresJeunesRepository = new ApiStrapiMesuresJeunesRepository(strapiHttpClientService);
 
   return {
-    récupérerMesuresJeunes: new RécupérerCartesJeunesUseCase(mesuresJeunesRepository),
+    récupérerMesuresJeunes: new RécupérerMesuresJeunesUseCase(mesuresJeunesRepository),
   };
 };

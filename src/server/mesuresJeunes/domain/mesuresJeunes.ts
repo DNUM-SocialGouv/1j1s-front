@@ -1,4 +1,4 @@
-import { Strapi } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.response';
+import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export interface MesuresJeunes {
   vieProfessionnelle: CarteMesuresJeunes[]
