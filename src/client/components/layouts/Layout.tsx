@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Footer } from '~/client/components/layouts/Footer';
+import { Footer } from '~/client/components/layouts/Footer/Footer';
 import { Header } from '~/client/components/layouts/Header';
 import { SkipLink } from '~/client/components/ui/SkipLink/SkipLink';
 
