@@ -10,6 +10,8 @@ import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mock
 
 import { MeilsearchCustomPagination } from '../MeilsearchCustomPagination';
 
+declare type CreateURL<TValue> = (value: TValue) => string;
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'usePagination');
 
@@ -18,7 +20,7 @@ const RETURN_TO_PREVIOUS_PAGE_FULL_TEXT = 'Page précédente';
 
 const GO_TO_NEXT_PAGE_ABBREVIATION = 'Page suivante';
 const GO_TO_LAST_PAGE_ABBREVIATION = '››';
-let createUrlMock: jest.Mock<number | string>;
+let createUrlMock: CreateURL<number>;
 let refineMock:  jest.Mock<number>;
 
 describe('MeilisearchPagination', () => {
@@ -31,7 +33,7 @@ describe('MeilisearchPagination', () => {
         // GIVEN
         spyed.mockImplementation(() => mockUsePagination({ isFirstPage: true }));
       });
-      
+
       it('n’affiche pas << dans le document', async () => {;
         // WHEN
         render(
