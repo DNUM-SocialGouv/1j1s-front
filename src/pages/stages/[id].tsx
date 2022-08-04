@@ -1,47 +1,59 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { isArray } from 'util';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
-import {
-  OffreDeStageDétail, OffreDeStageInternalService,
-} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
-import { ErrorMessageComponent } from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent';
+import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { UnavailableOffer } from '~/client/components/features/OffreDeStage/OffreDeStageIndisponible';
+import { Container } from '~/client/components/layouts/Container/Container';
+import indexServices from '~/client/services/index.sevice';
+
+const recupérerOffreDeStage = async (slug: string | string[]) => {
+  if (isArray(slug)) {
+    throw new Error();
+  }
+
+  const response = await indexServices.offreDeStage.get(slug);
+  return response;
+};
 
 export default function ConsulterOffreStagePage() {
   const router = useRouter();
-  const chargerOffreDeStage = async (slug: string | string[]) => {
-    // FIXME: Utiliser un service
-    const result = await axios.get<OffreDeStageInternalService>('http://localhost:1337/api/slugify/slugs/offre-de-stage/'+slug);
-    setOffreDeStage(result.data.data.attributes);
-    setIsLoaded(true);
+  const chargerOffreDeStage = async (slug: string | string[]): Promise<OffreDeStageDétail> => {
+    const offreDeStage = await recupérerOffreDeStage(slug);
+    return offreDeStage;
   };
 
-  const [offreDeStage, setOffreDeStage] = useState< OffreDeStageDétail >();
+  const [offreDeStage, setOffreDeStage] = useState<OffreDeStageDétail>();
   const [isLoaded, setIsLoaded] = useState(false);
 
 
-  useEffect( ()=>{
+  useEffect(() => {
     const { id } = router.query;
-    if(id) {
-      try {
-        chargerOffreDeStage(id);
-      }
-      finally {
-        setIsLoaded(true);
-      }
+    if (!id) {
+      return;
     }
-  },[router.query]);
+    // serviceOffreDeStage.getOffreDeStage(id as string)
+    chargerOffreDeStage(id)
+      .then((offreDeStage) => {
+        setOffreDeStage(offreDeStage);
+      })
+      .catch(() => {
+        setIsLoaded(true);
+      })
+      .finally(() => setIsLoaded(true));
+
+  },
+  [router.query]);
   if (!isLoaded) {
-    return (<p>loading</p>);
+    return (<Container><p>loading</p></Container>);
   }
-  if((!offreDeStage)) {
-    return <ErrorMessageComponent
-      title="Offre de stage non trouvée"
-      explanationText="La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée."
-      solutionText="Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil, ou effectuer une recherche avec notre moteur de recherche en haut de page. Sinon contactez-nous pour que l’on puisse vous rediriger vers la bonne information." />;
+  if ((!offreDeStage)) {
+    return <UnavailableOffer/>;
   }
   return (
-    <ConsulterOffreDeStage offreDeStage={offreDeStage}></ConsulterOffreDeStage>
+    <Container>
+      <ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+    </Container>
   );
 }
