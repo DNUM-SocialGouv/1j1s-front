@@ -19,7 +19,7 @@ export default function MesuresJeunesPage({ mesuresJeunes }: MesuresJeunesPagePr
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresJeunesPageProps>> {
   const response = await dependencies.mesuresJeunesDependencies.récupérerMesuresJeunes.handle();
-  console.log(response);
+
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };
   }

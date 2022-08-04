@@ -36,7 +36,7 @@ export function aMesuresJeunes(): MesuresJeunes {
 
 function aStrapiImage(): Strapi.ImageAttributes {
   return {
-    createdAt: '', ext: '', hash: '', height: 0, mime: '', name: '', size: 0, updatedAt: '', url: '', width: 0,
+    createdAt: '', ext: '', hash: '', height: 0, mime: '', name: '', size: 0, updatedAt: '', url: 'https://animage.jpg', width: 0,
   };
 }
 
