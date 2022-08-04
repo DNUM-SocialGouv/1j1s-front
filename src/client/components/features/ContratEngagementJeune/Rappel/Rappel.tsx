@@ -61,8 +61,8 @@ export default function Rappel() {
                 name='ville'
                 placeholder='Exemple : Paris'/>
             </div>
-            <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} />
-            <div className={styles.rappelButton}>
+            <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.rappelFormCheckbox}/>
+            <div className={styles.rappelFormButton}>
               <Button
                 buttonType="primary"
               >
