@@ -31,6 +31,7 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
+
 export function FormulaireRechercheOffreEmploi() {
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
@@ -206,6 +207,7 @@ export function FormulaireRechercheOffreEmploi() {
               label="Type de contrat"
               value={inputTypeDeContrat}
               name="typeDeContrats"
+              closeOnSelect={false}
             />
             <Select
               name="tempsDeTravail"
@@ -213,6 +215,7 @@ export function FormulaireRechercheOffreEmploi() {
               onChange={setInputTempsDeTravail}
               value={inputTempsDeTravail}
               label="Temps de travail"
+              closeOnSelect={false}
             />
             <Select
               name="experienceExigence"
@@ -220,6 +223,7 @@ export function FormulaireRechercheOffreEmploi() {
               onChange={setInputExpérience}
               value={inputExpérience}
               label="Niveau demandé"
+              closeOnSelect={false}
             />
             <Select
               multiple
@@ -228,6 +232,7 @@ export function FormulaireRechercheOffreEmploi() {
               value={inputDomaine}
               name="grandDomaine"
               label="Domaine"
+              closeOnSelect={false}
             />
           </div>
         )}

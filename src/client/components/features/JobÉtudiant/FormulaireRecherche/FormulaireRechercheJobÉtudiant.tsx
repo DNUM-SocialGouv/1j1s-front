@@ -29,6 +29,7 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
+
 export function FormulaireRechercheJobÉtudiant() {
   const rechercheJobÉtudiantForm = useRef<HTMLFormElement>(null);
 
@@ -153,6 +154,7 @@ export function FormulaireRechercheJobÉtudiant() {
               label="Domaine"
               value={inputDomaine}
               name="grandDomaine"
+              closeOnSelect={false}
             />
           </div>
         )}

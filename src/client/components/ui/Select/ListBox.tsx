@@ -44,7 +44,7 @@ export function ListBox(props: ListBoxProps) {
     <div
       className={styles.options}
       role="listbox"
-    >
+    > 
       {
         multiple
           ? optionList.map((option, index) => (
