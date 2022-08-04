@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const sessionId = useSessionId();
 
   useEffect(() => {
-    initTracker();
+    process.env.NODE_ENV === 'production' && initTracker();
   }, []);
 
   return (
