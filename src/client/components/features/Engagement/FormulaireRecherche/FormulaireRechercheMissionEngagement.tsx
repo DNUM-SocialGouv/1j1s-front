@@ -58,7 +58,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
             optionList={domainList}
             onChange={(value) => setDomainValue(value)}
             value={domainValue}
-            closeOnExit={false}
+            closeOnSelect={false}
           />
           <InputCommune
             code={inputCodeCommune}
