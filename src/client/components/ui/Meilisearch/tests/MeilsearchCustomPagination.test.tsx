@@ -23,7 +23,7 @@ const GO_TO_LAST_PAGE_ABBREVIATION = '››';
 let createUrlMock: CreateURL<number>;
 let refineMock:  jest.Mock<number>;
 
-describe('MeilisearchPagination', () => {
+describe('MeilisearchCustomPagination', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -194,10 +194,10 @@ describe('MeilisearchPagination', () => {
       createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
       refineMock = jest.fn();
       spyed.mockImplementation(() => mockUsePagination(
-        { 
+        {
           createURL: createUrlMock,
-          currentRefinement:3, 
-          isFirstPage:false, 
+          currentRefinement:3,
+          isFirstPage:false,
           isLastPage: false,
           nbHits: 60,
           nbPages:4,
@@ -313,6 +313,63 @@ describe('MeilisearchPagination', () => {
       // THEN
       expect(refineMock).toHaveBeenCalledTimes(1);
       expect(refineMock).toHaveBeenCalledWith(4);
+    });
+  });
+  describe('quand nous avons 1 seule page', () => {
+    beforeEach(() => {
+      // GIVEN
+      createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
+      refineMock = jest.fn();
+      spyed.mockImplementation(() => mockUsePagination(
+        {
+          createURL: createUrlMock,
+          currentRefinement:1,
+          isFirstPage:true,
+          isLastPage: true,
+          nbHits: 15,
+          nbPages:1,
+          pages: [0],
+          refine: refineMock,
+        }));
+    });
+
+    it('affiche seulement 1 élément (le 1)', () => {
+      // WHEN
+      render(
+        <MeilsearchCustomPagination></MeilsearchCustomPagination>,
+      );
+      // THEN
+      expect(screen.getByRole('list')).toBeInTheDocument();
+      expect(screen.getAllByRole('listitem').length).toEqual(1);
+      expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();
+    });
+  });
+  describe('quand nous avons 0 éléments', () => {
+    beforeEach(() => {
+      // GIVEN
+      createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
+      refineMock = jest.fn();
+      spyed.mockImplementation(() => mockUsePagination(
+        {
+          createURL: createUrlMock,
+          currentRefinement:1,
+          isFirstPage:true,
+          isLastPage: true,
+          nbHits: 0,
+          nbPages:0,
+          pages: [0],
+          refine: refineMock,
+        }));
+    });
+
+    it('affiche seulement 1 élément (le 1)', () => {
+      // WHEN
+      render(
+        <MeilsearchCustomPagination></MeilsearchCustomPagination>,
+      );
+      // THEN
+      expect(screen.getByRole('list')).toBeInTheDocument();
+      expect(screen.getAllByRole('listitem').length).toEqual(1);
     });
   });
 });

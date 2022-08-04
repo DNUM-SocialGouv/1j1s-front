@@ -18,7 +18,7 @@ export function MeilsearchCustomPagination(props: CustomPaginationProps) {
   } = usePagination(props);
 
   const HITS_PER_PAGE = props.hitsPerPage || DEFAULT_HITS_PER_PAGE;
-  const lastPage = (Math.ceil(nbHits/ HITS_PER_PAGE) - 1);
+  const lastPage = Math.max((Math.ceil(nbHits/ HITS_PER_PAGE) - 1), 0);
   
   const shouldDisplayElipsis = () => currentRefinement < lastPage - 2;
   const displayLastElement = () => displayElement(lastPage);
