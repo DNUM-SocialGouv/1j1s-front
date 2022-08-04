@@ -24,8 +24,7 @@ export interface Option {
   valeur: string;
 }
 
-export function Select(props: SelectProps) {
-  const { optionList, onChange, value, placeholder, name, label, multiple } = props;
+export function Select({ optionList, onChange, value, placeholder, name, label, multiple, closeOnSelect }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -102,13 +101,13 @@ export function Select(props: SelectProps) {
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
         {isOptionsOpen &&
-          <ListBox
-            selectedValue={selectedValue}
-            optionList={optionList}
-            setSelectedValue={setSelectedValue}
-            multiple={multiple ? true : false}
-            onChange={onOptionSelected}
-          />}
+              <ListBox
+                selectedValue={selectedValue}
+                optionList={optionList}
+                setSelectedValue={setSelectedValue}
+                multiple={multiple ? true : false}
+                onChange={onOptionSelected}
+              />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
       </div>
     </div>
