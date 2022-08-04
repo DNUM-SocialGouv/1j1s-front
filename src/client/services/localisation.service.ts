@@ -10,7 +10,7 @@ export class LocalisationService {
   private MAX_CHAR_LENGTH = 5;
   private REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS = new RegExp(/^[\da-zA-ZÀ-ÖØ-öø-ÿ-\\-\\ ]+$/);
   private REGEX_ALL_DIGITS = new RegExp(/^\d*$/);
-  private FORBIDDEN_CHAR_LENGTH = [1, 3, 4];
+  private FORBIDDEN_CHAR_LENGTH = [1, 4];
 
   async rechercherLocalisation(recherche: string): Promise<RechercheLocalisationApiResponse | null>  {
     const localisationsLength = recherche.length;
