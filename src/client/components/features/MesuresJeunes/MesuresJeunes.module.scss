@@ -11,6 +11,15 @@
   flex-direction: column;
 }
 
+.heroText {
+  color: #2B8079;
+}
+
+.heroBackground {
+  background-color:white;
+  color: $color-primary;
+}
+
 .section {
   padding: 1.5rem;
   margin: 1.5rem 0;
