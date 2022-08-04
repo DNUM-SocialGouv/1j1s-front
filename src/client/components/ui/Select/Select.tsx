@@ -24,8 +24,6 @@ export interface Option {
   valeur: string;
 }
 
-const MARGE_SELECT_WIDTH = 3;
-
 export function Select({ optionList, onChange, value, placeholder, name, label, multiple, closeOnSelect }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
@@ -59,12 +57,6 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
       document.removeEventListener('keyup', closeOptionsOnEscape);
     };
   }, [closeOptionsOnClickOutside, closeOptionsOnEscape]);
-
-  const selectWidth = useMemo(() => {
-    const optionLengthList = optionList.map((option) => option.libellé.length);
-    const maxOptionLength = Math.max(...optionLengthList);
-    return maxOptionLength ? { minWidth: `${maxOptionLength + MARGE_SELECT_WIDTH}ch` } : {};
-  }, [optionList]);
 
   const buttonLabel = useMemo(() => {
     const getLibelléAvecValeur = optionList.find((option) => option.valeur === selectedValue);
@@ -102,7 +94,6 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           aria-haspopup="listbox"
           aria-expanded={isOptionsOpen}
           aria-labelledby={labelledBy.current}
-          style={selectWidth}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >
@@ -110,13 +101,13 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
         {isOptionsOpen &&
-          <ListBox
-            selectedValue={selectedValue}
-            optionList={optionList}
-            setSelectedValue={setSelectedValue}
-            multiple={multiple ? true : false}
-            onChange={onOptionSelected}
-          />}
+              <ListBox
+                selectedValue={selectedValue}
+                optionList={optionList}
+                setSelectedValue={setSelectedValue}
+                multiple={multiple ? true : false}
+                onChange={onOptionSelected}
+              />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
       </div>
     </div>
