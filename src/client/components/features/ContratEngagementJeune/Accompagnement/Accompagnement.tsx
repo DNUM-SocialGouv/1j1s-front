@@ -2,6 +2,7 @@ import { Modal, ModalContent } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
+import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -19,6 +20,33 @@ export default function Allocations() {
     contacter, répondez à ces quelques questions.
   </div>;
 
+  const formulaireDémarrage = <>
+    <p className={styles.accompagnementQuestion}>Bénéficiez-vous actuellement d&apos;un accompagnement ?</p>
+    <div>
+      {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
+      <button className={styles.optionBouton}>Oui, je suis accompagné(e) par la Mission Locale</button>
+      <button className={styles.optionBouton}>Oui, je suis accompagné(e) par Pôle Emploi</button>
+      <button className={styles.optionBouton} onClick={() => setFormulaireAffiché(formulairePasDAccompagnement)}>Non, je ne bénéficie d&apos;aucun
+        accompagnement
+      </button>
+    </div>
+  </>;
+
+  const formulairePasDAccompagnement = <>
+    <button className={styles.boutonRetour} onClick={() => setFormulaireAffiché(formulaireDémarrage)}>
+      <AngleLeftIcon className={styles.iconeRetour}/> Retour
+    </button>
+    <p className={styles.accompagnementQuestion}>Quel âge avez-vous ?</p>
+    <div>
+      {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
+      <button className={styles.optionBouton}>Moins de 18 ans</button>
+      <button className={styles.optionBouton}>Entre 18 et 25 ans</button>
+      <button className={styles.optionBouton}>Plus de 26 ans</button>
+    </div>
+  </>;
+
+  const [formulaireAffiché, setFormulaireAffiché] = useState(formulaireDémarrage);
+
   return (
     <section className={styles.accompagnement}>
       <div className={styles.accompagnementContainer}>
@@ -28,14 +56,7 @@ export default function Allocations() {
         </div>
 
         <article className={styles.accompagnementArticle}>
-          <p className={styles.accompagnementQuestion}>Bénéficiez-vous actuellement d&apos;un accompagnement ?</p>
-
-          <div>
-            {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
-            <button>Oui, je suis accompagné(e) par la Mission Locale</button>
-            <button onClick={() => setIsPôleEmploiOpen(true)}>Oui, je suis accompagné(e) par Pôle Emploi</button>
-            <button>Non, je ne bénéficie d&apos;aucun accompagnement</button>
-          </div>
+          {formulaireAffiché}
 
           <Modal isOpen={isPôleEmploiOpen} hide={() => setIsPôleEmploiOpen(false)} className={styles.accompagnementModal}>
             <ModalContent className={styles.accompagnementModalContent}>
