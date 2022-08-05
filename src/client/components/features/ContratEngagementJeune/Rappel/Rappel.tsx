@@ -41,6 +41,7 @@ export default function Rappel() {
                 name='lastname'
                 placeholder='Exemple : Dupont'/>
               <TextInput
+                type="email"
                 label='Adresse email'
                 name='mail'
                 placeholder='Exemple : jean.dupont@gmail.com'/>
