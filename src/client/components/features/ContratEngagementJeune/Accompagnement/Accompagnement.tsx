@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -13,17 +12,6 @@ export type Formulaires = 'Démarrage' | 'PasDAccompagnement';
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
   setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-function getFormulaireÀAfficher(typeFormulaireÀAfficher: string, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>) {
-  if (typeFormulaireÀAfficher === 'PasDAccompagnement') {
-    return <PasDAccompagnement
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}/>;
-  }
-  return <Démarrage
-    setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-    setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}/>;
 }
 
 export default function Accompagnement() {
@@ -38,7 +26,6 @@ export default function Accompagnement() {
     d&apos;un professionnel de l&apos;accompagnement chez Pôle Emploi ou en Mission Locale. Pour vous aider à identifier l&apos;interlocuteur à
     contacter, répondez à ces quelques questions.
   </div>;
-
 
   return (
     <section className={styles.accompagnement}>
@@ -55,9 +42,8 @@ export default function Accompagnement() {
             <ModalContent className={styles.accompagnementModalContent}>
               <div>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi</div>
 
-              <LinkAsButton href={lienPôleEmploi} className={styles.accompagnementModalContentLink}>
+              <LinkAsButton href={lienPôleEmploi} className={styles.accompagnementModalContentLink} target="_blank">
                 Je contacte mon conseiller
-                <ExternalRedirectionIcon/>
               </LinkAsButton>
             </ModalContent>
           </Modal>
@@ -67,4 +53,15 @@ export default function Accompagnement() {
       </div>
     </section>
   );
+}
+
+function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>) {
+  if (typeFormulaireÀAfficher === 'PasDAccompagnement') {
+    return <PasDAccompagnement
+      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}/>;
+  }
+  return <Démarrage
+    setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+    setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}/>;
 }
