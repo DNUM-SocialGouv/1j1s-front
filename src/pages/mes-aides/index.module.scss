@@ -43,7 +43,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 0 24px;
+  padding: 0 16px;
+
+  @include media(large) {
+    padding: 0 24px;
+  }
 
   &Description {
     display: flex;
@@ -60,7 +64,11 @@
     }
 
     &Text {
-      font-size: 1.25rem;
+      font-size: 1rem;
+
+      @include media(large) {
+        font-size: 1.25rem;
+      }
     }
   }
 
