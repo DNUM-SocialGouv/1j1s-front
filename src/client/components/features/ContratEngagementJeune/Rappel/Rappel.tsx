@@ -35,22 +35,30 @@ export default function Rappel() {
                 label='Prénom'
                 name='firstname'
                 autoFocus
-                placeholder='Exemple : Jean'/>
+                placeholder='Exemple : Jean'
+                required
+              />
               <TextInput 
                 label='Nom'
                 name='lastname'
-                placeholder='Exemple : Dupont'/>
+                placeholder='Exemple : Dupont'
+                required
+              />
               <TextInput
                 type="email"
                 label='Adresse email'
                 name='mail'
-                placeholder='Exemple : jean.dupont@gmail.com'/>
+                placeholder='Exemple : jean.dupont@gmail.com'
+                required
+              />
               <TextInput
                 type="tel"
                 pattern="^(\+33|0|0033)[1-9]\d{8}$"
                 label='Téléphone'
                 name='phone'
-                placeholder='Exemple : 0606060606'/>
+                placeholder='Exemple : 0606060606'
+                required
+              />
               <Select
                 label='Age'
                 name="ageList"
@@ -62,7 +70,9 @@ export default function Rappel() {
               <TextInput
                 label='Ville'
                 name='ville'
-                placeholder='Exemple : Paris'/>
+                placeholder='Exemple : Paris'
+                required
+              />
             </div>
             <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.rappelFormCheckbox}/>
             <div className={styles.rappelFormButton}>
