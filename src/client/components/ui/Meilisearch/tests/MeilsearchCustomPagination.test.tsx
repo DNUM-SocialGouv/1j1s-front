@@ -344,7 +344,7 @@ describe('MeilisearchCustomPagination', () => {
       expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();
     });
   });
-  describe('quand nous avons 0 éléments', () => {
+  describe('quand nous avons 0 élément', () => {
     beforeEach(() => {
       // GIVEN
       createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
@@ -362,7 +362,7 @@ describe('MeilisearchCustomPagination', () => {
         }));
     });
 
-    it('affiche seulement 1 élément (le 1)', () => {
+    it('affiche seulement "1" dans la pagination (le 1)', () => {
       // WHEN
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
