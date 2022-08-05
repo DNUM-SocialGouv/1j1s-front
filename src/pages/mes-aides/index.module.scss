@@ -43,25 +43,32 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 0 16px;
+
+  @include media(large) {
+    padding: 0 24px;
+  }
 
   &Description {
     display: flex;
     flex-direction: row;
-    padding: 16px;
+    padding: 50px 0 24px 0;
 
     @include media(large) {
-      padding: 50px 80px 30px 24px;
+      padding: 50px 0 40px 0;
     }
 
     &BoldText {
-      font-size: 1.25rem;
       font-weight: 700;
-      color: #566BB1;
+      color: $color-primary;
     }
 
     &Text {
-      font-size: 1.25rem;
-      margin-left: 0.5rem;
+      font-size: 1rem;
+
+      @include media(large) {
+        font-size: 1.25rem;
+      }
     }
   }
 
@@ -84,16 +91,13 @@
 
   &Accordion {
     width: 100%;
+    border-top: 1px solid $color-separator;
+    border-bottom: 1px solid $color-separator;
     summary {
       background-color: $color-surface;
       padding-bottom: 1rem;
       max-width: 60rem;
       list-style-type: '+';
-    }
-
-    &Contour {
-      height: 0.05rem;
-      background-color: $color-separator;
     }
   }
 
