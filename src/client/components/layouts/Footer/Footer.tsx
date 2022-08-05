@@ -3,14 +3,13 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 
 export function Footer() {
   return (
     <>
-      <div className={styles.preFooter}>
+      <p className={styles.preFooter}>
         Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
-      </div>
+      </p>
       <footer id="footer" className={styles.footer} role="contentinfo">
         <Container>
           <div className={styles.footerHeader}>
@@ -35,25 +34,24 @@ export function Footer() {
                   professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
               </p>
               <div className={styles.footerLienExterne}>
-                <a href="/" target="_blank" rel="noreferrer">legifrance.gouv.fr <ExternalRedirectionIcon /></a>
-                <a href="/" target="_blank" rel="noreferrer">gouvernement.fr <ExternalRedirectionIcon /></a>
-                <a href="/" target="_blank" rel="noreferrer">service-public.fr <ExternalRedirectionIcon /></a>
-                <a href="/" target="_blank" rel="noreferrer">data.gouv.fr <ExternalRedirectionIcon /></a>
+                <a href="/" target="_blank" rel="noreferrer">legifrance.gouv.fr</a>
+                <a href="/" target="_blank" rel="noreferrer">gouvernement.fr</a>
+                <a href="/" target="_blank" rel="noreferrer">service-public.fr</a>
+                <a href="/" target="_blank" rel="noreferrer">data.gouv.fr</a>
               </div>
             </div>
           </div>
           <div className={styles.footerLienUtile}>
-            <a>Plan du site</a>
-            <a>Accessibilité</a>
-            <a>Mentions légales</a>
-            <a>Données personnelles</a>
+            <a href="#">Plan du site</a>
+            <a href="#">Accessibilité</a>
+            <a href="#">Mentions légales</a>
+            <a href="#">Données personnelles</a>
           </div>
-          <div className={styles.footerCopyRight}>
+          <p className={styles.footerCopyRight}>
             Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;
             <a href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
-              target="_blank" rel="noreferrer">etalab-2.0 <ExternalRedirectionIcon /></a>
-
-          </div>
+              target="_blank" rel="noreferrer">etalab-2.0</a>
+          </p>
         </Container>
       </footer>
     </>
