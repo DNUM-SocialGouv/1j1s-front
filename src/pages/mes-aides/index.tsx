@@ -35,8 +35,10 @@ export default function MesAidesPage() {
 
         <Container className={styles.mesAidesVidéo}>
           <div className={styles.mesAidesVidéoDescription}>
-            <p className={styles.mesAidesVidéoDescriptionBoldText}>Toutes vos aides sont maintenant à portée de clic !</p>
-            <p className={styles.mesAidesVidéoDescriptionText}>Découvrez comment faire en regardant la vidéo ci-dessous :</p>
+            <p>
+              <strong className={styles.mesAidesVidéoDescriptionBoldText}>Toutes vos aides sont maintenant à portée de clic !</strong>
+              <strong className={styles.mesAidesVidéoDescriptionText}>Découvrez comment faire en regardant la vidéo ci-dessous :</strong>
+            </p>
           </div>
           <div className={styles.mesAidesVidéoPlayer}>
             {!showVideo ?
