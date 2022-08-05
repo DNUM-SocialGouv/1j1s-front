@@ -7,6 +7,8 @@ import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-re
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
+type Formulaire = 'Démarrage' | 'PasDAccompagnement';
+
 export default function Allocations() {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const isMobile = isSmallScreen || isMediumScreen;
@@ -26,14 +28,14 @@ export default function Allocations() {
       {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
       <button className={styles.optionBouton}>Oui, je suis accompagné(e) par la Mission Locale</button>
       <button className={styles.optionBouton}>Oui, je suis accompagné(e) par Pôle Emploi</button>
-      <button className={styles.optionBouton} onClick={() => setFormulaireAffiché(formulairePasDAccompagnement)}>Non, je ne bénéficie d&apos;aucun
+      <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>Non, je ne bénéficie d&apos;aucun
         accompagnement
       </button>
     </div>
   </>;
 
   const formulairePasDAccompagnement = <>
-    <button className={styles.boutonRetour} onClick={() => setFormulaireAffiché(formulaireDémarrage)}>
+    <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Démarrage')}>
       <AngleLeftIcon className={styles.iconeRetour}/> Retour
     </button>
     <p className={styles.accompagnementQuestion}>Quel âge avez-vous ?</p>
@@ -45,7 +47,14 @@ export default function Allocations() {
     </div>
   </>;
 
-  const [formulaireAffiché, setFormulaireAffiché] = useState(formulaireDémarrage);
+  const [typeFormulaireAffiché, setTypeFormulaireAffiché] = useState<Formulaire>('Démarrage');
+
+  let monForm;
+  if (typeFormulaireAffiché === 'PasDAccompagnement') {
+    monForm = formulairePasDAccompagnement;
+  } else {
+    monForm = formulaireDémarrage;
+  }
 
   return (
     <section className={styles.accompagnement}>
@@ -56,7 +65,7 @@ export default function Allocations() {
         </div>
 
         <article className={styles.accompagnementArticle}>
-          {formulaireAffiché}
+          {monForm}
 
           <Modal isOpen={isPôleEmploiOpen} hide={() => setIsPôleEmploiOpen(false)} className={styles.accompagnementModal}>
             <ModalContent className={styles.accompagnementModalContent}>
