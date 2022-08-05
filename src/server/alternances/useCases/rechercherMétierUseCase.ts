@@ -4,6 +4,9 @@ export class RechercherMétierUseCase {
   constructor(private alternanceRepository: AlternanceRepository) {}
 
   async handle(métierRecherché: string) {
-    return await this.alternanceRepository.getMétierRecherchéList(métierRecherché);
+    const reponseMetierList = await this.alternanceRepository.getMétierRecherchéList(métierRecherché);
+    reponseMetierList.sort((a, b) => a.intitulé.toLowerCase().localeCompare(b.intitulé.toLowerCase()));
+
+    return reponseMetierList;
   }
 }
