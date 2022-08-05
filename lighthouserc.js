@@ -20,6 +20,11 @@ module.exports = {
         'https://1j1s-front.osc-fr1.scalingo.io/stages?offre-de-stage%5Bpage%5D=3',
       ],
     },
+    server: {
+      deleteOldBuildsCron: {
+        maxAgeInDays: 10,
+      },
+    },
     upload: {
       serverBaseUrl: 'https://1j1s-front-lighthouse-report.osc-fr1.scalingo.io',
       target: 'lhci',
