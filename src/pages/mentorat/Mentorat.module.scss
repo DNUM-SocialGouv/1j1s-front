@@ -97,10 +97,10 @@
         &__Title {
           display: flex;
           align-items: center;
+          color: $color-on-primary;
           p {
             @extend %text-regular;
             @extend %bold;
-            color: $color-on-primary;
             margin: inherit;
           }
           svg {

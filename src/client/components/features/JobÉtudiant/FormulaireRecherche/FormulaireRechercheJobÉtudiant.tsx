@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 
 import styles
-  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
@@ -67,17 +67,15 @@ export function FormulaireRechercheJobÉtudiant() {
             type={inputTypeLocalisation}
           />
 
-          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRecherche">
-            <Select
-              multiple
-              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
-              onChange={setInputDomaine}
-              label="Domaine"
-              value={inputDomaine}
-              name="grandDomaine"
-              closeOnSelect={false}
-            />
-          </div>
+          <Select
+            multiple
+            optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+            onChange={setInputDomaine}
+            label="Domaine"
+            value={inputDomaine}
+            name="grandDomaine"
+            closeOnSelect={false}
+          />
         </div>
       </div>
 

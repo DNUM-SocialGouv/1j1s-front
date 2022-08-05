@@ -1,24 +1,16 @@
 import '~/client/utils/string/string.util';
 
-import {
-  Modal,
-  ModalClose,
-  ModalContent,
-  ModalFooter,
-  ModalTitle,
-} from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles
-  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.css';
+  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
@@ -114,9 +106,8 @@ export function FormulaireRechercheOffreEmploi() {
             <div>
               <Button
                 buttonType="linkWithRightIcon"
-                icon={<FilterIcon />}
-                type='button'
-                onClick={() => setIsFiltresAvancésMobileOpen(true)}
+                icon={<Icon name="filter" />}
+                onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
               >
                 Filtrer ma recherche
               </Button>
@@ -125,19 +116,16 @@ export function FormulaireRechercheOffreEmploi() {
               <input type="hidden" name="experienceExigence" value={inputExpérience} />
               <input type="hidden" name="grandDomaine" value={inputDomaine} />
             </div>
-
           }
-
-          <Modal
-            isOpen={isFiltresAvancésMobileOpen}
-            hide={() => setIsFiltresAvancésMobileOpen(false)}
-            data-testid="FiltreRechercheMobile"
-          >
-            <ModalClose hide={() => setIsFiltresAvancésMobileOpen(false)} title="Fermer les filtres"/>
-            <ModalTitle className={styles.filtresAvancésModalTitle} icon="ri-menu-2-line">
-              Filtrer ma recherche
-            </ModalTitle>
-            <ModalContent className={styles.filtresAvancésModalContenu}>
+          <ModalComponent
+            close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
+            closeTitle="Fermer les filtres"
+            isOpen={isFiltresAvancésMobileOpen}>
+            <ModalComponent.Title>
+              <Icon name="menu" />
+              <span>Filtrer ma recherche</span>
+            </ModalComponent.Title>
+            <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
               <Accordion title="Type de contrat">
                 {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                   <Checkbox
@@ -184,22 +172,23 @@ export function FormulaireRechercheOffreEmploi() {
                   />
                 ))}
               </Accordion>
-            </ModalContent>
-            <ModalFooter className={styles.filtresAvancésModalFooter}>
-              <div onClick={applyFiltresAvancés}>
+            </ModalComponent.Content>
+            <ModalComponent.Footer>
+              <div className={styles.applyFiltersButton}>
                 <Button
+                  onClick={applyFiltresAvancés}
                   buttonType="withRightIcon"
-                  icon={<AngleRightIcon color="#FFF" />}
+                  icon={<Icon name="angle-right" />}
                 >
                   Appliquer les filtres
                 </Button>
               </div>
-            </ModalFooter>
-          </Modal>
+            </ModalComponent.Footer>
+          </ModalComponent>
         </div>
 
         {!isSmallScreen && (
-          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
+          <div className={styles.filtreRechercheDesktop}>
             <Select
               multiple
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
@@ -240,7 +229,7 @@ export function FormulaireRechercheOffreEmploi() {
       <div className={styles.buttonRechercher}>
         <Button
           buttonType="withRightIcon"
-          icon={<MagnifyingGlassIcon />}
+          icon={<Icon name="magnifying-glass" />}
           type="submit"
         >
           Rechercher

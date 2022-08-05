@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
@@ -64,13 +64,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const inputTypeDeContrat = within(filtreRechercheMobile).getByRole('checkbox', { name: 'Mission intérimaire' });
+        const modalComponant = screen.getByRole('dialog');
+        const inputTypeDeContrat = within(modalComponant).getByRole('checkbox', { name: 'Mission intérimaire' });
         fireEvent.click(inputTypeDeContrat);
 
-        expect(filtreRechercheMobile).toBeInTheDocument();
+        expect(modalComponant).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -97,13 +97,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const inputTempsDeTravail = within(filtreRechercheMobile).getByRole('radio', { name: 'Temps plein' });
+        const modalComponant = screen.getByRole('dialog');
+        const inputTempsDeTravail = within(modalComponant).getByRole('radio', { name: 'Temps plein' });
         fireEvent.click(inputTempsDeTravail);
 
-        expect(filtreRechercheMobile).toBeInTheDocument();
+        expect(modalComponant).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -130,13 +130,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const inputExperienceExigence = within(filtreRechercheMobile).getByRole('radio', { name: 'Moins de 1 an' });
+        const modalComponant = screen.getByRole('dialog');
+        const inputExperienceExigence = within(modalComponant).getByRole('radio', { name: 'Moins de 1 an' });
         fireEvent.click(inputExperienceExigence);
 
-        expect(filtreRechercheMobile).toBeInTheDocument();
+        expect(modalComponant).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -196,14 +196,14 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const filtreRechercheMobile = await screen.findByTestId('FiltreRechercheMobile');
-        const inputDomaine = within(filtreRechercheMobile).getByRole('checkbox', { name: 'Banque / Assurance' });
+        const modalComponant = screen.getByRole('dialog');
+        const inputDomaine = within(modalComponant).getByRole('checkbox', { name: 'Banque / Assurance' });
 
         fireEvent.click(inputDomaine);
 
-        expect(filtreRechercheMobile).toBeInTheDocument();
+        expect(modalComponant).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(filtreRechercheMobile).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -228,13 +228,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
           <FormulaireRechercheOffreEmploi />
         </DependenciesProvider>,
       );
-      
-      const filtreRechercheDesktop = await screen.findByTestId('FiltreRechercheDesktop');
 
-      // THEN
-      await waitFor(() => {
-        expect(filtreRechercheDesktop).toBeInTheDocument();
-      });
+      const button = screen.getByRole('button', { name: 'Domaine' });
+      expect(button).toBeInTheDocument();
     });
 
     describe('quand on filtre par type de contrat', () => {

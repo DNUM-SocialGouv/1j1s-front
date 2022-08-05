@@ -1,0 +1,73 @@
+@import "@styles/utilities";
+
+.modal {
+  position: fixed;
+  z-index: 5500;
+  width: 100%;
+  top: 0;
+  max-height: 100%;
+  max-width: 100%;
+  padding: 0;
+  border: none;
+  background-color: hsla(0,0%,9%,.375);
+  pointer-events: none;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.2s ease-in-out all;
+
+  &:not([open]) {
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s ease-in-out all;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    height: 2rem;
+  }
+
+  &Body {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    height: calc(100vh - 2rem);
+    overflow-y: scroll;
+    background-color: white;
+    pointer-events: all;
+  }
+
+  &Title {
+    margin-bottom: 0.5rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  &Content {
+    margin-bottom: 0.2rem;
+  }
+
+  &Footer {
+    background-color: white;
+    padding: 1rem;
+    bottom: 0;
+    position: sticky;
+  }
+
+  &Close {
+    text-align: right;
+    padding: 1rem 1rem 0.5rem;
+    &Label {
+      color: $color-primary;
+      font-size: 0.875rem;
+      margin-right: 0.2rem;
+    }
+    &Icon {
+      fill: $color-primary;
+      vertical-align: bottom;
+    }
+  }
+}

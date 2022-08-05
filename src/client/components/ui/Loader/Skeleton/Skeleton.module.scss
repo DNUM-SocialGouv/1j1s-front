@@ -6,7 +6,7 @@
 }
 
 .gradient {
-  animation: shine 2.5s infinite linear;
+  animation: shine 3.5s infinite linear;
   background-size: 50% !important;
   background: $color-skeleton linear-gradient(
     100deg,
@@ -43,7 +43,7 @@
     width: 100%;
     height: 100%;
     background-size: 50% !important;
-    animation: shine 2.5s infinite linear;
+    animation: shine 3.5s infinite linear;
     background: linear-gradient(
       100deg,
       transparent 25%,
@@ -122,4 +122,12 @@
   border-radius: 1em;
 }
 
+@media only screen and (min-width: 48em) {
+  .gradient {
+    animation: shine 2.5s infinite linear;
+  }
 
+  .card:before {
+    animation: shine 2.5s infinite linear;
+  }
+}
