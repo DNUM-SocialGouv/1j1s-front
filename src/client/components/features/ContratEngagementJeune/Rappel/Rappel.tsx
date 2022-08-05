@@ -46,6 +46,8 @@ export default function Rappel() {
                 name='mail'
                 placeholder='Exemple : jean.dupont@gmail.com'/>
               <TextInput
+                type="tel"
+                pattern="^(\+33|0|0033)[1-9]\d{8}$"
                 label='Téléphone'
                 name='phone'
                 placeholder='Exemple : 0606060606'/>
