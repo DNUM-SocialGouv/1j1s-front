@@ -188,7 +188,7 @@ export function FormulaireRechercheOffreEmploi() {
         </div>
 
         {!isSmallScreen && (
-          <div className={styles.filtreRechercheDesktop} data-testid="FiltreRechercheDesktop">
+          <div className={styles.filtreRechercheDesktop}>
             <Select
               multiple
               optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}

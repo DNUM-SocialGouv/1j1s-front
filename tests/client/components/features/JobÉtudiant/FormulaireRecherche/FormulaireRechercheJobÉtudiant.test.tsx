@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
@@ -96,12 +96,9 @@ describe('FormulaireRechercheJobÉtudiant', () => {
         </DependenciesProvider>,
       );
 
-      const filtreRecherche = await screen.findByTestId('FiltreRecherche');
+      const button = screen.getByRole('button', { name: 'Domaine' });
+      expect(button).toBeInTheDocument();
 
-      // THEN
-      await waitFor(() => {
-        expect(filtreRecherche).toBeInTheDocument();
-      });
     });
 
     describe('quand on filtre par domaine', () => {
