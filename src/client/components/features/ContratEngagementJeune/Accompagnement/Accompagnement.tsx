@@ -2,16 +2,27 @@ import { Modal, ModalContent } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
+import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
+import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-type Formulaire = 'Démarrage' | 'PasDAccompagnement';
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement';
 
-export default function Allocations() {
+export default function Accompagnement() {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const isMobile = isSmallScreen || isMediumScreen;
+  const [typeFormulaireAffiché, setTypeFormulaireAffiché] = useState<Formulaires>('Démarrage');
+
+  function getFormulaireÀAfficher(typeFormulaireAffiché: string) {
+    if (typeFormulaireAffiché === 'PasDAccompagnement') {
+      return <PasDAccompagnement onClick={setTypeFormulaireAffiché}/>;
+    }
+
+    return <Démarrage onClick={setTypeFormulaireAffiché}/>;
+  }
 
   const [isPôleEmploiOpen, setIsPôleEmploiOpen] = useState(false);
 
@@ -22,39 +33,7 @@ export default function Allocations() {
     contacter, répondez à ces quelques questions.
   </div>;
 
-  const formulaireDémarrage = <>
-    <p className={styles.accompagnementQuestion}>Bénéficiez-vous actuellement d&apos;un accompagnement ?</p>
-    <div>
-      {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
-      <button className={styles.optionBouton}>Oui, je suis accompagné(e) par la Mission Locale</button>
-      <button className={styles.optionBouton}>Oui, je suis accompagné(e) par Pôle Emploi</button>
-      <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>Non, je ne bénéficie d&apos;aucun
-        accompagnement
-      </button>
-    </div>
-  </>;
-
-  const formulairePasDAccompagnement = <>
-    <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Démarrage')}>
-      <AngleLeftIcon className={styles.iconeRetour}/> Retour
-    </button>
-    <p className={styles.accompagnementQuestion}>Quel âge avez-vous ?</p>
-    <div>
-      {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
-      <button className={styles.optionBouton}>Moins de 18 ans</button>
-      <button className={styles.optionBouton}>Entre 18 et 25 ans</button>
-      <button className={styles.optionBouton}>Plus de 26 ans</button>
-    </div>
-  </>;
-
-  const [typeFormulaireAffiché, setTypeFormulaireAffiché] = useState<Formulaire>('Démarrage');
-
-  let monForm;
-  if (typeFormulaireAffiché === 'PasDAccompagnement') {
-    monForm = formulairePasDAccompagnement;
-  } else {
-    monForm = formulaireDémarrage;
-  }
+  const formulaire = getFormulaireÀAfficher(typeFormulaireAffiché);
 
   return (
     <section className={styles.accompagnement}>
@@ -65,7 +44,7 @@ export default function Allocations() {
         </div>
 
         <article className={styles.accompagnementArticle}>
-          {monForm}
+          {formulaire}
 
           <Modal isOpen={isPôleEmploiOpen} hide={() => setIsPôleEmploiOpen(false)} className={styles.accompagnementModal}>
             <ModalContent className={styles.accompagnementModalContent}>
