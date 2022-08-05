@@ -1,24 +1,15 @@
 import LinkNext from 'next/link';
-import React, {
-  useEffect,
-  useMemo,
-} from 'react';
+import React from 'react';
+
+import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 
 interface LinkProps extends React.AnchorHTMLAttributes<unknown> {
   link: string
-  getLinkType: (value: boolean) => void
 }
 
-export function Link({ children, link, getLinkType, ...rest }: React.PropsWithChildren<LinkProps>) {
-  const INTERNAL_URL_PREFIX = '/';
-  const isInternalLink = useMemo(function () {
-    return link.startsWith(INTERNAL_URL_PREFIX);
-  }, [link]);
-
-  useEffect(() => {
-    getLinkType(isInternalLink);
-  }, [getLinkType, isInternalLink]);
+export function Link({ children, link, ...rest }: React.PropsWithChildren<LinkProps>) {
+  const isInternalLink = useIsInternalLink(link);
 
   return (
     <>
