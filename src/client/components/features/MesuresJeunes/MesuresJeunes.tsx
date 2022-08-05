@@ -7,22 +7,20 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useSanitize from '~/client/hooks/useSanitize';
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/mesuresJeunes/domain/mesuresJeunes';
+import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 
 interface MesuresJeunesProps {
   mesuresJeunes : MesuresJeunes
 }
 
-
-
 export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
-  const { vieProfessionnelle, accompagnement, aidesFinancieres, orienterFormer } = mesuresJeunes;
+  const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
 
   const createMarkup = (markup: string) => ({ __html: markup });
 
   function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
     const titre = useSanitize(carte.titre);
-    const bannière = carte.bannière.url;
+    const bannière = carte.bannière?.url || '';
     const url = useSanitize(carte.url);
     const contenu = useSanitize(carte.contenu);
 
@@ -97,7 +95,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
           <h2 id="engagement-benevolat" className={styles.sectionHeader}>
             Aides financières
           </h2>
-          {displaySectionCartes(aidesFinancieres)}
+          {displaySectionCartes(aidesFinancières)}
         </section>
       </main>
     </>

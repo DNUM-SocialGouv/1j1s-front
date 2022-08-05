@@ -2,44 +2,21 @@ export namespace Strapi {
 
   export interface CollectionType<T> {
     data: Data<T>[]
-    meta: Meta
   }
 
   export interface SingleType<T> {
     data: Data<T>
-    meta: Meta
   }
 
   export interface Data<T> {
-    id: number
     attributes: T
-  }
-
-  export interface Meta {
-    pagination: Pagination
-  }
-
-  export interface Pagination {
-    page: number
-    pageSize: number
-    pageCount: number
-    total: number
-  }
-
-  export interface ContentTypeAttributes {
-    createdAt: string
-    updatedAt: string
-  }
-
-  export interface PublicationContentTypeAttributes extends ContentTypeAttributes {
-    publishedAt: string
   }
 
   export interface Image {
     data: Data<ImageAttributes>
   }
 
-  export interface ImageAttributes extends ContentTypeAttributes {
+  export interface ImageAttributes {
     name: string,
     alternativeText?: string,
     caption?: string,

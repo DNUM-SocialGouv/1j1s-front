@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-import { Article, ArticleSlug } from '~/server/articles/domain/article';
+import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -33,7 +33,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
   }
 
   const { id } = context.params;
-  const response = await dependencies.articleDependencies.consulterArticle.handle(id);
+  const response = await dependencies.cmsDependencies.consulterArticle.handle(id);
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };

@@ -4,10 +4,7 @@ import {
   AlternanceDependencies,
   alternanceDependenciesContainer,
 } from '~/server/alternances/configuration/alternanceDependencies';
-import {
-  ArticleDependencies,
-  articleDependenciesContainer,
-} from '~/server/articles/configuration/articleDependencies.container';
+import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import {
   EngagementDependencies,
   engagementDependenciesContainer,
@@ -17,10 +14,6 @@ import {
   LocalisationsDependencies,
 } from '~/server/localisations/configuration/localisations.dependencies';
 import {
-  MesuresJeunesDependencies,
-  mesuresJeunesDependenciesContainer,
-} from '~/server/mesuresJeunes/configuration/mesuresJeunesDependencies.container';
-import {
   OffresEmploiDependencies,
   offresEmploiDependenciesContainer,
 } from '~/server/offresEmploi/configuration/offresEmploi.dependencies';
@@ -29,7 +22,6 @@ import {
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
-import { StrapiCmsService } from '~/server/services/cms/infra/repositories/strapiCms.service';
 import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
 import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
 import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
@@ -39,11 +31,9 @@ import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
 export type Dependencies = {
-  articleDependencies: ArticleDependencies;
-  mesuresJeunesDependencies: MesuresJeunesDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   alternanceDependencies: AlternanceDependencies;
-  cmsDependencies: StrapiCmsService;
+  cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationsDependencies;
 };
@@ -64,8 +54,7 @@ export const dependenciesContainer = (): Dependencies => {
   const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiHttpClientService, cacheService);
   const apiEngagementHttpClientService = new EngagementHttpClientService(serverConfigurationService);
 
-  const articleDependencies = articleDependenciesContainer(strapiHttpClientService);
-  const mesuresJeunesDependencies = mesuresJeunesDependenciesContainer(strapiHttpClientService);
+  const cmsDependencies = cmsDependenciesContainer(strapiHttpClientService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
   const engagementDependencies = engagementDependenciesContainer(apiEngagementHttpClientService);
@@ -76,14 +65,9 @@ export const dependenciesContainer = (): Dependencies => {
 
   return {
     alternanceDependencies,
-    articleDependencies,
-    cmsDependencies: new StrapiCmsService(
-      strapiHttpClientService,
-      serverConfigurationService,
-    ),
+    cmsDependencies,
     engagementDependencies,
     localisationDependencies,
-    mesuresJeunesDependencies,
     offreEmploiDependencies,
   };
 };

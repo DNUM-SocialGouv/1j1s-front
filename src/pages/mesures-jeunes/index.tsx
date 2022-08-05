@@ -1,7 +1,7 @@
 import { GetStaticPropsResult } from 'next';
 
 import { MesuresJeunesComponent } from '~/client/components/features/MesuresJeunes/MesuresJeunes';
-import { MesuresJeunes } from '~/server/mesuresJeunes/domain/mesuresJeunes';
+import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import { dependencies } from '~/server/start';
 
 
@@ -16,7 +16,7 @@ export default function MesuresJeunesPage({ mesuresJeunes }: MesuresJeunesPagePr
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresJeunesPageProps>> {
-  const response = await dependencies.mesuresJeunesDependencies.récupérerMesuresJeunes.handle();
+  const response = await dependencies.cmsDependencies.récupérerMesuresJeunes.handle();
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };

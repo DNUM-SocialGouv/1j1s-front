@@ -1,10 +1,16 @@
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/mesuresJeunes/domain/mesuresJeunes';
-import { MesuresJeunesContentType } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.response';
+import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
+import {
+  MesuresJeunesAttributesResponse,
+  StrapiSingleTypeResponse,
+} from '~/server/cms/infra/repositories/strapi.response';
 import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export function aCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
   return {
-    bannière: aStrapiImage(),
+    bannière: {
+      alt: 'text',
+      url: 'https://animage.jpg',
+    },
     contenu: '<p>Un beau contenu de carte</p>\n',
     titre: 'Un titre de carte',
     url: 'Une belle url de carte',
@@ -14,7 +20,10 @@ export function aCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): Car
 
 export function aDeuxièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
   return {
-    bannière: aStrapiImage(),
+    bannière: {
+      alt: 'text',
+      url: 'https://animage.jpg',
+    },
     contenu: '<p>Un deuxième beau contenu de carte</p>\n',
     titre: 'Un deuxième titre de carte',
     url: 'Une deuxième belle url de carte',
@@ -29,7 +38,7 @@ export function aCartesMesuresJeunesList(): CarteMesuresJeunes[] {
 export function aMesuresJeunes(): MesuresJeunes {
   return {
     accompagnement: aCartesMesuresJeunesList(),
-    aidesFinancieres:  aCartesMesuresJeunesList(),
+    aidesFinancières:  aCartesMesuresJeunesList(),
     orienterFormer:  aCartesMesuresJeunesList(),
     vieProfessionnelle:  aCartesMesuresJeunesList(),
   };
@@ -37,7 +46,7 @@ export function aMesuresJeunes(): MesuresJeunes {
 
 function aStrapiImage(): Strapi.ImageAttributes {
   return {
-    createdAt: '', ext: '', hash: '', height: 0, mime: '', name: '', size: 0, updatedAt: '', url: 'https://animage.jpg', width: 0,
+    alternativeText: 'text', createdAt: '', ext: '', hash: '', height: 0, mime: '', name: '', size: 0, updatedAt: '', url: 'https://animage.jpg', width: 0,
   };
 }
 
@@ -45,11 +54,11 @@ function aStrapiResponseImage(): Strapi.Image {
   return {
     data: {
       attributes: aStrapiImage(),
-      id: 0 },
+    },
   };
 }
 
-export function aMesuresJeunesResponse(override?: Partial<MesuresJeunesContentType>): MesuresJeunesContentType {
+export function aMesuresJeunesResponse(override?: Partial<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>>): StrapiSingleTypeResponse<MesuresJeunesAttributesResponse> {
   return {
     data: {
       attributes: {
@@ -81,7 +90,6 @@ export function aMesuresJeunesResponse(override?: Partial<MesuresJeunesContentTy
             url: 'Une deuxième belle url de carte',
           },
         ],
-        createdAt: '2022-06-02T15:49:22.086Z',
         orienterFormer: [
           {
             banniere: aStrapiResponseImage(),
@@ -96,8 +104,6 @@ export function aMesuresJeunesResponse(override?: Partial<MesuresJeunesContentTy
             url: 'Une deuxième belle url de carte',
           },
         ],
-        publishedAt: '2022-06-02T15:49:50.642Z',
-        updatedAt: '2022-06-02T15:49:50.645Z',
         vieProfessionnelle: [
           {
             banniere: aStrapiResponseImage(),
@@ -112,15 +118,6 @@ export function aMesuresJeunesResponse(override?: Partial<MesuresJeunesContentTy
             url: 'Une deuxième belle url de carte',
           },
         ],
-      },
-      id: 0,
-    },
-    meta: {
-      pagination: {
-        page: 1,
-        pageCount: 1,
-        pageSize: 25,
-        total: 1,
       },
     },
     ...override,

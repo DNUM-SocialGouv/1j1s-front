@@ -1,0 +1,48 @@
+import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
+
+export interface StrapiSingleTypeResponse<T> {
+    data: DataResponse<T>
+}
+
+export interface StrapiCollectionTypeResponse<T> {
+    data: DataResponse<T>[]
+}
+
+interface DataResponse<T> {
+    attributes: T
+}
+
+export interface StrapiImage {
+    data: DataResponse<StrapiImageAttributes>
+}
+
+export interface StrapiImageAttributes {
+    alternativeText?: string,
+    url: string,
+}
+
+export interface ArticleSimpleAttributesResponse {
+    titre: string
+    contenu: string
+}
+
+export interface ArticleAttributesResponse {
+    titre: string
+    banniere?: StrapiImage
+    slug: string
+    contenu?: string
+}
+
+export interface MesuresJeunesAttributesResponse {
+    vieProfessionnelle: CarteMesuresJeunesResponse[]
+    orienterFormer: CarteMesuresJeunesResponse[]
+    accompagnement: CarteMesuresJeunesResponse[]
+    aidesFinancieres: CarteMesuresJeunesResponse[]
+}
+
+export interface CarteMesuresJeunesResponse {
+    titre: string
+    contenu: string
+    url: string
+    banniere: Strapi.Image
+}
