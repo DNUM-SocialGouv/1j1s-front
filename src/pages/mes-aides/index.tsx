@@ -55,7 +55,7 @@ export default function MesAidesPage() {
               ) :
               (
                 <iframe src="https://www.youtube.com/embed/Eznp8f-2li4?autoplay=1&mute=0"
-                  title="YouTube video player"
+                  title="Vous avez 5 minutes ? Trouvez vos aides en quelques clics avec #1jeune1solution"
                   allowFullScreen
                   allow="autoplay"
                   frameBorder="0"
