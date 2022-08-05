@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Input/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
@@ -184,7 +185,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
   return (
     <div className={styles.wrapper}>
       <label htmlFor="rechercherMétier" id={label}>
-        Secteur, domaine, mot-clé {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
+        Métier, mot-clé {errorMessageActive ? <span data-testid="RequiredFieldErrorMessage" className={styles.instructionMessageError}>(champ obligatoire)</span>: <span className={styles.instructionMessage}>(champ obligatoire)</span>}
       </label>
       <div ref={autocompleteRef}>
         <div
@@ -203,7 +204,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
             aria-autocomplete="list"
             aria-controls={listbox}
             aria-activedescendant="rechercherMétier"
-            placeholder={'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
+            placeholder={'Exemple: informatique, boulanger...'}
             className={classNames(styles.formControlInput, errorMessageActive && styles.formControlInputError)}
             value={libelléMétier}
             onClick={handleClickResetErrorMessageDisplay}
@@ -214,6 +215,10 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
             onKeyDown={handleKeyDown}
             autoComplete="off"
           />
+          <span className={styles.instructionMessage}>
+            <Icon name="information"/>
+            Commencez à taper votre mot puis sélectionnez un métier
+          </span>
           <input type="hidden" value={codeRomesMétier} name="codeRomes"/>
         </div>
         {suggestionsActive && <Suggestions />}
