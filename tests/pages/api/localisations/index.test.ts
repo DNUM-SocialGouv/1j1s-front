@@ -51,16 +51,18 @@ describe('rechercher une localisation', () => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
         expect(json).toEqual({
-          communeList: [{
-            code: '93005',
-            libelle: '20 Avenue Jules Jouy Aulnay-sous-Bois (93600)',
-            nom: 'Aulnay-sous-Bois',
-          },
-          {
-            code: '28201',
-            libelle: '20 Avenue de la Gare Jouy (28300)',
-            nom: 'Jouy',
-          }],
+          communeList: [
+            {
+              code: '28201',
+              libelle: '20 Avenue de la Gare Jouy (28300)',
+              nom: 'Jouy',
+            },
+            {
+              code: '93005',
+              libelle: '20 Avenue Jules Jouy Aulnay-sous-Bois (93600)',
+              nom: 'Aulnay-sous-Bois',
+            },
+          ],
           départementList: [{
             code: '68',
             libelle: 'Haut-Rhin (68)',
