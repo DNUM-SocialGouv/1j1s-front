@@ -8,7 +8,12 @@ import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glas
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 
 type IconName =
-  'close' | 'magnifying-glass' | 'filter' | 'arrow-right' | 'angle-right' | 'menu'
+  'close'
+  | 'magnifying-glass'
+  | 'filter'
+  | 'arrow-right'
+  | 'angle-right'
+  | 'menu'
 
 interface IconProps {
   name: IconName

@@ -120,7 +120,7 @@ export function FormulaireRechercheOffreEmploi() {
           <ModalComponent
             close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
             closeTitle="Fermer les filtres"
-            isOpen={isFiltresAvancésMobileOpen} data-testid="FiltreRechercheMobile">
+            isOpen={isFiltresAvancésMobileOpen}>
             <ModalComponent.Title>
               <Icon name="menu" />
               <span>Filtrer ma recherche</span>
