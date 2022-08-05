@@ -4,10 +4,9 @@ import React, {
 } from 'react';
 
 import styles from '~/client/components/ui/Card/LinkCard.module.scss';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
-
-import { Icon } from '../Icon/Icon';
 
 interface LinkCardProps {
 	imageUrl: string
