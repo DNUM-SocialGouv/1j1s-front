@@ -4,7 +4,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -83,7 +83,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
       <div className={styles.rechercherMissionEngagementButton}>
         <Button
           buttonType="withRightIcon"
-          icon={<MagnifyingGlassIcon />}
+          icon={<Icon name="magnifying-glass" />}
           type="submit"
         >
           Rechercher

@@ -6,7 +6,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'reac
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
@@ -82,7 +82,7 @@ export function FormulaireRechercheJobÉtudiant() {
       <div className={styles.buttonRechercher}>
         <Button
           buttonType="withRightIcon"
-          icon={<MagnifyingGlassIcon />}
+          icon={<Icon name="magnifying-glass" />}
           type="submit"
         >
           Rechercher

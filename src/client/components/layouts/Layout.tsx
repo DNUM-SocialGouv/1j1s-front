@@ -9,9 +9,7 @@ export function Layout({ children }: React.PropsWithChildren) {
     <>
       <SkipLink/>
       <Header/>
-      <main id="contenu">
-        {children}
-      </main>
+      {children}
       <Footer/>
     </>
   );

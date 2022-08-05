@@ -3,7 +3,7 @@ import bannièreImage from 'public/images/banners/CEJ_bannière.jpg';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière.module.scss';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
@@ -18,7 +18,7 @@ export default function Bannière () {
         <span className={styles.bannièreTitle}>
           <h1 className={ styles.titre } >{ titre }</h1>
           { !isLargeScreen && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
-          <a href="#" className={ styles.cta }>Je me lance &nbsp;<AngleRightIcon /></a>
+          <a href="#" className={ styles.cta }>Je me lance &nbsp;<Icon name="angle-right" /></a>
         </span>
       </div>
       {isLargeScreen && (
