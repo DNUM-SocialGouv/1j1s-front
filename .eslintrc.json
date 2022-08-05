@@ -15,7 +15,7 @@
     "indent": [2, 2, { "SwitchCase": 1 }],
     "semi": "error",
     "comma-dangle": ["error", "always-multiline"],
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "object-curly-spacing": ["error", "always"],
     "arrow-parens": "error",
     "eol-last": "error",
