@@ -241,7 +241,6 @@ export const InputCommune = (props: InputCommuneProps) => {
         optionList={radiusList}
         onChange={setDistanceCommune}
         value={distanceCommune}
-        closeOnSelect={false}
       />
       }
     </>
