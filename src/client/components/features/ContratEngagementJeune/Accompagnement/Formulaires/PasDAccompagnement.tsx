@@ -1,20 +1,16 @@
 import React from 'react';
 
-import { Formulaires } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
+import { FormulairesProps } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-interface PasDAccompagnementProps {
-  onClick: (formulaire: Formulaires) => void
-}
-
-export default function PasDAccompagnement({ onClick }: PasDAccompagnementProps) {
+export default function PasDAccompagnement({ setTypeFormulaireAffiché }: FormulairesProps) {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const isMobile = isSmallScreen || isMediumScreen;
 
   return <>
-    <button className={styles.boutonRetour} onClick={() => onClick('Démarrage')}>
+    <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Démarrage')}>
       <AngleLeftIcon className={styles.iconeRetour}/> Retour
     </button>
     <p className={styles.accompagnementQuestion}>Quel âge avez-vous ?</p>
