@@ -4,10 +4,10 @@ import React, {
 } from 'react';
 
 import styles from '~/client/components/ui/Card/LinkCard.module.scss';
-import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
+
+import { Icon } from '../Icon/Icon';
 
 interface LinkCardProps {
 	imageUrl: string
@@ -20,7 +20,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.P
   const isInternalLink = useIsInternalLink(link);
 
   const icon = useMemo(function() {
-    return isInternalLink ? <ArrowRightIcon /> : <ExternalRedirectionIcon />;
+    return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
   }, [isInternalLink]);
 
 

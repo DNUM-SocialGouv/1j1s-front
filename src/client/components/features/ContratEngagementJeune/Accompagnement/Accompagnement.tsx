@@ -2,7 +2,7 @@ import { Modal, ModalContent } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -43,7 +43,7 @@ export default function Allocations() {
 
               <LinkAsButton href={lienPôleEmploi} className={styles.accompagnementModalContentLink}>
                 Je contacte mon conseiller
-                <ExternalRedirectionIcon/>
+                <Icon name="external-redirection"/>
               </LinkAsButton>
             </ModalContent>
           </Modal>
