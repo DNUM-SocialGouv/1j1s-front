@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import React, {
   useMemo,
-  useState,
 } from 'react';
 
 import styles from '~/client/components/ui/Card/LinkCard.module.scss';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface LinkCardProps {
 	imageUrl: string
@@ -17,7 +17,7 @@ interface LinkCardProps {
 }
 
 export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.PropsWithChildren<LinkCardProps>)  {
-  const [isInternalLink, getIsInternalLink] = useState<boolean>(true);
+  const isInternalLink = useIsInternalLink(link);
 
   const icon = useMemo(function() {
     return isInternalLink ? <ArrowRightIcon /> : <ExternalRedirectionIcon />;
@@ -25,7 +25,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.P
 
 
   return (
-    <Link link={link} className={styles.card} getLinkType={getIsInternalLink}>
+    <Link link={link} className={styles.card}>
       <article className={styles.cardArticle}>
         <div className={styles.cardImageWrapper}>
           <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
