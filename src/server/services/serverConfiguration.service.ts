@@ -9,7 +9,6 @@ export class ServerConfigurationService implements ConfigurationService {
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
       API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
-      FRONT_URL: ServerConfigurationService.getOrThrowError('FRONT_URL'),
       POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
       POLE_EMPLOI_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_SECRET'),
       POLE_EMPLOI_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_SCOPE'),
@@ -60,5 +59,4 @@ export interface EnvironmentVariables {
   readonly STRAPI_BASE_URL: string;
   readonly API_GEO_BASE_URL: string;
   readonly API_ADRESSE_BASE_URL: string;
-  readonly FRONT_URL: string;
 }
