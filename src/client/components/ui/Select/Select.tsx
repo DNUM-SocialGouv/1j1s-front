@@ -16,7 +16,7 @@ interface SelectProps {
   name?: string
   multiple?: boolean
   onChange?: (value: string) => void;
-  closeOnSelect: boolean
+  closeOnSelect?: boolean
 }
 
 export interface Option {
