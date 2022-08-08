@@ -5,15 +5,17 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require('@sentry/nextjs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { URL } = require('url');
 
-function getHostName(string) {
-  return string.replace('https://', '');
+function getHostName(uri) {
+  return new URL(uri).hostname;
 }
 
-const CMS_HOST = getHostName(process.env.STRAPI_BASE_URL);
+const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
-const BUCKET_S3_URL = getHostName(process.env.BUCKET_S3_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
+const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
 
 const moduleExports = {
   compress: true,
