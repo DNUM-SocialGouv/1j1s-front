@@ -16,13 +16,13 @@ describe('Link', () => {
     it('retourne le composant Link avec un *tag a* directement et les propriétés target et rel', () => {
       const lienExterne = 'https://mon-lien-externe';
       render(
-        <Link link={lienExterne} />,
+        <Link href={lienExterne} />,
       );
 
       const linkComponent = screen.getByRole('link');
 
-      expect(linkComponent).toHaveAttribute('target', '_blank');
-      expect(linkComponent).toHaveAttribute('rel', 'noreferrer');
+      expect(linkComponent).toHaveAttribute('target');
+      expect(linkComponent).toHaveAttribute('rel');
     });
   });
 
@@ -30,7 +30,7 @@ describe('Link', () => {
     it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
       const lienInterne = '/emplois';
       render(
-        <Link link={lienInterne} />,
+        <Link href={lienInterne} />,
       );
 
       const linkComponent = screen.getByRole('link');
@@ -39,5 +39,4 @@ describe('Link', () => {
       expect(linkComponent).not.toHaveAttribute('rel');
     });
   });
-  
 });
