@@ -79,7 +79,7 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
   const error = isTouched && !selectedValue ? 'Veuillez selectionner un choix' : undefined;
 
   return (
-    <div>
+    <div className={styles.selectWrapper}>
       <label className={styles.selectLabel} id={labelledBy.current}>
         {label}
       </label>
