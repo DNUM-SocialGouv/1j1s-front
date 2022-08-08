@@ -9,9 +9,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "check": "tsc --noEmit",
     "start": "next start",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint --fix .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "test": "jest",
     "release": "standard-version",
     "prepare": "husky install"
