@@ -1,11 +1,11 @@
 export namespace Strapi {
 
-  export interface PublicationContentType<T> {
+  export interface CollectionType<T> {
     data: Data<T>[]
     meta: Meta
   }
 
-  export interface PublicationContentSingleType<T> {
+  export interface SingleType<T> {
     data: Data<T>
     meta: Meta
   }
