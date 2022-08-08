@@ -41,6 +41,10 @@
     padding: 6px 6px 6px 12px;
     border: 1.5px solid $color-primary;
     border-radius: 20px;
+
+    &[aria-invalid=true] {
+       border: solid 2px $color-error;
+    }
 }
 
 .selectedLabel {
@@ -50,4 +54,10 @@
 .selectLabel {
     display:block;
     margin-bottom: 0.5rem;
+}
+
+.inputError {
+  --text-spacing: 0;
+  @extend %text-small;
+  color: $color-error;
 }

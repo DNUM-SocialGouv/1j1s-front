@@ -64,6 +64,67 @@ describe('Select', () => {
       const hiddenInput = await screen.findByTestId('Select-InputHidden');
       expect(hiddenInput).toHaveValue('tempsPlein');
     });
+
+    describe('Quand le champ est requis', () => {
+      it("n'est pas invalide tant que l'on ne l'a pas touché", () => {
+        // Given
+        render(
+          <Select 
+            name="monselect"
+            required={ true }
+            optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+            label="Mon Select"
+          />,
+        );
+        // When
+        // Then
+        expect(screen.getByLabelText('Mon Select')).not.toBeInvalid();
+      });
+      describe("Quand on ouvre la liste d'option mais qu'on perd le focus", () => {
+        it('est invalide', async () => {
+          // Given
+          render(
+            <>
+              <button>escape</button>
+              <Select 
+                name="monselect"
+                required={ true }
+                optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+                label="Mon Select"
+              />
+            </>
+            ,
+          );
+          // When
+          await userEvent.click(screen.getByLabelText('Mon Select'));
+          await userEvent.click(screen.getByText('escape'));
+
+          // Then
+          expect(screen.getByLabelText('Mon Select')).toBeInvalid();
+        });
+        it("a un message d'erreur", async () => {
+          // Given
+          render(
+            <>
+              <button>escape</button>
+              <Select 
+                name="monselect"
+                required={ true }
+                optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+                label="Mon Select"
+              />
+            </>
+            ,
+          );
+          // When
+          await userEvent.click(screen.getByLabelText('Mon Select'));
+          await userEvent.click(screen.getByText('escape'));
+
+          // Then
+          expect(screen.getByLabelText('Mon Select')).toHaveErrorMessage('Veuillez selectionner un choix');
+        });
+      });
+    });
   });
 
   describe('Select Multiple', () => {

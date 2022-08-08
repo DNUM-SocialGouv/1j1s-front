@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel';
- 
+
 describe('<Rappel />', () => {
   it("le composant s'affiche correctement", () => {
     // Given
