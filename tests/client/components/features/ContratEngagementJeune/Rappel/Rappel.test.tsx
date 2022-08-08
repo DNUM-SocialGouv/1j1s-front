@@ -35,11 +35,21 @@ describe('<Rappel />', () => {
     it('a un champ Nom obligatoire', async () => {
       // Given
       render(<Rappel />);
-      // When
       await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
+      // When
       await userEvent.type(screen.getByLabelText('Nom'), 's{backspace}');
       // Then
       expect(screen.getByLabelText('Nom')).toBeInvalid();
+    });
+    it('a un champ Age obligatoire', async () => {
+      // Given
+      render(<Rappel />);
+      await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
+      // When
+      await userEvent.click(screen.getByLabelText('Age'));
+      await userEvent.click(screen.getByLabelText('Nom'));
+      // Then
+      expect(screen.getByLabelText('Age')).toBeInvalid();
     });
   });
 });

@@ -92,6 +92,7 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
         <button
           type="button"
           aria-haspopup="listbox"
+          aria-invalid='true'
           aria-expanded={isOptionsOpen}
           aria-labelledby={labelledBy.current}
           className={styles.button}
