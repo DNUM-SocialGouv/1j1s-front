@@ -1,0 +1,39 @@
+@import "@styles/utilities";
+
+.rechercheAlternanceForm {
+    @include media(medium){
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 30px;
+    }
+    &> *:not(:last-child) {
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+}
+
+.buttonRechercher {
+    display: flex;
+    flex: 1;
+    @include media(medium){
+        flex: 0;
+        margin-top: 32px;
+        display: block;
+    }
+}
+
+.inputButtonWrapper {
+    @include media(medium){
+        display: flex;
+        width: 100%;
+        align-items: flex-start;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        & > div {
+            flex-grow: 1;
+        }
+    }
+}

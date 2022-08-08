@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import styles
-  from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.css';
+  from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
@@ -66,29 +66,27 @@ export function FormulaireRechercheAlternance() {
       role="form"
       ref={rechercheAlternanceForm}
     >
-      <div className={styles.inputButtonWrapper}>
-        <InputMétierRecherché
-          libellé={inputIntituléMétier}
-          code={inputCodeRome.length ? inputCodeRome.split(',') : []}
-          handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
-          resetHandleErrorMessageActive={resetHandleErrorMessageActive}
-        />
-        <InputCommune
-          code={inputCodeCommune}
-          libellé={inputLibelleCommune}
-          latitude={inputLatitudeCommune}
-          longitude={inputLongitudeCommune}
-          distance={inputDistanceCommune}
-        />
-        <div className={styles.buttonRechercher}>
-          <Button
-            buttonType="withRightIcon"
-            icon={<Icon name="magnifying-glass" />}
-            type="submit"
-          >
+      <InputMétierRecherché
+        libellé={inputIntituléMétier}
+        code={inputCodeRome.length ? inputCodeRome.split(',') : []}
+        handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
+        resetHandleErrorMessageActive={resetHandleErrorMessageActive}
+      />
+      <InputCommune
+        code={inputCodeCommune}
+        libellé={inputLibelleCommune}
+        latitude={inputLatitudeCommune}
+        longitude={inputLongitudeCommune}
+        distance={inputDistanceCommune}
+      />
+      <div className={styles.buttonRechercher}>
+        <Button
+          buttonType="withRightIcon"
+          icon={<Icon name="magnifying-glass" />}
+          type="submit"
+        >
             Rechercher
-          </Button>
-        </div>
+        </Button>
       </div>
     </form>
   );
