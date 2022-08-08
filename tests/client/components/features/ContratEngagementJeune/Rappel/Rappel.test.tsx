@@ -39,7 +39,7 @@ describe('<Rappel />', () => {
       await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
       await userEvent.type(screen.getByLabelText('Nom'), 's{backspace}');
       // Then
-      expect(screen.getByLabelText('Nom')).toHaveErrorMessage('Constraints not satisfied');
+      expect(screen.getByLabelText('Nom')).toBeInvalid();
     });
   });
 });
