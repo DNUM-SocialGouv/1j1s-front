@@ -15,7 +15,7 @@ export function Hero({ children, image, className, ...rest }: React.PropsWithChi
   const { isLargeScreen } = useBreakpoint();
 
   return (
-    <div className={className ? classNames(className, styles.hero) : styles.hero} {...rest}>
+    <div className={className ? classNames(className) : styles.hero} {...rest}>
       <Container className={styles.heroContent}>
         <h1 className={styles.heroTitle}>
           {children}

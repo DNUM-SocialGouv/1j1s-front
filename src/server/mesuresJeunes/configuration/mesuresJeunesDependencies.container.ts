@@ -1,15 +1,10 @@
 import {
-  RécupérerMesuresJeunesDependenciesContainer,
-} from '~/server/mesuresJeunes/infra/configuration/récupérerMesuresJeunesDependencies.container';
-import {
   ApiStrapiMesuresJeunesRepository,
 } from '~/server/mesuresJeunes/infra/repositories/apiStrapiMesuresJeunes.repository';
 import { RécupérerMesuresJeunesUseCase } from '~/server/mesuresJeunes/useCases/récupérerMesuresJeunesUseCase';
 import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
 
-export type MesuresJeunesDependencies = RécupérerMesuresJeunesDependenciesContainer
-
-export const mesuresJeunesDependenciesContainer = (strapiHttpClientService: StrapiHttpClientService): MesuresJeunesDependencies => {
+export const mesuresJeunesDependenciesContainer = (strapiHttpClientService: StrapiHttpClientService) => {
   const mesuresJeunesRepository = new ApiStrapiMesuresJeunesRepository(strapiHttpClientService);
 
   return {
