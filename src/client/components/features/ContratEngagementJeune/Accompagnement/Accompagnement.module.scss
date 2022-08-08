@@ -24,7 +24,7 @@
       @extend %text-regular;
     }
 
-    button {
+    .optionBouton {
       @extend %text-regular;
       padding: 12px;
       text-align: start;
@@ -33,6 +33,22 @@
       border: 1px solid $color-primary;
       margin-top: 20px;
       width: 100%;
+    }
+
+    .boutonRetour {
+      @extend %text-regular;
+      border: none;
+      color: $color-primary;
+      padding: 5px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      align-items: center;
+
+      .iconeRetour {
+        color: $color-primary;
+      }
     }
   }
 
@@ -95,7 +111,7 @@
         margin-bottom: 0;
       }
 
-      button {
+      .optionBouton {
         padding: 20px;
         min-width: 460px;
         line-height: 2.5rem;
