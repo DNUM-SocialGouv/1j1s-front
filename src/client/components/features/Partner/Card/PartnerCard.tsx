@@ -28,7 +28,7 @@ export function PartnerCard(props: PartnerCardProps) {
   }, [isInternalLink]);
 
   return (
-    <Link link={link} className={styles.card}>
+    <Link href={link} className={styles.card}>
       <>
         <div className={styles.cardLogo}>
           <Image alt={alt} src={logo} width='100%' height='100%'/>

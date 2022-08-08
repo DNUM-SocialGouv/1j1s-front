@@ -24,7 +24,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.P
 
 
   return (
-    <Link link={link} className={styles.card}>
+    <Link href={link} className={styles.card}>
       <article className={styles.cardArticle}>
         <div className={styles.cardImageWrapper}>
           <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>

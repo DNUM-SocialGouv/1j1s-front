@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-export function useIsInternalLink(link: string) {
+export function useIsInternalLink(href: string) {
   const INTERNAL_URL_PREFIX = '/';
   const isInternalLink = useMemo(function () {
-    return link.startsWith(INTERNAL_URL_PREFIX);
-  }, [link]);
+    return href.startsWith(INTERNAL_URL_PREFIX);
+  }, [href]);
   return isInternalLink;
 }
