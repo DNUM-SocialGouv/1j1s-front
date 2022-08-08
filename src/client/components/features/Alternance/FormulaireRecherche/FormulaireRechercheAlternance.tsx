@@ -9,7 +9,7 @@ import React, {
 import styles
   from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.css';
 import { Button } from '~/client/components/ui/Button/Button';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
 import { InputMétierRecherché } from '~/client/components/ui/Input/InputMétierRecherché/InputMétierRecherché';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -83,7 +83,7 @@ export function FormulaireRechercheAlternance() {
         <div className={styles.buttonRechercher}>
           <Button
             buttonType="withRightIcon"
-            icon={<MagnifyingGlassIcon />}
+            icon={<Icon name="magnifying-glass" />}
             type="submit"
           >
             Rechercher

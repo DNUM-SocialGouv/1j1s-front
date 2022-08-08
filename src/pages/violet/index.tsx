@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Button } from '~/client/components/ui/Button/Button';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
 export default function OnSamuse() {
   return (
@@ -17,7 +17,7 @@ export default function OnSamuse() {
       <br />
       <Button
         buttonType="withRightIcon"
-        icon={<MagnifyingGlassIcon color="#161616"/>}
+        icon={<Icon name="magnifying-glass" />}
         buttonOnDarkBackground
       >
         Rechercher une entreprise

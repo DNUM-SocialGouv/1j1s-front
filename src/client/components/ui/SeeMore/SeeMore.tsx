@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
-import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import styles from '~/client/components/ui/SeeMore/SeeMoreComponent.module.scss';
+
+import { Icon } from '../Icon/Icon';
 
 
 interface SeeMoreProps {
@@ -55,7 +55,7 @@ export function SeeMore({ children, customLabel, customButtonClassName } : React
         aria-controls={`section-${ariaId}`} 
         id={`seeMore-${ariaId}`}>
         <span className={styles.seeMoreButtonLabel}>{ buttonLabel() }</span>
-        {isOpen ? <AngleUpIcon color="currentColor"/> : <AngleDownIcon color="currentColor"/>}
+        <Icon name={isOpen ? 'angle-up' :'angle-down'}/>
       </button>
     </>
   );

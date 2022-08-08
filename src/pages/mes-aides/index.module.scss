@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
+    border-bottom: 1px solid $color-primary;
 
     @include media(large) {
       padding: 80px 80px 80px 24px;
@@ -34,5 +35,77 @@
     @include media(xlarge) {
       margin-right: 24px;
     }
+  }
+}
+
+.mesAidesVidéo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 16px;
+
+  @include media(large) {
+    padding: 0 24px;
+  }
+
+  &Description {
+    display: flex;
+    flex-direction: row;
+    padding: 50px 0 24px 0;
+
+    @include media(large) {
+      padding: 50px 0 40px 0;
+    }
+
+    &BoldText {
+      font-weight: 700;
+      color: $color-primary;
+    }
+
+    &Text {
+      font-size: 1rem;
+
+      @include media(large) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &Player {
+    max-width: 35rem;
+    width: 100%;
+  }
+
+  &Iframe {
+    height: 35rem;
+    width: 100%;
+  }
+
+  &Transcription {
+    width: 100%;
+    max-width: 60rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &Accordion {
+    width: 100%;
+    border-top: 1px solid $color-separator;
+    border-bottom: 1px solid $color-separator;
+    summary {
+      background-color: $color-surface;
+      padding-bottom: 1rem;
+      max-width: 60rem;
+      list-style-type: '+';
+    }
+  }
+
+  &Button {
+    position: relative;
+    border: none;
+    padding: 0 0;
+    height: 35rem;
+    width: 100%;
   }
 }
