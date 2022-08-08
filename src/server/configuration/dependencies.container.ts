@@ -17,9 +17,9 @@ import {
   LocalisationsDependencies,
 } from '~/server/localisations/configuration/localisations.dependencies';
 import {
+  MesuresJeunesDependencies,
   mesuresJeunesDependenciesContainer,
 } from '~/server/mesuresJeunes/configuration/mesuresJeunesDependencies.container';
-import { RécupérerMesuresJeunesUseCase } from '~/server/mesuresJeunes/useCases/récupérerMesuresJeunesUseCase';
 import {
   OffresEmploiDependencies,
   offresEmploiDependenciesContainer,
@@ -40,9 +40,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 
 export type Dependencies = {
   articleDependencies: ArticleDependencies;
-  mesuresJeunesDependencies: {
-    récupérerMesuresJeunes: RécupérerMesuresJeunesUseCase
-  };
+  mesuresJeunesDependencies: MesuresJeunesDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   alternanceDependencies: AlternanceDependencies;
   cmsDependencies: StrapiCmsService;
