@@ -3,7 +3,7 @@
 .footer {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0 1.5rem;
 
   &Slogan {
     display: flex;
@@ -26,8 +26,9 @@
     margin-left: 40px;
   }
 
-  &Proprietaire {
+  &Propriétaire {
     @extend %bold;
+    line-height: 1;
     text-transform: uppercase;
   }
 
@@ -35,7 +36,7 @@
     display: flex;
     gap: 0.5rem 1.25rem;
     flex-wrap: wrap;
-    @extend %text-regular;
+    @extend %text-small;
     color: $color-mine-shaft;
     @extend %bold;
 
@@ -50,7 +51,7 @@
   }
 
   &Message {
-    @extend %text-regular;
+    @extend %text-small;
     color: $color-mine-shaft;
 
     & > div {
@@ -60,12 +61,12 @@
 
   &LienUtile {
     border-top: 1px solid $color-separator;
-    @extend %text-small;
     color: $color-mention-grey;
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     padding-top: 10px;
+    font-size: .75rem;
 
     & > a {
       padding: 10px 10px 10px 0;
@@ -86,8 +87,8 @@
 
   &CopyRight {
     padding-top: 10px;
-    @extend %text-small;
     color: $color-mention-grey;
+    font-size: .75rem;
 
     & > a > svg {
       width: 12px;
@@ -101,6 +102,7 @@
   color: white;
   padding: 32px 16px;
   text-align: center;
+  font-weight: 500;
 }
 
 @include media(large) {

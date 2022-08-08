@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
+import { Link } from '~/client/components/ui/Link/Link';
 
 export function Footer() {
   return (
@@ -16,7 +17,7 @@ export function Footer() {
             <div className={styles.footerSlogan}>
               <div className={styles.footerLogo}>
                 <Image src="/images/logos/mariane.svg" alt="Mariane" width="55" height="20" />
-                <div className={styles.footerProprietaire}>
+                <div className={styles.footerPropriétaire}>
                   Ministère du <br />travail, de<br /> l&apos;emploi et de<br /> l&apos;insertion
                 </div>
                 <div className={styles.footerDevise}>
@@ -34,10 +35,10 @@ export function Footer() {
                   professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
               </p>
               <div className={styles.footerLienExterne}>
-                <a href="/" target="_blank" rel="noreferrer">legifrance.gouv.fr</a>
-                <a href="/" target="_blank" rel="noreferrer">gouvernement.fr</a>
-                <a href="/" target="_blank" rel="noreferrer">service-public.fr</a>
-                <a href="/" target="_blank" rel="noreferrer">data.gouv.fr</a>
+                <Link href="https://www.legifrance.gouv.fr/">legifrance.gouv.fr</Link>
+                <Link href="https://www.gouvernement.fr/">gouvernement.fr</Link>
+                <Link href="https://www.service-public.fr/">service-public.fr</Link>
+                <Link href="https://www.data.gouv.fr/">data.gouv.fr</Link>
               </div>
             </div>
           </div>

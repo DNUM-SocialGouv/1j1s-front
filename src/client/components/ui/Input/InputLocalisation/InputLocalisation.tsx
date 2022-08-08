@@ -1,7 +1,8 @@
+import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import styles from '~/client/components/ui/Input/Input.module.css';
+import styles from '~/client/components/ui/Input/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -219,7 +220,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <label className="fr-label" htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>
+      <label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>
         Localisation
       </label>
       <div ref={autocompleteRef}>
@@ -240,7 +241,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
             aria-controls={LOCALISATION_SUGGESTIONS_ID}
             aria-activedescendant="rechercherLocalisation"
             placeholder={'Exemple: Paris, Béziers...'}
-            className={['fr-input', styles.libelleInput].join(' ')}
+            className={classNames(styles.formControlInput)}
             value={libelléLocalisation}
             onChange={(event) => {
               setLibelléLocalisation(event.target.value);

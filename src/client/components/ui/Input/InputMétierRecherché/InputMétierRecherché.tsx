@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, {
   ChangeEvent,
@@ -8,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 
-import styles from '~/client/components/ui/Input/Input.module.css';
+import styles from '~/client/components/ui/Input/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
 import { KeyBoard } from '~/client/utils/keyboard.util';
@@ -182,7 +183,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <label className="fr-label" htmlFor="rechercherMétier" id={label}>
+      <label htmlFor="rechercherMétier" id={label}>
         Secteur, domaine, mot-clé {errorMessageActive && <span data-testid="RequiredFieldErrorMessage" className={styles.errorMessageLabelRechercheMétier}>(Le champ est requis)</span>}
       </label>
       <div ref={autocompleteRef}>
@@ -203,7 +204,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
             aria-controls={listbox}
             aria-activedescendant="rechercherMétier"
             placeholder={'Commencez à taper votre mot puis sélectionnez un des choix proposés'}
-            className={['fr-input', styles.libelleInput, errorMessageActive ? 'fr-input--error' : ''].join(' ')}
+            className={classNames(styles.formControlInput, errorMessageActive && styles.formControlInputError)}
             value={libelléMétier}
             onClick={handleClickResetErrorMessageDisplay}
             onChange={(event) => {
