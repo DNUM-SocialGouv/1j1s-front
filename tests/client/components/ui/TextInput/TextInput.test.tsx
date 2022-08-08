@@ -43,7 +43,7 @@ describe('TextInput', () => {
     });
 
     describe('quand le champ ne contient plus de valeur', () => {
-      it('affiche un indice d\'aide à la saisie et aucun message d\'erreur', () => {
+      it("affiche un message d'erreur à la place de l'aide à la saisie", () => {
         render(
           <TextInput
             label="Mon champ texte"
@@ -54,14 +54,13 @@ describe('TextInput', () => {
           />,
         );
 
-        const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
         expect(screen.getByText('Remplissez le champ')).toBeInTheDocument();
 
         const user = userEvent.setup();
-        user.clear(input);
+        user.clear(screen.getByRole('textbox', { name: 'Mon champ texte' }));
 
         expect(screen.queryByText('Remplissez le champ')).not.toBeInTheDocument();
-        expect(input).toBeInvalid();
+        expect(screen.getByRole('textbox', { name: 'Mon champ texte' })).toBeInvalid();
       });
     });
   });

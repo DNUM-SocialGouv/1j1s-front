@@ -66,6 +66,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
 
   const inputId = useRef(uuidv4());
   const hintId = useRef(uuidv4());
+  const errorId = useRef(uuidv4());
 
   const onInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
@@ -90,13 +91,20 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
         {...rest}
         id={inputId.current}
         aria-describedby={hint && hintId.current}
+        aria-invalid={!!error}
+        aria-errormessage={error && errorId.current}
         className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
         onChange={onInputChange}
         value={valueState}
       />
-      {(hint || error) && (
-        <p className={classNames(styles.textInputHint, error && styles.textInputHintError)} id={hintId.current}>
-          {error || hint}
+      {(error) && (
+        <p className={classNames(styles.textInputHintError)} id={errorId.current}>
+          {error}
+        </p>
+      )}
+      {(!error && hint) && (
+        <p className={classNames(styles.textInputHint)} id={hintId.current}>
+          {hint}
         </p>
       )}
     </div>
