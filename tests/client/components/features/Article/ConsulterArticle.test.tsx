@@ -10,16 +10,16 @@ import { ConsulterArticle } from '~/client/components/features/Article/Consulter
 const article = anArticle();
 
 describe('ConsulterArticle', () => {
+
   it('affiche le titre de l\'article', () => {
     render(<ConsulterArticle article={article} />);
     const titre = screen.getByText('Mon article');
     expect(titre).toBeInTheDocument();
   });
+
   it('affiche le contenu de l\'article', () => {
     render(<ConsulterArticle article={article} />);
-    const contenu1 = screen.getByText('Hic devia socero Latiaeque habe foedabis genetricis');
-    const contenu2 = screen.getByText('Lorem markdownum torumque sic latet');
-    expect(contenu1).toBeInTheDocument();
-    expect(contenu2).toBeInTheDocument();
+    const contenu = screen.getByRole('heading', { name: 'Hic devia socero Latiaeque habe foedabis genetricis Lorem markdownum torumque sic latet' });
+    expect(contenu).toBeInTheDocument();
   });
 });

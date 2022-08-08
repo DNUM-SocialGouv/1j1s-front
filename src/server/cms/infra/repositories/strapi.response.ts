@@ -13,7 +13,7 @@ interface DataResponse<T> {
 }
 
 export interface StrapiImage {
-    data: DataResponse<StrapiImageAttributes>
+    data: DataResponse<StrapiImageAttributes> | null
 }
 
 export interface StrapiImageAttributes {
@@ -30,7 +30,7 @@ export interface ArticleAttributesResponse {
     titre: string
     banniere?: StrapiImage
     slug: string
-    contenu?: string
+    contenu: string
 }
 
 export interface MesuresJeunesAttributesResponse {

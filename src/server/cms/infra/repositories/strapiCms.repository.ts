@@ -2,7 +2,7 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
-import { mapArticle, mapMesuresJeunes,mapPageFooter } from '~/server/cms/infra/repositories/strapi.mapper';
+import { mapArticle, mapMentionObligatoire, mapMesuresJeunes } from '~/server/cms/infra/repositories/strapi.mapper';
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
@@ -25,6 +25,7 @@ export class StrapiCmsRepository implements CmsRepository {
   }
 
   async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
+    const requestSuffix = '?populate=*';
     const getContentTypeApi = (contenuType: MentionsObligatoires): string => {
       switch (contenuType) {
         case MentionsObligatoires.ACCESSIBILITE: return 'accessibilite';
@@ -34,8 +35,8 @@ export class StrapiCmsRepository implements CmsRepository {
       }
     };
     return await this.strapiHttpClientService.get<StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>, Article>(
-      getContentTypeApi(type),
-      mapPageFooter,
+      `${getContentTypeApi(type)}${requestSuffix}`,
+      mapMentionObligatoire,
     );
   }
 

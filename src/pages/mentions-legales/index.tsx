@@ -11,7 +11,7 @@ export default function MentionsLegales({ titre, contenu }: ConsulterContenuProp
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<ConsulterContenuProps>> {
-  const response = await dependencies.cmsDependencies.consulterPageFooter.handle(MentionsObligatoires.MENTIONS_LEGALES);
+  const response = await dependencies.cmsDependencies.consulterMentionObligatoire.handle(MentionsObligatoires.MENTIONS_LEGALES);
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };

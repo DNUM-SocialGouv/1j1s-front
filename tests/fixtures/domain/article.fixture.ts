@@ -11,7 +11,9 @@ import {
 export function anArticle(override?: Partial<Article>): Article {
   return {
     bannière: undefined,
-    contenu: '<h2 id="hic-devia-socero-latiaeque-habe-foedabis-genetricis">Hic devia socero Latiaeque habe foedabis genetricis</h2>\n<p>Lorem markdownum torumque sic latet</p>\n',
+    contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
+      '\n' +
+      'Lorem markdownum torumque sic latet',
     slug: 'mon-article',
     titre: 'Mon article',
 	  ...override,

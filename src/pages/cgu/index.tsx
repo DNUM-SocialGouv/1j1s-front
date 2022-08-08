@@ -9,7 +9,7 @@ export default function Cgu({ titre, contenu }: ConsulterContenuProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<ConsulterContenuProps>> {
-  const response = await dependencies.cmsDependencies.consulterPageFooter.handle(MentionsObligatoires.CONDITIONS_GENERALES_UTILISATIONS);
+  const response = await dependencies.cmsDependencies.consulterMentionObligatoire.handle(MentionsObligatoires.CONDITIONS_GENERALES_UTILISATIONS);
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };

@@ -10,13 +10,12 @@ import {
   StrapiImage,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
-import { parseMarkdown } from '~/server/services/utils/markdown.util';
 
-export function mapPageFooter(response: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article {
+export function mapMentionObligatoire(response: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article {
   const { contenu, titre } = response.data.attributes;
   return {
     bannière: undefined,
-    contenu: parseMarkdown(contenu),
+    contenu,
     slug: undefined,
     titre,
   };
@@ -27,7 +26,7 @@ export function mapArticle(articleResponse: StrapiCollectionTypeResponse<Article
 
   return {
     bannière: mapImage(banniere),
-    contenu: parseMarkdown(contenu || ''),
+    contenu: contenu || '',
     slug,
     titre,
   };
@@ -35,18 +34,6 @@ export function mapArticle(articleResponse: StrapiCollectionTypeResponse<Article
 
 export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>): MesuresJeunes {
   const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
-
-  const mapCartesMesuresJeuneList = (cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteMesuresJeunes[] => {
-    return cartesMesuresJeunesList.map<CarteMesuresJeunes>((carteMesuresJeunes) => {
-      const { banniere, contenu, titre, url } = carteMesuresJeunes;
-      return {
-        bannière: mapImage(banniere),
-        contenu: parseMarkdown(contenu),
-        titre,
-        url,
-      };
-    });
-  };
 
   return {
     accompagnement: mapCartesMesuresJeuneList(accompagnement),
@@ -56,8 +43,20 @@ export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeune
   };
 }
 
-function mapImage(bannière: StrapiImage | undefined): Image | undefined {
-  if(bannière) {
+function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteMesuresJeunes[] {
+  return cartesMesuresJeunesList.map<CarteMesuresJeunes>((carteMesuresJeunes) => {
+    const { banniere, contenu, titre, url } = carteMesuresJeunes;
+    return {
+      bannière: mapImage(banniere),
+      contenu: contenu,
+      titre,
+      url,
+    };
+  });
+}
+
+export function mapImage(bannière: StrapiImage | undefined): Image | undefined {
+  if(bannière?.data) {
     const { alternativeText, url } = bannière.data.attributes;
     return {
       alt: alternativeText || '',

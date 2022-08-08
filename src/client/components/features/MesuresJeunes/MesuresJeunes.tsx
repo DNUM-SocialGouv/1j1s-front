@@ -4,6 +4,7 @@ import React from 'react';
 import styles from '~/client/components/features/MesuresJeunes/MesuresJeunes.module.scss';
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import Marked from '~/client/components/ui/Marked/Marked';
 import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -15,8 +16,6 @@ interface MesuresJeunesProps {
 
 export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
   const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
-
-  const createMarkup = (markup: string) => ({ __html: markup });
 
   function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
     const titre = useSanitize(carte.titre);
@@ -31,7 +30,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
       linkLabel="En savoir plus"
       title={titre}
     >
-      <div dangerouslySetInnerHTML={createMarkup(contenu)} />
+      <Marked markdown={contenu} />
     </LinkCard>;
   }
 

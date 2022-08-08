@@ -11,7 +11,7 @@ export default function Confidentialite({ titre, contenu }: ConsulterContenuProp
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<ConsulterContenuProps>> {
-  const response = await dependencies.cmsDependencies.consulterPageFooter.handle(MentionsObligatoires.POLITIQUES_CONFIDENTIALITES);
+  const response = await dependencies.cmsDependencies.consulterMentionObligatoire.handle(MentionsObligatoires.POLITIQUES_CONFIDENTIALITES);
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };

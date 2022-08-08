@@ -11,7 +11,7 @@ export default function Accessibilite({ titre, contenu }: ConsulterContenuProps)
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<ConsulterContenuProps>> {
-  const response = await dependencies.cmsDependencies.consulterPageFooter.handle(MentionsObligatoires.ACCESSIBILITE);
+  const response = await dependencies.cmsDependencies.consulterMentionObligatoire.handle(MentionsObligatoires.ACCESSIBILITE);
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };
