@@ -1,0 +1,81 @@
+@import "@styles/utilities";
+
+.cardListPadding, .cardListPaddingSeeMore {
+  padding-bottom: 1.5rem;
+}
+
+.cardList {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-direction: column;
+}
+
+.heroText {
+  color: #2B8079;
+}
+
+.heroBackground {
+  background-color:white;
+  color: $color-primary;
+}
+
+.section {
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+
+  &Header {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2rem;
+
+    > svg, h2 {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  &VieProfessionnelle {
+    background-color: lighten($color-blue-navy, 67%);
+  }
+  &OrienterFormer {
+    background-color: lighten($color-tapestry, 45%);
+  }
+  &ParcoursAccompagnement {
+    background-color: lighten($color-smalt-blue, 48%);
+  }
+  &AidesFinancières {
+    background-color: lighten($color-coral, 31%);
+  }
+
+  &OrienterFormer, &AidesFinancières {
+    padding-bottom: 2rem;
+  }
+}
+
+
+@media only screen and (min-width:48em){
+  .cardListPaddingSeeMore {
+    padding: 0.5rem 1.125rem 1.5rem 1.125rem;
+  }
+
+  .cardList {
+    gap: 2rem;
+    flex-direction: row;
+  }
+
+  .cardList > a {
+    width: 360px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+  }
+
+  .section {
+    &OrienterFormer, &AidesFinancières {
+      padding-bottom: 3rem;
+    }
+  }
+}

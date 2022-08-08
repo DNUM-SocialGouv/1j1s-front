@@ -2,7 +2,7 @@ import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixt
 import { AxiosResponse } from 'axios';
 
 import { Article } from '~/server/articles/domain/article';
-import { Strapi } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
+import { ArticleContentType } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
 
 
 export function anArticle(override?: Partial<Article>): Article {
@@ -14,7 +14,7 @@ export function anArticle(override?: Partial<Article>): Article {
   };
 }
 
-export function anArticleResponse(override?: Partial<Strapi.ArticleContentType>): Strapi.ArticleContentType {
+export function anArticleResponse(override?: Partial<ArticleContentType>): ArticleContentType {
   return {
     data: [{
       attributes: {
@@ -41,8 +41,8 @@ export function anArticleResponse(override?: Partial<Strapi.ArticleContentType>)
   };
 }
 
-export function anArticleAxiosResponse(override?: Partial<Strapi.ArticleContentType>): AxiosResponse<Strapi.ArticleContentType> {
-  return anAxiosResponse<Strapi.ArticleContentType>(anArticleResponse(override));
+export function anArticleAxiosResponse(override?: Partial<ArticleContentType>): AxiosResponse<ArticleContentType> {
+  return anAxiosResponse<ArticleContentType>(anArticleResponse(override));
 }
 
 

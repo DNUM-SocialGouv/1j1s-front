@@ -54,6 +54,7 @@ export function Header() {
             <NavSubItem title="Contrat Engagement Jeune" asLink={<NavItemLink link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />} />
             <NavSubItem title="Mes aides financières" asLink={<NavItemLink link="/mes-aides" current={path === '/mes-aides'} />} />
             <NavSubItem title="Mentorat" asLink={<NavItemLink link="/mentorat" current={path === '/mentorat'} />} />
+            <NavSubItem title="Les mesures jeunes" asLink={<NavItemLink link="/mesures-jeunes" current={path === '/mesures-jeunes'} />} />
           </NavItem>
           <NavItem title="Engagement et bénévolat">
             <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/services-civique'} />} />
