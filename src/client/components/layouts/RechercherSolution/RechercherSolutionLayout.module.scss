@@ -6,8 +6,6 @@
   border-bottom: 1px solid $color-form-field;
     @include media(large) {
       max-width: 78rem;
-      padding: 2rem 1rem;
-      margin: 0 auto;
     }
 }
 

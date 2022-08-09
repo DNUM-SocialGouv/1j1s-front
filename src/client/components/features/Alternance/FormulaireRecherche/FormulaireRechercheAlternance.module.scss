@@ -15,25 +15,12 @@
 
 .buttonRechercher {
     display: flex;
-    flex: 1;
     @include media(medium){
         flex: 0;
         margin-top: 32px;
         display: block;
     }
-}
-
-.inputButtonWrapper {
-    @include media(medium){
-        display: flex;
-        width: 100%;
-        align-items: flex-start;
-        gap: 1rem;
-        flex-wrap: wrap;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        & > div {
-            flex-grow: 1;
-        }
+    & > button {
+        flex: 1;
     }
 }

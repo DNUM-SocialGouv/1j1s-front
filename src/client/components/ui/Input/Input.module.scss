@@ -54,3 +54,25 @@
     }
   }
 }
+
+.instructionMessage {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  gap: 0.5rem;
+  display:inline-flex;
+  align-items:center;
+
+  &Error{
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #ce0500;
+  }
+
+  & > svg {
+    flex-basis: 2em;
+  }
+
+  @include media(large) {
+    white-space: nowrap;
+  }
+}
