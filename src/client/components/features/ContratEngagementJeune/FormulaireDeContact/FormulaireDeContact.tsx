@@ -57,11 +57,7 @@ export default function FormulaireDeContact () {
       </div>
       <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.formulaireDeRappelCheckbox}/>
       <div className={styles.formulaireDeRappelButton}>
-        <Button
-          buttonType="primary"
-        >
-                Envoyer la demande
-        </Button>
+        <Button buttonType="primary" disabled={true} >Envoyer la demande</Button>
       </div>
       <div className={styles.formulaireDeRappelText}>
         <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
