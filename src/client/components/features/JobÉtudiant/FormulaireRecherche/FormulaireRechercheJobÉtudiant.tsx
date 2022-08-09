@@ -74,7 +74,6 @@ export function FormulaireRechercheJobÉtudiant() {
             label="Domaine"
             value={inputDomaine}
             name="grandDomaine"
-            closeOnSelect={false}
           />
         </div>
       </div>

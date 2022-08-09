@@ -1,5 +1,9 @@
 @import "@styles/utilities";
 
+.selectWrapper {
+    flex-shrink: 0;
+}
+
 .container {
     position: relative;
 }

@@ -1,0 +1,26 @@
+@import "@styles/utilities";
+
+.rechercheAlternanceForm {
+    @include media(medium){
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 30px;
+    }
+    &> *:not(:last-child) {
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+}
+
+.buttonRechercher {
+    display: flex;
+    @include media(medium){
+        flex: 0;
+        margin-top: 32px;
+        display: block;
+    }
+    & > button {
+        flex: 1;
+    }
+}
