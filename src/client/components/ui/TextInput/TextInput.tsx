@@ -73,7 +73,6 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
       onChange(event);
     }
     setValueState(event.target.value);
-    setTouched(true);
   }, [onChange]);
 
   return (
@@ -95,6 +94,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
         aria-errormessage={error && errorId.current}
         className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
         onChange={onInputChange}
+        onBlur={() => setTouched(true) }
         value={valueState}
       />
       {(error) && (

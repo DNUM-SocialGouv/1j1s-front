@@ -47,10 +47,6 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
     }
   }, []);
 
-  useEffect(() => {
-    if (isOptionsOpen) setIsTouched(true);
-  }, [isOptionsOpen]);
-
   useEffect(function onValueChange() {
     setSelectedValue(value || '');
   }, [value]);
@@ -107,6 +103,7 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           aria-labelledby={labelledBy.current}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+          onBlur={() => setIsTouched(true) }
         >
           <span className={classNames({ [styles.selectedLabel]:selectedValue })} data-testid='Select-Placeholder'>{buttonLabel}</span>
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}

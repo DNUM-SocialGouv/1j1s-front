@@ -45,13 +45,16 @@ describe('TextInput', () => {
     describe('quand le champ ne contient plus de valeur', () => {
       it("affiche un message d'erreur à la place de l'aide à la saisie", async () => {
         render(
-          <TextInput
-            label="Mon champ texte"
-            name="inputName"
-            hint="Remplissez le champ"
-            value="Kiwi"
-            required
-          />,
+          <>
+            <button>focus</button>
+            <TextInput
+              label="Mon champ texte"
+              name="inputName"
+              hint="Remplissez le champ"
+              value="Kiwi"
+              required
+            />
+          </>,
         );
 
         expect(screen.getByText('Remplissez le champ')).toBeInTheDocument();
@@ -59,6 +62,7 @@ describe('TextInput', () => {
 
         const user = userEvent.setup();
         await user.clear(screen.getByRole('textbox', { name: 'Mon champ texte' }));
+        await user.click(screen.getByText('focus'));
 
         expect(screen.queryByText('Remplissez le champ')).not.toBeInTheDocument();
         expect(screen.getByLabelText('Mon champ texte')).not.toHaveAccessibleDescription();
