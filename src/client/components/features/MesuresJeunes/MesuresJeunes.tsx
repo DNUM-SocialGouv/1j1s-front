@@ -4,25 +4,22 @@ import React from 'react';
 import styles from '~/client/components/features/MesuresJeunes/MesuresJeunes.module.scss';
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import Marked from '~/client/components/ui/Marked/Marked';
 import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useSanitize from '~/client/hooks/useSanitize';
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/mesuresJeunes/domain/mesuresJeunes';
+import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 
 interface MesuresJeunesProps {
   mesuresJeunes : MesuresJeunes
 }
 
-
-
 export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
-  const { vieProfessionnelle, accompagnement, aidesFinancieres, orienterFormer } = mesuresJeunes;
-
-  const createMarkup = (markup: string) => ({ __html: markup });
+  const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
 
   function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
     const titre = useSanitize(carte.titre);
-    const bannière = carte.bannière.url;
+    const bannière = carte.bannière?.url || '';
     const url = useSanitize(carte.url);
     const contenu = useSanitize(carte.contenu);
 
@@ -33,7 +30,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
       linkLabel="En savoir plus"
       title={titre}
     >
-      <div dangerouslySetInnerHTML={createMarkup(contenu)} />
+      <Marked markdown={contenu} />
     </LinkCard>;
   }
 
@@ -97,7 +94,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
           <h2 id="engagement-benevolat" className={styles.sectionHeader}>
             Aides financières
           </h2>
-          {displaySectionCartes(aidesFinancieres)}
+          {displaySectionCartes(aidesFinancières)}
         </section>
       </main>
     </>

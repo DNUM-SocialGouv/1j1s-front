@@ -21,7 +21,6 @@ export class ConfigurationServiceFixture implements ConfigurationService {
       REDIS_PORT: 6379,
       REDIS_USERNAME: 'REDIS_USERNAME',
       STRAPI_BASE_URL: 'http://localhost:1337',
-      STRAPI_TOKEN_API: '1234',
       STRAPI_URL_API: 'http://localhost:1337/api/',
     };
   }

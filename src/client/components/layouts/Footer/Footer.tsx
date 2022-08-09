@@ -43,10 +43,10 @@ export function Footer() {
             </div>
           </div>
           <div className={styles.footerLienUtile}>
-            <a href="#">Plan du site</a>
-            <a href="#">Accessibilité</a>
-            <a href="#">Mentions légales</a>
-            <a href="#">Données personnelles</a>
+            <Link href="/cgu">Conditions générales d&apos;utilisations</Link>
+            <Link href="/accessibilite">Accessibilité</Link>
+            <Link href="/mentions-legales">Mentions légales</Link>
+            <Link href="/confidentialite">Politique de confidentialité</Link>
           </div>
           <p className={styles.footerCopyRight}>
             Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;

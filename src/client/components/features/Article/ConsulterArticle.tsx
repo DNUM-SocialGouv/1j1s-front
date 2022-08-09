@@ -2,8 +2,9 @@ import { Title } from '@dataesr/react-dsfr';
 import classNames from 'classnames';
 
 import styles from '~/client/components/features/Article/ConsulterArticle.module.css';
+import Marked from '~/client/components/ui/Marked/Marked';
 import useSanitize from '~/client/hooks/useSanitize';
-import { Article } from '~/server/articles/domain/article';
+import { Article } from '~/server/cms/domain/article';
 
 interface ConsulterArticleProps {
   article: Article
@@ -11,18 +12,16 @@ interface ConsulterArticleProps {
 
 export function ConsulterArticle({ article }: ConsulterArticleProps) {
   const titre = useSanitize(article.titre);
-  const banniereUrl = useSanitize(article.banniere?.url);
-  const banniereAlt = useSanitize(article.banniere?.alternativeText);
+  const bannièreUrl = useSanitize(article.bannière?.url);
+  const bannièreAlt = useSanitize(article.bannière?.alt);
   const contenu = useSanitize(article.contenu);
 
-  const createMarkup = (markup: string) => ({ __html: markup });
-  
   return (
     <main className={classNames('fr-container', styles.consulterArticle)}>
       <Title as="h1" className={styles.titre}>{titre}</Title>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      {banniereUrl && <img src={banniereUrl} alt={banniereAlt} decoding="async" loading="lazy" />}
-      <article dangerouslySetInnerHTML={createMarkup(contenu)} />
+      {bannièreUrl && <img src={bannièreUrl} alt={bannièreAlt} decoding="async" loading="lazy" />}
+      <Marked markdown={contenu} />
     </main>
   );
 }

@@ -1,48 +1,44 @@
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
-import { Article } from '~/server/articles/domain/article';
-import { ArticleContentType } from '~/server/articles/infra/repositories/apiStrapiArticle.response';
+import { Article } from '~/server/cms/domain/article';
+import {
+  ArticleAttributesResponse,
+  StrapiCollectionTypeResponse,
+} from '~/server/cms/infra/repositories/strapi.response';
 
 
 export function anArticle(override?: Partial<Article>): Article {
   return {
-    contenu: '<h2 id="hic-devia-socero-latiaeque-habe-foedabis-genetricis">Hic devia socero Latiaeque habe foedabis genetricis</h2>\n<p>Lorem markdownum torumque sic latet</p>\n',
+    bannière: undefined,
+    contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
+      '\n' +
+      'Lorem markdownum torumque sic latet',
     slug: 'mon-article',
     titre: 'Mon article',
 	  ...override,
   };
 }
 
-export function anArticleResponse(override?: Partial<ArticleContentType>): ArticleContentType {
+export function anArticleResponse(override?: Partial<StrapiCollectionTypeResponse<ArticleAttributesResponse>>): StrapiCollectionTypeResponse<ArticleAttributesResponse> {
   return {
-    data: [{
-      attributes: {
-        contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
+    data: [
+      {
+        attributes: {
+          contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
 					'\n' +
 					'Lorem markdownum torumque sic latet',
-        createdAt: '2022-06-02T15:49:22.086Z',
-        publishedAt: '2022-06-02T15:49:50.642Z',
-	      slug: 'mon-article',
-	      titre: 'Mon article',
-	      updatedAt: '2022-06-02T15:49:50.645Z',
+	        slug: 'mon-article',
+	        titre: 'Mon article',
+        },
       },
-      id: 1,
-    }],
-    meta: {
-	    pagination: {
-		    page: 1,
-		    pageCount: 1,
-		    pageSize: 25,
-		    total: 1,
-	    },
-    },
+    ],
     ...override,
   };
 }
 
-export function anArticleAxiosResponse(override?: Partial<ArticleContentType>): AxiosResponse<ArticleContentType> {
-  return anAxiosResponse<ArticleContentType>(anArticleResponse(override));
+export function anArticleAxiosResponse(override?: Partial<StrapiCollectionTypeResponse<ArticleAttributesResponse>>): AxiosResponse<StrapiCollectionTypeResponse<ArticleAttributesResponse>> {
+  return anAxiosResponse<StrapiCollectionTypeResponse<ArticleAttributesResponse>>(anArticleResponse(override));
 }
 
 
