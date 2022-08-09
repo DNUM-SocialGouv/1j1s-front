@@ -30,28 +30,5 @@ describe('<Rappel />', () => {
       expect(screen.getByLabelText("J'accepte de recevoir des informations de « 1 Jeune, 1 Solution »")).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
     });
-
-    for (const label of labels.filter((l) => l !== 'Age')) {
-      it(`a un champ ${label} obligatoire`, async () => {
-        // Given
-        render(<Rappel />);
-        await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
-        // When
-        await userEvent.type(screen.getByLabelText(label), 's{backspace}');
-        // Then
-        expect(screen.getByLabelText('Nom')).toBeInvalid();
-      });
-    }
-
-    it('a un champ Age obligatoire', async () => {
-      // Given
-      render(<Rappel />);
-      await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
-      // When
-      await userEvent.click(screen.getByLabelText('Age'));
-      await userEvent.click(screen.getByLabelText('Nom'));
-      // Then
-      expect(screen.getByLabelText('Age')).toBeInvalid();
-    });
   });
 });
