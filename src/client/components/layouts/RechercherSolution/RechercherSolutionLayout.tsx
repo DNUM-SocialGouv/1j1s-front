@@ -85,7 +85,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                   </Skeleton>
                   {paginationOffset && nombreSolutions > paginationOffset &&
                         <div className={styles.pagination}>
-                          <Pagination itemListLength={nombreSolutions} itemPerPage={paginationOffset}/>
+                          <Pagination numberOfResult={nombreSolutions} numberOfResultPerPage={paginationOffset}/>
                         </div>
                   }
                 </>
