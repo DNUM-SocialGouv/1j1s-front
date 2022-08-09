@@ -17,30 +17,32 @@ describe('<Rappel />', () => {
     expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
   });
   describe("Lorsqu'on clique sur le bouton je souhaite être contacté(e)", () => {
+    const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
     it('affiche un formulaire de rappel', async () => {
       // Given
       render(<Rappel />);
       // When
       await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
       // Then
-      expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
-      expect(screen.getByLabelText('Nom')).toBeInTheDocument();
-      expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
-      expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
-      expect(screen.getByLabelText('Age')).toBeInTheDocument();
-      expect(screen.getByLabelText('Ville')).toBeInTheDocument();
+      for (const label of labels) {
+        expect(screen.getByLabelText(label)).toBeInTheDocument();
+      }
       expect(screen.getByLabelText("J'accepte de recevoir des informations de « 1 Jeune, 1 Solution »")).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
     });
-    it('a un champ Nom obligatoire', async () => {
-      // Given
-      render(<Rappel />);
-      await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
-      // When
-      await userEvent.type(screen.getByLabelText('Nom'), 's{backspace}');
-      // Then
-      expect(screen.getByLabelText('Nom')).toBeInvalid();
-    });
+
+    for (const label of labels.filter((l) => l !== 'Age')) {
+      it(`a un champ ${label} obligatoire`, async () => {
+        // Given
+        render(<Rappel />);
+        await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
+        // When
+        await userEvent.type(screen.getByLabelText(label), 's{backspace}');
+        // Then
+        expect(screen.getByLabelText('Nom')).toBeInvalid();
+      });
+    }
+
     it('a un champ Age obligatoire', async () => {
       // Given
       render(<Rappel />);
@@ -53,4 +55,3 @@ describe('<Rappel />', () => {
     });
   });
 });
- 
