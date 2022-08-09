@@ -57,6 +57,7 @@
 }
 
 .inputError {
+  margin-top: 8px;
   --text-spacing: 0;
   @extend %text-small;
   color: $color-error;

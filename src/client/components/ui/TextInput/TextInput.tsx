@@ -98,7 +98,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
         value={valueState}
       />
       {(error) && (
-        <p className={classNames(styles.textInputHintError)} id={errorId.current}>
+        <p className={classNames(styles.textInputHint, styles.textInputHintError)} id={errorId.current}>
           {error}
         </p>
       )}
