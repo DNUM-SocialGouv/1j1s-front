@@ -46,7 +46,6 @@ export default function FormulaireDeContact () {
           optionList={AgeJeune.AGE}
           onChange={setInputAge}
           value={inputAge}
-          closeOnSelect={true}
         />
         <TextInput
           label='Ville'
