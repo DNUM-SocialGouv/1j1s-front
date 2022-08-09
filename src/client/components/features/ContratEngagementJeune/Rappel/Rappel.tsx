@@ -25,8 +25,8 @@ export default function Rappel() {
         hide={() => setIsPopInOpen(false)}
       >
         <ModalTitle className={styles.rappelTitle}>
-          <h2>J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé</h2>
-          <p>(Tous les champs sont obligatoires)</p>
+          J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
+          <small>(Tous les champs sont obligatoires)</small>
         </ModalTitle>
         <ModalContent>
           <form>
