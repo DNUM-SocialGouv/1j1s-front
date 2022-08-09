@@ -1,0 +1,71 @@
+@import "@styles/utilities";
+
+.formulaireDeRappel {
+  input {
+    background-color: $color-on-primary;
+    border: 0.5px solid $color-on-background;
+    border-radius: 30px;
+    box-shadow: none;
+  }
+
+  label {
+    margin-top: 1rem;
+  }
+
+  .radioButton {
+    border-radius: 0;
+  }
+
+  button {
+    margin-top: 8px;
+    border: 0.5px solid $color-on-surface;
+    font-size: small;
+  }
+
+  input[type=radio] + label {
+    padding-left: 0 !important;
+    margin-top: 0;
+    &::before {
+      display: none !important;
+    }
+  }
+
+  &Checkbox {
+    input[type=checkbox] + label {
+      font-size: small !important;
+    }
+  }
+
+  &Button {
+    text-align: center;
+    margin: 2rem;
+    .button {
+      font-size: unset;
+    }
+  }
+
+  &Text {
+    width: 100%;
+    background-color: $color-cadre-formulaire;
+    border-radius: 30px;
+
+    p {
+      font-size: 0.7rem;
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+@include media(large){
+  .formulaireDeRappel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding-bottom: 0;
+
+    label {
+      margin-top: 0;
+    }
+  }
+}

@@ -15,6 +15,7 @@ interface SelectProps {
   label: string
   name?: string
   multiple?: boolean
+  required?: boolean
   onChange?: (value: string) => void;
   closeOnSelect?: boolean
 }
@@ -27,10 +28,12 @@ export interface Option {
 export function Select({ optionList, onChange, value, placeholder, name, label, multiple, closeOnSelect }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
+  const [isTouched, setIsTouched] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
 
   const labelledBy = useRef(uuid4());
+  const errorMessageBy = useRef(uuid4());
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
@@ -83,6 +86,8 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
     }
   }
 
+  const error = isTouched && !selectedValue ? 'Veuillez selectionner un choix' : undefined;
+
   return (
     <div>
       <label className={styles.selectLabel} id={labelledBy.current}>
@@ -92,10 +97,13 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
         <button
           type="button"
           aria-haspopup="listbox"
+          aria-invalid={ !!error }
+          aria-errormessage={ error && errorMessageBy.current }
           aria-expanded={isOptionsOpen}
           aria-labelledby={labelledBy.current}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+          onBlur={() => setIsTouched(true) }
         >
           <span className={classNames({ [styles.selectedLabel]:selectedValue })} data-testid='Select-Placeholder'>{buttonLabel}</span>
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
@@ -109,7 +117,13 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
                 onChange={onOptionSelected}
               />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
+        
       </div>
+      {(error) && (
+        <p className={classNames(styles.inputError)} id={errorMessageBy.current}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }

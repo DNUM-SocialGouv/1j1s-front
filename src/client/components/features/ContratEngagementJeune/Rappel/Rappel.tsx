@@ -1,18 +1,14 @@
 import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import { useState } from 'react';
 
+import FormulaireDeContact from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { Select } from '~/client/components/ui/Select/Select';
-import { TextInput } from '~/client/components/ui/TextInput/TextInput';
-import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
 
 
 export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
-  const [inputAge, setInputAge] = useState('');
 
   return (
     <section className={styles.rappel}>
@@ -25,57 +21,11 @@ export default function Rappel() {
         hide={() => setIsPopInOpen(false)}
       >
         <ModalTitle className={styles.rappelTitle}>
-          <h2>J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé</h2>
-          <p>(Tous les champs sont obligatoires)</p>
+          J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
+          <small>(Tous les champs sont obligatoires)</small>
         </ModalTitle>
         <ModalContent>
-          <form>
-            <div className={styles.rappelForm}>
-              <TextInput 
-                label='Prénom'
-                name='firstname'
-                autoFocus
-                placeholder='Exemple : Jean'/>
-              <TextInput 
-                label='Nom'
-                name='lastname'
-                placeholder='Exemple : Dupont'/>
-              <TextInput
-                type="email"
-                label='Adresse email'
-                name='mail'
-                placeholder='Exemple : jean.dupont@gmail.com'/>
-              <TextInput
-                type="tel"
-                pattern="^(\+33|0|0033)[1-9]\d{8}$"
-                label='Téléphone'
-                name='phone'
-                placeholder='Exemple : 0606060606'/>
-              <Select
-                label='Age'
-                name="ageList"
-                optionList={AgeJeune.AGE}
-                onChange={setInputAge}
-                value={inputAge}
-                closeOnSelect={true}
-              />
-              <TextInput
-                label='Ville'
-                name='ville'
-                placeholder='Exemple : Paris'/>
-            </div>
-            <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.rappelFormCheckbox}/>
-            <div className={styles.rappelFormButton}>
-              <Button
-                buttonType="primary"
-              >
-                Envoyer la demande
-              </Button>
-            </div>
-          </form>
-          <div className={styles.rappelText}>
-            <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
-          </div>
+          <FormulaireDeContact />
         </ModalContent>
       </Modal>
     </section>
