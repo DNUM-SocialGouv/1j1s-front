@@ -7,6 +7,11 @@
 
 .container {
   max-width: $breakpoint-xl;
+
+  button {
+    margin: inherit;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .titre {
