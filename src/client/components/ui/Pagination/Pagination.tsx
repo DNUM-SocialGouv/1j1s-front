@@ -5,7 +5,7 @@ import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
-import styles from '~/client/components/ui/Meilisearch/Pagination.module.scss';
+import styles from '~/client/components/ui/Pagination/Pagination.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface PaginationProps {
@@ -42,7 +42,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
       <a
         href=""
         role="link"
-        className={ page === currentPage ? styles.meilisearchPaginationActive: ''}
+        className={ page === currentPage ? styles.paginationActive: ''}
         aria-current={currentPage === page}
         onClick={(event) => {
           event.preventDefault();
@@ -98,7 +98,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
     isSmallScreen ? filter5ElementsToDisplayInMobile(element) : filter9ElementsToDisplayInDesktop(element),
   ).map(displayElement);
 
-  const displayEllipsis = () => numberOfPageList.length > 4 && currentPage !== lastPage ? <li className={styles.ellipse}>…</li> : <></>;
+  const displayEllipsis = () => numberOfPageList.length > 4 && (isSmallScreen ? currentPage < lastPage - 3 : currentPage < lastPage - 5) ? <li className={styles.ellipse}>…</li> : <></>;
 
   const displayLastElement = () => displayElement(lastPage);
   const displayNext = () => {
@@ -139,11 +139,15 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
   };
 
   return (
-    <ul key='Pagination' className={styles.meilisearchPagination}>
-      { displayPrevious() }
-      { displayIntermediatePages() }
-      { displayEllipsis() }
-      { displayNext() }
-    </ul>
+    <>
+      {
+        numberOfPageList.length >= 2 && <ul key='Pagination' className={styles.pagination}>
+          { displayPrevious() }
+          { displayIntermediatePages() }
+          { displayEllipsis() }
+          { displayNext() }
+        </ul>
+      }
+    </>
   );
 }

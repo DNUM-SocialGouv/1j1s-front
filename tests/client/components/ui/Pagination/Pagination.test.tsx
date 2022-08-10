@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
 import React from 'react';
@@ -10,6 +10,18 @@ import React from 'react';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 
 describe('Pagination', () => {
+  describe('quand il y a deja une page dans l url', () => {
+    it('affiche directement la page dans la pagination', () => {
+      mockLargeScreen();
+      mockUseRouter({ query: { page: '3' } });
+      render(
+        <Pagination numberOfResult={470} numberOfResultPerPage={30} />,
+      );
+
+      expect(screen.getByRole('link', { current: true, name: '3' })).toBeInTheDocument();
+    });
+  });
+
   describe('quand il y a 100 résultats et 25 résultat par page à afficher', () => {
     describe('doit désactiver la return to first page et Page précédente', () => {
       it('et les 5 premières pages, Page suivante et le go to last page', async () => {
@@ -186,6 +198,17 @@ describe('Pagination', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: { page: 1 } });
       });
     });
+  });
 
+  describe('quand il y moins de 2 résultats', () => {
+    it('n affiche pas la pagination', () => {
+      mockLargeScreen();
+      mockUseRouter({});
+      render(
+        <Pagination numberOfResult={2} numberOfResultPerPage={25} />,
+      );
+
+      expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
   });
 });

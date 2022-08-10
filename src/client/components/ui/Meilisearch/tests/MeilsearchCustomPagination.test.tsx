@@ -4,6 +4,7 @@
 import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import { mockLargeScreen } from '@tests/client/window.mock';
 import React from 'react';
 
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockUsePagination';
@@ -15,15 +16,14 @@ declare type CreateURL<TValue> = (value: TValue) => string;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'usePagination');
 
-const RETURN_TO_FIRST_PAGE_ABBREVIATION = '‹‹';
-const RETURN_TO_PREVIOUS_PAGE_FULL_TEXT = 'Page précédente';
-
-const GO_TO_NEXT_PAGE_ABBREVIATION = 'Page suivante';
-const GO_TO_LAST_PAGE_ABBREVIATION = '››';
 let createUrlMock: CreateURL<number>;
 let refineMock:  jest.Mock<number>;
 
 describe('MeilisearchCustomPagination', () => {
+  beforeEach(() => {
+    mockLargeScreen();
+  });
+
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -31,69 +31,68 @@ describe('MeilisearchCustomPagination', () => {
     describe('quand il s’agit de la première page', () => {
       beforeEach(() => {
         // GIVEN
-        spyed.mockImplementation(() => mockUsePagination({ isFirstPage: true }));
+        spyed.mockImplementation(() => mockUsePagination({ isFirstPage: true, nbHits: 200 }));
       });
 
-      it('n’affiche pas << dans le document', async () => {;
+      it('le return to first page doit etre disable', () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.queryByText(RETURN_TO_FIRST_PAGE_ABBREVIATION)).not.toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('true');
       });
 
-      it('n’affiche pas "Page précédente" dans le document', async () => {;
+      it('la "Page précédente" doit etre disable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.queryByText(RETURN_TO_PREVIOUS_PAGE_FULL_TEXT)).not.toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' }).getAttribute('aria-disabled')).toBe('true');
       });
     });
-    describe('quand il ne agit d’une page intermédiaire', () => {
+    describe('quand il s agit d’une page intermédiaire', () => {
       beforeEach(() => {
         // GIVEN
-        spyed.mockImplementation(() => mockUsePagination({ isFirstPage: false, isLastPage: false }));
+        spyed.mockImplementation(() => mockUsePagination({ isFirstPage: false, isLastPage: false, nbHits: 400 }));
       });
 
-      it('n’affiche "<<" dans le document', async () => {;
+      it('le return to first page doit etre enable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.getByText(RETURN_TO_FIRST_PAGE_ABBREVIATION)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('false');
       });
 
-      it('affiche "Page précédente" dans le document', async () => {;
+      it('la "Page précédente" doit etre enable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.getByText(RETURN_TO_PREVIOUS_PAGE_FULL_TEXT)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' }).getAttribute('aria-disabled')).toBe('false');
       });
 
-      it('affiche ">>" dans le document', async () => {;
+      it('le go to last page doit etre enable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.getByText(GO_TO_LAST_PAGE_ABBREVIATION)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('false');
       });
 
-      it('affiche "Page suivante" dans le document', async () => {;
+      it('la "Page suivante" doit etre enable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.getByText(GO_TO_NEXT_PAGE_ABBREVIATION)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('false');
       });
-
 
       it('affiche "…" dans le document', async () => {;
         // WHEN
@@ -122,16 +121,16 @@ describe('MeilisearchCustomPagination', () => {
     describe('quand il s’agit de l’avant dernière page', () => {
       beforeEach(() => {
         // GIVEN
-        spyed.mockImplementation(() => mockUsePagination({ currentRefinement:2, isFirstPage:false, isLastPage: false, nbHits: 3, nbPages:3 }));
+        spyed.mockImplementation(() => mockUsePagination({ currentRefinement:2, isFirstPage:false, isLastPage: false, nbHits: 35, nbPages:3 }));
       });
 
-      it('affiche ">>" dans le document', async () => {;
+      it('le go to last page doit etre disable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.getByText(GO_TO_LAST_PAGE_ABBREVIATION)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('false');
       });
 
       it('affiche "Page suivante" dans le document', async () => {;
@@ -140,7 +139,7 @@ describe('MeilisearchCustomPagination', () => {
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.getByText(GO_TO_NEXT_PAGE_ABBREVIATION)).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('false');
       });
 
 
@@ -159,22 +158,22 @@ describe('MeilisearchCustomPagination', () => {
         spyed.mockImplementation(() => mockUsePagination({ isLastPage: true }));
       });
 
-      it('n’affiche pas >> dans le document', async () => {;
+      it('le go to last page doit etre disable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.queryByText(GO_TO_NEXT_PAGE_ABBREVIATION)).not.toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('true');
       });
 
-      it('n’affiche pas "Page suivante" dans le document', async () => {;
+      it('le "Page suivante" doit etre disable', async () => {;
         // WHEN
         render(
           <MeilsearchCustomPagination></MeilsearchCustomPagination>,
         );
         // THEN
-        expect(screen.queryByText(GO_TO_LAST_PAGE_ABBREVIATION)).not.toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('true');
       });
 
 
@@ -242,7 +241,7 @@ describe('MeilisearchCustomPagination', () => {
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
       );
-      const lien = screen.getByRole('link', { current: false, name: RETURN_TO_FIRST_PAGE_ABBREVIATION });
+      const lien = screen.getByRole('link', { name: 'returnToFirstPage' });
       // WHEN
       fireEvent.click(lien);
       // THEN
@@ -268,7 +267,7 @@ describe('MeilisearchCustomPagination', () => {
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
       );
-      const lien = screen.getByRole('link', { current: false, name: RETURN_TO_PREVIOUS_PAGE_FULL_TEXT });
+      const lien = screen.getByRole('link', { current: false, name: 'returnToPreviousPage Page précédente' });
       // WHEN
       fireEvent.click(lien);
       // THEN
@@ -294,7 +293,7 @@ describe('MeilisearchCustomPagination', () => {
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
       );
-      const lien = screen.getByRole('link', { current: false, name: GO_TO_LAST_PAGE_ABBREVIATION });
+      const lien = screen.getByRole('link', { current: false, name: 'goToLastPage' });
       // WHEN
       fireEvent.click(lien);
       // THEN
@@ -307,7 +306,7 @@ describe('MeilisearchCustomPagination', () => {
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
       );
-      const lien = screen.getByRole('link', { current: false, name: GO_TO_NEXT_PAGE_ABBREVIATION });
+      const lien = screen.getByRole('link', { current: false, name: 'Page suivante goToNextPage' });
       // WHEN
       fireEvent.click(lien);
       // THEN
@@ -315,6 +314,7 @@ describe('MeilisearchCustomPagination', () => {
       expect(refineMock).toHaveBeenCalledWith(4);
     });
   });
+
   describe('quand nous avons 1 seule page', () => {
     beforeEach(() => {
       // GIVEN
@@ -333,17 +333,16 @@ describe('MeilisearchCustomPagination', () => {
         }));
     });
 
-    it('affiche seulement 1 élément (le 1)', () => {
+    it('n affiche pas la pagination', () => {
       // WHEN
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
       );
       // THEN
-      expect(screen.getByRole('list')).toBeInTheDocument();
-      expect(screen.getAllByRole('listitem').length).toEqual(1);
-      expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();
+      expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
   });
+
   describe('quand nous avons 0 élément', () => {
     beforeEach(() => {
       // GIVEN
@@ -362,14 +361,13 @@ describe('MeilisearchCustomPagination', () => {
         }));
     });
 
-    it('affiche seulement "1" dans la pagination (le 1)', () => {
+    it('n affiche pas la pagination', () => {
       // WHEN
       render(
         <MeilsearchCustomPagination></MeilsearchCustomPagination>,
       );
       // THEN
-      expect(screen.getByRole('list')).toBeInTheDocument();
-      expect(screen.getAllByRole('listitem').length).toEqual(1);
+      expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
   });
 });
