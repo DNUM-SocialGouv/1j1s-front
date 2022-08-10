@@ -2,23 +2,57 @@
 
 .meilisearchPagination {
   text-align: center;
-  &>li {
+
+  & > li {
     display: inline-block;
     text-decoration: none;
-    min-width: 32px;
-    height: 32px;
-    &>a {
+
+    & > a {
       text-decoration: none;
       box-shadow: none;
-      height: 32px;
       min-width: 32px;
       display: inline-block;
       line-height: 32px;
+
+      & > * > svg {
+        width: 16px;
+        height: 16px;
+      }
+      & > svg {
+        width: 16px;
+        height: 16px;
+      }
     }
+  }
+}
+
+.disabled {
+  color: #929292;
+
+  & > a {
+    pointer-events: none;
   }
 }
 
 .meilisearchPaginationActive {
   background-color: $color-primary;
   color: $color-on-primary;
+}
+
+.page {
+  &Suivante {
+    margin-left: 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  &Precendente {
+    margin-right: 28px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ellipse {
+  width: 32px;
 }

@@ -1,6 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
+import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
 import styles from '~/client/components/ui/Meilisearch/Pagination.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -8,117 +12,36 @@ interface PaginationProps {
   numberOfResult: number
   numberOfResultPerPage: number
 }
-export function Pagination(props: PaginationProps) {
+export function Pagination({ numberOfResult, numberOfResultPerPage } : PaginationProps) {
   const { isSmallScreen } = useBreakpoint();
-  const router = useRouter();
-
+  const { query, push } = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
 
-  const {
-    numberOfResult,
-    numberOfResultPerPage,
-  } = props;
-
   useEffect(function setCurrentPageFromQueryUrl() {
-    const { page } = router.query;
+    const { page } = query;
     if (page && typeof page === 'string' && !isNaN(+page)) {
       setCurrentPage(Number(page) - 1);
     } else {
       setCurrentPage(0);
     }
-  }, [setCurrentPage, router.query]);
+  }, [setCurrentPage, query]);
 
   async function setCurrentPageInQueryUrl(page: number) {
-    await router.push({ query: { ...router.query, page: page + 1 } });
+    await push({ query: { ...query, page: page + 1 } });
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const numberOfPageList = [...Array(Math.ceil(numberOfResult/ numberOfResultPerPage) - 1).keys()];
-
   const isFirstPage = useMemo(() => currentPage === 0, [currentPage]);
-
   const isLastPage = useMemo(() => currentPage === numberOfPageList.length, [currentPage, numberOfPageList.length]);
-
   const lastPage = useMemo(() => Math.max((Math.ceil(numberOfResult/ numberOfResultPerPage) - 1), 0), [numberOfResult, numberOfResultPerPage]);
-
-  const shouldDisplayEllipsis = () => numberOfPageList.length > 4 && currentPage !== lastPage;
-  const displayEllipsis = () => <li>…</li>;
-  const displayLastElement = () => displayElement(lastPage);
-  const filter5ElementsToDisplayInMobile = (element: number) => element >= currentPage - 2 && element <= currentPage + 2 && element !== lastPage;
-  const filter9ElementsToDisplayInDesktop = (element: number) => element >= currentPage - 4 && element <= currentPage + 4 && element !== lastPage;
-
-  const displayIntermediatePages = () => numberOfPageList.filter((element) =>
-    isSmallScreen ? filter5ElementsToDisplayInMobile(element) : filter9ElementsToDisplayInDesktop(element),
-  ).map(displayElement);
-
-  const displayNext = () => {
-    if(isLastPage) {
-      return displayLastElement();
-    }
-    return <>
-      { shouldDisplayEllipsis() && displayEllipsis() }
-      { displayLastElement() }
-      <li key='NextPageLiPagination'>
-        <a
-          href=''
-          onClick={(event) => {
-            event.preventDefault();
-            setCurrentPageInQueryUrl(currentPage+1);
-            setCurrentPage(currentPage+1);
-          }}
-        >
-          {isSmallScreen ? '›' : 'Page suivante'}
-        </a>
-      </li>
-      <li key='LastLiPagination'>
-        <a
-          href=''
-          onClick={(event) => {
-            event.preventDefault();
-            setCurrentPageInQueryUrl(lastPage);
-            setCurrentPage(lastPage);
-          }}
-        >
-          ››
-        </a>
-      </li></>;
-  };
-
-  const displayPrevious = () => {
-    if(isFirstPage) {
-      return <></>;
-    }
-    return <><li key='FirstPageLiPagination'>
-      <a
-        href=''
-        onClick={(event) => {
-          event.preventDefault();
-          setCurrentPageInQueryUrl(0);
-          setCurrentPage(0);
-        }}
-      >
-        ‹‹
-      </a>
-    </li>
-    <li key='PreviousPageLiPagination'>
-      <a
-        href={''}
-        onClick={(event) => {
-          event.preventDefault();
-          setCurrentPageInQueryUrl(currentPage - 1);
-          setCurrentPage(currentPage - 1);
-        }}
-      >
-        {isSmallScreen ? '‹' : 'Page précédente'}
-      </a>
-    </li></>;
-  };
 
   const displayElement = (page: number) => {
     return <li key={page}>
       <a
-        href=''
+        href=""
+        role="link"
         className={ page === currentPage ? styles.meilisearchPaginationActive: ''}
         aria-current={currentPage === page}
         onClick={(event) => {
@@ -132,10 +55,94 @@ export function Pagination(props: PaginationProps) {
     </li>;
   };
 
+  const displayPrevious = () => {
+    return <>
+      <li key='FirstPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
+        <a
+          href=""
+          role="link"
+          aria-disabled={isFirstPage}
+          onClick={(event) => {
+            event.preventDefault();
+            if(!isFirstPage) {
+              setCurrentPageInQueryUrl(0);
+              setCurrentPage(0);
+            }
+          }}
+        >
+          <span title="returnToFirstPage"><AngleLeftFromLineIcon /></span>
+        </a>
+      </li>
+      <li key='PreviousPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
+        <a
+          href=""
+          role="link"
+          aria-disabled={isFirstPage}
+          onClick={(event) => {
+            event.preventDefault();
+            if(!isFirstPage) {
+              setCurrentPageInQueryUrl(currentPage - 1);
+              setCurrentPage(currentPage - 1);
+            }
+          }}
+        >
+          {isSmallScreen ? <span title="returnToPreviousPage"><AngleLeftIcon /></span> : <div className={styles.pagePrecendente}><span title="returnToPreviousPage"><AngleLeftIcon /></span> Page précédente</div>}
+        </a>
+      </li>
+    </>;
+  };
+
+  const filter5ElementsToDisplayInMobile = (element: number) => element >= currentPage - 2 && element <= currentPage + 2 && element !== lastPage;
+  const filter9ElementsToDisplayInDesktop = (element: number) => element >= currentPage - 4 && element <= currentPage + 4 && element !== lastPage;
+  const displayIntermediatePages = () => numberOfPageList.filter((element) =>
+    isSmallScreen ? filter5ElementsToDisplayInMobile(element) : filter9ElementsToDisplayInDesktop(element),
+  ).map(displayElement);
+
+  const displayEllipsis = () => numberOfPageList.length > 4 && currentPage !== lastPage ? <li className={styles.ellipse}>…</li> : <></>;
+
+  const displayLastElement = () => displayElement(lastPage);
+  const displayNext = () => {
+    return <>
+      { displayLastElement() }
+      <li key='NextPageLiPagination' className={isLastPage ? styles.disabled : ''}>
+        <a
+          href=""
+          role="link"
+          aria-disabled={isLastPage}
+          onClick={(event) => {
+            event.preventDefault();
+            if(!isLastPage) {
+              setCurrentPageInQueryUrl(currentPage+1);
+              setCurrentPage(currentPage+1);
+            }
+          }}
+        >
+          {isSmallScreen ? <span title="goToNextPage"><AngleRightIcon /></span> : <div className={styles.pageSuivante}>Page suivante  <span title="goToNextPage"><AngleRightIcon /></span></div>}
+        </a>
+      </li>
+      <li key='LastLiPagination' className={isLastPage ? styles.disabled : ''}>
+        <a
+          href=""
+          role="link"
+          aria-disabled={isLastPage}
+          onClick={(event) => {
+            event.preventDefault();
+            if(!isLastPage) {
+              setCurrentPageInQueryUrl(lastPage);
+              setCurrentPage(lastPage);
+            }
+          }}
+        >
+          <span title="goToLastPage"><AngleRightFromLineIcon /></span>
+        </a>
+      </li></>;
+  };
+
   return (
     <ul key='Pagination' className={styles.meilisearchPagination}>
       { displayPrevious() }
       { displayIntermediatePages() }
+      { displayEllipsis() }
       { displayNext() }
     </ul>
   );
