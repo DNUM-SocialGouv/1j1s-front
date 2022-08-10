@@ -15,6 +15,7 @@ interface MesuresJeunesProps {
 }
 
 export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
+  console.log(mesuresJeunes);
   const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
 
   function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
@@ -51,7 +52,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
       <div className={classNames(styles.cardList, styles.cardListPadding)}>
         {displayCartes(category)}
       </div>
-      {(displayMoreCartes(category).length) > 3 &&
+      {category.length > 3 &&
         <SeeMore>
           <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
             {displayMoreCartes(category)}
