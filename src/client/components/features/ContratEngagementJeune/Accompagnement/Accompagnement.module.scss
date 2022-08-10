@@ -57,8 +57,9 @@
   }
 
   &Explication {
-    @extend %text-small;
-    line-height: 1rem;
+    @extend %text-medium;
+    line-height: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   &Modal {
