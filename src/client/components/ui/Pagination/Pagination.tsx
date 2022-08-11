@@ -8,14 +8,20 @@ import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-
 import styles from '~/client/components/ui/Pagination/Pagination.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
+const NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE = 2;
+const NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE = 4;
+
 interface PaginationProps {
   numberOfResult: number
   numberOfResultPerPage: number
 }
+
 export function Pagination({ numberOfResult, numberOfResultPerPage } : PaginationProps) {
   const { isSmallScreen } = useBreakpoint();
   const { query, push } = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
+
+  const numberOfElementToDisplayAfterAndBeforeCurrentPage = isSmallScreen && NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE || NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE;
 
   useEffect(function setCurrentPageFromQueryUrl() {
     const { page } = query;
@@ -59,46 +65,49 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
     return <>
       <li key='FirstPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
         <a
-          href=""
-          role="link"
+          href="#"
           aria-disabled={isFirstPage}
+          aria-label="Revenir à la première page"
           onClick={(event) => {
             event.preventDefault();
-            if(!isFirstPage) {
-              setCurrentPageInQueryUrl(0);
-              setCurrentPage(0);
+            if(!event.target.ariaDisabled) {
+              if(!isFirstPage) {
+                setCurrentPageInQueryUrl(0);
+                setCurrentPage(0);
+              }
             }
           }}
         >
-          <span title="returnToFirstPage"><AngleLeftFromLineIcon /></span>
+          <AngleLeftFromLineIcon />
         </a>
       </li>
       <li key='PreviousPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
         <a
-          href="" // TODO METTRE UNE ANCRE DEBUT DES RECHERCHES
-          role="link"
+          href="#"
           aria-disabled={isFirstPage}
+          aria-label="Revenir à la page précédente"
           onClick={(event) => {
             event.preventDefault();
-            if(!isFirstPage) {
-              setCurrentPageInQueryUrl(currentPage - 1);
-              setCurrentPage(currentPage - 1);
+            if(!event.target.ariaDisabled) {
+              if(!isFirstPage) {
+                setCurrentPageInQueryUrl(currentPage - 1);
+                setCurrentPage(currentPage - 1);
+              }
             }
           }}
         >
-          {isSmallScreen ? <span title="returnToPreviousPage"><AngleLeftIcon /></span> : <div className={styles.pagePrecendente}><span title="returnToPreviousPage"><AngleLeftIcon /></span> Page précédente</div>}
+          {isSmallScreen ? <AngleLeftIcon /> : <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
         </a>
       </li>
     </>;
   };
 
-  const filter5ElementsToDisplayInMobile = (element: number) => element >= currentPage - 2 && element <= currentPage + 2 && element !== lastPage;
-  const filter9ElementsToDisplayInDesktop = (element: number) => element >= currentPage - 4 && element <= currentPage + 4 && element !== lastPage;
   const displayIntermediatePages = () => numberOfPageList.filter((element) =>
-    isSmallScreen ? filter5ElementsToDisplayInMobile(element) : filter9ElementsToDisplayInDesktop(element),
+    element >= currentPage - numberOfElementToDisplayAfterAndBeforeCurrentPage && element <= currentPage + numberOfElementToDisplayAfterAndBeforeCurrentPage,
   ).map(displayElement);
 
-  const displayEllipsis = () => numberOfPageList.length > 4 && (isSmallScreen ? currentPage < lastPage - 3 : currentPage < lastPage - 5) ? <li className={styles.ellipse}>…</li> : <></>;
+  const displayEllipsis = () => currentPage < lastPage - (numberOfElementToDisplayAfterAndBeforeCurrentPage + 1)
+    ? <li className={styles.ellipse}>…</li> : <></>;
 
   const displayLastElement = () => displayElement(lastPage);
   const displayNext = () => {
@@ -106,34 +115,38 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
       { displayLastElement() }
       <li key='NextPageLiPagination' className={isLastPage ? styles.disabled : ''}>
         <a
-          href=""
-          role="link"
+          href="#"
           aria-disabled={isLastPage}
+          aria-label="Aller à la page suivante"
           onClick={(event) => {
             event.preventDefault();
-            if(!isLastPage) {
-              setCurrentPageInQueryUrl(currentPage+1);
-              setCurrentPage(currentPage+1);
+            if(!event.target.ariaDisabled) {
+              if(!isLastPage) {
+                setCurrentPageInQueryUrl(currentPage+1);
+                setCurrentPage(currentPage+1);
+              }
             }
           }}
         >
-          {isSmallScreen ? <span title="goToNextPage"><AngleRightIcon /></span> : <div className={styles.pageSuivante}>Page suivante  <span title="goToNextPage"><AngleRightIcon /></span></div>}
+          {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante  <AngleRightIcon /></div>}
         </a>
       </li>
       <li key='LastLiPagination' className={isLastPage ? styles.disabled : ''}>
         <a
-          href=""
-          role="link"
+          href="#"
           aria-disabled={isLastPage}
+          aria-label="Aller à la dernière page"
           onClick={(event) => {
             event.preventDefault();
-            if(!isLastPage) {
-              setCurrentPageInQueryUrl(lastPage);
-              setCurrentPage(lastPage);
+            if(!event.target.ariaDisabled) {
+              if(!isLastPage) {
+                setCurrentPageInQueryUrl(lastPage);
+                setCurrentPage(lastPage);
+              }
             }
           }}
         >
-          <span title="goToLastPage"><AngleRightFromLineIcon /></span>
+          <AngleRightFromLineIcon />
         </a>
       </li></>;
   };

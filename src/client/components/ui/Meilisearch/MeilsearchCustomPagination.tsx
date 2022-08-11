@@ -36,7 +36,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
       return [...Array(Math.ceil(nbHits / numberOfResultPerPage) - 1)].map((value, index) => index);
     }
     return [];
-  }, [numberOfResult, numberOfResultPerPage]);
+  }, [nbHits, numberOfResultPerPage]);
   const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
   const displayElement = (page: number) => {
@@ -64,13 +64,14 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Revenir à la première page"
           onClick={(event) => {
             event.preventDefault();
-            // A METTRE PARTOUT !event.target.ariaDisabled
-            if (!isFirstPage) {
-              refine(0);
+            if(!event.target.ariaDisabled) {
+              if (!isFirstPage) {
+                refine(0);
+              }
             }
           }}
         >
-          <span title="returnToFirstPage"><AngleLeftFromLineIcon /></span>
+          <AngleLeftFromLineIcon />
         </a>
       </li>
       <li key="PreviousPageLiPagination">
@@ -80,13 +81,14 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Revenir à la page précédente"
           onClick={(event) => {
             event.preventDefault();
-            if (!isFirstPage) {
-              refine(currentRefinement - 1);
+            if(!event.target.ariaDisabled) {
+              if (!isFirstPage) {
+                refine(currentRefinement - 1);
+              }
             }
           }}
         >
-          {isSmallScreen ? <AngleLeftIcon /> :
-            <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
+          {isSmallScreen ? <AngleLeftIcon /> : <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
         </a>
       </li>
     </>;
@@ -94,9 +96,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
 
   const displayIntermediatePages = () => numberOfPageList.filter((element) =>
     element >= currentRefinement - numberOfElementToDisplayAfterAndBeforeCurrentPage && element <= currentRefinement + numberOfElementToDisplayAfterAndBeforeCurrentPage && element !== lastPage,
-  ).map((value) => {
-    return displayElement(value);
-  });
+  ).map(displayElement);
 
   const displayEllipsis = () => currentRefinement < lastPage - (numberOfElementToDisplayAfterAndBeforeCurrentPage + 1) ?
     <li className={styles.ellipse}>…</li> : <></>;
@@ -112,14 +112,14 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Aller à la page suivante"
           onClick={(event) => {
             event.preventDefault();
-            if (!isLastPage) {
-              refine(currentRefinement + 1);
+            if(!event.target.ariaDisabled) {
+              if (!isLastPage) {
+                refine(currentRefinement + 1);
+              }
             }
           }}
         >
-          {isSmallScreen ? <span title="goToNextPage"><AngleRightIcon /></span> :
-            <div className={styles.pageSuivante}>Page suivante <span title="goToNextPage"><AngleRightIcon /></span>
-            </div>}
+          {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante <AngleRightIcon /></div>}
         </a>
       </li>
       <li key="LastLiPagination">
@@ -129,12 +129,14 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Aller à la dernière page"
           onClick={(event) => {
             event.preventDefault();
-            if (!isLastPage) {
-              refine(lastPage);
+            if(!event.target.ariaDisabled) {
+              if (!isLastPage) {
+                refine(lastPage);
+              }
             }
           }}
         >
-          <span title="goToLastPage"><AngleRightFromLineIcon /></span>
+          <AngleRightFromLineIcon />
         </a>
       </li>
     </>;
@@ -143,7 +145,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
   return (
     <>
       {
-        numberOfPageList.length >= 2 && <ul className={styles.pagination}>
+        numberOfPageList.length >= 2 && <ul key='Pagination' className={styles.pagination}>
           {displayPrevious()}
           {displayIntermediatePages()}
           {displayEllipsis()}

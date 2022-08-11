@@ -9,6 +9,11 @@ import React from 'react';
 
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 
+const REVENIR_A_LA_PREMIERE_PAGE = 'Revenir à la première page';
+const REVENIR_A_LA_PAGE_PRECENDENTE = 'Revenir à la page précédente';
+const ALLER_A_LA_PAGE_SUIVANTE = 'Aller à la page suivante';
+const ALLER_A_LA_DERNIERE_PAGE = 'Aller à la dernière page';
+
 describe('Pagination', () => {
   describe('quand il y a deja une page dans l url', () => {
     it('affiche directement la page dans la pagination', () => {
@@ -22,29 +27,6 @@ describe('Pagination', () => {
     });
   });
 
-  describe('quand il y a 100 résultats et 25 résultat par page à afficher', () => {
-    describe('doit désactiver la return to first page et Page précédente', () => {
-      it('et les 5 premières pages, Page suivante et le go to last page', async () => {
-        mockLargeScreen();
-        mockUseRouter({});
-        render(
-          <Pagination numberOfResult={100} numberOfResultPerPage={25} />,
-        );
-
-        expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('true');
-        expect(screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' }).getAttribute('aria-disabled')).toBe('true');
-        expect(screen.getByText('1')).toBeInTheDocument();
-        expect(screen.getByText('2')).toBeInTheDocument();
-        expect(screen.getByText('3')).toBeInTheDocument();
-        expect(screen.getByText('4')).toBeInTheDocument();
-        expect(screen.queryByText('5')).not.toBeInTheDocument();
-        expect(screen.queryByText('…')).not.toBeInTheDocument();
-        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('false');
-        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('false');
-      });
-    });
-  });
-
   describe('quand il y a 100 résultats et 1O résultat par page à afficher', () => {
     describe('doit désactiver la return to first page et Page précédente', () => {
       it('doit afficher les 4 premières pages, une ellipse, la page 16, Page suivante et le go to last page', () => {
@@ -54,8 +36,8 @@ describe('Pagination', () => {
           <Pagination numberOfResult={470} numberOfResultPerPage={30} />,
         );
 
-        expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('true');
-        expect(screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' }).getAttribute('aria-disabled')).toBe('true');
+        expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
+        expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('true');
         expect(screen.getByText('1')).toBeInTheDocument();
         expect(screen.getByText('2')).toBeInTheDocument();
         expect(screen.getByText('3')).toBeInTheDocument();
@@ -64,8 +46,8 @@ describe('Pagination', () => {
         expect(screen.queryByText('6')).not.toBeInTheDocument();
         expect(screen.getByText('…')).toBeInTheDocument();
         expect(screen.getByText('16')).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('false');
-        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
       });
     });
 
@@ -84,8 +66,8 @@ describe('Pagination', () => {
           const page5 = screen.getByRole('link', { current: false, name: '5' });
           fireEvent.click(page5);
 
-          expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('false');
-          expect(screen.getByRole('link', { name: 'returnToPreviousPage' }).getAttribute('aria-disabled')).toBe('false');
+          expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
+          expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('false');
           expect(screen.getByText('3')).toBeInTheDocument();
           expect(screen.getByText('4')).toBeInTheDocument();
           expect(screen.getByText('5')).toBeInTheDocument();
@@ -93,8 +75,8 @@ describe('Pagination', () => {
           expect(screen.getByText('7')).toBeInTheDocument();
           expect(screen.getByText('…')).toBeInTheDocument();
           expect(screen.getByText('16')).toBeInTheDocument();
-          expect(screen.getByRole('link', { name: 'goToNextPage' }).getAttribute('aria-disabled')).toBe('false');
-          expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('false');
+          expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('false');
+          expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
         });
       });
 
@@ -111,8 +93,8 @@ describe('Pagination', () => {
         const page9 = screen.getByRole('link', { current: false, name: '9' });
         fireEvent.click(page9);
 
-        expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('false');
-        expect(screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('false');
         expect(screen.getByText('5')).toBeInTheDocument();
         expect(screen.getByText('6')).toBeInTheDocument();
         expect(screen.getByText('7')).toBeInTheDocument();
@@ -124,8 +106,8 @@ describe('Pagination', () => {
         expect(screen.getByText('13')).toBeInTheDocument();
         expect(screen.getByText('…')).toBeInTheDocument();
         expect(screen.getByText('16')).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('false');
-        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
 
         // quand l'utilisateur clique ensuite sur la dernière page (16)
         // doit afficher doit afficher return to the first page, Page précédente, 4 avant la page 16
@@ -133,16 +115,16 @@ describe('Pagination', () => {
         const page16 = screen.getByRole('link', { current: false, name: '16' });
         fireEvent.click(page16);
 
-        expect(screen.getByRole('link', { name: 'returnToFirstPage' }).getAttribute('aria-disabled')).toBe('false');
-        expect(screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
+        expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('false');
         expect(screen.getByText('12')).toBeInTheDocument();
         expect(screen.getByText('13')).toBeInTheDocument();
         expect(screen.getByText('14')).toBeInTheDocument();
         expect(screen.getByText('15')).toBeInTheDocument();
         expect(screen.queryByText('…')).not.toBeInTheDocument();
         expect(screen.getByText('16')).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: 'Page suivante goToNextPage' }).getAttribute('aria-disabled')).toBe('true');
-        expect(screen.getByRole('link', { name: 'goToLastPage' }).getAttribute('aria-disabled')).toBe('true');
+        expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('true');
+        expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
       });
     });
 
@@ -165,7 +147,7 @@ describe('Pagination', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: { page: 3 } });
 
         // l'utilisateur clique sur la page suivante
-        const goToNextPage = screen.getByRole('link', { name: 'Page suivante goToNextPage' });
+        const goToNextPage = screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE });
         fireEvent.click(goToNextPage);
 
         // met à jour avec la page 4 dans l'url
@@ -174,7 +156,7 @@ describe('Pagination', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: { page: 4 } });
 
         // l'utilisateur clique sur la page précédente
-        const returnToPreviousPage = screen.getByRole('link', { name: 'returnToPreviousPage Page précédente' });
+        const returnToPreviousPage = screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE });
         fireEvent.click(returnToPreviousPage);
 
         // met à jour avec la page 3 dans l'url
@@ -182,7 +164,7 @@ describe('Pagination', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: { page: 3 } });
 
         // l'utilisateur clique sur go to last page
-        const goToLastPage = screen.getByRole('link', { name: 'goToLastPage' });
+        const goToLastPage = screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE });
         fireEvent.click(goToLastPage);
 
         // met à jour avec la page 16 dans l'url
@@ -190,7 +172,7 @@ describe('Pagination', () => {
         expect(routerPush).toHaveBeenCalledWith({ query: { page: 16 } });
 
         // l'utilisateur clique sur return to fisrt page
-        const returnToFirstPage = screen.getByRole('link', { name: 'returnToFirstPage' });
+        const returnToFirstPage = screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE });
         fireEvent.click(returnToFirstPage);
 
         // met à jour avec la page 1 dans l'url
