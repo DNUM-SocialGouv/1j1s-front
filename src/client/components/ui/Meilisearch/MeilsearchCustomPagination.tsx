@@ -64,6 +64,8 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Revenir à la première page"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if (!isFirstPage) {
                 refine(0);
@@ -81,6 +83,8 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Revenir à la page précédente"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if (!isFirstPage) {
                 refine(currentRefinement - 1);
@@ -112,6 +116,8 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Aller à la page suivante"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if (!isLastPage) {
                 refine(currentRefinement + 1);
@@ -129,6 +135,8 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           aria-label="Aller à la dernière page"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if (!isLastPage) {
                 refine(lastPage);

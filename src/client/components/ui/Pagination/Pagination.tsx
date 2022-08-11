@@ -70,6 +70,8 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
           aria-label="Revenir à la première page"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if(!isFirstPage) {
                 setCurrentPageInQueryUrl(0);
@@ -88,6 +90,8 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
           aria-label="Revenir à la page précédente"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if(!isFirstPage) {
                 setCurrentPageInQueryUrl(currentPage - 1);
@@ -120,6 +124,8 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
           aria-label="Aller à la page suivante"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if(!isLastPage) {
                 setCurrentPageInQueryUrl(currentPage+1);
@@ -138,6 +144,8 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
           aria-label="Aller à la dernière page"
           onClick={(event) => {
             event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if(!event.target.ariaDisabled) {
               if(!isLastPage) {
                 setCurrentPageInQueryUrl(lastPage);
