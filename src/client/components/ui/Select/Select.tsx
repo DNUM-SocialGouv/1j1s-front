@@ -1,6 +1,6 @@
-import { uuid4 } from '@sentry/utils';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
@@ -31,8 +31,8 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
 
-  const labelledBy = useRef(uuid4());
-  const errorMessageBy = useRef(uuid4());
+  const labelledBy = useRef(uuidv4());
+  const errorMessageBy = useRef(uuidv4());
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
