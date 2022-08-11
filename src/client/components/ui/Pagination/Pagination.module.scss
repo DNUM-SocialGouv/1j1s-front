@@ -20,26 +20,24 @@
       }
     }
   }
-}
 
-.disabled {
-  color: #929292;
+  & > li > a {
+    &[aria-disabled="true"] {
+      color: #929292;
+      pointer-events: none;
+    }
 
-  & > a {
-    pointer-events: none;
+    &[aria-current="true"] {
+      background-color: $color-primary;
+      color: $color-on-primary;
+    }
   }
-}
 
-.paginationActive {
-  background-color: $color-primary;
-  color: $color-on-primary;
 }
 
 .page {
   &Suivante {
     margin-left: 28px;
-    display: flex;
-    align-items: center;
 
     & > span > svg {
       width: 16px;

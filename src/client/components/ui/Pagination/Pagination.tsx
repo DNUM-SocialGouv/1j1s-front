@@ -75,7 +75,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
       </li>
       <li key='PreviousPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
         <a
-          href=""
+          href="" // TODO METTRE UNE ANCRE DEBUT DES RECHERCHES
           role="link"
           aria-disabled={isFirstPage}
           onClick={(event) => {

@@ -10,11 +10,15 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from '../Pagination/Pagination.module.scss';
 
-const DEFAULT_HITS_PER_PAGE = 15;
-export type MeilisearchCustomPaginationProps = UsePaginationProps & { hitsPerPage?: number }
+const NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE = 2;
+const NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE = 4;
+
+export type MeilisearchCustomPaginationProps = UsePaginationProps & { numberOfResultPerPage: number }
+
 // DEVNOTE : penser à mettre le même props.hits_per_page que dans le configure
 export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationProps) {
   const { isSmallScreen } = useBreakpoint();
+  const { numberOfResultPerPage } = props;
   const {
     currentRefinement,
     nbHits,
@@ -23,24 +27,24 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
     refine,
     createURL,
   } = usePagination(props);
+  const numberOfResult = nbHits;
 
-  const HITS_PER_PAGE = props.hitsPerPage || DEFAULT_HITS_PER_PAGE;
+  const numberOfElementToDisplayAfterAndBeforeCurrentPage = isSmallScreen && NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE || NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE;
+
   const numberOfPageList = useMemo(() => {
-    if(nbHits > 0) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return [...Array(Math.ceil(nbHits/ HITS_PER_PAGE) - 1).keys()];
+    if (nbHits > 0) {
+      return [...Array(Math.ceil(nbHits / numberOfResultPerPage) - 1)].map((value, index) => index);
     }
     return [];
-  }, [nbHits, HITS_PER_PAGE]);
-  const lastPage = Math.max((Math.ceil(nbHits/ HITS_PER_PAGE) - 1), 0);
+  }, [numberOfResult, numberOfResultPerPage]);
+  const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
   const displayElement = (page: number) => {
     return <li key={page}>
       <a
         href={createURL(page)}
-        className={ page === currentRefinement ? styles.paginationActive: ''}
-        aria-current={(page+1)===currentRefinement}
+        aria-current={page === currentRefinement}
+        aria-label={`Page numéro ${page + 1}`}
         onClick={(event) => {
           event.preventDefault();
           refine(page);
@@ -53,14 +57,15 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
 
   const displayPrevious = () => {
     return <>
-      <li key='FirstPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
+      <li key="FirstPageLiPagination">
         <a
           href={createURL(0)}
-          role="link"
           aria-disabled={isFirstPage}
+          aria-label="Revenir à la première page"
           onClick={(event) => {
             event.preventDefault();
-            if(!isFirstPage) {
+            // A METTRE PARTOUT !event.target.ariaDisabled
+            if (!isFirstPage) {
               refine(0);
             }
           }}
@@ -68,68 +73,71 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
           <span title="returnToFirstPage"><AngleLeftFromLineIcon /></span>
         </a>
       </li>
-      <li key='PreviousPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
+      <li key="PreviousPageLiPagination">
         <a
           href={createURL(currentRefinement - 1)}
-          role="link"
           aria-disabled={isFirstPage}
+          aria-label="Revenir à la page précédente"
           onClick={(event) => {
             event.preventDefault();
-            if(!isFirstPage) {
+            if (!isFirstPage) {
               refine(currentRefinement - 1);
             }
           }}
         >
-          {isSmallScreen ? <span title="returnToPreviousPage"><AngleLeftIcon /></span> : <div className={styles.pagePrecendente}><span title="returnToPreviousPage"><AngleLeftIcon /></span> Page précédente</div>}
+          {isSmallScreen ? <AngleLeftIcon /> :
+            <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
         </a>
       </li>
     </>;
   };
 
-  const filter5ElementsToDisplayInMobile = (element: number) => element >= currentRefinement - 2 && element <= currentRefinement + 2 && element !== lastPage;
-  const filter9ElementsToDisplayInDesktop = (element: number) => element >= currentRefinement - 4 && element <= currentRefinement + 4 && element !== lastPage;
   const displayIntermediatePages = () => numberOfPageList.filter((element) =>
-    isSmallScreen ? filter5ElementsToDisplayInMobile(element) : filter9ElementsToDisplayInDesktop(element),
+    element >= currentRefinement - numberOfElementToDisplayAfterAndBeforeCurrentPage && element <= currentRefinement + numberOfElementToDisplayAfterAndBeforeCurrentPage && element !== lastPage,
   ).map((value) => {
     return displayElement(value);
   });
 
-  const displayEllipsis = () => numberOfPageList.length > 4 && (isSmallScreen ? currentRefinement < lastPage - 3 : currentRefinement < lastPage - 5) ? <li className={styles.ellipse}>…</li> : <></>;
+  const displayEllipsis = () => currentRefinement < lastPage - (numberOfElementToDisplayAfterAndBeforeCurrentPage + 1) ?
+    <li className={styles.ellipse}>…</li> : <></>;
 
   const displayLastElement = () => displayElement(lastPage);
   const displayNext = () => {
     return <>
-      { displayLastElement() }
-      <li key='NextPageLiPagination' className={isLastPage ? styles.disabled : ''}>
+      {displayLastElement()}
+      <li key="NextPageLiPagination">
         <a
           href={createURL(currentRefinement + 1)}
-          role="link"
           aria-disabled={isLastPage}
+          aria-label="Aller à la page suivante"
           onClick={(event) => {
             event.preventDefault();
-            if(!isLastPage) {
+            if (!isLastPage) {
               refine(currentRefinement + 1);
             }
           }}
         >
-          {isSmallScreen ? <span title="goToNextPage"><AngleRightIcon /></span> : <div className={styles.pageSuivante}>Page suivante  <span title="goToNextPage"><AngleRightIcon /></span></div>}
+          {isSmallScreen ? <span title="goToNextPage"><AngleRightIcon /></span> :
+            <div className={styles.pageSuivante}>Page suivante <span title="goToNextPage"><AngleRightIcon /></span>
+            </div>}
         </a>
       </li>
-      <li key='LastLiPagination' className={isLastPage ? styles.disabled : ''}>
+      <li key="LastLiPagination">
         <a
           href={createURL(lastPage)}
-          role="link"
           aria-disabled={isLastPage}
+          aria-label="Aller à la dernière page"
           onClick={(event) => {
             event.preventDefault();
-            if(!isLastPage) {
+            if (!isLastPage) {
               refine(lastPage);
             }
           }}
         >
           <span title="goToLastPage"><AngleRightFromLineIcon /></span>
         </a>
-      </li></>;
+      </li>
+    </>;
   };
 
   return (
