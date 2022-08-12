@@ -9,7 +9,7 @@ import {
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/apiResponse.util';
+import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
   const résultatsRechercheJobÉtudiant = await dependencies.offreEmploiDependencies.rechercherOffreEmploi

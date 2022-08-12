@@ -31,12 +31,12 @@ export class EnvoyerDemanderDeContactUseCase {
 }
 
 const DemandeDeContactValidator = Joi.object({
-  age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(Age),
-  email: Joi.string().email(),
-  nom: Joi.string(),
-  prénom: Joi.string(),
-  téléphone: Joi.string().custom(validatePhone),
-  ville: Joi.string(),
+  age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(Age).required(),
+  email: Joi.string().email().required(),
+  nom: Joi.string().required(),
+  prénom: Joi.string().required(),
+  téléphone: Joi.string().custom(validatePhone).required(),
+  ville: Joi.string().required(),
 });
 
 function validatePhone (input: string): string {

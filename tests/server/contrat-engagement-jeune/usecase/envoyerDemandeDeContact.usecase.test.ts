@@ -1,5 +1,7 @@
 import { DemandeDeContact } from '~/server/contrat-engagement-jeune/domain/DemandeDeContact';
-import { EnvoyerDemanderDeContactUseCase } from '~/server/contrat-engagement-jeune/usecase/envoyerDemandeDeContact.usecase';
+import {
+  EnvoyerDemanderDeContactUseCase,
+} from '~/server/contrat-engagement-jeune/usecase/envoyerDemandeDeContact.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
@@ -13,6 +15,21 @@ describe('EnvoyerDemanderDeContact', () => {
       téléphone: '0678954322',
       ville: 'Cergy',
     };
+
+    describe('quand la command ne contient aucun champ', () => {
+      it('résoud une DEMANDE_INCORRECTE', async () => {
+        // Given
+        const repository = { save: jest.fn() };
+        const usecase = new EnvoyerDemanderDeContactUseCase(repository);
+
+        // When
+        const result = await usecase.handle({});
+
+        // Then
+        expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+      });
+    });
+
     it('appelle le repository', async () => {
       // Given
       const repository = {

@@ -23,7 +23,8 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-namespace": "off",
-    "quote-props": ["error", "as-needed"]
+    "quote-props": ["error", "as-needed"],
+    "no-console": "error"
   },
   "overrides": [
     // Only uses Testing Library lint rules in test files
