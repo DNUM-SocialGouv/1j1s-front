@@ -53,6 +53,18 @@
       color: $color-primary;
     }
   }
+  
+  &Text {
+    width: 100%;
+    background-color: $color-cadre-formulaire;
+    border-radius: 30px;
+
+    p {
+      font-size: 0.7rem;
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+  }
 }
 
 @include media(large){

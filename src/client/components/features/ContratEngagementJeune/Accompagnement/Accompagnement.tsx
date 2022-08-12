@@ -57,6 +57,9 @@ export default function Accompagnement() {
         </ModalTitle>
         <ModalContent>
           <FormulaireDeContact />
+          <div className={styles.accompagnementMissionText}>
+            <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte que mes données soient transférées à la mission locale de la zone géographique dans laquelle je réside en vue d&apos;être rappelé.</p>
+          </div>
         </ModalContent>
       </Modal>
     </section>

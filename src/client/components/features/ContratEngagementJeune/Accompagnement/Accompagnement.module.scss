@@ -84,6 +84,42 @@
       }
     }
   }
+
+  &Mission {
+    div {
+      border-radius: 20px;
+      max-width: 100%;
+
+    }
+    &Title {
+      font-size: 10px;
+      text-align: center;
+      @extend %bold;
+      color: $color-on-background;
+      line-height: 2rem;
+
+    small {
+      display:block;
+      @extend %bold;
+      font-size: 18px;
+      margin-top: 1rem;
+      color: $color-primary;
+    }
+    }
+
+    &Text {
+      width: 100%;
+      background-color: $color-cadre-formulaire;
+      border-radius: 30px;
+  
+      p {
+        font-size: 0.7rem;
+        padding: 1rem;
+        margin-top: 1.5rem;
+      }
+    }
+
+  }
 }
 
 @include media(large) {

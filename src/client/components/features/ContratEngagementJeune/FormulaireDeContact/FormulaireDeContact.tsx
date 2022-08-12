@@ -58,9 +58,6 @@ export default function FormulaireDeContact () {
       <div className={styles.formulaireDeRappelButton}>
         <Button buttonType="primary" disabled={true} >Envoyer la demande</Button>
       </div>
-      <div className={styles.formulaireDeRappelText}>
-        <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
-      </div>
     </form>
   );
 }
