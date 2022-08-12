@@ -35,6 +35,10 @@
     ul, strong, button {
       color: $color-on-primary;
     }
+
+    button {
+      margin: inherit;
+    }
   }
 }
 

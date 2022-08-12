@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -45,7 +44,6 @@ export default function Accompagnement() {
 
               <LinkAsButton href={lienPôleEmploi} className={styles.accompagnementModalContentLink} target="_blank">
                 Je contacte mon conseiller
-                <Icon name="external-redirection"/>
               </LinkAsButton>
             </ModalContent>
           </Modal>

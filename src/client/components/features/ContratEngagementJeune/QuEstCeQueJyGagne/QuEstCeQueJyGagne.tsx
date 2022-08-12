@@ -28,7 +28,7 @@ export default function QuEstCeQueJyGagne() {
           {!displayAccordion && <strong>Le contrat d&apos;Engagement Jeune, c&apos;est tout bénéf&apos; pour moi !</strong>}
         </div>
         {!displayAccordion && markdown}
-        {displayAccordion && <span className={styles.accordion}><SeeMore> {markdown}</SeeMore></span>}
+        {displayAccordion && <SeeMore> {markdown}</SeeMore>}
       </div>
     </section>
   );
