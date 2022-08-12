@@ -14,6 +14,11 @@
       display: inline-block;
       line-height: 32px;
 
+      & > svg {
+        width: 16px;
+        height: 16px;
+      }
+
       & > * > svg {
         width: 16px;
         height: 16px;
@@ -38,6 +43,8 @@
 .page {
   &Suivante {
     margin-left: 28px;
+    font-size: 16px;
+
 
     & > span > svg {
       width: 16px;
