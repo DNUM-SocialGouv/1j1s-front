@@ -1,16 +1,34 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
 
 export default function FormulaireDeContact () {
   const [inputAge, setInputAge] = useState('');
+  const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
+
+  async function enregistrerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.dir(event.currentTarget);
+    await demandeDeContactService.enregistrer({
+      age: 18,
+      email: 'toto@msn.fr',
+      nom: 'Mc Totface',
+      prénom: 'Toto',
+      téléphone: '0678954',
+      ville: 'Cergy',
+    });
+  }
   return (
-    <form>
+    <form
+      onSubmit={enregistrerFormulaireDeContact}
+    >
       <div className={styles.formulaireDeRappel}>
         <TextInput 
           label='Prénom'
@@ -56,7 +74,7 @@ export default function FormulaireDeContact () {
       </div>
       <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.formulaireDeRappelCheckbox}/>
       <div className={styles.formulaireDeRappelButton}>
-        <Button buttonType="primary" disabled={true} >Envoyer la demande</Button>
+        <Button buttonType="primary">Envoyer la demande</Button>
       </div>
     </form>
   );

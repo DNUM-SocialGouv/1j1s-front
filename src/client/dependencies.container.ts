@@ -9,6 +9,8 @@ import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 
+import { DemandeDeContactService } from './services/demandeDeContact.service';
+
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
   alternanceService: AlternanceService
@@ -17,6 +19,7 @@ export type Dependencies = {
   missionEngagementService: MissionEngagementService
   offreEmploiService: OffreEmploiService
   rechercheClientService: SearchClient
+  demandeDeContactService: DemandeDeContactService
 }
 
 class DependencyInitException extends Error {
@@ -34,6 +37,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const alternanceService = new AlternanceService(httpClientService);
   const métierRecherchéService = new MétierRecherchéService(httpClientService);
   const missionEngagementService = new MissionEngagementService(httpClientService);
+  const demandeDeContactService = new DemandeDeContactService(httpClientService);
 
   const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
   const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -52,6 +56,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 
   return {
     alternanceService,
+    demandeDeContactService,
     localisationService,
     missionEngagementService,
     métierRecherchéService,

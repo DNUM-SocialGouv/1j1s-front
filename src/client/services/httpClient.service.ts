@@ -53,4 +53,8 @@ export class HttpClientService {
       return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
     }
   }
+
+  async post<Body>(endpoint: string, body: Body) {
+    return this.client.post(endpoint, body);
+  }
 }
