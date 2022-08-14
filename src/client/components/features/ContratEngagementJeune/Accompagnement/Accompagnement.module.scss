@@ -91,23 +91,23 @@
       max-width: 100%;
 
     }
-    &Title {
-      font-size: 10px;
+    &__Title {
+      font-size: 1.4rem !important;
       text-align: center;
       @extend %bold;
       color: $color-on-background;
       line-height: 2rem;
 
-    small {
-      display:block;
-      @extend %bold;
-      font-size: 18px;
-      margin-top: 1rem;
-      color: $color-primary;
-    }
+      small {
+        display:block;
+        @extend %bold;
+        font-size: 18px;
+        margin-top: 1rem;
+        color: $color-primary;
+      }
     }
 
-    &Text {
+    &__Text {
       width: 100%;
       background-color: $color-cadre-formulaire;
       border-radius: 30px;
@@ -118,7 +118,6 @@
         margin-top: 1.5rem;
       }
     }
-
   }
 }
 

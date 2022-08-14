@@ -51,13 +51,13 @@ export default function Accompagnement() {
         </article>
       </div>
       <Modal isOpen={isMissionLocaleModalOpen} hide={() => setIsMissionLocaleModalOpen(false)} className={styles.accompagnementMission}>
-        <ModalTitle className={styles.accompagnementMissionTitle}>
+        <ModalTitle className={styles.accompagnementMission__Title}>
           Vous pouvez bénéficier d&apos;un accompagnement répondant à vos besoins auprès de votre Mission Locale
           <small>(Tous les champs sont obligatoires)</small>
         </ModalTitle>
         <ModalContent>
           <FormulaireDeContact />
-          <div className={styles.accompagnementMissionText}>
+          <div className={styles.accompagnementMission__Text}>
             <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte que mes données soient transférées à la mission locale de la zone géographique dans laquelle je réside en vue d&apos;être rappelé.</p>
           </div>
         </ModalContent>
