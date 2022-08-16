@@ -1,14 +1,25 @@
+import React, { useMemo } from 'react';
 import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 import { usePagination } from 'react-instantsearch-hooks-web';
 
-import styles from './Pagination.module.scss';
+import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
+import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-const DEFAULT_HITS_PER_PAGE = 15;
-export type CustomPaginationProps = UsePaginationProps & { hitsPerPage?: number }
+import styles from '../Pagination/Pagination.module.scss';
+
+const NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE = 2;
+const NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE = 4;
+
+export type MeilisearchCustomPaginationProps = UsePaginationProps & { numberOfResultPerPage: number }
+
 // DEVNOTE : penser à mettre le même props.hits_per_page que dans le configure
-export function MeilsearchCustomPagination(props: CustomPaginationProps) {
+export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationProps) {
+  const { isSmallScreen } = useBreakpoint();
+  const { numberOfResultPerPage } = props;
   const {
-    pages,
     currentRefinement,
     nbHits,
     isFirstPage,
@@ -16,82 +27,24 @@ export function MeilsearchCustomPagination(props: CustomPaginationProps) {
     refine,
     createURL,
   } = usePagination(props);
+  const numberOfResult = nbHits;
 
-  const HITS_PER_PAGE = props.hitsPerPage || DEFAULT_HITS_PER_PAGE;
-  const lastPage = Math.max((Math.ceil(nbHits/ HITS_PER_PAGE) - 1), 0);
-  
-  const shouldDisplayElipsis = () => currentRefinement < lastPage - 2;
-  const displayLastElement = () => displayElement(lastPage);
-  const displayElipsis = () => <li>…</li>;
-  const displayIntermediatePages = (elements: Array<number>) =>
-    elements.filter((element) => element !== lastPage)
-      .map(displayElement);
+  const numberOfElementToDisplayAfterAndBeforeCurrentPage = isSmallScreen && NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE || NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE;
 
-  const displayNext = () => {
-    if(isLastPage) {
-      return displayLastElement();
+  const numberOfPageList = useMemo(() => {
+    if (nbHits > 0) {
+      return [...Array(Math.ceil(nbHits / numberOfResultPerPage) - 1)].map((value, index) => index);
     }
-    return <>
-      { shouldDisplayElipsis() && displayElipsis() }
-      {displayLastElement()}
-      <li key='NextPageLiPagination'>
-        <a
-          href={createURL(currentRefinement+1)}
-          onClick={(event) => {
-            event.preventDefault();
-            refine(currentRefinement+1);
-          }}
-        >
-        Page suivante
-        </a>
-      </li>
-      <li key='LastLiPagination'>
-        <a
-          href={createURL(lastPage)}
-          onClick={(event) => {
-            event.preventDefault();
-            refine(lastPage);
-          }}
-        >
-        ››
-        </a>
-      </li></>;
-  };
-
-  const displayPrevious = () => {
-    if(isFirstPage) {
-      return <></>;
-    }
-    return <><li key='FirstPageLiPagination'>
-      <a
-        href={createURL(0)}
-        onClick={(event) => {
-          event.preventDefault();
-          refine(0);
-        }}
-      >
-        ‹‹
-      </a>
-    </li>
-    <li key='PreviousPageLiPagination'>
-      <a
-        href={createURL(currentRefinement-1)}
-        onClick={(event) => {
-          event.preventDefault();
-          refine(currentRefinement-1);
-        }}
-      >
-        Page précédente
-      </a>
-    </li></>;
-  };
+    return [];
+  }, [nbHits, numberOfResultPerPage]);
+  const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
   const displayElement = (page: number) => {
     return <li key={page}>
       <a
         href={createURL(page)}
-        className={ page === currentRefinement ? styles.meilisearchPaginationActive: ''}
-        aria-current={(page+1)===currentRefinement}
+        aria-current={page === currentRefinement}
+        aria-label={`Page numéro ${page + 1}`}
         onClick={(event) => {
           event.preventDefault();
           refine(page);
@@ -102,12 +55,112 @@ export function MeilsearchCustomPagination(props: CustomPaginationProps) {
     </li>;
   };
 
+  const displayPrevious = () => {
+    return <>
+      <li key="FirstPageLiPagination">
+        <a
+          href={createURL(0)}
+          aria-disabled={isFirstPage}
+          aria-label="Revenir à la première page"
+          onClick={(event) => {
+            event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if(!event.target.ariaDisabled) {
+              if (!isFirstPage) {
+                refine(0);
+              }
+            }
+          }}
+        >
+          <AngleLeftFromLineIcon />
+        </a>
+      </li>
+      <li key="PreviousPageLiPagination">
+        <a
+          href={createURL(currentRefinement - 1)}
+          aria-disabled={isFirstPage}
+          aria-label="Revenir à la page précédente"
+          onClick={(event) => {
+            event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if(!event.target.ariaDisabled) {
+              if (!isFirstPage) {
+                refine(currentRefinement - 1);
+              }
+            }
+          }}
+        >
+          {isSmallScreen ? <AngleLeftIcon /> : <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
+        </a>
+      </li>
+    </>;
+  };
+
+  const displayIntermediatePages = () => numberOfPageList.filter((element) =>
+    element >= currentRefinement - numberOfElementToDisplayAfterAndBeforeCurrentPage && element <= currentRefinement + numberOfElementToDisplayAfterAndBeforeCurrentPage && element !== lastPage,
+  ).map(displayElement);
+
+  const displayEllipsis = () => currentRefinement < lastPage - (numberOfElementToDisplayAfterAndBeforeCurrentPage + 1) ?
+    <li className={styles.ellipse}>…</li> : <></>;
+
+  const displayLastElement = () => displayElement(lastPage);
+  const displayNext = () => {
+    return <>
+      {displayLastElement()}
+      <li key="NextPageLiPagination">
+        <a
+          href={createURL(currentRefinement + 1)}
+          aria-disabled={isLastPage}
+          aria-label="Aller à la page suivante"
+          onClick={(event) => {
+            event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if(!event.target.ariaDisabled) {
+              if (!isLastPage) {
+                refine(currentRefinement + 1);
+              }
+            }
+          }}
+        >
+          {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante <AngleRightIcon /></div>}
+        </a>
+      </li>
+      <li key="LastLiPagination">
+        <a
+          href={createURL(lastPage)}
+          aria-disabled={isLastPage}
+          aria-label="Aller à la dernière page"
+          onClick={(event) => {
+            event.preventDefault();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if(!event.target.ariaDisabled) {
+              if (!isLastPage) {
+                refine(lastPage);
+              }
+            }
+          }}
+        >
+          <AngleRightFromLineIcon />
+        </a>
+      </li>
+    </>;
+  };
+
   return (
-    <ul className={styles.meilisearchPagination}>
-      {displayPrevious()}
-      {displayIntermediatePages(pages)}
-      {displayNext()}
-    </ul>
+    <>
+      {
+        numberOfPageList.length >= 2 && <ul key='Pagination' className={styles.pagination}>
+          {displayPrevious()}
+          {displayIntermediatePages()}
+          {displayEllipsis()}
+          {displayNext()}
+        </ul>
+      }
+    </>
   );
 }
 

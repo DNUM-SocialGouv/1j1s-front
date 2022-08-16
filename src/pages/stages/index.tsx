@@ -67,8 +67,9 @@ export default function RechercherOffreStagePage() {
             }
           }/>
         <MeilsearchCustomPagination
-          padding={2}
-          hitsPerPage={HITS_PER_PAGE}/>
+          padding={0}
+          numberOfResultPerPage={HITS_PER_PAGE}
+        />
       </InstantSearch>
     </Container>
     </>

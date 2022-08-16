@@ -2,7 +2,7 @@ import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagin
 
 export function mockUsePagination(override: Partial<PaginationRenderState>)  {
   const result = {
-    createURL: jest.fn(),
+    createURL: jest.fn().mockReturnValue('#'),
     currentRefinement: 1,
     isFirstPage: false,
     isLastPage: false,
