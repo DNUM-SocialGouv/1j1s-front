@@ -5,8 +5,8 @@ import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function AngleLeftIcon({ color = 'currentColor', className }: SvgProps) {
   return (
-    <svg className={classNames(className, styles.size)}  viewBox="0 0 16 17" fill={color} xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" clipRule="evenodd" d="M7.21883 8.01464L10.5188 11.3146L9.57616 12.2573L5.3335 8.01464L9.57616 3.77197L10.5188 4.71464L7.21883 8.01464Z" />
+    <svg className={classNames(className, styles.size)}  viewBox="0 0 16 16" fill={color} xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M7.21932 7.99999L10.5193 11.3L9.57665 12.2427L5.33398 7.99999L9.57665 3.75732L10.5193 4.69999L7.21932 7.99999Z" fill="#929292"/>
     </svg>
   );
 }
