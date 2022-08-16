@@ -13,9 +13,21 @@ import { createSuccess } from '~/server/errors/either';
 
 describe('<FormulaireDeContact />', () => {
   const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
+  function renderComponent() {
+    const anDemandeDeContactService = (): DemandeDeContactService => ({
+      envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
+    } as unknown as DemandeDeContactService);
+    const demandeDeContactServiceMock = anDemandeDeContactService();
+    render(
+      <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
+        <FormulaireDeContact/>
+      </DependenciesProvider>,
+    );
+    return { demandeDeContactServiceMock };
+  }
   it('affiche un formulaire de rappel', async () => {
     // Given
-    render(<FormulaireDeContact />);
+    renderComponent();
     // When
     // Then
     for (const label of labels) {
@@ -28,7 +40,7 @@ describe('<FormulaireDeContact />', () => {
   for (const label of labels.filter((l) => l !== 'Age')) {
     it(`a un champ ${label} obligatoire`, async () => {
       // Given
-      render(<FormulaireDeContact />);
+      renderComponent();
       // When
       await userEvent.type(screen.getByLabelText(label), 's{backspace}');
       // Then
@@ -38,7 +50,7 @@ describe('<FormulaireDeContact />', () => {
 
   it('a un champ Age obligatoire', async () => {
     // Given
-    render(<FormulaireDeContact />);
+    renderComponent();
     // When
     await userEvent.click(screen.getByLabelText('Age'));
     await userEvent.click(screen.getByLabelText('Nom'));
@@ -46,17 +58,9 @@ describe('<FormulaireDeContact />', () => {
     expect(screen.getByLabelText('Age')).toBeInvalid();
   });
   describe('Quand l’utilisateur clique sur Envoyer la demande', () => {
-    it('doit appeler l’api avec les paramètres saisis dans le formulaire', async () => {
+    it('appelle l’api avec les paramètres saisis dans le formulaire', async () => {
       // Given
-      const anDemandeDeContactService = (): DemandeDeContactService => ({
-        enregistrer: jest.fn().mockResolvedValue(createSuccess(undefined)),
-      } as unknown as DemandeDeContactService);
-      const demandeDeContactServiceMock = anDemandeDeContactService();
-      render(
-        <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
-          <FormulaireDeContact />
-        </DependenciesProvider>,
-      );
+      const { demandeDeContactServiceMock } = renderComponent();
 
       // When
       const inputFirstName = screen.getByRole('textbox', { name: 'Prénom' });
@@ -66,12 +70,12 @@ describe('<FormulaireDeContact />', () => {
       const inputVille = screen.getByRole('textbox', { name: 'Ville' });
       const inputAge = screen.getByRole('button', { name: 'Age' });
       fireEvent.click(inputAge);
-      const optionAge = screen.getByRole('option', { name: '18 ans' });
-      await userEvent.type(inputFirstName, 'Jean');
-      await userEvent.type(inputLastName, 'Dupont');
-      await userEvent.type(inputPhone, '012345678');
-      await userEvent.type(inputMail, 'test@test.com');
-      await userEvent.type(inputVille, 'Paris');
+      const optionAge = screen.getByRole('option', { name: '19 ans' });
+      await userEvent.type(inputFirstName, 'Toto');
+      await userEvent.type(inputLastName, 'Mc Totface');
+      await userEvent.type(inputPhone, '0123456789');
+      await userEvent.type(inputMail, 'toto@msn.fr');
+      await userEvent.type(inputVille, 'Pontoise');
       fireEvent.click(optionAge);
 
       const button = screen.getByRole('button', { name: 'Envoyer la demande' });
@@ -80,11 +84,11 @@ describe('<FormulaireDeContact />', () => {
       // Then
       expect(demandeDeContactServiceMock.envoyer).toHaveBeenCalledWith({
         age: 18,
-        email: 'test@test.com',
-        nom: 'Dupont',
-        prénom: 'Jean',
-        téléphone: '012345678',
-        ville: 'Paris',
+        email: 'toto@msn.fr',
+        nom: 'Mc Totface',
+        prénom: 'Toto',
+        téléphone: '0123456789',
+        ville: 'Cergy',
       });
     });
   });

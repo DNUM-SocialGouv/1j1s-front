@@ -20,7 +20,7 @@ export default function FormulaireDeContact () {
       email: 'toto@msn.fr',
       nom: 'Mc Totface',
       prénom: 'Toto',
-      téléphone: '0678954',
+      téléphone: '0123456789',
       ville: 'Cergy',
     });
   }
