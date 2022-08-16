@@ -17,11 +17,13 @@ describe('RechercherCommuneUseCase', () => {
   describe('getCommuneList', () => {
     it('renvoie la liste des communes en fonction de la recherche', async () => {
       const rechercherCommuneUseCase = new RechercherCommuneUseCase(localisationAvecCoordonnéesRepository);
+      type ExpectedType = Awaited<ReturnType<typeof rechercherCommuneUseCase.handle>>
       jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
 
-      const expected = { instance: 'success', result: {
+      const expected: ExpectedType = { instance: 'success', result: {
         résultats: [{
           code: '75056',
+          codePostal: '75006',
           coordonnées: {
             latitude: 48.859,
             longitude: 2.347,
@@ -31,6 +33,7 @@ describe('RechercherCommuneUseCase', () => {
         },
         {
           code: '75115',
+          codePostal: '75015',
           coordonnées: {
             latitude: 48.863367,
             longitude: 2.397152,

@@ -4,7 +4,7 @@ import { MissionEngagementFiltre, RésultatsRechercheMission } from '~/server/en
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/apiResponse.util';
+import { handleResponse } from '~/server/utils/handleResponse.util';
 
 const OFFRE_PER_PAGE = 30;
 

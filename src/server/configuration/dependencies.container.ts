@@ -6,6 +6,13 @@ import {
 } from '~/server/alternances/configuration/alternanceDependencies';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import {
+  ContratEngagementJeuneDependencies,
+  contratEngagementJeuneDependenciesContainer,
+} from '~/server/contrat-engagement-jeune/configuration/contratEngagementJeuneDependencies';
+import {
+  StrapiDemandeDeContactRepository,
+} from '~/server/contrat-engagement-jeune/infra/strapiDemandeDeContact.repository';
+import {
   EngagementDependencies,
   engagementDependenciesContainer,
 } from '~/server/engagement/configuration/engagementDependencies';
@@ -36,6 +43,7 @@ export type Dependencies = {
   cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationsDependencies;
+  contratEngagementJeuneDependencies: ContratEngagementJeuneDependencies
 };
 
 export const dependenciesContainer = (): Dependencies => {
@@ -62,10 +70,14 @@ export const dependenciesContainer = (): Dependencies => {
     apiGeoGouvHttpClientService,
     apiAdresseHttpClientService,
   );
+  const contratEngagementJeuneDependencies = contratEngagementJeuneDependenciesContainer(
+    new StrapiDemandeDeContactRepository(strapiHttpClientService),
+  );
 
   return {
     alternanceDependencies,
     cmsDependencies,
+    contratEngagementJeuneDependencies,
     engagementDependencies,
     localisationDependencies,
     offreEmploiDependencies,

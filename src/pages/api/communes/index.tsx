@@ -4,7 +4,7 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/apiResponse.util';
+import { handleResponse } from '~/server/utils/handleResponse.util';
 
 
 export async function rechercherCommuneHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheCommune | ErrorHttpResponse>) {

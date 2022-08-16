@@ -26,7 +26,7 @@ export class PoleEmploiHttpClientService extends ClientService {
           try {
             await this.refreshToken();
           } catch (e) {
-            console.error(e);
+            LoggerService.error(`API_POLE_EMPLOI ${error.response.status} ${error.config.baseURL}${error.config.url}`);
           }
           return await this.client.request(originalRequest);
         }

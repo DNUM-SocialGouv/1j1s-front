@@ -11,8 +11,8 @@ import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/conne
 * Sont donc inopérantes.
 * Il faut donc mocker la totalité de la librairie via le dossier __mock__
 * */
-function realMockUsePagination(props: UsePaginationProps): PaginationRenderState  {
-  console.dir(props);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function realMockUsePagination(_props: UsePaginationProps): PaginationRenderState  {
   return {
     canRefine: true,
     createURL: jest.fn(),

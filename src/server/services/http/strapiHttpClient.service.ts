@@ -17,4 +17,8 @@ export class StrapiHttpClientService extends ClientService {
   ): Promise<Either<Retour>> {
     return super.getRequest(endpoint, mapper, config);
   }
+
+  async post<Body>(endpoint: string, body: Body) {
+    return this.client.post(endpoint, body);
+  }
 }
