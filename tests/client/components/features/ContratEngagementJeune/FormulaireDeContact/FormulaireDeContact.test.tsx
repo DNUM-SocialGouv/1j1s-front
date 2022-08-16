@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import FormulaireDeContact from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact';
@@ -69,26 +69,26 @@ describe('<FormulaireDeContact />', () => {
       const inputMail = screen.getByRole('textbox', { name: 'Adresse email' });
       const inputVille = screen.getByRole('textbox', { name: 'Ville' });
       const inputAge = screen.getByRole('button', { name: 'Age' });
-      fireEvent.click(inputAge);
+      await userEvent.click(inputAge);
       const optionAge = screen.getByRole('option', { name: '19 ans' });
+      await userEvent.click(optionAge);
       await userEvent.type(inputFirstName, 'Toto');
       await userEvent.type(inputLastName, 'Mc Totface');
       await userEvent.type(inputPhone, '0123456789');
       await userEvent.type(inputMail, 'toto@msn.fr');
       await userEvent.type(inputVille, 'Pontoise');
-      fireEvent.click(optionAge);
 
       const button = screen.getByRole('button', { name: 'Envoyer la demande' });
-      fireEvent.click(button);
+      await userEvent.click(button);
 
       // Then
       expect(demandeDeContactServiceMock.envoyer).toHaveBeenCalledWith({
-        age: 18,
+        age: 19,
         email: 'toto@msn.fr',
         nom: 'Mc Totface',
         prénom: 'Toto',
         téléphone: '0123456789',
-        ville: 'Cergy',
+        ville: 'Pontoise',
       });
     });
   });

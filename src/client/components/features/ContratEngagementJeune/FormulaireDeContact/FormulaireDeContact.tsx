@@ -1,32 +1,40 @@
+import range from 'just-range';
 import { FormEvent, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { Select } from '~/client/components/ui/Select/Select';
+import { Option, Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
-import { AgeJeune } from '~/server/contrat-engagement-jeune/domain/ageCEJ';
 
+const ageOptions: Option[] = range(16,31).map((age) => {
+  return {
+    libellé: `${age} ans`,
+    valeur: `${age}`,
+  };
+});
 export default function FormulaireDeContact () {
   const [inputAge, setInputAge] = useState('');
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
-  async function enregistrerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
+  async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form: HTMLFormElement = event.currentTarget;
+    const data = new FormData(form);
     await demandeDeContactService.envoyer({
-      age: 18,
-      email: 'toto@msn.fr',
-      nom: 'Mc Totface',
-      prénom: 'Toto',
-      téléphone: '0123456789',
-      ville: 'Cergy',
+      age: Number(data.get('age')),
+      email: data.get('mail'),
+      nom: data.get('lastname'),
+      prénom: data.get('firstname'),
+      téléphone: data.get('phone'),
+      ville: data.get('ville'),
     });
   }
   return (
     <form
-      onSubmit={enregistrerFormulaireDeContact}
+      onSubmit={envoyerFormulaireDeContact}
     >
       <div className={styles.formulaireDeRappel}>
         <TextInput 
@@ -59,8 +67,8 @@ export default function FormulaireDeContact () {
         />
         <Select
           label='Age'
-          name="ageList"
-          optionList={AgeJeune.AGE}
+          name="age"
+          optionList={ageOptions}
           onChange={setInputAge}
           value={inputAge}
         />
