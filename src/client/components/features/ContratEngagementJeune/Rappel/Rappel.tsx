@@ -9,6 +9,9 @@ import Marked from '~/client/components/ui/Marked/Marked';
 
 export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
+  const cb = () => {
+    return 'hey';
+  };
   const [isSuccess, setIsSuccess] = useState(false);
 
   function onFormulaireEnvoyé() {
@@ -18,7 +21,7 @@ export default function Rappel() {
   const title = isSuccess ? '' : (
     <>
       J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
-      <small>(Tous les champs sont obligatoires)</small>
+      <small onClick={cb}>(Tous les champs sont obligatoires)</small>
     </>
   );
 
@@ -26,7 +29,7 @@ export default function Rappel() {
     <section className={styles.rappel}>
       <div className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
-        <Button onClick={() => setIsPopInOpen(true)} buttonType="primary">Je souhaite être contacté(e)</Button>
+        <Button onClick={() => setIsPopInOpen(true) } buttonType="primary">Je souhaite être contacté(e)</Button>
       </div>
       <Modal className={styles.rappelModal}
         isOpen={isPopInOpen}
