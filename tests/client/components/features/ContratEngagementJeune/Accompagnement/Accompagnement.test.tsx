@@ -51,6 +51,22 @@ describe('<Accompagnement />', () => {
     });
   });
 
+  describe('quand on clique sur Oui je suis accompagné par la Mission Locale', () => {
+    it('ça te renvoie sur le formulaire Mission Locale', async () => {
+      // Given
+      const missionLocale = 'Oui, je suis accompagné(e) par la Mission Locale';
+      render(<Accompagnement/>);
+      const premierBouton = screen.getByText(missionLocale);
+      // When
+      await userEvent.click(premierBouton);
+
+      // Then
+      expectFormulaireDeContact();
+
+    });
+  });
+
+
   describe('quand on clique sur Oui je suis accompagné par Pôle Emploi', () => {
     it('ça te renvoie chez Pôle Emploi', async () => {
       // Given
@@ -88,3 +104,13 @@ describe('<Accompagnement />', () => {
     });
   });
 });
+
+function expectFormulaireDeContact() {
+  expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
+  expect(screen.getByLabelText('Nom')).toBeInTheDocument();
+  expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
+  expect(screen.getByLabelText('Age')).toBeInTheDocument();
+  expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
+  expect(screen.getByLabelText('Ville')).toBeInTheDocument();
+  expect(screen.getByText('Envoyer la demande')).toBeInTheDocument();
+}
