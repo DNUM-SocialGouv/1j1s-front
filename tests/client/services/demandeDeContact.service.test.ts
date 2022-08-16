@@ -4,9 +4,9 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact.serv
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-describe('DemandeDeContact', () => {
-  describe('enregistrer la demande de contact', () => {
-    it('appelle API avec les paramètres du formulaire de contact et retourne un success', async () => {
+describe('DemandeDeContactService', () => {
+  describe('.envoyer()', () => {
+    it('appelle l\'API avec les paramètres du formulaire de contact et retourne un success', async () => {
       // Given
       const httpClientService = aHttpClientService();
       const demandeContactService = new DemandeDeContactService(httpClientService);
@@ -16,10 +16,11 @@ describe('DemandeDeContact', () => {
         nom: 'Mc Totface',
         prénom: 'Toto',
         téléphone: '0678954322',
-        ville: 'Cergy' };
+        ville: 'Cergy',
+      };
 
       // When
-      const result = await demandeContactService.enregistrer(body);
+      const result = await demandeContactService.envoyer(body);
 
       // Then
       expect(result).toEqual(createSuccess(undefined));
@@ -37,12 +38,13 @@ describe('DemandeDeContact', () => {
         nom: 'Mc Totface',
         prénom: 'Toto',
         téléphone: '0678954',
-        ville: 'Cergy' };
+        ville: 'Cergy',
+      };
 
       jest.spyOn(httpClientService,'post').mockRejectedValue(new Error('Erreur Failure'));
 
       // When
-      const result = await demandeContactService.enregistrer(body);
+      const result = await demandeContactService.envoyer(body);
 
       // Then
       expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));

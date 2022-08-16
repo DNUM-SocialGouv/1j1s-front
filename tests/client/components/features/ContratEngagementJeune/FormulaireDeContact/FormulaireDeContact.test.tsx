@@ -78,7 +78,7 @@ describe('<FormulaireDeContact />', () => {
       fireEvent.click(button);
 
       // Then
-      expect(demandeDeContactServiceMock.enregistrer).toHaveBeenCalledWith({
+      expect(demandeDeContactServiceMock.envoyer).toHaveBeenCalledWith({
         age: 18,
         email: 'test@test.com',
         nom: 'Dupont',

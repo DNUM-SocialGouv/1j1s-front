@@ -15,8 +15,7 @@ export default function FormulaireDeContact () {
 
   async function enregistrerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.dir(event.currentTarget);
-    await demandeDeContactService.enregistrer({
+    await demandeDeContactService.envoyer({
       age: 18,
       email: 'toto@msn.fr',
       nom: 'Mc Totface',

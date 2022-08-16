@@ -5,7 +5,7 @@ import { HttpClientService } from './httpClient.service';
 
 export class DemandeDeContactService {
   constructor(private readonly httpClientService: HttpClientService ) {}
-  async enregistrer(body: any){
+  async envoyer(body: any){
     try {
       await this.httpClientService.post('demandes-de-contact', body);
       return createSuccess(undefined);
