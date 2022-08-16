@@ -1,0 +1,147 @@
+@import "@styles/utilities";
+
+.heading {
+  padding: 32px;
+
+  > h1 {
+    @extend %text-xLarge;
+    color: $color-primary;
+    margin-bottom: 1rem;
+  }
+
+  > p {
+    @extend %text-regular;
+    margin-bottom: 2.5rem;
+  }
+
+  > p:nth-child(2) {
+    @extend %bold;
+    color: $color-tertiary;
+    margin-bottom: 1rem;
+  }
+
+  > p:nth-child(3) {
+    @extend %bold;
+    margin-bottom: 0;
+  }
+}
+
+.linkAsButtonWrapper {
+  max-width: 16rem;
+  margin: 40px auto auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.linkAsButtonMentorat {
+  background-color: white;
+  color: $color-primary;
+  border: 1px solid $color-primary;
+  box-shadow: none !important; // TODO a retirer à cause du dsfr
+}
+
+.body {
+  background-color: $color-primary;
+  margin: 0 auto;
+  padding: 16px 28px;
+
+  h1 {
+    font-size: 1.5rem;
+    color: $color-on-primary; // TODO a retirer à cause du dsfr
+  }
+
+  > article {
+
+    .RaisonParticipationMentoratContainer {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+
+      > div:first-child {
+        @extend %text-xLarge;
+        @extend %bold;
+        color: white; // TODO a retirer à cause du dsfr
+        text-decoration: underline;
+        margin-bottom: 10px;
+      }
+
+      .RaisonParticipationMentoratElement {
+        display: flex;
+        color: white;
+
+        > svg {
+          width: 10%;
+        }
+
+        > p {
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+
+@include media(large) {
+  .heading {
+    max-width: 64rem;
+    margin: auto;
+  }
+
+  .quEstCeQueLeMentorat {
+    background-color: $color-primary;
+    color: white;
+    text-align: center;
+    padding: 60px;
+
+    > h1 {
+      color: white;
+    }
+
+    > p {
+      max-width: 48rem;
+      margin: auto;
+      text-align: left;
+    }
+  }
+
+  .body {
+    background-color: white;
+    max-width: none;
+
+    h1 {
+      color: $color-on-surface;
+      text-align: center;
+    }
+
+    > article {
+      display: flex;
+      justify-content: space-around;
+
+      .RaisonParticipationMentoratContainer {
+
+        max-width: 32rem;
+
+        > div:nth-child(2) {
+          text-decoration: underline;
+          font-weight: bold;
+          margin-top: 40px;
+          margin-bottom: 20px;
+        }
+
+        .RaisonParticipationMentoratElement {
+          flex-direction: row;
+
+          > svg {
+            width: inherit;
+            margin-right: 10px;
+          }
+
+          > * {
+            color: $color-on-surface;
+          }
+        }
+      }
+    }
+  }
+}

@@ -19,6 +19,15 @@
   }
 }
 
+%text-xLarge {
+  font-size: 1.5rem;
+  line-height: 2rem;
+
+  @include media(large) {
+    font-size: 1.75rem;
+  }
+}
+
 %text-large {
   font-size: 1.125rem;
   line-height: 1.5rem;
