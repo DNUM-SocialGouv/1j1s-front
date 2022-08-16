@@ -5,7 +5,7 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
-export default function Démarrage({ setTypeFormulaireAffiché, setIsPôleEmploiModalOpen }: FormulairesProps) {
+export default function Démarrage({ setTypeFormulaireAffiché, setIsPôleEmploiModalOpen, setIsMissionLocaleModalOpen }: FormulairesProps) {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const isMobile = isSmallScreen || isMediumScreen;
 
@@ -13,7 +13,7 @@ export default function Démarrage({ setTypeFormulaireAffiché, setIsPôleEmploi
     <p className={styles.accompagnementQuestion}>Bénéficiez-vous actuellement d&apos;un accompagnement ?</p>
     <div>
       {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
-      <button className={styles.optionBouton}>
+      <button className={styles.optionBouton} onClick={() => setIsMissionLocaleModalOpen(true)}>
         Oui, je suis accompagné(e) par la Mission Locale
       </button>
       <button className={styles.optionBouton} onClick={() => setIsPôleEmploiModalOpen(true)}>

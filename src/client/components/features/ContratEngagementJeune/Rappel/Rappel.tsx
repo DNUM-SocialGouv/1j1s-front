@@ -26,6 +26,9 @@ export default function Rappel() {
         </ModalTitle>
         <ModalContent>
           <FormulaireDeContact />
+          <div className={styles.rappelText}>
+            <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
+          </div>
         </ModalContent>
       </Modal>
     </section>
