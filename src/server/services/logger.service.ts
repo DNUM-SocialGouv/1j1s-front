@@ -11,17 +11,14 @@ export class LoggerService {
   }
 
   static info(message: string) {
-    console.log(message);
     this.log(message, 'info');
   }
 
   static warn(message: string) {
-    console.warn(message);
     this.log(message, 'warning');
   }
 
   static error(message: string) {
-    console.error(message);
     this.log(message, 'error');
   }
 }
