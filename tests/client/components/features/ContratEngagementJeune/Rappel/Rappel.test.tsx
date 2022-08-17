@@ -13,6 +13,8 @@ import { createSuccess } from '~/server/errors/either';
 
 import { remplirFormulaireDeContact } from '../FormulaireDeContact/FormulaireDeContact.test';
 
+jest.setTimeout(10000);
+
 describe('<Rappel />', () => {
   afterEach(() => {
     jest.resetAllMocks();

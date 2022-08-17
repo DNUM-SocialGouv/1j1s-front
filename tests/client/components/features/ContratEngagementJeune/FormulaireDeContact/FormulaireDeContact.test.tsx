@@ -11,6 +11,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { createSuccess } from '~/server/errors/either';
 
+jest.setTimeout(10000);
 describe('<FormulaireDeContact />', () => {
   const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
 
@@ -118,10 +119,9 @@ export async function remplirFormulaireDeContact (data: ContactInputs, submit = 
   await userEvent.type(screen.getByLabelText('Adresse email'), data.email);
   await userEvent.type(screen.getByLabelText('Ville'), data.ville);
   await userEvent.click(screen.getByLabelText('Age'));
-  const optionAge = screen.getByRole('option', { name: data.age });
-  await userEvent.click(optionAge);
+  await userEvent.click(screen.getByLabelText(data.age));
   if (submit) {
-    const button = screen.getByRole('button', { name: 'Envoyer la demande' });
-    await userEvent.click(button);
+    await userEvent.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
   }
 }
+
