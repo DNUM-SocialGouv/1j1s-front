@@ -8,9 +8,9 @@ import {
 export class OffreDeStageHttpService {
   constructor(private http: AxiosInstance) {
   }
-  
+
   async get(id: string): Promise<OffreDeStageAttributesFromCMS> {
-    const response = await this.http.get<OffreDeStageInternalService>(`slugify/slugs/offre-de-stage/${id}`);
+    const response = await this.http.get<OffreDeStageInternalService>(`slugify/slugs/offre-de-stage/${id}?populate=deep`);
     return response.data.data.attributes;
   }
 }

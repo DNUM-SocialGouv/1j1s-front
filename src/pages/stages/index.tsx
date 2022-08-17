@@ -56,7 +56,7 @@ export default function RechercherOffreStagePage() {
           />
         </label>
         <CurrentRefinements/>
-        <ClearRefinements></ClearRefinements>
+        <ClearRefinements/>
         <Hits 
           hitComponent={Résultat}
           classNames={
