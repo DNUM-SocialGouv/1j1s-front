@@ -112,18 +112,12 @@ describe('<FormulaireDeContact />', () => {
 /* eslint-disable jest/no-export */
 type ContactInputs = Record<'prénom'|'nom'|'téléphone'|'email'|'age'|'ville', string>
 export async function remplirFormulaireDeContact (data: ContactInputs, submit = true) {
-  const inputFirstName = screen.getByRole('textbox', { name: 'Prénom' });
-  const inputLastName = screen.getByRole('textbox', { name: 'Nom' });
-  const inputPhone = screen.getByRole('textbox', { name: 'Téléphone' });
-  const inputMail = screen.getByRole('textbox', { name: 'Adresse email' });
-  const inputVille = screen.getByRole('textbox', { name: 'Ville' });
-  const inputAge = screen.getByRole('button', { name: 'Age' });
-  await userEvent.type(inputFirstName, data.prénom);
-  await userEvent.type(inputLastName, data.nom);
-  await userEvent.type(inputPhone, data.téléphone);
-  await userEvent.type(inputMail, data.email);
-  await userEvent.type(inputVille, data.ville);
-  await userEvent.click(inputAge);
+  await userEvent.type(screen.getByLabelText('Prénom'), data.prénom);
+  await userEvent.type(screen.getByLabelText('Nom'), data.nom);
+  await userEvent.type(screen.getByLabelText('Téléphone'), data.téléphone);
+  await userEvent.type(screen.getByLabelText('Adresse email'), data.email);
+  await userEvent.type(screen.getByLabelText('Ville'), data.ville);
+  await userEvent.click(screen.getByLabelText('Age'));
   const optionAge = screen.getByRole('option', { name: data.age });
   await userEvent.click(optionAge);
   if (submit) {
