@@ -15,7 +15,7 @@ const ageOptions: Option[] = range(16,31).map((age) => {
     valeur: `${age}`,
   };
 });
-export default function FormulaireDeContact () {
+export default function FormulaireDeContact ({ onSuccess }: { onSuccess: () => void }) {
   const [inputAge, setInputAge] = useState('');
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
