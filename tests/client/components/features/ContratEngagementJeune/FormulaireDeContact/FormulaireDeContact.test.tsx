@@ -13,12 +13,14 @@ import { createSuccess } from '~/server/errors/either';
 
 describe('<FormulaireDeContact />', () => {
   const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
+
   function renderComponent() {
     const onSuccess = jest.fn();
     const anDemandeDeContactService = (): DemandeDeContactService => ({
       envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService);
     const demandeDeContactServiceMock = anDemandeDeContactService();
+
     render(
       <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
         <FormulaireDeContact onSuccess={onSuccess}/>

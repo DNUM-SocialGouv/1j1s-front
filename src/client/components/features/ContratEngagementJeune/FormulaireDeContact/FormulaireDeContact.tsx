@@ -1,3 +1,4 @@
+import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import range from 'just-range';
 import { FormEvent, useState } from 'react';
 
@@ -8,6 +9,7 @@ import { Option, Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
+import { isSuccess } from '~/server/errors/either';
 
 const ageOptions: Option[] = range(16,31).map((age) => {
   return {
@@ -15,15 +17,16 @@ const ageOptions: Option[] = range(16,31).map((age) => {
     valeur: `${age}`,
   };
 });
-export default function FormulaireDeContact ({ onSuccess }: { onSuccess: () => void }) {
+export default function FormulaireDeContact ({ onSuccess }: { onSuccess?: () => void }) {
   const [inputAge, setInputAge] = useState('');
+  const [isPopInOpen, setIsPopInOpen] = useState(false);
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
   async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form: HTMLFormElement = event.currentTarget;
     const data = new FormData(form);
-    await demandeDeContactService.envoyer({
+    const response = await demandeDeContactService.envoyer({
       age: Number(data.get('age')),
       email: data.get('mail'),
       nom: data.get('lastname'),
@@ -31,7 +34,16 @@ export default function FormulaireDeContact ({ onSuccess }: { onSuccess: () => v
       téléphone: data.get('phone'),
       ville: data.get('ville'),
     });
+
+    if(isSuccess(response)) {
+      if (onSuccess) {
+        onSuccess();
+      }
+    } else {
+      alert("Erreur dans l'envoi du formulaire :" + response.errorType);
+    }
   }
+
   return (
     <form
       onSubmit={envoyerFormulaireDeContact}
@@ -83,6 +95,22 @@ export default function FormulaireDeContact ({ onSuccess }: { onSuccess: () => v
       <div className={styles.formulaireDeRappelButton}>
         <Button buttonType="primary">Envoyer la demande</Button>
       </div>
+      {
+        isPopInOpen &&
+        <Modal className={ styles.modal }
+          isOpen={isPopInOpen}
+          hide={() => setIsPopInOpen(false)}
+        >
+          <ModalTitle className={ styles.modalTitle}>
+            Votre demande a bien été transmise !
+          </ModalTitle>
+          <ModalContent>
+            <div className={styles.modalButton}>
+              <Button buttonType={'primary'}>Fermer</Button>
+            </div>
+          </ModalContent>
+        </Modal>
+      }
     </form>
   );
 }
