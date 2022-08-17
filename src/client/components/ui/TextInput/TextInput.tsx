@@ -19,13 +19,14 @@ function useSynchronizedRef<T>(ref: ForwardedRef<T | null>) {
   return innerRef;
 }
 
-type InputValue = string | ReadonlyArray<string> | number | undefined;
+export type InputValue = string | ReadonlyArray<string> | number | undefined;
 
 interface TextInputProps extends React.InputHTMLAttributes<unknown> {
   hint?: string
   label?: string
   necessity?: 'optional' | 'required'
   validation?: (value: InputValue) => string | null | undefined;
+  triggerNecessity?: boolean
 }
 
 // eslint-disable-next-line react/display-name
@@ -36,6 +37,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
     hint,
     label,
     necessity,
+    triggerNecessity,
     onChange,
     value: outerValue,
     validation,
@@ -80,7 +82,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
       {label && (
         <label className={styles.textInputLabel} htmlFor={inputId.current}>
           {label}
-          {necessity && (
+          {(necessity || (triggerNecessity)) && (
             <span className="text-small"> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
           )}
         </label>
