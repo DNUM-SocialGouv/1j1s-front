@@ -40,7 +40,7 @@ const DemandeDeContactValidator = Joi.object({
 });
 
 function validatePhone (input: string): string {
-  const { isValid, phoneNumber } = phone(input, { country: 'FR' });
+  const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false  });
   if (!isValid) {
     throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
   }
