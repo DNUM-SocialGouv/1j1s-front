@@ -1,11 +1,10 @@
-import React, { ChangeEvent, useCallback } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option } from '~/client/components/ui/Select/Select';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 import { KeyBoard } from '~/client/utils/keyboard.util';
-
 
 interface ListBoxProps {
   multiple: boolean
@@ -18,6 +17,11 @@ interface ListBoxProps {
 
 export function ListBox(props: ListBoxProps) {
   const { multiple, optionList, onChange, selectedValue, setIsOptionsOpen, setSelectedValue } = props;
+
+  const [id, setId] = useState('');
+
+  const selectedValueContainsCheckboxValue = (option: Option) => selectedValue.split(',').includes(option.valeur);
+  const selectedValueIsRadioValue = (option: Option) => selectedValue === option.valeur;
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
@@ -45,30 +49,38 @@ export function ListBox(props: ListBoxProps) {
     <div
       className={styles.options}
       role="listbox"
+      tabIndex={0}
+      aria-activedescendant={id}
     > 
       {
         multiple
-          ? optionList.map((option, index) => (
-            <Checkbox
-              key={index}
-              className={styles.option}
-              role="option"
-              label={option.libellé}
-              value={option.valeur}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => onSelectMultipleChange(event.target.checked, option.valeur)}
-              onKeyDown={handleKeyDown}
-              checked={selectedValue.split(',').includes(option.valeur)}
-            />
-          ))
+          ? optionList.map((option, index) => {
+            return(
+              <Checkbox
+                key={index}
+                className={styles.option}
+                role="option"
+                label={option.libellé}
+                value={option.valeur}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setId(event.target.id);
+                  onSelectMultipleChange(event.target.checked, option.valeur);
+                }}
+                onKeyDown={handleKeyDown}
+                aria-selected={selectedValueContainsCheckboxValue(option)}
+                checked={selectedValueContainsCheckboxValue(option)}
+              />
+            );
+          })
           : optionList.map((option, index) => (
             <Radio
-              id={option.libellé}
               key={index}
               className={styles.option}
               role="option"
               label={option.libellé}
               value={option.valeur}
-              onChange={() => {
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setId(event.target.id);
                 setIsOptionsOpen(false);
                 setSelectedValue(option.valeur);
                 if(onChange) {
@@ -76,7 +88,8 @@ export function ListBox(props: ListBoxProps) {
                 }
               }}
               onKeyDown={handleKeyDown}
-              checked={selectedValue === option.valeur}
+              aria-selected={selectedValueIsRadioValue(option)}
+              checked={selectedValueIsRadioValue(option)}
             />
           ))
       }

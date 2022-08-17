@@ -41,6 +41,7 @@ export default function FormulaireDeContact () {
           required
         />
         <Select
+          required
           label='Age'
           name="ageList"
           optionList={AgeJeune.AGE}
