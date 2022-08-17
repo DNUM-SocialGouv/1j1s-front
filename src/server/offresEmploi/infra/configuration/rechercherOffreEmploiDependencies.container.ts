@@ -3,14 +3,15 @@ import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { RechercherOffreEmploiUseCase } from '~/server/offresEmploi/useCases/rechercherOffreEmploi.useCase';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+
 
 export interface RechercherOffreEmploiDependenciesContainer {
   readonly rechercherOffreEmploi: RechercherOffreEmploiUseCase;
 };
 
 export const rechercherOffreEmploiDependenciesContainer = (
-  poleEmploiHttpClientService: PoleEmploiHttpClientService,
+  poleEmploiHttpClientService: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): RechercherOffreEmploiDependenciesContainer => {
   const emploiRepository = new ApiPoleEmploiOffreRepository(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);

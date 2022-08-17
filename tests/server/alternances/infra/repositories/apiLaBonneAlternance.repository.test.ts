@@ -15,7 +15,8 @@ import {
 import { AlternanceDetailResponse } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import { createFailure, createSuccess, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
+
 
 jest.mock('axios', () => {
   return {
@@ -25,7 +26,7 @@ jest.mock('axios', () => {
 
 describe('ApiLaBonneAlternanceRepository', () => {
   let apiLaBonneAlternanceRepository: ApiLaBonneAlternanceRepository;
-  let laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService;
+  let laBonneAlternanceHttpClientService: HttpClientService;
 
   beforeEach(() => {
     laBonneAlternanceHttpClientService = aLaBonneAlternanceHttpClient();

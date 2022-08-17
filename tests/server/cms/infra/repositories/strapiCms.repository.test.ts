@@ -8,10 +8,10 @@ import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import { mapArticle, mapMentionObligatoire,mapMesuresJeunes } from '~/server/cms/infra/repositories/strapi.mapper';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import { createSuccess, Success } from '~/server/errors/either';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 describe('strapi cms repository', () => {
-  let strapiHttpClientService: StrapiHttpClientService;
+  let strapiHttpClientService: HttpClientService;
   let strapiCmsRepository: StrapiCmsRepository;
 
   describe('getArticleBySlug', () => {

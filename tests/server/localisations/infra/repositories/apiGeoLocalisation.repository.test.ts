@@ -2,12 +2,12 @@ import { aApiGeoHttpClientService } from '@tests/fixtures/services/apiGeoHttpCli
 
 import { createSuccess } from '~/server/errors/either';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 describe('ApiGeoLocalisationRepository', () => {
   let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
-  let apiGeoHttpClientService: ApiGeoHttpClientService;
+  let apiGeoHttpClientService: HttpClientService;
 
   beforeEach(() => {
     apiGeoHttpClientService = aApiGeoHttpClientService();

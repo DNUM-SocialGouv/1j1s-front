@@ -1,14 +1,14 @@
 import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
-export function anApiAdresseHttpClientService(): ApiAdresseHttpClientService {
+export function anApiAdresseHttpClientService(): HttpClientService {
   return {
     client: anAxiosInstance(),
     get: jest.fn(),
     post: jest.fn(),
-  } as unknown as ApiAdresseHttpClientService;
+  } as unknown as HttpClientService;
 }
 
 export function aRechercheAdresseResponse(): AxiosResponse {

@@ -19,10 +19,10 @@ import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/reposi
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 describe('ApiPoleEmploiOffreRepository', () => {
-  let poleEmploiHttpClientService: PoleEmploiHttpClientService;
+  let poleEmploiHttpClientService: HttpClientServiceWithAuthentification;
   let apiPoleEmploiOffreRepository: ApiPoleEmploiOffreRepository;
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 

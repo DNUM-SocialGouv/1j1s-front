@@ -11,14 +11,14 @@ import {
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
 import { Either } from '~/server/errors/either';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class StrapiCmsRepository implements CmsRepository {
-  constructor(private strapiHttpClientService: StrapiHttpClientService) {}
+  constructor(private httpClientService: HttpClientService) {}
 
   async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
     const filters = `[slug][$eq]=${slug}&populate[0]=banniere`;
-    return await this.strapiHttpClientService.get<StrapiCollectionTypeResponse<ArticleAttributesResponse>, Article>(
+    return await this.httpClientService.get<StrapiCollectionTypeResponse<ArticleAttributesResponse>, Article>(
       `articles?filters${filters}`,
       mapArticle,
     );
@@ -34,7 +34,7 @@ export class StrapiCmsRepository implements CmsRepository {
         case MentionsObligatoires.POLITIQUES_CONFIDENTIALITES: return 'politique-de-confidentialite';
       }
     };
-    return await this.strapiHttpClientService.get<StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>, Article>(
+    return await this.httpClientService.get<StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>, Article>(
       `${getContentTypeApi(type)}${requestSuffix}`,
       mapMentionObligatoire,
     );
@@ -43,7 +43,7 @@ export class StrapiCmsRepository implements CmsRepository {
   async getMesuresJeunes(): Promise<Either<MesuresJeunes>> {
     const contenuList = ['vieProfessionnelle', 'orienterFormer', 'accompagnement', 'aidesFinancieres'];
 
-    return await this.strapiHttpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, MesuresJeunes>(
+    return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, MesuresJeunes>(
       `mesure-jeune?${contenuList.map((contenu) => `populate[${contenu}][populate]=*&`)}`.replaceAll(',', ''),
       mapMesuresJeunes,
     );

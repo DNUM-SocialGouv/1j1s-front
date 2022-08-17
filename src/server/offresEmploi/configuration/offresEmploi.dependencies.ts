@@ -9,13 +9,13 @@ import {
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 export type OffresEmploiDependencies = ConsulterOffreEmploiDependenciesContainer
   & RechercherOffreEmploiDependenciesContainer
 
 export const offresEmploiDependenciesContainer = (
-  poleEmploiHttpClientService: PoleEmploiHttpClientService,
+  poleEmploiHttpClientService: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): OffresEmploiDependencies => {
   return {

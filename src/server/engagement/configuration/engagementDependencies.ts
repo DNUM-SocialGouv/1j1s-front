@@ -6,14 +6,14 @@ import {
   RechercherMissionEngagementDependenciesContainer,
   rechercherMissionEngagementDependenciesContainer,
 } from '~/server/engagement/infra/configuration/rechercherMissionEngagementDependencies.container';
-import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export type EngagementDependencies =
     RechercherMissionEngagementDependenciesContainer
     & ConsulterMissionEngagementDependenciesContainer
 
 export const engagementDependenciesContainer = (
-  engagementHttpClientService: EngagementHttpClientService,
+  engagementHttpClientService: HttpClientService,
 ): EngagementDependencies => {
   return {
     ...consulterMissionEngagementDependenciesContainer(engagementHttpClientService),

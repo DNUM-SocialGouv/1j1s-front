@@ -5,16 +5,16 @@ import {
   OffreEmploiResponse,
   RésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
-export function aPoleEmploiHttpClient(): PoleEmploiHttpClientService {
+export function aPoleEmploiHttpClient(): HttpClientServiceWithAuthentification {
   return {
     client: anAxiosInstance(),
     get: jest.fn(),
     post: jest.fn(),
     refreshToken: jest.fn(),
     setAuthorizationHeader: jest.fn(),
-  } as unknown as PoleEmploiHttpClientService;
+  } as unknown as HttpClientServiceWithAuthentification;
 }
 
 export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<RésultatsRechercheOffreEmploiResponse>): AxiosResponse<RésultatsRechercheOffreEmploiResponse> {

@@ -15,6 +15,7 @@ export default monitoringHandler(rechercherAlternanceHandler);
 
 function alternanceRequestMapper(request: NextApiRequest): AlternanceFiltre {
   const { query } = request;
+
   return {
     code: query.codeCommune ? query.codeCommune.toString() : undefined,
     codeRomeList: query.codeRomes?.toString().split(',') || [],

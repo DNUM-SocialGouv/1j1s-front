@@ -6,15 +6,14 @@ import {
   ListeLocalisationDependenciesContainer,
   listeLocalisationDependenciesContainer,
 } from '~/server/localisations/infra/configuration/listeLocalisationDependencies.container';
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
-import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 
 export type LocalisationsDependencies = ListeLocalisationDependenciesContainer & ListeCommuneDependenciesContainer;
 
 export const localisationDependenciesContainer = (
-  apiGeoGouvHttpClientService: ApiGeoHttpClientService,
-  apiAdresseHttpClientService: ApiAdresseHttpClientService,
+  apiGeoGouvHttpClientService: HttpClientService,
+  apiAdresseHttpClientService: HttpClientService,
 ): LocalisationsDependencies => {
   return {
     ...listeLocalisationDependenciesContainer(apiAdresseHttpClientService, apiGeoGouvHttpClientService),

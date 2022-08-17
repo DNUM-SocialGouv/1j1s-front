@@ -9,7 +9,7 @@ import { Mission, RésultatsRechercheMission } from '~/server/engagement/domain/
 import { mapMission, mapRésultatsRechercheMission } from '~/server/engagement/infra/repositories/apiEngagement.mapper';
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import { createSuccess, Success } from '~/server/errors/either';
-import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 jest.mock('axios', () => {
   return {
@@ -18,7 +18,7 @@ jest.mock('axios', () => {
 });
 
 describe('ApiEngagementRepository', () => {
-  let engagementHttpClientService: EngagementHttpClientService;
+  let engagementHttpClientService: HttpClientService;
   let apiEngagementRepository: ApiEngagementRepository;
 
   beforeEach(() => {

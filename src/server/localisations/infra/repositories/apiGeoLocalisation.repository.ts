@@ -5,11 +5,11 @@ import {
   ApiDecoupageAdministratifResponse,
 } from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
 import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
-    private readonly apiGeoHttpClientService: ApiGeoHttpClientService,
+    private readonly apiGeoHttpClientService: HttpClientService,
   ) {
   }
 

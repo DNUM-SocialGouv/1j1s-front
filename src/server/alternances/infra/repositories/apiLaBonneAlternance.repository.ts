@@ -24,12 +24,12 @@ import {
   RechercheMetierResponse,
 } from '~/server/alternances/infra/repositories/responses/rechercheMetierResponse.type';
 import { Either } from '~/server/errors/either';
-import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   constructor(
-    private laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService,
+    private laBonneAlternanceHttpClientService: HttpClientService,
   ) {
   }
 
