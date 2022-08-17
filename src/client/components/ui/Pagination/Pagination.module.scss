@@ -2,27 +2,21 @@
 
 .pagination {
   text-align: center;
+  display: flex;
+  justify-content: center;
 
   & > li {
-    display: inline-block;
-    text-decoration: none;
+    list-style-type: none;
+    padding-bottom: 0;
 
     & > a {
       text-decoration: none;
       box-shadow: none;
-      min-width: 32px;
-      display: inline-block;
-      line-height: 32px;
-
-      & > svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      & > * > svg {
-        width: 16px;
-        height: 16px;
-      }
+      min-width: 2rem;
+      display: inline-flex;
+      justify-content: center;
+      vertical-align: middle;
+      line-height: 2rem;
     }
   }
 
@@ -41,26 +35,17 @@
 }
 
 .page {
+
   &Suivante {
     margin-left: 28px;
-    font-size: 16px;
-
-
-    & > span > svg {
-      width: 16px;
-      height: 16px;
-    }
+    display: flex;
+    align-items: center;
   }
 
   &Precendente {
     margin-right: 28px;
     display: flex;
     align-items: center;
-
-    & > span > svg {
-      width: 16px;
-      height: 16px;
-    }
   }
 }
 
