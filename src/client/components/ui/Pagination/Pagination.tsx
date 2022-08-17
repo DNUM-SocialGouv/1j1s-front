@@ -63,7 +63,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
 
   const displayPrevious = () => {
     return <>
-      <li key='FirstPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
+      <li key='FirstPageLiPagination'>
         <a
           href="#"
           aria-disabled={isFirstPage}
@@ -83,7 +83,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
           <AngleLeftFromLineIcon />
         </a>
       </li>
-      <li key='PreviousPageLiPagination' className={isFirstPage ? styles.disabled : ''}>
+      <li key='PreviousPageLiPagination'>
         <a
           href="#"
           aria-disabled={isFirstPage}
@@ -117,7 +117,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
   const displayNext = () => {
     return <>
       { displayLastElement() }
-      <li key='NextPageLiPagination' className={isLastPage ? styles.disabled : ''}>
+      <li key='NextPageLiPagination'>
         <a
           href="#"
           aria-disabled={isLastPage}
@@ -137,7 +137,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
           {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante  <AngleRightIcon /></div>}
         </a>
       </li>
-      <li key='LastLiPagination' className={isLastPage ? styles.disabled : ''}>
+      <li key='LastLiPagination'>
         <a
           href="#"
           aria-disabled={isLastPage}
