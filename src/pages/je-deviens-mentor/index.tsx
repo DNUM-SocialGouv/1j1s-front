@@ -14,7 +14,7 @@ export default function MentoratPage() {
   return (
     <>
       <HeadTag
-        title="Je deviens mentor| 1jeune1solution"
+        title="Je deviens mentor | 1jeune1solution"
         description="1 jeune 1 mentor, accompagner un jeune pour l’aider à réussir"
       />
       <main id="contenu">
@@ -24,9 +24,23 @@ export default function MentoratPage() {
             Faire la rencontre qui change tout !
           </p>
           <p>
-            <strong>Vous souhaitez devenir mentor ?</strong>
-            <br/>
-            Embarquer dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l&apos;égalisté des chances et continuer à apprendre en accompagnant un jeune
+            <ul>
+              <li>
+                <strong>Vous êtes employeur ou citoyen et souhaitez devenir mentor ?</strong>
+                <br />
+                Embarquer dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l&apos;égalité des chances et continuer à apprendre en accompagnant un jeune.
+              </li>
+            </ul>
+          </p>
+          <br />
+          <p>
+            <ul>
+              <li>
+                <strong>Votre entreprise recrute ou porte une initiative pour les jeunes ? Rejoignez la mobilisation !</strong>
+                <br />
+                Permettez à votre entreprise d’apporter des solutions pour les jeunes, rejoignez des milliers d’entreprises déjà engagées et bénéficiez de services inédits.
+              </li>
+            </ul>
           </p>
 
           <div className={styles.linkAsButtonWrapper}>

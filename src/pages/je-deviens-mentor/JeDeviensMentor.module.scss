@@ -21,7 +21,6 @@
   }
 
   > p:nth-child(3) {
-    @extend %bold;
     margin-bottom: 0;
   }
 }
