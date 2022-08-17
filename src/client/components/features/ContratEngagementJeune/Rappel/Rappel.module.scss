@@ -69,7 +69,17 @@
 .success {
   text-align: center;
   h3 {
+    margin-top: 2rem;
     color: $color-primary;
+  }
+  Button {
+    text-align: center;
+    font-size: larger;
+  }
+  .information {
+    width: unset;
+    height: 10em;
+    color: $color-secondary;
   }
 }
 
