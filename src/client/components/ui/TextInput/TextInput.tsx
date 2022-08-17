@@ -26,7 +26,7 @@ interface TextInputProps extends React.InputHTMLAttributes<unknown> {
   label?: string
   necessity?: 'optional' | 'required'
   validation?: (value: InputValue) => string | null | undefined;
-  triggerNecessity?: boolean
+  triggerValidation?: boolean
 }
 
 // eslint-disable-next-line react/display-name
@@ -37,10 +37,10 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
     hint,
     label,
     necessity,
-    triggerNecessity,
     onChange,
     value: outerValue,
     validation,
+    triggerValidation,
     ...rest
   } = props;
   const ref = useSynchronizedRef(outerRef);
@@ -55,12 +55,20 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
     }
   }, [validation, valueState, ref]);
 
-  useLayoutEffect(function checkInputValidity() {
+  useLayoutEffect(function checkInputValidityOnTouched() {
     if (ref.current && touched) {
       const isValid = ref.current.checkValidity();
       setError(!isValid ? ref.current.validationMessage : '');
     }
   }, [ref, touched, valueState]);
+
+  useEffect(function triggerInputValidation() {
+    if(triggerValidation && validation) {
+      const error = validation(valueState);
+      ref.current?.setCustomValidity(error ?? '');
+      setError(error ?? '');
+    }
+  }, [ref, triggerValidation, validation, valueState]);
 
   useEffect(function onValueChange() {
     setValueState(outerValue || '');
@@ -82,7 +90,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
       {label && (
         <label className={styles.textInputLabel} htmlFor={inputId.current}>
           {label}
-          {(necessity || (triggerNecessity)) && (
+          {necessity && (
             <span className="text-small"> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
           )}
         </label>
