@@ -25,6 +25,10 @@
     border: solid 1px $color-on-surface;
     background-color: $color-form-field;
 
+    &[aria-invalid=true] {
+      border: solid 2px $color-error;
+    }
+
     &:active, &:focus {
       border-color: $color-primary;
     }

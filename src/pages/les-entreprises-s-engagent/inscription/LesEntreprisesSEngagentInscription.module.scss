@@ -3,6 +3,10 @@
 .header {
   background-color: $color-blue-navy;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 
   > span {
     text-decoration-line: underline;
@@ -10,11 +14,60 @@
   }
 }
 
+.formulaire {
+  margin: 0 32px;
+
+  .premierePartieFormulaire > * > label {
+    @extend %bold;
+  }
+
+  .premierePartieFormulaire > * > input {
+    margin-bottom: 24px;
+  }
+
+  .deuxiemePartieFormulaire > * > label {
+    @extend %bold;
+  }
+
+  .deuxiemePartieFormulaire > * > input {
+    margin-bottom: 24px;
+  }
+
+  > button {
+    width: 100%;
+  }
+
+  > button[type=submit] {
+    margin-top: 20px;
+  }
+}
+
+.mandatoryFields {
+  @extend %text-medium;
+  margin: 20px 32px 32px;
+}
+
 .etape {
   background-color: $color-primary;
   color: white;
+  max-width: 8rem;
+  text-align: center;
+  padding: 4px;
+  margin-left: 32px;
 }
 
 .footer {
+  @extend %text-small;
+  margin: 16px 32px 32px;
 
+  > a {
+    color: $color-primary;
+  }
+}
+
+.success {
+  color: $color-primary;
+  @extend %bold;
+  @extend %text-xLarge;
+  padding: 40px;
 }

@@ -19,14 +19,13 @@ function useSynchronizedRef<T>(ref: ForwardedRef<T | null>) {
   return innerRef;
 }
 
-export type InputValue = string | ReadonlyArray<string> | number | undefined;
+type InputValue = string | ReadonlyArray<string> | number | undefined;
 
 interface TextInputProps extends React.InputHTMLAttributes<unknown> {
   hint?: string
   label?: string
   necessity?: 'optional' | 'required'
   validation?: (value: InputValue) => string | null | undefined;
-  triggerValidation?: boolean
 }
 
 // eslint-disable-next-line react/display-name
@@ -40,7 +39,6 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
     onChange,
     value: outerValue,
     validation,
-    triggerValidation,
     ...rest
   } = props;
   const ref = useSynchronizedRef(outerRef);
@@ -55,20 +53,12 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
     }
   }, [validation, valueState, ref]);
 
-  useLayoutEffect(function checkInputValidityOnTouched() {
+  useLayoutEffect(function checkInputValidity() {
     if (ref.current && touched) {
       const isValid = ref.current.checkValidity();
       setError(!isValid ? ref.current.validationMessage : '');
     }
   }, [ref, touched, valueState]);
-
-  useEffect(function triggerInputValidation() {
-    if(triggerValidation && validation) {
-      const error = validation(valueState);
-      ref.current?.setCustomValidity(error ?? '');
-      setError(error ?? '');
-    }
-  }, [ref, triggerValidation, validation, valueState]);
 
   useEffect(function onValueChange() {
     setValueState(outerValue || '');

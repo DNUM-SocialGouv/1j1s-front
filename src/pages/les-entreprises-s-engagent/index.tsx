@@ -15,22 +15,21 @@ export default function LesEntreprisesSEngagent() {
           <h1>Votre entreprise recrute ou porte une initiative pour les jeunes ?</h1>
           <p>
             Rejoignez la mobilisation !
-
           </p>
           <p>
             <strong>La jeunesse est notre priorité. </strong>
             Partout en France, des entreprises, chacune à leur échelle et selon leurs possibilités, cherchent ou apportent toutes sortes de solutions pour les jeunes.
-            Rejoignez-les, et bénéficiez de services inédits : un accompagnement personnalisé si vous le souhaitez, des aides pour communiquer, etc.
+            Rejoignez-les, et <strong>bénéficiez de services inédits</strong> : un accompagnement personnalisé si vous le souhaitez, des aides pour communiquer, etc.
           </p>
 
           <div className={styles.linkAsButtonWrapper}>
             <LinkAsButton
               href="/les-entreprises-s-engagent/inscription"
-              className={styles.linkAsButtonMentorat}
             >
               Rejoindre la mobilisation
             </LinkAsButton>
             <LinkAsButton
+              className={styles.linkAsButtonMentorat}
               href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees"
               target="_blank"
             >

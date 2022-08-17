@@ -5,29 +5,20 @@
 
   > h1 {
     @extend %text-xLarge;
-    color: $color-blue-navy;
+    color: $color-primary;
     margin-bottom: 1rem;
-  }
-
-  > p {
-    @extend %text-regular;
-    margin-bottom: 2.5rem;
+    font-weight: normal;
   }
 
   > p:nth-child(2) {
+    @extend %text-xLarge;
     @extend %bold;
-    color: $color-tertiary;
-    margin-bottom: 1rem;
-  }
-
-  > p:nth-child(3) {
-    @extend %bold;
-    margin-bottom: 0;
+    color: $color-primary;
+    margin-bottom: 2.5rem;
   }
 }
 
 .linkAsButtonWrapper {
-  max-width: 16rem;
   margin: 40px auto auto;
   display: flex;
   flex-direction: column;
