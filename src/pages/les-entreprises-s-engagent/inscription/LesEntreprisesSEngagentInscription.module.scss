@@ -1,0 +1,16 @@
+@import "@styles/utilities";
+
+.header {
+  background-color: $color-blue-navy;
+  color: white;
+
+  > span {
+    text-decoration-line: underline;
+    text-transform: uppercase;
+  }
+}
+
+.etape {
+  background-color: $color-primary;
+  color: white;
+}
