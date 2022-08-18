@@ -81,7 +81,7 @@ export default function LesEntreprisesSEngagentInscription() {
         !isFormSuccessfullySent &&
           <>
             <div className={styles.header}>
-              <Image src="/images/logos/france-relance.svg" alt="" width="65" height="65"/>
+              <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="65" height="65"/>
               <span>Les entreprises s&apos;engagent</span>
             </div>
 

@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import React from 'react';
+
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -22,6 +25,10 @@ export default function LesEntreprisesSEngagent() {
       />
       <main id="contenu">
         <div className={styles.content}>
+          <div className={styles.lesEntreprisesSEngagent}>
+            <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="65" height="65"/>
+            <span>Les entreprises s&apos;engagent</span>
+          </div>
           <Marked markdown={contenuHeader} />
 
           <div className={styles.linkAsButtonWrapper}>
@@ -35,7 +42,7 @@ export default function LesEntreprisesSEngagent() {
               href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees"
               target="_blank"
             >
-              J&apos;engage mon entreprise
+              Découvrir les entreprises engagées
             </LinkAsButton>
           </div>
         </div>
