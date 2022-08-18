@@ -1,0 +1,13 @@
+.path {
+  transform-origin: center;
+}
+.circled .path {
+  transform: scale(0.45);
+}
+
+.uncircled circle {
+  display: none;
+}
+
+.circled circle {
+}
