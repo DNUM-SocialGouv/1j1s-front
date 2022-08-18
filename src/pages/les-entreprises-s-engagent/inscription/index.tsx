@@ -93,12 +93,11 @@ export default function LesEntreprisesSEngagentInscription() {
           >
             {
               isPremièreEtape() ?
-                <div className={styles.premierePartieFormulaire}>
+                <div className={styles.partieFormulaire}>
                   <TextInput
                     label="Indiquez le nom de l’entreprise"
                     name="companyName"
                     placeholder="Exemple : Crédit Agricole, SNCF…"
-                    necessity="required"
                     value={formulaireEtape1.nomSociété}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, nomSociété: event.currentTarget.value })}
                     required
@@ -107,7 +106,6 @@ export default function LesEntreprisesSEngagentInscription() {
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
                     placeholder="Exemple : 94052, Paris 2…"
-                    necessity="required"
                     value={formulaireEtape1.codePostal}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, codePostal: event.currentTarget.value })}
@@ -116,7 +114,6 @@ export default function LesEntreprisesSEngagentInscription() {
                     label="Indiquer votre numéro de SIRET"
                     name="companySiret"
                     placeholder="Exemple : 12345678901112"
-                    necessity="required"
                     value={formulaireEtape1.siret}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, siret: event.currentTarget.value })}
@@ -125,7 +122,6 @@ export default function LesEntreprisesSEngagentInscription() {
                     label="Indiquer le secteur d’activité de votre entreprise"
                     name="companySector"
                     placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
-                    necessity="required"
                     value={formulaireEtape1.secteur}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, secteur: event.currentTarget.value })}
@@ -134,19 +130,17 @@ export default function LesEntreprisesSEngagentInscription() {
                     label="Indiquer la taille de votre entreprise"
                     name="companySize"
                     placeholder="Exemple : 250 à 499 salariés"
-                    necessity="required"
                     value={formulaireEtape1.taille}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, taille: event.currentTarget.value })}
                   />
                 </div>
                 :
-                <div className={styles.deuxiemePartieFormulaire}>
+                <div className={styles.partieFormulaire}>
                   <TextInput
                     label="Indiquer votre prénom"
                     name="firstName"
                     placeholder="Exemple : Marc, Sonia…"
-                    necessity="required"
                     value={formulaireEtape2.prénom}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, prénom: event.currentTarget.value })}
@@ -155,7 +149,6 @@ export default function LesEntreprisesSEngagentInscription() {
                     label="Indiquer votre nom"
                     name="lastName"
                     placeholder="Exemple : Ducourt, Dupont…"
-                    necessity="required"
                     value={formulaireEtape2.nom}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, nom: event.currentTarget.value })}
@@ -165,7 +158,6 @@ export default function LesEntreprisesSEngagentInscription() {
                     name="email"
                     placeholder="Exemple : mail@exemple.com"
                     hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
-                    necessity="required"
                     value={formulaireEtape2.email}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, email: event.currentTarget.value })}
@@ -174,7 +166,6 @@ export default function LesEntreprisesSEngagentInscription() {
                     label="Indiquer votre fonction au sein de votre entreprise"
                     name="job"
                     placeholder="Exemple : RH, Chargé de communications"
-                    necessity="required"
                     value={formulaireEtape2.travail}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, travail: event.currentTarget.value })}
@@ -184,19 +175,23 @@ export default function LesEntreprisesSEngagentInscription() {
                     name="phone"
                     placeholder="Exemple : 0199999999"
                     hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
-                    necessity="required"
                     value={formulaireEtape2.téléphone}
                     required
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, téléphone: event.currentTarget.value })}
                   />
                 </div>
             }
-            {
-              isPremièreEtape() ?
-                <Button buttonType="withRightIcon" type="submit" icon={<AngleRightIcon />}>Suivant</Button>
-                :
-                <Button buttonType="primary" type="submit" icon={<AngleRightIcon />}>Envoyer le formulaire</Button>
-            }
+
+            <div className={styles.buttons}>
+              {
+
+                isPremièreEtape() ?
+                  <Button buttonType="withRightIcon" type="submit" icon={<AngleRightIcon />}>Suivant</Button>
+                  :
+                  <Button buttonType="primary" type="submit" icon={<AngleRightIcon />}>Envoyer le formulaire</Button>
+              }
+            </div>
+
           </form>
           <div className={styles.footer}>
             Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#">contactez-nous</a>

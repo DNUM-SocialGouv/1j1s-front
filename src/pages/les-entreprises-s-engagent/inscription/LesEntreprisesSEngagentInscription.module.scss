@@ -17,24 +17,13 @@
 .formulaire {
   margin: 0 32px;
 
-  .premierePartieFormulaire > * > label {
+  .partieFormulaire > * > label {
     @extend %bold;
+    margin-top: 24px;
   }
 
-  .premierePartieFormulaire > * > input {
-    margin-bottom: 24px;
-  }
-
-  .deuxiemePartieFormulaire > * > label {
-    @extend %bold;
-  }
-
-  .deuxiemePartieFormulaire > * > input {
-    margin-bottom: 24px;
-  }
-
-  > button {
-    width: 100%;
+  .buttons {
+    margin-top: 24px;
   }
 
   > button[type=submit] {
@@ -70,4 +59,35 @@
   @extend %bold;
   @extend %text-xLarge;
   padding: 40px;
+}
+
+@include media(large) {
+
+  .formulaire {
+    width: 80%;
+    margin: auto;
+
+    .partieFormulaire {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      > div {
+        width: 48%;
+      }
+    }
+
+    .buttons {
+      text-align: center;
+
+      > button {
+        width: 30%;
+      }
+    }
+  }
+
+  .success {
+    width: 50%;
+    margin: auto;
+  }
 }
