@@ -1,16 +1,16 @@
 @import "@styles/utilities";
 
-.heading {
+.content {
   padding: 32px;
 
-  > h1 {
+  h1 {
     @extend %text-xLarge;
     color: $color-primary;
     margin-bottom: 1rem;
     font-weight: normal;
   }
 
-  > p:nth-child(2) {
+  p:nth-child(2) {
     @extend %text-xLarge;
     @extend %bold;
     color: $color-primary;
@@ -30,4 +30,15 @@
   color: $color-primary;
   border: 1px solid $color-primary;
   box-shadow: none !important; // TODO a retirer à cause du dsfr
+}
+
+@include media(large) {
+  .content {
+    width: 80%;
+    margin: auto;
+  }
+
+  .linkAsButtonWrapper {
+    width: 30%;
+  }
 }
