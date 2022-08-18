@@ -14,15 +14,19 @@
   }
 }
 
-.formulaire {
-  margin: 0 32px;
+.content {
+  padding-left: 32px;
+  padding-right: 32px;
+}
 
-  .partieFormulaire > * > label {
+.formulaire {
+
+  .bodyFormulaire > * > label {
     @extend %bold;
     margin-top: 24px;
   }
 
-  .buttons {
+  .buttonFormulaire {
     margin-top: 24px;
   }
 
@@ -33,7 +37,7 @@
 
 .mandatoryFields {
   @extend %text-medium;
-  margin: 20px 32px 32px;
+  margin-top: 20px;
 }
 
 .etape {
@@ -42,12 +46,12 @@
   max-width: 8rem;
   text-align: center;
   padding: 4px;
-  margin-left: 32px;
 }
 
 .footer {
   @extend %text-small;
-  margin: 16px 32px 32px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
   > a {
     color: $color-primary;
@@ -63,11 +67,28 @@
 
 @include media(large) {
 
-  .formulaire {
-    width: 80%;
-    margin: auto;
+  .content {
+    background-color: $color-background;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-bottom: 2rem;
+  }
 
-    .partieFormulaire {
+  .etape {
+    margin-left: 8rem;
+  }
+
+  .mandatoryFields {
+    margin-left: 8rem;
+  }
+
+  .formulaire {
+    background-color: white;
+    border-radius: 40px;
+    padding: 0 8rem 1rem;
+    margin-top: 1.5rem;
+
+    .bodyFormulaire {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -77,7 +98,7 @@
       }
     }
 
-    .buttons {
+    .buttonFormulaire {
       text-align: center;
 
       > button {

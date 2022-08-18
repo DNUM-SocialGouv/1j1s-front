@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
@@ -57,21 +57,20 @@ export default function LesEntreprisesSEngagentInscription() {
   });
 
   const isPremièreEtape = () => etape === Etape.ETAPE_1;
+  const isDeuxièmeEtape = () => etape === Etape.ETAPE_2;
   const isPremièreEtapeValid = () => Object.values(formulaireEtape1).every((value) => value.length > 0);
   const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
+
+  const goToEtape1 = () => (isPremièreEtape() && isPremièreEtapeValid()) && setEtape(Etape.ETAPE_2);
 
   async function submitFormulaire(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if(isPremièreEtape() && isPremièreEtapeValid()) {
-      setEtape(Etape.ETAPE_2);
-    } else {
-      if(isPremièreEtapeValid() && isDeuxièmeEtapeValid()) {
-        const response = await lesEntreprisesSEngagementService.envoyerFormulaireEngagement({ ...formulaireEtape1, ...formulaireEtape2 });
+    if (isPremièreEtapeValid() && isDeuxièmeEtapeValid()) {
+      const response = await lesEntreprisesSEngagementService.envoyerFormulaireEngagement({ ...formulaireEtape1, ...formulaireEtape2 });
 
-        if(isSuccess(response)) {
-          setIsFormSuccessfullySent(true);
-        }
+      if (isSuccess(response)) {
+        setIsFormSuccessfullySent(true);
       }
     }
   }
@@ -80,127 +79,163 @@ export default function LesEntreprisesSEngagentInscription() {
     <>
       {
         !isFormSuccessfullySent &&
-        <>
-          <div className={styles.header}>
-            <Image src="/images/logos/france-relance.svg" alt="" width="65" height="65" />
-            <span>Les entreprises s&apos;engagent</span>
-          </div>
-          <div className={styles.etape}>{etape}</div>
-          <div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
-          <form
-            className={styles.formulaire}
-            onSubmit={submitFormulaire}
-          >
-            {
-              isPremièreEtape() ?
-                <div className={styles.partieFormulaire}>
-                  <TextInput
-                    label="Indiquez le nom de l’entreprise"
-                    name="companyName"
-                    placeholder="Exemple : Crédit Agricole, SNCF…"
-                    value={formulaireEtape1.nomSociété}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, nomSociété: event.currentTarget.value })}
-                    required
-                  />
-                  <TextInput
-                    label="Indiquez la ville du siège social de l’entreprise"
-                    name="companyPostalCode"
-                    placeholder="Exemple : 94052, Paris 2…"
-                    value={formulaireEtape1.codePostal}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, codePostal: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer votre numéro de SIRET"
-                    name="companySiret"
-                    placeholder="Exemple : 12345678901112"
-                    value={formulaireEtape1.siret}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, siret: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer le secteur d’activité de votre entreprise"
-                    name="companySector"
-                    placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
-                    value={formulaireEtape1.secteur}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, secteur: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer la taille de votre entreprise"
-                    name="companySize"
-                    placeholder="Exemple : 250 à 499 salariés"
-                    value={formulaireEtape1.taille}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({ ...formulaireEtape1, taille: event.currentTarget.value })}
-                  />
-                </div>
-                :
-                <div className={styles.partieFormulaire}>
-                  <TextInput
-                    label="Indiquer votre prénom"
-                    name="firstName"
-                    placeholder="Exemple : Marc, Sonia…"
-                    value={formulaireEtape2.prénom}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, prénom: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer votre nom"
-                    name="lastName"
-                    placeholder="Exemple : Ducourt, Dupont…"
-                    value={formulaireEtape2.nom}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, nom: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer votre adresse e-mail de contact"
-                    name="email"
-                    placeholder="Exemple : mail@exemple.com"
-                    hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
-                    value={formulaireEtape2.email}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, email: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer votre fonction au sein de votre entreprise"
-                    name="job"
-                    placeholder="Exemple : RH, Chargé de communications"
-                    value={formulaireEtape2.travail}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, travail: event.currentTarget.value })}
-                  />
-                  <TextInput
-                    label="Indiquer un numéro de téléphone de contact"
-                    name="phone"
-                    placeholder="Exemple : 0199999999"
-                    hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
-                    value={formulaireEtape2.téléphone}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({ ...formulaireEtape2, téléphone: event.currentTarget.value })}
-                  />
-                </div>
-            }
-
-            <div className={styles.buttons}>
-              {
-
-                isPremièreEtape() ?
-                  <Button buttonType="withRightIcon" type="submit" icon={<AngleRightIcon />}>Suivant</Button>
-                  :
-                  <Button buttonType="primary" type="submit" icon={<AngleRightIcon />}>Envoyer le formulaire</Button>
-              }
+          <>
+            <div className={styles.header}>
+              <Image src="/images/logos/france-relance.svg" alt="" width="65" height="65"/>
+              <span>Les entreprises s&apos;engagent</span>
             </div>
 
-          </form>
-          <div className={styles.footer}>
-            Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#">contactez-nous</a>
-          </div>
-        </>
+            <div className={styles.content}>
+              <div className={styles.etape}>{etape}</div>
+              <div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
+              {
+                isPremièreEtape() && <form className={styles.formulaire} onSubmit={goToEtape1}>
+                  <div className={styles.bodyFormulaire}>
+                    <TextInput
+                      label="Indiquez le nom de l’entreprise"
+                      name="companyName"
+                      placeholder="Exemple : Crédit Agricole, SNCF…"
+                      value={formulaireEtape1.nomSociété}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        nomSociété: event.currentTarget.value,
+                      })}
+                      required
+                    />
+                    <TextInput
+                      label="Indiquez la ville du siège social de l’entreprise"
+                      name="companyPostalCode"
+                      placeholder="Exemple : 94052, Paris 2…"
+                      value={formulaireEtape1.codePostal}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        codePostal: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer votre numéro de SIRET"
+                      name="companySiret"
+                      placeholder="Exemple : 12345678901112"
+                      value={formulaireEtape1.siret}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        siret: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer le secteur d’activité de votre entreprise"
+                      name="companySector"
+                      placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
+                      value={formulaireEtape1.secteur}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        secteur: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer la taille de votre entreprise"
+                      name="companySize"
+                      placeholder="Exemple : 250 à 499 salariés"
+                      value={formulaireEtape1.taille}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        taille: event.currentTarget.value,
+                      })}
+                    />
+                  </div>
+
+                  <div className={styles.buttonFormulaire}>
+                    <Button buttonType="withRightIcon" type="submit" icon={<AngleRightIcon/>}>Suivant</Button>
+                  </div>
+
+                  <div className={styles.footer}>
+                    Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#">contactez-nous</a>
+                  </div>
+
+                </form>
+              }
+              {
+                isDeuxièmeEtape() && <form className={styles.formulaire} onSubmit={submitFormulaire}>
+                  <div className={styles.bodyFormulaire}>
+                    <TextInput
+                      label="Indiquer votre prénom"
+                      name="firstName"
+                      placeholder="Exemple : Marc, Sonia…"
+                      value={formulaireEtape2.prénom}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                        ...formulaireEtape2,
+                        prénom: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer votre nom"
+                      name="lastName"
+                      placeholder="Exemple : Ducourt, Dupont…"
+                      value={formulaireEtape2.nom}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                        ...formulaireEtape2,
+                        nom: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer votre adresse e-mail de contact"
+                      name="email"
+                      placeholder="Exemple : mail@exemple.com"
+                      hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
+                      value={formulaireEtape2.email}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                        ...formulaireEtape2,
+                        email: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer votre fonction au sein de votre entreprise"
+                      name="job"
+                      placeholder="Exemple : RH, Chargé de communications"
+                      value={formulaireEtape2.travail}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                        ...formulaireEtape2,
+                        travail: event.currentTarget.value,
+                      })}
+                    />
+                    <TextInput
+                      label="Indiquer un numéro de téléphone de contact"
+                      name="phone"
+                      placeholder="Exemple : 0199999999"
+                      hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
+                      value={formulaireEtape2.téléphone}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                        ...formulaireEtape2,
+                        téléphone: event.currentTarget.value,
+                      })}
+                    />
+                  </div>
+
+                  <div className={styles.buttonFormulaire}>
+                    <Button buttonType="primary" type="submit" icon={<AngleRightIcon/>}>Envoyer le formulaire</Button>
+                  </div>
+
+                  <div className={styles.footer}>
+                    Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#">contactez-nous</a>
+                  </div>
+
+                </form>
+              }
+            </div>
+          </>
       }
 
-      { isFormSuccessfullySent && <div className={styles.success}>Félicitations, votre formulaire a bien été envoyé !</div> }
+      {isFormSuccessfullySent &&
+          <div className={styles.success}>Félicitations, votre formulaire a bien été envoyé !</div>}
     </>
   );
-
 }
