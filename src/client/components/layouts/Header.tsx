@@ -60,8 +60,8 @@ export function Header() {
             <NavSubItem title="Service Civique" asLink={<NavItemLink link="/service-civique" current={path === '/services-civique'} />} />
             <NavSubItem title="Bénévolat" asLink={<NavItemLink link="/benevolat" current={path === '/benevolat'} />} />
           </NavItem>
-          <NavItem title="Employeur">
-            <NavSubItem title="On s'amuse" asLink={<NavItemLink link="/violet" current={path === '/violet'} />} />
+          <NavItem title="Je suis employeur">
+            <NavSubItem title="Je deviens mentor" asLink={<NavItemLink link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} />} />
           </NavItem>
         </HeaderNav>
       </div>
