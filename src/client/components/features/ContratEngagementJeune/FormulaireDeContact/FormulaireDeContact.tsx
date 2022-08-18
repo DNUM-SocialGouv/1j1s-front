@@ -1,6 +1,7 @@
-import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import range from 'just-range';
-import { FormEvent, useState } from 'react';
+import Image from 'next/image';
+import check from 'public/images/CEJ/check.handwriting.jpg';
+import { FormEvent, PropsWithChildren, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
@@ -17,9 +18,14 @@ const ageOptions: Option[] = range(16,31).map((age) => {
     valeur: `${age}`,
   };
 });
-export default function FormulaireDeContact ({ onSuccess }: { onSuccess?: () => void }) {
+
+interface FormulaireDeContactProps {
+  onSuccess?: () => void
+}
+
+export default function FormulaireDeContact ({ children, onSuccess }: PropsWithChildren<FormulaireDeContactProps>) {
   const [inputAge, setInputAge] = useState('');
-  const [isPopInOpen, setIsPopInOpen] = useState(false);
+  const [envoyé, setEnvoyé] = useState(false);
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
   async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
@@ -37,11 +43,22 @@ export default function FormulaireDeContact ({ onSuccess }: { onSuccess?: () => 
 
     if(isSuccess(response)) {
       if (onSuccess) {
+        setEnvoyé(true);
         onSuccess();
       }
     } else {
       alert("Erreur dans l'envoi du formulaire :" + response.errorType);
     }
+  }
+
+  if (envoyé) {
+    return (
+      <div className={ styles.success }>
+        <Image src={check} alt="" width="220" height="200"/>
+        <h3>Votre demande a bien été transmise !</h3>
+        {children}
+      </div>
+    );
   }
 
   return (
@@ -95,22 +112,9 @@ export default function FormulaireDeContact ({ onSuccess }: { onSuccess?: () => 
       <div className={styles.formulaireDeRappelButton}>
         <Button buttonType="primary">Envoyer la demande</Button>
       </div>
-      {
-        isPopInOpen &&
-        <Modal className={ styles.modal }
-          isOpen={isPopInOpen}
-          hide={() => setIsPopInOpen(false)}
-        >
-          <ModalTitle className={ styles.modalTitle}>
-            Votre demande a bien été transmise !
-          </ModalTitle>
-          <ModalContent>
-            <div className={styles.modalButton}>
-              <Button buttonType={'primary'}>Fermer</Button>
-            </div>
-          </ModalContent>
-        </Modal>
-      }
+      <div className={styles.décharge}>
+        <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
+      </div>
     </form>
   );
 }

@@ -6,11 +6,12 @@ import React, {
 import styles from '~/client/components/ui/Button/Button.module.scss';
 import { ButtonProps } from '~/client/components/ui/Button/button.props';
 
-export function Button({ children, buttonType='primary', buttonOnDarkBackground= false, icon , ...rest } : React.PropsWithChildren<ButtonProps>) {
+export function Button({ children, buttonType='primary', buttonOnDarkBackground= false, icon, className, ...rest } : React.PropsWithChildren<ButtonProps>) {
 
 
   const getButton = useCallback(() => {
-    const buttonStyle = buttonOnDarkBackground ? styles.buttonPrimaryOnDarkBackground : styles.buttonPrimary;
+    const primaryStyle = buttonOnDarkBackground ? styles.buttonPrimaryOnDarkBackground : styles.buttonPrimary;
+    const buttonStyle = classNames(styles.button, primaryStyle, className);
 
     switch(buttonType) {
       case 'link':
@@ -24,14 +25,14 @@ export function Button({ children, buttonType='primary', buttonOnDarkBackground=
       default:
         return buttonPrimary(children, rest, buttonStyle);
     }
-  }, [buttonType, buttonOnDarkBackground, children, icon, rest]);
+  }, [buttonType, buttonOnDarkBackground, children, className, icon, rest]);
 
   return ( getButton() );
 }
 
 function buttonPrimary(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , buttonStyle: string) {
   return (
-    <button className={classNames(styles.button, buttonStyle)} {...rest}>
+    <button className={buttonStyle} {...rest}>
       {children}
     </button>
   );
@@ -56,7 +57,7 @@ function buttonLinkWithRightIcon(children: React.ReactNode, rest: React.ButtonHT
 
 function buttonWithLeftIcon(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , icon: React.ReactNode | undefined, buttonStyle: string) {
   return (
-    <button className={classNames(styles.button, buttonStyle)} {...rest}>
+    <button className={buttonStyle} {...rest}>
       {icon && <>{icon}</>}
       {children}
     </button>
@@ -65,7 +66,7 @@ function buttonWithLeftIcon(children: React.ReactNode, rest: React.ButtonHTMLAtt
 
 function buttonWithRightIcon(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , icon: React.ReactNode | undefined, buttonStyle: string) {
   return (
-    <button className={classNames(styles.button, buttonStyle)} {...rest}>
+    <button className={buttonStyle} {...rest}>
       {children}
       {icon && <>{icon}</>}
     </button>

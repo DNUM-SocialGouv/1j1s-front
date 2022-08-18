@@ -24,7 +24,7 @@ describe('<FormulaireDeContact />', () => {
 
     render(
       <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
-        <FormulaireDeContact onSuccess={onSuccess}/>
+        <FormulaireDeContact onSuccess={onSuccess}>Revenir</FormulaireDeContact>
       </DependenciesProvider>,
     );
     return { demandeDeContactServiceMock, onSuccess };
@@ -76,8 +76,6 @@ describe('<FormulaireDeContact />', () => {
           téléphone: '0123456789',
           ville: 'Pontoise',
         });
-        const button = screen.getByRole('button', { name: 'Envoyer la demande' });
-        await userEvent.click(button);
 
         // Then
         expect(demandeDeContactServiceMock.envoyer).toHaveBeenCalledWith({
@@ -105,6 +103,24 @@ describe('<FormulaireDeContact />', () => {
 
         // Then
         expect(onSuccess).toHaveBeenCalled();
+      });
+      it('Affiche un message de confirmation et {children}', async () => {
+        // Given
+        renderComponent();
+
+        // When
+        await remplirFormulaireDeContact({
+          age: '19 ans',
+          email: 'toto@msn.fr',
+          nom: 'Mc Totface',
+          prénom: 'Toto',
+          téléphone: '0123456789',
+          ville: 'Pontoise',
+        });
+
+        // Then
+        expect(screen.getByText('Votre demande a bien été transmise !')).toBeInTheDocument();
+        expect(screen.getByText('Revenir')).toBeInTheDocument();
       });
     });
   });
