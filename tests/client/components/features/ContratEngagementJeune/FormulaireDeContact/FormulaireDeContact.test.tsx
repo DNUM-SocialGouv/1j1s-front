@@ -24,7 +24,9 @@ describe('<FormulaireDeContact />', () => {
 
     render(
       <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
-        <FormulaireDeContact onSuccess={onSuccess}>Revenir</FormulaireDeContact>
+        <FormulaireDeContact onSuccess={onSuccess}>
+          Revenir
+        </FormulaireDeContact>
       </DependenciesProvider>,
     );
     return { demandeDeContactServiceMock, onSuccess };

@@ -35,7 +35,7 @@ export default function Rappel() {
         <ModalTitle className={styles.rappelTitle}>{ title }</ModalTitle>
         <ModalContent>
           <FormulaireDeContact onSuccess={() => onFormulaireEnvoyé() }>
-            <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" className={styles.btnSuccess}>Fermer</Button>
+            <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
           </FormulaireDeContact>
         </ModalContent>
       </Modal>

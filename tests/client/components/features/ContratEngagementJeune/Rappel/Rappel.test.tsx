@@ -70,7 +70,7 @@ describe('<Rappel />', () => {
       });
       // Then
       expect(screen.getByText('Votre demande a bien été transmise !')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Fermer' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { description: 'Revenir à la page', name: 'Fermer' })).toBeInTheDocument();
     });
   });
 });
