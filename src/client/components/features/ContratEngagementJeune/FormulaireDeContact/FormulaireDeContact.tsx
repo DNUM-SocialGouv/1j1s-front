@@ -6,6 +6,7 @@ import { FormEvent, PropsWithChildren, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
+import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -25,6 +26,7 @@ interface FormulaireDeContactProps {
 
 export default function FormulaireDeContact ({ children, onSuccess }: PropsWithChildren<FormulaireDeContactProps>) {
   const [inputAge, setInputAge] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [envoyé, setEnvoyé] = useState(false);
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
@@ -32,6 +34,7 @@ export default function FormulaireDeContact ({ children, onSuccess }: PropsWithC
     event.preventDefault();
     const form: HTMLFormElement = event.currentTarget;
     const data = new FormData(form);
+    setIsLoading(true);
     const response = await demandeDeContactService.envoyer({
       age: Number(data.get('age')),
       email: data.get('mail'),
@@ -40,6 +43,7 @@ export default function FormulaireDeContact ({ children, onSuccess }: PropsWithC
       téléphone: data.get('phone'),
       ville: data.get('ville'),
     });
+    setIsLoading(false);
 
     if(isSuccess(response)) {
       if (onSuccess) {
@@ -110,7 +114,11 @@ export default function FormulaireDeContact ({ children, onSuccess }: PropsWithC
       </div>
       <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.formulaireDeRappelCheckbox}/>
       <div className={styles.formulaireDeRappelButton}>
-        <Button buttonType="primary">Envoyer la demande</Button>
+        { isLoading
+          ? (<Button disabled buttonType="primary"><SpinnerIcon /></Button>)
+          : (<Button buttonType="primary">Envoyer la demande</Button>)
+        }
+        
       </div>
       <div className={styles.décharge}>
         <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
