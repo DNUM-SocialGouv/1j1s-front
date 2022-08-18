@@ -1,10 +1,11 @@
 import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
+import Image from 'next/image';
+import check from 'public/images/CEJ/check.handwriting.jpg';
 import { useState } from 'react';
 
 import FormulaireDeContact from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
-import { InformationIcon } from '~/client/components/ui/Icon/information.icon';
 import Marked from '~/client/components/ui/Marked/Marked';
 
 
@@ -34,7 +35,7 @@ export default function Rappel() {
 
   const contentSuccess = (
     <div className={ styles.success }>
-      <InformationIcon className={ styles.information }/>
+      <Image src={check} alt=""/>
       <h3>Votre demande a bien été transmise !</h3>
       <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary">Fermer</Button>
     </div>
