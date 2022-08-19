@@ -43,6 +43,5 @@ jobs:
       - uses: Floby/jest-coverage-report-action@main
         with:
           annotations: "changed-coverage"
-          skip-step: install
           #coverage-file: coverage/coverage-final.json
           base-coverage-file: report.json
