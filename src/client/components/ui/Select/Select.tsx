@@ -64,7 +64,7 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
     const getLibelléAvecValeur = optionList.find((option) => option.valeur === selectedValue);
     const defaultMultiplePlaceholder = placeholder ?? 'Sélectionnez vos choix';
     const defaultSinglePlaceholder = placeholder ?? 'Sélectionnez votre choix';
-    const selectedValueLength = selectedValue.split(',').length;
+    const selectedValueLength = String(selectedValue).split(',').length;
     if (multiple) {
       if(!selectedValue) {
         return defaultMultiplePlaceholder;

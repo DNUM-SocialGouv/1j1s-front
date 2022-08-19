@@ -50,6 +50,26 @@ describe('EnvoyerDemanderDeContact', () => {
       expect(repository.save).toHaveBeenCalledWith(demandeDeContact);
       expect(result).toEqual(createSuccess(undefined));
     });
+    it('appelle le repository même avec un téléphone fixe', async () => {
+      // Given
+      const repository = {
+        save: jest.fn(() => Promise.resolve(createSuccess(undefined))),
+      };
+      const usecase = new EnvoyerDemanderDeContactUseCase(repository);
+      const demandeDeContact: DemandeDeContact = {
+        age: 18,
+        email: 'toto@msn.fr',
+        nom: 'Mc Totface',
+        prénom: 'Toto',
+        téléphone: '+33123456789',
+        ville: 'Cergy',
+      };
+      // When
+      const result = await usecase.handle({ ...command, téléphone: '0123456789' });
+      // Then
+      expect(repository.save).toHaveBeenCalledWith(demandeDeContact);
+      expect(result).toEqual(createSuccess(undefined));
+    });
 
     const invalidFields = [
       { email: 'toto chez msn' },

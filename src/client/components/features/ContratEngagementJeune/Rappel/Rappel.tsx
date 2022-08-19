@@ -9,6 +9,18 @@ import Marked from '~/client/components/ui/Marked/Marked';
 
 export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  function onFormulaireEnvoyé() {
+    setIsSuccess(true);
+  }
+  
+  const title = isSuccess ? '' : (
+    <>
+      J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
+      <small>(Tous les champs sont obligatoires)</small>
+    </>
+  );
 
   return (
     <section className={styles.rappel}>
@@ -20,15 +32,11 @@ export default function Rappel() {
         isOpen={isPopInOpen}
         hide={() => setIsPopInOpen(false)}
       >
-        <ModalTitle className={styles.rappelTitle}>
-          J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
-          <small>(Tous les champs sont obligatoires)</small>
-        </ModalTitle>
+        <ModalTitle className={styles.rappelTitle}>{ title }</ModalTitle>
         <ModalContent>
-          <FormulaireDeContact />
-          <div className={styles.rappelText}>
-            <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
-          </div>
+          <FormulaireDeContact onSuccess={() => onFormulaireEnvoyé() }>
+            <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
+          </FormulaireDeContact>
         </ModalContent>
       </Modal>
     </section>

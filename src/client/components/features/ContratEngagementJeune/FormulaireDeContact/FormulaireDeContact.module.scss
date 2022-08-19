@@ -45,6 +45,36 @@
   }
 }
 
+.décharge {
+  width: 100%;
+  background-color: $color-cadre-formulaire;
+  border-radius: 30px;
+
+  p {
+    font-size: 0.7rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.success {
+  text-align: center;
+  h3 {
+    margin-top: 2rem;
+    color: $color-primary;
+  }
+
+  span {
+    display: flex;
+    margin: auto;
+    width:120px;
+    height: 120px;
+    color: $color-secondary;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 @include media(large){
   .formulaireDeRappel {
     display: grid;

@@ -8,6 +8,9 @@ import userEvent from '@testing-library/user-event';
 import { mockSmallScreen } from '@tests/client/window.mock';
 
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
+import { createSuccess } from '~/server/errors/either';
 
 describe('<Accompagnement />', () => {
   beforeEach(() => {
@@ -18,10 +21,23 @@ describe('<Accompagnement />', () => {
     jest.resetAllMocks();
   });
 
+  function renderComponent () {
+    const demandeDeContactService  : DemandeDeContactService  = {
+      envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
+    } as unknown as DemandeDeContactService;
+
+    render(
+      <DependenciesProvider demandeDeContactService={demandeDeContactService}>
+        <Accompagnement />
+      </DependenciesProvider>,
+    );
+
+  }
+
   describe('quand il se passe rien', () => {
     it('on affiche le composant avec 3 boutons', () => {
       // Given
-      render(<Accompagnement/>);
+      renderComponent();
       const premierBouton = screen.getByText('Oui, je suis accompagné(e) par la Mission Locale');
       const deuxièmeBouton = screen.getByText('Oui, je suis accompagné(e) par Pôle Emploi');
       const troisièmeBouton = screen.getByText('Non, je ne bénéficie d\'aucun accompagnement');
@@ -38,7 +54,7 @@ describe('<Accompagnement />', () => {
       const pasDAccompagnement = 'Non, je ne bénéficie d\'aucun accompagnement';
       const quelÂgeAvezVous = 'Quel âge avez-vous ?';
 
-      render(<Accompagnement/>);
+      renderComponent();
       const troisièmeBouton = screen.getByText(pasDAccompagnement);
 
       // When
@@ -55,14 +71,14 @@ describe('<Accompagnement />', () => {
     it('ça te renvoie sur le formulaire Mission Locale', async () => {
       // Given
       const missionLocale = 'Oui, je suis accompagné(e) par la Mission Locale';
-      render(<Accompagnement/>);
+      renderComponent();
       const premierBouton = screen.getByText(missionLocale);
       // When
       await userEvent.click(premierBouton);
 
       // Then
       expectFormulaireDeContact();
-
+      expect(true).toEqual(true);
     });
   });
 
@@ -72,7 +88,7 @@ describe('<Accompagnement />', () => {
       // Given
       const pôleEmploi = 'Oui, je suis accompagné(e) par Pôle Emploi';
       const jeContacteMonConseiller = 'Je contacte mon conseiller';
-      render(<Accompagnement/>);
+      renderComponent();
 
       // When
       await userEvent.click(screen.getByText(pôleEmploi));
@@ -92,7 +108,7 @@ describe('<Accompagnement />', () => {
       const retour = 'Retour';
       const quelÂgeAvezVous = 'Quel âge avez-vous ?';
 
-      render(<Accompagnement/>);
+      renderComponent();
       await userEvent.click(screen.getByText(pasDAccompagnement));
 
       // When
