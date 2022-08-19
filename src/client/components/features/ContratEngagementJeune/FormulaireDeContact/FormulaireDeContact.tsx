@@ -58,7 +58,7 @@ export default function FormulaireDeContact ({ children, onSuccess }: PropsWithC
     return (
       <div className={ styles.success }>
         <span>
-          <CheckIcon circled={ true } animate / >
+          <CheckIcon circled={ true } animate />
         </span>
         <h3>Votre demande a bien été transmise !</h3>
         {children}
