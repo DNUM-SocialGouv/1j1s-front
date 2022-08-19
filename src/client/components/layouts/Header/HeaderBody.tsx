@@ -47,7 +47,7 @@ export function HeaderBody() {
             <BurgerMenuIcon/>
           </button>
         </Container>
-        <Link className={styles.headerService} href="/src/pages">
+        <Link className={styles.headerService} href="/">
           1jeune1solution
         </Link>
 
@@ -79,8 +79,8 @@ export function HeaderBody() {
                 <NavSubItem title="Service civique" link="/service-civique" current={path === '/service-civique'} onClick={onClickSetModal}/>
                 <NavSubItem title="Bénévolat" link="/benevolat" current={path === '/benevolat'} onClick={onClickSetModal}/>
               </Accordion>
-              <Accordion title="Employeur">
-                <NavSubItem title="On s'amuse" link="/violet" current={path === '/violet'} onClick={onClickSetModal}/>
+              <Accordion title="Je suis employeur">
+                <NavSubItem title="Je deviens mentor" link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} onClick={onClickSetModal}/>
               </Accordion>
             </Container>
           </ModalComponent.Content>

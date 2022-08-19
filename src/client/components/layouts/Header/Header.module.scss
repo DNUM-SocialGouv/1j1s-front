@@ -103,7 +103,9 @@
       }
 
       & details > div > li {
-
+        & :hover {
+          background-color: #D6D6D6;
+        }
         & > a {
         display: block;
         padding: 0.5rem 1rem;
@@ -138,6 +140,9 @@
     align-self: baseline;
     @include media(large){
       display: none;
+    }
+    & :hover {
+      background-color: #D6D6D6;
     }
   }
 

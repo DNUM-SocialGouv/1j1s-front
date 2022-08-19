@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface NavSubItemProps {
   title: string
   link: string
   current?: boolean
   asLink?: React.ReactElement
-  onClick?: (e: any) => void
+  onClick?: MouseEventHandler<HTMLAnchorElement>
 }
 
 export function NavSubItem({ title, link, current, onClick }: NavSubItemProps) {
