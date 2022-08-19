@@ -40,6 +40,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run test -- --coverage
       - uses: Floby/jest-coverage-report-action@main
         with:
-          annotations: 'changed-coverage'
+          annotations: "changed-coverage"
+          skip-step: install
+          coverage-file: coverage/coverage-final.json
+          base-coverage-file: coverage/coverage-final.json
