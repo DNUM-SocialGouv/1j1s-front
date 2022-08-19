@@ -218,15 +218,5 @@
       font-size: 1.25rem;
       line-height: 2rem;
     }
-
-    &Dispositifs {
-      &Position {
-        grid-template-columns: repeat(3, 1fr);
-
-        &Iconbenevol {
-          grid-column-start: 2;
-        }
-      }
-    }
   }
 }
