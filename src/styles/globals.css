@@ -3,6 +3,14 @@ a {
   text-decoration: none;
 }
 
+button {
+  background-color: initial;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  margin: 0;
+}
+
 @media screen and (max-width: 400px) {
   .fr-pagination__link--first,
   .fr-pagination__link--prev {

@@ -1,5 +1,6 @@
 @import "@styles/_utilities";
 
+
 .header {
   --ul-type: none;
   --ul-start: 0;
@@ -81,40 +82,58 @@
     }
   }
 
-  &ModalContainer {
-    list-style-type: none;
-    & [href] {
-      box-shadow: none;
+  &Modal {
+    &:before {
+      content: none !important;
     }
-    & li > button {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
+    & > div {
+      height: calc(100vh);
     }
-    & details[open] {
-      padding-bottom: 1rem;
-    }
-    & details > div > li {
-      padding: 0.5rem 1rem;
-      &:not(:last-child) {
-        border-bottom: 1px solid var(--grey-950);
+    &Container {
+      list-style-type: none;
+
+      & [href] {
+        box-shadow: none;
+      }
+
+      & li > button {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      & details > div > li {
+
+        & > a {
+        display: block;
+        padding: 0.5rem 1rem;
+        }
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-form-field;
+        }
+      }
+
+      & details > summary {
+        background-color: #566BB11A;
+      }
+      & details:last-child > summary {
+        color: $color-on-primary;
+        background-color: #566BB1;
+      }
+
+      & details {
+        border-top: 1px solid #566BB1;
+      }
+
+      & > a {
+        display: block;
+        font-weight: 700;
+        padding: 0.75rem 1rem;
+        border-top: 1px solid #566BB1;
+        background-color: #566BB11A;
       }
     }
-    & details > summary {
-      background-color: transparent;
-    }
-    & details:not(:last-child) {
-      border-bottom: 1px solid var(--grey-950);
-    }
-    & > a {
-      width: 100%;
-      display: inline-block;
-      font-weight: 700;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--grey-950);
-    }
   }
-
   &ModalButton {
     align-self: baseline;
     @include media(large){
@@ -170,10 +189,9 @@
 .subItemsWrapper {
   z-index: 2;
   position: absolute;
-  border: 1px solid var(--grey-925);
+  border: 1px solid $color-separator;
   border-radius: 0 0 20px 20px;
-  background-color: var(--grey-1000);
-  width: 20rem;
+  background-color: $color-surface;
   margin: 0;
   max-height: 300px;
   overflow-y: auto;
@@ -181,7 +199,7 @@
     padding: 5px;
   }
   & > li:not(:last-child) {
-    border-bottom: 1px solid var(--grey-950);
+    border-bottom: 1px solid $color-form-field;
   }
   & li > a {
     box-shadow: none;

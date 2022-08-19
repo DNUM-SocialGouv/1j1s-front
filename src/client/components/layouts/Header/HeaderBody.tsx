@@ -54,7 +54,8 @@ export function HeaderBody() {
         <ModalComponent
           close={onClickSetModal}
           closeLabel=''
-          isOpen={isModalOpen}>
+          isOpen={isModalOpen}
+          className={styles.headerModal}>
           <ModalComponent.Title>
             <Icon name="menu" />
             <span>Menu</span>

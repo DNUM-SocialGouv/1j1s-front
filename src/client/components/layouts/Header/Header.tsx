@@ -28,7 +28,7 @@ export function Header() {
         <NavItem title="Offres">
           <NavSubItem title="Emplois" link="/emplois" current={path === '/emplois'} />
           <NavSubItem title="Stages" link="/stages" current={path === '/stages'} />
-          <NavSubItem title="Apprentissage" link="/apprentissage" current={path === '/apprentissage'} />
+          <NavSubItem title="Contrats d’alternance" link="/apprentissage" current={path === '/apprentissage'} />
           <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} />
         </NavItem>
         <NavItem title="Aides, orientation et accompagnement">
