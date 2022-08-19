@@ -1,12 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { Either } from '~/server/errors/either';
-import { AgentHttpClient } from '~/server/services/http/agentHttpClient';
 import { ClientService } from '~/server/services/http/client.service';
+import { HttpClientConfig } from '~/server/services/http/httpClientConfig';
 
 export class HttpClientService extends ClientService {
   constructor(
-    private agentService: AgentHttpClient,
+    private agentService: HttpClientConfig,
   ){
 
     const label = agentService.apiName;
@@ -18,12 +18,15 @@ export class HttpClientService extends ClientService {
 
   }
 
-
   async get<Response, Retour>(
     endpoint: string,
     mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
   ): Promise<Either<Retour>> {
     return super.getRequest(endpoint, mapper, config);
+  }
+
+  async post<Body>(endpoint: string, body: Body) {
+    return this.client.post(endpoint, body);
   }
 }

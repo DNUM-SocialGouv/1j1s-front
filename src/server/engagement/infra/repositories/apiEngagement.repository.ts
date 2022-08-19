@@ -27,10 +27,7 @@ export class ApiEngagementRepository implements EngagementRepository {
 
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
     const paramètresRecherche = ApiEngagementRepository.buildParamètresRecherche(missionEngagementFiltre);
-    console.log(await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
-      `mission/search?${paramètresRecherche}`,
-      mapRésultatsRechercheMission,
-    ));
+
     return await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
       `mission/search?${paramètresRecherche}`,
       mapRésultatsRechercheMission,

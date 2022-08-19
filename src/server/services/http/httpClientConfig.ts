@@ -2,7 +2,7 @@ import { ConfigurationService } from '~/server/services/configuration.service';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
-export interface AgentHttpClient {
+export interface HttpClientConfig {
   apiName: string
   apiUrl: string
   apiKey?: string
@@ -10,14 +10,14 @@ export interface AgentHttpClient {
   label?: string
 }
 
-export interface PoleEmploiHttpClientConfig extends AgentHttpClient {
+export interface PoleEmploiHttpClientConfig extends HttpClientConfig {
   clientId: string
   connectUrl: string
   clientSecret: string
   connectScope: string
 }
 
-const AgentApiEngagement = (configurationService: ConfigurationService): AgentHttpClient => {
+const ApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: configurationService.getConfiguration().API_ENGAGEMENT_API_KEY_TOKEN,
@@ -28,7 +28,7 @@ const AgentApiEngagement = (configurationService: ConfigurationService): AgentHt
   );
 };
 
-const AgentApiLaBonneAlternance = (configurationService: ConfigurationService): AgentHttpClient => {
+const ApiLaBonneAlternanceConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -39,7 +39,7 @@ const AgentApiLaBonneAlternance = (configurationService: ConfigurationService): 
   );
 };
 
-const AgentStrapi = (configurationService: ConfigurationService): AgentHttpClient => {
+const ApiStrapiConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -50,7 +50,7 @@ const AgentStrapi = (configurationService: ConfigurationService): AgentHttpClien
   );
 };
 
-const AgentGeoGouv = (configurationService: ConfigurationService): AgentHttpClient => {
+const ApiGeoGouvConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -61,7 +61,7 @@ const AgentGeoGouv = (configurationService: ConfigurationService): AgentHttpClie
   );
 };
 
-const AgentAdresse = (configurationService: ConfigurationService): AgentHttpClient => {
+const ApiAdresseConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -72,7 +72,7 @@ const AgentAdresse = (configurationService: ConfigurationService): AgentHttpClie
   );
 };
 
-const AgentPoleEmploi = (configurationService: ConfigurationService): PoleEmploiHttpClientConfig => {
+const ApiPoleEmploiConfig = (configurationService: ConfigurationService): PoleEmploiHttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -89,11 +89,12 @@ const AgentPoleEmploi = (configurationService: ConfigurationService): PoleEmploi
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
   return ({
-    apiAdresse: new HttpClientService(AgentAdresse(configurationService)),
-    apiEngagement: new HttpClientService(AgentApiLaBonneAlternance(configurationService)),
-    apiGeoGouv: new HttpClientService(AgentGeoGouv(configurationService)),
-    apiLaBonneAlternance: new HttpClientService(AgentApiEngagement(configurationService)),
-    apiPoleEmploi: new HttpClientServiceWithAuthentification(AgentPoleEmploi(configurationService)),
-    apiStrapi: new HttpClientService(AgentStrapi(configurationService)),
+    apiAdresseConfig: new HttpClientService(ApiAdresseConfig(configurationService)),
+    apiEngagementConfig: new HttpClientService(ApiEngagementConfig(configurationService)),
+    apiGeoGouvConfig: new HttpClientService(ApiGeoGouvConfig(configurationService)),
+    apiLaBonneAlternanceConfig: new HttpClientService(ApiLaBonneAlternanceConfig(configurationService),
+    ),
+    apiPoleEmploiConfig: new HttpClientServiceWithAuthentification(ApiPoleEmploiConfig(configurationService)),
+    apiStrapiConfig: new HttpClientService(ApiStrapiConfig(configurationService)),
   });
 }

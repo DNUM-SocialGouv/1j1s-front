@@ -29,7 +29,7 @@ import {
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
-import { buildHttpClientConfigList } from '~/server/services/http/agentHttpClient';
+import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
 export type Dependencies = {
@@ -51,26 +51,26 @@ export const dependenciesContainer = (): Dependencies => {
   }
   
   const {
-    apiEngagement,
-    apiLaBonneAlternance,
-    apiStrapi,
-    apiGeoGouv,
-    apiAdresse,
-    apiPoleEmploi,
+    apiEngagementConfig,
+    apiLaBonneAlternanceConfig,
+    apiStrapiConfig,
+    apiGeoGouvConfig,
+    apiAdresseConfig,
+    apiPoleEmploiConfig,
   } = buildHttpClientConfigList(serverConfigurationService);
 
-  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(apiPoleEmploi, cacheService);
+  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(apiPoleEmploiConfig, cacheService);
 
-  const cmsDependencies = cmsDependenciesContainer(apiStrapi);
-  const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploi, apiPoleEmploiRéférentielRepository);
-  const alternanceDependencies = alternanceDependenciesContainer(apiLaBonneAlternance);
-  const engagementDependencies = engagementDependenciesContainer(apiEngagement);
+  const cmsDependencies = cmsDependenciesContainer(apiStrapiConfig);
+  const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploiConfig, apiPoleEmploiRéférentielRepository);
+  const alternanceDependencies = alternanceDependenciesContainer(apiLaBonneAlternanceConfig);
+  const engagementDependencies = engagementDependenciesContainer(apiEngagementConfig);
   const localisationDependencies = localisationDependenciesContainer(
-    apiGeoGouv,
-    apiAdresse,
+    apiGeoGouvConfig,
+    apiAdresseConfig,
   );
   const contratEngagementJeuneDependencies = contratEngagementJeuneDependenciesContainer(
-    new StrapiDemandeDeContactRepository(strapiHttpClientService),
+    new StrapiDemandeDeContactRepository(apiStrapiConfig),
   );
 
   return {

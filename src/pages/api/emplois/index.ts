@@ -14,7 +14,6 @@ import { handleResponse } from '~/server/utils/handleResponse.util';
 export async function rechercherOffreEmploiHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
   const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi
     .handle(offreEmploiRequestMapper(req));
-  console.log(résultatsRechercheOffreEmploi);
   return handleResponse(résultatsRechercheOffreEmploi, res);
 }
 

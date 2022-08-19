@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { Either } from '~/server/errors/either';
-import { PoleEmploiHttpClientConfig } from '~/server/services/http/agentHttpClient';
 import { ClientService } from '~/server/services/http/client.service';
+import { PoleEmploiHttpClientConfig } from '~/server/services/http/httpClientConfig';
 import { LoggerService } from '~/server/services/logger.service';
 
 interface PoleEmploiTokenResponse {
