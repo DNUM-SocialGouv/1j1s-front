@@ -218,5 +218,22 @@
       font-size: 1.25rem;
       line-height: 2rem;
     }
+
+    &Boutons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      button {
+        text-align: center;
+       // line-height: 1.25rem;
+        min-width: 230px;
+        border-radius: 20px;
+        border: 1px solid $color-primary;
+        margin-top: 15px;
+        width: 100%;
+        min-height: 3.375rem;
+        padding: 0.5rem;
+      }
+    }
   }
 }
