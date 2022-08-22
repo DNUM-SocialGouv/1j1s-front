@@ -100,6 +100,7 @@ export default function FormulaireDeContact ({ children, onSuccess }: PropsWithC
           required
         />
         <Select
+          required
           label='Age'
           name="age"
           optionList={ageOptions}

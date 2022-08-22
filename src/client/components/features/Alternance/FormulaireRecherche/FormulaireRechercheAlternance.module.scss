@@ -9,7 +9,7 @@
     }
     &> *:not(:last-child) {
         margin-bottom: 1.5rem;
-        flex-grow: 1;
+        flex: 1;
     }
 }
 
