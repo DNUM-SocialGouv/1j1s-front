@@ -43,6 +43,7 @@ export function Header() {
         </NavItem>
         <NavItem title="Je suis employeur">
           <NavSubItem title="Je deviens mentor" link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} />
+          <NavSubItem title="Rejoindre la mobilisation" link="/les-entreprises-s-engagent" current={path === '/les-entreprises-s-engagent'} />
         </NavItem>
       </HeaderNav>
     </header>
