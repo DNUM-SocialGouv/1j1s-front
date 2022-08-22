@@ -45,6 +45,7 @@ export function HeaderBody() {
           </div>
           <button className={styles.headerModalButton} onClick={onClickSetModal}>
             <BurgerMenuIcon/>
+            <p>Menu</p>
           </button>
         </Container>
         <Link className={styles.headerService} href="/">
@@ -69,7 +70,10 @@ export function HeaderBody() {
                 <NavSubItem title="Apprentissage" link="/apprentissage" current={path === '/apprentissage'} onClick={onClickSetModal}/>
                 <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} onClick={onClickSetModal}/>
               </Accordion>
-              <Accordion title="Aides, orientation et accompagnement">
+              <Accordion title="Orientation et Formation">
+                <NavSubItem title="Formation" link="/formations" current={path === '/accompagnement'} onClick={onClickSetModal}/>
+              </Accordion>
+              <Accordion title="Aides et accompagnement">
                 <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} onClick={onClickSetModal}/>
                 <NavSubItem title="Mes aides financières" link="/mes-aides" current={path === '/mes-aides'} onClick={onClickSetModal}/>
                 <NavSubItem title="Mentorat" link="/mentorat" current={path === '/mentorat'} onClick={onClickSetModal}/>

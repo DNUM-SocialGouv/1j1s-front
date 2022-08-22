@@ -137,7 +137,9 @@
     }
   }
   &ModalButton {
+    display:block;
     align-self: baseline;
+    font-size: 0.75rem;
     @include media(large){
       display: none;
     }

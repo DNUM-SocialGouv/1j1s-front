@@ -31,7 +31,10 @@ export function Header() {
           <NavSubItem title="Contrats d’alternance" link="/apprentissage" current={path === '/apprentissage'} />
           <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} />
         </NavItem>
-        <NavItem title="Aides, orientation et accompagnement">
+        <NavItem title="Orientation et Formation">
+          <NavSubItem title="Formation" link="/formations" current={path === '/formations'} />
+        </NavItem>
+        <NavItem title="Aides et accompagnement">
           <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />
           <NavSubItem title="Mes aides financières" link="/mes-aides" current={path === '/mes-aides'} />
           <NavSubItem title="Mentorat" link="/mentorat" current={path === '/mentorat'} />
