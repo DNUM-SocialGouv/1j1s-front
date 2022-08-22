@@ -6,13 +6,13 @@ import { HttpClientConfig } from '~/server/services/http/httpClientConfig';
 
 export class HttpClientService extends ClientService {
   constructor(
-    private agentService: HttpClientConfig,
+    private clientConfig: HttpClientConfig,
   ){
 
-    const label = agentService.apiName;
-    const API_URL = agentService.apiUrl;
-    const API_Key = agentService.apiKey;
-    const overrideInterceptor = agentService.overrideInterceptor;
+    const label = clientConfig.apiName;
+    const API_URL = clientConfig.apiUrl;
+    const API_Key = clientConfig.apiKey;
+    const overrideInterceptor = clientConfig.overrideInterceptor;
 
     super(label, API_URL, overrideInterceptor, API_Key ? { apiKey : API_Key } : {} );
 

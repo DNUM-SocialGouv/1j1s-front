@@ -12,13 +12,13 @@ interface PoleEmploiTokenResponse {
 
 export class HttpClientServiceWithAuthentification extends ClientService {
   constructor(
-    private agentService: PoleEmploiHttpClientConfig,
+    private poleEmploiHttpClientConfig: PoleEmploiHttpClientConfig,
   ){
 
-    const API_NAME = agentService.apiName;
-    const API_URL = agentService.apiUrl;
-    const API_KEY = agentService.apiKey;
-    const overrideInterceptor = agentService.overrideInterceptor;
+    const API_NAME = poleEmploiHttpClientConfig.apiName;
+    const API_URL = poleEmploiHttpClientConfig.apiUrl;
+    const API_KEY = poleEmploiHttpClientConfig.apiKey;
+    const overrideInterceptor = poleEmploiHttpClientConfig.overrideInterceptor;
 
     super(API_NAME, API_URL, overrideInterceptor, API_KEY ? { apiKey : API_KEY } : {} );
 
@@ -31,7 +31,7 @@ export class HttpClientServiceWithAuthentification extends ClientService {
         if (error.response?.status === 401 && !originalRequest.isRetryRequest) {
           originalRequest.isRetryRequest = true;
           try {
-            await this.refreshToken(agentService);
+            await this.refreshToken(poleEmploiHttpClientConfig);
           } catch (e) {
             LoggerService.error(`${API_NAME} ${error.response.status} ${error.config.baseURL}${error.config.url}`);
           }
@@ -54,14 +54,14 @@ export class HttpClientServiceWithAuthentification extends ClientService {
     super.setAuthorizationHeader(token);
   }
 
-  async refreshToken(agentService: PoleEmploiHttpClientConfig): Promise<void> {
+  async refreshToken(poleEmploiHttpClientConfig: PoleEmploiHttpClientConfig): Promise<void> {
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
-    params.append('client_id', agentService.clientId);
-    params.append('client_secret', agentService.clientSecret);
-    params.append('scope', agentService.connectScope);
+    params.append('client_id', poleEmploiHttpClientConfig.clientId);
+    params.append('client_secret', poleEmploiHttpClientConfig.clientSecret);
+    params.append('scope', poleEmploiHttpClientConfig.connectScope);
 
-    const endpoint = `${agentService.connectUrl}/connexion/oauth2/access_token?realm=partenaire`;
+    const endpoint = `${poleEmploiHttpClientConfig.connectUrl}/connexion/oauth2/access_token?realm=partenaire`;
 
     const response = await axios.post<PoleEmploiTokenResponse>(
       endpoint,

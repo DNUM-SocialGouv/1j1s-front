@@ -17,7 +17,7 @@ export interface PoleEmploiHttpClientConfig extends HttpClientConfig {
   connectScope: string
 }
 
-const ApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+const getApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: configurationService.getConfiguration().API_ENGAGEMENT_API_KEY_TOKEN,
@@ -28,7 +28,7 @@ const ApiEngagementConfig = (configurationService: ConfigurationService): HttpCl
   );
 };
 
-const ApiLaBonneAlternanceConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+const getApiLaBonneAlternanceConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -39,7 +39,7 @@ const ApiLaBonneAlternanceConfig = (configurationService: ConfigurationService):
   );
 };
 
-const ApiStrapiConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+const getApiStrapiConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -50,7 +50,7 @@ const ApiStrapiConfig = (configurationService: ConfigurationService): HttpClient
   );
 };
 
-const ApiGeoGouvConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+const getApiGeoGouvConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -61,7 +61,7 @@ const ApiGeoGouvConfig = (configurationService: ConfigurationService): HttpClien
   );
 };
 
-const ApiAdresseConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+const getApiAdresseConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -72,7 +72,7 @@ const ApiAdresseConfig = (configurationService: ConfigurationService): HttpClien
   );
 };
 
-const ApiPoleEmploiConfig = (configurationService: ConfigurationService): PoleEmploiHttpClientConfig => {
+const getApiPoleEmploiConfig = (configurationService: ConfigurationService): PoleEmploiHttpClientConfig => {
   return(
     {
       apiKey: undefined,
@@ -89,12 +89,12 @@ const ApiPoleEmploiConfig = (configurationService: ConfigurationService): PoleEm
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
   return ({
-    apiAdresseConfig: new HttpClientService(ApiAdresseConfig(configurationService)),
-    apiEngagementConfig: new HttpClientService(ApiEngagementConfig(configurationService)),
-    apiGeoGouvConfig: new HttpClientService(ApiGeoGouvConfig(configurationService)),
-    apiLaBonneAlternanceConfig: new HttpClientService(ApiLaBonneAlternanceConfig(configurationService),
+    apiAdresseConfig: new HttpClientService(getApiAdresseConfig(configurationService)),
+    apiEngagementConfig: new HttpClientService(getApiEngagementConfig(configurationService)),
+    apiGeoGouvConfig: new HttpClientService(getApiGeoGouvConfig(configurationService)),
+    apiLaBonneAlternanceConfig: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService),
     ),
-    apiPoleEmploiConfig: new HttpClientServiceWithAuthentification(ApiPoleEmploiConfig(configurationService)),
-    apiStrapiConfig: new HttpClientService(ApiStrapiConfig(configurationService)),
+    apiPoleEmploiConfig: new HttpClientServiceWithAuthentification(getApiPoleEmploiConfig(configurationService)),
+    apiStrapiConfig: new HttpClientService(getApiStrapiConfig(configurationService)),
   });
 }
