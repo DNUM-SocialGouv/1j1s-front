@@ -49,7 +49,6 @@ describe('<Rappel />', () => {
       for (const label of labels) {
         expect(screen.getByLabelText(label)).toBeInTheDocument();
       }
-      expect(screen.getByLabelText("J'accepte de recevoir des informations de « 1 Jeune, 1 Solution »")).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
     });
   });
