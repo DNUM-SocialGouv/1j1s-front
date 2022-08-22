@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheJobÉtudiant,
 } from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
-import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.scss';
+import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
@@ -90,17 +90,11 @@ export function RechercherJobÉtudiant() {
           mapToLienSolution={mapJobÉtudiantToLienSolution}
           paginationOffset={OFFRE_PER_PAGE}
         />
-        <ul className={styles.partnerList}>
-          <li>
-            <CIDJPartner/>
-          </li>
-          <li>
-            <LaBonneBoitePartner/>
-          </li>
-          <li>
-            <ServiceCiviquePartner/>
-          </li>
-        </ul>
+        {PartnerCardList([
+          CIDJPartner().props,
+          LaBonneBoitePartner().props,
+          ServiceCiviquePartner().props,
+        ])}
       </main>
     </>
   );

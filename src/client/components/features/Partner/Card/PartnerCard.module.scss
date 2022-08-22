@@ -1,5 +1,23 @@
 @import "@styles/utilities";
 
+.partnerList {
+  @extend %max-container;
+  padding: 0;
+  list-style: none;
+
+  & > li {
+    padding: 2rem 1rem 0;
+  }
+
+  &Wrapper {
+    background-color: $color-form-field;
+  }
+
+  @include media(large) {
+    margin: auto;
+  }
+}
+
 .card {
   display: block;
   background: $color-surface;
@@ -40,14 +58,12 @@
       margin-bottom: 0.5rem;
     }
   }
-}
 
-.headline:after {
-  content: " ";
-}
+  &Headline:after {
+    content: " ";
+  }
 
-@media only screen and (min-width: 48em) {
-  .card {
+  @include media(large) {
     display: flex;
     background-image: none;
     border: 1px solid $color-separator;

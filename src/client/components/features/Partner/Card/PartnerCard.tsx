@@ -19,6 +19,22 @@ interface PartnerCardProps {
   alt: string
 }
 
+export function PartnerCardList(list: PartnerCardProps[]){
+  return(
+    <div className={styles.partnerListWrapper}>
+      <ul className={styles.partnerList}>
+        {list.map((partnerCardProps, index) => {
+          return(
+            <li key={index}>
+              {PartnerCard(partnerCardProps)}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 export function PartnerCard(props: PartnerCardProps) {
   const { logo, link, title, headline, linkLabel, headlineColor, description, alt } = props;
   const isInternalLink = useIsInternalLink(link);
@@ -36,7 +52,7 @@ export function PartnerCard(props: PartnerCardProps) {
         <div className={styles.cardBody}>
           <span className={styles.cardBody__Title}>{title}</span>
           <p>
-            <strong style={{ color: headlineColor }} className={styles.headline}>{headline}</strong>
+            <strong style={{ color: headlineColor }} className={styles.cardHeadline}>{headline}</strong>
             {description}
           </p>
           <span className={styles.cardAction}>

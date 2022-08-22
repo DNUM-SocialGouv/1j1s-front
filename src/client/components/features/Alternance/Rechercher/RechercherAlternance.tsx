@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
-import styles from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi.module.scss';
+import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
@@ -81,14 +81,10 @@ export function RechercherAlternance() {
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapAlternanceToLienSolution}
         />
-        <ul className={styles.partnerList}>
-          <li>
-            <SimulationAlternancePartner/>
-          </li>
-          <li>
-            <CIDJPartner/>
-          </li>
-        </ul>
+        {PartnerCardList([
+          SimulationAlternancePartner().props,
+          CIDJPartner().props,
+        ])}
       </main>
     </>
   );
