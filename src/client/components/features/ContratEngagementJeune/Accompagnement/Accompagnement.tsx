@@ -32,7 +32,7 @@ export default function Accompagnement() {
     <section className={styles.accompagnement}>
       <div className={styles.accompagnementContainer}>
         <div>
-          <h2>Contrat d&apos;Engagement Jeune, je me lance !</h2>
+          <h2 id="accompagnement">Contrat d&apos;Engagement Jeune, je me lance !</h2>
           {question}
         </div>
 

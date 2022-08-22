@@ -18,7 +18,7 @@ export default function Bannière () {
         <span className={styles.bannièreTitle}>
           <h1 className={ styles.titre } >{ titre }</h1>
           { !isLargeScreen && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
-          <a href="#" className={ styles.cta }>Je me lance &nbsp;<Icon name="angle-right" /></a>
+          <a href="#accompagnement" className={ styles.cta }>Je me lance &nbsp;<Icon name="angle-right" /></a>
         </span>
       </div>
       {isLargeScreen && (
