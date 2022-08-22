@@ -67,10 +67,10 @@ export function HeaderBody() {
               <Accordion title="Offres">
                 <NavSubItem title="Emplois" link="/emplois" current={path === '/emplois'} onClick={onClickSetModal}/>
                 <NavSubItem title="Stages" link="/stages" current={path === '/stages'} onClick={onClickSetModal}/>
-                <NavSubItem title="Apprentissage" link="/apprentissage" current={path === '/apprentissage'} onClick={onClickSetModal}/>
+                <NavSubItem title="Contrat d'apprentissage" link="/apprentissage" current={path === '/apprentissage'} onClick={onClickSetModal}/>
                 <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} onClick={onClickSetModal}/>
               </Accordion>
-              <Accordion title="Orientation et Formation">
+              <Accordion title="Formation et Orientation">
                 <NavSubItem title="Formation" link="/formations" current={path === '/accompagnement'} onClick={onClickSetModal}/>
               </Accordion>
               <Accordion title="Aides et accompagnement">
@@ -85,6 +85,7 @@ export function HeaderBody() {
               </Accordion>
               <Accordion title="Je suis employeur">
                 <NavSubItem title="Je deviens mentor" link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} onClick={onClickSetModal}/>
+                <NavSubItem title="Rejoindre la mobilisation" link="/les-entreprises-s-engagent" current={path === '/les-entreprises-s-engagent'} onClick={onClickSetModal}/>
               </Accordion>
             </Container>
           </ModalComponent.Content>
