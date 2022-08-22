@@ -39,6 +39,7 @@ describe('<FormulaireDeContact />', () => {
     for (const label of labels) {
       expect(screen.getByLabelText(label)).toBeInTheDocument();
     }
+
     expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
   });
 
