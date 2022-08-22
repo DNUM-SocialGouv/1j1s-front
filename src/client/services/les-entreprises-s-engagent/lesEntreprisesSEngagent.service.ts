@@ -1,12 +1,18 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { FormulaireEngagement } from '~/pages/les-entreprises-s-engagent/inscription';
-import { createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 export class LesEntreprisesSEngagentService {
   constructor(private httpClientService: HttpClientService) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async envoyerFormulaireEngagement(formulaire: FormulaireEngagement): Promise<Either<void>> {
-    return createSuccess(undefined);
+    try {
+      await this.httpClientService.post('entreprises', formulaire);
+      return createSuccess(undefined);
+    } catch (e) {
+      return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    }
+
   }
 }

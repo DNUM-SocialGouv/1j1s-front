@@ -10,7 +10,7 @@ export class HttpClientService {
 
   constructor(sessionId: string, private logger: LoggerService) {
     this.client = axios.create({
-      baseURL: 'api',
+      baseURL: '/api',
       headers: {
         'content-type': 'application/json',
         'x-session-id': sessionId,
