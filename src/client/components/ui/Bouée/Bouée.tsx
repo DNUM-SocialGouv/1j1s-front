@@ -23,7 +23,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
   // alors qu'en pratique, ça fait une boucle infinie.
 
   function toSurface () {
-    surface.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ behavior: 'smooth', top: 0 });
   }
 
   return (
