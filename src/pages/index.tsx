@@ -91,16 +91,16 @@ export default function Accueil() {
           <div className={styles.cardList}>
             <LinkCard
               imageUrl="/images/homepage/formation-alternance.jpg"
-              link="/apprentissage"
-              linkLabel="Voir les formations"
+              link="/formations"
+              linkLabel="En savoir plus"
               title="Formations en alternance"
             >
               <p>Plus de 40 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/homepage/formation-initiales.jpg"
-              link="/"
-              linkLabel="Voir les formations"
+              link="/formations"
+              linkLabel="En savoir plus"
               title="Formations initiales"
             >
               <p>Plus de 20 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
