@@ -48,3 +48,10 @@ function heroFormationContent() {
     </>
   );
 };
+
+
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
