@@ -5,6 +5,11 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
+import { BookIcon } from '~/client/components/ui/Icon/book.icon';
+import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
+import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
+import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContact from '../FormulaireDeContact/FormulaireDeContact';
@@ -62,12 +67,27 @@ export default function Accompagnement() {
           <FormulaireDeContact />
         </ModalContent>
       </Modal>
-      <Modal isOpen={isDispositifsRefencesModalOpen} hide={() => setIsDispositifsReferencesModalOpen(false)} className={styles.accompagnementMission}>
-        <ModalTitle className={styles.accompagnementMission__Title}>
+      <Modal isOpen={isDispositifsRefencesModalOpen} hide={() => setIsDispositifsReferencesModalOpen(false)} className={styles.accompagnementDispositifs}>
+        <ModalTitle className={styles.accompagnementDispositifs__Title}>
           Découvrez les dispositifs référencés sur le portail 1jeune1solution
         </ModalTitle>
-        <ModalContent>
-          <a type={'button'} href={'./Accueil#offres'}>Emplois et trucs</a>
+        <ModalContent className={styles.accompagnementDispositifsPosition}>
+          <Link href={'/#offres'} className={styles.accompagnementDispositifsPositionIcon}>
+            <BriefCaseIcon className={styles.accompagnementDispositifsPositionIconOffre} />
+            <p>Emplois et stages</p>
+          </Link>
+          <Link href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
+            <BookIcon className={styles.accompagnementDispositifsPositionIconFormation} />
+            <p>Orientation et formation</p>
+          </Link>
+          <Link href={'/#aides-orientation-accompagnement'} className={styles.accompagnementDispositifsPositionIcon}>
+            <CompassIcon className={styles.accompagnementDispositifsPositionIconAide} />
+            <p>Aides et accompagnement</p>
+          </Link>
+          <Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>
+            <TrophyIcon className={styles.accompagnementDispositifsPositionIconBenevolat} />
+            <p>Engagement et bénévolat</p>
+          </Link>
         </ModalContent>
       </Modal>
     </section>
