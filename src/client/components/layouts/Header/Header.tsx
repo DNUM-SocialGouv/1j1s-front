@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
-import { HeaderNav } from '~/client/components/layouts/Header/HeaderNav';
+import { buildNavigation, HeaderNav } from '~/client/components/layouts/Header/HeaderNav';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
-import { NavSubItem } from '~/client/components/layouts/Header/NavSubItem';
 
 export function Header() {
   const router = useRouter();
@@ -25,29 +24,7 @@ export function Header() {
       <HeaderBody/>
       <HeaderNav>
         <NavItem title="Accueil" link="/" current={path === '/'}/>
-        <NavItem title="Offres">
-          <NavSubItem title="Emplois" link="/emplois" current={path === '/emplois'} />
-          <NavSubItem title="Stages" link="/stages" current={path === '/stages'} />
-          <NavSubItem title="Contrats d’alternance" link="/apprentissage" current={path === '/apprentissage'} />
-          <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} />
-        </NavItem>
-        <NavItem title="Orientation et Formation">
-          <NavSubItem title="Formation" link="/formations" current={path === '/formations'} />
-        </NavItem>
-        <NavItem title="Aides et accompagnement">
-          <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />
-          <NavSubItem title="Mes aides financières" link="/mes-aides" current={path === '/mes-aides'} />
-          <NavSubItem title="Mentorat" link="/mentorat" current={path === '/mentorat'} />
-          <NavSubItem title="Les mesures jeunes" link="/mesures-jeunes" current={path === '/mesures-jeunes'} />
-        </NavItem>
-        <NavItem title="Engagement et bénévolat">
-          <NavSubItem title="Service civique" link="/service-civique" current={path === '/service-civique'} />
-          <NavSubItem title="Bénévolat" link="/benevolat" current={path === '/benevolat'} />
-        </NavItem>
-        <NavItem title="Je suis employeur">
-          <NavSubItem title="Je deviens mentor" link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} />
-          <NavSubItem title="Rejoindre la mobilisation" link="/les-entreprises-s-engagent" current={path === '/les-entreprises-s-engagent'} />
-        </NavItem>
+        {buildNavigation(path, false)}
       </HeaderNav>
     </header>
   );

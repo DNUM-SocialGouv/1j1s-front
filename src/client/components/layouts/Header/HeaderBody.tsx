@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { NavSubItem } from '~/client/components/layouts/Header/NavSubItem';
-import { Accordion } from '~/client/components/ui/Accordion/Accordion';
+import { buildNavigation } from '~/client/components/layouts/Header/HeaderNav';
 import { BurgerMenuIcon } from '~/client/components/ui/Icon/burger-menu.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -64,29 +63,7 @@ export function HeaderBody() {
           <ModalComponent.Content>
             <Container className={styles.headerModalContainer}>
               <Link href={'/'} onClick={onClickSetModal}>Accueil</Link>
-              <Accordion title="Offres">
-                <NavSubItem title="Emplois" link="/emplois" current={path === '/emplois'} onClick={onClickSetModal}/>
-                <NavSubItem title="Stages" link="/stages" current={path === '/stages'} onClick={onClickSetModal}/>
-                <NavSubItem title="Contrat d'apprentissage" link="/apprentissage" current={path === '/apprentissage'} onClick={onClickSetModal}/>
-                <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} onClick={onClickSetModal}/>
-              </Accordion>
-              <Accordion title="Formation et Orientation">
-                <NavSubItem title="Formation" link="/formations" current={path === '/accompagnement'} onClick={onClickSetModal}/>
-              </Accordion>
-              <Accordion title="Aides et accompagnement">
-                <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} onClick={onClickSetModal}/>
-                <NavSubItem title="Mes aides financières" link="/mes-aides" current={path === '/mes-aides'} onClick={onClickSetModal}/>
-                <NavSubItem title="Mentorat" link="/mentorat" current={path === '/mentorat'} onClick={onClickSetModal}/>
-                <NavSubItem title="Les mesures jeunes" link="/mesures-jeunes" current={path === '/mesures-jeunes'} onClick={onClickSetModal}/>
-              </Accordion>
-              <Accordion title="Engagement et bénévolat">
-                <NavSubItem title="Service civique" link="/service-civique" current={path === '/service-civique'} onClick={onClickSetModal}/>
-                <NavSubItem title="Bénévolat" link="/benevolat" current={path === '/benevolat'} onClick={onClickSetModal}/>
-              </Accordion>
-              <Accordion title="Je suis employeur">
-                <NavSubItem title="Je deviens mentor" link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} onClick={onClickSetModal}/>
-                <NavSubItem title="Rejoindre la mobilisation" link="/les-entreprises-s-engagent" current={path === '/les-entreprises-s-engagent'} onClick={onClickSetModal}/>
-              </Accordion>
+              {buildNavigation(path, true, onClickSetModal)}
             </Container>
           </ModalComponent.Content>
         </ModalComponent>
