@@ -117,10 +117,12 @@
     }
 
     &__Title {
-      font-size: 1.4rem !important;
-      text-align: center;
+      @extend %text-xLarge;
+      @extend %bold;
       color: $color-primary;
+      text-align: center;
       line-height: 2rem;
+      margin-bottom: 2rem;
     }
     &Position {
       display: grid;
@@ -136,7 +138,7 @@
         margin-top: 10px;
 
         p {
-          font-size: small;
+          font-size: smaller;
         }
 
         &Offre {
@@ -154,6 +156,21 @@
           width: 30px;
           margin-top: 0.5rem;
         }
+      }
+
+      &Iconbenevol {
+        box-shadow: none !important;
+        border: 2px solid $color-background;
+        border-radius: 20px;
+        width: 200px;
+        display: grid;
+        place-items: center;
+        margin-top: 10px;
+
+        p {
+          font-size: smaller;
+        }
+
         &Benevolat {
           color: $color-coral;
           width: 30px;
@@ -205,6 +222,10 @@
     &Dispositifs {
       &Position {
         grid-template-columns: repeat(3, 1fr);
+
+        &Iconbenevol {
+          grid-column-start: 2;
+        }
       }
     }
   }
