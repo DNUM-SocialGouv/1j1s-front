@@ -16,6 +16,12 @@
     background-color: $color-form-field;
   }
 
+  &Title {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: #566BB1;
+  }
   @include media(large) {
     margin: auto;
   }
@@ -34,6 +40,7 @@
 
   &Logo {
     display: flex;
+    position: relative;
     justify-content: center;
     border-radius: 20px 20px 0 0;
     border-bottom: 1px solid $color-separator;

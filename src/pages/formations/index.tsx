@@ -26,7 +26,8 @@ export default function FormationPage() {
         ParcourSupPartner().props,
         CIDJPartner().props,
         MétierDuSoinPartner().props,
-      ])}
+      ],
+      'Je découvre les dispositifs pour m’accompagner dans ma formation')}
     </>
   );
 };

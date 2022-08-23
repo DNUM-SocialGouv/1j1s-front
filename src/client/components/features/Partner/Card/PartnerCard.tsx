@@ -19,10 +19,13 @@ interface PartnerCardProps {
   alt: string
 }
 
-export function PartnerCardList(list: PartnerCardProps[]){
+export function PartnerCardList(list: PartnerCardProps[], title?: string){
   return(
     <div className={styles.partnerListWrapper}>
       <ul className={styles.partnerList}>
+        {title &&
+          <li className={styles.partnerListTitle}>{title}</li>
+        }
         {list.map((partnerCardProps, index) => {
           return(
             <li key={index}>
@@ -47,7 +50,7 @@ export function PartnerCard(props: PartnerCardProps) {
     <Link href={link} className={styles.card}>
       <>
         <div className={styles.cardLogo}>
-          <Image alt={alt} src={logo} width='100%' height='100%'/>
+          <Image alt={alt} src={logo} layout="fill" objectFit="contain"/>
         </div>
         <div className={styles.cardBody}>
           <span className={styles.cardBody__Title}>{title}</span>

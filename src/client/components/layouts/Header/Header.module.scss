@@ -57,9 +57,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 1rem;
+        padding: 0.75rem 1rem;
         box-shadow: none;
-        min-height: 3.5rem;
       }
       & li:hover {
         background-color: #D6D6D6;
@@ -225,9 +224,7 @@
   width: 100%;
   overflow-y: auto;
 
-  & > li {
-    padding: 5px;
-  }
+
 
   & > li:not(:last-child) {
     border-bottom: 1px solid $color-form-field;
