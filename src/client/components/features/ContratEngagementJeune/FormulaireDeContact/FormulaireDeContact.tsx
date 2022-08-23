@@ -3,7 +3,6 @@ import { FormEvent, PropsWithChildren, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
@@ -114,7 +113,6 @@ export default function FormulaireDeContact ({ children, onSuccess }: PropsWithC
           required
         />
       </div>
-      <Checkbox label={'J\'accepte de recevoir des informations de « 1 Jeune, 1 Solution »'} className={styles.formulaireDeRappelCheckbox}/>
       <div className={styles.formulaireDeRappelButton}>
         { isLoading
           ? (<Button disabled buttonType="primary"><SpinnerIcon /></Button>)
