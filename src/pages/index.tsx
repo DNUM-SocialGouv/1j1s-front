@@ -150,6 +150,14 @@ export default function Accueil() {
               >
                 <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
               </LinkCard>
+              <LinkCard
+                imageUrl="/images/homepage/créer-cv.jpg"
+                link="/creer-mon-cv"
+                linkLabel="En savoir plus"
+                title="Je crée mon CV personnalisé"
+              >
+                <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc. </p>
+              </LinkCard>
             </div>
           </SeeMore>
         </section>
