@@ -9,7 +9,7 @@ import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
-    private readonly apiGeoHttpClientService: HttpClientService,
+    private readonly httpClientService: HttpClientService,
   ) {
   }
 
@@ -38,7 +38,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
   }
 
   private async request(endpoint: string): Promise<Either<Localisation[]>> {
-    return await this.apiGeoHttpClientService.get<ApiDecoupageAdministratifResponse[], Localisation[]>(
+    return await this.httpClientService.get<ApiDecoupageAdministratifResponse[], Localisation[]>(
       endpoint,
       mapLocalisationList,
     );

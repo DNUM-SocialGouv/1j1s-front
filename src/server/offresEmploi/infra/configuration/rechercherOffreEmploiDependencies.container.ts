@@ -11,10 +11,10 @@ export interface RechercherOffreEmploiDependenciesContainer {
 };
 
 export const rechercherOffreEmploiDependenciesContainer = (
-  poleEmploiHttpClientService: HttpClientServiceWithAuthentification,
+  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): RechercherOffreEmploiDependenciesContainer => {
-  const emploiRepository = new ApiPoleEmploiOffreRepository(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);
+  const emploiRepository = new ApiPoleEmploiOffreRepository(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository);
 
   return {
     rechercherOffreEmploi: new RechercherOffreEmploiUseCase(emploiRepository),

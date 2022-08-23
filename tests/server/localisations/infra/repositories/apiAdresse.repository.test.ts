@@ -6,19 +6,19 @@ import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 describe('ApiAdresseRepository', () => {
-  let apiAdresseHttpClientService: HttpClientService;
+  let httpClientService: HttpClientService;
   let apiAdresseRepository: ApiAdresseRepository;
 
   beforeEach(() => {
-    apiAdresseHttpClientService = anApiAdresseHttpClientService();
-    apiAdresseRepository = new ApiAdresseRepository(apiAdresseHttpClientService);
+    httpClientService = anApiAdresseHttpClientService();
+    apiAdresseRepository = new ApiAdresseRepository(httpClientService);
   });
 
   describe('getCommuneList', () => {
     describe('quand la liste de communes est trouvée',() => {
       it('retourne la liste des communes', async () => {
         jest
-          .spyOn(apiAdresseHttpClientService, 'get')
+          .spyOn(httpClientService, 'get')
           .mockResolvedValue(createSuccess({
             résultats: [
               {

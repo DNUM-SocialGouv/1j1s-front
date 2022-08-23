@@ -51,26 +51,21 @@ export const dependenciesContainer = (): Dependencies => {
   }
   
   const {
-    apiEngagementConfig,
-    apiLaBonneAlternanceConfig,
-    apiStrapiConfig,
-    apiGeoGouvConfig,
-    apiAdresseConfig,
-    apiPoleEmploiConfig,
+    engagementClientService,
+    laBonneAlternanceClientService,
+    strapiClientService,
+    poleEmploiClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
-  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(apiPoleEmploiConfig, cacheService);
+  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiClientService, cacheService);
 
-  const cmsDependencies = cmsDependenciesContainer(apiStrapiConfig);
-  const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploiConfig, apiPoleEmploiRéférentielRepository);
-  const alternanceDependencies = alternanceDependenciesContainer(apiLaBonneAlternanceConfig);
-  const engagementDependencies = engagementDependenciesContainer(apiEngagementConfig);
-  const localisationDependencies = localisationDependenciesContainer(
-    apiGeoGouvConfig,
-    apiAdresseConfig,
-  );
+  const cmsDependencies = cmsDependenciesContainer(strapiClientService);
+  const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiClientService, apiPoleEmploiRéférentielRepository);
+  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
+  const engagementDependencies = engagementDependenciesContainer(engagementClientService);
+  const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const contratEngagementJeuneDependencies = contratEngagementJeuneDependenciesContainer(
-    new StrapiDemandeDeContactRepository(apiStrapiConfig),
+    new StrapiDemandeDeContactRepository(strapiClientService),
   );
 
   return {

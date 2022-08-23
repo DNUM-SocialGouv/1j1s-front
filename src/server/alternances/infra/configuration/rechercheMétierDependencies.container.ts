@@ -7,9 +7,9 @@ export interface RechercherMétierDependenciesContainer {
 }
 
 export function rechercherMétierDependenciesContainer(
-  laBonneAlternanceHttpClient: HttpClientService,
+  httpClientService: HttpClientService,
 ): RechercherMétierDependenciesContainer {
-  const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient);
+  const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(httpClientService);
 
   return {
     rechercherMétier: new RechercherMétierUseCase(apiLaBonneAlternanceRepository),

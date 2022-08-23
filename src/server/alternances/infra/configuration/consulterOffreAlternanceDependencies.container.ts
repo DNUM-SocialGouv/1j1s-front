@@ -7,9 +7,9 @@ export interface ConsulterOffreAlternanceDependenciesContainer {
 };
 
 export const consulterOffreAlternanceDependenciesContainer = (
-  laBonneAlternanceHttpClient: HttpClientService,
+  httpClientService: HttpClientService,
 ): ConsulterOffreAlternanceDependenciesContainer => {
-  const alternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient);
+  const alternanceRepository = new ApiLaBonneAlternanceRepository(httpClientService);
 
   return {
     consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(alternanceRepository),

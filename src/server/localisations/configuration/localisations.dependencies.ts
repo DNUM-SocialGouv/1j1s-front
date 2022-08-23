@@ -6,17 +6,17 @@ import {
   ListeLocalisationDependenciesContainer,
   listeLocalisationDependenciesContainer,
 } from '~/server/localisations/infra/configuration/listeLocalisationDependencies.container';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
-
+import { ConfigurationService } from '~/server/services/configuration.service';
+import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 
 export type LocalisationsDependencies = ListeLocalisationDependenciesContainer & ListeCommuneDependenciesContainer;
 
 export const localisationDependenciesContainer = (
-  apiGeoGouvHttpClientService: HttpClientService,
-  apiAdresseHttpClientService: HttpClientService,
+  configurationService: ConfigurationService,
 ): LocalisationsDependencies => {
+  const { adresseClientService } = buildHttpClientConfigList(configurationService);
   return {
-    ...listeLocalisationDependenciesContainer(apiAdresseHttpClientService, apiGeoGouvHttpClientService),
-    ...rechercherCommuneDependenciesContainer(apiAdresseHttpClientService),
+    ...listeLocalisationDependenciesContainer(configurationService),
+    ...rechercherCommuneDependenciesContainer(adresseClientService),
   };
 };

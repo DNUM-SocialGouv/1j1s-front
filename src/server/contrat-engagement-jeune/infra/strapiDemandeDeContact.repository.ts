@@ -7,11 +7,11 @@ import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repositor
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
-  constructor(private strapiHttpClientService: HttpClientService) {
+  constructor(private httpClientService: HttpClientService) {
   }
   async save(demandeDeContact: DemandeDeContact): Promise<Either<void>> {
     try {
-      await this.strapiHttpClientService.post('contacts', {
+      await this.httpClientService.post('contacts', {
         data: {
           age: demandeDeContact.age,
           email: demandeDeContact.email,

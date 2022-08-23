@@ -7,9 +7,9 @@ export interface RechercherMissionEngagementDependenciesContainer {
 }
 
 export const rechercherMissionEngagementDependenciesContainer = (
-  engagementHttpClientService: HttpClientService,
+  httpClientService: HttpClientService,
 ): RechercherMissionEngagementDependenciesContainer => {
-  const missionEngagementRepository = new ApiEngagementRepository(engagementHttpClientService);
+  const missionEngagementRepository = new ApiEngagementRepository(httpClientService);
 
   return {
     rechercherMissionEngagement: new RechercherMissionEngagementUseCase(missionEngagementRepository),

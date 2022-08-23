@@ -10,10 +10,10 @@ export interface ConsulterOffreEmploiDependenciesContainer {
 };
 
 export const consulterOffreEmploiDependenciesContainer = (
-  poleEmploiHttpClientService: HttpClientServiceWithAuthentification,
+  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): ConsulterOffreEmploiDependenciesContainer => {
-  const emploiRepository = new ApiPoleEmploiOffreRepository(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);
+  const emploiRepository = new ApiPoleEmploiOffreRepository(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository);
 
   return {
     consulterOffreEmploi: new ConsulterOffreEmploiUseCase(emploiRepository),

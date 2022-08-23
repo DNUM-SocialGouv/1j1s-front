@@ -7,9 +7,9 @@ export interface ConsulterMissionEngagementDependenciesContainer {
 };
 
 export const consulterMissionEngagementDependenciesContainer = (
-  engagementHttpClientService: HttpClientService,
+  httpClientService: HttpClientService,
 ): ConsulterMissionEngagementDependenciesContainer => {
-  const missionEngagementRepository = new ApiEngagementRepository(engagementHttpClientService);
+  const missionEngagementRepository = new ApiEngagementRepository(httpClientService);
 
   return {
     consulterMissionEngagement: new ConsulterMissionEngagementUseCase(missionEngagementRepository),

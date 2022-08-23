@@ -13,10 +13,10 @@ export type EngagementDependencies =
     & ConsulterMissionEngagementDependenciesContainer
 
 export const engagementDependenciesContainer = (
-  engagementHttpClientService: HttpClientService,
+  httpClientService: HttpClientService,
 ): EngagementDependencies => {
   return {
-    ...consulterMissionEngagementDependenciesContainer(engagementHttpClientService),
-    ...rechercherMissionEngagementDependenciesContainer(engagementHttpClientService),
+    ...consulterMissionEngagementDependenciesContainer(httpClientService),
+    ...rechercherMissionEngagementDependenciesContainer(httpClientService),
   };
 };

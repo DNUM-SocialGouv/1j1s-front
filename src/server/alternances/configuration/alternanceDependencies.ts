@@ -18,11 +18,11 @@ export type AlternanceDependencies =
   & ConsulterOffreAlternanceDependenciesContainer;
 
 export const alternanceDependenciesContainer = (
-  laBonneAlternanceHttpClient: HttpClientService,
+  httpClientService: HttpClientService,
 ): AlternanceDependencies => {
   return {
-    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient),
-    ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient),
-    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient),
+    ...rechercherMétierDependenciesContainer(httpClientService),
+    ...rechercherAlternanceDependenciesContainer(httpClientService),
+    ...consulterOffreAlternanceDependenciesContainer(httpClientService),
   };
 };

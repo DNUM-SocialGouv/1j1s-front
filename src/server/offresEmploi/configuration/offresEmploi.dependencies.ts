@@ -15,11 +15,11 @@ export type OffresEmploiDependencies = ConsulterOffreEmploiDependenciesContainer
   & RechercherOffreEmploiDependenciesContainer
 
 export const offresEmploiDependenciesContainer = (
-  poleEmploiHttpClientService: HttpClientServiceWithAuthentification,
+  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 ): OffresEmploiDependencies => {
   return {
-    ...consulterOffreEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository),
-    ...rechercherOffreEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository),
+    ...consulterOffreEmploiDependenciesContainer(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository),
+    ...rechercherOffreEmploiDependenciesContainer(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository),
   };
 };

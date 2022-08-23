@@ -3,7 +3,7 @@ import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class StrapiCmsService {
   constructor(
-    private strapiHttpClientService: HttpClientService,
+    private httpClientService: HttpClientService,
     private configurationService: ConfigurationService,
   ) {
   }

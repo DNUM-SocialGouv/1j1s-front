@@ -29,13 +29,13 @@ import { HttpClientService } from '~/server/services/http/httpClient.service';
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   constructor(
-    private laBonneAlternanceHttpClientService: HttpClientService,
+    private httpClientService: HttpClientService,
   ) {
   }
 
   async getMétierRecherchéList(métierRecherché: string): Promise<MétierRecherché[]> {
     const normalizedMétierRecherché = ApiLaBonneAlternanceRepository.normalizeStringWithoutDiacriticGlyph(métierRecherché);
-    const response = await this.laBonneAlternanceHttpClientService.get<RechercheMetierResponse, MétierRecherché[]>(
+    const response = await this.httpClientService.get<RechercheMetierResponse, MétierRecherché[]>(
       `metiers?title=${normalizedMétierRecherché}`,
       mapMétierRecherchéList,
     );
@@ -52,7 +52,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
   async searchAlternance(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
     const paramètresRecherche = buildParamètresRechercheLaBonneAlternance(alternanceFiltre);
-    const response = await this.laBonneAlternanceHttpClientService.get<AlternanceResponse, RésultatsRechercheAlternance>(
+    const response = await this.httpClientService.get<AlternanceResponse, RésultatsRechercheAlternance>(
       `jobs?${paramètresRecherche}`,
       mapRésultatsRechercheAlternance,
     );
@@ -63,7 +63,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
   }
 
   async getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>> {
-    return await this.laBonneAlternanceHttpClientService.get<AlternanceDetailResponse, RésultatRechercheAlternance>(
+    return await this.httpClientService.get<AlternanceDetailResponse, RésultatRechercheAlternance>(
       `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
       mapRésultatRechercheAlternance,
     );

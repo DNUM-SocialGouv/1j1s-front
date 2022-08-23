@@ -9,9 +9,9 @@ export interface RechercherAlternanceDependenciesContainer {
 }
 
 export function rechercherAlternanceDependenciesContainer(
-  laBonneAlternanceHttpClient: HttpClientService,
+  httpClientService: HttpClientService,
 ): RechercherAlternanceDependenciesContainer {
-  const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceHttpClient);
+  const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(httpClientService);
 
   return {
     rechercherAlternance: new RechercherAlternanceUseCase(apiLaBonneAlternanceRepository),

@@ -8,10 +8,10 @@ export interface ListeCommuneDependenciesContainer {
 };
 
 export const rechercherCommuneDependenciesContainer = (
-  apiAdresseHttpClientService: HttpClientService,
+  httpClientService: HttpClientService,
 ): ListeCommuneDependenciesContainer => {
   const apiAdresseRepository = new ApiAdresseRepository(
-    apiAdresseHttpClientService,
+    httpClientService,
   );
 
   return {

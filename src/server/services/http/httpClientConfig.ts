@@ -10,7 +10,7 @@ export interface HttpClientConfig {
   label?: string
 }
 
-export interface PoleEmploiHttpClientConfig extends HttpClientConfig {
+export interface HttpClientWithAuthentificationConfig extends HttpClientConfig {
   clientId: string
   connectUrl: string
   clientSecret: string
@@ -72,7 +72,7 @@ const getApiAdresseConfig = (configurationService: ConfigurationService): HttpCl
   );
 };
 
-const getApiPoleEmploiConfig = (configurationService: ConfigurationService): PoleEmploiHttpClientConfig => {
+const getApiPoleEmploiConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return(
     {
       apiKey: undefined,
@@ -89,12 +89,12 @@ const getApiPoleEmploiConfig = (configurationService: ConfigurationService): Pol
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
   return ({
-    apiAdresseConfig: new HttpClientService(getApiAdresseConfig(configurationService)),
-    apiEngagementConfig: new HttpClientService(getApiEngagementConfig(configurationService)),
-    apiGeoGouvConfig: new HttpClientService(getApiGeoGouvConfig(configurationService)),
-    apiLaBonneAlternanceConfig: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService),
+    adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
+    engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
+    geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
+    laBonneAlternanceClientService: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService),
     ),
-    apiPoleEmploiConfig: new HttpClientServiceWithAuthentification(getApiPoleEmploiConfig(configurationService)),
-    apiStrapiConfig: new HttpClientService(getApiStrapiConfig(configurationService)),
+    poleEmploiClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiConfig(configurationService)),
+    strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
   });
 }
