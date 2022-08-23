@@ -108,6 +108,77 @@
       }
     }
   }
+
+  &Dispositifs {
+    div {
+      border-radius: 20px;
+      max-width: 100%;
+      max-height: 100vh !important;
+    }
+
+    &__Title {
+      @extend %text-xLarge;
+      @extend %bold;
+      color: $color-primary;
+      text-align: center;
+      line-height: 2rem;
+      margin-bottom: 2rem;
+    }
+    &Position {
+      display: grid;
+      place-content: center;
+
+      &Icon {
+        box-shadow: none !important;
+        border: 2px solid $color-background;
+        border-radius: 20px;
+        width: 200px;
+        display: grid;
+        place-items: center;
+        margin-top: 10px;
+
+        p {
+          font-size: smaller;
+        }
+
+        &Offre {
+          color: $color-blue-navy;
+          width: 30px;
+          margin-top: 0.5rem;
+        }
+        &Formation {
+          color: $color-tapestry;
+          width: 30px;
+          margin-top: 0.5rem;
+        }
+        &Aide {
+          color: $color-smalt-blue;
+          width: 30px;
+          margin-top: 0.5rem;
+        }
+      }
+
+      &Iconbenevol {
+        box-shadow: none !important;
+        border: 2px solid $color-background;
+        border-radius: 20px;
+        width: 200px;
+        display: grid;
+        place-items: center;
+        margin-top: 10px;
+
+        p {
+          font-size: smaller;
+        }
+
+        &Benevolat {
+          color: $color-coral;
+          width: 30px;
+          margin-top: 0.5rem;
+        }
+      }
+    }
+  }
 }
 
 @include media(large) {
@@ -146,6 +217,16 @@
     &Explication {
       font-size: 1.25rem;
       line-height: 2rem;
+    }
+
+    &Dispositifs {
+      &Position {
+        grid-template-columns: repeat(3, 1fr);
+
+        &Iconbenevol {
+          grid-column-start: 2;
+        }
+      }
     }
   }
 }
