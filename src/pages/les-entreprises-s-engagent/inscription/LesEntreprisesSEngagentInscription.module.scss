@@ -19,6 +19,15 @@
   padding-right: 32px;
 }
 
+.boutonRetour {
+  border: 1px solid $color-primary;
+  color: $color-primary;
+  padding: 10px 24px 10px 18px;
+  border-radius: 20px;
+  margin: 20px 0;
+  display: flex;
+}
+
 .formulaire {
 
   &Input {
@@ -84,6 +93,10 @@
 
   .mandatoryFields {
     margin-left: 8rem;
+  }
+
+  .boutonRetour {
+    margin-top: 0;
   }
 
   .formulaire {
