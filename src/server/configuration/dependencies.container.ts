@@ -17,6 +17,13 @@ import {
   engagementDependenciesContainer,
 } from '~/server/engagement/configuration/engagementDependencies';
 import {
+  EntrepriseDependencies,
+  entrepriseDependenciesContainer,
+} from '~/server/entreprises/configuration/entrepriseDependencies';
+import {
+  StrapiRejoindreLaMobilisationRepository,
+} from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
+import {
   localisationDependenciesContainer,
   LocalisationsDependencies,
 } from '~/server/localisations/configuration/localisations.dependencies';
@@ -44,6 +51,7 @@ export type Dependencies = {
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationsDependencies;
   contratEngagementJeuneDependencies: ContratEngagementJeuneDependencies
+  entrepriseDependencies: EntrepriseDependencies
 };
 
 export const dependenciesContainer = (): Dependencies => {
@@ -73,12 +81,16 @@ export const dependenciesContainer = (): Dependencies => {
   const contratEngagementJeuneDependencies = contratEngagementJeuneDependenciesContainer(
     new StrapiDemandeDeContactRepository(strapiHttpClientService),
   );
+  const entrepriseDependencies = entrepriseDependenciesContainer(
+    new StrapiRejoindreLaMobilisationRepository(strapiHttpClientService),
+  );
 
   return {
     alternanceDependencies,
     cmsDependencies,
     contratEngagementJeuneDependencies,
     engagementDependencies,
+    entrepriseDependencies,
     localisationDependencies,
     offreEmploiDependencies,
   };
