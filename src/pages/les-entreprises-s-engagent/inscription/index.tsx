@@ -1,7 +1,9 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { Button } from '~/client/components/ui/Button/Button';
+import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -36,6 +38,7 @@ export enum Etape {
 }
 
 export default function LesEntreprisesSEngagentInscription() {
+  const router = useRouter();
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
   const lesEntreprisesSEngagementService  = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagementService');
@@ -49,9 +52,17 @@ export default function LesEntreprisesSEngagentInscription() {
   const isPremièreEtapeValid = () => Object.values(formulaireEtape1).every((value) => value.length > 0);
   const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
 
-  function goToEtape1(event: FormEvent<HTMLFormElement>) {
+  function goToEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     return (isPremièreEtape() && isPremièreEtapeValid()) && setEtape(Etape.ETAPE_2);
+  }
+
+  function returnToLesEntreprisesSEngagent() {
+    return router.push('/les-entreprises-s-engagent');
+  }
+
+  function returnToEtape1() {
+    return setEtape(Etape.ETAPE_1);
   }
 
   async function submitFormulaire(event: FormEvent<HTMLFormElement>) {
@@ -80,7 +91,12 @@ export default function LesEntreprisesSEngagentInscription() {
             <div className={styles.etape}>{etape}</div>
             <div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
             {
-              isPremièreEtape() && <form className={styles.formulaire} onSubmit={goToEtape1}>
+              isPremièreEtape() && <form className={styles.formulaire} onSubmit={goToEtape2}>
+                <div>
+                  <button className={styles.boutonRetour} onClick={returnToLesEntreprisesSEngagent}>
+                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                  </button>
+                </div>
                 <div className={styles.bodyFormulaire}>
                   <TextInput
                     label="Indiquez le nom de l’entreprise"
@@ -156,6 +172,11 @@ export default function LesEntreprisesSEngagentInscription() {
             }
             {
               isDeuxièmeEtape() && <form className={styles.formulaire} onSubmit={submitFormulaire}>
+                <div>
+                  <button className={styles.boutonRetour} onClick={returnToEtape1}>
+                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                  </button>
+                </div>
                 <div className={styles.bodyFormulaire}>
                   <TextInput
                     label="Indiquer votre prénom"

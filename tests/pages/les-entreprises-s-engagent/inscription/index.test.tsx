@@ -4,6 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import {
   aLesEntreprisesSEngagementService,
 } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
@@ -15,6 +16,7 @@ import LesEntreprisesSEngagentInscription, {
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
+  const routerPush = jest.fn();
 
   const labelsEtape1 = [
     { name: 'Indiquez le nom de l’entreprise' },
@@ -40,7 +42,19 @@ describe('LesEntreprisesSEngagentInscription', () => {
     );
   };
 
+  beforeAll(() => {
+    mockUseRouter({ push: routerPush });
+  });
+
   describe('quand l’utilisateur arrivent sur la page', () => {
+    it('il peut cliquer sur le bouton Retour pour retourner sur la page de description des entreprises s’engagent', async () => {
+      renderComponent();
+
+      await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
+
+      expect(routerPush).toHaveBeenCalledWith('/les-entreprises-s-engagent');
+    });
+
     it('il voit afficher la première étape de formulaire', () => {
       renderComponent();
 
@@ -77,6 +91,18 @@ describe('LesEntreprisesSEngagentInscription', () => {
       expect(screen.getByText('Etape 2 sur 2')).toBeInTheDocument();
       labelsEtape2.forEach((label) => {
         expect(screen.getByRole('textbox', label)).toBeInTheDocument();
+      });
+    });
+
+    describe('puis passe à l’étape 2 et qu’il clique sur Retour', () => {
+      it('il repasse à l’étape 1', async () => {
+        renderComponent();
+
+        await remplirFormulaireEtape1();
+        await clickOnGoToEtape2();
+        await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
+
+        expect(screen.getByText('Etape 1 sur 2')).toBeInTheDocument();
       });
     });
   });
