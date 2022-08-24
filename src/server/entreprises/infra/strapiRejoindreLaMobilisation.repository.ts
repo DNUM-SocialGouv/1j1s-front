@@ -1,17 +1,17 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 import { Entreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobilisationRepository {
 
-  constructor(private strapiHttpClientService: StrapiHttpClientService) {
+  constructor(private httpClientService: HttpClientService) {
   }
   async save(entreprise: Entreprise): Promise<Either<void>> {
     try {
-      await this.strapiHttpClientService.post('entreprises', {
+      await this.httpClientService.post('entreprises', {
         data: {
           code_postal: entreprise.codePostal,
           email: entreprise.email,

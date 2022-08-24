@@ -76,7 +76,7 @@ export const dependenciesContainer = (): Dependencies => {
     new StrapiDemandeDeContactRepository(strapiClientService),
   );
   const entrepriseDependencies = entrepriseDependenciesContainer(
-    new StrapiRejoindreLaMobilisationRepository(strapiHttpClientService),
+    new StrapiRejoindreLaMobilisationRepository(strapiClientService),
   );
 
   return {
