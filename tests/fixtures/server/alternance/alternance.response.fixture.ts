@@ -1,4 +1,7 @@
-import { AlternanceResponse } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
+import {
+  AlternanceMatchasResponse,
+  AlternanceResponse,
+} from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import {
   RechercheMetierResponse,
 } from '~/server/alternances/infra/repositories/responses/rechercheMetierResponse.type';
@@ -75,6 +78,56 @@ export function aMétierRechercheList(): RechercheMetierResponse {
       {
         label: 'Génie électrique',
         romes: ['H1209'],
+      },
+    ],
+  };
+}
+
+export function aResultOffreFromMatcha(): AlternanceMatchasResponse {
+  return {
+    matchas: [
+      {
+        company: {
+          logo: 'logo',
+          name: 'BOUCHERIE PLAISANCE',
+        },
+        contact: {
+          name: 'zahir oubouzar',
+          phone: '0636145060',
+        },
+        diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
+        ideaType: 'matcha',
+        job: {
+          contractType: [
+            'Apprentissage',
+            'Professionnalisation',
+          ],
+          dureeContrat: 1,
+          id: '62c98502d2f6710027072c30',
+          jobStartDate: '2022-09-01T00:00:00.000Z',
+          romeDetails: {
+            competencesDeBase: [
+              {
+                libelle: "Définir le plan d'action commercial et établir le plan de tournée (ciblage, interlocuteurs, préparation de dossiers techniques)",
+              },
+              {
+                libelle: 'Concevoir une étude de faisabilité technique',
+              },
+              {
+                libelle: 'Établir un devis',
+              },
+              {
+                libelle: 'Négocier un contrat',
+              },
+            ],
+            definition: 'Prospecte une clientèle de professionnels, propose des solutions techniques selon les besoins, impératifs du client et négocie les conditions commerciales de la vente.\\nPeut coordonner une équipe commerciale et animer un réseau de commerciaux.',
+          },
+          rythmeAlternance: '2 semaines / 3 semaines',
+        },
+        place: {
+          fullAddress: '8 AV MONTAIGNE 31830 PLAISANCE-DU-TOUCH',
+        },
+        title: 'Boucherie',
       },
     ],
   };

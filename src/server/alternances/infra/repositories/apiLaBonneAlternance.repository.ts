@@ -1,23 +1,23 @@
 import {
   AlternanceFiltre,
   AlternanceId,
-  From,
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
-import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
+import {
+  AlternanceFromMatcha,
+} from '~/server/alternances/infra/repositories/alternance.type';
 import {
   buildParamètresRechercheLaBonneAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.builder';
 import {
   mapMétierRecherchéList,
-  mapRésultatRechercheAlternance,
+  mapOffreAlternance,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import {
-  AlternanceDetailResponse,
-  AlternancePeJobsResponse,
+  AlternanceMatchasResponse,
   AlternanceResponse,
 } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import {
@@ -56,17 +56,18 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       `jobs?${paramètresRecherche}`,
       mapRésultatsRechercheAlternance,
     );
+
     switch (response.instance) {
       case 'success': return response.result;
       case 'failure': return { nombreRésultats: 0, résultats: [] };
     }
   }
 
-  async getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>> {
-    return await this.httpClientService.get<AlternanceDetailResponse, RésultatRechercheAlternance>(
-      `jobs/${from === 'matcha' ? 'matcha' : 'job'}/${id}`,
-      mapRésultatRechercheAlternance,
-    );
+  async getOffreAlternance(id: AlternanceId): Promise<Either<AlternanceFromMatcha>> {
+    return await this.httpClientService.get<AlternanceMatchasResponse, AlternanceFromMatcha>(
+      `jobs/matcha/${id}`,
+      mapOffreAlternance,
+    );;
   }
 
   private static normalizeStringWithoutDiacriticGlyph(string: string) {
@@ -75,9 +76,5 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
       .normalize('NFD')
       .replace(/\p{Diacritic}/gu, '');
   }
-}
-
-export function isAlternanceDetailResponsePeJob(alternance: AlternanceDetailResponse): alternance is AlternancePeJobsResponse {
-  return Object.keys(alternance)[0] === 'peJobs';
 }
 

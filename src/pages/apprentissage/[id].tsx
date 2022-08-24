@@ -8,12 +8,14 @@ import {
   AlternanceId,
   From,
 } from '~/server/alternances/domain/alternance';
-import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
+import {
+  AlternanceFromMatcha,
+} from '~/server/alternances/infra/repositories/alternance.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 interface ConsulterOffreAlternancePageProps {
-  offreAlternance: RésultatRechercheAlternance;
+  offreAlternance: AlternanceFromMatcha;
 }
 
 export default function ConsulterOffreAlternancePage({ offreAlternance }: ConsulterOffreAlternancePageProps) {

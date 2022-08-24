@@ -2,7 +2,6 @@ import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
   AlternanceFromMatcha,
-  AlternanceFromPoleEmploi,
 } from '~/server/alternances/infra/repositories/alternance.type';
 
 export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRechercheAlternance>): RésultatsRechercheAlternance {
@@ -168,15 +167,6 @@ export function anApprentiBoucherOffreFromMatcha(): Alternance {
     typeDeContrats: ['Apprentissage', 'Professionnalisation'],
     ville: undefined,
     étiquetteList: ['Cap, autres formations niveau (Infrabac)', 'Apprentissage', 'Professionnalisation'],
-  };
-}
-
-export function anApprentiBoucherFromPoleEmploi(): AlternanceFromPoleEmploi {
-  return {
-    ...anApprentiBoucherOffreFromPoleEmploi(),
-    duréeContrat: 'Contrat à durée déterminée - 24 Mois',
-    rythmeAlternance: '35H Travail en équipe',
-    url: 'https://candidat.pole-emploi.fr/offres/recherche/detail/134CMXJ',
   };
 }
 

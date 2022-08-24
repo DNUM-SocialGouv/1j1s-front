@@ -5,11 +5,11 @@ import {
   RésultatsRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
-import { RésultatRechercheAlternance } from '~/server/alternances/infra/repositories/alternance.type';
+import { AlternanceFromMatcha } from '~/server/alternances/infra/repositories/alternance.type';
 import { Either } from '~/server/errors/either';
 
 export interface AlternanceRepository {
   getMétierRecherchéList(metierRechercher: string): Promise<MétierRecherché[]>;
   searchAlternance(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance>;
-  getOffreAlternance(id: AlternanceId, from: From): Promise<Either<RésultatRechercheAlternance>>
+  getOffreAlternance(id: AlternanceId, from: From): Promise<Either<AlternanceFromMatcha>>
 }
