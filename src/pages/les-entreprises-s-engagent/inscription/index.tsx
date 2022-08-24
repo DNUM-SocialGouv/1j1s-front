@@ -258,7 +258,7 @@ export default function LesEntreprisesSEngagentInscription() {
             }
           </div>
           {
-            isContactezNousOpen && <FormulaireDeContact isOpenState={[isContactezNousOpen, setIsContactezNousOpen]}/>
+            isContactezNousOpen && <FormulaireDeContact isOpen={isContactezNousOpen} close={() => setIsContactezNousOpen(false)}/>
           }
         </>
       }

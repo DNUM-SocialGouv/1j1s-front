@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 import { Button } from '~/client/components/ui/Button/Button';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -8,15 +6,15 @@ import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 
 import styles from './FormulaireDeContact.module.scss';
 
-export interface FormulaireDeContactProps<b> {
-  isOpenState: [b, Dispatch<SetStateAction<b>>]
+export interface FormulaireDeContactProps {
+  isOpen: boolean
+  close: (...args: unknown[]) => unknown
 }
 
-export default function FormulaireDeContact({ isOpenState }: FormulaireDeContactProps<boolean>) {
-  const [isOpen, setIsOpen] = isOpenState;
+export default function FormulaireDeContact({ isOpen, close }: FormulaireDeContactProps) {
 
   return (
-    <ModalComponent closeLabel='' close={() => setIsOpen(false)} isOpen={isOpen} className={styles.modal}>
+    <ModalComponent closeLabel='' isOpen={isOpen} close={close} className={styles.modal}>
       <ModalComponent.Title className={styles.modalTitle}>
         Demande de contact
       </ModalComponent.Title>
