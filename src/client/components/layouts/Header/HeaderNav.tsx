@@ -95,7 +95,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
     navigationItemsList.map((navigationItem) => {
       return(
         isModale ?
-          <Accordion title={navigationItem.title}>
+          <Accordion key={navigationItem.title} title={navigationItem.title}>
             {navigationItem.childrens?.map((navSubItem) => {
               return(
                 <NavSubItem key={navSubItem.title} title={navSubItem.title} link={navSubItem.link ? navSubItem.link : ''} current={navSubItem.current} onClick={onClick}/>
@@ -103,7 +103,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
             })}
           </Accordion>
           :
-          <NavItem title={navigationItem.title}>
+          <NavItem key={navigationItem.title} title={navigationItem.title}>
             {navigationItem.childrens?.map((navSubItem) => {
               return(
                 <NavSubItem key={navSubItem.title} title={navSubItem.title} link={navSubItem.link ? navSubItem.link : ''} current={navSubItem.current}/>
