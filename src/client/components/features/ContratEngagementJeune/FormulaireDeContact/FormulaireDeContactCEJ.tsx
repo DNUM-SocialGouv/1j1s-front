@@ -1,7 +1,7 @@
 import range from 'just-range';
 import { FormEvent, PropsWithChildren, useState } from 'react';
 
-import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact.module.scss';
+import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
@@ -18,11 +18,11 @@ const ageOptions: Option[] = range(16,31).map((age) => {
   };
 });
 
-interface FormulaireDeContactProps {
+interface FormulaireDeContactCEJProps {
   onSuccess?: () => void
 }
 
-export default function FormulaireDeContact ({ children, onSuccess }: PropsWithChildren<FormulaireDeContactProps>) {
+export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWithChildren<FormulaireDeContactCEJProps>) {
   const [inputAge, setInputAge] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [envoyé, setEnvoyé] = useState(false);

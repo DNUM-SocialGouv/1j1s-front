@@ -71,3 +71,12 @@
     }
   }
 }
+
+@include media(large){
+  .modal {
+    > div:first-child {
+      width: 60%;
+      margin: auto;
+    }
+  }
+}

@@ -1,0 +1,129 @@
+@import "@styles/utilities";
+
+.formulaireDeRappel {
+  input {
+    background-color: $color-on-primary;
+    border: 0.5px solid $color-on-background;
+    border-radius: 30px;
+    box-shadow: none;
+  }
+
+  label {
+    margin-top: 1rem;
+  }
+
+  .radioButton {
+    border-radius: 0;
+  }
+
+  button {
+    margin-top: 8px;
+    border: 0.5px solid $color-on-surface;
+    font-size: small;
+  }
+
+  input[type=radio] + label {
+    padding-left: 0 !important;
+    margin-top: 0;
+    &::before {
+      display: none !important;
+    }
+  }
+
+  &Button {
+    text-align: center;
+    margin: 2rem;
+    .button {
+      font-size: unset;
+    }
+  }
+}
+
+.décharge {
+  width: 100%;
+  background-color: $color-cadre-formulaire;
+  border-radius: 30px;
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 0.7rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.success {
+  text-align: center;
+  h3 {
+    margin-top: 2rem;
+    color: $color-primary;
+  }
+
+  span {
+    display: flex;
+    margin: auto;
+    width:120px;
+    height: 120px;
+    color: $color-secondary;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.textArea {
+
+  margin-top: 1rem;
+
+  &Input {
+    margin-top: 8px;
+    background-color: #FFFFFF;
+    border: 0.5px solid #161616;
+    border-radius: 30px;
+    box-shadow: none;
+    width: 100%;
+    min-height: 100px;
+  }
+}
+
+.modal {
+  > button {
+    color: $color-on-background;
+  }
+
+  > input {
+    background-color: $color-form-field;
+  }
+
+  &Title {
+    @extend %text-xLarge;
+    text-align: center;
+    display: block;
+    color: $color-primary;
+  }
+
+  &Content {
+    padding: 0 20px;
+  }
+
+  .sujet {
+    margin-top: 1rem;
+
+    input {
+      background-color: $color-on-primary;
+    }
+
+  }
+}
+
+@include media(large){
+  .formulaireDeRappel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding-bottom: 0;
+
+    label {
+      margin-top: 0;
+    }
+  }
+}

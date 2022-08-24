@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import FormulaireDeContact from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact';
+import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { createSuccess } from '~/server/errors/either';
@@ -24,9 +24,9 @@ describe('<FormulaireDeContact />', () => {
 
     render(
       <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
-        <FormulaireDeContact onSuccess={onSuccess}>
+        <FormulaireDeContactCEJ onSuccess={onSuccess}>
           Revenir
-        </FormulaireDeContact>
+        </FormulaireDeContactCEJ>
       </DependenciesProvider>,
     );
     return { demandeDeContactServiceMock, onSuccess };

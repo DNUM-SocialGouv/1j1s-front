@@ -12,7 +12,7 @@ import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
-import FormulaireDeContact from '../FormulaireDeContact/FormulaireDeContact';
+import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
 export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide';
 
@@ -64,7 +64,7 @@ export default function Accompagnement() {
           <small>(Tous les champs sont obligatoires)</small>
         </ModalTitle>
         <ModalContent>
-          <FormulaireDeContact />
+          <FormulaireDeContactCEJ />
         </ModalContent>
       </Modal>
       <Modal isOpen={isDispositifsRefencesModalOpen} hide={() => setIsDispositifsReferencesModalOpen(false)} className={styles.accompagnementDispositifs}>
