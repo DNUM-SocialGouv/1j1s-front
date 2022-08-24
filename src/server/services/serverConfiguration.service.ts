@@ -9,6 +9,8 @@ export class ServerConfigurationService implements ConfigurationService {
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
       API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
+      NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
+      NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
       POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
       POLE_EMPLOI_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_SECRET'),
       POLE_EMPLOI_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_SCOPE'),
@@ -41,20 +43,22 @@ class EnvironmentVariablesException extends Error {
 }
 
 export interface EnvironmentVariables {
+  readonly API_ADRESSE_BASE_URL: string;
+  readonly API_ENGAGEMENT_API_KEY_TOKEN: string;
+  readonly API_ENGAGEMENT_BASE_URL: string;
+  readonly API_GEO_BASE_URL: string;
+  readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
+  readonly API_POLE_EMPLOI_BASE_URL: string;
+  readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string;
+  readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string;
   readonly POLE_EMPLOI_CONNECT_URL: string;
   readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string;
   readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string;
   readonly POLE_EMPLOI_CONNECT_SCOPE: string;
-  readonly API_POLE_EMPLOI_BASE_URL: string;
-  readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
-  readonly API_ENGAGEMENT_BASE_URL: string;
-  readonly API_ENGAGEMENT_API_KEY_TOKEN: string;
   readonly REDIS_DB: number;
   readonly REDIS_HOST: string;
   readonly REDIS_PASSWORD: string;
   readonly REDIS_PORT: number;
   readonly REDIS_USERNAME: string;
   readonly STRAPI_URL_API: string;
-  readonly API_GEO_BASE_URL: string;
-  readonly API_ADRESSE_BASE_URL: string;
 }

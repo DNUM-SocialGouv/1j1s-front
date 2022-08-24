@@ -3,6 +3,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
+import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import {
   LesEntreprisesSEngagentService,
@@ -20,6 +21,7 @@ export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
   alternanceService: AlternanceService
   localisationService: LocalisationService
+  ficheMetierService: FicheMetierService
   métierRecherchéService: MétierRecherchéService
   missionEngagementService: MissionEngagementService
   offreEmploiService: OffreEmploiService
@@ -44,6 +46,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const métierRecherchéService = new MétierRecherchéService(httpClientService);
   const missionEngagementService = new MissionEngagementService(httpClientService);
   const demandeDeContactService = new DemandeDeContactService(httpClientService);
+  const ficheMetierService = new FicheMetierService(httpClientService);
   const lesEntreprisesSEngagementService = new LesEntreprisesSEngagentService(httpClientService);
 
   const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
@@ -65,6 +68,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   return {
     alternanceService,
     demandeDeContactService,
+    ficheMetierService,
     lesEntreprisesSEngagementService,
     localisationService,
     missionEngagementService,
