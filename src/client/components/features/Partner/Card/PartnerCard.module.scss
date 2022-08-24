@@ -40,11 +40,18 @@
 
   &Logo {
     display: flex;
-    position: relative;
+    align-items: center;
     justify-content: center;
+    min-height: 100px;
     border-radius: 20px 20px 0 0;
     border-bottom: 1px solid $color-separator;
     padding: 16px;
+    &Wrapper {
+      position: relative;
+      min-height: 100px;
+      height: 90%;
+      width: 90%;
+    }
   }
 
   &Action {
@@ -87,6 +94,7 @@
 
     &Body {
       width: 100%;
+      border-left: 1px solid #E5E5E5;
     }
   }
 }

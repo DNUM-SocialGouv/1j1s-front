@@ -50,7 +50,9 @@ export function PartnerCard(props: PartnerCardProps) {
     <Link href={link} className={styles.card}>
       <>
         <div className={styles.cardLogo}>
-          <Image alt={alt} src={logo} layout="fill" objectFit="contain"/>
+          <div className={styles.cardLogoWrapper}>
+            <Image alt={alt} src={logo} layout="fill" objectFit="contain"/>
+          </div>
         </div>
         <div className={styles.cardBody}>
           <span className={styles.cardBody__Title}>{title}</span>
