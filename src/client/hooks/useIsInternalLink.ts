@@ -1,14 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 export function useIsInternalLink(href: string) {
-  const [isInternal, setIsInternal] = useState(false);
   const INTERNAL_URL_PREFIX = '/';
-  useEffect(() => {
-    const INTERNAL_URL = window.location.origin;
-    setIsInternal(href.startsWith(INTERNAL_URL));
-  }, [href]);
+  const INTERNAL_URL_PROD = 'https://1j1s-front.osc-fr1.scalingo.io/';
   const isInternalLink = useMemo(function () {
-    return href.startsWith(INTERNAL_URL_PREFIX);
+    const isInternalProd = href.startsWith(INTERNAL_URL_PROD);
+    const isInternalPrefix = href.startsWith(INTERNAL_URL_PREFIX);
+    return isInternalPrefix || isInternalProd;
   }, [href]);
-  return isInternalLink || isInternal;
+  return isInternalLink;
 }
