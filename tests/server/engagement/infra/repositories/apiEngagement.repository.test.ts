@@ -9,7 +9,7 @@ import { Mission, RésultatsRechercheMission } from '~/server/engagement/domain/
 import { mapMission, mapRésultatsRechercheMission } from '~/server/engagement/infra/repositories/apiEngagement.mapper';
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import { createSuccess, Success } from '~/server/errors/either';
-import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 jest.mock('axios', () => {
   return {
@@ -18,23 +18,23 @@ jest.mock('axios', () => {
 });
 
 describe('ApiEngagementRepository', () => {
-  let engagementHttpClientService: EngagementHttpClientService;
+  let httpClientService: HttpClientService;
   let apiEngagementRepository: ApiEngagementRepository;
 
   beforeEach(() => {
-    engagementHttpClientService = anEngagementHttpClientService();
-    apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService);
+    httpClientService = anEngagementHttpClientService();
+    apiEngagementRepository = new ApiEngagementRepository(httpClientService);
   });
 
   describe('searchMissionEngagement', () => {
     describe('quand l\'api engagement répond avec une 200', () => {
       it('recherche les missions', async () => {
-        jest.spyOn(engagementHttpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
         const missionEngagementFiltre = aMissionEngagementFiltre();
 
         const { result } = await apiEngagementRepository.searchMissionEngagement(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
         expect(result).toEqual(aRésultatRechercheMission());
-        expect(engagementHttpClientService.get).toHaveBeenCalledWith('mission/search?distance=10km&domain=sante&from=1&lat=2.3522&lon=48.8566&openToMinors=yes&publisher=a-publisher-id&size=30', mapRésultatsRechercheMission);
+        expect(httpClientService.get).toHaveBeenCalledWith('mission/search?distance=10km&domain=sante&from=1&lat=2.3522&lon=48.8566&openToMinors=yes&publisher=a-publisher-id&size=30', mapRésultatsRechercheMission);
       });
     });
   });
@@ -43,13 +43,13 @@ describe('ApiEngagementRepository', () => {
     const missionEngagementId = '62b14f22c075d0071ada2ce4';
     describe('quand l\'api engagement répond avec une 200', () => {
       it('recherche les missions', async () => {
-        jest.spyOn(engagementHttpClientService, 'get').mockResolvedValue(createSuccess(anAmbassadeurDuDonDeVêtementMissionSolo()));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(anAmbassadeurDuDonDeVêtementMissionSolo()));
 
 
         const { result } = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Success<Mission>;
 
         expect(result).toEqual(anAmbassadeurDuDonDeVêtementMissionSolo());
-        expect(engagementHttpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4', mapMission);
+        expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4', mapMission);
       });
     });
   });

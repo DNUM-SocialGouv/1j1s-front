@@ -15,7 +15,8 @@ import {
 import { AlternanceDetailResponse } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import { createFailure, createSuccess, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
+
 
 jest.mock('axios', () => {
   return {
@@ -25,23 +26,23 @@ jest.mock('axios', () => {
 
 describe('ApiLaBonneAlternanceRepository', () => {
   let apiLaBonneAlternanceRepository: ApiLaBonneAlternanceRepository;
-  let laBonneAlternanceHttpClientService: LaBonneAlternanceHttpClientService;
+  let httpClientService: HttpClientService;
 
   beforeEach(() => {
-    laBonneAlternanceHttpClientService = aLaBonneAlternanceHttpClient();
+    httpClientService = aLaBonneAlternanceHttpClient();
     apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(
-      laBonneAlternanceHttpClientService,
+      httpClientService,
     );
   });
 
   describe('getMétierRecherchéList', () => {
     describe('quand l api répond avec un success', () => {
       it('retourne la liste des métiers recherchés filtrée de l\'api la bonne alternance, insensiblement à la casse', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess(aMétierList()));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMétierList()));
 
         const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('énergie');
 
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=energie', mapMétierRecherchéList);
+        expect(httpClientService.get).toHaveBeenCalledWith('metiers?title=energie', mapMétierRecherchéList);
         expect([
           {
             codeROMEList: ['H1302', 'H1206', 'H2502', 'H1102', 'I1102', 'H1502', 'H1504', 'H1209', 'H1402', 'F1203', 'I1302', 'I1304', 'F1401', 'F1402', 'H2701'],
@@ -57,11 +58,11 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
     describe('quand l api répond avec une failure', () => {
       it('retourne une liste vide', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
         const result = await apiLaBonneAlternanceRepository.getMétierRecherchéList('bou');
 
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
+        expect(httpClientService.get).toHaveBeenCalledWith('metiers?title=bou', mapMétierRecherchéList);
         expect([]).toEqual(result);
       });
     });
@@ -70,7 +71,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
   describe('searchAlternance', () => {
     describe('quand l api retourne un success', () => {
       it('retourne la liste des alternances recherchées par l\'api la bonne alternance filtré par domaine et lieu', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheAlternance()));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheAlternance()));
 
         const result = await apiLaBonneAlternanceRepository.searchAlternance({
           code: '75001',
@@ -80,14 +81,14 @@ describe('ApiLaBonneAlternanceRepository', () => {
           radius: '30',
         });
 
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
+        expect(httpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
         expect(result).toEqual(aRésultatsRechercheAlternance());
       });
     });
 
     describe('quand l api retourne une failure', () => {
       it('retourne 0 nombre de résultat et une liste vide', async () => {
-        jest.spyOn(laBonneAlternanceHttpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
         const result = await apiLaBonneAlternanceRepository.searchAlternance({
           code: '75001',
@@ -97,7 +98,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
           radius: '30',
         });
 
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
+        expect(httpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
         expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
       });
     });
@@ -108,7 +109,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('récupère l\'offre d\'alternance selon l\'id', async () => {
 
         jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
+          .spyOn(httpClientService, 'get')
           .mockResolvedValue(createSuccess(anApprentiBoucherFromPoleEmploi()));
         const expected = anApprentiBoucherFromPoleEmploi();
         const offreAlternanceId = '134BYGN';
@@ -116,7 +117,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
         expect(result.result).toEqual(expected);
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
+        expect(httpClientService.get).toHaveBeenCalledWith(
           `jobs/job/${offreAlternanceId}`,
           mapRésultatRechercheAlternance,
         );
@@ -127,7 +128,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
       it('récupère l\'offre d\'alternance selon l\'id', async () => {
 
         jest
-          .spyOn(laBonneAlternanceHttpClientService, 'get')
+          .spyOn(httpClientService, 'get')
           .mockResolvedValue(createSuccess(anApprentiBoucherFromMatcha()));
         const expected = anApprentiBoucherFromMatcha();
         const offreAlternanceId = '628a65a72ff4860027ae1531';
@@ -135,7 +136,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
         const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
         expect(result.result).toEqual(expected);
-        expect(laBonneAlternanceHttpClientService.get).toHaveBeenCalledWith(
+        expect(httpClientService.get).toHaveBeenCalledWith(
           `jobs/matcha/${offreAlternanceId}`,
           mapRésultatRechercheAlternance,
         );

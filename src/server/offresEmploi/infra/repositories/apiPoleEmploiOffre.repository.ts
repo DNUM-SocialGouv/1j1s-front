@@ -19,18 +19,18 @@ import {
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
-    private poleEmploiHttpClientService: PoleEmploiHttpClientService,
+    private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {
   }
 
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
-    return await this.poleEmploiHttpClientService.get<OffreEmploiResponse, OffreEmploi>(
+    return await this.httpClientServiceWithAuthentification.get<OffreEmploiResponse, OffreEmploi>(
       `partenaire/offresdemploi/v2/offres/${id}`,
       mapOffreEmploi,
     );
@@ -38,7 +38,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
-    return await this.poleEmploiHttpClientService.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
+    return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
       `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
       mapRésultatsRechercheOffreEmploi,
     );

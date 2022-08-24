@@ -1,11 +1,11 @@
 import { mapCodeInsee } from '~/server/offresEmploi/infra/repositories/apiPoleEmploi.mapper';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 export class ApiPoleEmploiRéférentielRepository {
 
   constructor(
-    private poleEmploiHttpClientService: PoleEmploiHttpClientService,
+    private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private cacheService: CacheService,
   ) {
   }
@@ -17,7 +17,7 @@ export class ApiPoleEmploiRéférentielRepository {
     if(responseInCache) {
       return mapCodeInsee(responseInCache, codePostal);
     } else {
-      const response = await this.poleEmploiHttpClientService.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
+      const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
         'partenaire/offresdemploi/v2/referentiel/communes',
         (data) => data,
       );

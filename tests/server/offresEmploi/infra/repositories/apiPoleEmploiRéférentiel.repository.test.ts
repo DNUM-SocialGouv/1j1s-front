@@ -9,7 +9,7 @@ import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 jest.mock('axios', () => {
   return {
@@ -18,21 +18,21 @@ jest.mock('axios', () => {
 });
 
 describe('ApiPoleEmploiRéférentielRepository', () => {
-  let poleEmploiHttpClientService: PoleEmploiHttpClientService;
+  let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification;
   let cacheService: CacheService;
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
   beforeEach(() => {
-    poleEmploiHttpClientService = aPoleEmploiHttpClient();
+    httpClientServiceWithAuthentification = aPoleEmploiHttpClient();
     cacheService = new MockedCacheService();
-    apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiHttpClientService, cacheService);
+    apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(httpClientServiceWithAuthentification, cacheService);
   });
 
   describe('findCodeInseeInRéférentielCommune', () => {
     describe('quand l\'code insee est trouvé', () => {
       it('retourne le code insee', async () => {
         jest
-          .spyOn(poleEmploiHttpClientService, 'get')
+          .spyOn(httpClientServiceWithAuthentification, 'get')
           .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
         const expected = '55221';
 
@@ -45,7 +45,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
     describe('quand l\'code insee n\'est trouvé', () => {
       it('retourne le code postal', async () => {
         jest
-          .spyOn(poleEmploiHttpClientService, 'get')
+          .spyOn(httpClientServiceWithAuthentification, 'get')
           .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
         const expected = '75101';
 

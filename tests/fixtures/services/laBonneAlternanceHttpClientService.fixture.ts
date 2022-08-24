@@ -1,15 +1,16 @@
 import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
-import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
-export function aLaBonneAlternanceHttpClient(): LaBonneAlternanceHttpClientService {
+
+export function aLaBonneAlternanceHttpClient(): HttpClientService {
   return {
     client: anAxiosInstance(),
     get: jest.fn(),
     post: jest.fn(),
     setAuthorizationHeader: jest.fn(),
-  } as unknown as LaBonneAlternanceHttpClientService;
+  } as unknown as HttpClientService;
 }
 
 export function aRechercheMétierResponse(): AxiosResponse {

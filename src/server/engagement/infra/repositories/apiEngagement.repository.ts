@@ -11,15 +11,15 @@ import {
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
 import { Either } from '~/server/errors/either';
-import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiEngagementRepository implements EngagementRepository {
-  constructor(private engagementHttpClientService: EngagementHttpClientService) {
+  constructor(private httpClientService: HttpClientService) {
   }
 
   async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
-    return await this.engagementHttpClientService.get<RésultatsMissionEngagementResponse, Mission>(
+    return await this.httpClientService.get<RésultatsMissionEngagementResponse, Mission>(
       `mission/${id}`,
       mapMission,
     );
@@ -27,7 +27,8 @@ export class ApiEngagementRepository implements EngagementRepository {
 
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
     const paramètresRecherche = ApiEngagementRepository.buildParamètresRecherche(missionEngagementFiltre);
-    return await this.engagementHttpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
+
+    return await this.httpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
       `mission/search?${paramètresRecherche}`,
       mapRésultatsRechercheMission,
     );

@@ -10,7 +10,7 @@ import {
   RechercherMétierDependenciesContainer,
   rechercherMétierDependenciesContainer,
 } from '~/server/alternances/infra/configuration/rechercheMétierDependencies.container';
-import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export type AlternanceDependencies =
   RechercherMétierDependenciesContainer
@@ -18,11 +18,11 @@ export type AlternanceDependencies =
   & ConsulterOffreAlternanceDependenciesContainer;
 
 export const alternanceDependenciesContainer = (
-  laBonneAlternanceHttpClient: LaBonneAlternanceHttpClientService,
+  httpClientService: HttpClientService,
 ): AlternanceDependencies => {
   return {
-    ...rechercherMétierDependenciesContainer(laBonneAlternanceHttpClient),
-    ...rechercherAlternanceDependenciesContainer(laBonneAlternanceHttpClient),
-    ...consulterOffreAlternanceDependenciesContainer(laBonneAlternanceHttpClient),
+    ...rechercherMétierDependenciesContainer(httpClientService),
+    ...rechercherAlternanceDependenciesContainer(httpClientService),
+    ...consulterOffreAlternanceDependenciesContainer(httpClientService),
   };
 };

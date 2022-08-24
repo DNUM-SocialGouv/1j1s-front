@@ -1,21 +1,21 @@
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
-import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
+import { ConfigurationService } from '~/server/services/configuration.service';
+import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 
 export interface ListeLocalisationDependenciesContainer {
   readonly listeLocalisation: RechercherLocalisationUseCase;
 }
 
 export const listeLocalisationDependenciesContainer = (
-  apiAdresseHttpClientService: ApiAdresseHttpClientService,
-  apiGeoGouvHttpClientService: ApiGeoHttpClientService,
+  configurationService: ConfigurationService,
 ): ListeLocalisationDependenciesContainer => {
+  const { adresseClientService, geoGouvClientService } = buildHttpClientConfigList(configurationService);
   const localisationRepository = new ApiGeoLocalisationRepository(
-    apiGeoGouvHttpClientService,
+    geoGouvClientService,
   );
-  const localisationAvecCoordonnéesRepository = new ApiAdresseRepository(apiAdresseHttpClientService);
+  const localisationAvecCoordonnéesRepository = new ApiAdresseRepository(adresseClientService);
 
   return {
     listeLocalisation: new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonnéesRepository),

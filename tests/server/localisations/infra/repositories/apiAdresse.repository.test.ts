@@ -3,22 +3,22 @@ import { anApiAdresseHttpClientService } from '@tests/fixtures/services/apiAdres
 import { createSuccess, Success } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 describe('ApiAdresseRepository', () => {
-  let apiAdresseHttpClientService: ApiAdresseHttpClientService;
+  let httpClientService: HttpClientService;
   let apiAdresseRepository: ApiAdresseRepository;
 
   beforeEach(() => {
-    apiAdresseHttpClientService = anApiAdresseHttpClientService();
-    apiAdresseRepository = new ApiAdresseRepository(apiAdresseHttpClientService);
+    httpClientService = anApiAdresseHttpClientService();
+    apiAdresseRepository = new ApiAdresseRepository(httpClientService);
   });
 
   describe('getCommuneList', () => {
     describe('quand la liste de communes est trouvée',() => {
       it('retourne la liste des communes', async () => {
         jest
-          .spyOn(apiAdresseHttpClientService, 'get')
+          .spyOn(httpClientService, 'get')
           .mockResolvedValue(createSuccess({
             résultats: [
               {

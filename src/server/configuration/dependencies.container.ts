@@ -36,12 +36,7 @@ import {
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
-import { ApiAdresseHttpClientService } from '~/server/services/http/apiAdresseHttpClient.service';
-import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
-import { ApiGeoHttpClientService } from '~/server/services/http/apiGeoHttpClient.service';
-import { LaBonneAlternanceHttpClientService } from '~/server/services/http/laBonneAlternanceHttpClient.service';
-import { PoleEmploiHttpClientService } from '~/server/services/http/poleEmploiHttpClient.service';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
 export type Dependencies = {
@@ -62,24 +57,23 @@ export const dependenciesContainer = (): Dependencies => {
   } else {
     cacheService  = new RedisCacheService(serverConfigurationService);
   }
-  const poleEmploiHttpClientService = new PoleEmploiHttpClientService(serverConfigurationService);
-  const laBonneAlternanceHttpClient = new LaBonneAlternanceHttpClientService(serverConfigurationService);
-  const strapiHttpClientService = new StrapiHttpClientService(serverConfigurationService);
-  const apiGeoGouvHttpClientService = new ApiGeoHttpClientService(serverConfigurationService);
-  const apiAdresseHttpClientService = new ApiAdresseHttpClientService(serverConfigurationService);
-  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiHttpClientService, cacheService);
-  const apiEngagementHttpClientService = new EngagementHttpClientService(serverConfigurationService);
+  
+  const {
+    engagementClientService,
+    laBonneAlternanceClientService,
+    strapiClientService,
+    poleEmploiClientService,
+  } = buildHttpClientConfigList(serverConfigurationService);
 
-  const cmsDependencies = cmsDependenciesContainer(strapiHttpClientService);
-  const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiHttpClientService, apiPoleEmploiRéférentielRepository);
-  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceHttpClient);
-  const engagementDependencies = engagementDependenciesContainer(apiEngagementHttpClientService);
-  const localisationDependencies = localisationDependenciesContainer(
-    apiGeoGouvHttpClientService,
-    apiAdresseHttpClientService,
-  );
+  const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiClientService, cacheService);
+
+  const cmsDependencies = cmsDependenciesContainer(strapiClientService);
+  const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiClientService, apiPoleEmploiRéférentielRepository);
+  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
+  const engagementDependencies = engagementDependenciesContainer(engagementClientService);
+  const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const contratEngagementJeuneDependencies = contratEngagementJeuneDependenciesContainer(
-    new StrapiDemandeDeContactRepository(strapiHttpClientService),
+    new StrapiDemandeDeContactRepository(strapiClientService),
   );
   const entrepriseDependencies = entrepriseDependenciesContainer(
     new StrapiRejoindreLaMobilisationRepository(strapiHttpClientService),

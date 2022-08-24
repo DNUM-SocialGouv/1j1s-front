@@ -2,7 +2,7 @@ import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.r
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoireUseCase';
 import { RécupérerMesuresJeunesUseCase } from '~/server/cms/useCases/récupérerMesuresJeunesUseCase';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export interface CmsDependencies {
   consulterArticle: ConsulterArticleUseCase
@@ -10,8 +10,8 @@ export interface CmsDependencies {
   récupérerMesuresJeunes: RécupérerMesuresJeunesUseCase
 }
 
-export const cmsDependenciesContainer = (strapiHttpClientService: StrapiHttpClientService): CmsDependencies => {
-  const repository = new StrapiCmsRepository(strapiHttpClientService);
+export const cmsDependenciesContainer = (httpClientService: HttpClientService): CmsDependencies => {
+  const repository = new StrapiCmsRepository(httpClientService);
 
   return {
     consulterArticle: new ConsulterArticleUseCase(repository),

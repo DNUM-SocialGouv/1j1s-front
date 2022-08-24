@@ -1,9 +1,9 @@
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class StrapiCmsService {
   constructor(
-    private strapiHttpClientService: StrapiHttpClientService,
+    private httpClientService: HttpClientService,
     private configurationService: ConfigurationService,
   ) {
   }

@@ -8,15 +8,15 @@ import {
   ConsulterMissionEngagementResponse, MissionEngagementResponse, RésultatsMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import { EngagementHttpClientService } from '~/server/services/http/apiEngagementHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
-export function anEngagementHttpClientService(): EngagementHttpClientService {
+export function anEngagementHttpClientService(): HttpClientService {
   return {
     client: anAxiosInstance(),
     get: jest.fn(),
     post: jest.fn(),
     setAuthorizationHeader: jest.fn(),
-  } as unknown as EngagementHttpClientService;
+  } as unknown as HttpClientService;
 }
 
 export function aRésultatRechercheMissionAxiosResponse(override?: Partial<RésultatsRechercheMissionEngagementResponse>): AxiosResponse<RésultatsRechercheMissionEngagementResponse> {
