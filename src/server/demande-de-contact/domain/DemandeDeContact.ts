@@ -1,8 +1,18 @@
+export type DemandeDeContactType = 'CEJ' | 'Entreprise'
+
 export interface DemandeDeContact {
-    prénom: string
-    nom: string
-    email: string
-    téléphone: string
+  prénom: string
+  nom: string
+  email: string
+  téléphone: string
+}
+
+export interface DemandeDeContactEntreprise extends DemandeDeContact {
+  sujet: string
+  message: string
+}
+
+export interface DemandeDeContactCEJ extends DemandeDeContact {
     ville: string
     age: Age
 }

@@ -6,12 +6,12 @@ import {
 } from '~/server/alternances/configuration/alternanceDependencies';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import {
-  ContratEngagementJeuneDependencies,
-  contratEngagementJeuneDependenciesContainer,
-} from '~/server/contrat-engagement-jeune/configuration/contratEngagementJeuneDependencies';
+  DemandeDeContactDependencies,
+  DemandeDeContactDependenciesContainer,
+} from '~/server/demande-de-contact/configuration/demandeDeContactDependencies';
 import {
   StrapiDemandeDeContactRepository,
-} from '~/server/contrat-engagement-jeune/infra/strapiDemandeDeContact.repository';
+} from '~/server/demande-de-contact/infra/strapiDemandeDeContact.repository';
 import {
   EngagementDependencies,
   engagementDependenciesContainer,
@@ -45,7 +45,7 @@ export type Dependencies = {
   cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationsDependencies;
-  contratEngagementJeuneDependencies: ContratEngagementJeuneDependencies
+  demandeDeContactDependencies: DemandeDeContactDependencies
   entrepriseDependencies: EntrepriseDependencies
 };
 
@@ -57,7 +57,7 @@ export const dependenciesContainer = (): Dependencies => {
   } else {
     cacheService  = new RedisCacheService(serverConfigurationService);
   }
-  
+
   const {
     engagementClientService,
     laBonneAlternanceClientService,
@@ -72,7 +72,7 @@ export const dependenciesContainer = (): Dependencies => {
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
   const engagementDependencies = engagementDependenciesContainer(engagementClientService);
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
-  const contratEngagementJeuneDependencies = contratEngagementJeuneDependenciesContainer(
+  const demandeDeContactDependencies = DemandeDeContactDependenciesContainer(
     new StrapiDemandeDeContactRepository(strapiClientService),
   );
   const entrepriseDependencies = entrepriseDependenciesContainer(
@@ -82,7 +82,7 @@ export const dependenciesContainer = (): Dependencies => {
   return {
     alternanceDependencies,
     cmsDependencies,
-    contratEngagementJeuneDependencies,
+    demandeDeContactDependencies: demandeDeContactDependencies,
     engagementDependencies,
     entrepriseDependencies,
     localisationDependencies,

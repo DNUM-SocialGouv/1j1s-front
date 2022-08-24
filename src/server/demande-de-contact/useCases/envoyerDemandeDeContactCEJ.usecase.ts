@@ -4,11 +4,11 @@ import phone from 'phone';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-import { Age,DemandeDeContact } from '../domain/DemandeDeContact';
+import { Age, DemandeDeContactCEJ } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 
-type EnvoyerDemanderDeContact = Partial<{
+type EnvoyerDemanderDeContactCEJ = Partial<{
     prénom: string
     nom: string
     email: string
@@ -17,20 +17,20 @@ type EnvoyerDemanderDeContact = Partial<{
     age: number
 }>
 
-export class EnvoyerDemanderDeContactUseCase {
+export class EnvoyerDemanderDeContactCEJUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
 
-  async handle(command: EnvoyerDemanderDeContact): Promise<Either<void>> {
+  async handle(command: EnvoyerDemanderDeContactCEJ): Promise<Either<void>> {
     try {
-      const demandeDeContact: DemandeDeContact = Joi.attempt(command, DemandeDeContactValidator);
-      return this.demandeDeContactRepository.save(demandeDeContact);
+      const demandeDeContactCEJ: DemandeDeContactCEJ = Joi.attempt(command, DemandeDeContactCEJValidator);
+      return this.demandeDeContactRepository.saveCEJ(demandeDeContactCEJ);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
   }
 }
 
-const DemandeDeContactValidator = Joi.object({
+const DemandeDeContactCEJValidator = Joi.object({
   age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(Age).required(),
   email: Joi.string().email().required(),
   nom: Joi.string().required(),

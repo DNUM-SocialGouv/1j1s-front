@@ -52,7 +52,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
       await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
 
-      expect(routerPush).toHaveBeenCalledWith('/les-entreprises-s-engagent');
+      expect(routerPush).toHaveBeenCalledWith('/demande-de-contact');
     });
 
     it('il voit afficher la première étape de formulaire', () => {

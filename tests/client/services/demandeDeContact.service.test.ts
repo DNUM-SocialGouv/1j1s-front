@@ -25,7 +25,7 @@ describe('DemandeDeContactService', () => {
       // Then
       expect(result).toEqual(createSuccess(undefined));
       expect(httpClientService.post).toHaveBeenCalledWith(
-        'demandes-de-contact', body,
+        'demande-de-contact', body,
       );
     });
     it('appelle API avec les paramètres du formulaire de contact et retourne une Failure', async () => {
@@ -49,7 +49,7 @@ describe('DemandeDeContactService', () => {
       // Then
       expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
       expect(httpClientService.post).toHaveBeenCalledWith(
-        'demandes-de-contact', body,
+        'demande-de-contact', body,
       );
     });
   });

@@ -9,8 +9,8 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
-  LesEntreprisesSEngagentService,
-} from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
+  DemandeDeContactService,
+} from '~/client/services/demande-de-contact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
 import styles from './LesEntreprisesSEngagentInscription.module.scss';
@@ -43,7 +43,7 @@ export default function LesEntreprisesSEngagentInscription() {
   const [isContactezNousOpen, setIsContactezNousOpen] = useState<boolean>(false);
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-  const lesEntreprisesSEngagementService  = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagementService');
+  const lesEntreprisesSEngagementService  = useDependency<DemandeDeContactService>('lesEntreprisesSEngagementService');
 
   const [formulaireEtape1, setFormulaireEtape1] = useState<FormulaireEtape1Props>({ codePostal: '', nomSociété: '', secteur: '', siret: '', taille: '' });
 
@@ -60,7 +60,7 @@ export default function LesEntreprisesSEngagentInscription() {
   }
 
   function returnToLesEntreprisesSEngagent() {
-    return router.push('/les-entreprises-s-engagent');
+    return router.push('/demande-de-contact');
   }
 
   function returnToEtape1() {

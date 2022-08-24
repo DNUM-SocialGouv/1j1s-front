@@ -3,7 +3,7 @@ import { FormulaireEngagement } from '~/pages/les-entreprises-s-engagent/inscrip
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-export class LesEntreprisesSEngagentService {
+export class DemandeDeContactService {
   constructor(private httpClientService: HttpClientService) {}
 
   async envoyerFormulaireEngagement(formulaire: FormulaireEngagement): Promise<Either<void>> {
