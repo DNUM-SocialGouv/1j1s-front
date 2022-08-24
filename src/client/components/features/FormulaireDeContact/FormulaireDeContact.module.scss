@@ -71,27 +71,18 @@
 }
 
 .textArea {
-
   margin-top: 1rem;
 
-  &Input {
-    margin-top: 8px;
-    background-color: #FFFFFF;
-    border: 0.5px solid #161616;
-    border-radius: 30px;
-    box-shadow: none;
-    width: 100%;
-    min-height: 100px;
+  > textarea {
+    min-height: 8rem;
+    background-color: $color-form-field;
+    padding-top: 1rem;
   }
 }
 
 .modal {
   > button {
     color: $color-on-background;
-  }
-
-  > input {
-    background-color: $color-form-field;
   }
 
   &Title {

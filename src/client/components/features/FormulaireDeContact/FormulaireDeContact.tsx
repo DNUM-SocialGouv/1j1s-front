@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
+import { TextArea } from '~/client/components/ui/TextArea/TextArea';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 
 import styles from './FormulaireDeContact.module.scss';
@@ -58,11 +59,13 @@ export default function FormulaireDeContact({ isOpenState }: FormulaireDeContact
             placeholder="Exemple : Dupont"
             required
           />
-          <div className={styles.textArea}>
-            <label>Message</label>
-            <br />
-            <textarea className={styles.textAreaInput} name="message"></textarea>
-          </div>
+          <TextArea
+            className={styles.textArea}
+            label="Message"
+            name="message"
+            placeholder="Mettre ici plus de détail sur votre demande"
+            required
+          />
           <div className={styles.formulaireDeRappelButton}>
             <Button buttonType="primary">Envoyer la demande</Button>
           </div>

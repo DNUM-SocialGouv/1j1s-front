@@ -81,7 +81,7 @@ export default function LesEntreprisesSEngagentInscription() {
 
   function displayFooter() {
     return <div className={styles.footer}>
-      Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#" onClick={() => setIsContactezNousOpen(true)}>contactez-nous</a>
+      Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <span onClick={() => setIsContactezNousOpen(true)}>contactez-nous</span>
     </div>;
   }
 
