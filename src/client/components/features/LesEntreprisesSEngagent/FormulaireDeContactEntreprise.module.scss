@@ -54,15 +54,11 @@
 
 .success {
   text-align: center;
-  h3 {
-    margin-top: 2rem;
-    color: $color-primary;
-  }
 
   span {
     display: flex;
-    margin: auto;
-    width:120px;
+    margin: 1rem auto;
+    width: 120px;
     height: 120px;
     color: $color-secondary;
     align-items: center;

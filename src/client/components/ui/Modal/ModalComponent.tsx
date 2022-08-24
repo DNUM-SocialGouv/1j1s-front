@@ -25,11 +25,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   }
 
   const closeModalOnClickOutside = useCallback((e: MouseEvent) => {
-    if (modalRef.current && !(modalRef.current)?.contains(e.target as Node)) {
-      disableDocumentBodyScroll(false);
-      trapModalFocus();
-      close();
-    }
+    if (modalRef.current && !(modalRef.current)?.contains(e.target as Node)) close();
 
   }, [modalRef, close]);
 
@@ -37,6 +33,12 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
     if (isOpen && e.key === KeyBoard.ESCAPE) close();
 
   }, [isOpen, close]);
+
+  useEffect(function enableDocumentBodyWhenTheModalIsClosing() {
+    return () => {
+      disableDocumentBodyScroll(false);
+    };
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousedown', closeModalOnClickOutside);
@@ -94,11 +96,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
                 buttonType="linkWithRightIcon"
                 icon={<Icon name='close' />}
                 title={closeTitle}
-                onClick={() => {
-                  close();
-                  disableDocumentBodyScroll(false);
-                  trapModalFocus();
-                }}>
+                onClick={() => close()}>
                 {closeLabel}
               </Button>
             </div>

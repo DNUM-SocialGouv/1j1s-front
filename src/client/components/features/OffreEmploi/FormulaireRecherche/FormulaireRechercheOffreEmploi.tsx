@@ -13,7 +13,7 @@ import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisatio
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
-import { TextInput } from '~/client/components/ui/TextInput/TextInput';
+import { TextInput } from '~/client/components/ui/Text/TextInput';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';

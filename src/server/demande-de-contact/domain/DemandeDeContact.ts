@@ -1,4 +1,4 @@
-export type DemandeDeContactType = 'CEJ' | 'Entreprise'
+export type DemandeDeContactType = 'CEJ' | 'LesEntreprisesSEngagent'
 
 export interface DemandeDeContact {
   prénom: string

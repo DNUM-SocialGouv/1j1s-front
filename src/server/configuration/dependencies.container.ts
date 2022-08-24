@@ -7,7 +7,7 @@ import {
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import {
   DemandeDeContactDependencies,
-  DemandeDeContactDependenciesContainer,
+  demandeDeContactDependenciesContainer,
 } from '~/server/demande-de-contact/configuration/demandeDeContactDependencies';
 import {
   StrapiDemandeDeContactRepository,
@@ -72,7 +72,7 @@ export const dependenciesContainer = (): Dependencies => {
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
   const engagementDependencies = engagementDependenciesContainer(engagementClientService);
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
-  const demandeDeContactDependencies = DemandeDeContactDependenciesContainer(
+  const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
     new StrapiDemandeDeContactRepository(strapiClientService),
   );
   const entrepriseDependencies = entrepriseDependenciesContainer(

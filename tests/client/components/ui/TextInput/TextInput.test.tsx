@@ -5,7 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { TextInput } from '~/client/components/ui/TextInput/TextInput';
+import { TextInput } from '~/client/components/ui/Text/TextInput';
 
 describe('TextInput', () => {
   describe('quand le champ comporte un indice d\'aide à la saisie', () => {

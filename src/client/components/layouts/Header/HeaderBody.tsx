@@ -70,7 +70,7 @@ export function HeaderBody() {
                 <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} onClick={onClickSetModal}/>
               </Accordion>
               <Accordion title="Aides, orientation et accompagnement">
-                <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/demande-de-contact'} onClick={onClickSetModal}/>
+                <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} onClick={onClickSetModal}/>
                 <NavSubItem title="Mes aides financières" link="/mes-aides" current={path === '/mes-aides'} onClick={onClickSetModal}/>
                 <NavSubItem title="Mentorat" link="/mentorat" current={path === '/mentorat'} onClick={onClickSetModal}/>
                 <NavSubItem title="Les mesures jeunes" link="/mesures-jeunes" current={path === '/mesures-jeunes'} onClick={onClickSetModal}/>

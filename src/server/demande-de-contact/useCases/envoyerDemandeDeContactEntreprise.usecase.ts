@@ -7,7 +7,6 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
-
 type EnvoyerDemanderDeContactEntreprise = Partial<{
     prénom: string
     nom: string

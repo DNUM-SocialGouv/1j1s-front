@@ -11,7 +11,7 @@ export interface DemandeDeContactDependencies {
   envoyerDemanderDeContactEntrepriseUseCase: EnvoyerDemanderDeContactEntrepriseUseCase
 }
 
-export const DemandeDeContactDependenciesContainer = (
+export const demandeDeContactDependenciesContainer = (
   demandeDeContactRepository: DemandeDeContactRepository,
 ): DemandeDeContactDependencies => {
   return {

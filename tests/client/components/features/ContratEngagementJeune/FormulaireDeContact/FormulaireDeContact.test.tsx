@@ -12,13 +12,14 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact.serv
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);
-describe('<FormulaireDeContact />', () => {
+describe('<FormulaireDeContactEntreprise />', () => {
   const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
 
   function renderComponent() {
     const onSuccess = jest.fn();
     const anDemandeDeContactService = (): DemandeDeContactService => ({
-      envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
+      envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
+      envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService);
     const demandeDeContactServiceMock = anDemandeDeContactService();
 
@@ -80,7 +81,7 @@ describe('<FormulaireDeContact />', () => {
         });
 
         // Then
-        expect(demandeDeContactServiceMock.envoyer).toHaveBeenCalledWith({
+        expect(demandeDeContactServiceMock.envoyerPourLeCEJ).toHaveBeenCalledWith({
           age: 19,
           email: 'toto@msn.fr',
           nom: 'Mc Totface',

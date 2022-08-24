@@ -1,10 +1,10 @@
 import {
-  DemandeDeContactService,
-} from '~/client/services/demande-de-contact/demandeDeContact.service';
+  LesEntreprisesSEngagentService,
+} from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { createSuccess } from '~/server/errors/either';
 
-export function aLesEntreprisesSEngagementService(): DemandeDeContactService {
+export function aLesEntreprisesSEngagementService(): LesEntreprisesSEngagentService {
   return {
     envoyerFormulaireEngagement: jest.fn().mockResolvedValue(createSuccess(undefined)),
-  } as unknown as DemandeDeContactService;
+  } as unknown as LesEntreprisesSEngagentService;
 }

@@ -2,15 +2,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
-import FormulaireDeContact from '~/client/components/features/FormulaireDeContact/FormulaireDeContact';
+import FormulaireDeContactEntreprise from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import { TextInput } from '~/client/components/ui/TextInput/TextInput';
+import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
-  DemandeDeContactService,
-} from '~/client/services/demande-de-contact/demandeDeContact.service';
+  LesEntreprisesSEngagentService,
+} from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { isSuccess } from '~/server/errors/either';
 
 import styles from './LesEntreprisesSEngagentInscription.module.scss';
@@ -43,7 +43,7 @@ export default function LesEntreprisesSEngagentInscription() {
   const [isContactezNousOpen, setIsContactezNousOpen] = useState<boolean>(false);
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-  const lesEntreprisesSEngagementService  = useDependency<DemandeDeContactService>('lesEntreprisesSEngagementService');
+  const lesEntreprisesSEngagementService  = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagementService');
 
   const [formulaireEtape1, setFormulaireEtape1] = useState<FormulaireEtape1Props>({ codePostal: '', nomSociété: '', secteur: '', siret: '', taille: '' });
 
@@ -60,7 +60,7 @@ export default function LesEntreprisesSEngagentInscription() {
   }
 
   function returnToLesEntreprisesSEngagent() {
-    return router.push('/demande-de-contact');
+    return router.push('/les-entreprises-s-engagent');
   }
 
   function returnToEtape1() {
@@ -258,7 +258,7 @@ export default function LesEntreprisesSEngagentInscription() {
             }
           </div>
           {
-            isContactezNousOpen && <FormulaireDeContact isOpen={isContactezNousOpen} close={() => setIsContactezNousOpen(false)}/>
+            isContactezNousOpen && <FormulaireDeContactEntreprise isOpen={isContactezNousOpen} close={() => setIsContactezNousOpen(false)}/>
           }
         </>
       }

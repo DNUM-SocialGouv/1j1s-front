@@ -32,7 +32,7 @@ export function Header() {
           <NavSubItem title="Jobs étudiants" link="/jobs-etudiants" current={path === '/jobs-etudiants'} />
         </NavItem>
         <NavItem title="Aides, orientation et accompagnement">
-          <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/demande-de-contact'} />
+          <NavSubItem title="Contrat Engagement Jeune" link="/contrat-engagement-jeune" current={path === '/contrat-engagement-jeune'} />
           <NavSubItem title="Mes aides financières" link="/mes-aides" current={path === '/mes-aides'} />
           <NavSubItem title="Mentorat" link="/mentorat" current={path === '/mentorat'} />
           <NavSubItem title="Les mesures jeunes" link="/mesures-jeunes" current={path === '/mesures-jeunes'} />
@@ -43,7 +43,7 @@ export function Header() {
         </NavItem>
         <NavItem title="Je suis employeur">
           <NavSubItem title="Je deviens mentor" link="/je-deviens-mentor" current={path === '/je-deviens-mentor'} />
-          <NavSubItem title="Rejoindre la mobilisation" link="/les-entreprises-s-engagent" current={path === '/demande-de-contact'} />
+          <NavSubItem title="Rejoindre la mobilisation" link="/les-entreprises-s-engagent" current={path === '/les-entreprises-s-engagent'} />
         </NavItem>
       </HeaderNav>
     </header>

@@ -2,8 +2,8 @@ import { aHttpClientService } from '@tests/fixtures/client/services/httpClientSe
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import {
-  DemandeDeContactService,
-} from '~/client/services/demande-de-contact/demandeDeContact.service';
+  LesEntreprisesSEngagentService,
+} from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
@@ -12,7 +12,7 @@ describe('LesEntreprisesSEngagentService', () => {
     it('revoie un Success', async () => {
       const httpClientService = aHttpClientService();
       jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(undefined));
-      const lesEntreprisesSEngagentServiceService = new DemandeDeContactService(httpClientService);
+      const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 
       const result = await lesEntreprisesSEngagentServiceService.envoyerFormulaireEngagement({
         codePostal: '75002',
@@ -47,7 +47,7 @@ describe('LesEntreprisesSEngagentService', () => {
     it('revoie une Failure', async () => {
       const httpClientService = aHttpClientService();
       jest.spyOn(httpClientService, 'post').mockRejectedValue(new Error('Error'));
-      const lesEntreprisesSEngagentServiceService = new DemandeDeContactService(httpClientService);
+      const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 
       const result = await lesEntreprisesSEngagentServiceService.envoyerFormulaireEngagement({
         codePostal: '75002',

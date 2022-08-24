@@ -1,17 +1,17 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { StrapiHttpClientService } from '~/server/services/http/strapiHttpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 import { DemandeDeContactCEJ, DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
-  constructor(private strapiHttpClientService: StrapiHttpClientService) {
+  constructor(private httpClientService: HttpClientService) {
   }
   async saveCEJ(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {
     try {
-      await this.strapiHttpClientService.post('contact-cejs', {
+      await this.httpClientService.post('contact-cejs', {
         data: {
           age: demandeDeContactCEJ.age,
           email: demandeDeContactCEJ.email,
@@ -29,7 +29,7 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
 
   async saveEntreprise(demandeDeContactEntreprise: DemandeDeContactEntreprise): Promise<Either<void>> {
     try {
-      await this.strapiHttpClientService.post('contact-entreprises', {
+      await this.httpClientService.post('contact-entreprises', {
         data: {
           email: demandeDeContactEntreprise.email,
           message: demandeDeContactEntreprise.message,

@@ -23,13 +23,11 @@ export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, re
       response = await dependencies.demandeDeContactDependencies.envoyerDemanderDeContactCEJUseCase.handle(req.body);
       break;
     }
-    case 'Entreprise': {
+    case 'LesEntreprisesSEngagent': {
       response = await dependencies.demandeDeContactDependencies.envoyerDemanderDeContactEntrepriseUseCase.handle(req.body);
       break;
     }
     default: {
-      const command = req.body;
-      delete command.type;
       response = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
       break;
     }

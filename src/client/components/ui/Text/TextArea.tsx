@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import styles from '~/client/components/ui/TextInput/TextInput.module.scss';
+import styles from '~/client/components/ui/Text/TextInput.module.scss';
 
 function useSynchronizedRef<T>(ref: ForwardedRef<T | null>) {
   const innerRef = useRef<T>(null);
@@ -29,7 +29,7 @@ interface TextInputProps extends React.InputHTMLAttributes<unknown> {
 }
 
 // eslint-disable-next-line react/display-name
-export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProps>((props: TextInputProps, outerRef) => {
+export const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextInputProps>((props: TextInputProps, outerRef) => {
   const {
     className,
     defaultValue,
@@ -68,7 +68,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
   const hintId = useRef(uuidv4());
   const errorId = useRef(uuidv4());
 
-  const onInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
       onChange(event);
     }
@@ -85,7 +85,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
           )}
         </label>
       )}
-      <input
+      <textarea
         ref={ref}
         {...rest}
         id={inputId.current}

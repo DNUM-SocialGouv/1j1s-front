@@ -86,7 +86,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
                 nom: 'Mc Totface',
                 prénom: 'Toto',
                 sujet: 'super sujet',
-                type: 'Entreprise',
+                type: 'LesEntreprisesSEngagent',
                 téléphone: '0678954322',
               }),
               headers: {
