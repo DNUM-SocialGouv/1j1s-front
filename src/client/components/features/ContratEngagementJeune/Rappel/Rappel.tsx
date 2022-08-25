@@ -1,7 +1,7 @@
 import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import { useState } from 'react';
 
-import FormulaireDeContact from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContact';
+import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import Marked from '~/client/components/ui/Marked/Marked';
@@ -34,9 +34,9 @@ export default function Rappel() {
       >
         <ModalTitle className={styles.rappelTitle}>{ title }</ModalTitle>
         <ModalContent>
-          <FormulaireDeContact onSuccess={() => onFormulaireEnvoyé() }>
+          <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
             <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
-          </FormulaireDeContact>
+          </FormulaireDeContactCEJ>
         </ModalContent>
       </Modal>
     </section>

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
+import FormulaireDeContact from '~/client/components/features/FormulaireDeContact/FormulaireDeContact';
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
@@ -39,6 +40,7 @@ export enum Etape {
 
 export default function LesEntreprisesSEngagentInscription() {
   const router = useRouter();
+  const [isContactezNousOpen, setIsContactezNousOpen] = useState<boolean>(false);
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
   const lesEntreprisesSEngagementService  = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagementService');
@@ -75,6 +77,12 @@ export default function LesEntreprisesSEngagentInscription() {
         setIsFormSuccessfullySent(true);
       }
     }
+  }
+
+  function displayFooter() {
+    return <div className={styles.footer}>
+      Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <span onClick={() => setIsContactezNousOpen(true)}>contactez-nous</span>
+    </div>;
   }
 
   return (
@@ -164,9 +172,7 @@ export default function LesEntreprisesSEngagentInscription() {
                   <Button buttonType="withRightIcon" type="submit" icon={<AngleRightIcon/>}>Suivant</Button>
                 </div>
 
-                <div className={styles.footer}>
-                  Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#">contactez-nous</a>
-                </div>
+                {displayFooter()}
 
               </form>
             }
@@ -246,13 +252,14 @@ export default function LesEntreprisesSEngagentInscription() {
                   <Button buttonType="primary" type="submit" icon={<AngleRightIcon/>}>Envoyer le formulaire</Button>
                 </div>
 
-                <div className={styles.footer}>
-                  Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification, <a href="#">contactez-nous</a>
-                </div>
+                {displayFooter()}
 
               </form>
             }
           </div>
+          {
+            isContactezNousOpen && <FormulaireDeContact isOpen={isContactezNousOpen} close={() => setIsContactezNousOpen(false)}/>
+          }
         </>
       }
 

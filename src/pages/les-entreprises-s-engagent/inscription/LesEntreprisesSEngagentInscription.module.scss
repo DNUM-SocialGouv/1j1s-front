@@ -66,8 +66,9 @@
   margin-top: 20px;
   margin-bottom: 20px;
 
-  > a {
+  > span {
     color: $color-primary;
+    cursor: pointer;
   }
 }
 

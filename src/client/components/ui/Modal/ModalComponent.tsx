@@ -1,10 +1,5 @@
 import classNames from 'classnames';
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Button } from '~/client/components/ui/Button/Button';
@@ -13,10 +8,10 @@ import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
 import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface ModalProps {
+  isOpen: boolean;
   close: (...args: unknown[]) => unknown
   closeLabel?: string;
   closeTitle?: string;
-  isOpen: boolean;
 }
 
 const MODAL_ANIMATION_TIME_IN_MS = 300;
@@ -31,6 +26,8 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
 
   const closeModalOnClickOutside = useCallback((e: MouseEvent) => {
     if (modalRef.current && !(modalRef.current)?.contains(e.target as Node)) {
+      disableDocumentBodyScroll(false);
+      trapModalFocus();
       close();
     }
 
@@ -97,7 +94,11 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
                 buttonType="linkWithRightIcon"
                 icon={<Icon name='close' />}
                 title={closeTitle}
-                onClick={() => close()}>
+                onClick={() => {
+                  close();
+                  disableDocumentBodyScroll(false);
+                  trapModalFocus();
+                }}>
                 {closeLabel}
               </Button>
             </div>
