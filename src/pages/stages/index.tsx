@@ -8,6 +8,7 @@ import { Configure, Hits, InstantSearch, SearchBox } from 'react-instantsearch-h
 import { Domaines, OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
@@ -82,6 +83,7 @@ export default function RechercherOffreStagePage() {
                 root: styles.stageListeRootElement,
               }
             }/>
+          <ErrorComponent/>
           <MeilsearchCustomPagination
             padding={0}
             numberOfResultPerPage={HITS_PER_PAGE}
