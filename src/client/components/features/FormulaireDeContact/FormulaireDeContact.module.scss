@@ -86,10 +86,19 @@
   }
 
   &Title {
-    @extend %text-xLarge;
-    text-align: center;
-    display: block;
-    color: $color-primary;
+    display: flex;
+    flex-direction: column;
+    @extend %bold;
+
+    div:first-child {
+      @extend %text-xLarge;
+    }
+
+    div:last-child {
+      margin: 1rem 0;
+      @extend %text-large;
+      color: $color-primary;
+    }
   }
 
   &Content {

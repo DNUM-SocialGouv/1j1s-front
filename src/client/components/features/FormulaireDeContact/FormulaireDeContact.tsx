@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Button } from '~/client/components/ui/Button/Button';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -16,7 +18,10 @@ export default function FormulaireDeContact({ isOpen, close }: FormulaireDeConta
   return (
     <ModalComponent closeLabel='' isOpen={isOpen} close={close} className={styles.modal}>
       <ModalComponent.Title className={styles.modalTitle}>
-        Demande de contact
+        <div>Contactez-nous</div>
+        <div>
+          (Tous les champs sont obligatoires)
+        </div>
       </ModalComponent.Title>
       <ModalComponent.Content className={styles.modalContent}>
         <form>
@@ -25,20 +30,20 @@ export default function FormulaireDeContact({ isOpen, close }: FormulaireDeConta
               label="Prénom"
               name="firstname"
               autoFocus
-              placeholder="Exemple : Jean"
+              placeholder="Exemple : Marc, Sonia…"
               required
             />
             <TextInput
               label="Nom"
               name="lastname"
-              placeholder="Exemple : Dupont"
+              placeholder="Exemple : Ducourt, Marie"
               required
             />
             <TextInput
               type="email"
               label="Adresse email"
               name="mail"
-              placeholder="Exemple : jean.dupont@gmail.com"
+              placeholder="Exemple : mail@exemple.com"
               required
             />
             <TextInput
@@ -46,7 +51,7 @@ export default function FormulaireDeContact({ isOpen, close }: FormulaireDeConta
               pattern="^(\+33|0|0033)[1-9]\d{8}$"
               label="Téléphone"
               name="phone"
-              placeholder="Exemple : 0606060606"
+              placeholder="Exemple : 0199999999"
               required
             />
           </div>
@@ -54,14 +59,14 @@ export default function FormulaireDeContact({ isOpen, close }: FormulaireDeConta
             className={styles.sujet}
             label="Sujet"
             name="sujet"
-            placeholder="Exemple : Dupont"
+            placeholder="Exemple : Demande de contact"
             required
           />
           <TextArea
             className={styles.textArea}
             label="Message"
             name="message"
-            placeholder="Mettre ici plus de détail sur votre demande"
+            placeholder="Indiquez plus de détails sur votre demande"
             required
           />
           <div className={styles.formulaireDeRappelButton}>
