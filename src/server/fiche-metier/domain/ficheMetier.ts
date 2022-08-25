@@ -1,3 +1,11 @@
+export interface FicheMétierResult {
+	results: FicheMétier[]
+	estimatedTotalResults: number
+	limit: number
+	offset: number
+	processingTimeMs: number
+}
+
 export interface FicheMétier {
 	accesMetier: string
 	accrocheMetier: string
@@ -15,7 +23,6 @@ export interface FicheMétier {
 	vieProfessionnelle: string
 }
 
-
 export interface FicheMetierNestedField {
 	id: number
 	idOnisep: string
@@ -26,10 +33,6 @@ export interface FicheMetierNestedFieldStatut extends FicheMetierNestedField {
 	idIdeo: string
 }
 
-export interface FicheMétierResult {
-	results: FicheMétier[]
-	estimatedTotalResults: number
-	limit: number
-	offset: number
-	processingTimeMs: number
+export interface FicheMetierFiltresRecherche {
+	motCle: string
 }

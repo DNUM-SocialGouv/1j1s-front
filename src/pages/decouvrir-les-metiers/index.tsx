@@ -1,26 +1,28 @@
-import { GetStaticPropsResult } from 'next';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
+import React, { useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Button } from '~/client/components/ui/Button/Button';
-import { Hero } from '~/client/components/ui/Hero/Hero';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { dependencies } from '~/server/start';
 
 import styles from './decouvrir-les-metiers.module.scss';
 
-interface RechercherFicheMetierProps {
-  fichesMetier: FicheMétier[]
-  totalNumberOfResult: number
-}
+export default function RechercherFicheMetierPage() {
+  const router = useRouter();
+  const [fiches, setFiches] = useState<FicheMétier[]>([]);
+  const [total, setTotal] = useState(0);
 
-export default function RechercherFicheMetierPage({ fichesMetier, totalNumberOfResult }: RechercherFicheMetierProps) {
+  const fichesMetierService  = useDependency<FicheMetierService>('ficheMetierService');
+
   const card = (résultat: FicheMétier) => (
     <Link href={'/'}>
       <div className={styles.cardTitle}>{résultat.nomMetier[0].toUpperCase() + résultat.nomMetier.slice(1)}</div>
@@ -31,6 +33,18 @@ export default function RechercherFicheMetierPage({ fichesMetier, totalNumberOfR
       </div>
     </Link>
   );
+
+  useEffect (() => {
+    const queryString = stringify(router.query);
+    if (queryString) {
+      fichesMetierService.rechercherFichesMétier(queryString).then((response) => {
+        if (response.instance === 'success') {
+          setFiches(response.result.results);
+          setTotal(response.result.estimatedTotalResults);
+        }
+      });
+    }
+  }, [router.query]);
 
   return (
     <>
@@ -53,35 +67,21 @@ export default function RechercherFicheMetierPage({ fichesMetier, totalNumberOfR
       </div>
       <div className={styles.resultInfosContainer}>
         <Container>
-          <div><strong>{totalNumberOfResult}</strong> fiches métiers</div>
+          <div><strong>{total}</strong> fiches métiers</div>
         </Container>
       </div>
       <div className={styles.bodySection}>
         <Container>
           <ol className={styles.resultList}>
-            {fichesMetier.map((ficheMetier) =>
+            {fiches.map((ficheMetier) =>
               <li className={styles.resultCard} key={ficheMetier.id}>{card(ficheMetier)}</li>,
             )}
           </ol>
-          <Pagination numberOfResult={totalNumberOfResult} numberOfResultPerPage={fichesMetier.length} />
+          { total > 0 && fiches.length > 0 &&
+            <Pagination numberOfResult={total} numberOfResultPerPage={fiches.length} />
+          }
         </Container>
       </div>
     </>
   );
-}
-
-export async function getStaticProps(): Promise<GetStaticPropsResult<RechercherFicheMetierProps>> {
-  const response = await dependencies.fichesMetierDependencies.rechercherFicheMetier.handle('');
-
-  if (response.instance === 'failure') {
-    return { notFound: true, revalidate: 1 };
-  }
-
-  return {
-    props: {
-      fichesMetier: JSON.parse(JSON.stringify(response.result.results)),
-      totalNumberOfResult: response.result.estimatedTotalResults,
-    }, 
-    revalidate: false,
-  };
 }

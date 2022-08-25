@@ -1,10 +1,11 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { FicheMétierResult } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.repository';
+import { Either } from '~/server/errors/either';
+import { FicheMétierResult } from '~/server/fiche-metier/domain/ficheMetier';
 
 export class FicheMetierService {
   constructor(private httpClient: HttpClientService) {}
 	
-  async rechercherFichesMétier(query: string) {
-    await this.httpClient.get<FicheMétierResult>(`fiche-metier?${query}`);
+  async rechercherFichesMétier(query = ''): Promise<Either<FicheMétierResult>> {
+    return await this.httpClient.get<FicheMétierResult>(`fiche-metier?${query}`);
   }
 }

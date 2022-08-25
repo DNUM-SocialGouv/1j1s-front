@@ -3,45 +3,22 @@ import { MeiliSearch, SearchResponse } from 'meilisearch';
 import { createSuccess } from '~/server/errors/either';
 import {
   FicheMétier,
+  FicheMetierFiltresRecherche,
   FicheMetierNestedField,
-  FicheMetierNestedFieldStatut, FicheMétierResult,
-} from '~/server/fiche-metier/domain/ficheMetier';
+  FicheMetierNestedFieldStatut, FicheMétierResult } from '~/server/fiche-metier/domain/ficheMetier';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
+import {
+  FicheMétierHttp, FicheMétierHttpNestedField,
+  FicheMétierHttpNestedFieldStatut,
+} from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
 
 export class FicheMetierMeilisearchRepository implements FicheMetierRepository {
   constructor(private client: MeiliSearch) {}
 
-  async rechercher(query: string) {
-    const result: SearchResponse<FicheMétierHttp> = await this.client.index('fiche-metier').search(query);
+  async rechercher(filtres: FicheMetierFiltresRecherche = { motCle: '' }) {
+    const result: SearchResponse<FicheMétierHttp> = await this.client.index('fiche-metier').search(filtres.motCle);
 	  return createSuccess(mapFichesMetierResult(result));
   }
-}
-
-export interface FicheMétierHttp {
-	acces_metier: string
-	accroche_metier: string
-	centres_interet: FicheMétierHttpNestedField[],
-	competences: string
-	condition_travail: string
-	formations_min_requise: FicheMétierHttpNestedField[]
-	id: string
-	identifiant: string
-	nature_travail: string
-	niveau_min_acces: FicheMétierHttpNestedField[]
-	nom_metier: string
-	secteurs_activite: FicheMétierHttpNestedField[],
-	statuts: FicheMétierHttpNestedFieldStatut[],
-	vie_professionnelle: string
-}
-
-export interface FicheMétierHttpNestedField {
-	id: number
-	identifiant: string
-	libelle: string
-}
-
-export interface FicheMétierHttpNestedFieldStatut extends FicheMétierHttpNestedField {
-	id_ideo1: string
 }
 
 function mapFichesMetierResult(fichesMetiersHttpResponse: SearchResponse<FicheMétierHttp>): FicheMétierResult {
