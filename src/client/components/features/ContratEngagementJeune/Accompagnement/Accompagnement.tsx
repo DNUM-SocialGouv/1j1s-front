@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
+import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
@@ -13,7 +14,7 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
-export type Formulaires = 'Démarrage' | 'PasDAccompagnement';
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide2' | 'AutresBesoins' ;
 
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
@@ -129,7 +130,6 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       setTypeFormulaireAffiché={setTypeFormulaireAffiché}
       setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
       setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
->>>>>>> 39a88f5 (Front pour les parcours)
     />;
   }
   return <Démarrage

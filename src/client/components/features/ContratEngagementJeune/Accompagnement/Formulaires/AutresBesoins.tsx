@@ -5,31 +5,31 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 
-export default function AutresBesoins({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen }: FormulairesProps) {
+export default function AutresBesoins({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsPôleEmploiModalOpen }: FormulairesProps) {
   const [isActive, setActive] = useState(false);
   const toggleClass = () => {
     setActive(!isActive);
-    setActive(true);
   };
 
 
   return <>
+    <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('BesoinAide2')}>
+      <AngleLeftIcon className={styles.iconeRetour}/> Retour
+    </button>
     <p className={styles.accompagnementQuestion}>Rencontrez-vous d’autres besoins ?</p>
-    <div className={styles.accompagnementBoutons}>
-      <button onClick={toggleClass}>Logement
-        {isActive ? 'black' : ''}</button>
+    <div className={isActive ? styles.accompagnementIsActive : styles.accompagnementBoutons}>
+      <button onClick={toggleClass}>Logement</button>
       <button onClick={toggleClass}>Santé</button>
       <button onClick={toggleClass}>Difficultés administratives ou juridiques</button>
       <button onClick={toggleClass}>Problématique d’accès aux droits</button>
       <button onClick={toggleClass}>Maîtrise de français</button>
       <button onClick={toggleClass}>Contraintes familiales</button>
     </div>
-    {isActive ?
-      <Button buttonType={'primary'} onClick={() => setIsMissionLocaleModalOpen(true)}>Valider</Button> :
-      <Button buttonType={'primary'} onClick={() => setTypeFormulaireAffiché('Démarrage')}>Valider</Button>
-    }
-    <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('BesoinAide2')}>
-      <AngleLeftIcon className={styles.iconeRetour}/> Retour
-    </button>
+    <div className={styles.accompagnementBoutons}>
+      {isActive ?
+        <Button buttonType={'primary'} onClick={() => setIsMissionLocaleModalOpen(true)}>Valider</Button> :
+        <Button buttonType={'primary'} onClick={() => setIsPôleEmploiModalOpen(true)}>Valider</Button>
+      }
+    </div>
   </>;
 }
