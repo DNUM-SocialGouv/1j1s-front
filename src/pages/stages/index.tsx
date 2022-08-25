@@ -18,7 +18,7 @@ import styles from '~/pages/stages/RechercherStagePage.module.scss';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 const HITS_PER_PAGE = 15;
-const MEILISEARCH_INDEX = 'offre-de-stage';
+const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   return <RésultatRechercherSolution
