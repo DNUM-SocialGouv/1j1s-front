@@ -18,7 +18,7 @@ export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMis
       {isMobile && <span>Sélectionnez l&apos;option qui vous correspond :</span>}
       <button className={styles.optionBouton} onClick={() => setIsMissionLocaleModalOpen(true)}>Moins de 18 ans</button>
       <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('BesoinAide2') }>Entre 18 et 25 ans</button>
-      <button className={styles.optionBouton}>Plus de 26 ans</button>
+      <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('Handicap') }>Plus de 26 ans</button>
     </div>
   </>;
 }

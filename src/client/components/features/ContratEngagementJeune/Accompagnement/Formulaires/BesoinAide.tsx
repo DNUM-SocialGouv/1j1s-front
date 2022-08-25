@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { FormulairesProps } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 
-interface BesoinAideProps {
-  onChange?: boolean
-}
-export default function BesoinAide({ setTypeFormulaireAffiché }: FormulairesProps, { onChange }: BesoinAideProps ) {
+export default function BesoinAide({ setTypeFormulaireAffiché }: FormulairesProps ) {
   const [isOnChange, setOnChange] = useState(false);
-  if (onChange) {
+  if (isOnChange) {
     setOnChange(true);
   }
   return <>
@@ -18,10 +15,7 @@ export default function BesoinAide({ setTypeFormulaireAffiché }: FormulairesPro
     </button>
     <p className={styles.accompagnementQuestion}>Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?</p>
     <div>
-      {isOnChange
-        ? (<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('AutresBesoins')}>Oui</button>)
-        : (<button className={styles.optionBouton}>Oui</button>)
-      }
+      <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('AutresBesoins')}>Oui</button>
       <button className={styles.optionBouton}>Non</button>
     </div>
   </>;

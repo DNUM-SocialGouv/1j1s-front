@@ -92,6 +92,7 @@
       max-height: 100vh !important;
 
     }
+
     &__Title {
       font-size: 1.4rem !important;
       text-align: center;
@@ -100,7 +101,7 @@
       line-height: 2rem;
 
       small {
-        display:block;
+        display: block;
         @extend %bold;
         font-size: 18px;
         margin-top: 1rem;
@@ -111,37 +112,30 @@
 
   &IsActive {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
     gap: 1rem;
-
-    button {
-      text-align: center;
-      min-width: 230px;
-      border-radius: 20px;
-      border: 1px solid $color-primary;
-      margin-top: 15px;
-      width: 100%;
-      min-height: 3.375rem;
-      padding: 0.5rem;
-      background-color: $color-primary;
-      color: $color-on-primary;
-    }
+    text-align: center;
+    min-width: 230px;
+    border-radius: 20px;
+    border: 1px solid $color-primary;
+    margin-top: 15px;
+    width: 100%;
+    min-height: 3.375rem;
+    padding: 0.5rem;
   }
-  &Boutons {
+  &IsActive {
     display: grid;
     grid-template-rows: 1fr;
     gap: 1rem;
-
-    button {
-      text-align: center;
-      min-width: 230px;
-      border-radius: 20px;
-      border: 1px solid $color-primary;
-      margin-top: 15px;
-      width: 100%;
-      min-height: 3.375rem;
-      padding: 0.5rem;
-    }
+    text-align: center;
+    min-width: 230px;
+    border-radius: 20px;
+    margin-top: 15px;
+    width: 100%;
+    min-height: 3.375rem;
+    padding: 0.5rem;
+    background-color: $color-primary;
+    color: $color-on-primary;
   }
 }
 

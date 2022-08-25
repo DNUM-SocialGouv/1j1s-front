@@ -2,6 +2,10 @@ import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
+import AutresBesoins
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
+import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
+import BesoinAide2 from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide2';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
@@ -14,7 +18,7 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
-export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide2' | 'AutresBesoins' ;
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide2' | 'AutresBesoins' | 'Handicap' ;
 
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
@@ -118,8 +122,8 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
 =======
     />;
   }
-  if (typeFormulaireÀAfficher === 'BesoinAide2') {
-    return <BesoinAide2
+  if (typeFormulaireÀAfficher === 'BesoinAideAge') {
+    return <BesoinAideAge
       setTypeFormulaireAffiché={setTypeFormulaireAffiché}
       setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
       setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
