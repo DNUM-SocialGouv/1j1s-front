@@ -108,6 +108,41 @@
       }
     }
   }
+
+  &IsActive {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    button {
+      text-align: center;
+      min-width: 230px;
+      border-radius: 20px;
+      border: 1px solid $color-primary;
+      margin-top: 15px;
+      width: 100%;
+      min-height: 3.375rem;
+      padding: 0.5rem;
+      background-color: $color-primary;
+      color: $color-on-primary;
+    }
+  }
+  &Boutons {
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+
+    button {
+      text-align: center;
+      min-width: 230px;
+      border-radius: 20px;
+      border: 1px solid $color-primary;
+      margin-top: 15px;
+      width: 100%;
+      min-height: 3.375rem;
+      padding: 0.5rem;
+    }
+  }
 }
 
 @include media(large) {
@@ -148,30 +183,8 @@
       line-height: 2rem;
     }
 
-
-    &Boutons {
-      display: grid;
+    &Boutons, &IsActive {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-
-      button {
-        text-align: center;
-        min-width: 230px;
-        border-radius: 20px;
-        border: 1px solid $color-primary;
-        margin-top: 15px;
-        width: 100%;
-        min-height: 3.375rem;
-        padding: 0.5rem;
-      }
-      &Active {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        background-color: $color-primary;
-        color: white;
-
-      }
     }
   }
 }

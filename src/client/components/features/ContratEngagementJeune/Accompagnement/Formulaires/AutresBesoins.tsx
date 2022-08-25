@@ -11,19 +11,14 @@ export default function AutresBesoins({ setTypeFormulaireAffiché, setIsMissionL
     setActive(!isActive);
   };
 
-
   return <>
     <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('BesoinAide2')}>
       <AngleLeftIcon className={styles.iconeRetour}/> Retour
     </button>
     <p className={styles.accompagnementQuestion}>Rencontrez-vous d’autres besoins ?</p>
-    <div className={isActive ? styles.accompagnementIsActive : styles.accompagnementBoutons}>
-      <button onClick={toggleClass}>Logement</button>
-      <button onClick={toggleClass}>Santé</button>
-      <button onClick={toggleClass}>Difficultés administratives ou juridiques</button>
-      <button onClick={toggleClass}>Problématique d’accès aux droits</button>
-      <button onClick={toggleClass}>Maîtrise de français</button>
-      <button onClick={toggleClass}>Contraintes familiales</button>
+    <div>
+      <button className={isActive ? styles.accompagnementIsActive : styles.accompagnementBoutons} onClick={toggleClass}>Logement</button>
+      <button className={isActive ? styles.accompagnementIsActive : styles.accompagnementBoutons} onClick={toggleClass}>Santé</button>
     </div>
     <div className={styles.accompagnementBoutons}>
       {isActive ?
