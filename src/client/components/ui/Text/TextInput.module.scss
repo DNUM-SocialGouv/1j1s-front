@@ -24,6 +24,7 @@
     border-radius: 1.25rem;
     border: solid 1px $color-on-surface;
     background-color: $color-form-field;
+    font-family: inherit;
 
     &[aria-invalid=true] {
       border: solid 2px $color-error;

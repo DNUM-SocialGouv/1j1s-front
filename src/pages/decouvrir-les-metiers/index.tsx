@@ -8,6 +8,7 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
+import { TextInput } from '~/client/components/ui/TextInput/TextInput';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { dependencies } from '~/server/start';
@@ -36,23 +37,33 @@ export default function RechercherFicheMetierPage({ fichesMetier, totalNumberOfR
       <HeadTag
         title={'Rechercher un métier | 1jeune1solution'}
         description="Trouver le métier qui vous correspond"/>
-      <Hero>Découvrez les métiers</Hero>
-      <Container className={styles.form}>
-        <label className={styles.inputLabelRecherche} placeholder="Exemple: cuisinier">Indiquez le métier que vous recherchez</label>
-        <input type='text' className={styles.inputRecherche}/>
-        <Button buttonType='primary'>
-          <span>Rechercher</span>
-          <MagnifyingGlassIcon className={styles.submitButtonIcon} />
-        </Button>
-      </Container>
-      <div className={styles.container}>
+      <div className={styles.heroSection}>
+        <Container>
+          <div className={styles.heroMessage}>
+            <span className={styles.heroMessageFirstPart}>Trouvez le métier</span>
+            <span className={styles.heroMessageSecondPart}>qui vous correspond</span>
+          </div>
+        </Container>
+      </div>
+      <div className={styles.headingSection}>
+        <Container className={styles.formContainer}>
+          <TextInput className={styles.inputNomMetier} label="Indiquez le métier que vous recherchez" placeholder="Exemple: cuisinier"/>
+          <Button buttonType='withRightIcon' icon={<MagnifyingGlassIcon className={styles.submitButtonIcon} />}>Rechercher</Button>
+        </Container>
+      </div>
+      <div className={styles.resultInfosContainer}>
+        <Container>
+          <div><strong>{totalNumberOfResult}</strong> fiches métiers</div>
+        </Container>
+      </div>
+      <div className={styles.bodySection}>
         <Container>
           <ol className={styles.resultList}>
             {fichesMetier.map((ficheMetier) =>
               <li className={styles.resultCard} key={ficheMetier.id}>{card(ficheMetier)}</li>,
             )}
           </ol>
-          <Pagination numberOfResult={fichesMetier.length} numberOfResultPerPage={totalNumberOfResult} />
+          <Pagination numberOfResult={totalNumberOfResult} numberOfResultPerPage={fichesMetier.length} />
         </Container>
       </div>
     </>
@@ -65,7 +76,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<RechercherF
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };
   }
-  
+
   return {
     props: {
       fichesMetier: JSON.parse(JSON.stringify(response.result.results)),

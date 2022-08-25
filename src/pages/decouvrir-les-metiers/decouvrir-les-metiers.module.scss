@@ -1,33 +1,67 @@
 @import "@styles/utilities";
 
-.container {
-  background-color: $color-background;
-  padding: 1rem;
+.heroSection, .headingSection {
+  background-color: white;
+}
 
-  @media (min-width: $breakpoint-lg) {
-    padding: 2rem 0;
+.heroMessage {
+  text-align: center;
+  padding: 3rem 1rem 2rem 1rem;
+  @extend %text-xLarge;
+
+  @include media(large) {
+    padding: 6rem 1rem 3rem 1rem;
+  }
+
+  & > span {
+    display: block;
+  }
+
+  &FirstPart {
+    color: $color-primary;
+    font-weight: bold;
+  }
+
+  &SecondPart {
+    color: $color-secondary;
   }
 }
 
-.form {
+.formContainer {
   padding: 1rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  justify-content: space-between;
 
-  @media (min-width: $breakpoint-lg) {
+  @media (min-width: $breakpoint-xl) {
     padding: 2rem 0;
+    gap: 1.5rem;
   }
 }
 
-.inputLabelRecherche {
-  display: block;
+.resultInfosContainer {
+  background-color: white;
+  border-top: 1px solid $color-separator;
+  border-bottom: 1px solid $color-separator;
+  padding: 1rem;
+
+  @media (min-width: $breakpoint-xl) {
+    padding: 2rem 1rem;
+  }
 }
 
-.inputRecherche {
-  border: 1px solid $color-primary;
+.bodySection {
   background-color: $color-background;
-  border-radius: 20px;
-  padding: 0 1rem;
-  height: 2.5rem;
-  margin-right: 1rem;
+  padding: 1rem;
+
+  @media (min-width: $breakpoint-xl) {
+    padding: 2rem 1rem;
+  }
+}
+
+.inputNomMetier {
+  flex-grow: 2;
 }
 
 .submitButtonIcon {
@@ -48,7 +82,7 @@
   padding: 1.5rem 2rem;
   margin-bottom: 1rem;
 
-  @media (min-width: $breakpoint-lg) {
+  @media (min-width: $breakpoint-xl) {
     margin-bottom: 1.5rem;
   }
 }
@@ -60,6 +94,11 @@
 
 .cardContent {
   margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   & > p {
     margin: 0;
