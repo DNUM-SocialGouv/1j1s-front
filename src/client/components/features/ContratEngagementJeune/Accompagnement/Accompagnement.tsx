@@ -101,50 +101,48 @@ export default function Accompagnement() {
 }
 
 function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>, setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>, setIsDispositifsRefencesModalOpen: Dispatch<SetStateAction<boolean>>) {
-  if (typeFormulaireÀAfficher === 'PasDAccompagnement') {
-    return <PasDAccompagnement
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
+  switch (typeFormulaireÀAfficher) {
+    case 'PasDAccompagnement':
+      return <PasDAccompagnement
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'BesoinAide':
+      return <BesoinAide
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'BesoinAideAge':
+      return <BesoinAideAge
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'AutresBesoins':
+      return <AutresBesoins
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'Handicap':
+      return <Handicap
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    default:
+      return <Démarrage
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
   }
-  if (typeFormulaireÀAfficher === 'BesoinAide') {
-    return <BesoinAide
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
-  }
-  if (typeFormulaireÀAfficher === 'BesoinAideAge') {
-    return <BesoinAideAge
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
-  }
-  if (typeFormulaireÀAfficher === 'AutresBesoins') {
-    return <AutresBesoins
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
-  }
-  if (typeFormulaireÀAfficher === 'Handicap') {
-    return <Handicap
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
-  }
-  return <Démarrage
-    setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-    setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-    setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-    setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-  />;
 }
