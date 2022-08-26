@@ -5,9 +5,7 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import AutresBesoins
   from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
-import BesoinAide2 from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide2';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
-import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
@@ -17,8 +15,9 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
+import BesoinAideAge from './Formulaires/BesoinAideAge';
 
-export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide2' | 'AutresBesoins' | 'Handicap' ;
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide2' | 'BesoinAideAge' | 'AutresBesoins' | 'Handicap' ;
 
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
@@ -106,10 +105,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       setTypeFormulaireAffiché={setTypeFormulaireAffiché}
       setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
       setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-<<<<<<< HEAD
       setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-=======
->>>>>>> 39a88f5 (Front pour les parcours)
     />;
   }
   if (typeFormulaireÀAfficher === 'BesoinAide') {
@@ -117,9 +113,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       setTypeFormulaireAffiché={setTypeFormulaireAffiché}
       setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
       setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-<<<<<<< HEAD
       setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-=======
     />;
   }
   if (typeFormulaireÀAfficher === 'BesoinAideAge') {
@@ -127,6 +121,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       setTypeFormulaireAffiché={setTypeFormulaireAffiché}
       setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
       setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
     />;
   }
   if (typeFormulaireÀAfficher === 'AutresBesoins') {
@@ -134,15 +129,13 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       setTypeFormulaireAffiché={setTypeFormulaireAffiché}
       setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
       setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
     />;
   }
   return <Démarrage
     setTypeFormulaireAffiché={setTypeFormulaireAffiché}
     setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
     setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-<<<<<<< HEAD
     setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-=======
->>>>>>> 39a88f5 (Front pour les parcours)
   />;
 }

@@ -5,10 +5,6 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 
 export default function BesoinAide({ setTypeFormulaireAffiché }: FormulairesProps ) {
-  const [isOnChange, setOnChange] = useState(false);
-  if (isOnChange) {
-    setOnChange(true);
-  }
   return <>
     <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>
       <AngleLeftIcon className={styles.iconeRetour}/> Retour
