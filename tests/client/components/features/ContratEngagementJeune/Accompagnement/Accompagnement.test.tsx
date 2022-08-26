@@ -23,7 +23,8 @@ describe('<Accompagnement />', () => {
 
   function renderComponent () {
     const demandeDeContactService  : DemandeDeContactService  = {
-      envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
+      envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
+      envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService;
 
     render(

@@ -1,12 +1,13 @@
 import range from 'just-range';
 import { FormEvent, PropsWithChildren, useState } from 'react';
 
-import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
+import styles
+  from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
-import { TextInput } from '~/client/components/ui/TextInput/TextInput';
+import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
@@ -33,13 +34,13 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
     const form: HTMLFormElement = event.currentTarget;
     const data = new FormData(form);
     setIsLoading(true);
-    const response = await demandeDeContactService.envoyer({
+    const response = await demandeDeContactService.envoyerPourLeCEJ({
       age: Number(data.get('age')),
-      email: data.get('mail'),
-      nom: data.get('lastname'),
-      prénom: data.get('firstname'),
-      téléphone: data.get('phone'),
-      ville: data.get('ville'),
+      email: String(data.get('mail')),
+      nom: String(data.get('lastname')),
+      prénom: String(data.get('firstname')),
+      téléphone: String(data.get('phone')),
+      ville: String(data.get('ville')),
     });
     setIsLoading(false);
 

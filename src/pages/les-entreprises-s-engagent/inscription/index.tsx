@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
-import FormulaireDeContact from '~/client/components/features/FormulaireDeContact/FormulaireDeContact';
+import FormulaireDeContactEntreprise from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import { TextInput } from '~/client/components/ui/TextInput/TextInput';
+import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
   LesEntreprisesSEngagentService,
@@ -258,7 +258,7 @@ export default function LesEntreprisesSEngagentInscription() {
             }
           </div>
           {
-            isContactezNousOpen && <FormulaireDeContact isOpen={isContactezNousOpen} close={() => setIsContactezNousOpen(false)}/>
+            isContactezNousOpen && <FormulaireDeContactEntreprise isOpen={isContactezNousOpen} close={() => setIsContactezNousOpen(false)}/>
           }
         </>
       }
