@@ -76,6 +76,7 @@ export type OffreDeStageIndexée = {
   dureeEnJourMax?: number
   localisation?: LocalisationStageIndexée
   nomEmployeur?: string
+  logoUrlEmployeur?: string
   remunerationBase: number
   source?: SourceDesDonnées
   teletravailPossible?: boolean
