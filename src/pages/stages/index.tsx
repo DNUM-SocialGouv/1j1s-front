@@ -1,13 +1,12 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 // eslint-disable-next-line import/named
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
-import { marked } from 'marked';
 import React from 'react';
 import { Configure, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
 import { Domaines, OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { RésultatRechercherStage } from '~/client/components/layouts/RechercherStage/RésultatRechercherStage';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
@@ -21,12 +20,11 @@ const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
-  return <RésultatRechercherSolution
+  return <RésultatRechercherStage
     lienOffre={`/stages/${résultat.slug}`}
     intituléOffre={résultat.titre}
     logoEntreprise={IMAGE_FIXE}
     nomEntreprise={résultat.nomEmployeur}
-    descriptionOffre={marked.parse(résultat.description)}
     étiquetteOffreList={résultat.domaines || []}
     key={résultat.slug}
   />;
