@@ -29,12 +29,12 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
     const data = new FormData(form);
     setIsLoading(true);
     const response = await demandeDeContactService.envoyerPourLesEntreprisesSEngagent({
-      email: data.get('email'),
-      message: data.get('message'),
-      nom: data.get('nom'),
-      prénom: data.get('prénom'),
-      sujet: data.get('sujet'),
-      téléphone: data.get('téléphone'),
+      email: String(data.get('email')),
+      message: String(data.get('message')),
+      nom: String(data.get('nom')),
+      prénom: String(data.get('prénom')),
+      sujet: String(data.get('sujet')),
+      téléphone: String(data.get('téléphone')),
 
     });
     setIsLoading(false);
