@@ -1,8 +1,7 @@
 import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
-  AlternanceFromMatcha,
-  AlternanceFromPoleEmploi,
+  ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 
 export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRechercheAlternance>): RésultatsRechercheAlternance {
@@ -171,16 +170,7 @@ export function anApprentiBoucherOffreFromMatcha(): Alternance {
   };
 }
 
-export function anApprentiBoucherFromPoleEmploi(): AlternanceFromPoleEmploi {
-  return {
-    ...anApprentiBoucherOffreFromPoleEmploi(),
-    duréeContrat: 'Contrat à durée déterminée - 24 Mois',
-    rythmeAlternance: '35H Travail en équipe',
-    url: 'https://candidat.pole-emploi.fr/offres/recherche/detail/134CMXJ',
-  };
-}
-
-export function anApprentiBoucherFromMatcha(): AlternanceFromMatcha {
+export function anApprentiBoucherFromMatcha(): ConsulterOffreAlternanceMatcha {
   return {
     ...anApprentiBoucherOffreFromMatcha(),
     competencesDeBase: [

@@ -2,31 +2,19 @@ import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
 import { ConsulterOffreFromMatcha } from '~/client/components/features/Alternance/Consulter/ConsulterOffreFromMatcha';
-import { ConsulterOffreFromPoleEmploi } from '~/client/components/features/Alternance/Consulter/ConsulterOffreFromPoleEmploi';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
-  AlternanceFromMatcha,
-  AlternanceFromPoleEmploi,
-  RésultatRechercheAlternance,
+  ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreAlternanceProps {
-  offreAlternance: RésultatRechercheAlternance
+  offreAlternance: ConsulterOffreAlternanceMatcha
 }
 
 export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
   const { offreAlternance } = props;
-
-  function isAlternanceFromPoleEmploi(alternance: RésultatRechercheAlternance): alternance is AlternanceFromPoleEmploi {
-    return alternance.from === 'peJob';
-  }
-
-  function isAlternanceFromMatcha(alternance: RésultatRechercheAlternance): alternance is AlternanceFromMatcha {
-    return alternance.from ===  'matcha';
-  }
-
 
   return (
     <ConsulterOffreLayout>
@@ -35,8 +23,7 @@ export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {
         { offreAlternance.entreprise?.nom && <h2>{offreAlternance.entreprise.nom}</h2> }
         <TagList list={offreAlternance.étiquetteList} aria-label="Caractéristiques du contrat d'alternance" />
       </header>
-      { isAlternanceFromPoleEmploi(offreAlternance) && <ConsulterOffreFromPoleEmploi offreAlternance={offreAlternance} />}
-      { isAlternanceFromMatcha(offreAlternance) && <ConsulterOffreFromMatcha offreAlternance={offreAlternance} />}
+      <ConsulterOffreFromMatcha offreAlternance={offreAlternance} />
     </ConsulterOffreLayout>
   );
 }

@@ -1,20 +1,20 @@
 import {
   aMétierRechercheList,
-  anLaBonneAlternanceResponse,
+  anLaBonneAlternanceResponse, aResultOffreFromMatcha,
 } from '@tests/fixtures/server/alternance/alternance.response.fixture';
 
 import {
   mapContact,
   mapMétierRecherchéList,
-  mapNomVille,
+  mapNomVille, mapOffreAlternanceMatcha,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
 
 describe('mapper pour l api la bonne alternance', () => {
   describe('mapRésultatsRechercheAlternance', () => {
-    describe('quand l offre provient de pole emploi', () => {
-      it('retourne une offre d alternance pole emploi', () => {
+    describe('quand on reçoit des offres de pole emploi et matcha', () => {
+      it('retourne une liste de résultats de pole emploi et matcha', () => {
         const result = mapRésultatsRechercheAlternance(anLaBonneAlternanceResponse());
 
         expect(result).toEqual({
@@ -65,7 +65,40 @@ describe('mapper pour l api la bonne alternance', () => {
         });
       });
 
-      // TODO test manquant avec les valeurs undefined [ticket tech ici](https://github.com/DNUM-SocialGouv/1j1s-front/projects/1#card-84410110)
+      // TODO : test manquant avec les valeurs undefined [ticket tech ici](https://github.com/DNUM-SocialGouv/1j1s-front/projects/1#card-84410110)
+    });
+  });
+
+  describe('mapOffreAlternance', () => {
+    describe('quand une offre provient de matcha', () => {
+      it('retourne une offre d\'alternance matcha', () => {
+        const result = mapOffreAlternanceMatcha(aResultOffreFromMatcha());
+        expect(result).toEqual({
+          adresse: '8 AV MONTAIGNE 31830 PLAISANCE-DU-TOUCH',
+          competencesDeBase: [
+            "Définir le plan d'action commercial et établir le plan de tournée (ciblage, interlocuteurs, préparation de dossiers techniques)",
+            'Concevoir une étude de faisabilité technique',
+            'Établir un devis',
+            'Négocier un contrat',
+          ],
+          contact: { nom: 'zahir oubouzar', téléphone: '0636145060' },
+          description: 'Prospecte une clientèle de professionnels, propose des solutions techniques selon les besoins, impératifs du client et négocie les conditions commerciales de la vente.\\nPeut coordonner une équipe commerciale et animer un réseau de commerciaux.',
+          duréeContrat: 1,
+          débutContrat: '01/09/2022',
+          entreprise: { logo: 'logo', nom: 'BOUCHERIE PLAISANCE' },
+          from: 'matcha',
+          id: '62c98502d2f6710027072c30',
+          intitulé: 'Boucherie',
+          niveauRequis: 'Cap, autres formations niveau (Infrabac)',
+          rythmeAlternance: '2 semaines / 3 semaines',
+          typeDeContrats: [ 'Apprentissage', 'Professionnalisation' ],
+          étiquetteList: [
+            'Cap, autres formations niveau (Infrabac)',
+            'Apprentissage',
+            'Professionnalisation',
+          ],
+        });
+      });
     });
   });
 

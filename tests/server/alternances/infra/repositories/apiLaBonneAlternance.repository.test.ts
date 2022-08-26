@@ -1,18 +1,20 @@
 import {
   aMétierList,
   anApprentiBoucherFromMatcha,
-  anApprentiBoucherFromPoleEmploi, aRésultatsRechercheAlternance,
+  aRésultatsRechercheAlternance,
 } from '@tests/fixtures/domain/alternance.fixture';
 import { aLaBonneAlternanceHttpClient } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 
 import {
-  mapMétierRecherchéList, mapRésultatRechercheAlternance,
+  mapMétierRecherchéList, mapOffreAlternanceMatcha,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import {
   ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import { AlternanceDetailResponse } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
+import {
+  AlternanceMatchasResponse,
+} from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import { createFailure, createSuccess, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
@@ -105,25 +107,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
   });
 
   describe('getOffreAlternance', () => {
-    describe('quand l\'offre provient de pole emploi', () => {
-      it('récupère l\'offre d\'alternance selon l\'id', async () => {
-
-        jest
-          .spyOn(httpClientService, 'get')
-          .mockResolvedValue(createSuccess(anApprentiBoucherFromPoleEmploi()));
-        const expected = anApprentiBoucherFromPoleEmploi();
-        const offreAlternanceId = '134BYGN';
-        const from = 'peJob';
-
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
-        expect(result.result).toEqual(expected);
-        expect(httpClientService.get).toHaveBeenCalledWith(
-          `jobs/job/${offreAlternanceId}`,
-          mapRésultatRechercheAlternance,
-        );
-      });
-    });
-
     describe('quand l\'offre provient de matcha', () => {
       it('récupère l\'offre d\'alternance selon l\'id', async () => {
 
@@ -132,13 +115,12 @@ describe('ApiLaBonneAlternanceRepository', () => {
           .mockResolvedValue(createSuccess(anApprentiBoucherFromMatcha()));
         const expected = anApprentiBoucherFromMatcha();
         const offreAlternanceId = '628a65a72ff4860027ae1531';
-        const from = 'matcha';
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, from) as unknown as Success<AlternanceDetailResponse>;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternanceMatcha(offreAlternanceId) as unknown as Success<AlternanceMatchasResponse>;
         expect(result.result).toEqual(expected);
         expect(httpClientService.get).toHaveBeenCalledWith(
           `jobs/matcha/${offreAlternanceId}`,
-          mapRésultatRechercheAlternance,
+          mapOffreAlternanceMatcha,
         );
       });
     });
