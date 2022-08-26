@@ -4,8 +4,9 @@ import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-h
 
 import { MeilisearchSelect } from '~/client/components/ui/Meilisearch/MeilisearchSelect';
 
-export function MeilisearchCustomRefinementList(props: UseRefinementListProps) {
+export function MeilisearchCustomRefinementList(props: UseRefinementListProps & { name: string, label: string }) {
   const { refine, items } = useRefinementList(props);
+  const { name, label } = props;
   const optionList = items.map((item) => {
     return { libellé: item.label, valeur: item.value };
   });
@@ -15,8 +16,8 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps) {
       multiple
       optionList={optionList}
       onChange={refine}
-      name="Domaine"
-      label="Domaine"
+      name={name}
+      label={label}
     />
     </>
   );

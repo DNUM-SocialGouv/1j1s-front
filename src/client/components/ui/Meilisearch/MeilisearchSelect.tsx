@@ -88,7 +88,7 @@ export function MeilisearchSelect({
   const error = isTouched && !selectedValue ? 'Veuillez selectionner un choix' : undefined;
 
   return (
-    <div className={styles.selectWrapper}>
+    <div className={styles.selectWrapperFlex}>
       <label className={styles.selectLabel} id={labelledBy.current}>
         {label}
       </label>

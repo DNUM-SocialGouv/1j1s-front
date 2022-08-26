@@ -4,6 +4,13 @@
   padding-top: 1rem;
 }
 
+.stageSelectWrapper {
+  width: 100%;
+  display: inline-flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 input.stageInputElement {
   max-width: 78rem;
   height: 24px;
