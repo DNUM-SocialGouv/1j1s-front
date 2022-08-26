@@ -6,11 +6,11 @@ import commonStyles from '~/client/components/features/ConsulterOffre.module.scs
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
-  AlternanceFromMatcha,
+  ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreAlternanceProps {
-  offreAlternance: AlternanceFromMatcha
+  offreAlternance: ConsulterOffreAlternanceMatcha
 }
 
 export function ConsulterOffreAlternance(props: ConsulterOffreAlternanceProps) {

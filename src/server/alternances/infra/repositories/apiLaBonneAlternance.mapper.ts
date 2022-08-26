@@ -1,7 +1,7 @@
 import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
-  AlternanceFromMatcha,
+  ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import {
   AlternanceMatchasResponse,
@@ -81,7 +81,7 @@ export function mapContact(contact: MatchasContactResponse | undefined): Alterna
   };
 }
 
-export function mapOffreAlternance(response: AlternanceMatchasResponse): AlternanceFromMatcha {
+export function mapOffreAlternanceMatcha(response: AlternanceMatchasResponse): ConsulterOffreAlternanceMatcha {
   const alternance: MatchasResultResponse = response.matchas[0];
   const ville = mapNomVille(alternance.place?.city);
   const niveauRequis = alternance.diplomaLevel;

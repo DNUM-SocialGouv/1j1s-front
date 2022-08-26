@@ -5,10 +5,10 @@ import commonStyles from '~/client/components/features/ConsulterOffre.module.scs
 import { Button } from '~/client/components/ui/Button/Button';
 import useSanitize from '~/client/hooks/useSanitize';
 import { constructUrlWidgetPourPostulerOffreMatcha } from '~/client/utils/alternance.utils';
-import { AlternanceFromMatcha } from '~/server/alternances/infra/repositories/alternance.type';
+import { ConsulterOffreAlternanceMatcha } from '~/server/alternances/infra/repositories/alternance.type';
 
 interface ConsulterOffreFromMatchaProps {
-  offreAlternance: AlternanceFromMatcha
+  offreAlternance: ConsulterOffreAlternanceMatcha
 }
 
 export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {

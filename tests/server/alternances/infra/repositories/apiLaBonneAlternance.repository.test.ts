@@ -6,7 +6,7 @@ import {
 import { aLaBonneAlternanceHttpClient } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 
 import {
-  mapMétierRecherchéList, mapOffreAlternance,
+  mapMétierRecherchéList, mapOffreAlternanceMatcha,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import {
@@ -116,11 +116,11 @@ describe('ApiLaBonneAlternanceRepository', () => {
         const expected = anApprentiBoucherFromMatcha();
         const offreAlternanceId = '628a65a72ff4860027ae1531';
 
-        const result = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId) as unknown as Success<AlternanceMatchasResponse>;
+        const result = await apiLaBonneAlternanceRepository.getOffreAlternanceMatcha(offreAlternanceId) as unknown as Success<AlternanceMatchasResponse>;
         expect(result.result).toEqual(expected);
         expect(httpClientService.get).toHaveBeenCalledWith(
           `jobs/matcha/${offreAlternanceId}`,
-          mapOffreAlternance,
+          mapOffreAlternanceMatcha,
         );
       });
     });

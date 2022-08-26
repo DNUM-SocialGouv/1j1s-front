@@ -9,22 +9,22 @@ import {
   From,
 } from '~/server/alternances/domain/alternance';
 import {
-  AlternanceFromMatcha,
+  ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 interface ConsulterOffreAlternancePageProps {
-  offreAlternance: AlternanceFromMatcha;
+  alternanceFromMatcha: ConsulterOffreAlternanceMatcha;
 }
 
-export default function ConsulterOffreAlternancePage({ offreAlternance }: ConsulterOffreAlternancePageProps) {
-  if (!offreAlternance) return null;
+export default function ConsulterOffreAlternancePage({ alternanceFromMatcha }: ConsulterOffreAlternancePageProps) {
+  if (!alternanceFromMatcha) return null;
 
   return (
     <>
-      <HeadTag title={`${offreAlternance.intitulé} | 1jeune1solution`} />
-      <ConsulterOffreAlternance offreAlternance={offreAlternance} />
+      <HeadTag title={`${alternanceFromMatcha.intitulé} | 1jeune1solution`} />
+      <ConsulterOffreAlternance offreAlternance={alternanceFromMatcha} />
     </>
   );
 }
@@ -48,7 +48,7 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
 
   return {
     props: {
-      offreAlternance: JSON.parse(JSON.stringify(offreAlternance.result)),
+      alternanceFromMatcha: JSON.parse(JSON.stringify(offreAlternance.result)),
     },
     revalidate: 86400,
   };

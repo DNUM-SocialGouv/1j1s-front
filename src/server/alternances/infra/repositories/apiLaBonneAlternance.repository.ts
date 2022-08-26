@@ -6,14 +6,14 @@ import {
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
-  AlternanceFromMatcha,
+  ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import {
   buildParamètresRechercheLaBonneAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.builder';
 import {
   mapMétierRecherchéList,
-  mapOffreAlternance,
+  mapOffreAlternanceMatcha,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import {
@@ -63,10 +63,10 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     }
   }
 
-  async getOffreAlternance(id: AlternanceId): Promise<Either<AlternanceFromMatcha>> {
-    return await this.httpClientService.get<AlternanceMatchasResponse, AlternanceFromMatcha>(
+  async getOffreAlternanceMatcha(id: AlternanceId): Promise<Either<ConsulterOffreAlternanceMatcha>> {
+    return await this.httpClientService.get<AlternanceMatchasResponse, ConsulterOffreAlternanceMatcha>(
       `jobs/matcha/${id}`,
-      mapOffreAlternance,
+      mapOffreAlternanceMatcha,
     );;
   }
 

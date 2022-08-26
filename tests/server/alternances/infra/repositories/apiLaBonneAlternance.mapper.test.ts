@@ -6,7 +6,7 @@ import {
 import {
   mapContact,
   mapMétierRecherchéList,
-  mapNomVille, mapOffreAlternance,
+  mapNomVille, mapOffreAlternanceMatcha,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
@@ -72,7 +72,7 @@ describe('mapper pour l api la bonne alternance', () => {
   describe('mapOffreAlternance', () => {
     describe('quand une offre provient de matcha', () => {
       it('retourne une offre d\'alternance matcha', () => {
-        const result = mapOffreAlternance(aResultOffreFromMatcha());
+        const result = mapOffreAlternanceMatcha(aResultOffreFromMatcha());
         expect(result).toEqual({
           adresse: '8 AV MONTAIGNE 31830 PLAISANCE-DU-TOUCH',
           competencesDeBase: [
