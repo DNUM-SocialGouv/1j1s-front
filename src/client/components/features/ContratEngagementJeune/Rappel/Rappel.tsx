@@ -1,10 +1,10 @@
-import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import { useState } from 'react';
 
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import Marked from '~/client/components/ui/Marked/Marked';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 
 export default function Rappel() {
@@ -28,17 +28,17 @@ export default function Rappel() {
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
         <Button onClick={() => setIsPopInOpen(true)} buttonType="primary">Je souhaite être contacté(e)</Button>
       </div>
-      <Modal className={styles.rappelModal}
+      <ModalComponent className={styles.rappelModal}
         isOpen={isPopInOpen}
-        hide={() => setIsPopInOpen(false)}
+        close={() => setIsPopInOpen(false)}
       >
-        <ModalTitle className={styles.rappelTitle}>{ title }</ModalTitle>
-        <ModalContent>
+        <ModalComponent.Title className={styles.rappelTitle}>{ title }</ModalComponent.Title>
+        <ModalComponent.Content>
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
             <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
           </FormulaireDeContactCEJ>
-        </ModalContent>
-      </Modal>
+        </ModalComponent.Content>
+      </ModalComponent>
     </section>
   );
 }

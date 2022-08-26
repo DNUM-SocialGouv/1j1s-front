@@ -1,4 +1,3 @@
-import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
@@ -11,6 +10,7 @@ import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
@@ -47,28 +47,28 @@ export default function Accompagnement() {
         <article className={styles.accompagnementArticle}>
           {formulaire}
 
-          <Modal isOpen={isPôleEmploiModalOpen} hide={() => setIsPôleEmploiModalOpen(false)} className={styles.accompagnementModal}>
-            <ModalContent className={styles.accompagnementModalContent}>
+          <ModalComponent isOpen={isPôleEmploiModalOpen} close={() => setIsPôleEmploiModalOpen(false)} className={styles.accompagnementModal}>
+            <ModalComponent.Content className={styles.accompagnementModalContent}>
               <div>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi</div>
 
               <LinkAsButton href={lienPôleEmploi} className={styles.accompagnementModalContentLink} target="_blank">
                 Je contacte mon conseiller
               </LinkAsButton>
-            </ModalContent>
-          </Modal>
+            </ModalComponent.Content>
+          </ModalComponent>
         </article>
       </div>
-      <Modal isOpen={isMissionLocaleModalOpen} hide={() => setIsMissionLocaleModalOpen(false)} className={styles.accompagnementMission}>
-        <ModalTitle className={styles.accompagnementMission__Title}>
+      <ModalComponent isOpen={isMissionLocaleModalOpen} close={() => setIsMissionLocaleModalOpen(false)} className={styles.accompagnementMission}>
+        <ModalComponent.Title className={styles.accompagnementMission__Title}>
           Vous pouvez bénéficier d&apos;un accompagnement répondant à vos besoins auprès de votre Mission Locale
           <small>(Tous les champs sont obligatoires)</small>
-        </ModalTitle>
-        <ModalContent>
+        </ModalComponent.Title>
+        <ModalComponent.Content>
           <FormulaireDeContactCEJ />
-        </ModalContent>
-      </Modal>
-      <Modal isOpen={isDispositifsRefencesModalOpen} hide={() => setIsDispositifsReferencesModalOpen(false)} className={styles.accompagnementDispositifs}>
-        <ModalContent>
+        </ModalComponent.Content>
+      </ModalComponent>
+      <ModalComponent isOpen={isDispositifsRefencesModalOpen} close={() => setIsDispositifsReferencesModalOpen(false)} className={styles.accompagnementDispositifs}>
+        <ModalComponent.Content>
           <div className={styles.accompagnementDispositifs__Title}>
             Découvrez les dispositifs référencés sur le portail 1jeune1solution
           </div>
@@ -90,8 +90,8 @@ export default function Accompagnement() {
               <p>Engagement et bénévolat</p>
             </Link>
           </div>
-        </ModalContent>
-      </Modal>
+        </ModalComponent.Content>
+      </ModalComponent>
     </section>
   );
 }

@@ -1,4 +1,3 @@
-import { Title } from '@dataesr/react-dsfr';
 import { marked } from 'marked';
 import React from 'react';
 
@@ -24,7 +23,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
   return (
     <ConsulterOffreLayout>
       <header className={commonStyles.titre}>
-        <Title as="h1" look="h3">{offreDeStage.titre}</Title>
+        <h1>{offreDeStage.titre}</h1>
         {afficheNomEmployeur(offreDeStage.employeur?.nom)}
         <TagList list={[]} aria-label="Caractéristiques de l'offre de stage"/>
       </header>

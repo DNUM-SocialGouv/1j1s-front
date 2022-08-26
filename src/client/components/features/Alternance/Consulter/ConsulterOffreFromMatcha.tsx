@@ -1,8 +1,8 @@
-import { Modal, ModalClose, ModalContent } from '@dataesr/react-dsfr';
 import React, { useState } from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useSanitize from '~/client/hooks/useSanitize';
 import { constructUrlWidgetPourPostulerOffreMatcha } from '~/client/utils/alternance.utils';
 import { ConsulterOffreAlternanceMatcha } from '~/server/alternances/infra/repositories/alternance.type';
@@ -22,16 +22,16 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
       {
         isModalPostulerOpen &&
           (
-            <Modal
+            <ModalComponent
               isOpen={isModalPostulerOpen}
-              hide={() => setIsModalPostulerOpen(false)}
+              close={() => setIsModalPostulerOpen(false)}
+              closeLabel="Fermer les filtres"
               data-testid="FiltreRechercheMobile"
             >
-              <ModalClose hide={() => setIsModalPostulerOpen(false)} title="Fermer les filtres"/>
-              <ModalContent>
+              <ModalComponent.Content>
                 <iframe className={commonStyles.iframe} loading={'lazy'} src={constructUrlWidgetPourPostulerOffreMatcha(offreAlternance.id)}/>
-              </ModalContent>
-            </Modal>
+              </ModalComponent.Content>
+            </ModalComponent>
           )
       }
       <section className={commonStyles.contenu}>

@@ -1,4 +1,3 @@
-import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
@@ -19,7 +18,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
   return (
     <ConsulterOffreLayout>
       <header className={commonStyles.titre}>
-        <Title as="h1" look="h3">{missionEngagement.titre}</Title>
+        <h1>{missionEngagement.titre}</h1>
         {missionEngagement.nomEntreprise && <h2>{missionEngagement.nomEntreprise}</h2>}
         <TagList list={missionEngagement.étiquetteList} aria-label="Caractéristiques de la mission" />
       </header>
