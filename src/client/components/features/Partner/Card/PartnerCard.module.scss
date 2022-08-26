@@ -20,7 +20,7 @@
     font-size: 1.5rem;
     text-align: center;
     font-weight: 700;
-    color: #566BB1;
+    color: $color-primary;
   }
   @include media(large) {
     margin: auto;
@@ -45,7 +45,7 @@
     min-height: 100px;
     border-radius: 20px 20px 0 0;
     border-bottom: 1px solid $color-separator;
-    padding: 16px;
+    padding: 1rem;
     &Wrapper {
       position: relative;
       min-height: 100px;
@@ -94,7 +94,7 @@
 
     &Body {
       width: 100%;
-      border-left: 1px solid #E5E5E5;
+      border-left: 1px solid $color-separator;
     }
   }
 }

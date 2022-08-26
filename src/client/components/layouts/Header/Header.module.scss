@@ -1,5 +1,6 @@
 @import "@styles/_utilities";
 
+$color-primary-10-opacity: rgba(86, 107, 177, 10%);
 
 .header {
   --ul-type: none;
@@ -61,7 +62,7 @@
         box-shadow: none;
       }
       & li:hover {
-        background-color: #D6D6D6;
+        background-color: $color-form-field;
       }
       & li > a[aria-current=true]{
         color: $color-blue-navy;
@@ -106,12 +107,12 @@
       }
 
       & details {
-        border-top: 1px solid #566BB1;
+        border-top: 1px solid $color-primary;
       }
 
       & details > div > li {
         & :hover {
-          background-color: #D6D6D6;
+          background-color: $color-form-field;
         }
 
         & > a {
@@ -125,12 +126,12 @@
       }
 
       & details > summary {
-        background-color: #566BB11A;
+        background-color: $color-primary-10-opacity;
       }
 
       & details:last-child > summary {
         color: $color-on-primary;
-        background-color: #566BB1;
+        background-color: $color-primary;
         background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23fff' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
       }
       & :last-child[open] > summary {
@@ -144,8 +145,8 @@
         display: block;
         font-weight: 700;
         padding: 0.75rem 1rem;
-        border-top: 1px solid #566BB1;
-        background-color: #566BB11A;
+        border-top: 1px solid $color-primary;
+        background-color: $color-primary-10-opacity;
       }
     }
   }
@@ -177,7 +178,7 @@
       }
     }
     & > button:hover {
-      background-color: #D6D6D6;
+      background-color: $color-form-field;
     }
   }
 

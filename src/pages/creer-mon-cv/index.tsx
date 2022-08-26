@@ -2,7 +2,7 @@ import React from 'react';
 
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-import styles from '~/pages/creer-mon-cv/Créer-cv.module.scss';
+import styles from '~/pages/creer-mon-cv/créer-cv.module.scss';
 
 export default function FormationPage() {
   return (

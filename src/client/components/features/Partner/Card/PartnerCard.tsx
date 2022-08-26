@@ -11,9 +11,9 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 interface PartnerCardProps {
   logo: string
   link: string
-  title: string
-  headline: string
-  headlineColor: string
+  title?: string
+  headline?: string
+  headlineColor?: string
   description: string
   linkLabel: string
   alt: string
@@ -55,9 +55,13 @@ export function PartnerCard(props: PartnerCardProps) {
           </div>
         </div>
         <div className={styles.cardBody}>
-          <span className={styles.cardBody__Title}>{title}</span>
+          { title &&
+            <span className={styles.cardBody__Title}>{title}</span>
+          }
           <p>
-            <strong style={{ color: headlineColor }} className={styles.cardHeadline}>{headline}</strong>
+            { headline &&
+              <strong style={{ color: headlineColor }} className={styles.cardHeadline}>{headline}</strong>
+            }
             {description}
           </p>
           <span className={styles.cardAction}>

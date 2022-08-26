@@ -9,9 +9,6 @@ export function MonCompteFormationPartner() {
       logo="/images/logos/mon-compte-formation.svg"
       link="https://www.moncompteformation.gouv.fr/espace-prive/html/#/"
       alt="Mon compte formation"
-      title=""
-      headline=""
-      headlineColor=""
       description="Le compte personnel de formation (CPF) permet d’acquérir des droits à la formation mobilisables tout au long de sa vie professionnelle. Il a une vocation universelle et s’adresse à tous les actifs."
     />
   );
