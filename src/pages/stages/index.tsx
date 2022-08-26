@@ -34,6 +34,17 @@ const domaines: Array<RefinementListItem> = Object.values(Domaines).map((domaine
   return { count: 0, isRefined: false, label: domaine, value: domaine };
 });
 
+const durees: Array<RefinementListItem> = [
+  { count: 0, isRefined: false, label: '< 1 mois', value: '<30' },
+  { count: 0, isRefined: false, label: '1 mois', value: '30' },
+  { count: 0, isRefined: false, label: '2 mois', value: '60' },
+  { count: 0, isRefined: false, label: '3 mois', value: '90' },
+  { count: 0, isRefined: false, label: '4 mois', value: '120' },
+  { count: 0, isRefined: false, label: '5 mois', value: '150' },
+  { count: 0, isRefined: false, label: '6 mois', value: '180' },
+  { count: 0, isRefined: false, label: '> 6 mois', value: '>180' },
+];
+
 export default function RechercherOffreStagePage() {
   const searchClient = useDependency<SearchClient>('rechercheClientService');
   return (
@@ -62,14 +73,28 @@ export default function RechercherOffreStagePage() {
               }
             />
           </label>
-          <MeilisearchCustomRefinementList
-            attribute={'domaines'}
-            operator='or'
-            sortBy={['name:asc']}
-            transformItems={() => {
-              return domaines;
-            }}
-          />
+          <div className={styles.stageSelectWrapper}>
+            <MeilisearchCustomRefinementList
+              name='Domaine'
+              label='Domaine'
+              attribute={'domaines'}
+              operator='or'
+              sortBy={['name:asc']}
+              transformItems={() => {
+                return domaines;
+              }}
+            />
+            <MeilisearchCustomRefinementList
+              name='Durée du stage'
+              label='Durée du stage'
+              attribute={'dureeCategorisee'}
+              operator='or'
+              sortBy={['name:asc']}
+              transformItems={() => {
+                return durees;
+              }}
+            />
+          </div>
           <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
           <Hits
             hitComponent={Résultat}

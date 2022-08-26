@@ -61,7 +61,9 @@ enum SourceDesDonnées {
   WELCOME_TO_THE_JUNGLE = 'welcome to the jungle',
   JOBIJOBA = 'jobijoba',
   HELLOWORK = 'hellowork',
-  JOBTEASER = 'jobteaser'
+  JOBTEASER = 'jobteaser',
+  STAGEFR_COMPRESSE = 'stagefr-compresse',
+  STAGEFR_DECOMPRESSE = 'stagefr-decompresse',
 }
 
 export type OffreDeStageIndexée = {
@@ -72,6 +74,7 @@ export type OffreDeStageIndexée = {
   slug: string
   domaines?: Array<Domaines>
   duree?: string
+  dureeCategorisee?: string,
   dureeEnJour?: number
   dureeEnJourMax?: number
   localisation?: LocalisationStageIndexée

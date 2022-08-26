@@ -4,6 +4,12 @@
     flex-shrink: 0;
 }
 
+.selectWrapperFlex {
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: 25%;
+}
+
 .container {
     position: relative;
 }
