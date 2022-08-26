@@ -1,5 +1,32 @@
 @import "@styles/utilities";
 
+.partnerList {
+  @extend %max-container;
+  padding: 0;
+  list-style: none;
+
+  & > li {
+    padding: 2rem 1rem 0;
+    &:last-child {
+      padding: 2rem 1rem;
+    }
+  }
+
+  &Wrapper {
+    background-color: $color-form-field;
+  }
+
+  &Title {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: $color-primary;
+  }
+  @include media(large) {
+    margin: auto;
+  }
+}
+
 .card {
   display: block;
   background: $color-surface;
@@ -13,10 +40,18 @@
 
   &Logo {
     display: flex;
+    align-items: center;
     justify-content: center;
+    min-height: 100px;
     border-radius: 20px 20px 0 0;
     border-bottom: 1px solid $color-separator;
-    padding: 16px;
+    padding: 1rem;
+    &Wrapper {
+      position: relative;
+      min-height: 100px;
+      height: 90%;
+      width: 90%;
+    }
   }
 
   &Action {
@@ -40,14 +75,12 @@
       margin-bottom: 0.5rem;
     }
   }
-}
 
-.headline:after {
-  content: " ";
-}
+  &Headline:after {
+    content: " ";
+  }
 
-@media only screen and (min-width: 48em) {
-  .card {
+  @include media(large) {
     display: flex;
     background-image: none;
     border: 1px solid $color-separator;
@@ -61,6 +94,7 @@
 
     &Body {
       width: 100%;
+      border-left: 1px solid $color-separator;
     }
   }
 }
