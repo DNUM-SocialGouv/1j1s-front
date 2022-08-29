@@ -15,8 +15,18 @@ import {
 export class FicheMetierMeilisearchRepository implements FicheMetierRepository {
   constructor(private client: MeiliSearch) {}
 
-  async rechercher(filtres: FicheMetierFiltresRecherche = { motCle: '' }) {
-    const result: SearchResponse<FicheMétierHttp> = await this.client.index('fiche-metier').search(filtres.motCle);
+  async rechercher(filters: FicheMetierFiltresRecherche = { motCle: '', numberOfResult: 20, page: 1 }) {
+    const { motCle, numberOfResult, page } = filters;
+    let offset = 0;
+    if (page && numberOfResult) offset = (page - 1) * numberOfResult;
+    const result: SearchResponse<FicheMétierHttp> = await this.client.index('fiche-metier').search(
+      motCle,
+      {
+        attributesToRetrieve: ['id','nom_metier','accroche_metier'],
+        offset,
+        limit: numberOfResult,
+      },
+    );
 	  return createSuccess(mapFichesMetierResult(result));
   }
 }

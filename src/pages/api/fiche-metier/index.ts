@@ -5,6 +5,8 @@ import { FicheMetierFiltresRecherche, FicheMétierResult } from '~/server/fiche-
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
+const DEFAULT_NUMBER_OF_RESULT = 20;
+
 export async function rechercherFicheMetierHandler(req: NextApiRequest, res: NextApiResponse<FicheMétierResult | ErrorHttpResponse>) {
   const resultat = await dependencies.fichesMetierDependencies.rechercherFicheMetier.handle(mapQuery(req));
   if (resultat.instance === 'success') {
@@ -18,5 +20,7 @@ function mapQuery(req: NextApiRequest): FicheMetierFiltresRecherche {
   const { query } = req;
   return {
     motCle: query.motCle?.toString() || '',
+    page: Number(query.page),
+    numberOfResult: DEFAULT_NUMBER_OF_RESULT,
   };
 }

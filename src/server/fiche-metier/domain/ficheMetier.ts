@@ -35,4 +35,6 @@ export interface FicheMetierNestedFieldStatut extends FicheMetierNestedField {
 
 export interface FicheMetierFiltresRecherche {
 	motCle: string
+	page?: number
+	numberOfResult?: number
 }
