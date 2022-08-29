@@ -1,5 +1,11 @@
 @import "@styles/utilities";
 
+$partnerCard-list-wrapper-background: $color-form-field;
+$partnerCard-list-title: $color-primary;
+
+$partnerCard-background: $color-surface;
+$partnerCard-border-color: $color-separator;
+
 .partnerList {
   @extend %max-container;
   padding: 0;
@@ -13,14 +19,14 @@
   }
 
   &Wrapper {
-    background-color: $color-form-field;
+    background-color: $partnerCard-list-wrapper-background;
   }
 
   &Title {
     font-size: 1.5rem;
     text-align: center;
     font-weight: 700;
-    color: $color-primary;
+    color: $partnerCard-list-title;
   }
   @include media(large) {
     margin: auto;
@@ -29,14 +35,9 @@
 
 .card {
   display: block;
-  background: $color-surface;
+  background: $partnerCard-background;
   border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
-  // TODO: must delete when removing dsfr
-  &:after {
-    content: inherit !important;
-    font: inherit !important;
-  }
+  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
 
   &Logo {
     display: flex;
@@ -44,7 +45,7 @@
     justify-content: center;
     min-height: 100px;
     border-radius: 20px 20px 0 0;
-    border-bottom: 1px solid $color-separator;
+    border-bottom: 1px solid $partnerCard-border-color;
     padding: 1rem;
     &Wrapper {
       position: relative;
@@ -83,18 +84,17 @@
   @include media(large) {
     display: flex;
     background-image: none;
-    border: 1px solid $color-separator;
+    border: 1px solid $partnerCard-border-color;
 
     &Logo {
       flex-shrink: 0;
       width: 280px;
       border: 0px;
-      padding: 0;
     }
 
     &Body {
       width: 100%;
-      border-left: 1px solid $color-separator;
+      border-left: 1px solid $partnerCard-border-color;
     }
   }
 }
