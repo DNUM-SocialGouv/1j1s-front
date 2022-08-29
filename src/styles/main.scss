@@ -12,3 +12,14 @@ input[type="radio"] + label::before, select, textarea, video[controls] {
   outline-offset: 0;
   outline-width: 2px;
 }
+
+.sr-only {
+  position: absolute !important;
+  top: 0;
+  left: -999px;
+  width: 1px !important;
+  height: 1px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}

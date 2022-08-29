@@ -9,36 +9,65 @@
         font: inherit !important;
     }
     &Article {
+        position: relative;
         border-radius: 20px;
         display: flex;
         flex-direction: column;
+        padding: 16px;
         max-height: calc(250px + 8.75rem);
         overflow: hidden;
     }
     &ImageWrapper {
         position: relative;
+        border-radius: 20px;
+        min-height: 150px;
+        max-height: 150px;
         flex: 0 1 200px;
         overflow: hidden;
     }
     &Content {
         min-height: 10.75rem;
-        padding: 1.5rem 1.5rem 0 1.5rem;
+        padding-top: 0.75rem;
         overflow: auto;
+        &Header {
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
     }
 
     &Title {
-        font-size: 1.125em;
-        margin-bottom: 16px;
+        font-size: 1em;
+        font-weight: bold;
     }
 
     &Description > * {
-        font-size: 0.875em;
+        font-size: 1em;
         margin: 0;
     }
 
     &Action {
-        padding: 0 1.5rem 1.5rem 1.5rem;
-        @extend %linkWithRightIcon;
-        align-self: flex-end;
+        background-color: $color-primary;
+        border-radius: 50%;
+        padding: 4px;
+        color: $color-on-primary;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media only screen and (min-width:48em){
+    .card {
+        &ImageWrapper {
+            min-height: 180px;
+            max-height: 180px;
+        }
+
+        &Content {
+            padding-top: 1.25rem;
+        }
+        &Title {
+            font-size: 1.25rem;
+        }
     }
 }
