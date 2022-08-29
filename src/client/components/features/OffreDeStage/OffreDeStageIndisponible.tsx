@@ -14,11 +14,11 @@ export function UnavailableOffer(){
       <HeadTag
         title={'Offre indisponible | 1jeune1solution'}
       />
-      <div className={classNames(styles.flexContainer, 'fr-container', 'fr-my-14v')}>
-        <div className="fr-mx-4v">
+      <div className={classNames(styles.flexContainer)}>
+        <div>
           <h3>L&apos;offre n&apos;est plus disponible</h3>
-          <p className="fr-text--bold">L&apos;offre que vous cherchez est indisponible. Excusez-nous pour la gêne occasionnée.</p>
-          <p className="fr-text--md">Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
+          <p>L&apos;offre que vous cherchez est indisponible. Excusez-nous pour la gêne occasionnée.</p>
+          <p>Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
 
           <LinkAsButton href="/">
             Retourner à l&apos;accueil

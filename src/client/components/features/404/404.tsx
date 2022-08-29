@@ -15,10 +15,10 @@ export function PageNotFound(){
         title={'Page indisponible | 1jeune1solution'}
       />
       <div className={classNames(styles.flexContainer, 'fr-container', 'fr-my-14v')}>
-        <div className="fr-mx-4v">
+        <div>
           <h3>Page non trouvée</h3>
-          <p className="fr-text--bold">La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</p>
-          <p className="fr-text--md">Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
+          <p>La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</p>
+          <p>Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
 
           <LinkAsButton href="/">
             Retourner à l&apos;accueil
