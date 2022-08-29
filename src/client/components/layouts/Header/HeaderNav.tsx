@@ -54,7 +54,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
         [
           { current: path === '/formations', link: '/formations', title: 'Formations' },
         ],
-      title: 'Formation et Orientation',
+      title: 'Formation et orientation',
     };
 
   const AccompagnementNav: NavigationItem =
