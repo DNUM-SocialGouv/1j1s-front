@@ -69,7 +69,7 @@ describe('<Accompagnement />', () => {
   });
 
   describe('quand on clique sur Entre 18 et 25 ans', () => {
-    it('ça affiche le formulaire besoin d\'aide', async () => {
+    it('ça affiche le formulaire des dispositifs', async () => {
       // Given
       const contenuModal = 'Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?';
       const titreModal = 'Découvrez les dispositifs référencés sur le portail 1jeune1solution';
@@ -83,6 +83,21 @@ describe('<Accompagnement />', () => {
 
       // Then
       expect(await screen.findByText(titreModal)).toBeInTheDocument();
+      expect(screen.getByText(contenuModal)).toBeInTheDocument();
+    });
+    it('ça affiche le formulaire besoin d\'aide', async () => {
+      // Given
+      const contenuModal = 'Rencontrez-vous d’autres besoins ?';
+
+      renderComponent();
+
+      // When
+      await userEvent.click(screen.getByRole('button',{ name: 'Non, je ne bénéficie d\'aucun accompagnement' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Entre 18 et 25 ans' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Oui' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Valider' }));
+
+      // Then
       expect(screen.getByText(contenuModal)).toBeInTheDocument();
     });
   });
