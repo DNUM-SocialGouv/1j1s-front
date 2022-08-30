@@ -185,7 +185,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
   return (
     <div className={styles.wrapper}>
       <label htmlFor="rechercherMétier" id={label}>
-        Métier, mot-clé {errorMessageActive ? <span data-testid="RequiredFieldErrorMessage" className={styles.instructionMessageError}>(champ obligatoire)</span>: <span className={styles.instructionMessage}>(champ obligatoire)</span>}
+        Métier, mot-clé {errorMessageActive ? <span className={styles.instructionMessageError}>(champ obligatoire)</span>: <span className={styles.instructionMessage}>(champ obligatoire)</span>}
       </label>
       <div ref={autocompleteRef}>
         <div
@@ -215,10 +215,17 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
             onKeyDown={handleKeyDown}
             autoComplete="off"
           />
-          <span className={styles.instructionMessage}>
-            <Icon name="information"/>
-            Commencez à taper votre mot puis sélectionnez un métier
-          </span>
+          { errorMessageActive
+            ?
+            <span className={styles.instructionMessageError}>
+              Le champ est obligatoire - veuillez saisir un mot-clé
+            </span>
+            :
+            <span className={styles.instructionMessage}>
+              <Icon name="information"/>
+              Commencez à taper votre mot puis sélectionnez un métier
+            </span>
+          }
           <input type="hidden" value={codeRomesMétier} name="codeRomes"/>
         </div>
         {suggestionsActive && <Suggestions />}
