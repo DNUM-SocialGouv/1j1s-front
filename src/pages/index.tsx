@@ -156,7 +156,7 @@ export default function Accueil() {
                 linkLabel="En savoir plus"
                 title="Je crée mon CV personnalisé"
               >
-                <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc. </p>
+                <p>Mettez en avant vos compétences dans un CV, même si vous pensez ne pas avoir d’expérience.</p>
               </LinkCard>
             </div>
           </SeeMore>

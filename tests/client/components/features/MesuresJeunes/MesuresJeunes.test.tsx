@@ -33,6 +33,6 @@ describe('MesuresJeunes', () => {
   it('affiches les cartes mesuresJeunes', () => {
     render(<MesuresJeunesComponent mesuresJeunes={mesuresJeunes} />);
     const cartes = screen.getAllByRole('article');
-    expect(cartes.length).toEqual(8);
+    expect(cartes.length).toEqual(16);
   });
 });
