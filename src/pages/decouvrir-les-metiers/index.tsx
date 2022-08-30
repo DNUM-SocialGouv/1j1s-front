@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Button } from '~/client/components/ui/Button/Button';
@@ -28,7 +28,7 @@ export default function RechercherFicheMetierPage() {
 
   const fichesMetierService  = useDependency<FicheMetierService>('ficheMetierService');
 
-  const card = (résultat: FicheMétier) => (
+  const ficheMétierCard = (résultat: FicheMétier) => (
     <Link href={'/'}>
       <div className={styles.cardTitle}>{résultat.nomMetier[0].toUpperCase() + résultat.nomMetier.slice(1)}</div>
       <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier }}/>
@@ -106,7 +106,7 @@ export default function RechercherFicheMetierPage() {
           <Skeleton type="card" isLoading={isLoading} repeat={2}>
             <ol className={styles.resultList}>
               {ficheMétiers.map((ficheMetier) =>
-                <li className={styles.resultCard} key={ficheMetier.id}>{card(ficheMetier)}</li>,
+                <li className={styles.resultCard} key={ficheMetier.id}>{ficheMétierCard(ficheMetier)}</li>,
               )}
             </ol>
           </Skeleton>

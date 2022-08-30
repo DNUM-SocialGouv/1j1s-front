@@ -5,7 +5,7 @@ import { FicheMetierFiltresRecherche, FicheMétierResult } from '~/server/fiche-
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
-const DEFAULT_NUMBER_OF_RESULT = 20;
+const DEFAULT_NUMBER_OF_RESULT = 15;
 
 export async function rechercherFicheMetierHandler(req: NextApiRequest, res: NextApiResponse<FicheMétierResult | ErrorHttpResponse>) {
   const resultat = await dependencies.fichesMetierDependencies.rechercherFicheMetier.handle(mapQuery(req));

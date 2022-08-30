@@ -15,7 +15,7 @@ import {
 export class FicheMetierMeilisearchRepository implements FicheMetierRepository {
   constructor(private client: MeiliSearch) {}
 
-  async rechercher(filters: FicheMetierFiltresRecherche = { motCle: '', numberOfResult: 20, page: 1 }) {
+  async rechercher(filters: FicheMetierFiltresRecherche = { motCle: '', numberOfResult: 15, page: 1 }) {
     const { motCle, numberOfResult, page } = filters;
     let offset = 0;
     if (page && numberOfResult) offset = (page - 1) * numberOfResult;
