@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
+import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/LinkCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -10,9 +11,14 @@ interface LinkCardProps {
 	link: string
 	linkLabel?: string
 	title: string
+  titleLevel?: HtmlHeadingTag
 }
 
-export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.PropsWithChildren<LinkCardProps>)  {
+export function LinkCard({ children, imageUrl, link, linkLabel, title, titleLevel }: React.PropsWithChildren<LinkCardProps>)  {
+
+  function LinkCardTitle({ children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
+    return React.createElement(titleLevel || 'h3', { className: className }, children);
+  }
 
   return (
     <Link href={link} className={styles.card}>
@@ -23,7 +29,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title }: React.P
 
         <div className={styles.cardContent}>
           <div className={styles.cardContentHeader}>
-            <h3 className={styles.cardTitle}>{title}</h3>
+            <LinkCardTitle className={styles.cardTitle}>{title}</LinkCardTitle>
             <span className={styles.cardAction}>
               <span className="sr-only">{linkLabel}</span>
               <Icon name='angle-right' aria-hidden="true"/>

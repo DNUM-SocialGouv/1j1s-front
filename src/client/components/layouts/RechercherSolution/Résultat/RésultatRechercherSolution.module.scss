@@ -11,7 +11,7 @@
 .cardHeader {
   display: flex;
   align-items: flex-start;
-  padding: 24px;
+  padding: 1.5rem;
   border-bottom: 4px solid $color-primary;
 }
 
@@ -20,30 +20,30 @@
 }
 
 .offreLead {
-  margin-left: 24px;
+  margin-left: 2rem;
   line-height: 1.5;
 }
 
 .cardBody {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .callToAction {
   @extend %linkWithRightIcon;
 }
 
-@media screen and (min-width: 48em) {
+@include media(medium) {
   .card {
-    padding: 32px 40px;
+    padding: 2rem 2.5rem;
     border-left: 4px solid $color-primary;
   }
 
   .cardHeader {
     border-bottom: none;
     margin-bottom: 1.5rem;
-    padding: 0 40px 0 0;
+    padding: 0 2.5rem 0 0;
   }
 
   .cardBody {

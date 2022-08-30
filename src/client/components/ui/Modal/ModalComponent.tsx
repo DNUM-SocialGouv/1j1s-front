@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { HtmlHeadingTag } from '~/client/components/props';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
@@ -109,9 +110,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   );
 }
 
-type TitleLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-
-function ModalTitle({ titleLevel = 'h1', children, className }: { titleLevel?: TitleLevel } & React.HTMLAttributes<HTMLTitleElement>) {
+function ModalTitle({ titleLevel = 'h1', children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
   return React.createElement(titleLevel, { className: classNames(className, styles.modalTitle) }, children);
 }
 
