@@ -87,7 +87,7 @@ describe('<Accompagnement />', () => {
     });
     it('ça affiche le formulaire besoin d\'aide', async () => {
       // Given
-      const contenuModal = 'Rencontrez-vous d’autres besoins ?';
+      const titreModal = 'Rencontrez-vous d’autres besoins ?';
 
       renderComponent();
 
@@ -98,7 +98,7 @@ describe('<Accompagnement />', () => {
       await userEvent.click(screen.getByRole('button',{ name: 'Valider' }));
 
       // Then
-      expect(screen.getByText(contenuModal)).toBeInTheDocument();
+      expect(await screen.findByText(titreModal)).toBeInTheDocument();
     });
   });
 
