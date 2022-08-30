@@ -172,7 +172,7 @@ describe('RechercherAlternance', () => {
         fireEvent.click(buttonRechercher);
 
         // THEN
-        expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
+        expect(await screen.findByText('Métier, mot-clé')).toBeInTheDocument();
         expect(métierRecherchéService.rechercherMétier).not.toHaveBeenCalled();
         expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
       });
@@ -203,7 +203,7 @@ describe('RechercherAlternance', () => {
         fireEvent.click(buttonRechercher);
 
         // THEN
-        expect(await screen.findByTestId('RequiredFieldErrorMessage')).toBeInTheDocument();
+        expect(await screen.findByText('Métier, mot-clé')).toBeInTheDocument();
         expect(alternanceService.rechercherAlternance).not.toHaveBeenCalledWith('');
         expect(alternanceService.rechercherAlternance).not.toHaveBeenCalled();
       });
