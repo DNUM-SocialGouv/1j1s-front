@@ -87,8 +87,8 @@ describe('<Accompagnement />', () => {
     });
     it('ça affiche le formulaire besoin d\'aide', async () => {
       // Given
-      const titreModal = 'Rencontrez-vous d’autres besoins ?';
-
+      const contenuModal = 'Rencontrez-vous d’autres besoins ?';
+      const titreModal = 'Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi';
       renderComponent();
 
       // When
@@ -99,6 +99,7 @@ describe('<Accompagnement />', () => {
 
       // Then
       expect(await screen.findByText(titreModal)).toBeInTheDocument();
+      expect(screen.getByText(contenuModal)).toBeInTheDocument();
     });
   });
 
