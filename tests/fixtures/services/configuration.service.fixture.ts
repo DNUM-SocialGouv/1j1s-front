@@ -10,6 +10,8 @@ export class ConfigurationServiceFixture implements ConfigurationService {
       API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
       API_LA_BONNE_ALTERNANCE_BASE_URL: 'https://labonnealternance.apprentissage.beta.gouv.fr/api/V1/',
       API_POLE_EMPLOI_BASE_URL: 'https://api.emploi-store.fr/',
+      NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: 'notTheMasterKey',
+      NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: 'http://localhost:7700',
       POLE_EMPLOI_CONNECT_CLIENT_ID: 'POLE_EMPLOI_CONNECT_CLIENT_ID',
       POLE_EMPLOI_CONNECT_CLIENT_SECRET: 'POLE_EMPLOI_CONNECT_CLIENT_SECRET',
       POLE_EMPLOI_CONNECT_SCOPE: 'POLE_EMPLOI_CONNECT_SCOPE',

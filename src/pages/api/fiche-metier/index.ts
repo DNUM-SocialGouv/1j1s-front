@@ -20,7 +20,7 @@ function mapQuery(req: NextApiRequest): FicheMetierFiltresRecherche {
   const { query } = req;
   return {
     motCle: query.motCle?.toString() || '',
-    page: Number(query.page),
     numberOfResult: DEFAULT_NUMBER_OF_RESULT,
+    page: Number(query.page),
   };
 }

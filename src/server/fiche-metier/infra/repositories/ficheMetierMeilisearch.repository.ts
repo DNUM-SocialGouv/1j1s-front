@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { MeiliSearch, SearchResponse } from 'meilisearch';
 
 import { createSuccess } from '~/server/errors/either';
@@ -23,8 +24,8 @@ export class FicheMetierMeilisearchRepository implements FicheMetierRepository {
       motCle,
       {
         attributesToRetrieve: ['id','nom_metier','accroche_metier'],
-        offset,
         limit: numberOfResult,
+        offset,
       },
     );
 	  return createSuccess(mapFichesMetierResult(result));
