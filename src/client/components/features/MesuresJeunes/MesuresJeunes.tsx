@@ -33,17 +33,33 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
       <Marked markdown={contenu} />
     </LinkCard>;
   }
+  function cutCardList(cardList: CarteMesuresJeunes[], size: number){
+    const processedArray = cardList.map((card,index) => {
+      const indexDivisableParSize = index % size === 0;
+      return indexDivisableParSize ? cardList.slice(index, index + size) : undefined;
+    });
+    return processedArray.filter((cardList) => { return cardList; });
+  }
 
-  function displayCartes(cardList: CarteMesuresJeunes[]){
-    return cardList.slice(0,3).map((carte, index) => {
+  function displayCartes(cardList: CarteMesuresJeunes[]) {
+    return cardList.slice(0, 3).map((carte, index) => {
       return CarteMesureJeune(carte, index);
     });
   }
-
+  
   function displayMoreCartes(cardList: CarteMesuresJeunes[]){
-    return cardList.slice(3).map((carte, index) => {
-      return CarteMesureJeune(carte, index);
+    const cardListCut = cutCardList(cardList.slice(3), 3);
+    const cardElement = cardListCut.map((cardList, index) => {
+      return <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)} key={index}>
+        { cardList ? cardList.map((carte, index) => {
+          return CarteMesureJeune(carte, index);
+          ;
+        })
+          : undefined}
+      </div>;
+
     });
+    return cardElement;
   }
 
   function displaySectionCartes(category: CarteMesuresJeunes[]) {
@@ -53,9 +69,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
       </div>
       {category.length > 3 &&
         <SeeMore>
-          <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
-            {displayMoreCartes(category)}
-          </div>
+          {displayMoreCartes(category)}
         </SeeMore>
       }
     </>;
