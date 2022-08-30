@@ -39,10 +39,13 @@
     &Title {
         font-size: 1em;
         font-weight: bold;
+        line-height: 1.2;
+        margin-bottom: 0;
     }
 
     &Description > * {
         font-size: 1em;
+        padding-right: 2rem;
         margin: 0;
     }
 

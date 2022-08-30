@@ -3,12 +3,16 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import { mockSmallScreen } from '@tests/client/window.mock';
 import { anApprentiBoucherOffreFromPoleEmploi } from '@tests/fixtures/domain/alternance.fixture';
 import { aBarmanOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
 describe('RésultatRechercherSolution', () => {
+  beforeEach(() => {
+    mockSmallScreen();
+  });
   it('affiche une carte emploi avec un résumé de l\'offre', () => {
     const offreEmploi = aBarmanOffreEmploi();
     const defaultLogo = '/images/logos/pole-emploi.svg';

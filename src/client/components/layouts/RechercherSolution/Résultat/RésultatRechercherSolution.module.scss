@@ -6,14 +6,27 @@
   background: $color-surface;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+
+  &Header {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: 4px solid $color-primary;
+  }
+
+  &ImageWrapper {
+    position: relative;
+    min-height: 56px;
+    max-height: 56px;
+    min-width: 56px;
+    max-width: 56px;
+  }
+  &Description {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+  }
 }
 
-.cardHeader {
-  display: flex;
-  align-items: flex-start;
-  padding: 1.5rem;
-  border-bottom: 4px solid $color-primary;
-}
 
 .logoEntreprise {
   flex-shrink: 0;
@@ -24,12 +37,6 @@
   line-height: 1.5;
 }
 
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
 .callToAction {
   @extend %linkWithRightIcon;
 }
@@ -38,26 +45,39 @@
   .card {
     padding: 2rem 2.5rem;
     border-left: 4px solid $color-primary;
-  }
 
-  .cardHeader {
-    border-bottom: none;
-    margin-bottom: 1.5rem;
-    padding: 0 2.5rem 0 0;
-  }
-
-  .cardBody {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0;
-
-    ul {
-      padding-left: 80px;
+    &Header {
+      display: flex;
+      width: 100%;
+      border-bottom: none;
+      margin-bottom: 0;
+      padding: 0;
     }
 
-    .callToAction {
-      align-self: center;
+    &ImageWrapper {
+      min-height: 120px;
+      max-height: 120px;
+      min-width: 120px;
+      max-width: 120px;
+    }
+
+    .offreLead {
+      width: 100%;
+    }
+
+    &Description {
+      width: 100%;
+      margin-top: 1.5rem;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0;
+
+      .callToAction {
+        flex-shrink: 0;
+        align-self: center;
+      }
     }
   }
+
 }
 
