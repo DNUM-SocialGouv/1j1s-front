@@ -17,6 +17,8 @@ interface MesuresJeunesProps {
 export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
   const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
 
+
+
   function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
     const titre = useSanitize(carte.titre);
     const bannière = carte.bannière?.url || '';
@@ -33,7 +35,8 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
       <Marked markdown={contenu} />
     </LinkCard>;
   }
-  function cutCardList(cardList: CarteMesuresJeunes[], size: number){
+
+  function splitCardList(cardList: CarteMesuresJeunes[], size: number) {
     const processedArray = cardList.map((card,index) => {
       const indexDivisableParSize = index % size === 0;
       return indexDivisableParSize ? cardList.slice(index, index + size) : undefined;
@@ -47,9 +50,10 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
     });
   }
   
-  function displayMoreCartes(cardList: CarteMesuresJeunes[]){
-    const cardListCut = cutCardList(cardList.slice(3), 3);
-    const cardElement = cardListCut.map((cardList, index) => {
+  function displayMoreCartes(cardList: CarteMesuresJeunes[]) {
+    const SPLIT_SIZE = 3;
+    const cardListSplit = splitCardList(cardList.slice(SPLIT_SIZE), SPLIT_SIZE);
+    const cardElement = cardListSplit.map((cardList, index) => {
       return <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)} key={index}>
         { cardList ? cardList.map((carte, index) => {
           return CarteMesureJeune(carte, index);

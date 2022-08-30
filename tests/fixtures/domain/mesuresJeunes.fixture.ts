@@ -31,8 +31,34 @@ export function aDeuxièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeun
   };
 }
 
+export function aTroisièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
+  return {
+    bannière: {
+      alt: 'text',
+      url: 'https://animage.jpg',
+    },
+    contenu: 'Un troisième beau contenu de carte',
+    titre: 'Un troisième titre de carte',
+    url: 'Une troisième belle url de carte',
+    ...override,
+  };
+}
+
+export function aQuatrièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
+  return {
+    bannière: {
+      alt: 'text',
+      url: 'https://animage.jpg',
+    },
+    contenu: 'Un quatrième beau contenu de carte',
+    titre: 'Un quatrième titre de carte',
+    url: 'Une quatrième belle url de carte',
+    ...override,
+  };
+}
+
 export function aCartesMesuresJeunesList(): CarteMesuresJeunes[] {
-  return [aCarteMesuresJeunes(), aDeuxièmeCarteMesuresJeunes()];
+  return [aCarteMesuresJeunes(), aDeuxièmeCarteMesuresJeunes(), aTroisièmeCarteMesuresJeunes(), aQuatrièmeCarteMesuresJeunes()];
 }
 
 export function aMesuresJeunes(): MesuresJeunes {
@@ -75,6 +101,18 @@ export function aMesuresJeunesResponse(override?: Partial<StrapiSingleTypeRespon
             titre: 'Un deuxième titre de carte',
             url: 'Une deuxième belle url de carte',
           },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un troisième beau contenu de carte',
+            titre: 'Un troisième titre de carte',
+            url: 'Une troisième belle url de carte',
+          },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un quatrième beau contenu de carte',
+            titre: 'Un quatrième titre de carte',
+            url: 'Une quatrième belle url de carte',
+          },
         ],
         aidesFinancieres: [
           {
@@ -88,6 +126,18 @@ export function aMesuresJeunesResponse(override?: Partial<StrapiSingleTypeRespon
             contenu: 'Un deuxième beau contenu de carte',
             titre: 'Un deuxième titre de carte',
             url: 'Une deuxième belle url de carte',
+          },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un troisième beau contenu de carte',
+            titre: 'Un troisième titre de carte',
+            url: 'Une troisième belle url de carte',
+          },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un quatrième beau contenu de carte',
+            titre: 'Un quatrième titre de carte',
+            url: 'Une quatrième belle url de carte',
           },
         ],
         orienterFormer: [
@@ -103,6 +153,18 @@ export function aMesuresJeunesResponse(override?: Partial<StrapiSingleTypeRespon
             titre: 'Un deuxième titre de carte',
             url: 'Une deuxième belle url de carte',
           },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un troisième beau contenu de carte',
+            titre: 'Un troisième titre de carte',
+            url: 'Une troisième belle url de carte',
+          },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un quatrième beau contenu de carte',
+            titre: 'Un quatrième titre de carte',
+            url: 'Une quatrième belle url de carte',
+          },
         ],
         vieProfessionnelle: [
           {
@@ -116,6 +178,18 @@ export function aMesuresJeunesResponse(override?: Partial<StrapiSingleTypeRespon
             contenu: 'Un deuxième beau contenu de carte',
             titre: 'Un deuxième titre de carte',
             url: 'Une deuxième belle url de carte',
+          },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un troisième beau contenu de carte',
+            titre: 'Un troisième titre de carte',
+            url: 'Une troisième belle url de carte',
+          },
+          {
+            banniere: aStrapiResponseImage(),
+            contenu: 'Un quatrième beau contenu de carte',
+            titre: 'Un quatrième titre de carte',
+            url: 'Une quatrième belle url de carte',
           },
         ],
       },
