@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import styles from '~/client/components/features/404/404.module.css';
+import styles from '~/client/components/features/404/404.module.scss';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -15,14 +15,16 @@ export function UnavailableOffer(){
         title={'Offre indisponible | 1jeune1solution'}
       />
       <div className={classNames(styles.flexContainer)}>
-        <div>
+        <div className={styles.textWrapper}>
           <h3>L&apos;offre n&apos;est plus disponible</h3>
-          <p>L&apos;offre que vous cherchez est indisponible. Excusez-nous pour la gêne occasionnée.</p>
+          <b>L&apos;offre que vous cherchez est indisponible. Excusez-nous pour la gêne occasionnée.</b>
           <p>Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
 
-          <LinkAsButton href="/">
+          <div className={styles.buttonWrapper}>
+            <LinkAsButton href="/">
             Retourner à l&apos;accueil
-          </LinkAsButton>
+            </LinkAsButton>
+          </div>
         </div>
         {!isSmallScreen &&
         <div className={styles.errorLogo}>

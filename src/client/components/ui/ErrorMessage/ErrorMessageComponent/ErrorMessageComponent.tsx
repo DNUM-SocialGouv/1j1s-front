@@ -10,7 +10,7 @@ export const ErrorMessageComponent = (props: ErrorMessageProps) => {
   return (
     <div className={className}>
       <h1>{title}</h1>
-      <p>{explanationText}</p>
+      <b>{explanationText}</b>
       <p>{solutionText}</p>
     </div>
   );
