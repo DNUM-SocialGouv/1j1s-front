@@ -89,6 +89,7 @@ describe('<Accompagnement />', () => {
       // Given
       const contenuModal = 'Rencontrez-vous d’autres besoins ?';
       const titreModal = 'Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi';
+
       renderComponent();
 
       // When
