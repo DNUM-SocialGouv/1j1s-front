@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import styles from '~/client/components/features/Article/ConsulterArticle.module.css';
+import styles from '~/client/components/features/Article/ConsulterArticle.module.scss';
 import Marked from '~/client/components/ui/Marked/Marked';
 import useSanitize from '~/client/hooks/useSanitize';
 import { Article } from '~/server/cms/domain/article';

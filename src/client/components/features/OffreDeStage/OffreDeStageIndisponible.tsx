@@ -17,7 +17,7 @@ export function UnavailableOffer(){
       <div className={classNames(styles.flexContainer)}>
         <div className={styles.textWrapper}>
           <h3>L&apos;offre n&apos;est plus disponible</h3>
-          <b>L&apos;offre que vous cherchez est indisponible. Excusez-nous pour la gêne occasionnée.</b>
+          <p className="bold">L&apos;offre que vous cherchez est indisponible. Excusez-nous pour la gêne occasionnée.</p>
           <p>Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
 
           <div className={styles.buttonWrapper}>

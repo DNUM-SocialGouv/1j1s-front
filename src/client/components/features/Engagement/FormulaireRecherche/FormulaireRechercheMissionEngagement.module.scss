@@ -3,7 +3,7 @@
 .rechercheMissionEngagementForm {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid $color-form-field;
+  border-bottom: 1px solid $color-separator;
   padding-bottom: 40px;
   &__Container {
     flex: 1 0;

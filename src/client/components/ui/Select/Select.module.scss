@@ -19,7 +19,7 @@
     position: absolute;
     padding: 8px;
     width: 100%;
-    border: 1px solid $color-disabled;
+    border: 1px solid $color-separator;
     border-radius: 20px;
     background-color: $color-background;
     margin: 4px 0 0 0;
@@ -28,7 +28,7 @@
 }
 
 .option:not(:last-child) {
-    border-bottom: 1px solid $color-disabled;
+    border-bottom: 1px solid $color-separator;
     border-radius: 0;
 }
 

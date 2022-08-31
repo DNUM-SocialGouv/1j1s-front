@@ -17,7 +17,7 @@ export function PageNotFound(){
       <div className={classNames(styles.flexContainer)}>
         <div className={styles.textWrapper}>
           <h1>Page non trouvée</h1>
-          <b>La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</b>
+          <p className="bold">La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</p>
           <p>Si vous avez tapé l’adresse web dans le navigateur, vérifiez qu’elle est correcte. La page n’est peut-être plus disponible. Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.</p>
           <div className={styles.buttonWrapper}>
             <LinkAsButton href="/">

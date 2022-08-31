@@ -12,19 +12,17 @@
 }
 
 input.stageInputElement {
-  background-color: $color-separator;
-  border: 1px solid #566BB1;
+  font-family: 'Marianne';
+  background-color: $color-background;
+  border: 1px solid $color-primary;
   border-radius: 1.25rem;
-  width: 80%;
+  width: 50%;
   color: $color-on-background;
   font-size: 0.875rem;
   line-height: 1.5rem;
   padding: .5rem 1rem;
   margin: 0 auto;
   display: inline-block;
-  @include media(medium) {
-    width: 95%;
-  }
 }
 
 .stageRootElement {

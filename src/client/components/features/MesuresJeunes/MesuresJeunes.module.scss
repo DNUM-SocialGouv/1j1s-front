@@ -31,9 +31,8 @@ $color-aides-financières: #FFF4ED;
     margin-bottom: 1.5rem;
   }
   &Header {
-    @extend %text-xLarge;
+    @extend %text-xLarge, %bold;
     text-align: center;
-    font-weight: 700;
     margin-top: 0;
     margin-bottom: 2rem;
     > svg, h2 {

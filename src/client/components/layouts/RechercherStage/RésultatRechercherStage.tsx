@@ -16,7 +16,7 @@ export function RésultatRechercherStage(props: Omit<LienSolution, 'id'>) {
         <header className={styles.cardHeader}>
           <Image alt="" src={logoEntreprise} width="56" height="56" />
           <div className={styles.offreLead}>
-            <div className="fr-text--bold">{intituléOffre}</div>
+            <div>{intituléOffre}</div>
             {nomEntreprise && <div>{nomEntreprise}</div>}
           </div>
         </header>
