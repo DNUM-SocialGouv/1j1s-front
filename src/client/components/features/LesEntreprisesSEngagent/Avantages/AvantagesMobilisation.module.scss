@@ -8,7 +8,6 @@
 .container {
   display: grid;
   gap: 3rem;
-  grid-template-rows: repeat(2, 1fr);
   margin: 0 auto;
   max-width: 78rem;
   padding: 0 1.5rem;
@@ -20,9 +19,10 @@
   place-self: stretch;
   border-radius: 40px;
   overflow: hidden;
+  height: 200px;
 }
 
-.article p:last-child {
+.article li {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -30,6 +30,11 @@
 .article h2 {
   color: $color-primary;
   font-size: 1.5rem;
+}
+
+.article ul {
+  list-style: unset;
+  margin-left: 1rem;
 }
 
 @include media(large){
@@ -44,5 +49,6 @@
   .illustration {
     margin-top: 30px;
     margin-bottom: 30px;
+    height: 300px;
   }
 }
