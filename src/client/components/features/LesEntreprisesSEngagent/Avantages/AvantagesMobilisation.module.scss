@@ -1,8 +1,8 @@
 @import "@styles/utilities";
 
 .section {
+  @extend %background-surface;
   padding: 3rem 0;
-  background: $color-background;
 }
 
 .container {
@@ -32,6 +32,7 @@
 }
 
 .article ul {
+  margin-top: 1rem;
   margin-left: 1.5rem;
 }
 
