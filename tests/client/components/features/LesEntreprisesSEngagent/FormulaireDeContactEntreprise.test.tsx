@@ -40,22 +40,22 @@ describe('FormulaireDeContactEntreprise', () => {
   });
 });
 
-const aUser = userEvent.setup();
+const aUser = userEvent.setup({ delay: null });
 
 async function remplirFormulaireDeContact() {
   const prénomInput = screen.getByRole('textbox', { name: 'Prénom' });
-  const nomInput = screen.getByRole('textbox', { name: 'Nom' });
-  const emailInput = screen.getByRole('textbox', { name: 'Adresse email' });
-  const téléphoneInput = screen.getByRole('textbox', { name: 'Téléphone' });
-  const sujetInput = screen.getByRole('textbox', { name: 'Sujet' });
-  const messageInput = screen.getByRole('textbox', { name: 'Message' });
-
   await aUser.type(prénomInput, 'Jean');
+  const nomInput = screen.getByRole('textbox', { name: 'Nom' });
   await aUser.type(nomInput, 'Dupont');
+  const emailInput = screen.getByRole('textbox', { name: 'Adresse email' });
   await aUser.type(emailInput, 'jean.dupont@gmail.com');
+  const téléphoneInput = screen.getByRole('textbox', { name: 'Téléphone' });
   await aUser.type(téléphoneInput, '0611223344');
+  const sujetInput = screen.getByRole('textbox', { name: 'Sujet' });
   await aUser.type(sujetInput, 'super sujet');
+  const messageInput = screen.getByRole('textbox', { name: 'Message' });
   await aUser.type(messageInput, 'super rrr');
+
 }
 
 async function cliqueBoutonEnvoyerLaDemande() {

@@ -107,7 +107,7 @@ describe('InputMétierRecherché', () => {
   });
 
   describe('quand la recherche est lancé sans métier recherché', () => {
-    it('on affiche un message d\'information à la place des suggestions', async () => {
+    it('on affiche un message d\'erreur dans le label', async () => {
       const alternanceService = anAlternanceService();
       const métierRecherchéService = aMétierRecherchéService();
 
@@ -117,7 +117,24 @@ describe('InputMétierRecherché', () => {
         </DependenciesProvider>,
       );
 
-      const erreurMessage = await screen.findByTestId('RequiredFieldErrorMessage');
+      const erreurMessage = await screen.findByText('Métier, mot-clé');
+
+      await waitFor(() => {
+        expect(erreurMessage).toBeInTheDocument();
+      });
+    });
+
+    it('on affiche un message d\'erreur', async () => {
+      const alternanceService = anAlternanceService();
+      const métierRecherchéService = aMétierRecherchéService();
+
+      render(
+        <DependenciesProvider alternanceService={alternanceService} métierRecherchéService={métierRecherchéService}>
+          <InputMétierRecherché libellé="" handleErrorMessageActive={true} resetHandleErrorMessageActive={jest.fn()} code={[]}/>
+        </DependenciesProvider>,
+      );
+
+      const erreurMessage = await screen.findByText('Le champ est obligatoire - veuillez saisir un mot-clé');
 
       await waitFor(() => {
         expect(erreurMessage).toBeInTheDocument();
