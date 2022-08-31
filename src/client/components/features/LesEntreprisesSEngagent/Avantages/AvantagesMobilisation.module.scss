@@ -23,7 +23,8 @@
 }
 
 .article p:last-child {
-  margin-bottom: 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .article h2 {
@@ -31,21 +32,17 @@
   font-size: 1.5rem;
 }
 
-.article ul {
-  margin-top: 1rem;
-  margin-left: 1.5rem;
-}
-
-.article li {
-  margin-bottom: 1rem;
-}
-
 @include media(large){
   .container{
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
+    gap: 5rem;
   }
   .section {
     padding: 5rem 0;
+  }
+  .illustration {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }

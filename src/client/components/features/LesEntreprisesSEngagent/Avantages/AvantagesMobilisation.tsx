@@ -8,11 +8,13 @@ import Marked from '~/client/components/ui/Marked/Marked';
 const contenuText = `
 Quels avantages à rejoindre la mobilisation pour les jeunes ?
 ------------------------------------------------------------
+* Mettez en avant tous vos engagements pour les jeunes en créant votre page dédiée
 
-+ Mettez en avant tous vos engagements pour les jeunes en créant votre page dédiée
-+ Publiez vos offres d’emploi sur la plateforme
-+ Bénéficiez d’un accompagnement par un Conseiller Pôle Emploi (rappel sous 72h)
-+ Relayez vos engagements par intermédiaire d’un kit de communication #1jeune1solution
+* Publiez vos offres d’emploi sur la plateforme
+
+* Bénéficiez d’un accompagnement par un Conseiller Pôle Emploi (rappel sous 72h)
+
+* Relayez vos engagements par intermédiaire d’un kit de communication #1jeune1solution
 `;
 
 export default function AvantagesMobilisation() {
