@@ -4,10 +4,10 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import AutresBesoins
   from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
-import AutresBesoinsAge
-  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoinsAge';
+import AutresBesoins26ans
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins26ans';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
-import BesoinAideAge from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAideAge';
+import BesoinAide26ans from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide26ans';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
@@ -20,7 +20,7 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
-export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAideAge' | 'AutresBesoins' | 'Handicap' | 'AutresBesoinsAge' ;
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide26ans' | 'AutresBesoins' | 'Handicap' | 'AutresBesoins26ans' ;
 
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
@@ -118,8 +118,8 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
       />;
-    case 'BesoinAideAge':
-      return <BesoinAideAge
+    case 'BesoinAide26ans':
+      return <BesoinAide26ans
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
@@ -139,8 +139,8 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
       />;
-    case 'AutresBesoinsAge':
-      return <AutresBesoinsAge
+    case 'AutresBesoins26ans':
+      return <AutresBesoins26ans
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}

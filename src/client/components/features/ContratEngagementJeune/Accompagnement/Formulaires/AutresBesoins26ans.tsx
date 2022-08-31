@@ -5,7 +5,7 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 
-export default function AutresBesoinsAge({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsPôleEmploiModalOpen }: FormulairesProps) {
+export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsPôleEmploiModalOpen }: FormulairesProps) {
   const [activeCounter, setActiveCounter] = useState(0);
 
 

@@ -4,7 +4,7 @@ import { FormulairesProps } from '~/client/components/features/ContratEngagement
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 
-export default function BesoinAideAge({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen }: FormulairesProps ) {
+export default function BesoinAide26ans({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen }: FormulairesProps ) {
   return <>
     <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>
       <AngleLeftIcon className={styles.iconeRetour}/> Retour
