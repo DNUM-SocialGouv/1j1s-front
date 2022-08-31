@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
+import AvantagesMobilisation
+  from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -46,6 +48,7 @@ export default function LesEntreprisesSEngagent() {
             </LinkAsButton>
           </div>
         </div>
+        <AvantagesMobilisation />
       </main>
     </>
   );
