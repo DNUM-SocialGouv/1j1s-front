@@ -21,17 +21,17 @@ import styles from './decouvrir-les-metiers.module.scss';
 
 export default function RechercherFicheMetierPage() {
   const router = useRouter();
-  const [ficheMétiers, setFicheMétiers] = useState<FicheMétier[]>([]);
+  const [ficheMétiers, setFicheMétiers] = useState<Partial<FicheMétier>[]>([]);
   const [totalNumberOfResult, setTotalNumberOfResult] = useState(0);
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
   const fichesMetierService  = useDependency<FicheMetierService>('ficheMetierService');
 
-  const ficheMétierCard = (résultat: FicheMétier) => (
+  const ficheMétierCard = (résultat: Partial<FicheMétier>) => (
     <Link href={'/'}>
-      <div className={styles.cardTitle}>{résultat.nomMetier[0].toUpperCase() + résultat.nomMetier.slice(1)}</div>
-      <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier }}/>
+      <div className={styles.cardTitle}>{`${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`}</div>
+      <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier || '' }}/>
       <div className={styles.cardLink}>
         <span>En savoir plus</span>
         <AngleRightIcon className={styles.cardLinkIcon}/>
@@ -87,7 +87,7 @@ export default function RechercherFicheMetierPage() {
               onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value) } />
             <Button
               buttonType='withRightIcon'
-              icon={<MagnifyingGlassIcon className={styles.submitButtonIcon} />}
+              icon={<MagnifyingGlassIcon />}
               type='submit'>
               Rechercher
             </Button>
@@ -103,7 +103,7 @@ export default function RechercherFicheMetierPage() {
       </div>
       <div className={styles.bodySection}>
         <Container>
-          <Skeleton type="card" isLoading={isLoading} repeat={2}>
+          <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.skeletonCards}>
             <ol className={styles.resultList}>
               {ficheMétiers.map((ficheMetier) =>
                 <li className={styles.resultCard} key={ficheMetier.id}>{ficheMétierCard(ficheMetier)}</li>,

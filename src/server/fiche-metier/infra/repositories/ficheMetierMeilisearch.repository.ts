@@ -1,38 +1,49 @@
 // eslint-disable-next-line import/named
-import { MeiliSearch, SearchResponse } from 'meilisearch';
+import { MeiliSearch, MeiliSearchApiError, SearchResponse } from 'meilisearch';
 
-import { createSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
   FicheMétier,
   FicheMetierFiltresRecherche,
   FicheMetierNestedField,
-  FicheMetierNestedFieldStatut, FicheMétierResult } from '~/server/fiche-metier/domain/ficheMetier';
+  FicheMetierNestedFieldStatut,
+  FicheMétierResult,
+} from '~/server/fiche-metier/domain/ficheMetier';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 import {
-  FicheMétierHttp, FicheMétierHttpNestedField,
+  FicheMétierHttp,
+  FicheMétierHttpNestedField,
   FicheMétierHttpNestedFieldStatut,
 } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
 
 export class FicheMetierMeilisearchRepository implements FicheMetierRepository {
   constructor(private client: MeiliSearch) {}
 
-  async rechercher(filters: FicheMetierFiltresRecherche = { motCle: '', numberOfResult: 15, page: 1 }) {
+  async rechercher(filters: FicheMetierFiltresRecherche = { motCle: '', numberOfResult: 15, page: 1 }): Promise<Either<FicheMétierResult>> {
     const { motCle, numberOfResult, page } = filters;
     let offset = 0;
     if (page && numberOfResult) offset = (page - 1) * numberOfResult;
-    const result: SearchResponse<FicheMétierHttp> = await this.client.index('fiche-metier').search(
-      motCle,
-      {
-        attributesToRetrieve: ['id','nom_metier','accroche_metier'],
-        limit: numberOfResult,
-        offset,
-      },
-    );
-	  return createSuccess(mapFichesMetierResult(result));
+    try {
+      const result: SearchResponse<Partial<FicheMétierHttp>> = await this.client.index('fiche-metier').search(
+        motCle,
+        {
+          attributesToRetrieve: ['id','nom_metier','accroche_metier'],
+          limit: numberOfResult,
+          offset,
+        },
+      );
+	    return createSuccess(mapFichesMetierResult(result));
+    } catch (error: unknown) {
+      if (error instanceof MeiliSearchApiError && error.type === 'invalid_request') {
+        return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+      }
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    }
   }
 }
 
-function mapFichesMetierResult(fichesMetiersHttpResponse: SearchResponse<FicheMétierHttp>): FicheMétierResult {
+function mapFichesMetierResult(fichesMetiersHttpResponse: SearchResponse<Partial<FicheMétierHttp>>): FicheMétierResult {
   return {
     estimatedTotalResults: fichesMetiersHttpResponse.estimatedTotalHits,
 	  limit: fichesMetiersHttpResponse.limit,
@@ -42,7 +53,7 @@ function mapFichesMetierResult(fichesMetiersHttpResponse: SearchResponse<FicheM�
   };
 }
 
-function mapFichesMetier(fichesMetiersHttp: FicheMétierHttp[]): FicheMétier[] {
+function mapFichesMetier(fichesMetiersHttp: Partial<FicheMétierHttp>[]): Partial<FicheMétier>[] {
   return fichesMetiersHttp.map((ficheMetierHttp) => ({
     accesMetier: ficheMetierHttp.acces_metier,
     accrocheMetier: ficheMetierHttp.accroche_metier,

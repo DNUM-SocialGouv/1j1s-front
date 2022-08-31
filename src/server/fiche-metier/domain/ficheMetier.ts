@@ -1,5 +1,5 @@
 export interface FicheMétierResult {
-	results: FicheMétier[]
+	results: Partial<FicheMétier>[]
 	estimatedTotalResults: number
 	limit: number
 	offset: number
