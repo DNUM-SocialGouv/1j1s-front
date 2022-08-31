@@ -4,6 +4,8 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import AutresBesoins
   from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
+import AutresBesoinsAge
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoinsAge';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
 import BesoinAideAge from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAideAge';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
@@ -18,7 +20,7 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
-export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAideAge' | 'AutresBesoins' | 'Handicap' ;
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAideAge' | 'AutresBesoins' | 'Handicap' | 'AutresBesoinsAge' ;
 
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
@@ -132,6 +134,13 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       />;
     case 'Handicap':
       return <Handicap
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'AutresBesoinsAge':
+      return <AutresBesoinsAge
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}

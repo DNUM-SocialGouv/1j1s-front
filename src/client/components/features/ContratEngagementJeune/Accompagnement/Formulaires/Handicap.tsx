@@ -11,7 +11,7 @@ export default function Handicap({ setTypeFormulaireAffiché, setIsPôleEmploiMo
     </button>
     <p className={styles.accompagnementQuestion}>Êtes-vous en situation de handicap (RQTH) ?</p>
     <div>
-      <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('AutresBesoins')}>Oui</button>
+      <button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('AutresBesoinsAge')}>Oui</button>
       <button className={styles.optionBouton} onClick={() => setIsPôleEmploiModalOpen(true)}>Non</button>
     </div>
   </>;
