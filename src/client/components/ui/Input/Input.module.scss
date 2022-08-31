@@ -52,6 +52,12 @@
     &Error {
       border: solid 2px $color-error;
     }
+
+    &Hint {
+      @extend %text-small;
+      margin-top: 0.75rem;
+      color: $color-error;
+    }
   }
 }
 
