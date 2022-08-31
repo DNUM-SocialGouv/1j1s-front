@@ -3,9 +3,9 @@ type CmsComponent = {
 }
 
 export enum Domaines {
-  ACHAT= 'achats',
-  CULTURE= 'activités sociales et culturelles',
-  AGRICULTURE= 'agriculture',
+  ACHAT = 'achats',
+  CULTURE = 'activités sociales et culturelles',
+  AGRICULTURE = 'agriculture',
   ARCHITECTURE = 'architecture / urbanisme / immobilier',
   AUDIT = 'audit',
   CHIMIE = 'chimie / biologie / agronomie',
