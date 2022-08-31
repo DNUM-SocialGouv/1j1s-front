@@ -1,18 +1,18 @@
 import range from 'just-range';
-import { FormEvent, PropsWithChildren, useState } from 'react';
+import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
-import styles
-  from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
+import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
+import { InputLieu } from '~/client/components/ui/Input/InputLocalisation/InputLieu';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
-const ageOptions: Option[] = range(16,31).map((age) => {
+const ageOptions: Option[] = range(16, 31).map((age) => {
   return {
     libellé: `${age} ans`,
     valeur: `${age}`,
@@ -20,7 +20,7 @@ const ageOptions: Option[] = range(16,31).map((age) => {
 });
 
 interface FormulaireDeContactCEJProps {
-  onSuccess?: () => void
+  onSuccess?: () => void;
 }
 
 export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWithChildren<FormulaireDeContactCEJProps>) {
@@ -28,6 +28,10 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
   const [isLoading, setIsLoading] = useState(false);
   const [envoyé, setEnvoyé] = useState(false);
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
+
+  const [inputTypeLocalisation] = useState<string>('');
+  const [inputLibelleLocalisation] = useState<string>('');
+  const [inputCodeLocalisation] = useState<string>('');
 
   async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,21 +48,21 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
     });
     setIsLoading(false);
 
-    if(isSuccess(response)) {
+    if (isSuccess(response)) {
       if (onSuccess) {
         setEnvoyé(true);
         onSuccess();
       }
     } else {
-      alert("Erreur dans l'envoi du formulaire :" + response.errorType);
+      alert('Erreur dans l\'envoi du formulaire :' + response.errorType);
     }
   }
 
   if (envoyé) {
     return (
-      <div className={ styles.success }>
+      <div className={styles.success}>
         <span>
-          <CheckIcon circled={ true } animate />
+          <CheckIcon circled={true} animate/>
         </span>
         <h3>Votre demande a bien été transmise !</h3>
         {children}
@@ -71,58 +75,61 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
       onSubmit={envoyerFormulaireDeContact}
     >
       <div className={styles.formulaireDeRappel}>
-        <TextInput 
-          label='Prénom'
-          name='firstname'
+        <TextInput
+          label="Prénom"
+          name="firstname"
           autoFocus
-          placeholder='Exemple : Jean'
+          placeholder="Exemple : Jean"
           required
         />
-        <TextInput 
-          label='Nom'
-          name='lastname'
-          placeholder='Exemple : Dupont'
+        <TextInput
+          label="Nom"
+          name="lastname"
+          placeholder="Exemple : Dupont"
           required
         />
         <TextInput
           type="email"
-          label='Adresse email'
-          name='mail'
-          placeholder='Exemple : jean.dupont@gmail.com'
+          label="Adresse email"
+          name="mail"
+          placeholder="Exemple : jean.dupont@gmail.com"
           required
         />
         <TextInput
           type="tel"
           pattern="^(\+33|0|0033)[1-9]\d{8}$"
-          label='Téléphone'
-          name='phone'
-          placeholder='Exemple : 0606060606'
+          label="Téléphone"
+          name="phone"
+          placeholder="Exemple : 0606060606"
           required
         />
         <Select
           required
-          label='Age'
+          label="Age"
           name="age"
           optionList={ageOptions}
           onChange={setInputAge}
           value={inputAge}
         />
-        <TextInput
-          label='Ville'
-          name='ville'
-          placeholder='Exemple : Paris'
-          required
+        <InputLieu
+          label="Ville"
+          name="ville"
+          libellé={inputLibelleLocalisation}
+          code={inputCodeLocalisation}
+          type={inputTypeLocalisation}
+          obligatoire={true}
         />
       </div>
       <div className={styles.formulaireDeRappelButton}>
-        { isLoading
-          ? (<Button disabled buttonType="primary"><SpinnerIcon /></Button>)
+        {isLoading
+          ? (<Button disabled buttonType="primary"><SpinnerIcon/></Button>)
           : (<Button buttonType="primary">Envoyer la demande</Button>)
         }
-        
+
       </div>
       <div className={styles.décharge}>
-        <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
+        <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche
+          de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
       </div>
     </form>
   );
