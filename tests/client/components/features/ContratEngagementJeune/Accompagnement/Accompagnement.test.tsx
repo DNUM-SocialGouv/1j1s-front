@@ -12,6 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { createSuccess } from '~/server/errors/either';
 
+jest.setTimeout(10000);
 describe('<Accompagnement />', () => {
   beforeEach(() => {
     mockSmallScreen();
