@@ -9,6 +9,12 @@
     margin-bottom: 1rem;
   }
 
+  > ul {
+    padding-left: 40px;
+    margin: 14px 0;
+    list-style: disc;
+  }
+
   > p {
     @extend %text-regular;
     margin-bottom: 2.5rem;

@@ -1,6 +1,7 @@
 @import "@styles/utilities";
 
 .wrapper {
+  font-family: Marianne;
   position: relative;
 }
 
@@ -8,6 +9,7 @@
   z-index: 2;
   position: absolute;
   border: 1px solid $color-disabled;
+  background-color: $color-background;
   width: 100%;
   list-style-type: none;
   margin: 0;
@@ -36,6 +38,7 @@
   &Input {
     display: flex;
     align-items: center;
+    font-family: 'Marianne';
     width: 100%;
     height: 2.5rem;
     padding: 0 16px;

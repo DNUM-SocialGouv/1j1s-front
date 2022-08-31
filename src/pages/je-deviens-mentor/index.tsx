@@ -54,8 +54,8 @@ export default function MentoratPage() {
         description="1 jeune 1 mentor, accompagner un jeune pour l’aider à réussir"
       />
       <main id="contenu">
-        <div className={styles.heading}>
-          <Marked markdown={contenuHeader} />
+        <div>
+          <Marked markdown={contenuHeader} className={styles.heading}/>
 
           <div className={styles.linkAsButtonWrapper}>
             <LinkAsButton

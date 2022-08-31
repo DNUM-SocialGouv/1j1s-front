@@ -17,8 +17,6 @@ interface MesuresJeunesProps {
 export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
   const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
 
-
-
   function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
     const titre = useSanitize(carte.titre);
     const bannière = carte.bannière?.url || '';

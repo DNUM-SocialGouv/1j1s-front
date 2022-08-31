@@ -8,11 +8,12 @@
 }
 
 .titre h1 {
+  @extend %bold, %subheading;
   margin: 0 0 1rem;
 }
 
 .titre h2 {
-  font-size: 1.25rem;
+  @extend %text-medium;
 }
 
 .buttonPostuler {
@@ -32,7 +33,22 @@
   font-size: 0.875rem;
 }
 
+.contenu p {
+  margin-bottom: 1.5rem;
+}
+
+.contenu ul {
+  padding-left: 40px;
+  margin: 14px 0;
+  list-style: disc;
+}
+
+.contenu li {
+  list-style: disc;
+}
+
 .contenu h3 {
+  @extend %bold;
   margin-bottom: 0.5rem;
 }
 

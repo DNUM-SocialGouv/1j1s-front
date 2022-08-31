@@ -66,7 +66,7 @@ export default function RechercherOffreStagePage() {
               classNames={
                 {
                   form: styles.stageFormElement,
-                  input: ['fr-input', styles.stageInputElement].join(' '),
+                  input: [styles.stageInputElement].join(' '),
                   root: styles.stageRootElement,
                   submitIcon: styles.stageSubmitIconElement,
                 }
