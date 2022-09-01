@@ -9,11 +9,9 @@ export default function AidesExceptionnelles() {
   return (
     <section className={styles.aides}>
       <div className={styles.aidesContainer}>
-        <span className={styles.aidesContainerTitle}>
-          <h2 className={ styles.aidesContainerTitleTitre }>Les entreprises s’engagent,
-            <span className={ styles.aidesContainerTitleTitreAccroche }>  une mobilisation des entreprises pour l’emploi des jeunes</span>
-          </h2>
-        </span>
+        <h2 className={ styles.aidesContainerTitre }>Les entreprises s’engagent,
+          <span className={ styles.aidesContainerTitreAccroche }>  une mobilisation des entreprises pour l’emploi des jeunes</span>
+        </h2>
         <LinkAsButton
           href="/inscription"
           className={styles.aidesContainerLink}
