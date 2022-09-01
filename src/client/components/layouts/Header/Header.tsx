@@ -1,31 +1,21 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
-import { buildNavigation, HeaderNav } from '~/client/components/layouts/Header/HeaderNav';
-import { NavItem } from '~/client/components/layouts/Header/NavItem';
+import { HeaderNav } from '~/client/components/layouts/Header/HeaderNav';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function Header() {
-  const router = useRouter();
-  const [path, setPath] = useState(() => router.pathname || '');
-
-  useEffect(() => {
-    if (path !== router.pathname){
-      setPath(router.pathname);
-    }
-  }, [path, setPath, router]);
+  const { isLargeScreen } = useBreakpoint();
 
   return (
     <header
       className={styles.header}
       role="banner"
     >
-      <HeaderBody/>
-      <HeaderNav>
-        <NavItem title="Accueil" link="/" current={path === '/'}/>
-        {buildNavigation(path, false)}
-      </HeaderNav>
+      <HeaderBody />
+      { isLargeScreen &&
+      <HeaderNav />}
     </header>
   );
 }

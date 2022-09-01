@@ -5,7 +5,6 @@ interface NavSubItemProps {
   title: string
   link: string
   current?: boolean
-  asLink?: React.ReactElement
   onClick?: MouseEventHandler<HTMLAnchorElement>
 }
 

@@ -8,10 +8,11 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface NavItemWithSubItemsProps extends CommonProps {
   title: string
+  isCurrent: boolean
   children: React.ReactNode
 }
 
-export function NavItemWithSubItems({ children, title }: React.PropsWithChildren<NavItemWithSubItemsProps>) {
+export function NavItemWithSubItems({ children, title, isCurrent }: React.PropsWithChildren<NavItemWithSubItemsProps>) {
 
   const optionsRef = useRef<HTMLLIElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -44,7 +45,7 @@ export function NavItemWithSubItems({ children, title }: React.PropsWithChildren
         onClick={() => setIsExpanded(!isExpanded)}
         aria-expanded={isExpanded}
       >
-        {title}
+        <span aria-current={isCurrent}>{title}</span>
         {isExpanded ? <AngleUpIcon /> : <AngleDownIcon />}
       </button>
       {isExpanded &&
