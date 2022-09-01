@@ -13,7 +13,9 @@
 
 .section {
     padding: 1.5rem;
-    margin: 1.5rem 0;
+    &:not(:first-child){
+        margin: 1.5rem 0;
+    }
 
     &Header {
         text-align: center;

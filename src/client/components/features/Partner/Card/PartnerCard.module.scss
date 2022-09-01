@@ -31,7 +31,12 @@
   display: block;
   background: $color-surface;
   border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
+  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
+  // TODO: must delete when removing dsfr
+  &:after {
+    content: inherit !important;
+    font: inherit !important;
+  }
 
   &Logo {
     display: flex;
@@ -84,6 +89,7 @@
       flex-shrink: 0;
       width: 280px;
       border: 0px;
+      padding: 0;
     }
 
     &Body {

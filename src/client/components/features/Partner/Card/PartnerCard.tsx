@@ -46,13 +46,13 @@ export function PartnerCard(props: PartnerCardProps) {
     return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
   }, [isInternalLink]);
 
+  const hasHeadlineColor = headlineColor ? { color: headlineColor } : { color: 'inherit' };
+
   return (
     <Link href={link} className={styles.card}>
       <>
         <div className={styles.cardLogo}>
-          <div className={styles.cardLogoWrapper}>
-            <Image alt={alt} src={logo} layout="fill" objectFit="contain"/>
-          </div>
+          <Image alt={alt} src={logo} width='100%' height='100%'/>
         </div>
         <div className={styles.cardBody}>
           { title &&
@@ -60,7 +60,7 @@ export function PartnerCard(props: PartnerCardProps) {
           }
           <p>
             { headline &&
-              <strong style={{ color: headlineColor }} className={styles.cardHeadline}>{headline}</strong>
+              <strong style={ hasHeadlineColor } className={styles.cardHeadline}>{headline}</strong>
             }
             {description}
           </p>
