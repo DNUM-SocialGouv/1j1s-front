@@ -53,6 +53,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
       childrens:
         [
           { current: path === '/formations', link: '/formations', title: 'Formations' },
+          { current: path === '/decouvrir-les-metiers', link: '/decouvrir-les-metiers', title: 'Découvrir les métiers' },
         ],
       title: 'Formation et orientation',
     };
