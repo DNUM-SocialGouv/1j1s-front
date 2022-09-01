@@ -4,6 +4,9 @@
     max-width: 78rem;
     padding: 3rem 1.5rem;
     margin: auto;
+    & [href] {
+        box-shadow: 0 1px 0 0;
+    }
 }
 
 .consulterArticle img {
