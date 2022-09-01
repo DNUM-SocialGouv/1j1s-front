@@ -30,12 +30,14 @@ export default function RechercherFicheMetierPage() {
 
   const ficheMétierCard = (résultat: Partial<FicheMétier>) => (
     <Link href={'/'}>
-      <div className={styles.cardTitle}>{`${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`}</div>
-      <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier || '' }}/>
-      <div className={styles.cardLink}>
-        <span>En savoir plus</span>
-        <AngleRightIcon className={styles.cardLinkIcon}/>
-      </div>
+      <article className={styles.cardBody}>
+        <div className={styles.cardTitle}>{`${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`}</div>
+        <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier || '' }}/>
+        <div className={styles.cardLink}>
+          <span>En savoir plus</span>
+          <AngleRightIcon className={styles.cardLinkIcon}/>
+        </div>
+      </article>
     </Link>
   );
 
@@ -68,10 +70,10 @@ export default function RechercherFicheMetierPage() {
         description="Trouver le métier qui vous correspond"/>
       <div className={styles.heroSection}>
         <Container>
-          <div className={styles.heroMessage}>
+          <h1 className={styles.heroMessage}>
             <span className={styles.heroMessageFirstPart}>Trouvez le métier</span>
             <span className={styles.heroMessageSecondPart}>qui vous correspond</span>
-          </div>
+          </h1>
         </Container>
       </div>
       <div className={styles.headingSection}>
