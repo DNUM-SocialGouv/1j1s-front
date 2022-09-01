@@ -1,4 +1,5 @@
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
+import { MeiliSearch } from 'meilisearch';
 
 import {
   AlternanceDependencies,
@@ -23,6 +24,7 @@ import {
 import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
+import { FicheMetierDependencies, ficheMetierDependenciesContainer } from '~/server/fiche-metier/configuration/ficheMetier.dependencies';
 import {
   localisationDependenciesContainer,
   LocalisationsDependencies,
@@ -44,6 +46,7 @@ export type Dependencies = {
   alternanceDependencies: AlternanceDependencies;
   cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
+  fichesMetierDependencies: FicheMetierDependencies;
   localisationDependencies: LocalisationsDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies
   entrepriseDependencies: EntrepriseDependencies
@@ -64,6 +67,9 @@ export const dependenciesContainer = (): Dependencies => {
     strapiClientService,
     poleEmploiClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
+  
+  const { NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL } = serverConfigurationService.getConfiguration();
+  const meiliSearchClient = new MeiliSearch({ apiKey: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, host: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL });
 
   const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiClientService, cacheService);
 
@@ -78,6 +84,7 @@ export const dependenciesContainer = (): Dependencies => {
   const entrepriseDependencies = entrepriseDependenciesContainer(
     new StrapiRejoindreLaMobilisationRepository(strapiClientService),
   );
+  const fichesMetierDependencies = ficheMetierDependenciesContainer(meiliSearchClient);
 
   return {
     alternanceDependencies,
@@ -85,6 +92,7 @@ export const dependenciesContainer = (): Dependencies => {
     demandeDeContactDependencies: demandeDeContactDependencies,
     engagementDependencies,
     entrepriseDependencies,
+    fichesMetierDependencies,
     localisationDependencies,
     offreEmploiDependencies,
   };
