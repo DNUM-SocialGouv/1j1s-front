@@ -87,6 +87,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
         [
           { current: path === '/je-deviens-mentor', link: '/je-deviens-mentor', title: 'Je deviens mentor' },
           { current: path === '/les-entreprises-s-engagent', link: '/les-entreprises-s-engagent', title: 'Rejoindre la mobilisation' },
+          { current: path === '/mesures-employeurs', link: '/mesures-employeurs', title: 'Les mesures employeurs' },
         ],
       title: 'Je suis employeur',
     };
