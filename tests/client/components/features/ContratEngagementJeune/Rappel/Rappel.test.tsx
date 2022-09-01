@@ -3,43 +3,49 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 
 import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { createSuccess } from '~/server/errors/either';
 
-import { remplirFormulaireDeContact } from '../FormulaireDeContact/FormulaireDeContact.test';
-
-jest.setTimeout(10000);
+jest.setTimeout(15000);
 
 describe('<Rappel />', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  function renderComponent () {
+
+  function renderComponent() {
     const demandeDeContactService: DemandeDeContactService = {
       envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
       envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService;
+    const localisationService = aLocalisationService({
+      communeList: [],
+      départementList: [{ code: '95', libelle: 'Pontoise', nom: 'Pontoise' }],
+      régionList: [],
+    });
 
     render(
-      <DependenciesProvider demandeDeContactService={demandeDeContactService}>
-        <Rappel />
+      <DependenciesProvider demandeDeContactService={demandeDeContactService} localisationService={localisationService}>
+        <Rappel/>
       </DependenciesProvider>,
     );
 
   }
-  it("le composant s'affiche correctement", () => {
+
+  it('le composant s\'affiche correctement', () => {
     // Given
     // When
     renderComponent();
     // Then
     expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
   });
-  describe("Lorsqu'on clique sur le bouton je souhaite être contacté(e)", () => {
+  describe('Lorsqu\'on clique sur le bouton je souhaite être contacté(e)', () => {
     const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
     it('affiche un formulaire de rappel', async () => {
       // Given
@@ -74,3 +80,24 @@ describe('<Rappel />', () => {
     });
   });
 });
+
+/* eslint-disable jest/no-export */
+type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
+
+export async function remplirFormulaireDeContact(data: ContactInputs, user = userEvent.setup(), submit = true) {
+  await user.type(screen.getByLabelText('Prénom'), data.prénom);
+  await user.type(screen.getByLabelText('Nom'), data.nom);
+  await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
+  await user.type(screen.getByLabelText('Adresse email'), data.email);
+
+  await user.type(screen.getByLabelText('Ville'), data.ville);
+  const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+  const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
+  fireEvent.click(résultatLocalisationList[0]);
+
+  await user.click(screen.getByLabelText('Age'));
+  await user.click(screen.getByLabelText(data.age));
+  if (submit) {
+    await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
+  }
+}
