@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
+import AidesExceptionnelles
+  from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -88,7 +90,7 @@ export default function MentoratPage() {
             {displayRaisonParticipationsMentoratCitoyen(isLargeScreen)}
           </article>
         </div>
-
+        <AidesExceptionnelles />
       </main>
     </>
   );
