@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles.module.scss';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 
@@ -15,6 +16,7 @@ export default function AidesExceptionnelles() {
           className={styles.aidesContainerLink}
         >
           Rejoindre la mobilisation
+          <AngleRightIcon className={'angle-right'}/>
         </LinkAsButton>
       </div>
     </section>
