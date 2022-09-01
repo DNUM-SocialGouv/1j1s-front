@@ -3,14 +3,17 @@ import React from 'react';
 import styles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles.module.scss';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
-import Marked from '~/client/components/ui/Marked/Marked';
 
 export default function AidesExceptionnelles() {
 
   return (
     <section className={styles.aides}>
       <div className={styles.aidesContainer}>
-        <Marked markdown={'## Les entreprises s’engagent, une mobilisation des entreprises pour l’emploi des jeunes'}/>
+        <span className={styles.aidesContainerTitle}>
+          <h2 className={ styles.aidesContainerTitleTitre }>Les entreprises s’engagent,
+            <span className={ styles.aidesContainerTitleTitreAccroche }>  une mobilisation des entreprises pour l’emploi des jeunes</span>
+          </h2>
+        </span>
         <LinkAsButton
           href="/inscription"
           className={styles.aidesContainerLink}

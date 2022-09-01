@@ -12,11 +12,33 @@
     padding: 0 1.5rem;
     place-items: center;
 
+    &Title{
+      margin-bottom: 0;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      font-size: 2rem;
+
+      &Titre {
+        color: $color-primary;
+        max-width: 51.875rem;
+        text-align: center;
+        font-size: 1.5rem;
+
+        &Accroche {
+          font-size: 1.5rem;
+          color: #18753C;
+        }
+      }
+    }
+
     &Link {
       background-color: white;
       color: $color-primary;
       border: 1px solid $color-primary;
-      box-shadow: none !important; // TODO a retirer à cause du dsfr
+      box-shadow: none !important;
     }
 
     h2 {
