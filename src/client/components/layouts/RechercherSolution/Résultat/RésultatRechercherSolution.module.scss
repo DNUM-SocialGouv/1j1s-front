@@ -27,14 +27,16 @@
   }
 }
 
-
-.logoEntreprise {
-  flex-shrink: 0;
-}
-
 .offreLead {
   margin-left: 2rem;
   line-height: 1.5;
+  &Title {
+    @extend  %bold;
+    font-size: 1rem;
+  }
+  &SubTitle {
+    font-size: 0.75rem;
+  }
 }
 
 .callToAction {
@@ -43,7 +45,7 @@
 
 @include media(medium) {
   .card {
-    padding: 2rem 2.5rem;
+    padding: 1rem 1.5rem;
     border-left: 4px solid $color-primary;
 
     &Header {
@@ -62,12 +64,19 @@
     }
 
     .offreLead {
+      margin-left: 2.5rem;
       width: 100%;
+      &Title {
+        font-size: 1.5rem;
+      }
+      &SubTitle {
+        font-size: 1.25rem;
+      }
     }
 
     &Description {
       width: 100%;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       flex-direction: row;
       justify-content: space-between;
       padding: 0;
