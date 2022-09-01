@@ -2,8 +2,14 @@ import { Modal, ModalContent, ModalTitle } from '@dataesr/react-dsfr';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
+import AutresBesoins
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
+import AutresBesoins26ans
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins26ans';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
+import BesoinAide26ans from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide26ans';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
+import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
@@ -14,7 +20,7 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 
-export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide';
+export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide26ans' | 'AutresBesoins' | 'Handicap' | 'AutresBesoins26ans' ;
 
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
@@ -97,26 +103,55 @@ export default function Accompagnement() {
 }
 
 function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>, setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>, setIsDispositifsRefencesModalOpen: Dispatch<SetStateAction<boolean>>) {
-  if (typeFormulaireÀAfficher === 'PasDAccompagnement') {
-    return <PasDAccompagnement
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
+  switch (typeFormulaireÀAfficher) {
+    case 'PasDAccompagnement':
+      return <PasDAccompagnement
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'BesoinAide':
+      return <BesoinAide
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'BesoinAide26ans':
+      return <BesoinAide26ans
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'AutresBesoins':
+      return <AutresBesoins
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'Handicap':
+      return <Handicap
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    case 'AutresBesoins26ans':
+      return <AutresBesoins26ans
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
+    default:
+      return <Démarrage
+        setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+        setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
+        setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
+        setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
+      />;
   }
-  if (typeFormulaireÀAfficher === 'BesoinAide') {
-    return <BesoinAide
-      setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-      setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-      setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-      setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-    />;
-  }
-  return <Démarrage
-    setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-    setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-    setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-    setIsDispositifsReferencesModalOpen={setIsDispositifsRefencesModalOpen}
-  />;
 }
