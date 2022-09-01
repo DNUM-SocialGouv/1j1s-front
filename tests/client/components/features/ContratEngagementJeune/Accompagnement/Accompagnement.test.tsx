@@ -10,6 +10,7 @@ import { mockSmallScreen } from '@tests/client/window.mock';
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
+import { LocalisationService } from '~/client/services/localisation.service';
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);
@@ -27,9 +28,11 @@ describe('<Accompagnement />', () => {
       envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
       envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService;
+    const localisationService = {} as unknown as LocalisationService;
+
 
     render(
-      <DependenciesProvider demandeDeContactService={demandeDeContactService}>
+      <DependenciesProvider demandeDeContactService={demandeDeContactService} localisationService={localisationService}>
         <Accompagnement />
       </DependenciesProvider>,
     );
