@@ -134,7 +134,7 @@
         box-shadow: none !important;
         border: 2px solid $color-background;
         border-radius: 20px;
-        width: 200px;
+        width: 300px;
         display: grid;
         place-items: center;
         margin-top: 10px;
@@ -160,20 +160,6 @@
           width: 30px;
           margin-top: 0.5rem;
         }
-      }
-
-      &Iconbenevol {
-        box-shadow: none !important;
-        border: 2px solid $color-background;
-        border-radius: 20px;
-        width: 200px;
-        display: grid;
-        place-items: center;
-        margin-top: 10px;
-
-        p {
-          font-size: smaller;
-        }
 
         &Benevolat {
           color: $color-coral;
@@ -192,7 +178,6 @@
   &Boutons {
     display: grid;
     grid-template-rows: 1fr;
-    gap: 1rem;
   }
 
   &IsActive {
@@ -263,16 +248,13 @@
 
     &Dispositifs {
       &Position {
-        grid-template-columns: repeat(3, 1fr);
-
-        &Iconbenevol {
-          grid-column-start: 2;
-        }
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
     &Boutons {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
     }
   }
 }

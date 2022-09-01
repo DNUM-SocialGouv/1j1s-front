@@ -81,19 +81,19 @@ export default function Accompagnement() {
           <div className={styles.accompagnementDispositifsPosition}>
             <Link href={'/#offres'} className={styles.accompagnementDispositifsPositionIcon}>
               <BriefCaseIcon className={styles.accompagnementDispositifsPositionIconOffre} />
-              <p>Emplois et stages</p>
+              <p>Découvrez nos offres</p>
             </Link>
             <Link href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
               <BookIcon className={styles.accompagnementDispositifsPositionIconFormation} />
-              <p>Orientation et formation</p>
+              <p>Formation et orientation</p>
             </Link>
             <Link href={'/#aides-orientation-accompagnement'} className={styles.accompagnementDispositifsPositionIcon}>
               <CompassIcon className={styles.accompagnementDispositifsPositionIconAide} />
               <p>Aides et accompagnement</p>
             </Link>
-            <Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIconbenevol}>
-              <TrophyIcon className={styles.accompagnementDispositifsPositionIconbenevolBenevolat} />
-              <p>Engagement et bénévolat</p>
+            <Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>
+              <TrophyIcon className={styles.accompagnementDispositifsPositionIconBenevolat} />
+              <p>Engagement</p>
             </Link>
           </div>
         </ModalContent>
