@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import bannièreImage from 'public/images/banners/CEJ_bannière.jpg';
+import bannièreImage from 'public/images/mesuresEmployeurs/mesuresEmployeurs.png';
 import React from 'react';
 
 import styles from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière.module.scss';

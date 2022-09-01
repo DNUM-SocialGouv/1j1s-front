@@ -33,8 +33,6 @@
 .bannièreImage {
   position: relative;
   width: 800px;
-  flex-shrink: 0;
-  flex-grow: 0;
 }
 
 @include media(medium) {
