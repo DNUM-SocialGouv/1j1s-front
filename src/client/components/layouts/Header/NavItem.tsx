@@ -6,7 +6,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 interface NavItemProps {
   title: string
   link?: string
-  current?: boolean
+  current: boolean
   children?: React.ReactNode
 }
 
