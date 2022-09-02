@@ -1,6 +1,6 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import React from 'react';
-import { Configure, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
+import { Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -69,6 +69,17 @@ export default function RechercherOffreStagePage() {
                 sortBy={['name:asc']}/>
             </div>
           </form>
+          <CurrentRefinements
+            classNames={
+              {
+                category: styles.stageTagCategoryElement,
+                categoryLabel: styles.stageTagItem,
+                item: styles.stageTagItem,
+                label: styles.stageTagLabel,
+                list: styles.stageTagList,
+              }
+            }
+          />
           <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
           <Hits
             hitComponent={Résultat}
