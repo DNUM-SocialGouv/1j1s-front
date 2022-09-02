@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout.module.css';
+import styles from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout.module.scss';
 
 interface ConsulterOffreLayoutProps {
   children: React.ReactNode

@@ -6,7 +6,9 @@ import { Configure, Hits, InstantSearch, SearchBox } from 'react-instantsearch-h
 
 import { Domaines, OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { RésultatRechercherStage } from '~/client/components/layouts/RechercherStage/RésultatRechercherStage';
+import {
+  RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
@@ -20,7 +22,7 @@ const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
-  return <RésultatRechercherStage
+  return <RésultatRechercherSolution
     lienOffre={`/stages/${résultat.slug}`}
     intituléOffre={résultat.titre}
     logoEntreprise={IMAGE_FIXE}
@@ -66,7 +68,7 @@ export default function RechercherOffreStagePage() {
               classNames={
                 {
                   form: styles.stageFormElement,
-                  input: ['fr-input', styles.stageInputElement].join(' '),
+                  input: [styles.stageInputElement].join(' '),
                   root: styles.stageRootElement,
                   submitIcon: styles.stageSubmitIconElement,
                 }

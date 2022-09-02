@@ -1,7 +1,7 @@
 @import "@styles/utilities";
 
 .stageContainer {
-  padding-top: 1rem;
+  padding: 1rem;
 }
 
 .stageSelectWrapper {
@@ -12,12 +12,17 @@
 }
 
 input.stageInputElement {
-  max-width: 78rem;
-  height: 24px;
-  box-sizing: content-box;
+  font-family: 'Marianne';
+  background-color: $color-background;
+  border: 1px solid $color-primary;
+  border-radius: 1.25rem;
+  width: 50%;
+  color: $color-on-background;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  padding: .5rem 1rem;
   margin: 0 auto;
   display: inline-block;
-  width: auto;
 }
 
 .stageRootElement {

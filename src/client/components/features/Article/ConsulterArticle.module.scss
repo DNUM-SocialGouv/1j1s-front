@@ -1,0 +1,22 @@
+@import "@styles/utilities";
+
+.consulterArticle {
+    max-width: 78rem;
+    padding: 3rem 1.5rem;
+    margin: auto;
+    & [href] {
+        box-shadow: 0 1px 0 0;
+    }
+}
+
+.consulterArticle img {
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    max-width: 100%;
+}
+
+.titre {
+    @extend %bold, %headline;
+    color: $color-on-background;
+    padding-bottom: 1rem;
+}

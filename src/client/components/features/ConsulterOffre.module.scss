@@ -3,16 +3,17 @@
 .titre {
   margin: 1.5rem 0;
   text-align: center;
-  border-bottom: 1px solid var(--grey-950);
+  border-bottom: 1px solid $color-separator;
   padding-bottom: 1rem;
 }
 
 .titre h1 {
+  @extend %bold, %subheading;
   margin: 0 0 1rem;
 }
 
 .titre h2 {
-  font-size: 1.25rem;
+  @extend %text-medium;
 }
 
 .buttonPostuler {
@@ -30,9 +31,30 @@
 
 .contenu * {
   font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.contenu p {
+  margin-bottom: 1.5rem;
+}
+
+.contenu ul {
+  padding-left: 40px;
+  margin: 14px 0;
+  list-style: disc;
+}
+
+.contenu li {
+  list-style: disc;
+}
+
+.contenu h2 {
+  @extend %bold;
+  margin-bottom: 0.5rem;
 }
 
 .contenu h3 {
+  @extend %bold;
   margin-bottom: 0.5rem;
 }
 

@@ -62,6 +62,10 @@ export function RechercherAlternance() {
     return messageRésultatRechercheSplit.join(' ');
   }, [nombreRésultats, queryParams.metierSelectionne]);
 
+  const partnerCardList = [
+    SimulationAlternancePartner().props,
+    CIDJPartner().props,
+  ];
 
   return (
     <>
@@ -81,10 +85,7 @@ export function RechercherAlternance() {
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapAlternanceToLienSolution}
         />
-        {PartnerCardList([
-          SimulationAlternancePartner().props,
-          CIDJPartner().props,
-        ])}
+        {PartnerCardList(partnerCardList)}
       </main>
     </>
   );

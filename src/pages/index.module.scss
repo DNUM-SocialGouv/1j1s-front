@@ -13,13 +13,16 @@
 
 .section {
     padding: 1.5rem;
-    margin: 1.5rem 0;
+    &:not(:first-child){
+        margin: 1.5rem 0;
+    }
 
     &Header {
         text-align: center;
         margin-top: 0;
         margin-bottom: 2rem;
-
+        font-size: 1.5rem;
+        font-weight: 700;
         > svg, h2 {
             display: block;
             margin: auto;

@@ -1,4 +1,3 @@
-import { Title } from '@dataesr/react-dsfr';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
@@ -18,7 +17,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
   return (
     <ConsulterOffreLayout>
       <header className={commonStyles.titre}>
-        <Title as="h1" look="h3">{offreEmploi.intitulé}</Title>
+        <h1>{offreEmploi.intitulé}</h1>
         {offreEmploi.entreprise.nom && <h2>{offreEmploi.entreprise.nom}</h2>}
         <TagList list={offreEmploi.étiquetteList} aria-label="Caractéristiques de l'offre d'emploi" />
       </header>

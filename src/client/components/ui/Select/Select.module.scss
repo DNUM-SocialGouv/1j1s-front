@@ -19,16 +19,16 @@
     position: absolute;
     padding: 8px;
     width: 100%;
-    border: 1px solid var(--grey-925);
+    border: 1px solid $color-separator;
     border-radius: 20px;
-    background-color: var(--grey-1000);
+    background-color: $color-background;
     margin: 4px 0 0 0;
     max-height: 300px;
     overflow-y: auto;
 }
 
 .option:not(:last-child) {
-    border-bottom: 1px solid var(--grey-925);
+    border-bottom: 1px solid $color-separator;
     border-radius: 0;
 }
 

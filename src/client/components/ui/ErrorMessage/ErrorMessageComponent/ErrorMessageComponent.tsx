@@ -1,5 +1,3 @@
-import { Title } from '@dataesr/react-dsfr';
-
 interface ErrorMessageProps {
   className?: string,
   explanationText: string,
@@ -11,8 +9,8 @@ export const ErrorMessageComponent = (props: ErrorMessageProps) => {
   const { className, explanationText, solutionText, title } = props;
   return (
     <div className={className}>
-      <Title as="h1" look="h4">{title}</Title>
-      <p className="fr-text--bold">{explanationText}</p>
+      <h1>{title}</h1>
+      <p className="bold">{explanationText}</p>
       <p>{solutionText}</p>
     </div>
   );
