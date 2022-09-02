@@ -31,6 +31,7 @@
 
 .contenu * {
   font-size: 0.875rem;
+  line-height: 1.5rem;
 }
 
 .contenu p {
@@ -45,6 +46,11 @@
 
 .contenu li {
   list-style: disc;
+}
+
+.contenu h2 {
+  @extend %bold;
+  margin-bottom: 0.5rem;
 }
 
 .contenu h3 {
