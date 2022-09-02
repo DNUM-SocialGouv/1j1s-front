@@ -1,14 +1,10 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
-// eslint-disable-next-line import/named
-import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 import React from 'react';
 import { Configure, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
-import { Domaines, OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
-import {
-  RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
@@ -32,21 +28,6 @@ const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   />;
 });
 
-const domaines: Array<RefinementListItem> = Object.values(Domaines).map((domaine) => {
-  return { count: 0, isRefined: false, label: domaine, value: domaine };
-});
-
-const durees: Array<RefinementListItem> = [
-  { count: 0, isRefined: false, label: '< 1 mois', value: '<30' },
-  { count: 0, isRefined: false, label: '1 mois', value: '30' },
-  { count: 0, isRefined: false, label: '2 mois', value: '60' },
-  { count: 0, isRefined: false, label: '3 mois', value: '90' },
-  { count: 0, isRefined: false, label: '4 mois', value: '120' },
-  { count: 0, isRefined: false, label: '5 mois', value: '150' },
-  { count: 0, isRefined: false, label: '6 mois', value: '180' },
-  { count: 0, isRefined: false, label: '> 6 mois', value: '>180' },
-];
-
 export default function RechercherOffreStagePage() {
   const searchClient = useDependency<SearchClient>('rechercheClientService');
   return (
@@ -61,42 +42,33 @@ export default function RechercherOffreStagePage() {
         <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX}
           routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
           <Configure hitsPerPage={HITS_PER_PAGE}/>
-          <label>Métiers, mots clés, …
-            <SearchBox
-              className='recherche-principale-stage'
-              placeholder="Métiers, mots clés, …"
-              classNames={
-                {
-                  form: styles.stageFormElement,
-                  input: [styles.stageInputElement].join(' '),
-                  root: styles.stageRootElement,
-                  submitIcon: styles.stageSubmitIconElement,
+          <form className={styles.stageForm}>
+            <label>Métiers, mots clés, …
+              <SearchBox
+                className='recherche-principale-stage'
+                placeholder="Métiers, mots clés, …"
+                classNames={
+                  {
+                    form: styles.stageFormElement,
+                    input: ['fr-input', styles.stageInputElement].join(' '),
+                    root: styles.stageRootElement,
+                    submitIcon: styles.stageSubmitIconElement,
+                  }
                 }
-              }
-            />
-          </label>
-          <div className={styles.stageSelectWrapper}>
-            <MeilisearchCustomRefinementList
-              name='Domaine'
-              label='Domaine'
-              attribute={'domaines'}
-              operator='or'
-              sortBy={['name:asc']}
-              transformItems={() => {
-                return domaines;
-              }}
-            />
-            <MeilisearchCustomRefinementList
-              name='Durée du stage'
-              label='Durée du stage'
-              attribute={'dureeCategorisee'}
-              operator='or'
-              sortBy={['name:asc']}
-              transformItems={() => {
-                return durees;
-              }}
-            />
-          </div>
+              />
+            </label>
+            <div className={styles.stageSelectWrapper}>
+              <MeilisearchCustomRefinementList
+                attribute={'domaines'}
+                limit={100}
+                label={'Domaines'}
+                sortBy={['name:asc']}/>
+              <MeilisearchCustomRefinementList
+                attribute={'dureeCategorisee'}
+                label={'Durée de stage'}
+                sortBy={['name:asc']}/>
+            </div>
+          </form>
           <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
           <Hits
             hitComponent={Résultat}

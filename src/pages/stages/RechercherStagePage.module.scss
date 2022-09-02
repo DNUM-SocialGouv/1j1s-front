@@ -1,7 +1,19 @@
 @import "@styles/utilities";
 
+$color-tag: #EEEEEE;
+
 .stageContainer {
-  padding: 1rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid $color-form-field;
+  @include media(large) {
+    max-width: 78rem;
+  }
+}
+
+.stageForm {
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .stageSelectWrapper {
@@ -29,12 +41,12 @@ input.stageInputElement {
   padding: 1rem 0;
 }
 
-.stageListeRootElement> ol li {
+.stageListeRootElement > ol li {
   display: block;
   margin-bottom: 1rem;
 }
 
-.stageListeRootElement> ol {
+.stageListeRootElement > ol {
   padding: 0;
 }
 

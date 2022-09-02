@@ -1,0 +1,92 @@
+@import "@styles/utilities";
+
+.selectWrapper {
+  flex: 1;
+}
+
+.selectContainer {
+  position: relative;
+}
+
+.selectLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.button {
+  @extend %text-regular;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: $color-mention-grey;
+  padding: 6px 6px 6px 12px;
+  border: 1.5px solid $color-primary;
+  border-radius: 20px;
+}
+
+.listBox {
+  z-index: 2;
+  position: absolute;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  background-color: $color-background;
+  margin: 4px 0 0 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.label{
+  border-bottom: 1px solid $color-separator;
+  border-radius: 0;
+}
+
+.checkbox {
+  position: relative;
+
+  input[type=checkbox] {
+    position: absolute;
+    margin: 0;
+    opacity: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  input[type=checkbox] + span {
+    position: relative;
+    padding: 0.75rem 0 .75rem 2rem;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  input[type=checkbox] + span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    margin-top: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    background-size: 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.25rem;
+    box-shadow: inset 0 0 0 1px $color-on-surface;
+  }
+
+  input[type=checkbox]:checked + span::before {
+    background-color: $color-primary;
+    background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fff' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+  }
+}

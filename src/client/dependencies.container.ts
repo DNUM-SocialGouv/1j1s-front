@@ -62,7 +62,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const rechercheClientService = instantMeiliSearch(
     meiliSearchBaseUrl,
     meiliSearchApiKey,
-    { paginationTotalHits: MAX_LIMITE_STAGES },
+    { keepZeroFacets: true, paginationTotalHits: MAX_LIMITE_STAGES },
   );
 
   return {
