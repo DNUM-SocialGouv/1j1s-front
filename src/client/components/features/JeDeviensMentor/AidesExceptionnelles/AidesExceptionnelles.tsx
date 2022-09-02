@@ -14,7 +14,6 @@ export default function AidesExceptionnelles() {
         </h2>
         <LinkAsButton
           href="/les-entreprises-s-engagent/inscription"
-          className={ styles.aidesContainerLink }
         >
           Rejoindre la mobilisation
           <AngleRightIcon className={'angle-right'}/>

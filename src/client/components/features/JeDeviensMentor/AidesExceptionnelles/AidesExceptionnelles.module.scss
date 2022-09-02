@@ -12,12 +12,6 @@
     padding: 0 1.5rem;
     place-items: center;
 
-    &Link {
-      background-color: $color-on-primary;
-      color: $color-primary;
-      border: 1px solid $color-primary;
-    }
-
     &Titre {
       color: $color-primary;
       max-width: 51.875rem;
@@ -26,8 +20,15 @@
 
       &Accroche {
         font-size: 1.5rem;
-        color: #18753C;
+        color: $color-mentor;
       }
+    }
+
+    a {
+      background-color: $color-on-primary;
+      color: $color-primary;
+      border: 1px solid $color-primary;
+      padding: 1rem 0.8rem;
     }
   }
 }
