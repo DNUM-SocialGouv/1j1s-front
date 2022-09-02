@@ -4,13 +4,16 @@ import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Mentorat.module.scss';
 
 export default function MentoratPage() {
-  const { isLargeScreen } = useBreakpoint();
+  const { isSmallScreen, isMediumScreen, isLargeScreen } = useBreakpoint();
+  const buttonClassName = (isOpen: boolean) => classNames(styles.buttonAccordeon, !isOpen && styles.buttonAccordeonClosed);
+  const seeMoreLabel = (isOpen: boolean) => !isOpen ? 'Lire plus' : 'Voir moins';
 
   return (
     <>
@@ -20,60 +23,78 @@ export default function MentoratPage() {
       />
       <main id="contenu">
         <div className={styles.heading}>
+          <div className={styles.headingContainer}>
+            <h1 className={styles.headingContainer__Title}>1 jeune 1 mentor, être accompagné par un mentor pour réussir</h1>
+            <p className={styles.headingContainer__TextContentOrange}>
+              Faites la rencontre qui change tout !
+            </p>
+            <ul>
+              <li>
+                <p className={styles.headingContainer__TextContent}>
+                  <strong>Vous avez moins de 30 ans ?</strong>
+                  <br/>
+                  Rencontrez le mentor qui vous correspond et bénéficiez de son accompagnement régulier et de ses conseils pour atteindre vos objectifs : améliorer vos résultats scolaires, définir votre orientation, trouver vos premières expériences professionnelles…
+                </p>
+              </li>
+              <li>
+                <p className={styles.headingContainer__TextContent}>
+                  <strong>Vous voulez devenir mentor ?</strong>
+                  <br/>
+                  Embarquez dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l&apos;égalité des chances et continuer à apprendre en accompagnant un jeune
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-          <div className={styles.headingContainerWrapper}>
-            <div className={styles.headingContainer}>
-              <h1 className={styles.headingContainer__Title}>1 jeune 1 mentor, être accompagné par un mentor pour réussir</h1>
-              <p className={styles.headingContainer__TextContentOrange}>
-                Faire la rencontre qui change tout !
-              </p>
-              <p className={styles.headingContainer__TextContent}>
-                <strong>Vous avez moins de 30 ans ?</strong>
-                <br/>
-                Trouvez le mentor qui vous correspond ! Grâce à son accompagnement régulier et ses conseils.
-              </p>
-
+        <div className={classNames(styles.contentContainerOnPrimary)}>
+          <article className={styles.QuestCeQueMentoratWrapper}>
+            { isLargeScreen && (
+              <div className={styles.imageWrapper}>
+                <Image src="/images/mentorat/questcequelementorat.jpg" alt="" layout="fill" objectFit="cover"/>
+              </div>
+            ) }
+            <div className={styles.QuestCeQueMentoratContent}>
+              <h1>Qu’est-ce que le mentorat ?</h1>
+              <p>Le mentorat, c’est l’accompagnement individuel bénévole d’un jeune par un mentor, qui peut aussi bien être lycéen qu’étudiant, actif ou retraité. Le “binôme” que forment le mentor et le jeune se rencontre plusieurs fois par mois (pendant au moins 6 mois) pour répondre aux objectifs du mentoré selon son âge et ses besoins. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>
               <div className={styles.linkAsButtonWrapper}>
                 <LinkAsButton
                   href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution"
                   target="_blank"
+                  buttonOnDarkBackground
                 >
                   Je trouve mon mentor
                 </LinkAsButton>
+                <LinkAsButton
+                  href="/je-deviens-mentor"
+                  target="_blank"
+                  buttonOnDarkBackground
+                >
+                  Je deviens mentor
+                </LinkAsButton>
               </div>
             </div>
-
-          </div>
-
-          { isLargeScreen &&
-            <div className={styles.imageWrapper}>
-              <Image src="/images/banners/mentorat.jpg" alt="" layout="fill" objectFit="cover" objectPosition="right"/>
-            </div>
-          }
-
+          </article>
         </div>
 
-        <div className={styles.content}>
-          <div className={classNames(styles.contentContainer, styles.contentContainerOnPrimary, styles.contentContainerSeparator)}>
-            <article className={styles.RaisonParticipationMentoratWrapper}>
-              <div className={styles.content__articleTitle}>
-                { isLargeScreen && <Image src="/icons/avatar.svg" alt=""  layout="fixed" width={120} height={120}/> }
+        <div className={classNames(styles.contentContainer)}>
+          <article className={styles.RaisonParticipationMentoratWrapper}>
+            <div className={styles.RaisonParticipationMentoratContent}>
+              <span className={styles.RaisonParticipationMentoratContent__Title}>
+                { isLargeScreen && <Image src="/icons/avatar.svg" alt=""  layout="fixed" width={80} height={80}/> }
                 <h1>Pourquoi participer à l’aventure du mentorat ?</h1>
-              </div>
-              <RaisonParticipationsMentorat/>
-            </article>
-          </div>
+              </span>
 
-          <div className={styles.contentContainer}>
-            <article className={styles.QuestCeQueMentoratWrapper}>
-              <div className={styles.content__articleTitle}>
-                { isLargeScreen && <Image src="/icons/community.svg" alt="" layout="fixed" width={120} height={120}/> }
-                <h1>Qu’est-ce que le mentorat ?</h1>
+              { (isSmallScreen || isMediumScreen)
+                ? (<SeeMore customLabel={seeMoreLabel} customButtonClassName={ buttonClassName }><RaisonParticipationsMentorat/></SeeMore>)
+                : (<RaisonParticipationsMentorat/>) }
+            </div>
+            { isLargeScreen && (
+              <div className={styles.imageWrapper}>
+                <Image src="/images/mentorat/aventuredumentorat.jpg" alt="" layout="fill" objectFit="cover"/>
               </div>
-              <p>Le mentorat est un engagement personnel pour le mentor comme pour le jeune mentoré, basé sur le volontariat de chaque côté, la confiance, la bienveillance et le respect mutuel. Il s&apos;inscrit dans la durée : le &quot;binôme&quot; que forment le mentor et le jeune se rencontre plusieurs heures par mois, pendant au moins six mois. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>
-            </article>
-          </div>
-
+            ) }
+          </article>
         </div>
       </main>
     </>
