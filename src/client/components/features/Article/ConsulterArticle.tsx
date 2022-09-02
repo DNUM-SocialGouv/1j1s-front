@@ -13,7 +13,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
   const titre = useSanitize(article.titre);
   const bannièreUrl = useSanitize(article.bannière?.url);
   const bannièreAlt = useSanitize(article.bannière?.alt);
-  const contenu = useSanitize(article.contenu);
+  const contenu = article.contenu ;
 
   return (
     <main className={classNames('fr-container', styles.consulterArticle)}>
