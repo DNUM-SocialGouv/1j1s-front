@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useLayoutEffect,
   useState,
 } from 'react';
@@ -21,11 +20,7 @@ function getScreenSize() {
 }
 
 export default function useBreakpoint() {
-  const [screenSize, setScreenSize] = useState(BREAKPOINT.SM);
-
-  useEffect(() => {
-    setScreenSize(getScreenSize());
-  }, [setScreenSize]);
+  const [screenSize, setScreenSize] = useState(getScreenSize());
 
   useLayoutEffect(() => {
     function handleDevice(): void {
