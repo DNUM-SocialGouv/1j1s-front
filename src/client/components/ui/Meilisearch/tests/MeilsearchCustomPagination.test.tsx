@@ -7,7 +7,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { mockLargeScreen } from '@tests/client/window.mock';
 import React from 'react';
 
-import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockUsePagination';
+import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
 
 import { MeilsearchCustomPagination } from '../MeilsearchCustomPagination';
 
