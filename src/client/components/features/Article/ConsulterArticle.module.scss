@@ -11,7 +11,7 @@
 
 .consulterArticle img {
     display: block;
-    margin: 0 auto 1.5rem auto;
+    margin: 1rem auto 2rem auto;
     max-width: 100%;
 }
 
@@ -19,4 +19,47 @@
     @extend %bold, %headline;
     color: $color-on-background;
     padding-bottom: 1rem;
+}
+
+.contenu {
+    h2, h3, h4, h5, h6 {
+        @extend %bold;
+    }
+
+    h2 {
+        margin-block: 1.5rem;
+        @extend %text-xLarge;
+    }
+
+    h3 {
+        margin-block: 1rem;
+        @extend %text-large;
+    }
+
+    h4, h5, h6 {
+        margin-block: 0.5rem;
+        @extend %text-medium;
+    }
+
+    p {
+        margin-block: 1.5rem;
+    }
+
+    ul li, ol li {
+        margin-block: 0.2rem;
+    }
+
+    ul, ol {
+        list-style: initial;
+        margin-left: 1.3rem;
+    }
+
+    ol {
+        list-style: decimal;
+        margin-left: 1.5rem;
+    }
+
+    a:hover {
+        color: $color-secondary;
+    }
 }

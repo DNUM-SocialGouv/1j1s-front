@@ -20,7 +20,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
       <h1 className={styles.titre}>{titre}</h1>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {bannièreUrl && <img src={bannièreUrl} alt={bannièreAlt} decoding="async" loading="lazy" />}
-      <Marked markdown={contenu} />
+      <Marked markdown={contenu} className={styles.contenu} />
     </main>
   );
 }
