@@ -131,8 +131,8 @@
       place-content: center;
 
       &Icon {
-        box-shadow: none !important;
-        border: 2px solid $color-background;
+        box-shadow: 0 1px 1px rgba(55, 86, 189) !important;
+        border: 1px solid $color-primary;
         border-radius: 20px;
         width: 300px;
         display: grid;
