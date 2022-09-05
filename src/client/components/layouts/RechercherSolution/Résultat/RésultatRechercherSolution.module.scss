@@ -35,6 +35,7 @@
     font-size: 1rem;
   }
   &SubTitle {
+    min-height: 24px;
     font-size: 0.75rem;
   }
 }
@@ -67,10 +68,10 @@
       margin-left: 2.5rem;
       width: 100%;
       &Title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
       }
       &SubTitle {
-        font-size: 1.25rem;
+        font-size: 1rem;
       }
     }
 

@@ -26,15 +26,16 @@
 
 
 .bannièreAccroche {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 1rem;
+  @extend %bold;
+  margin-top: 1.5rem;
 }
 
 .titre {
   @extend %bold;
   font-size: 2rem;
-  color: white;
-  @include media(large){
+  color: $color-on-secondary;
+  @include media(large) {
     font-size: 2.5rem;
   }
 }
@@ -47,6 +48,7 @@
 }
 
 .cta[href] {
+  margin-top: 1.5rem;
   line-height: 1.5em;
   display: inline-flex;
   align-items: flex-end;

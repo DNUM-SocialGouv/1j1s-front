@@ -9,14 +9,22 @@
     padding: 16px;
     border-bottom: 1px solid $color-primary;
 
+    h1 {
+      margin-bottom: 1rem;
+    }
+
     @include media(large) {
       padding: 80px 80px 80px 24px;
+
+      h1 {
+        margin-bottom: 2.5rem;
+      }
     }
   }
 
   &CommencerSimulation {
     align-self: center;
-    margin-top: 24px;
+    margin-top: 2.5rem;
 
     @include media(large) {
       align-self: flex-start;
