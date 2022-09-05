@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '~/client/components/ui/ErrorMessage/ErrorMessage.module.css';
+import styles from '~/client/components/ui/ErrorMessage/ErrorMessage.module.scss';
 import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessage/IncorrectRequestErrorMessage';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMessage/UnavailableServiceErrorMessage';

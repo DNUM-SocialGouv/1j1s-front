@@ -13,7 +13,11 @@
 }
 
 .titre h2 {
-  @extend %text-medium;
+  @extend %bold, %text-medium;
+}
+
+.titre ul {
+  margin-top: 2rem;
 }
 
 .buttonPostuler {
@@ -90,7 +94,7 @@
   }
 
   .titre > ul {
-    margin: auto;
+    margin: 2rem auto 0;
   }
 
   .contenuAdaptatif  h3, .contenuAdaptatif  p {
