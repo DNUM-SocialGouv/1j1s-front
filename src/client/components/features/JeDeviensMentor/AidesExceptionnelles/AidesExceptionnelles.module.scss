@@ -7,7 +7,7 @@
   &Container {
     display: grid;
     margin: 0 auto;
-    gap: 2rem;
+    gap: 1rem;
     max-width: 78rem;
     padding: 0 1.5rem;
     place-items: center;
@@ -25,7 +25,7 @@
     }
 
     a {
-      background-color: $color-on-primary;
+      background-color: $color-background;
       color: $color-primary;
       border: 1px solid $color-primary;
       padding: 1rem 0.8rem;

@@ -29,7 +29,7 @@ describe('AidesExceptionnelles', () => {
       // Then
       const link = screen.getByRole('link', { name: rejoindreMobilisation });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', expect.stringContaining('/les-entreprises-s-engagent/inscription'));
+      expect(link).toHaveAttribute('href', expect.stringContaining('/les-entreprises-s-engagent'));
     });
   });
 });

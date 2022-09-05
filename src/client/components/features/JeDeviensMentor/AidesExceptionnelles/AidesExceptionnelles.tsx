@@ -13,7 +13,7 @@ export default function AidesExceptionnelles() {
           <span className={ styles.aidesContainerTitreAccroche }>  une mobilisation des entreprises pour l’emploi des jeunes</span>
         </h2>
         <LinkAsButton
-          href="/les-entreprises-s-engagent/inscription"
+          href="/les-entreprises-s-engagent"
         >
           Rejoindre la mobilisation
           <AngleRightIcon className={'angle-right'}/>
