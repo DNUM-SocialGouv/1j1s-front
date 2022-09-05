@@ -24,6 +24,7 @@ describe('AidesExceptionnelles', () => {
     it('ça te renvoie vers le formulaire des entreprises s\'engagent', () => {
       // Given
       const rejoindreMobilisation = 'Rejoindre la mobilisation';
+
       renderComponent();
 
       // Then

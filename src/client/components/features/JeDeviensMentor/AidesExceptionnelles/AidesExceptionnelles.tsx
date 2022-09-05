@@ -7,10 +7,10 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 export default function AidesExceptionnelles() {
 
   return (
-    <section className={ styles.aides }>
-      <div className={ styles.aidesContainer }>
-        <h2 className={ styles.aidesContainerTitre }>Les entreprises s’engagent,
-          <span className={ styles.aidesContainerTitreAccroche }>  une mobilisation des entreprises pour l’emploi des jeunes</span>
+    <section className={styles.aides}>
+      <div className={styles.aidesContainer}>
+        <h2 className={styles.aidesContainerTitre}>Les entreprises s’engagent,
+          <span className={styles.aidesContainerTitreAccroche}>  une mobilisation des entreprises pour l’emploi des jeunes</span>
         </h2>
         <LinkAsButton
           href="/les-entreprises-s-engagent"
