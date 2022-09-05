@@ -94,8 +94,7 @@
     }
 
     &__Title {
-      flex-wrap: wrap;
-      font-size: 1.4rem;
+      font-size: 1.4rem !important;
       text-align: center;
       @extend %bold;
       color: $color-on-background;
@@ -104,14 +103,15 @@
       small {
         display: block;
         @extend %bold;
-        margin: 1rem auto;
-        font-size: 1.125rem;
+        font-size: 18px;
+        margin-top: 1rem;
         color: $color-primary;
       }
     }
 
-    &__Content {
-      padding: 0 2rem;
+    &BtnSuccess {
+      text-align: center;
+      font-size: larger;
     }
   }
 
