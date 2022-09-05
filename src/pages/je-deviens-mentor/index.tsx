@@ -54,8 +54,8 @@ export default function MentoratPage() {
         description="1 jeune 1 mentor, accompagner un jeune pour l’aider à réussir"
       />
       <main id="contenu">
-        <div>
-          <Marked markdown={contenuHeader} className={styles.heading}/>
+        <div className={styles.heading}>
+          <Marked markdown={contenuHeader} />
 
           <div className={styles.linkAsButtonWrapper}>
             <LinkAsButton
@@ -98,7 +98,7 @@ function displayRaisonParticipationsMentoratEmployeur(isLargeScreen: boolean) {
   return (
     <section>
       { isLargeScreen && <Image src="/images/employeurs/employeur.png" alt="" layout="fixed" width={500} height={250}/>}
-      <div>Si vous êtes employeur :</div>
+      <div className={styles.RaisonParticipationMentoratHeader}>Si vous êtes employeur :</div>
 
       <Marked markdown={siVousÊtesEmployeur} />
     </section>

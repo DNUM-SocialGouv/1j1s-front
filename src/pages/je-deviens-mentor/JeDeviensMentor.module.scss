@@ -3,30 +3,31 @@
 .heading {
   padding: 32px;
 
-  > h1 {
+  h1 {
     @extend %text-xLarge;
     color: $color-primary;
     margin-bottom: 1rem;
   }
 
-  > ul {
+  ul {
     padding-left: 40px;
     margin: 14px 0;
     list-style: disc;
   }
 
-  > p {
+  p {
     @extend %text-regular;
     margin-bottom: 2.5rem;
   }
 
-  > p:nth-child(2) {
+  p:nth-child(2) {
+    font-size: 1rem;
     @extend %bold;
     color: $color-tertiary;
     margin-bottom: 1rem;
   }
 
-  > p:nth-child(3) {
+  p:nth-child(3) {
     margin-bottom: 0;
   }
 }
@@ -53,18 +54,11 @@
 
   h1 {
     font-size: 1.5rem;
-    color: $color-on-primary; // TODO a retirer à cause du dsfr
+    color: $color-on-primary;
+    margin: 1.5rem;
   }
 
   > article {
-    section > div:first-child {
-      @extend %text-xLarge;
-      @extend %bold;
-      color: white; // TODO a retirer à cause du dsfr
-      text-decoration: underline;
-      margin-bottom: 10px;
-    }
-
     section > * > ul {
       color: white;
       padding-inline-start: inherit !important; // TODO a retirer à cause du dsfr
@@ -76,7 +70,7 @@
     }
 
     section > * > ul li p {
-      margin-left: 10px;
+      margin: 0 0 1.5rem 0.75rem;
     }
 
     section > * > ul li::before {
@@ -86,10 +80,29 @@
   }
 }
 
+.RaisonParticipationMentoratHeader {
+  @extend %text-xLarge;
+  @extend %bold;
+  color: $color-on-primary;
+  text-decoration: underline;
+  margin-bottom: 0.75rem;
+}
+
 @include media(large) {
   .heading {
     max-width: 64rem;
     margin: auto;
+
+    h1 {
+      text-align: center;
+    }
+    p:nth-child(2) {
+      font-size: 1.5rem;
+      text-align: center;
+      @extend %bold;
+      color: $color-tertiary;
+      margin-bottom: 2.5rem;
+    }
   }
 
   .quEstCeQueLeMentorat {
@@ -110,7 +123,7 @@
   }
 
   .body {
-    background-color: white;
+    background-color: $color-surface;
     max-width: none;
 
     h1 {
@@ -131,5 +144,12 @@
         content: url("data:image/svg+xml;charset=utf8,<svg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
       }
     }
+  }
+
+  .RaisonParticipationMentoratHeader {
+    color: $color-on-background;
+    font-size: 1rem;
+    font-weight: initial;
+    text-decoration: none;
   }
 }
