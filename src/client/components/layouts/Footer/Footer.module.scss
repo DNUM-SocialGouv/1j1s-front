@@ -2,15 +2,16 @@
 
 .footer {
   padding: 2rem 1.5rem;
+
   &Slogan {
     display: flex;
     @extend %text-medium;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 
   &Devise {
-    margin-top: 6px;
+    margin-top: 0.4rem;
   }
 
   &Logo {
@@ -20,7 +21,7 @@
   }
 
   &LogoFranceRelance {
-    margin-left: 40px;
+    margin-left: 2.5rem;
   }
 
   &Propriétaire {
@@ -52,28 +53,28 @@
     color: $color-mine-shaft;
 
     & > div {
-      padding-top: 20px;
+      padding-top: 1.25rem;
     }
   }
 
   &LienUtile {
     border-top: 1px solid $color-separator;
     color: $color-mention-grey;
-    margin-top: 10px;
+    margin-top: 0.7rem;
     display: flex;
     flex-wrap: wrap;
-    padding-top: 10px;
+    padding-top: 0.7rem;
     font-size: .75rem;
 
     & > a {
-      padding: 10px 10px 10px 0;
+      padding: 0.7rem 0.7rem 0.7rem 0;
       line-height: 0;
       box-shadow: none;
     }
 
     & > a:not(:last-child) {
       border-right: 1px solid $color-separator;
-      margin-right: 10px;
+      margin-right: 0.7rem;
     }
 
     & > a > svg {
@@ -83,7 +84,7 @@
   }
 
   &CopyRight {
-    padding-top: 10px;
+    padding-top: 0.7rem;
     color: $color-mention-grey;
     font-size: .75rem;
 
@@ -97,13 +98,12 @@
 .preFooter {
   background-color: $color-secondary;
   color: white;
-  padding: 32px 16px;
+  padding: 2.5rem 1rem;
   text-align: center;
   font-weight: 500;
 }
 
 @include media(large) {
-
   .footer {
     &Header {
       display: flex;

@@ -22,10 +22,8 @@ interface PartnerCardProps {
 export function PartnerCardList(list: PartnerCardProps[], title?: string){
   return(
     <div className={styles.partnerListWrapper}>
+      {title && <h2 className={styles.partnerListTitle}>{title}</h2>}
       <ul className={styles.partnerList}>
-        {title &&
-          <li className={styles.partnerListTitle}>{title}</li>
-        }
         {list.map((partnerCardProps, index) => {
           return(
             <li key={index}>

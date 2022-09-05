@@ -11,6 +11,7 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
   box-shadow: 0 8px 8px 0 #0000001a, 0 8px 16px -16px #00000052;
   position: relative;
   width: 100%;
+  background-color: $color-surface;
   & > div {
     padding: 0.8rem 0.8rem 0;
     @include media(large){
