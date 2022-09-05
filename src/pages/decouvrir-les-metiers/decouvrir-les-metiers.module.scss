@@ -10,7 +10,7 @@
   @extend %text-xLarge;
 
   @include media(xlarge) {
-    padding: 6rem 1rem 3rem 1rem;
+    padding: 4rem 1rem 2rem 1rem;
   }
 
   & > span {
