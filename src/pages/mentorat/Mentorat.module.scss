@@ -77,6 +77,10 @@
         }
       }
       &__TextContent {
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         p:first-child {
           text-align: center;
         }
@@ -106,7 +110,7 @@
 
 .QuestCeQueMentorat {
   &Wrapper {
-    padding: 2.5rem 1.5rem;
+    padding: 5rem 1.5rem;
     color: $color-on-primary;
     @extend %max-container;
   }
@@ -136,7 +140,7 @@
 
 .RaisonParticipationMentorat {
   &Wrapper {
-    padding: 2.5rem 1.5rem 4rem;
+    padding: 5rem 1.5rem;
     @extend %max-container;
     h1 {
       font-size: 1.25rem;
