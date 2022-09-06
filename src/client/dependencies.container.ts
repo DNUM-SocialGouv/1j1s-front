@@ -15,8 +15,6 @@ import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.se
 
 import { DemandeDeContactService } from './services/demandeDeContact.service';
 
-const MAX_LIMITE_STAGES = 100000;
-
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
   alternanceService: AlternanceService
@@ -62,7 +60,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const rechercheClientService = instantMeiliSearch(
     meiliSearchBaseUrl,
     meiliSearchApiKey,
-    { keepZeroFacets: true, paginationTotalHits: MAX_LIMITE_STAGES },
+    { keepZeroFacets: true },
   );
 
   return {
