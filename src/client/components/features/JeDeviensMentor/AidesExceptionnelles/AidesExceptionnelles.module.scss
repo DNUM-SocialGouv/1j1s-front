@@ -1,0 +1,33 @@
+@import "@styles/utilities";
+
+.aides {
+  @extend %background-surface;
+  padding: 3rem 0;
+
+  &Container {
+    @extend %max-container;
+    display: grid;
+    gap: 2rem;
+    padding: 0 1.5rem;
+    place-items: center;
+
+    &Titre {
+      color: $color-primary;
+      max-width: 50rem;
+      text-align: center;
+      font-size: 1.5rem;
+
+      &Accroche {
+        font-size: 1.5rem;
+        color: $color-secondary;
+      }
+    }
+
+    a {
+      background-color: $color-background;
+      color: $color-primary;
+      border: 1px solid $color-primary;
+      padding: 1rem 0.8rem;
+    }
+  }
+}
