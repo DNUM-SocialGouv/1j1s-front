@@ -85,7 +85,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.sectionBesoinDeVousFormer)}>
           <h2 id="formation" className={styles.sectionHeader}>
-            <BookIcon className={styles.sectionBesoinDeVousFormerHeaderIcon}/>
+            <BookIcon className={styles.sectionBesoinDeVousFormerHeaderIcon} />
             Besoin de vous former ?
           </h2>
           <div className={styles.cardList}>
