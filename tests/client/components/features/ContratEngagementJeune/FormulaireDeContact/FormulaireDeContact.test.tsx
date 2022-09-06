@@ -3,8 +3,9 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -22,9 +23,14 @@ describe('<FormulaireDeContactEntreprise />', () => {
       envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService);
     const demandeDeContactServiceMock = anDemandeDeContactService();
+    const localisationService = aLocalisationService({
+      communeList: [],
+      départementList: [{ code: '95', libelle: 'Pontoise', nom: 'Pontoise' }],
+      régionList: [],
+    });
 
     render(
-      <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}>
+      <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
         <FormulaireDeContactCEJ onSuccess={onSuccess}>
           Revenir
         </FormulaireDeContactCEJ>
@@ -32,6 +38,7 @@ describe('<FormulaireDeContactEntreprise />', () => {
     );
     return { demandeDeContactServiceMock, onSuccess };
   }
+
   it('affiche un formulaire de rappel', async () => {
     // Given
     renderComponent();
@@ -130,17 +137,23 @@ describe('<FormulaireDeContactEntreprise />', () => {
 });
 
 /* eslint-disable jest/no-export */
-type ContactInputs = Record<'prénom'|'nom'|'téléphone'|'email'|'age'|'ville', string>
-export async function remplirFormulaireDeContact (data: ContactInputs, submit = true) {
-  await userEvent.type(screen.getByLabelText('Prénom'), data.prénom);
-  await userEvent.type(screen.getByLabelText('Nom'), data.nom);
-  await userEvent.type(screen.getByLabelText('Téléphone'), data.téléphone);
-  await userEvent.type(screen.getByLabelText('Adresse email'), data.email);
-  await userEvent.type(screen.getByLabelText('Ville'), data.ville);
-  await userEvent.click(screen.getByLabelText('Age'));
-  await userEvent.click(screen.getByLabelText(data.age));
+type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
+
+export async function remplirFormulaireDeContact(data: ContactInputs, user = userEvent.setup(), submit = true) {
+  await user.type(screen.getByLabelText('Prénom'), data.prénom);
+  await user.type(screen.getByLabelText('Nom'), data.nom);
+  await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
+  await user.type(screen.getByLabelText('Adresse email'), data.email);
+
+  await user.type(screen.getByLabelText('Ville'), data.ville);
+  const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+  const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
+  fireEvent.click(résultatLocalisationList[0]);
+
+  await user.click(screen.getByLabelText('Age'));
+  await user.click(screen.getByLabelText(data.age));
   if (submit) {
-    await userEvent.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
+    await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
   }
 }
 
