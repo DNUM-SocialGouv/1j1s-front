@@ -67,12 +67,14 @@ export function FormulaireRechercheAlternance() {
       ref={rechercheAlternanceForm}
     >
       <InputMétierRecherché
+        id="input-metier"
         libellé={inputIntituléMétier}
         code={inputCodeRome.length ? inputCodeRome.split(',') : []}
         handleErrorMessageActive={inputIntituleMétierObligatoireErrorMessage}
         resetHandleErrorMessageActive={resetHandleErrorMessageActive}
       />
       <InputCommune
+        id="input-commune"
         code={inputCodeCommune}
         libellé={inputLibelleCommune}
         latitude={inputLatitudeCommune}

@@ -23,7 +23,7 @@
 
   & > li > a {
     &[aria-disabled="true"] {
-      color: #929292;
+      color: $color-on-disabled;
       pointer-events: none;
     }
 
@@ -38,18 +38,18 @@
 .page {
 
   &Suivante {
-    margin-left: 28px;
+    margin-left: 1.75rem;
     display: flex;
     align-items: center;
   }
 
-  &Precendente {
-    margin-right: 28px;
+  &Precedente {
+    margin-right: 1.75rem;
     display: flex;
     align-items: center;
   }
 }
 
 .ellipse {
-  width: 32px;
+  width: 2rem;
 }

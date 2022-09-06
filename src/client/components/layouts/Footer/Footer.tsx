@@ -18,7 +18,10 @@ export function Footer() {
               <div className={styles.footerLogo}>
                 <Image src="/images/logos/mariane.svg" alt="Mariane" width="55" height="20" />
                 <div className={styles.footerPropriétaire}>
-                  Ministère du <br />travail, de<br /> l&apos;emploi et de<br /> l&apos;insertion
+                  <span>Ministère du</span>
+                  <span>travail, de</span>
+                  <span>l&apos;emploi et de</span>
+                  <span>l&apos;insertion</span>
                 </div>
                 <div className={styles.footerDevise}>
                   <Image src="/images/logos/devise.svg" alt="Mariane" width="52" height="37" />
@@ -29,11 +32,10 @@ export function Footer() {
               </div>
             </div>
             <div className={styles.footerMessageWrapper}>
-              <p className={styles.footerMessage}>
-                #1jeune1solution <br /><br />
-                Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie
-                  professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
-              </p>
+              <div className={styles.footerMessage}>
+                <p>#1jeune1solution</p>
+                <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.</p>
+              </div>
               <div className={styles.footerLienExterne}>
                 <Link href="https://www.legifrance.gouv.fr/">legifrance.gouv.fr</Link>
                 <Link href="https://www.gouvernement.fr/">gouvernement.fr</Link>

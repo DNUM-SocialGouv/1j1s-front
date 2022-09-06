@@ -14,20 +14,22 @@ export default function FormationPage() {
   return (
     <>
       <HeadTag title="Rechercher une formation | 1jeune1solution"/>
-      <HeroWithButtonLink
-        titre={heroFormationTitle()}
-        content={heroFormationContent()}
-        buttonHref="https://reseau.intercariforef.org/"
-        buttonLabel="Je trouve ma formation"
-        imgSrc="/images/banners/mentorat.jpg"
-      />
-      {PartnerCardList([
-        MonCompteFormationPartner().props,
-        ParcourSupPartner().props,
-        CIDJPartner().props,
-        MétierDuSoinPartner().props,
-      ],
-      'Je découvre les dispositifs pour m’accompagner dans ma formation')}
+      <main id="contenu">
+        <HeroWithButtonLink
+          titre={heroFormationTitle()}
+          content={heroFormationContent()}
+          buttonHref="https://reseau.intercariforef.org/"
+          buttonLabel="Je trouve ma formation"
+          imgSrc="/images/banners/mentorat.jpg"
+        />
+        {PartnerCardList([
+          MonCompteFormationPartner().props,
+          ParcourSupPartner().props,
+          CIDJPartner().props,
+          MétierDuSoinPartner().props,
+        ],
+        'Je découvre les dispositifs pour m’accompagner dans ma formation')}
+      </main>
     </>
   );
 };
