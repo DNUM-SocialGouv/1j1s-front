@@ -1,21 +1,21 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { buildNavigation } from '~/client/components/layouts/Header/HeaderNav';
-import { BurgerMenuIcon } from '~/client/components/ui/Icon/burger-menu.icon';
+import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function HeaderBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const [path, setPath] = useState(() => router.pathname || '');
-
+  const { isLargeScreen } = useBreakpoint();
   const onClickSetModal = () => setIsModalOpen(!isModalOpen);
   
   useEffect(() => {
@@ -24,7 +24,7 @@ export function HeaderBody() {
     }
   }, [path, setPath, router]);
 
-  return(
+  return (
     <Container>
       <div className={styles.headerBody}>
         <Container className={styles.headerLogoServiceContainer}>
@@ -34,26 +34,13 @@ export function HeaderBody() {
               <p>FRANÇAISE</p>
             </Link>
           </div>
-          <div className={styles.headerOperator}>
-            <Image
-              src="/images/logos/france-relance.svg"
-              alt="France Relance"
-              width="200"
-              height="66"
-            />
-          </div>
-          <button className={styles.headerModalButton} onClick={onClickSetModal}>
-            <BurgerMenuIcon/>
-            <p>Menu</p>
-          </button>
+          { !isLargeScreen && <Button buttonType='withTopIcon' icon={<Icon name='burger-menu'/>}  onClick={onClickSetModal}>Menu</Button>}
         </Container>
         <Link className={styles.headerService} href="/">
           1jeune1solution
         </Link>
-
         <ModalComponent
           close={onClickSetModal}
-          closeLabel=''
           isOpen={isModalOpen}
           className={styles.headerModal}>
           <ModalComponent.Title>

@@ -17,6 +17,9 @@
     border-radius: 20px;
     padding: 0 1.5rem;
     height: 2.5rem;
+    &:hover {
+      background-color: $color-primary-on-hover;
+    }
 
     &OnDarkBackground {
       border: 2px solid;
@@ -30,7 +33,10 @@
   &Link {
     color: $color-primary;
   }
+  &IconOnTop {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
-
-/* TODO remplacer le hover du bouton quand on aura viré la lib react dsfr */
-.button:hover {}

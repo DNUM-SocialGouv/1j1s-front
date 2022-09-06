@@ -22,6 +22,8 @@ export function Button({ children, buttonType='primary', buttonOnDarkBackground=
         return buttonWithLeftIcon(children, rest, icon, buttonStyle);
       case 'withRightIcon':
         return buttonWithRightIcon(children, rest, icon, buttonStyle);
+      case 'withTopIcon':
+        return buttonWithTopIcon(children, rest, icon);
       default:
         return buttonPrimary(children, rest, buttonStyle);
     }
@@ -69,6 +71,15 @@ function buttonWithRightIcon(children: React.ReactNode, rest: React.ButtonHTMLAt
     <button className={buttonStyle} {...rest}>
       {children}
       {icon && <>{icon}</>}
+    </button>
+  );
+}
+
+function buttonWithTopIcon(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , icon: React.ReactNode | undefined) {
+  return (
+    <button  className={classNames(styles.buttonIconOnTop)} {...rest}>
+      {icon && <>{icon}</>}
+      {children}
     </button>
   );
 }

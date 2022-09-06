@@ -6,17 +6,17 @@ import { Link } from '~/client/components/ui/Link/Link';
 interface NavItemProps {
   title: string
   link?: string
-  current?: boolean
+  current: boolean
   children?: React.ReactNode
 }
 
-export function NavItem({ title, current, link, children } : NavItemProps){
+export function NavItem({ title, current, link, children } : NavItemProps) {
 
   const hasChildren = Children.toArray(children).length > 0;
 
-  return(
+  return (
     hasChildren ?
-      <NavItemWithSubItems title={title}>
+      <NavItemWithSubItems title={title} isCurrent={current}>
         {children}
       </NavItemWithSubItems>
       :
