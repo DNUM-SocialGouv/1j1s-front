@@ -5,14 +5,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
-import {
-  aLesEntreprisesSEngagementService,
-} from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { aLesEntreprisesSEngagementService } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
 
+import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import LesEntreprisesSEngagentInscription, {
-  FormulaireEngagement,
-} from '~/pages/les-entreprises-s-engagent/inscription';
+import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription';
+
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
@@ -37,7 +35,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
   const renderComponent = () => {
     render(
       <DependenciesProvider lesEntreprisesSEngagementService={aLesEntreprisesSEngagementServiceMock}>
-        <LesEntreprisesSEngagentInscription />
+        <LesEntreprisesSEngagentInscription/>
       </DependenciesProvider>,
     );
   };
