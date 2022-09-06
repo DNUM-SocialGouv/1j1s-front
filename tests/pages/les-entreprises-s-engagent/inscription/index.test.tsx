@@ -2,10 +2,11 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { aLesEntreprisesSEngagementService } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 
 import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -14,6 +15,12 @@ import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engage
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
+  const localisationService = aLocalisationService({
+    communeList: [],
+    départementList: [{ code: '75002', libelle: 'Paris', nom: 'Paris' }],
+    régionList: [],
+  });
+
   const routerPush = jest.fn();
 
   const labelsEtape1 = [
@@ -34,7 +41,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
   const renderComponent = () => {
     render(
-      <DependenciesProvider lesEntreprisesSEngagementService={aLesEntreprisesSEngagementServiceMock}>
+      <DependenciesProvider lesEntreprisesSEngagementService={aLesEntreprisesSEngagementServiceMock} localisationService={localisationService}>
         <LesEntreprisesSEngagentInscription/>
       </DependenciesProvider>,
     );
@@ -138,6 +145,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
         taille: '+1000',
         travail: 'RH',
         téléphone: '01 22 33 44 55',
+        ville: 'Paris',
       };
 
       await remplirFormulaireEtape1();
@@ -154,15 +162,18 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 async function remplirFormulaireEtape1() {
   const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
-  const inputCodePostalSociété = screen.getByRole('textbox', { name: 'Indiquez la ville du siège social de l’entreprise' });
   const inputSiret = screen.getByRole('textbox', { name: 'Indiquer votre numéro de SIRET' });
   const inputSecteur = screen.getByRole('textbox', { name: 'Indiquer le secteur d’activité de votre entreprise' });
   const inputTaille = screen.getByRole('textbox', { name: 'Indiquer la taille de votre entreprise' });
   await userEvent.type(inputNomSociété, 'Octo');
-  await userEvent.type(inputCodePostalSociété, '75002');
   await userEvent.type(inputSiret, '41816609600069');
   await userEvent.type(inputSecteur, 'Conseil en systèmes et logiciels informatiques');
   await userEvent.type(inputTaille, '+1000');
+
+  await userEvent.type(screen.getByLabelText('Indiquez la ville du siège social de l’entreprise'), 'Paris');
+  const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+  const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
+  fireEvent.click(résultatLocalisationList[0]);
 }
 
 async function remplirFormulaireEtape2() {

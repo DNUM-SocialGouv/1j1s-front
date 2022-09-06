@@ -6,6 +6,7 @@ import FormulaireDeContactEntreprise from '~/client/components/features/LesEntre
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { InputLieu } from '~/client/components/ui/Input/InputLocalisation/InputLieu';
 import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
@@ -18,6 +19,7 @@ export type FormulaireEngagement = FormulaireEtape1Props & FormulaireEtape2Props
 interface FormulaireEtape1Props {
   nomSociété: string;
   codePostal: string;
+  ville: string;
   siret: string;
   secteur: string;
   taille: string;
@@ -49,6 +51,7 @@ export default function Inscription() {
     secteur: '',
     siret: '',
     taille: '',
+    ville: '',
   });
 
   const [formulaireEtape2, setFormulaireEtape2] = useState<FormulaireEtape2Props>({ email: '', nom: '', prénom: '', travail: '', téléphone: '' });
@@ -127,17 +130,19 @@ export default function Inscription() {
                     required
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputLieu
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
-                    placeholder="Exemple : 94052, Paris 2…"
-                    value={formulaireEtape1.codePostal}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                    obligatoire={true}
+                    libellé={formulaireEtape1.ville}
+                    code={formulaireEtape1.codePostal}
+                    type={''}
+                    onChange={(localisation) => setFormulaireEtape1({
                       ...formulaireEtape1,
-                      codePostal: event.currentTarget.value,
-                    })}
-                    className={styles.formulaireInput}
+                      codePostal: localisation.code,
+                      ville: localisation.libelle,
+                    })
+                    }
                   />
                   <TextInput
                     label="Indiquer votre numéro de SIRET"
@@ -145,6 +150,7 @@ export default function Inscription() {
                     placeholder="Exemple : 12345678901112"
                     value={formulaireEtape1.siret}
                     required
+                    pattern={'^[0-9]{14}$'}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
                       ...formulaireEtape1,
                       siret: event.currentTarget.value,
@@ -216,6 +222,7 @@ export default function Inscription() {
                   />
                   <TextInput
                     label="Indiquer votre adresse e-mail de contact"
+                    type="email"
                     name="email"
                     placeholder="Exemple : mail@exemple.com"
                     hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
@@ -243,6 +250,7 @@ export default function Inscription() {
                     label="Indiquer un numéro de téléphone de contact"
                     name="phone"
                     placeholder="Exemple : 0199999999"
+                    pattern="^(\+33|0|0033)[1-9]\d{8}$"
                     hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
                     value={formulaireEtape2.téléphone}
                     required
