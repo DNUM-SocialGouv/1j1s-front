@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles.module.scss';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 
 export default function AidesExceptionnelles() {
@@ -16,7 +16,7 @@ export default function AidesExceptionnelles() {
           href="/les-entreprises-s-engagent"
         >
           Rejoindre la mobilisation
-          <AngleRightIcon className={'angle-right'}/>
+          <Icon name={'angle-right'}/>
         </LinkAsButton>
       </div>
     </section>

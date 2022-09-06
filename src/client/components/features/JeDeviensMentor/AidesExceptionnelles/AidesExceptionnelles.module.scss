@@ -5,24 +5,22 @@
   padding: 3rem 0;
 
   &Container {
+    @extend %max-container;
     display: grid;
-    margin: 0 auto;
-    gap: 1rem;
-    max-width: 78rem;
+    gap: 2rem;
     padding: 0 1.5rem;
     place-items: center;
 
     &Titre {
       color: $color-primary;
-      max-width: 51.875rem;
+      max-width: 50rem;
       text-align: center;
       font-size: 1.5rem;
 
       &Accroche {
         font-size: 1.5rem;
-        color: $color-mentor;
+        color: $color-secondary;
       }
-
     }
 
     a {
