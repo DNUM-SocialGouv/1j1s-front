@@ -100,7 +100,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
             }
           }}
         >
-          {isSmallScreen ? <AngleLeftIcon /> : <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
+          {isSmallScreen ? <AngleLeftIcon /> : <div className={styles.pagePrecedente}><AngleLeftIcon /> Page précédente</div>}
         </a>
       </li>
     </>;

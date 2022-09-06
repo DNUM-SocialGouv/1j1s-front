@@ -125,11 +125,11 @@
 }
 
 .cardLink {
-  color: $color-primary;
+  @extend %linkWithRightIcon;
   text-align: right;
+  display: block;
 }
 
 .cardLinkIcon {
-  @extend %linkWithRightIcon;
-  vertical-align: middle;
+  vertical-align: bottom;
 }

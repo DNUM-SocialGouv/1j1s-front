@@ -17,18 +17,20 @@ import { KeyBoard } from '~/client/utils/keyboard.util';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 
 interface InputMétierRecherchéProps {
-  libellé: string;
-  handleErrorMessageActive: boolean;
-  resetHandleErrorMessageActive: () => void;
   code: string[]
+  handleErrorMessageActive: boolean
+  id?: string
+  libellé: string
+  resetHandleErrorMessageActive: () => void
 }
 
 export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
   const {
-    handleErrorMessageActive,
-    resetHandleErrorMessageActive,
-    libellé,
     code,
+    handleErrorMessageActive,
+    id,
+    libellé,
+    resetHandleErrorMessageActive,
   } = props;
 
   const métierRecherchéService = useDependency<MétierRecherchéService>('métierRecherchéService');
@@ -154,7 +156,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
       <ul
         className={styles.suggestionList}
         role="listbox"
-        aria-labelledby={label}
+        aria-labelledby={id || label}
         id={listbox}
         data-testid="RésultatsRechercheMétier"
       >
@@ -184,12 +186,12 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <label htmlFor="rechercherMétier" id={label}>
+      <label htmlFor="rechercherMétier" id={id || label}>
         Métier, mot-clé { <span className={errorMessageActive ? styles.instructionMessageError : styles.instructionMessage}>(champ obligatoire)</span>}
       </label>
       <div ref={autocompleteRef}>
         <div
-          id="header-search"
+          id={id ? `header-search-${id}` : 'header-search'}
           role="combobox"
           aria-expanded={suggestionsActive}
           aria-controls={listbox}

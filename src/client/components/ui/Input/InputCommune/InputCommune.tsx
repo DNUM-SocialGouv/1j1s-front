@@ -13,14 +13,15 @@ import { Commune } from '~/server/localisations/domain/localisationAvecCoordonn�
 
 interface InputCommuneProps {
   code: string
-  libellé: string
-  latitude: string
-  longitude: string
   distance: string
+  id?: string
+  latitude: string
+  libellé: string
+  longitude: string
 }
 
 export const InputCommune = (props: InputCommuneProps) => {
-  const { code, libellé, latitude, longitude, distance } = props;
+  const { code, distance, id, libellé, latitude, longitude } = props;
 
   const localisationService = useDependency<LocalisationService>('localisationService');
 
@@ -165,7 +166,7 @@ export const InputCommune = (props: InputCommuneProps) => {
       <ul
         className={styles.suggestionList}
         role="listbox"
-        aria-labelledby={LOCALISATION_LABEL_ID}
+        aria-labelledby={id || LOCALISATION_LABEL_ID}
         id={LOCALISATION_SUGGESTIONS_ID}
         data-testid="RésultatsCommune"
       >
@@ -195,12 +196,12 @@ export const InputCommune = (props: InputCommuneProps) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <label htmlFor="rechercherCommune" id={LOCALISATION_LABEL_ID}>
+        <label htmlFor="rechercherCommune" id={id || LOCALISATION_LABEL_ID}>
           Localisation
         </label>
         <div ref={autocompleteRef}>
           <div
-            id="header-search"
+            id={id ? `header-search-${id}` : 'header-search'}
             role="combobox"
             aria-expanded={suggestionsActive}
             aria-controls={LOCALISATION_SUGGESTIONS_ID}

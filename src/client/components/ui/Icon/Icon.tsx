@@ -40,50 +40,51 @@ type IconName =
 
 interface IconProps extends CommonProps {
   name: IconName
+  isDecorative?: boolean
 }
 
-export function Icon({ name, className }: IconProps) {
+export function Icon({ name, className, isDecorative }: IconProps) {
 
   const getIcon = useMemo(() => {
     switch (name) {
       case 'angle-down':
-        return <AngleDownIcon className={className}/>;
+        return <AngleDownIcon className={className} isDecorative={isDecorative} />;
       case 'angle-left':
-        return <AngleLeftIcon className={className}/>;
+        return <AngleLeftIcon className={className} isDecorative={isDecorative} />;
       case 'angle-left-from-line':
-        return <AngleLeftFromLineIcon className={className}/>;
+        return <AngleLeftFromLineIcon className={className} isDecorative={isDecorative} />;
       case 'angle-right':
-        return <AngleRightIcon className={className}/>;
+        return <AngleRightIcon className={className} isDecorative={isDecorative} />;
       case 'angle-right-from-line':
-        return <AngleRightFromLineIcon className={className}/>;
+        return <AngleRightFromLineIcon className={className} isDecorative={isDecorative} />;
       case 'angle-up':
-        return <AngleUpIcon className={className}/>;
+        return <AngleUpIcon className={className} isDecorative={isDecorative} />;
       case 'arrow-right':
-        return <ArrowRightIcon className={className}/>;
+        return <ArrowRightIcon className={className} isDecorative={isDecorative} />;
       case 'burger-menu':
-        return <BurgerMenuIcon className={className}/>;
+        return <BurgerMenuIcon className={className} isDecorative={isDecorative} />;
       case 'burger-menu-left':
-        return <BurgerMenuLeftIcon className={className}/>;
+        return <BurgerMenuLeftIcon className={className} isDecorative={isDecorative} />;
       case 'close':
-        return <CloseIcon className={className}/>;
+        return <CloseIcon className={className} isDecorative={isDecorative} />;
       case 'error':
-        return <ErrorIcon className={className}/>;
+        return <ErrorIcon className={className} isDecorative={isDecorative} />;
       case 'external-redirection':
-        return <ExternalRedirectionIcon className={className}/>;
+        return <ExternalRedirectionIcon className={className} isDecorative={isDecorative} />;
       case 'filter':
-        return <FilterIcon className={className}/>;
+        return <FilterIcon className={className} isDecorative={isDecorative} />;
       case 'home':
-        return <HomeIcon className={className}/>;
+        return <HomeIcon className={className} isDecorative={isDecorative} />;
       case 'information':
-        return <InformationIcon className={className}/>;
+        return <InformationIcon className={className} isDecorative={isDecorative} />;
       case 'magnifying-glass':
-        return <MagnifyingGlassIcon className={className}/>;
+        return <MagnifyingGlassIcon className={className} isDecorative={isDecorative} />;
       case 'menu':
-        return <MenuIcon className={className}/>;
+        return <MenuIcon className={className} isDecorative={isDecorative} />;
       default:
         return null;
     }
-  }, [name, className]);
+  }, [name, className, isDecorative]);
 
   return ( getIcon );
 }

@@ -14,7 +14,7 @@ export function PageNotFound(){
       <HeadTag
         title={'Page indisponible | 1jeune1solution'}
       />
-      <div className={classNames(styles.flexContainer)}>
+      <main id="contenu" className={classNames(styles.flexContainer)}>
         <div className={styles.textWrapper}>
           <h1>Page non trouvée</h1>
           <p className="bold">La page que vous cherchez est introuvable. Excusez-nous pour la gêne occasionnée.</p>
@@ -30,7 +30,7 @@ export function PageNotFound(){
           <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205'/>
         </div>
         }
-      </div>
+      </main>
     </>
   );
 }

@@ -8,13 +8,15 @@ export default function FormationPage() {
   return (
     <>
       <HeadTag title="Créer mon CV personnalisé | 1jeune1solution"/>
-      <HeroWithButtonLink
-        titre={heroCVTitle()}
-        content={heroCVContent()}
-        buttonHref="https://cv.1jeune1solution.beta.gouv.fr/#/connexion"
-        buttonLabel="Je crée mon CV"
-        imgSrc="/images/banners/créer-cv.jpg"
-      />
+      <main id="contenu">
+        <HeroWithButtonLink
+          titre={heroCVTitle()}
+          content={heroCVContent()}
+          buttonHref="https://cv.1jeune1solution.beta.gouv.fr/#/connexion"
+          buttonLabel="Je crée mon CV"
+          imgSrc="/images/banners/créer-cv.jpg"
+        />
+      </main>
     </>
   );
 };

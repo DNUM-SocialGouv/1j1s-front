@@ -68,55 +68,57 @@ export default function RechercherFicheMetierPage() {
       <HeadTag
         title={'Rechercher un métier | 1jeune1solution'}
         description="Trouver le métier qui vous correspond"/>
-      <div className={styles.heroSection}>
-        <Container>
-          <h1 className={styles.heroMessage}>
-            <span className={styles.heroMessageFirstPart}>Trouvez le métier</span>
-            <span className={styles.heroMessageSecondPart}>qui vous correspond</span>
-          </h1>
-        </Container>
-      </div>
-      <div className={styles.headingSection}>
-        <Container className={styles.formContainer}>
-          <form className={styles.form} role='form' onSubmit={updateQueryParams}>
-            <TextInput
-              name="motCle"
-              className={styles.inputNomMetier}
-              label="Indiquez le métier que vous recherchez"
-              placeholder="Exemple: cuisinier"
-              value={inputMotCle}
-              autoFocus
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value) } />
-            <Button
-              buttonType='withRightIcon'
-              icon={<MagnifyingGlassIcon />}
-              type='submit'>
-              Rechercher
-            </Button>
-          </form>
-        </Container>
-      </div>
-      <div className={styles.resultInfosContainer}>
-        <Container>
-          <Skeleton type="line" isLoading={isLoading}>
-            <div><strong>{totalNumberOfResult}</strong> fiches métiers</div>
-          </Skeleton>
-        </Container>
-      </div>
-      <div className={styles.bodySection}>
-        <Container>
-          <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.skeletonCards}>
-            <ol className={styles.resultList}>
-              {ficheMétiers.map((ficheMetier) =>
-                <li className={styles.resultCard} key={ficheMetier.id}>{ficheMétierCard(ficheMetier)}</li>,
-              )}
-            </ol>
-          </Skeleton>
-          { totalNumberOfResult > 0 && ficheMétiers.length > 0 &&
-            <Pagination numberOfResult={totalNumberOfResult} numberOfResultPerPage={ficheMétiers.length} />
-          }
-        </Container>
-      </div>
+      <main id="contenu">
+        <div className={styles.heroSection}>
+          <Container>
+            <h1 className={styles.heroMessage}>
+              <span className={styles.heroMessageFirstPart}>Trouvez le métier</span>
+              <span className={styles.heroMessageSecondPart}>qui vous correspond</span>
+            </h1>
+          </Container>
+        </div>
+        <div className={styles.headingSection}>
+          <Container className={styles.formContainer}>
+            <form className={styles.form} role='form' onSubmit={updateQueryParams}>
+              <TextInput
+                name="motCle"
+                className={styles.inputNomMetier}
+                label="Indiquez le métier que vous recherchez"
+                placeholder="Exemple: cuisinier"
+                value={inputMotCle}
+                autoFocus
+                onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value) } />
+              <Button
+                buttonType='withRightIcon'
+                icon={<MagnifyingGlassIcon />}
+                type='submit'>
+                Rechercher
+              </Button>
+            </form>
+          </Container>
+        </div>
+        <div className={styles.resultInfosContainer}>
+          <Container>
+            <Skeleton type="line" isLoading={isLoading}>
+              <div><strong>{totalNumberOfResult}</strong> fiches métiers</div>
+            </Skeleton>
+          </Container>
+        </div>
+        <div className={styles.bodySection}>
+          <Container>
+            <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.skeletonCards}>
+              <ol className={styles.resultList}>
+                {ficheMétiers.map((ficheMetier) =>
+                  <li className={styles.resultCard} key={ficheMetier.id}>{ficheMétierCard(ficheMetier)}</li>,
+                )}
+              </ol>
+            </Skeleton>
+            { totalNumberOfResult > 0 && ficheMétiers.length > 0 &&
+              <Pagination numberOfResult={totalNumberOfResult} numberOfResultPerPage={ficheMétiers.length} />
+            }
+          </Container>
+        </div>
+      </main>
     </>
   );
 }
