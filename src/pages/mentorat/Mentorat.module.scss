@@ -1,8 +1,7 @@
 @import "@styles/utilities";
 
 .heading {
-  position: relative;
-  padding: 56px 32px;
+  padding: 2.5rem 2rem;
 
   &Container {
     max-width: 35rem;
@@ -10,94 +9,122 @@
 
     &__Title {
       @extend %headline;
+      @extend %bold;
       color: $color-primary;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
-
+    ul {
+      list-style-type: initial;
+      padding-left: 1rem;
+    }
     &__TextContent {
-      @extend %text-regular;
+      font-size: 1rem;
+      @include media(large) {
+        font-size: 1.25rem;
+      }
       &Orange {
+        font-size: 1rem;
+        @include media(large) {
+          font-size: 1.5rem;
+        }
         @extend %bold;
         color: $color-tertiary;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
       }
-      margin-bottom: 2.5rem;
+      margin-bottom: 0.75rem;
       p:first-child {
         @extend %bold;
         margin-bottom: 0;
       }
     }
-
-    .linkAsButtonWrapper {
-      a {
-        width: 100%;
-      }
-    }
   }
-
-
 }
 
 @include media(large) {
   .heading {
     padding: 0;
 
-    &ContainerWrapper {
-      width: 50%;
-    }
-
     &Container {
-      max-width: 35.5rem;
+      max-width: 62rem;
       margin: 0 auto;
       padding: 80px 1rem;
 
-      &__TextContent {
-        margin-bottom: 56px !important;
+      &__Title {
+        margin-bottom: 1rem;
       }
-
-      .linkAsButtonWrapper {
-        a {
-          width: initial !important;
+      &__TextContent {
+        margin-bottom: 1rem;
+        &Orange {
+          text-align: center;
+          margin-bottom: 1.25rem;
         }
       }
-    }
-
-    .imageWrapper {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 50%;
     }
   }
 }
 
+.contentContainer {
+  &OnPrimary {
+    background-color: $color-primary;
+  }
+}
 
-.content {
-  .contentContainer {
-    &OnPrimary {
-      background-color: $color-primary;
+.QuestCeQueMentorat {
+  &Wrapper {
+    padding: 2.5rem 1.5rem;
+    color: $color-on-primary;
+    @extend %max-container;
+  }
+  &Content {
+    h1 {
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
     }
-
-    article {
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .linkAsButtonWrapper {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
       max-width: 35rem;
-      margin: 0 auto;
+      & > * + * {
+        margin-top: 1rem;
+      }
+      a {
+        width: 100%;
+      }
     }
   }
+}
 
-  .RaisonParticipationMentoratWrapper {
-    padding: 36px 28px;
-    background-color: $color-primary;
+.RaisonParticipationMentorat {
+  &Wrapper {
+    padding: 2.5rem 1.5rem;
+    @extend %max-container;
     h1 {
-      font-size: 1.5rem;
-      color: $color-on-primary;
+      font-size: 1.25rem;
+      color: $color-primary;
+      margin-bottom: 1.25rem;
+    }
+    .buttonAccordeon {
+      padding-left: 0;
+      color: $color-primary;
+      margin: auto;
+      &Closed {
+        margin: 0;
+      }
     }
     .RaisonParticipationMentoratContainer {
+      padding-bottom: 1.25rem;
       .RaisonParticipationMentoratElement {
+        &:not(:last-child) {
+        margin-bottom: 1.25rem;
+        }
         &__Title {
           display: flex;
           align-items: center;
-          color: $color-on-primary;
           p {
             @extend %text-regular;
             @extend %bold;
@@ -108,62 +135,121 @@
             flex-shrink: 0;
           }
         }
-        p {
+        > p {
+          padding-left: 2.25rem;
           @extend %text-regular;
-          color: $color-on-primary;
         }
       }
-    }
-  }
-
-  .QuestCeQueMentoratWrapper {
-    padding: 36px 28px;
-    h1 {
-      font-size: 0.875rem;
-      color: $color-tertiary;
-    }
-    p {
-      @extend %text-regular;
     }
   }
 }
 
 @include media(large) {
-  .content {
+  .contentContainer {
     display: flex;
+  }
 
-    .contentContainer {
-      background-color: $color-primary;
-      width: 50%;
+  .imageWrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+  }
 
-      &Separator {
-        border-right: 1px solid $color-on-primary;
+  .QuestCeQueMentorat {
+    &Wrapper {
+      display: flex;
+      .imageWrapper {
+        min-width: 496px;
+        max-width: 496px;
+        min-height: 329px;
+        max-height: 329px;
+        margin-right: 4rem;
       }
     }
-
-    &__articleTitle {
+    &Content {
       display: flex;
-      align-items: center;
-      margin-bottom: 2rem;
+      flex-direction: column;
+      justify-content: space-between;
       h1 {
-        line-height: initial;
+        font-size: 1.5rem;
+        margin-bottom: 0;
       }
-      span {
-        flex-shrink: 0;
-        img {
-          padding-right: 24px !important;
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 0;
+      }
+      .linkAsButtonWrapper {
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+        & > * + * {
+          margin-top: 0;
+          margin-left: 1.25rem;
+        }
+        a {
+          width: initial ;
         }
       }
     }
+  }
 
-    .QuestCeQueMentoratWrapper {
-      h1 {
-        font-size: 1.5rem;
-        color: $color-on-primary;
+  .RaisonParticipationMentorat {
+    &Wrapper {
+      display: flex;
+      .imageWrapper {
+        min-width: 490px;
+        max-width: 490px;
+        min-height: 372px;
+        max-height: 372px;
+        margin-left: 4rem;
       }
-      background-color: $color-primary;
-      color: $color-on-primary;
+      .RaisonParticipationMentoratContainer {
+        padding-bottom: 0;
+        .RaisonParticipationMentoratElement {
+          &:not(:last-child) {
+            margin-bottom: 1.25rem;
+          }
+          &__Title {
+            display: flex;
+            align-items: center;
+            p {
+              font-size: 1.25rem;
+              @extend %bold;
+              margin: initial;
+            }
+            svg {
+              margin-right: 0.75rem;
+              flex-shrink: 0;
+            }
+          }
+          &__Title:not(:last-child) {
+            margin-bottom: 0.75rem;
+          }
+          > p {
+            font-size: 1.25rem;
+            padding-left: 0;
+          }
+        }
+      }
+    }
+    &Content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &__Title {
+        display: flex;
+        align-items: center;
+        h1 {
+          font-size: 1.5rem;
+          margin-left: 1.25rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+    &Container {
+      padding-bottom: 0;
     }
   }
+
 }
 
