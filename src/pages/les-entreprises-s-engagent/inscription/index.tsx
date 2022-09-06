@@ -91,8 +91,12 @@ export default function LesEntreprisesSEngagentInscription() {
         !isFormSuccessfullySent &&
         <>
           <div className={styles.header}>
-            <span>REJOIGNEZ  &ldquo;LES ENTREPRISES S&apos;ENGAGENT&rdquo;</span>
-            <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="144.2" height="80"/>
+            <div className={styles.titre}>
+              <span>REJOIGNEZ  &ldquo;LES ENTREPRISES S&apos;ENGAGENT&rdquo;</span>
+            </div>
+            <div className={styles.logo}>
+              <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="144.2" height="80"/>
+            </div>
           </div>
 
           <div className={styles.content}>

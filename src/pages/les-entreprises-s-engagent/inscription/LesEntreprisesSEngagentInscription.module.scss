@@ -3,18 +3,21 @@
 .header {
   background-color: $color-on-primary;
   color: $color-blue-navy;
-  grid-template-columns: repeat(2,1fr);
-  padding: 32px 12rem 8px 21rem;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 4rem 16rem 0.5rem 16rem;
+  display: flex;
+  justify-content: space-between;
 
-  > span {
+  .titre {
     text-decoration-line: underline;
     text-transform: uppercase;
     font-size: 20px;
+    margin-bottom: 4rem;
+    padding: 1rem 3rem 0 0;
   }
 
-  .titre {
-    grid-template-columns: repeat(2,1fr);
-
+  .logo {
+    vertical-align: middle;
   }
 
 }
