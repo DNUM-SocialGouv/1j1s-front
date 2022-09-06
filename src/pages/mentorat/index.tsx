@@ -26,16 +26,18 @@ export default function MentoratPage() {
           <div className={styles.headingContainer}>
             <h1 className={styles.headingContainer__Title}>1 jeune 1 mentor, être accompagné par un mentor pour réussir</h1>
             <p className={styles.headingContainer__TextContentOrange}>
-              Faire la rencontre qui change tout !
+              Faites la rencontre qui change tout !
             </p>
             <div className={styles.headingContainer__TextContentWrapper}>
               <div className={styles.headingContainer__TextContent}>
-                <p>
+                <span>
+                  <p>
                   Vous avez moins de 30 ans ?
-                </p>
-                <p>
+                  </p>
+                  <p>
                   Rencontrez le mentor qui vous correspond et bénéficiez de son accompagnement régulier et de ses conseils pour atteindre vos objectifs : améliorer vos résultats scolaires, définir votre orientation, trouver vos premières expériences professionnelles…
-                </p>
+                  </p>
+                </span>
                 <div className={styles.linkAsButtonWrapper}>
                   <LinkAsButton
                     href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution"
@@ -46,12 +48,14 @@ export default function MentoratPage() {
                 </div>
               </div>
               <div className={styles.headingContainer__TextContent}>
-                <p>
+                <span>
+                  <p>
                   Vous voulez devenir mentor ?
-                </p>
-                <p>
+                  </p>
+                  <p>
                   Embarquez dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l&apos;égalité des chances et continuer à apprendre en accompagnant un jeune
-                </p>
+                  </p>
+                </span>
                 <div className={styles.linkAsButtonWrapper}>
                   <LinkAsButton
                     href="/je-deviens-mentor"

@@ -25,7 +25,7 @@ function heroCVTitle() {
   return(
     <>
       <b>Je crée un CV personnalisé qui valorise mes compétences</b>
-      <span className={styles.heroText}> et s’adpate à chaque annonce</span>
+      <span className={styles.heroText}> et s’adapte à chaque annonce</span>
     </>
   );
 };
