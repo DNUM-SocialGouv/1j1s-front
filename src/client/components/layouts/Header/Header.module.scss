@@ -40,6 +40,11 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
         & button {
           color: $color-on-secondary;
         }
+
+      }
+      & > li:last-child:hover {
+        text-decoration: underline;
+        color: $color-on-secondary;
       }
       & li > button, & li > a  {
         @extend %text-medium ;
@@ -54,9 +59,9 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
         background-color: lighten($color-primary, 40%);
         color: $color-blue-navy;
       }
-
       & li:not(:last-child):hover {
         background-color: $color-form-field;
+        text-decoration: underline;
       }
 
       & > li > button span[aria-current=true], & > li > a[aria-current=true]{
