@@ -3,7 +3,6 @@
 .header {
   background-color: $color-on-primary;
   color: $color-blue-navy;
-  grid-template-columns: none;
   padding: 0;
   display: flex;
   justify-content: space-between;
@@ -94,7 +93,6 @@
 @include media(large) {
 
   .header {
-    grid-template-columns: repeat(2, 1fr);
     padding: 4rem 16rem 0.5rem 16rem;
     flex-direction: row;
 
