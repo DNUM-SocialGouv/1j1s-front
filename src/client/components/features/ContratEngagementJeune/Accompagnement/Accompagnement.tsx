@@ -81,7 +81,7 @@ export default function Accompagnement() {
         <ModalComponent.Title className={styles.accompagnementMission__Title}>{ title }</ModalComponent.Title>
         <ModalComponent.Content>
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-            <Button onClick={ () => setIsMissionLocaleModalOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.accompagnementMissionBtnSuccess}>Fermer</Button>
+            <Button onClick={ () => setIsMissionLocaleModalOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.accompagnementMissionBoutonSuccess}>Fermer</Button>
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>
