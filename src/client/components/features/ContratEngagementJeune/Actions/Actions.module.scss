@@ -27,6 +27,17 @@
    &__Title {
      color: $color-primary;
      font-size: 1.5rem;
+     margin-bottom: 0.5rem;
+    }
+    &__Content {
+      &  ul {
+        list-style-type: initial;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+      }
+      &  ul li::marker {
+        color: $color-primary;
+      }
     }
   }
 }

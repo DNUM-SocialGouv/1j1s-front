@@ -24,7 +24,7 @@ export default function Actions() {
         <article className= { styles.actionsArticle }>
           <h2 className= { styles.actionsArticle__Title }>Concrètement qu&apos;est-ce qu&apos;on fait en Contrat d’Engagement Jeune ?</h2>
         </article>
-        <article>{!displayAccordion && <Marked markdown={ contenu }/>}
+        <article className= { styles.actionsArticle__Content }>{!displayAccordion && <Marked markdown={ contenu }/>}
           {displayAccordion && (
             <SeeMore>
               <Marked markdown={ contenu }/>

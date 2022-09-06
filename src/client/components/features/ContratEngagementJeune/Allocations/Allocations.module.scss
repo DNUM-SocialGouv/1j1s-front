@@ -32,6 +32,10 @@
       color: $color-on-primary;
     }
 
+    ul {
+      list-style-type: initial;
+      padding-left: 20px;
+    }
     ul, strong, button {
       color: $color-on-primary;
     }

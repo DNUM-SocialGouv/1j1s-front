@@ -30,6 +30,10 @@
   }
 }
 
+.contenu ul {
+  list-style-type: initial;
+  padding-left: 20px;
+}
 .contenu ul > li > strong {
   color: $color-primary;
 }

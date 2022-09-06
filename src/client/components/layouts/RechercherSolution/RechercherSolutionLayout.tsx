@@ -60,10 +60,12 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
               {erreurRecherche || listeSolution.length === 0 && !isLoading ?
                 <ErrorComponent errorType={erreurRecherche}/> :
                 <>
-                  {étiquettesRecherche}
-                  <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
-                    <h2>{messageRésultatRecherche}</h2>
-                  </Skeleton>
+                  <div className={styles.informationRésultat}>
+                    {étiquettesRecherche}
+                    <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+                      <h2>{messageRésultatRecherche}</h2>
+                    </Skeleton>
+                  </div>
 
                   <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
                     <ul>

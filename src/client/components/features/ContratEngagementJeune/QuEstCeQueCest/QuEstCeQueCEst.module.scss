@@ -22,6 +22,10 @@
   overflow: hidden;
 }
 
+.article p {
+  margin-bottom: 1rem;
+}
+
 .article p:last-child {
   margin-bottom: 0;
 }
@@ -29,6 +33,16 @@
 .article h2 {
   color: $color-primary;
   font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.article ul {
+  list-style-type: initial;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+.article ul li::marker {
+  color: $color-primary;
 }
 
 .article em {
@@ -41,7 +55,7 @@
   color: $color-primary;
 }
 
-@include media(large){
+@include media(large) {
   .container{
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;

@@ -9,13 +9,13 @@
 
   &[target="_blank"]::after {
     content: '';
-    height: 1em;
-    width: 1em;
+    height: 1rem;
+    width: 1rem;
     background-color: currentColor;
     mask: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M6.667 4v1.333H3.333v7.334h7.334V9.333H12v4a.667.667 0 0 1-.667.667H2.667A.667.667 0 0 1 2 13.333V4.667C2 4.298 2.298 4 2.667 4h4ZM14 2v5.333h-1.333V4.275L7.47 9.471 6.53 8.53l5.194-5.196H8.667V2H14Z' fill='currentColor'/></svg>");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 1em;
+    background-size: 1rem;
   }
 
   &Primary {
