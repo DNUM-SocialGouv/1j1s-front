@@ -12,7 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { createSuccess } from '~/server/errors/either';
 
-jest.setTimeout(15000);
+jest.setTimeout(20000);
 
 describe('<Rappel />', () => {
   afterEach(() => {
