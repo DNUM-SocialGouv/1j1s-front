@@ -26,24 +26,42 @@ export default function MentoratPage() {
           <div className={styles.headingContainer}>
             <h1 className={styles.headingContainer__Title}>1 jeune 1 mentor, être accompagné par un mentor pour réussir</h1>
             <p className={styles.headingContainer__TextContentOrange}>
-              Faites la rencontre qui change tout !
+              Faire la rencontre qui change tout !
             </p>
-            <ul>
-              <li>
-                <p className={styles.headingContainer__TextContent}>
-                  <strong>Vous avez moins de 30 ans ?</strong>
-                  <br/>
+            <div className={styles.headingContainer__TextContentWrapper}>
+              <div className={styles.headingContainer__TextContent}>
+                <p>
+                  Vous avez moins de 30 ans ?
+                </p>
+                <p>
                   Rencontrez le mentor qui vous correspond et bénéficiez de son accompagnement régulier et de ses conseils pour atteindre vos objectifs : améliorer vos résultats scolaires, définir votre orientation, trouver vos premières expériences professionnelles…
                 </p>
-              </li>
-              <li>
-                <p className={styles.headingContainer__TextContent}>
-                  <strong>Vous voulez devenir mentor ?</strong>
-                  <br/>
+                <div className={styles.linkAsButtonWrapper}>
+                  <LinkAsButton
+                    href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution"
+                    target="_blank"
+                  >
+                    Je trouve mon mentor
+                  </LinkAsButton>
+                </div>
+              </div>
+              <div className={styles.headingContainer__TextContent}>
+                <p>
+                  Vous voulez devenir mentor ?
+                </p>
+                <p>
                   Embarquez dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l&apos;égalité des chances et continuer à apprendre en accompagnant un jeune
                 </p>
-              </li>
-            </ul>
+                <div className={styles.linkAsButtonWrapper}>
+                  <LinkAsButton
+                    href="/je-deviens-mentor"
+                    target="_blank"
+                  >
+                    Je deviens mentor
+                  </LinkAsButton>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -51,28 +69,12 @@ export default function MentoratPage() {
           <article className={styles.QuestCeQueMentoratWrapper}>
             { isLargeScreen && (
               <div className={styles.imageWrapper}>
-                <Image src="/images/mentorat/questcequelementorat.jpg" alt="" layout="fill" objectFit="cover"/>
+                <Image src="/images/mentorat/questcequelementorat.jpg" alt="" layout="fill" objectFit="cover" objectPosition="top"/>
               </div>
             ) }
             <div className={styles.QuestCeQueMentoratContent}>
               <h1>Qu’est-ce que le mentorat ?</h1>
               <p>Le mentorat, c’est l’accompagnement individuel bénévole d’un jeune par un mentor, qui peut aussi bien être lycéen qu’étudiant, actif ou retraité. Le “binôme” que forment le mentor et le jeune se rencontre plusieurs fois par mois (pendant au moins 6 mois) pour répondre aux objectifs du mentoré selon son âge et ses besoins. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>
-              <div className={styles.linkAsButtonWrapper}>
-                <LinkAsButton
-                  href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution"
-                  target="_blank"
-                  buttonOnDarkBackground
-                >
-                  Je trouve mon mentor
-                </LinkAsButton>
-                <LinkAsButton
-                  href="/je-deviens-mentor"
-                  target="_blank"
-                  buttonOnDarkBackground
-                >
-                  Je deviens mentor
-                </LinkAsButton>
-              </div>
             </div>
           </article>
         </div>

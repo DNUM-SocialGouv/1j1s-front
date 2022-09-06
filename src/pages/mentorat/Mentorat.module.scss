@@ -13,14 +13,20 @@
       color: $color-primary;
       margin-bottom: 1.25rem;
     }
-    ul {
-      list-style-type: initial;
-      padding-left: 1rem;
+    &__TextContentWrapper {
+      div:first-child {
+        margin-bottom: 2rem;
+      }
+
     }
     &__TextContent {
       font-size: 1rem;
       @include media(large) {
         font-size: 1.25rem;
+      }
+      p:first-child {
+        @extend %bold;
+        margin-bottom: 0.25rem;
       }
       &Orange {
         font-size: 1rem;
@@ -32,9 +38,12 @@
         margin-bottom: 0.75rem;
       }
       margin-bottom: 0.75rem;
-      p:first-child {
-        @extend %bold;
-        margin-bottom: 0;
+
+      .linkAsButtonWrapper {
+        margin-top: 1rem;
+        a {
+          width: 100%;
+        }
       }
     }
   }
@@ -45,18 +54,44 @@
     padding: 0;
 
     &Container {
-      max-width: 62rem;
+      max-width: 78rem;
       margin: 0 auto;
       padding: 80px 1rem;
 
       &__Title {
         margin-bottom: 1rem;
+        text-align: center;
+      }
+      &__TextContentWrapper {
+        display: flex;
+        > div {
+          width: 50%;
+        }
+        div:first-child {
+          margin-bottom: 0;
+          border-right: 1px solid $color-separator;
+          padding-right: 2.5rem;
+        }
+        div:last-child {
+          padding-left: 2.5rem;
+        }
       }
       &__TextContent {
-        margin-bottom: 1rem;
+        p:first-child {
+          text-align: center;
+        }
         &Orange {
           text-align: center;
-          margin-bottom: 1.25rem;
+          margin-bottom: 5rem;
+        }
+
+        .linkAsButtonWrapper {
+          margin-top: 2rem;
+          display: flex;
+          a {
+            margin: auto;
+            width: initial;
+          }
         }
       }
     }
@@ -101,7 +136,7 @@
 
 .RaisonParticipationMentorat {
   &Wrapper {
-    padding: 2.5rem 1.5rem;
+    padding: 2.5rem 1.5rem 4rem;
     @extend %max-container;
     h1 {
       font-size: 1.25rem;
@@ -161,8 +196,8 @@
       .imageWrapper {
         min-width: 496px;
         max-width: 496px;
-        min-height: 329px;
-        max-height: 329px;
+        min-height: 241px;
+        max-height: 241px;
         margin-right: 4rem;
       }
     }
@@ -177,18 +212,6 @@
       p {
         font-size: 1.25rem;
         margin-bottom: 0;
-      }
-      .linkAsButtonWrapper {
-        flex-direction: row;
-        align-items: center;
-        margin: 0;
-        & > * + * {
-          margin-top: 0;
-          margin-left: 1.25rem;
-        }
-        a {
-          width: initial ;
-        }
       }
     }
   }
