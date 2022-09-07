@@ -58,11 +58,6 @@ input.stageInputElement {
   display: none;
 }
 
-.stageTagList {
-  margin-top: 1rem;
-  padding-inline-start: 0;
-}
-
 .stageTagItem {
   display: inline;
 }
@@ -81,5 +76,14 @@ input.stageInputElement {
     padding: 4px 12px;
     margin: 4px 12px 4px 0;
     border-radius: calc((4px * 2 + 1.5rem) / 2);
+  }
+}
+
+.informationRésultats {
+  border-bottom: 1px solid $color-separator;
+  border-top: 1px solid $color-separator;
+  padding: 2rem 0;
+  ul {
+    padding-bottom: 1rem;
   }
 }
