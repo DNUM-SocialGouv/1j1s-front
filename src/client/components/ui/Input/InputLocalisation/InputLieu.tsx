@@ -172,7 +172,11 @@ export const InputLieu = (props: InputLieuProps) => {
       <li
         className={currentHoverIndex === suggestionIndex ? styles.hover : ''}
         key={currentHoverIndex}
-        onClick={() => choisirUneSuggestion(suggestion, typeLocalisation)}
+        onClick={(event) => {
+          choisirUneSuggestion(suggestion, typeLocalisation);
+          event.stopPropagation();
+          event.preventDefault();
+        }}
         role="option"
         aria-selected={libelléLocalisation === suggestion.libelle}
         value={suggestion.libelle}
