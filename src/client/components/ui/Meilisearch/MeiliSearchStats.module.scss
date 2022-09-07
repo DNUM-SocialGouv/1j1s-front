@@ -1,0 +1,5 @@
+@import "@styles/utilities";
+
+.nombreRésultats {
+  @extend %bold, %text-large;
+}

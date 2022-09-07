@@ -69,18 +69,21 @@ export default function RechercherOffreStagePage() {
                 sortBy={['name:asc']}/>
             </div>
           </form>
-          <CurrentRefinements
-            classNames={
-              {
-                category: styles.stageTagCategoryElement,
-                categoryLabel: styles.stageTagItem,
-                item: styles.stageTagItem,
-                label: styles.stageTagLabel,
-                list: styles.stageTagList,
+          <div className={styles.informationRésultats}>
+            <CurrentRefinements
+              classNames={
+                {
+                  category: styles.stageTagCategoryElement,
+                  categoryLabel: styles.stageTagItem,
+                  item: styles.stageTagItem,
+                  label: styles.stageTagLabel,
+                  list: styles.stageTagList,
+                }
               }
-            }
-          />
-          <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
+            />
+            <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
+          </div>
+
           <Hits
             hitComponent={Résultat}
             classNames={
