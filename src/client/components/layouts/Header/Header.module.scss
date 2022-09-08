@@ -36,7 +36,7 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
         position:relative;
       }
       & > li:last-child {
-        background-color: $color-background-patina;
+        background-color: $color-secondary;
         & button {
           color: $color-on-secondary;
         }
