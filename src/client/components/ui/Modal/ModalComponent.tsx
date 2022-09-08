@@ -76,6 +76,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
 
   useEffect(() => {
     if (isOpen) {
+      // TODO investigate focus
       setLastFocusBeforeOpen(document.activeElement as HTMLElement);
     } else {
       setTimeout(() => lastFocusBeforeOpen?.focus(), MODAL_ANIMATION_TIME_IN_MS);

@@ -12,15 +12,9 @@ export default function Rappel() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   function onFormulaireEnvoyé() {
+    // TODO must reset state when modal close
     setIsSuccess(true);
   }
-  
-  const title = isSuccess ? '' : (
-    <>
-      J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
-      <small>(Tous les champs sont obligatoires)</small>
-    </>
-  );
 
   return (
     <section className={styles.rappel}>
@@ -31,9 +25,12 @@ export default function Rappel() {
       <ModalComponent className={styles.rappelModal}
         isOpen={isPopInOpen}
         close={() => setIsPopInOpen(false)}
-      >
-        <ModalComponent.Title className={styles.rappelTitle}>{ title }</ModalComponent.Title>
-        <ModalComponent.Content>
+      > { !isSuccess && <ModalComponent.Title className={styles.rappelTitle}>
+        J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
+        </ModalComponent.Title>
+        }
+        <ModalComponent.Content className={!isSuccess ? styles.rappelContent : styles.rappelContentSuccess}>
+          { !isSuccess && <small>(Tous les champs sont obligatoires)</small> }
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
             <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
           </FormulaireDeContactCEJ>

@@ -73,3 +73,9 @@
 
   }
 }
+/*  TODO get an alternative svg */
+@media (prefers-reduced-motion: reduce) {
+  .animate .check, .ripple, .circled.animate .circle {
+    animation: none;
+  }
+}
