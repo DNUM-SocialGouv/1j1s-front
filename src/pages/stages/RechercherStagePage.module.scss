@@ -54,10 +54,6 @@ input.stageInputElement {
   padding: 0;
 }
 
-.stageTagLabel {
-  display: none;
-}
-
 .stageTagItem {
   display: inline;
 }
@@ -79,10 +75,16 @@ input.stageInputElement {
   }
 }
 
+.none {
+  display: none;
+}
+
 .informationRésultats {
   border-bottom: 1px solid $color-separator;
   border-top: 1px solid $color-separator;
   padding: 2rem 0;
+  margin-bottom: 2.5rem;
+
   ul {
     padding-bottom: 1rem;
   }
