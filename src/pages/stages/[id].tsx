@@ -6,6 +6,7 @@ import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage
 import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { UnavailableOffer } from '~/client/components/features/OffreDeStage/OffreDeStageIndisponible';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 import indexServices from '~/client/services/index.service';
 
 const recupérerOffreDeStage = async (slug: string | string[]) => {
@@ -53,6 +54,7 @@ export default function ConsulterOffreStagePage() {
   }
   return (
     <Container>
+      <HeadTag title={`${offreDeStage.titre} | 1jeune1solution`} />
       <ConsulterOffreDeStage offreDeStage={offreDeStage}/>
     </Container>
   );
