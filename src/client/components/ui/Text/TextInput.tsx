@@ -91,7 +91,7 @@ export const TextInput = React.forwardRef<HTMLInputElement | null, TextInputProp
         id={inputId.current}
         aria-describedby={hint && hintId.current}
         aria-invalid={!!error}
-        aria-errormessage={error && errorId.current}
+        {...error && errorId.current && { 'aria-errormessage': errorId.current }}
         className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
         onChange={onInputChange}
         onBlur={() => setTouched(true) }

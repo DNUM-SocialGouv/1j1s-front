@@ -17,6 +17,7 @@ interface SelectProps {
   multiple?: boolean
   required?: boolean
   onChange?: (value: string) => void;
+  title?: string
 }
 
 export interface Option {
@@ -24,7 +25,7 @@ export interface Option {
   valeur: string;
 }
 
-export function Select({ optionList, onChange, value, placeholder, name, label, multiple, required }: SelectProps) {
+export function Select({ optionList, onChange, value, placeholder, name, label, multiple, required, title = label }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
 
   const [isTouched, setIsTouched] = useState(false);
@@ -87,11 +88,10 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
         <button
           type="button"
           aria-haspopup="listbox"
-          aria-invalid={ !!error }
-          aria-errormessage={ error && errorMessageBy.current }
           aria-expanded={isOptionsOpen}
           aria-labelledby={labelledBy.current}
           className={styles.button}
+          title={title}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
           onBlur={() => required ? setIsTouched(true) : undefined}
         >
