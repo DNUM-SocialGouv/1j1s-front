@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
@@ -11,8 +14,11 @@ export default function Rappel() {
   const [isPopInOpen, setIsPopInOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  useEffect(() => {
+    if (!isPopInOpen) setIsSuccess(false);
+  }, [isPopInOpen]);
+
   function onFormulaireEnvoyé() {
-    // TODO must reset state when modal close
     setIsSuccess(true);
   }
 

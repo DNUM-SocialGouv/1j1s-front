@@ -126,7 +126,7 @@ export function FormulaireRechercheOffreEmploi() {
               <span>Filtrer ma recherche</span>
             </ModalComponent.Title>
             <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
-              <Accordion title="Type de contrat">
+              <Accordion title="Type de contrat" open>
                 {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                   <Checkbox
                     key={`Type de contrat${index}`}

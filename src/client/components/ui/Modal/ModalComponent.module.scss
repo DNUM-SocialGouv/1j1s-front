@@ -21,12 +21,6 @@
     transition: 0.2s ease-in-out all;
   }
 
-/*  &:before {
-    content: '';
-    display: block;
-    height: 2rem;
-  }*/
-
   &Body {
     height: 100vh;
     overflow-y: scroll;
@@ -80,6 +74,7 @@
       width: 60%;
       height: 90vh;
       margin: auto;
+      border-radius: 20px;
     }
   }
 }
