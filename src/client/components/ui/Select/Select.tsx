@@ -46,9 +46,10 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
     }
   }, []);
 
-  useEffect(function onValueChange() {
+/*  useEffect(function onValueChange() {
+    console.log('value will change', value)
     setSelectedValue(value || '');
-  }, [value]);
+  }, [value]);*/
 
   useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
@@ -99,14 +100,14 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
         {isOptionsOpen &&
-          <ListBox
-            selectedValue={selectedValue}
-            optionList={optionList}
-            setSelectedValue={setSelectedValue}
-            setIsOptionsOpen={setIsOptionsOpen}
-            multiple={!!multiple}
-            onChange={onChange}
-          />}
+              <ListBox
+                selectedValue={selectedValue}
+                optionList={optionList}
+                setSelectedValue={setSelectedValue}
+                setIsOptionsOpen={setIsOptionsOpen}
+                multiple={multiple || false}
+                onChange={onChange}
+              />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
         
       </div>

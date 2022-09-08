@@ -1,4 +1,9 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useRef,
+  useState
+} from 'react';
 
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Radio } from '~/client/components/ui/Radio/Radio';
@@ -10,26 +15,48 @@ interface ListBoxProps {
   multiple: boolean
   optionList: Option[]
   onChange: ((value: string) => void) | undefined;
-  setSelectedValue: (value: string) => void | undefined;
-  setIsOptionsOpen: (value: boolean) => void | undefined;
+  setSelectedValue: (value: string) => void;
+  setIsOptionsOpen: (value: boolean) => void;
   selectedValue: string
 }
 
 export function ListBox(props: ListBoxProps) {
   const { multiple, optionList, onChange, selectedValue, setIsOptionsOpen, setSelectedValue } = props;
-
+  const listBoxRef = useRef<HTMLDivElement>(null);
   const [id, setId] = useState('');
 
-  const selectedValueContainsCheckboxValue = (option: Option) => selectedValue.split(',').includes(option.valeur);
+  const selectedValueContainsCheckboxValue = (option: Option) => {
+    //console.log('selectedValue', selectedValue)
+    console.log('selectedValueContainsCheckboxValue')
+    selectedValue.split(',').includes(option.valeur);
+  }
   const selectedValueIsRadioValue = (option: Option) => selectedValue === option.valeur;
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === KeyBoard.ENTER) {
       event.preventDefault();
     }
+    if (event.code === KeyBoard.SPACE) {
+      event.preventDefault();
+      const currentInput = event.target.querySelector("input[type=checkbox]")
+      //console.log('currentInput', currentInput)
+      const currentState = currentInput.getAttribute("aria-checked")
+      //console.log('test currentState', currentState === 'false')
+      const newState = !(currentState === 'true')
+      //console.log('currentInput', currentInput)
+      //console.log('checked', currentState, newState)
+      currentInput.setAttribute("aria-checked", `${newState}`)
+      currentInput.setAttribute("aria-selected", `${newState}`)
+
+      if (currentInput.getAttribute("value")) {
+        onSelectMultipleChange(newState, currentInput.getAttribute("value")!)
+      }
+    }
   }, []);
 
   const onSelectMultipleChange = useCallback((isValueSelected: boolean, changedValue: string) => {
+    console.log('CURRENT VALUE SELECTED', selectedValue)
+    console.log('onSelectMultipleChange', isValueSelected, changedValue)
     const valueList = selectedValue ? selectedValue.split(',') : [];
     if (isValueSelected) {
       valueList.push(changedValue);
@@ -39,6 +66,7 @@ export function ListBox(props: ListBoxProps) {
     }
 
     const newSelectedValue = valueList.join(',');
+    console.log('newSelectedValue', newSelectedValue)
     setSelectedValue(newSelectedValue);
     if (onChange) {
       onChange(newSelectedValue);
@@ -51,11 +79,13 @@ export function ListBox(props: ListBoxProps) {
       role="listbox"
       tabIndex={0}
       aria-activedescendant={id}
+      ref={listBoxRef}
+      aria-multiselectable={multiple}
     > 
       {
         multiple
           ? optionList.map((option, index) => {
-            return(
+            return (
               <Checkbox
                 key={index}
                 className={styles.option}
@@ -67,7 +97,7 @@ export function ListBox(props: ListBoxProps) {
                   onSelectMultipleChange(event.target.checked, option.valeur);
                 }}
                 onKeyDown={handleKeyDown}
-                aria-selected={selectedValueContainsCheckboxValue(option)}
+                aria-checked={selectedValueContainsCheckboxValue(option)}
                 checked={selectedValueContainsCheckboxValue(option)}
               />
             );
@@ -89,7 +119,6 @@ export function ListBox(props: ListBoxProps) {
               }}
               onKeyDown={handleKeyDown}
               aria-selected={selectedValueIsRadioValue(option)}
-              checked={selectedValueIsRadioValue(option)}
             />
           ))
       }
