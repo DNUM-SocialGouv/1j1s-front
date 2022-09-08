@@ -108,6 +108,9 @@
   }
 }
 
+.imageWrapper {
+  display: none;
+}
 .QuestCeQueMentorat {
   &Wrapper {
     padding: 5rem 1.5rem;
@@ -198,6 +201,7 @@
     &Wrapper {
       display: flex;
       .imageWrapper {
+        display: initial;
         min-width: 496px;
         max-width: 496px;
         min-height: 241px;
@@ -224,6 +228,7 @@
     &Wrapper {
       display: flex;
       .imageWrapper {
+        display: initial;
         min-width: 490px;
         max-width: 490px;
         min-height: 372px;

@@ -85,7 +85,9 @@
     }
   }
 
-
+  .imageWrapper {
+    display: none;
+  }
 }
 
 @include media(large) {
@@ -114,6 +116,7 @@
 
     .imageWrapper {
       position: absolute;
+      display: initial;
       top: 0;
       right: 0;
       height: 100%;
