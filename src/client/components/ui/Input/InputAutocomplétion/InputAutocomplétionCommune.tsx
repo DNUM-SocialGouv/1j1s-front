@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import InputAutocomplétion from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétion';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -6,6 +6,8 @@ import { LocalisationService } from '~/client/services/localisation.service';
 import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 interface AutocomplétionCommuneProps {
+  onSuggestionSelected?(event: SyntheticEvent, suggestion: LocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): () => void;
+
   label?: string;
   debounce?: number;
   name?: string;
@@ -14,7 +16,7 @@ interface AutocomplétionCommuneProps {
 }
 
 export default function InputAutocomplétionCommune(props: AutocomplétionCommuneProps) {
-  const { ...rest } = props;
+  const { onSuggestionSelected, ...rest } = props;
   const localisationService = useDependency<LocalisationService>('localisationService');
 
   async function suggestionsAdresse(préfixe: string) {
@@ -34,6 +36,7 @@ export default function InputAutocomplétionCommune(props: AutocomplétionCommun
     suggérer={suggestionsAdresse}
     afficher={afficherSuggestion}
     valeur={valeurSuggestion}
+    onSuggestionSelected={onSuggestionSelected}
     {...rest}
   />;
 }

@@ -148,4 +148,26 @@ describe('InputAutocomplétion', function () {
     // Then
     expect(onChange).toHaveBeenCalledWith(expect.anything(), 'D');
   });
+
+  it('doit appeler onSuggestionSelected quand on sélectionne une option', async function () {
+    // Given
+    const labelText = 'Ma super autocomplétion';
+    const débutDeTruc = 'Deauv';
+    const onSuggestionSelected = jest.fn();
+
+    async function suggérerDesSuggestions(): Promise<string[]> {
+      return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
+    }
+
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText} debounce={1}
+      onSuggestionSelected={onSuggestionSelected}/>);
+    const inputAutocomplétion = screen.getByRole('textbox');
+    await userEvent.type(inputAutocomplétion, débutDeTruc);
+
+    // When
+    await userEvent.click(screen.getByText('Deauville'));
+
+    // Then
+    expect(onSuggestionSelected).toHaveBeenCalledWith(expect.anything(), 'Deauville', 'Deauville', 3, null, 'click');
+  });
 });

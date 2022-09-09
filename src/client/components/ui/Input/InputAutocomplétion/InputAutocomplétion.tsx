@@ -11,6 +11,8 @@ interface AutocomplétionProps<T> {
 
   onChange?(event: SyntheticEvent, newValue: string): () => any;
 
+  onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): () => void;
+
   label?: string;
   debounce?: number;
   name?: string;
@@ -19,7 +21,16 @@ interface AutocomplétionProps<T> {
 }
 
 export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) {
-  const { suggérer, afficher, valeur, onChange: onChangeCallback, debounce: debounceTimeout = 200, label, ...rest } = props;
+  const {
+    suggérer,
+    afficher,
+    valeur,
+    onChange: onChangeCallback,
+    onSuggestionSelected: onSuggestionSelectedCallback,
+    debounce: debounceTimeout = 200,
+    label,
+    ...rest
+  } = props;
 
   const [valeurInput, setValeurInput] = useState('');
   const [suggestions, setSuggestions] = useState<T[]>([]);
@@ -37,6 +48,11 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     onChangeCallback?.(event, newValue);
   }
 
+  function onSuggestionSelected(event: SyntheticEvent, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }:
+    { suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string }) {
+    onSuggestionSelectedCallback?.(event, suggestion, suggestionValue, suggestionIndex, sectionIndex, method);
+  }
+
   const inputProps = {
     id: 'input-autocomplétion',
     onChange: onChange,
@@ -51,6 +67,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
       suggestions={suggestions}
       onSuggestionsFetchRequested={recalculerSuggestions}
       onSuggestionsClearRequested={viderSuggestions}
+      onSuggestionSelected={onSuggestionSelected}
       getSuggestionValue={valeur}
       renderSuggestion={afficher}
     />
