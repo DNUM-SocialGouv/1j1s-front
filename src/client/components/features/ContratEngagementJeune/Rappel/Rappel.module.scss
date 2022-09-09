@@ -27,31 +27,40 @@
   }
 
   &Modal {
-
-    div {
-      border-radius: 20px;
+    > div {
       max-width: 100%;
-
     }
   }
 
   &Title {
-    margin: 1rem;
+    margin: 0 2rem;
     text-align: center;
-
     @extend %bold;
     font-size: 23px;
-    margin: 0;
-    padding: 0;
     color: $color-on-background;
     line-height: 2rem;
+  }
 
+  &Content {
+    padding: 0 2rem;
     small {
       display:block;
       @extend %bold;
       font-size: 18px;
       margin-top: 1rem;
       color: $color-primary;
+      text-align: center;
+    }
+    form {
+      margin-top: 1rem;
+    }
+    &Success {
+      display: flex;
+      min-height: 60vh;
+      > div {
+        margin: auto;
+      }
+
     }
   }
 }
@@ -61,14 +70,12 @@
     font-size: larger;
 }
 
-@include media(large){
+@include media(large) {
 
   .rappel {
     &Modal {
       div {
         border-radius: 20px;
-        max-width: 100%;
-        max-height: 100vh!important;
       }
     }
   }

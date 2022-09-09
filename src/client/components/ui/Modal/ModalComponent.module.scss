@@ -4,9 +4,8 @@
   position: fixed;
   z-index: 5500;
   width: 100%;
+  height: 100vh;
   top: 0;
-  max-height: 100%;
-  max-width: 100%;
   padding: 0;
   border: none;
   background-color: hsla(0,0%,9%,.375);
@@ -22,16 +21,8 @@
     transition: 0.2s ease-in-out all;
   }
 
-  &:before {
-    content: '';
-    display: block;
-    height: 2rem;
-  }
-
   &Body {
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    height: calc(100vh - 2rem);
+    height: 100vh;
     overflow-y: scroll;
     background-color: white;
     pointer-events: all;
@@ -58,8 +49,12 @@
   }
 
   &Close {
+    position: sticky;
+    top: 0;
+    background-color: $color-background;
     text-align: right;
     padding: 1rem 1rem 0.5rem;
+
     &Label {
       color: $color-primary;
       font-size: 0.875rem;
@@ -72,11 +67,14 @@
   }
 }
 
-@include media(large){
+@include media(large) {
   .modal {
+    display: flex;
     > div:first-child {
       width: 60%;
+      height: 90vh;
       margin: auto;
+      border-radius: 20px;
     }
   }
 }

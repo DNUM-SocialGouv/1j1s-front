@@ -63,16 +63,19 @@
   }
 
   &Modal {
-    div {
-      border-radius: 20px;
-    }
-
     &Content {
       @extend %text-large;
       @extend %bold;
+      display: flex;
+      min-height: 60vh;
       text-align: center;
       color: $color-primary;
-
+      h1 {
+        margin: 2rem;
+      }
+      > div {
+        margin: auto;
+      }
       &Link {
         @extend %text-regular;
         font-weight: 500;
@@ -86,29 +89,35 @@
   }
 
   &Mission {
-    div {
-      border-radius: 20px;
-      max-width: 100%;
-      max-height: 100vh !important;
-
-    }
-
     &__Title {
       font-size: 1.4rem !important;
       text-align: center;
       @extend %bold;
       color: $color-on-background;
       line-height: 2rem;
+    }
 
+    &__Content {
+      padding: 0 2rem;
       small {
         display: block;
         @extend %bold;
         font-size: 18px;
         margin-top: 1rem;
         color: $color-primary;
+        text-align: center;
+      }
+      form {
+        margin-top: 1rem;
+      }
+      &Success {
+        display: flex;
+        min-height: 60vh;
+        > div {
+          margin: auto;
+        }
       }
     }
-
     &BoutonSuccess {
       text-align: center;
       font-size: larger;
@@ -116,19 +125,21 @@
   }
 
   &Dispositifs {
-    div {
-      border-radius: 20px;
-      max-width: 100%;
-      max-height: 100vh !important;
-    }
-
     &__Title {
       @extend %text-xLarge;
       @extend %bold;
       color: $color-primary;
       text-align: center;
       line-height: 2rem;
-      margin-bottom: 2rem;
+      margin: 1rem 2rem;
+    }
+
+    &__Content {
+      min-height: 60vh;
+      display: flex;
+      > div {
+        margin: auto;
+      }
     }
 
     &Position {
@@ -253,7 +264,9 @@
 
     &Dispositifs {
       &Position {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
       }
     }
 

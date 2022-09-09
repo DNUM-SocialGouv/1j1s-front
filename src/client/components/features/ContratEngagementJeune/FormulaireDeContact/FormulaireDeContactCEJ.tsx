@@ -64,7 +64,7 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
         <span>
           <CheckIcon circled={true} animate/>
         </span>
-        <h3>Votre demande a bien été transmise !</h3>
+        <h1>Votre demande a bien été transmise !</h1>
         {children}
       </div>
     );

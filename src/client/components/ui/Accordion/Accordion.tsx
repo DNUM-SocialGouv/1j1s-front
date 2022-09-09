@@ -6,11 +6,12 @@ import styles from '~/client/components/ui/Accordion/Accordion.module.scss';
 
 interface AccordionProps extends CommonProps {
   title: string
+  open?: boolean
 }
 
-export function Accordion({ children, title, className, ...rest } : React.PropsWithChildren<AccordionProps>) {
+export function Accordion({ children, title, open, className, ...rest } : React.PropsWithChildren<AccordionProps>) {
   return (
-    <details className={classNames(styles.details, className)} {...rest}>
+    <details className={classNames(styles.details, className)} {...rest} open={open || false}>
       <summary>{title}</summary>
       <div className={styles.detailsContent}>{children}</div>
     </details>

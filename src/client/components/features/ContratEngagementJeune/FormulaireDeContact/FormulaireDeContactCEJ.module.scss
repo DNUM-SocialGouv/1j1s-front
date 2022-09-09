@@ -42,6 +42,7 @@
   width: 100%;
   background-color: $color-cadre-formulaire;
   border-radius: 30px;
+  margin-bottom: 1rem;
 
   p {
     font-size: 0.7rem;
@@ -52,15 +53,15 @@
 
 .success {
   text-align: center;
-  h3 {
-    margin-top: 2rem;
+  h1 {
+    margin: 1rem 0;
     color: $color-primary;
   }
 
   span {
     display: flex;
     margin: auto;
-    width:120px;
+    width: 120px;
     height: 120px;
     color: $color-secondary;
     align-items: center;

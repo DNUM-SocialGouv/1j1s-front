@@ -57,7 +57,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
       const firstFocusableElement = focusableElements[0] as HTMLElement;
       const firstFocusableElementAtOpen = focusableElements[1] as HTMLElement;
       const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-      setTimeout(() => firstFocusableElementAtOpen.focus(), MODAL_ANIMATION_TIME_IN_MS);
+      if (firstFocusableElementAtOpen) setTimeout(() => firstFocusableElementAtOpen.focus(), MODAL_ANIMATION_TIME_IN_MS);
 
       window.addEventListener('keydown', (e) => {
         if (e.key !== KeyBoard.TAB) return;

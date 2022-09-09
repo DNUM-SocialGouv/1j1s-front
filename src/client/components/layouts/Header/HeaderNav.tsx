@@ -101,7 +101,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
           { current: path === '/immersions', link: '/immersions', title: 'Je propose des immersions' },
           { current: path === '/mesures-employeurs', link: '/mesures-employeurs', title: 'Les mesures employeurs' },
         ],
-      title: 'Employeur',
+      title: 'Je suis employeur',
     };
 
   const navigationItemsList: NavigationItem[] = [OffresNav, OrientationNav, AccompagnementNav, EngagementNav, EmployeurNav];
