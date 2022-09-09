@@ -9,6 +9,10 @@ import React from 'react';
 
 import InputAutocomplétion from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétion';
 
+async function noOp(): Promise<string[]> {
+  return [];
+}
+
 function identity<T>(valeur: T) {
   return valeur;
 }
@@ -16,7 +20,7 @@ function identity<T>(valeur: T) {
 describe('InputAutocomplétion', function () {
   it('doit contenir un input', function () {
     // Given
-    render(<InputAutocomplétion suggérer={() => []} afficher={() => ''} valeur={() => ''}/>);
+    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''}/>);
 
     // When
     const inputAutocomplétion = screen.getByRole('textbox');
@@ -28,7 +32,7 @@ describe('InputAutocomplétion', function () {
   it('ne doit pas avoir de label par défaut', function () {
     // Given
     const labelText = 'Ma super autocomplétion';
-    render(<InputAutocomplétion suggérer={() => []} afficher={() => ''} valeur={() => ''}/>);
+    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''}/>);
 
     // When
     const labelAutocomplétion = screen.queryByLabelText(labelText);
@@ -40,7 +44,7 @@ describe('InputAutocomplétion', function () {
   it('doit contenir le label passé au composant', function () {
     // Given
     const labelText = 'Ma super autocomplétion';
-    render(<InputAutocomplétion suggérer={() => []} afficher={() => ''} valeur={() => ''} label={labelText}/>);
+    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''} label={labelText}/>);
 
     // When
     const labelAutocomplétion = screen.getByLabelText(labelText);
@@ -52,7 +56,7 @@ describe('InputAutocomplétion', function () {
   it('doit contenir un input avec le placeholder passé au composant', function () {
     // Given
     const placeholderText = 'Mon super placeholder';
-    render(<InputAutocomplétion suggérer={() => []} afficher={() => ''} valeur={() => ''} placeholder={placeholderText}/>);
+    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''} placeholder={placeholderText}/>);
 
     // When
     const inputAutocomplétion = screen.getByRole('textbox');
@@ -63,7 +67,7 @@ describe('InputAutocomplétion', function () {
 
   it('ne doit pas être requried par défaut', function () {
     // Given
-    render(<InputAutocomplétion suggérer={() => []} afficher={() => ''} valeur={() => ''}/>);
+    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''}/>);
 
     // When
     const inputAutocomplétion = screen.getByRole('textbox');
@@ -74,7 +78,7 @@ describe('InputAutocomplétion', function () {
 
   it('doit contenir un input avec required passé au composant', function () {
     // Given
-    render(<InputAutocomplétion suggérer={() => []} afficher={() => ''} valeur={() => ''} required/>);
+    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''} required/>);
 
     // When
     const inputAutocomplétion = screen.getByRole('textbox');
@@ -88,11 +92,11 @@ describe('InputAutocomplétion', function () {
     const labelText = 'Ma super autocomplétion';
     const débutDeTruc = 'Pari';
 
-    function suggérerDesSuggestions(): string[] {
+    async function suggérerDesSuggestions(): Promise<string[]> {
       return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
     }
 
-    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={() => ''} label={labelText}/>);
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={() => ''} label={labelText} debounce={1}/>);
     const inputAutocomplétion = screen.getByRole('textbox');
 
     // When
@@ -105,14 +109,16 @@ describe('InputAutocomplétion', function () {
     expect(screen.getByText('Deauville')).toBeInTheDocument();
   });
 
-  it('doit choisir une suggestion quand on clique', async function () {
+  it('doit choisir une suggestion quand on sélectionne une option', async function () {
     // Given
     const labelText = 'Ma super autocomplétion';
     const débutDeTruc = 'Deauv';
 
-    const suggérerDesSuggestions = (): string[] => ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
+    async function suggérerDesSuggestions(): Promise<string[]> {
+      return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
+    }
 
-    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText}/>);
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText} debounce={1}/>);
     const inputAutocomplétion = screen.getByRole('textbox');
     await userEvent.type(inputAutocomplétion, débutDeTruc);
 
@@ -121,5 +127,25 @@ describe('InputAutocomplétion', function () {
 
     // Then
     expect(inputAutocomplétion).toHaveValue('Deauville');
+  });
+
+  it('doit appeler onChange quand le champ est modifié', async function () {
+    // Given
+    const labelText = 'Ma super autocomplétion';
+    const débutDeTruc = 'D';
+    const onChange = jest.fn();
+
+    async function suggérerDesSuggestions(): Promise<string[]> {
+      return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
+    }
+
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} onChange={onChange} label={labelText}/>);
+    const inputAutocomplétion = screen.getByRole('textbox');
+
+    // When
+    await userEvent.type(inputAutocomplétion, débutDeTruc);
+
+    // Then
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), 'D');
   });
 });

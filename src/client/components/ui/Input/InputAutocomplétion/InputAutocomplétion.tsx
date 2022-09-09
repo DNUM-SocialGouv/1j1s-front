@@ -1,29 +1,32 @@
-import { SyntheticEvent, useState } from 'react';
+import debounce from 'lodash/debounce';
+import { ReactElement, SyntheticEvent, useMemo, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 
 interface AutocomplétionProps<T> {
-  suggérer(préfixe: string): T[];
+  suggérer(préfixe: string): Promise<T[]>;
 
-  afficher(suggestion: T): string;
+  afficher(suggestion: T): string | ReactElement;
 
   valeur(suggestion: T): string;
 
-  callbakOnChange(event: SyntheticEvent, newValue: string): void;
+  onChange?(event: SyntheticEvent, newValue: string): () => any;
 
   label?: string;
+  debounce?: number;
+  name?: string;
   placeholder?: string;
   required?: boolean;
 }
 
 export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) {
-  const { suggérer, afficher, valeur, callbakOnChange, label, ...rest } = props;
+  const { suggérer, afficher, valeur, onChange: onChangeCallback, debounce: debounceTimeout = 200, label, ...rest } = props;
 
   const [valeurInput, setValeurInput] = useState('');
   const [suggestions, setSuggestions] = useState<T[]>([]);
 
-  function recalculerSuggestions({ value }: { value: string }) {
-    setSuggestions(suggérer(value));
-  }
+  const recalculerSuggestions = useMemo(() => {
+    return debounce(async ({ value }: { value: string }) => setSuggestions(await suggérer(value)), debounceTimeout);
+  }, [suggérer]);
 
   function viderSuggestions() {
     setSuggestions([]);
@@ -31,7 +34,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 
   function onChange(event: SyntheticEvent, { newValue }: { newValue: string }) {
     setValeurInput(newValue);
-    callbakOnChange(event, newValue);
+    onChangeCallback?.(event, newValue);
   }
 
   const inputProps = {

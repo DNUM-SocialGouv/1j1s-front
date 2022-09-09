@@ -6,13 +6,14 @@ import FormulaireDeContactEntreprise from '~/client/components/features/LesEntre
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import InputAutocomplétionCommune from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétionCommune';
 import { InputLieu } from '~/client/components/ui/Input/InputLocalisation/InputLieu';
 import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { isSuccess } from '~/server/errors/either';
 
-import styles from './RejoignezMobilisationInscription.module.scss';
+import styles from './Inscription.module.scss';
 
 export type FormulaireEngagement = FormulaireEtape1Props & FormulaireEtape2Props
 
@@ -129,6 +130,12 @@ export default function Inscription() {
                     })}
                     required
                     className={styles.formulaireInput}
+                  />
+
+                  <InputAutocomplétionCommune
+                    label="Indiquez la ville du siège social de l’entreprise"
+                    name="companyPostalCode"
+                    required
                   />
                   <InputLieu
                     label="Indiquez la ville du siège social de l’entreprise"
