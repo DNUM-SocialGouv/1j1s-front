@@ -1,0 +1,32 @@
+@import "@styles/utilities";
+
+.container {
+  font-family: Marianne;
+  position: relative;
+}
+
+.suggestionsList {
+  z-index: 2;
+  position: absolute;
+  border: 1px solid $color-disabled;
+  background-color: $color-background;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.suggestion {
+  padding-left: 0.5rem;
+  padding-bottom: 0.25rem;
+  cursor: pointer;
+}
+
+.suggestion:hover, .suggestion[aria-selected=tsrue] {
+  background-color: rgba(3, 15, 143, .05);
+}
+
+.sectionTitle {
+  pointer-events: none;
+  user-select: none;
+}

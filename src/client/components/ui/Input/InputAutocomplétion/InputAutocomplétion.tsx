@@ -1,6 +1,10 @@
+import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import { ReactElement, SyntheticEvent, useMemo, useState } from 'react';
+import React, { ReactElement, SyntheticEvent, useMemo, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
+
+import styles from '~/client/components/ui/Input/Input.module.scss';
+import theme from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétion.module.scss';
 
 interface AutocomplétionProps<T> {
   suggérer(préfixe: string): Promise<T[]>;
@@ -18,6 +22,7 @@ interface AutocomplétionProps<T> {
   name?: string;
   placeholder?: string;
   required?: boolean;
+  className?: string;
 }
 
 export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) {
@@ -32,6 +37,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     ...rest
   } = props;
 
+  const [inputVide, setInputVide] = useState(false);
   const [valeurInput, setValeurInput] = useState('');
   const [suggestions, setSuggestions] = useState<T[]>([]);
 
@@ -39,13 +45,22 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     return debounce(async ({ value }: { value: string }) => setSuggestions(await suggérer(value)), debounceTimeout);
   }, [suggérer]);
 
+  function isChampVide(texte: string): boolean {
+    return texte.trim().length == 0;
+  }
+
   function viderSuggestions() {
     setSuggestions([]);
   }
 
   function onChange(event: SyntheticEvent, { newValue }: { newValue: string }) {
     setValeurInput(newValue);
+    setInputVide(isChampVide(newValue));
     onChangeCallback?.(event, newValue);
+  }
+
+  function onBlur() {
+    setInputVide(isChampVide(valeurInput));
   }
 
   function onSuggestionSelected(event: SyntheticEvent, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }:
@@ -54,22 +69,28 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
   }
 
   const inputProps = {
+    className: classNames(styles.formControlInput, inputVide && styles.formControlInputError),
     id: 'input-autocomplétion',
+    onBlur: onBlur,
     onChange: onChange,
     value: valeurInput,
     ...rest,
   };
 
   return <>
-    {label && <label htmlFor="input-autocomplétion">{label}</label>}
-    <Autosuggest
-      inputProps={inputProps}
-      suggestions={suggestions}
-      onSuggestionsFetchRequested={recalculerSuggestions}
-      onSuggestionsClearRequested={viderSuggestions}
-      onSuggestionSelected={onSuggestionSelected}
-      getSuggestionValue={valeur}
-      renderSuggestion={afficher}
-    />
+    <div className={styles.wrapper}>
+      {label && <label htmlFor="input-autocomplétion">{label}</label>}
+      <Autosuggest
+        theme={theme}
+        inputProps={inputProps}
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={recalculerSuggestions}
+        onSuggestionsClearRequested={viderSuggestions}
+        onSuggestionSelected={onSuggestionSelected}
+        getSuggestionValue={valeur}
+        renderSuggestion={afficher}
+      />
+      {inputVide && <div className={styles.formControlInputHint}>Veuillez renseigner ce champ.</div>}
+    </div>
   </>;
 }

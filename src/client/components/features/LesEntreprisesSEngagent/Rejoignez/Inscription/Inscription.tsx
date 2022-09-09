@@ -132,9 +132,10 @@ export default function Inscription() {
                   />
 
                   <InputAutocomplétionCommune
+                    required
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
-                    required
+                    placeholder="Exemple: Paris, Béziers..."
                     onSuggestionSelected={(event, suggestion) => setFormulaireEtape1({
                       ...formulaireEtape1,
                       codePostal: suggestion.code,
