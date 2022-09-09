@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { aLesEntreprisesSEngagementService } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
@@ -12,12 +12,11 @@ import { FormulaireEngagement } from '~/client/components/features/LesEntreprise
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription';
 
-
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
   const localisationService = aLocalisationService({
-    communeList: [],
-    départementList: [{ code: '75002', libelle: 'Paris', nom: 'Paris' }],
+    communeList: [{ code: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+    départementList: [],
     régionList: [],
   });
 
@@ -135,7 +134,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
     it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
       renderComponent();
       const expected: FormulaireEngagement = {
-        codePostal: '75002',
+        codePostal: '75001',
         email: 'toto@email.com',
         nom: 'Tata',
         nomSociété: 'Octo',
@@ -171,9 +170,8 @@ async function remplirFormulaireEtape1() {
   await userEvent.type(inputTaille, '+1000');
 
   await userEvent.type(screen.getByLabelText('Indiquez la ville du siège social de l’entreprise'), 'Paris');
-  const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
-  const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
-  fireEvent.click(résultatLocalisationList[0]);
+  // eslint-disable-next-line testing-library/no-wait-for-side-effects
+  await waitFor(() => userEvent.click(screen.getByText('Paris (75001)')));
 }
 
 async function remplirFormulaireEtape2() {

@@ -7,7 +7,6 @@ import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import InputAutocomplétionCommune from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétionCommune';
-import { InputLieu } from '~/client/components/ui/Input/InputLocalisation/InputLieu';
 import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
@@ -136,20 +135,11 @@ export default function Inscription() {
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
                     required
-                  />
-                  <InputLieu
-                    label="Indiquez la ville du siège social de l’entreprise"
-                    name="companyPostalCode"
-                    obligatoire={true}
-                    libellé={formulaireEtape1.ville}
-                    code={formulaireEtape1.codePostal}
-                    type={''}
-                    onChange={(localisation) => setFormulaireEtape1({
+                    onSuggestionSelected={(event, suggestion) => setFormulaireEtape1({
                       ...formulaireEtape1,
-                      codePostal: localisation.code,
-                      ville: localisation.libelle,
-                    })
-                    }
+                      codePostal: suggestion.code,
+                      ville: suggestion.nom,
+                    })}
                   />
                   <TextInput
                     label="Indiquer votre numéro de SIRET"

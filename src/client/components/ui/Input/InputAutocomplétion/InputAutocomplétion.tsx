@@ -9,9 +9,9 @@ interface AutocomplétionProps<T> {
 
   valeur(suggestion: T): string;
 
-  onChange?(event: SyntheticEvent, newValue: string): () => any;
+  onChange?(event: SyntheticEvent, newValue: string): void;
 
-  onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): () => void;
+  onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
   label?: string;
   debounce?: number;

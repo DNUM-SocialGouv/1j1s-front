@@ -6,7 +6,7 @@ import { LocalisationService } from '~/client/services/localisation.service';
 import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 interface AutocomplétionCommuneProps {
-  onSuggestionSelected?(event: SyntheticEvent, suggestion: LocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): () => void;
+  onSuggestionSelected?(event: SyntheticEvent, suggestion: LocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
   label?: string;
   debounce?: number;
