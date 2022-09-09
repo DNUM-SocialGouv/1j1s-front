@@ -1,5 +1,6 @@
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
+import { ConsulterFicheMetierUseCase } from '~/server/cms/useCases/consulterFicheMetier.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoireUseCase';
 import { RécupérerMesuresJeunesUseCase } from '~/server/cms/useCases/récupérerMesuresJeunesUseCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
@@ -7,6 +8,7 @@ import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export interface CmsDependencies {
   consulterArticle: ConsulterArticleUseCase
+  consulterFicheMetier: ConsulterFicheMetierUseCase
   consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
   récupérerMesuresJeunes: RécupérerMesuresJeunesUseCase
   duréeDeValiditéEnSecondes: () => number
@@ -21,6 +23,7 @@ export const cmsDependenciesContainer = (httpClientService: HttpClientService, c
 
   return {
     consulterArticle: new ConsulterArticleUseCase(repository),
+    consulterFicheMetier: new ConsulterFicheMetierUseCase(repository),
     consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(repository),
     duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
     récupérerMesuresJeunes: new RécupérerMesuresJeunesUseCase(repository),

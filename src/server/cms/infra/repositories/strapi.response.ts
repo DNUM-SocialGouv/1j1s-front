@@ -33,6 +33,10 @@ export interface ArticleAttributesResponse {
     contenu: string
 }
 
+export interface FicheMetierAttributesResponse {
+
+}
+
 export interface MesuresJeunesAttributesResponse {
     vieProfessionnelle: CarteMesuresJeunesResponse[]
     orienterFormer: CarteMesuresJeunesResponse[]

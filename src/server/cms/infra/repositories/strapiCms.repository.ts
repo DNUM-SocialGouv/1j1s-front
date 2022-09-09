@@ -2,7 +2,11 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
-import { mapArticle, mapMentionObligatoire, mapMesuresJeunes } from '~/server/cms/infra/repositories/strapi.mapper';
+import {
+  mapArticle, mapFicheMetier,
+  mapMentionObligatoire,
+  mapMesuresJeunes,
+} from '~/server/cms/infra/repositories/strapi.mapper';
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
@@ -11,6 +15,8 @@ import {
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
 import { Either } from '~/server/errors/either';
+import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import { FicheMétierHttp } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export class StrapiCmsRepository implements CmsRepository {
@@ -21,6 +27,14 @@ export class StrapiCmsRepository implements CmsRepository {
     return await this.httpClientService.get<StrapiCollectionTypeResponse<ArticleAttributesResponse>, Article>(
       `articles?filters${filters}`,
       mapArticle,
+    );
+  }
+
+  async getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>> {
+    const filters = `[nom_metier][$eq]=${encodeURIComponent(nom)}`;
+    return await this.httpClientService.get<StrapiCollectionTypeResponse<FicheMétierHttp>, FicheMétier>(
+      `fiche-metiers?filters${filters}`,
+      mapFicheMetier,
     );
   }
 
