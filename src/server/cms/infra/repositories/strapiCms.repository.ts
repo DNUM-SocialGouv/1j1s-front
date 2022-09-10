@@ -31,7 +31,7 @@ export class StrapiCmsRepository implements CmsRepository {
   }
 
   async getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>> {
-    const filters = `[nom_metier][$eq]=${encodeURIComponent(nom)}`;
+    const filters = `[nom_metier][$eq]=${encodeURIComponent(nom)}&populate=%2A`;
     return await this.httpClientService.get<StrapiCollectionTypeResponse<FicheMétierHttp>, FicheMétier>(
       `fiche-metiers?filters${filters}`,
       mapFicheMetier,

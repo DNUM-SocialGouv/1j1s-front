@@ -41,7 +41,7 @@ describe('strapi cms repository', () => {
   });
 
   describe('getFicheMetierByNom', () => {
-    const nomMetier = 'Mon%20super%20metier';
+    const nomMetier = 'Mon super metier';
     const expectedFicheMetier = aFicheMetier();
 
     beforeEach(() => {
@@ -56,7 +56,7 @@ describe('strapi cms repository', () => {
 
       await strapiCmsRepository.getFicheMetierByNom(nomMetier);
 
-      expect(httpClientService.get).toHaveBeenCalledWith(`fiche-metiers?filters[nom_metier][$eq]=${nomMetier}`, mapFicheMetier);
+      expect(httpClientService.get).toHaveBeenCalledWith(`fiche-metiers?filters[nom_metier][$eq]=${encodeURIComponent(nomMetier)}&populate=%2A`, mapFicheMetier);
     });
     describe('Si une fiche métier est trouvée', () => {
       it('récupère la fiche métier selon le nom', async () => {

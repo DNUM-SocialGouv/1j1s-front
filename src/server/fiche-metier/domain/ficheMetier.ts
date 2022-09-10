@@ -16,7 +16,7 @@ export interface FicheMétier {
 	id: string
 	idOnisep: string
 	natureTravail: string
-	niveauMinAcces: FicheMetierNestedField[]
+	niveauAccesMin: FicheMetierNestedField[]
 	nomMetier: string
 	secteursActivite: FicheMetierNestedField[],
 	statuts: FicheMetierNestedFieldStatut[],

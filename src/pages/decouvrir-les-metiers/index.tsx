@@ -29,7 +29,7 @@ export default function RechercherFicheMetierPage() {
   const fichesMetierService  = useDependency<FicheMetierService>('ficheMetierService');
 
   const ficheMétierCard = (résultat: Partial<FicheMétier>) => (
-    <Link href={'/'}>
+    <Link href={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier || '')}`}>
       <article className={styles.cardBody}>
         <div className={styles.cardTitle}>{`${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`}</div>
         <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier || '' }}/>

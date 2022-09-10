@@ -53,7 +53,7 @@ export function mapFicheMetier(ficheMetierResponse: StrapiCollectionTypeResponse
     id: ficheMetier.id,
     idOnisep: ficheMetier.identifiant,
     natureTravail: ficheMetier.nature_travail,
-    niveauMinAcces: ficheMetier.niveau_min_acces && mapFicheMetierNestedFieldList(ficheMetier.niveau_min_acces),
+    niveauAccesMin: ficheMetier.niveau_acces_min && mapFicheMetierNestedFieldList(ficheMetier.niveau_acces_min),
     nomMetier: ficheMetier.nom_metier,
     secteursActivite: ficheMetier.secteurs_activite && mapFicheMetierNestedFieldList(ficheMetier.secteurs_activite),
     statuts: ficheMetier.statuts && mapFicheMetierNestedFieldStatutList(ficheMetier.statuts),

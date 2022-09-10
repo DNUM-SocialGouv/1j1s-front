@@ -8,7 +8,7 @@ export interface FicheMétierHttp {
 	id: string
 	identifiant: string
 	nature_travail: string
-	niveau_min_acces: FicheMétierHttpNestedField[]
+	niveau_acces_min: FicheMétierHttpNestedField[]
 	nom_metier: string
 	secteurs_activite: FicheMétierHttpNestedField[],
 	statuts: FicheMétierHttpNestedFieldStatut[],
