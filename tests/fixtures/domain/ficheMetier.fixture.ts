@@ -8,17 +8,48 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
   return {
     accesMetier: 'string',
     accrocheMetier: 'string',
-    centresInteret: [],
+    centresInteret: [
+      {
+        id: 1,
+        idOnisep: 'string',
+        libelle: 'string',
+      },
+    ],
     competences: 'string',
     conditionTravail: 'string',
-    formationsMinRequise: [],
+    formationsMinRequise: [
+      {
+        id: 1,
+        idOnisep: 'string',
+        libelle: 'string',
+      },
+    ],
     id: 'string',
     idOnisep: 'string',
     natureTravail: 'string',
-    niveauMinAcces: [],
+    niveauAccesMin: [
+      {
+        id: 1,
+        idOnisep: 'string',
+        libelle: 'string',
+      },
+    ],
     nomMetier: 'string',
-    secteursActivite: [],
-    statuts: [],
+    secteursActivite: [
+      {
+        id: 1,
+        idOnisep: 'string',
+        libelle: 'string',
+      },
+    ],
+    statuts: [
+      {
+        id: 1,
+        idIdeo: 'string',
+        idOnisep: 'string',
+        libelle: 'string',
+      },
+    ],
     vieProfessionnelle: 'string',
     ...override,
   };
@@ -57,7 +88,7 @@ export function aFicheMetierHttp(override?: Partial<FicheMétierHttp>): Partial<
     id: 'string',
     identifiant: 'string',
     nature_travail: 'string',
-    niveau_min_acces: [],
+    niveau_acces_min: [],
     nom_metier: 'string',
     secteurs_activite: [],
     statuts: [],
