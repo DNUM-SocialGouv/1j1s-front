@@ -1,0 +1,93 @@
+@import "@styles/utilities";
+
+.card {
+  &:after {
+    content: inherit !important;
+    font: inherit !important;
+  }
+  article {
+    background-color: $color-surface;
+    position: relative;
+    border-radius: 20px;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+
+    .image {
+      position: relative;
+      min-height: 172px;
+      max-height: 172px;
+      flex: 0 1 200px;
+      overflow: hidden;
+
+    }
+
+    .title {
+      @extend %text-large, %bold;
+      margin: 0 1.2rem;
+      line-height: 1.2;
+      line-height: 1.7rem;
+    }
+
+    .description {
+      font-size: 1em;
+      margin: 0 1.2rem;
+      text-align: justify;
+      flex-grow: 1;
+    }
+
+    .link {
+      @extend %text-large;
+      text-decoration: underline;
+      color: $color-primary;
+      margin: 0 1.2rem 1rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      svg {
+        zoom: 0.8;
+        position: relative;
+        top: 4px;
+      }
+    }
+  }
+}
+
+.card.mobile {
+  article {
+    border-radius: 0 20px 20px 0;
+    border-left: 4px solid $color-primary;
+    box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
+    padding: 1rem;
+
+    .title, .description, .link {
+      margin: 0;
+    }
+
+    .link {
+      font-size: inherit;
+      svg {
+        zoom: 1;
+        margin-left: 1rem;
+        top: 0px;
+      }
+    }
+  }
+}
+
+@include media(medium) {
+  .card {
+    &ImageWrapper {
+      min-height: 180px;
+      max-height: 180px;
+    }
+
+    .title {
+      font-size: 1.25rem;
+    }
+  }
+}
