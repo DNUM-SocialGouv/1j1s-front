@@ -1,0 +1,137 @@
+@import "@styles/utilities";
+
+.section {
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
+
+    @include media(xlarge) {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.disclosureSection[open] {
+  .sectionDisclosureIcon {
+    transform: rotate(-180deg);
+    transition: transform 0.2s;
+  }
+
+  .sectionHeader {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.sectionHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid $color-separator;
+  list-style: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.sectionTitle {
+  display: inline-block;
+  color: $color-primary;
+  margin-right: 0.5rem;
+  line-height: 1.6rem;
+  @extend %text-medium;
+  @extend %bold;
+}
+
+.sectionDisclosureIcon {
+  color: $color-primary;
+  vertical-align: bottom;
+  transition: transform 0.2s;
+}
+
+.sectionContent {
+  padding: 2rem;
+
+  h3, h4, h5 {
+    margin-bottom: 1rem;
+    @extend %bold;
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.abstractSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @include media(large) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: column;
+  }
+}
+
+.mainTitle {
+  background-color: $color-primary;
+  color: $color-on-primary;
+  text-align: center;
+  padding: 1.5rem;
+  @extend %text-large;
+  @extend %bold;
+}
+
+.fieldDomaine, .fieldRésumé {
+  @include media(large) {
+    grid-column-start: span 2;
+  }
+
+  .fieldContent {
+    display: inline-block;
+    vertical-align: sub;
+  }
+}
+
+.fieldRésumé {
+  @include media(large) {
+    display: flex;
+  }
+
+  .fieldLabel {
+    flex-shrink: 0;
+  }
+}
+
+.fieldNiveauAccès, .fieldStatutsPro {
+  @include media(large) {
+    grid-column-start: 3;
+  }
+
+  .fieldContent {
+    display: inline-block;
+
+    @include media(large) {
+      display: block;
+    }
+  }
+}
+
+.fieldLabel {
+  margin-right: 0.5rem;
+  @extend %text-medium;
+  @extend %bold;
+
+  @include media(large) {
+    margin-right: 1rem;
+  }
+}
+
+.lastSectionTitle {
+  background-color: $color-primary;
+  color: $color-on-primary;
+  padding: 1.5rem;
+  @extend %bold;
+  @extend %text-medium;
+}
