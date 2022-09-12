@@ -17,6 +17,7 @@ interface AutocomplétionProps<T> {
 
   onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
+  valeurInitiale ?: string;
   label?: string;
   debounce?: number;
   name?: string;
@@ -34,12 +35,14 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     onSuggestionSelected: onSuggestionSelectedCallback,
     debounce: debounceTimeout = 200,
     label,
+    valeurInitiale,
     ...rest
   } = props;
 
   const [inputVide, setInputVide] = useState(false);
-  const [valeurInput, setValeurInput] = useState('');
+  const [valeurInput, setValeurInput] = useState(valeurInitiale || '');
   const [suggestions, setSuggestions] = useState<T[]>([]);
+  const [valeurSélectionnée, setValeurSélectionnée] = useState<T>();
 
   const recalculerSuggestions = useMemo(() => {
     return debounce(async ({ value }: { value: string }) => setSuggestions(await suggérer(value)), debounceTimeout);
@@ -61,10 +64,12 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 
   function onBlur() {
     setInputVide(isChampVide(valeurInput));
+    if (!valeurSélectionnée) setValeurInput('');
   }
 
   function onSuggestionSelected(event: SyntheticEvent, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }:
     { suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string }) {
+    setValeurSélectionnée(suggestion);
     onSuggestionSelectedCallback?.(event, suggestion, suggestionValue, suggestionIndex, sectionIndex, method);
   }
 

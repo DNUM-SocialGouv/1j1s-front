@@ -141,9 +141,9 @@ describe('LesEntreprisesSEngagentInscription', () => {
         prénom: 'Toto',
         secteur: 'Conseil en systèmes et logiciels informatiques',
         siret: '41816609600069',
-        taille: '+1000',
+        taille: '1000',
         travail: 'RH',
-        téléphone: '01 22 33 44 55',
+        téléphone: '0122334455',
         ville: 'Paris',
       };
 
@@ -167,7 +167,7 @@ async function remplirFormulaireEtape1() {
   await userEvent.type(inputNomSociété, 'Octo');
   await userEvent.type(inputSiret, '41816609600069');
   await userEvent.type(inputSecteur, 'Conseil en systèmes et logiciels informatiques');
-  await userEvent.type(inputTaille, '+1000');
+  await userEvent.type(inputTaille, '1000');
 
   await userEvent.type(screen.getByLabelText('Indiquez la ville du siège social de l’entreprise'), 'Paris');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
@@ -184,7 +184,7 @@ async function remplirFormulaireEtape2() {
   await userEvent.type(inputNom, 'Tata');
   await userEvent.type(inputEmail, 'toto@email.com');
   await userEvent.type(inputTravail, 'RH');
-  await userEvent.type(inputTéléphone, '01 22 33 44 55');
+  await userEvent.type(inputTéléphone, '0122334455');
 }
 
 async function clickOnGoToEtape2() {

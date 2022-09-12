@@ -11,6 +11,7 @@ import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { isSuccess } from '~/server/errors/either';
+import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 import styles from './Inscription.module.scss';
 
@@ -60,6 +61,8 @@ export default function Inscription() {
   const isDeuxièmeEtape = () => etape === Etape.ETAPE_2;
   const isPremièreEtapeValid = () => Object.values(formulaireEtape1).every((value) => value.length > 0);
   const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
+
+  const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<LocalisationApiResponse>();
 
   function goToEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -130,17 +133,20 @@ export default function Inscription() {
                     required
                     className={styles.formulaireInput}
                   />
-
                   <InputAutocomplétionCommune
                     required
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
                     placeholder="Exemple: Paris, Béziers..."
-                    onSuggestionSelected={(event, suggestion) => setFormulaireEtape1({
-                      ...formulaireEtape1,
-                      codePostal: suggestion.code,
-                      ville: suggestion.nom,
-                    })}
+                    valeurInitiale = {autocomplétionCommuneValeur}
+                    onSuggestionSelected={(event, suggestion) => {
+                      setAutocomplétionCommuneValeur(suggestion);
+                      setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        codePostal: suggestion.code,
+                        ville: suggestion.nom,
+                      });
+                    }}
                   />
                   <TextInput
                     label="Indiquer votre numéro de SIRET"
