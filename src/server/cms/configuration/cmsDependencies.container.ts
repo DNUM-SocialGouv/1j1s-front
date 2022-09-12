@@ -2,6 +2,7 @@ import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.r
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
 import { ConsulterFicheMetierUseCase } from '~/server/cms/useCases/consulterFicheMetier.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoireUseCase';
+import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
 import { RécupérerMesuresJeunesUseCase } from '~/server/cms/useCases/récupérerMesuresJeunesUseCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
@@ -10,8 +11,9 @@ export interface CmsDependencies {
   consulterArticle: ConsulterArticleUseCase
   consulterFicheMetier: ConsulterFicheMetierUseCase
   consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
-  récupérerMesuresJeunes: RécupérerMesuresJeunesUseCase
   duréeDeValiditéEnSecondes: () => number
+  récupérerMesuresJeunes: RécupérerMesuresJeunesUseCase
+  récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
 }
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
@@ -26,6 +28,7 @@ export const cmsDependenciesContainer = (httpClientService: HttpClientService, c
     consulterFicheMetier: new ConsulterFicheMetierUseCase(repository),
     consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(repository),
     duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
+    récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(repository),
     récupérerMesuresJeunes: new RécupérerMesuresJeunesUseCase(repository),
   };
 };
