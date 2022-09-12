@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
@@ -55,10 +57,16 @@ export class StrapiCmsRepository implements CmsRepository {
   }
 
   async getMesuresJeunes(): Promise<Either<MesuresJeunes>> {
-    const contenuList = ['vieProfessionnelle', 'orienterFormer', 'accompagnement', 'aidesFinancieres'];
-
+    const query = {
+      populate: {
+        accompagnement: { populate: '*' },
+        aidesFinancieres: { populate: '*' },
+        orienterFormer: { populate: '*' },
+        vieProfessionnelle: { populate: '*' },
+      },
+    };
     return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, MesuresJeunes>(
-      `mesure-jeune?${contenuList.map((contenu) => `populate[${contenu}][populate]=*&`)}`.replaceAll(',', ''),
+      `mesure-jeune?${qs.stringify(query, { encode: false })}`,
       mapMesuresJeunes,
     );
   }

@@ -109,7 +109,7 @@ describe('strapi cms repository', () => {
         const result = await strapiCmsRepository.getMesuresJeunes() as Success<MesuresJeunes>;
 
         expect(result.result).toEqual(expectedMesuesJeunes);
-        expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate[vieProfessionnelle][populate]=*&populate[orienterFormer][populate]=*&populate[accompagnement][populate]=*&populate[aidesFinancieres][populate]=*&', mapMesuresJeunes);
+        expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate[accompagnement][populate]=*&populate[aidesFinancieres][populate]=*&populate[orienterFormer][populate]=*&populate[vieProfessionnelle][populate]=*', mapMesuresJeunes);
       });
     });
   });
