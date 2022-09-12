@@ -50,6 +50,7 @@ describe('strapi mapper', () => {
         data: {
           attributes: {
             contenu: '<h2>**Fake contenu**</h2><p>super paragraphe</p>',
+            slug: 'fake-titre',
             titre: 'Fake titre',
           },
         },

@@ -30,5 +30,13 @@ describe('MesuresEmployeurs', () => {
     const cartes = screen.getAllByRole('article');
     expect(cartes.length).toEqual(4);
   });
+
+  it('affiche un lien local pour les articles internes', () => {
+    render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
+    const [ external, internal ] = screen.getAllByRole('article');
+    /* eslint-disable testing-library/no-node-access */
+    expect(external.closest('a')).toHaveAttribute('href', expect.stringMatching(/^https:\/\//));
+    expect(internal.closest('a')).toHaveAttribute('href', '/articles/slug-article');
+  });
 });
 

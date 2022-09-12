@@ -86,6 +86,14 @@ function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): Fi
   };
 }
 
+export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article|undefined {
+  if (!article.data ) {
+    return undefined;
+  }
+  const attr = article.data.attributes;
+  return attr;
+}
+
 export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse>): MesuresEmployeurs {
   const { dispositifs } = response.data.attributes;
 
@@ -100,6 +108,7 @@ function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursRespo
     contenu: carte.contenu,
     titre: carte.titre,
     url: carte.url,
+    ...(carte.article.data ? { article: mapArticleRelation(carte.article) } : {}),
   }));
 }
 

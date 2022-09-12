@@ -49,11 +49,14 @@ function CarteMesureEmployeur ({ carte, isMobile=false }: CarteMesureEmployeurPr
   const url = useSanitize(carte.url);
   const contenu = useSanitize(carte.contenu);
   const brief = extrait(contenu, 110);
+  const link = carte.article
+    ? `/articles/${carte.article.slug}`
+    : url;
 
   return <EmployeurLinkCard
     imageUrl={bannière}
     isMobile={isMobile}
-    link={url}
+    link={link}
     linkLabel="En savoir plus"
     title={titre}
   >
