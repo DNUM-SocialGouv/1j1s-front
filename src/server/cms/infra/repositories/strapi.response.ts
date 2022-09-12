@@ -46,3 +46,14 @@ export interface CarteMesuresJeunesResponse {
     url: string
     banniere: Strapi.Image
 }
+
+export interface MesuresEmployeursAttributesResponse {
+    dispositifs: CarteMesuresEmployeursResponse[]
+}
+
+export interface CarteMesuresEmployeursResponse {
+    titre: string
+    contenu: string
+    url: string
+    banniere: Strapi.Image
+}

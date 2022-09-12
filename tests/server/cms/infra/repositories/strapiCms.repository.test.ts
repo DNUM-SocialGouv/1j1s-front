@@ -1,16 +1,17 @@
 import { anArticle } from '@tests/fixtures/domain/article.fixture';
 import { aFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
+import { aMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
 import { aMesuresJeunes } from '@tests/fixtures/domain/mesuresJeunes.fixture';
 import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
 
 import { Article } from '~/server/cms/domain/article';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
+import { MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import {
   mapArticle,
   mapFicheMetier,
   mapMentionObligatoire,
-  mapMesuresJeunes,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
@@ -109,7 +110,22 @@ describe('strapi cms repository', () => {
         const result = await strapiCmsRepository.getMesuresJeunes() as Success<MesuresJeunes>;
 
         expect(result.result).toEqual(expectedMesuesJeunes);
-        expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate[accompagnement][populate]=*&populate[aidesFinancieres][populate]=*&populate[orienterFormer][populate]=*&populate[vieProfessionnelle][populate]=*', mapMesuresJeunes);
+        expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate[accompagnement][populate]=*&populate[aidesFinancieres][populate]=*&populate[orienterFormer][populate]=*&populate[vieProfessionnelle][populate]=*', expect.any(Function));
+      });
+    });
+  });
+  describe('.getMesuresEmployeurs()', () => {
+    describe('quand les cartes sont trouvées', () => {
+      it('récupère les cartes jeunes', async () => {
+        httpClientService = aStrapiHttpClientService();
+        strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMesuresEmployeurs()));
+        const expectedMesuresEmployeurs = aMesuresEmployeurs();
+        const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<MesuresEmployeurs>;
+
+        expect(result.result).toEqual(expectedMesuresEmployeurs);
+        expect(httpClientService.get).toHaveBeenCalledWith('les-mesures-employeurs?populate[dispositifs][populate]=*', expect.any(Function));
       });
     });
   });
