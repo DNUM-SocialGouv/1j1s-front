@@ -42,3 +42,7 @@ body {
 .italic {
   @extend %italic;
 }
+
+.separator {
+  border-bottom: 1px solid $color-separator;
+}

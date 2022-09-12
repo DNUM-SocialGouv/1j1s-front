@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { Container } from '~/client/components/layouts/Container/Container';
+import { ContainerWrapper } from '~/client/components/layouts/Container/ContainerWrapper';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
@@ -53,45 +55,56 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     <>
       {bannière}
       <div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
-        {formulaireRecherche}
+        <ContainerWrapper hasBottomBorder>
+          <Container className={styles.rechercheSolutionFormWrapper}>
+            {formulaireRecherche}
+          </Container>
+        </ContainerWrapper>
+
+
         {
           hasRouterQuery &&
             <>
               {erreurRecherche || listeSolution.length === 0 && !isLoading ?
                 <ErrorComponent errorType={erreurRecherche}/> :
                 <>
-                  <div className={styles.informationRésultat}>
-                    {étiquettesRecherche}
-                    <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
-                      <h2>{messageRésultatRecherche}</h2>
-                    </Skeleton>
-                  </div>
+                  <ContainerWrapper hasBottomBorder>
+                    <Container className={styles.informationRésultat}>
+                      {étiquettesRecherche}
+                      <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+                        <h2>{messageRésultatRecherche}</h2>
+                      </Skeleton>
+                    </Container>
+                  </ContainerWrapper>
 
-                  <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                    <ul>
-                      {
-                        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-                          <li key={lienSolution.id}>
-                            <RésultatRechercherSolution
-                              lienOffre={lienSolution.lienOffre}
-                              intituléOffre={lienSolution.intituléOffre}
-                              logoEntreprise={lienSolution.logoEntreprise}
-                              nomEntreprise={lienSolution.nomEntreprise}
-                              descriptionOffre={lienSolution.descriptionOffre}
-                              étiquetteOffreList={lienSolution.étiquetteOffreList}
-                            />
-                          </li>
-                        ))
+                  <ContainerWrapper isBackgroundWhite={false} className={styles.listeSolutionsWrapper}>
+                    <Container>
+                      <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+                        <ul>
+                          {
+                            listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
+                              <li key={lienSolution.id}>
+                                <RésultatRechercherSolution
+                                  lienOffre={lienSolution.lienOffre}
+                                  intituléOffre={lienSolution.intituléOffre}
+                                  logoEntreprise={lienSolution.logoEntreprise}
+                                  nomEntreprise={lienSolution.nomEntreprise}
+                                  descriptionOffre={lienSolution.descriptionOffre}
+                                  étiquetteOffreList={lienSolution.étiquetteOffreList}
+                                />
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </Skeleton>
+                      {paginationOffset && nombreSolutions > paginationOffset &&
+                      <div className={styles.pagination}>
+                        <Pagination numberOfResult={nombreSolutions} numberOfResultPerPage={paginationOffset}/>
+                      </div>
                       }
-                    </ul>
-                  </Skeleton>
-                  {paginationOffset && nombreSolutions > paginationOffset &&
-                        <div className={styles.pagination}>
-                          <Pagination numberOfResult={nombreSolutions} numberOfResultPerPage={paginationOffset}/>
-                        </div>
-                  }
+                    </Container>
+                  </ContainerWrapper>
                 </>
-
               }
             </>
         }

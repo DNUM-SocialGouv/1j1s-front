@@ -7,20 +7,21 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 
 export function ÉtiquettesFiltreMission() {
-  const [filtres, setFiltres] = useState<string[]>([]);
+  const [filtreList, setFiltreList] = useState<string[]>([]);
   const missionEngagementQuery = useMissionEngagementQuery();
 
   useEffect(() => {
-    const accessibleMineur = missionEngagementQuery.ouvertsAuxMineurs ? 'Dès 16 ans': '';
-    const localisation = missionEngagementQuery.libelleCommune ? missionEngagementQuery.libelleCommune: '';
-    setFiltres([accessibleMineur, localisation]);
+    const filtres = [];
+    if (missionEngagementQuery.ouvertsAuxMineurs ) filtres.push('Dès 16 ans');
+    if (missionEngagementQuery.libelleCommune) filtres.push(missionEngagementQuery.libelleCommune);
+    setFiltreList(filtres);
   }, [missionEngagementQuery]);
 
-  if (!filtres.length) {
+  if (!filtreList.length) {
     return null;
   }
 
   return (
-    <TagList list={filtres} aria-label="Filtres de la recherche"/>
+    <TagList list={filtreList} aria-label="Filtres de la recherche"/>
   );
 }

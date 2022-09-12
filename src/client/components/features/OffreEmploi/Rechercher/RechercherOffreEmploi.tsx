@@ -16,6 +16,7 @@ import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -92,6 +93,7 @@ export function RechercherOffreEmploi() {
           mapToLienSolution={mapOffreEmploiToLienSolution}
           paginationOffset={OFFRE_PER_PAGE}
         />
+        <EnTeteSection heading="Découvrez des services faits pour vous"/>
         {PartnerCardList([
           ServiceCiviquePartner().props,
           LaBonneBoitePartner().props,
