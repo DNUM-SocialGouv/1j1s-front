@@ -15,7 +15,7 @@ interface ConsulterFicheMetierPageProps {
 	ficheMetier: FicheMétier
 }
 
-export default function ConsulterFicheMetierPage({ ficheMetier }: { ficheMetier: FicheMétier }) {
+export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
   if (!ficheMetier) return null;
 
   return (
