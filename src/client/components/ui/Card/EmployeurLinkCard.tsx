@@ -32,13 +32,13 @@ export function EmployeurLinkCard({ children, imageUrl, isMobile=false, link, li
         </div>
         <LinkCardTitle className={styles.title}>{title}</LinkCardTitle>
         <div className={styles.description}>{children}</div>
-        <Link href={link} className={styles.link}>
+        <span className={styles.link}>
           {linkLabel}
           { isMobile
             ? <ArrowRightIcon />
             : <AngleRightIcon />
           }
-        </Link>
+        </span>
       </article>
     </Link>
   );
