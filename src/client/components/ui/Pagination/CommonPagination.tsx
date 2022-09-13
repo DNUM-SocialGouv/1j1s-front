@@ -1,53 +1,38 @@
-import React, { useMemo } from 'react';
-import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
-import { usePagination } from 'react-instantsearch-hooks-web';
+import React from 'react';
 
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
+import styles from '~/client/components/ui/Pagination/Pagination.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-
-import styles from '../Pagination/Pagination.module.scss';
 
 const NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE = 2;
 const NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE = 4;
 
-export type MeilisearchCustomPaginationProps = UsePaginationProps & { numberOfResultPerPage: number }
+export interface CommonPaginationProps {
+  currentPage: number
+  onPageClick: (page: number) => void
+  numberOfPageList: number[]
+  createURL?: (page: number) => string
+  isFirstPage: boolean
+  isLastPage: boolean
+  lastPage: number
+}
 
-// DEVNOTE : penser à mettre le même props.hits_per_page que dans le configure
-export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationProps) {
+export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPage, numberOfPageList, lastPage, currentPage }: CommonPaginationProps) {
   const { isSmallScreen } = useBreakpoint();
-  const { numberOfResultPerPage } = props;
-  const {
-    currentRefinement,
-    nbHits,
-    isFirstPage,
-    isLastPage,
-    refine,
-    createURL,
-  } = usePagination(props);
-  const numberOfResult = nbHits;
-
   const numberOfElementToDisplayAfterAndBeforeCurrentPage = isSmallScreen && NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE || NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE;
-
-  const numberOfPageList = useMemo(() => {
-    if (nbHits > 0) {
-      return [...Array(Math.ceil(nbHits / numberOfResultPerPage) - 1)].map((value, index) => index);
-    }
-    return [];
-  }, [nbHits, numberOfResultPerPage]);
-  const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
   const displayElement = (page: number) => {
     return <li key={page}>
       <a
-        href={createURL(page)}
-        aria-current={page === currentRefinement}
-        aria-label={`Page numéro ${page + 1}`}
+        href={createURL ? createURL(page) : '#'}
+        role="link"
+        aria-current={currentPage === page}
         onClick={(event) => {
           event.preventDefault();
-          refine(page);
+          onPageClick(page);
         }}
       >
         {page + 1}
@@ -59,7 +44,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
     return <>
       <li key="FirstPageLiPagination">
         <a
-          href={createURL(0)}
+          href={createURL ? createURL(0) : '#'}
           aria-disabled={isFirstPage}
           aria-label="Revenir à la première page"
           onClick={(event) => {
@@ -68,7 +53,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
             // @ts-ignore
             if(!event.target.ariaDisabled) {
               if (!isFirstPage) {
-                refine(0);
+                onPageClick(0);
               }
             }
           }}
@@ -78,7 +63,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
       </li>
       <li key="PreviousPageLiPagination">
         <a
-          href={createURL(currentRefinement - 1)}
+          href={createURL ? createURL(currentPage - 1) : '#'}
           aria-disabled={isFirstPage}
           aria-label="Revenir à la page précédente"
           onClick={(event) => {
@@ -87,7 +72,7 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
             // @ts-ignore
             if(!event.target.ariaDisabled) {
               if (!isFirstPage) {
-                refine(currentRefinement - 1);
+                onPageClick(currentPage - 1);
               }
             }
           }}
@@ -99,19 +84,18 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
   };
 
   const displayIntermediatePages = () => numberOfPageList.filter((element) =>
-    element >= currentRefinement - numberOfElementToDisplayAfterAndBeforeCurrentPage && element <= currentRefinement + numberOfElementToDisplayAfterAndBeforeCurrentPage && element !== lastPage,
+    element >= currentPage - numberOfElementToDisplayAfterAndBeforeCurrentPage && element <= currentPage + numberOfElementToDisplayAfterAndBeforeCurrentPage && element !== lastPage,
   ).map(displayElement);
 
-  const displayEllipsis = () => currentRefinement < lastPage - (numberOfElementToDisplayAfterAndBeforeCurrentPage + 1) ?
-    <li className={styles.ellipse}>…</li> : <></>;
+  const displayEllipsis = () => currentPage < lastPage - (numberOfElementToDisplayAfterAndBeforeCurrentPage + 1)
+    ? <li className={styles.ellipse}>…</li> : <></>;
 
-  const displayLastElement = () => displayElement(lastPage);
   const displayNext = () => {
     return <>
-      {displayLastElement()}
-      <li key="NextPageLiPagination">
+      { displayElement(lastPage) }
+      <li key='NextPageLiPagination'>
         <a
-          href={createURL(currentRefinement + 1)}
+          href={createURL ? createURL(currentPage + 1) : '#'}
           aria-disabled={isLastPage}
           aria-label="Aller à la page suivante"
           onClick={(event) => {
@@ -119,18 +103,18 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if(!event.target.ariaDisabled) {
-              if (!isLastPage) {
-                refine(currentRefinement + 1);
+              if(!isLastPage) {
+                onPageClick(currentPage+1);
               }
             }
           }}
         >
-          {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante <AngleRightIcon /></div>}
+          {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante  <AngleRightIcon /></div>}
         </a>
       </li>
-      <li key="LastLiPagination">
+      <li key='LastLiPagination'>
         <a
-          href={createURL(lastPage)}
+          href={createURL ? createURL(lastPage) : '#'}
           aria-disabled={isLastPage}
           aria-label="Aller à la dernière page"
           onClick={(event) => {
@@ -138,30 +122,27 @@ export function MeilsearchCustomPagination(props: MeilisearchCustomPaginationPro
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if(!event.target.ariaDisabled) {
-              if (!isLastPage) {
-                refine(lastPage);
+              if(!isLastPage) {
+                onPageClick(lastPage);
               }
             }
           }}
         >
           <AngleRightFromLineIcon />
         </a>
-      </li>
-    </>;
+      </li></>;
   };
 
   return (
     <>
       {
         numberOfPageList.length >= 2 && <ul key='Pagination' className={styles.pagination}>
-          {displayPrevious()}
-          {displayIntermediatePages()}
-          {displayEllipsis()}
-          {displayNext()}
+          { displayPrevious() }
+          { displayIntermediatePages() }
+          { displayEllipsis() }
+          { displayNext() }
         </ul>
       }
     </>
   );
 }
-
-
