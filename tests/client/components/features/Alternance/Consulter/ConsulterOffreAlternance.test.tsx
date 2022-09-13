@@ -3,6 +3,7 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import {
   anApprentiBoucherFromMatcha,
 } from '@tests/fixtures/domain/alternance.fixture';
@@ -16,6 +17,10 @@ jest.mock('dompurify', () => {
 });
 
 describe('ConsulterOffreAlternance', () => {
+  beforeEach(() => {
+    mockUseRouter({});
+  });
+  
   describe('quand l\'offre d\'alternance provient de matcha', () => {
     it('affiche l\'offre d\'alternance', () => {
       const offreAlternance = anApprentiBoucherFromMatcha();

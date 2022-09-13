@@ -33,10 +33,24 @@
   &Link {
     color: $color-primary;
   }
+
+  &LinkWithBorder {
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    border-radius: 20px;
+  }
   &IconOnTop {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+}
+
+.reversed {
+  color: $color-primary;
+  border-radius: 20px;
+  border: 1px solid $color-primary;
+  padding: 0 1.5rem;
+  height: 2.5rem;
 }

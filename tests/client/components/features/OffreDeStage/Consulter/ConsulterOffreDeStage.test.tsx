@@ -3,6 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
@@ -41,6 +42,10 @@ describe('ConsulterOffreDeStage', () => {
     updatedAt: '',
     urlDeCandidature: 'http://candidature',
   };
+
+  beforeEach(() => {
+    mockUseRouter({});
+  });
 
   it('affiche l\'offre de stage', () => {
     render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);

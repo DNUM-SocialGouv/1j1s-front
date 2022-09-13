@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
 import React from 'react';
 
 import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
@@ -12,6 +14,8 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   const { lienOffre, intituléOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
   const { isSmallScreen } = useBreakpoint();
 
+  const router = useRouter();
+
   const cardDescription = () => {
     return (
       <section className={styles.cardDescription}>
@@ -23,8 +27,9 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
       </section>
     );
   };
+
   return (
-    <Link href={lienOffre} prefetch={false}>
+    <Link href={lienOffre + '?from=' + (router.route) + '&params=' + encodeURIComponent(stringify(router.query))} prefetch={false} as={lienOffre}>
       <a className={styles.card} data-testid="RésultatRechercherSolution">
         <header className={styles.cardHeader}>
           <div className={styles.cardImageWrapper}>
