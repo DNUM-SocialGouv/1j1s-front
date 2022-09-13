@@ -26,7 +26,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresJeun
     props: {
       mesuresJeunes: JSON.parse(JSON.stringify(response.result)),
     },
-    revalidate: 86400,
+    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };
 }
 
