@@ -42,7 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext<MissionConte
     props: {
       missionEngagement: JSON.parse(JSON.stringify(missionEngagement.result)),
     },
-    revalidate: 86400,
+    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };
 }
 

@@ -43,7 +43,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
     props: {
       article: JSON.parse(JSON.stringify(response.result)),
     },
-    revalidate: 86400,
+    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };
 
 }

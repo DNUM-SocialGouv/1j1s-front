@@ -67,13 +67,13 @@ export const dependenciesContainer = (): Dependencies => {
     strapiClientService,
     poleEmploiClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
-  
+
   const { NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL } = serverConfigurationService.getConfiguration();
   const meiliSearchClient = new MeiliSearch({ apiKey: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, host: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL });
 
   const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiClientService, cacheService);
 
-  const cmsDependencies = cmsDependenciesContainer(strapiClientService);
+  const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiClientService, apiPoleEmploiRéférentielRepository);
   const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
   const engagementDependencies = engagementDependenciesContainer(engagementClientService);
@@ -89,7 +89,7 @@ export const dependenciesContainer = (): Dependencies => {
   return {
     alternanceDependencies,
     cmsDependencies,
-    demandeDeContactDependencies: demandeDeContactDependencies,
+    demandeDeContactDependencies,
     engagementDependencies,
     entrepriseDependencies,
     fichesMetierDependencies,

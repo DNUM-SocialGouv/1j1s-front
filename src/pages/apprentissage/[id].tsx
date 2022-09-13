@@ -50,7 +50,7 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
     props: {
       alternanceFromMatcha: JSON.parse(JSON.stringify(offreAlternance.result)),
     },
-    revalidate: 86400,
+    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };
 }
 

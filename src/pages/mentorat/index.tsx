@@ -136,9 +136,3 @@ function RaisonParticipationsMentorat() {
     </section>
   );
 }
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}

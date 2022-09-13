@@ -9,6 +9,7 @@ export class ServerConfigurationService implements ConfigurationService {
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
       API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
+      IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', ''),
       NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
       NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
       POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
@@ -34,6 +35,11 @@ export class ServerConfigurationService implements ConfigurationService {
       return environmentVariable;
     }
   }
+
+  private static getOrDefault(name: string, defaultValue: string): string {
+    const environmentVariable = process.env[name];
+    return environmentVariable || defaultValue;
+  }
 }
 
 class EnvironmentVariablesException extends Error {
@@ -49,12 +55,13 @@ export interface EnvironmentVariables {
   readonly API_GEO_BASE_URL: string;
   readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
   readonly API_POLE_EMPLOI_BASE_URL: string;
+  readonly IS_REVIEW_APP: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string;
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string;
-  readonly POLE_EMPLOI_CONNECT_URL: string;
   readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string;
   readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string;
   readonly POLE_EMPLOI_CONNECT_SCOPE: string;
+  readonly POLE_EMPLOI_CONNECT_URL: string;
   readonly REDIS_DB: number;
   readonly REDIS_HOST: string;
   readonly REDIS_PASSWORD: string;
