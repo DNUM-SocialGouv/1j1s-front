@@ -21,7 +21,8 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresEmpl
     props: {
       mesuresEmployeurs: response.result,
     },
-    revalidate: 86400, // 24 hours
+    // revalidate: 86400, // 24 hours
+    revalidate: 60, // 1 minute
   };
 }
 
