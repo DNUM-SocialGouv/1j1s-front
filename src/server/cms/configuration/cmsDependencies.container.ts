@@ -12,15 +12,17 @@ export interface CmsDependencies {
   duréeDeValiditéEnSecondes: () => number
 }
 
+const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
+
 export const cmsDependenciesContainer = (httpClientService: HttpClientService, configurationService: ConfigurationService): CmsDependencies => {
   const repository = new StrapiCmsRepository(httpClientService);
   const { IS_REVIEW_APP } = configurationService.getConfiguration();
-  const duréeDeValidité = IS_REVIEW_APP ? 20 : 60 * 60 * 24;
+  const duréeDeValiditéEnSecondes = IS_REVIEW_APP ? 20 : UN_JOUR_EN_SECONDES;
 
   return {
     consulterArticle: new ConsulterArticleUseCase(repository),
     consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(repository),
-    duréeDeValiditéEnSecondes: () => duréeDeValidité,
+    duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
     récupérerMesuresJeunes: new RécupérerMesuresJeunesUseCase(repository),
   };
 };
