@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@import "@styles/_utilities";
 
 .header {
   background-color: $color-on-primary;
@@ -112,7 +112,7 @@
   }
 
   .content {
-    background-color: $color-background;
+    background-color: $color-background; //TODO pour Olivia
     padding-left: 8rem;
     padding-right: 8rem;
     padding-bottom: 2rem;
@@ -131,7 +131,7 @@
   }
 
   .formulaire {
-    background-color: white;
+    background-color: white; // TODO pour Olivia
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;

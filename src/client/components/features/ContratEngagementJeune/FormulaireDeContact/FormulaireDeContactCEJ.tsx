@@ -5,7 +5,7 @@ import styles from '~/client/components/features/ContratEngagementJeune/Formulai
 import { Button } from '~/client/components/ui/Button/Button';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
-import { InputLieu } from '~/client/components/ui/Input/InputLocalisation/InputLieu';
+import InputAutocomplétionCommune from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétionCommune';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -28,10 +28,6 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
   const [isLoading, setIsLoading] = useState(false);
   const [envoyé, setEnvoyé] = useState(false);
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
-
-  const [inputTypeLocalisation] = useState<string>('');
-  const [inputLibelleLocalisation] = useState<string>('');
-  const [inputCodeLocalisation] = useState<string>('');
 
   async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -111,13 +107,11 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
           onChange={setInputAge}
           value={inputAge}
         />
-        <InputLieu
+        <InputAutocomplétionCommune
+          required
           label="Ville"
           name="ville"
-          libellé={inputLibelleLocalisation}
-          code={inputCodeLocalisation}
-          type={inputTypeLocalisation}
-          obligatoire={true}
+          placeholder="Exemple: Paris, Béziers..."
         />
       </div>
       <div className={styles.formulaireDeRappelButton}>

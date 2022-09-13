@@ -19,10 +19,11 @@ interface InputLieuProps {
   label: string;
   name: string;
   obligatoire: boolean;
+  onChange: (location: LocalisationApiResponse) => void;
 }
 
 export const InputLieu = (props: InputLieuProps) => {
-  const { code, libellé, type, label, name, obligatoire } = props;
+  const { code, libellé, type, label, name, obligatoire, onChange } = props;
   const LOCALISATION_LABEL_ID = 'autocomplete-label';
   const LOCALISATION_SUGGESTIONS_ID = 'autocomplete-list-box';
 
@@ -121,11 +122,12 @@ export const InputLieu = (props: InputLieuProps) => {
     return !localisationList.départementList.length && !localisationList.régionList.length && !localisationList.communeList.length;
   }, [localisationList]);
 
-  const handleClick = (localisation: LocalisationApiResponse, typeLocalisation: string) => {
+  const choisirUneSuggestion = (localisation: LocalisationApiResponse, typeLocalisation: string) => {
     setLibelléLocalisation(localisation.libelle);
     setCodeLocalisation(localisation.code);
     setTypeLocalisation(typeLocalisation);
     setSuggestionsActive(false);
+    onChange(localisation);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -170,7 +172,11 @@ export const InputLieu = (props: InputLieuProps) => {
       <li
         className={currentHoverIndex === suggestionIndex ? styles.hover : ''}
         key={currentHoverIndex}
-        onClick={() => handleClick(suggestion, typeLocalisation)}
+        onClick={(event) => {
+          choisirUneSuggestion(suggestion, typeLocalisation);
+          event.stopPropagation();
+          event.preventDefault();
+        }}
         role="option"
         aria-selected={libelléLocalisation === suggestion.libelle}
         value={suggestion.libelle}
@@ -275,4 +281,5 @@ export const InputLieu = (props: InputLieuProps) => {
 
 InputLieu.defaultProps = {
   obligatoire: false,
+  onChange: () => undefined,
 };

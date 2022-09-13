@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 
@@ -13,7 +13,7 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact.serv
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);
-describe('<FormulaireDeContactEntreprise />', () => {
+describe('<FormulaireDeContactCEJ />', () => {
   const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
 
   function renderComponent() {
@@ -24,8 +24,8 @@ describe('<FormulaireDeContactEntreprise />', () => {
     } as unknown as DemandeDeContactService);
     const demandeDeContactServiceMock = anDemandeDeContactService();
     const localisationService = aLocalisationService({
-      communeList: [],
-      départementList: [{ code: '95', libelle: 'Pontoise', nom: 'Pontoise' }],
+      communeList: [{ code: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+      départementList: [],
       régionList: [],
     });
 
@@ -84,7 +84,7 @@ describe('<FormulaireDeContactEntreprise />', () => {
           nom: 'Mc Totface',
           prénom: 'Toto',
           téléphone: '0123456789',
-          ville: 'Pontoise',
+          ville: 'Paris',
         });
 
         // Then
@@ -94,7 +94,7 @@ describe('<FormulaireDeContactEntreprise />', () => {
           nom: 'Mc Totface',
           prénom: 'Toto',
           téléphone: '0123456789',
-          ville: 'Pontoise',
+          ville: 'Paris (75001)',
         });
       });
       it('appelle la propriété onSuccess', async () => {
@@ -125,7 +125,7 @@ describe('<FormulaireDeContactEntreprise />', () => {
           nom: 'Mc Totface',
           prénom: 'Toto',
           téléphone: '0123456789',
-          ville: 'Pontoise',
+          ville: 'Paris',
         });
 
         // Then
@@ -145,10 +145,9 @@ export async function remplirFormulaireDeContact(data: ContactInputs, user = use
   await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
   await user.type(screen.getByLabelText('Adresse email'), data.email);
 
-  await user.type(screen.getByLabelText('Ville'), data.ville);
-  const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
-  const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
-  fireEvent.click(résultatLocalisationList[0]);
+  await userEvent.type(screen.getByLabelText('Ville'), data.ville);
+  // eslint-disable-next-line testing-library/no-wait-for-side-effects
+  await waitFor(() => userEvent.click(screen.getByText('Paris (75001)')));
 
   await user.click(screen.getByLabelText('Age'));
   await user.click(screen.getByLabelText(data.age));

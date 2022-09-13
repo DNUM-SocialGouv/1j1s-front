@@ -2,20 +2,24 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
-import {
-  aLesEntreprisesSEngagementService,
-} from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { aLesEntreprisesSEngagementService } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 
+import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import LesEntreprisesSEngagentInscription, {
-  FormulaireEngagement,
-} from '~/pages/les-entreprises-s-engagent/inscription';
+import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription';
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
+  const localisationService = aLocalisationService({
+    communeList: [{ code: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+    départementList: [],
+    régionList: [],
+  });
+
   const routerPush = jest.fn();
 
   const labelsEtape1 = [
@@ -36,8 +40,8 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
   const renderComponent = () => {
     render(
-      <DependenciesProvider lesEntreprisesSEngagementService={aLesEntreprisesSEngagementServiceMock}>
-        <LesEntreprisesSEngagentInscription />
+      <DependenciesProvider lesEntreprisesSEngagementService={aLesEntreprisesSEngagementServiceMock} localisationService={localisationService}>
+        <LesEntreprisesSEngagentInscription/>
       </DependenciesProvider>,
     );
   };
@@ -130,16 +134,17 @@ describe('LesEntreprisesSEngagentInscription', () => {
     it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
       renderComponent();
       const expected: FormulaireEngagement = {
-        codePostal: '75002',
+        codePostal: '75001',
         email: 'toto@email.com',
         nom: 'Tata',
         nomSociété: 'Octo',
         prénom: 'Toto',
         secteur: 'Conseil en systèmes et logiciels informatiques',
         siret: '41816609600069',
-        taille: '+1000',
+        taille: '1000',
         travail: 'RH',
-        téléphone: '01 22 33 44 55',
+        téléphone: '0122334455',
+        ville: 'Paris',
       };
 
       await remplirFormulaireEtape1();
@@ -156,15 +161,17 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 async function remplirFormulaireEtape1() {
   const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
-  const inputCodePostalSociété = screen.getByRole('textbox', { name: 'Indiquez la ville du siège social de l’entreprise' });
   const inputSiret = screen.getByRole('textbox', { name: 'Indiquer votre numéro de SIRET' });
   const inputSecteur = screen.getByRole('textbox', { name: 'Indiquer le secteur d’activité de votre entreprise' });
   const inputTaille = screen.getByRole('textbox', { name: 'Indiquer la taille de votre entreprise' });
   await userEvent.type(inputNomSociété, 'Octo');
-  await userEvent.type(inputCodePostalSociété, '75002');
   await userEvent.type(inputSiret, '41816609600069');
   await userEvent.type(inputSecteur, 'Conseil en systèmes et logiciels informatiques');
-  await userEvent.type(inputTaille, '+1000');
+  await userEvent.type(inputTaille, '1000');
+
+  await userEvent.type(screen.getByLabelText('Indiquez la ville du siège social de l’entreprise'), 'Paris');
+  // eslint-disable-next-line testing-library/no-wait-for-side-effects
+  await waitFor(() => userEvent.click(screen.getByText('Paris (75001)')));
 }
 
 async function remplirFormulaireEtape2() {
@@ -177,7 +184,7 @@ async function remplirFormulaireEtape2() {
   await userEvent.type(inputNom, 'Tata');
   await userEvent.type(inputEmail, 'toto@email.com');
   await userEvent.type(inputTravail, 'RH');
-  await userEvent.type(inputTéléphone, '01 22 33 44 55');
+  await userEvent.type(inputTéléphone, '0122334455');
 }
 
 async function clickOnGoToEtape2() {
