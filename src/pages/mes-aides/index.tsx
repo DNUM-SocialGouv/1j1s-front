@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ContainerWrapper } from '~/client/components/layouts/Container/ContainerWrapper';
+import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -17,7 +17,7 @@ export default function MesAidesPage() {
     <>
       <HeadTag title="Mes aides financières | 1jeune1solution" />
       <main id="contenu">
-        <ContainerWrapper isBackgroundWhite={false}>
+        <SectionLayout isBackgroundWhite={false}>
           <Container className={styles.mesAidesBannière}>
             <div className={styles.mesAidesBannièreWrapper}>
               <h1 className="headline">Je découvre les aides auxquelles j’ai droit en moins de 5 minutes</h1>
@@ -34,7 +34,7 @@ export default function MesAidesPage() {
               <Image src="/images/banners/mes-aides-financières.jpg" alt="" layout="fill" objectFit="cover" objectPosition="top left" />
             </div>
           </Container>
-        </ContainerWrapper>
+        </SectionLayout>
 
 
         <Container className={styles.mesAidesVidéo}>

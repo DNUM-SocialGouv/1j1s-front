@@ -6,7 +6,7 @@ import React, {
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ContainerWrapper } from '~/client/components/layouts/Container/ContainerWrapper';
+import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import Marked from '~/client/components/ui/Marked/Marked';
@@ -26,7 +26,7 @@ export default function Rappel() {
   }
 
   return (
-    <ContainerWrapper isBackgroundWhite={false} className={styles.rappel}>
+    <SectionLayout isBackgroundWhite={false} className={styles.rappel}>
       <Container className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
         <Button
@@ -50,6 +50,6 @@ export default function Rappel() {
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>
-    </ContainerWrapper>
+    </SectionLayout>
   );
 }

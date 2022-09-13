@@ -8,7 +8,7 @@ interface ContainerWrapperProps extends CommonProps {
   isBackgroundWhite?: boolean
 }
 
-export function ContainerWrapper({ children, className, hasBottomBorder = false, isBackgroundWhite = true, ...rest }: React.PropsWithChildren<ContainerWrapperProps>) {
+export function SectionLayout({ children, className, hasBottomBorder = false, isBackgroundWhite = true, ...rest }: React.PropsWithChildren<ContainerWrapperProps>) {
   const _classNames = classNames(hasBottomBorder ? 'separator' : '', isBackgroundWhite ? 'background-white' : 'background-white-lilac', className);
 
   return (
