@@ -1,0 +1,19 @@
+@import "@styles/utilities";
+
+.enteteSection {
+  background-color: $color-background-white-titan;
+  border-top: 0.5px solid $color-on-surface;
+  border-bottom: 0.5px solid $color-on-surface;
+  text-align: center;
+  padding: 1.5rem 0;
+
+  &__Title {
+    @extend %bold;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+
+    @include media(large) {
+      font-size: 1.5rem;
+    }
+  }
+}

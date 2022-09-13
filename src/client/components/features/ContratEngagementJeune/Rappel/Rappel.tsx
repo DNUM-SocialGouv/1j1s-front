@@ -1,11 +1,14 @@
-import {
+import React, {
   useEffect,
   useState,
 } from 'react';
 
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
 import { Button } from '~/client/components/ui/Button/Button';
+import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
@@ -23,11 +26,16 @@ export default function Rappel() {
   }
 
   return (
-    <section className={styles.rappel}>
-      <div className={styles.rappelContainer}>
+    <SectionLayout isBackgroundWhite={false} className={styles.rappel}>
+      <Container className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
-        <Button onClick={() => setIsPopInOpen(true)} buttonType="primary">Je souhaite être contacté(e)</Button>
-      </div>
+        <Button
+          onClick={() => setIsPopInOpen(true)}
+          buttonType="withRightIcon"
+          icon={<AngleRightIcon/>}>
+          Je souhaite être contacté(e)
+        </Button>
+      </Container>
       <ModalComponent className={styles.rappelModal}
         isOpen={isPopInOpen}
         close={() => setIsPopInOpen(false)}
@@ -42,6 +50,6 @@ export default function Rappel() {
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>
-    </section>
+    </SectionLayout>
   );
 }

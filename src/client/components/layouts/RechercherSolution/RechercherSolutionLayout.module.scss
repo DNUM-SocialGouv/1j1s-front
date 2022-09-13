@@ -1,23 +1,18 @@
 @import "@styles/utilities";
 
 .rechercheSolution {
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  border-bottom: 1px solid $color-form-field;
-    @include media(large) {
-      max-width: 78rem;
-    }
+  &FormWrapper {
+    padding: 2rem 1rem;
+  }
 }
 
 .informationRésultat {
-  border-bottom: 1px solid $color-separator;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
   ul {
     padding-bottom: 1rem;
   }
 
   @include media(large) {
-    padding: 2.5rem 0;
     ul {
       padding-bottom: 2rem;
     }
@@ -28,6 +23,9 @@
   @extend %bold, %text-large;
 }
 
+.listeSolutionsWrapper {
+  padding: 2rem 1rem;
+}
 .listeSolutions {
   display: flex;
   flex-direction: column;
@@ -39,7 +37,10 @@
 }
 
 .pagination {
-  padding: 16px 0;
+  padding-top: 2.5rem;
+  @include media(large) {
+    padding-top: 5rem;
+  }
   & > nav {
     margin: auto;
   }
