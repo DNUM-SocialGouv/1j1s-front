@@ -26,7 +26,8 @@
   }
   .cartes {
     grid-template-columns: 1fr;
-    margin: 0 2rem;
+    row-gap: 1rem;
+    margin: 1rem;
   }
 }
 

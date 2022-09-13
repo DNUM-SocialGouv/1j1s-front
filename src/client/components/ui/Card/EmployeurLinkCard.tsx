@@ -6,8 +6,9 @@ import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/EmployeurLinkCard.module.scss';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
-import { ArrowRightIcon } from '../Icon/arrow-right.icon';
+import { ExternalRedirectionIcon } from '../Icon/external-redirection.icon';
 
 interface EmployeurLinkCardProps {
 	imageUrl: string
@@ -19,6 +20,7 @@ interface EmployeurLinkCardProps {
 }
 
 export function EmployeurLinkCard({ children, imageUrl, isMobile=false, link, linkLabel, title, titleLevel }: React.PropsWithChildren<EmployeurLinkCardProps>)  {
+  const isInternalLink = useIsInternalLink(link);
 
   function LinkCardTitle({ children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
     return React.createElement(titleLevel || 'h3', { className: className }, children);
@@ -34,9 +36,9 @@ export function EmployeurLinkCard({ children, imageUrl, isMobile=false, link, li
         <div className={styles.description}>{children}</div>
         <span className={styles.link}>
           {linkLabel}
-          { isMobile
-            ? <ArrowRightIcon />
-            : <AngleRightIcon />
+          { isInternalLink
+            ? <AngleRightIcon />
+            : <ExternalRedirectionIcon />
           }
         </span>
       </article>
