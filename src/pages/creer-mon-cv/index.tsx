@@ -35,9 +35,3 @@ function heroCVContent() {
     <span>Booster vos chances de trouver un emploi en personnalisant votre CV et en mettant en valeur vos compétences en fonction des annonces auxquelles vous postulez.</span>
   );
 };
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}

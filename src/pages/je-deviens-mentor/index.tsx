@@ -119,9 +119,3 @@ function displayRaisonParticipationsMentoratCitoyen(isLargeScreen: boolean) {
     </section>
   );
 }
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}

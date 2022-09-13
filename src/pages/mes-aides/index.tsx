@@ -85,9 +85,3 @@ export default function MesAidesPage() {
     </>
   );
 }
-
-export function getStaticProps() {
-  return {
-    props: {},
-  };
-}

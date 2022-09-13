@@ -190,9 +190,3 @@ export default function Accueil() {
     </>
   );
 }
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}
