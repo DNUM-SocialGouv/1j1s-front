@@ -28,7 +28,7 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
   const optionsRef = useRef<HTMLDivElement>(null);
 
   const [isTouched, setIsTouched] = useState(false);
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [isOptionListOpen, setIsOptionListOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
 
   const labelledBy = useRef(uuidv4());
@@ -36,20 +36,23 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
-      setIsOptionsOpen(false);
+      setIsOptionListOpen(false);
     }
   }, []);
 
   const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
-    if (event.key === KeyBoard.ESCAPE) {
-      setIsOptionsOpen(false);
+    const currentItem = event.target as HTMLElement;
+    if (event.code === KeyBoard.ESCAPE) {
+      setIsOptionListOpen(false);
+      if (currentItem.parentElement !== null && currentItem.parentElement.parentElement !== null) {
+        currentItem.parentElement.parentElement.getElementsByTagName('button')[0].focus();
+      }
     }
   }, []);
 
-/*  useEffect(function onValueChange() {
-    console.log('value will change', value)
+  useEffect(function onValueChange() {
     setSelectedValue(value || '');
-  }, [value]);*/
+  }, [value]);
 
   useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
@@ -67,17 +70,23 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
     const defaultSinglePlaceholder = placeholder ?? 'Sélectionnez votre choix';
     const selectedValueLength = String(selectedValue).split(',').length;
     if (multiple) {
-      if(!selectedValue) {
-        return defaultMultiplePlaceholder;
-      } else {
-        return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
-      }
+      return !selectedValue
+        ? defaultMultiplePlaceholder
+        : `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
     }
     if (selectedValue) return getLibelléAvecValeur ? getLibelléAvecValeur.libellé : '';
     return defaultSinglePlaceholder;
   }, [multiple, placeholder, optionList, selectedValue]);
 
   const error = isTouched && !selectedValue ? 'Veuillez selectionner un choix' : undefined;
+
+  useEffect(function setFocus() {
+    if (isOptionListOpen) {
+      const currentItem = optionsRef.current as HTMLDivElement;
+      const firstElement = currentItem.getElementsByTagName('li')[0];
+      firstElement.focus();
+    }
+  }, [isOptionListOpen]);
 
   return (
     <div className={styles.selectWrapper}>
@@ -90,21 +99,21 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           aria-haspopup="listbox"
           aria-invalid={ !!error }
           aria-errormessage={ error && errorMessageBy.current }
-          aria-expanded={isOptionsOpen}
+          aria-expanded={isOptionListOpen}
           aria-labelledby={labelledBy.current}
           className={styles.button}
-          onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+          onClick={() => { setIsOptionListOpen(!isOptionListOpen); }}
           onBlur={() => required ? setIsTouched(true) : undefined}
         >
           <span className={classNames({ [styles.selectedLabel]:selectedValue })} data-testid='Select-Placeholder'>{buttonLabel}</span>
-          {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
+          {isOptionListOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
-        {isOptionsOpen &&
+        {isOptionListOpen &&
               <ListBox
                 selectedValue={selectedValue}
                 optionList={optionList}
                 setSelectedValue={setSelectedValue}
-                setIsOptionsOpen={setIsOptionsOpen}
+                setIsOptionListOpen={setIsOptionListOpen}
                 multiple={multiple || false}
                 onChange={onChange}
               />}

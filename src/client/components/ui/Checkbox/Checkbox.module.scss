@@ -46,7 +46,7 @@
     box-shadow: inset 0 0 0 1px $color-on-surface;
   }
 
-  input[type=checkbox]:checked + label::before, input[aria-checked="true"] + label::before {
+  input[type=checkbox]:checked + label::before {
     background-color: $color-primary;
     background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fff' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
   }

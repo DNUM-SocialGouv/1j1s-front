@@ -2,7 +2,7 @@ import React, {
   ChangeEvent,
   useCallback,
   useRef,
-  useState
+  useState,
 } from 'react';
 
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
@@ -16,47 +16,61 @@ interface ListBoxProps {
   optionList: Option[]
   onChange: ((value: string) => void) | undefined;
   setSelectedValue: (value: string) => void;
-  setIsOptionsOpen: (value: boolean) => void;
+  setIsOptionListOpen: (value: boolean) => void;
   selectedValue: string
 }
 
 export function ListBox(props: ListBoxProps) {
-  const { multiple, optionList, onChange, selectedValue, setIsOptionsOpen, setSelectedValue } = props;
-  const listBoxRef = useRef<HTMLDivElement>(null);
+  const { multiple, optionList, onChange, selectedValue, setIsOptionListOpen, setSelectedValue } = props;
+  const listBoxRef = useRef<HTMLUListElement>(null);
   const [id, setId] = useState('');
 
-  const selectedValueContainsCheckboxValue = (option: Option) => {
-    //console.log('selectedValue', selectedValue)
-    console.log('selectedValueContainsCheckboxValue')
-    selectedValue.split(',').includes(option.valeur);
-  }
-  const selectedValueIsRadioValue = (option: Option) => selectedValue === option.valeur;
+  const isCurrentItemChecked = (option: Option): boolean => {
+    return selectedValue.split(',').includes(option.valeur);
+  };
+  
+  const isCurrentItemSelected = (option: Option): boolean => selectedValue === option.valeur;
 
-  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === KeyBoard.ENTER) {
+  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>) => {
+    const currentItem = event.target;
+    if (event.key === KeyBoard.ENTER || event.key === KeyBoard.TAB) event.preventDefault();
+    if (event.key === KeyBoard.ARROW_UP) {
+      if (currentItem.previousElementSibling !== null) {
+        const previousElement = currentItem.previousElementSibling as HTMLElement;
+        previousElement.focus();
+      }
+      event.preventDefault();
+    }
+    if (event.key === KeyBoard.ARROW_DOWN) {
+      if (currentItem.nextElementSibling !== null) {
+        const nextElement = currentItem.nextElementSibling as HTMLElement;
+        nextElement.focus();
+      }
       event.preventDefault();
     }
     if (event.code === KeyBoard.SPACE) {
-      event.preventDefault();
-      const currentInput = event.target.querySelector("input[type=checkbox]")
-      //console.log('currentInput', currentInput)
-      const currentState = currentInput.getAttribute("aria-checked")
-      //console.log('test currentState', currentState === 'false')
-      const newState = !(currentState === 'true')
-      //console.log('currentInput', currentInput)
-      //console.log('checked', currentState, newState)
-      currentInput.setAttribute("aria-checked", `${newState}`)
-      currentInput.setAttribute("aria-selected", `${newState}`)
+      const currentInput = event.target.querySelector('input');
+      if (currentInput === null ) return;
+      setId(currentInput.id);
+      const inputValue = currentInput.getAttribute('value');
+      if (multiple) {
+        if (inputValue !== null) onSelectMultipleChange(!currentInput.checked, inputValue);
 
-      if (currentInput.getAttribute("value")) {
-        onSelectMultipleChange(newState, currentInput.getAttribute("value")!)
       }
+      else {
+        if (inputValue !== null) setSelectedValue(inputValue);
+        setIsOptionListOpen(false);
+        if (currentItem.parentElement !== null && currentItem.parentElement.parentElement !== null) {
+          currentItem.parentElement.parentElement.getElementsByTagName('button')[0].focus();
+        }
+      }
+
+      event.preventDefault();
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedValue, multiple, setIsOptionListOpen, setSelectedValue]);
 
   const onSelectMultipleChange = useCallback((isValueSelected: boolean, changedValue: string) => {
-    console.log('CURRENT VALUE SELECTED', selectedValue)
-    console.log('onSelectMultipleChange', isValueSelected, changedValue)
     const valueList = selectedValue ? selectedValue.split(',') : [];
     if (isValueSelected) {
       valueList.push(changedValue);
@@ -66,7 +80,6 @@ export function ListBox(props: ListBoxProps) {
     }
 
     const newSelectedValue = valueList.join(',');
-    console.log('newSelectedValue', newSelectedValue)
     setSelectedValue(newSelectedValue);
     if (onChange) {
       onChange(newSelectedValue);
@@ -74,7 +87,7 @@ export function ListBox(props: ListBoxProps) {
   }, [selectedValue, onChange, setSelectedValue]);
 
   return (
-    <div
+    <ul
       className={styles.options}
       role="listbox"
       tabIndex={0}
@@ -86,42 +99,53 @@ export function ListBox(props: ListBoxProps) {
         multiple
           ? optionList.map((option, index) => {
             return (
-              <Checkbox
+              <li
+                tabIndex={-1}
+                role="option"
+                key={index}
+                aria-checked={isCurrentItemChecked(option)}
+                aria-selected={isCurrentItemChecked(option)}
+                onKeyDown={handleKeyDown}>
+                <Checkbox
+                  className={styles.option}
+                  label={option.libellé}
+                  value={option.valeur}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    setId(event.target.id);
+                    onSelectMultipleChange(event.target.checked, option.valeur);
+                  }}
+                  checked={isCurrentItemChecked(option)}
+                />
+              </li>
+
+            );
+          })
+          : optionList.map((option, index) => (
+            <li
+              tabIndex={-1}
+              role="option"
+              key={index}
+              aria-selected={isCurrentItemSelected(option)}
+              onKeyDown={handleKeyDown}>
+              <Radio
                 key={index}
                 className={styles.option}
-                role="option"
                 label={option.libellé}
                 value={option.valeur}
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   setId(event.target.id);
-                  onSelectMultipleChange(event.target.checked, option.valeur);
+                  setIsOptionListOpen(false);
+                  setSelectedValue(option.valeur);
+                  if(onChange) {
+                    onChange(option.valeur);
+                  }
                 }}
-                onKeyDown={handleKeyDown}
-                aria-checked={selectedValueContainsCheckboxValue(option)}
-                checked={selectedValueContainsCheckboxValue(option)}
+                checked={isCurrentItemSelected(option)}
               />
-            );
-          })
-          : optionList.map((option, index) => (
-            <Radio
-              key={index}
-              className={styles.option}
-              role="option"
-              label={option.libellé}
-              value={option.valeur}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setId(event.target.id);
-                setIsOptionsOpen(false);
-                setSelectedValue(option.valeur);
-                if(onChange) {
-                  onChange(option.valeur);
-                }
-              }}
-              onKeyDown={handleKeyDown}
-              aria-selected={selectedValueIsRadioValue(option)}
-            />
+            </li>
+
           ))
       }
-    </div>
+    </ul>
   );
 }
