@@ -44,23 +44,6 @@
 
 
 @include media(large) {
-  .quEstCeQueLeMentorat {
-    background-color: $color-primary;
-    color: white;
-    text-align: center;
-    padding: 60px;
-
-    > h1 {
-      color: white;
-    }
-
-    > p {
-      max-width: 48rem;
-      margin: auto;
-      text-align: left;
-    }
-  }
-
   .pourquoi {
     background-color: $color-background-white-lilac;
     max-width: none;

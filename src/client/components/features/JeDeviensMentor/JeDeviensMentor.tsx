@@ -9,6 +9,7 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import { PourQui } from './PourQui/PourQui';
+import { QuEstCeQueLeMentorat } from './QuEstCeQueLeMentorat/QuEstCeQueLeMentorat';
 
 export default function JeDeviensMentor() {
   return (
@@ -26,13 +27,6 @@ export default function JeDeviensMentor() {
     </>
   );
 }
-
-const quEstCeQueLeMentorat = `
-Qu'est-ce que le mentorat ?
-===========================
-
-Le mentorat est un engagement personnel pour le mentor comme pour le jeune mentoré, basé sur le volontariat de chaque côté, la confiance, la bienveillance et le respect mutuel. Il s'inscrit dans la durée : le "binôme" que forment le mentor et le jeune se rencontre plusieurs heures par mois, pendant au moins six mois. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.
-`;
 
 const siVousÊtesEmployeur = `
 #### Si vous êtes employeur :
@@ -54,19 +48,6 @@ const siVousÊtesCitoyen = `
 *   Le mentorat permettra également la mise en valeur de votre entreprise et de vos métiers
 `;
 
-
-function QuEstCeQueLeMentorat() {
-  const { isLargeScreen } = useBreakpoint();
-  if (!isLargeScreen) {
-    return (<></>);
-  }
-  return (
-    <article className={styles.quEstCeQueLeMentorat}>
-      <Image src="/icons/community.svg" alt="" layout="fixed" width={120} height={120} />
-      <Marked markdown={quEstCeQueLeMentorat} />
-    </article>
-  );
-}
 
 function Pourquoi() {
   const { isLargeScreen } = useBreakpoint();
