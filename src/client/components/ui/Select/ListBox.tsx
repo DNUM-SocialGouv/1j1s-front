@@ -25,9 +25,7 @@ export function ListBox(props: ListBoxProps) {
   const listBoxRef = useRef<HTMLUListElement>(null);
   const [id, setId] = useState('');
 
-  const isCurrentItemChecked = (option: Option): boolean => {
-    return selectedValue.split(',').includes(option.valeur);
-  };
+  const isCurrentItemChecked = (option: Option): boolean => selectedValue.split(',').includes(option.valeur);
   
   const isCurrentItemSelected = (option: Option): boolean => selectedValue === option.valeur;
 
