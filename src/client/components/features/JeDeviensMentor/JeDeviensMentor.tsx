@@ -4,13 +4,11 @@ import React from 'react';
 import AidesExceptionnelles
   from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import styles from '~/client/components/features/JeDeviensMentor/JeDeviensMentor.module.scss';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-import { Container } from '../../layouts/Container/Container';
-import { SectionLayout } from '../../layouts/Section/SectionLayout';
+import { PourQui } from './PourQui/PourQui';
 
 export default function JeDeviensMentor() {
   return (
@@ -28,19 +26,6 @@ export default function JeDeviensMentor() {
     </>
   );
 }
-
-const contenuHeader = `
-1 jeune 1 mentor, accompagner un jeune pour l'aider à réussir
-=============================================================
-
-Faire la rencontre qui change tout !
-
-*   **Vous êtes employeur ou citoyen et souhaitez devenir mentor ?**  
-    Embarquer dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l'égalité des chances et continuer à apprendre en accompagnant un jeune.
-
-*   **Votre entreprise recrute ou porte une initiative pour les jeunes ? Rejoignez la mobilisation !**  
-    Permettez à votre entreprise d’apporter des solutions pour les jeunes, rejoignez des milliers d’entreprises déjà engagées et bénéficiez de services inédits.
-`;
 
 const quEstCeQueLeMentorat = `
 Qu'est-ce que le mentorat ?
@@ -81,30 +66,6 @@ function QuEstCeQueLeMentorat() {
       <Marked markdown={quEstCeQueLeMentorat} />
     </article>
   );
-}
-
-function PourQui() {
-  return (
-    <SectionLayout className={styles.heading}>
-      <Container>
-        <Marked markdown={contenuHeader} />
-
-        <div className={styles.linkAsButtonWrapper}>
-          <LinkAsButton
-            href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution"
-            target="_blank"
-          >
-                    Je deviens mentor
-          </LinkAsButton>
-          <LinkAsButton
-            href="/les-entreprises-s-engagent"
-            className={styles.linkAsButtonMentorat}
-          >
-                    J&apos;engage mon entreprise
-          </LinkAsButton>
-        </div>
-      </Container>
-    </SectionLayout>);
 }
 
 function Pourquoi() {
