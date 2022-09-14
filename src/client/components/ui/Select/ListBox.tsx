@@ -88,7 +88,6 @@ export function ListBox(props: ListBoxProps) {
     <ul
       className={styles.options}
       role="listbox"
-      tabIndex={0}
       aria-activedescendant={id}
       ref={listBoxRef}
       aria-multiselectable={multiple}
