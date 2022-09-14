@@ -1,0 +1,89 @@
+@import "@styles/utilities";
+
+.monEspace {
+  margin: 0 auto;
+  padding: 2.5rem 1.75rem;
+  text-align: center;
+  background-color: $color-background-white-lilac;
+
+  &Titre {
+    color: $color-primary;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.75rem;
+  }
+
+  &Accroche {
+    color: $color-secondary;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  &Description {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  &Connexion {
+    margin-bottom: 0.5rem;
+  }
+
+  &Inscription {
+    background-color: transparent !important;
+    color: $color-primary !important;
+
+    &Lien {
+      text-align: left;
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: 1fr 10fr;
+      align-items: center;
+      line-height: 1.5rem;
+    }
+  }
+}
+
+@include media(large) {
+  .monEspace {
+    padding: 3rem;
+
+    &Titre {
+      color: $color-primary;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    &Accroche {
+      font-weight: 400;
+      font-size: 2rem;
+      color: $color-secondary;
+      margin-bottom: 3.5rem;
+    }
+
+    &Description {
+      margin: 0 auto 3.5rem;
+      max-width: 42em;
+      line-height: 2rem;
+      font-size: 1.25rem;
+    }
+
+    &Connexion {
+      padding: 1rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+
+    &Inscription {
+      font-size: 1.25rem;
+
+      &Lien {
+        display: grid;
+        grid-template-columns: 1fr 10fr;
+        align-items: center;
+      }
+    }
+  }
+}
