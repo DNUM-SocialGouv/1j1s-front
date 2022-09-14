@@ -99,7 +99,7 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           aria-haspopup="listbox"
           aria-expanded={isOptionListOpen}
           aria-labelledby={labelledBy.current}
-          className={styles.button}
+          className={classNames(styles.button, error ? styles.buttonInvalid : '')}
           onClick={() => { setIsOptionListOpen(!isOptionListOpen); }}
           onBlur={() => required ? setIsTouched(true) : undefined}
         >
@@ -112,12 +112,16 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
                 optionList={optionList}
                 setSelectedValue={setSelectedValue}
                 setIsOptionListOpen={setIsOptionListOpen}
-                aria-invalid={ !!error }
-                aria-errormessage={ error && errorMessageBy.current }
                 multiple={multiple || false}
                 onChange={onChange}
               />}
-        <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
+        <input
+          type="hidden"
+          name={name}
+          value={selectedValue}
+          aria-invalid={ !!error }
+          aria-errormessage={ error && errorMessageBy.current }
+          data-testid='Select-InputHidden' />
         
       </div>
       {(error) && (

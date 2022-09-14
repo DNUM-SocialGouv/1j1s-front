@@ -68,8 +68,11 @@ describe('<FormulaireDeContactCEJ />', () => {
     // When
     await userEvent.click(screen.getByLabelText('Age'));
     await userEvent.click(screen.getByLabelText('Nom'));
+    // When
+    const input = await screen.findByTestId('Select-InputHidden');
+
     // Then
-    expect(screen.getByLabelText('Age')).toBeInvalid();
+    expect(input).toBeInvalid();
   });
   describe('Quand l’utilisateur clique sur Envoyer la demande', () => {
     describe('et que le formulaire est valide', () => {

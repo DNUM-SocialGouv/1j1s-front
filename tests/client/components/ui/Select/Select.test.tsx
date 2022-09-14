@@ -33,9 +33,9 @@ describe('Select', () => {
       await screen.findByRole('listbox');
 
       //THEN
-      expect(screen.getByRole('option', { name: 'Temps plein' })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: 'Temps partiel' })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: 'Indifférent' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
     });
 
     it('quand on sélectionne une valeur, met la valeur selectionné dans l\'input', async () => {
@@ -52,7 +52,7 @@ describe('Select', () => {
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       fireEvent.click(button);
       const listbox = screen.getByRole('listbox');
-      const input = within(listbox).getByRole('option', { name: 'Temps plein' });
+      const input = within(listbox).getByRole('radio', { name: 'Temps plein' });
       fireEvent.click(input);
 
       //THEN
@@ -66,7 +66,7 @@ describe('Select', () => {
     });
 
     describe('Quand le champ est requis', () => {
-      it("n'est pas invalide tant que l'on ne l'a pas touché", () => {
+      it("n'est pas invalide tant que l'on ne l'a pas touché", async () => {
         // Given
         render(
           <Select 
@@ -76,10 +76,14 @@ describe('Select', () => {
             label="Mon Select"
           />,
         );
+
         // When
+        const input = await screen.findByTestId('Select-InputHidden');
+
         // Then
-        expect(screen.getByLabelText('Mon Select')).not.toBeInvalid();
+        expect(input).not.toBeInvalid();
       });
+
       describe("Quand on ouvre la liste d'option mais qu'on perd le focus", () => {
         it('est invalide', async () => {
           // Given
@@ -99,9 +103,13 @@ describe('Select', () => {
           await userEvent.click(screen.getByLabelText('Mon Select'));
           await userEvent.click(screen.getByText('escape'));
 
+          // When
+          const input = await screen.findByTestId('Select-InputHidden');
+
           // Then
-          expect(screen.getByLabelText('Mon Select')).toBeInvalid();
+          expect(input).toBeInvalid();
         });
+
         it("a un message d'erreur", async () => {
           // Given
           render(
@@ -121,7 +129,8 @@ describe('Select', () => {
           await userEvent.click(screen.getByText('escape'));
 
           // Then
-          expect(screen.getByLabelText('Mon Select')).toHaveErrorMessage('Veuillez selectionner un choix');
+          const input = await screen.findByTestId('Select-InputHidden');
+          expect(input).toHaveErrorMessage('Veuillez selectionner un choix');
         });
       });
     });
@@ -146,10 +155,10 @@ describe('Select', () => {
       await screen.findByRole('listbox');
 
       //THEN
-      expect(screen.getByRole('option', { name: 'CDD' })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: 'CDI' })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: 'Intérim' })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: 'Saisonnier' })).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: 'CDD' })).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: 'CDI' })).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: 'Intérim' })).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: 'Saisonnier' })).toBeInTheDocument();
     });
 
     it('quand on sélectionne une valeur, met la valeur sélectionnée dans l\'input', async () => {
@@ -167,7 +176,7 @@ describe('Select', () => {
       const button = screen.getByRole('button', { name: 'Type de contrat' });
       fireEvent.click(button);
       const listbox = await screen.findByRole('listbox');
-      const input = within(listbox).getAllByRole('option');
+      const input = within(listbox).getAllByRole('checkbox');
       fireEvent.click(input[1]);
 
       //THEN

@@ -145,7 +145,7 @@ describe('FormulaireRechercheAlternance', () => {
         expect(optionsRadius).toBeInTheDocument();
       });
 
-      const inputRadius = within(optionsRadius).getAllByRole('option');
+      const inputRadius = within(optionsRadius).getAllByRole('radio');
       fireEvent.click(inputRadius[1]);
       fireEvent.click(buttonRechercher);
 
