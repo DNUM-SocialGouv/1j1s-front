@@ -1,5 +1,6 @@
-import Link from 'next/link';
 import React, { MouseEventHandler } from 'react';
+
+import { Link } from '~/client/components/ui/Link/Link';
 
 interface NavSubItemProps {
   title: string

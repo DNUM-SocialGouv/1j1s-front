@@ -32,7 +32,7 @@ describe('RésultatRechercherSolution', () => {
     );
 
     const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l\'offre' });
-    const lienVersOffreEmploi = screen.getByTestId('RésultatRechercherSolution');
+    const lienVersOffreEmploi = screen.getByRole('link');
 
     expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(4);
     expect(lienVersOffreEmploi).toHaveAttribute('href', `/emplois/${offreEmploi.id}`);
