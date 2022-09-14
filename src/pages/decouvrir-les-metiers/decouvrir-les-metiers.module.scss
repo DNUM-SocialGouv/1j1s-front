@@ -142,3 +142,28 @@
     padding-inline: 0;
   }
 }
+
+.partnerInfo {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  &Title {
+    border-bottom: 1px solid darken(#ECECFF, 10%);
+    border-top: 1px solid darken(#ECECFF, 10%);
+    padding: 1rem;
+    text-align: center;
+    background-color: #ECECFF;
+    @extend %text-medium;
+    @extend %bold;
+  }
+
+  &Icon {
+    color: $color-primary;
+    vertical-align: bottom;
+    margin-right: 0.5rem;
+  }
+
+  span {
+    line-height: 1.6rem;
+  }
+}

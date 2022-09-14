@@ -72,11 +72,13 @@ function mapFicheMetierNestedFieldList(nestedFieldList: FicheMétierHttpNestedFi
   return nestedFieldList.map((field) => mapFicheMetierNestedField(field));
 }
 
+const capitalizeFirstLetter = (sentence: string) => `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}` || '';
+
 function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): FicheMetierNestedField {
   return {
     id: nestedField.id,
     idOnisep: nestedField.identifiant,
-    libelle: nestedField.libelle,
+    libelle: capitalizeFirstLetter(nestedField.libelle),
   };
 }
 

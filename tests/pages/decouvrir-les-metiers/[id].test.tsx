@@ -25,7 +25,7 @@ describe('Page consulter fiche métier', () => {
       const sections = await screen.findAllByRole('heading', { level: 2 });
 
       expect(nomMetier).toBeInTheDocument();
-      expect(sections.length).toEqual(6);
+      expect(sections.length).toEqual(7);
     });
   });
 });

@@ -26,35 +26,35 @@ export function ConsulterFicheMetier({ ficheMetier }: { ficheMetier: FicheMétie
 
   const displayedNomMetier = useMemo(() => capitalizeFirstLetter(nomMetier), [nomMetier]);
   const displayedNiveauAccesMin = useMemo(() =>
-    niveauAccesMin.map((niveau) => capitalizeFirstLetter(niveau.libelle)).join(', '), [niveauAccesMin]);
+    niveauAccesMin.map((niveau) => niveau.libelle).join(', '), [niveauAccesMin]);
   const displayedStatuts = useMemo(() =>
-    statuts.map((statut) => capitalizeFirstLetter(statut.libelle)).join(', '), [statuts]);
+    statuts.map((statut) => statut.libelle).join(', '), [statuts]);
   const displayedCentresInteret = useMemo(() =>
-    centresInteret.map((centre) => capitalizeFirstLetter(centre.libelle)), [centresInteret]);
+    centresInteret.map((centre) => centre.libelle), [centresInteret]);
 	
   return (
     <>
       <section className={styles.section}>
 			 <h1 className={styles.mainTitle}>{displayedNomMetier}</h1>
 			 <div className={classNames(styles.sectionContent, styles.abstractSection)}>
-				 <div className={styles.fieldDomaine}>
+				 {secteursActivite.length > 0 && <div className={styles.fieldDomaine}>
 					 <span className={styles.fieldLabel}>Domaine(s) :</span>
 					 <div className={styles.fieldContent}>
 						 <TagList list={secteursActivite.map((fiche) => fiche.libelle)} />
 					 </div>
-				 </div>
-				 <div className={styles.fieldRésumé}>
+				 </div>}
+				 {accrocheMetier && <div className={styles.fieldRésumé}>
 					 <span className={styles.fieldLabel}>Résumé :</span>
 					 {accrocheMetier && <div className={styles.fieldContent} dangerouslySetInnerHTML={{ __html: accrocheMetier }} />}
-				 </div>
-				 <div className={styles.fieldNiveauAccès}>
+				 </div>}
+				 {niveauAccesMin.length > 0 && <div className={styles.fieldNiveauAccès}>
 					 <span className={styles.fieldLabel}>Niveau d&apos;accès minimum :</span>
 					 {niveauAccesMin && <div className={styles.fieldContent}>{displayedNiveauAccesMin}</div>}
-				 </div>
-				 <div className={styles.fieldStatutsPro}>
+				 </div>}
+				 {statuts.length > 0 && <div className={styles.fieldStatutsPro}>
 					 <span className={styles.fieldLabel}>Statuts professionnels :</span>
 					 {statuts && <div className={styles.fieldContent}>{displayedStatuts}</div>}
-				 </div>
+				 </div>}
 			 </div>
       </section>
       {natureTravail && <FoldingSection innerHtmlContent={natureTravail} title="Nature du travail" isOpen={true} />}

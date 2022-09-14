@@ -21,8 +21,10 @@
     color: $color-primary;
     @extend %bold;
   }
-  @include media(large) {
+
+  @include media(xlarge) {
     margin: auto;
+    padding-inline: 0;
   }
 }
 

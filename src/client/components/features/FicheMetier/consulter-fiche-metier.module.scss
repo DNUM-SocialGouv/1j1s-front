@@ -66,10 +66,11 @@
 .abstractSection {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  row-gap: 1rem;
+  column-gap: 1.5rem;
 
   @include media(large) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 0.5fr 1fr;
     grid-auto-flow: column;
   }
 }
@@ -85,12 +86,19 @@
 
 .fieldDomaine, .fieldRésumé {
   @include media(large) {
-    grid-column-start: span 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
   }
 
   .fieldContent {
     display: inline-block;
     vertical-align: sub;
+  }
+}
+
+.fieldDomaine .fieldContent {
+  @include media(medium) {
+    max-width: 75%;
   }
 }
 
