@@ -9,7 +9,7 @@ import React from 'react';
 
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
 
-import { MeilsearchCustomPagination } from '../MeilsearchCustomPagination';
+import { MeiliSearchCustomPagination } from '../MeiliSearchCustomPagination';
 
 declare type CreateURL<TValue> = (value: TValue) => string;
 
@@ -44,7 +44,7 @@ describe('MeilisearchCustomPagination', () => {
         it('Revenir à la première page et Revenir à la page précédente doivent etre disable et Aller à la page suivante et Aller à la dernière page doivent etre enable', () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
@@ -63,7 +63,7 @@ describe('MeilisearchCustomPagination', () => {
         it('Revenir à la première page, Revenir à la page précédente, Aller à la page suivante, Aller à la dernière page doivent etre enable', async () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
@@ -75,7 +75,7 @@ describe('MeilisearchCustomPagination', () => {
         it('affiche "…" dans le document', async () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.getByText('…')).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe('MeilisearchCustomPagination', () => {
         it('n’affiche pas "…" dans le document', async () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.queryByText('…')).not.toBeInTheDocument();
@@ -106,7 +106,7 @@ describe('MeilisearchCustomPagination', () => {
         it('n’affiche pas "…" dans le document', async () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.queryByText('…')).not.toBeInTheDocument();
@@ -122,7 +122,7 @@ describe('MeilisearchCustomPagination', () => {
         it('Revenir à la première page, Revenir à la page précédente doivent etre enable et Aller à la page suivante, Aller à la dernière page doivent etre disable', async () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
@@ -134,7 +134,7 @@ describe('MeilisearchCustomPagination', () => {
         it('n’affiche pas "…" dans le document', async () => {
           // WHEN
           render(
-            <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
           );
           // THEN
           expect(screen.queryByText('…')).not.toBeInTheDocument();
@@ -163,7 +163,7 @@ describe('MeilisearchCustomPagination', () => {
       it('affiche une liste', () => {
         // WHEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         // THEN
         expect(screen.getByRole('list')).toBeInTheDocument();
@@ -172,7 +172,7 @@ describe('MeilisearchCustomPagination', () => {
       it('affiche 2 (première page et précédent) + 4 (pages) + 2 (prochain et dernière page) éléments', () => {
         // WHEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         // THEN
         expect(screen.getByRole('list').childNodes.length).toEqual(8);
@@ -182,19 +182,19 @@ describe('MeilisearchCustomPagination', () => {
       it('affiche 1, 2, 3 et 4 en lien dans les éléments de la liste', () => {
         // WHEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         // THEN
-        expect(screen.getByRole('link', { current: false, name: 'Page numéro 1' })).toBeInTheDocument();
-        expect(screen.getByRole('link', { current: false, name: 'Page numéro 2' })).toBeInTheDocument();
-        expect(screen.getByRole('link', { current: false, name: 'Page numéro 3' })).toBeInTheDocument();
-        expect(screen.getByRole('link', { current: true, name: 'Page numéro 4' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { current: false, name: '1' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { current: false, name: '2' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { current: false, name: '3' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { current: true, name: '4' })).toBeInTheDocument();
       });
 
       it('refine la première page au clic sur le <<', () => {
         // GIVEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         const lien = screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE });
         // WHEN
@@ -207,9 +207,9 @@ describe('MeilisearchCustomPagination', () => {
       it('refine la première page au clic sur le 1', () => {
         // GIVEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
-        const lien = screen.getByRole('link', { current: false, name: 'Page numéro 1' });
+        const lien = screen.getByRole('link', { current: false, name: '1' });
         // WHEN
         fireEvent.click(lien);
         // THEN
@@ -220,7 +220,7 @@ describe('MeilisearchCustomPagination', () => {
       it('refine la deuxième page au clic sur page suivante', () => {
         // GIVEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         const lien = screen.getByRole('link', { current: false, name: REVENIR_A_LA_PAGE_PRECENDENTE });
         // WHEN
@@ -233,9 +233,9 @@ describe('MeilisearchCustomPagination', () => {
       it('refine la deuxième page au clic sur le 2', () => {
         // GIVEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
-        const lien = screen.getByRole('link', { current: false, name: 'Page numéro 2' });
+        const lien = screen.getByRole('link', { current: false, name: '2' });
         // WHEN
         fireEvent.click(lien);
         // THEN
@@ -246,7 +246,7 @@ describe('MeilisearchCustomPagination', () => {
       it('refine la dernière page au clic sur la derniere page', () => {
         // GIVEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         const lien = screen.getByRole('link', { current: false, name: ALLER_A_LA_PAGE_SUIVANTE });
         // WHEN
@@ -259,7 +259,7 @@ describe('MeilisearchCustomPagination', () => {
       it('refine la page suivante au clic sur le page suivante', () => {
         // GIVEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         const lien = screen.getByRole('link', { current: false, name: ALLER_A_LA_PAGE_SUIVANTE });
         // WHEN
@@ -291,7 +291,7 @@ describe('MeilisearchCustomPagination', () => {
       it('n affiche pas la pagination', () => {
         // WHEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         // THEN
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -319,7 +319,7 @@ describe('MeilisearchCustomPagination', () => {
       it('n affiche pas la pagination', () => {
         // WHEN
         render(
-          <MeilsearchCustomPagination numberOfResultPerPage={15} />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} />,
         );
         // THEN
         expect(screen.queryByRole('list')).not.toBeInTheDocument();

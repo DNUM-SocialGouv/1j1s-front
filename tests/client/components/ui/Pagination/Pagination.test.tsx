@@ -3,6 +3,7 @@
  */
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
 import React from 'react';
@@ -140,7 +141,7 @@ describe('Pagination', () => {
 
         // l'utilisateur clique sur la troisière page
         const page3 = screen.getByRole('link', { current: false, name: '3' });
-        fireEvent.click(page3);
+        await userEvent.click(page3);
 
         // met à jour avec la page 3 dans l'url
         expect(screen.getByRole('link', { current: true, name: '3' })).toBeInTheDocument();
@@ -148,7 +149,7 @@ describe('Pagination', () => {
 
         // l'utilisateur clique sur la page suivante
         const goToNextPage = screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE });
-        fireEvent.click(goToNextPage);
+        await userEvent.click(goToNextPage);
 
         // met à jour avec la page 4 dans l'url
         expect(screen.getByRole('link', { current: false, name: '3' })).toBeInTheDocument();
@@ -157,15 +158,16 @@ describe('Pagination', () => {
 
         // l'utilisateur clique sur la page précédente
         const returnToPreviousPage = screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE });
-        fireEvent.click(returnToPreviousPage);
+        await userEvent.click(returnToPreviousPage);
 
         // met à jour avec la page 3 dans l'url
+        expect(screen.getByRole('link', { current: false, name: '4' })).toBeInTheDocument();
         expect(screen.getByRole('link', { current: true, name: '3' })).toBeInTheDocument();
         expect(routerPush).toHaveBeenCalledWith({ query: { page: 3 } });
 
         // l'utilisateur clique sur go to last page
         const goToLastPage = screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE });
-        fireEvent.click(goToLastPage);
+        await userEvent.click(goToLastPage);
 
         // met à jour avec la page 16 dans l'url
         expect(screen.getByRole('link', { current: true, name: '16' })).toBeInTheDocument();
@@ -173,7 +175,7 @@ describe('Pagination', () => {
 
         // l'utilisateur clique sur return to fisrt page
         const returnToFirstPage = screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE });
-        fireEvent.click(returnToFirstPage);
+        await userEvent.click(returnToFirstPage);
 
         // met à jour avec la page 1 dans l'url
         expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();

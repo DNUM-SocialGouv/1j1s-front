@@ -6,9 +6,9 @@ import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { Hero } from '~/client/components/ui/Hero/Hero';
+import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
-import { MeilsearchCustomPagination } from '~/client/components/ui/Meilisearch/MeilsearchCustomPagination';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import styles from '~/pages/stages/RechercherStagePage.module.scss';
@@ -97,7 +97,7 @@ export default function RechercherOffreStagePage() {
                   root: styles.stageListeRootElement,
                 }
               }/>
-            <MeilsearchCustomPagination
+            <MeiliSearchCustomPagination
               padding={0}
               numberOfResultPerPage={HITS_PER_PAGE}
             />
