@@ -12,33 +12,30 @@ $color-tag: #EEEEEE;
 }
 
 .stageForm {
+  flex-direction: row;
+  align-items: start;
   padding-top: 40px;
   padding-bottom: 40px;
 }
 
-.stageSelectWrapper {
-  width: 100%;
-  display: inline-flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.formWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
 }
 
 input.stageInputElement {
-  font-family: 'Marianne';
   background-color: $color-background;
   border: 1px solid $color-primary;
   border-radius: 1.25rem;
-  width: 50%;
   color: $color-on-background;
+  height: 2.5rem;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  padding: .5rem 1rem;
-  margin: 0 auto;
-  display: inline-block;
-}
-
-.stageRootElement {
-  padding: 1rem 0;
+  padding: 0 16px;
+  margin-top: 0.5rem;
+  flex-grow: 1;
+  width: 100%;
 }
 
 .stageListeRootElement > ol li {
@@ -54,10 +51,14 @@ input.stageInputElement {
   padding: 0;
 }
 
-.stageTagItem {
-  display: inline;
+.stageTagItem:first-letter {
+  text-transform: capitalize;
 }
 
+.stageTagItem{
+  display: inline;
+}
+//TODO: retirer inline flex
 .stageTagCategoryElement {
   display: inline-flex;
   flex-wrap: wrap;

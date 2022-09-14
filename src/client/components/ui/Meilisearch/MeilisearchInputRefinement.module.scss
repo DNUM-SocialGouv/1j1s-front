@@ -1,0 +1,52 @@
+@import "@styles/utilities";
+
+.suggestionList {
+  z-index: 2;
+  position: absolute;
+  padding: 8px;
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  background-color: $color-background;
+  margin: 4px 0 0 0;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.suggestionList > li {
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+.suggestionList > li:hover, .hover, .suggestionList > li[aria-selected=true] {
+  background-color: rgba(3, 15, 143, .05);
+}
+
+.suggestionList>li:first-letter{
+  text-transform: capitalize;
+}
+
+.aucunRésultat {
+  padding: 0.5rem;
+}
+
+.formInput {
+  position: relative;
+}
+.formControl {
+  &Input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0 16px;
+    border-radius: 1.25rem;
+    border: solid 1px $color-on-surface;
+    background-color: $color-form-field;
+    margin-top: 0.5rem;
+
+    &:active, &:focus {
+      border-color: $color-primary;
+    }
+  }
+}
