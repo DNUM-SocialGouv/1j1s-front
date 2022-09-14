@@ -165,7 +165,7 @@ export interface OffreEmploiFiltreLocalisation {
   code: string
 }
 
-export const NOMBRE_RÉSULTATS_PAR_PAGE = 30;
+export const NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE = 15;
 
 export interface RéférentielDomaine {
   code: string

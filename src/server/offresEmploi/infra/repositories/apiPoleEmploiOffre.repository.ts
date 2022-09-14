@@ -1,7 +1,8 @@
-import { Either } from '~/server/errors/either';
+import { createFailure, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
-  NOMBRE_RÉSULTATS_PAR_PAGE,
+  NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE,
   OffreEmploi,
   OffreEmploiFiltre,
   OffreEmploiId,
@@ -28,6 +29,8 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   ) {}
 
+  private MAX_AUTHORIZED_RANGE = 1000;
+
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
     return await this.httpClientServiceWithAuthentification.get<OffreEmploiResponse, OffreEmploi>(
       `/${id}`,
@@ -37,14 +40,20 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
-    return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
-      `/search?${paramètresRecherche}`,
-      mapRésultatsRechercheOffreEmploi,
-    );
+    if(paramètresRecherche) {
+      return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
+        `/search?${paramètresRecherche}`,
+        mapRésultatsRechercheOffreEmploi,
+      );
+    }
+    return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
   }
 
-  async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string> {
-    const range = `${(offreEmploiFiltre.page - 1) * NOMBRE_RÉSULTATS_PAR_PAGE}-${offreEmploiFiltre.page * NOMBRE_RÉSULTATS_PAR_PAGE - 1}`;
+  async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string | undefined> {
+    if((offreEmploiFiltre.page * NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE - 1) > this.MAX_AUTHORIZED_RANGE) {
+      return undefined;
+    }
+    const range = `${(offreEmploiFiltre.page - 1) * NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}-${offreEmploiFiltre.page * NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE - 1}`;
 
     const localisation = await this.buildParamètreLocalisation(offreEmploiFiltre);
 

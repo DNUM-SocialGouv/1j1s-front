@@ -13,9 +13,9 @@ import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/off
 describe('rechercher un job étudiant', () => {
   it('retourne la liste des jobs étudiants filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
-      .get('/search?motsCles=boulanger&range=0-29&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
+      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
       .reply(401)
-      .get('/search?motsCles=boulanger&range=0-29&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
+      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
