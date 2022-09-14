@@ -13,7 +13,7 @@ import { aFicheMetierResult } from '@tests/fixtures/domain/ficheMetier.fixture';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import RechercherFicheMetierPage from '~/pages/decouvrir-les-metiers';
 
-describe('DécouvrirLesMétiersRechercher', () => {
+describe('Page rechercher fiche métier', () => {
   beforeEach(() => {
     mockSmallScreen();
   });

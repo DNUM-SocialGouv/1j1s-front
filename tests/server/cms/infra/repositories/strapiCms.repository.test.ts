@@ -1,13 +1,21 @@
 import { anArticle } from '@tests/fixtures/domain/article.fixture';
+import { aFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
 import { aMesuresJeunes } from '@tests/fixtures/domain/mesuresJeunes.fixture';
 import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
 
 import { Article } from '~/server/cms/domain/article';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
-import { mapArticle, mapMentionObligatoire,mapMesuresJeunes } from '~/server/cms/infra/repositories/strapi.mapper';
+import {
+  mapArticle,
+  mapFicheMetier,
+  mapMentionObligatoire,
+  mapMesuresJeunes,
+} from '~/server/cms/infra/repositories/strapi.mapper';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
-import { createSuccess, Success } from '~/server/errors/either';
+import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 describe('strapi cms repository', () => {
@@ -28,6 +36,44 @@ describe('strapi cms repository', () => {
 
         expect(result.result).toEqual(expectedArticle);
         expect(httpClientService.get).toHaveBeenCalledWith(`articles?filters[slug][$eq]=${slug}&populate[0]=banniere`, mapArticle);
+      });
+    });
+  });
+
+  describe('getFicheMetierByNom', () => {
+    const nomMetier = 'Mon super metier';
+    const expectedFicheMetier = aFicheMetier();
+
+    beforeEach(() => {
+      httpClientService = aStrapiHttpClientService();
+      strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+    });
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+    it('appelle l\'endpoint avec les bons paramètres', async () => {
+      jest.spyOn(httpClientService, 'get');
+
+      await strapiCmsRepository.getFicheMetierByNom(nomMetier);
+
+      expect(httpClientService.get).toHaveBeenCalledWith(`fiche-metiers?filters[nom_metier][$eq]=${encodeURIComponent(nomMetier)}&populate=%2A`, mapFicheMetier);
+    });
+    describe('Si une fiche métier est trouvée', () => {
+      it('récupère la fiche métier selon le nom', async () => {
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(expectedFicheMetier));
+
+        const result = await strapiCmsRepository.getFicheMetierByNom(nomMetier) as Success<FicheMétier>;
+
+        expect(result.result).toEqual(expectedFicheMetier);
+      });
+    });
+    describe('Si aucune fiche métier n\'est trouvée', () => {
+      it('retourne une erreur', async () => {
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+
+        const result = await strapiCmsRepository.getFicheMetierByNom(nomMetier) as Failure;
+
+        expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
       });
     });
   });

@@ -1,0 +1,80 @@
+import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import React from 'react';
+
+import { ConsulterFicheMetier } from '~/client/components/features/FicheMetier/ConsulterFicheMetier';
+import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import { dependencies } from '~/server/start';
+
+import styles from './decouvrir-les-metiers.module.scss';
+
+interface ConsulterFicheMetierPageProps {
+	ficheMetier: FicheMétier
+}
+
+export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
+  if (!ficheMetier) return null;
+
+  return (
+    <>
+      <HeadTag title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`} />
+      <main id="contenu">
+        <Container className={styles.container}>
+          <ConsulterFicheMetier ficheMetier={ficheMetier} />
+        </Container>
+        <SectionLayout isBackgroundWhite={false}>
+          <h2 className={styles.partnerInfoTitle}>Informations fournies par ONISEP</h2>
+          <Container className={styles.container}>
+            <PartnerCard
+              logo="/images/logos/onisep.svg"
+              link="https://www.onisep.fr/"
+              description="L'Onisep est un établissement public, sous tutelle du ministère de l'Education nationale, de la Jeunesse et des Sports, et du ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation. Il a pour mission d'informer sur les secteurs professionnels, les métiers et les formations via ses productions numériques, imprimées, et ses services. Il accompagne les familles et les équipes éducatives en leur fournissant des ressources, des outils et dispositifs permettant de construire un parcours de formation et un projet professionnel tout au long de la vie."
+              linkLabel="Aller sur le site de l’ONISEP"
+              alt="" />
+            <div className={styles.partnerInfo}>
+              <Icon name="information" className={styles.partnerInfoIcon}/>
+              <span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>
+            </div>
+          </Container>
+        </SectionLayout>
+      </main>
+    </>
+  );
+}
+
+interface FicheMetierContext extends ParsedUrlQuery {
+	id: string
+}
+
+export async function getStaticProps(context: GetStaticPropsContext<FicheMetierContext>): Promise<GetStaticPropsResult<ConsulterFicheMetierPageProps>> {
+  if (!context.params) {
+    throw new PageContextParamsException();
+  }
+
+  const { id } = context.params;
+  const response = await dependencies.cmsDependencies.consulterFicheMetier.handle(id);
+
+  if (response.instance === 'failure') {
+    return { notFound: true, revalidate: 1 };
+  }
+	
+  return {
+    props: {
+      ficheMetier: JSON.parse(JSON.stringify(response.result)),
+    },
+    revalidate: 86400,
+  };
+}
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  return {
+    fallback: true,
+    paths: [],
+  };
+}

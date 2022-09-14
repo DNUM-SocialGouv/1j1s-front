@@ -64,7 +64,7 @@ function mapFichesMetier(fichesMetiersHttp: Partial<FicheMétierHttp>[]): Partia
     id: ficheMetierHttp.id,
     idOnisep: ficheMetierHttp.identifiant,
     natureTravail: ficheMetierHttp.nature_travail,
-    niveauMinAcces: ficheMetierHttp.niveau_min_acces && mapFicheMetierNestedFieldList(ficheMetierHttp.niveau_min_acces),
+    niveauAccesMin: ficheMetierHttp.niveau_acces_min && mapFicheMetierNestedFieldList(ficheMetierHttp.niveau_acces_min),
     nomMetier: ficheMetierHttp.nom_metier,
     secteursActivite: ficheMetierHttp.secteurs_activite && mapFicheMetierNestedFieldList(ficheMetierHttp.secteurs_activite),
     statuts: ficheMetierHttp.statuts && mapFicheMetierNestedFieldStatutList(ficheMetierHttp.statuts),
