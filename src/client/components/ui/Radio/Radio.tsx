@@ -17,12 +17,11 @@ export function Radio({ id, label, className, ...rest } : RadioProps) {
   }, [id]);
 
   return (
-    <div className={classNames(styles.radioButton, className)} tabIndex={0}>
+    <div className={classNames(styles.radioButton, className)}>
       <input
         type="radio"
         {...rest}
         id={radioButtonId.current}
-        tabIndex={-1}
       />
       <label className={styles.label} htmlFor={radioButtonId.current}>
         {label}

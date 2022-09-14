@@ -20,12 +20,11 @@ export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
   }, [id]);
 
   return (
-    <div className={classNames(styles.checkbox, className)} tabIndex={0}>
+    <div className={classNames(styles.checkbox, className)}>
       <input
         type="checkbox"
         {...rest}
         id={checkboxId.current}
-        tabIndex={-1}
       />
       <label className={styles.label} htmlFor={checkboxId.current}>{label}</label>
     </div>
