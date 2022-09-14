@@ -35,8 +35,10 @@ export function ConsulterOffreLayout(props: React.PropsWithChildren<ConsulterOff
 
   return (
     <main id="contenu" className={styles.container}>
+      <div className={styles.layoutButton}>
+        { isButtonRetourVisible && <Button buttonType="secondary" onClick={handleRetour} aria-label={`Retour vers ${retour}`} icon={<AngleLeftIcon />}>Retour</Button>}
+      </div>
       <article className={styles.layout}>
-        { isButtonRetourVisible && <Button buttonType="linkWithLeftIcon" onClick={handleRetour} aria-label={`Retour vers ${retour}`} icon={<AngleLeftIcon />}>Retour</Button>}
         {children}
       </article>
     </main>

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
@@ -15,6 +15,10 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   const { isSmallScreen } = useBreakpoint();
 
   const router = useRouter();
+
+  const computedLienOffre: string = useMemo(() => {
+    return `${lienOffre}?from=${router.route}&params=${encodeURIComponent(stringify(router.query))}`;
+  }, []);
 
   const cardDescription = () => {
     return (
@@ -29,7 +33,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   };
 
   return (
-    <Link href={lienOffre + '?from=' + (router.route) + '&params=' + encodeURIComponent(stringify(router.query))} prefetch={false} as={lienOffre}>
+    <Link href={computedLienOffre} prefetch={false} as={lienOffre}>
       <a className={styles.card} data-testid="RésultatRechercherSolution">
         <header className={styles.cardHeader}>
           <div className={styles.cardImageWrapper}>
