@@ -1,0 +1,43 @@
+@import "@styles/utilities";
+
+.contenu {
+  padding: 3.5rem 2rem;
+  background-color: $color-background-white-lilac;
+
+  .container {
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+  }
+
+  h1 {
+    color: $color-primary;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    @extend %text-regular;
+    line-height: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .bouton {
+    text-align: center;
+  }
+}
+
+@include media(large) {
+  .contenu {
+    h1 {
+      font-size: 2rem;
+      line-height: 2.75rem;
+    }
+
+    p {
+      line-height: 2rem;
+      font-size: 1.5rem;
+    }
+  }
+}
