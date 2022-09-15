@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
-import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface ModalProps {
   isOpen: boolean;

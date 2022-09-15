@@ -9,13 +9,16 @@ import React, {
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import {
+  handleKeyBoardInteraction,
+  setFocusToSelectButton,
+} from '~/client/components/keyboard/select.keyboard';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
-import { KeyBoard } from '~/client/utils/keyboard.util';
-import { setFocusToSelectButton } from '~/client/utils/select.util';
 
 interface SelectProps {
   placeholder?: string
@@ -100,22 +103,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
     const currentItem = event.target as HTMLElement;
-    if (event.key === KeyBoard.ENTER || event.key === KeyBoard.TAB) event.preventDefault();
-    if (event.key === KeyBoard.ARROW_UP) {
-      if (currentItem.previousElementSibling !== null) {
-        const previousElement = currentItem.previousElementSibling as HTMLElement;
-        previousElement.focus();
-      }
-      event.preventDefault();
-    }
-    if (event.key === KeyBoard.ARROW_DOWN) {
-      if (currentItem.nextElementSibling !== null) {
-        const nextElement = currentItem.nextElementSibling as HTMLElement;
-        nextElement.focus();
-      }
-      event.preventDefault();
-    }
-    if (event.key === KeyBoard.SPACE) {
+    const updateValues = () => {
       const currentInput = currentItem.querySelector('input') ;
       if (currentInput === null ) return;
       const inputValue = currentInput.getAttribute('value');
@@ -125,8 +113,8 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
         setIsOptionListOpen(false);
         setFocusToSelectButton(currentItem);
       }
-      event.preventDefault();
-    }
+    };
+    handleKeyBoardInteraction(event, currentItem, updateValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedValue, multiple, setIsOptionListOpen, setSelectedValue]);
 

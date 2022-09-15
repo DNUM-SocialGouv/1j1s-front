@@ -190,3 +190,201 @@ describe('Select', () => {
     });
   });
 });
+
+describe('Keyboard Select', () => {
+  describe('Select Single', () => {
+    it('ouvre les options avec la touche space', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          placeholder={'Temps de travail'}
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          value=""
+        />,
+      );
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      button.focus();
+      await user.keyboard(' ');
+      await screen.findByRole('listbox');
+
+      //THEN
+      expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+    });
+
+    it('ferme les options avec la touche escape', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          placeholder={'Temps de travail'}
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          value=""
+        />,
+      );
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      button.focus();
+      await user.keyboard(' ');
+      const optionList = await screen.findByRole('listbox');
+
+      expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+
+      await user.keyboard('{Escape}');
+
+      expect(optionList).not.toBeInTheDocument();
+    });
+
+    it('a le focus sur la première option quand on ouvre la liste des options', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          placeholder={'Temps de travail'}
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          value=""
+        />,
+      );
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      button.focus();
+      await user.keyboard(' ');
+      const optionList = await screen.findByRole('listbox');
+      const firstOption = within(optionList).getAllByRole('option')[0];
+      const secondOption = within(optionList).getAllByRole('option')[1];
+
+      expect(firstOption).toHaveFocus();
+      expect(secondOption).not.toHaveFocus();
+    });
+
+    it('change le focus avec les touches arrow', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          placeholder={'Temps de travail'}
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          value=""
+        />,
+      );
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      button.focus();
+      await user.keyboard(' ');
+      const optionList = await screen.findByRole('listbox');
+      const firstOption = within(optionList).getAllByRole('option')[0];
+      const secondOption = within(optionList).getAllByRole('option')[1];
+
+      expect(firstOption).toHaveFocus();
+      expect(secondOption).not.toHaveFocus();
+
+      await user.keyboard('{ArrowDown}');
+
+      expect(firstOption).not.toHaveFocus();
+      expect(secondOption).toHaveFocus();
+
+      await user.keyboard('{ArrowUp}');
+
+      expect(firstOption).toHaveFocus();
+      expect(secondOption).not.toHaveFocus();
+    });
+
+    it('sélectionne une option avec la touche space ET ferme la liste des options', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          placeholder={'Temps de travail'}
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          value=""
+        />,
+      );
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      button.focus();
+      await user.keyboard(' ');
+      const optionList = await screen.findByRole('listbox');
+      const firstOption = within(optionList).getAllByRole('option')[0];
+
+      expect(firstOption).toHaveFocus();
+
+      await user.keyboard(' ');
+
+      await user.keyboard('{ArrowDown}');
+
+      const hiddenInput = await screen.findByTestId('Select-InputHidden');
+      expect(hiddenInput).toHaveValue('tempsPlein');
+
+      expect(optionList).not.toBeInTheDocument();
+
+    });
+
+    it('rend le focus au button select après avoir fermé les options', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          placeholder={'Temps de travail'}
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          value=""
+        />,
+      );
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      button.focus();
+      await user.keyboard(' ');
+      const optionList = await screen.findByRole('listbox');
+
+      expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+
+      await user.keyboard('{Escape}');
+
+      expect(optionList).not.toBeInTheDocument();
+
+      expect(button).toHaveFocus();
+    });
+  });
+
+  describe('Select Multiple', () => {
+    it('sélectionne une option avec la touche space ET ne ferme pas la liste des options', async () => {
+      const user = userEvent.setup();
+      render(
+        <Select
+          multiple
+          placeholder={'Type de contrat'}
+          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+          label={'Type de contrat'}
+        />,
+      );
+
+
+      const button = screen.getByRole('button', { name: 'Type de contrat' });
+      button.focus();
+      await user.keyboard(' ');
+      const optionList = await screen.findByRole('listbox');
+      const firstOption = within(optionList).getAllByRole('option')[0];
+      const secondOption = within(optionList).getAllByRole('option')[1];
+
+      expect(firstOption).toHaveFocus();
+
+      await user.keyboard(' ');
+      const hiddenInput = await screen.findByTestId('Select-InputHidden');
+      expect(hiddenInput).toHaveValue('CDD');
+      expect(optionList).toBeInTheDocument();
+
+      await user.keyboard('{ArrowDown}');
+      expect(secondOption).toHaveFocus();
+
+      await user.keyboard(' ');
+      expect(hiddenInput).toHaveValue('CDD,CDI');
+      expect(optionList).toBeInTheDocument();
+    });
+  });
+});
