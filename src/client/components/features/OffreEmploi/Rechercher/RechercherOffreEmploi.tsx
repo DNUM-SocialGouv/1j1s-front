@@ -34,6 +34,8 @@ export function RechercherOffreEmploi() {
   const offreEmploiQuery = useOffreEmploiQuery();
   const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
 
+  const MAX_PAGE = 65;
+
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
   const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
@@ -91,6 +93,7 @@ export function RechercherOffreEmploi() {
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapOffreEmploiToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
+          maxPage={MAX_PAGE}
         />
         <EnTeteSection heading="Découvrez des services faits pour vous"/>
         {PartnerCardList([

@@ -31,6 +31,8 @@ export function RechercherJobÉtudiant() {
   const offreEmploiQuery = useOffreEmploiQuery();
   const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
 
+  const MAX_PAGE = 65;
+
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
   const [jobÉtudiantList, setJobÉtudiantList] = useState<OffreEmploi[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
@@ -88,6 +90,7 @@ export function RechercherJobÉtudiant() {
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapJobÉtudiantToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
+          maxPage={MAX_PAGE}
         />
         {PartnerCardList([
           CIDJPartner().props,

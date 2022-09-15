@@ -7,8 +7,6 @@ import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-
 import styles from '~/client/components/ui/Pagination/Pagination.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-// DEVNOTE : c'est le max page autorisé pour l'api pole emploi
-const MAX_PAGE = 66;
 const NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE = 2;
 const NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE = 4;
 
@@ -20,16 +18,17 @@ export interface CommonPaginationProps {
   isFirstPage: boolean
   isLastPage: boolean
   lastPage: number
+  maxPage?: number
 }
 
-export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPage, numberOfPageList, lastPage, currentPage }: CommonPaginationProps) {
+export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPage, numberOfPageList, lastPage, currentPage, maxPage }: CommonPaginationProps) {
   const { isSmallScreen } = useBreakpoint();
   const numberOfElementToDisplayAfterAndBeforeCurrentPage = isSmallScreen && NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE || NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE;
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const computedNumberOfPageList = numberOfPageList.length > MAX_PAGE ? [...Array(MAX_PAGE).keys()] : numberOfPageList;
-  const computedLastPage = numberOfPageList.length > MAX_PAGE ? MAX_PAGE : lastPage;
+  const computedNumberOfPageList = (maxPage && numberOfPageList.length > maxPage) ? [...Array(maxPage).keys()] : numberOfPageList;
+  const computedLastPage = (maxPage && numberOfPageList.length > maxPage) ? maxPage : lastPage;
 
   const displayElement = (page: number) => {
     return <li key={page}>
@@ -84,7 +83,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
             }
           }}
         >
-          {isSmallScreen ? <AngleLeftIcon /> : <div className={styles.pagePrecendente}><AngleLeftIcon /> Page précédente</div>}
+          {isSmallScreen ? <AngleLeftIcon /> : <><AngleLeftIcon /> <span>Page précédente</span></>}
         </a>
       </li>
     </>;
@@ -116,7 +115,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
             }
           }}
         >
-          {isSmallScreen ? <AngleRightIcon /> : <div className={styles.pageSuivante}>Page suivante  <AngleRightIcon /></div>}
+          {isSmallScreen ? <AngleRightIcon /> : <><span>Page suivante</span>  <AngleRightIcon /></>}
         </a>
       </li>
       <li key='LastLiPagination'>

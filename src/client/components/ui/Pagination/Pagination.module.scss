@@ -4,24 +4,31 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 
-  & > li {
-    list-style-type: none;
-    padding-bottom: 0;
+  li {
     color: $color-on-surface;
 
-    & > a {
-      text-decoration: none;
-      box-shadow: none;
-      min-width: 2rem;
+    a {
       display: inline-flex;
       justify-content: center;
       vertical-align: middle;
-      line-height: 2rem;
     }
   }
 
-  & > li > a {
+  li:first-child > a {
+    padding: 0;
+    vertical-align: bottom;
+  }
+
+  li:last-child > a {
+    padding: 0;
+    vertical-align: bottom;
+  }
+
+  li > a {
+    padding: 0.5rem 1rem;
+
     &[aria-disabled="true"] {
       color: $color-on-disabled;
       pointer-events: none;
@@ -33,23 +40,4 @@
     }
   }
 
-}
-
-.page {
-
-  &Suivante {
-    margin-left: 1.75rem;
-    display: flex;
-    align-items: center;
-  }
-
-  &Precedente {
-    margin-right: 1.75rem;
-    display: flex;
-    align-items: center;
-  }
-}
-
-.ellipse {
-  width: 2rem;
 }

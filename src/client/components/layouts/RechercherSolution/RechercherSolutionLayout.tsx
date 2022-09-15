@@ -31,6 +31,7 @@ interface RechercherSolutionLayoutProps<T> {
   messageRésultatRecherche: string
   nombreSolutions: number
   paginationOffset?: number
+  maxPage?: number
   mapToLienSolution(data: T): LienSolution
 }
 
@@ -45,6 +46,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     mapToLienSolution,
     nombreSolutions,
     paginationOffset,
+    maxPage,
     isLoading,
   } = props;
   const router = useRouter();
@@ -99,7 +101,11 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                       </Skeleton>
                       {paginationOffset && nombreSolutions > paginationOffset &&
                       <div className={styles.pagination}>
-                        <Pagination numberOfResult={nombreSolutions} numberOfResultPerPage={paginationOffset}/>
+                        <Pagination
+                          numberOfResult={nombreSolutions}
+                          numberOfResultPerPage={paginationOffset}
+                          maxPage={maxPage}
+                        />
                       </div>
                       }
                     </Container>

@@ -33,7 +33,7 @@ describe('Pagination', () => {
       mockLargeScreen();
       mockUseRouter({});
       render(
-        <Pagination numberOfResult={70000} numberOfResultPerPage={15} />,
+        <Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66} />,
       );
 
       expect(screen.getByText('1')).toBeInTheDocument();
