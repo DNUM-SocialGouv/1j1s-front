@@ -106,11 +106,16 @@
   }
 }
 
+.iframeModal {
+  @include media(large) {
+    > div:first-child {
+      width: 40%;
+      max-width: 420px;
+    }
+  }
+}
 .iframe {
+
   width: 100%;
   height: 78rem;
-  @include media(large) {
-    margin-left: 6.5rem;
-  }
-
 }
