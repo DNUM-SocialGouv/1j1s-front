@@ -13,7 +13,7 @@ import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -114,8 +114,6 @@ function mapJobÉtudiantToLienSolution(offreEmploi: OffreEmploi): LienSolution {
 
 function BannièreJobÉtudiant() {
   return (
-    <Hero>
-      Des milliers de <b>jobs étudiants sélectionnés pour vous</b> par Pôle Emploi
-    </Hero>
+    <LightHero primaryText="Des milliers de jobs étudiants" secondaryText="sélectionnés pour vous par Pôle Emploi" />
   );
 }

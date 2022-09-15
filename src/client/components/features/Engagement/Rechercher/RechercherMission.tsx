@@ -10,7 +10,7 @@ import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -135,9 +135,8 @@ interface BannièreMissionProps {
 }
 
 function BannièreMission({ isServiceCivique }: BannièreMissionProps) {
+  const secondaryText = `grâce aux missions de ${isServiceCivique ? 'Service Civique' : 'Bénévolat'}`;
   return (
-    <Hero>
-      <b>Se rendre utile</b> tout en <b>préparant son avenir</b> grâce aux missions de <b>{isServiceCivique ? 'Service Civique' : 'Bénévolat'}</b>
-    </Hero>
+    <LightHero primaryText="Se rendre utile tout en préparant son avenir" secondaryText={secondaryText} />
   );
 }
