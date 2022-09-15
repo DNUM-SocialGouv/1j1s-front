@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { KeyBoard } from '@tests/fixtures/client/keyboard.fixture';
 import React from 'react';
 
 import { Select } from '~/client/components/ui/Select/Select';
@@ -206,7 +207,7 @@ describe('Keyboard Select', () => {
       );
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       await screen.findByRole('listbox');
 
       //THEN
@@ -228,14 +229,14 @@ describe('Keyboard Select', () => {
       );
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const optionList = await screen.findByRole('listbox');
 
       expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
       expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
       expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
 
-      await user.keyboard('{Escape}');
+      await user.keyboard(KeyBoard.ESCAPE);
 
       expect(optionList).not.toBeInTheDocument();
     });
@@ -253,7 +254,7 @@ describe('Keyboard Select', () => {
       );
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const optionList = await screen.findByRole('listbox');
       const firstOption = within(optionList).getAllByRole('option')[0];
       const secondOption = within(optionList).getAllByRole('option')[1];
@@ -275,7 +276,7 @@ describe('Keyboard Select', () => {
       );
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const optionList = await screen.findByRole('listbox');
       const firstOption = within(optionList).getAllByRole('option')[0];
       const secondOption = within(optionList).getAllByRole('option')[1];
@@ -283,12 +284,12 @@ describe('Keyboard Select', () => {
       expect(firstOption).toHaveFocus();
       expect(secondOption).not.toHaveFocus();
 
-      await user.keyboard('{ArrowDown}');
+      await user.keyboard(KeyBoard.ARROW_DOWN);
 
       expect(firstOption).not.toHaveFocus();
       expect(secondOption).toHaveFocus();
 
-      await user.keyboard('{ArrowUp}');
+      await user.keyboard(KeyBoard.ARROW_UP);
 
       expect(firstOption).toHaveFocus();
       expect(secondOption).not.toHaveFocus();
@@ -307,15 +308,15 @@ describe('Keyboard Select', () => {
       );
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const optionList = await screen.findByRole('listbox');
       const firstOption = within(optionList).getAllByRole('option')[0];
 
       expect(firstOption).toHaveFocus();
 
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
 
-      await user.keyboard('{ArrowDown}');
+      await user.keyboard(KeyBoard.ARROW_DOWN);
 
       const hiddenInput = await screen.findByTestId('Select-InputHidden');
       expect(hiddenInput).toHaveValue('tempsPlein');
@@ -337,14 +338,14 @@ describe('Keyboard Select', () => {
       );
       const button = screen.getByRole('button', { name: 'Temps de travail' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const optionList = await screen.findByRole('listbox');
 
       expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
       expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
       expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
 
-      await user.keyboard('{Escape}');
+      await user.keyboard(KeyBoard.ESCAPE);
 
       expect(optionList).not.toBeInTheDocument();
 
@@ -367,22 +368,22 @@ describe('Keyboard Select', () => {
 
       const button = screen.getByRole('button', { name: 'Type de contrat' });
       button.focus();
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const optionList = await screen.findByRole('listbox');
       const firstOption = within(optionList).getAllByRole('option')[0];
       const secondOption = within(optionList).getAllByRole('option')[1];
 
       expect(firstOption).toHaveFocus();
 
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       const hiddenInput = await screen.findByTestId('Select-InputHidden');
       expect(hiddenInput).toHaveValue('CDD');
       expect(optionList).toBeInTheDocument();
 
-      await user.keyboard('{ArrowDown}');
+      await user.keyboard(KeyBoard.ARROW_DOWN);
       expect(secondOption).toHaveFocus();
 
-      await user.keyboard(' ');
+      await user.keyboard(KeyBoard.SPACE);
       expect(hiddenInput).toHaveValue('CDD,CDI');
       expect(optionList).toBeInTheDocument();
     });
