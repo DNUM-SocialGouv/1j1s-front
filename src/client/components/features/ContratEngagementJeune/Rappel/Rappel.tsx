@@ -36,10 +36,13 @@ export default function Rappel() {
           Je souhaite être contacté(e)
         </Button>
       </Container>
-      <ModalComponent className={styles.rappelModal}
+      <ModalComponent
+        className={styles.rappelModal}
         isOpen={isPopInOpen}
         close={() => setIsPopInOpen(false)}
-      > { !isSuccess && <ModalComponent.Title className={styles.rappelTitle}>
+        aria-labelledby={ !isSuccess ? 'dialog_label' : 'dialog_label_success'}
+      >
+        { !isSuccess && <ModalComponent.Title className={styles.rappelTitle} id="dialog_label">
         J&apos;ai des questions sur le Contrat d&apos;Engagement Jeune et souhaite être rappelé
         </ModalComponent.Title>
         }

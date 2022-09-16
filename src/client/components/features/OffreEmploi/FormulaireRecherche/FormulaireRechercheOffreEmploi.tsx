@@ -120,10 +120,11 @@ export function FormulaireRechercheOffreEmploi() {
           <ModalComponent
             close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
             closeTitle="Fermer les filtres"
-            isOpen={isFiltresAvancésMobileOpen}>
+            isOpen={isFiltresAvancésMobileOpen}
+            aria-labelledby="dialog_label">
             <ModalComponent.Title>
               <Icon name="menu" />
-              <span>Filtrer ma recherche</span>
+              <span id="dialog_label">Filtrer ma recherche</span>
             </ModalComponent.Title>
             <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
               <Accordion title="Type de contrat" open>

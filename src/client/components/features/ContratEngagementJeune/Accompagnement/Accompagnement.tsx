@@ -80,8 +80,13 @@ export default function Accompagnement() {
           </ModalComponent>
         </article>
       </div>
-      <ModalComponent isOpen={isMissionLocaleModalOpen} close={() => setIsMissionLocaleModalOpen(false)} className={styles.accompagnementMission}>
-        { !isSuccess && <ModalComponent.Title className={styles.accompagnementMission__Title}>
+      <ModalComponent
+        isOpen={isMissionLocaleModalOpen}
+        close={() => setIsMissionLocaleModalOpen(false)}
+        className={styles.accompagnementMission}
+        aria-labelledby={ !isSuccess ? 'dialog_label' : 'dialog_label_success'}
+      >
+        { !isSuccess && <ModalComponent.Title className={styles.accompagnementMission__Title} id="dialog_label">
           Vous pouvez bénéficier d&apos;un accompagnement répondant à vos besoins auprès de votre Mission Locale
         </ModalComponent.Title> }
         <ModalComponent.Content className={!isSuccess ? styles.accompagnementMission__Content : styles.accompagnementMission__ContentSuccess}>

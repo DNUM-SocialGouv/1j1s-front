@@ -25,8 +25,9 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
             <ModalComponent
               isOpen={isModalPostulerOpen}
               close={() => setIsModalPostulerOpen(false)}
-              closeLabel="Fermer les filtres"
+              closeLabel="Fermer"
               data-testid="FiltreRechercheMobile"
+              className={commonStyles.iframeModal}
             >
               <ModalComponent.Content>
                 <iframe className={commonStyles.iframe} loading={'lazy'} src={constructUrlWidgetPourPostulerOffreMatcha(offreAlternance.id)}/>
