@@ -18,20 +18,28 @@ const IMAGE_FIXE = '/images/logos/fallback.svg';
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
-const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
+
+const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
+  const listeEtiquettes: Array<string> = résultat.domaines?.filter((domaine) => domaine != 'non renseigné') || [];
+  listeEtiquettes.push(
+    résultat.localisation?.ville || résultat.localisation?.departement || résultat.localisation?.region as string,
+    résultat.dureeCategorisee as string,
+    'Débute le : ' + new Date(résultat.dateDeDebut).toLocaleDateString(),
+  );
+
   return <RésultatRechercherSolution
     lienOffre={`/stages/${résultat.slug}`}
     intituléOffre={résultat.titre}
     logoEntreprise={IMAGE_FIXE}
     nomEntreprise={résultat.nomEmployeur}
-    étiquetteOffreList={résultat.domaines || []}
+    étiquetteOffreList={listeEtiquettes || []}
     key={résultat.slug}
   />;
-});
+};
 
 export default function RechercherOffreStagePage() {
   useReferrer();
-  
+
   const searchClient = useDependency<SearchClient>('rechercheClientService');
   return (
     <>
@@ -39,7 +47,8 @@ export default function RechercherOffreStagePage() {
         title={'Rechercher un stage | 1jeune1solution'}
         description="Des milliers d'offres de stages sélectionnées pour vous"/>
       <main id="contenu">
-        <LightHero primaryText="Des milliers d'offres de stages" secondaryText="sélectionnées pour vous" />
+        <LightHero primaryText="
+                    Des milliers d'offres de stages" secondaryText="sélectionnées pour vous" />
         <Container className={[styles.stageContainer].join(' ')}>
           <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX}
             routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
@@ -53,8 +62,8 @@ export default function RechercherOffreStagePage() {
                     {
                       form: styles.stageFormElement,
                       input: ['fr-input', styles.stageInputElement].join(' '),
-                      reset:styles.none,
-                      resetIcon:styles.none,
+                      reset: styles.none,
+                      resetIcon: styles.none,
                       root: styles.stageRootElement,
                       submit: styles.none,
                       submitIcon: styles.none,

@@ -41,7 +41,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
     <>
       <div className={styles.selectWrapper}>
         <label className={styles.selectLabel}>{label}</label>
-        <div ref={optionsRef}  className={styles.selectContainer}>
+        <div ref={optionsRef} className={styles.selectContainer}>
           <button
             type="button"
             aria-haspopup="listbox"
