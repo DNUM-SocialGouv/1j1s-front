@@ -221,7 +221,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
             { !errorMessageActive
               ? <>
                 <Icon name="information"/>
-                  Commencez à taper votre mot puis sélectionnez un métier
+                Commencez à taper votre mot-clé puis sélectionnez un domaine
               </>
               : <>Le champ est obligatoire - veuillez saisir un mot-clé</>
             }

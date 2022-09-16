@@ -39,24 +39,15 @@
     gap: 0.5rem 1.25rem;
     flex-wrap: wrap;
     @extend %text-small;
-    color: $color-mine-shaft;
     @extend %bold;
 
-    & > a {
-      box-shadow: none;
-    }
-
-    & > a > svg {
-      width: 12px;
-      height: 12px;
-    }
   }
 
   &Message {
     @extend %text-small;
     color: $color-mine-shaft;
 
-    & > p:not(:last-child) {
+    & > p {
       margin-bottom: 1rem;
     }
   }
@@ -84,6 +75,15 @@
     & > a > svg {
       width: 12px;
       height: 12px;
+    }
+  }
+
+  &LinkAction {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-end;
+    svg {
+      margin-left: 0.5ch;
     }
   }
 

@@ -22,7 +22,7 @@
         margin-top: 0;
         margin-bottom: 2rem;
         font-size: 1.5rem;
-        font-weight: 700;
+        @extend %bold;
         > svg, h2 {
             display: block;
             margin: auto;
@@ -68,7 +68,7 @@
 }
 
 
-@media only screen and (min-width:48em){
+@media only screen and (min-width:48em) {
     .cardListPaddingSeeMore {
         padding: 0.5rem 1.125rem 1.5rem 1.125rem;
     }
@@ -85,6 +85,7 @@
     .sectionHeader {
         margin-bottom: 3rem;
         margin-top: 1rem;
+        font-size: 2rem;
     }
 
     .section {
