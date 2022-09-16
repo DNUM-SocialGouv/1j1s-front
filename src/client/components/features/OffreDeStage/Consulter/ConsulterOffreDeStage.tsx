@@ -34,9 +34,9 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 
   const dureeCategorisee = (dureeEnJour: number) => {
     if (dureeEnJour === 0) {
-      return 'Non renseigné';
+      return '';
     }
-    if (dureeEnJour < 30 && dureeEnJour !== 0) {
+    if (dureeEnJour < 30) {
       return '< 1 mois';
     }
     if (dureeEnJour === 30) {

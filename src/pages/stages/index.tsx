@@ -23,7 +23,7 @@ const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   const listeEtiquettes: Array<string> = résultat.domaines?.filter((domaine) => domaine != 'non renseigné') || [];
   listeEtiquettes.push(
     résultat.localisation?.ville || résultat.localisation?.departement || résultat.localisation?.region as string,
-    résultat.dureeCategorisee as string,
+    résultat.dureeCategorisee !== 'Non renseigné'? résultat.dureeCategorisee as string : '',
     'Débute le : ' + new Date(résultat.dateDeDebut).toLocaleDateString(),
   );
 
