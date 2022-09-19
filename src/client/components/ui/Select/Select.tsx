@@ -99,14 +99,14 @@ export function Select({ optionList, onChange, value, placeholder, name, label, 
           {isOptionsOpen ? <AngleUpIcon /> : <AngleDownIcon />}
         </button>
         {isOptionsOpen &&
-              <ListBox
-                selectedValue={selectedValue}
-                optionList={optionList}
-                setSelectedValue={setSelectedValue}
-                setIsOptionsOpen={setIsOptionsOpen}
-                multiple={multiple ? true : false}
-                onChange={onChange}
-              />}
+          <ListBox
+            selectedValue={selectedValue}
+            optionList={optionList}
+            setSelectedValue={setSelectedValue}
+            setIsOptionsOpen={setIsOptionsOpen}
+            multiple={!!multiple}
+            onChange={onChange}
+          />}
         <input type="hidden" name={name} value={selectedValue} data-testid='Select-InputHidden' />
         
       </div>

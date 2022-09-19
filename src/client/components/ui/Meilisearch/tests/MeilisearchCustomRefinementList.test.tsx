@@ -53,14 +53,14 @@ describe('MeilisearchCustomRefinementList', () => {
         render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
         fireEvent.click(screen.getByRole('button'));
         const labelAudit = screen.getByLabelText('audit');
-        fireEvent.click(labelAudit!);
+        fireEvent.click(labelAudit);
         expect(refineMock).toHaveBeenCalledTimes(1);
       });
       it('appelle la méthode refine avec la valeur "auditeur"', () => {
         render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
         fireEvent.click(screen.getByRole('button'));
         const labelAudit = screen.getByLabelText('audit');
-        fireEvent.click(labelAudit!);
+        fireEvent.click(labelAudit);
         expect(refineMock).toHaveBeenCalledWith('auditeur');
       });
     });
