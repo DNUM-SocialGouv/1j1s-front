@@ -2,6 +2,7 @@ import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } fro
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
+import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMetier } from '~/client/components/features/FicheMetier/ConsulterFicheMetier';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -26,6 +27,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
       <HeadTag title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`} />
       <main id="contenu">
         <Container className={styles.container}>
+          <ButtonRetour className={styles.backButton} />
           <ConsulterFicheMetier ficheMetier={ficheMetier} />
         </Container>
         <SectionLayout isBackgroundWhite={false}>
