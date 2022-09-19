@@ -17,7 +17,7 @@ import {
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
@@ -118,8 +118,6 @@ function mapOffreEmploiToLienSolution(offreEmploi: OffreEmploi): LienSolution {
 
 function BannièreOffreEmploi() {
   return (
-    <Hero>
-      Des milliers d&apos;<b>offres d&apos;emplois sélectionnées pour vous</b> par Pôle Emploi
-    </Hero>
+    <LightHero primaryText="Des milliers d'offres d'emplois" secondaryText="sélectionnées pour vous par Pôle Emploi" />
   );
 }

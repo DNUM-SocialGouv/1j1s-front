@@ -9,7 +9,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -93,8 +93,6 @@ export function RechercherAlternance() {
 
 function BannièreAlternance() {
   return (
-    <Hero>
-      Avec la <b>Bonne Alternance</b>, trouvez l’entreprise qu’il vous faut pour <b>réaliser votre projet d’alternance</b>
-    </Hero>
+    <LightHero primaryText="Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut" secondaryText="pour réaliser votre projet d’alternance" />
   );
 }

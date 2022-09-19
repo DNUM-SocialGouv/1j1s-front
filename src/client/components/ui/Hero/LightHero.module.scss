@@ -1,0 +1,30 @@
+@import "@styles/utilities";
+
+.hero {
+  background-color: $color-background;
+}
+
+.heroTitle {
+  text-align: center;
+  padding: 3rem 1rem 2rem 1rem;
+  line-height: 2rem;
+  @extend %text-xLarge;
+
+  @include media(large) {
+    line-height: 2.5rem;
+    padding: 4rem 1rem 2rem 1rem;
+  }
+
+  &PrimaryText, &SecondaryText {
+    display: block;
+  }
+
+  &PrimaryText {
+    color: $color-primary;
+    @extend %bold;
+  }
+
+  &SecondaryText {
+    color: $color-secondary;
+  }
+}

@@ -5,7 +5,7 @@ import { Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'r
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
@@ -36,9 +36,7 @@ export default function RechercherOffreStagePage() {
         title={'Rechercher un stage | 1jeune1solution'}
         description="Des milliers d'offres de stages sélectionnées pour vous"/>
       <main id="contenu">
-        <Hero>
-                Des milliers d’offres de stages sélectionnés pour vous
-        </Hero>
+        <LightHero primaryText="Des milliers d'offres de stages" secondaryText="sélectionnées pour vous" />
         <Container className={[styles.stageContainer].join(' ')}>
           <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX}
             routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
