@@ -100,6 +100,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
           { current: path === '/les-entreprises-s-engagent', link: '/les-entreprises-s-engagent', title: 'Rejoindre la mobilisation' },
           { current: path === '/immersions', link: '/immersions', title: 'Je propose des immersions' },
           { current: path === '/mesures-employeurs', link: '/mesures-employeurs', title: 'Les mesures employeurs' },
+          { current: path === '/mon-espace', link: '/mon-espace', title: 'Accéder à mon espace' },
           { current: path === '/rejoindre-mobilisation-poe', link: '/rejoindre-mobilisation-poe', title: 'Je forme les jeunes grâce à l\'emploi' },
         ],
       title: 'Je suis employeur',
