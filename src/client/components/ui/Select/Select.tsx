@@ -36,6 +36,10 @@ export interface Option {
   valeur: string;
 }
 
+const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
+const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
+const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
+
 export function Select({ optionList, value, placeholder, name, label, multiple, required }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
   const listBoxRef = useRef<HTMLUListElement>(null);
@@ -46,11 +50,12 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
   const [isTouched, setIsTouched] = useState(false);
   const [isOptionListOpen, setIsOptionListOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
+  const [errorMessage] = useState(SELECT_ERROR_MESSAGE_REQUIRED);
 
   const buttonLabel = useMemo(() => {
     const selectedOption = optionList.find((option) => option.valeur === selectedValue);
-    const defaultMultiplePlaceholder = placeholder ?? 'Sélectionnez vos choix';
-    const defaultSinglePlaceholder = placeholder ?? 'Sélectionnez votre choix';
+    const defaultMultiplePlaceholder = placeholder ??SELECT_PLACEHOLDER_PLURAL;
+    const defaultSinglePlaceholder = placeholder ?? SELECT_PLACEHOLDER_SINGULAR;
     const selectedValueLength = String(selectedValue).split(',').length;
     if (multiple) {
       return !selectedValue
@@ -62,7 +67,6 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
   }, [multiple, placeholder, optionList, selectedValue]);
 
   const hasError = isTouched && !selectedValue;
-  const errorMessage =  'Veuillez selectionner un choix';
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
@@ -97,9 +101,13 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
     }
   }, [isOptionListOpen]);
 
-  const isCurrentItemChecked = (option: Option): boolean => selectedValue.split(',').includes(option.valeur);
-
-  const isCurrentItemSelected = (option: Option): boolean => selectedValue === option.valeur;
+  const isCurrentItemSelected = useCallback((option: Option): boolean => {
+    if (multiple) {
+      return selectedValue.split(',').includes(option.valeur);
+    } else {
+      return selectedValue === option.valeur;
+    }
+  }, [selectedValue, multiple]);
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
     const currentItem = event.target as HTMLElement;
@@ -144,7 +152,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
             tabIndex={-1}
             role="option"
             key={index}
-            aria-selected={ multiple ? isCurrentItemChecked(option) : isCurrentItemSelected(option)}
+            aria-selected={isCurrentItemSelected(option)}
             onKeyDown={handleKeyDown}>
             { multiple  ? renderCheckBox(option) : renderRadioButton(option) }
           </li>
@@ -157,7 +165,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
       className={styles.option}
       label={option.libellé}
       value={option.valeur}
-      checked={isCurrentItemChecked(option)}
+      checked={isCurrentItemSelected(option)}
       onChange={(event: ChangeEvent<HTMLInputElement>) => {
         onSelectMultipleChange(event.target.checked, option.valeur);
       }}
@@ -188,7 +196,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
           aria-haspopup="listbox"
           aria-expanded={isOptionListOpen}
           aria-labelledby={labelledBy.current}
-          className={classNames(styles.button, hasError ? styles.buttonInvalid : '')}
+          className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
           onClick={() => { setIsOptionListOpen(!isOptionListOpen); }}
           onBlur={() => required ? setIsTouched(true) : undefined}
         >
