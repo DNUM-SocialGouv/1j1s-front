@@ -1,0 +1,33 @@
+@import "@styles/utilities";
+
+.dispositifs {
+  background-color: $color-background-white-lilac;
+  padding-bottom: 3rem;
+  h2 {
+    @extend %text-xLarge, %bold;
+    text-align: center;
+    margin: 2rem;
+    padding-top: 2rem;
+  }
+  .cartes {
+    @extend %max-container;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-flow: row;
+    row-gap: 2rem;
+    column-gap: 2rem;
+  }
+}
+
+.mobile .dispositifs {
+  h2 {
+    @extend %text-large;
+    text-align: left;
+  }
+  .cartes {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+    margin: 1rem;
+  }
+}
+

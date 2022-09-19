@@ -1,18 +1,27 @@
+import { GetStaticPropsResult } from 'next';
 import React from 'react';
 
-import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { MesuresEmployeursComponent, MesuresEmployeursProps } from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs';
+import { dependencies } from '~/server/start';
 
-export default function MesuresEmployeurs() {
+export default function MesuresEmployeurs(props: MesuresEmployeursProps) {
   return (
-    <>
-      <HeadTag
-        title="Mesures Employeurs | 1jeune1solution"
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
-      />
-      <main id="contenu">
-        <Bannière />
-      </main>
-    </>
+    <MesuresEmployeursComponent {...props} />
   );
 }
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresEmployeursProps>> {
+  const response = await dependencies.cmsDependencies.récupérerMesuresEmployeurs.handle();
+
+  if (response.instance === 'failure') {
+    return { notFound: true, revalidate: 1 };
+  }
+
+  return {
+    props: {
+      mesuresEmployeurs: response.result,
+    },
+    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
+  };
+}
+
