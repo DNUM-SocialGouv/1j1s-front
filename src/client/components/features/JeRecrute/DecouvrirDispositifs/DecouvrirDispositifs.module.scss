@@ -3,6 +3,7 @@
 
 .recruter {
   padding: 2rem 0 4rem;
+  margin: auto 1rem;
   text-align: center;
 
   h2 {
@@ -23,13 +24,23 @@
   ul {
     display: grid;
     margin: auto;
-    width: 25rem;
+    max-width: 25rem;
     li {
       margin-top: 1rem;
       a {
+        font-size: 0.95em;
         min-width: 100%;
       }
     }
   }
 }
 
+
+@include media(large) {
+  .recruter {
+    margin: auto;
+  }
+  .recruter ul li a {
+    font-size: inherit;
+  }
+}
