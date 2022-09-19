@@ -26,12 +26,11 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
-  ) {
-  }
+  ) {}
 
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
     return await this.httpClientServiceWithAuthentification.get<OffreEmploiResponse, OffreEmploi>(
-      `partenaire/offresdemploi/v2/offres/${id}`,
+      `/${id}`,
       mapOffreEmploi,
     );
   }
@@ -39,7 +38,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
     const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
     return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
-      `partenaire/offresdemploi/v2/offres/search?${paramètresRecherche}`,
+      `/search?${paramètresRecherche}`,
       mapRésultatsRechercheOffreEmploi,
     );
   }

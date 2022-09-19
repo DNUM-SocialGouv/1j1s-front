@@ -45,7 +45,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(expected);
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/132LKFB',
+          '/132LKFB',
           mapOffreEmploi,
         );
       });
@@ -64,7 +64,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
+          '/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
           mapRésultatsRechercheOffreEmploi,
         );
       });
@@ -88,7 +88,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result.result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&commune=75101',
+          '/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&commune=75101',
           mapRésultatsRechercheOffreEmploi,
         );
       });

@@ -7,8 +7,7 @@ export class ApiPoleEmploiRéférentielRepository {
   constructor(
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private cacheService: CacheService,
-  ) {
-  }
+  ) {}
 
   private CACHE_KEY = 'REFERENTIEL_COMMUNE';
 
@@ -18,7 +17,7 @@ export class ApiPoleEmploiRéférentielRepository {
       return mapCodeInsee(responseInCache, codePostal);
     } else {
       const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
-        'partenaire/offresdemploi/v2/referentiel/communes',
+        '/communes',
         (data) => data,
       );
       switch (response.instance) {
