@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
@@ -16,6 +17,7 @@ import { createSuccess } from '~/server/errors/either';
 jest.setTimeout(10000);
 describe('<Accompagnement />', () => {
   beforeEach(() => {
+    mockUseRouter({});
     mockSmallScreen();
   });
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import Link from 'next/link';
 import React from 'react';
 
+import { Link } from '~/client/components/ui/Link/Link';
 import styles from '~/client/components/ui/Link/LinkAsButton.module.scss';
 
 interface LinkAsButtonProps extends React.AnchorHTMLAttributes<unknown> {

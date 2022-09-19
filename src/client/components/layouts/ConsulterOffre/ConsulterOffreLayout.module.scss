@@ -7,6 +7,10 @@
 
 .layout {
     padding: 0 1rem;
+
+    &Button {
+        padding: 0 1rem;
+    }
 }
 
 @media only screen and (min-width: 48em) {
@@ -14,8 +18,15 @@
         width: 100%;
         max-width: 78rem;
         border: 1px solid $color-separator;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         margin: 2rem auto 3.5rem auto;
         padding: 0 6rem 2rem 6rem;
+
+        &Button {
+            padding: 0;
+            width: 100%;
+            max-width: 78rem;
+            margin: 2rem auto auto;
+        }
     }
 }

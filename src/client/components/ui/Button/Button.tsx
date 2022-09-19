@@ -18,6 +18,8 @@ export function Button({ children, buttonType='primary', buttonOnDarkBackground=
         return buttonLink(children, rest);
       case 'linkWithRightIcon':
         return buttonLinkWithRightIcon(children, rest, icon);
+      case 'secondary':
+        return buttonSecondary(children, rest, icon);
       case 'withLeftIcon':
         return buttonWithLeftIcon(children, rest, icon, buttonStyle);
       case 'withRightIcon':
@@ -35,6 +37,15 @@ export function Button({ children, buttonType='primary', buttonOnDarkBackground=
 function buttonPrimary(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , buttonStyle: string) {
   return (
     <button className={buttonStyle} {...rest}>
+      {children}
+    </button>
+  );
+}
+
+function buttonSecondary(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , icon: React.ReactNode | undefined) {
+  return (
+    <button className={classNames(styles.button, styles.buttonSecondary)} {...rest}>
+      {icon && <>{icon}</>}
       {children}
     </button>
   );

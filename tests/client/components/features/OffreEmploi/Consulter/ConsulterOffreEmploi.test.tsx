@@ -3,6 +3,7 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { aBarmanOffreEmploi, aMaçonOffreEmploi, aValetOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
@@ -14,6 +15,10 @@ jest.mock('dompurify', () => {
 });
 
 describe('ConsulterOffreEmploi', () => {
+  beforeEach(() => {
+    mockUseRouter({});
+  });
+
   it('affiche l\'offre d\'emploi', () => {
     const offreEmploi = aMaçonOffreEmploi();
 

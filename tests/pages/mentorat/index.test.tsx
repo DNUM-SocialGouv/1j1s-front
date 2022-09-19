@@ -6,12 +6,14 @@ import {
   render,
   screen,
 } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 
 import MentoratPage from '~/pages/mentorat';
 
 describe('MentoratPage', () => {
   beforeEach(() => {
+    mockUseRouter({});
     mockSmallScreen();
   });
 

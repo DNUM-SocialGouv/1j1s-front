@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -23,6 +23,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
       </section>
     );
   };
+
   return (
     <Link href={lienOffre} prefetch={false}>
       <a className={styles.card} data-testid="RésultatRechercherSolution">

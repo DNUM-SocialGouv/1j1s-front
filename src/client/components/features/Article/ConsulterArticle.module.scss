@@ -2,10 +2,15 @@
 
 .consulterArticle {
     max-width: 78rem;
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.5rem;
     margin: auto;
     & [href] {
         box-shadow: 0 1px 0 0;
+    }
+
+    > button {
+        margin-top: 0;
+        margin-bottom: 1rem;
     }
 }
 

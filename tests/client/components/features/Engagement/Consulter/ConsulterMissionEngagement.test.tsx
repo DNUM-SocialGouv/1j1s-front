@@ -10,9 +10,12 @@ import React from 'react';
 
 import { ConsulterMissionEngagement } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
 
+import { mockUseRouter } from '../../../../useRouter.mock';
+
 describe('ConsulterMission', () => {
   beforeEach(() => {
     mockSmallScreen();
+    mockUseRouter({});
   });
 
   afterEach(() => {
