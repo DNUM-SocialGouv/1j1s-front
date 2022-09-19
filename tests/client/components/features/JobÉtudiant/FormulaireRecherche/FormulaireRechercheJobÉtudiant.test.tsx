@@ -118,7 +118,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 
         const domaineList = await screen.findByRole('listbox');
 
-        const inputDomaine = within(domaineList).getAllByRole('option');
+        const inputDomaine = within(domaineList).getAllByRole('checkbox');
         fireEvent.click(inputDomaine[2]);
 
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { CommonProps } from '~/client/components/props';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
-import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface NavItemWithSubItemsProps extends CommonProps {
   title: string

@@ -52,8 +52,8 @@
     border: 1.5px solid $color-primary;
     border-radius: 20px;
 
-    &[aria-invalid=true] {
-       border: solid 2px $color-error;
+    &Invalid {
+       border: solid 2px $color-error !important;
     }
 }
 

@@ -30,7 +30,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 
       const sélectionnerUnDomaineButton = screen.getByRole('button', { name: 'Domaine' });
       fireEvent.click(sélectionnerUnDomaineButton);
-      const domaineÉducationOption = screen.getByRole('option', { name: 'Éducation' });
+      const domaineÉducationOption = screen.getByRole('radio', { name: 'Éducation' });
       fireEvent.click(domaineÉducationOption);
       const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -91,7 +91,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
       const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
       fireEvent.click(selectButtonRadius);
 
-      const rayon30kmOption = screen.getByRole('option', { name: '30 km' });
+      const rayon30kmOption = screen.getByRole('radio', { name: '30 km' });
       fireEvent.click(rayon30kmOption);
       const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
