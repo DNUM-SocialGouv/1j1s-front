@@ -13,14 +13,14 @@ import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/off
 
 describe('rechercher une offre d\'emploi', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
-    nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
+    nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
+      .get('/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
       .reply(401)
-      .get('/partenaire/offresdemploi/v2/offres/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
+      .get('/search?range=0-29&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
-    nock('https://api.emploi-store.fr')
-      .get('/partenaire/offresdemploi/v2/referentiel/communes')
+    nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
+      .get('/communes')
       .reply(200, aRésultatRéférentielCommuneResponse().data);
 
     nock('https://entreprise.pole-emploi.fr')
