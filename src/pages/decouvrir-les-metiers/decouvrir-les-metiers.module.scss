@@ -144,7 +144,11 @@
 }
 
 .backButton {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+
+  @include media(xlarge) {
+    margin-bottom: 2rem;
+  }
 }
 
 .partnerInfo {
