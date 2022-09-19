@@ -30,7 +30,7 @@ export function MesuresEmployeursComponent ({ mesuresEmployeurs }: MesuresEmploy
         Découvrir les dispositifs pour vous aider à recruter
           </h2>
           <ul className={ styles.cartes }>
-            {dispositifs.map((carte) => (<li className={styles.carte} key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile} /></li>))}
+            {dispositifs.map((carte) => (<li key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile} /></li>))}
           </ul>
         </section>
       </main>
