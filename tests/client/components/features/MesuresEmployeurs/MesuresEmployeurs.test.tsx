@@ -3,6 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
 
@@ -13,6 +14,9 @@ const mesuresEmployeurs = aMesuresEmployeurs();
 describe('MesuresEmployeurs', () => {
   beforeEach(() => {
     mockSmallScreen();
+  });
+  beforeEach(() => {
+    mockUseRouter({});
   });
 
   afterEach(() => {
@@ -31,7 +35,7 @@ describe('MesuresEmployeurs', () => {
     expect(cartes.length).toEqual(4);
   });
 
-  it('affiche un lien local pour les articles internes', () => {
+  it('affiche un lien local pour les articles internes ou externe pour les sites étrangers', () => {
     render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
     const [ external, internal ] = screen.getAllByRole('article');
     /* eslint-disable testing-library/no-node-access */
