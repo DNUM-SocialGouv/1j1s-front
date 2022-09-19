@@ -6,9 +6,10 @@ import { CommonPagination } from '~/client/components/ui/Pagination/CommonPagina
 interface PaginationProps {
   numberOfResult: number
   numberOfResultPerPage: number
+  maxPage?: number
 }
 
-export function Pagination({ numberOfResult, numberOfResultPerPage } : PaginationProps) {
+export function Pagination({ numberOfResult, numberOfResultPerPage, maxPage } : PaginationProps) {
   const { query, push } = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -30,7 +31,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
   // @ts-ignore
   const numberOfPageList = [...Array(Math.ceil(numberOfResult / numberOfResultPerPage) - 1).keys()];
   const isFirstPage = useMemo(() => currentPage === 0, [currentPage]);
-  const isLastPage = useMemo(() => currentPage === numberOfPageList.length, [currentPage, numberOfPageList.length]);
+  const isLastPage = useMemo(() => maxPage && numberOfPageList.length > maxPage ? currentPage === maxPage : currentPage === numberOfPageList.length, [currentPage, maxPage, numberOfPageList.length]);
   const lastPage = useMemo(() => Math.max((Math.ceil(numberOfResult/ numberOfResultPerPage) - 1), 0), [numberOfResult, numberOfResultPerPage]);
 
   return (
@@ -41,6 +42,7 @@ export function Pagination({ numberOfResult, numberOfResultPerPage } : Paginatio
       numberOfPageList={numberOfPageList}
       lastPage={lastPage}
       isFirstPage={isFirstPage}
+      maxPage={maxPage}
     />
   );
 }

@@ -1,12 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { MissionEngagementFiltre, RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
+import {
+  MissionEngagementFiltre,
+  NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
+  RésultatsRechercheMission,
+} from '~/server/engagement/domain/engagement';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
-
-const OFFRE_PER_PAGE = 30;
 
 export async function rechercherMissionHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheMission | ErrorHttpResponse>) {
   const résultatRechercherMission = await dependencies.engagementDependencies.rechercherMissionEngagement.handle(missionRequestMapper(req));
@@ -26,6 +28,6 @@ function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre 
     lon: query.longitudeCommune ? Number(query.longitudeCommune) : undefined,
     openToMinors: query.ouvertsAuxMineurs ? Boolean(query.ouvertsAuxMineurs): undefined,
     publisher: JE_VEUX_AIDER_ID,
-    size: OFFRE_PER_PAGE,
+    size: NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
   };
 }

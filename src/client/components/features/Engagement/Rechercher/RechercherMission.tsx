@@ -18,7 +18,12 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { bénévolatDomaineList, Mission, serviceCiviqueDomaineList } from '~/server/engagement/domain/engagement';
+import {
+  bénévolatDomaineList,
+  Mission,
+  NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
+  serviceCiviqueDomaineList,
+} from '~/server/engagement/domain/engagement';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 interface RechercherMissionProps {
@@ -40,8 +45,6 @@ export function RechercherMission(props: RechercherMissionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
   const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
-
-  const OFFRE_PER_PAGE = 30;
 
   useEffect(() => {
     const queryString = stringify(router.query);
@@ -99,7 +102,7 @@ export function RechercherMission(props: RechercherMissionProps) {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={isServiceCivique ? mapMissionServiceCiviqueToLienSolution: mapMissionBénévolatToLienSolution}
-          paginationOffset={OFFRE_PER_PAGE}
+          paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
         />
       </main>
     </>

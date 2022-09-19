@@ -25,6 +25,8 @@ export interface Mission {
   openToMinors?: string
 }
 
+export const NOMBRE_RÉSULTATS_MISSION_PAR_PAGE = 15;
+
 export interface RésultatsRechercheMission {
   nombreRésultats: number
   résultats: Mission[]

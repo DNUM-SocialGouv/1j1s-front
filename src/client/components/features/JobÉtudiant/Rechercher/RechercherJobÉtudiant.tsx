@@ -21,16 +21,17 @@ import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE, OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
-const OFFRE_PER_PAGE = 30;
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherJobÉtudiant() {
   const router = useRouter();
   const offreEmploiQuery = useOffreEmploiQuery();
   const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
+
+  const MAX_PAGE = 65;
 
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
   const [jobÉtudiantList, setJobÉtudiantList] = useState<OffreEmploi[]>([]);
@@ -88,7 +89,8 @@ export function RechercherJobÉtudiant() {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapJobÉtudiantToLienSolution}
-          paginationOffset={OFFRE_PER_PAGE}
+          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
+          maxPage={MAX_PAGE}
         />
         {PartnerCardList([
           CIDJPartner().props,

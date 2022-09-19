@@ -28,6 +28,21 @@ describe('Pagination', () => {
     });
   });
 
+  describe('quand il y a 70000 résultats', () => {
+    it('doit afficher seulement 66 pages', () => {
+      mockLargeScreen();
+      mockUseRouter({});
+      render(
+        <Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66} />,
+      );
+
+      expect(screen.getByText('1')).toBeInTheDocument();
+      expect(screen.getByText('…')).toBeInTheDocument();
+      expect(screen.getByText('67')).toBeInTheDocument();
+      expect(screen.queryByText('68')).not.toBeInTheDocument();
+    });
+  });
+
   describe('quand il y a 100 résultats et 1O résultat par page à afficher', () => {
     describe('doit désactiver la return to first page et Page précédente', () => {
       it('doit afficher les 4 premières pages, une ellipse, la page 16, Page suivante et le go to last page', () => {
