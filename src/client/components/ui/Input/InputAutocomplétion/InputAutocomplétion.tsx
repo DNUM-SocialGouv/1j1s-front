@@ -46,7 +46,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 
   const recalculerSuggestions = useMemo(() => {
     return debounce(async ({ value }: { value: string }) => setSuggestions(await suggérer(value)), debounceTimeout);
-  }, [suggérer]);
+  }, [debounceTimeout, suggérer]);
 
   function isChampVide(texte: string): boolean {
     return texte.trim().length == 0;
