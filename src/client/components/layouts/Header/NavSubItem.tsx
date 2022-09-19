@@ -13,10 +13,8 @@ export function NavSubItem({ title, link, current, onClick }: NavSubItemProps) {
 
   return (
     <li key={title}>
-      <Link href={link}>
-        <a aria-current={current} onClick={onClick}>
-          {title}
-        </a>
+      <Link href={link} aria-current={current} onClick={onClick}>
+        {title}
       </Link>
     </li>
   );

@@ -15,11 +15,9 @@ export function LinkAsButton({ children, icon, href, buttonOnDarkBackground= fal
   if (!href) return null;
 
   return (
-    <Link href={href}>
-      <a className={buttonStyle} {...rest}>
-        {children}
-        {icon}
-      </a>
+    <Link href={href} className={buttonStyle} {...rest}>
+      {children}
+      {icon}
     </Link>
   );
 }

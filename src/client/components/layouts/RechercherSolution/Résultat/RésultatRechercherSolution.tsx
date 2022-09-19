@@ -25,23 +25,21 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   };
 
   return (
-    <Link href={lienOffre} prefetch={false}>
-      <a className={styles.card} data-testid="RésultatRechercherSolution">
-        <header className={styles.cardHeader}>
-          <div className={styles.cardImageWrapper}>
-            <Image alt="" src={logoEntreprise} layout="fill" />
+    <Link href={lienOffre} className={styles.card} prefetch={false} data-testid="RésultatRechercherSolution" canGoBack={true}>
+      <header className={styles.cardHeader}>
+        <div className={styles.cardImageWrapper}>
+          <Image alt="" src={logoEntreprise} layout="fill" />
+        </div>
+        <div className={styles.offreLead}>
+          <div>
+            <div className={styles.offreLeadTitle}>{intituléOffre}</div>
+            <div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
           </div>
-          <div className={styles.offreLead}>
-            <div>
-              <div className={styles.offreLeadTitle}>{intituléOffre}</div>
-              <div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
-            </div>
-            { !isSmallScreen && cardDescription()}
+          { !isSmallScreen && cardDescription()}
 
-          </div>
-        </header>
-        { isSmallScreen && cardDescription()}
-      </a>
+        </div>
+      </header>
+      { isSmallScreen && cardDescription()}
     </Link>
   );
 }

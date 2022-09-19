@@ -12,11 +12,13 @@ interface MockUseRouter {
   prefetch?: jest.Mock
   push?: jest.Mock
   replace?: jest.Mock
+  back?: jest.Mock
 }
 
-export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), replace = jest.fn() }: MockUseRouter) {
+export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), replace = jest.fn(), back = jest.fn() }: MockUseRouter) {
   useRouter.mockImplementation(() => ({
     asPath,
+    back,
     pathname,
     prefetch,
     push,

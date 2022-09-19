@@ -13,7 +13,7 @@ export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryPara
   }
 
   return new URLSearchParams(formEntries).toString();
-};
+}
 
 export function getFormValue(formElement: HTMLFormElement, keyValue: string): string | undefined {
   const formData = new FormData(formElement);
