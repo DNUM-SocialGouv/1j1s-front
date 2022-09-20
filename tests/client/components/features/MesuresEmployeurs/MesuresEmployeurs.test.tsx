@@ -37,10 +37,10 @@ describe('MesuresEmployeurs', () => {
 
   it('affiche un lien local pour les articles internes ou externe pour les sites étrangers', () => {
     render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
-    const [ external, internal ] = screen.getAllByRole('article');
+    const [ external, internal ] = screen.getAllByRole('link');
     /* eslint-disable testing-library/no-node-access */
-    expect(external.closest('a')).toHaveAttribute('href', expect.stringMatching(/^https:\/\//));
-    expect(internal.closest('a')).toHaveAttribute('href', '/articles/slug-article');
+    expect(external).toHaveAttribute('href', expect.stringMatching(/^https:\/\//));
+    expect(internal).toHaveAttribute('href', '/articles/slug-article');
   });
 });
 

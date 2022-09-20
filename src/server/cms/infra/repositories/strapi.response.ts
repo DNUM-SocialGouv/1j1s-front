@@ -58,4 +58,5 @@ export interface CarteMesuresEmployeursResponse {
     url: string
     banniere: Strapi.Image
     article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
+    pourQui : string
 }
