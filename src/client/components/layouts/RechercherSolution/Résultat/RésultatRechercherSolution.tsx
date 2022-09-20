@@ -25,7 +25,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   };
 
   return (
-    <Link href={lienOffre} className={styles.card} prefetch={false} data-testid="RésultatRechercherSolution" canGoBack={true}>
+    <Link href={lienOffre} className={styles.card} prefetch={false} data-testid="RésultatRechercherSolution">
       <header className={styles.cardHeader}>
         <div className={styles.cardImageWrapper}>
           <Image alt="" src={logoEntreprise} layout="fill" />

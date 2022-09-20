@@ -12,7 +12,8 @@ describe('ConsulterOffreLayout', () => {
     describe('et qu’il vient de la page de recherche d’emploi sans paramètre', () => {
       it('doit retourner sur la page emploi sans paramètres', async () => {
         const routerBack = jest.fn();
-        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('true');        mockUseRouter({
+        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
+        mockUseRouter({
           back: routerBack,
           query: {
             from: '/emplois',
@@ -21,7 +22,7 @@ describe('ConsulterOffreLayout', () => {
         });
         render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-        fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page emplois' }));
 
         await waitFor(() => expect(routerBack).toHaveBeenCalled());
       });
@@ -30,7 +31,7 @@ describe('ConsulterOffreLayout', () => {
     describe('et qu’il vient de la page de recherche d’emploi avec des paramètres', () => {
       it('doit retourner sur la page emploi avec des paramètres', async () => {
         const routerBack = jest.fn();
-        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('true');
+        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
         mockUseRouter({
           back: routerBack,
           query: {
@@ -40,7 +41,7 @@ describe('ConsulterOffreLayout', () => {
         });
         render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-        fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page emplois' }));
 
         await waitFor(() => expect(routerBack).toHaveBeenCalled());
       });
@@ -56,7 +57,7 @@ describe('ConsulterOffreLayout', () => {
         });
         render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-        expect(screen.queryByRole('button', { name: 'Retour vers la page précédente' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Retour vers la page' })).not.toBeInTheDocument();
       });
     });
   });

@@ -11,6 +11,7 @@ import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisea
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import useReferrer from '~/client/hooks/useReferrer';
 import styles from '~/pages/stages/RechercherStagePage.module.scss';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
@@ -29,6 +30,8 @@ const Résultat = (({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
 });
 
 export default function RechercherOffreStagePage() {
+  useReferrer();
+  
   const searchClient = useDependency<SearchClient>('rechercheClientService');
   return (
     <>
