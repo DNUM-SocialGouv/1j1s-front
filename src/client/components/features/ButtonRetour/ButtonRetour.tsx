@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import { Button } from '~/client/components/ui/Button/Button';
-import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
-export function ButtonRetour() {
+export function ButtonRetour({ className }: React.HTMLProps<HTMLButtonElement>) {
   const router = useRouter();
   const [isButtonRetourVisible, setIsButtonRetourVisible] = useState<boolean>(false);
   const [retour, setRetour] = useState<string>();
@@ -27,8 +27,16 @@ export function ButtonRetour() {
 
   return (
     <>
-      {
-        isButtonRetourVisible && <Button buttonType="secondary" onClick={handleRetour} aria-label={`Retour vers ${retour}`} icon={<AngleLeftIcon />}>Retour</Button>
+      {isButtonRetourVisible &&
+        <ButtonComponent
+          appearance="secondary"
+          aria-label={`Retour vers ${retour}`}
+          className={className}
+          icon={<Icon name="angle-left" />}
+          iconPosition="left"
+          label="Retour"
+          onClick={handleRetour}
+        />
       }
     </>
   );
