@@ -78,6 +78,7 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
           { current: path === '/mentorat', link: '/mentorat', title: 'Mentorat' },
           { current: path === '/creer-mon-cv', link: '/creer-mon-cv', title: 'CV personnalisé' },
           { current: path === '/mesures-jeunes', link: '/mesures-jeunes', title: 'Les mesures jeunes' },
+          { current: path === '/accompagnement', link: '/accompagnement', title: 'Accompagnement' },
         ],
       title: 'Aides et accompagnement',
     };

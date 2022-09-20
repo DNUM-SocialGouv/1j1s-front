@@ -1,0 +1,63 @@
+@import "@styles/utilities";
+
+.unionNationaleDesMissionsLocales {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-top: 1px solid $color-primary;
+}
+
+.infosJeunes {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-background-white-lilac;
+  padding: 2rem;
+  border-top: 1px solid $color-primary;
+  border-bottom: 1px solid $color-primary;
+}
+
+.poleEmploi {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.petiteDescriptionStructure {
+  margin-top: 1.5rem;
+  @extend %text-large;
+
+  span:first-child {
+    color: $color-primary;
+    @extend %bold;
+  }
+
+  span:last-child {
+    color: $color-secondary;
+  }
+}
+
+.unionImageContainer {
+  width: 224px;
+  height: 88px;
+  margin: auto;
+}
+
+.infoJeunesImageContainer {
+  width: 224px;
+  height: 104px;
+  margin: auto;
+}
+
+.poleEmploiImageContainer {
+  width: 224px;
+  height: 180px;
+  margin: auto;
+}
+
+.seeMore {
+  margin-top: 1rem;
+}
+
+.buttonChercher {
+  margin-top: 1rem;
+}

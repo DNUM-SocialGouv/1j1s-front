@@ -10,8 +10,9 @@ import { Icon } from '../Icon/Icon';
 interface SeeMoreProps {
   customLabel?: (isOpen: boolean) => string | undefined
   customButtonClassName?: (isOpen: boolean) => string
+  additionalClassName?: string | string[] | Record<string, boolean>
 }
-export function SeeMore({ children, customLabel, customButtonClassName } : React.PropsWithChildren<SeeMoreProps>) {
+export function SeeMore({ children, customLabel, customButtonClassName, additionalClassName } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
@@ -41,7 +42,7 @@ export function SeeMore({ children, customLabel, customButtonClassName } : React
 
   return (
     <>
-      <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
+      <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen }, additionalClassName)}
         id={`section-${ariaId}`}
         role="region"
         aria-labelledby={`seeMore-${ariaId}`}>
