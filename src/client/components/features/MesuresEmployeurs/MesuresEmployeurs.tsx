@@ -11,9 +11,10 @@ import Marked from '../../ui/Marked/Marked';
 import { HeadTag } from '../../utils/HeaderTag';
 
 export interface MesuresEmployeursProps {
-mesuresEmployeurs : MesuresEmployeurs
+  mesuresEmployeurs: MesuresEmployeurs;
 }
-export function MesuresEmployeursComponent ({ mesuresEmployeurs }: MesuresEmployeursProps) {
+
+export function MesuresEmployeursComponent({ mesuresEmployeurs }: MesuresEmployeursProps) {
   const { dispositifs } = mesuresEmployeurs;
   const { isLargeScreen } = useBreakpoint();
   const isMobile = !isLargeScreen;
@@ -23,14 +24,14 @@ export function MesuresEmployeursComponent ({ mesuresEmployeurs }: MesuresEmploy
         title="Mesures Employeurs | 1jeune1solution"
         description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
       />
-      <main id="contenu" className={ classNames({ [styles.mobile]: isMobile }) }>
-        <Bannière />
-        <section className={ styles.dispositifs }>
+      <main id="contenu" className={classNames({ [styles.mobile]: isMobile })}>
+        <Bannière/>
+        <section className={styles.dispositifs}>
           <h2 id="dispositifs">
-        Découvrir les dispositifs pour vous aider à recruter
+            Découvrir les dispositifs pour vous aider à recruter
           </h2>
-          <ul className={ styles.cartes }>
-            {dispositifs.map((carte) => (<li key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile} /></li>))}
+          <ul className={styles.cartes}>
+            {dispositifs.map((carte) => (<li key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile}/></li>))}
           </ul>
         </section>
       </main>
@@ -39,11 +40,11 @@ export function MesuresEmployeursComponent ({ mesuresEmployeurs }: MesuresEmploy
 }
 
 interface CarteMesureEmployeurProps {
-    carte: CarteMesuresEmployeurs;
-    isMobile: boolean;
+  carte: CarteMesuresEmployeurs;
+  isMobile: boolean;
 }
 
-function CarteMesureEmployeur ({ carte, isMobile=false }: CarteMesureEmployeurProps) {
+function CarteMesureEmployeur({ carte, isMobile = false }: CarteMesureEmployeurProps) {
   const titre = useSanitize(carte.titre);
   const bannière = carte.bannière?.url || '';
   const url = useSanitize(carte.url);
@@ -52,6 +53,7 @@ function CarteMesureEmployeur ({ carte, isMobile=false }: CarteMesureEmployeurPr
   const link = carte.article
     ? `/articles/${carte.article.slug}`
     : url;
+  const pourQui = useSanitize(carte.pourQui);
 
   return <EmployeurLinkCard
     imageUrl={bannière}
@@ -59,8 +61,9 @@ function CarteMesureEmployeur ({ carte, isMobile=false }: CarteMesureEmployeurPr
     link={link}
     linkLabel="En savoir plus"
     title={titre}
+    pourQui={pourQui}
   >
-    <Marked markdown={brief} />
+    <Marked markdown={brief}/>
   </EmployeurLinkCard>;
 
 }
@@ -68,6 +71,6 @@ function CarteMesureEmployeur ({ carte, isMobile=false }: CarteMesureEmployeurPr
 function extrait(contenu: string, size = 120): string {
   const end = contenu.substring(size);
   const charactersLeft = end.indexOf(' ');
-  const brief = contenu.substring(0, size+charactersLeft);
+  const brief = contenu.substring(0, size + charactersLeft);
   return `${brief} [...]`;
 }

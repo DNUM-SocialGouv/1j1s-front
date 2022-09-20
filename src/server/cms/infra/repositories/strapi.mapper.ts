@@ -106,6 +106,7 @@ function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursRespo
   return listeCartes.map((carte) => ({
     bannière: mapImage(carte.banniere),
     contenu: carte.contenu,
+    pourQui : carte.pourQui,
     titre: carte.titre,
     url: carte.url,
     ...(carte.article.data ? { article: mapArticleRelation(carte.article) } : {}),
