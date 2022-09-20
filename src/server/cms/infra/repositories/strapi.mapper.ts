@@ -4,7 +4,9 @@ import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJe
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
+  CarteMesuresEmployeursResponse,
   CarteMesuresJeunesResponse,
+  MesuresEmployeursAttributesResponse,
   MesuresJeunesAttributesResponse,
   StrapiCollectionTypeResponse,
   StrapiImage,
@@ -18,6 +20,8 @@ import {
   FicheMétierHttp,
   FicheMétierHttpNestedField, FicheMétierHttpNestedFieldStatut,
 } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
+
+import { CarteMesuresEmployeurs, MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
 
 export function mapMentionObligatoire(response: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article {
   const { contenu, titre } = response.data.attributes;
@@ -80,6 +84,32 @@ function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): Fi
     idOnisep: nestedField.identifiant,
     libelle: capitalizeFirstLetter(nestedField.libelle),
   };
+}
+
+export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article|undefined {
+  if (!article.data ) {
+    return undefined;
+  }
+  const attr = article.data.attributes;
+  return attr;
+}
+
+export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse>): MesuresEmployeurs {
+  const { dispositifs } = response.data.attributes;
+
+  return {
+    dispositifs: mapCartesMesuresEmployeursList(dispositifs),
+  };
+}
+
+function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursResponse[]): CarteMesuresEmployeurs[] {
+  return listeCartes.map((carte) => ({
+    bannière: mapImage(carte.banniere),
+    contenu: carte.contenu,
+    titre: carte.titre,
+    url: carte.url,
+    ...(carte.article.data ? { article: mapArticleRelation(carte.article) } : {}),
+  }));
 }
 
 export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>): MesuresJeunes {

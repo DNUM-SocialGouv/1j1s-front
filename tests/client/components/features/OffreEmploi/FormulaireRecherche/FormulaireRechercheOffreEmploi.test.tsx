@@ -250,7 +250,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const typeDeContratList = await screen.findByRole('listbox');
 
-        const inputTypeDeContrat = within(typeDeContratList).getAllByRole('option');
+        const inputTypeDeContrat = within(typeDeContratList).getAllByRole('checkbox');
         fireEvent.click(inputTypeDeContrat[0]);
 
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -277,7 +277,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const domaineList = await screen.findByRole('listbox');
 
-        const inputDomaine = within(domaineList).getAllByRole('option');
+        const inputDomaine = within(domaineList).getAllByRole('checkbox');
         fireEvent.click(inputDomaine[2]);
 
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -304,7 +304,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const niveauDemandéList = await screen.findByRole('listbox');
 
-        const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('option');
+        const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('radio');
         fireEvent.click(inputNiveauDemandé[0]);
 
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -331,7 +331,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         const tempsDeTravailList = await screen.findByRole('listbox');
 
-        const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('option');
+        const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('radio');
         fireEvent.click(inputTempsDeTravail[0]);
 
         const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });

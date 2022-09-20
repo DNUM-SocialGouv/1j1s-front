@@ -8,7 +8,8 @@ export class ServerConfigurationService implements ConfigurationService {
       API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
-      API_POLE_EMPLOI_BASE_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_BASE_URL'),
+      API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
+      API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
       IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', ''),
       NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
       NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
@@ -54,7 +55,8 @@ export interface EnvironmentVariables {
   readonly API_ENGAGEMENT_BASE_URL: string;
   readonly API_GEO_BASE_URL: string;
   readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
-  readonly API_POLE_EMPLOI_BASE_URL: string;
+  readonly API_POLE_EMPLOI_OFFRES_URL: string;
+  readonly API_POLE_EMPLOI_REFERENTIEL_URL: string;
   readonly IS_REVIEW_APP: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string;
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string;

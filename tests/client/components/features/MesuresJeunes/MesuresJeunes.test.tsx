@@ -3,6 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aMesuresJeunes } from '@tests/fixtures/domain/mesuresJeunes.fixture';
 
@@ -12,6 +13,7 @@ const mesuresJeunes = aMesuresJeunes();
 
 describe('MesuresJeunes', () => {
   beforeEach(() => {
+    mockUseRouter({});
     mockSmallScreen();
   });
 

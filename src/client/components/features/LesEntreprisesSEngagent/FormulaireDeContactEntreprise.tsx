@@ -47,11 +47,16 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
   }
 
   return (
-    <ModalComponent closeLabel='' isOpen={isOpen} close={close} className={styles.modal}>
+    <ModalComponent
+      closeLabel=''
+      isOpen={isOpen}
+      close={close}
+      className={styles.modal}
+      aria-labelledby={envoyé ? 'dialog_label_envoyé' : 'dialog_label_formulaire'}>
       {
         !envoyé && <>
           <ModalComponent.Title className={styles.modalTitle}>
-            <div>Contactez-nous</div>
+            <div id="dialog_label_formulaire">Contactez-nous</div>
             <div>
               (Tous les champs sont obligatoires)
             </div>
@@ -120,7 +125,7 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
       {
         envoyé && <>
           <ModalComponent.Title className={styles.modalTitle}>
-            <div>Votre demande a bien été transmise !</div>
+            <div id="dialog_label_envoyé">Votre demande a bien été transmise !</div>
           </ModalComponent.Title>
           <ModalComponent.Content>
             <div className={ styles.success }>

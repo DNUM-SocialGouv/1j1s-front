@@ -2,6 +2,7 @@ version: "3.9"
 services:
   redis:
     container_name: "1js1-redis"
+    restart: always
     image: "redis:alpine"
     # mettre le mot de passe dans les var envs : [https://docs.docker.com/compose/environment-variables/]
     command: "redis-server --bind redis --port 6379 --requirepass mypassword"

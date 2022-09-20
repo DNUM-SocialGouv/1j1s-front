@@ -4,9 +4,12 @@ import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
+import { MesuresEmployeurs } from './mesuresEmployeurs';
+
 export interface CmsRepository {
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
   getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
   getMesuresJeunes() : Promise<Either<MesuresJeunes>>
+  getMesuresEmployeurs() : Promise<Either<MesuresEmployeurs>>
 }

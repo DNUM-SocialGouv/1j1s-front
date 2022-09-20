@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
-import { KeyBoard } from '~/client/utils/keyboard.util';
 
 interface ModalProps {
   isOpen: boolean;
@@ -90,7 +90,12 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   return (
     <>
       {isOpen && createPortal(
-        <dialog ref={modalRef} className={classNames(className, styles.modal)} open={isOpen} {...rest}>
+        <dialog
+          ref={modalRef}
+          className={classNames(className, styles.modal)}
+          open={isOpen}
+          aria-modal="true"
+          {...rest}>
           <div className={styles.modalBody}>
             <div className={classNames(className, styles.modalClose)}>
               <Button
@@ -110,8 +115,8 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   );
 }
 
-function ModalTitle({ titleLevel = 'h1', children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-  return React.createElement(titleLevel, { className: classNames(className, styles.modalTitle) }, children);
+function ModalTitle({ titleLevel = 'h1', children, className, id }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
+  return React.createElement(titleLevel, { className: classNames(className, styles.modalTitle), id }, children );
 }
 
 function ModalContent({ children, className }: React.HTMLAttributes<HTMLDivElement>) {

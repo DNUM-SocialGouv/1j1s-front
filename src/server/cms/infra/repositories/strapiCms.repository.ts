@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
@@ -5,11 +7,13 @@ import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import {
   mapArticle, mapFicheMetier,
   mapMentionObligatoire,
+  mapMesuresEmployeurs,
   mapMesuresJeunes,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
+  MesuresEmployeursAttributesResponse,
   MesuresJeunesAttributesResponse,
   StrapiCollectionTypeResponse,
   StrapiSingleTypeResponse,
@@ -18,6 +22,8 @@ import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { FicheMétierHttp } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
 
 export class StrapiCmsRepository implements CmsRepository {
   constructor(private httpClientService: HttpClientService) {}
@@ -55,11 +61,31 @@ export class StrapiCmsRepository implements CmsRepository {
   }
 
   async getMesuresJeunes(): Promise<Either<MesuresJeunes>> {
-    const contenuList = ['vieProfessionnelle', 'orienterFormer', 'accompagnement', 'aidesFinancieres'];
-
+    const query = {
+      populate: {
+        accompagnement: { populate: '*' },
+        aidesFinancieres: { populate: '*' },
+        orienterFormer: { populate: '*' },
+        vieProfessionnelle: { populate: '*' },
+      },
+    };
     return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, MesuresJeunes>(
-      `mesure-jeune?${contenuList.map((contenu) => `populate[${contenu}][populate]=*&`)}`.replaceAll(',', ''),
+      `mesure-jeune?${qs.stringify(query, { encode: false })}`,
       mapMesuresJeunes,
+    );
+  }
+
+  async getMesuresEmployeurs(): Promise<Either<MesuresEmployeurs>> {
+    const query = {
+      populate: {
+        dispositifs: {
+          populate: '*',
+        },
+      },
+    };
+    return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse>, MesuresEmployeurs>(
+      `les-mesures-employeurs?${qs.stringify(query, { encode: false })}`,
+      mapMesuresEmployeurs,
     );
   }
 }

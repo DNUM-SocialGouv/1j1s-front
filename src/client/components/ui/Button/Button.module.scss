@@ -33,10 +33,38 @@
   &Link {
     color: $color-primary;
   }
+
+  &Secondary {
+    display: inline-block;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    border-radius: 20px;
+    gap: inherit;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem 0.5rem 0.8rem;
+  }
+
   &IconOnTop {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
+  svg {
+    vertical-align: text-top;
+  }
+
+  span {
+    line-height: 1.6rem;
+    @extend %text-regular;
+  }
+}
+
+.reversed {
+  color: $color-primary;
+  border-radius: 20px;
+  border: 1px solid $color-primary;
+  padding: 0 1.5rem;
+  height: 2.5rem;
 }

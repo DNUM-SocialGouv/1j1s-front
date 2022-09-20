@@ -8,7 +8,8 @@ import {
 } from '@tests/fixtures/server/offresEmploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { aPoleEmploiHttpClient } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
-import { createSuccess, Success } from '~/server/errors/either';
+import { createSuccess, Failure, Success } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { OffreEmploi, RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
 import {
@@ -37,7 +38,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('récupère l\'offre d\'emploi selon l\'id', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess( aBarmanOffreEmploi()));
+          .mockResolvedValue(createSuccess(aBarmanOffreEmploi()));
         const expected = aBarmanOffreEmploi();
         const offreEmploiId = expected.id;
 
@@ -45,7 +46,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(expected);
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/132LKFB',
+          '/132LKFB',
           mapOffreEmploi,
         );
       });
@@ -53,6 +54,16 @@ describe('ApiPoleEmploiOffreRepository', () => {
   });
 
   describe('searchOffreEmploi', () => {
+    describe('quand la range est supérieur à 1149', () => {
+      it('renvoie une erreur DEMANDE_INCORRECTE', async () => {
+        const offreEmploiFiltre = anOffreEmploiFiltre({ localisation: undefined, page: 1001 });
+
+        const { errorType } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreEmploiFiltre) as Failure;
+
+        expect(errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+      });
+    });
+
     describe('quand nombre de résultat est présent dans la réponse', () => {
       it('recherche les offres d\'emploi de pole emploi', async () => {
         jest
@@ -64,7 +75,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&region=34',
+          '/search?motsCles=boulanger&range=0-14&typeContrat=CDD%2CCDI&region=34',
           mapRésultatsRechercheOffreEmploi,
         );
       });
@@ -88,7 +99,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result.result).toEqual(aRésultatsRechercheOffreEmploi());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          'partenaire/offresdemploi/v2/offres/search?motsCles=boulanger&range=0-29&typeContrat=CDD%2CCDI&commune=75101',
+          '/search?motsCles=boulanger&range=0-14&typeContrat=CDD%2CCDI&commune=75101',
           mapRésultatsRechercheOffreEmploi,
         );
       });

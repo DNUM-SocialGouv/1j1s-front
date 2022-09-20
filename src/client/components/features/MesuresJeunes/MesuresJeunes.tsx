@@ -51,17 +51,15 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
   function displayMoreCartes(cardList: CarteMesuresJeunes[]) {
     const SPLIT_SIZE = 3;
     const cardListSplit = splitCardList(cardList.slice(SPLIT_SIZE), SPLIT_SIZE);
-    const cardElement = cardListSplit.map((cardList, index) => {
+    return cardListSplit.map((cardList, index) => {
       return <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)} key={index}>
-        { cardList ? cardList.map((carte, index) => {
+        {cardList ? cardList.map((carte, index) => {
           return CarteMesureJeune(carte, index);
-          ;
         })
           : undefined}
       </div>;
 
     });
-    return cardElement;
   }
 
   function displaySectionCartes(category: CarteMesuresJeunes[]) {

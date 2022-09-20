@@ -3,6 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { anArticle } from '@tests/fixtures/domain/article.fixture';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
@@ -10,6 +11,10 @@ import { ConsulterArticle } from '~/client/components/features/Article/Consulter
 const article = anArticle();
 
 describe('ConsulterArticle', () => {
+  beforeEach(() => {
+    mockUseRouter({});
+  });
+
   it('affiche le titre de l\'article', () => {
     render(<ConsulterArticle article={article} />);
     const titre = screen.getByRole('heading', { level: 1, name: 'Mon article' });

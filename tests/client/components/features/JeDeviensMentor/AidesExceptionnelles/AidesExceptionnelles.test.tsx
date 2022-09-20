@@ -4,6 +4,7 @@
 import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
+import { mockUseRouter } from '@tests/client/useRouter.mock';
 
 import AidesExceptionnelles
   from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
@@ -12,6 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 describe('AidesExceptionnelles', () => {
   
   function renderComponent () {
+    mockUseRouter({});
     render(
       <DependenciesProvider>
         <AidesExceptionnelles />

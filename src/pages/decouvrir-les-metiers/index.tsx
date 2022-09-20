@@ -3,9 +3,10 @@ import { stringify } from 'querystring';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
@@ -73,14 +74,7 @@ export default function RechercherFicheMetierPage() {
         title={'Rechercher un métier | 1jeune1solution'}
         description="Trouver le métier qui vous correspond"/>
       <main id="contenu">
-        <div className={styles.heroSection}>
-          <Container>
-            <h1 className={styles.heroMessage}>
-              <span className={styles.heroMessageFirstPart}>Trouvez le métier</span>
-              <span className={styles.heroMessageSecondPart}>qui vous correspond</span>
-            </h1>
-          </Container>
-        </div>
+        <LightHero primaryText="Trouvez le métier" secondaryText="qui vous correspond" />
         <div className={styles.headingSection}>
           <Container className={styles.formContainer}>
             <form className={styles.form} role='form' onSubmit={updateQueryParams}>
@@ -92,12 +86,13 @@ export default function RechercherFicheMetierPage() {
                 value={inputMotCle}
                 autoFocus
                 onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value) } />
-              <Button
-                buttonType='withRightIcon'
-                icon={<MagnifyingGlassIcon />}
-                type='submit'>
-                Rechercher
-              </Button>
+              <ButtonComponent
+                icon={<Icon name="magnifying-glass" />}
+                iconPosition="right"
+                label="Rechercher"
+                title="Rechercher des fiches métiers"
+                type="submit"
+              />
             </form>
           </Container>
         </div>

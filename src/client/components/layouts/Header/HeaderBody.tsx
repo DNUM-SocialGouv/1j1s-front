@@ -34,7 +34,7 @@ export function HeaderBody() {
               <p>FRANÇAISE</p>
             </Link>
           </div>
-          { !isLargeScreen && <Button buttonType='withTopIcon' icon={<Icon name='burger-menu'/>}  onClick={onClickSetModal}>Menu</Button>}
+          { !isLargeScreen && <Button buttonType='withTopIcon' icon={<Icon name='burger-menu'/>} onClick={onClickSetModal}>Menu</Button>}
         </Container>
         <Link className={styles.headerService} href="/">
           1jeune1solution

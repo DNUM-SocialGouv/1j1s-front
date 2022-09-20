@@ -7,8 +7,6 @@ import styles from '~/client/components/ui/Button/Button.module.scss';
 import { ButtonProps } from '~/client/components/ui/Button/button.props';
 
 export function Button({ children, buttonType='primary', buttonOnDarkBackground= false, icon, className, ...rest } : React.PropsWithChildren<ButtonProps>) {
-
-
   const getButton = useCallback(() => {
     const primaryStyle = buttonOnDarkBackground ? styles.buttonPrimaryOnDarkBackground : styles.buttonPrimary;
     const buttonStyle = classNames(styles.button, primaryStyle, className);
@@ -18,6 +16,8 @@ export function Button({ children, buttonType='primary', buttonOnDarkBackground=
         return buttonLink(children, rest);
       case 'linkWithRightIcon':
         return buttonLinkWithRightIcon(children, rest, icon);
+      case 'secondary':
+        return buttonSecondary(children, rest, icon, className);
       case 'withLeftIcon':
         return buttonWithLeftIcon(children, rest, icon, buttonStyle);
       case 'withRightIcon':
@@ -35,6 +35,15 @@ export function Button({ children, buttonType='primary', buttonOnDarkBackground=
 function buttonPrimary(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , buttonStyle: string) {
   return (
     <button className={buttonStyle} {...rest}>
+      {children}
+    </button>
+  );
+}
+
+function buttonSecondary(children: React.ReactNode, rest: React.ButtonHTMLAttributes<unknown> , icon: React.ReactNode | undefined, className?: string) {
+  return (
+    <button className={classNames(styles.button, styles.buttonSecondary, className)} {...rest}>
+      {icon && <>{icon}</>}
       {children}
     </button>
   );

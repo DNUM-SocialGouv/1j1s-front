@@ -22,6 +22,7 @@ export interface StrapiImageAttributes {
 }
 
 export interface ArticleSimpleAttributesResponse {
+    slug: string
     titre: string
     contenu: string
 }
@@ -45,4 +46,16 @@ export interface CarteMesuresJeunesResponse {
     contenu: string
     url: string
     banniere: Strapi.Image
+}
+
+export interface MesuresEmployeursAttributesResponse {
+    dispositifs: CarteMesuresEmployeursResponse[]
+}
+
+export interface CarteMesuresEmployeursResponse {
+    titre: string
+    contenu: string
+    url: string
+    banniere: Strapi.Image
+    article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
 }

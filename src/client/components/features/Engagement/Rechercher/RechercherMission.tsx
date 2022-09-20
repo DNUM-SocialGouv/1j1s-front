@@ -10,7 +10,7 @@ import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -18,7 +18,12 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
-import { bénévolatDomaineList, Mission, serviceCiviqueDomaineList } from '~/server/engagement/domain/engagement';
+import {
+  bénévolatDomaineList,
+  Mission,
+  NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
+  serviceCiviqueDomaineList,
+} from '~/server/engagement/domain/engagement';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 interface RechercherMissionProps {
@@ -40,8 +45,6 @@ export function RechercherMission(props: RechercherMissionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
   const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
-
-  const OFFRE_PER_PAGE = 30;
 
   useEffect(() => {
     const queryString = stringify(router.query);
@@ -99,7 +102,7 @@ export function RechercherMission(props: RechercherMissionProps) {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={isServiceCivique ? mapMissionServiceCiviqueToLienSolution: mapMissionBénévolatToLienSolution}
-          paginationOffset={OFFRE_PER_PAGE}
+          paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
         />
       </main>
     </>
@@ -135,9 +138,8 @@ interface BannièreMissionProps {
 }
 
 function BannièreMission({ isServiceCivique }: BannièreMissionProps) {
+  const secondaryText = `grâce aux missions de ${isServiceCivique ? 'Service Civique' : 'Bénévolat'}`;
   return (
-    <Hero>
-      <b>Se rendre utile</b> tout en <b>préparant son avenir</b> grâce aux missions de <b>{isServiceCivique ? 'Service Civique' : 'Bénévolat'}</b>
-    </Hero>
+    <LightHero primaryText="Se rendre utile tout en préparant son avenir" secondaryText={secondaryText} />
   );
 }

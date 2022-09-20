@@ -143,6 +143,14 @@
   }
 }
 
+.backButton {
+  margin-bottom: 1rem;
+
+  @include media(xlarge) {
+    margin-bottom: 2rem;
+  }
+}
+
 .partnerInfo {
   margin-top: 1rem;
   margin-bottom: 1rem;

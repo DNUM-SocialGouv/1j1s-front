@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Input/Input.module.scss';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
-import { KeyBoard } from '~/client/utils/keyboard.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';

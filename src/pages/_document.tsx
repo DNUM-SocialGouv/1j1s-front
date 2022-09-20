@@ -28,7 +28,6 @@ export default function Document() {
         <meta name="msapplication-square150x150logo" content="favicons/mstile-150x150.png" />
         <meta name="msapplication-wide310x150logo" content="favicons/mstile-310x150.png" />
         <meta name="msapplication-square310x310logo" content="favicons/mstile-310x310.png" />
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
       </Head>
       <body>
         <Main/>

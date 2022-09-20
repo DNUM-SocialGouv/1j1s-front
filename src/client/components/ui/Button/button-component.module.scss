@@ -1,0 +1,76 @@
+@import "@styles/utilities";
+
+.button {
+  border-radius: 50px;
+  padding-block: 0.5rem;
+
+  &Label {
+    line-height: 1.6rem;
+    @extend %text-regular;
+  }
+
+  &Primary {
+    border: 1px solid $color-primary;
+    background-color: $color-primary;
+    color: $color-on-primary;
+
+    &:hover {
+      background-color: $color-primary-on-hover;
+      border-color: $color-primary-on-hover;
+    }
+  }
+
+  &Secondary {
+    border: 1px solid $color-primary;
+    color: $color-primary;
+
+    &:hover {
+      background-color: $color-background-white-titan;
+      border-color: $color-primary-on-hover;
+      color: $color-primary-on-hover;
+    }
+  }
+
+  &Primary svg, &Secondary svg {
+    vertical-align: text-top;
+  }
+
+  &Tertiary {
+    color: $color-primary;
+
+    &:hover {
+      background-color: $color-background-white-titan;
+    }
+
+    svg {
+      vertical-align: text-bottom;
+    }
+  }
+
+  &Tertiary.buttonWithRightIcon .buttonLabel {
+    margin-right: 0.5rem;
+  }
+
+  &WithRightIcon {
+    padding-inline: 1.5rem 1.3rem;
+
+    .buttonLabel {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &WithLeftIcon {
+    padding-inline: 1.3rem 1.5rem;
+
+    .buttonLabel {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &WithTopIcon {
+    .buttonLabel {
+      display: block;
+      padding-inline: 1rem;
+    }
+  }
+}
