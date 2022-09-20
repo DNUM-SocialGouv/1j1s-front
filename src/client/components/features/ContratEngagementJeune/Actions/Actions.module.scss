@@ -2,10 +2,11 @@
 
 .actions {
  @extend %background-surface;
-  padding: 3rem 0;
+  padding: 2rem 0;
 
   button {
     margin: inherit;
+    margin-top: 1.5rem;
   }
 
   &Container {
