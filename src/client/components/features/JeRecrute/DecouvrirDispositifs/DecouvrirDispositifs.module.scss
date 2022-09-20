@@ -1,0 +1,46 @@
+@import "@styles/utilities";
+
+
+.recruter {
+  padding: 2rem 0 4rem;
+  margin: auto 1rem;
+  text-align: center;
+
+  h2 {
+    @extend %text-xLarge, %bold;
+    color: $color-primary;
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+
+  p {
+    @extend %text-large;
+    max-width: 43rem;
+    text-align: left;
+    margin: auto;
+    margin-bottom: 3rem;
+  }
+
+  ul {
+    display: grid;
+    margin: auto;
+    max-width: 25rem;
+    li {
+      margin-top: 1rem;
+      a {
+        font-size: 0.95em;
+        min-width: 100%;
+      }
+    }
+  }
+}
+
+
+@include media(large) {
+  .recruter {
+    margin: auto;
+  }
+  .recruter ul li a {
+    font-size: inherit;
+  }
+}

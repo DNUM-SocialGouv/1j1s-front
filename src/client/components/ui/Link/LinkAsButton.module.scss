@@ -33,4 +33,10 @@
       @extend %background-surface;
     }
   }
+
+  &Disabled {
+    pointer-events: none;
+    background-color: $color-disabled;
+    color: $color-on-disabled;
+  }
 }
