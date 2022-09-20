@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { buildNavigation } from '~/client/components/layouts/Header/HeaderNav';
+import { navigationItemList } from '~/client/components/layouts/Header/NavigationStructure';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -26,36 +27,33 @@ export function HeaderBody() {
   }, [path, setPath, router]);
 
   return (
-    <Container>
-      <div className={styles.headerBody}>
-        <Container className={styles.headerLogoServiceContainer}>
-          <div className={styles.headerLogo}>
-            <Link href="/" className={classNames(styles.headerLogoTitle, 'underline-none')}>
-              <p>RÉPUBLIQUE</p>
-              <p>FRANÇAISE</p>
-            </Link>
-          </div>
+    <Container className={styles.headerBody}>
+      <div className={styles.headerBodyContainer}>
+        <div className={styles.headerLogoWrapper}>
+          <Link href="/" className={styles.headerLogo}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logos/logo_rf.svg" alt="Logo République Française" />
+          </Link>
           { !isLargeScreen && <Button buttonType='withTopIcon' icon={<Icon name='burger-menu'/>} onClick={onClickSetModal}>Menu</Button>}
-        </Container>
-        <Link className={classNames(styles.headerService, 'underline-none')} href="/">
-          1jeune1solution
-        </Link>
-        <ModalComponent
-          close={onClickSetModal}
-          isOpen={isModalOpen}
-          className={styles.headerModal}>
-          <ModalComponent.Title>
-            <Icon name="menu" />
-            <span>Menu</span>
-          </ModalComponent.Title>
-          <ModalComponent.Content>
-            <Container className={styles.headerModalContainer}>
-              <Link href={'/'} onClick={onClickSetModal}>Accueil</Link>
-              {buildNavigation(path, true, onClickSetModal)}
-            </Container>
-          </ModalComponent.Content>
-        </ModalComponent>
+        </div>
+        <Link className={styles.headerTitle} href="/">1jeune1solution</Link>
       </div>
+      <ModalComponent
+        className={styles.headerModal}
+        close={onClickSetModal}
+        isOpen={isModalOpen}>
+        <ModalComponent.Title>
+          <Icon name="menu" />
+          <span>Menu</span>
+        </ModalComponent.Title>
+        <ModalComponent.Content>
+          <Container className={styles.headerModalContainer}>
+            <ul>
+              {buildNavigation(navigationItemList, 0, path)}
+            </ul>
+          </Container>
+        </ModalComponent.Content>
+      </ModalComponent>
     </Container>
   );
 }

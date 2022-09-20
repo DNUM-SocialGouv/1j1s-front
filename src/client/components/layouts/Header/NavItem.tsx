@@ -1,29 +1,25 @@
-import React, { Children } from 'react';
+import classNames from 'classnames';
+import Link from 'next/link';
+import React, { useMemo } from 'react';
 
-import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
-import { Link } from '~/client/components/ui/Link/Link';
+import styles from '~/client/components/layouts/Header/Header.module.scss';
 
 interface NavItemProps {
-  title: string
-  link?: string
-  current: boolean
-  children?: React.ReactNode
+	label: string
+	link: string
+	path: string
 }
 
-export function NavItem({ title, current, link, children } : NavItemProps) {
-
-  const hasChildren = Children.toArray(children).length > 0;
+export function NavItem({ className, label, link, path }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
+  const isActive = useMemo(() => (path === link), [link, path]);
 
   return (
-    hasChildren ?
-      <NavItemWithSubItems title={title} isCurrent={current}>
-        {children}
-      </NavItemWithSubItems>
-      :
-      <li>
-        <Link href={link ? link : ''}  className={'underline-none'} aria-current={current}>
-          {title}
-        </Link>
-      </li>
+    <li className={classNames(isActive ? styles.navItemIsActive : '', className)}>
+      <Link href={link}>
+	      <a aria-current={isActive}>
+	        <span className={styles.navItemLabel}>{label}</span>
+	      </a>
+      </Link>
+    </li>
   );
 }

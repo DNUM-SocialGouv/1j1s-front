@@ -1,21 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { CommonProps } from '~/client/components/props';
-import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
-import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import {NavigationItem, NavigationItemLeaf} from "~/client/components/layouts/Header/NavigationStructure"
+import classNames from "classnames"
 
-interface NavItemWithSubItemsProps extends CommonProps {
-  title: string
-  isCurrent: boolean
-  children: React.ReactNode
+interface NavItemWithSubItemsProps {
+  label: string
+  path: string
+  subItemList: NavigationItem[]
 }
 
-export function NavItemWithSubItems({ children, title, isCurrent }: React.PropsWithChildren<NavItemWithSubItemsProps>) {
-
+export function NavItemWithSubItems({ children, className, label, path, subItemList }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
   const optionsRef = useRef<HTMLLIElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const isActive = useMemo(() => {
+    return subItemList.some((subItem) => {
+      if ('link' in subItem) return subItem.link === path;
+    });
+  }, [path, subItemList]);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
@@ -39,17 +44,17 @@ export function NavItemWithSubItems({ children, title, isCurrent }: React.PropsW
     };
   }, [closeMenuOnEscape, closeOptionsOnClickOutside]);
 
-  return(
-    <li ref={optionsRef}>
+  return (
+    <li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
       <button
+        className={styles.subNavItemButton}
         onClick={() => setIsExpanded(!isExpanded)}
-        aria-expanded={isExpanded}
-      >
-        <span aria-current={isCurrent}>{title}</span>
-        {isExpanded ? <AngleUpIcon /> : <AngleDownIcon />}
+        aria-expanded={isExpanded}>
+        <span className={styles.subNavItemLabel}>{label}</span>
+        <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down" />
       </button>
       {isExpanded &&
-        <ul className={styles.subItemsWrapper} onClick={ () => setIsExpanded(!isExpanded)}>
+        <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)}>
           {children}
         </ul>
       }

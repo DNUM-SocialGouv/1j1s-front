@@ -23,6 +23,7 @@ export function ButtonComponent({ appearance = 'primary', className, icon, iconP
       case 'top': return styles.buttonWithTopIcon;
       case 'left': return styles.buttonWithLeftIcon;
       case 'right': return styles.buttonWithRightIcon;
+      default: return styles.buttonNoIcon;
     }
   }, [iconPosition]);
   const buttonStyles = useMemo(() => classNames(className, styles.button, appearanceClass, iconPositionClass),
