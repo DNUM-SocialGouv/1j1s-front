@@ -63,13 +63,11 @@
 
     & > a {
       padding: 0.7rem 0.7rem 0.7rem 0;
-      line-height: 0;
-      box-shadow: none;
-    }
 
-    & > a:not(:last-child) {
-      border-right: 1px solid $color-separator;
-      margin-right: 0.7rem;
+      &:not(:last-child) {
+        border-right: 1px solid $color-separator;
+        margin-right: 0.7rem;
+      }
     }
 
     & > a > svg {

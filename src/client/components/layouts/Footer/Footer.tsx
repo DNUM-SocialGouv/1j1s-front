@@ -77,6 +77,12 @@ export function Footer() {
             <Link href="/accessibilite">Accessibilité</Link>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Politique de confidentialité</Link>
+            <Link href="mailto:1J1S@sg.social.gouv.fr">
+              <span className={classNames(styles.footerLinkAction, 'underline')}>
+                Nous contacter
+                <Icon name="external-redirection" />
+              </span>
+            </Link>
           </div>
           <p className={styles.footerCopyRight}>
             Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;
