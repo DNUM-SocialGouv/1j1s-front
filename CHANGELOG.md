@@ -183,3 +183,4 @@
 ### Performance Improvements
 
 * ajout de la lib purge css et chunk ([#67](https://github.com/DNUM-SocialGouv/1j1s-front/issues/67)) ([13f2eed](https://github.com/DNUM-SocialGouv/1j1s-front/commit/13f2eedf45106a65a8d35451af00e63a0272da8d))
+
