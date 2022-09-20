@@ -12,7 +12,7 @@ import {
 } from '@tests/fixtures/client/services/localisationService.fixture';
 import React from 'react';
 
-import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
+import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('InputCommune', () => {

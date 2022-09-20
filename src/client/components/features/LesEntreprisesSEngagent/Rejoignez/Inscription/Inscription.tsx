@@ -4,10 +4,10 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import FormulaireDeContactEntreprise from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
 import { Button } from '~/client/components/ui/Button/Button';
+import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import InputAutocomplétionCommune from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétionCommune';
-import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { isSuccess } from '~/server/errors/either';
@@ -121,7 +121,7 @@ export default function Inscription() {
                   </button>
                 </div>
                 <div className={styles.bodyFormulaire}>
-                  <TextInput
+                  <InputText
                     label="Indiquez le nom de l’entreprise"
                     name="companyName"
                     placeholder="Exemple : Crédit Agricole, SNCF…"
@@ -148,7 +148,7 @@ export default function Inscription() {
                       });
                     }}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer votre numéro de SIRET"
                     name="companySiret"
                     placeholder="Exemple : 12345678901112"
@@ -161,7 +161,7 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer le secteur d’activité de votre entreprise"
                     name="companySector"
                     placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
@@ -173,7 +173,7 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer la taille de votre entreprise"
                     name="companySize"
                     placeholder="Exemple : 250 à 499 salariés"
@@ -200,7 +200,7 @@ export default function Inscription() {
                   </button>
                 </div>
                 <div className={styles.bodyFormulaire}>
-                  <TextInput
+                  <InputText
                     label="Indiquer votre prénom"
                     name="firstName"
                     placeholder="Exemple : Marc, Sonia…"
@@ -212,7 +212,7 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer votre nom"
                     name="lastName"
                     placeholder="Exemple : Ducourt, Dupont…"
@@ -224,7 +224,7 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer votre adresse e-mail de contact"
                     type="email"
                     name="email"
@@ -238,7 +238,7 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer votre fonction au sein de votre entreprise"
                     name="job"
                     placeholder="Exemple : RH, Chargé de communications"
@@ -250,7 +250,7 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <TextInput
+                  <InputText
                     label="Indiquer un numéro de téléphone de contact"
                     name="phone"
                     placeholder="Exemple : 0199999999"

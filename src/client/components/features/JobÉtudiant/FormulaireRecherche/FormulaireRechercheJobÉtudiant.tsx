@@ -6,10 +6,10 @@ import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'reac
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
+import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { Select } from '~/client/components/ui/Select/Select';
-import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
@@ -53,7 +53,7 @@ export function FormulaireRechercheJobÉtudiant() {
     >
       <div className={styles.filtresRechercherOffre}>
         <div className={styles.inputButtonWrapper}>
-          <TextInput
+          <InputText
             label="Métier, mot-clé"
             value={inputMotCle}
             name="motCle"

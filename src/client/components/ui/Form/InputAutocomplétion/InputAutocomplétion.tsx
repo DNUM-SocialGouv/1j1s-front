@@ -3,8 +3,8 @@ import debounce from 'lodash/debounce';
 import React, { ReactElement, SyntheticEvent, useMemo, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 
-import styles from '~/client/components/ui/Input/Input.module.scss';
-import theme from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétion.module.scss';
+import styles from '~/client/components/ui/Form/Input.module.scss';
+import theme from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion.module.scss';
 
 interface AutocomplétionProps<T> {
   suggérer(préfixe: string): Promise<T[]>;

@@ -11,7 +11,7 @@ interface LinkAsButtonProps extends React.AnchorHTMLAttributes<unknown> {
 
 export function LinkAsButton({ children, icon, href, buttonOnDarkBackground= false, className, ...rest } : React.PropsWithChildren<LinkAsButtonProps>) {
   const primaryStyle = buttonOnDarkBackground ? styles.linkAsButtonPrimaryOnDarkBackground : styles.linkAsButtonPrimary;
-  const buttonStyle = classNames(styles.linkAsButton, primaryStyle, className);
+  const buttonStyle = classNames(styles.linkAsButton, primaryStyle, className, 'underline-none');
   if (!href) return null;
 
   return (

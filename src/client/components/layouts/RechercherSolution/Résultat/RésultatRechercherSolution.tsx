@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
@@ -25,7 +26,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
   };
 
   return (
-    <Link href={lienOffre} className={styles.card} prefetch={false} data-testid="RésultatRechercherSolution">
+    <Link href={lienOffre} className={classNames(styles.card, 'underline-none')} prefetch={false} data-testid="RésultatRechercherSolution">
       <header className={styles.cardHeader}>
         <div className={styles.cardImageWrapper}>
           <Image alt="" src={logoEntreprise} layout="fill" />

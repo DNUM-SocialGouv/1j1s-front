@@ -16,7 +16,7 @@ import {
 } from '@tests/fixtures/client/services/métierRecherchéService.fixture';
 import React from 'react';
 
-import { InputMétierRecherché } from '~/client/components/ui/Input/InputMétierRecherché/InputMétierRecherché';
+import { InputMétierRecherché } from '~/client/components/ui/Form/InputMétierRecherché/InputMétierRecherché';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 

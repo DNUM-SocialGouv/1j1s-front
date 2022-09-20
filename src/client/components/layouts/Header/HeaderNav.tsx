@@ -120,7 +120,10 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
             })}
           </Accordion>
           :
-          <NavItem key={navigationItem.title} title={navigationItem.title} current={navigationItem.childrenList ? navigationItem.childrenList.some((navigationItem) => navigationItem.current === true) : false}>
+          <NavItem
+            key={navigationItem.title}
+            title={navigationItem.title}
+            current={navigationItem.childrenList ? navigationItem.childrenList.some((navigationItem) => navigationItem.current === true) : false}>
             {navigationItem.childrenList?.map((navSubItem) => {
               return (
                 <NavSubItem key={navSubItem.title} title={navSubItem.title} link={navSubItem.link ?? ''} current={navSubItem.current}/>

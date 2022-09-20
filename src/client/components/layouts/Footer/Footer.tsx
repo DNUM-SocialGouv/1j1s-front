@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
@@ -6,6 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 export function Footer() {
 
@@ -32,6 +32,7 @@ export function Footer() {
     },
   ];
 
+  const MAIL_TO = '1j1s@sg.social.gouv.fr';
   return (
     <>
       <p className={styles.preFooter}>
@@ -63,25 +64,27 @@ export function Footer() {
                 <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.</p>
               </div>
               <div className={styles.footerLienExterne}>
-                {linkList.map((link) => (<Link href={link.url} key={link.title}>
-                  <span className={styles.footerLinkAction}>
-                    {link.title}
-                    <Icon name="external-redirection" />
-                  </span>
+                {linkList.map((link) => (<Link href={link.url} key={link.title} className="underline-none">
+                  <TextIcon
+                    text={link.title}
+                    icon={<Icon name="external-redirection" />}
+                    iconPosition="right"
+                  />
                 </Link>))}
               </div>
             </div>
           </div>
           <div className={styles.footerLienUtile}>
-            <Link href="/cgu">Conditions générales d&apos;utilisations</Link>
-            <Link href="/accessibilite">Accessibilité</Link>
-            <Link href="/mentions-legales">Mentions légales</Link>
-            <Link href="/confidentialite">Politique de confidentialité</Link>
-            <Link href="mailto:1J1S@sg.social.gouv.fr">
-              <span className={classNames(styles.footerLinkAction, 'underline')}>
-                Nous contacter
-                <Icon name="external-redirection" />
-              </span>
+            <Link href="/cgu" className="underline-none">Conditions générales d&apos;utilisations</Link>
+            <Link href="/accessibilite" className="underline-none">Accessibilité</Link>
+            <Link href="/mentions-legales" className="underline-none">Mentions légales</Link>
+            <Link href="/confidentialite" className="underline-none">Politique de confidentialité</Link>
+            <Link href={`mailto:${MAIL_TO}`}>
+              <TextIcon
+                text={'Nous contacter'}
+                icon={<Icon name="external-redirection" />}
+                iconPosition="right"
+              />
             </Link>
           </div>
           <p className={styles.footerCopyRight}>
@@ -89,10 +92,11 @@ export function Footer() {
             <Link
               href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
             >
-              <span className={classNames(styles.footerLinkAction, 'underline')}>
-                etalab-2.0
-                <Icon name="external-redirection" />
-              </span>
+              <TextIcon
+                text={'etalab-2.0'}
+                icon={<Icon name="external-redirection" />}
+                iconPosition="right"
+              />
             </Link>
           </p>
         </Container>

@@ -8,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import React from 'react';
 
-import InputAutocomplétionCommune from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétionCommune';
+import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('InputAutocomplétionCommune', function () {

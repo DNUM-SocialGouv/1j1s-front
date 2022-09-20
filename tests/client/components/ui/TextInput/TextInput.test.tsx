@@ -5,14 +5,14 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { TextInput } from '~/client/components/ui/Text/TextInput';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 
 describe('TextInput', () => {
   describe('quand le champ comporte un indice d\'aide à la saisie', () => {
     describe('quand le champs n\'est pas touché', () => {
       it('affiche un indice d\'aide à la saisie et aucun message d\'erreur', () => {
         render(
-          <TextInput
+          <InputText
             label="Mon champ texte"
             name="inputName"
             hint="Champ obligatoire"
@@ -27,7 +27,7 @@ describe('TextInput', () => {
     describe('quand le champ contient une valeur', () => {
       it('affiche un indice d\'aide à la saisie et aucun message d\'erreur', () => {
         render(
-          <TextInput
+          <InputText
             label="Mon champ texte"
             name="inputName"
             hint="Champ obligatoire"
@@ -47,7 +47,7 @@ describe('TextInput', () => {
         render(
           <>
             <button>focus</button>
-            <TextInput
+            <InputText
               label="Mon champ texte"
               name="inputName"
               hint="Remplissez le champ"
@@ -84,7 +84,7 @@ describe('TextInput', () => {
     describe('quand celle-ci est vérifiée', () => {
       it('laisse le champ valide', () => {
         render(
-          <TextInput
+          <InputText
             label="Mon champ texte"
             name="inputName"
             hint="Entrez un nom pair"
@@ -101,7 +101,7 @@ describe('TextInput', () => {
     describe('quand celle-ci n\'est pas vérifiée', () => {
       it('passe le champ invalide', () => {
         render(
-          <TextInput
+          <InputText
             label="Mon champ texte"
             name="inputName"
             hint="Entrez un nom pair"
@@ -120,7 +120,7 @@ describe('TextInput', () => {
     describe('quand celle-ci est obligatoire', () => {
       it('affiche la mention "champ obligatoire"', () => {
         render(
-          <TextInput
+          <InputText
             label="Mon champ texte"
             name="inputName"
             necessity="required"
@@ -136,7 +136,7 @@ describe('TextInput', () => {
     describe('quand celle-ci est optionnelle', () => {
       it('affiche la mention "champ optionnel"', () => {
         render(
-          <TextInput
+          <InputText
             label="Mon champ texte"
             name="inputName"
             necessity="optional"

@@ -4,13 +4,13 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
-import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
@@ -32,7 +32,7 @@ export default function RechercherFicheMetierPage() {
   const ficheMétierCard = (résultat: Partial<FicheMétier>) => {
     if (!résultat.nomMetier) return null;
     return (
-      <Link href={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier)}`}>
+      <Link href={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier)}`} className={'underline-none'}>
         <article className={styles.cardBody}>
           <div
             className={styles.cardTitle}>{`${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`}</div>
@@ -78,7 +78,7 @@ export default function RechercherFicheMetierPage() {
         <div className={styles.headingSection}>
           <Container className={styles.formContainer}>
             <form className={styles.form} role='form' onSubmit={updateQueryParams}>
-              <TextInput
+              <InputText
                 name="motCle"
                 className={styles.inputNomMetier}
                 label="Indiquez le métier que vous recherchez"

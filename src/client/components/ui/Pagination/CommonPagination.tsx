@@ -35,6 +35,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
       <a
         href={createURL ? createURL(page) : '#'}
         role="link"
+        className={'underline-none'}
         aria-current={currentPage === page}
         onClick={(event) => {
           event.preventDefault();
@@ -51,6 +52,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
       <li key="FirstPageLiPagination">
         <a
           href={createURL ? createURL(0) : '#'}
+          className={'underline-none'}
           aria-disabled={isFirstPage}
           aria-label="Revenir à la première page"
           onClick={(event) => {
@@ -70,6 +72,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
       <li key="PreviousPageLiPagination">
         <a
           href={createURL ? createURL(currentPage - 1) : '#'}
+          className={'underline-none'}
           aria-disabled={isFirstPage}
           aria-label="Revenir à la page précédente"
           onClick={(event) => {
@@ -102,6 +105,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
       <li key='NextPageLiPagination'>
         <a
           href={createURL ? createURL(currentPage + 1) : '#'}
+          className={'underline-none'}
           aria-disabled={isLastPage}
           aria-label="Aller à la page suivante"
           onClick={(event) => {
@@ -121,6 +125,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
       <li key='LastLiPagination'>
         <a
           href={createURL ? createURL(computedLastPage) : '#'}
+          className={'underline-none'}
           aria-disabled={isLastPage}
           aria-label="Aller à la dernière page"
           onClick={(event) => {
