@@ -20,7 +20,6 @@ export default function MonEspaceEntreprise() {
       <div>
         <LinkAsButton className={styles.monEspaceConnexion} href="https://www.lesentreprises-sengagent.gouv.fr/login">
           Je me connecte à mon espace
-          <Icon name={'external-redirection'}/>
         </LinkAsButton>
       </div>
       <div>
