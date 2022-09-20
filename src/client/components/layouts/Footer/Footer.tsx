@@ -68,7 +68,6 @@ export function Footer() {
                   <TextIcon
                     text={link.title}
                     icon={<Icon name="external-redirection" />}
-                    iconPosition="right"
                   />
                 </Link>))}
               </div>
@@ -83,7 +82,6 @@ export function Footer() {
               <TextIcon
                 text={'Nous contacter'}
                 icon={<Icon name="external-redirection" />}
-                iconPosition="right"
               />
             </Link>
           </div>
@@ -95,7 +93,6 @@ export function Footer() {
               <TextIcon
                 text={'etalab-2.0'}
                 icon={<Icon name="external-redirection" />}
-                iconPosition="right"
               />
             </Link>
           </p>
