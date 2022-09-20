@@ -35,7 +35,7 @@ export function Footer() {
   return (
     <>
       <p className={styles.preFooter}>
-        Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
+        Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.
       </p>
       <footer id="footer" className={styles.footer}>
         <Container>
@@ -60,7 +60,7 @@ export function Footer() {
             <div className={styles.footerMessageWrapper}>
               <div className={styles.footerMessage}>
                 <p>#1jeune1solution</p>
-                <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.</p>
+                <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.</p>
               </div>
               <div className={styles.footerLienExterne}>
                 {linkList.map((link) => (<Link href={link.url} key={link.title}>

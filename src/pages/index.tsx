@@ -17,7 +17,7 @@ export default function Accueil() {
       <HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
       <Hero image="/images/banners/homepage.webp">
         <p><b>A chacun sa solution.</b></p>
-        <p>Vous avez entre 13 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
+        <p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
       </Hero>
       <main id="contenu">
         <section className={classNames(styles.section, styles.sectionNosOffres)}>
