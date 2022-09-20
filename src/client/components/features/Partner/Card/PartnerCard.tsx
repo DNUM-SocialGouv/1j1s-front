@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import React, {
   useMemo,
@@ -47,7 +48,7 @@ export function PartnerCard(props: PartnerCardProps) {
   const hasHeadlineColor = headlineColor ? { color: headlineColor } : { color: 'inherit' };
 
   return (
-    <Link href={link} className={styles.card}>
+    <Link href={link} className={classNames(styles.card, 'underline-none')}>
       <>
         <div className={styles.cardLogo}>
           <Image alt={alt} src={logo} width='100%' height='100%'/>

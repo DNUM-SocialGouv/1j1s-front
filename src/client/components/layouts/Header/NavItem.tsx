@@ -21,7 +21,7 @@ export function NavItem({ title, current, link, children } : NavItemProps) {
       </NavItemWithSubItems>
       :
       <li>
-        <Link href={link ? link : ''} aria-current={current}>
+        <Link href={link ? link : ''}  className={'underline-none'} aria-current={current}>
           {title}
         </Link>
       </li>

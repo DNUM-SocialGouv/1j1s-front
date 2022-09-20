@@ -8,12 +8,12 @@ import styles
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
+import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { InputLocalisation } from '~/client/components/ui/Input/InputLocalisation/InputLocalisation';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
-import { TextInput } from '~/client/components/ui/Text/TextInput';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -88,7 +88,7 @@ export function FormulaireRechercheOffreEmploi() {
     >
       <div className={styles.filtresRechercherOffre}>
         <div className={styles.inputButtonWrapper}>
-          <TextInput
+          <InputText
             label="Métier, mot-clé"
             value={inputMotCle}
             name="motCle"

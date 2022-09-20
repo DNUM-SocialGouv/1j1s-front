@@ -22,7 +22,7 @@
         margin-top: 0;
         margin-bottom: 2rem;
         font-size: 1.5rem;
-        font-weight: 700;
+        @extend %bold;
         > svg, h2 {
             display: block;
             margin: auto;
@@ -30,7 +30,7 @@
     }
 
     &NosOffres {
-        background-color: lighten($color-blue-navy, 67%);
+        background-color: $color-lighten-blue-navy;
         &Header {
             &Icon {
                 color: $color-blue-navy;
@@ -38,7 +38,7 @@
         }
     }
     &BesoinDeVousFormer {
-        background-color: lighten($color-tapestry, 45%);
+        background-color: $color-lighten-tapestry;
         &Header {
             &Icon {
                 color: $color-tapestry;
@@ -46,7 +46,7 @@
         }
     }
     &AidesOrientationAccompagnement {
-        background-color: lighten($color-smalt-blue, 48%);
+        background-color: $color-lighten-smalt-blue;
         &Header {
             &Icon {
                 color: $color-smalt-blue;
@@ -54,7 +54,7 @@
         }
     }
     &EngagementBénévolat {
-        background-color: lighten($color-coral, 31%);
+        background-color: $color-lighten-coral;
         &Header {
             &Icon {
                 color: $color-coral;
@@ -68,7 +68,7 @@
 }
 
 
-@media only screen and (min-width:48em){
+@media only screen and (min-width:48em) {
     .cardListPaddingSeeMore {
         padding: 0.5rem 1.125rem 1.5rem 1.125rem;
     }
@@ -85,6 +85,7 @@
     .sectionHeader {
         margin-bottom: 3rem;
         margin-top: 1rem;
+        font-size: 2rem;
     }
 
     .section {

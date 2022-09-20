@@ -3,15 +3,42 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 export function Footer() {
+
+  const linkList = [
+    {
+      title: 'legifrance.gouv.fr',
+      url: 'https://www.legifrance.gouv.fr/',
+    },
+    {
+      title: 'gouvernement.fr',
+      url: 'https://www.gouvernement.fr/',
+    },
+    {
+      title: 'service-public.fr',
+      url: 'https://www.service-public.fr/',
+    },
+    {
+      title: 'data.gouv.fr',
+      url: 'https://www.data.gouv.fr/',
+    },
+    {
+      title: 'france.fr',
+      url: 'https://www.france.fr/',
+    },
+  ];
+
+  const MAIL_TO = '1j1s@sg.social.gouv.fr';
   return (
     <>
       <p className={styles.preFooter}>
-        Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.
+        Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.
       </p>
-      <footer id="footer" className={styles.footer} role="contentinfo">
+      <footer id="footer" className={styles.footer}>
         <Container>
           <div className={styles.footerHeader}>
             <div className={styles.footerSlogan}>
@@ -34,26 +61,43 @@ export function Footer() {
             <div className={styles.footerMessageWrapper}>
               <div className={styles.footerMessage}>
                 <p>#1jeune1solution</p>
-                <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 13 à 30 ans, sur tous les territoires.</p>
+                <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.</p>
               </div>
               <div className={styles.footerLienExterne}>
-                <Link href="https://www.legifrance.gouv.fr/">legifrance.gouv.fr</Link>
-                <Link href="https://www.gouvernement.fr/">gouvernement.fr</Link>
-                <Link href="https://www.service-public.fr/">service-public.fr</Link>
-                <Link href="https://www.data.gouv.fr/">data.gouv.fr</Link>
+                {linkList.map((link) => (<Link href={link.url} key={link.title} className="underline-none">
+                  <TextIcon
+                    text={link.title}
+                    icon={<Icon name="external-redirection" />}
+                    iconPosition="right"
+                  />
+                </Link>))}
               </div>
             </div>
           </div>
           <div className={styles.footerLienUtile}>
-            <Link href="/cgu">Conditions générales d&apos;utilisations</Link>
-            <Link href="/accessibilite">Accessibilité</Link>
-            <Link href="/mentions-legales">Mentions légales</Link>
-            <Link href="/confidentialite">Politique de confidentialité</Link>
+            <Link href="/cgu" className="underline-none">Conditions générales d&apos;utilisations</Link>
+            <Link href="/accessibilite" className="underline-none">Accessibilité</Link>
+            <Link href="/mentions-legales" className="underline-none">Mentions légales</Link>
+            <Link href="/confidentialite" className="underline-none">Politique de confidentialité</Link>
+            <Link href={`mailto:${MAIL_TO}`}>
+              <TextIcon
+                text={'Nous contacter'}
+                icon={<Icon name="external-redirection" />}
+                iconPosition="right"
+              />
+            </Link>
           </div>
           <p className={styles.footerCopyRight}>
             Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;
-            <a href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
-              target="_blank" rel="noreferrer">etalab-2.0</a>
+            <Link
+              href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
+            >
+              <TextIcon
+                text={'etalab-2.0'}
+                icon={<Icon name="external-redirection" />}
+                iconPosition="right"
+              />
+            </Link>
           </p>
         </Container>
       </footer>

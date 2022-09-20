@@ -3,11 +3,11 @@ import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
+import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
-import InputAutocomplétionCommune from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétionCommune';
 import { Option, Select } from '~/client/components/ui/Select/Select';
-import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
@@ -71,27 +71,27 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
       onSubmit={envoyerFormulaireDeContact}
     >
       <div className={styles.formulaireDeRappel}>
-        <TextInput
+        <InputText
           label="Prénom"
           name="firstname"
           autoFocus
           placeholder="Exemple : Jean"
           required
         />
-        <TextInput
+        <InputText
           label="Nom"
           name="lastname"
           placeholder="Exemple : Dupont"
           required
         />
-        <TextInput
+        <InputText
           type="email"
           label="Adresse email"
           name="mail"
           placeholder="Exemple : jean.dupont@gmail.com"
           required
         />
-        <TextInput
+        <InputText
           type="tel"
           pattern="^(\+33|0|0033)[1-9]\d{8}$"
           label="Téléphone"

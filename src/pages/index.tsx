@@ -17,7 +17,7 @@ export default function Accueil() {
       <HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
       <Hero image="/images/banners/homepage.webp">
         <p><b>A chacun sa solution.</b></p>
-        <p>Vous avez entre 13 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
+        <p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
       </Hero>
       <main id="contenu">
         <section className={classNames(styles.section, styles.sectionNosOffres)}>
@@ -93,17 +93,17 @@ export default function Accueil() {
               imageUrl="/images/homepage/formation-alternance.jpg"
               link="/formations"
               linkLabel="En savoir plus"
-              title="Formations en alternance"
+              title="Formations"
             >
-              <p>Plus de 40 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
+              <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/homepage/formation-initiales.jpg"
-              link="/formations"
+              link="/decouvrir-les-metiers"
               linkLabel="En savoir plus"
-              title="Formations initiales"
+              title="Je découvre mon futur métier"
             >
-              <p>Plus de 20 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
+              <p>Parcourez plus de 700 fiches métiers et trouvez celui qui vous correspond</p>
             </LinkCard>
           </div>
         </section>
@@ -111,7 +111,7 @@ export default function Accueil() {
         <section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
           <h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
             <CompassIcon className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
-            Aides, orientation et accompagnement
+            Aides et accompagnement
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard

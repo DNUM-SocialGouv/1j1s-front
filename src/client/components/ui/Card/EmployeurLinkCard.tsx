@@ -27,7 +27,7 @@ export function EmployeurLinkCard({ children, imageUrl, isMobile=false, link, li
   }
 
   return (
-    <Link href={link} className={classNames(styles.card, { [styles.mobile]: isMobile })}>
+    <Link href={link} className={classNames(styles.card, 'underline-none', { [styles.mobile]: isMobile })}>
       <article>
         <div className={styles.image}>
           <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>

@@ -1,12 +1,12 @@
 import React, { FormEvent, useState } from 'react';
 
 import { Button } from '~/client/components/ui/Button/Button';
+import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
-import { TextArea } from '~/client/components/ui/Text/TextArea';
-import { TextInput } from '~/client/components/ui/Text/TextInput';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
@@ -66,27 +66,27 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
               onSubmit={envoyerDemandeDeContactEntreprise}
             >
               <div className={styles.formulaireDeRappel}>
-                <TextInput
+                <InputText
                   label="Prénom"
                   name="prénom"
                   autoFocus
                   placeholder="Exemple : Marc, Sonia…"
                   required
                 />
-                <TextInput
+                <InputText
                   label="Nom"
                   name="nom"
                   placeholder="Exemple : Ducourt, Marie"
                   required
                 />
-                <TextInput
+                <InputText
                   type="email"
                   label="Adresse email"
                   name="email"
                   placeholder="Exemple : mail@exemple.com"
                   required
                 />
-                <TextInput
+                <InputText
                   type="tel"
                   pattern="^(\+33|0|0033)[1-9]\d{8}$"
                   label="Téléphone"
@@ -95,14 +95,14 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
                   required
                 />
               </div>
-              <TextInput
+              <InputText
                 className={styles.sujet}
                 label="Sujet"
                 name="sujet"
                 placeholder="Exemple : Demande de contact"
                 required
               />
-              <TextArea
+              <InputArea
                 className={styles.textArea}
                 label="Message"
                 name="message"

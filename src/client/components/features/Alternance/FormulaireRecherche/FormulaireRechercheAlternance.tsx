@@ -9,9 +9,9 @@ import React, {
 import styles
   from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
 import { Button } from '~/client/components/ui/Button/Button';
+import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
+import { InputMétierRecherché } from '~/client/components/ui/Form/InputMétierRecherché/InputMétierRecherché';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { InputCommune } from '~/client/components/ui/Input/InputCommune/InputCommune';
-import { InputMétierRecherché } from '~/client/components/ui/Input/InputMétierRecherché/InputMétierRecherché';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import {
   getFormAsQuery,

@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import InputAutocomplétion from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétion';
+import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 
 async function noOp(): Promise<string[]> {
   return [];

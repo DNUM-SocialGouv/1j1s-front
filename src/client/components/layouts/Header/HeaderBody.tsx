@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
@@ -29,14 +30,14 @@ export function HeaderBody() {
       <div className={styles.headerBody}>
         <Container className={styles.headerLogoServiceContainer}>
           <div className={styles.headerLogo}>
-            <Link href="/" className={styles.headerLogoTitle}>
+            <Link href="/" className={classNames(styles.headerLogoTitle, 'underline-none')}>
               <p>RÉPUBLIQUE</p>
               <p>FRANÇAISE</p>
             </Link>
           </div>
           { !isLargeScreen && <Button buttonType='withTopIcon' icon={<Icon name='burger-menu'/>} onClick={onClickSetModal}>Menu</Button>}
         </Container>
-        <Link className={styles.headerService} href="/">
+        <Link className={classNames(styles.headerService, 'underline-none')} href="/">
           1jeune1solution
         </Link>
         <ModalComponent

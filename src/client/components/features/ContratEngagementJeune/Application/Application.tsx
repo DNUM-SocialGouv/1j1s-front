@@ -21,14 +21,16 @@ export default function Application() {
         <div className={styles.applicationLogoContainer}>
           <div className={styles.applicationLogo}>
             <Image priority src={logoGoogle} alt={'Logo Google Play Store'}/>
-            <a href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR">
+            <a href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
+              className={'underline-none'}>
               Get it on <br/>
               <span className={styles.applicationLogoStore}>Google Play</span>
             </a>
           </div>
           <div className={styles.applicationLogo}>
             <Image priority src={logoApple} alt={'Logo Apple App Store'}/>
-            <a href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519">
+            <a href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
+              className={'underline-none'}>
               Download on the <br/>
               <span className={styles.applicationLogoStore}>APP Store</span>
             </a>

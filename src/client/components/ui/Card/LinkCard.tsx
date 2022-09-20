@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
@@ -21,7 +22,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title, titleLeve
   }
 
   return (
-    <Link href={link} className={styles.card}>
+    <Link href={link} className={classNames(styles.card, 'underline-none')}>
       <article className={styles.cardArticle}>
         <div className={styles.cardImageWrapper}>
           <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>

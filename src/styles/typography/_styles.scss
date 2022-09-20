@@ -12,7 +12,7 @@
 
 body {
   font-family: Marianne, arial, sans-serif;
-  color: $color-mine-shaft;
+  color: $color-on-surface;
 }
 
 .text-regular, .paragraph {
@@ -45,4 +45,8 @@ body {
 
 .separator {
   border-bottom: 1px solid $color-separator;
+}
+
+.underline-none {
+  text-decoration: none;
 }

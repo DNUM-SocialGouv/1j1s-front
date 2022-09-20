@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useCallback } from 'react';
 
-import InputAutocomplétion from '~/client/components/ui/Input/InputAutocomplétion/InputAutocomplétion';
+import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';

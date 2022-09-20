@@ -10,8 +10,8 @@ import React, {
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import styles from '~/client/components/ui/Form/Input.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import styles from '~/client/components/ui/Input/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
@@ -221,7 +221,7 @@ export const InputMétierRecherché = (props: InputMétierRecherchéProps) => {
             { !errorMessageActive
               ? <>
                 <Icon name="information"/>
-                  Commencez à taper votre mot puis sélectionnez un métier
+                Commencez à taper votre mot-clé puis sélectionnez un domaine
               </>
               : <>Le champ est obligatoire - veuillez saisir un mot-clé</>
             }
