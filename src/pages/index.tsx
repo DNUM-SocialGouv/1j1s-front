@@ -146,7 +146,7 @@ export default function Accueil() {
                 imageUrl="/images/homepage/accompagne.jpg"
                 link="/accompagnement"
                 linkLabel="En savoir plus"
-                title="Je souhaite être accompagné-e"
+                title="Je souhaite être accompagné·e"
               >
                 <p>Retrouvez les structures proches de chez vous pouvant vous aider dans vos démarches ou votre parcours.</p>
               </LinkCard>

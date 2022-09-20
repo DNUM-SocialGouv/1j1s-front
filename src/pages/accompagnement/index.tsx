@@ -1,8 +1,9 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import infoImage from 'public/images/accompagnement/info.png';
-import poleImage from 'public/images/accompagnement/pole.png';
-import unionImage from 'public/images/accompagnement/union.png';
+import infoJeunesImage from 'public/images/logos/info-jeunes.svg';
+import poleEmploiImage from 'public/images/logos/pole-emploi.svg';
+import missionLocaleImage from 'public/images/logos/union-mission-locale.svg';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -25,7 +26,7 @@ export default function Accompagnement() {
   function displayMissionLocaleLogoContainer() {
     return (
       <>
-        <div className={styles.unionImageContainer}><Image src={unionImage} alt=""/></div>
+        <div className={styles.imageContainer}><Image src={missionLocaleImage} alt="" width={224} height={88}/></div>
         <div className={styles.petiteDescriptionStructure}>
           <span>Les missions locales proposent un suivi personnalisé</span>
           <br />
@@ -38,7 +39,7 @@ export default function Accompagnement() {
   function displayInfoJeunesLogoContainer() {
     return (
       <>
-        <div className={styles.infoJeunesImageContainer}><Image src={infoImage} alt=""/></div>
+        <div className={styles.imageContainer}><Image src={infoJeunesImage} alt="" width={224} height={104}/></div>
         <div className={styles.petiteDescriptionStructure}>
           <span>Info Jeunes, le réseau d’accueil et d’information des jeunes en France</span>
           <br />
@@ -50,7 +51,7 @@ export default function Accompagnement() {
 
   function displayPoleEmploiLogoContainer() {
     return <>
-      <div className={styles.poleEmploiImageContainer}><Image src={poleImage} alt=""/></div>
+      <div className={styles.imageContainer}><Image src={poleEmploiImage} alt="" width={224} height={180}/></div>
       <div className={styles.petiteDescriptionStructure}>
         <span>Pôle emploi propose un accompagnement intensif</span>
         <br/>
@@ -60,13 +61,9 @@ export default function Accompagnement() {
   }
 
   function displayBoutonRechercherMissionLocale() {
-    return (
-      <>
-        <Link href="https://www.unml.info/les-missions-locales/annuaire/">
-          <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>} className={styles.buttonChercher}>Chercher une mission locale</Button>
-        </Link>
-      </>
-    );
+    return <Link href="https://www.unml.info/les-missions-locales/annuaire/">
+      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>} className={styles.buttonChercher}>Chercher une mission locale</Button>
+    </Link>;
   }
 
 
@@ -92,21 +89,21 @@ export default function Accompagnement() {
         isSmallScreen &&
         <>
           <Container>
-            <section className={styles.unionNationaleDesMissionsLocales}>
+            <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
               {displayMissionLocaleLogoContainer()}
-              <SeeMore additionalClassName={styles.seeMore}> <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales}/></SeeMore>
+              <SeeMore className={styles.seeMore}> <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales}/></SeeMore>
               {displayBoutonRechercherMissionLocale()}
             </section>
 
-            <section className={styles.infosJeunes}>
+            <section className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
               {displayInfoJeunesLogoContainer()}
-              <SeeMore additionalClassName={styles.seeMore}><Marked markdown={longueDescriptionInfoJeunes}/></SeeMore>
+              <SeeMore className={styles.seeMore}><Marked markdown={longueDescriptionInfoJeunes}/></SeeMore>
               {displayBoutonRechercherStructureAccueil()}
             </section>
 
-            <section className={styles.poleEmploi}>
+            <section className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
               {displayPoleEmploiLogoContainer()}
-              <SeeMore additionalClassName={styles.seeMore}><Marked markdown={longueDescriptionPoleEmploi}/></SeeMore>
+              <SeeMore className={styles.seeMore}><Marked markdown={longueDescriptionPoleEmploi}/></SeeMore>
               {displayBoutonRechercherCentrePoleEmploi()}
             </section>
           </Container>
@@ -115,7 +112,7 @@ export default function Accompagnement() {
       {
         isLargeScreen &&
         <>
-          <section className={styles.unionNationaleDesMissionsLocales}>
+          <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
             <div className={styles.logoContainer}>
               {displayMissionLocaleLogoContainer()}
             </div>
@@ -127,7 +124,7 @@ export default function Accompagnement() {
 
           </section>
 
-          <section className={styles.infosJeunes}>
+          <section className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
             <div className={styles.logoContainer}>
               {displayInfoJeunesLogoContainer()}
             </div>
@@ -138,7 +135,7 @@ export default function Accompagnement() {
             </div>
           </section>
 
-          <section className={styles.poleEmploi}>
+          <section className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
             <div className={styles.logoContainer}>
               {displayPoleEmploiLogoContainer()}
             </div>

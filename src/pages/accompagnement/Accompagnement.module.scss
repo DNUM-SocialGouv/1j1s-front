@@ -1,9 +1,12 @@
 @import "@styles/utilities";
 
+.accompagnementContainer {
+  padding: 2rem;
+}
+
 .unionNationaleDesMissionsLocales {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
   border-top: 1px solid $color-primary;
 }
 
@@ -11,7 +14,6 @@
   display: flex;
   flex-direction: column;
   background-color: $color-background-white-lilac;
-  padding: 2rem;
   border-top: 1px solid $color-primary;
   border-bottom: 1px solid $color-primary;
 }
@@ -19,7 +21,6 @@
 .poleEmploi {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
 }
 
 .petiteDescriptionStructure {
@@ -36,21 +37,7 @@
   }
 }
 
-.unionImageContainer {
-  width: 224px;
-  height: 88px;
-  margin: auto;
-}
-
-.infoJeunesImageContainer {
-  width: 224px;
-  height: 104px;
-  margin: auto;
-}
-
-.poleEmploiImageContainer {
-  width: 224px;
-  height: 180px;
+.imageContainer {
   margin: auto;
 }
 
@@ -63,41 +50,37 @@
 }
 
 @include media(large) {
-  .unionNationaleDesMissionsLocales {
-    flex-direction: row;
+  .accompagnementContainer {
     padding-left: 6rem;
     padding-right: 6rem;
+  }
+
+  .unionNationaleDesMissionsLocales {
+    flex-direction: row;
   }
 
   .infosJeunes {
     flex-direction: row;
-    padding-left: 6rem;
-    padding-right: 6rem;
   }
 
   .poleEmploi {
     flex-direction: row;
-    padding-left: 6rem;
-    padding-right: 6rem;
   }
 
-  .unionImageContainer {
-    margin: inherit;
-  }
-
-  .infoJeunesImageContainer {
-    margin: inherit;
-  }
-
-  .poleEmploiImageContainer {
+  .imageContainer {
     margin: inherit;
   }
 
   .logoContainer {
     width: 30%;
+    margin-right: 3.5rem;
   }
 
   .longueDescriptionContainer {
-    width: 70%;
+    width: 60%;
+  }
+
+  .buttonChercher {
+   margin-top: 2.75rem;
   }
 }

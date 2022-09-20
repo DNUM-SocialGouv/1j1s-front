@@ -2,17 +2,18 @@ import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/SeeMore/SeeMoreComponent.module.scss';
 
 import { Icon } from '../Icon/Icon';
 
 
-interface SeeMoreProps {
+interface SeeMoreProps extends CommonProps {
   customLabel?: (isOpen: boolean) => string | undefined
   customButtonClassName?: (isOpen: boolean) => string
-  additionalClassName?: string | string[] | Record<string, boolean>
 }
-export function SeeMore({ children, customLabel, customButtonClassName, additionalClassName } : React.PropsWithChildren<SeeMoreProps>) {
+
+export function SeeMore({ children, customLabel, customButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
@@ -42,7 +43,7 @@ export function SeeMore({ children, customLabel, customButtonClassName, addition
 
   return (
     <>
-      <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen }, additionalClassName)}
+      <div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen }, className)}
         id={`section-${ariaId}`}
         role="region"
         aria-labelledby={`seeMore-${ariaId}`}>
