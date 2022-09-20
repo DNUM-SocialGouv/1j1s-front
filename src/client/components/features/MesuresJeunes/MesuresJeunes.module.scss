@@ -1,9 +1,5 @@
 @import "@styles/utilities";
 
-$color-vie-professionnelle: #E8EDFF;
-$color-orienter-former: #FEF3FD;
-$color-accompagnement: #F1FEF5;
-$color-aides-financières: #FFF4ED;
 
 .cardListPadding, .cardListPaddingSeeMore {
   padding-bottom: 1.5rem;
@@ -42,16 +38,16 @@ $color-aides-financières: #FFF4ED;
   }
 
   &VieProfessionnelle {
-    background-color: $color-vie-professionnelle;
+    background-color: $color-lighten-blue-navy;
   }
   &OrienterFormer {
-    background-color: $color-orienter-former;
+    background-color: $color-lighten-tapestry;
   }
   &ParcoursAccompagnement {
-    background-color: $color-accompagnement;
+    background-color: $color-lighten-smalt-blue;
   }
   &AidesFinancières {
-    background-color: $color-aides-financières;
+    background-color: $color-lighten-coral;
   }
 
   &OrienterFormer, &AidesFinancières {
