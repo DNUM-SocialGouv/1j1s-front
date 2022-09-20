@@ -61,3 +61,43 @@
 .buttonChercher {
   margin-top: 1rem;
 }
+
+@include media(large) {
+  .unionNationaleDesMissionsLocales {
+    flex-direction: row;
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
+  .infosJeunes {
+    flex-direction: row;
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
+  .poleEmploi {
+    flex-direction: row;
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
+  .unionImageContainer {
+    margin: inherit;
+  }
+
+  .infoJeunesImageContainer {
+    margin: inherit;
+  }
+
+  .poleEmploiImageContainer {
+    margin: inherit;
+  }
+
+  .logoContainer {
+    width: 30%;
+  }
+
+  .longueDescriptionContainer {
+    width: 70%;
+  }
+}
