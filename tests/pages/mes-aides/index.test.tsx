@@ -3,14 +3,10 @@
  */
 
 import { render, screen } from '@testing-library/react';
-import { mockUseRouter } from '@tests/client/useRouter.mock';
 
 import MesAidesPage from '~/pages/mes-aides';
 
 describe('MesAidesPage', () => {
-  beforeEach(() => {
-    mockUseRouter({});
-  });
 
   it('affiche un titre de niveau 1', () => {
     render(

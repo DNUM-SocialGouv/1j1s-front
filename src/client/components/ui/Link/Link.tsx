@@ -1,7 +1,5 @@
 import LinkNext from 'next/link';
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
@@ -12,14 +10,9 @@ interface LinkProps extends React.AnchorHTMLAttributes<unknown> {
 
 export function Link({ children, href, prefetch, ...rest }: React.PropsWithChildren<LinkProps>) {
   const isInternalLink = useIsInternalLink(href);
-  const router = useRouter();
-
-  const computedLienRetour: string = useMemo(() => {
-    return `${href}?from=${router.route}&params=${encodeURIComponent(stringify(router.query))}`;
-  }, [href, router]);
 
   return isInternalLink ? (
-    <LinkNext href={computedLienRetour} as={href} prefetch={prefetch ? prefetch : true}>
+    <LinkNext href={href} prefetch={prefetch}>
       <a {...rest}>
         {children}
       </a>

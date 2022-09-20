@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import { render, screen } from '@testing-library/react';
-import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
 
@@ -11,7 +10,6 @@ import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[id]';
 describe('Page consulter fiche métier', () => {
   beforeEach(() => {
     mockSmallScreen();
-    mockUseRouter({});
   });
 
   afterEach(() => {

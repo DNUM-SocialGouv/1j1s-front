@@ -3,7 +3,6 @@
  */
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockUseRouter } from '@tests/client/useRouter.mock';
 
 import FormulaireDeContactEntreprise
   from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
@@ -19,7 +18,6 @@ describe('FormulaireDeContactEntreprise', () => {
         envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
       } as unknown as DemandeDeContactService;
 
-      mockUseRouter({});
       render(
         <DependenciesProvider demandeDeContactService={aDemandeDeContactService}>
           <FormulaireDeContactEntreprise isOpen={true} close={() => false} />
