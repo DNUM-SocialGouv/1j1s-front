@@ -7,6 +7,7 @@ import styles from '~/client/components/ui/Card/EmployeurLinkCard.module.scss';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import Marked from '~/client/components/ui/Marked/Marked';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import { ExternalRedirectionIcon } from '../Icon/external-redirection.icon';
@@ -58,7 +59,7 @@ export function EmployeurLinkCard({
       <div className={styles.cardBack}>
         <button onClick={() => setDisplayPourQui(false)}>{<AngleLeftIcon/>}</button>
         <div className={styles.title}>Qui est concerné ?</div>
-        <div className={styles.cardBackDescription}>{pourQui}</div>
+        <Marked markdown={pourQui} className={styles.cardBackDescription}/>
       </div>
     </div>
   );
