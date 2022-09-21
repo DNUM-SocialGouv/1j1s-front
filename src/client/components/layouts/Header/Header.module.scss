@@ -61,69 +61,8 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
     }
   }
 
-  &Modal {
-    &:before {
-      content: none !important;
-    }
-    & > div {
-      border-radius: 0;
-    }
-    &Container {
-      list-style-type: none;
-
-      & [href] {
-        box-shadow: none;
-      }
-
-      & li > button {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      & details {
-        border-top: 1px solid $color-primary;
-      }
-
-      & details > div > li {
-        & :hover {
-          background-color: $color-form-field;
-        }
-
-        & > a {
-        display: block;
-        padding: 0.5rem 1rem;
-        }
-
-        &:not(:last-child) {
-          border-bottom: 1px solid $color-form-field;
-        }
-      }
-
-      & details > summary {
-        background-color: $color-primary-10-opacity;
-      }
-
-      & details:last-child > summary {
-        color: $color-on-primary;
-        background-color: $color-primary;
-        background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23fff' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
-      }
-      & :last-child[open] > summary {
-        color: $color-on-primary;
-        background-color: #566BB1;
-        background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='24' viewBox='0 0 24 24' fill='%23fff' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 10.8281L7.04999 15.7781L5.63599 14.3641L12 8.00008L18.364 14.3641L16.95 15.7781L12 10.8281Z' /></svg>");
-      }
-
-
-      & > a {
-        display: block;
-        font-weight: 700;
-        padding: 0.75rem 1rem;
-        border-top: 1px solid $color-primary;
-        background-color: $color-primary-10-opacity;
-      }
-    }
+  a {
+    text-decoration: none;
   }
 }
 
@@ -152,7 +91,7 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
   &Label {
     display: block;
     padding-block: 0.8rem;
-    padding-inline: 1.2rem;
+    padding-inline: 1rem;
     color: $color-on-background;
   }
 
@@ -228,16 +167,50 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
   }
 }
 
-.hasNavItemActive, .navItemIsActive {
+.navItemLabel[aria-current=true], .subNavItemLabel[aria-current=true] {
   text-decoration: underline;
   text-underline-offset: 0.2rem;
-}
-
-.hasNavItemActive > .subNavItemButton > .subNavItemLabel {
   @extend %bold;
 }
 
-.navItemIsActive > a > .navItemLabel {
-  @extend %bold;
-}
+.headerModalNavigationList {
+  a {
+    text-decoration: none;
+  }
 
+  .navItem {
+    border-top: 1px solid $color-separator;
+
+    &:last-child {
+      border-bottom: 1px solid $color-separator;
+    }
+  }
+
+  .navItem > a, .subNavItemButton {
+    justify-content: space-between;
+  }
+
+  .subNavItemList {
+    position: static;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+
+  .subNavItem {
+    border-top: 1px solid $color-separator;
+
+    &:not(:last-child) {
+      border-bottom: 0;
+    }
+
+    & > a {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .navItemLabel {
+      padding-left: 2.5rem;
+    }
+  }
+}
