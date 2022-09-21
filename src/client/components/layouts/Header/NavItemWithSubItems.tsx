@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
+import { NavigationItem } from '~/client/components/layouts/Header/NavigationStructure';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import {NavigationItem, NavigationItemLeaf} from "~/client/components/layouts/Header/NavigationStructure"
-import classNames from "classnames"
 
 interface NavItemWithSubItemsProps {
   label: string
@@ -50,7 +50,7 @@ export function NavItemWithSubItems({ children, className, label, path, subItemL
         className={styles.subNavItemButton}
         onClick={() => setIsExpanded(!isExpanded)}
         aria-expanded={isExpanded}>
-        <span className={styles.subNavItemLabel}>{label}</span>
+        <span className={styles.subNavItemLabel} aria-current={isActive}>{label}</span>
         <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down" />
       </button>
       {isExpanded &&

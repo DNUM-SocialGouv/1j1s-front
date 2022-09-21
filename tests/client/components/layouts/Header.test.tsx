@@ -8,7 +8,6 @@ import { mockLargeScreen } from '@tests/client/window.mock';
 
 import { Header } from '~/client/components/layouts/Header/Header';
 
-
 describe('Header', () => {
   beforeEach(() => {
     mockLargeScreen();
@@ -36,13 +35,14 @@ describe('Header', () => {
   });
 
   describe('quand la page courante est "Accueil"', () => {
-    it('affiche le composant Header avec la navigation active sur "Accueil"',  async() => {
+    it('affiche le composant Header avec la navigation active sur "Accueil"',  async () => {
       mockUseRouter({ pathname: '/' });
       render(<Header/>);
 
       const navigation = screen.getByRole('navigation');
       const accueilNavItem = within(navigation).getByText('Accueil');
       const offresNavItem = within(navigation).getByText('Offres');
+
 
       expect(accueilNavItem).toHaveAttribute('aria-current', 'true');
       expect(offresNavItem).toHaveAttribute('aria-current', 'false');
