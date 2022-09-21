@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
@@ -38,22 +37,26 @@ export function HeaderBody() {
         </div>
         <Link className={styles.headerTitle} href="/">1jeune1solution</Link>
       </div>
-      <ModalComponent
-        className={styles.headerModal}
-        close={onClickSetModal}
-        isOpen={isModalOpen}>
-        <ModalComponent.Title>
-          <Icon name="menu" />
-          <span>Menu</span>
-        </ModalComponent.Title>
-        <ModalComponent.Content>
-          <Container className={styles.headerModalContainer}>
-            <ul>
-              {buildNavigation(navigationItemList, 0, path)}
-            </ul>
-          </Container>
-        </ModalComponent.Content>
-      </ModalComponent>
+      { !isLargeScreen &&
+        <ModalComponent
+          className={styles.headerModal}
+          close={onClickSetModal}
+          isOpen={isModalOpen}>
+          <ModalComponent.Title>
+            <Icon name="menu" />
+            <span>Menu</span>
+          </ModalComponent.Title>
+          <ModalComponent.Content>
+            <Container className={styles.headerModalContainer}>
+              <nav role="navigation">
+                <ul className={styles.headerModalNavigationList}>
+                  {buildNavigation(navigationItemList, 0, path)}
+                </ul>
+              </nav>
+            </Container>
+          </ModalComponent.Content>
+        </ModalComponent>
+      }
     </Container>
   );
 }

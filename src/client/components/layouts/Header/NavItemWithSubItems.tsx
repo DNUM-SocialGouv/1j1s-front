@@ -54,7 +54,7 @@ export function NavItemWithSubItems({ children, className, label, path, subItemL
         <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down" />
       </button>
       {isExpanded &&
-        <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)}>
+        <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)} role="menu">
           {children}
         </ul>
       }
