@@ -16,8 +16,8 @@ export function NavItem({ className, label, link, path }: NavItemProps & React.H
   return (
     <li className={classNames(isActive ? styles.navItemIsActive : '', className)}>
       <Link href={link}>
-	      <a aria-current={isActive}>
-	        <span className={styles.navItemLabel}>{label}</span>
+	      <a>
+	        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
 	      </a>
       </Link>
     </li>
