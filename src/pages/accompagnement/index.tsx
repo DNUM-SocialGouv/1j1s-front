@@ -61,20 +61,20 @@ export default function Accompagnement() {
   }
 
   function displayBoutonRechercherMissionLocale() {
-    return <Link href="https://www.unml.info/les-missions-locales/annuaire/" className={styles.buttonChercher}>
+    return <Link href="https://www.unml.info/les-missions-locales/annuaire/" className={classNames(styles.buttonChercher, 'underline-none')}>
       <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver ma mission locale</Button>
     </Link>;
   }
 
 
   function displayBoutonRechercherStructureAccueil() {
-    return <Link href="https://infojeunesfrance.org/carte-interactive/" className={styles.buttonChercher}>
+    return <Link href="https://infojeunesfrance.org/carte-interactive/" className={classNames(styles.buttonChercher, 'underline-none')}>
       <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver ma structure Info Jeunes</Button>
     </Link>;
   }
 
   function displayBoutonRechercherCentrePoleEmploi() {
-    return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" className={styles.buttonChercher}>
+    return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" className={classNames(styles.buttonChercher, 'underline-none')}>
       <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver mon centre Pôle Emploi</Button>
     </Link>;
   }
