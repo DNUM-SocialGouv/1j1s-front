@@ -18,6 +18,7 @@ const offresNav: NavigationItemWithChildren = {
     { label: 'Stages', link: '/stages' },
     { label: 'Contrats d’alternance', link: '/apprentissage' },
     { label: 'Jobs étudiants', link: '/jobs-etudiants' },
+    { label: 'Emplois en Europe', link: '/europe' },
   ],
   label: 'Offres',
 };
