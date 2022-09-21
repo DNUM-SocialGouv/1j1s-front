@@ -92,7 +92,7 @@ export default function MentoratPage() {
               </span>
 
               { (isSmallScreen || isMediumScreen)
-                ? (<SeeMore customLabel={seeMoreLabel} customButtonClassName={ buttonClassName }><RaisonParticipationsMentorat/></SeeMore>)
+                ? (<SeeMore customLabel={seeMoreLabel} additionalClosedButtonClassName={ buttonClassName }><RaisonParticipationsMentorat/></SeeMore>)
                 : (<RaisonParticipationsMentorat/>) }
             </div>
             { isLargeScreen && (

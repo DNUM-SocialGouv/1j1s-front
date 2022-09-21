@@ -153,8 +153,4 @@
     flex-shrink: 0;
     flex-grow: 0;
   }
-
-  &[aria-expanded=true] {
-    justify-content: flex-start;
-  }
 }

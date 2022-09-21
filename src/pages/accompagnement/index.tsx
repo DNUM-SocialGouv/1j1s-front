@@ -9,6 +9,7 @@ import { Button } from '~/client/components/ui/Button/Button';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -61,22 +62,16 @@ export default function Accompagnement() {
   }
 
   function displayBoutonRechercherMissionLocale() {
-    return <Link href="https://www.unml.info/les-missions-locales/annuaire/" className={classNames(styles.buttonChercher, 'underline-none')}>
-      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver ma mission locale</Button>
-    </Link>;
+    return <LinkAsButton href="https://www.unml.info/les-missions-locales/annuaire/" className={classNames(styles.buttonChercher)}>Trouver ma mission locale</LinkAsButton>;
   }
 
 
   function displayBoutonRechercherStructureAccueil() {
-    return <Link href="https://infojeunesfrance.org/carte-interactive/" className={classNames(styles.buttonChercher, 'underline-none')}>
-      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver ma structure Info Jeunes</Button>
-    </Link>;
+    return <LinkAsButton href="https://infojeunesfrance.org/carte-interactive/" className={classNames(styles.buttonChercher)}>Trouver ma structure Info Jeunes</LinkAsButton>;
   }
 
   function displayBoutonRechercherCentrePoleEmploi() {
-    return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" className={classNames(styles.buttonChercher, 'underline-none')}>
-      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver mon centre Pôle Emploi</Button>
-    </Link>;
+    return <LinkAsButton href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" className={classNames(styles.buttonChercher)}>Trouver mon centre Pôle Emploi</LinkAsButton>;
   }
 
   return (
@@ -96,19 +91,31 @@ export default function Accompagnement() {
           isSmallScreen && <>
             <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
               {displayMissionLocaleLogoContainer()}
-              <SeeMore className={styles.seeMore}> <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales}/></SeeMore>
+              <SeeMore
+                overridedClosedLabel="Lire la description"
+                additionalClosedButtonClassName={styles.customSeeMoreClosed}>
+                <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales}/>
+              </SeeMore>
               {displayBoutonRechercherMissionLocale()}
             </section>
 
             <section className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
               {displayInfoJeunesLogoContainer()}
-              <SeeMore className={styles.seeMore}><Marked markdown={longueDescriptionInfoJeunes}/></SeeMore>
+              <SeeMore
+                overridedClosedLabel="Lire la description"
+                additionalClosedButtonClassName={styles.customSeeMoreClosed}>
+                <Marked markdown={longueDescriptionInfoJeunes}/>
+              </SeeMore>
               {displayBoutonRechercherStructureAccueil()}
             </section>
 
             <section className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
               {displayPoleEmploiLogoContainer()}
-              <SeeMore className={styles.seeMore}><Marked markdown={longueDescriptionPoleEmploi}/></SeeMore>
+              <SeeMore
+                overridedClosedLabel="Lire la description"
+                additionalClosedButtonClassName={styles.customSeeMoreClosed}>
+                <Marked markdown={longueDescriptionPoleEmploi}/>
+              </SeeMore>
               {displayBoutonRechercherCentrePoleEmploi()}
             </section>
           </>

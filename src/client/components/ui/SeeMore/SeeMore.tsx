@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CommonProps } from '~/client/components/props';
@@ -9,11 +9,12 @@ import { Icon } from '../Icon/Icon';
 
 
 interface SeeMoreProps extends CommonProps {
-  customLabel?: (isOpen: boolean) => string | undefined
-  customButtonClassName?: (isOpen: boolean) => string
+  overridedClosedLabel?: string
+  overridedOpenedLabel?: string
+  additionalClosedButtonClassName?: string
 }
 
-export function SeeMore({ children, customLabel, customButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
+export function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
@@ -28,18 +29,21 @@ export function SeeMore({ children, customLabel, customButtonClassName, classNam
     ref.current?.setAttribute('aria-expanded', `${isOpen}`);
   }
 
-  function buttonLabel () {
-    const defaultLabel = isOpen ? 'Voir moins' : 'Voir plus';
-    if (customLabel) {
-      return customLabel(isOpen) || defaultLabel;
+  const buttonLabel: string = useMemo(() => {
+    if(!isOpen) {
+      if(overridedClosedLabel) {
+        return overridedClosedLabel;
+      } else {
+        return 'Voir plus';
+      }
+    } else {
+      if(overridedOpenedLabel) {
+        return overridedOpenedLabel;
+      } else {
+        return 'Voir moins';
+      }
     }
-    return defaultLabel;
-  }
-
-  let buttonClassName = styles.seeMoreButton;
-  if (customButtonClassName) {
-    buttonClassName += ` ${customButtonClassName(isOpen)}`;
-  }
+  }, [overridedClosedLabel, overridedOpenedLabel, isOpen]);
 
   return (
     <>
@@ -49,14 +53,14 @@ export function SeeMore({ children, customLabel, customButtonClassName, classNam
         aria-labelledby={`seeMore-${ariaId}`}>
         {children}
       </div>
-      <button className={buttonClassName}
+      <button className={classNames(styles.seeMoreButton, !isOpen && additionalClosedButtonClassName)}
         ref={ref}
         onClick={toggleSeeMore}
         type="button" 
         aria-expanded={isOpen}
         aria-controls={`section-${ariaId}`} 
         id={`seeMore-${ariaId}`}>
-        <span className={styles.seeMoreButtonLabel}>{ buttonLabel() }</span>
+        <span className={styles.seeMoreButtonLabel}> {buttonLabel} </span>
         <Icon name={isOpen ? 'angle-up' :'angle-down'}/>
       </button>
     </>

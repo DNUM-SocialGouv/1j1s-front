@@ -3,7 +3,7 @@
 .seeMoreButton {
     font-size: 1rem;
     display: block;
-    margin: auto;
+    margin: 1rem auto;
 }
 
 .seeMoreButton > svg {
@@ -26,6 +26,7 @@
     max-height: 100%;
     opacity: 1;
     transition: all 0.4s;
+    margin-top: 1rem;
 }
 
 .open > article:not(:last-child) {
