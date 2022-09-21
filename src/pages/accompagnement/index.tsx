@@ -1,17 +1,17 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import Link from 'next/link';
 import infoJeunesImage from 'public/images/logos/info-jeunes.svg';
 import poleEmploiImage from 'public/images/logos/pole-emploi.svg';
 import missionLocaleImage from 'public/images/logos/union-mission-locale.svg';
 import React from 'react';
 
-import { Container } from '~/client/components/layouts/Container/Container';
 import { Button } from '~/client/components/ui/Button/Button';
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { Hero } from '~/client/components/ui/Hero/Hero';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import styles from '~/pages/accompagnement/Accompagnement.module.scss';
 
@@ -26,7 +26,7 @@ export default function Accompagnement() {
   function displayMissionLocaleLogoContainer() {
     return (
       <>
-        <div className={styles.imageContainer}><Image src={missionLocaleImage} alt="" width={224} height={88}/></div>
+        <div className={classNames(styles.imageContainer, styles.missionLocaleImageContainer)}><Image src={missionLocaleImage} alt="" layout={'fill'}/></div>
         <div className={styles.petiteDescriptionStructure}>
           <span>Les missions locales proposent un suivi personnalisé</span>
           <br />
@@ -39,7 +39,7 @@ export default function Accompagnement() {
   function displayInfoJeunesLogoContainer() {
     return (
       <>
-        <div className={styles.imageContainer}><Image src={infoJeunesImage} alt="" width={224} height={104}/></div>
+        <div className={classNames(styles.imageContainer, styles.infoJeunesImageContainer)}><Image src={infoJeunesImage} alt="" layout={'fill'}/></div>
         <div className={styles.petiteDescriptionStructure}>
           <span>Info Jeunes, le réseau d’accueil et d’information des jeunes en France</span>
           <br />
@@ -51,7 +51,7 @@ export default function Accompagnement() {
 
   function displayPoleEmploiLogoContainer() {
     return <>
-      <div className={styles.imageContainer}><Image src={poleEmploiImage} alt="" width={224} height={180}/></div>
+      <div className={classNames(styles.imageContainer, styles.poleEmploiImageContainer)}><Image src={poleEmploiImage} alt="" layout={'fill'}/></div>
       <div className={styles.petiteDescriptionStructure}>
         <span>Pôle emploi propose un accompagnement intensif</span>
         <br/>
@@ -61,34 +61,39 @@ export default function Accompagnement() {
   }
 
   function displayBoutonRechercherMissionLocale() {
-    return <Link href="https://www.unml.info/les-missions-locales/annuaire/">
-      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>} className={styles.buttonChercher}>Chercher une mission locale</Button>
+    return <Link href="https://www.unml.info/les-missions-locales/annuaire/" className={styles.buttonChercher}>
+      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver ma mission locale</Button>
     </Link>;
   }
 
 
   function displayBoutonRechercherStructureAccueil() {
-    return <Link href="https://infojeunesfrance.org/carte-interactive/">
-      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>} className={styles.buttonChercher}>Chercher une structure d’accueil</Button>
+    return <Link href="https://infojeunesfrance.org/carte-interactive/" className={styles.buttonChercher}>
+      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver ma structure Info Jeunes</Button>
     </Link>;
   }
 
   function displayBoutonRechercherCentrePoleEmploi() {
-    return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html">
-      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>} className={styles.buttonChercher}>Chercher un centre pôle emploi</Button>
+    return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" className={styles.buttonChercher}>
+      <Button buttonType={'withRightIcon'} icon={<ExternalRedirectionIcon/>}>Trouver mon centre Pôle Emploi</Button>
     </Link>;
   }
 
   return (
     <>
-      <LightHero
-        primaryText="Je recherche un accompagnement proche de chez moi, je veux être aidé dans mes démarches et mon parcours"
-        secondaryText="Retrouvez les missions locales, les structures infos jeunes et les agences Pôle Emploi les plus proches de chez vous."
+      <HeadTag
+        title="Trouver un accompagnement | 1jeune1solution"
+        description="Trouver un accompagnement"
       />
-      {
-        isSmallScreen &&
-        <>
-          <Container>
+      <Hero>
+        <h2 className={styles.accompagnementHero}>
+          <div><b>Je recherche un accompagnement proche de chez moi,</b> je veux être aidé dans mes démarches et mon parcours</div>
+          <div>Retrouvez les missions locales, les structures infos jeunes et les agences Pôle Emploi les plus proches de chez vous.</div>
+        </h2>
+      </Hero>
+      <main>
+        {
+          isSmallScreen && <>
             <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
               {displayMissionLocaleLogoContainer()}
               <SeeMore className={styles.seeMore}> <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales}/></SeeMore>
@@ -106,47 +111,46 @@ export default function Accompagnement() {
               <SeeMore className={styles.seeMore}><Marked markdown={longueDescriptionPoleEmploi}/></SeeMore>
               {displayBoutonRechercherCentrePoleEmploi()}
             </section>
-          </Container>
-        </>
-      }
-      {
-        isLargeScreen &&
-        <>
-          <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
-            <div className={styles.logoContainer}>
-              {displayMissionLocaleLogoContainer()}
-            </div>
+          </>
+        }
+        {
+          isLargeScreen && <>
+            <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
+              <div className={styles.logoContainer}>
+                {displayMissionLocaleLogoContainer()}
+              </div>
 
-            <div className={styles.longueDescriptionContainer}>
-              <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales} />
-              {displayBoutonRechercherMissionLocale()}
-            </div>
+              <div className={styles.longueDescriptionContainer}>
+                <Marked markdown={longueDescriptionUnionNationalesDesMissionsLocales} />
+                {displayBoutonRechercherMissionLocale()}
+              </div>
 
-          </section>
+            </section>
 
-          <section className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
-            <div className={styles.logoContainer}>
-              {displayInfoJeunesLogoContainer()}
-            </div>
+            <section className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
+              <div className={styles.logoContainer}>
+                {displayInfoJeunesLogoContainer()}
+              </div>
 
-            <div className={styles.longueDescriptionContainer}>
-              <Marked markdown={longueDescriptionInfoJeunes}/>
-              {displayBoutonRechercherStructureAccueil()}
-            </div>
-          </section>
+              <div className={styles.longueDescriptionContainer}>
+                <Marked markdown={longueDescriptionInfoJeunes}/>
+                {displayBoutonRechercherStructureAccueil()}
+              </div>
+            </section>
 
-          <section className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
-            <div className={styles.logoContainer}>
-              {displayPoleEmploiLogoContainer()}
-            </div>
+            <section className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
+              <div className={styles.logoContainer}>
+                {displayPoleEmploiLogoContainer()}
+              </div>
 
-            <div className={styles.longueDescriptionContainer}>
-              <Marked markdown={longueDescriptionPoleEmploi} />
-              {displayBoutonRechercherCentrePoleEmploi()}
-            </div>
-          </section>
-        </>
-      }
+              <div className={styles.longueDescriptionContainer}>
+                <Marked markdown={longueDescriptionPoleEmploi} />
+                {displayBoutonRechercherCentrePoleEmploi()}
+              </div>
+            </section>
+          </>
+        }
+      </main>
     </>
   );
 }

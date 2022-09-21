@@ -76,9 +76,9 @@ export function buildNavigation(path: string, isModale: boolean, onClick?: () =>
           { current: path === '/contrat-engagement-jeune', link: '/contrat-engagement-jeune', title: 'Contrat Engagement Jeune' },
           { current: path === '/mes-aides', link: '/mes-aides', title: 'Mes aides financières' },
           { current: path === '/mentorat', link: '/mentorat', title: 'Mentorat' },
+          { current: path === '/accompagnement', link: '/accompagnement', title: 'Accompagnement' },
           { current: path === '/creer-mon-cv', link: '/creer-mon-cv', title: 'CV personnalisé' },
           { current: path === '/mesures-jeunes', link: '/mesures-jeunes', title: 'Les mesures jeunes' },
-          { current: path === '/accompagnement', link: '/accompagnement', title: 'Accompagnement' },
         ],
       title: 'Aides et accompagnement',
     };

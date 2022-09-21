@@ -4,10 +4,20 @@
   padding: 2rem;
 }
 
+.accompagnementHero {
+  > div:first-child {
+    @extend %text-xLarge;
+  }
+
+  > div:last-child {
+    margin-top: 1rem;
+    @extend %text-medium;
+  }
+}
+
 .unionNationaleDesMissionsLocales {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid $color-primary;
 }
 
 .infosJeunes {
@@ -41,18 +51,36 @@
   margin: auto;
 }
 
+.missionLocaleImageContainer {
+  width: 224px;
+  height: 88px;
+  position: relative;
+}
+
+.infoJeunesImageContainer {
+  width: 224px;
+  height: 104px;
+  position: relative;
+}
+
+.poleEmploiImageContainer {
+  width: 180px;
+  height: 150px;
+  position: relative;
+}
+
 .seeMore {
   margin-top: 1rem;
 }
 
 .buttonChercher {
-  margin-top: 1rem;
+  margin: 1rem auto auto;
 }
 
 @include media(large) {
   .accompagnementContainer {
-    padding-left: 6rem;
-    padding-right: 6rem;
+    padding-left: 9rem;
+    padding-right: 9rem;
   }
 
   .unionNationaleDesMissionsLocales {
@@ -77,10 +105,12 @@
   }
 
   .longueDescriptionContainer {
-    width: 60%;
+    width: 65%;
   }
 
   .buttonChercher {
-   margin-top: 2.75rem;
+    > button {
+      margin-top: 1rem;
+    }
   }
 }
