@@ -7,6 +7,8 @@
   h1 {
     @extend %text-xLarge;
     @extend %bold;
+    margin: auto;
+    max-width: 48rem;
     margin-bottom: 2rem;
   }
 
@@ -24,7 +26,7 @@
     padding: 60px;
 
     h1 {
-      margin-left: 13rem;
+      max-width: 56rem;
     }
 
     p {
