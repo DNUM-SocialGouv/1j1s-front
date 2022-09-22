@@ -1,7 +1,7 @@
 @import "@styles/utilities";
 
 .referencer {
-  padding: 3rem 0;
+  padding: 4rem 0 4rem 0;
   background-color: $color-background-white-lilac;
 
   &Container {
@@ -15,7 +15,7 @@
       color: $color-primary;
       max-width: 50rem;
       text-align: left;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
     }
 
     a {
@@ -32,6 +32,7 @@
 
     ul {
       max-width: 33rem;
+      margin-left: 1.5rem;
       list-style-type: disc;
       li {
         margin-top: 1rem;
@@ -45,6 +46,9 @@
     &Container {
       &Titre {
         text-align: center;
+      }
+      ul {
+        margin-left: 0;
       }
     }
   }
