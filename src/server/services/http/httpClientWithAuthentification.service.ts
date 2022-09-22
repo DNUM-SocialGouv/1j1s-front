@@ -43,6 +43,7 @@ export class HttpClientServiceWithAuthentification extends ClientService {
             try {
               await this.refreshToken();
             } catch (e) {
+              this.retries.delete(originalRequest);
               LoggerService.error(`${name} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
               return Promise.reject(error);
             }
@@ -50,6 +51,7 @@ export class HttpClientServiceWithAuthentification extends ClientService {
             this.retries.delete(originalRequest);
             return result;
           }
+          this.retries.delete(originalRequest);
         }
         return Promise.reject(error);
       },
