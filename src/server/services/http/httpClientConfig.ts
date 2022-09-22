@@ -6,16 +6,16 @@ export interface HttpClientConfig {
   apiName: string
   apiUrl: string
   apiKey?: string
-  overrideInterceptor: boolean
+  overrideInterceptor?: boolean
   label?: string
 }
 
-export interface HttpClientWithAuthentificationConfig extends HttpClientConfig {
-  clientId: string
-  connectUrl: string
-  clientSecret: string
-  connectScope: string
+export interface TokenAgent {
+  getToken(): Promise<string>
 }
+export type HttpClientWithAuthentificationConfig =
+  | HttpClientConfig & Record<'clientId'|'clientSecret'|'connectScope'|'connectUrl', string>
+  | HttpClientConfig & { tokenAgent: TokenAgent }
 
 const getApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({

@@ -2,40 +2,54 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { Either } from '~/server/errors/either';
 import { ClientService } from '~/server/services/http/client.service';
-import { HttpClientWithAuthentificationConfig } from '~/server/services/http/httpClientConfig';
+import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
 import { LoggerService } from '~/server/services/logger.service';
 
-interface TokenResponse {
-  access_token: string;
-  expires_in: number;
-}
+import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
+
 
 export class HttpClientServiceWithAuthentification extends ClientService {
-  constructor(
-    private httpClientWithAuthentConfig: HttpClientWithAuthentificationConfig,
-  ){
+  private tokenAgent: TokenAgent;
+  private retries = new Set<object>();
+  private isRefreshingToken?: Promise<void>;
+  constructor (private config: HttpClientWithAuthentificationConfig) {
+    const name = config.apiName;
+    const url = config.apiUrl;
+    const apiKey = config.apiKey;
+    const overrideInterceptor = config.overrideInterceptor;
+    super(name, url, overrideInterceptor, apiKey ? { apiKey : apiKey } : {} );
 
-    const API_NAME = httpClientWithAuthentConfig.apiName;
-    const API_URL = httpClientWithAuthentConfig.apiUrl;
-    const API_KEY = httpClientWithAuthentConfig.apiKey;
-    const overrideInterceptor = httpClientWithAuthentConfig.overrideInterceptor;
+    if ('tokenAgent' in config) {
+      this.tokenAgent = config.tokenAgent;
+    } else {
+      this.tokenAgent = new ClientCredentialsTokenAgent({
+        clientId: config.clientId,
+        clientSecret: config.clientSecret,
+        scope: config.connectScope,
+        url: `${config.connectUrl}/connexion/oauth2/access_token?realm=partenaire`,
+      });
+    }
 
-    super(API_NAME, API_URL, overrideInterceptor, API_KEY ? { apiKey : API_KEY } : {} );
 
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {
-        LoggerService.error(`${API_NAME} ${error.response.status} ${error.config.baseURL}${error.config.url}`);
-        const originalRequest = error.config;
+        if (axios.isAxiosError(error)) {
+          LoggerService.error(`${name} ${error.status} ${error.config.baseURL}${error.config.url}`);
+          const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest.isRetryRequest) {
-          originalRequest.isRetryRequest = true;
-          try {
-            await this.refreshToken(httpClientWithAuthentConfig);
-          } catch (e) {
-            LoggerService.error(`${API_NAME} ${error.response.status} ${error.config.baseURL}${error.config.url}`);
+          if (error.response?.status == 401 && !this.retries.has(originalRequest)) {
+            this.retries.add(originalRequest);
+            try {
+              await this.refreshToken();
+            } catch (e) {
+              LoggerService.error(`${name} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
+              return Promise.reject(error);
+            }
+            const result = await this.client.request(originalRequest);
+            this.retries.delete(originalRequest);
+            return result;
           }
-          return await this.client.request(originalRequest);
         }
         return Promise.reject(error);
       },
@@ -50,27 +64,16 @@ export class HttpClientServiceWithAuthentification extends ClientService {
     return super.getRequest(endpoint, mapper, config);
   }
 
-  setAuthorizationHeader(token: string) {
-    super.setAuthorizationHeader(token);
-  }
-
-  async refreshToken(poleEmploiHttpClientConfig: HttpClientWithAuthentificationConfig): Promise<void> {
-    const params = new URLSearchParams();
-    params.append('grant_type', 'client_credentials');
-    params.append('client_id', poleEmploiHttpClientConfig.clientId);
-    params.append('client_secret', poleEmploiHttpClientConfig.clientSecret);
-    params.append('scope', poleEmploiHttpClientConfig.connectScope);
-
-    const endpoint = `${poleEmploiHttpClientConfig.connectUrl}/connexion/oauth2/access_token?realm=partenaire`;
-
-    const response = await axios.post<TokenResponse>(
-      endpoint,
-      params,
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
-    );
-
-    this.setAuthorizationHeader(response.data.access_token);
+  refreshToken(): Promise<void> {
+    if (this.isRefreshingToken) {
+      return this.isRefreshingToken;
+    }
+    return this.isRefreshingToken = this.tokenAgent.getToken()
+      .then((token) => {
+        this.setAuthorizationHeader(token);
+      })
+      .finally(() => {
+        delete this.isRefreshingToken;
+      });
   }
 }
