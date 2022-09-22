@@ -2,6 +2,8 @@ import { ConfigurationService } from '~/server/services/configuration.service';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
+import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
+
 export interface HttpClientConfig {
   apiName: string
   apiUrl: string
@@ -13,9 +15,9 @@ export interface HttpClientConfig {
 export interface TokenAgent {
   getToken(): Promise<string>
 }
-export type HttpClientWithAuthentificationConfig =
-  | HttpClientConfig & Record<'clientId'|'clientSecret'|'connectScope'|'connectUrl', string>
-  | HttpClientConfig & { tokenAgent: TokenAgent }
+export interface HttpClientWithAuthentificationConfig extends HttpClientConfig {
+  tokenAgent: TokenAgent
+}
 
 const getApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
@@ -64,27 +66,27 @@ const getApiAdresseConfig = (configurationService: ConfigurationService): HttpCl
 
 const getApiPoleEmploiOffresConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_POLE_EMPLOI',
     apiUrl: configurationService.getConfiguration().API_POLE_EMPLOI_OFFRES_URL,
-    clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
-    clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
-    connectScope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
-    connectUrl: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL,
-    overrideInterceptor: true,
+    tokenAgent: new ClientCredentialsTokenAgent({
+      clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
+      clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
+      scope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
+      url: `${configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL}/connexion/oauth2/access_token?realm=partenaire`,
+    }),
   });
 };
 
 const getApiPoleEmploiReferentielsConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_POLE_EMPLOI',
     apiUrl: configurationService.getConfiguration().API_POLE_EMPLOI_REFERENTIEL_URL,
-    clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
-    clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
-    connectScope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
-    connectUrl: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL,
-    overrideInterceptor: true,
+    tokenAgent: new ClientCredentialsTokenAgent({
+      clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
+      clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
+      scope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
+      url: `${configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL}/connexion/oauth2/access_token?realm=partenaire`,
+    }),
   });
 };
 

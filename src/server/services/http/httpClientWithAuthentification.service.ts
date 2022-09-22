@@ -5,9 +5,6 @@ import { ClientService } from '~/server/services/http/client.service';
 import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
 import { LoggerService } from '~/server/services/logger.service';
 
-import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
-
-
 export class HttpClientServiceWithAuthentification extends ClientService {
   private tokenAgent: TokenAgent;
   private retries = new Set<object>();
@@ -16,20 +13,8 @@ export class HttpClientServiceWithAuthentification extends ClientService {
     const name = config.apiName;
     const url = config.apiUrl;
     const apiKey = config.apiKey;
-    const overrideInterceptor = config.overrideInterceptor;
-    super(name, url, overrideInterceptor, apiKey ? { apiKey : apiKey } : {} );
-
-    if ('tokenAgent' in config) {
-      this.tokenAgent = config.tokenAgent;
-    } else {
-      this.tokenAgent = new ClientCredentialsTokenAgent({
-        clientId: config.clientId,
-        clientSecret: config.clientSecret,
-        scope: config.connectScope,
-        url: `${config.connectUrl}/connexion/oauth2/access_token?realm=partenaire`,
-      });
-    }
-
+    super(name, url, true, apiKey ? { apiKey : apiKey } : {} );
+    this.tokenAgent = config.tokenAgent;
 
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,
