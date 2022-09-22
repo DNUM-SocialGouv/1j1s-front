@@ -72,9 +72,9 @@ export default function Accueil() {
               </LinkCard>
               <LinkCard
                 imageUrl="/images/homepage/europe.jpg"
-                link="/"
+                link="/europe"
                 linkLabel="Voir les offres"
-                title="Une expérience en europe"
+                title="Une expérience en Europe"
               >
                 <p>Retrouvez des offres d&apos;emploi, des stages, des VIE | VIA et des aides financières pour une expérience en Europe.</p>
               </LinkCard>

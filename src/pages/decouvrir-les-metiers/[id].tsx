@@ -7,6 +7,7 @@ import { ConsulterFicheMetier } from '~/client/components/features/FicheMetier/C
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
+import { Color } from '~/client/components/props';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -30,7 +31,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
           <ButtonRetour className={styles.backButton} />
           <ConsulterFicheMetier ficheMetier={ficheMetier} />
         </Container>
-        <SectionLayout isBackgroundWhite={false}>
+        <SectionLayout backgroundColor={Color.WHITE_LILAC}>
           <h2 className={styles.partnerInfoTitle}>Informations fournies par ONISEP</h2>
           <Container className={styles.container}>
             <PartnerCard

@@ -1,0 +1,240 @@
+@import "@styles/utilities";
+
+.section {
+  &ExperienceEurope {
+    padding-bottom: 3.5rem;
+    > p, span {
+      padding: 0 1rem;
+    }
+    > p {
+      margin-bottom: 1.25rem;
+    }
+    &__Information {
+      display: flex;
+      p {
+        font-size: 0.75rem;
+      }
+      svg {
+        flex-shrink: 0;
+        color: $color-primary;
+        margin-right: 0.5ch;
+      }
+    }
+  }
+
+  &Liens {
+    padding: 2rem;
+    & li {
+      padding: 0.625rem 0;
+    }
+    & a > span {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: $color-primary;
+      & svg {
+        flex-shrink: 0;
+        flex-grow: 0;
+      }
+    }
+    .imageWrapper {
+      display: none;
+    }
+  }
+
+  &Dispositif {
+    padding: 2rem;
+    > div > * {
+      margin-bottom: 40px;
+    }
+    &__Card {
+      background-color: $color-background;
+      border-radius: 20px;
+      padding: 0.75rem;
+      &Content {
+        display: flex;
+        justify-content: flex-start;
+        svg {
+          flex-shrink: 0;
+          margin-right: 0.75rem;
+        }
+        & > div > p > span {
+           display: inline-block;
+         }
+      }
+      & > * {
+        margin-bottom: 1.25rem;
+      }
+      > h3 {
+        @extend %bold;
+        font-size: 1.25rem;
+        color: $color-primary;
+        text-align: center;
+      }
+      > p {
+        padding: 0 2.5rem;
+      }
+      & h4 {
+        @extend %bold;
+        font-size:  1rem;
+      }
+
+
+    }
+  }
+
+  &AidesFinancieres {
+    padding: 2.5rem 2rem;
+    h2 {
+      font-size: 1.25rem;
+      color: $color-primary;
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  &NiveauAnglais {
+    padding: 2.5rem 2rem;
+    color: $color-on-primary;
+    &__Content {
+      h2 {
+        font-size: 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+      > p {
+        margin-bottom: 2rem;
+      }
+      > span {
+        font-size: 0.75rem;
+      }
+      .buttonWrapper {
+        margin-bottom: 1.25rem;
+      }
+    }
+
+    .logoWrapper {
+      position: relative;
+      margin: 0 auto 1.25rem;
+      overflow: hidden;
+      min-width: 132px;
+      max-width: 132px;
+      min-height: 100px;
+      max-height: 100px;
+    }
+
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  a {
+    margin: auto;
+  }
+}
+
+
+@include media(medium) {
+  .section {
+    &ExperienceEurope {
+      max-width: 756px;
+      padding-bottom: 5rem;
+      > p {
+        font-size: 1.25rem;
+      }
+      &__Information {
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    &Liens {
+      display: flex;
+      padding: 2.5rem 0;
+      & a > span {
+        justify-content: flex-start;
+        font-size: 1.25rem;
+      }
+    }
+
+    &Dispositif {
+      &__Card {
+        max-width: 548px;
+        padding: 2.5rem 1.25rem;
+        &Wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }
+        > h3 {
+          font-size: 1.5rem;
+        }
+        & h4 {
+          font-size:  1.25rem;
+        }
+        .buttonWrapper {
+          margin-top: 2.5rem;
+        }
+      }
+    }
+
+    &AidesFinancieres {
+      padding: 5rem 0;
+      max-width: 756px;
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+        text-align: center;
+      }
+    }
+
+    &NiveauAnglais {
+      padding: 5rem 0;
+      &__Content {
+        display: flex;
+        flex-direction: column;
+        h2 {
+          font-weight: bold;
+          font-size: 1.50rem;
+        }
+        p {
+          font-size: 1.25rem;
+          margin-bottom: 3.25rem;
+        }
+        > span {
+          margin: 1.25rem auto 0;
+        }
+      }
+    }
+  }
+}
+
+@include media(large) {
+  .sectionLiens {
+    .imageWrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      display: initial;
+      min-width: 558px;
+      max-width: 558px;
+      min-height: 188px;
+      max-height: 188px;
+      margin-right: 2rem;
+    }
+  }
+
+  .sectionNiveauAnglais {
+    background: linear-gradient( to right, $color-background-white-lilac 0% 36%, $color-primary 36% 100% );
+    display: flex;
+    .logoWrapper {
+      margin-right: 5rem;
+      min-width: 400px;
+      max-width: 400px;
+      min-height: 283px;
+      max-height: 283px;
+    }
+
+
+  }
+
+}

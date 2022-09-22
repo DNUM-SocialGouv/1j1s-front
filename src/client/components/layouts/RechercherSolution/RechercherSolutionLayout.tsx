@@ -5,6 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
+import { Color } from '~/client/components/props';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -79,7 +80,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                     </Container>
                   </SectionLayout>
 
-                  <SectionLayout isBackgroundWhite={false} className={styles.listeSolutionsWrapper}>
+                  <SectionLayout backgroundColor={Color.WHITE_LILAC} className={styles.listeSolutionsWrapper}>
                     <Container>
                       <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
                         <ul>

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
+import { Color } from '~/client/components/props';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/mes-aides/index.module.scss';
@@ -13,7 +14,7 @@ export default function MesAidesPage() {
     <>
       <HeadTag title="Mes aides financières | 1jeune1solution" />
       <main id="contenu">
-        <SectionLayout isBackgroundWhite={false}>
+        <SectionLayout backgroundColor={Color.WHITE_LILAC}>
           <Container className={styles.mesAidesBannière}>
             <div className={styles.mesAidesBannièreWrapper}>
               <h1 className="headline">Je découvre les aides auxquelles j’ai droit en moins de 5 minutes</h1>

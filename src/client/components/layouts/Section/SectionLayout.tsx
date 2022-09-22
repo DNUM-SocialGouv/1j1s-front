@@ -1,15 +1,30 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import { CommonProps } from '~/client/components/props';
+import {
+  Color,
+  CommonProps,
+} from '~/client/components/props';
 
 interface ContainerWrapperProps extends CommonProps {
   hasBottomBorder?: boolean
-  isBackgroundWhite?: boolean
+  backgroundColor?: 'white' | 'white-lilac' | 'primary' | 'gradient-to-primary'
 }
 
-export function SectionLayout({ children, className, hasBottomBorder = false, isBackgroundWhite = true, ...rest }: React.PropsWithChildren<ContainerWrapperProps>) {
-  const _classNames = classNames(hasBottomBorder ? 'separator' : '', isBackgroundWhite ? 'background-white' : 'background-white-lilac', className);
+export function SectionLayout({ children, className, hasBottomBorder = false, backgroundColor, ...rest }: React.PropsWithChildren<ContainerWrapperProps>) {
+  const getBackgroundColor = useMemo(() => {
+    switch (backgroundColor) {
+      case Color.WHITE_LILAC:
+        return 'background-white-lilac';
+      case Color.PRIMARY:
+        return 'background-primary';
+      case Color.GRADIENT_TO_PRIMARY:
+        return 'background-gradient-to-primary';
+      default:
+        return 'background-white';
+    }
+  }, [backgroundColor]);
+  const _classNames = classNames(hasBottomBorder ? 'separator' : '', getBackgroundColor, className);
 
   return (
     <div className={_classNames} {...rest}>
