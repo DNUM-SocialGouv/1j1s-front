@@ -20,10 +20,9 @@
 
     a {
       @extend %text-medium;
-      margin: 40px auto auto;
-      display: flex;
-      padding: 0 5rem;
-      flex-direction: column;
+      margin: 20px auto auto;
+      padding: 0 4rem;
+      height: 2rem;
       gap: 1rem;
     }
 
