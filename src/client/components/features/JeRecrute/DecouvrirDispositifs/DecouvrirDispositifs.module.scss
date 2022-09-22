@@ -2,7 +2,7 @@
 
 
 .recruter {
-  padding: 2rem 0 4rem;
+  padding: 4rem 1rem 4rem 1rem;
   margin: auto 1rem;
   text-align: center;
 
@@ -10,7 +10,6 @@
     @extend %text-xLarge, %bold;
     color: $color-primary;
     margin-bottom: 1em;
-    margin-top: 1em;
   }
 
   p {

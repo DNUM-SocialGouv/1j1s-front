@@ -2,6 +2,7 @@
 
 .content {
   padding: 32px;
+  background-color: $color-background-white-lilac;
 
   h1 {
     @extend %text-xLarge;
@@ -45,7 +46,6 @@
 
 @include media(large) {
   .content {
-    width: 80%;
     margin: auto;
 
     h1 {
@@ -54,6 +54,11 @@
 
     p:nth-child(2) {
       text-align: center;
+    }
+
+    p:nth-child(3) {
+      margin: auto;
+      width: 80%;
     }
   }
 

@@ -1,7 +1,7 @@
 @import "@styles/utilities";
 
 .pourqui {
-  padding: 2rem;
+  padding: 4rem 1rem 2rem 1rem;
 
   h1 {
     @extend %text-xLarge;
@@ -52,7 +52,6 @@
   .pourqui {
     max-width: 64rem;
     margin: auto;
-    margin-top: 3rem;
     margin-bottom: 3rem;
 
     h1 {
