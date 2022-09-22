@@ -1,0 +1,135 @@
+@import "@styles/utilities";
+
+.accompagnementContainer {
+  padding: 2rem;
+}
+
+.accompagnementHero {
+  > div:first-child {
+    @extend %text-xLarge;
+  }
+
+  > div:last-child {
+    margin-top: 1rem;
+    @extend %text-medium;
+  }
+}
+
+.unionNationaleDesMissionsLocales {
+  display: flex;
+  flex-direction: column;
+}
+
+.infosJeunes {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-background-white-lilac;
+  border-top: 1px solid #929292;
+  border-bottom: 1px solid #929292;
+}
+
+.poleEmploi {
+  display: flex;
+  flex-direction: column;
+}
+
+.petiteDescriptionStructure {
+  margin-top: 1.5rem;
+  @extend %text-large;
+
+  span:first-child {
+    color: $color-primary;
+    @extend %bold;
+  }
+
+  span:last-child {
+    color: $color-secondary;
+  }
+}
+
+.imageContainer {
+  margin: auto;
+}
+
+.missionLocaleImageContainer {
+  width: 224px;
+  height: 88px;
+  position: relative;
+}
+
+.infoJeunesImageContainer {
+  width: 224px;
+  height: 104px;
+  position: relative;
+}
+
+.poleEmploiImageContainer {
+  width: 180px;
+  height: 150px;
+  position: relative;
+}
+
+.customSeeMoreClosed {
+  width: 100%;
+  text-align: left;
+  padding-left: 0;
+}
+
+.buttonEnSavoirPlus {
+  background-color: $color-background-white-lilac;
+  color: $color-primary;
+  border: 1px solid $color-primary;
+  padding: 1rem 0.8rem;
+}
+
+.missionLocaleButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+@include media(large) {
+  .accompagnementContainer {
+    padding-left: 9rem;
+    padding-right: 9rem;
+  }
+
+  .unionNationaleDesMissionsLocales {
+    flex-direction: row;
+  }
+
+  .infosJeunes {
+    flex-direction: row;
+  }
+
+  .poleEmploi {
+    flex-direction: row;
+  }
+
+  .imageContainer {
+    margin: inherit;
+  }
+
+  .logoContainer {
+    width: 30%;
+    margin-right: 3.5rem;
+  }
+
+  .longueDescriptionContainer {
+    width: 65%;
+
+    p {
+      line-height: 1.5rem;
+    }
+  }
+
+  .buttonChercher {
+    width: 22rem;
+    margin-top: 2rem;
+  }
+
+  .missionLocaleButtonContainer {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+  }
+}

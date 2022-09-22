@@ -90,14 +90,9 @@ function Témoignage({ id, témoignage }: TémoignageProps) {
 function Programme ({ programme }: { programme: string }) {
   const { isSmallScreen, isMediumScreen } = useBreakpoint();
   const ContenuProgramme = (<Marked className={ styles.programme } markdown={ programme }/>);
-  function label (isOpen: boolean) {
-    if (!isOpen) {
-      return 'Découvrez son programme et ce que le CEJ lui apporte';
-    }
-  }
-  const buttonClassName = () => styles.buttonAccordeon;
+
   if (isSmallScreen || isMediumScreen) {
-    return (<SeeMore customLabel={ label } customButtonClassName={ buttonClassName }>{ ContenuProgramme }</SeeMore>);
+    return (<SeeMore overridedClosedLabel="Découvrez son programme et ce que le CEJ lui apporte" additionalButtonClassName={styles.buttonAccordeon}>{ ContenuProgramme }</SeeMore>);
   } else {
     return ContenuProgramme;
   }

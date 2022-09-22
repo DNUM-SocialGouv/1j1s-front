@@ -144,11 +144,11 @@ export default function Accueil() {
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
                 imageUrl="/images/homepage/accompagne.jpg"
-                link="/"
+                link="/accompagnement"
                 linkLabel="En savoir plus"
-                title="Je souhaite être accompagné(e)"
+                title="Je souhaite être accompagné·e"
               >
-                <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
+                <p>Retrouvez les structures proches de chez vous pouvant vous aider dans vos démarches ou votre parcours.</p>
               </LinkCard>
               <LinkCard
                 imageUrl="/images/homepage/créer-cv.jpg"
