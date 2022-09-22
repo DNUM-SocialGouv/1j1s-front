@@ -41,6 +41,7 @@
       grid-template-columns: 1fr 10fr;
       align-items: center;
       line-height: 1.5rem;
+      margin-top: 2rem;
     }
   }
 }
@@ -81,7 +82,7 @@
 
       &Lien {
         display: grid;
-        grid-template-columns: 1fr 10fr;
+        grid-template-columns: 0fr 10fr;
         align-items: center;
       }
     }

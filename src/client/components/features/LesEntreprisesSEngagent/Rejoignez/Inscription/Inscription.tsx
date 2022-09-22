@@ -161,7 +161,7 @@ export default function Inscription() {
                     }}
                   />
                   <InputText
-                    label="Indiquer votre numéro de SIRET"
+                    label="Indiquez votre numéro de SIRET"
                     name="companySiret"
                     placeholder="Exemple : 12345678901112"
                     value={formulaireEtape1.siret}
@@ -176,7 +176,7 @@ export default function Inscription() {
                   <InputAutocomplétionSecteurActivité
                     required
                     id="autocomplete-secteur-activité"
-                    label="Indiquer le secteur d’activité de votre entreprise"
+                    label="Indiquez le secteur d’activité de votre entreprise"
                     name="companySector"
                     placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
                     valeurInitiale={secteurActivitéValeur}
@@ -190,7 +190,7 @@ export default function Inscription() {
                   />
                   <Select
                     required
-                    label="Indiquer la taille de votre entreprise"
+                    label="Indiquez la taille de votre entreprise"
                     name="companySize"
                     placeholder="Exemple : 250 à 499 salariés"
                     optionList={taillesEntreprises}
@@ -218,7 +218,7 @@ export default function Inscription() {
               isDeuxièmeEtape() && <form className={styles.formulaire} onSubmit={submitFormulaire}>
                 <div className={styles.bodyFormulaire}>
                   <InputText
-                    label="Indiquer votre prénom"
+                    label="Indiquez votre prénom"
                     name="firstName"
                     placeholder="Exemple : Marc, Sonia…"
                     value={formulaireEtape2.prénom}
@@ -230,7 +230,7 @@ export default function Inscription() {
                     className={styles.formulaireInput}
                   />
                   <InputText
-                    label="Indiquer votre nom"
+                    label="Indiquez votre nom"
                     name="lastName"
                     placeholder="Exemple : Ducourt, Dupont…"
                     value={formulaireEtape2.nom}
@@ -242,7 +242,7 @@ export default function Inscription() {
                     className={styles.formulaireInput}
                   />
                   <InputText
-                    label="Indiquer votre adresse e-mail de contact"
+                    label="Indiquez votre adresse e-mail de contact"
                     type="email"
                     name="email"
                     placeholder="Exemple : mail@exemple.com"
@@ -256,7 +256,7 @@ export default function Inscription() {
                     className={styles.formulaireInput}
                   />
                   <InputText
-                    label="Indiquer votre fonction au sein de votre entreprise"
+                    label="Indiquez votre fonction au sein de votre entreprise"
                     name="job"
                     placeholder="Exemple : RH, Chargé de communications"
                     value={formulaireEtape2.travail}
@@ -268,7 +268,7 @@ export default function Inscription() {
                     className={styles.formulaireInput}
                   />
                   <InputText
-                    label="Indiquer un numéro de téléphone de contact"
+                    label="Indiquez un numéro de téléphone de contact"
                     name="phone"
                     placeholder="Exemple : 0199999999"
                     pattern="^(\+33|0|0033)[1-9]\d{8}$"
