@@ -1,0 +1,52 @@
+@import "@styles/utilities";
+
+.referencer {
+  padding: 3rem 0;
+  background-color: $color-background-white-lilac;
+
+  &Container {
+    @extend %max-container;
+    display: grid;
+    gap: 2rem;
+    padding: 0 1.5rem;
+    place-items: center;
+
+    &Titre {
+      color: $color-primary;
+      max-width: 50rem;
+      text-align: left;
+      font-size: 1.5rem;
+    }
+
+    a {
+      @extend %text-medium;
+      margin: 40px auto auto;
+      display: flex;
+      padding: 0 5rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    p {
+      @extend %text-large, %bold;
+    }
+
+    ul {
+      max-width: 33rem;
+      list-style-type: disc;
+      li {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+@include media(large) {
+  .referencer {
+    &Container {
+      &Titre {
+        text-align: center;
+      }
+    }
+  }
+}
