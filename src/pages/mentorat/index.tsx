@@ -12,8 +12,6 @@ import styles from './Mentorat.module.scss';
 
 export default function MentoratPage() {
   const { isSmallScreen, isMediumScreen, isLargeScreen } = useBreakpoint();
-  const buttonClassName = (isOpen: boolean) => classNames(styles.buttonAccordeon, !isOpen && styles.buttonAccordeonClosed);
-  const seeMoreLabel = (isOpen: boolean) => !isOpen ? 'Lire plus' : 'Voir moins';
 
   return (
     <>
@@ -92,7 +90,15 @@ export default function MentoratPage() {
               </span>
 
               { (isSmallScreen || isMediumScreen)
-                ? (<SeeMore customLabel={seeMoreLabel} additionalClosedButtonClassName={ buttonClassName }><RaisonParticipationsMentorat/></SeeMore>)
+                ? (
+                  <SeeMore
+                    overridedClosedLabel="Lire plus"
+                    additionalClosedButtonClassName={ styles.buttonAccordeonClosed }
+                    additionalButtonClassName={ styles.buttonAccordeon }
+                  >
+                    <RaisonParticipationsMentorat/>
+                  </SeeMore>
+                )
                 : (<RaisonParticipationsMentorat/>) }
             </div>
             { isLargeScreen && (

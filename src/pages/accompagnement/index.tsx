@@ -5,10 +5,8 @@ import poleEmploiImage from 'public/images/logos/pole-emploi.svg';
 import missionLocaleImage from 'public/images/logos/union-mission-locale.svg';
 import React from 'react';
 
-import { Button } from '~/client/components/ui/Button/Button';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
@@ -18,7 +16,7 @@ import styles from '~/pages/accompagnement/Accompagnement.module.scss';
 
 export default function Accompagnement() {
 
-  const { isSmallScreen, isLargeScreen } = useBreakpoint();
+  const { isSmallScreen } = useBreakpoint();
 
   const longueDescriptionUnionNationalesDesMissionsLocales = 'Les missions locales sont présentes sur l’ensemble du territoire national et permettent à tous les jeunes de 16 à 25 ans de surmonter les difficultés qui font obstacle à leur insertion professionnelle et sociale.<br />Avec un accompagnement global pour les jeunes, elles traitent l’ensemble des difficultés d’insertion: emploi, formation, orientation, mobilité, logement, santé, accès à la culture et aux loisirs.<br />Les conseillers missions locales vont avoir comme mission de préparer les jeunes candidats à une offre d’emploi, les aider à se maintenir dans l’emploi (soutien matériel, médiation jeune-employeur) et proposent également un accompagnement post emploi.<br />Au cours des entretiens, le conseiller aide le jeune à s’orienter et examine avec lui les moyens à mobiliser pour lever les freins à l’emploi.';
   const longueDescriptionInfoJeunes = 'La structure Info Jeunes (SIJ) accueille tous les jeunes (de 12 à 30 ans) anonymement et gratuitement.<br />Des professionnels sont là pour vous aider à trouver des informations et vous accompagner sur tous les sujets qui vous concernent ou vous intéressent ; qu’il s’agisse de scolarité, de formation, d’emploi, de logement, de loisirs, de préparer un départ vers l’étranger, ou encore de monter un projet pour lequel des aides sont disponibles…<br />De la documentation, des revues, des ordinateurs etc. sont disponibles en libre accès et la SIJ propose également un soutien pour l’élaboration de CV, la rédaction des lettres de motivation ou encore la préparation aux entretiens de recrutement.';
@@ -62,7 +60,11 @@ export default function Accompagnement() {
   }
 
   function displayBoutonRechercherMissionLocale() {
-    return <LinkAsButton href="https://www.unml.info/les-missions-locales/annuaire/" className={classNames(styles.buttonChercher)}>Trouver ma mission locale</LinkAsButton>;
+    return <div className={styles.missionLocaleButtonContainer}>
+      <LinkAsButton href="https://www.unml.info/les-missions-locales/annuaire/" className={classNames(styles.buttonChercher)}>Trouver ma mission locale</LinkAsButton>
+      <br />
+      <LinkAsButton href="/articles/mission-locale" className={styles.buttonEnSavoirPlus}>En savoir plus<Icon name={'angle-right'}/></LinkAsButton>
+    </div>;
   }
 
 
@@ -88,7 +90,7 @@ export default function Accompagnement() {
       </Hero>
       <main>
         {
-          isSmallScreen && <>
+          isSmallScreen ? <>
             <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
               {displayMissionLocaleLogoContainer()}
               <SeeMore
@@ -118,10 +120,7 @@ export default function Accompagnement() {
               </SeeMore>
               {displayBoutonRechercherCentrePoleEmploi()}
             </section>
-          </>
-        }
-        {
-          isLargeScreen && <>
+          </> : <>
             <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
               <div className={styles.logoContainer}>
                 {displayMissionLocaleLogoContainer()}

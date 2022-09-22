@@ -92,7 +92,7 @@ function Programme ({ programme }: { programme: string }) {
   const ContenuProgramme = (<Marked className={ styles.programme } markdown={ programme }/>);
 
   if (isSmallScreen || isMediumScreen) {
-    return (<SeeMore overridedClosedLabel="Découvrez son programme et ce que le CEJ lui apporte" additionalClosedButtonClassName={styles.buttonAccordeon}>{ ContenuProgramme }</SeeMore>);
+    return (<SeeMore overridedClosedLabel="Découvrez son programme et ce que le CEJ lui apporte" additionalButtonClassName={styles.buttonAccordeon}>{ ContenuProgramme }</SeeMore>);
   } else {
     return ContenuProgramme;
   }

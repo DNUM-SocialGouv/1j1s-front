@@ -12,9 +12,10 @@ interface SeeMoreProps extends CommonProps {
   overridedClosedLabel?: string
   overridedOpenedLabel?: string
   additionalClosedButtonClassName?: string
+  additionalButtonClassName?: string
 }
 
-export function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
+export function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalButtonClassName, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();
@@ -53,7 +54,7 @@ export function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, 
         aria-labelledby={`seeMore-${ariaId}`}>
         {children}
       </div>
-      <button className={classNames(styles.seeMoreButton, !isOpen && additionalClosedButtonClassName)}
+      <button className={classNames(styles.seeMoreButton, additionalButtonClassName, !isOpen && additionalClosedButtonClassName)}
         ref={ref}
         onClick={toggleSeeMore}
         type="button" 

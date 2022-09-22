@@ -75,6 +75,18 @@
   padding-left: 0;
 }
 
+.buttonEnSavoirPlus {
+  background-color: $color-background-white-lilac;
+  color: $color-primary;
+  border: 1px solid $color-primary;
+  padding: 1rem 0.8rem;
+}
+
+.missionLocaleButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 @include media(large) {
   .accompagnementContainer {
     padding-left: 9rem;
@@ -111,6 +123,13 @@
   }
 
   .buttonChercher {
+    width: 22rem;
     margin-top: 2rem;
+  }
+
+  .missionLocaleButtonContainer {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
   }
 }
