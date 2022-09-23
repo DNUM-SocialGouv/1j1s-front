@@ -9,6 +9,35 @@ describe('HttpClientServiceWithAuthentification', () => {
     afterEach(() => {
       nock.cleanAll();
     });
+    it('rafraichit un token quand il reçoit un 403', async () => {
+      // Given
+      const accessToken = 'uytrdxcvghfrtyh';
+      const body = { some: 'body' };
+      const miss = nock('https://some.test.api')
+        .get('/test')
+        .reply(403, 'forbidden');
+
+      const hit = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken}` } })
+        .get('/test')
+        .reply(200, body);
+
+      const tokenAgentStub = {
+        getToken: jest.fn().mockResolvedValue(accessToken),
+      };
+      const client = new HttpClientServiceWithAuthentification({
+        apiName: 'test',
+        apiUrl: 'https://some.test.api',
+        tokenAgent: tokenAgentStub,
+      });
+
+
+      // When
+      const actual = await client.get('/test', (a) => a);
+      // Then
+      miss.isDone();
+      hit.isDone();
+      expect(actual).toEqual(createSuccess(body));
+    });
     it('rafraichit un token quand il reçoit un 401', async () => {
       // Given
       const accessToken = 'uytrdxcvghfrtyh';
