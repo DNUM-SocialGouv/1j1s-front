@@ -7,16 +7,16 @@
   &Container {
     @extend %max-container;
     display: grid;
-    gap: 2rem;
     padding: 0 1.5rem;
     place-items: center;
 
     &Titre {
       @extend %bold;
       color: $color-primary;
-      max-width: 50rem;
+      max-width: 43rem;
       text-align: left;
       font-size: 1.75rem;
+      margin-bottom: 2rem;
     }
 
     a {
@@ -39,6 +39,8 @@
       max-width: 33rem;
       margin-left: 1.5rem;
       list-style-type: disc;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
       li {
         margin-top: 0.5rem;
       }
@@ -53,10 +55,6 @@
 @include media(large) {
   .referencer {
     &Container {
-      &Titre {
-        text-align: center;
-        margin-bottom: 1rem;
-      }
 
       p {
         margin-right: 10rem;
