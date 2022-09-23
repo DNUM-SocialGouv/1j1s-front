@@ -25,12 +25,14 @@ const moduleExports = {
   images: {
     domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL],
   },
-  optimization: {
-    mergeDuplicateChunks: true,
-  },
   reactStrictMode: true,
+  sentry: {
+    disableClientWebpackPlugin: true,
+    disableServerWebpackPlugin: true,
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
+      config.optimization.mergeDuplicateChunks = true;
       config.optimization.splitChunks.cacheGroups = {
         ...config.optimization.splitChunks.cacheGroups,
         '@sentry': {
@@ -46,18 +48,6 @@ const moduleExports = {
   },
 };
 
-const sentryWebpackPluginOptions = {
-  // Additional config options for the Sentry Webpack plugin. Keep in mind that
-  // the following options are set automatically, and overriding them is not
-  // recommended:
-  //   release, url, org, project, authToken, configFile, stripPrefix,
-  //   urlPrefix, include, ignore
-
-  silent: true, // Suppresses all logs
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.
-};
-
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+module.exports = withSentryConfig(moduleExports);
