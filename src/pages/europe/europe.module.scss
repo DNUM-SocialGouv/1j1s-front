@@ -209,32 +209,30 @@
 }
 
 @include media(large) {
-  .sectionLiens {
-    .imageWrapper {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      display: initial;
-      min-width: 558px;
-      max-width: 558px;
-      min-height: 188px;
-      max-height: 188px;
-      margin-right: 2rem;
+  .section {
+    &Liens {
+      .imageWrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        display: initial;
+        min-width: 558px;
+        max-width: 558px;
+        min-height: 188px;
+        max-height: 188px;
+        margin-right: 2rem;
+      }
+    }
+    &NiveauAnglais {
+      background: linear-gradient( to right, $color-background-white-lilac 0% 36%, $color-primary 36% 100% );
+      display: flex;
+      .logoWrapper {
+        margin-right: 5rem;
+        min-width: 400px;
+        max-width: 400px;
+        min-height: 283px;
+        max-height: 283px;
+      }
     }
   }
-
-  .sectionNiveauAnglais {
-    background: linear-gradient( to right, $color-background-white-lilac 0% 36%, $color-primary 36% 100% );
-    display: flex;
-    .logoWrapper {
-      margin-right: 5rem;
-      min-width: 400px;
-      max-width: 400px;
-      min-height: 283px;
-      max-height: 283px;
-    }
-
-
-  }
-
 }
