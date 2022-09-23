@@ -12,6 +12,7 @@
     place-items: center;
 
     &Titre {
+      @extend %bold;
       color: $color-primary;
       max-width: 50rem;
       text-align: left;
@@ -22,8 +23,11 @@
       @extend %text-medium;
       margin: 20px auto auto;
       padding: 0 4rem;
-      height: 2rem;
-      gap: 1rem;
+      height: 40px;
+    }
+
+    a::after {
+      display: none;
     }
 
     p {
@@ -31,12 +35,17 @@
     }
 
     ul {
+      @extend %bold;
       max-width: 33rem;
       margin-left: 1.5rem;
       list-style-type: disc;
       li {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
       }
+    }
+
+    &Bouton {
+      text-align: center;
     }
   }
 }
@@ -46,9 +55,16 @@
     &Container {
       &Titre {
         text-align: center;
+        margin-bottom: 1rem;
       }
+
+      p {
+        margin-right: 10rem;
+      }
+
       ul {
         margin-left: 0;
+        max-width: 37rem;
       }
     }
   }

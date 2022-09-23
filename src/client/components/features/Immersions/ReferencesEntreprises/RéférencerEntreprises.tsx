@@ -15,7 +15,11 @@ export function RéférencerEntreprises () {
           <li>De les aider à confirmer un projet professionnel en situation réelle de travail</li>
           <li>D’initier un parcours d’embauche pour leur permettre d’accéder à un emploi ou dans le cadre d’une reconversion</li>
         </ul>
-        <LinkAsButton href="https://deposer-offre.www.1jeune1solution.gouv.fr/#/deposer-offre">Référencer mon entreprise</LinkAsButton>
+        <div className={styles.referencerContainerBouton}>
+          <LinkAsButton href={'https://immersion-facile.beta.gouv.fr/etablissement/lesentreprises-sengagent'}>
+            Référencer mon entreprise
+          </LinkAsButton>
+        </div>
       </div>
     </section>
 
