@@ -5,6 +5,9 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import FormulaireDeContactEntreprise from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
 import { Button } from '~/client/components/ui/Button/Button';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
+import InputAutocomplétionSecteurActivité, {
+  SecteurActivité,
+} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
@@ -63,6 +66,7 @@ export default function Inscription() {
   const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
 
   const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<LocalisationApiResponse>();
+  const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 
   function goToEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -135,6 +139,7 @@ export default function Inscription() {
                   />
                   <InputAutocomplétionCommune
                     required
+                    id="autocomplete-commune"
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
                     placeholder="Exemple: Paris, Béziers..."
@@ -161,17 +166,20 @@ export default function Inscription() {
                     })}
                     className={styles.formulaireInput}
                   />
-                  <InputText
+                  <InputAutocomplétionSecteurActivité
+                    required
+                    id="autocomplete-secteur-activité"
                     label="Indiquer le secteur d’activité de votre entreprise"
                     name="companySector"
                     placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
-                    value={formulaireEtape1.secteur}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
-                      ...formulaireEtape1,
-                      secteur: event.currentTarget.value,
-                    })}
-                    className={styles.formulaireInput}
+                    valeurInitiale={secteurActivitéValeur}
+                    onSuggestionSelected={(event, suggestion) => {
+                      setSecteurActivitéValeur(suggestion);
+                      setFormulaireEtape1({
+                        ...formulaireEtape1,
+                        secteur: suggestion.valeur,
+                      });
+                    }}
                   />
                   <InputText
                     label="Indiquer la taille de votre entreprise"

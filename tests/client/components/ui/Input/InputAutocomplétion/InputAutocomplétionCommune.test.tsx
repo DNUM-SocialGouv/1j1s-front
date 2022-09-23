@@ -24,7 +24,7 @@ describe('InputAutocomplétionCommune', function () {
     const texteRecherché = 'Par';
 
     render(<DependenciesProvider localisationService={localisationService}>
-      <InputAutocomplétionCommune label={labelText} debounce={1}/>
+      <InputAutocomplétionCommune id="test-autocomplétion" label={labelText} debounce={1}/>
     </DependenciesProvider>);
     const inputAutocomplétion = screen.getByRole('textbox');
 

@@ -17,7 +17,8 @@ interface AutocomplétionProps<T> {
 
   onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
-  valeurInitiale ?: string;
+  id: string;
+  valeurInitiale?: string;
   label?: string;
   debounce?: number;
   name?: string;
@@ -34,6 +35,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     onChange: onChangeCallback,
     onSuggestionSelected: onSuggestionSelectedCallback,
     debounce: debounceTimeout = 200,
+    id,
     label,
     valeurInitiale,
     ...rest
@@ -75,7 +77,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 
   const inputProps = {
     className: classNames(styles.formControlInput, inputVide && styles.formControlInputError),
-    id: 'input-autocomplétion',
+    id: id,
     onBlur: onBlur,
     onChange: onChange,
     value: valeurInput,
@@ -84,7 +86,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 
   return <>
     <div className={styles.wrapper}>
-      {label && <label htmlFor="input-autocomplétion">{label}</label>}
+      {label && <label htmlFor={id}>{label}</label>}
       <Autosuggest
         theme={theme}
         inputProps={inputProps}

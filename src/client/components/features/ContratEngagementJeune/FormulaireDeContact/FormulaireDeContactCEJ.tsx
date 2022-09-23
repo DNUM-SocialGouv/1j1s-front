@@ -109,6 +109,7 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
         />
         <InputAutocomplétionCommune
           required
+          id="autocomplete-commune"
           label="Ville"
           name="ville"
           placeholder="Exemple: Paris, Béziers..."
