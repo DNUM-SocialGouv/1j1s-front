@@ -67,6 +67,7 @@ export const dependenciesContainer = (): Dependencies => {
     poleEmploiOffresClientService,
     poleEmploiReferentielsClientService,
     strapiClientService,
+    strapiAuthClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
   const { NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL } = serverConfigurationService.getConfiguration();
@@ -80,7 +81,7 @@ export const dependenciesContainer = (): Dependencies => {
   const engagementDependencies = engagementDependenciesContainer(engagementClientService);
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
-    new StrapiDemandeDeContactRepository(strapiClientService),
+    new StrapiDemandeDeContactRepository(strapiAuthClientService),
   );
   const entrepriseDependencies = entrepriseDependenciesContainer(
     new StrapiRejoindreLaMobilisationRepository(strapiClientService),

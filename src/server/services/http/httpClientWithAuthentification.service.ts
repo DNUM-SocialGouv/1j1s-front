@@ -1,26 +1,26 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { Either } from '~/server/errors/either';
-import { ClientService } from '~/server/services/http/client.service';
 import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
 import { LoggerService } from '~/server/services/logger.service';
 
-export class HttpClientServiceWithAuthentification extends ClientService {
+import { HttpClientService } from './httpClient.service';
+
+export class HttpClientServiceWithAuthentification extends HttpClientService {
   private tokenAgent: TokenAgent;
   private retries = new Set<object>();
   private isRefreshingToken?: Promise<void>;
+
   constructor (private config: HttpClientWithAuthentificationConfig) {
-    const name = config.apiName;
-    const url = config.apiUrl;
-    const apiKey = config.apiKey;
-    super(name, url, true, apiKey ? { apiKey : apiKey } : {} );
+    const { apiName, apiUrl } = config;
+    super({ apiName, apiUrl, overrideInterceptor: true });
     this.tokenAgent = config.tokenAgent;
 
     this.client.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {
         if (axios.isAxiosError(error)) {
-          LoggerService.error(`${name} ${error.status} ${error.config.baseURL}${error.config.url}`);
+          LoggerService.error(`${apiName} ${error.status} ${error.config.baseURL}${error.config.url}`);
           const originalRequest = error.config;
 
           if (error.response?.status == 401 && !this.retries.has(originalRequest)) {
@@ -29,7 +29,7 @@ export class HttpClientServiceWithAuthentification extends ClientService {
               await this.refreshToken();
             } catch (e) {
               this.retries.delete(originalRequest);
-              LoggerService.error(`${name} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
+              LoggerService.error(`${apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
               return Promise.reject(error);
             }
             const result = await this.client.request(originalRequest);

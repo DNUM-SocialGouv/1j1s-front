@@ -100,7 +100,7 @@ describe('HttpClientServiceWithAuthentification', () => {
       const req1 = client.get('/test', (a) => a);
       const req2 = client.get('/test', (a) => a);
       await delay(5);
-      deferred.reject('echec');
+      deferred.reject(Error('Echec'));
       const [ res1, res2 ] = await Promise.all([req1, req2]);
       // Then
       miss.isDone();
@@ -115,7 +115,7 @@ class Deferred<T> {
   done = false;
   error = false;
 
-  reject!: (reason: any) => void;
+  reject!: (reason: Error) => void;
   resolve!: (value: T) => void;
 
   constructor () {

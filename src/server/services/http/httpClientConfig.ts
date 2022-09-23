@@ -3,6 +3,7 @@ import { HttpClientService } from '~/server/services/http/httpClient.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
+import { StrapiLoginTokenAgent } from './StrapiLoginTokenAgent';
 
 export interface HttpClientConfig {
   apiName: string
@@ -34,6 +35,20 @@ const getApiLaBonneAlternanceConfig = (configurationService: ConfigurationServic
     apiName: 'API_LA_BONNE_ALTERNANCE',
     apiUrl: configurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_BASE_URL,
     overrideInterceptor: false,
+  });
+};
+
+const getAuthApiStrapiConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
+  const [ login, password ] = configurationService.getConfiguration().STRAPI_AUTH.split(':');
+  return ({
+    apiKey: undefined,
+    apiName: 'STRAPI_URL_API',
+    apiUrl: configurationService.getConfiguration().STRAPI_URL_API,
+    tokenAgent: new StrapiLoginTokenAgent({
+      apiUrl: configurationService.getConfiguration().STRAPI_URL_API,
+      login,
+      password,
+    }),
   });
 };
 
@@ -91,13 +106,14 @@ const getApiPoleEmploiReferentielsConfig = (configurationService: ConfigurationS
 };
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
-  return ({
+  return {
     adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     laBonneAlternanceClientService: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
+    strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
     strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
-  });
+  };
 }

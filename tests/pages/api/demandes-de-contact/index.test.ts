@@ -5,7 +5,10 @@ import { enregistrerDemandeDeContactHandler } from '~/pages/api/demandes-de-cont
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 describe('enregistrerDemandeDeContactHandler', () => {
-
+  const jwt = '3456789098765RFVBGFDRTYHJNfKJHGV';
+  const identifier = '1j1s@gouv.fr'; // défini dans le fichier .env.test
+  const password = 'monmotdepassesécurisé'; // défini dans le fichier .env.test
+  afterEach(() => nock.cleanAll());
   describe('GET', () => {
     it('retourne une erreur 406', async () => {
       await testApiHandler<void | ErrorHttpResponse>({
@@ -22,7 +25,14 @@ describe('enregistrerDemandeDeContactHandler', () => {
   describe('POST', () => {
     describe('quand le type de demande de contact est CEJ', () => {
       it('répond une 200 quand tout s’est bien passé', async () => {
-        const strapiApi = nock('http://localhost:1337/api')
+        const strapiAuth = nock('http://localhost:1337/api')
+          .post('/contact-cejs')
+          .once()
+          .reply(401, 'unauthorized')
+          .post('/auth/local', { identifier, password })
+          .once()
+          .reply(200, { jwt });
+        const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
           .post('/contact-cejs', {
             data: {
               age: 18,
@@ -33,6 +43,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
               ville: 'Cergy',
             },
           })
+          .once()
           .reply(201);
 
         await testApiHandler<void | ErrorHttpResponse>({
@@ -54,6 +65,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
               method: 'POST',
             });
             expect(res.status).toEqual(200);
+            strapiAuth.done();
             strapiApi.done();
           },
           url: '/demandes-de-contact',
@@ -63,7 +75,14 @@ describe('enregistrerDemandeDeContactHandler', () => {
 
     describe('quand le type de demande de contact est entreprise', () => {
       it('répond une 200 quand tout s’est bien passé', async () => {
-        const strapiApi = nock('http://localhost:1337/api')
+        const strapiAuth = nock('http://localhost:1337/api')
+          .post('/contact-entreprises')
+          .once()
+          .reply(401, 'unauthorized')
+          .post('/auth/local', { identifier, password })
+          .once()
+          .reply(200, { jwt });
+        const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
           .post('/contact-entreprises', {
             data: {
               email: 'toto@msn.fr',
@@ -95,6 +114,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
               method: 'POST',
             });
             expect(res.status).toEqual(200);
+            strapiAuth.done();
             strapiApi.done();
           },
           url: '/demandes-de-contact',
