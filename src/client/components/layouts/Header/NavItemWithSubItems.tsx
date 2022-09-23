@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { NavigationItem } from '~/client/components/layouts/Header/NavigationStructure';
+import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 interface NavItemWithSubItemsProps {
@@ -12,14 +13,12 @@ interface NavItemWithSubItemsProps {
   subItemList: NavigationItem[]
 }
 
-export function NavItemWithSubItems({ children, className, label, path, subItemList }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
+export function NavItemWithSubItems({ className, label, path, subItemList }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
   const optionsRef = useRef<HTMLLIElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const isActive = useMemo(() => {
-    return subItemList.some((subItem) => {
-      if ('link' in subItem) return subItem.link === path;
-    });
+    return subItemList.some((subItem) => subItem.link === path);
   }, [path, subItemList]);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
@@ -55,7 +54,9 @@ export function NavItemWithSubItems({ children, className, label, path, subItemL
       </button>
       {isExpanded &&
         <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)} role="menu">
-          {children}
+          {subItemList.map((subItem, index) =>
+            <NavItem className={styles.subNavItem} key={index} label={subItem.label} link={subItem.link} isActive={path === subItem.link} />)
+          }
         </ul>
       }
     </li>

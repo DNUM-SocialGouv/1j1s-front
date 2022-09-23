@@ -1,16 +1,14 @@
-export type NavigationItem = NavigationItemWithChildren | NavigationItemLeaf
-
 export interface NavigationItemWithChildren {
 	label: string
 	children: NavigationItem[]
 }
 
-export interface NavigationItemLeaf {
+export interface NavigationItem {
 	label: string
 	link: string
 }
 
-const accueil: NavigationItemLeaf = { label: 'Accueil', link: '/' };
+const accueil: NavigationItem = { label: 'Accueil', link: '/' };
 
 const offresNav: NavigationItemWithChildren = {
   children: [
@@ -62,11 +60,20 @@ const employeurNav: NavigationItemWithChildren = {
   label: 'Je suis employeur',
 };
 
-export const navigationItemList: NavigationItem[] = [
+export interface NavigationItemList {
+  accueil: NavigationItem,
+  offresNav: NavigationItemWithChildren,
+  orientationNav: NavigationItemWithChildren,
+  accompagnementNav: NavigationItemWithChildren,
+  engagementNav: NavigationItemWithChildren,
+  employeurNav: NavigationItemWithChildren,
+};
+
+export const navigationItemList: NavigationItemList = {
+  accompagnementNav,
   accueil,
+  employeurNav,
+  engagementNav,
   offresNav,
   orientationNav,
-  accompagnementNav,
-  engagementNav,
-  employeurNav,
-];
+};

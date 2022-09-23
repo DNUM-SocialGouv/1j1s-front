@@ -113,13 +113,18 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
   }
 }
 
+.navItemSeparator {
+  flex-grow: 15;
+}
+
 .navItem, .subNavItem {
   position: relative;
   flex-grow: 1;
   @extend %text-regular;
 
   &:hover {
-    background-color: $color-background-white-titan;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
   }
 }
 

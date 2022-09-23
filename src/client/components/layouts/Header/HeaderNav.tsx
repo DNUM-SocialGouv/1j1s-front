@@ -6,11 +6,19 @@ import React, {
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { NavigationItem,navigationItemList } from '~/client/components/layouts/Header/NavigationStructure';
+import { navigationItemList } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 
 export function HeaderNav() {
+  const {
+    accueil,
+    accompagnementNav,
+    employeurNav,
+    engagementNav,
+    offresNav,
+    orientationNav,
+  } = navigationItemList;
   const router = useRouter();
   const [path, setPath] = useState(() => router.pathname || '');
 
@@ -26,23 +34,15 @@ export function HeaderNav() {
         role="navigation"
         aria-label="Menu principal">
         <ul className={styles.headerNavigationList}>
-          {buildNavigation(navigationItemList, 0, path)}
+          <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
+          <NavItemWithSubItems className={styles.navItem} label={offresNav.label} path={path} subItemList={offresNav.children} />
+          <NavItemWithSubItems className={styles.navItem} label={orientationNav.label} path={path} subItemList={orientationNav.children} />
+          <NavItemWithSubItems className={styles.navItem} label={accompagnementNav.label} path={path} subItemList={accompagnementNav.children} />
+          <NavItemWithSubItems className={styles.navItem} label={engagementNav.label} path={path} subItemList={engagementNav.children} />
+          <div aria-hidden={true} className={styles.navItemSeparator} />
+          <NavItemWithSubItems className={styles.navItem} label={employeurNav.label} path={path} subItemList={employeurNav.children} />
         </ul>
       </nav>
     </Container>
   );
-}
-
-export function buildNavigation(navigationItemList: NavigationItem[], nestingLevel: number, path: string) {
-  return navigationItemList.map((item, index) => {
-    if ('children' in item && item.children.length > 0) {
-      return (
-        <NavItemWithSubItems key={index} label={item.label} className={styles.navItem} path={path} subItemList={item.children}>
-          {buildNavigation(item.children, nestingLevel + 1, path)}
-        </NavItemWithSubItems>
-      );
-    } else if ('link' in item) {
-      return <NavItem label={item.label} link={item.link} key={index} className={nestingLevel > 0 ? styles.subNavItem : styles.navItem} path={path}/>;
-    }
-  });
 }

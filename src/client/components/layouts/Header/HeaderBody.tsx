@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { buildNavigation } from '~/client/components/layouts/Header/HeaderNav';
 import { navigationItemList } from '~/client/components/layouts/Header/NavigationStructure';
+import { NavItem } from '~/client/components/layouts/Header/NavItem';
+import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 import { Button } from '~/client/components/ui/Button/Button';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -12,6 +13,14 @@ import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function HeaderBody() {
+  const {
+    accueil,
+    accompagnementNav,
+    employeurNav,
+    engagementNav,
+    offresNav,
+    orientationNav,
+  } = navigationItemList;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
@@ -50,7 +59,12 @@ export function HeaderBody() {
             <Container className={styles.headerModalContainer}>
               <nav role="navigation">
                 <ul className={styles.headerModalNavigationList}>
-                  {buildNavigation(navigationItemList, 0, path)}
+                  <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
+                  <NavItemWithSubItems className={styles.navItem} label={offresNav.label} path={path} subItemList={offresNav.children} />
+                  <NavItemWithSubItems className={styles.navItem} label={orientationNav.label} path={path} subItemList={orientationNav.children} />
+                  <NavItemWithSubItems className={styles.navItem} label={accompagnementNav.label} path={path} subItemList={accompagnementNav.children} />
+                  <NavItemWithSubItems className={styles.navItem} label={engagementNav.label} path={path} subItemList={engagementNav.children} />
+                  <NavItemWithSubItems className={styles.navItem} label={employeurNav.label} path={path} subItemList={employeurNav.children} />
                 </ul>
               </nav>
             </Container>
