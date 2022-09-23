@@ -10,7 +10,7 @@ export interface SecteurActivité {
 interface SecteurActivitéProps {
   onSuggestionSelected?(event: SyntheticEvent, suggestion: SecteurActivité, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
-  id:string;
+  id: string;
   valeurInitiale?: SecteurActivité;
   label?: string;
   name?: string;
@@ -76,6 +76,7 @@ export default function InputAutocomplétionSecteurActivité(props: SecteurActiv
     valeur={valeurSuggestion}
     onSuggestionSelected={onSuggestionSelected}
     valeurInitiale={valeurInitiale?.libellé}
+    shouldRenderSuggestions={() => true}
     {...rest}
   />;
 }

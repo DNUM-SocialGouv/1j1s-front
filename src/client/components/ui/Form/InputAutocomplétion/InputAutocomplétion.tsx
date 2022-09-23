@@ -17,6 +17,8 @@ interface AutocomplétionProps<T> {
 
   onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
+  shouldRenderSuggestions?(préfixe: string, reason: string): boolean;
+
   id: string;
   valeurInitiale?: string;
   label?: string;
@@ -35,6 +37,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     onChange: onChangeCallback,
     onSuggestionSelected: onSuggestionSelectedCallback,
     debounce: debounceTimeout = 200,
+    shouldRenderSuggestions: shouldRenderSuggestionsFunction,
     id,
     label,
     valeurInitiale,
@@ -75,6 +78,14 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
     onSuggestionSelectedCallback?.(event, suggestion, suggestionValue, suggestionIndex, sectionIndex, method);
   }
 
+  function shouldRenderSuggestions(préfixe: string, reason: string): boolean {
+    if (shouldRenderSuggestionsFunction) {
+      return shouldRenderSuggestionsFunction(préfixe, reason);
+    }
+
+    return préfixe.trim().length > 0;
+  }
+
   const inputProps = {
     className: classNames(styles.formControlInput, inputVide && styles.formControlInputError),
     id: id,
@@ -96,6 +107,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
         onSuggestionSelected={onSuggestionSelected}
         getSuggestionValue={valeur}
         renderSuggestion={afficher}
+        shouldRenderSuggestions={shouldRenderSuggestions}
       />
       {inputVide && <div className={styles.formControlInputHint}>Veuillez renseigner ce champ.</div>}
     </div>

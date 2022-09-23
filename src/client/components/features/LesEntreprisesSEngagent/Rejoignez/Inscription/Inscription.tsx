@@ -118,12 +118,15 @@ export default function Inscription() {
             <div className={styles.etape}>{etape}</div>
             <div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
             {
+              isPremièreEtape() && <div>
+                <button className={styles.boutonRetour} onClick={returnToLesEntreprisesSEngagent}>
+                  <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                </button>
+              </div>
+            }
+
+            {
               isPremièreEtape() && <form className={styles.formulaire} onSubmit={goToEtape2}>
-                <div>
-                  <button className={styles.boutonRetour} onClick={returnToLesEntreprisesSEngagent}>
-                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
-                  </button>
-                </div>
                 <div className={styles.bodyFormulaire}>
                   <InputText
                     label="Indiquez le nom de l’entreprise"
@@ -143,7 +146,7 @@ export default function Inscription() {
                     label="Indiquez la ville du siège social de l’entreprise"
                     name="companyPostalCode"
                     placeholder="Exemple: Paris, Béziers..."
-                    valeurInitiale = {autocomplétionCommuneValeur}
+                    valeurInitiale={autocomplétionCommuneValeur}
                     onSuggestionSelected={(event, suggestion) => {
                       setAutocomplétionCommuneValeur(suggestion);
                       setFormulaireEtape1({
@@ -201,12 +204,14 @@ export default function Inscription() {
               </form>
             }
             {
+              isDeuxièmeEtape() && <div>
+                <button className={styles.boutonRetour} onClick={returnToEtape1}>
+                  <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                </button>
+              </div>
+            }
+            {
               isDeuxièmeEtape() && <form className={styles.formulaire} onSubmit={submitFormulaire}>
-                <div>
-                  <button className={styles.boutonRetour} onClick={returnToEtape1}>
-                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
-                  </button>
-                </div>
                 <div className={styles.bodyFormulaire}>
                   <InputText
                     label="Indiquer votre prénom"
