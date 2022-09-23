@@ -1,0 +1,29 @@
+import React from 'react';
+
+import styles from '~/client/components/features/Immersions/ReferencesEntreprises/RéférencerEntreprises.module.scss';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
+import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+
+
+export function RéférencerEntreprises () {
+  return (
+    <SectionLayout className={styles.referencer}>
+      <Container>
+        <h2 className={styles.referencerTitre}>Référencer votre entreprise afin de proposer des immersions au sein de votre entreprise</h2>
+        <p>Proposer une immersion c’est permettre à des jeunes :</p>
+        <ul>
+          <li>De découvrir un métier</li>
+          <li>De les aider à confirmer un projet professionnel en situation réelle de travail</li>
+          <li>D’initier un parcours d’embauche pour leur permettre d’accéder à un emploi ou dans le cadre d’une reconversion</li>
+        </ul>
+        <div className={styles.referencerBouton}>
+          <LinkAsButton href={'https://immersion-facile.beta.gouv.fr/etablissement/lesentreprises-sengagent'}>
+            Référencer mon entreprise
+          </LinkAsButton>
+        </div>
+      </Container>
+    </SectionLayout>
+
+  );
+}
