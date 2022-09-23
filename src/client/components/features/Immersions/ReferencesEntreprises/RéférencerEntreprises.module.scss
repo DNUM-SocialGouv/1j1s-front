@@ -1,69 +1,60 @@
 @import "@styles/utilities";
 
 .referencer {
-  padding: 4rem 0 4rem 0;
+  padding: 4rem 2rem 4rem 2rem;
   background-color: $color-background-white-lilac;
+  display: grid;
 
-  &Container {
-    @extend %max-container;
-    display: grid;
-    padding: 0 1.5rem;
-    place-items: center;
+  &Titre {
+    @extend %bold;
+    color: $color-primary;
+    max-width: 43rem;
+    text-align: left;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
 
-    &Titre {
-      @extend %bold;
-      color: $color-primary;
-      max-width: 43rem;
-      text-align: left;
-      font-size: 1.75rem;
-      margin-bottom: 2rem;
+  a {
+    @extend %text-medium;
+    margin: 20px auto auto;
+    padding: 0px 3rem;
+    height: 40px;
+  }
+
+  a::after {
+    display: none;
+  }
+
+  p {
+    @extend %text-large, %bold;
+  }
+
+  ul {
+    max-width: 33rem;
+    margin-left: 1.5rem;
+    list-style-type: disc;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    li {
+      margin-top: 0.5rem;
     }
+  }
 
-    a {
-      @extend %text-medium;
-      margin: 20px auto auto;
-      padding: 0 4rem;
-      height: 40px;
-    }
-
-    a::after {
-      display: none;
-    }
-
-    p {
-      @extend %text-large, %bold;
-    }
-
-    ul {
-      @extend %bold;
-      max-width: 33rem;
-      margin-left: 1.5rem;
-      list-style-type: disc;
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-      li {
-        margin-top: 0.5rem;
-      }
-    }
-
-    &Bouton {
-      text-align: center;
-    }
+  &Bouton {
+    text-align: center;
   }
 }
 
 @include media(large) {
   .referencer {
-    &Container {
+    padding: 4rem 0 4rem 0;
 
-      p {
-        margin-right: 10rem;
-      }
+    p {
+      margin-right: 10rem;
+    }
 
-      ul {
-        margin-left: 0;
-        max-width: 37rem;
-      }
+    ul {
+      max-width: 37rem;
     }
   }
 }
