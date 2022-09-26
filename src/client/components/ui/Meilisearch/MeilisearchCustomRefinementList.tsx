@@ -1,15 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 // eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchRefinementSelect.module.scss';
 
 
 export function MeilisearchCustomRefinementList(props: UseRefinementListProps & { label: string }) {
   const { refine, items } = useRefinementList(props);
+
   const { label } = props;
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const buttonLabel = 'Sélectionnez vos choix';
@@ -65,7 +72,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
                       refine(item.value);
                     }}
                   />
-                  <span className={styles.label}>{item.label}</span>
+                  <span className={styles.label}>{getCapitalizedItems(item.label)}</span>
                 </label>
               </li>
             ))}
