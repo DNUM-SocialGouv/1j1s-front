@@ -6,13 +6,34 @@
   &Illustration {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-bottom: 20px;
   }
 
-  li::marker {
-    background-color: blue;
-  };
+  &Text{
+    p{
+      font-weight: bold;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    li {
+      margin-bottom: 3rem;
+    }
+    li::marker {
+      background-color: blue;
+    }
+    .arrow {
+      background-color: $color-primary;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      border-radius: 50%;
+    }
+
+    }
+
+
 }
 
 @include media(large) {
