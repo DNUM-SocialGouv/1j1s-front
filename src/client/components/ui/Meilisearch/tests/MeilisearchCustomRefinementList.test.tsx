@@ -43,23 +43,23 @@ describe('MeilisearchCustomRefinementList', () => {
       fireEvent.click(screen.getByRole('button'));
       expect(screen.getAllByRole('listitem')).toHaveLength(3);
     });
-    it('affiche "audit" comme label du premier élément', () => {
+    it('affiche "Audit" comme label du premier élément', () => {
       render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
       fireEvent.click(screen.getByRole('button'));
-      expect(screen.getAllByRole('listitem').at(0)?.textContent).toEqual('audit');
+      expect(screen.getAllByRole('listitem').at(0)?.textContent).toEqual('Audit');
     });
     describe('Quand l’utilisateur clique sur le label correspondant au texte "audit"', () => {
       it('appelle la méthode refine une fois', () => {
         render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
         fireEvent.click(screen.getByRole('button'));
-        const labelAudit = screen.getByLabelText('audit');
+        const labelAudit = screen.getByLabelText('Audit');
         fireEvent.click(labelAudit);
         expect(refineMock).toHaveBeenCalledTimes(1);
       });
       it('appelle la méthode refine avec la valeur "auditeur"', () => {
         render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
         fireEvent.click(screen.getByRole('button'));
-        const labelAudit = screen.getByLabelText('audit');
+        const labelAudit = screen.getByLabelText('Audit');
         fireEvent.click(labelAudit);
         expect(refineMock).toHaveBeenCalledWith('auditeur');
       });
