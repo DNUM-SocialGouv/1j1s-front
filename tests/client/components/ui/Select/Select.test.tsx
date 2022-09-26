@@ -58,7 +58,7 @@ describe('Select', () => {
 
       //THEN
       await waitFor(async () => {
-        const placeholder = await screen.findByTestId( 'Select-Placeholder' );
+        const placeholder = await screen.findByTestId('Select-Placeholder');
         expect(placeholder.textContent).toEqual('Temps plein');
       });
 
@@ -66,13 +66,36 @@ describe('Select', () => {
       expect(hiddenInput).toHaveValue('tempsPlein');
     });
 
+    it('quand on sélectionne une valeur, on appelle la fonction onChange passée au select', async () => {
+      //GIVEN
+      const onChangeSpy = jest.fn();
+      render(
+        <Select
+          name="tempsDeTravail"
+          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          label={'Temps de travail'}
+          onChange={onChangeSpy}
+        />,
+      );
+
+      //WHEN
+      const button = screen.getByRole('button', { name: 'Temps de travail' });
+      fireEvent.click(button);
+      const listbox = screen.getByRole('listbox');
+      const input = within(listbox).getByRole('radio', { name: 'Temps plein' });
+      fireEvent.click(input);
+
+      //THEN
+      expect(onChangeSpy).toHaveBeenCalledWith('tempsPlein');
+    });
+
     describe('Quand le champ est requis', () => {
-      it("n'est pas invalide tant que l'on ne l'a pas touché", async () => {
+      it('n\'est pas invalide tant que l\'on ne l\'a pas touché', async () => {
         // Given
         render(
-          <Select 
+          <Select
             name="monselect"
-            required={ true }
+            required={true}
             optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
             label="Mon Select"
           />,
@@ -85,15 +108,15 @@ describe('Select', () => {
         expect(input).not.toBeInvalid();
       });
 
-      describe("Quand on ouvre la liste d'option mais qu'on perd le focus", () => {
+      describe('Quand on ouvre la liste d\'option mais qu\'on perd le focus', () => {
         it('est invalide', async () => {
           // Given
           render(
             <>
               <button>escape</button>
-              <Select 
+              <Select
                 name="monselect"
-                required={ true }
+                required={true}
                 optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
                 label="Mon Select"
               />
@@ -111,14 +134,14 @@ describe('Select', () => {
           expect(input).toBeInvalid();
         });
 
-        it("a un message d'erreur", async () => {
+        it('a un message d\'erreur', async () => {
           // Given
           render(
             <>
               <button>escape</button>
-              <Select 
+              <Select
                 name="monselect"
-                required={ true }
+                required={true}
                 optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
                 label="Mon Select"
               />
@@ -182,7 +205,7 @@ describe('Select', () => {
 
       //THEN
       await waitFor(async () => {
-        const placeholder = await screen.findByTestId( 'Select-Placeholder' );
+        const placeholder = await screen.findByTestId('Select-Placeholder');
         expect(placeholder.textContent).toEqual('1 choix sélectionné');
       });
 

@@ -1,19 +1,9 @@
 import classNames from 'classnames';
-import React, {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import {
-  handleKeyBoardInteraction,
-  setFocusToSelectButton,
-} from '~/client/components/keyboard/select.keyboard';
+import { handleKeyBoardInteraction, setFocusToSelectButton } from '~/client/components/keyboard/select.keyboard';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
@@ -21,13 +11,13 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 
 interface SelectProps {
-  placeholder?: string
-  optionList: Option[]
-  value?: string
-  label: string
-  name?: string
-  multiple?: boolean
-  required?: boolean
+  placeholder?: string;
+  optionList: Option[];
+  value?: string;
+  label: string;
+  name?: string;
+  multiple?: boolean;
+  required?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -40,7 +30,7 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
-export function Select({ optionList, value, placeholder, name, label, multiple, required }: SelectProps) {
+export function Select({ optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
   const listBoxRef = useRef<HTMLUListElement>(null);
 
@@ -54,7 +44,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
 
   const buttonLabel = useMemo(() => {
     const selectedOption = optionList.find((option) => option.valeur === selectedValue);
-    const defaultMultiplePlaceholder = placeholder ??SELECT_PLACEHOLDER_PLURAL;
+    const defaultMultiplePlaceholder = placeholder ?? SELECT_PLACEHOLDER_PLURAL;
     const defaultSinglePlaceholder = placeholder ?? SELECT_PLACEHOLDER_SINGULAR;
     const selectedValueLength = String(selectedValue).split(',').length;
     if (multiple) {
@@ -112,8 +102,8 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
     const currentItem = event.target as HTMLElement;
     const updateValues = () => {
-      const currentInput = currentItem.querySelector('input') ;
-      if (currentInput === null ) return;
+      const currentInput = currentItem.querySelector('input');
+      if (currentInput === null) return;
       const inputValue = currentInput.getAttribute('value');
       if (multiple && inputValue !== null) onSelectMultipleChange(!currentInput.checked, inputValue);
       else {
@@ -146,7 +136,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
       ref={listBoxRef}
       aria-multiselectable={multiple}
     >
-      { optionList.map((option, index) => {
+      {optionList.map((option, index) => {
         return (
           <li
             tabIndex={-1}
@@ -154,9 +144,10 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
             key={index}
             aria-selected={isCurrentItemSelected(option)}
             onKeyDown={handleKeyDown}>
-            { multiple  ? renderCheckBox(option) : renderRadioButton(option) }
+            {multiple ? renderCheckBox(option) : renderRadioButton(option)}
           </li>
-        );})}
+        );
+      })}
     </ul>
   );
 
@@ -168,6 +159,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
       checked={isCurrentItemSelected(option)}
       onChange={(event: ChangeEvent<HTMLInputElement>) => {
         onSelectMultipleChange(event.target.checked, option.valeur);
+        onChange?.(option.valeur);
       }}
     />
   );
@@ -181,6 +173,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
       onChange={() => {
         setIsOptionListOpen(false);
         setSelectedValue(option.valeur);
+        onChange?.(option.valeur);
       }}
     />
   );
@@ -197,23 +190,25 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
           aria-expanded={isOptionListOpen}
           aria-labelledby={labelledBy.current}
           className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
-          onClick={() => { setIsOptionListOpen(!isOptionListOpen); }}
+          onClick={() => {
+            setIsOptionListOpen(!isOptionListOpen);
+          }}
           onBlur={() => required ? setIsTouched(true) : undefined}
         >
-          <span className={classNames({ [styles.selectedLabel]:selectedValue })} data-testid='Select-Placeholder'>{buttonLabel}</span>
-          {isOptionListOpen ? <AngleUpIcon /> : <AngleDownIcon />}
+          <span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
+          {isOptionListOpen ? <AngleUpIcon/> : <AngleDownIcon/>}
         </button>
-        { isOptionListOpen && renderOptionList() }
+        {isOptionListOpen && renderOptionList()}
         <input
           type="hidden"
           name={name}
           value={selectedValue}
           aria-invalid={hasError}
           aria-errormessage={errorMessageBy.current}
-          data-testid='Select-InputHidden' />
-        
+          data-testid="Select-InputHidden"/>
+
       </div>
-      { hasError && (
+      {hasError && (
         <p className={classNames(styles.inputError)} id={errorMessageBy.current}>
           {errorMessage}
         </p>

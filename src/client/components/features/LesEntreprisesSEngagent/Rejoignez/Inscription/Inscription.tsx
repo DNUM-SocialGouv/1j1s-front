@@ -11,6 +11,7 @@ import InputAutocomplétionSecteurActivité, {
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { isSuccess } from '~/server/errors/either';
@@ -42,6 +43,31 @@ export enum Etape {
   ETAPE_2 = 'Etape 2 sur 2'
 }
 
+const taillesEntreprises = [{
+  libellé: '0 à 19 salariés',
+  valeur: 'xxsmall',
+}, {
+  libellé: '20 à 49 salariés',
+  valeur: 'xsmall',
+}, {
+  libellé: '50 à 99 salariés',
+  valeur: 'small',
+}, {
+  libellé: '100 à 249 salariés',
+  valeur: 'medium',
+}, {
+  libellé: '250 à 499 salariés',
+  valeur: 'large',
+}, {
+  libellé: '500 à 999 salariés',
+  valeur: 'xlarge',
+}, {
+  libellé: '1000 à 5000 salariés',
+  valeur: 'xxlarge',
+}, {
+  libellé: 'Plus de 5000 salariés',
+  valeur: 'huge',
+}];
 export default function Inscription() {
   const router = useRouter();
   const [isContactezNousOpen, setIsContactezNousOpen] = useState<boolean>(false);
@@ -184,17 +210,17 @@ export default function Inscription() {
                       });
                     }}
                   />
-                  <InputText
+                  <Select
+                    required
                     label="Indiquer la taille de votre entreprise"
                     name="companySize"
                     placeholder="Exemple : 250 à 499 salariés"
-                    value={formulaireEtape1.taille}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                    optionList={taillesEntreprises}
+                    onChange={(value: string) => setFormulaireEtape1({
                       ...formulaireEtape1,
-                      taille: event.currentTarget.value,
+                      taille: value,
                     })}
-                    className={styles.formulaireInput}
+                    value={formulaireEtape1.taille}
                   />
                 </div>
 
