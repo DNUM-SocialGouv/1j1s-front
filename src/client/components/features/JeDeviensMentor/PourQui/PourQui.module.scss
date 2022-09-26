@@ -50,9 +50,7 @@
 
 @include media(large) {
   .pourqui {
-    max-width: 64rem;
-    margin: auto;
-    margin-bottom: 3rem;
+    padding: 4rem 24rem 4rem 24rem;
 
     h1 {
       text-align: center;

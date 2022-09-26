@@ -48,7 +48,7 @@
 
 @include media(large) {
   .monEspace {
-    padding: 4rem 1rem 4rem 1rem;
+    padding: 4rem 24rem 4rem 24rem;
 
     &Titre {
       color: $color-primary;
@@ -68,7 +68,7 @@
       margin: 0 auto 3.5rem;
       max-width: 42em;
       line-height: 2rem;
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
 
     &Connexion {
