@@ -3,8 +3,8 @@ import connectStats from 'instantsearch.js/es/connectors/stats/connectStats';
 import React from 'react';
 import { useConnector } from 'react-instantsearch-hooks-web';
 
+import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
-import styles from '~/client/components/ui/Meilisearch/MeiliSearchStats.module.scss';
 
 export type UseStatsProps = StatsConnectorParams;
 

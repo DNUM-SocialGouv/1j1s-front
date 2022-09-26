@@ -42,8 +42,13 @@
 }
 
 .label{
+  display: block;
   border-bottom: 1px solid $color-separator;
   border-radius: 0;
+}
+
+.label:first-letter{
+  text-transform: capitalize;
 }
 
 .checkbox {
@@ -61,7 +66,7 @@
     position: relative;
     padding: 0.75rem 0 .75rem 2rem;
     -webkit-tap-highlight-color: transparent;
-    display: flex;
+    display: block;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;

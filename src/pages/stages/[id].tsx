@@ -53,9 +53,9 @@ export default function ConsulterOffreStagePage() {
     return <UnavailableOffer/>;
   }
   return (
-    <Container>
+    <>
       <HeadTag title={`${offreDeStage.titre} | 1jeune1solution`} />
       <ConsulterOffreDeStage offreDeStage={offreDeStage}/>
-    </Container>
+    </>
   );
 }

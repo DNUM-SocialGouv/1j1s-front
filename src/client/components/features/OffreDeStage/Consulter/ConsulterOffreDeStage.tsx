@@ -2,7 +2,11 @@ import { marked } from 'marked';
 import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
-import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
+import {
+  Domaines,
+  OffreDeStageDétail,
+} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
@@ -12,27 +16,32 @@ interface ConsulterOffreDeStageProps {
 }
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
-  const afficheNomEmployeur = (nomEmployeur?: string) => {
-    if (nomEmployeur) {
-      return <h2>{nomEmployeur}</h2>;
-    }
-    return <></>;
-  };
+
+  const listeEtiquettes: Array<string> = offreDeStage.domaines
+    ? offreDeStage.domaines
+      .filter((domaine) => domaine.nom !== Domaines.NON_RENSEIGNE)
+      .map((domaine)=>domaine.nom)
+    : [];
+  listeEtiquettes.push(
+    offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region as string,
+    dureeCategorisee(offreDeStage.dureeEnJour || 0),
+    'Débute le : ' + new Date(offreDeStage.dateDeDebut).toLocaleDateString(),
+  );
 
   const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();
   return (
     <ConsulterOffreLayout>
       <header className={commonStyles.titre}>
         <h1>{offreDeStage.titre}</h1>
-        {afficheNomEmployeur(offreDeStage.employeur?.nom)}
-        <TagList list={[]} aria-label="Caractéristiques de l'offre de stage"/>
+        { offreDeStage.employeur?.nom && <h2>{offreDeStage.employeur?.nom}</h2>}
+        <TagList list={listeEtiquettes} aria-label="Caractéristiques de l'offre de stage"/>
       </header>
       <section className={commonStyles.contenu}>
         <div className={commonStyles.buttonAsLink}>
           <LinkAsButton
             href={offreDeStage.urlDeCandidature}
             target="_blank">
-            {'Postuler'}
+            Postuler
           </LinkAsButton>
         </div>
         {offreDeStage.description &&
