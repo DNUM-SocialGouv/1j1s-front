@@ -2,6 +2,11 @@
 
 .pourqui {
   padding: 4rem 1rem 2rem 1rem;
+  display: grid;
+
+  .container {
+    max-width: 40rem;
+  }
 
   h1 {
     @extend %text-xLarge;
@@ -50,7 +55,7 @@
 
 @include media(large) {
   .pourqui {
-    padding: 4rem 24rem 4rem 24rem;
+    padding: 4rem 0 4rem 0;
 
     h1 {
       text-align: center;

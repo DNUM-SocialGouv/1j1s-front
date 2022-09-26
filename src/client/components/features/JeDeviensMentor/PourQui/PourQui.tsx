@@ -6,7 +6,7 @@ import Marked from '~/client/components/ui/Marked/Marked';
 export function PourQui() {
   return (
     <div className={styles.pourqui}>
-      <Container>
+      <Container className={styles.container}>
         <Marked markdown={contenuHeader} />
 
         <div className={styles.linkAsButtonWrapper}>
