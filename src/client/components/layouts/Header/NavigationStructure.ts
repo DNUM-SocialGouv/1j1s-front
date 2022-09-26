@@ -35,6 +35,7 @@ const accompagnementNav: NavigationItemWithChildren = {
     { label: 'Mes aides financières', link: '/mes-aides' },
     { label: 'Mentorat', link: '/mentorat' },
     { label: 'CV personnalisé', link: '/creer-mon-cv' },
+    { label: 'Accompagnement', link: '/accompagnement' },
     { label: 'Les mesures jeunes', link: '/mesures-jeunes' },
   ],
   label: 'Aides et accompagnement',
