@@ -25,6 +25,17 @@ export const SecteurDActivité = {
   'transport-storage': 'Transports et entreposage',
 };
 
+export const TailleDEntreprise = {
+  huge: 'Plus de 5000 salariés',
+  large: '250 à 499 salariés',
+  medium: '100 à 249 salariés',
+  small: '50 à 99 salariés',
+  xlarge: '500 à 999 salariés',
+  xsmall: '20 à 49 salariés',
+  xxlarge: '1000 à 5000 salariés',
+  xxsmall: '0 à 19 salariés',
+};
+
 export interface Entreprise {
   nomSociété: string;
   codePostal: string;
