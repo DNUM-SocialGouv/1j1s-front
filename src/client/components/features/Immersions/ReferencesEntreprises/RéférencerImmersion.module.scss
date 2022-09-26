@@ -1,0 +1,21 @@
+@import "@styles/utilities";
+
+.heroSubtitle {
+  @extend %text-large;
+  margin-top: 1em;
+}
+
+.iframe {
+  min-width: 100%;
+  overflow: hidden;
+  min-height: 3000px;
+  margin-top: 1rem;
+}
+
+@include media(large) {
+  .iframe {
+    min-height: 2500px;
+  }
+}
+
+
