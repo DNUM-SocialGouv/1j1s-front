@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { 
+  MouseEventHandler, 
+  useCallback, useEffect, 
+  useMemo, 
+  useRef, 
+  useState, 
+} from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
@@ -9,11 +15,12 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 interface NavItemWithSubItemsProps {
   label: string
+  onClick?: MouseEventHandler<HTMLAnchorElement>
   path: string
   subItemList: NavigationItem[]
 }
 
-export function NavItemWithSubItems({ className, label, path, subItemList }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
+export function NavItemWithSubItems({ className, onClick, label, path, subItemList }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
   const optionsRef = useRef<HTMLLIElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -55,7 +62,12 @@ export function NavItemWithSubItems({ className, label, path, subItemList }: Nav
       {isExpanded &&
         <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)} role="menu">
           {subItemList.map((subItem, index) =>
-            <NavItem className={styles.subNavItem} key={index} label={subItem.label} link={subItem.link} isActive={path === subItem.link} />)
+            <NavItem className={styles.subNavItem} 
+              key={index} 
+              label={subItem.label} 
+              link={subItem.link} 
+              isActive={path === subItem.link} 
+              onClick={onClick}/>)
           }
         </ul>
       }

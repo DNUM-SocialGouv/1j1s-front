@@ -1,6 +1,9 @@
 @import "@styles/_utilities";
 
-$color-primary-10-opacity: rgba(86, 107, 177, 10%);
+@mixin underline {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
 
 .header {
   border-bottom: 1px solid $color-separator;
@@ -35,11 +38,10 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
   }
 
   &Logo {
-    width: 5rem;
-
-    @include media(large) {
-      width: 6rem;
-    }
+    position: relative;
+    overflow: hidden;
+    width: 88px;
+    height: 80px;
   }
 
   &Title {
@@ -57,6 +59,7 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
     padding-inline: 1rem;
 
     @include media(large) {
+      border-top: 1px solid $color-separator;
       padding-inline: 0;
     }
   }
@@ -81,6 +84,10 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
 }
 
 .navItem {
+  &:hover > a > .navItemLabel, &:hover .subNavItemLabel {
+    @include underline;
+  }
+
   & > a {
     display: flex;
     justify-content: center;
@@ -121,15 +128,16 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
   position: relative;
   flex-grow: 1;
   @extend %text-regular;
-
-  &:hover {
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
-  }
 }
 
 .subNavItem {
   color: $color-on-surface;
+
+  &:hover {
+    & > a > .navItemLabel {
+      @include underline;
+    }
+  }
 
   &:not(:last-child) {
     border-bottom: 1px solid $color-separator;
@@ -173,8 +181,7 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
 }
 
 .navItemLabel[aria-current=true], .subNavItemLabel[aria-current=true] {
-  text-decoration: underline;
-  text-underline-offset: 0.2rem;
+  @include underline;
   @extend %bold;
 }
 
@@ -214,6 +221,7 @@ $color-primary-10-opacity: rgba(86, 107, 177, 10%);
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
+
     .navItemLabel {
       padding-left: 2.5rem;
     }

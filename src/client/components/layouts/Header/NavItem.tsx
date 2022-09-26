@@ -1,6 +1,5 @@
-import classNames from 'classnames';
 import Link from 'next/link';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 
@@ -8,13 +7,14 @@ interface NavItemProps {
 	label: string
 	link: string
 	isActive: boolean
+	onClick?: MouseEventHandler<HTMLAnchorElement>
 }
 
-export function NavItem({ className, label, link, isActive }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
+export function NavItem({ className, label, link, isActive, onClick }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
   return (
-    <li className={classNames(isActive ? styles.navItemIsActive : '', className)}>
+    <li className={className}>
       <Link href={link}>
-	      <a>
+	      <a onClick={onClick}>
 	        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
 	      </a>
       </Link>
