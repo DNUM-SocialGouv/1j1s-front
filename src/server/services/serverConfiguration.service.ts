@@ -22,6 +22,7 @@ export class ServerConfigurationService implements ConfigurationService {
       REDIS_PASSWORD: ServerConfigurationService.getOrThrowError('REDIS_PASSWORD'),
       REDIS_PORT: Number(ServerConfigurationService.getOrThrowError('REDIS_PORT')),
       REDIS_USERNAME: ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
+      STRAPI_AUTH: ServerConfigurationService.matchOrThrowError('STRAPI_AUTH', /^(.+):(.+)$/),
       STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
     };
   }
@@ -35,6 +36,14 @@ export class ServerConfigurationService implements ConfigurationService {
     } else {
       return environmentVariable;
     }
+  }
+
+  private static matchOrThrowError(name: string, match: RegExp): string {
+    const value = ServerConfigurationService.getOrThrowError(name);
+    if (!match.test(value)) {
+      throw new EnvironmentVariablesException(`Variable ${name} must match ${match}`);
+    }
+    return value;
   }
 
   private static getOrDefault(name: string, defaultValue: string): string {
@@ -69,5 +78,6 @@ export interface EnvironmentVariables {
   readonly REDIS_PASSWORD: string;
   readonly REDIS_PORT: number;
   readonly REDIS_USERNAME: string;
+  readonly STRAPI_AUTH: string;
   readonly STRAPI_URL_API: string;
 }

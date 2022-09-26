@@ -71,6 +71,10 @@ export abstract class ClientService {
           LoggerService.error(`${endpoint} ERREUR 404 ${e}`);
           return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
         }
+        if (e.response?.status === 401) {
+          LoggerService.error(`${endpoint} ERREUR 401 ${e}`);
+          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+        }
       }
       LoggerService.error(`${endpoint} PROBLEME MAPPING ${e}`);
       return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);

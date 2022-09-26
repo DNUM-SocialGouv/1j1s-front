@@ -23,6 +23,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
       REDIS_PASSWORD: 'REDIS_PASSWORD',
       REDIS_PORT: 6379,
       REDIS_USERNAME: 'REDIS_USERNAME',
+      STRAPI_AUTH: '1j1s@gouv.fr:monmotdepasssécurisé',
       STRAPI_URL_API: 'http://localhost:1337/api/',
     };
   }

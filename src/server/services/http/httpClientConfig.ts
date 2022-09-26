@@ -2,19 +2,22 @@ import { ConfigurationService } from '~/server/services/configuration.service';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
+import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
+import { StrapiLoginTokenAgent } from './StrapiLoginTokenAgent';
+
 export interface HttpClientConfig {
   apiName: string
   apiUrl: string
   apiKey?: string
-  overrideInterceptor: boolean
+  overrideInterceptor?: boolean
   label?: string
 }
 
+export interface TokenAgent {
+  getToken(): Promise<string>
+}
 export interface HttpClientWithAuthentificationConfig extends HttpClientConfig {
-  clientId: string
-  connectUrl: string
-  clientSecret: string
-  connectScope: string
+  tokenAgent: TokenAgent
 }
 
 const getApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
@@ -32,6 +35,20 @@ const getApiLaBonneAlternanceConfig = (configurationService: ConfigurationServic
     apiName: 'API_LA_BONNE_ALTERNANCE',
     apiUrl: configurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_BASE_URL,
     overrideInterceptor: false,
+  });
+};
+
+const getAuthApiStrapiConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
+  const [ login, password ] = configurationService.getConfiguration().STRAPI_AUTH.split(':');
+  return ({
+    apiKey: undefined,
+    apiName: 'STRAPI_URL_API',
+    apiUrl: configurationService.getConfiguration().STRAPI_URL_API,
+    tokenAgent: new StrapiLoginTokenAgent({
+      apiUrl: configurationService.getConfiguration().STRAPI_URL_API,
+      login,
+      password,
+    }),
   });
 };
 
@@ -64,38 +81,39 @@ const getApiAdresseConfig = (configurationService: ConfigurationService): HttpCl
 
 const getApiPoleEmploiOffresConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_POLE_EMPLOI',
     apiUrl: configurationService.getConfiguration().API_POLE_EMPLOI_OFFRES_URL,
-    clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
-    clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
-    connectScope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
-    connectUrl: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL,
-    overrideInterceptor: true,
+    tokenAgent: new ClientCredentialsTokenAgent({
+      clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
+      clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
+      scope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
+      url: `${configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL}/connexion/oauth2/access_token?realm=partenaire`,
+    }),
   });
 };
 
 const getApiPoleEmploiReferentielsConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_POLE_EMPLOI',
     apiUrl: configurationService.getConfiguration().API_POLE_EMPLOI_REFERENTIEL_URL,
-    clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
-    clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
-    connectScope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
-    connectUrl: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL,
-    overrideInterceptor: true,
+    tokenAgent: new ClientCredentialsTokenAgent({
+      clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
+      clientSecret: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_SECRET,
+      scope: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_SCOPE,
+      url: `${configurationService.getConfiguration().POLE_EMPLOI_CONNECT_URL}/connexion/oauth2/access_token?realm=partenaire`,
+    }),
   });
 };
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
-  return ({
+  return {
     adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     laBonneAlternanceClientService: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
+    strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
     strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
-  });
+  };
 }

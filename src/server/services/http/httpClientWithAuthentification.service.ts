@@ -1,44 +1,24 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { Either } from '~/server/errors/either';
-import { ClientService } from '~/server/services/http/client.service';
-import { HttpClientWithAuthentificationConfig } from '~/server/services/http/httpClientConfig';
+import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
 import { LoggerService } from '~/server/services/logger.service';
 
-interface TokenResponse {
-  access_token: string;
-  expires_in: number;
-}
+import { HttpClientService } from './httpClient.service';
 
-export class HttpClientServiceWithAuthentification extends ClientService {
-  constructor(
-    private httpClientWithAuthentConfig: HttpClientWithAuthentificationConfig,
-  ){
+export class HttpClientServiceWithAuthentification extends HttpClientService {
+  private tokenAgent: TokenAgent;
+  private retries = new Set<object>();
+  private isRefreshingToken?: Promise<void>;
 
-    const API_NAME = httpClientWithAuthentConfig.apiName;
-    const API_URL = httpClientWithAuthentConfig.apiUrl;
-    const API_KEY = httpClientWithAuthentConfig.apiKey;
-    const overrideInterceptor = httpClientWithAuthentConfig.overrideInterceptor;
-
-    super(API_NAME, API_URL, overrideInterceptor, API_KEY ? { apiKey : API_KEY } : {} );
+  constructor (private config: HttpClientWithAuthentificationConfig) {
+    const { apiName, apiUrl } = config;
+    super({ apiName, apiUrl, overrideInterceptor: true });
+    this.tokenAgent = config.tokenAgent;
 
     this.client.interceptors.response.use(
-      (response: AxiosResponse) => response,
-      async (error) => {
-        LoggerService.error(`${API_NAME} ${error.response.status} ${error.config.baseURL}${error.config.url}`);
-        const originalRequest = error.config;
-
-        if (error.response?.status === 401 && !originalRequest.isRetryRequest) {
-          originalRequest.isRetryRequest = true;
-          try {
-            await this.refreshToken(httpClientWithAuthentConfig);
-          } catch (e) {
-            LoggerService.error(`${API_NAME} ${error.response.status} ${error.config.baseURL}${error.config.url}`);
-          }
-          return await this.client.request(originalRequest);
-        }
-        return Promise.reject(error);
-      },
+      (r) => r,
+      this.justInTimeAuthenticationInterceptor.bind(this),
     );
   }
 
@@ -50,27 +30,45 @@ export class HttpClientServiceWithAuthentification extends ClientService {
     return super.getRequest(endpoint, mapper, config);
   }
 
-  setAuthorizationHeader(token: string) {
-    super.setAuthorizationHeader(token);
+  private async justInTimeAuthenticationInterceptor (error: AxiosResponse) {
+    const { apiName } = this.config;
+    if (axios.isAxiosError(error)) {
+      LoggerService.error(`${apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
+      const originalRequest = error.config;
+
+      const isAuthError = error.response?.status === 401 || error.response?.status === 403;
+      if (isAuthError && !this.retries.has(originalRequest)) {
+        this.retries.add(originalRequest);
+        try {
+          await this.refreshToken();
+        } catch (e) {
+          this.retries.delete(originalRequest);
+          if (axios.isAxiosError(e)) {
+            LoggerService.error(`Error refreshing token ${apiName} ${e.response?.status} ${e.config.baseURL}${e.config.url}`);
+          } else {
+            LoggerService.error(`Error refreshing token ${apiName} ${e}`);
+          }
+          return Promise.reject(error);
+        }
+        const result = await this.client.request(originalRequest);
+        this.retries.delete(originalRequest);
+        return result;
+      }
+      this.retries.delete(originalRequest);
+    }
+    return Promise.reject(error);
   }
 
-  async refreshToken(poleEmploiHttpClientConfig: HttpClientWithAuthentificationConfig): Promise<void> {
-    const params = new URLSearchParams();
-    params.append('grant_type', 'client_credentials');
-    params.append('client_id', poleEmploiHttpClientConfig.clientId);
-    params.append('client_secret', poleEmploiHttpClientConfig.clientSecret);
-    params.append('scope', poleEmploiHttpClientConfig.connectScope);
-
-    const endpoint = `${poleEmploiHttpClientConfig.connectUrl}/connexion/oauth2/access_token?realm=partenaire`;
-
-    const response = await axios.post<TokenResponse>(
-      endpoint,
-      params,
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
-    );
-
-    this.setAuthorizationHeader(response.data.access_token);
+  refreshToken(): Promise<void> {
+    if (this.isRefreshingToken) {
+      return this.isRefreshingToken;
+    }
+    return this.isRefreshingToken = this.tokenAgent.getToken()
+      .then((token) => {
+        this.setAuthorizationHeader(token);
+      })
+      .finally(() => {
+        delete this.isRefreshingToken;
+      });
   }
 }
