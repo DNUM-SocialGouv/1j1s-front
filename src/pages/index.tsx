@@ -35,20 +35,20 @@ export default function Accueil() {
               <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/alternance.jpg"
-              link="/apprentissage"
-              linkLabel="Voir les offres"
-              title="Contrats d'alternance"
-            >
-              <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>
-            </LinkCard>
-            <LinkCard
               imageUrl="/images/homepage/stage.jpg"
               link="/stages"
               linkLabel="Voir les offres"
               title="Stages"
             >
               <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
+            </LinkCard>
+            <LinkCard
+              imageUrl="/images/homepage/alternance.jpg"
+              link="/apprentissage"
+              linkLabel="Voir les offres"
+              title="Contrats d'alternance"
+            >
+              <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>
             </LinkCard>
           </div>
 
@@ -83,10 +83,10 @@ export default function Accueil() {
 
         </section>
 
-        <section className={classNames(styles.section, styles.sectionBesoinDeVousFormer)}>
+        <section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
           <h2 id="formation" className={styles.sectionHeader}>
-            <BookIcon className={styles.sectionBesoinDeVousFormerHeaderIcon} />
-            Besoin de vous former ?
+            <BookIcon className={styles.sectionFormationsOrientationHeaderIcon} />
+            Formations et orientation
           </h2>
           <div className={styles.cardList}>
             <LinkCard
@@ -120,7 +120,7 @@ export default function Accueil() {
               linkLabel="Découvrir le CEJ"
               title="Je découvre le Contrat d’Engagement Jeune (CEJ)"
             >
-              <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc. </p>
+              <p>Un parcours personnalisé pour m&apos;aider à définir mon projet professionnel et trouver un emploi</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/homepage/aide.jpg"
@@ -143,6 +143,14 @@ export default function Accueil() {
           <SeeMore>
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
+                imageUrl="/images/homepage/créer-cv.jpg"
+                link="/creer-mon-cv"
+                linkLabel="En savoir plus"
+                title="Je crée mon CV personnalisé"
+              >
+                <p>Mettez en avant vos compétences dans un CV, même si vous pensez ne pas avoir d&apos;expérience.</p>
+              </LinkCard>
+              <LinkCard
                 imageUrl="/images/homepage/accompagne.jpg"
                 link="/accompagnement"
                 linkLabel="En savoir plus"
@@ -151,12 +159,12 @@ export default function Accueil() {
                 <p>Retrouvez les structures proches de chez vous pouvant vous aider dans vos démarches ou votre parcours.</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/créer-cv.jpg"
-                link="/creer-mon-cv"
+                imageUrl="/images/homepage/mesures-jeunes.jpg"
+                link="/mesures-jeunes"
                 linkLabel="En savoir plus"
-                title="Je crée mon CV personnalisé"
+                title="Je consulte les mesures jeunes"
               >
-                <p>Mettez en avant vos compétences dans un CV, même si vous pensez ne pas avoir d’expérience.</p>
+                <p>Découvrez les solutions pour aider chacun d’entre vous à accéder à l&apos;emploi.</p>
               </LinkCard>
             </div>
           </SeeMore>

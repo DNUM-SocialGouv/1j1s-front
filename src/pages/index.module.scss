@@ -37,7 +37,7 @@
             }
         }
     }
-    &BesoinDeVousFormer {
+    &FormationsOrientation {
         background-color: $color-lighten-tapestry;
         &Header {
             &Icon {
@@ -62,7 +62,7 @@
         }
     }
 
-    &BesoinDeVousFormer, &EngagementBénévolat {
+    &FormationsOrientation, &EngagementBénévolat {
         padding-bottom: 2rem;
     }
 }
@@ -89,7 +89,7 @@
     }
 
     .section {
-        &BesoinDeVousFormer, &EngagementBénévolat {
+        &FormationsOrientation, &EngagementBénévolat {
             padding-bottom: 3rem;
         }
     }
