@@ -5,7 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import styles from '~/pages/mes-aides/index.module.scss';
 
-export function SectionVideo() {
+export function MesAidesVideo() {
   const [showVideo, setShowVideo] = useState(false);
 
   const onClick = () => setShowVideo(true);

@@ -33,7 +33,7 @@ export default function MesAidesPage() {
         </SectionLayout>
 
         {/* next section is hidden until cookies are set
-        <SectionVideo/>
+        <MesAidesVideos/>
         */}
 
 
