@@ -44,7 +44,7 @@ describe('InputAutocomplétion', function () {
   it('doit contenir le label passé au composant', function () {
     // Given
     const labelText = 'Ma super autocomplétion';
-    render(<InputAutocomplétion suggérer={noOp} afficher={() => ''} valeur={() => ''} label={labelText}/>);
+    render(<InputAutocomplétion id="ma-super-autocomplétion" suggérer={noOp} afficher={() => ''} valeur={() => ''} label={labelText}/>);
 
     // When
     const labelAutocomplétion = screen.getByLabelText(labelText);
@@ -96,7 +96,8 @@ describe('InputAutocomplétion', function () {
       return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
     }
 
-    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={() => ''} label={labelText} debounce={1}/>);
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={() => ''} label={labelText}
+      debounce={1}/>);
     const inputAutocomplétion = screen.getByRole('textbox');
 
     // When
@@ -118,7 +119,8 @@ describe('InputAutocomplétion', function () {
       return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
     }
 
-    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText} debounce={1}/>);
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText}
+      debounce={1}/>);
     const inputAutocomplétion = screen.getByRole('textbox');
     await userEvent.type(inputAutocomplétion, débutDeTruc);
 
@@ -139,7 +141,8 @@ describe('InputAutocomplétion', function () {
       return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
     }
 
-    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} onChange={onChange} label={labelText}/>);
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} onChange={onChange}
+      label={labelText}/>);
     const inputAutocomplétion = screen.getByRole('textbox');
 
     // When
@@ -159,8 +162,8 @@ describe('InputAutocomplétion', function () {
       return ['Paris', 'Marseille', 'Toulouse', 'Deauville'];
     }
 
-    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText} debounce={1}
-      onSuggestionSelected={onSuggestionSelected}/>);
+    render(<InputAutocomplétion suggérer={suggérerDesSuggestions} afficher={identity} valeur={identity} label={labelText}
+      debounce={1} onSuggestionSelected={onSuggestionSelected}/>);
     const inputAutocomplétion = screen.getByRole('textbox');
     await userEvent.type(inputAutocomplétion, débutDeTruc);
 

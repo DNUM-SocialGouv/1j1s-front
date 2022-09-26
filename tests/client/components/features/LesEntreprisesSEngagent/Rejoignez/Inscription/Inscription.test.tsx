@@ -139,7 +139,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
         nom: 'Tata',
         nomSociété: 'Octo',
         prénom: 'Toto',
-        secteur: 'Conseil en systèmes et logiciels informatiques',
+        secteur: 'health-social',
         siret: '41816609600069',
         taille: '1000',
         travail: 'RH',
@@ -161,15 +161,17 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 async function remplirFormulaireEtape1() {
   const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
-  const inputSiret = screen.getByRole('textbox', { name: 'Indiquer votre numéro de SIRET' });
-  const inputSecteur = screen.getByRole('textbox', { name: 'Indiquer le secteur d’activité de votre entreprise' });
-  const inputTaille = screen.getByRole('textbox', { name: 'Indiquer la taille de votre entreprise' });
   await userEvent.type(inputNomSociété, 'Octo');
+  const inputSiret = screen.getByRole('textbox', { name: 'Indiquer votre numéro de SIRET' });
   await userEvent.type(inputSiret, '41816609600069');
-  await userEvent.type(inputSecteur, 'Conseil en systèmes et logiciels informatiques');
+  const inputSecteur = screen.getByRole('textbox', { name: 'Indiquer le secteur d’activité de votre entreprise' });
+  await userEvent.type(inputSecteur, 'Santé humaine et action sociale');
+  // eslint-disable-next-line testing-library/no-wait-for-side-effects
+  await waitFor(() => userEvent.click(screen.getByText('Santé humaine et action sociale')));
+  const inputTaille = screen.getByRole('textbox', { name: 'Indiquer la taille de votre entreprise' });
   await userEvent.type(inputTaille, '1000');
-
-  await userEvent.type(screen.getByLabelText('Indiquez la ville du siège social de l’entreprise'), 'Paris');
+  const inputVille = screen.getByLabelText('Indiquez la ville du siège social de l’entreprise');
+  await userEvent.type(inputVille, 'Paris');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
   await waitFor(() => userEvent.click(screen.getByText('Paris (75001)')));
 }
