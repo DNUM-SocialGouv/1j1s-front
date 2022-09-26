@@ -12,7 +12,7 @@ export function DécouvrirDispositifs () {
         <p>Dans le cadre du plan 1 jeune, 1 solution, nous vous accompagnons dans la recherche de vos futurs collaborateurs.</p>
         <ul>
           <li>
-            <LinkAsButton href="https://deposer-offre.www.1jeune1solution.gouv.fr/#/deposer-offre">Déposer une offre d&apos;emploi ou d&apos;alternance</LinkAsButton>
+            <LinkAsButton href="/je-recrute/deposer-une-offre-d-emploi">Déposer une offre d&apos;emploi ou d&apos;alternance</LinkAsButton>
           </li>
           <li>
             <LinkAsButton disabled href="/">Déposer une offre de stage</LinkAsButton>
