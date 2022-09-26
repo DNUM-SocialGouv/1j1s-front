@@ -6,7 +6,6 @@ import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRe
 import { ConsulterFicheMetier } from '~/client/components/features/FicheMetier/ConsulterFicheMetier';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -30,7 +29,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
           <ButtonRetour className={styles.backButton} />
           <ConsulterFicheMetier ficheMetier={ficheMetier} />
         </Container>
-        <SectionLayout isBackgroundWhite={false}>
+        <div className={'background-white-lilac'}>
           <h2 className={styles.partnerInfoTitle}>Informations fournies par ONISEP</h2>
           <Container className={styles.container}>
             <PartnerCard
@@ -44,7 +43,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
               <span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>
             </div>
           </Container>
-        </SectionLayout>
+        </div>
       </main>
     </>
   );

@@ -1,12 +1,11 @@
 import styles from '~/client/components/features/JeDeviensMentor/PourQui/PourQui.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 
 export function PourQui() {
   return (
-    <SectionLayout className={styles.pourqui}>
+    <div className={styles.pourqui}>
       <Container>
         <Marked markdown={contenuHeader} />
 
@@ -25,7 +24,7 @@ export function PourQui() {
           </LinkAsButton>
         </div>
       </Container>
-    </SectionLayout>);
+    </div>);
 }
 
 const contenuHeader = `

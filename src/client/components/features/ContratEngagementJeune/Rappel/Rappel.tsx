@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {
   useEffect,
   useState,
@@ -6,7 +7,6 @@ import React, {
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import Marked from '~/client/components/ui/Marked/Marked';
@@ -26,7 +26,7 @@ export default function Rappel() {
   }
 
   return (
-    <SectionLayout isBackgroundWhite={false} className={styles.rappel}>
+    <div className={classNames(styles.rappel, 'background-white-lilac')}>
       <Container className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
         <Button
@@ -53,6 +53,6 @@ export default function Rappel() {
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>
-    </SectionLayout>
+    </div>
   );
 }
