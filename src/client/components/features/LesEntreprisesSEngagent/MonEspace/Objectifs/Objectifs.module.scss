@@ -1,0 +1,24 @@
+@import "@styles/_utilities";
+
+.objectifs {
+  padding: 32px;
+
+  &Illustration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  li::marker {
+    background-color: blue;
+  };
+}
+
+@include media(large) {
+  .objectifs {
+    width: 50%;
+    margin: auto;
+
+  }
+}
