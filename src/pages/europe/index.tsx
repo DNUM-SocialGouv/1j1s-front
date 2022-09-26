@@ -3,11 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
-import {
-  Color,
-  Link as LinkType,
-} from '~/client/components/props';
+import { Link as LinkType } from '~/client/components/props';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -40,7 +36,7 @@ export default function EuropePage() {
   ];
 
   const sectionExperienceEurope = () => (
-    <SectionLayout backgroundColor={Color.WHITE_LILAC}>
+    <div className={'background-white-lilac'} >
       <Container className={styles.sectionExperienceEurope}>
         <LightHero
           primaryText="Je cherche une expérience"
@@ -51,15 +47,15 @@ export default function EuropePage() {
         <span className={styles.sectionExperienceEurope__Information}>
           <Icon name="information"/>
           <p>
-                Si vous êtes accompagné-e en mission locale, rapprochez-vous de votre conseiller pour en savoir plus sur les mobilités courtes
+            Si vous êtes accompagné-e en mission locale, rapprochez-vous de votre conseiller pour en savoir plus sur les mobilités courtes
           </p>
         </span>
       </Container>
-    </SectionLayout>
+    </div>
   );
 
   const sectionLiens = () => (
-    <SectionLayout>
+    <div>
       <Container className={styles.sectionLiens}>
         { isLargeScreen && (
           <div className={styles.imageWrapper}>
@@ -79,11 +75,11 @@ export default function EuropePage() {
           ))}
         </ul>
       </Container>
-    </SectionLayout>
+    </div>
   );
 
   const sectionDispositif = () => (
-    <SectionLayout backgroundColor={Color.WHITE_LILAC}>
+    <div className={'background-white-lilac'}>
       <LightHero
         primaryText={'Je découvre les dispositifs pour'}
         secondaryText={'m’accompagner dans mon projet'}
@@ -191,11 +187,11 @@ export default function EuropePage() {
           </article>
         </div>
       </Container>
-    </SectionLayout>
+    </div>
   );
 
   const sectionAidesFinancieres = () => (
-    <SectionLayout>
+    <div>
       <Container className={styles.sectionAidesFinancieres}>
         <h2>Je cherche des aides financières pour vivre une expérience en Europe</h2>
         <div className={styles.buttonWrapper}>
@@ -207,15 +203,27 @@ export default function EuropePage() {
           </LinkAsButton>
         </div>
       </Container>
-    </SectionLayout>
+    </div>
   );
 
   const sectionNiveauAnglais = () => (
-    <SectionLayout backgroundColor={!isLargeScreen ? Color.PRIMARY : Color.GRADIENT_TO_PRIMARY}>
+    <div className={!isLargeScreen ? 'background-primary' : 'background-gradient-to-primary'}>
       <Container className={styles.sectionNiveauAnglais}>
-        <div className={styles.logoWrapper}>
-          <Image src={`/images/europe/wall-street-english-logo${isLargeScreen ? '-blue' : ''}.svg`} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
-        </div>
+        { isLargeScreen
+          ? (
+            <div className={styles.sectionNiveauAnglais__ImageWrapper}>
+              <div className={styles.logoWrapper}>
+                <Image src={'/images/europe/wall-street-english-logo-blue.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+              </div>
+            </div>
+          )
+          : (
+            <div className={styles.logoWrapper}>
+              <Image src={'/images/europe/wall-street-english-logo.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+            </div>
+          )
+        }
+
         <div className={styles.sectionNiveauAnglais__Content}>
           <h2>
             <strong>J’évalue mon niveau </strong>
@@ -236,7 +244,7 @@ export default function EuropePage() {
           <span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>
         </div>
       </Container>
-    </SectionLayout>
+    </div>
   );
 
   return (

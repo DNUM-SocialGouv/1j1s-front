@@ -1,11 +1,10 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { SectionLayout } from '~/client/components/layouts/Section/SectionLayout';
-import { Color } from '~/client/components/props';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -58,11 +57,11 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     <>
       {bannière}
       <div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
-        <SectionLayout hasBottomBorder>
+        <div className={'separator'}>
           <Container className={styles.rechercheSolutionFormWrapper}>
             {formulaireRecherche}
           </Container>
-        </SectionLayout>
+        </div>
 
 
         {
@@ -71,16 +70,16 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
               {erreurRecherche || listeSolution.length === 0 && !isLoading ?
                 <ErrorComponent errorType={erreurRecherche}/> :
                 <>
-                  <SectionLayout hasBottomBorder>
+                  <div className={'separator'}>
                     <Container className={styles.informationRésultat}>
                       {étiquettesRecherche}
                       <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
                         <h2>{messageRésultatRecherche}</h2>
                       </Skeleton>
                     </Container>
-                  </SectionLayout>
+                  </div>
 
-                  <SectionLayout backgroundColor={Color.WHITE_LILAC} className={styles.listeSolutionsWrapper}>
+                  <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
                     <Container>
                       <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
                         <ul>
@@ -110,7 +109,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                       </div>
                       }
                     </Container>
-                  </SectionLayout>
+                  </div>
                 </>
               }
             </>

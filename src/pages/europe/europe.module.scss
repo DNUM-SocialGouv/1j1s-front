@@ -45,7 +45,7 @@
   &Dispositif {
     padding: 2rem;
     > div > * {
-      margin-bottom: 40px;
+      margin-bottom: 2.5rem;
     }
     &__Card {
       background-color: $color-background;
@@ -115,10 +115,8 @@
       position: relative;
       margin: 0 auto 1.25rem;
       overflow: hidden;
-      min-width: 132px;
-      max-width: 132px;
-      min-height: 100px;
-      max-height: 100px;
+      width: 132px;
+      height: 100px;
     }
 
   }
@@ -149,7 +147,6 @@
 
     &Liens {
       display: flex;
-      padding: 2.5rem 0;
       & a > span {
         justify-content: flex-start;
         font-size: 1.25rem;
@@ -188,7 +185,6 @@
     }
 
     &NiveauAnglais {
-      padding: 5rem 0;
       &__Content {
         display: flex;
         flex-direction: column;
@@ -216,22 +212,28 @@
         overflow: hidden;
         border-radius: 20px;
         display: initial;
-        min-width: 558px;
-        max-width: 558px;
-        min-height: 188px;
-        max-height: 188px;
+        width: 560px;
+        height: 188px;
         margin-right: 2rem;
       }
     }
     &NiveauAnglais {
-      background: linear-gradient( to right, $color-background-white-lilac 0% 36%, $color-primary 36% 100% );
+      padding: 0;
+      &__ImageWrapper {
+        padding: 5rem 2rem 5rem 0;
+        width: 36%;
+        background-color: $color-background-white-lilac;
+      }
+      &__Content {
+        padding: 5rem 0 5rem 2rem;
+        width: 64%;
+        background-color: $color-primary;
+      }
       display: flex;
       .logoWrapper {
         margin-right: 5rem;
-        min-width: 400px;
-        max-width: 400px;
-        min-height: 283px;
-        max-height: 283px;
+        width: 400px;
+        height: 283px;
       }
     }
   }
