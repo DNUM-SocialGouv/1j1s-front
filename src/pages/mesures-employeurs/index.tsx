@@ -2,9 +2,11 @@ import { GetStaticPropsResult } from 'next';
 import React from 'react';
 
 import { MesuresEmployeursComponent, MesuresEmployeursProps } from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs';
+import useReferrer from '~/client/hooks/useReferrer';
 import { dependencies } from '~/server/start';
 
-export default function MesuresEmployeurs(props: MesuresEmployeursProps) {
+export default function MesuresEmployeursPage(props: MesuresEmployeursProps) {
+  useReferrer();
   return (
     <MesuresEmployeursComponent {...props} />
   );
