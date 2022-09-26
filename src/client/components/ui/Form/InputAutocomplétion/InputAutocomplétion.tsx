@@ -19,7 +19,7 @@ interface AutocomplétionProps<T> {
 
   shouldRenderSuggestions?(préfixe: string, reason: string): boolean;
 
-  id: string;
+  id?: string;
   valeurInitiale?: string;
   label?: string;
   debounce?: number;

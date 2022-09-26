@@ -8,7 +8,7 @@ import { LocalisationApiResponse } from '~/server/localisations/infra/controller
 interface AutocomplétionCommuneProps {
   onSuggestionSelected?(event: SyntheticEvent, suggestion: LocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
-  id: string;
+  id?: string;
   valeurInitiale ?: LocalisationApiResponse
   label?: string;
   debounce?: number;
