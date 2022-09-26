@@ -4,6 +4,10 @@
   padding: 1rem 2rem 4rem 2rem;
   background-color: $color-background-white-lilac;
 
+  .container {
+    max-width: 45rem;
+    margin: auto;
+  }
   h1 {
     @extend %text-xLarge;
     color: $color-primary;
