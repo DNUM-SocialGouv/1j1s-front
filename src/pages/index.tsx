@@ -16,7 +16,7 @@ export default function Accueil() {
     <>
       <HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
       <Hero image="/images/banners/homepage.webp">
-        <p><b>A chacun sa solution.</b></p>
+        <p><b>À chacun sa solution.</b></p>
         <p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
       </Hero>
       <main id="contenu">
@@ -120,7 +120,7 @@ export default function Accueil() {
               linkLabel="Découvrir le CEJ"
               title="Je découvre le Contrat d’Engagement Jeune (CEJ)"
             >
-              <p>Un parcours personnalisé pour m&apos;aider à définir mon projet professionnel et trouver un emploi</p>
+              <p>Un parcours personnalisé pour vous aider à définir votre projet et trouver un emploi.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/homepage/aide.jpg"
@@ -128,7 +128,7 @@ export default function Accueil() {
               linkLabel="Découvrir mes aides"
               title="J'accède à mes aides"
             >
-              <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi, culture, etc. </p>
+              <p>Trouvez les aides auxquelles vous avez droit en moins de 5 minutes : logement, santé, mobilité, emploi, culture, etc.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/homepage/mentor.jpg"
