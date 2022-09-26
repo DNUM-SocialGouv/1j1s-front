@@ -1,29 +1,23 @@
-import React, { Children } from 'react';
+import Link from 'next/link';
+import React, { MouseEventHandler } from 'react';
 
-import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
-import { Link } from '~/client/components/ui/Link/Link';
+import styles from '~/client/components/layouts/Header/Header.module.scss';
 
 interface NavItemProps {
-  title: string
-  link?: string
-  current: boolean
-  children?: React.ReactNode
+	label: string
+	link: string
+	isActive: boolean
+	onClick?: MouseEventHandler<HTMLAnchorElement>
 }
 
-export function NavItem({ title, current, link, children } : NavItemProps) {
-
-  const hasChildren = Children.toArray(children).length > 0;
-
+export function NavItem({ className, label, link, isActive, onClick }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
   return (
-    hasChildren ?
-      <NavItemWithSubItems title={title} isCurrent={current}>
-        {children}
-      </NavItemWithSubItems>
-      :
-      <li>
-        <Link href={link ? link : ''}  className={'underline-none'} aria-current={current}>
-          {title}
-        </Link>
-      </li>
+    <li className={className}>
+      <Link href={link}>
+	      <a onClick={onClick}>
+	        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
+	      </a>
+      </Link>
+    </li>
   );
 }

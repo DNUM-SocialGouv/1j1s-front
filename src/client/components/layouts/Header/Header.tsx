@@ -11,11 +11,9 @@ export function Header() {
   return (
     <header
       className={styles.header}
-      role="banner"
-    >
+      role="banner">
       <HeaderBody />
-      { isLargeScreen &&
-      <HeaderNav />}
+      { isLargeScreen && <HeaderNav />}
     </header>
   );
 }
