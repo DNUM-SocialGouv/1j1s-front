@@ -3,6 +3,7 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 const subtitle = 'Ce formulaire vous permet d\'indiquer les métiers de votre établissement ouverts aux immersions. Si votre entreprise comprend plusieurs établissements, il convient de renseigner un formulaire pour chaque établissement (SIRET différent).';
+const immersionFacileUrl = 'https://immersion-facile.beta.gouv.fr/etablissement/unJeuneUneSolution';
 
 export function RéférencerImmersion () {
   return (
@@ -13,7 +14,7 @@ export function RéférencerImmersion () {
         <p className={styles.heroSubtitle}>{ subtitle }</p>
       </Hero>
       <div className={ styles.section }>
-        <iframe className={styles.iframe} src="https://immersion-facile.beta.gouv.fr/etablissement/lesentreprises-sengagent" />
+        <iframe className={styles.iframe} src={ immersionFacileUrl } />
       </div>
     </>
   );
