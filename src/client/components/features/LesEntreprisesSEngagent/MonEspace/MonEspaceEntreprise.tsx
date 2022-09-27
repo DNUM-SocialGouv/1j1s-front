@@ -19,7 +19,7 @@ export default function MonEspaceEntreprise() {
           espace sur la plateforme &quot;Les entreprises s&apos;engagent&quot;.
           </div>
         </div>
-        <div>
+        <div className={styles.containerBoutons}>
           <LinkAsButton className={styles.monEspaceConnexion} href="https://www.lesentreprises-sengagent.gouv.fr/login">
           Je me connecte à mon espace
           </LinkAsButton>

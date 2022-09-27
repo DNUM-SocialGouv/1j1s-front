@@ -32,6 +32,7 @@
   }
 
   &Inscription {
+    display: contents;
     background-color: transparent !important;
     color: $color-primary !important;
 
@@ -54,6 +55,20 @@
     .container {
       max-width: 45rem;
       margin: auto;
+
+      &Boutons {
+        max-width: 25rem;
+        margin: 40px auto auto;
+        flex-direction: column;
+      }
+
+      &Info {
+        max-width: 30rem;
+        margin: 40px auto auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem
+      }
     }
 
     &Titre {
@@ -78,7 +93,6 @@
     &Connexion {
       padding: 1rem 1rem;
       margin-bottom: 1rem;
-      font-size: 1.25rem;
     }
 
     &Inscription {
