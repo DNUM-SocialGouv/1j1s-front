@@ -26,13 +26,15 @@
       li {
         display: grid;
         grid-template-rows: 1fr;
+        place-items: center;
         counter-increment: item;
         margin-bottom: 1.5rem;
-        text-align: center;
+        text-align: left;
       }
 
       li:before {
         margin-right: 10px;
+        margin-bottom: 0.5rem;
         content: counter(item);
         background: $color-primary;
         border-radius: 100%;
@@ -58,6 +60,7 @@
         li {
           grid-template-columns: 1fr 20fr;
           counter-increment: item;
+          place-items: inherit;
           margin-bottom: 1.5rem;
           text-align: left;
         }
