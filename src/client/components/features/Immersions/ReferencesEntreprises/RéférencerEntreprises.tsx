@@ -17,7 +17,7 @@ export function RéférencerEntreprises () {
           <li>D’initier un parcours d’embauche pour leur permettre d’accéder à un emploi ou dans le cadre d’une reconversion</li>
         </ul>
         <div className={styles.referencerBouton}>
-          <LinkAsButton href={'https://immersion-facile.beta.gouv.fr/etablissement/lesentreprises-sengagent'}>
+          <LinkAsButton href="/immersions/referencer-mon-entreprise">
             Référencer mon entreprise
           </LinkAsButton>
         </div>
