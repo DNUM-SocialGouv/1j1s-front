@@ -55,6 +55,26 @@
     justify-content: space-between;
   }
 
+  &NavigationListLeft {
+    display: flex;
+  }
+
+  &NavigationListRight {
+    .navItem {
+      color: $color-on-secondary;
+      background-color: $color-secondary;
+
+      &:hover {
+        background-color: fade-out($color-secondary, 0.15);
+      }
+
+      & .subNavItemList {
+        color: $color-on-surface;
+      }
+    }
+  }
+
+
   &Navigation {
     padding-inline: 1rem;
 
@@ -105,28 +125,10 @@
   &:not(:last-child) {
     color: $color-on-background;
   }
-
-  &:last-child {
-    color: $color-on-secondary;
-    background-color: $color-secondary;
-
-    &:hover {
-      background-color: fade-out($color-secondary, 0.15);
-    }
-
-    & .subNavItemList {
-      color: $color-on-surface;
-    }
-  }
-}
-
-.navItemSeparator {
-  flex-grow: 15;
 }
 
 .navItem, .subNavItem {
   position: relative;
-  flex-grow: 1;
   @extend %text-regular;
 }
 
@@ -188,6 +190,19 @@
 .headerModalNavigationList {
   a {
     text-decoration: none;
+  }
+
+  & > .navItem:last-child {
+    color: $color-on-secondary;
+    background-color: $color-secondary;
+
+    &:hover {
+      background-color: fade-out($color-secondary, 0.15);
+    }
+
+    & .subNavItemList {
+      color: $color-on-surface;
+    }
   }
 
   .navItem {

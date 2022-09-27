@@ -19,7 +19,7 @@ export function HeaderBody() {
     <Container className={styles.headerBody}>
       <div className={styles.headerBodyContainer}>
         <div className={styles.headerLogoWrapper}>
-          <Link href="/" className={styles.headerLogo}>
+          <Link href="/" className={styles.headerLogo} aria-label="Redirection vers la page d'accueil">
             <Image src="/images/logos/logo_rf.svg" alt="" layout="fill"/>
           </Link>
           { !isLargeScreen && <Button buttonType='withTopIcon' icon={<Icon name='burger-menu'/>} onClick={toggleModal}>Menu</Button>}
