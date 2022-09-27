@@ -2,7 +2,12 @@
 
 .quEstCeQueLeMentorat {
   @extend %background-primary;
-  padding: 30px;
+  padding: 2rem 1rem 2rem 1rem;
+
+  .container {
+    max-width: 45rem;
+    margin: auto;
+  }
 
   h1 {
     @extend %text-xLarge;
@@ -23,7 +28,7 @@
 
 @include media(large) {
   .quEstCeQueLeMentorat {
-    padding: 60px;
+    padding: 4rem 1rem 4rem 1rem;
 
     h1 {
       max-width: 56rem;

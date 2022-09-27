@@ -3,19 +3,19 @@
 .monEspace {
   margin: 0 auto;
   padding: 2rem 1rem 2rem 1rem;
-  text-align: center;
   background-color: $color-background-white-lilac;
 
   &Titre {
     color: $color-primary;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.75rem;
+    margin-bottom: 1rem;
   }
 
   &Accroche {
     color: $color-secondary;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 1.25rem;
     line-height: 1.75rem;
@@ -28,6 +28,7 @@
 
   &Connexion {
     margin-bottom: 0.5rem;
+    display: flex;
   }
 
   &Inscription {
@@ -58,14 +59,11 @@
     &Titre {
       color: $color-primary;
       font-weight: 700;
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
       text-align: left;
     }
 
     &Accroche {
       font-weight: 400;
-      font-size: 2rem;
       color: $color-secondary;
       margin-bottom: 3.5rem;
       text-align: left;
