@@ -1,0 +1,23 @@
+.markdown {
+  ul { list-style-type: disc }
+  ol { list-style-type: decimal }
+  ul, ol {
+    padding-left: 1em;
+  }
+  p {
+    margin: 0;
+    margin-bottom: .5em;
+  }
+
+  h3, h4, h5, h6 {
+    font-weight: bold;
+    margin-bottom: .5em;
+    margin-top: 1em;
+  }
+
+  p, h3, h4, h5, h6 {
+    &::last-child {
+      margin-bottom: 0;
+    }
+  }
+}
