@@ -68,7 +68,7 @@ export interface NavigationItemList {
   accompagnementNav: NavigationItemWithChildren,
   engagementNav: NavigationItemWithChildren,
   employeurNav: NavigationItemWithChildren,
-};
+}
 
 export const navigationItemList: NavigationItemList = {
   accompagnementNav,
