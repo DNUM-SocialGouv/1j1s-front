@@ -1,6 +1,6 @@
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 
-export function aMesuresEmployeurs(): MesuresEmployeurs {
+export function desMesuresEmployeurs(): MesuresEmployeurs {
   return {
     dispositifs: aCartesMesuresEmployeursList(),
   };

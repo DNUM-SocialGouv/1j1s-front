@@ -1,6 +1,6 @@
 import { anArticle } from '@tests/fixtures/domain/article.fixture';
 import { aFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
-import { aMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
+import { desMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
 import { aMesuresJeunes } from '@tests/fixtures/domain/mesuresJeunes.fixture';
 import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
 
@@ -118,8 +118,8 @@ describe('strapi cms repository', () => {
         httpClientService = aStrapiHttpClientService();
         strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 
-        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMesuresEmployeurs()));
-        const expectedMesuresEmployeurs = aMesuresEmployeurs();
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(desMesuresEmployeurs()));
+        const expectedMesuresEmployeurs = desMesuresEmployeurs();
         const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<MesuresEmployeurs>;
 
         expect(result.result).toEqual(expectedMesuresEmployeurs);

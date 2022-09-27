@@ -5,11 +5,11 @@
 import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { aMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
+import { desMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
 
 import { MesuresEmployeursComponent } from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs';
 
-const mesuresEmployeurs = aMesuresEmployeurs();
+const mesuresEmployeurs = desMesuresEmployeurs();
 
 describe('MesuresEmployeurs', () => {
   beforeEach(() => {
