@@ -6,10 +6,10 @@
 }
 
 .iframe {
-  min-width: 100%;
+  width: calc(100% - 2rem);
+  margin: 1rem;
   overflow: hidden;
   min-height: 3000px;
-  margin-top: 1rem;
 }
 
 @include media(large) {
