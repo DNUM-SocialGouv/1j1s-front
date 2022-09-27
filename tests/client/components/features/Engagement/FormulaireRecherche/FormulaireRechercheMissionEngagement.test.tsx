@@ -38,7 +38,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
       fireEvent.submit(rechercherMissionButton);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'domain=education&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'domain=education&page=0' }, undefined, { shallow: true });
     });
   });
 
@@ -64,7 +64,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
       fireEvent.submit(rechercherMissionButton);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'ouvertsAuxMineurs=true&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'ouvertsAuxMineurs=true&page=0' }, undefined, { shallow: true });
     });
   });
 
@@ -99,7 +99,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
       fireEvent.submit(rechercherMissionButton);
 
       // THEN
-      expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });
+      expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=0' }, undefined, { shallow: true });
     });
   });
 });

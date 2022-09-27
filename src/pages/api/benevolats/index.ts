@@ -20,6 +20,7 @@ export default monitoringHandler(rechercherMissionHandler);
 function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre {
   const { query } = request;
   const JE_VEUX_AIDER_ID = '5f5931496c7ea514150a818f';
+
   return {
     distance: query.distanceCommune ? String(query.distanceCommune) : undefined,
     domain: query.domain ? String(query.domain) : '',
