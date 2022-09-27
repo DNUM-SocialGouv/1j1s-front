@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import FormulaireDeContactEntreprise from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import InputAutocomplétionSecteurActivité, {
   SecteurActivité,
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
@@ -203,7 +203,7 @@ export default function Inscription() {
                 </div>
 
                 <div className={styles.buttonFormulaire}>
-                  <Button buttonType="withRightIcon" type="submit" icon={<AngleRightIcon/>}>Suivant</Button>
+                  <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Suivant' type='submit' />
                 </div>
               </form>
             }
@@ -284,7 +284,7 @@ export default function Inscription() {
                 </div>
 
                 <div className={styles.buttonFormulaire}>
-                  <Button buttonType="primary" type="submit" icon={<AngleRightIcon/>}>Envoyer le formulaire</Button>
+                  <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Envoyer le formulaire' type='submit' />
                 </div>
               </form>
             }
