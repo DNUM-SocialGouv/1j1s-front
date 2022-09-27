@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
-import { ConsulterFicheMetier } from '~/client/components/features/FicheMetier/ConsulterFicheMetier';
+import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -27,7 +27,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
       <main id="contenu">
         <Container className={styles.container}>
           <ButtonRetour className={styles.backButton} />
-          <ConsulterFicheMetier ficheMetier={ficheMetier} />
+          <ConsulterFicheMétier ficheMetier={ficheMetier} />
         </Container>
         <div className={'background-white-lilac'}>
           <h2 className={styles.partnerInfoTitle}>Informations fournies par ONISEP</h2>

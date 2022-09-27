@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
-import styles from './consulter-fiche-metier.module.scss';
+import styles from './ConsulterFicheMétier.module.scss';
 
 interface FoldingSectionProps {
 	innerHtmlContent: string

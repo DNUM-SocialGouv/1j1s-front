@@ -1,5 +1,3 @@
-import '~/client/utils/string/string.util';
-
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -23,6 +21,17 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
+function updateFilterQuery(filterQuery: string, filterToToggle: string) {
+  const currentString = filterQuery.split(',').filter((element) => element);
+  const indexOfValue = currentString.indexOf(filterToToggle);
+  if (indexOfValue >= 0) {
+    currentString.splice(indexOfValue, 1);
+  } else {
+    currentString.push(filterToToggle);
+  }
+
+  return currentString.join(',');
+}
 
 export function FormulaireRechercheOffreEmploi() {
   const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
@@ -66,11 +75,11 @@ export function FormulaireRechercheOffreEmploi() {
   }, []);
 
   const toggleTypeDeContrat = useCallback((value: string) => {
-    setInputTypeDeContrat(inputTypeDeContrat.appendOrRemoveSubStr(value));
+    setInputTypeDeContrat(updateFilterQuery(inputTypeDeContrat, value));
   }, [inputTypeDeContrat]);
 
   const toggleDomaine = useCallback((value: string) => {
-    setInputDomaine(inputDomaine.appendOrRemoveSubStr(value));
+    setInputDomaine(updateFilterQuery(inputDomaine, value));
   }, [inputDomaine]);
 
   function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
