@@ -1,48 +1,67 @@
 @import "@styles/_utilities";
 
 .objectifs {
-  padding: 32px;
+  padding: 2rem 1rem 2rem 1rem;
 
-  &Illustration {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-
-  &Text {
-    p {
-      font-weight: bold;
-      margin-bottom: 3rem;
-      text-align: center;
+  &Container {
+    &Illustration {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
     }
 
-    ol {
-      list-style: none;
-      counter-reset: item;
+    &Text {
+      p {
+        font-weight: bold;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      ol {
+        list-style: none;
+        counter-reset: item;
+        text-align: center;
+      }
+
+      li {
+        display: grid;
+        grid-template-rows: 1fr;
+        counter-increment: item;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      li:before {
+        margin-right: 10px;
+        content: counter(item);
+        background: $color-primary;
+        border-radius: 100%;
+        color: white;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        display: inline-block;
+      }
     }
 
-    li {
-      counter-increment: item;
-      margin-bottom: 3rem;
-    }
-
-    li:before {
-      margin-right: 10px;
-      content: counter(item);
-      background: $color-primary;
-      border-radius: 100%;
-      color: white;
-      width: 1.2em;
-      text-align: center;
-      display: inline-block;
-    }
   }
 }
 
 @include media(large) {
   .objectifs {
-    width: 50%;
-    margin: auto;
+    padding: 4rem 1rem 4rem 1rem;
 
+    &Container {
+      max-width: 50%;
+
+      &Text {
+        li {
+          grid-template-columns: 1fr 20fr;
+          counter-increment: item;
+          margin-bottom: 1.5rem;
+          text-align: left;
+        }
+      }
+    }
   }
 }
