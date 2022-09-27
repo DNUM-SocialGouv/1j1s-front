@@ -1,18 +1,20 @@
-import { MissionEngagementFiltre } from '~/server/engagement/domain/engagement';
+import { MissionEngagementFiltre, NOMBRE_RÉSULTATS_MISSION_PAR_PAGE } from '~/server/engagement/domain/engagement';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
-export function buildParamètresRechercheApiEngagement(missionEngagementFiltre: MissionEngagementFiltre): string {
+export function buildParamètresRechercheApiEngagement(
+  missionEngagementFiltre: MissionEngagementFiltre,
+): string {
   const { from, domain, publisher, size, lon, lat, distance, openToMinors } = missionEngagementFiltre;
-  // eslint-disable-next-line
-  const queryList: Record<string, any> = {
-    distance : distance ? `${distance}km`: distance,
+  const computedFrom = (from - 1) * NOMBRE_RÉSULTATS_MISSION_PAR_PAGE;
+  const queryList: Record<string, string> = {
+    distance : distance ? `${distance}km`: '',
     domain,
-    from,
-    lat,
-    lon,
-    openToMinors : openToMinors ? 'yes': undefined,
+    from: computedFrom.toString(),
+    lat: lat ? lat.toString() : '',
+    lon: lon ? lon.toString() : '',
+    openToMinors : openToMinors ? 'yes': '',
     publisher,
-    size,
+    size: size ? size.toString() : '',
   };
   removeUndefinedValueInQueryParameterList(queryList);
 

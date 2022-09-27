@@ -1,4 +1,4 @@
-export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryParam = true, defaultPage = 1): string {
+export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryParam = true): string {
   const formData = new FormData(formElement);
   const formEntries = Array.from(
     formData,
@@ -9,7 +9,7 @@ export function getFormAsQuery(formElement: HTMLFormElement, appendPageQueryPara
     return element[1] !== '' && element[1] !== 'false';
   });
   if (appendPageQueryParam) {
-    formEntries.push(['page', defaultPage.toString()]);
+    formEntries.push(['page', '1']);
   }
 
   return new URLSearchParams(formEntries).toString();
