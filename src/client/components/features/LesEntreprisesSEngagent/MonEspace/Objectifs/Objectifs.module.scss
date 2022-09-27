@@ -9,31 +9,34 @@
     margin-bottom: 20px;
   }
 
-  &Text{
-    p{
+  &Text {
+    p {
       font-weight: bold;
       margin-bottom: 3rem;
       text-align: center;
     }
+
+    ol {
+      list-style: none;
+      counter-reset: item;
+    }
+
     li {
+      counter-increment: item;
       margin-bottom: 3rem;
     }
-    li::marker {
-      background-color: blue;
-    }
-    .arrow {
-      background-color: $color-primary;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-right: 20px;
-      border-radius: 50%;
-    }
 
+    li:before {
+      margin-right: 10px;
+      content: counter(item);
+      background: $color-primary;
+      border-radius: 100%;
+      color: white;
+      width: 1.2em;
+      text-align: center;
+      display: inline-block;
     }
-
-
+  }
 }
 
 @include media(large) {
