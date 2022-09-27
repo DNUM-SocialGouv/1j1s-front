@@ -25,6 +25,19 @@ export const SecteurDActivité = {
   'transport-storage': 'Transports et entreposage',
 };
 
+// l'ordre des valeurs de cet objet est plus important que l'ordre de ses clés.
+/* eslint-disable sort-keys-fix/sort-keys-fix */
+export const TailleDEntreprise = {
+  xxsmall: '0 à 19 salariés',
+  xsmall: '20 à 49 salariés',
+  small: '50 à 99 salariés',
+  medium: '100 à 249 salariés',
+  large: '250 à 499 salariés',
+  xlarge: '500 à 999 salariés',
+  xxlarge: '1000 à 5000 salariés',
+  huge: 'Plus de 5000 salariés',
+};
+
 export interface Entreprise {
   nomSociété: string;
   codePostal: string;

@@ -11,8 +11,10 @@ import InputAutocomplétionSecteurActivité, {
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
+import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
 import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
@@ -41,6 +43,8 @@ export enum Etape {
   ETAPE_1 = 'Etape 1 sur 2',
   ETAPE_2 = 'Etape 2 sur 2'
 }
+
+const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
 export default function Inscription() {
   const router = useRouter();
@@ -184,17 +188,17 @@ export default function Inscription() {
                       });
                     }}
                   />
-                  <InputText
+                  <Select
+                    required
                     label="Indiquer la taille de votre entreprise"
                     name="companySize"
                     placeholder="Exemple : 250 à 499 salariés"
-                    value={formulaireEtape1.taille}
-                    required
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                    optionList={taillesEntreprises}
+                    onChange={(value: string) => setFormulaireEtape1({
                       ...formulaireEtape1,
-                      taille: event.currentTarget.value,
+                      taille: value,
                     })}
-                    className={styles.formulaireInput}
+                    value={formulaireEtape1.taille}
                   />
                 </div>
 

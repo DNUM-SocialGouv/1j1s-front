@@ -64,7 +64,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
       expect(screen.getByText('Etape 1 sur 2')).toBeInTheDocument();
       labelsEtape1.forEach((label) => {
-        expect(screen.getByRole('textbox', label)).toBeInTheDocument();
+        expect(screen.getByLabelText(label.name)).toBeInTheDocument();
       });
     });
   });
@@ -79,9 +79,9 @@ describe('LesEntreprisesSEngagentInscription', () => {
       await clickOnGoToEtape2();
 
       expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' })).toBeValid();
-      labelsEtape1.splice(1, 5).forEach((label) => {
-        expect(screen.getByRole('textbox', label)).toBeInvalid();
-      });
+      expect(screen.getByRole('textbox', { name: 'Indiquez la ville du siège social de l’entreprise' })).toBeInvalid();
+      expect(screen.getByRole('textbox', { name: 'Indiquer votre numéro de SIRET' })).toBeInvalid();
+      expect(screen.getByRole('textbox', { name: 'Indiquer le secteur d’activité de votre entreprise' })).toBeInvalid();
     });
   });
 
@@ -113,20 +113,24 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
   describe('quand l’utilisateur a mal rempli l’étape 2 du formulaire et clique sur Envoyer le formulaire', () => {
     it('il voit des messages d’erreur', async () => {
+      // Given
       renderComponent();
 
       await remplirFormulaireEtape1();
       await clickOnGoToEtape2();
 
-      const inputPrénom = screen.getByRole('textbox', { name: 'Indiquer votre prénom' });
+      const [labelPrénom, ...autresLabels] = labelsEtape2;
+      const inputPrénom = screen.getByRole('textbox', labelPrénom);
       await userEvent.type(inputPrénom, 'Toto');
 
+      // When
       await clickOnEnvoyerLeFormulaire();
 
-      expect(screen.getByRole('textbox', { name: 'Indiquer votre prénom' })).toBeValid();
-      labelsEtape1.splice(1, 5).forEach((label) => {
+      // Then
+      expect(screen.getByRole('textbox', labelPrénom)).toBeValid();
+      for (const label of autresLabels) {
         expect(screen.getByRole('textbox', label)).toBeInvalid();
-      });
+      }
     });
   });
 
@@ -141,7 +145,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
         prénom: 'Toto',
         secteur: 'health-social',
         siret: '41816609600069',
-        taille: '1000',
+        taille: 'xsmall',
         travail: 'RH',
         téléphone: '0122334455',
         ville: 'Paris',
@@ -160,20 +164,21 @@ describe('LesEntreprisesSEngagentInscription', () => {
 });
 
 async function remplirFormulaireEtape1() {
+  const user = userEvent.setup();
   const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
-  await userEvent.type(inputNomSociété, 'Octo');
+  await user.type(inputNomSociété, 'Octo');
   const inputSiret = screen.getByRole('textbox', { name: 'Indiquer votre numéro de SIRET' });
-  await userEvent.type(inputSiret, '41816609600069');
+  await user.type(inputSiret, '41816609600069');
   const inputSecteur = screen.getByRole('textbox', { name: 'Indiquer le secteur d’activité de votre entreprise' });
-  await userEvent.type(inputSecteur, 'Santé humaine et action sociale');
+  await user.type(inputSecteur, 'Santé humaine et action sociale');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
-  await waitFor(() => userEvent.click(screen.getByText('Santé humaine et action sociale')));
-  const inputTaille = screen.getByRole('textbox', { name: 'Indiquer la taille de votre entreprise' });
-  await userEvent.type(inputTaille, '1000');
+  await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
+  await user.click(screen.getByLabelText('Indiquer la taille de votre entreprise'));
+  await user.click(screen.getByText('20 à 49 salariés'));
   const inputVille = screen.getByLabelText('Indiquez la ville du siège social de l’entreprise');
-  await userEvent.type(inputVille, 'Paris');
+  await user.type(inputVille, 'Paris');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
-  await waitFor(() => userEvent.click(screen.getByText('Paris (75001)')));
+  await waitFor(() => user.click(screen.getByText('Paris (75001)')));
 }
 
 async function remplirFormulaireEtape2() {
