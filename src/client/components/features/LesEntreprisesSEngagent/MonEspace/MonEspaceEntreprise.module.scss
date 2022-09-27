@@ -48,7 +48,11 @@
 
 @include media(large) {
   .monEspace {
-    padding: 4rem 24rem 4rem 24rem;
+
+    .container {
+      max-width: 45rem;
+      margin: auto;
+    }
 
     &Titre {
       color: $color-primary;
