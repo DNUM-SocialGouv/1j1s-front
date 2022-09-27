@@ -75,6 +75,7 @@ export function Footer() {
             </div>
           </div>
           <div className={styles.footerLienUtile}>
+            <Link href="/plan-du-site" className="underline-none">Plan du site</Link>
             <Link href="/cgu" className="underline-none">Conditions générales d&apos;utilisations</Link>
             <Link href="/accessibilite" className="underline-none">Accessibilité</Link>
             <Link href="/mentions-legales" className="underline-none">Mentions légales</Link>
