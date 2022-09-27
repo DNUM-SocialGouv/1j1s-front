@@ -56,6 +56,7 @@ const employeurNav: NavigationItemWithChildren = {
     { label: 'Je propose des immersions', link: '/immersions' },
     { label: 'Les mesures employeurs', link: '/mesures-employeurs' },
     { label: 'Accéder à mon espace', link: '/mon-espace' },
+    { label: 'Recruter et agir pour les jeunes', link: '/je-recrute' },
     { label: 'Je forme les jeunes grâce à l\'emploi', link: '/rejoindre-mobilisation-poe' },
   ],
   label: 'Je suis employeur',
