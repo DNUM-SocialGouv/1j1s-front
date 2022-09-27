@@ -10,6 +10,7 @@ import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-h
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList.module.scss';
 
 

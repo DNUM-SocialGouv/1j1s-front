@@ -1,11 +1,17 @@
 // eslint-disable-next-line import/named
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
-import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 // eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement.module.scss';
-import { KeyBoard } from '~/client/utils/keyboard.util';
 
 function listeDeLocalisations(listeDeLocalisationsPossibles: RefinementListItem[], saisieUtilisateur: string) {
   return listeDeLocalisationsPossibles
@@ -112,7 +118,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
             <li
               className={index === suggestionIndex ? styles.hover : ''}
               key={index}
-              onClick={() => handleClick(suggestion!)}
+              onClick={() => handleClick(suggestion)}
               role="option"
               aria-selected={localisation === suggestion}
               value={suggestion}
