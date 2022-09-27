@@ -6,10 +6,13 @@ import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  enabled: process.env.NODE_ENV === 'production',
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  enabled: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'integration',
   
-  environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+  environment: process.env.NODE_ENV,
   // Adjust this value in production, or use tracesSampler for greater control
+  release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,
   tracesSampleRate: 1.0,
   // ...
   // Note: if you want to override the automatic release value, do not set a

@@ -20,7 +20,8 @@ const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
 const moduleExports = {
   compress: true,
   env: {
-    FRONT_URL: process.env.FRONT_URL,
+    npm_package_name: process.env.npm_package_name,
+    npm_package_version: process.env.npm_package_version,
   },
   images: {
     domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL],

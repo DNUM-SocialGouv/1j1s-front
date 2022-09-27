@@ -1,12 +1,15 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+const PATHNAME_PREFIX = '/';
 
 export function useIsInternalLink(href: string) {
-  const INTERNAL_URL_PREFIX = '/';
-  const INTERNAL_URL_PROD = process.env['FRONT_URL'] ?? '/';
-  const isInternalLink = useMemo(function () {
-    const isInternalProd = href.startsWith(INTERNAL_URL_PROD);
-    const isInternalPrefix = href.startsWith(INTERNAL_URL_PREFIX);
-    return isInternalPrefix || isInternalProd;
-  }, [href, INTERNAL_URL_PROD]);
-  return isInternalLink;
+  const [origin, setOrigin] = useState<string>('');
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  return useMemo(function () {
+    return href.startsWith(origin) || href.startsWith(PATHNAME_PREFIX);
+  }, [href, origin]);
 }
