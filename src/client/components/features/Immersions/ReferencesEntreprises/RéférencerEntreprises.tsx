@@ -8,7 +8,7 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 export function RéférencerEntreprises () {
   return (
     <div className={styles.referencer}>
-      <Container>
+      <Container className={styles.container}>
         <h2 className={styles.referencerTitre}>Référencer votre entreprise afin de proposer des immersions au sein de votre entreprise</h2>
         <p>Proposer une immersion c’est permettre à des jeunes :</p>
         <ul>

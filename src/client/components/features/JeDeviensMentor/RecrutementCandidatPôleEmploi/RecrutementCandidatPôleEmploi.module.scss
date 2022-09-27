@@ -1,7 +1,7 @@
 @import "@styles/utilities";
 
 .contenu {
-  padding: 3.5rem 2rem;
+  padding: 2rem 1rem 2rem 1rem;
   background-color: $color-background-white-lilac;
 
   h1 {
@@ -24,6 +24,7 @@
 
 @include media(large) {
   .contenu {
+    padding: 4rem 1rem 4rem 1rem;
 
     .container {
       max-width: 45rem;

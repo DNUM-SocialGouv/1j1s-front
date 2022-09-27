@@ -2,7 +2,7 @@
 
 .monEspace {
   margin: 0 auto;
-  padding: 2.5rem 1.75rem;
+  padding: 2rem 1rem 2rem 1rem;
   text-align: center;
   background-color: $color-background-white-lilac;
 
@@ -48,6 +48,7 @@
 
 @include media(large) {
   .monEspace {
+    padding: 4rem 1rem 4rem 1rem;
 
     .container {
       max-width: 45rem;
@@ -59,6 +60,7 @@
       font-weight: 700;
       font-size: 1.75rem;
       margin-bottom: 1rem;
+      text-align: left;
     }
 
     &Accroche {
@@ -66,13 +68,13 @@
       font-size: 2rem;
       color: $color-secondary;
       margin-bottom: 3.5rem;
+      text-align: left;
     }
 
     &Description {
-      margin: 0 auto 3.5rem;
-      max-width: 42em;
       line-height: 2rem;
       font-size: 1rem;
+      margin-bottom: 4rem;
     }
 
     &Connexion {

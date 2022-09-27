@@ -1,7 +1,7 @@
 @import "@styles/utilities";
 
 .referencer {
-  padding: 4rem 2rem 4rem 2rem;
+  padding: 2rem 1rem 2rem 1rem;
   background-color: $color-background-white-lilac;
   display: grid;
 
@@ -30,7 +30,6 @@
   }
 
   ul {
-    max-width: 33rem;
     margin-left: 1.5rem;
     list-style-type: disc;
     margin-top: 1rem;
@@ -47,14 +46,11 @@
 
 @include media(large) {
   .referencer {
-    padding: 4rem 0 4rem 0;
+    padding: 4rem 1rem 4rem 1rem;
 
-    p {
-      margin-right: 10rem;
-    }
-
-    ul {
-      max-width: 37rem;
+    .container {
+      max-width: 45rem;
+      margin: auto;
     }
   }
 }
