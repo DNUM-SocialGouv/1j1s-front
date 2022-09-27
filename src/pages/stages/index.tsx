@@ -97,6 +97,16 @@ export default function RechercherOffreStagePage() {
             </form>
             <div className={styles.informationRésultats}>
               <CurrentRefinements
+                transformItems={(items) => {
+                  return items.map((item) => ({
+                    ...item,
+                    refinements: item.refinements.map((refinement) => ({
+                      ...refinement,
+                      label: getCapitalizedItems(refinement.label),
+                    })),
+                  }));
+                }
+                }
                 classNames={
                   {
                     category: styles.stageTagCategoryElement,
