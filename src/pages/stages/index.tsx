@@ -9,6 +9,7 @@ import {
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
@@ -26,7 +27,11 @@ const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
-  const listeEtiquettes: Array<string> = résultat.domaines ? résultat.domaines.filter((domaine) => domaine !== Domaines.NON_RENSEIGNE) : [];
+  const listeEtiquettes: Array<string> = résultat.domaines
+    ? résultat.domaines
+      .filter((domaine) => domaine !== Domaines.NON_RENSEIGNE)
+      .map((domaine) => getCapitalizedItems(domaine))
+    : [];
   listeEtiquettes.push(
     résultat.localisation?.ville || résultat.localisation?.departement || résultat.localisation?.region as string,
     résultat.dureeCategorisee !== 'Non renseigné'? résultat.dureeCategorisee as string : '',
