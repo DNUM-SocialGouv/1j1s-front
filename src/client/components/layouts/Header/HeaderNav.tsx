@@ -32,15 +32,17 @@ export function HeaderNav() {
     <div className={styles.headerNavigation}>
       <Container>
         <nav id="header-navigation"
+          className={styles.headerNavigationList}
           role="navigation"
           aria-label="Menu principal">
-          <ul className={styles.headerNavigationList}>
+          <ul className={styles.headerNavigationListLeft}>
             <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
             <NavItemWithSubItems className={styles.navItem} label={offresNav.label} path={path} subItemList={offresNav.children} />
             <NavItemWithSubItems className={styles.navItem} label={orientationNav.label} path={path} subItemList={orientationNav.children} />
             <NavItemWithSubItems className={styles.navItem} label={accompagnementNav.label} path={path} subItemList={accompagnementNav.children} />
             <NavItemWithSubItems className={styles.navItem} label={engagementNav.label} path={path} subItemList={engagementNav.children} />
-            <div aria-hidden={true} className={styles.navItemSeparator} />
+          </ul>
+          <ul className={styles.headerNavigationListRight}>
             <NavItemWithSubItems className={styles.navItem} label={employeurNav.label} path={path} subItemList={employeurNav.children} />
           </ul>
         </nav>
