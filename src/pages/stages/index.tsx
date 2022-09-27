@@ -9,8 +9,10 @@ import {
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
+import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -19,11 +21,17 @@ import styles from '~/pages/stages/RechercherStagePage.module.scss';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 const HITS_PER_PAGE = 15;
+const LIMIT_MAX_FACETS = 100000;
+const LIMIT_MAX_DOMAINS = 100;
 const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
-  const listeEtiquettes: Array<string> = résultat.domaines ? résultat.domaines.filter((domaine) => domaine !== Domaines.NON_RENSEIGNE) : [];
+  const listeEtiquettes: Array<string> = résultat.domaines
+    ? résultat.domaines
+      .filter((domaine) => domaine !== Domaines.NON_RENSEIGNE)
+      .map((domaine) => getCapitalizedItems(domaine))
+    : [];
   listeEtiquettes.push(
     résultat.localisation?.ville || résultat.localisation?.departement || résultat.localisation?.region as string,
     résultat.dureeCategorisee !== 'Non renseigné'? résultat.dureeCategorisee as string : '',
@@ -59,27 +67,26 @@ export default function RechercherOffreStagePage() {
             routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
             <Configure hitsPerPage={HITS_PER_PAGE}/>
             <form className={styles.stageForm}>
-              <label>Métiers, mots clés, …
-                <SearchBox
-                  className='recherche-principale-stage'
-                  placeholder="Métiers, mots clés, …"
-                  classNames={
-                    {
-                      form: styles.stageFormElement,
-                      input: ['fr-input', styles.stageInputElement].join(' '),
-                      reset: styles.none,
-                      resetIcon: styles.none,
-                      root: styles.stageRootElement,
-                      submit: styles.none,
-                      submitIcon: styles.none,
+              <div className={styles.formWrapper}>
+                <div className={styles.formElement}>
+                  <label>Métiers, mots clés, …</label>
+                  <SearchBox
+                    className='recherche-principale-stage'
+                    placeholder="Métiers, mots clés, …"
+                    classNames={
+                      {
+                        input: ['fr-input', styles.stageInputElement].join(' '),
+                        reset: styles.none,
+                        submit: styles.none,
+                        submitIcon: styles.none,
+                      }
                     }
-                  }
-                />
-              </label>
-              <div className={styles.stageSelectWrapper}>
+                  />
+                </div>
+                <MeilisearchInputRefinement attribute={'localisationFiltree'} limit={LIMIT_MAX_FACETS}/>
                 <MeilisearchCustomRefinementList
                   attribute={'domaines'}
-                  limit={100}
+                  limit={LIMIT_MAX_DOMAINS}
                   label={'Domaines'}
                   sortBy={['name:asc']}/>
                 <MeilisearchCustomRefinementList
@@ -90,6 +97,16 @@ export default function RechercherOffreStagePage() {
             </form>
             <div className={styles.informationRésultats}>
               <CurrentRefinements
+                transformItems={(items) => {
+                  return items.map((item) => ({
+                    ...item,
+                    refinements: item.refinements.map((refinement) => ({
+                      ...refinement,
+                      label: getCapitalizedItems(refinement.label),
+                    })),
+                  }));
+                }
+                }
                 classNames={
                   {
                     category: styles.stageTagCategoryElement,
@@ -99,8 +116,7 @@ export default function RechercherOffreStagePage() {
                     noRefinementList: styles.none,
                     noRefinementRoot: styles.none,
                   }
-                }
-              />
+                }/>
               <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
             </div>
             <Hits
@@ -108,7 +124,6 @@ export default function RechercherOffreStagePage() {
               classNames={
                 {
                   item: styles.stageItemElement,
-                  list: styles.stageListeElement,
                   root: styles.stageListeRootElement,
                 }
               }/>

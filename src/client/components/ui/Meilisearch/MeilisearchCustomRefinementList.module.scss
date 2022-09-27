@@ -1,9 +1,5 @@
 @import "@styles/utilities";
 
-.selectWrapper {
-  flex: 1;
-}
-
 .selectContainer {
   position: relative;
 }
@@ -22,6 +18,7 @@
   padding: 6px 6px 6px 12px;
   border: 1.5px solid $color-primary;
   border-radius: 20px;
+  height: 2.5rem;
 }
 
 .listBox {
@@ -45,10 +42,6 @@
   display: block;
   border-bottom: 1px solid $color-separator;
   border-radius: 0;
-}
-
-.label:first-letter{
-  text-transform: capitalize;
 }
 
 .checkbox {

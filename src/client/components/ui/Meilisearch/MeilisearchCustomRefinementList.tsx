@@ -11,7 +11,7 @@ import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
-import styles from '~/client/components/ui/Meilisearch/MeilisearchRefinementSelect.module.scss';
+import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList.module.scss';
 
 
 export function MeilisearchCustomRefinementList(props: UseRefinementListProps & { label: string }) {
@@ -46,7 +46,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
   return (
     <>
-      <div className={styles.selectWrapper}>
+      <div>
         <label className={styles.selectLabel}>{label}</label>
         <div ref={optionsRef} className={styles.selectContainer}>
           <button
