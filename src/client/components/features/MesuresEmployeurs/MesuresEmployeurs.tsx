@@ -53,7 +53,7 @@ function CarteMesureEmployeur({ carte, isMobile = false }: CarteMesureEmployeurP
   const link = carte.article
     ? `/articles/${carte.article.slug}`
     : url;
-  const pourQui = useSanitize(carte.pourQui);
+  const pourQui = carte.pourQui;
 
   return <EmployeurLinkCard
     imageUrl={bannière}
