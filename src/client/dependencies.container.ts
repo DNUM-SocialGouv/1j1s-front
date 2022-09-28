@@ -3,6 +3,8 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternances/alternance.service';
 import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
+import { AnalyticsService } from '~/client/services/analyticsService';
+import { AnalyticsServiceFake } from '~/client/services/analyticsServiceFake';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import {
@@ -28,17 +30,18 @@ export type Dependencies = {
   rechercheClientService: SearchClient
   demandeDeContactService: DemandeDeContactService
   lesEntreprisesSEngagementService: LesEntreprisesSEngagentService
+  analyticsService: AnalyticsService | AnalyticsServiceFake
 }
 
 class DependencyInitException extends Error {
   constructor(dependencyName: string, reason: string) {
     super(`Cannot init ${dependencyName} dependency, reason: ${reason}`);
-    this.name = 'MatomoInitException';
   }
 }
 
 export default function dependenciesContainer(sessionId: string): Dependencies {
   const loggerService = new LoggerService(sessionId);
+  const analyticsService = process.env.NODE_ENV === 'production' ?  new AnalyticsService() : new AnalyticsServiceFake();
   const httpClientService =  new HttpClientService(sessionId, loggerService);
   const offreEmploiService = new OffreEmploiService(httpClientService);
   const localisationService = new LocalisationService(httpClientService);
@@ -67,6 +70,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 
   return {
     alternanceService,
+    analyticsService,
     demandeDeContactService,
     ficheMetierService,
     lesEntreprisesSEngagementService,

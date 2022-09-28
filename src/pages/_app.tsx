@@ -3,20 +3,15 @@ import '~/styles/main.scss';
 
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
-import { initTracker } from '~/client/utils/tracker.util';
 
 export default function App({ Component, pageProps }: AppProps) {
   const sessionId = useSessionId();
-
-  useEffect(() => {
-    process.env.NODE_ENV === 'production' && initTracker();
-  }, []);
 
   return (
     <>
@@ -27,15 +22,15 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <meta name="description" content="Toutes les solutions pour l'avenir des jeunes"/>
       </Head>
-      <Layout>
-        {
-          sessionId && (
-            <DependenciesProvider {...dependenciesContainer(sessionId)}>
+      {
+        sessionId && (
+          <DependenciesProvider {...dependenciesContainer(sessionId)}>
+            <Layout>
               <Component {...pageProps} />
-            </DependenciesProvider>
-          )
-        }
-      </Layout>
+            </Layout>
+          </DependenciesProvider>
+        )
+      }
     </>
   );
 }

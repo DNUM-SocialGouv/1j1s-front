@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document';
+import Script from 'next/script';
 import React from 'react';
 
 export default function Document() {
@@ -32,6 +33,11 @@ export default function Document() {
       <body>
         <Main/>
         <NextScript/>
+        { process.env.NODE_ENV === 'production' &&
+        <Script
+          src="/scripts/smarttag.js"
+          strategy="beforeInteractive"
+        /> }
       </body>
     </Html>
   );

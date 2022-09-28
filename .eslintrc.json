@@ -10,6 +10,7 @@
       "version": 27
     }
   },
+  "ignorePatterns": ["public/scripts/smarttag.js"],
   "rules": {
     "prettier/prettier": "off",
     "indent": [2, 2, { "SwitchCase": 1 }],
