@@ -42,14 +42,13 @@
   }
 }
 
-@include media(xlarge) {
+@include media(large) {
   .pourquoi {
-    max-width: none;
 
     > article {
       display: flex;
-      justify-content: space-evenly;
-      margin: 4rem 7rem 0 7rem;
+      justify-content: space-around;
+      margin: 4rem 9rem 0 9rem;
 
       section > * > ul {
         color: $color-on-surface;
