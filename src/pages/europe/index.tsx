@@ -68,7 +68,7 @@ export default function EuropePage() {
               <Link href={link.url} className={classNames('underline-none')}>
                 <TextIcon
                   text={link.title}
-                  icon={<Icon name="external-redirection" width='20px' height='20px'/>}
+                  icon={<Icon name="external-redirection"/>}
                 />
               </Link>
             </li>
