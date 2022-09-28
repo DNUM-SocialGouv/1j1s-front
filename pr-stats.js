@@ -9,7 +9,7 @@ const label = process.argv[2] || 'violet';
 const since = process.argv[3] ? moment(process.argv[3]) : moment().subtract({ weeks: 2 }).subtract({ day: 1 });
 
 async function main () {
-  const { data } = await Axios.get(`https://api.github.com/repos/${REPO}/pulls?state=closed&sort=created&direction=desc&per_page=100`);
+  const data = await collect(getPRs({ after: since, repo: REPO }));
   const prs = data
     .filter((pr) => pr.merged_at && pr.merged_at > since.format())
     .filter((pr) => pr.labels.find((l) => l.name === label))
@@ -35,5 +35,22 @@ async function main () {
 
 }
 
+async function * getPRs ({ repo }) {
+  const NUM_PAGE = 5;
+  for (let page = 1; page < NUM_PAGE; ++page) {
+    const { data } = await Axios.get(`https://api.github.com/repos/${repo}/pulls?state=closed&sort=created&direction=desc&per_page=100&page=${page}`);
+    for (const pr of data) {
+      yield pr;
+    }
+  }
+}
+
+async function collect (iterable) {
+  const data = [];
+  for await (const item of iterable) {
+    data.push(item);
+  }
+  return data;
+}
 
 main();
