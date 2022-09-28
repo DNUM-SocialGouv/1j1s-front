@@ -35,20 +35,23 @@
   box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
 
   &Logo {
+    padding: 1.5rem;
+    border-bottom: 1px solid $color-separator;
+  }
+
+  &LogoWrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100px;
-    border-radius: 20px 20px 0 0;
-    border-bottom: 1px solid $color-separator;
-    padding: 1rem;
+  }
 
-    &Wrapper {
-      position: relative;
-      min-height: 100px;
-      height: 90%;
-      width: 90%;
-    }
+  &LogoWrapperPaysage {
+    height: 44px;
+  }
+
+  &LogoWrapperPortrait {
+    height: 72px;
   }
 
   &Action {
@@ -78,14 +81,14 @@
 
   @include media(large) {
     display: flex;
-    background-image: none;
+    align-items: center;
     border: 1px solid $color-separator;
 
     &Logo {
       flex-shrink: 0;
       width: 280px;
-      border: 0px;
-      padding: 0;
+      border: 0;
+      margin: 2rem;
     }
 
     &Body {

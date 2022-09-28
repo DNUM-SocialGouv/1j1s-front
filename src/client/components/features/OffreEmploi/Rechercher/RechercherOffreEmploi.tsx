@@ -9,8 +9,8 @@ import {
   ÉtiquettesFiltreOffreEmploi,
 } from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
+import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
   LienSolution,
@@ -97,9 +97,9 @@ export function RechercherOffreEmploi() {
         />
         <EnTeteSection heading="Découvrez des services faits pour vous"/>
         {PartnerCardList([
-          ServiceCiviquePartner().props,
           LaBonneBoitePartner().props,
-          CIDJPartner().props,
+          OnisepPartnerCard().props,
+          ServiceCiviquePartner().props,
         ])}
       </main>
     </>

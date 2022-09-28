@@ -6,8 +6,8 @@ import {
   FormulaireRechercheJobÉtudiant,
 } from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
+import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
   LienSolution,
@@ -93,8 +93,8 @@ export function RechercherJobÉtudiant() {
           maxPage={MAX_PAGE}
         />
         {PartnerCardList([
-          CIDJPartner().props,
           LaBonneBoitePartner().props,
+          OnisepPartnerCard().props,
           ServiceCiviquePartner().props,
         ])}
       </main>
