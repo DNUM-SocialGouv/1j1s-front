@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 
-import { FoldingSection } from '~/client/components/features/FicheMetier/FoldingSection';
+import { FoldingSection } from '~/client/components/features/FicheMétier/Consulter/FoldingSection';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
-import styles from './consulter-fiche-metier.module.scss';
+import styles from './ConsulterFicheMétier.module.scss';
 
-export function ConsulterFicheMetier({ ficheMetier }: { ficheMetier: FicheMétier }) {
+export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMétier }) {
   const {
     accesMetier,
     accrocheMetier,

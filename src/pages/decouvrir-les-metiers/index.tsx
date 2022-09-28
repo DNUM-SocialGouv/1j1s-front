@@ -2,13 +2,14 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
+import {
+  RésultatRechercherMétier,
+} from '~/client/components/features/FicheMétier/RésultatRechercherMétier/RésultatRechercherMétier';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -28,26 +29,9 @@ export default function RechercherFicheMetierPage() {
   const [inputMotCle, setInputMotCle] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const fichesMetierService  = useDependency<FicheMetierService>('ficheMetierService');
+  const fichesMetierService = useDependency<FicheMetierService>('ficheMetierService');
 
   useReferrer();
-
-  const ficheMétierCard = (résultat: Partial<FicheMétier>) => {
-    if (!résultat.nomMetier) return null;
-    return (
-      <Link href={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier)}`} className={'underline-none'}>
-        <article className={styles.cardBody}>
-          <div
-            className={styles.cardTitle}>{`${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`}</div>
-          <div className={styles.cardContent} dangerouslySetInnerHTML={{ __html: résultat.accrocheMetier || '' }}/>
-          <div className={styles.cardLink}>
-            <span>En savoir plus</span>
-            <AngleRightIcon className={styles.cardLinkIcon}/>
-          </div>
-        </article>
-      </Link>
-    );
-  };
 
   useEffect (() => {
     setIsLoading(true);
@@ -111,7 +95,9 @@ export default function RechercherFicheMetierPage() {
             <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.skeletonCards}>
               <ol className={styles.resultList}>
                 {ficheMétiers.map((ficheMetier) =>
-                  <li className={styles.resultCard} key={ficheMetier.id}>{ficheMétierCard(ficheMetier)}</li>,
+                  <li className={styles.resultCard} key={ficheMetier.id}>
+                    <RésultatRechercherMétier résultat={ficheMetier} />
+                  </li>,
                 )}
               </ol>
             </Skeleton>

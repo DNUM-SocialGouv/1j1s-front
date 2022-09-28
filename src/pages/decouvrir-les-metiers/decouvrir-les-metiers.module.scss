@@ -98,42 +98,6 @@
   }
 }
 
-.cardBody {
-  background-color: $color-on-secondary;
-  box-shadow: $box-shadow;
-  border-left: 3px solid $color-primary;
-  border-radius: 10px;
-  padding: 1.5rem 2rem;
-}
-
-.cardTitle {
-  @extend %bold;
-  margin-bottom: 1rem;
-}
-
-.cardContent {
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  & > p {
-    margin: 0;
-  }
-}
-
-.cardLink {
-  @extend %linkWithRightIcon;
-  text-align: right;
-  display: block;
-}
-
-.cardLinkIcon {
-  vertical-align: bottom;
-}
-
 .container {
   padding: 1rem;
 
