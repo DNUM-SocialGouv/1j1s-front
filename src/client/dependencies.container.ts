@@ -40,7 +40,7 @@ class DependencyInitException extends Error {
 
 export default function dependenciesContainer(sessionId: string): Dependencies {
   const loggerService = new LoggerService(sessionId);
-  const analyticService = new AnalyticsService();
+  const analyticsService = new AnalyticsService();
   const httpClientService =  new HttpClientService(sessionId, loggerService);
   const offreEmploiService = new OffreEmploiService(httpClientService);
   const localisationService = new LocalisationService(httpClientService);
@@ -69,7 +69,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 
   return {
     alternanceService,
-    analyticsService: analyticService,
+    analyticsService,
     demandeDeContactService,
     ficheMetierService,
     lesEntreprisesSEngagementService,
