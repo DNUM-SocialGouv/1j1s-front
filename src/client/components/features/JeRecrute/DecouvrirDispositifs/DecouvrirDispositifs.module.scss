@@ -2,19 +2,17 @@
 
 
 .recruter {
-  padding: 2rem 0 4rem;
-  margin: auto 1rem;
+  padding: 4rem 2rem 4rem 2rem;
   text-align: center;
 
   h2 {
-    @extend %text-xLarge, %bold;
+    @extend %bold;
     color: $color-primary;
     margin-bottom: 1em;
-    margin-top: 1em;
+    font-size: 1.5rem;
   }
 
   p {
-    @extend %text-large;
     max-width: 43rem;
     text-align: left;
     margin: auto;
@@ -36,8 +34,9 @@
 }
 
 
-@include media(large) {
+@include media(medium) {
   .recruter {
+    padding: 4rem 19rem 4rem 19rem;
     margin: auto;
   }
   .recruter ul li a {

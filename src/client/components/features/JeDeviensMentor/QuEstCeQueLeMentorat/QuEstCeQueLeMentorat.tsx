@@ -1,12 +1,17 @@
 import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/QuEstCeQueLeMentorat/QuEstCeQueLeMentorat.module.scss';
+import { Container } from '~/client/components/layouts/Container/Container';
 import Marked from '~/client/components/ui/Marked/Marked';
 
 export function QuEstCeQueLeMentorat() {
   return (
+
     <article className={styles.quEstCeQueLeMentorat}>
-      <Marked markdown={quEstCeQueLeMentorat} />
+      <Container className={styles.container}>
+        <Marked markdown={quEstCeQueLeMentorat} />
+      </Container>
+
     </article>
   );
 }

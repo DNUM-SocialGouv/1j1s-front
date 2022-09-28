@@ -2,20 +2,20 @@
 
 .monEspace {
   margin: 0 auto;
-  padding: 2.5rem 1.75rem;
-  text-align: center;
+  padding: 2rem 1rem 2rem 1rem;
   background-color: $color-background-white-lilac;
 
   &Titre {
     color: $color-primary;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.75rem;
+    margin-bottom: 1rem;
   }
 
   &Accroche {
     color: $color-secondary;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 1.25rem;
     line-height: 1.75rem;
@@ -28,11 +28,14 @@
 
   &Connexion {
     margin-bottom: 0.5rem;
+    display: flex;
   }
 
   &Inscription {
+    display: contents;
     background-color: transparent !important;
     color: $color-primary !important;
+    font-size: 1rem;
 
     &Lien {
       text-align: left;
@@ -41,47 +44,63 @@
       grid-template-columns: 1fr 10fr;
       align-items: center;
       line-height: 1.5rem;
+      margin-top: 2rem;
     }
   }
 }
 
 @include media(large) {
   .monEspace {
-    padding: 3rem;
+    padding: 4rem 1rem 4rem 1rem;
+
+    .container {
+      max-width: 45rem;
+      margin: auto;
+
+      &Boutons {
+        max-width: 25rem;
+        margin: 40px auto auto;
+        flex-direction: column;
+      }
+
+      &Info {
+        max-width: 30rem;
+        margin: 40px auto auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem
+      }
+    }
 
     &Titre {
       color: $color-primary;
       font-weight: 700;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      text-align: left;
     }
 
     &Accroche {
       font-weight: 400;
-      font-size: 2rem;
       color: $color-secondary;
       margin-bottom: 3.5rem;
+      text-align: left;
     }
 
     &Description {
-      margin: 0 auto 3.5rem;
-      max-width: 42em;
       line-height: 2rem;
-      font-size: 1.25rem;
+      font-size: 1rem;
+      margin-bottom: 4rem;
     }
 
     &Connexion {
       padding: 1rem 1rem;
       margin-bottom: 1rem;
-      font-size: 1.25rem;
     }
 
     &Inscription {
-      font-size: 1.25rem;
 
       &Lien {
         display: grid;
-        grid-template-columns: 1fr 10fr;
+        grid-template-columns: 0fr 10fr;
         align-items: center;
       }
     }

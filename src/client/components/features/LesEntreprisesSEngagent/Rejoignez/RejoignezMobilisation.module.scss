@@ -1,7 +1,8 @@
 @import "@styles/_utilities";
 
 .content {
-  padding: 32px;
+  padding: 2rem 1rem 2rem 1rem;
+  background-color: $color-background-white-lilac;
 
   h1 {
     @extend %text-xLarge;
@@ -13,7 +14,7 @@
   p:nth-child(2) {
     @extend %text-xLarge;
     @extend %bold;
-    color: $color-primary;
+    color: $color-secondary;
     margin-bottom: 2.5rem;
   }
 }
@@ -45,19 +46,29 @@
 
 @include media(large) {
   .content {
-    width: 80%;
-    margin: auto;
+    padding: 2rem 1rem 4rem 1rem;
+
+
+    .container {
+      max-width: 45rem;
+      margin: auto;
+    }
 
     h1 {
-      text-align: center;
+      text-align: left;
     }
 
     p:nth-child(2) {
-      text-align: center;
+      text-align: left;
+    }
+
+    p:nth-child(3) {
+      margin: auto;
+      line-height: 1.5rem;
     }
   }
 
   .linkAsButtonWrapper {
-    width: 30%;
+    width: 60%;
   }
 }

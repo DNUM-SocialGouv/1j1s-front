@@ -6,7 +6,7 @@ import Marked from '~/client/components/ui/Marked/Marked';
 export function PourQui() {
   return (
     <div className={styles.pourqui}>
-      <Container>
+      <Container className={styles.container}>
         <Marked markdown={contenuHeader} />
 
         <div className={styles.linkAsButtonWrapper}>
@@ -31,7 +31,7 @@ const contenuHeader = `
 1 jeune 1 mentor, accompagner un jeune pour l'aider à réussir
 =============================================================
 
-Faire la rencontre qui change tout !
+Faites la rencontre qui change tout !
 
 *   **Vous êtes employeur ou citoyen et souhaitez devenir mentor ?**  
     Embarquer dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l'égalité des chances et continuer à apprendre en accompagnant un jeune.

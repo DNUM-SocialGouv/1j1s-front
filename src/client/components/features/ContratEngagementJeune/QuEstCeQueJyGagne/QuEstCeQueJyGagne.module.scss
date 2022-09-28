@@ -2,15 +2,14 @@
 
 .section {
   background: $color-on-primary;
-  padding: 1.5rem 1.5rem 1.5rem;
+  padding: 2rem 1.5rem 2rem;
 }
 
 .container {
   max-width: $breakpoint-xl;
 
   button {
-    margin: inherit;
-    margin-bottom: 1.5rem;
+   display: contents;
   }
 }
 
@@ -22,6 +21,7 @@
     color: $color-primary;
     font-size: 1.5rem;
     line-height: 2rem;
+    margin-bottom: 1rem;
   }
 
   strong {
@@ -33,6 +33,8 @@
 .contenu ul {
   list-style-type: initial;
   padding-left: 20px;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 .contenu ul > li > strong {
   color: $color-primary;
