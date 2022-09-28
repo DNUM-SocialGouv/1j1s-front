@@ -15,7 +15,7 @@ import styles from '~/pages/europe/europe.module.scss';
 
 export default function EuropePage() {
   const { isLargeScreen } = useBreakpoint();
-  const MAIL_TO = '1j1s@sg.social.gouv.fr';
+  const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
   const linkList: Array<LinkType> = [
     {
       title: 'Je cherche un emploi en Europe',
