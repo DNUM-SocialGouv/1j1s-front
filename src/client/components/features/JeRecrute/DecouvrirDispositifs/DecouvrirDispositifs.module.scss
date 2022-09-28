@@ -6,9 +6,10 @@
   text-align: center;
 
   h2 {
-    @extend %text-xLarge, %bold;
+    @extend %bold;
     color: $color-primary;
     margin-bottom: 1em;
+    font-size: 1.5rem;
   }
 
   p {
@@ -33,7 +34,7 @@
 }
 
 
-@include media(large) {
+@include media(medium) {
   .recruter {
     padding: 4rem 19rem 4rem 19rem;
     margin: auto;

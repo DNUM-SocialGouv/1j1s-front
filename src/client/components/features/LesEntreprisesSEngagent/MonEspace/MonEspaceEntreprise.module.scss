@@ -35,6 +35,7 @@
     display: contents;
     background-color: transparent !important;
     color: $color-primary !important;
+    font-size: 1rem;
 
     &Lien {
       text-align: left;
@@ -96,7 +97,6 @@
     }
 
     &Inscription {
-      font-size: 1.25rem;
 
       &Lien {
         display: grid;
