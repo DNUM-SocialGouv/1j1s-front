@@ -5,7 +5,6 @@ import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCa
 export function OnisepPartnerCard() {
   return (
     <PartnerCard
-      alt="Centre d’Information et de Documentation Jeunesse"
       description="Trouvez un métier qui vous correspond parmi plus de 700 fiches."
       headline="Renseignez-vous sur les différents métiers avec l'ONISEP."
       headlineColor="#C52E25"

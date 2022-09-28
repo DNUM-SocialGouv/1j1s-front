@@ -10,7 +10,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface PartnerCardProps {
-  alt: string
+  alt?: string
   description: string
   headline?: string
   headlineColor?: string
@@ -38,7 +38,7 @@ export function PartnerCardList(list: PartnerCardProps[], title?: string){
   );
 }
 
-export function PartnerCard({ alt, description, headline, headlineColor, logo, logoRatio = 'portrait', link, linkLabel, title }: PartnerCardProps) {
+export function PartnerCard({ alt = '', description, headline, headlineColor, logo, logoRatio = 'portrait', link, linkLabel, title }: PartnerCardProps) {
   const isInternalLink = useIsInternalLink(link);
 
   const icon = useMemo(function () {
