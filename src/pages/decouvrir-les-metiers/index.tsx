@@ -13,6 +13,7 @@ import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import useReferrer from '~/client/hooks/useReferrer';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { getQueryValue } from '~/client/utils/queryParams.utils';
@@ -28,6 +29,8 @@ export default function RechercherFicheMetierPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fichesMetierService  = useDependency<FicheMetierService>('ficheMetierService');
+
+  useReferrer();
 
   const ficheMétierCard = (résultat: Partial<FicheMétier>) => {
     if (!résultat.nomMetier) return null;
