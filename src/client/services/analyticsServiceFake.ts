@@ -1,4 +1,4 @@
-export class AnalyticsService {
+export class AnalyticsServiceFake {
   private tag;
 
   constructor() {
@@ -6,23 +6,19 @@ export class AnalyticsService {
   }
 
   private newTag() {
-    try {
-      return new window.ATInternet.Tracker.Tag();
-    } catch(e) {
-      return {
-        click: { send: () => ({}) },
-        dispatch: () => ({}),
-        page: { set: () => ({}) },
-      };
-    }
+    return {
+      click: { send: () => ({}) },
+      dispatch: () => ({}),
+      page: { set: () => ({}) },
+    };
   }
   //@param info: {name: string, level2?: string, chapter1?: string, chapter2?: string, chapter3?: string, customObject?: any}
-  sendPage(name: string) {
-    this.tag.page.set({ name });
+  sendPage() {
+    this.tag.page.set();
     this.tag.dispatch();
   }
   //@param info: {elem: any, name: string, level2?: string, chapter1?: string, chapter2?: string, chapter3?: string, type: string, customObject?: any}
-  sendClick(action: string) {
-    this.tag.click.send({ name: action });
+  sendClick() {
+    this.tag.click.send();
   }
 }
