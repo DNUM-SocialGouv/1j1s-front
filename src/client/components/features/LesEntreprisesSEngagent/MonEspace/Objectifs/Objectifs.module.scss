@@ -1,0 +1,70 @@
+@import "@styles/_utilities";
+
+.objectifs {
+  padding: 2rem 1rem 2rem 1rem;
+
+  &Container {
+    &Illustration {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    &Text {
+      p {
+        font-weight: bold;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      ol {
+        list-style: none;
+        counter-reset: item;
+        text-align: center;
+      }
+
+      li {
+        display: grid;
+        grid-template-rows: 1fr;
+        place-items: center;
+        counter-increment: item;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      li:before {
+        margin-right: 10px;
+        margin-bottom: 0.5rem;
+        content: counter(item);
+        background: $color-primary;
+        border-radius: 100%;
+        color: white;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        display: inline-block;
+      }
+    }
+
+  }
+}
+
+@include media(large) {
+  .objectifs {
+    padding: 4rem 1rem 4rem 1rem;
+
+    &Container {
+      max-width: 50%;
+
+      &Text {
+        li {
+          grid-template-columns: 1fr 20fr;
+          counter-increment: item;
+          place-items: inherit;
+          margin-bottom: 1.5rem;
+          text-align: left;
+        }
+      }
+    }
+  }
+}

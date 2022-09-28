@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MonEspaceEntreprise from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/MonEspaceEntreprise';
+import { Objectifs } from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/Objectifs/Objectifs';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function MesuresEmployeurs() {
@@ -12,6 +13,7 @@ export default function MesuresEmployeurs() {
       />
       <main id="contenu">
         <MonEspaceEntreprise/>
+        <Objectifs />
       </main>
     </>
   );
