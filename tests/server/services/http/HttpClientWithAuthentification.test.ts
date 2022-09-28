@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import nock from 'nock';
 
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -96,7 +97,8 @@ describe('HttpClientServiceWithAuthentification', () => {
       // When
       const req1 = client.get('/test', (a) => a);
       const req2 = client.get('/test', (a) => a);
-      await delay(5);
+      await becomeTrue(() => expect(miss.pendingMocks()).toHaveLength(0));
+
       deferred.resolve(accessToken);
       const [ res1, res2 ] = await Promise.all([req1, req2]);
       // Then
@@ -128,7 +130,8 @@ describe('HttpClientServiceWithAuthentification', () => {
       // When
       const req1 = client.get('/test', (a) => a);
       const req2 = client.get('/test', (a) => a);
-      await delay(5);
+      await becomeTrue(() => expect(miss.pendingMocks()).toHaveLength(0));
+
       deferred.reject(Error('Echec'));
       const [ res1, res2 ] = await Promise.all([req1, req2]);
       // Then
@@ -155,6 +158,25 @@ class Deferred<T> {
   }
 }
 
+async function becomeTrue(predicate: () => void, timeout=200, interval=10) {
+  const end = Date.now() + timeout;
+  const [_, predicateString] = predicate.toString().split('\n').map((line: string) => line.replace(/^\s+(return ?)?/, ''));
+  let lastErrorMessage = '';
+  let tries = 0;
+  while (Date.now() < end) {
+    try {
+      tries++;
+      predicate();
+      return;
+    } catch (e) {
+      await delay(interval);
+      lastErrorMessage = (e as Error).message;
+    }
+  }
+  throw Error(`Condition '${chalk.italic(predicateString)}' did not become true after ${timeout}ms (${tries} tries)\n${lastErrorMessage}`);
+}
+
 function delay (ms: number) {
   return new Promise((done) => setTimeout(done, ms));
 }
+
