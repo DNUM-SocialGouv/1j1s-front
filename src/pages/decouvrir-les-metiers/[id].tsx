@@ -1,4 +1,4 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -69,12 +69,5 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
       ficheMetier: JSON.parse(JSON.stringify(response.result)),
     },
     revalidate: 86400,
-  };
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: true,
-    paths: [],
   };
 }

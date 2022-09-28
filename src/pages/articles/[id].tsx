@@ -1,4 +1,4 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -9,7 +9,7 @@ import { PageContextParamsException } from '~/server/exceptions/pageContextParam
 import { dependencies } from '~/server/start';
 
 interface ConsulterArticlePageProps {
-	article: Article
+  article: Article;
 }
 
 export default function ConsulterArticlePage({ article }: ConsulterArticlePageProps) {
@@ -24,7 +24,7 @@ export default function ConsulterArticlePage({ article }: ConsulterArticlePagePr
 }
 
 interface ArticleContext extends ParsedUrlQuery {
-  id: ArticleSlug
+  id: ArticleSlug;
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<ArticleContext>): Promise<GetStaticPropsResult<ConsulterArticlePageProps>> {
@@ -46,11 +46,4 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };
 
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: true,
-    paths: [],
-  };
 }

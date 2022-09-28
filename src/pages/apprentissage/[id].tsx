@@ -1,16 +1,11 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ConsulterOffreAlternance } from '~/client/components/features/Alternance/Consulter/ConsulterOffreAlternance';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-import {
-  AlternanceId,
-  From,
-} from '~/server/alternances/domain/alternance';
-import {
-  ConsulterOffreAlternanceMatcha,
-} from '~/server/alternances/infra/repositories/alternance.type';
+import { AlternanceId, From } from '~/server/alternances/domain/alternance';
+import { ConsulterOffreAlternanceMatcha } from '~/server/alternances/infra/repositories/alternance.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -51,13 +46,5 @@ export async function getStaticProps(context: GetStaticPropsContext<AlternanceCo
       alternanceFromMatcha: JSON.parse(JSON.stringify(offreAlternance.result)),
     },
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
-  };
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-
-  return {
-    fallback: true,
-    paths: [],
   };
 }

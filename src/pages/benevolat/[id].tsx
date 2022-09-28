@@ -1,8 +1,10 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import { ConsulterMissionEngagement } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
+import {
+  ConsulterMissionEngagement,
+} from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { Mission, MissionId } from '~/server/engagement/domain/engagement';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -18,7 +20,7 @@ export default function ConsulterMissionEngagementPage({ missionEngagement }: Co
   return (
     <>
       <HeadTag title={`${missionEngagement.titre} | 1jeune1solution`} />
-      <ConsulterMissionEngagement missionEngagement={ missionEngagement } />
+      <ConsulterMissionEngagement missionEngagement={missionEngagement} />
     </>
   );
 }
@@ -43,12 +45,5 @@ export async function getStaticProps(context: GetStaticPropsContext<MissionConte
       missionEngagement: JSON.parse(JSON.stringify(missionEngagement.result)),
     },
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
-  };
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: true,
-    paths: [],
   };
 }

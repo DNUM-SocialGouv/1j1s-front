@@ -1,4 +1,4 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -43,12 +43,5 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
       jobEtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
     },
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
-  };
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: true,
-    paths: [],
   };
 }
