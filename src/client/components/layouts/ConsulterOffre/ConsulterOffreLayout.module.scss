@@ -6,18 +6,20 @@
 }
 
 .layout {
-    padding: 0 1rem;
+    section {
+        padding: 0 1rem;
+    }
 
     &Button {
-        padding: 0 1rem;
+        padding: 1.5rem 1rem;
+        border-bottom: 1px solid $color-separator;
     }
 }
 
-@media only screen and (min-width: 48em) {
+@include media(medium) {
     .layout {
-        width: 100%;
-        max-width: 78rem;
         border: 1px solid $color-separator;
+        border-radius: 1.25rem;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         margin: 2rem auto 3.5rem auto;
         padding: 0 6rem 2rem 6rem;
@@ -25,8 +27,11 @@
         &Button {
             padding: 0;
             width: 100%;
-            max-width: 78rem;
             margin: 2rem auto auto;
+            border: inherit;
+            button {
+                margin-left: 1rem;
+            }
         }
     }
 }

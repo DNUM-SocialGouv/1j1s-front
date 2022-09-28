@@ -20,16 +20,18 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         <h1>{offreEmploi.intitulé}</h1>
         {offreEmploi.entreprise.nom && <h2>{offreEmploi.entreprise.nom}</h2>}
         <TagList list={offreEmploi.étiquetteList} aria-label="Caractéristiques de l'offre d'emploi" />
+        <div className={commonStyles.buttonAsLinkWrapper}>
+          <div className={commonStyles.buttonAsLink}>
+            <LinkAsButton
+              href={offreEmploi.urlOffreOrigine}
+              target="_blank"
+            >
+              Je postule sur Pôle Emploi
+            </LinkAsButton>
+          </div>
+        </div>
       </header>
       <section className={commonStyles.contenu}>
-        <div className={commonStyles.buttonAsLink}>
-          <LinkAsButton
-            href={offreEmploi.urlOffreOrigine}
-            target="_blank"
-          >
-            Je postule sur Pôle Emploi
-          </LinkAsButton>
-        </div>
         {offreEmploi.description &&
         <div>
           <h3>Description du poste :</h3>

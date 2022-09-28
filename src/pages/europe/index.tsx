@@ -59,7 +59,7 @@ export default function EuropePage() {
       <Container className={styles.sectionLiens}>
         { isLargeScreen && (
           <div className={styles.imageWrapper}>
-            <Image src="/images/europe/colisee.jpg" alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+            <Image src="/images/europe/colisee.jpg" alt="" layout="fill" objectFit="cover"/>
           </div>
         ) }
         <ul>
@@ -68,7 +68,7 @@ export default function EuropePage() {
               <Link href={link.url} className={classNames('underline-none')}>
                 <TextIcon
                   text={link.title}
-                  icon={<Icon name="external-redirection" />}
+                  icon={<Icon name="external-redirection" width='20px' height='20px'/>}
                 />
               </Link>
             </li>
@@ -81,9 +81,10 @@ export default function EuropePage() {
   const sectionDispositif = () => (
     <div className={'background-white-lilac'}>
       <LightHero
-        primaryText={'Je découvre les dispositifs pour'}
+        primaryText={'Je découvre les dispositifs pour '}
         secondaryText={'m’accompagner dans mon projet'}
         titleLevel={'h2'}
+        className={styles.sectionDispositif__Title}
       />
       <Container className={styles.sectionDispositif}>
         <div className={styles.sectionDispositif__CardWrapper}>

@@ -36,12 +36,14 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
           )
       }
       <section className={commonStyles.contenu}>
-        <div className={commonStyles.buttonAsLink}>
-          <Button
-            onClick={() => setIsModalPostulerOpen(true)}
-            buttonType={'primary'}>
-            Je postule
-          </Button>
+        <div className={commonStyles.buttonAsLinkWrapper}>
+          <div className={commonStyles.buttonAsLink}>
+            <Button
+              onClick={() => setIsModalPostulerOpen(true)}
+              buttonType={'primary'}>
+              Je postule
+            </Button>
+          </div>
         </div>
         {offreAlternance.description &&
           <div>

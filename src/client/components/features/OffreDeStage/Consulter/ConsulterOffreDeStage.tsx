@@ -35,15 +35,17 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
         <h1>{offreDeStage.titre}</h1>
         { offreDeStage.employeur?.nom && <h2>{offreDeStage.employeur?.nom}</h2>}
         <TagList list={listeEtiquettes} aria-label="Caractéristiques de l'offre de stage"/>
+        <div className={commonStyles.buttonAsLinkWrapper}>
+          <div className={commonStyles.buttonAsLink}>
+            <LinkAsButton
+              href={offreDeStage.urlDeCandidature}
+              target="_blank">
+              Postuler
+            </LinkAsButton>
+          </div>
+        </div>
       </header>
       <section className={commonStyles.contenu}>
-        <div className={commonStyles.buttonAsLink}>
-          <LinkAsButton
-            href={offreDeStage.urlDeCandidature}
-            target="_blank">
-            Postuler
-          </LinkAsButton>
-        </div>
         {offreDeStage.description &&
                 <div>
                   <h3>Description du poste :</h3>
