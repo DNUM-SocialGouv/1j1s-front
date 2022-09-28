@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { HtmlHeadingTag } from '~/client/components/props';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
 
@@ -98,13 +98,14 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
           {...rest}>
           <div className={styles.modalBody}>
             <div className={classNames(className, styles.modalClose)}>
-              <Button
-                buttonType="linkWithRightIcon"
+              <ButtonComponent
+                appearance='tertiary'
                 icon={<Icon name='close' />}
+                iconPosition='right'
+                label={closeLabel}
                 title={closeTitle}
-                onClick={() => close()}>
-                {closeLabel}
-              </Button>
+                onClick={() => close()}
+              />
             </div>
             {children}
           </div>

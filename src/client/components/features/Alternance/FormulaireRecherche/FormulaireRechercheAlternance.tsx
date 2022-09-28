@@ -8,7 +8,7 @@ import React, {
 
 import styles
   from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { InputMétierRecherché } from '~/client/components/ui/Form/InputMétierRecherché/InputMétierRecherché';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -82,13 +82,12 @@ export function FormulaireRechercheAlternance() {
         distance={inputDistanceCommune}
       />
       <div className={styles.buttonRechercher}>
-        <Button
-          buttonType="withRightIcon"
+        <ButtonComponent
+          label='Rechercher'
           icon={<Icon name="magnifying-glass" />}
-          type="submit"
-        >
-            Rechercher
-        </Button>
+          iconPosition='right'
+          type='submit'
+        />
       </div>
     </form>
   );

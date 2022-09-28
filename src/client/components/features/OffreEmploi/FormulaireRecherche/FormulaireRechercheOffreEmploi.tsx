@@ -6,7 +6,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState
 import styles
   from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -104,13 +104,13 @@ export function FormulaireRechercheOffreEmploi() {
 
           {isSmallScreen &&
             <div>
-              <Button
-                buttonType="linkWithRightIcon"
+              <ButtonComponent
+                appearance='tertiary'
                 icon={<Icon name="filter" />}
+                iconPosition='right'
+                label='Filtrer ma recherche'
                 onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
-              >
-                Filtrer ma recherche
-              </Button>
+              />
               <input type="hidden" name="typeDeContrats" value={inputTypeDeContrat} />
               <input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail} />
               <input type="hidden" name="experienceExigence" value={inputExpérience} />
@@ -176,13 +176,12 @@ export function FormulaireRechercheOffreEmploi() {
             </ModalComponent.Content>
             <ModalComponent.Footer>
               <div className={styles.applyFiltersButton}>
-                <Button
-                  onClick={applyFiltresAvancés}
-                  buttonType="withRightIcon"
+                <ButtonComponent
                   icon={<Icon name="angle-right" />}
-                >
-                  Appliquer les filtres
-                </Button>
+                  iconPosition='right'
+                  label='Appliquer les filtres'
+                  onClick={applyFiltresAvancés}
+                />
               </div>
             </ModalComponent.Footer>
           </ModalComponent>
@@ -224,13 +223,12 @@ export function FormulaireRechercheOffreEmploi() {
         )}
       </div>
       <div className={styles.buttonRechercher}>
-        <Button
-          buttonType="withRightIcon"
+        <ButtonComponent
           icon={<Icon name="magnifying-glass" />}
-          type="submit"
-        >
-          Rechercher
-        </Button>
+          iconPosition='right'
+          label='Rechercher'
+          type='submit'
+        />
       </div>
     </form>
   );
