@@ -5,38 +5,40 @@
   background: $color-background-white-lilac;
 
   &Container {
+    @extend %max-container;
     display: grid;
     gap: 3rem;
-    margin: 0 auto;
-    max-width: 78rem;
     padding: 0 1.5rem;
     place-items: center;
 
     &Illustration {
+      display: none;
       position: relative;
-      place-self: stretch;
-      border-radius: 40px;
-      overflow: hidden;
-      height: 20rem;
+      width: 30rem;
+      height: 30rem;
     }
 
     &Text {
       &Titre {
         color: $color-primary;
-        max-width: 50rem;
-        text-align: center;
         font-size: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: 700;
 
         &Accroche {
           font-size: 1.5rem;
           color: $color-secondary;
+          font-weight: 400;
         }
       }
       a {
+        @extend %box-shadow;
         background-color: $color-background-white-lilac;
         color: $color-primary;
         border: 1px solid $color-primary;
         padding: 1rem 0.8rem;
+        height: 3rem;
+        text-align: center;
       }
     }
   }
@@ -44,11 +46,19 @@
 
 @include media(large) {
   .section {
-    padding: 5rem 0;
+    padding: 2rem 14rem 2rem 14rem;
 
     &Container {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 1fr;
+
+      &Illustration {
+        display: block;
+      }
+
+      a {
+        padding: 0 1.5rem;
+        height: 2.5rem;
+      }
     }
   }
 }
