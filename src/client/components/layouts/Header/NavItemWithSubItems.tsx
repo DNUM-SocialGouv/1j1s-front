@@ -9,7 +9,7 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { NavigationItem } from '~/client/components/layouts/Header/NavigationStructure';
+import { NavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
@@ -17,7 +17,7 @@ interface NavItemWithSubItemsProps {
   label: string
   onClick?: MouseEventHandler<HTMLAnchorElement>
   path: string
-  subItemList: NavigationItem[]
+  subItemList: Array<NavigationItem | NavigationItemWithChildren>
 }
 
 export function NavItemWithSubItems({ className, onClick, label, path, subItemList }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
