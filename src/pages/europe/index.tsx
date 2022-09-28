@@ -59,7 +59,7 @@ export default function EuropePage() {
       <Container className={styles.sectionLiens}>
         { isLargeScreen && (
           <div className={styles.imageWrapper}>
-            <Image src="/images/europe/colisee.jpg" alt="" layout="fill" objectFit="cover"/>
+            <Image src="/images/homepage/europe.webp" alt="" layout="fill" objectFit="cover"/>
           </div>
         ) }
         <ul>
