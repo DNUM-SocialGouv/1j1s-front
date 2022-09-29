@@ -9,7 +9,7 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { NavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
+import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
@@ -25,7 +25,7 @@ export function NavItemWithSubItems({ className, onClick, label, path, subItemLi
   const [isExpanded, setIsExpanded] = useState(false);
 
   const isActive = useMemo(() => {
-    return subItemList.some((subItem) => subItem.link === path);
+    return subItemList.some((subItem) => isNavigationItem(subItem) && subItem.link === path);
   }, [path, subItemList]);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
@@ -50,6 +50,28 @@ export function NavItemWithSubItems({ className, onClick, label, path, subItemLi
     };
   }, [closeMenuOnEscape, closeOptionsOnClickOutside]);
 
+  const subItems = subItemList.map((item, index) => {
+    if (isNavigationItem(item)) {
+      return (
+        <NavItem className={styles.subNavItem} 
+          key={index} 
+          label={item.label} 
+          link={item.link} 
+          isActive={path === item.link} 
+          onClick={onClick}/>
+      );
+    } else {
+      return (
+        <SubNavItem
+          label={item.label}
+          key={index}
+          onClick={() => {}}
+        />
+      );
+    }
+
+  });
+
   return (
     <li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
       <button
@@ -61,16 +83,28 @@ export function NavItemWithSubItems({ className, onClick, label, path, subItemLi
       </button>
       {isExpanded &&
         <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)} role="menu">
-          {subItemList.map((subItem, index) =>
-            <NavItem className={styles.subNavItem} 
-              key={index} 
-              label={subItem.label} 
-              link={subItem.link} 
-              isActive={path === subItem.link} 
-              onClick={onClick}/>)
-          }
+          { subItems }
         </ul>
       }
+    </li>
+  );
+}
+
+
+interface SubNavItemProps {
+  key: number | string
+  label: string
+  onClick: () => void
+}
+function SubNavItem ({ key, label, onClick }: SubNavItemProps) {
+  return (
+    <li key={key}>
+      <button
+        className={styles.subNavItemButton}
+        onClick={onClick}
+      >
+        sub {label}
+      </button>
     </li>
   );
 }
