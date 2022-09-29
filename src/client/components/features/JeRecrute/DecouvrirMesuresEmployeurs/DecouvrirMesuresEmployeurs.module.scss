@@ -1,0 +1,63 @@
+@import "@styles/utilities";
+
+.section {
+  padding: 3rem 0;
+  background: $color-background-white-lilac;
+
+  &Container {
+    display: grid;
+    gap: 3rem;
+    padding: 0 1.5rem;
+    place-items: center;
+
+    &Illustration {
+      display: none;
+      position: relative;
+      width: 30rem;
+      height: 30rem;
+    }
+
+    &Text {
+      &Titre {
+        color: $color-primary;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: 700;
+
+        &Accroche {
+          font-size: 1.5rem;
+          color: $color-secondary;
+          font-weight: 400;
+        }
+      }
+      a {
+        @extend %box-shadow;
+        background-color: $color-background-white-lilac;
+        color: $color-primary;
+        border: 1px solid $color-primary;
+        padding: 1rem 0.8rem;
+        height: 3rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@include media(large) {
+  .section {
+    padding: 2rem 14rem 0 14rem;
+
+    &Container {
+      grid-template-columns: repeat(2, 1fr);
+
+      &Illustration {
+        display: block;
+      }
+
+      a {
+        padding: 0 1.5rem;
+        height: 2.5rem;
+      }
+    }
+  }
+}

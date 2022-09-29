@@ -1,3 +1,6 @@
+import DecouvrirMesuresEmployeurs
+  from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
+
 import { HeadTag } from '../../utils/HeaderTag';
 import { DécouvrirDispositifs } from './DecouvrirDispositifs/DecouvrirDispositifs';
 
@@ -10,6 +13,7 @@ export function JeRecrute () {
       />
       <main>
         <DécouvrirDispositifs />
+        <DecouvrirMesuresEmployeurs />
       </main>
     </>
   );
