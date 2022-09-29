@@ -14,13 +14,13 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
     nom: 'Toto',
     nomSociété: 'Octo',
     prénom: 'Tata',
-    secteur: 'Dev',
+    secteur: 'households-employers',
     siret: '123456789123',
     taille: '~ 1000',
     travail: 'Dev',
     téléphone: '0611223344',
   };
-  
+
   describe('.save()', () => {
     it('fait un POST vers Strapi', async () => {
       // Given
@@ -33,7 +33,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
           nom: 'Toto',
           nom_societe: 'Octo',
           prenom: 'Tata',
-          secteur: 'Dev',
+          secteur: 'households-employers',
           siret: '123456789123',
           taille: '~ 1000',
           telephone: '0611223344',

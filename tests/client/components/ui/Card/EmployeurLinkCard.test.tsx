@@ -13,7 +13,7 @@ describe('<EmployeurLinkCard>', () => {
     // Given
     const pourQui = 'ceci est le texte de **pour qui**';
     // When
-    render(<EmployeurLinkCard link="/coucou" title="test" src="test.img" pourQui={ pourQui } />);
+    render(<EmployeurLinkCard link="/coucou" title="test" imageUrl="/test.img" pourQui={ pourQui } />);
     // Then
     expect(screen.getByText('pour qui').tagName).toEqual('STRONG');
   });

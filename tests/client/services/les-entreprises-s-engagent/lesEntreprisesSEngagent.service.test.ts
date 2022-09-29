@@ -25,6 +25,7 @@ describe('LesEntreprisesSEngagentService', () => {
         taille: '~ 1000',
         travail: 'Dev',
         téléphone: '0611223344',
+        ville: 'Maison-Alfort',
       });
 
       expect(httpClientService.post).toHaveBeenCalledWith('entreprises', {
@@ -38,6 +39,7 @@ describe('LesEntreprisesSEngagentService', () => {
         taille: '~ 1000',
         travail: 'Dev',
         téléphone: '0611223344',
+        ville: 'Maison-Alfort',
       });
       expect(result).toEqual(createSuccess(undefined));
     });
@@ -60,19 +62,7 @@ describe('LesEntreprisesSEngagentService', () => {
         taille: '~ 1000',
         travail: 'Dev',
         téléphone: '0611223344',
-      });
-
-      expect(httpClientService.post).toHaveBeenCalledWith('entreprises', {
-        codePostal: '75002',
-        email: 'email@octo.com',
-        nom: 'Toto',
-        nomSociété: 'Octo',
-        prénom: 'Tata',
-        secteur: 'Dev',
-        siret: '123456789123',
-        taille: '~ 1000',
-        travail: 'Dev',
-        téléphone: '0611223344',
+        ville: 'Maison-Lafitte',
       });
       expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
     });
