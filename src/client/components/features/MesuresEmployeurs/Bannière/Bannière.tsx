@@ -8,7 +8,6 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export default function Bannière () {
   const { isLargeScreen } = useBreakpoint();
-  const titre = 'Mesures Employeurs';
 
   return (
     <div className={styles.bannière}>
@@ -24,7 +23,7 @@ export default function Bannière () {
           <Image
             priority
             src={bannièreImage}
-            alt={ titre }
+            alt=""
             layout="fill"
             objectFit="contain"
             objectPosition="right"
