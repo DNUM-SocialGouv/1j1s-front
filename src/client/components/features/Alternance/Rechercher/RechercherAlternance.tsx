@@ -6,7 +6,7 @@ import {
   FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
+import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
 import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
@@ -64,7 +64,7 @@ export function RechercherAlternance() {
 
   const partnerCardList = [
     SimulationAlternancePartner().props,
-    CIDJPartner().props,
+    OnisepPartnerCard().props,
   ];
 
   return (

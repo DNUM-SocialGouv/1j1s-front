@@ -10,14 +10,15 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface PartnerCardProps {
-  logo: string
-  link: string
-  title?: string
+  alt?: string
+  description: string
   headline?: string
   headlineColor?: string
-  description: string
+  logo: string
+  logoRatio?: 'portrait' | 'paysage'
+  link: string
   linkLabel: string
-  alt: string
+  title?: string
 }
 
 export function PartnerCardList(list: PartnerCardProps[], title?: string){
@@ -37,8 +38,7 @@ export function PartnerCardList(list: PartnerCardProps[], title?: string){
   );
 }
 
-export function PartnerCard(props: PartnerCardProps) {
-  const { logo, link, title, headline, linkLabel, headlineColor, description, alt } = props;
+export function PartnerCard({ alt = '', description, headline, headlineColor, logo, logoRatio = 'portrait', link, linkLabel, title }: PartnerCardProps) {
   const isInternalLink = useIsInternalLink(link);
 
   const icon = useMemo(function () {
@@ -51,20 +51,18 @@ export function PartnerCard(props: PartnerCardProps) {
     <Link href={link} className={classNames(styles.card, 'underline-none')}>
       <>
         <div className={styles.cardLogo}>
-          <Image alt={alt} src={logo} width='100%' height='100%'/>
+          <div className={classNames(styles.cardLogoWrapper, logoRatio === 'paysage' ? styles.cardLogoWrapperPaysage : styles.cardLogoWrapperPortrait)}>
+            <Image alt={alt} src={logo} layout='fill'/>
+          </div>
         </div>
         <div className={styles.cardBody}>
-          { title &&
-            <span className={styles.cardBody__Title}>{title}</span>
-          }
+          {title && <span className={styles.cardBody__Title}>{title}</span>}
           <p>
-            { headline &&
-              <strong style={ hasHeadlineColor } className={styles.cardHeadline}>{headline}</strong>
-            }
+            {headline && <strong style={ hasHeadlineColor } className={styles.cardHeadline}>{headline}</strong>}
             {description}
           </p>
           <span className={styles.cardAction}>
-            {linkLabel}
+            <span>{linkLabel}</span>
             {icon}
           </span>
         </div>

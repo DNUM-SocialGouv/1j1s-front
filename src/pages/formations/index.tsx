@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { CIDJPartner } from '~/client/components/features/Partner/CIDJPartner';
 import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
 import { MonCompteFormationPartner } from '~/client/components/features/Partner/MonCompteFormationPartner';
+import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
 import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourSupPartner';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -25,7 +25,7 @@ export default function FormationPage() {
         {PartnerCardList([
           MonCompteFormationPartner().props,
           ParcourSupPartner().props,
-          CIDJPartner().props,
+          OnisepPartnerCard().props,
           MétierDuSoinPartner().props,
         ],
         'Je découvre les dispositifs pour m’accompagner dans ma formation')}
