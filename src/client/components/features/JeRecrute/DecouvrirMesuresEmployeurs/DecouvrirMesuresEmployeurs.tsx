@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import illustration from 'public/icons/decouverteMesuresEmployeurs.svg';
 import React from 'react';
 
 import styles from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs.module.scss';
@@ -11,7 +10,7 @@ export default function DecouvrirMesuresEmployeurs() {
     <section className={ styles.section }>
       <div className={ styles.sectionContainer }>
         <aside className= { styles.sectionContainerIllustration }>
-          <Image src={ illustration } objectFit='cover' layout='fill' alt='' />
+          <Image src="/icons/decouverteMesuresEmployeurs.svg" objectFit='cover' layout='fill' alt='' />
         </aside>
         <article className={ styles.sectionContainerText }>
           <h2 className={styles.sectionContainerTextTitre}>Découvrez les mesures du plan 1jeune1solution pour vous aider
