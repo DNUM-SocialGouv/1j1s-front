@@ -67,14 +67,10 @@
       @extend %text-large;
       @extend %bold;
       display: flex;
-      min-height: 60vh;
       text-align: center;
       color: $color-primary;
       h1 {
         margin: 2rem;
-      }
-      > div {
-        margin: auto;
       }
       &Link {
         @extend %text-regular;
@@ -227,6 +223,15 @@
 @include media(large) {
   .accompagnement {
     padding: 5rem 2rem;
+
+    &Modal {
+      > div:first-child {
+        width: 40%;
+        height: 40vh;
+        margin: auto;
+        border-radius: 20px;
+      }
+    }
 
     &Container {
       padding: 0;
