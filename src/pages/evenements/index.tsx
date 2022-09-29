@@ -27,7 +27,7 @@ export default function PageEvenements() {
             </LinkAsButton>
           </div>
           <div className={styles.imageContent}>
-            <Image src='/images/banners/evenements.webp' alt='' layout='fill' objectFit='cover' />
+            <Image src='/images/homepage/evenements.webp' alt='' layout='fill' objectFit='cover' />
           </div>
         </div>
       </main>

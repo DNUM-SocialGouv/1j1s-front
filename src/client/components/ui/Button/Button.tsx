@@ -6,6 +6,9 @@ import React, {
 import styles from '~/client/components/ui/Button/Button.module.scss';
 import { ButtonProps } from '~/client/components/ui/Button/button.props';
 
+/**
+ * @deprecated Utilisez le composant <ButtonComponent> à la place. Ce bouton sera retiré.
+ */
 export function Button({ children, buttonType='primary', buttonOnDarkBackground= false, icon, className, ...rest } : React.PropsWithChildren<ButtonProps>) {
   const getButton = useCallback(() => {
     const primaryStyle = buttonOnDarkBackground ? styles.buttonPrimaryOnDarkBackground : styles.buttonPrimary;
