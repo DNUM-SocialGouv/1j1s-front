@@ -241,4 +241,26 @@
       padding-left: 2.5rem;
     }
   }
+
+  .embeddedNavItem {
+      @extend .subNavItem;
+      button {
+        @extend .navItemLabel;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+  }
+
+  .subNavItemButton.embedded {
+    flex-direction: row-reverse;
+    > span {
+      flex-grow: 2;
+      text-align: left;
+      padding-left: .3rem;
+    }
+    > .subNavItemIconExpanded {
+      transform: rotate(90deg);
+    }
+  }
 }
