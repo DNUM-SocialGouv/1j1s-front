@@ -33,7 +33,7 @@ export function Footer() {
     },
   ];
 
-  const MAIL_TO = '1j1s@sg.social.gouv.fr';
+  const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
   return (
     <>
       <p className={styles.preFooter}>

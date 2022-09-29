@@ -11,7 +11,7 @@ import styles from './PlanDuSite.module.scss';
 
 export default function PlanDuSite() {
 
-  const MAIL_TO = '1j1s@sg.social.gouv.fr';
+  const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
   function displayLinkWithChildren(children: NavigationItemWithChildren) {
     return (
