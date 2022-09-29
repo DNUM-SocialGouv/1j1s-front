@@ -26,7 +26,7 @@ export default function MesAidesPage() {
               </LinkAsButton>
             </div>
             <div className={styles.mesAidesBannièreIllustration}>
-              <Image src="/images/banners/mes-aides-financières.jpg" alt="" layout="fill" objectFit="cover" objectPosition="top left" />
+              <Image src="/images/aides-financières.webp" alt="" layout="fill" objectFit="cover" objectPosition="top left" />
             </div>
           </Container>
         </div>

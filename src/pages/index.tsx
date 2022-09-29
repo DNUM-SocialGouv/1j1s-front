@@ -15,7 +15,7 @@ export default function Accueil() {
   return (
     <>
       <HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
-      <Hero image="/images/banners/homepage.webp">
+      <Hero image="/images/portraits-verticaux.webp">
         <p><b>À chacun sa solution.</b></p>
         <p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
       </Hero>
@@ -27,7 +27,7 @@ export default function Accueil() {
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
-              imageUrl="/images/homepage/emploi.webp"
+              imageUrl="/images/emploi.webp"
               link="/emplois"
               linkLabel="Voir les offres"
               title="Emplois"
@@ -35,7 +35,7 @@ export default function Accueil() {
               <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/stage.webp"
+              imageUrl="/images/stage.webp"
               link="/stages"
               linkLabel="Voir les offres"
               title="Stages"
@@ -43,7 +43,7 @@ export default function Accueil() {
               <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/alternance.webp"
+              imageUrl="/images/alternance.webp"
               link="/apprentissage"
               linkLabel="Voir les offres"
               title="Contrats d'alternance"
@@ -55,7 +55,7 @@ export default function Accueil() {
           <SeeMore>
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
-                imageUrl="/images/homepage/jobs-été.webp"
+                imageUrl="/images/jobs-étudiant.webp"
                 link="/jobs-etudiants"
                 linkLabel="Voir les offres"
                 title="Jobs étudiants"
@@ -63,7 +63,7 @@ export default function Accueil() {
                 <p>Des milliers d&apos;offres d&apos;emplois pour les étudiants</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/entrepreneurs.webp"
+                imageUrl="/images/entrepreneurs.webp"
                 link="/"
                 linkLabel="Voir les offres"
                 title="Je veux devenir entrepreneur"
@@ -71,7 +71,7 @@ export default function Accueil() {
                 <p>Retrouvez les conseils, outils et structures d’accompagnement pour vous aider à entreprendre.</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/europe.webp"
+                imageUrl="/images/europe.webp"
                 link="/europe"
                 linkLabel="Voir les offres"
                 title="Une expérience en Europe"
@@ -90,7 +90,7 @@ export default function Accueil() {
           </h2>
           <div className={styles.cardList}>
             <LinkCard
-              imageUrl="/images/homepage/formations-initiales.webp"
+              imageUrl="/images/formations-initiales.webp"
               link="/formations"
               linkLabel="En savoir plus"
               title="Formations"
@@ -98,7 +98,7 @@ export default function Accueil() {
               <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/métiers.webp"
+              imageUrl="/images/métiers.webp"
               link="/decouvrir-les-metiers"
               linkLabel="En savoir plus"
               title="Je découvre mon futur métier"
@@ -115,7 +115,7 @@ export default function Accueil() {
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
             <LinkCard
-              imageUrl="/images/homepage/cej.webp"
+              imageUrl="/images/cej.webp"
               link="/contrat-engagement-jeune"
               linkLabel="Découvrir le CEJ"
               title="Je découvre le Contrat d’Engagement Jeune (CEJ)"
@@ -123,7 +123,7 @@ export default function Accueil() {
               <p>Un parcours personnalisé pour vous aider à définir votre projet et trouver un emploi.</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/aides-financières.webp"
+              imageUrl="/images/aides-financières.webp"
               link="/mes-aides"
               linkLabel="Découvrir mes aides"
               title="J'accède à mes aides"
@@ -131,7 +131,7 @@ export default function Accueil() {
               <p>Trouvez les aides auxquelles vous avez droit en moins de 5 minutes : logement, santé, mobilité, emploi, culture, etc.</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/mentorat.webp"
+              imageUrl="/images/mentorat.webp"
               link="/mentorat"
               linkLabel="En savoir plus"
               title="Je souhaite échanger avec un mentor"
@@ -143,7 +143,7 @@ export default function Accueil() {
           <SeeMore>
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
               <LinkCard
-                imageUrl="/images/homepage/créer-son-cv.webp"
+                imageUrl="/images/créer-son-cv.webp"
                 link="/creer-mon-cv"
                 linkLabel="En savoir plus"
                 title="Je crée mon CV personnalisé"
@@ -151,7 +151,7 @@ export default function Accueil() {
                 <p>Mettez en avant vos compétences dans un CV, même si vous pensez ne pas avoir d&apos;expérience.</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/accompagnement.webp"
+                imageUrl="/images/accompagnement.webp"
                 link="/accompagnement"
                 linkLabel="En savoir plus"
                 title="Je souhaite être accompagné·e"
@@ -159,7 +159,7 @@ export default function Accueil() {
                 <p>Retrouvez les structures proches de chez vous pouvant vous aider dans vos démarches ou votre parcours.</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/homepage/mesures-jeunes.webp"
+                imageUrl="/images/mesures-jeunes.webp"
                 link="/mesures-jeunes"
                 linkLabel="En savoir plus"
                 title="Je consulte les mesures jeunes"
@@ -177,7 +177,7 @@ export default function Accueil() {
           </h2>
           <div className={styles.cardList}>
             <LinkCard
-              imageUrl="/images/homepage/service-civique.webp"
+              imageUrl="/images/service-civique.webp"
               link="/service-civique"
               linkLabel="Voir les offres"
               title="Service civique"
@@ -185,7 +185,7 @@ export default function Accueil() {
               <p>Je réalise une mission citoyenne de 6 à 12 mois, donnant le droit à une indemnisation</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/homepage/bénévolat.webp"
+              imageUrl="/images/bénévolat.webp"
               link="/benevolat"
               linkLabel="Voir les offres"
               title="Bénévolat"

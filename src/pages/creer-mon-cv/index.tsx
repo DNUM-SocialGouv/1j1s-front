@@ -14,7 +14,7 @@ export default function FormationPage() {
           content={heroCVContent()}
           buttonHref="https://cv.1jeune1solution.beta.gouv.fr/#/connexion"
           buttonLabel="Je crée mon CV"
-          imgSrc="/images/banners/créer-cv.jpg"
+          imgSrc="/images/créer-son-cv.webp"
         />
       </main>
     </>
