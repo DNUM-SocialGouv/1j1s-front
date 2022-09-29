@@ -10,6 +10,6 @@ export function useIsInternalLink(href: string) {
   }, []);
 
   return useMemo(function () {
-    return href.startsWith(origin) || href.startsWith(PATHNAME_PREFIX);
+    return href?.startsWith(origin) || href?.startsWith(PATHNAME_PREFIX);
   }, [href, origin]);
 }

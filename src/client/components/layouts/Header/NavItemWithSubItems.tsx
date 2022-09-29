@@ -9,12 +9,12 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
+import { isNavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 interface NavItemWithSubItemsProps {
-  onClick?: MouseEventHandler<HTMLAnchorElement>
+  onClick?: () => void
   path: string
   item: NavigationItemWithChildren
 }
@@ -23,28 +23,40 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
   const optionsRef = useRef<HTMLLIElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
+  const [previousItems, setPreviousItems] = useState<NavigationItemWithChildren[]>([]);
   const label = currentItem.label;
   const subItems = currentItem.children;
-  const isRoot = root === currentItem;
+  const isRoot = root.label === currentItem.label;
 
   const isActive = useMemo(() => {
     return root.children.some((subItem) => isNavigationItem(subItem) && subItem.link === path);
   }, [path, root]);
+  const reset = useCallback(() => {
+    setIsExpanded(false);
+    setCurrentItem(root);
+    setPreviousItems([]);
+  }, [setIsExpanded, setCurrentItem, root]);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-    if (!(optionsRef.current)?.contains(event.target as Node)) {
-      setIsExpanded(false);
+    if (!optionsRef.current?.contains(event.target as Node)) {
+      reset();
     }
-  }, []);
+  }, [reset]);
 
   const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
     if (event.key === KeyBoard.ESCAPE) {
-      setIsExpanded(false);
+      reset();
     }
-  }, []);
+  }, [reset]);
 
   function selectEmbeddedNavItem(item: NavigationItemWithChildren) {
+    setPreviousItems([currentItem, ...previousItems]);
     setCurrentItem(item);
+  }
+  function popItem () {
+    const [ next, ...parents ] = previousItems;
+    setCurrentItem(next || root);
+    setPreviousItems(parents);
   }
 
   useEffect(function setEventListenerOnMount() {
@@ -65,7 +77,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
           label={item.label} 
           link={item.link} 
           isActive={path === item.link} 
-          onClick={onClick}/>
+          onClick={() => {reset();onClick;}}/>
       );
     } else {
       return (
@@ -79,11 +91,12 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
 
   });
 
+
   return (
     <li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
       <button
         className={classNames(styles.subNavItemButton, { [styles.embedded]: !isRoot })}
-        onClick={() => isRoot ? setIsExpanded(!isExpanded) : setCurrentItem(root)}
+        onClick={() => isRoot ? setIsExpanded(!isExpanded) : popItem()}
         aria-expanded={isExpanded}>
         <span className={styles.subNavItemLabel} aria-current={isActive}>{label}</span>
         <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down" />
