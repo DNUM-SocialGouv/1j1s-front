@@ -5,7 +5,6 @@
   background: $color-background-white-lilac;
 
   &Container {
-    @extend %max-container;
     display: grid;
     gap: 3rem;
     padding: 0 1.5rem;
@@ -46,7 +45,7 @@
 
 @include media(large) {
   .section {
-    padding: 2rem 14rem 0rem 14rem;
+    padding: 2rem 14rem 0 14rem;
 
     &Container {
       grid-template-columns: repeat(2, 1fr);
