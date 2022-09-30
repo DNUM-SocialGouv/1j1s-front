@@ -60,7 +60,17 @@
 
     &__Title {
       @extend %headline;
+      margin-bottom: 1rem;
+    }
+
+    &__TitlePrimary {
+      @extend %bold;
       color: $color-primary;
+      margin-bottom: 1rem;
+    }
+
+    &__TitleSecondary {
+      color: $color-secondary;
       margin-bottom: 1rem;
     }
 

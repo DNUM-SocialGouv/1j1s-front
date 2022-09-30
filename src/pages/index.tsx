@@ -105,6 +105,14 @@ export default function Accueil() {
             >
               <p>Parcourez plus de 700 fiches métiers et trouvez celui qui vous correspond</p>
             </LinkCard>
+            <LinkCard
+              imageUrl="/images/évènements.webp"
+              link="/evenements"
+              linkLabel="En savoir plus"
+              title="Je participe à un évènement"
+            >
+              <p>Des centaines d&apos;événements de recrutement pour tous les jeunes, partout en France</p>
+            </LinkCard>
           </div>
         </section>
 

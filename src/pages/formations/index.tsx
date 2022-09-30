@@ -8,15 +8,14 @@ import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourS
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
-import styles from './Formations.module.scss';
-
 export default function FormationPage() {
   return (
     <>
       <HeadTag title="Rechercher une formation | 1jeune1solution"/>
       <main id="contenu">
         <HeroWithButtonLink
-          titre={heroFormationTitle()}
+          titlePrimaryText="Trouvez la formation pour réaliser "
+          titleSecondaryText="votre projet professionnel"
           content={heroFormationContent()}
           buttonHref="https://reseau.intercariforef.org/"
           buttonLabel="Je trouve ma formation"
@@ -30,15 +29,6 @@ export default function FormationPage() {
         ],
         'Je découvre les dispositifs pour m’accompagner dans ma formation')}
       </main>
-    </>
-  );
-};
-
-function heroFormationTitle() {
-  return(
-    <>
-      <b>Trouvez la formation pour réaliser</b>
-      <span className={styles.heroText}> votre projet professionnel</span>
     </>
   );
 };
