@@ -63,6 +63,11 @@
   }
 
   &Modal {
+    > div:first-child {
+      height: 35vh;
+      margin: 15rem 1rem 8rem 1rem;
+      border-radius: 20px;
+    }
     &Content {
       @extend %text-large;
       @extend %bold;
@@ -235,7 +240,6 @@
         width: 40%;
         height: 35vh;
         margin: auto;
-        border-radius: 20px;
       }
     }
 
