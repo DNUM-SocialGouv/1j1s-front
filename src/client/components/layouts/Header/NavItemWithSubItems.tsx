@@ -69,6 +69,13 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
     };
   }, [closeMenuOnEscape, closeOptionsOnClickOutside]);
 
+  function onItemSelected () {
+    reset();
+    if (onClick){
+      onClick();
+    } 
+  }
+
   const subNav = subItems.map((item, index) => {
     if (isNavigationItem(item)) {
       return (
@@ -77,7 +84,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
           label={item.label} 
           link={item.link} 
           isActive={path === item.link} 
-          onClick={() => {reset();onClick;}}/>
+          onClick={onItemSelected}/>
       );
     } else {
       return (
@@ -102,7 +109,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
         <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down" />
       </button>
       {isExpanded &&
-        <ul className={styles.subNavItemList} onClick={() => setIsExpanded(!isExpanded)} role="menu">
+        <ul className={styles.subNavItemList} role="menu">
           { subNav }
         </ul>
       }
@@ -112,13 +119,12 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
 
 
 interface SubNavItemProps {
-  key: number | string
   label: string
   onClick: MouseEventHandler
 }
-function SubNavItem ({ key, label, onClick }: SubNavItemProps) {
+function SubNavItem ({ label, onClick }: SubNavItemProps) {
   return (
-    <li key={key} className={styles.embeddedNavItem}>
+    <li className={styles.embeddedNavItem}>
       <button
         className={styles.embeddedNavItemButton}
         onClick={onClick}

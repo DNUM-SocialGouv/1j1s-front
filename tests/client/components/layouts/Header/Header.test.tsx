@@ -8,6 +8,7 @@ import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
 
 import { Header } from '~/client/components/layouts/Header/Header';
 import resetAllMocks = jest.resetAllMocks
+import userEvent from '@testing-library/user-event';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 describe('Header', () => {
@@ -113,6 +114,27 @@ describe('Header', () => {
         const item = within(menu).getByRole('link');
         fireEvent.click(item);
         expect(menu).not.toBeInTheDocument();
+      });
+    });
+    describe('Au clic sur le menu employeur', () => {
+      it('affiche les menus en profondeur', async () => {
+        // Given
+        mockUseRouter({ pathname: '/' });
+        const router = createMockRouter({ pathname: '/' });
+        render(
+          <RouterContext.Provider value={router}>
+            <Header />
+          </RouterContext.Provider>,
+        );
+        // When
+        await userEvent.click(screen.getByRole('button'));
+        const sectionEmployeur = screen.getByText('Je suis employeur');
+        await userEvent.click(sectionEmployeur);
+        const subItem = within(screen.getByRole('menu')).getByText('Recruter et agir pour les jeunes');
+        await userEvent.click(subItem);
+        // Then
+        expect(screen.queryByText('Je suis employeur')).not.toBeInTheDocument();
+        expect(sectionEmployeur).toHaveTextContent('Recruter et agir pour les jeunes');
       });
     });
   });
