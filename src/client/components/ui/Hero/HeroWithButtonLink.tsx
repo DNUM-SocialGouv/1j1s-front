@@ -6,7 +6,8 @@ import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroWithButtonLinkProps {
-  titre: React.ReactNode
+  titlePrimaryText: React.ReactNode
+  titleSecondaryText?: React.ReactNode
   content: React.ReactNode
   buttonLabel: string
   buttonHref: string
@@ -14,7 +15,7 @@ interface HeroWithButtonLinkProps {
 }
 
 export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
-  const { titre, content, buttonLabel, buttonHref, imgSrc } = props;
+  const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonHref, imgSrc } = props;
 
   const { isLargeScreen } = useBreakpoint();
 
@@ -23,7 +24,8 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
       <div className={styles.headingContainerWrapper}>
         <div className={styles.headingContainer}>
           <h1 className={styles.headingContainer__Title}>
-            {titre}
+            <span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
+            {titleSecondaryText && <span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>}
           </h1>
           <p className={styles.headingContainer__TextContent}>
             {content}
