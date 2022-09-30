@@ -70,7 +70,14 @@
       text-align: center;
       color: $color-primary;
       h1 {
-        margin: 2rem;
+        @extend %text-large;
+        @extend %bold;
+        margin: 1rem 2rem;
+      }
+      p {
+        @extend %text-small, %background-surface;
+        margin: 0 2rem;
+        font-weight: 400;
       }
       &Link {
         @extend %text-regular;
@@ -227,7 +234,7 @@
     &Modal {
       > div:first-child {
         width: 40%;
-        height: 40vh;
+        height: 35vh;
         margin: auto;
         border-radius: 20px;
       }
