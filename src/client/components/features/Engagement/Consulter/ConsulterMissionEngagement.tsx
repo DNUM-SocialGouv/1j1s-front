@@ -21,16 +21,18 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
         <h1>{missionEngagement.titre}</h1>
         {missionEngagement.nomEntreprise && <h2>{missionEngagement.nomEntreprise}</h2>}
         <TagList list={missionEngagement.étiquetteList} aria-label="Caractéristiques de la mission" />
+        <div className={commonStyles.buttonAsLinkWrapper}>
+          <div className={commonStyles.buttonAsLink}>
+            <LinkAsButton
+              href={missionEngagement.url}
+              target="_blank"
+            >
+              Postuler
+            </LinkAsButton>
+          </div>
+        </div>
       </header>
       <section className={commonStyles.contenu}>
-        <div className={commonStyles.buttonAsLink}>
-          <LinkAsButton
-            href={missionEngagement.url}
-            target="_blank"
-          >
-            Postuler
-          </LinkAsButton>
-        </div>
         {missionEngagement.localisation &&
           <div className={commonStyles.contenuAdaptatif}>
             <h3>Où ? </h3><p dangerouslySetInnerHTML={{ __html: localisationMissionEngagement }}/>

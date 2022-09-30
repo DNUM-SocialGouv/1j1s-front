@@ -7,5 +7,7 @@
     @media (min-width: $breakpoint-lg) { @content; }
   } @else if $size == xlarge {
     @media (min-width: $breakpoint-xl) { @content; }
+  } @else if $size == small {
+   @media (min-width: $breakpoint-sm) { @content; }
   }
 }

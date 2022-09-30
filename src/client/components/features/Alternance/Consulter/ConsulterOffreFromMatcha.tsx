@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
-import { Button } from '~/client/components/ui/Button/Button';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useSanitize from '~/client/hooks/useSanitize';
 import { constructUrlWidgetPourPostulerOffreMatcha } from '~/client/utils/alternance.utils';
@@ -9,13 +8,13 @@ import { ConsulterOffreAlternanceMatcha } from '~/server/alternances/infra/repos
 
 interface ConsulterOffreFromMatchaProps {
   offreAlternance: ConsulterOffreAlternanceMatcha
+  isModalPostulerOpen: boolean
+  setIsModalPostulerOpen: (value:boolean) => void
 }
 
 export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
-  const { offreAlternance } = props;
+  const { offreAlternance, isModalPostulerOpen, setIsModalPostulerOpen } = props;
   const descriptionOffreAlternance = useSanitize(offreAlternance.description);
-
-  const [isModalPostulerOpen, setIsModalPostulerOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -36,13 +35,6 @@ export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
           )
       }
       <section className={commonStyles.contenu}>
-        <div className={commonStyles.buttonAsLink}>
-          <Button
-            onClick={() => setIsModalPostulerOpen(true)}
-            buttonType={'primary'}>
-            Je postule
-          </Button>
-        </div>
         {offreAlternance.description &&
           <div>
             <h3>Description du poste :</h3>

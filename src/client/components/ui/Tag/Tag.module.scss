@@ -4,13 +4,11 @@ $color-tag: #EEEEEE;
 
 .tag {
   @extend %text-small;
-  display: block;
   padding: 2px 8px;
   background-color: $color-tag;
   border-radius: calc((2px * 2 + 1.25rem) / 2);
 
   @include media(large) {
-    display: block;
     padding: 4px 12px;
     border-radius: calc((4px * 2 + 1.5rem) / 2);
   }

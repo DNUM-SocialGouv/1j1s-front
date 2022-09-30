@@ -43,6 +43,11 @@
   }
 
   &Dispositif {
+    &__Title {
+      > span {
+        display: contents;
+      }
+    }
     padding: 2rem;
     > div > * {
       margin-bottom: 2.5rem;
@@ -57,6 +62,7 @@
         svg {
           flex-shrink: 0;
           margin-right: 0.75rem;
+          margin-top: 0.2rem;
         }
         & > div > p > span {
            display: inline-block;
@@ -71,15 +77,10 @@
         color: $color-primary;
         text-align: center;
       }
-      > p {
-        padding: 0 2.5rem;
-      }
       & h4 {
         @extend %bold;
         font-size:  1rem;
       }
-
-
     }
   }
 
@@ -129,6 +130,13 @@
   }
 }
 
+@include media(small) {
+  .sectionDispositif__Title {
+    > span {
+      display: block;
+    }
+  }
+}
 
 @include media(medium) {
   .section {
@@ -149,7 +157,7 @@
       display: flex;
       & a > span {
         justify-content: flex-start;
-        font-size: 1.25rem;
+        font-size: 1rem;
       }
     }
 
@@ -178,7 +186,7 @@
       padding: 5rem 0;
       max-width: 756px;
       h2 {
-        font-size: 2rem;
+        font-size: 1.75rem;
         margin-bottom: 2.5rem;
         text-align: center;
       }
@@ -197,7 +205,8 @@
           margin-bottom: 3.25rem;
         }
         > span {
-          margin: 1.25rem auto 0;
+          font-size: 1rem;
+          margin: 0 auto;
         }
       }
     }
@@ -213,14 +222,15 @@
         border-radius: 20px;
         display: initial;
         width: 560px;
-        height: 188px;
         margin-right: 2rem;
       }
     }
     &NiveauAnglais {
       padding: 0;
       &__ImageWrapper {
-        padding: 5rem 2rem 5rem 0;
+        display: flex;
+        align-items: center;
+        padding: 5rem 2rem;
         width: 36%;
         background-color: $color-background-white-lilac;
       }
@@ -232,8 +242,8 @@
       display: flex;
       .logoWrapper {
         margin-right: 5rem;
-        width: 400px;
-        height: 283px;
+        width: 210px;
+        height: 150px;
       }
     }
   }
