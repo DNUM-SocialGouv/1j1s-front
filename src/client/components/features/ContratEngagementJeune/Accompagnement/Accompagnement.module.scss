@@ -138,7 +138,6 @@
     }
 
     &__Content {
-      min-height: 60vh;
       display: flex;
       > div {
         margin: auto;
@@ -275,6 +274,12 @@
     }
 
     &Dispositifs {
+      > div:first-child {
+        width: 60%;
+        height: 60vh;
+        margin: auto;
+        border-radius: 20px;
+      }
       &Position {
         display: flex;
         flex-wrap: wrap;
