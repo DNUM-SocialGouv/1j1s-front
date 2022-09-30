@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -11,18 +8,13 @@ import { ConsulterOffreAlternanceMatcha } from '~/server/alternances/infra/repos
 
 interface ConsulterOffreFromMatchaProps {
   offreAlternance: ConsulterOffreAlternanceMatcha
-  isModalOpen: boolean
+  isModalPostulerOpen: boolean
+  setIsModalPostulerOpen: (value:boolean) => void
 }
 
 export function ConsulterOffreFromMatcha(props: ConsulterOffreFromMatchaProps) {
-  const { offreAlternance, isModalOpen } = props;
+  const { offreAlternance, isModalPostulerOpen, setIsModalPostulerOpen } = props;
   const descriptionOffreAlternance = useSanitize(offreAlternance.description);
-
-  const [isModalPostulerOpen, setIsModalPostulerOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (isModalOpen) setIsModalPostulerOpen(true);
-  }, [isModalOpen]);
 
   return (
     <>

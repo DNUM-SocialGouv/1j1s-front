@@ -131,16 +131,13 @@
 }
 
 @include media(small) {
-  .section {
-    &Dispositif {
-      &__Title {
-        > span {
-          display: block;
-        }
-      }
+  .sectionDispositif__Title {
+    > span {
+      display: block;
     }
   }
 }
+
 @include media(medium) {
   .section {
     &ExperienceEurope {
