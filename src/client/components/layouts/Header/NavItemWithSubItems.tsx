@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { 
-  MouseEventHandler, 
-  useCallback, useEffect, 
+  useCallback,
+  useEffect, 
   useMemo, 
   useRef, 
   useState, 
@@ -13,6 +13,8 @@ import { isNavigationItem, NavigationItemWithChildren } from '~/client/component
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
+import { EmbeddedNavItem } from './EmbeddedNavItem';
+
 interface NavItemWithSubItemsProps {
   onClick?: () => void
   path: string
@@ -23,7 +25,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
   const optionsRef = useRef<HTMLLIElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
-  const [previousItems, setPreviousItems] = useState<NavigationItemWithChildren[]>([]);
+  const [previousEmbeddedItems, setPreviousEmbeddedItems] = useState<NavigationItemWithChildren[]>([]);
   const label = currentItem.label;
   const subItems = currentItem.children;
   const isRoot = root.label === currentItem.label;
@@ -31,10 +33,11 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
   const isActive = useMemo(() => {
     return root.children.some((subItem) => isNavigationItem(subItem) && subItem.link === path);
   }, [path, root]);
+
   const reset = useCallback(() => {
     setIsExpanded(false);
     setCurrentItem(root);
-    setPreviousItems([]);
+    setPreviousEmbeddedItems([]);
   }, [setIsExpanded, setCurrentItem, root]);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
@@ -50,14 +53,21 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
   }, [reset]);
 
   function selectEmbeddedNavItem(item: NavigationItemWithChildren) {
-    setPreviousItems([currentItem, ...previousItems]);
+    setPreviousEmbeddedItems([currentItem, ...previousEmbeddedItems]);
     setCurrentItem(item);
   }
-  function popItem () {
-    const [ next, ...parents ] = previousItems;
+  function popEmbeddedItem () {
+    const [ next, ...parents ] = previousEmbeddedItems;
     setCurrentItem(next || root);
-    setPreviousItems(parents);
+    setPreviousEmbeddedItems(parents);
   }
+  function onItemSelected () {
+    reset();
+    if (onClick){
+      onClick();
+    } 
+  }
+
 
   useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
@@ -68,13 +78,6 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
       document.removeEventListener('keyup', closeMenuOnEscape);
     };
   }, [closeMenuOnEscape, closeOptionsOnClickOutside]);
-
-  function onItemSelected () {
-    reset();
-    if (onClick){
-      onClick();
-    } 
-  }
 
   const subNav = subItems.map((item, index) => {
     if (isNavigationItem(item)) {
@@ -88,7 +91,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
       );
     } else {
       return (
-        <SubNavItem
+        <EmbeddedNavItem
           label={item.label}
           key={index}
           onClick={(e) => { e.stopPropagation(); selectEmbeddedNavItem(item);}}
@@ -103,7 +106,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
     <li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
       <button
         className={classNames(styles.subNavItemButton, { [styles.embedded]: !isRoot })}
-        onClick={() => isRoot ? setIsExpanded(!isExpanded) : popItem()}
+        onClick={() => isRoot ? setIsExpanded(!isExpanded) : popEmbeddedItem()}
         aria-expanded={isExpanded}>
         <span className={styles.subNavItemLabel} aria-current={isActive}>{label}</span>
         <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down" />
@@ -113,24 +116,6 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
           { subNav }
         </ul>
       }
-    </li>
-  );
-}
-
-
-interface SubNavItemProps {
-  label: string
-  onClick: MouseEventHandler
-}
-function SubNavItem ({ label, onClick }: SubNavItemProps) {
-  return (
-    <li className={styles.embeddedNavItem}>
-      <button
-        className={styles.embeddedNavItemButton}
-        onClick={onClick}
-      >
-        {label} <Icon name="angle-right" />
-      </button>
     </li>
   );
 }
