@@ -22,7 +22,7 @@ export function MesAidesVideo() {
           (
             <button className={styles.mesAidesVidéoButton} onClick={onClick} aria-label='Lancer la vidéo'>
               <Image
-                src='/images/mesAides/videoPlaceHolder.png'
+                src='/images/lancer-la-vidéo.png'
                 className={styles.mesAidesVidéoIframe}
                 layout='fill'
                 objectFit='cover'

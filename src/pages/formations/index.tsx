@@ -19,7 +19,7 @@ export default function FormationPage() {
           content={heroFormationContent()}
           buttonHref="https://reseau.intercariforef.org/"
           buttonLabel="Je trouve ma formation"
-          imgSrc="/images/formations-initiales.jpg"
+          imgSrc="/images/formations-initiales.webp"
         />
         {PartnerCardList([
           MonCompteFormationPartner().props,

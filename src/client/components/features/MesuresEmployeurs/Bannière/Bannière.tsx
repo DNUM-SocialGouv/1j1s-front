@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import bannièreImage from 'public/images/mesuresEmployeurs/mesuresEmployeurs.png';
 import React from 'react';
 
 import styles from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière.module.scss';
@@ -22,11 +21,11 @@ export default function Bannière () {
         <div className={ styles.bannièreImage }>
           <Image
             priority
-            src={bannièreImage}
+            src="/illustrations/mesures-employeurs.svg"
             alt=""
             layout="fill"
             objectFit="contain"
-            objectPosition="right"
+            objectPosition="left"
           />
         </div>
       )}

@@ -78,7 +78,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
   return(
     <>
       <HeadTag title="Les mesures jeunes | 1jeune1solution"/>
-      <Hero className={styles.heroBackground} image="/images/portraits-verticaux.webp">
+      <Hero className={styles.heroBackground} image="/illustrations/mesures-jeunes.svg">
         <b>Plan 1jeune1solution : Découvrez les solutions pour</b><br/>
         <span className={styles.heroText}>aider chacun d&apos;entre vous à accéder à l&apos;emploi</span>
       </Hero>

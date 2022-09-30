@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import illustration from 'public/images/employeurs/avantagesMobilisation.png';
+import illustration from 'public/illustrations/rejoindre-la-mobilisation.svg';
 import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation.module.scss';
