@@ -8,7 +8,7 @@ export interface NavigationItem {
 	link: string
 }
 
-export function isNavigationItem (nav: NavigationItem | NavigationItemWithChildren): nav is NavigationItem {
+export function isNavigationItem (nav: NavigationItem | NavigationItemWithChildren): nav is NavigationItem {
   return 'link' in nav;
 }
 
