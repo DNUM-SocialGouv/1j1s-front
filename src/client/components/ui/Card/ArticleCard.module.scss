@@ -1,0 +1,35 @@
+@import "@styles/utilities";
+
+.articleCard {
+  background-color: $color-background;
+  border-radius: 20px;
+  cursor: pointer;
+  @extend %box-shadow;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 180px;
+}
+
+.content {
+  padding-block: 1rem;
+  padding-inline: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  @extend %bold;
+  @extend %text-medium;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.cta {
+  text-align: right;
+  align-self: flex-end;
+}

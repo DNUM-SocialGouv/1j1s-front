@@ -1,0 +1,43 @@
+@import "@styles/utilities";
+
+.contentWrapper {
+  padding-block: 3rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.sectionHeading {
+  color: $color-primary;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  @extend %bold;
+  @extend %text-large;
+}
+
+.partnerCard {
+  &:last-of-type {
+    margin-bottom: 1rem;
+  }
+  &:not(:last-of-type) {
+    margin-bottom: 2rem;
+  }
+}
+
+.additionalInformation {
+  color: $color-primary;
+
+  & > svg {
+    margin-right: 0.5rem;
+    vertical-align: bottom;
+  }
+}
+
+.articleList {
+  @include media(large) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
