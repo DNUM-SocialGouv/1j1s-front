@@ -59,6 +59,14 @@ export function RechercherOffreEmploi() {
           }
           setIsLoading(false);
         });
+    } else {
+      offreEmploiService.récupérerEchantillonOffreEmploi()
+        .then((response) => {
+          if (response.instance === 'success') {
+            setOffreEmploiList(response.result.résultats);
+            setNombreRésultats(response.result.nombreRésultats);
+          }
+        });
     }
   }, [router.query, offreEmploiService]);
 

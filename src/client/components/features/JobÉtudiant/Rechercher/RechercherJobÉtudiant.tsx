@@ -56,6 +56,14 @@ export function RechercherJobÉtudiant() {
           }
           setIsLoading(false);
         });
+    } else {
+      offreEmploiService.récupérerEchantillonJobÉtudiant()
+        .then((response) => {
+          if (response.instance === 'success') {
+            setJobÉtudiantList(response.result.résultats);
+            setNombreRésultats(response.result.nombreRésultats);
+          }
+        });
     }
   }, [router.query, offreEmploiService]);
 

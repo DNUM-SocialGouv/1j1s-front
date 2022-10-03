@@ -8,5 +8,6 @@ import {
 
 export interface OffreEmploiRepository {
   getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>>
+  getSampleOffreEmploi(isJobEtudiant: boolean): Promise<Either<RésultatsRechercheOffreEmploi>>
   searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>>
 }

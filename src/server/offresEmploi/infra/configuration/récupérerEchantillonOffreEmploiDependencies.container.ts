@@ -2,22 +2,23 @@ import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/reposi
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
-import { ConsulterOffreEmploiUseCase } from '~/server/offresEmploi/useCases/consulterOffreEmploi.useCase';
+import { RécupérerEchantillonOffreEmploiUseCase } from '~/server/offresEmploi/useCases/récupérerEchantillonOffreEmploi.useCase';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
-export interface ConsulterOffreEmploiDependenciesContainer {
-  readonly consulterOffreEmploi: ConsulterOffreEmploiUseCase;
+
+export interface RécupérerEchantillonOffreEmploiDependenciesContainer {
+  readonly récupérerEchantillonOffreEmploi: RécupérerEchantillonOffreEmploiUseCase
 };
 
-export const consulterOffreEmploiDependenciesContainer = (
+export const récupérerEchantillonOffreEmploiDependenciesContainer = (
   httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   cacheService: CacheService,
-): ConsulterOffreEmploiDependenciesContainer => {
+): RécupérerEchantillonOffreEmploiDependenciesContainer => {
   const emploiRepository = new ApiPoleEmploiOffreRepository(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository, cacheService);
 
   return {
-    consulterOffreEmploi: new ConsulterOffreEmploiUseCase(emploiRepository),
+    récupérerEchantillonOffreEmploi: new RécupérerEchantillonOffreEmploiUseCase(emploiRepository),
   };
 };

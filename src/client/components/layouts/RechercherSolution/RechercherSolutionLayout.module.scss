@@ -19,7 +19,7 @@
   }
 }
 
-.nombreRésultats {
+.nombreRésultats, .nombreRésultats h2 {
   @extend %bold, %text-large;
 }
 
@@ -31,8 +31,8 @@
   flex-direction: column;
   padding: 0;
   list-style: none;
-  & > li {
-    margin-top: 24px;
+  & li {
+    margin-top: 1.5rem;
   }
 }
 

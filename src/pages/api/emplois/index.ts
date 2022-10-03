@@ -12,6 +12,11 @@ import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export async function rechercherOffreEmploiHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
+  if (Object.keys(req.query).length === 0) {
+    const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.récupérerEchantillonOffreEmploi
+      .handle(false);
+    return handleResponse(résultatsRechercheOffreEmploi, res);
+  }
   const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi
     .handle(offreEmploiRequestMapper(req));
   return handleResponse(résultatsRechercheOffreEmploi, res);
