@@ -14,11 +14,13 @@
   list-style-type: none;
   margin: 0;
   padding-left: 0;
+  overflow: scroll;
+  max-height: 15rem;
 }
 
 .suggestion {
   padding-left: 0.5rem;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.35rem;
   cursor: pointer;
 }
 
