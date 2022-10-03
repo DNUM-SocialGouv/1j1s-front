@@ -71,9 +71,9 @@
     &Content {
       @extend %text-large;
       @extend %bold;
-      display: flex;
       text-align: center;
       color: $color-primary;
+      margin-top: 2.5rem;
       h1 {
         @extend %text-large;
         @extend %bold;
@@ -243,6 +243,15 @@
       }
     }
 
+    &Mission {
+      &__Title {
+        margin: 2rem 4rem;
+      }
+      &__Content {
+        padding: 0 4rem;
+      }
+    }
+
     &Container {
       padding: 0;
       gap: 2rem;
@@ -279,10 +288,13 @@
 
     &Dispositifs {
       > div:first-child {
-        width: 60%;
+        width: 50%;
         height: 60vh;
         margin: auto;
         border-radius: 20px;
+      }
+      &__Title {
+        margin: 3rem 2rem;
       }
       &Position {
         display: flex;

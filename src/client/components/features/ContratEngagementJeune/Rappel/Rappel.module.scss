@@ -27,12 +27,12 @@
   }
 
   &Title {
-    margin: 0 2rem;
-    text-align: center;
     @extend %bold;
     font-size: 23px;
     color: $color-on-background;
     line-height: 2rem;
+    margin-top: 2.5rem;
+    justify-content: center;
   }
 
   &Content {
