@@ -244,7 +244,10 @@
 
   .embeddedNavItem {
       @extend .subNavItem;
-      button {
+      &Button {
+        > span {
+          @extend %text-regular;
+        }
         @extend .navItemLabel;
         display: flex;
         width: 100%;

@@ -14,7 +14,8 @@ export function EmbeddedNavItem ({ label, onClick }: EmbeddedNavItemProps) {
         className={styles.embeddedNavItemButton}
         onClick={onClick}
       >
-        {label} <Icon name="angle-right" />
+        <span>{label}</span>
+        <Icon name="angle-right" />
       </button>
     </li>
   );
