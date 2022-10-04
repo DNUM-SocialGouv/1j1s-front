@@ -1,15 +1,13 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { ArticleCard } from '~/client/components/ui/Card/ArticleCard';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 import styles from './aides-logement.module.scss';
-import {ButtonComponent} from "~/client/components/ui/Button/ButtonComponent"
-import {ArticleCard} from "~/client/components/ui/Card/ArticleCard"
 
 export default function AidesLogement() {
   return (

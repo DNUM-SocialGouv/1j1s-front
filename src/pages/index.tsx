@@ -65,14 +65,6 @@ export default function Accueil() {
                 <p>Des milliers d&apos;offres d&apos;emplois pour les étudiants</p>
               </LinkCard>
               <LinkCard
-                imageUrl="/images/entrepreneurs.webp"
-                link="/"
-                linkLabel="Voir les offres"
-                title="Je veux devenir entrepreneur"
-              >
-                <p>Retrouvez les conseils, outils et structures d’accompagnement pour vous aider à entreprendre.</p>
-              </LinkCard>
-              <LinkCard
                 imageUrl="/images/europe.webp"
                 link="/europe"
                 linkLabel="Voir les offres"
@@ -139,6 +131,14 @@ export default function Accueil() {
               title="J'accède à mes aides"
             >
               <p>Trouvez les aides auxquelles vous avez droit en moins de 5 minutes : logement, santé, mobilité, emploi, culture, etc.</p>
+            </LinkCard>
+            <LinkCard
+              imageUrl="/images/aides-au-logement.webp"
+              link="/logements/aides-logement"
+              linkLabel="Découvrir mes aides"
+              title="Je découvre les aides au logement"
+            >
+              <p>Découvrez les aides au logement auxquels vous avez le droit et recevez des conseils pour constituer votre dossier </p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/mentorat.webp"
