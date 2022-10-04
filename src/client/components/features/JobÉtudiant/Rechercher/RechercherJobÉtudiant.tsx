@@ -99,6 +99,7 @@ export function RechercherJobÉtudiant() {
           mapToLienSolution={mapJobÉtudiantToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
           maxPage={MAX_PAGE}
+          hasSample
         />
         {PartnerCardList([
           LaBonneBoitePartner().props,

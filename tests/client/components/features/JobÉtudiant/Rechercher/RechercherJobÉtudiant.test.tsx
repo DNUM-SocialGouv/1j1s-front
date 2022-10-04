@@ -27,7 +27,7 @@ describe('RechercherJobÉtudiant', () => {
   });
 
   describe('quand le composant est affiché sans recherche', () => {
-    it('affiche un formulaire pour la recherche de jobs étudiants, sans résultat ou message d\'erreur', async () => {
+    it('affiche un formulaire pour la recherche de jobs étudiants,  avec un échantillon de résultat', async () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
@@ -43,12 +43,12 @@ describe('RechercherJobÉtudiant', () => {
 
       // WHEN
       const formulaireRechercheOffreEmploi = screen.getByRole('form');
-      const résultatRechercheOffreEmploiList = screen.queryAllByTestId('RésultatRechercheOffreEmploi');
+      expect(offreEmploiServiceMock.récupérerEchantillonJobÉtudiant).toHaveBeenCalled();
+      expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
       const errorMessage = screen.queryByText('0 résultat');
 
       // THEN
       expect(formulaireRechercheOffreEmploi).toBeInTheDocument();
-      expect(résultatRechercheOffreEmploiList).toHaveLength(0);
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
@@ -79,6 +79,7 @@ describe('RechercherJobÉtudiant', () => {
         );
 
         // THEN
+        expect(offreEmploiServiceMock.récupérerEchantillonJobÉtudiant).not.toHaveBeenCalled();
         expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
         const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });

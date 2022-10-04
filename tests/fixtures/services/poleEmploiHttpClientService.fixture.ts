@@ -29,6 +29,16 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<R
   });
 }
 
+export function aRésultatsRechercheOffreEmploiResponse() {
+  return {
+    filtresPossibles: aFiltresPossiblesResponse(),
+    resultats: [
+      aBarmanOffreEmploiResponse(),
+      aMaçonOffreEmploiResponse(),
+      aValetOffreEmploiResponse(),
+    ],
+  };
+}
 export function aRésultatRéférentielCommuneResponse() {
   return anAxiosResponse([
     {

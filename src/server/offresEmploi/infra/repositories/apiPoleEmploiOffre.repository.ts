@@ -108,13 +108,14 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
   async getSampleOffreEmploi(isJobEtudiant: boolean): Promise<Either<RésultatsRechercheOffreEmploi>>  {
     const responseInCache = await this.cacheService.get<RésultatsRechercheOffreEmploiResponse>(isJobEtudiant ? this.CACHE_KEY_JOB_ETUDIANT : this.CACHE_KEY);
+
     if (responseInCache) return createSuccess(mapRésultatsRechercheOffreEmploi(responseInCache));
     else {
+
       const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
         `/search?range=0-14${isJobEtudiant ? '&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI' : ''}`,
         (data) => data,
       );
-
       switch (response.instance) {
         case 'success': {
           this.cacheService.set(isJobEtudiant ? this.CACHE_KEY_JOB_ETUDIANT : this.CACHE_KEY, response.result, 6);

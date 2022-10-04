@@ -6,7 +6,11 @@ import {
 import {
   aApiPoleEmploiRéférentielRepository,
 } from '@tests/fixtures/server/offresEmploi/apiPoleEmploiRéférentiel.repository.fixture';
-import { aPoleEmploiHttpClient } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
+import {
+  aPoleEmploiHttpClient,
+  aRésultatsRechercheOffreEmploiResponse,
+} from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
 import { createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -20,17 +24,20 @@ import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/reposi
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
+import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 describe('ApiPoleEmploiOffreRepository', () => {
   let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification;
   let apiPoleEmploiOffreRepository: ApiPoleEmploiOffreRepository;
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
+  let cacheService: CacheService;
 
   beforeEach(() => {
+    cacheService = new MockedCacheService();
     httpClientServiceWithAuthentification = aPoleEmploiHttpClient();
     apiPoleEmploiRéférentielRepository = aApiPoleEmploiRéférentielRepository();
-    apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository);
+    apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository, cacheService);
   });
 
   describe('getOffreEmploi', () => {
@@ -104,5 +111,94 @@ describe('ApiPoleEmploiOffreRepository', () => {
         );
       });
     });
+  });
+
+  describe('getSampleOffreEmploi', () => {
+    describe('quand isJobEtudiant est true', () => {
+      describe('quand les informations ne sont pas encore mis en cache', () => {
+        it("fait l'appel à l'api et set les informations dans le cache", async () => {
+          jest
+            .spyOn(httpClientServiceWithAuthentification, 'get')
+            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
+
+          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+          jest.spyOn(cacheService, 'set');
+
+          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(true) as Success<RésultatsRechercheOffreEmploi>;
+
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          /*expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
+            '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
+            mapRésultatsRechercheOffreEmploi,
+          );*/
+
+          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT', aRésultatsRechercheOffreEmploiResponse(), 6);
+        });
+      });
+
+      describe('quand les informations sont déjà en cache', () => {
+        it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
+
+          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+          jest.spyOn(cacheService, 'set');
+
+          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(true) as Success<RésultatsRechercheOffreEmploi>;
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          expect(httpClientServiceWithAuthentification.get).not.toHaveBeenCalled();
+
+          expect(cacheService.set).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('quand isJobEtudiant est false', () => {
+      describe('quand les informations ne sont pas encore mis en cache', () => {
+        it("fait l'appel à l'api et set les informations dans le cache", async () => {
+          jest
+            .spyOn(httpClientServiceWithAuthentification, 'get')
+            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
+
+          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+          jest.spyOn(cacheService, 'set');
+
+          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(false) as Success<RésultatsRechercheOffreEmploi>;
+
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          /*expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
+            '/search?range=0-14',
+            () => jest.fn()
+          );*/
+
+          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI', aRésultatsRechercheOffreEmploiResponse(), 6);
+        });
+      });
+
+      describe('quand les informations sont déjà en cache', () => {
+        it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
+          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+          jest.spyOn(cacheService, 'set');
+
+          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(false) as Success<RésultatsRechercheOffreEmploi>;
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          expect(httpClientServiceWithAuthentification.get).not.toHaveBeenCalled();
+
+          expect(cacheService.set).not.toHaveBeenCalled();
+        });
+
+      });
+    });
+
   });
 });

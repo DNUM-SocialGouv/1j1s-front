@@ -32,6 +32,7 @@ interface RechercherSolutionLayoutProps<T> {
   nombreSolutions: number
   paginationOffset?: number
   maxPage?: number
+  hasSample: boolean
   mapToLienSolution(data: T): LienSolution
 }
 
@@ -48,10 +49,30 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     paginationOffset,
     maxPage,
     isLoading,
+    hasSample,
   } = props;
 
   const router = useRouter();
   const hasRouterQuery = Object.keys(router.query).length > 0;
+
+  const getSolutionList = () => (
+    <ul>
+      {
+        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
+          <li key={lienSolution.id}>
+            <RésultatRechercherSolution
+              lienOffre={lienSolution.lienOffre}
+              intituléOffre={lienSolution.intituléOffre}
+              logoEntreprise={lienSolution.logoEntreprise}
+              nomEntreprise={lienSolution.nomEntreprise}
+              descriptionOffre={lienSolution.descriptionOffre}
+              étiquetteOffreList={lienSolution.étiquetteOffreList}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  );
 
   return (
     <>
@@ -64,8 +85,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
         </div>
 
 
-        { hasRouterQuery
-          ?
+        {hasRouterQuery &&
           <>
             {erreurRecherche || listeSolution.length === 0 && !isLoading ?
               <ErrorComponent errorType={erreurRecherche}/> :
@@ -82,69 +102,38 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                 <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
                   <Container>
                     <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                      <ul>
-                        {
-                          listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-                            <li key={lienSolution.id}>
-                              <RésultatRechercherSolution
-                                lienOffre={lienSolution.lienOffre}
-                                intituléOffre={lienSolution.intituléOffre}
-                                logoEntreprise={lienSolution.logoEntreprise}
-                                nomEntreprise={lienSolution.nomEntreprise}
-                                descriptionOffre={lienSolution.descriptionOffre}
-                                étiquetteOffreList={lienSolution.étiquetteOffreList}
-                              />
-                            </li>
-                          ))
-                        }
-                      </ul>
+                      {getSolutionList()}
                     </Skeleton>
                     {paginationOffset && nombreSolutions > paginationOffset &&
-                      <div className={styles.pagination}>
-                        <Pagination
-                          numberOfResult={nombreSolutions}
-                          numberOfResultPerPage={paginationOffset}
-                          maxPage={maxPage}
-                        />
-                      </div>
+                  <div className={styles.pagination}>
+                    <Pagination
+                      numberOfResult={nombreSolutions}
+                      numberOfResultPerPage={paginationOffset}
+                      maxPage={maxPage}
+                    />
+                  </div>
                     }
                   </Container>
                 </div>
               </>
             }
           </>
-          :
+        }
+        { (!hasRouterQuery && hasSample) &&
           <>
             <Container className={styles.informationRésultat}>
               <div className={styles.nombreRésultats}>
-                <h2>{nombreSolutions} offres d&apos;emplois</h2>
+                <h2>{messageRésultatRecherche}</h2>
               </div>
             </Container>
             <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
               <Container>
                 <div className={styles.listeSolutions}>
-                  <ul>
-                    {
-                      listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-                        <li key={lienSolution.id}>
-                          <RésultatRechercherSolution
-                            lienOffre={lienSolution.lienOffre}
-                            intituléOffre={lienSolution.intituléOffre}
-                            logoEntreprise={lienSolution.logoEntreprise}
-                            nomEntreprise={lienSolution.nomEntreprise}
-                            descriptionOffre={lienSolution.descriptionOffre}
-                            étiquetteOffreList={lienSolution.étiquetteOffreList}
-                          />
-                        </li>
-                      ))
-                    }
-                  </ul>
+                  {getSolutionList()}
                 </div>
               </Container>
             </div>
           </>
-
-
         }
       </div>
     </>

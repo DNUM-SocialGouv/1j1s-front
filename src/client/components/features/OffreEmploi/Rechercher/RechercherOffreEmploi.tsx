@@ -102,6 +102,7 @@ export function RechercherOffreEmploi() {
           mapToLienSolution={mapOffreEmploiToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
           maxPage={MAX_PAGE}
+          hasSample
         />
         <EnTeteSection heading="Découvrez des services faits pour vous"/>
         {PartnerCardList([
