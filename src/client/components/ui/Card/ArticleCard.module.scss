@@ -26,10 +26,22 @@
 }
 
 .description {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  @include media(large) {
+    margin-bottom: 1rem;
+  }
 }
 
 .cta {
-  text-align: right;
-  align-self: flex-end;
+  align-self: center;
+  width: 100%;
+
+  &:focus {
+    outline-offset: 4px;
+  }
+
+  @include media(large) {
+    align-self: flex-end;
+    width: initial;
+  }
 }
