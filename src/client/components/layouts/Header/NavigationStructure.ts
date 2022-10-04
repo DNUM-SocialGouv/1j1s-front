@@ -1,5 +1,6 @@
 export interface NavigationItemWithChildren {
 	label: string
+  legend?: string
 	children: Array<NavigationItem | NavigationItemWithChildren>
 }
 
@@ -63,10 +64,11 @@ const employeurNav: NavigationItemWithChildren = {
       { label: 'Je propose des immersions', link: '/immersions' },
       { label: 'Je forme les jeunes grâce à l\'emploi', link: '/rejoindre-mobilisation-poe' },
     ], label: 'Recruter et agir pour les jeunes' },
-    { label: 'Les mesures employeurs', link: '/mesures-employeurs' },
+    { label: 'Découvrir les mesures employeurs', link: '/mesures-employeurs' },
     { label: 'Accéder à mon espace', link: '/mon-espace' },
   ],
   label: 'Je suis employeur',
+  legend: 'Découvrez des services faits pour vous !',
 };
 
 export interface NavigationItemList {

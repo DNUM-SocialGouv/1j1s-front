@@ -60,6 +60,8 @@
   }
 
   &NavigationListRight {
+    display: flex;
+
     .navItem {
       color: $color-on-secondary;
       background-color: $color-secondary;

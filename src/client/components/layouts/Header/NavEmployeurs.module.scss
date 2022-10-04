@@ -1,0 +1,119 @@
+@import "@styles/utilities";
+@mixin underline {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.navItem {
+  --navWidth: $breakpoint-xl;
+  position: relative;
+  @extend %text-regular;
+
+  color: $color-on-secondary;
+  background-color: $color-secondary;
+
+
+  &Button {
+    font-size: inherit;
+    padding-block: 0.8rem;
+    padding-inline: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: auto;
+    color: inherit;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: fade-out($color-secondary, 0.15);
+  }
+
+  &:hover {
+    .navItemLabel {
+      @include underline;
+    }
+  }
+
+  .navWrapper {
+    @extend %box-shadow;
+    background: $color-background;
+    color: $color-on-background;
+    position: absolute;
+    z-index: 1;
+    box-sizing: border-box;
+    top: 100%;
+    right: 0;
+    width: 100vw;
+  }
+
+  .navDetail {
+
+    a:hover {
+      @include underline;
+    }
+    @extend %max-container;
+    --gutter: 2.5rem;
+    padding: var(--gutter) 1rem;
+
+    > .navSection {
+      display: flex;
+      flex-direction: flex;
+      justify-content: space-between;
+
+      > .navSectionHeader {
+        padding-right: calc(var(--gutter) + .5rem);
+        > * {
+          display: block;
+        }
+
+        strong {
+          @extend %text-large;
+          margin-bottom: .5em;
+        }
+        em {
+          font-style: normal;
+
+        }
+      }
+
+      > .navSectionItems {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        > li {
+          padding: 0 var(--gutter);
+          border-left: 1px solid $color-primary;
+          &:first-child {
+            border:none;
+          }
+        }
+
+        > .navLeaf {
+          color: $color-primary;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .navSectionItems > .navSection {
+    > .navSectionItems {
+      padding-left: 1rem;
+      > li {
+        margin-top: 1rem;
+      }
+    }
+    > .navSectionHeader {
+      color: $color-primary;
+      &:after { content: ' :' }
+    }
+  }
+}
+
+@include media(xlarge) {
+  .navItem .navWrapper {
+    right: calc((100vw - $breakpoint-xl) / -2);
+    width: 100vw;
+  }
+}

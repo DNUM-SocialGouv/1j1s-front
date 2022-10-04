@@ -10,7 +10,9 @@ import { isNavigationItem, NavigationItem, navigationItemList, NavigationItemWit
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 
-export function HeaderNav() {
+import { NavEmployeurs } from './NavEmployeurs';
+
+export function HeaderNavDesktop() {
   const {
     accueil,
     accompagnementNav,
@@ -44,6 +46,7 @@ export function HeaderNav() {
           </ul>
           <ul className={styles.headerNavigationListRight}>
             <NavItemWithSubItems className={styles.navItem} item={flattenNavigation(employeurNav)} path={path} />
+            <NavEmployeurs item={employeurNav} />
           </ul>
         </nav>
       </Container>

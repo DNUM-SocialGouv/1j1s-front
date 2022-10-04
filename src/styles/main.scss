@@ -23,3 +23,7 @@ input[type="radio"] + label::before, select, textarea, video[controls] {
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
 }
+
+body {
+  overflow: overlay;
+}
