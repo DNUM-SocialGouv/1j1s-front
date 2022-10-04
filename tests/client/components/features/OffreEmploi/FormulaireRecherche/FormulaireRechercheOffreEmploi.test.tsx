@@ -175,7 +175,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
         fireEvent.click(buttonRechercher);
 
         // THEN
-        expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75001&page=1' }, undefined, { shallow: true });
+        expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75101&page=1' }, undefined, { shallow: true });
       });
     });
 

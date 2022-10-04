@@ -3,13 +3,13 @@ import React, { SyntheticEvent, useCallback } from 'react';
 import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
-import { LocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { CommuneLocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 interface AutocomplétionCommuneProps {
-  onSuggestionSelected?(event: SyntheticEvent, suggestion: LocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
+  onSuggestionSelected?(event: SyntheticEvent, suggestion: CommuneLocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
   id?: string;
-  valeurInitiale ?: LocalisationApiResponse
+  valeurInitiale ?: CommuneLocalisationApiResponse
   label?: string;
   debounce?: number;
   name?: string;
@@ -26,11 +26,11 @@ export default function InputAutocomplétionCommune(props: AutocomplétionCommun
     return résultat ? résultat.communeList : [];
   }, [localisationService]);
 
-  function afficherSuggestion(suggestion: LocalisationApiResponse) {
+  function afficherSuggestion(suggestion: CommuneLocalisationApiResponse) {
     return suggestion.libelle;
   }
 
-  function valeurSuggestion(suggestion: LocalisationApiResponse) {
+  function valeurSuggestion(suggestion: CommuneLocalisationApiResponse) {
     return suggestion.libelle;
   }
 
