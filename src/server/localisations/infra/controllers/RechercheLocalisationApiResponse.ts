@@ -4,8 +4,12 @@ export interface LocalisationApiResponse {
   libelle: string
 }
 
+export interface CommuneLocalisationApiResponse extends LocalisationApiResponse {
+  codePostal: string
+}
+
 export interface RechercheLocalisationApiResponse {
-  communeList: LocalisationApiResponse[]
+  communeList: CommuneLocalisationApiResponse[]
   départementList: LocalisationApiResponse[]
   régionList: LocalisationApiResponse[]
 }

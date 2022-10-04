@@ -15,7 +15,7 @@ import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engage
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
   const localisationService = aLocalisationService({
-    communeList: [{ code: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+    communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
     départementList: [],
     régionList: [],
   });

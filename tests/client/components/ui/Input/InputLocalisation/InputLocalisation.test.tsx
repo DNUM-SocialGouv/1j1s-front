@@ -73,7 +73,7 @@ describe('InputLocalisation', () => {
       // THEN
       expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris (75001)');
       expect(screen.getByTestId('typeLocalisation')).toHaveValue('COMMUNE');
-      expect(screen.getByTestId('codeLocalisation')).toHaveValue('75001');
+      expect(screen.getByTestId('codeLocalisation')).toHaveValue('75101');
     });
   });
 

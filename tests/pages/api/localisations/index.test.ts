@@ -50,15 +50,17 @@ describe('rechercher une localisation', () => {
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
-        expect(json).toEqual({
+        const expectedJSON: RechercheLocalisationApiResponse = {
           communeList: [
             {
               code: '28201',
+              codePostal: '28300',
               libelle: '20 Avenue de la Gare Jouy (28300)',
               nom: 'Jouy',
             },
             {
               code: '93005',
+              codePostal: '93600',
               libelle: '20 Avenue Jules Jouy Aulnay-sous-Bois (93600)',
               nom: 'Aulnay-sous-Bois',
             },
@@ -73,7 +75,8 @@ describe('rechercher une localisation', () => {
             libelle: 'Hauts-de-France (32)',
             nom: 'Hauts-de-France',
           }],
-        });
+        };
+        expect(json).toEqual(expectedJSON);
       },
       url: '/localisations?recherche=haut',
     });

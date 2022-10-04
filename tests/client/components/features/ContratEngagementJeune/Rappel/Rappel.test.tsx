@@ -25,7 +25,7 @@ describe('<Rappel />', () => {
     } as unknown as DemandeDeContactService);
     const demandeDeContactServiceMock = anDemandeDeContactService();
     const localisationService = aLocalisationService({
-      communeList: [{ code: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+      communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
       départementList: [],
       régionList: [],
     });

@@ -45,26 +45,20 @@ describe('LocalisationService', () => {
     });
 
     it('quand on recherche un nombre, on renvoie les départements et les communes', async () => {
+      // Given
       const httpClientService = aHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
-
-      jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess({
-        communeList: aCommuneListApiResponse(),
-        départementList: aDépartementListApiResponse(),
-        régionList: [],
-      }));
-
-      const result = await localisationService.rechercherLocalisation('34');
-
       const expected: RechercheLocalisationApiResponse = {
         communeList: [
           {
-            code: '34290',
+            code: '34299',
+            codePostal: '34290',
             libelle: 'Abeilhan (34290)',
             nom: 'Abeilhan',
           },
           {
-            code: '34230',
+            code: '34233',
+            codePostal: '34230',
             libelle: 'Adissan (34230)',
             nom: 'Adissan',
           },
@@ -79,6 +73,16 @@ describe('LocalisationService', () => {
         régionList: [],
       };
 
+      jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess({
+        communeList: aCommuneListApiResponse(),
+        départementList: aDépartementListApiResponse(),
+        régionList: [],
+      }));
+
+      // When
+      const result = await localisationService.rechercherLocalisation('34');
+
+      // Then
       expect(result).toEqual(expected);
       expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=34');
     });
@@ -89,7 +93,8 @@ describe('LocalisationService', () => {
 
       const rechercheLocalisationApiResponse: RechercheLocalisationApiResponse = {
         communeList: [{
-          code: '02140',
+          code: '02141',
+          codePostal: '02140',
           libelle: 'Haution (02140)',
           nom: 'Haution',
         }],
@@ -111,7 +116,8 @@ describe('LocalisationService', () => {
 
       const expected: RechercheLocalisationApiResponse = {
         communeList: [{
-          code: '02140',
+          code: '02141',
+          codePostal: '02140',
           libelle: 'Haution (02140)',
           nom: 'Haution',
         }],
