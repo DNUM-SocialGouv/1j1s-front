@@ -30,11 +30,11 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void }){
       <nav role="navigation">
         <ul className={styles.headerModalNavigationList}>
           <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} label={offresNav.label} path={path} subItemList={offresNav.children} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} label={orientationNav.label} path={path} subItemList={orientationNav.children} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} label={accompagnementNav.label} path={path} subItemList={accompagnementNav.children} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} label={engagementNav.label} path={path} subItemList={engagementNav.children} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} label={employeurNav.label} path={path} subItemList={employeurNav.children} onClick={toggleModal} />
+          <NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} onClick={toggleModal} />
+          <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path}  onClick={toggleModal} />
+          <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}  onClick={toggleModal} />
+          <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path}  onClick={toggleModal} />
+          <NavItemWithSubItems className={styles.navItem} item={employeurNav} path={path} onClick={toggleModal} />
         </ul>
       </nav>
     </Container>

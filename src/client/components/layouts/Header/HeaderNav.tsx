@@ -6,7 +6,7 @@ import React, {
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { navigationItemList } from '~/client/components/layouts/Header/NavigationStructure';
+import { isNavigationItem, NavigationItem, navigationItemList, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 
@@ -37,16 +37,30 @@ export function HeaderNav() {
           aria-label="Menu principal">
           <ul className={styles.headerNavigationListLeft}>
             <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
-            <NavItemWithSubItems className={styles.navItem} label={offresNav.label} path={path} subItemList={offresNav.children} />
-            <NavItemWithSubItems className={styles.navItem} label={orientationNav.label} path={path} subItemList={orientationNav.children} />
-            <NavItemWithSubItems className={styles.navItem} label={accompagnementNav.label} path={path} subItemList={accompagnementNav.children} />
-            <NavItemWithSubItems className={styles.navItem} label={engagementNav.label} path={path} subItemList={engagementNav.children} />
+            <NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} />
+            <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} />
+            <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}/>
+            <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
           </ul>
           <ul className={styles.headerNavigationListRight}>
-            <NavItemWithSubItems className={styles.navItem} label={employeurNav.label} path={path} subItemList={employeurNav.children} />
+            <NavItemWithSubItems className={styles.navItem} item={flattenNavigation(employeurNav)} path={path} />
           </ul>
         </nav>
       </Container>
     </div>
   );
+}
+
+/* juste le temps de ne pas péter la navigation desktop */
+function flattenNavigation (item: NavigationItemWithChildren): NavigationItemWithChildren {
+  return {
+    children: getFlatChildren(item),
+    label: item.label,
+  };
+  function getFlatChildren(node: NavigationItemWithChildren | NavigationItem): NavigationItem[] {
+    if (isNavigationItem(node)) {
+      return [node];
+    }
+    return node.children.flatMap(getFlatChildren);
+  }
 }
