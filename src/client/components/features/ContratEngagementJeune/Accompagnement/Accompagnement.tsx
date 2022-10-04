@@ -31,7 +31,7 @@ export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | '
 export interface FormulairesProps {
   setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
   setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>;
-  setIsPôleEmploiDeuxièmeModalOpen: Dispatch<SetStateAction<boolean>>;
+  setIsInscriptionPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>;
   setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>;
   setIsDispositifsReferencesModalOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -39,12 +39,12 @@ export interface FormulairesProps {
 export default function Accompagnement() {
   const [typeFormulaireAffiché, setTypeFormulaireAffiché] = useState<Formulaires>('Démarrage');
   const [isPôleEmploiModalOpen, setIsPôleEmploiModalOpen] = useState(false);
-  const [isPôleEmploiDeuxièmeModalOpen, setIsPôleEmploiDeuxièmeModalOpen] = useState(false);
+  const [isInscriptionPôleEmploiModalOpen, setIsInscriptionPôleEmploiModalOpen] = useState(false);
   const [isMissionLocaleModalOpen, setIsMissionLocaleModalOpen] = useState(false);
   const [isDispositifsReferencesModalOpen, setIsDispositifsReferencesModalOpen] = useState(false);
   const lienPôleEmploi = 'https://authentification-candidat.pole-emploi.fr/connexion/XUI/?realm=%2Findividu&goto=https%3A%2F%2Fauthentification-candidat.pole-emploi.fr%2Fconnexion%2Foauth2%2Frealms%2Froot%2Frealms%2Findividu%2Fauthorize%3Frealm%3D%252Findividu%26response_type%3Did_token%2520token%26scope%3Dopenid%2520compteUsager%2520profile%2520contexteAuthentification%2520email%2520courrier%2520notifications%2520etatcivil%2520logW%2520individu%2520pilote%2520nomenclature%2520coordonnees%2520navigation%2520reclamation%2520prdvl%2520idIdentiteExterne%2520pole_emploi%2520suggestions%2520actu%2520application_USG_PN073-tdbcandidat_6408B42F17FC872440D4FF01BA6BAB16999CD903772C528808D1E6FA2B585CF2%26client_id%3DUSG_PN073-tdbcandidat_6408B42F17FC872440D4FF01BA6BAB16999CD903772C528808D1E6FA2B585CF2%26state%3DOZ3c4XQiDGwEdFxx%26nonce%3DF54AlR39GLoLCIpT%26redirect_uri%3Dhttps%253A%252F%252Fcandidat.pole-emploi.fr%252Fespacepersonnel%252F#login/';
   const deuxièmeLienPôleEmploi = 'https://candidat.pole-emploi.fr/inscription-en-ligne/accueil';
-  const formulaire = getFormulaireÀAfficher(typeFormulaireAffiché, setTypeFormulaireAffiché, setIsPôleEmploiModalOpen, setIsPôleEmploiDeuxièmeModalOpen, setIsMissionLocaleModalOpen, setIsDispositifsReferencesModalOpen);
+  const formulaire = getFormulaireÀAfficher(typeFormulaireAffiché, setTypeFormulaireAffiché, setIsPôleEmploiModalOpen, setIsInscriptionPôleEmploiModalOpen, setIsMissionLocaleModalOpen, setIsDispositifsReferencesModalOpen);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function Accompagnement() {
               </div>
             </ModalComponent.Content>
           </ModalComponent>
-          <ModalComponent isOpen={isPôleEmploiDeuxièmeModalOpen} close={() => setIsPôleEmploiDeuxièmeModalOpen(false)} className={styles.accompagnementModal}>
+          <ModalComponent isOpen={isInscriptionPôleEmploiModalOpen} close={() => setIsInscriptionPôleEmploiModalOpen(false)} className={styles.accompagnementModal}>
             <ModalComponent.Content className={styles.accompagnementModalContent}>
               <div>
                 <h1>Vous pouvez bénéficier des services de Pôle Emploi</h1>
@@ -138,13 +138,13 @@ export default function Accompagnement() {
   );
 }
 
-function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>, setIsPôleEmploiDeuxièmeModalOpen: Dispatch<SetStateAction<boolean>>, setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>, setIsDispositifsReferencesModalOpen: Dispatch<SetStateAction<boolean>>) {
+function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>, setIsInscriptionPôleEmploiModalOpen: Dispatch<SetStateAction<boolean>>, setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>, setIsDispositifsReferencesModalOpen: Dispatch<SetStateAction<boolean>>) {
   switch (typeFormulaireÀAfficher) {
     case 'PasDAccompagnement':
       return <PasDAccompagnement
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;
@@ -152,7 +152,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       return <BesoinAide
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;
@@ -160,7 +160,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       return <BesoinAide26ans
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;
@@ -168,7 +168,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       return <AutresBesoins
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;
@@ -176,7 +176,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       return <Handicap
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;
@@ -184,7 +184,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       return <AutresBesoins26ans
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;
@@ -192,7 +192,7 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
       return <Démarrage
         setTypeFormulaireAffiché={setTypeFormulaireAffiché}
         setIsPôleEmploiModalOpen={setIsPôleEmploiModalOpen}
-        setIsPôleEmploiDeuxièmeModalOpen={setIsPôleEmploiDeuxièmeModalOpen}
+        setIsInscriptionPôleEmploiModalOpen={setIsInscriptionPôleEmploiModalOpen}
         setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
         setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
       />;

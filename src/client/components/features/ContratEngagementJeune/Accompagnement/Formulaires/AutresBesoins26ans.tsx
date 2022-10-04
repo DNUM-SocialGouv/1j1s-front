@@ -5,7 +5,7 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import { Button } from '~/client/components/ui/Button/Button';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 
-export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsPôleEmploiDeuxièmeModalOpen }: FormulairesProps) {
+export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsInscriptionPôleEmploiModalOpen }: FormulairesProps) {
   const [activeCounter, setActiveCounter] = useState(0);
 
 
@@ -40,7 +40,7 @@ export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMis
     <div className={styles.accompagnementValider}>
       {activeCounter > 0
         ? <Button buttonType={'primary'} onClick={() => setIsMissionLocaleModalOpen(true)}>Valider</Button>
-        : <Button buttonType={'primary'} onClick={() => setIsPôleEmploiDeuxièmeModalOpen(true)}>Valider</Button>
+        : <Button buttonType={'primary'} onClick={() => setIsInscriptionPôleEmploiModalOpen(true)}>Valider</Button>
       }
     </div>
   </>;

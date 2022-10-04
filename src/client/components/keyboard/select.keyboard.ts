@@ -9,7 +9,7 @@ export const setFocusToSelectButton = (currentElement: HTMLElement) => {
 };
 
 export const handleKeyBoardInteraction = (event: React.KeyboardEvent<HTMLElement>, currentItem: HTMLElement, updateValues: () => void) => {
-  if (event.key === KeyBoard.TAB) {
+  if (event.key === KeyBoard.ENTER || event.key === KeyBoard.TAB) {
     event.preventDefault();
   }
   else if (event.key === KeyBoard.ARROW_UP) {
@@ -26,7 +26,7 @@ export const handleKeyBoardInteraction = (event: React.KeyboardEvent<HTMLElement
     }
     event.preventDefault();
   }
-  else if (event.key === KeyBoard.SPACE || event.key === KeyBoard.ENTER ) {
+  else if (event.key === KeyBoard.SPACE) {
     updateValues();
     event.preventDefault();
   }
