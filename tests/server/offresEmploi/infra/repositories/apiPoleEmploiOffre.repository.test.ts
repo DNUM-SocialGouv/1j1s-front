@@ -19,6 +19,7 @@ import { OffreEmploi, RésultatsRechercheOffreEmploi } from '~/server/offresEmpl
 import {
   mapOffreEmploi,
   mapRésultatsRechercheOffreEmploi,
+  mapRésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploi.mapper';
 import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import {
@@ -126,14 +127,13 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
           const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(true) as Success<RésultatsRechercheOffreEmploi>;
 
-
           expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT');
 
           expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-          /*expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
+          expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
             '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
-            (data) => data,
-          );*/
+            mapRésultatsRechercheOffreEmploiResponse,
+          );
 
           expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT', aRésultatsRechercheOffreEmploiResponse(), 6);
         });
@@ -173,10 +173,10 @@ describe('ApiPoleEmploiOffreRepository', () => {
           expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI');
 
           expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-          /*expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
+          expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
             '/search?range=0-14',
-            (data) => data
-          );*/
+            mapRésultatsRechercheOffreEmploiResponse,
+          );
 
           expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI', aRésultatsRechercheOffreEmploiResponse(), 6);
         });

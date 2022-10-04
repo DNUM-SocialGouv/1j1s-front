@@ -8,6 +8,8 @@ import {
   RésultatsRéférentielCommunesResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 
+export const mapRésultatsRechercheOffreEmploiResponse = (response:RésultatsRechercheOffreEmploiResponse):RésultatsRechercheOffreEmploiResponse  => response;
+
 export function mapRésultatsRechercheOffreEmploi(response: RésultatsRechercheOffreEmploiResponse): RésultatsRechercheOffreEmploi {
   return {
     nombreRésultats: getNombreRésultats(response.filtresPossibles),

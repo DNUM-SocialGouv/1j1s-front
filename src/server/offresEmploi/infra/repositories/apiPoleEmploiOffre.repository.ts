@@ -16,6 +16,7 @@ import { OffreEmploiRepository } from '~/server/offresEmploi/domain/offreEmploi.
 import {
   mapOffreEmploi,
   mapRésultatsRechercheOffreEmploi,
+  mapRésultatsRechercheOffreEmploiResponse,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploi.mapper';
 import {
   OffreEmploiResponse,
@@ -113,7 +114,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     else {
       const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
         `/search?range=0-14${isJobEtudiant ? '&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI' : ''}`,
-        (data) => data,
+        mapRésultatsRechercheOffreEmploiResponse,
       );
       switch (response.instance) {
         case 'success': {
