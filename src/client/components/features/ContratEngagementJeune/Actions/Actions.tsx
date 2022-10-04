@@ -6,7 +6,7 @@ import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const contenu = `
-_Accueilli au sein de Pôle emploi ou de ma Mission Locale, en fonction de mon profil, de mes compétences et de mes envies, je pourrai avoir accès à :_
+Accueilli au sein de Pôle emploi ou de ma Mission Locale, en fonction de mon profil, de mes compétences et de mes envies, je pourrai avoir accès à :
 
 + **Des points réguliers en tête-à-tête avec mon conseiller** qui me suit tout au long de mon parcours et jusqu'à ce que j'accède à un emploi durable
 + **Des ateliers collectifs avec d'autres jeunes** pour partager nos expériences

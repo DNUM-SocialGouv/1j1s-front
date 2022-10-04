@@ -3,7 +3,7 @@
 .header {
   background-color: $color-on-primary;
   color: $color-blue-navy;
-  padding: 0;
+  padding: 2rem 0;
   display: flex;
 
   .titre {
@@ -89,7 +89,7 @@
 @include media(large) {
 
   .header {
-    padding: 4rem 16rem 0.5rem 16rem;
+    padding: 4rem 16rem;
     flex-direction: row;
     gap: 2.5rem;
 
