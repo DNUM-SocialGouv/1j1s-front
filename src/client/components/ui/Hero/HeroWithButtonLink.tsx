@@ -40,7 +40,6 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
             </LinkAsButton>
           </div>
         </div>
-
       </div>
       {isLargeScreen &&
         <div className={styles.imageWrapper}>
