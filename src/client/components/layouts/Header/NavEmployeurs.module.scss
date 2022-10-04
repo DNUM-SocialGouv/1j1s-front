@@ -38,6 +38,7 @@
 
   .navWrapper {
     @extend %box-shadow;
+    border-top: 1px solid $color-separator;
     background: $color-background;
     color: $color-on-background;
     position: absolute;
