@@ -89,22 +89,57 @@ describe('<Accompagnement />', () => {
       expect(await screen.findByText(titreModal)).toBeInTheDocument();
       expect(screen.getByText(contenuModal)).toBeInTheDocument();
     });
-    it('ça affiche le formulaire besoin d\'aide', async () => {
+  });
+
+  describe('quand on clique sur Plus de 25 ans', () => {
+    it('ça affiche le formulaire des dispositifs', async () => {
       // Given
-      const contenuModal = 'Rencontrez-vous d’autres besoins ?';
-      const titreModal = 'Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi';
+      const contenuModal = 'Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?';
+      const titreModal = 'Découvrez les dispositifs référencés sur le portail 1jeune1solution';
 
       renderComponent();
 
       // When
       await userEvent.click(screen.getByRole('button',{ name: 'Non, je ne bénéficie d\'aucun accompagnement' }));
-      await userEvent.click(screen.getByRole('button',{ name: 'Entre 18 et 25 ans' }));
-      await userEvent.click(screen.getByRole('button',{ name: 'Oui' }));
-      await userEvent.click(screen.getByRole('button',{ name: 'Valider' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Plus de 25 ans' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Non' }));
 
       // Then
       expect(await screen.findByText(titreModal)).toBeInTheDocument();
       expect(screen.getByText(contenuModal)).toBeInTheDocument();
+    });
+    it('ça affiche le formulaire Handicap', async () => {
+      // Given
+      const contenuModal = 'Êtes-vous en situation de handicap (RQTH) ?';
+
+      renderComponent();
+
+      // When
+      await userEvent.click(screen.getByRole('button',{ name: 'Non, je ne bénéficie d\'aucun accompagnement' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Plus de 25 ans' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Oui' }));
+
+      // Then
+      expect(screen.getByText(contenuModal)).toBeInTheDocument();
+    });
+    it('ça te renvoie chez Pôle Emploi sur la page Inscription', async () => {
+      // Given
+      const contenuModal = 'Vous pouvez bénéficier des services de Pôle Emploi';
+      const inscriptionPoleEmploi = 'Inscrivez-vous à Pôle Emploi';
+
+      renderComponent();
+      // When
+      await userEvent.click(screen.getByRole('button',{ name: 'Non, je ne bénéficie d\'aucun accompagnement' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Plus de 25 ans' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Oui' }));
+      await userEvent.click(screen.getByRole('button',{ name: 'Non' }));
+
+      // Then
+      expect(screen.getByText(contenuModal)).toBeInTheDocument();
+      const link = screen.getByRole('link', { name: inscriptionPoleEmploi });
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.pole-emploi.fr/inscription-en-ligne/accueil'));
+      expect(link).toHaveAttribute('target', '_blank');
     });
   });
 

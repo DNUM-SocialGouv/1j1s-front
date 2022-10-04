@@ -63,18 +63,26 @@
   }
 
   &Modal {
+    > div:first-child {
+      height: 35vh;
+      margin: 15rem 1rem 8rem 1rem;
+      border-radius: 20px;
+    }
     &Content {
       @extend %text-large;
       @extend %bold;
-      display: flex;
-      min-height: 60vh;
       text-align: center;
       color: $color-primary;
+      padding: 3rem 2rem 2rem 2rem;
       h1 {
-        margin: 2rem;
+        @extend %text-large;
+        @extend %bold;
+        margin: 1rem 2rem;
       }
-      > div {
-        margin: auto;
+      p {
+        @extend %text-small, %background-surface;
+        margin: 0 2rem;
+        font-weight: 400;
       }
       &Link {
         @extend %text-regular;
@@ -135,7 +143,6 @@
     }
 
     &__Content {
-      min-height: 60vh;
       display: flex;
       > div {
         margin: auto;
@@ -228,6 +235,23 @@
   .accompagnement {
     padding: 5rem 2rem;
 
+    &Modal {
+      > div:first-child {
+        width: 40%;
+        height: 35vh;
+        margin: auto;
+      }
+    }
+
+    &Mission {
+      &__Title {
+        padding: 7rem 7rem 1rem 7rem;
+      }
+      &__Content {
+        padding: 0 7rem 7rem 7rem;
+      }
+    }
+
     &Container {
       padding: 0;
       gap: 2rem;
@@ -263,6 +287,18 @@
     }
 
     &Dispositifs {
+      > div:first-child {
+        width: 50%;
+        height: 55vh;
+        margin: auto;
+        border-radius: 20px;
+      }
+      &__Title {
+        margin: 2.5rem;
+      }
+      &__Content {
+        padding: 1rem;
+      }
       &Position {
         display: flex;
         flex-wrap: wrap;
