@@ -43,7 +43,7 @@ export interface Entreprise {
   codePostal: string;
   siret: string;
   secteur: keyof typeof SecteurDActivité;
-  taille: string;
+  taille: keyof typeof TailleDEntreprise;
   prénom: string;
   nom: string;
   email: string;
