@@ -111,7 +111,6 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     if (responseInCache) return createSuccess(mapRésultatsRechercheOffreEmploi(responseInCache));
     else {
-
       const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
         `/search?range=0-14${isJobEtudiant ? '&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI' : ''}`,
         (data) => data,

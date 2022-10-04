@@ -132,7 +132,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
           expect(result).toEqual(aRésultatsRechercheOffreEmploi());
           /*expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
             '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
-            mapRésultatsRechercheOffreEmploi,
+            (data) => data,
           );*/
 
           expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT', aRésultatsRechercheOffreEmploiResponse(), 6);
@@ -175,7 +175,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
           expect(result).toEqual(aRésultatsRechercheOffreEmploi());
           /*expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
             '/search?range=0-14',
-            () => jest.fn()
+            (data) => data
           );*/
 
           expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI', aRésultatsRechercheOffreEmploiResponse(), 6);
