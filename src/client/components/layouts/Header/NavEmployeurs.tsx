@@ -1,5 +1,6 @@
+import classNames from 'classnames';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
 
@@ -12,16 +13,32 @@ interface NavEmployeursProps {
 }
 export function NavEmployeurs ({ item: root }: NavEmployeursProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const wrapper = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLUListElement>(null);
+
+  useLayoutEffect(() => {
+    function onResize() {
+      if (content.current && wrapper.current) {
+        const height = content.current.offsetHeight;
+        wrapper.current.style.setProperty('--contentHeight', `${height}px`);
+      }
+    }
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [wrapper, content]);
+
+
   return (
     <li className={styles.navItem}>
       <button className={styles.navItemButton}
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <span className={styles.navItemLabel}>{root.label}</span>
-        <Icon name="angle-down" />
+        <Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })} />
       </button>
-      <div className={styles.navWrapper}>
-        <ul className={styles.navDetail}>
+      <div ref={wrapper} className={classNames(styles.navWrapper, { [styles.expanded]: isExpanded })}>
+        <ul ref={content} className={styles.navDetail}>
           { listsFromChildren(root) }
         </ul>
       </div>

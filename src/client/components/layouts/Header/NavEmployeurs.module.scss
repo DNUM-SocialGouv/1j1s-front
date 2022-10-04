@@ -5,7 +5,6 @@
 }
 
 .navItem {
-  --navWidth: $breakpoint-xl;
   position: relative;
   @extend %text-regular;
 
@@ -24,6 +23,13 @@
     margin: auto;
     color: inherit;
     width: 100%;
+
+    .icon {
+      transition: all 200ms ease-in-out;
+    }
+    .icon.expanded {
+      transform: rotate(180deg);
+    }
   }
 
   &:hover {
@@ -38,7 +44,6 @@
 
   .navWrapper {
     @extend %box-shadow;
-    border-top: 1px solid $color-separator;
     background: $color-background;
     color: $color-on-background;
     position: absolute;
@@ -47,6 +52,15 @@
     top: 100%;
     right: 0;
     width: 100vw;
+    overflow-y: hidden;
+
+    height: 0;
+    &.expanded {
+      height: var(--contentHeight, 25rem);
+      border-top: 1px solid $color-separator;
+    }
+
+    transition: height 200ms ease-in-out;
   }
 
   .navDetail {
