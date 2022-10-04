@@ -16,7 +16,7 @@ const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr https://ms-ed664c2b32fd-360.lon.meilisearch.io/indexes/offre-de-stage/search https://1j1s-stage-content-manager-prod.osc-fr1.scalingo.io/api/*';
+const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr https://*.lon.meilisearch.io/indexes/*/search https://1j1s-*.osc-fr1.scalingo.io/api/*';
 const ANALYTICS_SOURCES = '*.xiti.com';
 
 const contentSecurityPolicy = `
