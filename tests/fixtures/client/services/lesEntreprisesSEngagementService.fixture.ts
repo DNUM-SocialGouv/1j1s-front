@@ -12,7 +12,7 @@ export function aLesEntreprisesSEngagementService(): LesEntreprisesSEngagentServ
 }
 
 export const uneCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation = () => ({
-  codePostal: '75115',
+  codePostal: '75015',
   email: 'machin.chose@bidule.com',
   nom: 'Chose',
   nomSociété: 'Bidule co.',
@@ -22,10 +22,11 @@ export const uneCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation =
   taille: 'medium',
   travail: 'Chef',
   téléphone: '0123456789',
+  ville: 'Paris (15e arrondissement)',
 });
 
 export const uneEntreprise: () => Entreprise = () => ({
-  codePostal: '75115',
+  codePostal: '75015',
   email: 'machin.chose@bidule.com',
   nom: 'Chose',
   nomSociété: 'Bidule co.',
@@ -35,10 +36,11 @@ export const uneEntreprise: () => Entreprise = () => ({
   taille: 'medium',
   travail: 'Chef',
   téléphone: '+33123456789',
+  ville: 'Paris (15e arrondissement)',
 });
 
 export const unContenuEntreprise = () => ({
-  code_postal: '75115',
+  code_postal: '75015',
   email: 'machin.chose@bidule.com',
   nom: 'Chose',
   nom_societe: 'Bidule co.',
@@ -48,4 +50,5 @@ export const unContenuEntreprise = () => ({
   taille: 'medium',
   telephone: '+33123456789',
   travail: 'Chef',
+  ville: 'Paris (15e arrondissement)',
 });

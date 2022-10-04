@@ -58,6 +58,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
       { secteur: '' },
       { taille: '8' },
       { taille: '' },
+      { ville: '' },
       { prénom: '' },
       { nom: '' },
       { travail: '' },

@@ -23,6 +23,7 @@ export class LesEntreprisesSEngagentUseCase {
 export interface RejoindreLaMobilisation  {
   nomSociété: string;
   codePostal: string;
+  ville: string;
   siret: string;
   secteur: string;
   taille: string;
@@ -44,6 +45,7 @@ const EntrepriseValidator = Joi.object({
   taille: Joi.string().valid(...Object.keys(TailleDEntreprise)).required(),
   travail: Joi.string().required(),
   téléphone: Joi.string().custom(validatePhone).required(),
+  ville: Joi.string().required(),
 });
 function validatePhone (input: string): string {
   const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false  });

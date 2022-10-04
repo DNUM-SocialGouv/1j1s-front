@@ -41,6 +41,7 @@ export const TailleDEntreprise = {
 export interface Entreprise {
   nomSociété: string;
   codePostal: string;
+  ville: string;
   siret: string;
   secteur: keyof typeof SecteurDActivité;
   taille: keyof typeof TailleDEntreprise;
