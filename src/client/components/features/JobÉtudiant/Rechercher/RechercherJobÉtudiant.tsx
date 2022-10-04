@@ -57,13 +57,17 @@ export function RechercherJobÉtudiant() {
           setIsLoading(false);
         });
     } else {
+      setIsLoading(true);
       offreEmploiService.récupérerEchantillonJobÉtudiant()
         .then((response) => {
           if (response.instance === 'success') {
             setJobÉtudiantList(response.result.résultats);
             setNombreRésultats(response.result.nombreRésultats);
+          } else {
+            setErreurRecherche(response.errorType);
           }
         });
+      setIsLoading(false);
     }
   }, [router.query, offreEmploiService]);
 

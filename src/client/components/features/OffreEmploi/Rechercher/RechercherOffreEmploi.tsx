@@ -60,13 +60,17 @@ export function RechercherOffreEmploi() {
           setIsLoading(false);
         });
     } else {
+      setIsLoading(true);
       offreEmploiService.récupérerEchantillonOffreEmploi()
         .then((response) => {
           if (response.instance === 'success') {
             setOffreEmploiList(response.result.résultats);
             setNombreRésultats(response.result.nombreRésultats);
+          } else {
+            setErreurRecherche(response.errorType);
           }
         });
+      setIsLoading(false);
     }
   }, [router.query, offreEmploiService]);
 

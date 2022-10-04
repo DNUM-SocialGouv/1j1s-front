@@ -87,9 +87,9 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
 
         {hasRouterQuery &&
           <>
-            {erreurRecherche || listeSolution.length === 0 && !isLoading ?
-              <ErrorComponent errorType={erreurRecherche}/> :
-              <>
+            {erreurRecherche || listeSolution.length === 0 && !isLoading
+              ? <ErrorComponent errorType={erreurRecherche}/>
+              : <>
                 <div className={'separator'}>
                   <Container className={styles.informationRésultat}>
                     {étiquettesRecherche}
@@ -105,13 +105,13 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                       {getSolutionList()}
                     </Skeleton>
                     {paginationOffset && nombreSolutions > paginationOffset &&
-                  <div className={styles.pagination}>
-                    <Pagination
-                      numberOfResult={nombreSolutions}
-                      numberOfResultPerPage={paginationOffset}
-                      maxPage={maxPage}
-                    />
-                  </div>
+                    <div className={styles.pagination}>
+                      <Pagination
+                        numberOfResult={nombreSolutions}
+                        numberOfResultPerPage={paginationOffset}
+                        maxPage={maxPage}
+                      />
+                    </div>
                     }
                   </Container>
                 </div>
@@ -119,12 +119,12 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
             }
           </>
         }
-        { (!hasRouterQuery && hasSample) &&
+        { (!hasRouterQuery && hasSample && !erreurRecherche) &&
           <>
             <Container className={styles.informationRésultat}>
-              <div className={styles.nombreRésultats}>
+              <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
                 <h2>{messageRésultatRecherche}</h2>
-              </div>
+              </Skeleton>
             </Container>
             <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
               <Container>
