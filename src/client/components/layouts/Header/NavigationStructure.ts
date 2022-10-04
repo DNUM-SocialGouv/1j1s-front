@@ -39,18 +39,18 @@ const accompagnementNav: NavigationItemWithChildren = {
   children: [
     { label: 'Contrat Engagement Jeune', link: '/contrat-engagement-jeune' },
     { label: 'Mes aides financières', link: '/mes-aides' },
-    { label: 'Mentorat', link: '/mentorat' },
+    { label: 'Le mentorat', link: '/mentorat' },
+    { label: 'Je crée mon CV personnalisé', link: '/creer-mon-cv' },
     { label: 'Accompagnement', link: '/accompagnement' },
-    { label: 'CV personnalisé', link: '/creer-mon-cv' },
-    { label: 'Les mesures jeunes', link: '/mesures-jeunes' },
+    { label: 'Les mesures jeunes', link: '/espace-jeune' },
   ],
   label: 'Aides et accompagnement',
 };
 
 const engagementNav: NavigationItemWithChildren = {
   children: [
-    { label: 'Service civique', link: '/service-civique' },
-    { label: 'Bénévolat', link: '/benevolat' },
+    { label: 'Le service civique', link: '/service-civique' },
+    { label: 'Le bénévolat', link: '/benevolat' },
   ],
   label: 'Engagement',
 };
