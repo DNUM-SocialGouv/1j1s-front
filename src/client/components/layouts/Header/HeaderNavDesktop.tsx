@@ -6,7 +6,7 @@ import React, {
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { isNavigationItem, NavigationItem, navigationItemList, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
+import { navigationItemList } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 
@@ -45,25 +45,10 @@ export function HeaderNavDesktop() {
             <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
           </ul>
           <ul className={styles.headerNavigationListRight}>
-            <NavItemWithSubItems className={styles.navItem} item={flattenNavigation(employeurNav)} path={path} />
             <NavEmployeurs item={employeurNav} />
           </ul>
         </nav>
       </Container>
     </div>
   );
-}
-
-/* juste le temps de ne pas péter la navigation desktop */
-function flattenNavigation (item: NavigationItemWithChildren): NavigationItemWithChildren {
-  return {
-    children: getFlatChildren(item),
-    label: item.label,
-  };
-  function getFlatChildren(node: NavigationItemWithChildren | NavigationItem): NavigationItem[] {
-    if (isNavigationItem(node)) {
-      return [node];
-    }
-    return node.children.flatMap(getFlatChildren);
-  }
 }
