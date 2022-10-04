@@ -1,3 +1,4 @@
+import { unContenuEntreprise, uneCommandeRejoindreLaMobilisation } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -25,6 +26,7 @@ describe('enregistrerEntreprisesHandler', () => {
 
   describe('POST', () => {
     it('répond une 200 quand tout s’est bien passé', async () => {
+      let strapiReceivedBody: Record<string, string>;
       const strapiAuth = nock('http://localhost:1337/api')
         .post('/entreprises')
         .once()
@@ -33,44 +35,21 @@ describe('enregistrerEntreprisesHandler', () => {
         .once()
         .reply(200, { jwt });
       const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
-        .post('/entreprises', {
-          data: {
-            code_postal: '75002',
-            email: 'email@octo.com',
-            nom: 'Toto',
-            nom_societe: 'Octo',
-            prenom: 'Tata',
-            secteur: 'Dev',
-            siret: '123456789123',
-            taille: '~ 1000',
-            telephone: '0611223344',
-            travail: 'Dev',
-          },
-        })
+        .post('/entreprises', (body) => { strapiReceivedBody = body; return true; })
         .reply(201);
 
       await testApiHandler<void | ErrorHttpResponse>({
         handler: (req, res) => enregistrerEntreprisesHandler(req, res),
         test: async ({ fetch }) => {
           const res = await fetch({
-            body: JSON.stringify({
-              codePostal: '75002',
-              email: 'email@octo.com',
-              nom: 'Toto',
-              nomSociété: 'Octo',
-              prénom: 'Tata',
-              secteur: 'Dev',
-              siret: '123456789123',
-              taille: '~ 1000',
-              travail: 'Dev',
-              téléphone: '0611223344',
-            }),
+            body: JSON.stringify(uneCommandeRejoindreLaMobilisation()),
             headers: {
               'content-type': 'application/json',
             },
             method: 'POST',
           });
           expect(res.status).toEqual(200);
+          expect(strapiReceivedBody).toEqual({ data: unContenuEntreprise() });
           strapiAuth.done();
           strapiApi.done();
         },

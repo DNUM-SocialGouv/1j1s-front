@@ -1,6 +1,6 @@
+import { unContenuEntreprise, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
 import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
 
-import { Entreprise } from '~/server/entreprises/domain/Entreprise';
 import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
@@ -8,18 +8,7 @@ import { createFailure,createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
-  const entreprise: Entreprise = {
-    codePostal: '75002',
-    email: 'email@octo.com',
-    nom: 'Toto',
-    nomSociété: 'Octo',
-    prénom: 'Tata',
-    secteur: 'households-employers',
-    siret: '123456789123',
-    taille: '~ 1000',
-    travail: 'Dev',
-    téléphone: '0611223344',
-  };
+  const entreprise = uneEntreprise();
 
   describe('.save()', () => {
     it('fait un POST vers Strapi', async () => {
@@ -27,18 +16,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
       const spy = aStrapiHttpClientService();
       const repository = new StrapiRejoindreLaMobilisationRepository(spy);
       const expectedBody = {
-        data: {
-          code_postal: '75002',
-          email: 'email@octo.com',
-          nom: 'Toto',
-          nom_societe: 'Octo',
-          prenom: 'Tata',
-          secteur: 'households-employers',
-          siret: '123456789123',
-          taille: '~ 1000',
-          telephone: '0611223344',
-          travail: 'Dev',
-        },
+        data: unContenuEntreprise(),
       };
       // When
       await repository.save(entreprise);

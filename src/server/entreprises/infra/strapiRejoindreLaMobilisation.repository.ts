@@ -23,6 +23,7 @@ export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobil
           taille: entreprise.taille,
           telephone: entreprise.téléphone,
           travail: entreprise.travail,
+          ville: entreprise.ville,
         },
       });
     } catch (error) {
