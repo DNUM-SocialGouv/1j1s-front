@@ -3,10 +3,8 @@
 .header {
   background-color: $color-on-primary;
   color: $color-blue-navy;
-  padding: 0;
+  padding: 2rem 0;
   display: flex;
-  justify-content: space-between;
-  flex-direction: row-reverse;
 
   .titre {
     text-decoration-line: underline;
@@ -14,15 +12,13 @@
     font-size: 15px;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
-    padding: 0 0.5rem 0 0;
   }
 
   .logo {
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
-    padding: 0 2rem 0 1.5rem;
+    padding: 0 0.5rem 0 1.5rem;
   }
-
 }
 
 .content {
@@ -93,22 +89,22 @@
 @include media(large) {
 
   .header {
-    padding: 4rem 16rem 0.5rem 16rem;
+    padding: 4rem 16rem;
     flex-direction: row;
+    gap: 2.5rem;
 
     .titre {
-      margin-top: 0;
       font-size: 20px;
-      margin-bottom: 4rem;
       padding: 1rem 3rem 0 0;
+      margin-top: 0;
+      margin-bottom: 4rem;
     }
 
     .logo {
-      margin-bottom: 0;
-      margin-top: 0;
       padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
     }
-
   }
 
   .content {
