@@ -69,11 +69,6 @@ export default function MentoratPage() {
 
         <div className={classNames(styles.contentContainerOnPrimary)}>
           <article className={styles.QuestCeQueMentoratWrapper}>
-            { isLargeScreen && (
-              <div className={styles.imageWrapper}>
-                <Image src="/images/mentorat/questcequelementorat.jpg" alt="" layout="fill" objectFit="cover" objectPosition="top"/>
-              </div>
-            ) }
             <div className={styles.QuestCeQueMentoratContent}>
               <h1>Qu’est-ce que le mentorat ?</h1>
               <p>Le mentorat, c’est l’accompagnement individuel bénévole d’un jeune par un mentor, qui peut aussi bien être lycéen qu’étudiant, actif ou retraité. Le “binôme” que forment le mentor et le jeune se rencontre plusieurs fois par mois (pendant au moins 6 mois) pour répondre aux objectifs du mentoré selon son âge et ses besoins. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>
@@ -85,7 +80,6 @@ export default function MentoratPage() {
           <article className={styles.RaisonParticipationMentoratWrapper}>
             <div className={styles.RaisonParticipationMentoratContent}>
               <span className={styles.RaisonParticipationMentoratContent__Title}>
-                { isLargeScreen && <Image src="/icons/avatar.svg" alt=""  layout="fixed" width={80} height={80}/> }
                 <h1>Pourquoi participer à l’aventure du mentorat ?</h1>
               </span>
 
@@ -103,7 +97,7 @@ export default function MentoratPage() {
             </div>
             { isLargeScreen && (
               <div className={styles.imageWrapper}>
-                <Image src="/images/mentorat/aventuredumentorat.jpg" alt="" layout="fill" objectFit="cover"/>
+                <Image src="/illustrations/aventure-du-mentorat.svg" alt="" layout="fill" objectFit="contain"/>
               </div>
             ) }
           </article>

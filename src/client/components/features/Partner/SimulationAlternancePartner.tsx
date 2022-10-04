@@ -6,7 +6,7 @@ export function SimulationAlternancePartner() {
   return (
     <PartnerCard
       linkLabel="J'accède au site web"
-      logo="/images/logos/simulation-alternance.svg"
+      logo="/images/logos/portail-alternance.png"
       link="https://www.alternance.emploi.gouv.fr/simulateur-alternant/etape-1"
       title="Vous êtes alternant ?"
       headline="Simulez en quelques clics"

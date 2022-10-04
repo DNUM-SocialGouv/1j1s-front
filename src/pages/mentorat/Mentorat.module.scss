@@ -198,24 +198,13 @@
   }
 
   .QuestCeQueMentorat {
-    &Wrapper {
-      display: flex;
-      .imageWrapper {
-        display: initial;
-        min-width: 496px;
-        max-width: 496px;
-        min-height: 241px;
-        max-height: 241px;
-        margin-right: 4rem;
-      }
-    }
     &Content {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       h1 {
         font-size: 1.5rem;
-        margin-bottom: 0;
+        margin-bottom: 2.5rem;
       }
       p {
         font-size: 1.25rem;
@@ -267,14 +256,10 @@
     &Content {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       &__Title {
-        display: flex;
-        align-items: center;
         h1 {
           font-size: 1.5rem;
-          margin-left: 1.25rem;
-          margin-bottom: 0;
+          margin-bottom: 2.5rem;
         }
       }
     }
@@ -282,6 +267,5 @@
       padding-bottom: 0;
     }
   }
-
 }
 
