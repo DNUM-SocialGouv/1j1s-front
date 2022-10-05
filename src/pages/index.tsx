@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
@@ -7,9 +8,10 @@ import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
-import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
+
+const SeeMore = dynamic(() => import('~/client/components/ui/SeeMore/SeeMore'), { ssr: false });
 
 export default function Accueil() {
   return (

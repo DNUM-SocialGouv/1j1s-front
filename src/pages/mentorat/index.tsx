@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
-import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 

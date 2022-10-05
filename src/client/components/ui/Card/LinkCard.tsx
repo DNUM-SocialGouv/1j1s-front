@@ -22,7 +22,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title, titleLeve
   }
 
   return (
-    <Link href={link} className={classNames(styles.card, 'underline-none')}>
+    <Link href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
       <article className={styles.cardArticle}>
         <div className={styles.cardImageWrapper}>
           <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>

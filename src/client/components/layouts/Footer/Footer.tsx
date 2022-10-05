@@ -8,8 +8,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
-export function Footer() {
-
+export default function Footer() {
   const linkList: Array<LinkType> = [
     {
       title: 'legifrance.gouv.fr',
@@ -65,7 +64,7 @@ export function Footer() {
                 <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.</p>
               </div>
               <div className={styles.footerLienExterne}>
-                {linkList.map((link) => (<Link href={link.url} key={link.title} className="underline-none">
+                {linkList.map((link) => (<Link href={link.url} key={link.title} className="underline-none" prefetch={false}>
                   <TextIcon
                     text={link.title}
                     icon={<Icon name="external-redirection" />}
@@ -75,12 +74,12 @@ export function Footer() {
             </div>
           </div>
           <div className={styles.footerLienUtile}>
-            <Link href="/plan-du-site" className="underline-none">Plan du site</Link>
-            <Link href="/cgu" className="underline-none">Conditions générales d&apos;utilisations</Link>
-            <Link href="/accessibilite" className="underline-none">Accessibilité</Link>
-            <Link href="/mentions-legales" className="underline-none">Mentions légales</Link>
-            <Link href="/confidentialite" className="underline-none">Politique de confidentialité</Link>
-            <Link href={`mailto:${MAIL_TO}`}>
+            <Link href="/plan-du-site" className="underline-none" prefetch={false}>Plan du site</Link>
+            <Link href="/cgu" className="underline-none" prefetch={false}>Conditions générales d&apos;utilisations</Link>
+            <Link href="/accessibilite" className="underline-none" prefetch={false}>Accessibilité</Link>
+            <Link href="/mentions-legales" className="underline-none" prefetch={false}>Mentions légales</Link>
+            <Link href="/confidentialite" className="underline-none" prefetch={false}>Politique de confidentialité</Link>
+            <Link href={`mailto:${MAIL_TO}`} prefetch={false}>
               <TextIcon
                 text={'Nous contacter'}
                 icon={<Icon name="external-redirection" />}

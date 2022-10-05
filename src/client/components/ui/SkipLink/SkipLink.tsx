@@ -3,7 +3,7 @@ import React from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/ui/SkipLink/SkipLink.module.scss';
 
-export function SkipLink() {
+export default function SkipLink() {
   return (
     <div className={styles.skipLinkWrapper}>
       <Container>

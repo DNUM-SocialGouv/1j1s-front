@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Actions/Actions.module.scss';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const contenu = `
