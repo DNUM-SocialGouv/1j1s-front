@@ -16,9 +16,10 @@ const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/*/search 1j1s-*.osc-fr1.scalingo.io/api/* *1jeune1solution.gouv.fr';
-const ANALYTICS_SOURCES = '*.xiti.com';
 
+/*
+const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/ * /search 1j1s-*.osc-fr1.scalingo.io/api/* *1jeune1solution.gouv.fr';
+const ANALYTICS_SOURCES = '*.xiti.com';
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
   script-src 'self' ${ANALYTICS_SOURCES};
@@ -29,6 +30,7 @@ const contentSecurityPolicy = `
   form-action 'self';
   base-uri 'none';
 `;
+ */
 
 const DEV_ENVIRONMENTS = ['development', 'local'];
 
@@ -49,9 +51,6 @@ async function headers() {
       }, {
         key: 'Referrer-Policy',
         value: 'no-referrer, strict-origin-when-cross-origin',
-      }, {
-        key: 'Content-Security-Policy',
-        value: contentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
       }],
       source: '/:path*',
     }];
