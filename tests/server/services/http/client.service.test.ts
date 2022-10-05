@@ -100,6 +100,16 @@ describe('ClientService', () => {
     expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
   });
 
+  it('retourne une failure SERVICE_INDISPONIBLE quand le endpoint répond 403', async () => {
+    nock('http://baseUrl/')
+      .get('/endpoint')
+      .reply(403);
+
+    const result = await clientService.get<FakeRéponse, FakeRésultat>('endpoint', mapper);
+
+    expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+  });
+
   it('retourne une failure CONTENU_INDISPONIBLE quand le mapping échoue', async () => {
     nock('http://baseUrl/')
       .get('/endpoint')
