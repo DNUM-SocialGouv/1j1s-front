@@ -53,7 +53,7 @@ export function NavEmployeurs ({ item: root }: NavEmployeursProps) {
 function listsFromChildren(item: NavigationItemWithChildren | NavigationItem, onItemChosen: () => void) {
   if (isNavigationItem(item)) {
     return (
-      <li className={styles.navLeaf}>
+      <li key={item.link} className={styles.navLeaf}>
         <span onClick={onItemChosen}>
           <Link href={item.link}>{item.label}</Link>
         </span>
@@ -61,7 +61,7 @@ function listsFromChildren(item: NavigationItemWithChildren | NavigationItem, on
     );
   }
   return (
-    <li className={ styles.navSection }>
+    <li key={item.label} className={ styles.navSection }>
       <span className={styles.navSectionHeader}>
         <strong className={styles.subNavTitle}>{item.label}</strong>
         { item.legend ? <em>{item.legend}</em> : ''}
