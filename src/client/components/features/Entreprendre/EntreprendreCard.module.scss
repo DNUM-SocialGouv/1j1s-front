@@ -1,0 +1,136 @@
+@import "@styles/utilities";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: $color-surface;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+
+  &Header {
+    display: flex;
+    padding: 0.5rem;
+    border-bottom: 4px solid $color-primary;
+    height: 5.5rem;
+    align-items: center;
+  }
+
+  &ImageContainer {
+    width: 3.5rem;
+  }
+
+  &ImageWrapper {
+    position: relative;
+    max-width: 3.5rem;
+    width: 3.5rem;
+    max-height: 3.5rem;
+    height: 3.5rem;
+
+    * > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &Description {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+  }
+}
+
+.infoEntreprise {
+  margin-left: 1rem;
+
+  &Title {
+    color: $color-on-background;
+    @extend %bold;
+    @extend %text-medium;
+  }
+  &SubTitle {
+    @extend %text-small;
+    color: $color-on-background;
+  }
+}
+
+.descriptionPublicConcerne {
+  @extend %bold;
+  color: $color-secondary;
+  margin-top: 1.25rem;
+}
+
+.offreLead {
+  margin-left: 2rem;
+  line-height: 1.5;
+  &Title {
+    @extend  %bold;
+    font-size: 1rem;
+  }
+  &SubTitle {
+    min-height: 1.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+.callToAction {
+  @extend %linkWithRightIcon;
+}
+
+@include media(medium) {
+  .card {
+    padding: 1rem 1.5rem;
+    border-left: 4px solid $color-primary;
+    flex-direction: row;
+
+    &Header {
+      display: flex;
+      border-bottom: none;
+      margin-bottom: 0;
+      padding: 0;
+      width: 20%;
+    }
+
+    &ImageContainer {
+      width: 7.5rem;
+    }
+
+    &ImageWrapper {
+      min-height: 7.5rem;
+      max-height: 7.5rem;
+      min-width: 7.5rem;
+      max-width: 7.5rem;
+    }
+
+    .infoEntreprise {
+      margin-left: 0;
+      width: 100%;
+
+      * > ul {
+        margin-top: 1.25rem;
+      }
+
+      &Title {
+        font-size: 1.25rem;
+      }
+      &SubTitle {
+        font-size: 1rem;
+      }
+    }
+
+    &Description {
+      width: 100%;
+      margin-top: 1rem;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+    }
+  }
+
+  .descriptionEntreprise {
+    color: $color-on-background;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+}
+

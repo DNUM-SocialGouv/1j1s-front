@@ -1,0 +1,233 @@
+@import "@styles/utilities";
+
+.phases {
+  text-align: center;
+  margin-top: 3rem;
+  list-style-type: none;
+
+  &Card {
+    border: 1px white dotted;
+    border-radius: 5px;
+    height: 4.5rem;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @extend %text-small;
+
+    > p {
+      @extend %bold;
+    }
+  }
+}
+
+.depliant {
+  &Container {
+    background-color: $color-background-white-lilac;
+    padding-bottom: 2rem;
+  }
+
+  &Header {
+    color: $color-primary;
+    padding: 2rem;
+    @extend %bold;
+    @extend %text-large;
+  }
+
+  &Content {
+    margin-bottom: 1rem;
+  }
+
+  &Closed {
+    background-color: $color-primary;
+    color: white;
+    display: flex;
+    padding: 1rem 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &Details {
+    margin-top: 1rem;
+  }
+
+  &Open {
+    > ul > li {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+.outilsADisposition {
+  background-color: white;
+
+  &Content {
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  &Header {
+    color: $color-primary;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    @extend %text-large;
+    @extend %bold;
+  }
+
+  &Card {
+    background-color: white;
+    text-align: center;
+    border: 1px $color-primary solid;
+    border-radius: 1.25rem;
+    padding: 1.25rem 18px;
+    margin: 14px 1.5rem;
+
+    &Link {
+      margin-top: 1.5rem;
+    }
+
+  }
+}
+
+.marseille {
+  background-color: $color-background-white-lilac;
+  padding: 2rem 1.5rem 4rem;
+
+  a {
+    text-decoration: none;
+  }
+
+  &Header {
+    color: $color-primary;
+
+    h2 {
+      @extend %text-large;
+      @extend %bold;
+    }
+  }
+
+  &Body {
+    background-color: white;
+    border-radius: 1.25rem;
+    margin-top: 2rem;
+    box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
+  }
+
+  &ContentHeader {
+    padding: 1.5rem 0;
+    border-bottom: 1px $color-separator solid;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &ImageWrapper {
+    position: relative;
+    width: 180px;
+    height: 80px;
+    margin: auto;
+  }
+
+  &BodyContent {
+    padding: 1.4rem;
+
+    > p:first-child {
+      color: $color-primary;
+      @extend %bold;
+      margin-bottom: 1rem;
+      @extend %text-regular;
+    }
+
+    > p:nth-child(2) {
+      margin-bottom: 1rem;
+      @extend %text-regular;
+    }
+
+    > div {
+      color: $color-primary;
+      text-align: end;
+      @extend %text-small;
+    }
+  }
+}
+
+@include media(large) {
+  .main {
+    background-color: $color-background-white-lilac;
+  }
+
+  .phases {
+    display: flex;
+    align-items: center;
+
+    &Card {
+      height: 8rem;
+      width: 33%;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .depliant {
+    &Header {
+      text-align: center;
+      font-size: 1.5rem;
+      max-width: 48.75rem;
+      margin: auto;
+    }
+
+    &Closed {
+      border-radius: 1.25rem;
+    }
+
+    &Open {
+      > ul {
+        padding: 0;
+      }
+    }
+  }
+
+  .outilsADisposition {
+    background-color: white;
+    margin-top: 2rem;
+
+    &Header {
+      text-align: center;
+      padding: 2.5rem 0 0;
+    }
+
+    &Content {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 4rem;
+    }
+
+    &Card {
+      width: 32%;
+      margin: inherit;
+    }
+  }
+
+  .marseille {
+    &Header {
+      max-width: 40rem;
+      margin: auto;
+    }
+
+    &Body {
+      display: flex;
+      align-items: center;
+    }
+
+    &ContentHeader {
+      border-bottom: inherit;
+      border-right: 1px $color-separator solid;
+      padding: 2.5rem 0;
+    }
+
+    &ImageWrapper {
+      width: 300px;
+      height: 133px;
+    }
+  }
+}

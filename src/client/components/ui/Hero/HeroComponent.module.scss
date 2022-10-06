@@ -1,0 +1,86 @@
+@import "@styles/utilities";
+
+.heading {
+  position: relative;
+  padding: 2.5rem 2rem;
+  background-color: $color-primary;
+  color: white;
+
+  &Container {
+    max-width: 35rem;
+    margin: 0 auto;
+
+    &__Title {
+      @extend %headline;
+      margin-bottom: 1rem;
+    }
+
+    &__TitlePrimary {
+      @extend %bold;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    &__TitleSecondary {
+      color: white;
+      margin-bottom: 1rem;
+      @extend %text-large;
+    }
+  }
+
+  .imageWrapper {
+    display: none;
+  }
+}
+
+.linkAsButton {
+  display: flex;
+  justify-content: center;
+
+  @include media(large) {
+    display: initial;
+  }
+}
+
+@include media(large) {
+  .heading {
+    padding: 0;
+
+    &ContainerWrapper {
+      width: 50%;
+    }
+
+    &Container {
+      max-width: 39.5rem;
+      margin-right: calc(65em/2 - 32.5rem);
+      padding: 4rem 1rem;
+    }
+
+    .imageWrapper {
+      position: absolute;
+      display: initial;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 50%;
+    }
+  }
+}
+
+@include media(xxlarge) {
+  .heading {
+    &ContainerWrapper {
+      width: 60%;
+    }
+
+    &Container {
+      max-width: 45rem;
+      margin-right: calc(#{$breakpoint-xl}/1.5 - 45rem);
+    }
+
+    .imageWrapper {
+      width: 40%;
+    }
+  }
+
+}
