@@ -14,8 +14,13 @@ export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisa
     try {
       await this.client.post('/api/members', this.mapEntreprise(entreprise));
     } catch (e) {
-      if (axios.isAxiosError(e) && (e.response?.status === 400 || e.response?.status === 409)) {
-        return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+      if (axios.isAxiosError(e)) {
+        if (e.response?.status === 400) {
+          return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+        }
+        if (e.response?.status === 409) {
+          return createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT);
+        }
       }
       return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     }

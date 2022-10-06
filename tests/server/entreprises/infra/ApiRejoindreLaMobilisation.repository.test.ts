@@ -65,7 +65,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // When
       const actual = await repository.save(entreprise);
       // Then
-      expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+      expect(actual).toEqual(createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT));
     });
     it('résoud une erreur quand il y a une erreur réseau', async () => {
       // Given
