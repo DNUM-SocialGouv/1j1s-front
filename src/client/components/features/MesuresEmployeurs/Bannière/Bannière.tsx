@@ -1,35 +1,15 @@
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
+import { Hero } from '~/client/components/ui/Hero/Hero';
 
 
 export default function Bannière () {
-  const { isLargeScreen } = useBreakpoint();
 
   return (
-    <div className={styles.bannière}>
-      <div className={styles.bannièreContent}>
-        <span className={styles.bannièreContentTitle}>
-          <h1 className={ styles.bannièreContentTitleTitre }>Employeurs, découvrez toutes les mesures du plan 1 jeune 1 solution pour vous aider à
-            <span className={ styles.bannièreContentTitleTitreAccroche }> recruter plus facilement</span>
-          </h1>
-        </span>
-      </div>
-      {isLargeScreen && (
-        <div className={ styles.bannièreImage }>
-          <Image
-            priority
-            src="/illustrations/mesures-employeurs.svg"
-            alt=""
-            layout="fill"
-            objectFit="contain"
-            objectPosition="left"
-          />
-        </div>
-      )}
-    </div>
+    <Hero className={styles.bannière} image="/illustrations/mesures-employeurs.svg">
+      <span>Employeurs, découvrez toutes les mesures du plan 1 jeune 1 solution pour vous aider à</span>
+      <span> recruter plus facilement</span>
+    </Hero>
   );
 }
-

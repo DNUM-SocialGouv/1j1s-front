@@ -17,11 +17,11 @@
     color: inherit;
 
     @include media(medium) {
-      padding: 42px 24px;
+      padding: 42px 2rem;
     }
 
     @include media(xlarge) {
-      padding: 4rem 1.5rem;
+      padding: 4rem 1rem;
     }
   }
 

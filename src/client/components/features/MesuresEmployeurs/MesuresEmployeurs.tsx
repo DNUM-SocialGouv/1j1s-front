@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import React from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';

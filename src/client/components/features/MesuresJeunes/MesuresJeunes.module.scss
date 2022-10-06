@@ -16,9 +16,16 @@
   color: #2B8079;
 }
 
-.heroBackground {
+.bannière {
   background-color:white;
   color: $color-primary;
+  h1 {
+    font-size: 2rem;
+    line-height: 1.4;
+    > span:not(:first-child) {
+      color: #18753C;
+    }
+  }
 }
 
 .section {

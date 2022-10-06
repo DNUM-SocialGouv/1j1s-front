@@ -90,7 +90,9 @@
 }
 
 @include media(large) {
-
+  .accompagnementContainer {
+    padding: 4rem 1rem;
+  }
 
   .unionNationaleDesMissionsLocales {
     flex-direction: row;

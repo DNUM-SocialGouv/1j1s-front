@@ -2,8 +2,12 @@
 
 .consulterArticle {
     max-width: 78rem;
-    padding: 2rem 1.5rem;
+    padding: 2rem 1rem;
     margin: auto;
+
+    &ButtonRetour {
+        padding-bottom: 2rem;
+    }
     & [href] {
         box-shadow: 0 1px 0 0;
     }
@@ -19,7 +23,7 @@
 
 .consulterArticle img {
     display: block;
-    margin: 1rem auto 2rem auto;
+    margin: 1rem auto 2rem;
     max-width: 100%;
 }
 
@@ -73,6 +77,13 @@
 }
 
 @include media(large) {
+    .consulterArticle {
+        padding-top: 4rem;
+        &ButtonRetour {
+            padding-left: 6rem;
+
+        }
+    }
     .titre {
         padding-inline: 6rem;
     }
