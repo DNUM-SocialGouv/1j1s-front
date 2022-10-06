@@ -1,22 +1,29 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { createFailure, Either } from '~/server/errors/either';
+import { createFailure, Either, isFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 import { Entreprise, SecteurDActivité, TailleDEntreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class LesEntreprisesSEngagentUseCase {
-  constructor(private rejoindreLaMobilisationRepository: RejoindreLaMobilisationRepository) {}
+  constructor(
+    private primaryRepository: RejoindreLaMobilisationRepository,
+    private secondaryRepository: RejoindreLaMobilisationRepository,
+  ) {}
 
   async rejoindreLaMobilisation(command: RejoindreLaMobilisation): Promise<Either<void>> {
+    let entreprise: Entreprise;
     try {
-      const entreprise: Entreprise = Joi.attempt(command, EntrepriseValidator);
-      return this.rejoindreLaMobilisationRepository.save(entreprise);
+      entreprise = Joi.attempt(command, EntrepriseValidator);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
+    const primarySave = await this.primaryRepository.save(entreprise);
+    return isFailure(primarySave)
+      ? this.secondaryRepository.save(entreprise)
+      : primarySave;
   }
 }
 
@@ -35,7 +42,7 @@ export interface RejoindreLaMobilisation  {
 }
 
 const EntrepriseValidator = Joi.object({
-  codePostal: Joi.string().required(),
+  codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(), // Regex utilsée côté LEE
   email: Joi.string().email().required(),
   nom: Joi.string().required(),
   nomSociété: Joi.string().required(),

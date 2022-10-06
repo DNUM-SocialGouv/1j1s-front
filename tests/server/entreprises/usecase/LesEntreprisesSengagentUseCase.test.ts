@@ -6,23 +6,34 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('LesEntreprisesSEngagentUseCase', () => {
-  let repository: RejoindreLaMobilisationRepository;
+  let primaryRepository: RejoindreLaMobilisationRepository;
+  let secondaryRepository: RejoindreLaMobilisationRepository;
   let usecase: LesEntreprisesSEngagentUseCase;
   beforeEach(() => {
-    repository = {
+    primaryRepository = {
       save: jest.fn().mockResolvedValue(createSuccess(undefined)),
     };
-    usecase = new LesEntreprisesSEngagentUseCase(repository);
+    secondaryRepository = {
+      save: jest.fn().mockResolvedValue(createSuccess(undefined)),
+    };
+    usecase = new LesEntreprisesSEngagentUseCase(primaryRepository, secondaryRepository);
   });
   describe('.rejoindreLaMobilisation(command)', () => {
     const commande = uneCommandeRejoindreLaMobilisation();
     const entreprise = uneEntreprise();
+
     describe('Quand tout est valide', () => {
-      it('sauvegarde dans le dépôt', async () => {
+      it('sauvegarde dans le dépôt primaire', async () => {
         // When
         await usecase.rejoindreLaMobilisation(commande);
         // Then
-        expect(repository.save).toHaveBeenCalledWith(entreprise);
+        expect(primaryRepository.save).toHaveBeenCalledWith(entreprise);
+      });
+      it('ne sauvegarde PAS dans le dépôt secondaire', async () => {
+        // When
+        await usecase.rejoindreLaMobilisation(commande);
+        // Then
+        expect(secondaryRepository.save).not.toHaveBeenCalled();
       });
       it('résoud un succès', async () => {
         // When
@@ -30,7 +41,38 @@ describe('LesEntreprisesSEngagentUseCase', () => {
         // Then
         expect(actual).toEqual(createSuccess(undefined));
       });
+
+      describe('Mais que le dépôt primaire est indisponible', () => {
+        beforeEach(() => {
+          primaryRepository.save.mockResolvedValue!(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+        });
+        it('sauvegarde dans le dépôt secondaire', async () => {
+          // When
+          await usecase.rejoindreLaMobilisation(commande);
+          // Then
+          expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise);
+        });
+        it('résoud un succès', async () => {
+          // When
+          const actual = await usecase.rejoindreLaMobilisation(commande);
+          // Then
+          expect(actual).toEqual(createSuccess(undefined));
+        });
+
+        describe('Mais que le dépôt il est pété aussi', () => {
+          beforeEach(() => {
+            secondaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+          });
+          it('résoud une erreur SERVICE INDISPONIBLE', async () => {
+            // When
+            const actual = await usecase.rejoindreLaMobilisation(commande);
+            // Then
+            expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+          });
+        });
+      });
     });
+
     describe("quand le téléphone n'est pas valide", () => {
       it('résous une erreur DEMANDE_INCORRECTE', async () => {
         // Given
@@ -54,6 +96,11 @@ describe('LesEntreprisesSEngagentUseCase', () => {
       { siret: 'coucou bonjour' },
       { siret: '3456765' },
       { codePostal: '' },
+      { codePostal: 'bonjour' },
+      { codePostal: '27B' },
+      { codePostal: '123456' },
+      { codePostal: '97000' },
+      { codePostal: '97700' },
       { secteur: 'pas un secteur' },
       { secteur: '' },
       { taille: '8' },
