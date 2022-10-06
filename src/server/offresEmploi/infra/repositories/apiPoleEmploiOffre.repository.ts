@@ -6,10 +6,13 @@ import {
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
+  isOffreEmploiEchantillonFiltre,
+  isOffreJobEtudiantEchantillonFiltre,
   NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE,
   OffreEmploi,
   OffreEmploiFiltre,
   OffreEmploiId,
+  OffreFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { OffreEmploiRepository } from '~/server/offresEmploi/domain/offreEmploi.repository';
@@ -37,8 +40,8 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   ) {}
 
   private MAX_AUTHORIZED_RANGE = 1000;
-  private CACHE_KEY = 'ECHANTILLON_OFFRE_EMPLOI';
-  private CACHE_KEY_JOB_ETUDIANT = 'ECHANTILLON_JOB_ETUDIANT';
+  private ECHANTILLON_OFFRE_EMPLOI_KEY = 'ECHANTILLON_OFFRE_EMPLOI_KEY';
+  private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
 
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
     return await this.httpClientServiceWithAuthentification.get<OffreEmploiResponse, OffreEmploi>(
@@ -47,15 +50,10 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     );
   }
 
-  async searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
-    const paramètresRecherche = await this.buildParamètresRecherche(offreEmploiFiltre);
-    if(paramètresRecherche) {
-      return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
-        `/search?${paramètresRecherche}`,
-        mapRésultatsRechercheOffreEmploi,
-      );
-    }
-    return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+  async searchOffreEmploi(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffreEmploi>> {
+    if (isOffreJobEtudiantEchantillonFiltre(offreFiltre)) return await this.getEchantillonJobEtudiant();
+    if (isOffreEmploiEchantillonFiltre(offreFiltre)) return await this.getEchantillonOffreEmploi();
+    return await this.getOffreEmploiRecherche(offreFiltre);
   }
 
   async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string | undefined> {
@@ -107,18 +105,48 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
     }
   }
 
-  async getSampleOffreEmploi(isJobEtudiant: boolean): Promise<Either<RésultatsRechercheOffreEmploi>>  {
-    const responseInCache = await this.cacheService.get<RésultatsRechercheOffreEmploiResponse>(isJobEtudiant ? this.CACHE_KEY_JOB_ETUDIANT : this.CACHE_KEY);
+  async getOffreEmploiRecherche(offreFiltre: OffreEmploiFiltre) {
+    const paramètresRecherche = await this.buildParamètresRecherche(offreFiltre);
+    if(paramètresRecherche) {
+      return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
+        `/search?${paramètresRecherche}`,
+        mapRésultatsRechercheOffreEmploi,
+      );
+    }
+    return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+  }
+
+  async getEchantillonJobEtudiant() {
+    const responseInCache = await this.cacheService.get<RésultatsRechercheOffreEmploiResponse>(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY);
 
     if (responseInCache) return createSuccess(mapRésultatsRechercheOffreEmploi(responseInCache));
     else {
       const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
-        `/search?range=0-14${isJobEtudiant ? '&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI' : ''}`,
+        '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
         mapRésultatsRechercheOffreEmploiResponse,
       );
       switch (response.instance) {
         case 'success': {
-          this.cacheService.set(isJobEtudiant ? this.CACHE_KEY_JOB_ETUDIANT : this.CACHE_KEY, response.result, 6);
+          this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.result, 24);
+          return createSuccess(mapRésultatsRechercheOffreEmploi(response.result));
+        }
+        case 'failure': return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+      }
+    }
+  }
+
+  async getEchantillonOffreEmploi() {
+    const responseInCache = await this.cacheService.get<RésultatsRechercheOffreEmploiResponse>(this.ECHANTILLON_OFFRE_EMPLOI_KEY);
+
+    if (responseInCache) return createSuccess(mapRésultatsRechercheOffreEmploi(responseInCache));
+    else {
+      const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
+        '/search?range=0-14',
+        mapRésultatsRechercheOffreEmploiResponse,
+      );
+      switch (response.instance) {
+        case 'success': {
+          this.cacheService.set(this.ECHANTILLON_OFFRE_EMPLOI_KEY, response.result, 24);
           return createSuccess(mapRésultatsRechercheOffreEmploi(response.result));
         }
         case 'failure': return createFailure(ErreurMétier.DEMANDE_INCORRECTE);

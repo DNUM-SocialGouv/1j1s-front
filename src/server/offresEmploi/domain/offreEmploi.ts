@@ -160,6 +160,28 @@ export interface OffreEmploiFiltre {
   dureeHebdoMax?: string
 }
 
+export interface OffreEmploiEchantillonFiltre {
+  page: number
+}
+
+export interface OffreJobEtudiantEchantillonFiltre {
+  typeDeContratList: string[]
+  page: number
+  tempsDeTravail: string
+  dureeHebdoMax: string
+}
+
+export type OffreFiltre = OffreEmploiFiltre | OffreJobEtudiantEchantillonFiltre | OffreEmploiEchantillonFiltre
+
+export function isOffreEmploiEchantillonFiltre(filtre: OffreFiltre): filtre is OffreEmploiEchantillonFiltre {
+  return (Object.keys(filtre).length === 1 && Object.keys(filtre).includes('page'));
+}
+
+export function isOffreJobEtudiantEchantillonFiltre(filtre: OffreFiltre): filtre is OffreJobEtudiantEchantillonFiltre {
+  return (Object.keys(filtre).length === 4 && Object.keys(filtre).includes('typeDeContratList'));
+}
+
+
 export interface OffreEmploiFiltreLocalisation {
   type: TypeLocalisation
   code: string

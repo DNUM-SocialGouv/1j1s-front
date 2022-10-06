@@ -31,7 +31,7 @@ describe('RechercherJobÉtudiant', () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
-      mockUseRouter({});
+      mockUseRouter({ query: { page: '1' } });
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
@@ -43,7 +43,7 @@ describe('RechercherJobÉtudiant', () => {
 
       // WHEN
       const formulaireRechercheOffreEmploi = screen.getByRole('form');
-      expect(offreEmploiServiceMock.récupérerEchantillonJobÉtudiant).toHaveBeenCalled();
+      expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalled();
       expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
       const errorMessage = screen.queryByText('0 résultat');
 
@@ -79,7 +79,6 @@ describe('RechercherJobÉtudiant', () => {
         );
 
         // THEN
-        expect(offreEmploiServiceMock.récupérerEchantillonJobÉtudiant).not.toHaveBeenCalled();
         expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
         const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });

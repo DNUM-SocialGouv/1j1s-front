@@ -1,6 +1,8 @@
 import {
   aBarmanOffreEmploi,
+  anOffreEmploiEchantillonFiltre,
   anOffreEmploiFiltre,
+  anOffreJobEtudiantEchantillonFiltre,
   aRésultatsRechercheOffreEmploi,
 } from '@tests/fixtures/domain/offreEmploi.fixture';
 import {
@@ -62,6 +64,121 @@ describe('ApiPoleEmploiOffreRepository', () => {
   });
 
   describe('searchOffreEmploi', () => {
+    describe("quand la recherche est lancée automatiquement pour les offres d'emplois", () => {
+      describe('quand les informations ne sont pas encore mis en cache', () => {
+        it("fait l'appel à l'api et set les informations dans le cache", async () => {
+          jest
+            .spyOn(httpClientServiceWithAuthentification, 'get')
+            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
+
+          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+          jest.spyOn(cacheService, 'set');
+
+          const offreFiltre = anOffreEmploiEchantillonFiltre();
+
+          const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
+            '/search?range=0-14',
+            mapRésultatsRechercheOffreEmploiResponse,
+          );
+
+          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY', aRésultatsRechercheOffreEmploiResponse(), 24);
+        });
+      });
+
+      describe('quand les informations sont déjà en cache', () => {
+        it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
+          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+          jest.spyOn(cacheService, 'set');
+
+          const offreFiltre = anOffreEmploiEchantillonFiltre();
+
+          const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          expect(httpClientServiceWithAuthentification.get).not.toHaveBeenCalled();
+
+          expect(cacheService.set).not.toHaveBeenCalled();
+        });
+
+      });
+    });
+
+    describe('quand la recherche est lancée automatiquement pour les offres de jobs étudiants', () => {
+      describe('quand les informations ne sont pas encore mis en cache', () => {
+        it("fait l'appel à l'api et set les informations dans le cache", async () => {
+          jest
+            .spyOn(httpClientServiceWithAuthentification, 'get')
+            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
+
+          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+          jest.spyOn(cacheService, 'set');
+
+          const offreFiltre = anOffreJobEtudiantEchantillonFiltre();
+
+          const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
+            '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
+            mapRésultatsRechercheOffreEmploiResponse,
+          );
+
+          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY', aRésultatsRechercheOffreEmploiResponse(), 24);
+        });
+      });
+
+      describe('quand les informations sont déjà en cache', () => {
+        it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
+
+          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+          jest.spyOn(cacheService, 'set');
+
+          const offreFiltre = anOffreJobEtudiantEchantillonFiltre();
+
+          const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY');
+
+          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+          expect(httpClientServiceWithAuthentification.get).not.toHaveBeenCalled();
+
+          expect(cacheService.set).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe("quand la recherche est lancée par l'utilisateur", () => {
+      it("ne get pas les informations du cache et fait appel à l'api avec les filtres", async () => {
+        jest
+          .spyOn(httpClientServiceWithAuthentification, 'get')
+          .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploi()));
+
+        jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+        jest.spyOn(cacheService, 'set');
+
+        const offreFiltre = anOffreEmploiFiltre();
+
+        const { result } = await apiPoleEmploiOffreRepository.searchOffreEmploi(offreFiltre) as Success<RésultatsRechercheOffreEmploi>;
+
+        expect(cacheService.get).not.toHaveBeenCalled();
+
+        expect(result).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(httpClientServiceWithAuthentification.get).toHaveBeenCalled();
+
+        expect(cacheService.set).not.toHaveBeenCalled();
+      });
+    });
+
     describe('quand la range est supérieur à 1149', () => {
       it('renvoie une erreur DEMANDE_INCORRECTE', async () => {
         const offreEmploiFiltre = anOffreEmploiFiltre({ localisation: undefined, page: 1001 });
@@ -114,91 +231,4 @@ describe('ApiPoleEmploiOffreRepository', () => {
     });
   });
 
-  describe('getSampleOffreEmploi', () => {
-    describe('quand isJobEtudiant est true', () => {
-      describe('quand les informations ne sont pas encore mis en cache', () => {
-        it("fait l'appel à l'api et set les informations dans le cache", async () => {
-          jest
-            .spyOn(httpClientServiceWithAuthentification, 'get')
-            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
-
-          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
-          jest.spyOn(cacheService, 'set');
-
-          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(true) as Success<RésultatsRechercheOffreEmploi>;
-
-          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT');
-
-          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-          expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-            '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
-            mapRésultatsRechercheOffreEmploiResponse,
-          );
-
-          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT', aRésultatsRechercheOffreEmploiResponse(), 6);
-        });
-      });
-
-      describe('quand les informations sont déjà en cache', () => {
-        it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
-
-          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
-          jest.spyOn(cacheService, 'set');
-
-          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(true) as Success<RésultatsRechercheOffreEmploi>;
-
-          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_JOB_ETUDIANT');
-
-          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-          expect(httpClientServiceWithAuthentification.get).not.toHaveBeenCalled();
-
-          expect(cacheService.set).not.toHaveBeenCalled();
-        });
-      });
-    });
-
-    describe('quand isJobEtudiant est false', () => {
-      describe('quand les informations ne sont pas encore mis en cache', () => {
-        it("fait l'appel à l'api et set les informations dans le cache", async () => {
-          jest
-            .spyOn(httpClientServiceWithAuthentification, 'get')
-            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
-
-          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
-          jest.spyOn(cacheService, 'set');
-
-          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(false) as Success<RésultatsRechercheOffreEmploi>;
-
-
-          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI');
-
-          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-          expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-            '/search?range=0-14',
-            mapRésultatsRechercheOffreEmploiResponse,
-          );
-
-          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI', aRésultatsRechercheOffreEmploiResponse(), 6);
-        });
-      });
-
-      describe('quand les informations sont déjà en cache', () => {
-        it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
-          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
-          jest.spyOn(cacheService, 'set');
-
-          const { result } = await apiPoleEmploiOffreRepository.getSampleOffreEmploi(false) as Success<RésultatsRechercheOffreEmploi>;
-
-          expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI');
-
-          expect(result).toEqual(aRésultatsRechercheOffreEmploi());
-          expect(httpClientServiceWithAuthentification.get).not.toHaveBeenCalled();
-
-          expect(cacheService.set).not.toHaveBeenCalled();
-        });
-
-      });
-    });
-
-  });
 });

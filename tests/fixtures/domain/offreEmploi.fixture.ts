@@ -3,6 +3,7 @@ import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   OffreEmploi,
   OffreEmploiFiltre,
+  OffreFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 
@@ -87,7 +88,7 @@ export function aValetOffreEmploi(): OffreEmploi {
   };
 }
 
-export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreEmploiFiltre {
+export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreFiltre {
   return {
     dureeHebdoMax: '',
     experienceExigence: '',
@@ -100,5 +101,20 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
     page: 1,
     typeDeContratList: ['CDD', 'CDI'],
     ...override,
+  };
+}
+
+export function anOffreEmploiEchantillonFiltre(): OffreFiltre {
+  return {
+    page: 1,
+  };
+}
+
+export function anOffreJobEtudiantEchantillonFiltre(): OffreFiltre {
+  return {
+    dureeHebdoMax: '1600',
+    page: 1,
+    tempsDeTravail: 'tempsPartiel',
+    typeDeContratList: ['CDD', 'MIS', 'SAI'],
   };
 }

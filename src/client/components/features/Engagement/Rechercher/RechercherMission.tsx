@@ -103,7 +103,6 @@ export function RechercherMission(props: RechercherMissionProps) {
           nombreSolutions={nombreRésultats}
           mapToLienSolution={isServiceCivique ? mapMissionServiceCiviqueToLienSolution: mapMissionBénévolatToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
-          hasSample={false}
         />
       </main>
     </>

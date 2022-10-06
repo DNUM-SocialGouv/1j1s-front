@@ -30,7 +30,7 @@ describe('RechercherOffreEmploi', () => {
       // GIVEN
       const offreEmploiServiceMock = anOffreEmploiService();
       const localisationServiceMock = aLocalisationService();
-      mockUseRouter({});
+      mockUseRouter({ query: { page: '1' } });
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
@@ -46,7 +46,6 @@ describe('RechercherOffreEmploi', () => {
 
       // THEN
       expect(formulaireRechercheOffreEmploi).toBeInTheDocument();
-      expect(offreEmploiServiceMock.récupérerEchantillonOffreEmploi).toHaveBeenCalled();
       expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
       expect(errorMessage).not.toBeInTheDocument();
     });
@@ -77,7 +76,6 @@ describe('RechercherOffreEmploi', () => {
         );
 
         // THEN
-        expect(offreEmploiServiceMock.récupérerEchantillonOffreEmploi).not.toHaveBeenCalled();
         expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
         const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });

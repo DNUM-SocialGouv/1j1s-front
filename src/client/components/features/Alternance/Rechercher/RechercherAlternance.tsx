@@ -84,7 +84,6 @@ export function RechercherAlternance() {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapAlternanceToLienSolution}
-          hasSample={false}
         />
         {PartnerCardList(partnerCardList)}
       </main>

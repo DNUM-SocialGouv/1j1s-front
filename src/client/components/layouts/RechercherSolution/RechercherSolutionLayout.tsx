@@ -32,7 +32,6 @@ interface RechercherSolutionLayoutProps<T> {
   nombreSolutions: number
   paginationOffset?: number
   maxPage?: number
-  hasSample: boolean
   mapToLienSolution(data: T): LienSolution
 }
 
@@ -49,13 +48,12 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     paginationOffset,
     maxPage,
     isLoading,
-    hasSample,
   } = props;
 
   const router = useRouter();
   const hasRouterQuery = Object.keys(router.query).length > 0;
 
-  const getSolutionList = () => (
+  const displaySolutionList = () => (
     <ul>
       {
         listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
@@ -102,7 +100,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                 <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
                   <Container>
                     <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                      {getSolutionList()}
+                      {displaySolutionList()}
                     </Skeleton>
                     {paginationOffset && nombreSolutions > paginationOffset &&
                     <div className={styles.pagination}>
@@ -117,22 +115,6 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                 </div>
               </>
             }
-          </>
-        }
-        { (!hasRouterQuery && hasSample && !erreurRecherche) &&
-          <>
-            <Container className={styles.informationRésultat}>
-              <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
-                <h2>{messageRésultatRecherche}</h2>
-              </Skeleton>
-            </Container>
-            <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-              <Container>
-                <div className={styles.listeSolutions}>
-                  {getSolutionList()}
-                </div>
-              </Container>
-            </div>
           </>
         }
       </div>

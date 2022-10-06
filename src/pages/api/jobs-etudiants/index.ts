@@ -4,19 +4,14 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
-  OffreEmploiFiltre,
   OffreEmploiFiltreLocalisation,
+  OffreFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
-  if (Object.keys(req.query).length === 0) {
-    const résultatsRechercheJobÉtudiant = await dependencies.offreEmploiDependencies.récupérerEchantillonOffreEmploi
-      .handle(true);
-    return handleResponse(résultatsRechercheJobÉtudiant, res);
-  }
   const résultatsRechercheJobÉtudiant = await dependencies.offreEmploiDependencies.rechercherOffreEmploi
     .handle(jobÉtudiantRequestMapper(req));
   return handleResponse(résultatsRechercheJobÉtudiant, res);
@@ -24,9 +19,17 @@ export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: Ne
 
 export default monitoringHandler(rechercherJobÉtudiantHandler);
 
-function jobÉtudiantRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
+function jobÉtudiantRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
 
+  if (Object.keys(query).length === 1 && Object.keys(query).includes('page')) {
+    return {
+      dureeHebdoMax: '1600',
+      page: Number(query.page),
+      tempsDeTravail: 'tempsPartiel',
+      typeDeContratList: ['CDD', 'MIS', 'SAI'],
+    };
+  }
   return {
     dureeHebdoMax: '1600',
     experienceExigence: '',

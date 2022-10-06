@@ -44,34 +44,20 @@ export function RechercherOffreEmploi() {
 
   useEffect(() => {
     const queryString = stringify(router.query);
-    if (queryString) {
-      setIsLoading(true);
-      setErreurRecherche(undefined);
-      offreEmploiService.rechercherOffreEmploi(queryString)
-        .then((response) => {
-          if (response.instance === 'success') {
-            setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-            setOffreEmploiList(response.result.résultats);
-            setNombreRésultats(response.result.nombreRésultats);
-          } else {
-            setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
-            setErreurRecherche(response.errorType);
-          }
-          setIsLoading(false);
-        });
-    } else {
-      setIsLoading(true);
-      offreEmploiService.récupérerEchantillonOffreEmploi()
-        .then((response) => {
-          if (response.instance === 'success') {
-            setOffreEmploiList(response.result.résultats);
-            setNombreRésultats(response.result.nombreRésultats);
-          } else {
-            setErreurRecherche(response.errorType);
-          }
-        });
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+    setErreurRecherche(undefined);
+    offreEmploiService.rechercherOffreEmploi(queryString)
+      .then((response) => {
+        if (response.instance === 'success') {
+          setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setOffreEmploiList(response.result.résultats);
+          setNombreRésultats(response.result.nombreRésultats);
+        } else {
+          setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
+          setErreurRecherche(response.errorType);
+        }
+        setIsLoading(false);
+      });
   }, [router.query, offreEmploiService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
@@ -106,7 +92,6 @@ export function RechercherOffreEmploi() {
           mapToLienSolution={mapOffreEmploiToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
           maxPage={MAX_PAGE}
-          hasSample
         />
         <EnTeteSection heading="Découvrez des services faits pour vous"/>
         {PartnerCardList([
