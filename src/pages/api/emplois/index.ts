@@ -21,12 +21,9 @@ export default monitoringHandler(rechercherOffreEmploiHandler);
 
 function offreEmploiRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
+  const isEchantillonOffreEmploi = Object.keys(query).length === 1 && Object.keys(query).includes('page');
 
-  if (Object.keys(query).length === 1 && Object.keys(query).includes('page')) {
-    return {
-      page: Number(query.page),
-    };
-  }
+  if (isEchantillonOffreEmploi) return { page: Number(query.page) };
 
   return {
     dureeHebdoMax: query.dureeHebdoMax ? String(query.dureeHebdoMax) : '',
