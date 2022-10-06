@@ -70,6 +70,15 @@ const getApiGeoGouvConfig = (configurationService: ConfigurationService): HttpCl
   });
 };
 
+const getApiLEEConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+  return ({
+    apiKey: undefined,
+    apiName: 'API_LES_ENTREPRISES_SENGAGENT',
+    apiUrl: configurationService.getConfiguration().API_LES_ENTREPRISES_SENGAGENT_URL,
+    overrideInterceptor: false,
+  });
+};
+
 const getApiAdresseConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
     apiKey: undefined,
@@ -111,6 +120,7 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     laBonneAlternanceClientService: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService)),
+    lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
