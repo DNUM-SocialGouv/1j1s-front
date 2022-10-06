@@ -16,15 +16,13 @@ export default function MonEspaceEntreprise() {
         <div className={styles.monEspaceDescription}>
           <strong>Vous avez déjà rejoint la mobilisation &quot;Les entreprises s&apos;engagent&quot; pour les jeunes ?</strong>
           <div>Pour accéder à tous les services qui vous aideront à réaliser et valoriser vos engagements pour la jeunesse, connectez-vous à votre
-          espace sur la plateforme &quot;Les entreprises s&apos;engagent&quot;.
+            espace sur la plateforme &quot;Les entreprises s&apos;engagent&quot;.
           </div>
         </div>
         <div className={styles.containerBoutons}>
           <LinkAsButton className={styles.monEspaceConnexion} href="https://www.lesentreprises-sengagent.gouv.fr/login">
-          Je me connecte à mon espace
+            Je me connecte à mon espace
           </LinkAsButton>
-        </div>
-        <div>
           <LinkAsButton className={styles.monEspaceInscription} href={'/les-entreprises-s-engagent'}>
             <span className={styles.monEspaceInscriptionLien}><Icon
               name={'information'}/> Je ne suis pas encore inscrit, je rejoins la mobilisation</span>

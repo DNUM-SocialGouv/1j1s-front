@@ -58,7 +58,7 @@
       margin: auto;
 
       &Boutons {
-        max-width: 25rem;
+        max-width: 28rem;
         margin: 40px auto auto;
         flex-direction: column;
       }
@@ -97,7 +97,6 @@
     }
 
     &Inscription {
-
       &Lien {
         display: grid;
         grid-template-columns: 0fr 10fr;
