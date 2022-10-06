@@ -30,7 +30,7 @@ const orientationNav: NavigationItemWithChildren = {
   children: [
     { label: 'Formations', link: '/formations' },
     { label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
-    { label: 'Événements', link: '/evenements' },
+    { label: 'Participer à un évènement', link: '/evenements' },
   ],
   label: 'Formations et orientation',
 };
