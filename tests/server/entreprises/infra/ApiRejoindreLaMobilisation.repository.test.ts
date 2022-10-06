@@ -1,4 +1,5 @@
 import { uneEntreprise, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/ApiRejoindreLaMobilisation.repository';
@@ -22,9 +23,9 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
     });
     it('envoie un POST vers l\'API des entreprise s\'engagent', async () => {
       // Given
-      let capturedBody: Record<string, any>;
+      const trap = Trap<object>();
       const api = nock(entrepriseApiUrl)
-        .post('/api/members', (b) => {capturedBody = b; return true;})
+        .post('/api/members', trap)
         .reply(201, {});
       const entreprise = uneEntreprise();
       // When
@@ -32,7 +33,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Then
       expect(actual).toEqual(createSuccess(undefined));
       expect(api.isDone()).toEqual(true);
-      expect(capturedBody!).toEqual(uneEntrepriseMember());
+      expect(trap.value()).toEqual(uneEntrepriseMember());
     });
     it('résoud une erreur quand le service est indisponible', async () => {
       // Given

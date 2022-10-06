@@ -1,4 +1,5 @@
 import { unContenuEntreprise, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
 import {
@@ -25,7 +26,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
 
     it('fait un POST vers Strapi', async () => {
       // Given
-      const bodyTrap = trap<any>();
+      const bodyTrap = Trap<object>();
       const strapi = nock(strapiUrl)
         .post('/entreprises', bodyTrap)
         .reply(201, {});
@@ -51,7 +52,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
     describe('Quand il y a une annotation', () => {
       it('ajoute l\'annotation aux champs envoyés', async () => {
         // Given
-        const bodyTrap = trap<any>();
+        const bodyTrap = Trap<object>();
         nock(strapiUrl)
           .post('/entreprises', bodyTrap)
           .reply(201, {});
@@ -84,15 +85,3 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
   });
 });
 
-function trap<T> () {
-
-  let value: T|undefined = undefined;
-  function t(p: T) {
-    value = p;
-    return true;
-  }
-
-  t.value = () => value;
-
-  return t;
-}
