@@ -21,7 +21,9 @@ export default monitoringHandler(rechercherJobÉtudiantHandler);
 
 function jobÉtudiantRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
-  const isEchantillonJobEtudiant = Object.keys(query).length === 1 && Object.keys(query).includes('page');
+  const isEchantillonJobEtudiant = Object.keys(query).length === 1
+    && 'page' in query
+    && query.page === '1';
   if (isEchantillonJobEtudiant) {
     return {
       dureeHebdoMax: '1600',

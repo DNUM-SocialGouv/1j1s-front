@@ -21,7 +21,9 @@ export default monitoringHandler(rechercherOffreEmploiHandler);
 
 function offreEmploiRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
-  const isEchantillonOffreEmploi = Object.keys(query).length === 1 && Object.keys(query).includes('page');
+  const isEchantillonOffreEmploi = Object.keys(query).length === 1
+    && 'page' in query
+    && query.page === '1';
 
   if (isEchantillonOffreEmploi) return { page: Number(query.page) };
 
