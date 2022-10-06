@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React  from 'react';
 
-import styles from '~/client/components/features/MaintenancePoleEmploi/MaintenancePoleEmploi.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import styles from '~/pages/maintenance-pole-emploi/MaintenancePoleEmploi.module.scss';
 
 export default function MaintenancePoleEmploi() {
   
