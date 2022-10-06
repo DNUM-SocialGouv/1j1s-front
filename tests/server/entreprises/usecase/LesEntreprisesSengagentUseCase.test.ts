@@ -6,8 +6,8 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('LesEntreprisesSEngagentUseCase', () => {
-  let primaryRepository: RejoindreLaMobilisationRepository;
-  let secondaryRepository: RejoindreLaMobilisationRepository;
+  let primaryRepository: jest.Mocked<RejoindreLaMobilisationRepository>;
+  let secondaryRepository: jest.Mocked<RejoindreLaMobilisationRepository>;
   let usecase: LesEntreprisesSEngagentUseCase;
   beforeEach(() => {
     primaryRepository = {
@@ -44,7 +44,6 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 
       describe('Mais que le dépôt primaire est indisponible', () => {
         beforeEach(() => {
-          //@ts-ignore
           primaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
         });
         it('sauvegarde dans le dépôt secondaire', async () => {
@@ -62,7 +61,6 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 
         describe('Mais que le dépôt il est pété aussi', () => {
           beforeEach(() => {
-            //@ts-ignore
             secondaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
           });
           it('résoud une erreur SERVICE INDISPONIBLE', async () => {
@@ -77,7 +75,6 @@ describe('LesEntreprisesSEngagentUseCase', () => {
         // FIXME comme on a aucun moyen de faire remonter l'information jusqu'à l'utilisateur
         // on va considérer ici qu'on ne sait pas gérer cette erreur
         beforeEach(() => {
-          //@ts-ignore
           primaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
         });
         it('sauvegarde dans le dépôt secondaire', async () => {
@@ -146,22 +143,3 @@ describe('LesEntreprisesSEngagentUseCase', () => {
     }
   });
 });
-
-/*
-type FnStub<F extends () => any> = jest.Mock<Parameters<F>, ReturnType<F>>
-type Stub<C extends Record<string, () => any>> = Record<keyof C, FnStub<C[keyof C]>>
-function Stub<C extends Record<string, () => any>> (impl: Partial<C>): Stub<C> {
-  const stubs: Partial<Stub<C>> = {};
-  const proxy = new Proxy(impl, {
-    get(target: Partial<C>, key: keyof C): FnStub<C[typeof prop]> {
-      if (key in stubs) {
-        return stubs[key]!;
-      }
-      if (key in impl) {
-        stubs[key] = jest.fn(impl[key])
-      }
-    },
-  });
-}
-
-*/
