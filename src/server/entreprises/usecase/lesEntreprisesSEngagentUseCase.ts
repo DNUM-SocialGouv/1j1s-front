@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { createFailure, Either, isFailure } from '~/server/errors/either';
+import { createFailure, createSuccess, Either, isFailure, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 import { Entreprise, SecteurDActivité, TailleDEntreprise } from '../domain/Entreprise';
@@ -21,9 +21,11 @@ export class LesEntreprisesSEngagentUseCase {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
     const primarySave = await this.primaryRepository.save(entreprise);
-    return isFailure(primarySave)
-      ? this.secondaryRepository.save(entreprise)
-      : primarySave;
+    return isSuccess(primarySave)
+      ? createSuccess(undefined)
+      : isSuccess(await this.secondaryRepository.save(entreprise))
+        ? createSuccess(undefined)
+        : createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
   }
 }
 

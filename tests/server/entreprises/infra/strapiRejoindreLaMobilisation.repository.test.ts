@@ -9,6 +9,12 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
   const entreprise = uneEntreprise();
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   describe('.save()', () => {
     it('fait un POST vers Strapi', async () => {
