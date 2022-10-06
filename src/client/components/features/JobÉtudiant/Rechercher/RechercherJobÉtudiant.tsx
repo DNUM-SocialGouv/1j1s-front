@@ -41,22 +41,21 @@ export function RechercherJobÉtudiant() {
 
   useEffect(() => {
     const queryString = stringify(router.query);
-    if (queryString) {
-      setIsLoading(true);
-      setErreurRecherche(undefined);
-      offreEmploiService.rechercherJobÉtudiant(queryString)
-        .then((response) => {
-          if (response.instance === 'success') {
-            setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-            setJobÉtudiantList(response.result.résultats);
-            setNombreRésultats(response.result.nombreRésultats);
-          } else {
-            setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
-            setErreurRecherche(response.errorType);
-          }
-          setIsLoading(false);
-        });
-    }
+
+    setIsLoading(true);
+    setErreurRecherche(undefined);
+    offreEmploiService.rechercherJobÉtudiant(queryString)
+      .then((response) => {
+        if (response.instance === 'success') {
+          setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setJobÉtudiantList(response.result.résultats);
+          setNombreRésultats(response.result.nombreRésultats);
+        } else {
+          setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
+          setErreurRecherche(response.errorType);
+        }
+        setIsLoading(false);
+      });
   }, [router.query, offreEmploiService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
@@ -82,7 +81,7 @@ export function RechercherJobÉtudiant() {
         <RechercherSolutionLayout
           bannière={<BannièreJobÉtudiant/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche" />}
+          étiquettesRecherche={offreEmploiQuery.libelleLocalisation ? <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche" /> : null}
           formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
           isLoading={isLoading}
           listeSolution={jobÉtudiantList}

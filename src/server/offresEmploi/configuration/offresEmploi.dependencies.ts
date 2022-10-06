@@ -9,6 +9,7 @@ import {
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
+import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 export type OffresEmploiDependencies = ConsulterOffreEmploiDependenciesContainer
@@ -17,9 +18,10 @@ export type OffresEmploiDependencies = ConsulterOffreEmploiDependenciesContainer
 export const offresEmploiDependenciesContainer = (
   httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
+  cacheService: CacheService,
 ): OffresEmploiDependencies => {
   return {
-    ...consulterOffreEmploiDependenciesContainer(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository),
-    ...rechercherOffreEmploiDependenciesContainer(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository),
+    ...consulterOffreEmploiDependenciesContainer(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository, cacheService),
+    ...rechercherOffreEmploiDependenciesContainer(httpClientServiceWithAuthentification, apiPoleEmploiRéférentielRepository, cacheService),
   };
 };

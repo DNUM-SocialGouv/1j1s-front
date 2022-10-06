@@ -1,12 +1,12 @@
 import { Either } from '~/server/errors/either';
 import {
   OffreEmploi,
-  OffreEmploiFiltre,
   OffreEmploiId,
+  OffreFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 
 export interface OffreEmploiRepository {
   getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>>
-  searchOffreEmploi(offreEmploiFiltre: OffreEmploiFiltre): Promise<Either<RésultatsRechercheOffreEmploi>>
+  searchOffreEmploi(offreEmploiFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffreEmploi>>
 }

@@ -4,8 +4,8 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
-  OffreEmploiFiltre,
   OffreEmploiFiltreLocalisation,
+  OffreFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
@@ -19,8 +19,11 @@ export async function rechercherOffreEmploiHandler(req: NextApiRequest, res: Nex
 
 export default monitoringHandler(rechercherOffreEmploiHandler);
 
-function offreEmploiRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
+function offreEmploiRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
+  const isEchantillonOffreEmploi = Object.keys(query).length === 1 && Object.keys(query).includes('page');
+
+  if (isEchantillonOffreEmploi) return { page: Number(query.page) };
 
   return {
     dureeHebdoMax: query.dureeHebdoMax ? String(query.dureeHebdoMax) : '',

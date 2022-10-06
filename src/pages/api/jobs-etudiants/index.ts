@@ -4,8 +4,8 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
-  OffreEmploiFiltre,
   OffreEmploiFiltreLocalisation,
+  OffreFiltre,
   RésultatsRechercheOffreEmploi,
 } from '~/server/offresEmploi/domain/offreEmploi';
 import { dependencies } from '~/server/start';
@@ -19,9 +19,17 @@ export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: Ne
 
 export default monitoringHandler(rechercherJobÉtudiantHandler);
 
-function jobÉtudiantRequestMapper(request: NextApiRequest): OffreEmploiFiltre {
+function jobÉtudiantRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
-
+  const isEchantillonJobEtudiant = Object.keys(query).length === 1 && Object.keys(query).includes('page');
+  if (isEchantillonJobEtudiant) {
+    return {
+      dureeHebdoMax: '1600',
+      page: Number(query.page),
+      tempsDeTravail: 'tempsPartiel',
+      typeDeContratList: ['CDD', 'MIS', 'SAI'],
+    };
+  }
   return {
     dureeHebdoMax: '1600',
     experienceExigence: '',

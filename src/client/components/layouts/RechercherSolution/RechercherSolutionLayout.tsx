@@ -49,9 +49,28 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     maxPage,
     isLoading,
   } = props;
-  const router = useRouter();
 
+  const router = useRouter();
   const hasRouterQuery = Object.keys(router.query).length > 0;
+
+  const displaySolutionList = () => (
+    <ul>
+      {
+        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
+          <li key={lienSolution.id}>
+            <RésultatRechercherSolution
+              lienOffre={lienSolution.lienOffre}
+              intituléOffre={lienSolution.intituléOffre}
+              logoEntreprise={lienSolution.logoEntreprise}
+              nomEntreprise={lienSolution.nomEntreprise}
+              descriptionOffre={lienSolution.descriptionOffre}
+              étiquetteOffreList={lienSolution.étiquetteOffreList}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  );
 
   return (
     <>
@@ -64,55 +83,39 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
         </div>
 
 
-        {
-          hasRouterQuery &&
-            <>
-              {erreurRecherche || listeSolution.length === 0 && !isLoading ?
-                <ErrorComponent errorType={erreurRecherche}/> :
-                <>
-                  <div className={'separator'}>
-                    <Container className={styles.informationRésultat}>
-                      {étiquettesRecherche}
-                      <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
-                        <h2>{messageRésultatRecherche}</h2>
-                      </Skeleton>
-                    </Container>
-                  </div>
+        {hasRouterQuery &&
+          <>
+            {erreurRecherche || listeSolution.length === 0 && !isLoading
+              ? <ErrorComponent errorType={erreurRecherche}/>
+              : <>
+                <div className={'separator'}>
+                  <Container className={styles.informationRésultat}>
+                    {étiquettesRecherche}
+                    <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+                      <h2>{messageRésultatRecherche}</h2>
+                    </Skeleton>
+                  </Container>
+                </div>
 
-                  <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-                    <Container>
-                      <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                        <ul>
-                          {
-                            listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-                              <li key={lienSolution.id}>
-                                <RésultatRechercherSolution
-                                  lienOffre={lienSolution.lienOffre}
-                                  intituléOffre={lienSolution.intituléOffre}
-                                  logoEntreprise={lienSolution.logoEntreprise}
-                                  nomEntreprise={lienSolution.nomEntreprise}
-                                  descriptionOffre={lienSolution.descriptionOffre}
-                                  étiquetteOffreList={lienSolution.étiquetteOffreList}
-                                />
-                              </li>
-                            ))
-                          }
-                        </ul>
-                      </Skeleton>
-                      {paginationOffset && nombreSolutions > paginationOffset &&
-                      <div className={styles.pagination}>
-                        <Pagination
-                          numberOfResult={nombreSolutions}
-                          numberOfResultPerPage={paginationOffset}
-                          maxPage={maxPage}
-                        />
-                      </div>
-                      }
-                    </Container>
-                  </div>
-                </>
-              }
-            </>
+                <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+                  <Container>
+                    <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+                      {displaySolutionList()}
+                    </Skeleton>
+                    {paginationOffset && nombreSolutions > paginationOffset &&
+                    <div className={styles.pagination}>
+                      <Pagination
+                        numberOfResult={nombreSolutions}
+                        numberOfResultPerPage={paginationOffset}
+                        maxPage={maxPage}
+                      />
+                    </div>
+                    }
+                  </Container>
+                </div>
+              </>
+            }
+          </>
         }
       </div>
     </>
