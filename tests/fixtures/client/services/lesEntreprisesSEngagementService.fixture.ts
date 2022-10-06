@@ -53,7 +53,7 @@ export const uneEntrepriseMember = () => ({
   phone: '+33123456789',
 });
 
-export const unContenuEntreprise = () => ({
+export const unContenuEntreprise = (annotation?: string) => ({
   code_postal: '75015',
   email: 'machin.chose@bidule.com',
   nom: 'Chose',
@@ -65,4 +65,5 @@ export const unContenuEntreprise = () => ({
   telephone: '+33123456789',
   travail: 'Chef',
   ville: 'Paris (15e arrondissement)',
+  ...(annotation ? { erreur: annotation } : {}),
 });

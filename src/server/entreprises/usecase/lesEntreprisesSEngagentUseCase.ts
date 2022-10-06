@@ -21,11 +21,14 @@ export class LesEntreprisesSEngagentUseCase {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
     const primarySave = await this.primaryRepository.save(entreprise);
-    return isSuccess(primarySave)
-      ? createSuccess(undefined)
-      : isSuccess(await this.secondaryRepository.save(entreprise))
-        ? createSuccess(undefined)
-        : createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    if (isFailure(primarySave)) {
+      if (isSuccess(await this.secondaryRepository.save(entreprise, primarySave.errorType))) {
+        return createSuccess(undefined);
+      } else {
+        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      }
+    }
+    return primarySave;
   }
 }
 

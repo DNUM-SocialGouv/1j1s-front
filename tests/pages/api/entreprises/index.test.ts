@@ -1,8 +1,9 @@
-import { unContenuEntreprise, uneCommandeRejoindreLaMobilisation } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { unContenuEntreprise, uneCommandeRejoindreLaMobilisation, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { enregistrerEntreprisesHandler } from '~/pages/api/entreprises';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 describe('enregistrerEntreprisesHandler', () => {
@@ -27,6 +28,33 @@ describe('enregistrerEntreprisesHandler', () => {
   describe('POST', () => {
     it('répond une 200 quand tout s’est bien passé', async () => {
       let strapiReceivedBody: Record<string, string>;
+      const leeApi = nock('https://staging.lesentreprises-sengagent.local')
+        .post('/api/members', (body) => { strapiReceivedBody = body; return true; })
+        .reply(201);
+
+      await testApiHandler<void | ErrorHttpResponse>({
+        handler: (req, res) => enregistrerEntreprisesHandler(req, res),
+        test: async ({ fetch }) => {
+          const res = await fetch({
+            body: JSON.stringify(uneCommandeRejoindreLaMobilisation()),
+            headers: {
+              'content-type': 'application/json',
+            },
+            method: 'POST',
+          });
+          expect(res.status).toEqual(200);
+          expect(strapiReceivedBody).toEqual(uneEntrepriseMember());
+          leeApi.done();
+        },
+        url: '/entreprises',
+      });
+    });
+
+    it('sauvegarde dans strapi quand les entreprises sengagent est indisponible', async () => {
+      const leeApi = nock('https://staging.lesentreprises-sengagent.local')
+        .post('/api/members')
+        .reply(503);
+      let strapiReceivedBody: Record<string, string>;
       const strapiAuth = nock('http://localhost:1337/api')
         .post('/entreprises')
         .once()
@@ -49,9 +77,10 @@ describe('enregistrerEntreprisesHandler', () => {
             method: 'POST',
           });
           expect(res.status).toEqual(200);
-          expect(strapiReceivedBody).toEqual({ data: unContenuEntreprise() });
+          expect(strapiReceivedBody).toEqual({ data: unContenuEntreprise(ErreurMétier.SERVICE_INDISPONIBLE) });
           strapiAuth.done();
           strapiApi.done();
+          leeApi.done();
         },
         url: '/entreprises',
       });

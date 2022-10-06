@@ -51,7 +51,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
           // When
           await usecase.rejoindreLaMobilisation(commande);
           // Then
-          expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise);
+          expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise, ErreurMétier.SERVICE_INDISPONIBLE);
         });
         it('résoud un succès', async () => {
           // When
@@ -72,19 +72,25 @@ describe('LesEntreprisesSEngagentUseCase', () => {
             expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
           });
         });
-        describe('Mais que le dépôt secondaire juge la demande invalide', () => {
-          // FIXME comme on a aucun moyen de faire remonter l'information jusqu'à l'utilisateur
-          // on va considérer ici qu'on ne sait pas gérer cette erreur
-          beforeEach(() => {
-            //@ts-ignore
-            secondaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
-          });
-          it('résoud une erreur SERVICE INDISPONIBLE', async () => {
-            // When
-            const actual = await usecase.rejoindreLaMobilisation(commande);
-            // Then
-            expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-          });
+      });
+      describe('Mais que le dépôt primaire juge la demande invalide', () => {
+        // FIXME comme on a aucun moyen de faire remonter l'information jusqu'à l'utilisateur
+        // on va considérer ici qu'on ne sait pas gérer cette erreur
+        beforeEach(() => {
+          //@ts-ignore
+          primaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+        });
+        it('sauvegarde dans le dépôt secondaire', async () => {
+          // When
+          await usecase.rejoindreLaMobilisation(commande);
+          // Then
+          expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise, ErreurMétier.DEMANDE_INCORRECTE);
+        });
+        it('résoud un succès', async () => {
+          // When
+          const actual = await usecase.rejoindreLaMobilisation(commande);
+          // Then
+          expect(actual).toEqual(createSuccess(undefined));
         });
       });
     });

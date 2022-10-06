@@ -9,7 +9,7 @@ export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobil
 
   constructor(private httpClientService: HttpClientService) {
   }
-  async save(entreprise: Entreprise): Promise<Either<void>> {
+  async save(entreprise: Entreprise, annotation?: string): Promise<Either<void>> {
     try {
       await this.httpClientService.post('entreprises', {
         data: {
@@ -24,6 +24,7 @@ export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobil
           telephone: entreprise.téléphone,
           travail: entreprise.travail,
           ville: entreprise.ville,
+          ...(annotation ? { erreur: annotation } : {}),
         },
       });
     } catch (error) {
