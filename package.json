@@ -26,7 +26,7 @@
     "@meilisearch/instant-meilisearch": "^0.8.2",
     "@sentry/nextjs": "^7.8.1",
     "@types/react-autosuggest": "^10.1.5",
-    "axios": "^0.27.2",
+    "axios": "^1.0.0",
     "classnames": "^2.3.1",
     "dompurify": "^2.3.8",
     "ioredis": "^5.1.0",
