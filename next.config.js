@@ -58,6 +58,56 @@ async function headers() {
   }
 }
 
+async function redirects() {
+  return [
+    {
+      destination: '/decouvrir-les-metiers',
+      permanent: true,
+      source: '/trouver-mon-metier',
+    },
+    {
+      destination: '/decouvrir-les-metiers',
+      permanent: true,
+      source: '/trouver-mon-metier',
+    },
+    {
+      destination: '/logements/aides-logement',
+      permanent: true,
+      source: '/logements',
+    },
+    {
+      destination: '/logements/aides-logement',
+      permanent: true,
+      source: '/logements/articles',
+    },
+    {
+      destination: '/articles/16-18-obligation-de-formation',
+      permanent: true,
+      source: '/16-18-obligation-de-formation',
+    },
+    {
+      destination: '/articles/16-18-obligation-de-formation',
+      permanent: true,
+      source: '/promo-16-18-afpa',
+    },
+    {
+      destination: '/europe',
+      permanent: true,
+      source: '/emploi-europe',
+    },
+    {
+      destination: '/articles/mission-locale',
+      permanent: true,
+      source: '/mission-locale',
+    },
+    {
+      destination: '/articles/faire-un-service-civique',
+      permanent: true,
+      source: '/faire-un-service-civique',
+    },
+  ];
+}
+
 const moduleExports = {
   compress: true,
   env: {
@@ -70,6 +120,7 @@ const moduleExports = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
+  redirects,
   sentry: {
     disableClientWebpackPlugin: true,
     disableServerWebpackPlugin: true,
