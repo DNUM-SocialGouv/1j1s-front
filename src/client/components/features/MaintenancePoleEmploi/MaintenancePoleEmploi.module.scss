@@ -1,13 +1,12 @@
 @import "@styles/_utilities";
 
 .section {
-  padding: 3rem 0;
+  padding: 12rem 1.5rem;
   max-width: 47rem;
   margin: 0 auto;
 
   &Container {
     display: grid;
-    padding: 14rem 1.5rem;
     place-items: center;
 
     &Illustration {
@@ -21,12 +20,12 @@
       text-align: center;
       &Titre {
         font-size: 1.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
         font-weight: 700;
       }
       p {
         font-size: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
       }
     }
   }
@@ -34,8 +33,8 @@
 
 @include media(large) {
   .section {
+    padding: 7rem 1.5rem;
     &Container {
-      padding: 0 1.5rem;
       &Illustration {
         display: block;
       }
