@@ -6,6 +6,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React, { ReactElement, ReactNode } from 'react';
 
+import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
@@ -21,7 +22,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const sessionId = useSessionId();
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? defaultLayout;
   return (
     <>
       <Head>
@@ -39,5 +40,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         )
       }
     </>
+  );
+}
+function defaultLayout(page: ReactElement) {
+  return (
+    <Layout>{page}</Layout>
   );
 }
