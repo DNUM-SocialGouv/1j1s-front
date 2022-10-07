@@ -1,9 +1,9 @@
 import type { ReactElement } from 'react';
 import React from 'react';
 
+import MaintenancePoleEmploi from '~/client/components/features/MaintenancePoleEmploi/MaintenancePoleEmploi';
 import { LayoutMaintenance } from '~/client/components/layouts/LayoutMaintenance';
 import type { NextPageWithLayout } from '~/pages/_app';
-import MaintenancePoleEmploi from '~/pages/maintenance-pole-emploi/MaintenancePoleEmploi';
 
 const Page: NextPageWithLayout = () => {
   return (
