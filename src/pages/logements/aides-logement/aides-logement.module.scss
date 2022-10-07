@@ -1,0 +1,62 @@
+@import "@styles/utilities";
+
+.contentWrapper {
+  padding-block: 1.5rem;
+  padding-inline: 1rem;
+
+  @include media(xlarge) {
+    padding-block: 1rem;
+    padding-inline: 0;
+  }
+}
+
+.section {
+  &:not(:last-of-type) {
+    margin-bottom: 3rem;
+  }
+
+  @include media(large) {
+    margin-bottom: 3rem;
+  }
+}
+
+.sectionHeading {
+  color: $color-primary;
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  @extend %bold;
+  @extend %subheading;
+}
+
+.partnerCard {
+  &:last-of-type {
+    margin-bottom: 1rem;
+  }
+  &:not(:last-of-type) {
+    margin-bottom: 2rem;
+  }
+}
+
+.articleList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  @include media(large) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.additionalInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 3rem;
+  @extend %text-small;
+
+  svg {
+    color: $color-primary;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+  }
+}

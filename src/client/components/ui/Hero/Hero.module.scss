@@ -41,7 +41,13 @@
 }
 
 %text-Hero {
-  @extend %text-large;
+  font-size: 1rem;
+  line-height: 1.375rem;
+
+  @include media(large) {
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
 }
 
 .heading {
@@ -81,16 +87,19 @@
         margin-bottom: 0;
       }
     }
-
-    .linkAsButtonWrapper {
-      a {
-        width: 100%;
-      }
-    }
   }
 
   .imageWrapper {
     display: none;
+  }
+}
+
+.linkAsButton {
+  display: flex;
+  justify-content: center;
+
+  @include media(large) {
+    display: initial;
   }
 }
 
@@ -109,12 +118,6 @@
 
       &__TextContent {
         margin-bottom: 56px;
-      }
-
-      .linkAsButtonWrapper {
-        a {
-          width: initial;
-        }
       }
     }
 

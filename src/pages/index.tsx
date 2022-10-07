@@ -34,7 +34,7 @@ export default function Accueil() {
               linkLabel="Voir les offres"
               title="Emplois"
             >
-              <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>
+              <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/stage.webp"
@@ -42,7 +42,7 @@ export default function Accueil() {
               linkLabel="Voir les offres"
               title="Stages"
             >
-              <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>
+              <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/alternance.webp"
@@ -50,7 +50,7 @@ export default function Accueil() {
               linkLabel="Voir les offres"
               title="Contrats d'alternance"
             >
-              <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>
+              <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance.</p>
             </LinkCard>
           </div>
 
@@ -63,14 +63,6 @@ export default function Accueil() {
                 title="Jobs étudiants"
               >
                 <p>Des milliers d&apos;offres d&apos;emplois pour les étudiants</p>
-              </LinkCard>
-              <LinkCard
-                imageUrl="/images/entrepreneurs.webp"
-                link="/"
-                linkLabel="Voir les offres"
-                title="Je veux devenir entrepreneur"
-              >
-                <p>Retrouvez les conseils, outils et structures d’accompagnement pour vous aider à entreprendre.</p>
               </LinkCard>
               <LinkCard
                 imageUrl="/images/europe.webp"
@@ -97,7 +89,7 @@ export default function Accueil() {
               linkLabel="En savoir plus"
               title="Formations"
             >
-              <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>
+              <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/métiers.webp"
@@ -105,7 +97,7 @@ export default function Accueil() {
               linkLabel="En savoir plus"
               title="Je découvre mon futur métier"
             >
-              <p>Parcourez plus de 700 fiches métiers et trouvez celui qui vous correspond</p>
+              <p>Parcourez plus de 700 fiches métiers et trouvez celui qui vous correspond.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/évènements.webp"
@@ -113,7 +105,7 @@ export default function Accueil() {
               linkLabel="En savoir plus"
               title="Je participe à un évènement"
             >
-              <p>Des centaines d&apos;événements de recrutement pour tous les jeunes, partout en France</p>
+              <p>Des centaines d&apos;événements de recrutement pour tous les jeunes, partout en France.</p>
             </LinkCard>
           </div>
         </section>
@@ -141,17 +133,25 @@ export default function Accueil() {
               <p>Trouvez les aides auxquelles vous avez droit en moins de 5 minutes : logement, santé, mobilité, emploi, culture, etc.</p>
             </LinkCard>
             <LinkCard
-              imageUrl="/images/mentorat.webp"
-              link="/mentorat"
-              linkLabel="En savoir plus"
-              title="Je souhaite échanger avec un mentor"
+              imageUrl="/images/aides-au-logement.webp"
+              link="/logements/aides-logement"
+              linkLabel="Découvrir mes aides"
+              title="Je découvre les aides au logement"
             >
-              <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
+              <p>Découvrez les aides au logement auxquels vous avez le droit et recevez des conseils pour constituer votre dossier.</p>
             </LinkCard>
           </div>
 
           <SeeMore>
             <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
+              <LinkCard
+                imageUrl="/images/mentorat.webp"
+                link="/mentorat"
+                linkLabel="En savoir plus"
+                title="Je souhaite échanger avec un mentor"
+              >
+                <p>Une association vous recontacte pour vous proposer le programme de mentorat adapté à vos besoins.</p>
+              </LinkCard>
               <LinkCard
                 imageUrl="/images/créer-son-cv.webp"
                 link="/creer-mon-cv"
@@ -192,7 +192,7 @@ export default function Accueil() {
               linkLabel="Voir les offres"
               title="Service civique"
             >
-              <p>Je réalise une mission citoyenne de 6 à 12 mois, donnant le droit à une indemnisation</p>
+              <p>Je réalise une mission citoyenne de 6 à 12 mois, donnant le droit à une indemnisation.</p>
             </LinkCard>
             <LinkCard
               imageUrl="/images/bénévolat.webp"
@@ -200,7 +200,7 @@ export default function Accueil() {
               linkLabel="Voir les offres"
               title="Bénévolat"
             >
-              <p>Je réalise une mission d&apos;engagement civique courte auprès d&apos;organisations publiques ou associatives</p>
+              <p>Je réalise une mission d&apos;engagement civique courte auprès d&apos;organisations publiques ou associatives.</p>
             </LinkCard>
           </div>
         </section>

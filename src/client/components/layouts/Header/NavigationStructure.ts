@@ -39,6 +39,7 @@ const accompagnementNav: NavigationItemWithChildren = {
   children: [
     { label: 'Contrat Engagement Jeune', link: '/contrat-engagement-jeune' },
     { label: 'Mes aides financières', link: '/mes-aides' },
+    { label: 'Mes aides au logement', link: '/logements/aides-logement' },
     { label: 'Le mentorat', link: '/mentorat' },
     { label: 'Je crée mon CV personnalisé', link: '/creer-mon-cv' },
     { label: 'Accompagnement', link: '/accompagnement' },

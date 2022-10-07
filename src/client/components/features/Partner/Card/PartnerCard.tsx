@@ -38,7 +38,7 @@ export function PartnerCardList(list: PartnerCardProps[], title?: string){
   );
 }
 
-export function PartnerCard({ alt = '', description, headline, headlineColor, logo, logoRatio = 'portrait', link, linkLabel, title }: PartnerCardProps) {
+export function PartnerCard({ alt = '', description, className, headline, headlineColor, logo, logoRatio = 'portrait', link, linkLabel, title }: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
   const isInternalLink = useIsInternalLink(link);
 
   const icon = useMemo(function () {
@@ -48,7 +48,7 @@ export function PartnerCard({ alt = '', description, headline, headlineColor, lo
   const hasHeadlineColor = headlineColor ? { color: headlineColor } : { color: 'inherit' };
 
   return (
-    <Link href={link} className={classNames(styles.card, 'underline-none')}>
+    <Link href={link} className={classNames(styles.card, className, 'underline-none')}>
       <>
         <div className={styles.cardLogo}>
           <div className={classNames(styles.cardLogoWrapper, logoRatio === 'paysage' ? styles.cardLogoWrapperPaysage : styles.cardLogoWrapperPortrait)}>
@@ -58,7 +58,7 @@ export function PartnerCard({ alt = '', description, headline, headlineColor, lo
         <div className={styles.cardBody}>
           {title && <span className={styles.cardBody__Title}>{title}</span>}
           <p>
-            {headline && <strong style={ hasHeadlineColor } className={styles.cardHeadline}>{headline}</strong>}
+            {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
             {description}
           </p>
           <span className={styles.cardAction}>
