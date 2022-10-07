@@ -1,14 +1,16 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, {
   useEffect,
   useState,
 } from 'react';
 
-import { Footer } from '~/client/components/layouts/Footer/Footer';
 import { Header } from '~/client/components/layouts/Header/Header';
-import { SkipLink } from '~/client/components/ui/SkipLink/SkipLink';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AnalyticsService } from '~/client/services/analyticsService';
+
+const Footer = dynamic(() => import('~/client/components/layouts/Footer/Footer'), { ssr: false });
+const SkipLink = dynamic(() => import('~/client/components/ui/SkipLink/SkipLink'), { ssr: false });
 
 export function Layout({ children }: React.PropsWithChildren) {
   const router = useRouter();

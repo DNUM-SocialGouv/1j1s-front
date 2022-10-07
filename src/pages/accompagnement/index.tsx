@@ -10,7 +10,7 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import styles from '~/pages/accompagnement/Accompagnement.module.scss';

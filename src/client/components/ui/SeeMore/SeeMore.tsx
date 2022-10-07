@@ -15,7 +15,7 @@ interface SeeMoreProps extends CommonProps {
   additionalButtonClassName?: string
 }
 
-export function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalButtonClassName, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
+export default function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalButtonClassName, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const ariaId = uuidv4();

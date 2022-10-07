@@ -13,7 +13,7 @@ interface NavItemProps {
 export function NavItem({ className, label, link, isActive, onClick }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
   return (
     <li className={className}>
-      <Link href={link}>
+      <Link href={link} prefetch={false}>
 	      <a onClick={onClick}>
 	        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
 	      </a>

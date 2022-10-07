@@ -5,7 +5,7 @@ import styles from '~/client/components/features/MesuresJeunes/MesuresJeunes.mod
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import Marked from '~/client/components/ui/Marked/Marked';
-import { SeeMore } from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useSanitize from '~/client/hooks/useSanitize';
 import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
