@@ -17,7 +17,7 @@ export default function Accueil() {
       <HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
       <Hero image="/images/portraits-verticaux.webp">
         <p><b>À chacun sa solution.</b></p>
-        <p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir sur 1J1S !</p>
+        <p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
       </Hero>
       <main id="contenu">
         <section className={classNames(styles.section, styles.sectionNosOffres)}>
@@ -168,7 +168,7 @@ export default function Accueil() {
               </LinkCard>
               <LinkCard
                 imageUrl="/images/mesures-jeunes.webp"
-                link="/mesures-jeunes"
+                link="/espace-jeune"
                 linkLabel="En savoir plus"
                 title="Je consulte les mesures jeunes"
               >

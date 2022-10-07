@@ -5,6 +5,7 @@ import poleEmploiImage from 'public/images/logos/pole-emploi.svg';
 import missionLocaleImage from 'public/images/logos/union-mission-locale.svg';
 import React from 'react';
 
+import { Container } from '~/client/components/layouts/Container/Container';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
@@ -121,7 +122,7 @@ export default function Accompagnement() {
               {displayBoutonRechercherCentrePoleEmploi()}
             </section>
           </> : <>
-            <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
+            <Container className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>
               <div className={styles.logoContainer}>
                 {displayMissionLocaleLogoContainer()}
               </div>
@@ -131,20 +132,22 @@ export default function Accompagnement() {
                 {displayBoutonRechercherMissionLocale()}
               </div>
 
-            </section>
+            </Container>
 
-            <section className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
-              <div className={styles.logoContainer}>
-                {displayInfoJeunesLogoContainer()}
-              </div>
+            <div className={classNames(styles.infosJeunesWrapper, 'background-white-lilac')}>
+              <Container className={classNames(styles.infosJeunes, styles.accompagnementContainer)}>
+                <div className={styles.logoContainer}>
+                  {displayInfoJeunesLogoContainer()}
+                </div>
 
-              <div className={styles.longueDescriptionContainer}>
-                <Marked markdown={longueDescriptionInfoJeunes}/>
-                {displayBoutonRechercherStructureAccueil()}
-              </div>
-            </section>
+                <div className={styles.longueDescriptionContainer}>
+                  <Marked markdown={longueDescriptionInfoJeunes}/>
+                  {displayBoutonRechercherStructureAccueil()}
+                </div>
+              </Container>
+            </div>
 
-            <section className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
+            <Container className={classNames(styles.poleEmploi, styles.accompagnementContainer)}>
               <div className={styles.logoContainer}>
                 {displayPoleEmploiLogoContainer()}
               </div>
@@ -153,7 +156,7 @@ export default function Accompagnement() {
                 <Marked markdown={longueDescriptionPoleEmploi} />
                 {displayBoutonRechercherCentrePoleEmploi()}
               </div>
-            </section>
+            </Container>
           </>
         }
       </main>

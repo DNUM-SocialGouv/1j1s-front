@@ -22,7 +22,7 @@ module.exports = {
         'https://1j1s-front.osc-fr1.scalingo.io/mes-aides',
         'https://1j1s-front.osc-fr1.scalingo.io/mentorat',
         'https://1j1s-front.osc-fr1.scalingo.io/creer-mon-cv',
-        'https://1j1s-front.osc-fr1.scalingo.io/mesures-jeunes',
+        'https://1j1s-front.osc-fr1.scalingo.io/espace-jeune',
         'https://1j1s-front.osc-fr1.scalingo.io/je-deviens-mentor',
         'https://1j1s-front.osc-fr1.scalingo.io/les-entreprises-s-engagent',
         'https://1j1s-front.osc-fr1.scalingo.io/immersions',

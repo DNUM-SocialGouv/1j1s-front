@@ -3,10 +3,14 @@
  */
 
 import { render, screen } from '@testing-library/react';
+import { mockSmallScreen } from '@tests/client/window.mock';
 
 import MesAidesPage from '~/pages/mes-aides';
 
 describe('MesAidesPage', () => {
+  beforeEach(() => {
+    mockSmallScreen();
+  });
 
   it('affiche un titre de niveau 1', () => {
     render(
