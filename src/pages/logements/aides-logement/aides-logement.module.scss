@@ -26,7 +26,7 @@
   margin-bottom: 2.5rem;
   text-align: center;
   @extend %bold;
-  @extend %text-large;
+  @extend %subheading;
 }
 
 .partnerCard {
@@ -38,16 +38,6 @@
   }
 }
 
-.additionalInformation {
-  color: $color-primary;
-  @extend %text-small;
-
-  & > svg {
-    margin-right: 0.5rem;
-    vertical-align: text-bottom;
-  }
-}
-
 .articleList {
   display: grid;
   grid-template-columns: 1fr;
@@ -55,5 +45,18 @@
   @include media(large) {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2.5rem;
+  }
+}
+
+.additionalInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 3rem;
+  @extend %text-small;
+
+  svg {
+    color: $color-primary;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
   }
 }

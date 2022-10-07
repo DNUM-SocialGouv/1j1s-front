@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroWithButtonLinkProps {
@@ -12,10 +12,11 @@ interface HeroWithButtonLinkProps {
   buttonLabel: string
   buttonHref: string
   imgSrc: string
+  additionalInformation?: React.ReactNode
 }
 
 export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
-  const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonHref, imgSrc } = props;
+  const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonHref, imgSrc, additionalInformation } = props;
 
   const { isLargeScreen } = useBreakpoint();
 
@@ -30,15 +31,8 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
           <p className={styles.headingContainer__TextContent}>
             {content}
           </p>
-
-          <div className={styles.linkAsButtonWrapper}>
-            <LinkAsButton
-              href={buttonHref}
-              target="_blank"
-            >
-              {buttonLabel}
-            </LinkAsButton>
-          </div>
+          <Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</Link>
+          {additionalInformation}
         </div>
       </div>
       {isLargeScreen &&

@@ -22,7 +22,9 @@ export default function AidesLogement() {
             Tout cela à portée de clic et en moins de 5 minutes.'
           buttonLabel='Je découvre mes aides'
           buttonHref='/mes-aides'
-          imgSrc='/images/aides-au-logement.webp' />
+          imgSrc='/images/aides-au-logement.webp'
+          additionalInformation={additionalInformation()}
+        />
         <div className={classNames(styles.contentWrapper, 'background-white-lilac')}>
           <Container>
             <section className={styles.section}>
@@ -45,10 +47,6 @@ export default function AidesLogement() {
                 link='https://www.msa.fr/lfp/web/msa/logement/offre-msa'
                 linkLabel='Découvrir les aides au logement de la MSA'
                 title='Vous dépendez du régume agricole ? Demandez vos aides à la MSA !' />
-              <div className={styles.additionalInformation}>
-                <Icon name='information' />
-                <span>Une question ? Je consulte la FAQ</span>
-              </div>
             </section>
             <section className={styles.section}>
               <h2 className={styles.sectionHeading}>Tout ce qu&apos;il faut savoir :</h2>
@@ -83,5 +81,15 @@ export default function AidesLogement() {
         </div>
       </main>
     </>
+  );
+}
+
+function additionalInformation() {
+  return (
+    <div className={styles.additionalInfo}>
+      <Icon name='information' />
+      <span>Avant de démarrer la simulation de vos aides, pensez à vous munir de vos ressources et de celles de vos
+        parents si vous êtes encore à leur charge.</span>
+    </div>
   );
 }
