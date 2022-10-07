@@ -9,7 +9,7 @@ Sentry.init({
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   enabled: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'integration',
-  environment: process.env.NODE_ENV,
+  environment: process.env.NODE_ENV === 'production' ? 'production' : 'integration',
   // Adjust this value in production, or use tracesSampler for greater control
   release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,
   tracesSampleRate: 1.0,
