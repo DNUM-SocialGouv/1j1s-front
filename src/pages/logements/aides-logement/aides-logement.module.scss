@@ -50,13 +50,14 @@
 
 .additionalInfo {
   display: flex;
-  align-items: center;
-  margin-top: 3rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
   @extend %text-small;
 
   svg {
     color: $color-primary;
     flex-shrink: 0;
     margin-right: 0.5rem;
+    margin-top: 0.3rem;
   }
 }

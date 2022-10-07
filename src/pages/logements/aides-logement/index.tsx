@@ -6,10 +6,13 @@ import { ArticleCard } from '~/client/components/ui/Card/ArticleCard';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import useReferrer from '~/client/hooks/useReferrer';
 
 import styles from './aides-logement.module.scss';
 
 export default function AidesLogement() {
+  useReferrer();
+
   return (
     <>
       <HeadTag title='Les aides au logement | 1jeune1solution' />
