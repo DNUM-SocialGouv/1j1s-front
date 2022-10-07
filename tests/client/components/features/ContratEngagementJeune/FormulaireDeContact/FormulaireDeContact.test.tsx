@@ -137,6 +137,32 @@ describe('<FormulaireDeContactCEJ />', () => {
       });
     });
   });
+  describe('quand on clique sur politique de confidentialité', () => {
+    it('ça te renvoie vers la page confidentialite', () => {
+      // Given
+      const politiqueConfidentialité = 'politique de confidentialité';
+
+      renderComponent();
+
+      // Then
+      const link = screen.getByRole('link', { name: politiqueConfidentialité });
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', expect.stringContaining('/confidentialite'));
+    });
+  });
+  describe('quand on clique sur CGU', () => {
+    it('ça te renvoie vers la page cgu', () => {
+      // Given
+      const cgu = 'CGU';
+
+      renderComponent();
+
+      // Then
+      const link = screen.getByRole('link', { name: cgu });
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', expect.stringContaining('/cgu'));
+    });
+  });
 });
 
 /* eslint-disable jest/no-export */
