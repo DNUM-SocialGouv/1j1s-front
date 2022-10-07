@@ -11,6 +11,8 @@ import {
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
+const FIRST_PAGE = '1';
+
 export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
   const résultatsRechercheJobÉtudiant = await dependencies.offreEmploiDependencies.rechercherOffreEmploi
     .handle(jobÉtudiantRequestMapper(req));
@@ -21,7 +23,9 @@ export default monitoringHandler(rechercherJobÉtudiantHandler);
 
 function jobÉtudiantRequestMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
-  const isEchantillonJobEtudiant = Object.keys(query).length === 1 && Object.keys(query).includes('page');
+  const isEchantillonJobEtudiant = Object.keys(query).length === 1
+    && 'page' in query
+    && query.page === FIRST_PAGE;
   if (isEchantillonJobEtudiant) {
     return {
       dureeHebdoMax: '1600',
