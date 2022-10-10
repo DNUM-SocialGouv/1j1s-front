@@ -123,8 +123,10 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
 
       </div>
       <div className={styles.décharge}>
-        <p>En cliquant sur &quot;Envoyer la demande&quot;, j&apos;accepte d&apos;être recontacté par Pôle Emploi ou la Mission Locale la plus proche
-          de chez moi, dans le cadre du Contrat d&apos;Engagement Jeune</p>
+        <p>
+          Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
+          Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
+        </p>
       </div>
     </form>
   );
