@@ -1,6 +1,6 @@
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
+import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
-import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
@@ -10,6 +10,6 @@ export interface CmsRepository {
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
   getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
-  getMesuresJeunes() : Promise<Either<MesuresJeunes>>
+  getEspaceJeune() : Promise<Either<EspaceJeune>>
   getMesuresEmployeurs() : Promise<Either<MesuresEmployeurs>>
 }

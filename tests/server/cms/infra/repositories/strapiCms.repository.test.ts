@@ -1,13 +1,13 @@
 import { anArticle } from '@tests/fixtures/domain/article.fixture';
 import { aFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
 import { desMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
-import { aMesuresJeunes } from '@tests/fixtures/domain/mesuresJeunes.fixture';
+import { anEspaceJeune } from '@tests/fixtures/domain/mesuresJeunes.fixture';
 import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
 
 import { Article } from '~/server/cms/domain/article';
+import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
-import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import {
   mapFicheMetier,
 } from '~/server/cms/infra/repositories/strapi.mapper';
@@ -103,9 +103,9 @@ describe('strapi cms repository', () => {
         httpClientService = aStrapiHttpClientService();
         strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 
-        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMesuresJeunes()));
-        const expectedMesuesJeunes = aMesuresJeunes();
-        const result = await strapiCmsRepository.getMesuresJeunes() as Success<MesuresJeunes>;
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(anEspaceJeune()));
+        const expectedMesuesJeunes = anEspaceJeune();
+        const result = await strapiCmsRepository.getEspaceJeune() as Success<EspaceJeune>;
 
         expect(result.result).toEqual(expectedMesuesJeunes);
         expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate[accompagnement][populate]=*&populate[aidesFinancieres][populate]=*&populate[orienterFormer][populate]=*&populate[vieProfessionnelle][populate]=*', expect.any(Function));

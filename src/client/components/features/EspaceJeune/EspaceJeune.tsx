@@ -1,23 +1,23 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import styles from '~/client/components/features/MesuresJeunes/MesuresJeunes.module.scss';
+import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useSanitize from '~/client/hooks/useSanitize';
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
+import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 
-interface MesuresJeunesProps {
-  mesuresJeunes : MesuresJeunes
+interface EspaceJeuneProps {
+  espaceJeune : EspaceJeune
 }
 
-export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
-  const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = mesuresJeunes;
+export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
+  const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = espaceJeune;
 
-  function CarteMesureJeune(carte: CarteMesuresJeunes, index: number){
+  function CarteEspaceJeune(carte: CarteEspaceJeune, index: number){
     const titre = useSanitize(carte.titre);
     const bannière = carte.bannière?.url || '';
     const url = useSanitize(carte.url);
@@ -34,7 +34,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
     </LinkCard>;
   }
 
-  function splitCardList(cardList: CarteMesuresJeunes[], size: number) {
+  function splitCardList(cardList: CarteEspaceJeune[], size: number) {
     const processedArray = cardList.map((card,index) => {
       const indexDivisableParSize = index % size === 0;
       return indexDivisableParSize ? cardList.slice(index, index + size) : undefined;
@@ -42,19 +42,19 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
     return processedArray.filter((cardList) => { return cardList; });
   }
 
-  function displayCartes(cardList: CarteMesuresJeunes[]) {
+  function displayCartes(cardList: CarteEspaceJeune[]) {
     return cardList.slice(0, 3).map((carte, index) => {
-      return CarteMesureJeune(carte, index);
+      return CarteEspaceJeune(carte, index);
     });
   }
   
-  function displayMoreCartes(cardList: CarteMesuresJeunes[]) {
+  function displayMoreCartes(cardList: CarteEspaceJeune[]) {
     const SPLIT_SIZE = 3;
     const cardListSplit = splitCardList(cardList.slice(SPLIT_SIZE), SPLIT_SIZE);
     return cardListSplit.map((cardList, index) => {
       return <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)} key={index}>
         {cardList ? cardList.map((carte, index) => {
-          return CarteMesureJeune(carte, index);
+          return CarteEspaceJeune(carte, index);
         })
           : undefined}
       </div>;
@@ -62,7 +62,7 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
     });
   }
 
-  function displaySectionCartes(category: CarteMesuresJeunes[]) {
+  function displaySectionCartes(category: CarteEspaceJeune[]) {
     return <>
       <div className={classNames(styles.cardList, styles.cardListPadding)}>
         {displayCartes(category)}
@@ -77,8 +77,8 @@ export function MesuresJeunesComponent({ mesuresJeunes }: MesuresJeunesProps) {
 
   return(
     <>
-      <HeadTag title="Les mesures jeunes | 1jeune1solution"/>
-      <Hero className={styles.bannière} image="/illustrations/mesures-jeunes.svg">
+      <HeadTag title="Espace jeune | 1jeune1solution"/>
+      <Hero className={styles.bannière} image="/illustrations/espace-jeune.svg">
         <span>Plan 1jeune1solution : Découvrez les solutions pour </span>
         <span>aider chacun d&apos;entre vous à accéder à l&apos;emploi</span>
       </Hero>

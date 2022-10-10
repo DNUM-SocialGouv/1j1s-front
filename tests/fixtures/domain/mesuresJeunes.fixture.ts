@@ -1,11 +1,11 @@
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
+import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import {
   MesuresJeunesAttributesResponse,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
 import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
-export function aCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
+export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
     bannière: {
       alt: 'text',
@@ -18,7 +18,7 @@ export function aCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): Car
   };
 }
 
-export function aDeuxièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
+export function aDeuxièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
     bannière: {
       alt: 'text',
@@ -31,7 +31,7 @@ export function aDeuxièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeun
   };
 }
 
-export function aTroisièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
+export function aTroisièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
     bannière: {
       alt: 'text',
@@ -44,7 +44,7 @@ export function aTroisièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeu
   };
 }
 
-export function aQuatrièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeunes>): CarteMesuresJeunes {
+export function aQuatrièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
     bannière: {
       alt: 'text',
@@ -57,16 +57,16 @@ export function aQuatrièmeCarteMesuresJeunes(override?: Partial<CarteMesuresJeu
   };
 }
 
-export function aCartesMesuresJeunesList(): CarteMesuresJeunes[] {
-  return [aCarteMesuresJeunes(), aDeuxièmeCarteMesuresJeunes(), aTroisièmeCarteMesuresJeunes(), aQuatrièmeCarteMesuresJeunes()];
+export function aCarteEspaceJeuneList(): CarteEspaceJeune[] {
+  return [aCarteEspaceJeune(), aDeuxièmeCarteEspaceJeune(), aTroisièmeCarteEspaceJeune(), aQuatrièmeCarteEspaceJeune()];
 }
 
-export function aMesuresJeunes(): MesuresJeunes {
+export function anEspaceJeune(): EspaceJeune {
   return {
-    accompagnement: aCartesMesuresJeunesList(),
-    aidesFinancières:  aCartesMesuresJeunesList(),
-    orienterFormer:  aCartesMesuresJeunesList(),
-    vieProfessionnelle:  aCartesMesuresJeunesList(),
+    accompagnement: aCarteEspaceJeuneList(),
+    aidesFinancières:  aCarteEspaceJeuneList(),
+    orienterFormer:  aCarteEspaceJeuneList(),
+    vieProfessionnelle:  aCarteEspaceJeuneList(),
   };
 }
 

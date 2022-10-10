@@ -1,6 +1,6 @@
 import { Article } from '~/server/cms/domain/article';
+import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
@@ -113,7 +113,7 @@ function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursRespo
   }));
 }
 
-export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>): MesuresJeunes {
+export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>): EspaceJeune {
   const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
 
   return {
@@ -124,8 +124,8 @@ export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeune
   };
 }
 
-function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteMesuresJeunes[] {
-  return cartesMesuresJeunesList.map<CarteMesuresJeunes>((carteMesuresJeunes) => {
+function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteEspaceJeune[] {
+  return cartesMesuresJeunesList.map<CarteEspaceJeune>((carteMesuresJeunes) => {
     const { banniere, contenu, titre, url } = carteMesuresJeunes;
     return {
       bannière: mapImage(banniere),

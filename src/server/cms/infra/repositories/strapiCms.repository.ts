@@ -2,8 +2,8 @@ import qs from 'qs';
 
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
-import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import {
   mapArticle, mapFicheMetier,
   mapMentionObligatoire,
@@ -60,7 +60,7 @@ export class StrapiCmsRepository implements CmsRepository {
     );
   }
 
-  async getMesuresJeunes(): Promise<Either<MesuresJeunes>> {
+  async getEspaceJeune(): Promise<Either<EspaceJeune>> {
     const query = {
       populate: {
         accompagnement: { populate: '*' },
@@ -69,7 +69,7 @@ export class StrapiCmsRepository implements CmsRepository {
         vieProfessionnelle: { populate: '*' },
       },
     };
-    return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, MesuresJeunes>(
+    return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, EspaceJeune>(
       `mesure-jeune?${qs.stringify(query, { encode: false })}`,
       mapMesuresJeunes,
     );
