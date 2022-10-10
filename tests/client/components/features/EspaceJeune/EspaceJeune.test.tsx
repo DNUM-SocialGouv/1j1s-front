@@ -32,7 +32,7 @@ describe('EspaceJeune', () => {
 
   it('affiches les cartes espaceJeune', () => {
     render(<EspaceJeuneComponent espaceJeune={espaceJeune} />);
-    const cartes = screen.getAllByRole('article');
+    const cartes = screen.getAllByTestId('card');
     expect(cartes.length).toEqual(16);
   });
 });

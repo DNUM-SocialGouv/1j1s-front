@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
-import { LinkCard } from '~/client/components/ui/Card/LinkCard';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
@@ -23,15 +23,17 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
     const url = useSanitize(carte.url);
     const contenu = useSanitize(carte.contenu);
 
-    return <LinkCard
+    return <Card
       key={index}
       imageUrl={bannière}
       link={url}
       linkLabel="En savoir plus"
       title={titre}
+      flipCardContent={<Marked markdown={contenu} />}
+      data-testid="card"
     >
       <Marked markdown={contenu} />
-    </LinkCard>;
+    </Card>;
   }
 
   function splitCardList(cardList: CarteEspaceJeune[], size: number) {
