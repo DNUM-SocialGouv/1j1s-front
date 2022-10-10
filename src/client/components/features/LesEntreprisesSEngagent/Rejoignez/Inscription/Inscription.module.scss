@@ -70,12 +70,24 @@
 
 .footer {
   @extend %text-small;
-  margin-top: 20px;
   margin-bottom: 20px;
 
   > span {
     color: $color-primary;
     cursor: pointer;
+  }
+}
+
+.décharge {
+  width: 100%;
+  background-color: $color-cadre-formulaire;
+  border-radius: 30px;
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 0.7rem;
+    padding: 1rem;
+    margin-top: 2.5rem;
   }
 }
 
