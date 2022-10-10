@@ -11,6 +11,19 @@
   margin-top: 1rem;
 }
 
+.section {
+  padding: 1rem;
+
+  .rgpd {
+    @extend %text-small;
+    max-width: $breakpoint-xl;
+    border-radius: 20px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: $color-cadre-formulaire;
+  }
+}
+
 @include media(large) {
   .iframe {
     min-height: 3000px;
