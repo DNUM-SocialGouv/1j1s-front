@@ -5,7 +5,6 @@ import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
@@ -116,7 +115,9 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
                 }
               </div>
               <div className={styles.décharge}>
-                <p>Un traitement de données à caractère personnel est mis en œuvre par la Direction Générale de l&apos;Emploi et de la Formation Professionnelle (DGEFP), à partir des données collectées dans le formulaire ci-dessus. En cliquant sur &quot;Envoyer la demande&quot;, vos données seront utilisées pour traiter votre demande. <Link href="/confidentialite">En savoir plus sur la gestion de vos données et vos droits</Link></p>
+                <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
+                  Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
+                </p>
               </div>
             </form>
           </ModalComponent.Content>
