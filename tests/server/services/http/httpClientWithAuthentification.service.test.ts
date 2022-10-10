@@ -69,6 +69,7 @@ describe('HttpClientServiceWithAuthentification', () => {
       expect(actual).toEqual(createSuccess(body));
     });
 
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip("ne refraichit le token qu'une seule fois si plusieurs requêtes échouent simultanément", async () => {
       // Given
       const accessToken = 'uytrdxcvghfrtyh';
@@ -138,6 +139,7 @@ describe('HttpClientServiceWithAuthentification', () => {
       expect(tokenAgentStub.getToken).toHaveBeenCalledTimes(1);
     });
 
+    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('fait échouer toutes les requêtes en cours si le rafraichissement échoue', async () => {
       // Given
       const miss = nock('https://some.test.api')

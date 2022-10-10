@@ -31,16 +31,15 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
   }
 
   private async justInTimeAuthenticationInterceptor(error: AxiosResponse) {
-    LoggerService.error(JSON.stringify(error));
     const { apiName } = this.config;
     if (axios.isAxiosError(error)) {
-      LoggerService.error(`${apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
       const originalRequest = error.config;
 
       const isAuthError = error.response?.status === 401 || error.response?.status === 403;
 
       if (isAuthError && !this.isRetry) {
         this.isRetry = true;
+        LoggerService.info(`Refreshing token ${apiName}`);
         try {
           await this.refreshToken();
         } catch (e) {
@@ -54,6 +53,8 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
         const result = await this.client.request(originalRequest);
         this.isRetry = false;
         return result;
+      } else {
+        LoggerService.error(`${apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
       }
     }
     return Promise.reject(error);
@@ -66,9 +67,6 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
     return this.isRefreshingToken = this.tokenAgent.getToken()
       .then((token) => {
         this.setAuthorizationHeader(token);
-      })
-      .catch(() => {
-        LoggerService.error('Error getToken');
       })
       .finally(() => {
         delete this.isRefreshingToken;
