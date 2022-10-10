@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { isArray } from 'util';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
@@ -9,18 +8,14 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import indexServices from '~/client/services/index.service';
 
-const recupérerOffreDeStage = async (slug: string | string[]) => {
-  if (isArray(slug)) {
-    throw new Error();
-  }
-
+const recupérerOffreDeStage = async (slug: string) => {
   const response = await indexServices.offreDeStage.get(slug);
   return response;
 };
 
 export default function ConsulterOffreStagePage() {
   const router = useRouter();
-  const chargerOffreDeStage = async (slug: string | string[]): Promise<OffreDeStageDétail> => {
+  const chargerOffreDeStage = async (slug: string): Promise<OffreDeStageDétail> => {
     const offreDeStage = await recupérerOffreDeStage(slug);
     return offreDeStage;
   };
@@ -30,7 +25,8 @@ export default function ConsulterOffreStagePage() {
 
 
   useEffect(() => {
-    const { id } = router.query;
+    const { id } = router.query as { id: string | undefined };
+
     if (!id) {
       return;
     }
