@@ -105,6 +105,56 @@ async function redirects() {
       permanent: true,
       source: '/faire-un-service-civique',
     },
+    {
+      destination: '/mesures-employeurs',
+      permanent: true,
+      source: '/je-recrute/articles',
+    },
+    {
+      destination: '/mon-espace',
+      permanent: true,
+      source: '/les-entreprises-s-engagent/:nom*/espace-securise/mon-engagement',
+    },
+    {
+      destination: '/mon-espace',
+      permanent: true,
+      source: '/les-entreprises-s-engagent/:nom*/espace-securise/ma-page-entreprise',
+    },
+    {
+      destination: '/mon-espace',
+      permanent: true,
+      source: '/les-entreprises-s-engagent/:nom*/espace-securise/mon-kit-communication',
+    },
+    {
+      destination: '/mon-espace',
+      permanent: true,
+      source: '/les-entreprises-s-engagent/:nom*/espace-securise/offres-emploi',
+    },
+    {
+      destination: '/immersions',
+      permanent: true,
+      source: '/entreprises/immersion',
+    },
+    {
+      destination: '/les-entreprises-s-engagent/inscription',
+      permanent: true,
+      source: '/mentorat/inscription',
+    },
+    {
+      destination: '/immersions',
+      permanent: true,
+      source: '/entreprises/immersion',
+    },
+    {
+      destination: '/je-recrute/deposer-une-offre-d-emploi',
+      permanent: true,
+      source: '/emplois/deposer-offre',
+    },
+    {
+      destination: '/je-recrute',
+      permanent: true,
+      source: '/stages/deposer-offre',
+    },
   ];
 }
 
