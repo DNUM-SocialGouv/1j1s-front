@@ -42,11 +42,17 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
   const [selectedValue, setSelectedValue] = useState(value || '');
   const [errorMessage] = useState(SELECT_ERROR_MESSAGE_REQUIRED);
 
+
+  useEffect(function onValueChange() {
+    if (value) setSelectedValue(value);
+  }, [value]);
+
   const buttonLabel = useMemo(() => {
     const selectedOption = optionList.find((option) => option.valeur === selectedValue);
     const defaultMultiplePlaceholder = placeholder ?? SELECT_PLACEHOLDER_PLURAL;
     const defaultSinglePlaceholder = placeholder ?? SELECT_PLACEHOLDER_SINGULAR;
     const selectedValueLength = String(selectedValue).split(',').length;
+
     if (multiple) {
       return !selectedValue
         ? defaultMultiplePlaceholder
@@ -92,11 +98,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
   }, [isOptionListOpen]);
 
   const isCurrentItemSelected = useCallback((option: Option): boolean => {
-    if (multiple) {
-      return selectedValue.split(',').includes(option.valeur);
-    } else {
-      return selectedValue === option.valeur;
-    }
+    return multiple ? selectedValue.split(',').includes(option.valeur) : selectedValue === option.valeur;
   }, [selectedValue, multiple]);
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
@@ -159,7 +161,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
       checked={isCurrentItemSelected(option)}
       onChange={(event: ChangeEvent<HTMLInputElement>) => {
         onSelectMultipleChange(event.target.checked, option.valeur);
-        onChange?.(option.valeur);
+        // FIX: remove onChange, see if it cause problems 
       }}
     />
   );

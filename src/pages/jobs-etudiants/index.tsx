@@ -8,8 +8,10 @@ export default function RechercherJobEtudiantPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const queryString = stringify(router.query);
-    if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
+    if (router.isReady) {
+      const queryString = stringify(router.query);
+      if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
+    }
   }, [router]);
 
   if (Object.keys(router.query).length) return <RechercherJobÉtudiant />;
