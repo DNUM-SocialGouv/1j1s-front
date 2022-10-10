@@ -41,6 +41,8 @@ import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
+import { ApiRejoindreLaMobilisationRepository } from '../entreprises/infra/ApiRejoindreLaMobilisation.repository';
+
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   alternanceDependencies: AlternanceDependencies;
@@ -68,6 +70,7 @@ export const dependenciesContainer = (): Dependencies => {
     poleEmploiReferentielsClientService,
     strapiClientService,
     strapiAuthClientService,
+    lesEntreprisesSEngagentClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
   const { NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL } = serverConfigurationService.getConfiguration();
@@ -84,6 +87,7 @@ export const dependenciesContainer = (): Dependencies => {
     new StrapiDemandeDeContactRepository(strapiAuthClientService),
   );
   const entrepriseDependencies = entrepriseDependenciesContainer(
+    new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentClientService),
     new StrapiRejoindreLaMobilisationRepository(strapiAuthClientService),
   );
   const fichesMetierDependencies = ficheMetierDependenciesContainer(meiliSearchClient);

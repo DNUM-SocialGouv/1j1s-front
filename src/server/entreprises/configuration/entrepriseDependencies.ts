@@ -6,9 +6,10 @@ export interface EntrepriseDependencies {
 }
 
 export const entrepriseDependenciesContainer = (
-  rejoindreLaMobilisationRepository: RejoindreLaMobilisationRepository,
+  lesEntrepriseSEngagent: RejoindreLaMobilisationRepository,
+  sauvegarde: RejoindreLaMobilisationRepository,
 ): EntrepriseDependencies => {
   return {
-    lesEntreprisesSEngagementUseCase: new LesEntreprisesSEngagentUseCase(rejoindreLaMobilisationRepository),
+    lesEntreprisesSEngagementUseCase: new LesEntreprisesSEngagentUseCase(lesEntrepriseSEngagent, sauvegarde),
   };
 };

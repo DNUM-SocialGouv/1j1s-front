@@ -60,19 +60,19 @@ export abstract class ClientService {
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e.response?.status.toString().startsWith('50')) {
-          LoggerService.error(`${endpoint} ERREUR 50X ${e}`);
+          LoggerService.error(`${endpoint} ERREUR 50X ${e.message}`);
           return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
         }
         if (e.response?.status === 400) {
-          LoggerService.error(`${endpoint} ERREUR 400 ${e}`);
+          LoggerService.error(`${endpoint} ERREUR 400 ${e.message}`);
           return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
         }
         if (e.response?.status === 404) {
-          LoggerService.error(`${endpoint} ERREUR 404 ${e}`);
+          LoggerService.error(`${endpoint} ERREUR 404 ${e.message}`);
           return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
         }
         if (e.response?.status === 401) {
-          LoggerService.error(`${endpoint} ERREUR 401 ${e}`);
+          LoggerService.error(`${endpoint} ERREUR 401 ${e.message}`);
           return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
         }
       }
