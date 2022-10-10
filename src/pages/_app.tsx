@@ -1,18 +1,28 @@
 import '~/styles/globals.css';
 import '~/styles/main.scss';
 
+import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import React from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
 
-export default function App({ Component, pageProps }: AppProps) {
-  const sessionId = useSessionId();
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+}
 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const sessionId = useSessionId();
+  const getLayout = Component.getLayout ?? defaultLayout;
   return (
     <>
       <Head>
@@ -25,12 +35,15 @@ export default function App({ Component, pageProps }: AppProps) {
       {
         sessionId && (
           <DependenciesProvider {...dependenciesContainer(sessionId)}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            {getLayout(<Component {...pageProps} />)}
           </DependenciesProvider>
         )
       }
     </>
+  );
+}
+function defaultLayout(page: ReactElement) {
+  return (
+    <Layout>{page}</Layout>
   );
 }
