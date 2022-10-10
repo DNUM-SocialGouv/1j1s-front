@@ -61,6 +61,13 @@
     }
 
     transition: height 200ms ease-in-out;
+
+    > .navDetail {
+      visibility: hidden;
+    }
+    &.expanded > .navDetail {
+      visibility: visible;
+    }
   }
 
   .navDetail {
