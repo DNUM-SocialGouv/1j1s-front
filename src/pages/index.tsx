@@ -11,7 +11,7 @@ import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
-const SeeMore = dynamic(() => import('~/client/components/ui/SeeMore/SeeMore'), { ssr: false });
+const SeeMore = dynamic(() => import(/* webpackChunkName: 'seeMore' */ '~/client/components/ui/SeeMore/SeeMore'), { ssr: false });
 
 export default function Accueil() {
   return (
