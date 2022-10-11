@@ -8,11 +8,11 @@ const DEFAULT_SENTRY_SERVER_ENVIRONMENT = 'local';
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
-  enabled: process.env.NODE_ENV === 'production',
+  enabled: process.env.SENTRY_ENVIRONMENT === 'production' || process.env.SENTRY_ENVIRONMENT === 'integration',
   environment: process.env.SENTRY_ENVIRONMENT || DEFAULT_SENTRY_SERVER_ENVIRONMENT,
   // Adjust this value in production, or use tracesSampler for greater control
   release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,
-  tracesSampleRate: 1.0,
+  tracesSampleRate: process.env.SENTRY_ENVIRONMENT === 'production' ? 0.1 : 1.0,
   // ...
   // Note: if you want to override the automatic release value, do not set a
   // `release` value here - use the environment variable `SENTRY_RELEASE`, so
