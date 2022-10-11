@@ -9,7 +9,7 @@ export function RéférencerImmersion() {
   return (
     <>
       <HeadTag title="je référence mon entreprise pour des immersions | 1jeune1solution"/>
-      <Hero className={styles.hero}>
+      <Hero>
         <p><b>Je référence mon entreprise</b></p>
         <p className={styles.heroSubtitle}>{subtitle}</p>
       </Hero>

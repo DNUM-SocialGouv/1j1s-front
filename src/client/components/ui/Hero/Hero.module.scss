@@ -3,40 +3,29 @@
 .hero {
   @extend %background-primary;
 
-  &Content {
-    display: flex;
+  @include media(large) {
+    display: grid;
+    grid-template-columns: calc((100% - #{$breakpoint-xl}) / 2) minmax(min-content, 1fr) minmax(0, calc((100% - #{$breakpoint-xl}) / 2 + (.33 * #{$breakpoint-xl})));
   }
 
   &Title {
     @extend %headline;
-    display: inline-block;
-    max-width: 848px;
-    margin-bottom: 0;
+    grid-column-start: 2;
     padding: 2rem 1rem;
     font-weight: initial;
     color: inherit;
 
     @include media(medium) {
-      padding: 42px 2rem;
+      padding-block: 3rem;
     }
 
     @include media(xlarge) {
-      padding: 4rem 1rem;
+      padding-block: 4rem;
     }
   }
 
   &Illustration {
     position: relative;
-    display: none;
-
-    @include media(large) {
-      display: initial;
-      flex: 0 0 50%;
-    }
-
-    @include media(xlarge) {
-      margin-right: 24px;
-    }
   }
 }
 
