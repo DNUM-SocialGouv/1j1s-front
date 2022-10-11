@@ -8,7 +8,7 @@ const DEFAULT_SENTRY_SERVER_ENVIRONMENT = 'local';
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
-  enabled: process.env.NODE_ENV === 'production',
+  enabled: process.env.SENTRY_ENVIRONMENT === 'production' || process.env.SENTRY_ENVIRONMENT === 'integration',
   environment: process.env.SENTRY_ENVIRONMENT || DEFAULT_SENTRY_SERVER_ENVIRONMENT,
   // Adjust this value in production, or use tracesSampler for greater control
   release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,

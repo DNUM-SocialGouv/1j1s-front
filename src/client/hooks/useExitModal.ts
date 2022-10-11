@@ -21,5 +21,6 @@ export function useExitModal<E extends HTMLElement> (wrapperElement: RefObject<E
       document.removeEventListener('click', onGlobalClick);
       document.addEventListener('keydown', onTypeEscape);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wrapperElement, isOpen]);
 }
