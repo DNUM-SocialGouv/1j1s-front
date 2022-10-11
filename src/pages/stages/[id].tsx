@@ -45,6 +45,7 @@ export default function ConsulterOffreStagePage() {
   useEffect(()=>{
     window.addEventListener('popstate', () => router.reload() );
     return () => window.removeEventListener('popstate', () => router.reload());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isLoaded) {
