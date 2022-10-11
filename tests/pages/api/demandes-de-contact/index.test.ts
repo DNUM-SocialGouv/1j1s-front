@@ -25,6 +25,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
   describe('POST', () => {
     describe('quand le type de demande de contact est CEJ', () => {
       it('répond une 200 quand tout s’est bien passé', async () => {
+        let strapiReceivedBody: Record<string, string>;
         const strapiAuth = nock('http://localhost:1337/api')
           .post('/contact-cejs')
           .once()
@@ -33,15 +34,9 @@ describe('enregistrerDemandeDeContactHandler', () => {
           .once()
           .reply(200, { jwt });
         const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
-          .post('/contact-cejs', {
-            data: {
-              age: 18,
-              email: 'toto@msn.fr',
-              nom: 'Mc Totface',
-              prenom: 'Toto',
-              telephone: '+33678954322',
-              ville: 'Cergy',
-            },
+          .post('/contact-cejs', (body) => {
+            strapiReceivedBody = body;
+            return true;
           })
           .once()
           .reply(201);
@@ -52,6 +47,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
             const res = await fetch({
               body: JSON.stringify({
                 age: 18,
+                codePostal: '95000',
                 email: 'toto@msn.fr',
                 nom: 'Mc Totface',
                 prénom: 'Toto',
@@ -65,6 +61,17 @@ describe('enregistrerDemandeDeContactHandler', () => {
               method: 'POST',
             });
             expect(res.status).toEqual(200);
+            expect(strapiReceivedBody).toEqual({
+              data: {
+                age: 18,
+                code_postal: '95000',
+                email: 'toto@msn.fr',
+                nom: 'Mc Totface',
+                prenom: 'Toto',
+                telephone: '+33678954322',
+                ville: 'Cergy',
+              },
+            });
             strapiAuth.done();
             strapiApi.done();
           },
@@ -123,7 +130,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
     });
 
     describe('quand le type de demande de contact est incorrecte', () => {
-      it('répond une 400 quand DEMANDE_INCORRECTE',async () => {
+      it('répond une 400 quand DEMANDE_INCORRECTE', async () => {
         await testApiHandler<void | ErrorHttpResponse>({
           handler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
           test: async ({ fetch }) => {

@@ -28,6 +28,8 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
   const [isLoading, setIsLoading] = useState(false);
   const [envoyé, setEnvoyé] = useState(false);
   const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
+  const [inputVille, setInputVille] = useState('');
+  const [inputCodePostal, setInputCodePostal] = useState('');
 
   async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,11 +38,12 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
     setIsLoading(true);
     const response = await demandeDeContactService.envoyerPourLeCEJ({
       age: Number(data.get('age')),
+      codePostal: inputCodePostal,
       email: String(data.get('mail')),
       nom: String(data.get('lastname')),
       prénom: String(data.get('firstname')),
       téléphone: String(data.get('phone')),
-      ville: String(data.get('ville')),
+      ville: inputVille,
     });
     setIsLoading(false);
 
@@ -113,6 +116,10 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
           label="Ville"
           name="ville"
           placeholder="Exemple: Paris, Béziers..."
+          onSuggestionSelected={(event, suggestion) => {
+            setInputCodePostal(suggestion.codePostal);
+            setInputVille(suggestion.nom);
+          }}
         />
       </div>
       <div className={styles.formulaireDeRappelButton}>
@@ -125,7 +132,8 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
       <div className={styles.décharge}>
         <p>
           Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
-          Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
+          Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a
+            href={'/cgu'}>CGU</a> de la DGEFP
         </p>
       </div>
     </form>

@@ -9,6 +9,7 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
   describe('.handle(command)', () => {
     const command = {
       age: 18,
+      codePostal: '95000',
       email: 'toto@msn.fr',
       nom: 'Mc Totface',
       prénom: 'Toto',
@@ -42,6 +43,7 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
       const usecase = new EnvoyerDemanderDeContactCEJUseCase(repository);
       const demandeDeContactCEJ: DemandeDeContactCEJ = {
         age: 18,
+        codePostal: '95000',
         email: 'toto@msn.fr',
         nom: 'Mc Totface',
         prénom: 'Toto',
@@ -63,6 +65,7 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
       const usecase = new EnvoyerDemanderDeContactCEJUseCase(repository);
       const demandeDeContactCEJ: DemandeDeContactCEJ = {
         age: 18,
+        codePostal: '95000',
         email: 'toto@msn.fr',
         nom: 'Mc Totface',
         prénom: 'Toto',
