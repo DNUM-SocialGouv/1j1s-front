@@ -6,9 +6,10 @@ import React, {
 } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
-import styles from '~/client/components/ui/Card/Card.module.scss';
+import styles from '~/client/components/ui/Card/CardFlip.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import Marked from '~/client/components/ui/Marked/Marked';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface CardProps {
@@ -17,13 +18,14 @@ interface CardProps {
   linkLabel?: string
   title: string
   titleLevel?: HtmlHeadingTag
-  flipCardContent: React.ReactNode
+  flipCardContent: string
 }
 
-export const Card = ({ children, imageUrl, link, linkLabel, title, titleLevel, flipCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
+export const CardFlip = ({ children, imageUrl, link, linkLabel, title, titleLevel, flipCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
   const isInternalLink = useIsInternalLink(link);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [isAnimationOn, setIsAnimationOn] = useState(false);
+  const hasFlipCardContent = !!flipCardContent.length;
 
   const icon = useMemo(function () {
     return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
@@ -56,8 +58,8 @@ export const Card = ({ children, imageUrl, link, linkLabel, title, titleLevel, f
           {children}
         </div>
 
-        <div className={styles.cardActionWrapper}>
-          <button onClick={() => flipCard()}>Qui est concerné ?</button>
+        <div className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
+          {hasFlipCardContent && <button onClick={() => flipCard()}>Qui est concerné ?</button>}
           <Link
             href={link}
             prefetch={false}
@@ -74,8 +76,9 @@ export const Card = ({ children, imageUrl, link, linkLabel, title, titleLevel, f
           <Icon name='angle-left' aria-hidden="true"/>
         </button>
         <div className={styles.cardFlipBackTitle}>Qui est concerné ?</div>
-        {flipCardContent}
+        <div className={styles.cardFlipBackContent}><Marked markdown={flipCardContent} /></div>
       </div>}
     </div>
   );
 };
+

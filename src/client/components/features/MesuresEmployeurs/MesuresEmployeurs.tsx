@@ -3,11 +3,11 @@ import React from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
+import { CardFlip } from '~/client/components/ui/Card/CardFlip';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 
-import { EmployeurLinkCard } from '../../ui/Card/EmployeurLinkCard';
 import Marked from '../../ui/Marked/Marked';
 import { HeadTag } from '../../utils/HeaderTag';
 
@@ -45,7 +45,7 @@ interface CarteMesureEmployeurProps {
   isMobile: boolean;
 }
 
-function CarteMesureEmployeur({ carte, isMobile = false }: CarteMesureEmployeurProps) {
+function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
   const titre = useSanitize(carte.titre);
   const bannière = carte.bannière?.url || '';
   const url = useSanitize(carte.url);
@@ -54,19 +54,19 @@ function CarteMesureEmployeur({ carte, isMobile = false }: CarteMesureEmployeurP
   const link = carte.article
     ? `/articles/${carte.article.slug}`
     : url;
-  const pourQui = carte.pourQui;
+  const pourQui = useSanitize(carte.pourQui) || '';
 
-  return <EmployeurLinkCard
+
+  return <CardFlip
     imageUrl={bannière}
-    isMobile={isMobile}
     link={link}
     linkLabel="En savoir plus"
     title={titre}
-    pourQui={pourQui}
+    flipCardContent={pourQui}
+    data-testid="card"
   >
-    <Marked markdown={brief}/>
-  </EmployeurLinkCard>;
-
+    <Marked markdown={brief} />
+  </CardFlip>;
 }
 
 function extrait(contenu: string, size = 120): string {

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
-import { Card } from '~/client/components/ui/Card/Card';
+import { CardFlip } from '~/client/components/ui/Card/CardFlip';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
@@ -22,18 +22,19 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
     const bannière = carte.bannière?.url || '';
     const url = useSanitize(carte.url);
     const contenu = useSanitize(carte.contenu);
+    const concerné = useSanitize(carte.concerné) || '';
 
-    return <Card
+    return <CardFlip
       key={index}
       imageUrl={bannière}
       link={url}
       linkLabel="En savoir plus"
       title={titre}
-      flipCardContent={<Marked markdown={contenu} />}
+      flipCardContent={concerné}
       data-testid="card"
     >
       <Marked markdown={contenu} />
-    </Card>;
+    </CardFlip>;
   }
 
   function splitCardList(cardList: CarteEspaceJeune[], size: number) {

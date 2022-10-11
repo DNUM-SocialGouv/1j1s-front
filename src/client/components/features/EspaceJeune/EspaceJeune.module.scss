@@ -10,6 +10,9 @@
   justify-content: center;
   gap: 1.5rem;
   flex-direction: column;
+  > div {
+    flex: 1 0;
+  }
 }
 
 .heroText {
@@ -71,6 +74,9 @@
   .cardList {
     gap: 2rem;
     flex-direction: row;
+    > div {
+      max-width: 360px;
+    }
   }
 
   .sectionHeader {

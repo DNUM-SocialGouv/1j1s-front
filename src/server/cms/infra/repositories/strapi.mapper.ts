@@ -126,10 +126,11 @@ export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeune
 
 function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteEspaceJeune[] {
   return cartesMesuresJeunesList.map<CarteEspaceJeune>((carteMesuresJeunes) => {
-    const { banniere, contenu, titre, url } = carteMesuresJeunes;
+    const { banniere, contenu, titre, url, pourQui } = carteMesuresJeunes;
     return {
       bannière: mapImage(banniere),
-      contenu: contenu,
+      concerné: pourQui,
+      contenu,
       titre,
       url,
     };

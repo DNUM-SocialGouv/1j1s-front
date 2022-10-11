@@ -33,6 +33,7 @@
   }
 
   &FlipBack {
+    width: 100%;
     backface-visibility: hidden;
     background-color: $color-primary;
     position: absolute;
@@ -41,12 +42,12 @@
     transform: rotateY(180deg) translateZ(1px);
     color: $color-on-primary;
     padding: 1rem;
-
-
     &Action {
       background-color: $color-on-primary;
       border-radius: 50%;
       padding: 0.25rem;
+      line-height: 1.4;
+      font-size: 1rem;
       color: $color-primary;
       width: 2rem;
       height: 2rem;
@@ -56,7 +57,13 @@
       font-weight: bold;
       text-align: center;
       line-height: 1.2;
-      margin-bottom: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    &Content {
+      display: flex;
+      align-items: center;
+      height: 250px;
+      padding-inline: 1rem;
     }
   }
 
@@ -79,8 +86,13 @@
 
   &ActionWrapper {
     display: flex;
-    justify-content: space-between;
     padding: 1rem 1.5rem;
+    &SpaceBetween {
+      justify-content: space-between;
+    }
+    &FlexEnd {
+      justify-content: flex-end;
+    }
     button {
       text-decoration: underline;
       color: $color-primary;
@@ -104,7 +116,6 @@
 
 @include media(medium) {
   .card {
-    width: 360px;
     max-height: calc(280px + 8.75rem);
     &ImageWrapper {
       min-height: 180px;

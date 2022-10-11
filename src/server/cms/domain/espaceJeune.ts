@@ -12,4 +12,5 @@ export interface CarteEspaceJeune {
   contenu: string
   bannière: Image | undefined
   url: string
+  concerné : string
 }
