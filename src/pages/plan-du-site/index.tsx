@@ -50,7 +50,7 @@ export default function PlanDuSite() {
             {displayNavigationTree(navigationItemList.employeurNav)}
             
             <li><Link href="/cgu" >Conditions Générales d’utilisation</Link></li>
-            <li><Link href="/accessibilite" >Accessibilité</Link></li>
+            <li><Link href="/accessibilite" >Accessibilité : Partiellement conforme</Link></li>
             <li><Link href="/mentions-legales" >Mentions légales</Link></li>
             <li><Link href="/confidentialite" >Politique de confidentialité</Link></li>
             <li><Link href={`mailto:${MAIL_TO}`}><TextIcon text="Nous contacter" icon={<ExternalRedirectionIcon />}/></Link></li>

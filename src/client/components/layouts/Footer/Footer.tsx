@@ -76,7 +76,7 @@ export default function Footer() {
           <div className={styles.footerLienUtile}>
             <Link href="/plan-du-site" className="underline-none" prefetch={false}>Plan du site</Link>
             <Link href="/cgu" className="underline-none" prefetch={false}>Conditions générales d&apos;utilisations</Link>
-            <Link href="/accessibilite" className="underline-none" prefetch={false}>Accessibilité</Link>
+            <Link href="/accessibilite" className="underline-none" prefetch={false}>Accessibilité : Partiellement conforme</Link>
             <Link href="/mentions-legales" className="underline-none" prefetch={false}>Mentions légales</Link>
             <Link href="/confidentialite" className="underline-none" prefetch={false}>Politique de confidentialité</Link>
             <Link href={`mailto:${MAIL_TO}`} prefetch={false}>
