@@ -30,4 +30,7 @@ export const handleKeyBoardInteraction = (event: React.KeyboardEvent<HTMLElement
     updateValues();
     event.preventDefault();
   }
+  else if (event.key === KeyBoard.ESCAPE) {
+    event.stopPropagation();
+  }
 };
