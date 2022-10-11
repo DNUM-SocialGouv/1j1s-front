@@ -23,7 +23,6 @@ export default function ConsulterOffreStagePage() {
   const [offreDeStage, setOffreDeStage] = useState<OffreDeStageDétail>();
   const [isLoaded, setIsLoaded] = useState(false);
 
-
   useEffect(() => {
     const { id } = router.query as { id: string | undefined };
 
@@ -42,6 +41,12 @@ export default function ConsulterOffreStagePage() {
 
   },
   [router.query]);
+
+  useEffect(()=>{
+    window.addEventListener('popstate', () => router.reload() );
+    return () => window.removeEventListener('popstate', () => router.reload());
+  }, []);
+
   if (!isLoaded) {
     return (<Container><p>loading</p></Container>);
   }
