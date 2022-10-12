@@ -34,14 +34,14 @@ export interface ArticleAttributesResponse {
     contenu: string
 }
 
-export interface MesuresJeunesAttributesResponse {
-    vieProfessionnelle: CarteMesuresJeunesResponse[]
-    orienterFormer: CarteMesuresJeunesResponse[]
-    accompagnement: CarteMesuresJeunesResponse[]
-    aidesFinancieres: CarteMesuresJeunesResponse[]
+export interface EspaceJeuneAttributesResponse {
+    vieProfessionnelle: CarteEspaceJeuneResponse[]
+    orienterFormer: CarteEspaceJeuneResponse[]
+    accompagnement: CarteEspaceJeuneResponse[]
+    aidesFinancieres: CarteEspaceJeuneResponse[]
 }
 
-export interface CarteMesuresJeunesResponse {
+export interface CarteEspaceJeuneResponse {
     titre: string
     contenu: string
     url: string

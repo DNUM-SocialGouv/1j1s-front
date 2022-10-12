@@ -1,5 +1,5 @@
 import { anArticle, anArticleResponse } from '@tests/fixtures/domain/article.fixture';
-import { aMesuresJeunesResponse,anEspaceJeune } from '@tests/fixtures/domain/mesuresJeunes.fixture';
+import { anEspaceJeune,anEspaceJeuneResponse } from '@tests/fixtures/domain/mesuresJeunes.fixture';
 
 import {
   mapArticle,
@@ -65,7 +65,7 @@ describe('strapi mapper', () => {
   describe('mapMesuresJeunes', () => {
     describe('lorsque la liste contient les mesures jeunes', () => {
       it('retourne les mesures jeunes', () => {
-        const mesuresJeunesResponse = aMesuresJeunesResponse();
+        const mesuresJeunesResponse = anEspaceJeuneResponse();
         const expectedMesuresJeunes = anEspaceJeune();
         const mesuresJeunes = mapMesuresJeunes(mesuresJeunesResponse);
         expect(mesuresJeunes).toEqual(expectedMesuresJeunes);

@@ -4,10 +4,10 @@ import { Image } from '~/server/cms/domain/image';
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
+  CarteEspaceJeuneResponse,
   CarteMesuresEmployeursResponse,
-  CarteMesuresJeunesResponse,
+  EspaceJeuneAttributesResponse,
   MesuresEmployeursAttributesResponse,
-  MesuresJeunesAttributesResponse,
   StrapiCollectionTypeResponse,
   StrapiImage,
   StrapiSingleTypeResponse,
@@ -113,7 +113,7 @@ function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursRespo
   }));
 }
 
-export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>): EspaceJeune {
+export function mapMesuresJeunes(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
   const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
 
   return {
@@ -124,7 +124,7 @@ export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeune
   };
 }
 
-function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteEspaceJeune[] {
+function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteEspaceJeuneResponse[]): CarteEspaceJeune[] {
   return cartesMesuresJeunesList.map<CarteEspaceJeune>((carteMesuresJeunes) => {
     const { banniere, contenu, titre, url, pourQui } = carteMesuresJeunes;
     return {

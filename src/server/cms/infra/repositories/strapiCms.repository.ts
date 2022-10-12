@@ -13,8 +13,8 @@ import {
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
+  EspaceJeuneAttributesResponse,
   MesuresEmployeursAttributesResponse,
-  MesuresJeunesAttributesResponse,
   StrapiCollectionTypeResponse,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
@@ -69,7 +69,7 @@ export class StrapiCmsRepository implements CmsRepository {
         vieProfessionnelle: { populate: '*' },
       },
     };
-    return await this.httpClientService.get<StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>, EspaceJeune>(
+    return await this.httpClientService.get<StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>, EspaceJeune>(
       `mesure-jeune?${qs.stringify(query, { encode: false })}`,
       mapMesuresJeunes,
     );
