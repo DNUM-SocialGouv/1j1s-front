@@ -7,6 +7,7 @@ import {
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
 import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheLocalisationUtils';
 
+const MIN_CHAR_LENGTH_FOR_SEARCH = 3;
 
 export class RechercherLocalisationUseCase {
   constructor(private localisationRepository: LocalisationRepository, 
@@ -54,6 +55,10 @@ export class RechercherLocalisationUseCase {
   }
 
   private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
+    if (recherche.length < MIN_CHAR_LENGTH_FOR_SEARCH) {
+      return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    }
+
     const [responseCommuneList, responseDépartementList, responseRégionList] = await Promise.all([
       this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
       this.localisationRepository.getDépartementListByNom(recherche),

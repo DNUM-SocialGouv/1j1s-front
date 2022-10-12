@@ -68,6 +68,23 @@ describe('RechercherLocalisationUseCase', () => {
     });
   });
   describe('quand la recherche contient des lettres (nom de commune, département ou région)', () => {
+    describe('lorsque la recherche contient moins de 3 lettres', () => {
+      it('renvoie une erreur', async () => {
+        const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
+        jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList');
+        jest.spyOn(localisationRepository, 'getDépartementListByNom');
+        jest.spyOn(localisationRepository, 'getRégionListByNom');
+
+        const result = await listeLocalisationUseCase.handle('Pa') as Failure;
+
+        expect(result.instance).toEqual('failure');
+        expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+        expect(localisationAvecCoordonneesRepository.getCommuneList).not.toHaveBeenCalled();
+        expect(localisationRepository.getDépartementListByNom).not.toHaveBeenCalled();
+        expect(localisationRepository.getRégionListByNom).not.toHaveBeenCalled();
+
+      });
+    });
     it('renvoie la liste des communes, départements et régions correspondants à la recherche', async () => {
       const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
       jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
