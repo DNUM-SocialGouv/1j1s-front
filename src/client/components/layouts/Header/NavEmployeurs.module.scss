@@ -133,6 +133,11 @@
   }
 }
 
+.isActive{
+  @include underline;
+  @extend %bold;
+}
+
 @include media(xlarge) {
   .navItem .navWrapper {
     right: calc((100vw - $breakpoint-xl) / -2);

@@ -45,7 +45,7 @@ export function HeaderNavDesktop() {
             <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
           </ul>
           <ul className={styles.headerNavigationListRight}>
-            <NavEmployeurs item={employeurNav} />
+            <NavEmployeurs item={employeurNav} path={path}/>
           </ul>
         </nav>
       </Container>
