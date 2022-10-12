@@ -7,11 +7,6 @@
 const { withSentryConfig } = require('@sentry/nextjs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { URL } = require('url');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
 
 function getHostName(uri) {
   return new URL(uri).hostname;
@@ -201,4 +196,3 @@ const moduleExports = {
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
 module.exports = withSentryConfig(moduleExports);
-module.exports = withBundleAnalyzer(moduleExports);
