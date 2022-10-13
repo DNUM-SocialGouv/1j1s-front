@@ -14,7 +14,7 @@ import {
 import {
   mapMétierRecherchéList,
   mapOffreAlternanceMatcha,
-  mapRésultatsRechercheAlternance,
+  mapRésultatsRechercheAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import {
   AlternanceMatchasResponse,
@@ -54,7 +54,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
     const paramètresRecherche = buildParamètresRechercheLaBonneAlternance(alternanceFiltre);
     const response = await this.httpClientService.get<AlternanceResponse, RésultatsRechercheAlternance>(
       `jobs?${paramètresRecherche}`,
-      mapRésultatsRechercheAlternance,
+      mapRésultatsRechercheAlternanceMatcha,
     );
 
     switch (response.instance) {
