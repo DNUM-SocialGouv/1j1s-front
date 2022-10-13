@@ -1,8 +1,8 @@
 import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
-  ConsulterOffreAlternancePeJob,
   ConsulterOffreAlternanceMatcha,
+  ConsulterOffreAlternancePeJob,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import {
   AlternanceResponse,

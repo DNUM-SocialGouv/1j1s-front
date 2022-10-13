@@ -19,7 +19,11 @@ import {
 import {
   ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import { createFailure, createSuccess, Success } from '~/server/errors/either';
+import {
+  createFailure,
+  createSuccess,
+  Success,
+} from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
@@ -152,6 +156,33 @@ describe('ApiLaBonneAlternanceRepository', () => {
         const { result } = await apiLaBonneAlternanceRepository.getOffreAlternance(offreAlternanceId, 'peJob') as Success<ConsulterOffreAlternance>;
         expect(result).toEqual(expected);
 
+      });
+    });
+
+    describe("quand l'offre  n'est pas trouvé", () => {
+      describe('quand le cache est vide', () => {
+        it('retourne une erreur demande incorrecte', async () => {
+          jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+
+          const  result  = await apiLaBonneAlternanceRepository.getOffreAlternance('an-id', 'peJob') ;
+          expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+        });
+      });
+
+      describe("quand le from est matcha  mais l'offre n'est pas trouvé", () => {
+        it('retourne une erreur demande incorrecte', async () => {
+          jest.spyOn(cacheService, 'get').mockResolvedValue(anAlternanceListResponse());
+          const  result  = await apiLaBonneAlternanceRepository.getOffreAlternance('an-id', 'peJob') ;
+          expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+        });
+      });
+
+      describe("quand le from est peJob  mais l'offre n'est pas trouvé", () => {
+        it('retourne une erreur demande incorrecte', async () => {
+          jest.spyOn(cacheService, 'get').mockResolvedValue(anAlternanceListResponse());
+          const  result  = await apiLaBonneAlternanceRepository.getOffreAlternance('an-id', 'matcha') ;
+          expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+        });
       });
     });
   });
