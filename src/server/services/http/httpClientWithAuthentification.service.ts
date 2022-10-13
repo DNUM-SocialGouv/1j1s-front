@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { Either } from '~/server/errors/either';
 import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
@@ -13,13 +13,8 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
 
   constructor (private config: HttpClientWithAuthentificationConfig) {
     const { apiName, apiUrl } = config;
-    super({ apiName, apiUrl, overrideInterceptor: true });
+    super({ apiName, apiUrl, overrideInterceptor: false });
     this.tokenAgent = config.tokenAgent;
-
-    this.client.interceptors.response.use(
-      (r) => r,
-      this.justInTimeAuthenticationInterceptor.bind(this),
-    );
   }
 
   async get<Response, Retour>(
@@ -27,38 +22,43 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
     mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
   ): Promise<Either<Retour>> {
-    return super.getRequest(endpoint, mapper, config);
+    const makeRequest = () => super.getRequest(endpoint, mapper, config, false);
+    try {
+      return await this.makeRequestWithRetry(makeRequest);
+    } catch (e: unknown) {
+      return this.mapError(endpoint, e);
+    }
   }
 
-  private async justInTimeAuthenticationInterceptor (error: AxiosResponse) {
-    const { apiName } = this.config;
-    if (axios.isAxiosError(error)) {
-      LoggerService.error(`${apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
-      const originalRequest = error.config;
+  async post<Body>(
+    endpoint: string,
+    body: Body,
+  ) {
+    const makeRequest = () => super.post(endpoint, body);
+    return this.makeRequestWithRetry(makeRequest);
+  }
 
-      LoggerService.info('REQUEST FAILED => ' + JSON.stringify(originalRequest));
-      
-      const isAuthError = error.response?.status === 401 || error.response?.status === 403;
-      if (isAuthError && !this.retries.has(originalRequest)) {
-        this.retries.add(originalRequest);
-        try {
-          await this.refreshToken();
-        } catch (e) {
-          this.retries.delete(originalRequest);
-          if (axios.isAxiosError(e)) {
-            LoggerService.error(`Error refreshing token ${apiName} ${e.response?.status} ${e.config.baseURL}${e.config.url}`);
-          } else {
-            LoggerService.error(`Error refreshing token ${apiName} ${e}`);
-          }
-          return Promise.reject(error);
-        }
-        const result = await this.client.request(originalRequest);
-        this.retries.delete(originalRequest);
-        return result;
+  private async makeRequestWithRetry<R> (makeRequest: () => Promise<R>): Promise<R> {
+    try {
+      return await makeRequest();
+    } catch (error: unknown) {
+      if (!this.shouldRetry(error)) { throw error; }
+      try {
+        await this.refreshToken();
+      } catch (authError) {
+        LoggerService.error(`${this.apiName} failed to refresh token ${authError}`);
+        LoggerService.error(`${this.apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
+        throw error;
       }
-      this.retries.delete(originalRequest);
+      return makeRequest();
     }
-    return Promise.reject(error);
+  }
+
+  private shouldRetry(error: unknown): error is AxiosError {
+    if (!axios.isAxiosError(error)) {
+      return false;
+    }
+    return error.response?.status === 401 || error.response?.status === 403;
   }
 
   refreshToken(): Promise<void> {
