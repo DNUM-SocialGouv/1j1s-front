@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.0...v2.1.1) (2022-10-13)
+
+
+### Bug Fixes
+
+* **pole emploi:** revert pole emploi http client ([#409](https://github.com/DNUM-SocialGouv/1j1s-front/issues/409)) ([157c25e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/157c25e2e0c83e5062cc535b4a858564df5df00d))
+
 ## [2.1.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.0.0...v2.1.0) (2022-10-13)
 
 
