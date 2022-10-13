@@ -46,6 +46,9 @@ export abstract class ClientService {
   ): Promise<Either<Retour>> {
     let response;
 
+    // eslint-disable-next-line no-console
+    console.info(`${this.client.defaults.baseURL}${endpoint} ${this.client.defaults.headers.common.Authorization}`);
+
     try {
       response = await this.client.get(endpoint, config);
       if(response.status === 204) {
