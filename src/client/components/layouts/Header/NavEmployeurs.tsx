@@ -46,7 +46,7 @@ export function NavEmployeurs({ item: root, path }: NavEmployeursProps) {
           setIsExpanded(!isExpanded);
         }}
       >
-        <span className={classNames(styles.navItemLabel, { [styles.isActive]: isActive })}>{root.label}</span>
+        <span className={styles.navItemLabel} aria-current={isActive}>{root.label}</span>
         <Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })}/>
       </button>
       <div ref={wrapper} className={classNames(styles.navWrapper, { [styles.expanded]: isExpanded })}>
@@ -66,12 +66,13 @@ function isItemActive(item: NavigationItemWithChildren, path: string): boolean {
 
 function listsFromChildren(path: string, item: NavigationItemWithChildren | NavigationItem, onItemChosen: () => void) {
   const isActive = isNavigationItem(item) && item.link === path;
-
   if (isNavigationItem(item)) {
     return (
       <li key={item.link} className={styles.navLeaf}>
-        <span onClick={onItemChosen} className={classNames({ [styles.isActive]: isActive })}>
-          <Link href={item.link}>{item.label}</Link>
+        <span aria-current={isActive} onClick={onItemChosen} className={styles.employeursLien}>
+          <Link href={item.link}>
+            {item.label}
+          </Link>
         </span>
       </li>
     );
