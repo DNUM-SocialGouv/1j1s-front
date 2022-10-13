@@ -9,7 +9,9 @@ import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import {
+  HttpClientServiceWithAuthentificationPoleEmploi,
+} from '~/server/services/http/httpClientWithAuthentificationPoleEmploi.service';
 
 jest.mock('axios', () => {
   return {
@@ -18,7 +20,7 @@ jest.mock('axios', () => {
 });
 
 describe('ApiPoleEmploiRéférentielRepository', () => {
-  let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification;
+  let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentificationPoleEmploi;
   let cacheService: CacheService;
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 

@@ -10,13 +10,15 @@ import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import {
+  HttpClientServiceWithAuthentificationPoleEmploi,
+} from '~/server/services/http/httpClientWithAuthentificationPoleEmploi.service';
 
 export type OffresEmploiDependencies = ConsulterOffreEmploiDependenciesContainer
   & RechercherOffreEmploiDependenciesContainer
 
 export const offresEmploiDependenciesContainer = (
-  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
+  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentificationPoleEmploi,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   cacheService: CacheService,
 ): OffresEmploiDependencies => {
