@@ -28,10 +28,12 @@ import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import {
+  HttpClientServiceWithAuthentificationPoleEmploi,
+} from '~/server/services/http/httpClientWithAuthentificationPoleEmploi.service';
 
 describe('ApiPoleEmploiOffreRepository', () => {
-  let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification;
+  let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentificationPoleEmploi;
   let apiPoleEmploiOffreRepository: ApiPoleEmploiOffreRepository;
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
   let cacheService: CacheService;
