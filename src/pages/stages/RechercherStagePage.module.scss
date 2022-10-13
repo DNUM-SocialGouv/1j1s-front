@@ -40,7 +40,10 @@ input.stageInputElement {
 
 .stageListeRootElement > ol li {
   display: block;
-  margin-bottom: 1rem;
+
+  @include media(large) {
+    margin-bottom: 1rem;
+  }
 }
 
 .stageListeRootElement > ol {
@@ -54,7 +57,7 @@ input.stageInputElement {
 .stageTagItem{
   display: inline;
 }
-//TODO: retirer inline flex
+
 .stageTagCategoryElement {
   display: inline-flex;
   flex-wrap: wrap;
