@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.1.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.0.0...v2.1.0) (2022-10-13)
+
+
+### Features
+
+* extend hero image to right edge ([e1a2b32](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1a2b32c44e3cad6a4069bbff1de85418214b6e0))
+* update accessibility page link label in both footer and site map page ([b5bad6a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b5bad6ad0fb309439f24226d67935bc987eac5fb))
+
+
+### Bug Fixes
+
+* ajout regle pas d'appel api si moins de 3 characteres dans la recherche ([#405](https://github.com/DNUM-SocialGouv/1j1s-front/issues/405)) ([10ab6b3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/10ab6b34f40742e5b205b9156462be41597da5b0))
+* **alternance:** filtre offre emploi alternance pour afficher que match ([d6f1bf8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d6f1bf8b677247b95d8446474c8b58bf2abf0c5f))
+* erreur 401 ([e419c0f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e419c0fa9f13d8c00748c7d9525805dfb32c13d6))
+* page emplois query ([9724032](https://github.com/DNUM-SocialGouv/1j1s-front/commit/97240329d9bd510d6e0f35d899ac27dbd96eea81))
+* **Stage:** correction bouton retour dans la page détail d'une offre ([372cdb3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/372cdb30ae7efde3da7d47b59110e5e052186b6d))
+
+
+### Reverts
+
+* **config:** export sentry config ([3c04a51](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3c04a51baf91e55f47bdd1ebf6a2e43e74cec671))
+
 ## [2.0.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v1.0.0...v2.0.0) (2022-10-10)
 
 
