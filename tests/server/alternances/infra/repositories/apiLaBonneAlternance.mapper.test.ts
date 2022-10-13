@@ -1,12 +1,16 @@
 import {
+  aLaBonneAlternanceResponse,
   aMétierRechercheList,
-  anLaBonneAlternanceResponse, aResultOffreFromMatcha,
+  aResultOffreFromMatcha,
+  aResultOffreFromPeJob,
 } from '@tests/fixtures/server/alternance/alternance.response.fixture';
 
 import {
   mapContact,
   mapMétierRecherchéList,
-  mapNomVille, mapOffreAlternanceMatcha,
+  mapNomVille,
+  mapOffreAlternanceMatcha,
+  mapOffreAlternancePeJob,
   mapRésultatsRechercheAlternance,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
@@ -15,7 +19,7 @@ describe('mapper pour l api la bonne alternance', () => {
   describe('mapRésultatsRechercheAlternance', () => {
     describe('quand on reçoit des offres de pole emploi et matcha', () => {
       it('retourne une liste de résultats de pole emploi et matcha', () => {
-        const result = mapRésultatsRechercheAlternance(anLaBonneAlternanceResponse());
+        const result = mapRésultatsRechercheAlternance(aLaBonneAlternanceResponse());
 
         expect(result).toEqual({
           nombreRésultats: 2,
@@ -96,6 +100,31 @@ describe('mapper pour l api la bonne alternance', () => {
             'Cap, autres formations niveau (Infrabac)',
             'Apprentissage',
             'Professionnalisation',
+          ],
+        });
+      });
+    });
+
+    describe('quand une offre provient de peJob', () => {
+      it('retourne une offre d\'alternance peJob', () => {
+        const result = mapOffreAlternancePeJob(aResultOffreFromPeJob());
+        expect(result).toEqual({
+          adresse: '92 - ISSY LES MOULINEAUX 92130',
+          contact: { nom: 'LES HALLES DE L\'AVEYRON - M. MATTHIEU JOULIA', téléphone: undefined },
+          description: 'Nous recherchons pour notre magasin de Issy-les-Moulineaux un(e) Apprenti(e) Boucher.\n\n\nVos missions : \n-\tAssurer les tâches de découpe, préparation et transformation des produits ; \n-\tVeiller à la présentation et rotation des produits ;\n-\tAccueillir, conseiller et servir les clients conformément à la charte HDA ;\n-\tVeiller à la propreté des linéaires, laboratoires, chambres froides, matériels et outils d\'aide à la vente ;\n-\tAssurer le bon déroulement de la chaîne du froid ;\n-\tAssurer et renseigner les documents de traçabilité ;\n-\tApplication des règles d\'hygiène.\n\n\n\nVotre profil :\n\n-\tDiplôme en Boucherie et expérience préparée ;\n-\tConnaissance des méthodes de découpe et de conservation ;\n-\tConnaissance des règles d\'hygiène et rigueur ;\n-\tQualités commerciales et sens du service client ;',
+          duréeContrat: '35H Horaires normaux',
+          entreprise: { logo: 'https://entreprise.pole-emploi.fr/static/img/logos/MYKCWy4RJwtb7tofHjEAub6WAAlRBvuM.png', nom: 'LES HALLES DE L\'AVEYRON' },
+          from: 'peJob',
+          id: '135GXSV',
+          intitulé: 'Apprenti(e) Boucher / Bouchère  (H/F)',
+          niveauRequis: 'Alternance',
+          typeDeContrats: ['CDD' ],
+          url: 'https://candidat.pole-emploi.fr/offres/recherche/detail/135GXSV',
+          ville: 'ISSY LES MOULINEAUX (92)',
+          étiquetteList: [
+            'ISSY LES MOULINEAUX (92)',
+            'Alternance',
+            'CDD',
           ],
         });
       });

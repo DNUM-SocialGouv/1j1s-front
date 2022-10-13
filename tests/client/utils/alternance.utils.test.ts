@@ -17,7 +17,7 @@ describe('mapAlternanceToLienSolution', () => {
         descriptionOffre: 'Vos missions principales :\n \n- Réaliser les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires. \n- Effectuer la vente de produits de boucherie.',
         id: '134CMXJ',
         intituléOffre: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
-        lienOffre: '/emplois/134CMXJ',
+        lienOffre: '/apprentissage/peJob-134CMXJ',
         logoEntreprise: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
         nomEntreprise: 'AUCHAN SUPERMARCHE',
         étiquetteOffreList: [
@@ -35,9 +35,9 @@ describe('mapAlternanceToLienSolution', () => {
 
       expect(result).toEqual({
         descriptionOffre: 'Réalise les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires.\\nPeut effectuer la vente de produits de boucherie.\\nPeut gérer un commerce de détail alimentaire (boucherie, boucherie-charcuterie, ...).',
-        id: '628a65a72ff4860027ae1531',
+        id: '628a64ed2ff4860027ae1501',
         intituléOffre: 'Boucherie',
-        lienOffre: '/apprentissage/matcha-628a65a72ff4860027ae1531',
+        lienOffre: '/apprentissage/matcha-628a64ed2ff4860027ae1501',
         logoEntreprise: '/images/logos/la-bonne-alternance.svg',
         nomEntreprise: 'BOUCHERIE STEPHANE VEIT',
         étiquetteOffreList: [

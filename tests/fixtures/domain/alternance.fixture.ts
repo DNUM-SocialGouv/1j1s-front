@@ -1,7 +1,8 @@
-import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
   ConsulterOffreAlternanceMatcha,
+  ConsulterOffreAlternancePeJob,
 } from '~/server/alternances/infra/repositories/alternance.type';
 
 export function aRésultatsRechercheAlternance(override?: Partial<RésultatsRechercheAlternance>): RésultatsRechercheAlternance {
@@ -105,7 +106,7 @@ export function aMétierList(): MétierRecherché[] {
   ];
 }
 
-export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
+export function anApprentiBoucherOffreFromPoleEmploi(): ConsulterOffreAlternancePeJob {
   return {
     adresse: '15 - AURILLAC 15000',
     contact: {
@@ -113,6 +114,7 @@ export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
       téléphone: undefined,
     },
     description: 'Vos missions principales :\n \n- Réaliser les opérations de préparation de viandes et de spécialités bouchères selon les règles d\'hygiène et de sécurité alimentaires. \n- Effectuer la vente de produits de boucherie.',
+    duréeContrat: '35H Travail en équipe',
     entreprise: {
       logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
       nom: 'AUCHAN SUPERMARCHE',
@@ -122,12 +124,13 @@ export function anApprentiBoucherOffreFromPoleEmploi(): Alternance {
     intitulé: 'APPRENTI (E) BOUCHER (ERE) (H/F)',
     niveauRequis: 'Alternance',
     typeDeContrats: ['CDD'],
+    url: 'https://candidat.pole-emploi.fr/offres/recherche/detail/134CMXJ',
     ville: 'AURILLAC (15)',
     étiquetteList: ['AURILLAC (15)', 'Alternance', 'CDD'],
   };
 }
 
-export function anApprentiBoucherOffreFromMatcha(): Alternance {
+export function anApprentiBoucherOffreFromMatcha(): ConsulterOffreAlternanceMatcha {
   return {
     adresse: '77 RUE DES BOURGUIGNONS 92270 BOIS-COLOMBES',
     contact: {
@@ -140,7 +143,7 @@ export function anApprentiBoucherOffreFromMatcha(): Alternance {
       nom: 'BOUCHERIE STEPHANE VEIT',
     },
     from: 'matcha',
-    id: '628a65a72ff4860027ae1531',
+    id: '628a64ed2ff4860027ae1501',
     intitulé: 'Boucherie',
     niveauRequis: 'Cap, autres formations niveau (Infrabac)',
     typeDeContrats: ['Apprentissage', 'Professionnalisation'],

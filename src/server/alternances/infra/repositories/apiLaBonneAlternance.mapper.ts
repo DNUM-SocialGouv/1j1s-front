@@ -1,49 +1,21 @@
 import { Alternance, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { MétierRecherché } from '~/server/alternances/domain/métierRecherché';
 import {
+  ConsulterOffreAlternancePeJob,
   ConsulterOffreAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/alternance.type';
 import {
-  AlternanceMatchasResponse,
   AlternanceResponse,
 } from '~/server/alternances/infra/repositories/responses/alternanceResponse.type';
 import {
   MatchasContactResponse,
   MatchasResultResponse,
 } from '~/server/alternances/infra/repositories/responses/matchasResponse.type';
+import { PeJobsResultResponse } from '~/server/alternances/infra/repositories/responses/peJobsResponse.type';
 import { RechercheMetierResponse } from '~/server/alternances/infra/repositories/responses/rechercheMetierResponse.type';
 import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
 
-export function mapRésultatsRechercheAlternanceMatcha(response: AlternanceResponse): RésultatsRechercheAlternance {
-
-  const alternanceFromMatchaList = response.matchas.results.map((matcha) => {
-    const ville = mapNomVille(matcha.place?.city);
-    const niveauRequis = matcha.diplomaLevel || undefined;
-    const typeDeContrats = matcha.job?.contractType ?? [];
-    const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
-
-    return {
-      adresse: matcha.place?.fullAddress,
-      description: matcha.job.romeDetails?.definition,
-      entreprise: {
-        logo: matcha.company?.logo || undefined,
-        nom: matcha.company?.name || undefined,
-      },
-      from: matcha.ideaType,
-      id: matcha.job.id,
-      intitulé: matcha.title,
-      niveauRequis,
-      typeDeContrats,
-      ville,
-      étiquetteList,
-    };
-  });
-
-  return {
-    nombreRésultats: alternanceFromMatchaList.length,
-    résultats: [...alternanceFromMatchaList],
-  };
-}
+export const mapRésultatsRechercheAlternanceResponse = (response: AlternanceResponse): AlternanceResponse => response;
 
 export function mapRésultatsRechercheAlternance(response: AlternanceResponse): RésultatsRechercheAlternance {
   const alternanceFromPoleEmploiList = response.peJobs.results.map((peJob) => {
@@ -112,8 +84,7 @@ export function mapContact(contact: MatchasContactResponse | undefined): Alterna
   };
 }
 
-export function mapOffreAlternanceMatcha(response: AlternanceMatchasResponse): ConsulterOffreAlternanceMatcha {
-  const alternance: MatchasResultResponse = response.matchas[0];
+export function mapOffreAlternanceMatcha(alternance: MatchasResultResponse): ConsulterOffreAlternanceMatcha {
   const ville = mapNomVille(alternance.place?.city);
   const niveauRequis = alternance.diplomaLevel;
   const typeDeContrats = alternance.job.contractType ?? [];
@@ -135,6 +106,31 @@ export function mapOffreAlternanceMatcha(response: AlternanceMatchasResponse): C
     niveauRequis,
     rythmeAlternance: alternance.job.rythmeAlternance,
     typeDeContrats,
+    ville,
+    étiquetteList,
+  };
+}
+
+export function mapOffreAlternancePeJob(alternance: PeJobsResultResponse): ConsulterOffreAlternancePeJob {
+  const ville = mapNomVille(alternance.place?.city);
+  const niveauRequis = 'Alternance' as string;
+  const typeDeContrats = alternance.job.contractType ? [alternance.job.contractType] : [];
+  const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
+  return {
+    adresse: alternance.place?.fullAddress,
+    contact: mapContact(alternance.contact),
+    description: alternance.job.description,
+    duréeContrat: alternance.job.duration,
+    entreprise: {
+      logo: alternance.company?.logo || undefined,
+      nom: alternance.company?.name || undefined,
+    },
+    from: alternance.ideaType,
+    id: alternance.job.id,
+    intitulé: alternance.title,
+    niveauRequis,
+    typeDeContrats,
+    url: alternance.url,
     ville,
     étiquetteList,
   };

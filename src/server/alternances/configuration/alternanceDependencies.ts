@@ -10,6 +10,7 @@ import {
   RechercherMétierDependenciesContainer,
   rechercherMétierDependenciesContainer,
 } from '~/server/alternances/infra/configuration/rechercheMétierDependencies.container';
+import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientService } from '~/server/services/http/httpClient.service';
 
 export type AlternanceDependencies =
@@ -19,10 +20,11 @@ export type AlternanceDependencies =
 
 export const alternanceDependenciesContainer = (
   httpClientService: HttpClientService,
+  cacheService: CacheService,
 ): AlternanceDependencies => {
   return {
-    ...rechercherMétierDependenciesContainer(httpClientService),
-    ...rechercherAlternanceDependenciesContainer(httpClientService),
-    ...consulterOffreAlternanceDependenciesContainer(httpClientService),
+    ...rechercherMétierDependenciesContainer(httpClientService, cacheService),
+    ...rechercherAlternanceDependenciesContainer(httpClientService, cacheService),
+    ...consulterOffreAlternanceDependenciesContainer(httpClientService, cacheService),
   };
 };

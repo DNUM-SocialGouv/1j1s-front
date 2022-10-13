@@ -1,5 +1,5 @@
 import { aRésultatsRechercheAlternance } from '@tests/fixtures/domain/alternance.fixture';
-import { anAlternanceListResponse } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
+import { anAlternanceListAxiosResponse } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -11,7 +11,7 @@ describe('rechercher une alternance', () => {
   it('retourne la liste des alternances filtrée', async () => {
     nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
       .get('/jobs?insee=75101&romes=D1103%2CD1101%2CH2101&longitude=2&latitude=48&radius=30&caller=1jeune1solution')
-      .reply(200, anAlternanceListResponse().data);
+      .reply(200, anAlternanceListAxiosResponse().data);
 
 
     await testApiHandler<RésultatsRechercheAlternance | ErrorHttpResponse>({

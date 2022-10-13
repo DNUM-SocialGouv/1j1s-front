@@ -84,7 +84,7 @@ export const dependenciesContainer = (): Dependencies => {
 
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(httpClientPoleEmploiBase, apiPoleEmploiRéférentielRepository, cacheService);
-  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
+  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService, cacheService);
   const engagementDependencies = engagementDependenciesContainer(engagementClientService);
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
