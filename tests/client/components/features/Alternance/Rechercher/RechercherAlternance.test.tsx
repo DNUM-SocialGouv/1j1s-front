@@ -96,11 +96,11 @@ describe('RechercherAlternance', () => {
         // THEN
         expect(alternanceService.rechercherAlternance).toHaveBeenCalledWith('codeRomes=D1103%252CD1101%252CH2101&metierSelectionne=boulanger');
         await waitFor(() => {
-          expect(screen.getByText('2 contrats d\'alternances pour boulanger')).toBeInTheDocument();
+          expect(screen.getByText('1 contrat d\'alternance pour boulanger')).toBeInTheDocument();
         });
 
         const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
-        expect(résultatRechercheAlternanceList).toHaveLength(2);
+        expect(résultatRechercheAlternanceList).toHaveLength(1);
 
       });
     });
@@ -144,7 +144,7 @@ describe('RechercherAlternance', () => {
         fireEvent.click(buttonRechercher);
 
         const résultatRechercheAlternanceList = await screen.findAllByTestId('RésultatRechercherSolution');
-        expect(résultatRechercheAlternanceList).toHaveLength(2);
+        expect(résultatRechercheAlternanceList).toHaveLength(1);
         const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
         expect(filtresRecherche).toBeInTheDocument();
         expect(within(filtresRecherche).getByText('AURILLAC (15)')).toBeInTheDocument();

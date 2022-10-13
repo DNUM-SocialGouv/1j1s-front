@@ -6,8 +6,9 @@ import {
 import { aLaBonneAlternanceHttpClient } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
 
 import {
-  mapMétierRecherchéList, mapOffreAlternanceMatcha,
-  mapRésultatsRechercheAlternance,
+  mapMétierRecherchéList,
+  mapOffreAlternanceMatcha,
+  mapRésultatsRechercheAlternanceMatcha,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import {
   ApiLaBonneAlternanceRepository,
@@ -83,7 +84,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
           radius: '30',
         });
 
-        expect(httpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
+        expect(httpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternanceMatcha);
         expect(result).toEqual(aRésultatsRechercheAlternance());
       });
     });
@@ -100,7 +101,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
           radius: '30',
         });
 
-        expect(httpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternance);
+        expect(httpClientService.get).toHaveBeenCalledWith('jobs?insee=75001&latitude=48.08&longitude=2.01&radius=30&romes=D1103%2CD1101%2CH2101&caller=1jeune1solution', mapRésultatsRechercheAlternanceMatcha);
         expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
       });
     });

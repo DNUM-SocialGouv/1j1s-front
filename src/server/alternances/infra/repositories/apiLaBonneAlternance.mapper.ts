@@ -14,6 +14,37 @@ import {
 import { RechercheMetierResponse } from '~/server/alternances/infra/repositories/responses/rechercheMetierResponse.type';
 import { mapDateDébutContrat } from '~/server/utils/mapDateDébutContrat.mapper.utils';
 
+export function mapRésultatsRechercheAlternanceMatcha(response: AlternanceResponse): RésultatsRechercheAlternance {
+
+  const alternanceFromMatchaList = response.matchas.results.map((matcha) => {
+    const ville = mapNomVille(matcha.place?.city);
+    const niveauRequis = matcha.diplomaLevel || undefined;
+    const typeDeContrats = matcha.job?.contractType ?? [];
+    const étiquetteList = [ville, niveauRequis, ...typeDeContrats].filter((tag: string |undefined) => tag !== undefined) as string[];
+
+    return {
+      adresse: matcha.place?.fullAddress,
+      description: matcha.job.romeDetails?.definition,
+      entreprise: {
+        logo: matcha.company?.logo || undefined,
+        nom: matcha.company?.name || undefined,
+      },
+      from: matcha.ideaType,
+      id: matcha.job.id,
+      intitulé: matcha.title,
+      niveauRequis,
+      typeDeContrats,
+      ville,
+      étiquetteList,
+    };
+  });
+
+  return {
+    nombreRésultats: alternanceFromMatchaList.length,
+    résultats: [...alternanceFromMatchaList],
+  };
+}
+
 export function mapRésultatsRechercheAlternance(response: AlternanceResponse): RésultatsRechercheAlternance {
   const alternanceFromPoleEmploiList = response.peJobs.results.map((peJob) => {
     const ville = mapNomVille(peJob.place?.city);
