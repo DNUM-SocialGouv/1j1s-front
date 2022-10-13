@@ -11,7 +11,7 @@ export default function Application() {
     <div className={styles.application}>
       <div className={styles.applicationContainer}>
 
-        <Image priority src={logoImage} alt={'accroche'}/>
+        <Image priority src={logoImage} alt={'Contrat d\'engagement jeune'}/>
 
         <div className={styles.applicationDescription}>
           L&apos;appli qui vous permet d&apos;échanger plus facilement avec votre conseiller et de réaliser vos recherches d&apos;emploi,
@@ -20,18 +20,18 @@ export default function Application() {
 
         <div className={styles.applicationLogoContainer}>
           <div className={styles.applicationLogo}>
-            <Image priority src={logoGoogle} alt={'Logo Google Play Store'}/>
+            <Image priority src={logoGoogle} alt={''}/>
             <a href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
               className={'underline-none'}>
-              Get it on <br/>
+              Télécharger sur <br/>
               <span className={styles.applicationLogoStore}>Google Play</span>
             </a>
           </div>
           <div className={styles.applicationLogo}>
-            <Image priority src={logoApple} alt={'Logo Apple App Store'}/>
+            <Image priority src={logoApple} alt={''}/>
             <a href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
               className={'underline-none'}>
-              Download on the <br/>
+              Télécharger sur <br/>
               <span className={styles.applicationLogoStore}>APP Store</span>
             </a>
           </div>

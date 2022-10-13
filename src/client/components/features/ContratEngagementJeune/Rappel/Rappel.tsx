@@ -49,7 +49,7 @@ export default function Rappel() {
         <ModalComponent.Content className={!isSuccess ? styles.rappelContent : styles.rappelContentSuccess}>
           { !isSuccess && <small>(Tous les champs sont obligatoires)</small> }
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-            <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
+            <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Fermer, Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>
