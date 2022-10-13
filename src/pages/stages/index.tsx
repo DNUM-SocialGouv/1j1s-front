@@ -2,10 +2,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import React from 'react';
 import { Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
-import {
-  Domaines,
-  OffreDeStageIndexée,
-} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { Domaines, OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
@@ -34,7 +31,7 @@ const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
     : [];
   listeEtiquettes.push(
     résultat.localisation?.ville || résultat.localisation?.departement || résultat.localisation?.region as string,
-    résultat.dureeCategorisee !== 'Non renseigné'? résultat.dureeCategorisee as string : '',
+    résultat.dureeCategorisee !== 'Non renseigné' ? résultat.dureeCategorisee as string : '',
     'Débute le : ' + new Date(résultat.dateDeDebut).toLocaleDateString(),
   );
 
@@ -71,6 +68,11 @@ export default function RechercherOffreStagePage() {
                 <div className={styles.formElement}>
                   <label>Métiers, mots clés, …</label>
                   <SearchBox
+                    onKeyDown={(e) => {
+                      if (e.key == 'Enter') {
+                        e.preventDefault();
+                      }
+                    }}
                     className='recherche-principale-stage'
                     placeholder="Métiers, mots clés, …"
                     classNames={
