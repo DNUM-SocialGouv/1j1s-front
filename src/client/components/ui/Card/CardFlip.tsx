@@ -72,7 +72,7 @@ export const CardFlip = ({ children, imageUrl, link, linkLabel, title, titleLeve
       </div>
       { isCardFlipped && <div className={classNames(styles.card, styles.cardFlipBack)}>
         <button onClick={() => flipCard(true)} className={styles.cardFlipBackAction}>
-          <span className="sr-only">fermer section qui est concerné</span>
+          <span className="sr-only">masquer la section qui est concerné</span>
           <Icon name='angle-left' aria-hidden="true"/>
         </button>
         <div className={styles.cardFlipBackTitle}>Qui est concerné ?</div>

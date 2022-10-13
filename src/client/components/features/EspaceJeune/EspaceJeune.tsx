@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
+import { splitCardList } from '~/client/components/features/EspaceJeune/splitCardList';
 import { CardFlip } from '~/client/components/ui/Card/CardFlip';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import Marked from '~/client/components/ui/Marked/Marked';
@@ -16,8 +17,9 @@ interface EspaceJeuneProps {
 
 export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
   const { vieProfessionnelle, accompagnement, aidesFinancières, orienterFormer } = espaceJeune;
+  const MAX_CARTE_PER_ROW = 3;
 
-  function CarteEspaceJeune(carte: CarteEspaceJeune, index: number){
+  function CarteEspaceJeune(carte: CarteEspaceJeune, index: number) {
     const titre = useSanitize(carte.titre);
     const bannière = carte.bannière?.url || '';
     const url = useSanitize(carte.url);
@@ -37,24 +39,17 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
     </CardFlip>;
   }
 
-  function splitCardList(cardList: CarteEspaceJeune[], size: number) {
-    const processedArray = cardList.map((card,index) => {
-      const indexDivisableParSize = index % size === 0;
-      return indexDivisableParSize ? cardList.slice(index, index + size) : undefined;
-    });
-    return processedArray.filter((cardList) => { return cardList; });
-  }
+
 
   function displayCartes(cardList: CarteEspaceJeune[]) {
-    return cardList.slice(0, 3).map((carte, index) => {
+    return cardList.slice(0, MAX_CARTE_PER_ROW).map((carte, index) => {
       return CarteEspaceJeune(carte, index);
     });
   }
   
   function displayMoreCartes(cardList: CarteEspaceJeune[]) {
-    const SPLIT_SIZE = 3;
-    const cardListSplit = splitCardList(cardList.slice(SPLIT_SIZE), SPLIT_SIZE);
-    return cardListSplit.map((cardList, index) => {
+    const cardListSplit = splitCardList(cardList.slice(MAX_CARTE_PER_ROW), MAX_CARTE_PER_ROW);
+    return cardListSplit.map((cardList: CarteEspaceJeune[], index: number) => {
       return <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)} key={index}>
         {cardList ? cardList.map((carte, index) => {
           return CarteEspaceJeune(carte, index);
@@ -70,7 +65,7 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
       <div className={classNames(styles.cardList, styles.cardListPadding)}>
         {displayCartes(category)}
       </div>
-      {category.length > 3 &&
+      {category.length > MAX_CARTE_PER_ROW &&
         <SeeMore>
           {displayMoreCartes(category)}
         </SeeMore>
