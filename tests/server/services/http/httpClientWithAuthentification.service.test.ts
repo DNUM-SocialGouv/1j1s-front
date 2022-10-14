@@ -68,6 +68,57 @@ describe('HttpClientServiceWithAuthentification', () => {
       hit.isDone();
       expect(actual).toEqual(createSuccess(body));
     });
+    it('rafraichit un token qui a expiré', async () => {
+      // Given
+      const accessToken1 = 'uytrdxcvghfrtyh';
+      const accessToken2 = 'mpoijnbhjkloiuj';
+      const body = { some: 'body' };
+      const miss = nock('https://some.test.api')
+        .get('/test')
+        .reply(401, 'Unauthorized');
+
+      const hit = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken1}` } })
+        .get('/test')
+        .reply(200, body);
+
+      const expires = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken1}` } })
+        .get('/test')
+        .reply(401);
+
+      const hitRefreshed = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken2}` } })
+        .get('/test')
+        .reply(200, body);
+
+      let refresh = false;
+      const tokenAgentStub = {
+        getToken: jest.fn(async () => {
+          if (!refresh) {
+            refresh = true;
+            return accessToken1;
+          } else {
+            return accessToken2;
+          }
+        }),
+      };
+      const client = new HttpClientServiceWithAuthentification({
+        apiName: 'test',
+        apiUrl: 'https://some.test.api',
+        tokenAgent: tokenAgentStub,
+      });
+
+
+      // When
+      const req1 = await client.get('/test', (a) => a);
+      const req2 = await client.get('/test', (a) => a);
+      // Then
+      miss.done();
+      hit.done();
+      expires.done();
+      hitRefreshed.done();
+      expect(req1).toEqual(createSuccess(body));
+      expect(req2).toEqual(createSuccess(body));
+      expect(tokenAgentStub.getToken).toHaveBeenCalledTimes(2);
+    });
 
     it("ne refraichit le token qu'une seule fois si plusieurs requêtes échouent simultanément", async () => {
       // Given
@@ -201,6 +252,57 @@ describe('HttpClientServiceWithAuthentification', () => {
       miss.isDone();
       hit.isDone();
       expect(actual.status).toEqual(200);
+    });
+    it('rafraichit un token qui a expiré', async () => {
+      // Given
+      const accessToken1 = 'uytrdxcvghfrtyh';
+      const accessToken2 = 'mpoijnbhjkloiuj';
+      const body = { some: 'body' };
+      const miss = nock('https://some.test.api')
+        .post('/test')
+        .reply(401, 'Unauthorized');
+
+      const hit = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken1}` } })
+        .post('/test')
+        .reply(200, body);
+
+      const expires = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken1}` } })
+        .post('/test')
+        .reply(401);
+
+      const hitRefreshed = nock('https://some.test.api', { reqheaders: { Authorization: `Bearer ${accessToken2}` } })
+        .post('/test')
+        .reply(200, body);
+
+      let refresh = false;
+      const tokenAgentStub = {
+        getToken: jest.fn(async () => {
+          if (!refresh) {
+            refresh = true;
+            return accessToken1;
+          } else {
+            return accessToken2;
+          }
+        }),
+      };
+      const client = new HttpClientServiceWithAuthentification({
+        apiName: 'test',
+        apiUrl: 'https://some.test.api',
+        tokenAgent: tokenAgentStub,
+      });
+
+
+      // When
+      const req1 = await client.post('/test', {});
+      const req2 = await client.post('/test', {});
+      // Then
+      miss.done();
+      hit.done();
+      expires.done();
+      hitRefreshed.done();
+      expect(req1.status).toEqual(200);
+      expect(req2.status).toEqual(200);
+      expect(tokenAgentStub.getToken).toHaveBeenCalledTimes(2);
     });
 
     it("ne refraichit le token qu'une seule fois si plusieurs requêtes échouent simultanément", async () => {
