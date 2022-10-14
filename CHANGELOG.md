@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.1...v2.1.2) (2022-10-14)
+
+
+### Bug Fixes
+
+* **auth:** Code plus simple pour l'authentification à la volée ([6c256a2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6c256a233ef6d7b14810e311c4faf688d6b5f180))
+
 ## [2.1.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.0...v2.1.1) (2022-10-13)
 
 
