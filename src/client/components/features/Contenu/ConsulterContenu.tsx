@@ -14,7 +14,6 @@ export function ConsulterContenu({ titre, contenu }: ConsulterContenuProps) {
       <article className={styles.article}>
         <HeadTag title={`${titre} | 1jeune1solution`}></HeadTag>
         <Marked markdown={contenu} />
-        <p dangerouslySetInnerHTML={{ __html: contenu }} />
       </article>
     </Container>
   );
