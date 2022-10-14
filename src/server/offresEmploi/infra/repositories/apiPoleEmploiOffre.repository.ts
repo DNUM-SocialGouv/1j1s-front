@@ -25,14 +25,12 @@ import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { CacheService } from '~/server/services/cache/cache.service';
-import {
-  HttpClientServiceWithAuthentificationPoleEmploi,
-} from '~/server/services/http/httpClientWithAuthentificationPoleEmploi.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   constructor(
-    private httpClientPoleEmploi: HttpClientServiceWithAuthentificationPoleEmploi,
+    private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
     private cacheService: CacheService,
   ) {}
@@ -42,7 +40,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
 
   async getOffreEmploi(id: OffreEmploiId): Promise<Either<OffreEmploi>> {
-    return await this.httpClientPoleEmploi.get<OffreEmploiResponse, OffreEmploi>(
+    return await this.httpClientServiceWithAuthentification.get<OffreEmploiResponse, OffreEmploi>(
       `/${id}`,
       mapOffreEmploi,
     );
@@ -106,7 +104,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   async getOffreEmploiRecherche(offreFiltre: OffreEmploiFiltre) {
     const paramètresRecherche = await this.buildParamètresRecherche(offreFiltre);
     if(paramètresRecherche) {
-      return await this.httpClientPoleEmploi.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
+      return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploi>(
         `/search?${paramètresRecherche}`,
         mapRésultatsRechercheOffreEmploi,
       );
@@ -119,7 +117,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     if (responseInCache) return createSuccess(mapRésultatsRechercheOffreEmploi(responseInCache));
     else {
-      const response =  await this.httpClientPoleEmploi.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
+      const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
         '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
         mapRésultatsRechercheOffreEmploiResponse,
       );
@@ -138,7 +136,7 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     if (responseInCache) return createSuccess(mapRésultatsRechercheOffreEmploi(responseInCache));
     else {
-      const response =  await this.httpClientPoleEmploi.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
+      const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreEmploiResponse, RésultatsRechercheOffreEmploiResponse>(
         '/search?range=0-14',
         mapRésultatsRechercheOffreEmploiResponse,
       );

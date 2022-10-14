@@ -14,7 +14,7 @@ export abstract class ClientService {
   ): Promise<Either<Retour>>;
 
   protected constructor(
-    apiName: string,
+    protected apiName: string,
     baseURL: string,
     overrideInterceptorsResponse = false,
     headers: AxiosRequestHeaders = {},
@@ -43,6 +43,7 @@ export abstract class ClientService {
     endpoint: string,
     mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
+    mapError = true,
   ): Promise<Either<Retour>> {
     let response;
 
@@ -58,26 +59,34 @@ export abstract class ClientService {
         return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
       }
     } catch (e: unknown) {
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status.toString().startsWith('50')) {
-          LoggerService.error(`${endpoint} ERREUR 50X ${e.message}`);
-          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-        }
-        if (e.response?.status === 400) {
-          LoggerService.error(`${endpoint} ERREUR 400 ${e.message}`);
-          return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-        }
-        if (e.response?.status === 404) {
-          LoggerService.error(`${endpoint} ERREUR 404 ${e.message}`);
-          return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
-        }
-        if (e.response?.status === 401) {
-          LoggerService.error(`${endpoint} ERREUR 401 ${e.message}`);
-          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-        }
+      if (mapError) {
+        return this.mapError(endpoint, e);
+      } else {
+        throw e;
       }
-      LoggerService.error(`${endpoint} PROBLEME MAPPING ${e}`);
-      return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
     }
+  }
+
+  protected mapError(endpoint: string, e: unknown) {
+    if (axios.isAxiosError(e)) {
+      if (e.response?.status.toString().startsWith('50')) {
+        LoggerService.error(`${endpoint} ERREUR 50X ${e.message}`);
+        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      }
+      if (e.response?.status === 400) {
+        LoggerService.error(`${endpoint} ERREUR 400 ${e.message}`);
+        return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+      }
+      if (e.response?.status === 404) {
+        LoggerService.error(`${endpoint} ERREUR 404 ${e.message}`);
+        return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+      }
+      if (e.response?.status === 401) {
+        LoggerService.error(`${endpoint} ERREUR 401 ${e.message}`);
+        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      }
+    }
+    LoggerService.error(`${endpoint} PROBLEME MAPPING ${e}`);
+    return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
   }
 }
