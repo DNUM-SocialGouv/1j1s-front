@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.2...v2.1.3) (2022-10-14)
+
+
+### Bug Fixes
+
+* **Stage:** corrige le comportement de la searchbox avec la touche entree ([#412](https://github.com/DNUM-SocialGouv/1j1s-front/issues/412)) ([bd4e754](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bd4e75409fe4591d1cff46a145a60839b7d209ef))
+
 ## [2.1.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.1...v2.1.2) (2022-10-14)
 
 
