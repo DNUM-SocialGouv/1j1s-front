@@ -4,16 +4,14 @@ import {
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
 import { ConsulterOffreEmploiUseCase } from '~/server/offresEmploi/useCases/consulterOffreEmploi.useCase';
 import { CacheService } from '~/server/services/cache/cache.service';
-import {
-  HttpClientServiceWithAuthentificationPoleEmploi,
-} from '~/server/services/http/httpClientWithAuthentificationPoleEmploi.service';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 export interface ConsulterOffreEmploiDependenciesContainer {
   readonly consulterOffreEmploi: ConsulterOffreEmploiUseCase;
 }
 
 export const consulterOffreEmploiDependenciesContainer = (
-  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentificationPoleEmploi,
+  httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
   apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
   cacheService: CacheService,
 ): ConsulterOffreEmploiDependenciesContainer => {
