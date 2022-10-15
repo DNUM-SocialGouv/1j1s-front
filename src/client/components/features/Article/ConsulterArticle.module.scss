@@ -1,93 +1,53 @@
 @import "@styles/utilities";
 
 .consulterArticle {
-    max-width: 78rem;
-    padding: 2rem 1rem;
-    margin: auto;
+  max-width: 78rem;
+  padding: 2rem 1rem;
+  margin: auto;
 
-    &ButtonRetour {
-        padding-bottom: 2rem;
-    }
-    & [href] {
-        box-shadow: 0 1px 0 0;
-    }
-    & a {
-        text-decoration: none;
-    }
+  &ButtonRetour {
+    padding-bottom: 2rem;
+  }
 
-    > button {
-        margin-top: 0;
-        margin-bottom: 1rem;
-    }
+  & [href] {
+    box-shadow: 0 1px 0 0;
+  }
+
+  & a {
+    text-decoration: none;
+  }
+
+  > button {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
 }
 
 .consulterArticle img {
-    display: block;
-    margin: 1rem auto 2rem;
-    max-width: 100%;
+  display: block;
+  margin: 1rem auto 2rem;
+  max-width: 100%;
 }
 
 .titre {
-    @extend %bold, %headline;
-    color: $color-on-background;
-    padding-bottom: 1rem;
-}
-
-.contenu {
-    h2, h3, h4, h5, h6 {
-        @extend %bold;
-    }
-
-    h2 {
-        margin-block: 1.5rem;
-        @extend %text-xLarge;
-    }
-
-    h3 {
-        margin-block: 1rem;
-        @extend %text-large;
-    }
-
-    h4, h5, h6 {
-        margin-block: 0.5rem;
-        @extend %text-medium;
-    }
-
-    p {
-        margin-block: 1.5rem;
-    }
-
-    ul li, ol li {
-        margin-block: 0.2rem;
-    }
-
-    ul, ol {
-        list-style: initial;
-        margin-left: 1.3rem;
-    }
-
-    ol {
-        list-style: decimal;
-        margin-left: 1.5rem;
-    }
-
-    a:hover {
-        color: $color-secondary;
-    }
+  @extend %bold, %headline;
+  color: $color-on-background;
+  padding-bottom: 1rem;
 }
 
 @include media(large) {
-    .consulterArticle {
-        padding-top: 4rem;
-        &ButtonRetour {
-            padding-left: 6rem;
+  .consulterArticle {
+    padding-top: 4rem;
 
-        }
+    &ButtonRetour {
+      padding-left: 6rem;
+
     }
-    .titre {
-        padding: 0 6rem 2rem 6rem;
-    }
-    .contenu {
-        padding: 0 6rem 2rem 6rem;
-    }
+  }
+  .titre {
+    padding: 0 6rem 2rem 6rem;
+  }
+  .contenu {
+    padding: 0 6rem 2rem 6rem;
+  }
 }
