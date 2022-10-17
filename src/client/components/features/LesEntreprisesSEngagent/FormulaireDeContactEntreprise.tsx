@@ -133,7 +133,7 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
               <span>
                 <CheckIcon circled={ true } animate />
               </span>
-              <Button onClick={close} buttonType="primary" title="Revenir à la page">Fermer</Button>
+              <Button onClick={close} buttonType="primary" title="Fermer, Revenir à la page">Fermer</Button>
             </div>
           </ModalComponent.Content>
         </>

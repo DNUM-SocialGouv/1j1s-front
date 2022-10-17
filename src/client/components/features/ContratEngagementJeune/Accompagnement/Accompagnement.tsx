@@ -105,7 +105,7 @@ export default function Accompagnement() {
         <ModalComponent.Content className={!isSuccess ? styles.accompagnementMission__Content : styles.accompagnementMission__ContentSuccess}>
           { !isSuccess && <small>(Tous les champs sont obligatoires)</small> }
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-            <Button onClick={ () => setIsMissionLocaleModalOpen(false)} buttonType="primary" title="Revenir à la page" className={styles.accompagnementMissionBoutonSuccess}>Fermer</Button>
+            <Button onClick={ () => setIsMissionLocaleModalOpen(false)} buttonType="primary" title="Fermer, Revenir à la page" className={styles.accompagnementMissionBoutonSuccess}>Fermer</Button>
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>
