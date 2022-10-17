@@ -73,6 +73,25 @@ describe('Header', () => {
         expect(emploisNavItem).toHaveAttribute('aria-current', 'true');
       });
     });
+
+    describe('quand la page courante est "Je deviens mentor"', () => {
+      it('affiche le composant Header avec la navigation active sur "Je deviens mentor"', async () => {
+        mockUseRouter({ pathname: '/je-deviens-mentor' });
+        render(<Header/>);
+
+        const navigation = screen.getByRole('navigation');
+        const accueilNavItem = within(navigation).getByText('Accueil');
+        const lesNavItem = within(navigation).getAllByText('Je suis employeur').at(0);
+
+        fireEvent.click(lesNavItem);
+
+        const jeDeviensMentorNavItem = within(navigation).getByText('Je deviens mentor');
+
+        expect(accueilNavItem).toHaveAttribute('aria-current', 'false');
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(jeDeviensMentorNavItem.parentNode).toHaveAttribute('aria-current', 'true');
+      });
+    });
   });
   describe('Sur mobile', () => {
     beforeEach(() => {
