@@ -1,6 +1,7 @@
 import styles from '~/client/components/features/Contenu/ConsulterContenu.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import Marked from '~/client/components/ui/Marked/Marked';
+import MarkedStyles from '~/client/components/ui/Marked/Marked.module.scss';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export interface ConsulterContenuProps {
@@ -13,8 +14,7 @@ export function ConsulterContenu({ titre, contenu }: ConsulterContenuProps) {
     <Container>
       <article className={styles.article}>
         <HeadTag title={`${titre} | 1jeune1solution`}></HeadTag>
-        <Marked markdown={contenu} />
-        <p dangerouslySetInnerHTML={{ __html: contenu }} />
+        <Marked markdown={contenu} className={MarkedStyles.normalize} />
       </article>
     </Container>
   );
