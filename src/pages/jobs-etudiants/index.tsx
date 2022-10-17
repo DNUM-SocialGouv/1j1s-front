@@ -3,10 +3,13 @@ import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
 import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
+import useReferrer from '~/client/hooks/useReferrer';
 
 export default function RechercherJobEtudiantPage() {
   const router = useRouter();
 
+  useReferrer();
+  
   useEffect(() => {
     if (router.isReady) {
       const queryString = stringify(router.query);
