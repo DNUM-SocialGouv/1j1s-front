@@ -32,7 +32,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
     throw new PageContextParamsException();
   }
   const { id } = context.params;
-  const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
+  const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id.toUpperCase());
 
   if (offreEmploi.instance === 'failure') {
     return { notFound: true, revalidate: 1 };
