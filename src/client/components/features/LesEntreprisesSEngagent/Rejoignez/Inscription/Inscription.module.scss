@@ -80,14 +80,12 @@
 
 .décharge {
   width: 100%;
-  background-color: $color-cadre-formulaire;
   border-radius: 30px;
   margin-bottom: 2rem;
 
   p {
     font-size: 0.7rem;
-    padding: 1rem;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
   }
 }
 
@@ -159,13 +157,22 @@
       text-align: center;
 
       > button {
-        width: 30%;
+        width: 40%;
       }
     }
   }
 
+  .décharge {
+    padding: 0 17rem;
+    p {
+      font-size: 0.7rem;
+      padding: 1rem;
+      margin: inherit;
+    }
+  }
+
   .footer {
-    text-align: center;
+    padding: 0 26rem;
   }
 
   .success {
