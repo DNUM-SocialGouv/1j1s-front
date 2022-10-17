@@ -3,13 +3,13 @@
  */
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMockRouter, mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '@tests/client/window.mock';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 import { Header } from '~/client/components/layouts/Header/Header';
-import resetAllMocks = jest.resetAllMocks
-import userEvent from '@testing-library/user-event';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
+import resetAllMocks = jest.resetAllMocks;
 
 describe('Header', () => {
   describe('Sur desktop', () => {
@@ -42,7 +42,7 @@ describe('Header', () => {
     });
 
     describe('quand la page courante est "Accueil"', () => {
-      it('affiche le composant Header avec la navigation active sur "Accueil"',  async () => {
+      it('affiche le composant Header avec la navigation active sur "Accueil"', async () => {
         mockUseRouter({ pathname: '/' });
         render(<Header/>);
 
@@ -65,7 +65,7 @@ describe('Header', () => {
         const accueilNavItem = within(navigation).getByText('Accueil');
         const offresNavItem = within(navigation).getByText('Offres');
 
-        fireEvent.click(offresNavItem);
+        userEvent.click(offresNavItem);
 
         const emploisNavItem = within(navigation).getByText('Emplois');
 
@@ -93,6 +93,7 @@ describe('Header', () => {
       });
     });
   });
+
   describe('Sur mobile', () => {
     beforeEach(() => {
       mockSmallScreen();
@@ -103,7 +104,7 @@ describe('Header', () => {
     describe('Par défaut', () => {
       it('n\'affiche pas la navigation mobile', () => {
         mockUseRouter({ pathname: '/' });
-        render(<Header />);
+        render(<Header/>);
         const menu = screen.queryByRole('navigation');
         expect(menu).not.toBeInTheDocument();
       });
@@ -111,11 +112,21 @@ describe('Header', () => {
     describe('Au clic sur le bouton menu', () => {
       it('ouvre le menu le navigation mobile', () => {
         mockUseRouter({ pathname: '/' });
-        render(<Header />);
+        render(<Header/>);
         const button = screen.getByRole('button');
         fireEvent.click(button);
         const menu = screen.getByRole('navigation');
         expect(menu).toBeInTheDocument();
+      });
+
+      it('positionne le menu dans le bon sous menu', () => {
+        mockUseRouter({ pathname: '/decouvrir-les-metiers' });
+        render(<Header/>);
+        const button = screen.getByRole('button');
+        fireEvent.click(button);
+        const menu = screen.getByRole('navigation');
+        expect(menu).toBeInTheDocument();
+        expect(screen.getByText('Découvrir les métiers')).toBeInTheDocument();
       });
     });
     describe('Au clic sur un item du menu', () => {
@@ -124,7 +135,7 @@ describe('Header', () => {
         const router = createMockRouter({ pathname: '/' });
         render(
           <RouterContext.Provider value={router}>
-            <Header />
+            <Header/>
           </RouterContext.Provider>,
         );
         const button = screen.getByRole('button');
@@ -142,7 +153,7 @@ describe('Header', () => {
         const router = createMockRouter({ pathname: '/' });
         render(
           <RouterContext.Provider value={router}>
-            <Header />
+            <Header/>
           </RouterContext.Provider>,
         );
         // When
