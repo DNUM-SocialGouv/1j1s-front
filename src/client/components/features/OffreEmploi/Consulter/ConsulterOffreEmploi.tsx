@@ -2,7 +2,7 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
@@ -22,12 +22,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
         <TagList list={offreEmploi.étiquetteList} aria-label="Caractéristiques de l'offre d'emploi" />
         <div className={commonStyles.buttonAsLinkWrapper}>
           <div className={commonStyles.buttonAsLink}>
-            <LinkAsButton
-              href={offreEmploi.urlOffreOrigine}
-              target="_blank"
-            >
-              Je postule sur Pôle Emploi
-            </LinkAsButton>
+            <Link href={offreEmploi.urlOffreOrigine} target="_blank" appearance="asPrimaryButton">Je postule sur Pôle Emploi</Link>
           </div>
         </div>
       </header>
