@@ -10,6 +10,9 @@ interface LinkAsButtonProps extends React.AnchorHTMLAttributes<unknown> {
   buttonOnDarkBackground?: boolean
 }
 
+/**
+ * @deprecated Utilisez le composant <Link> à la place avec les propriétés d'apparences. Ce composant LinkAsButton sera retiré.
+ */
 export function LinkAsButton({ children, icon, href, disabled=false, buttonOnDarkBackground=false, className, ...rest } : React.PropsWithChildren<LinkAsButtonProps>) {
   const primaryStyle = buttonOnDarkBackground ? styles.linkAsButtonPrimaryOnDarkBackground : styles.linkAsButtonPrimary;
   const buttonStyle = classNames('underline-none', styles.linkAsButton, primaryStyle, className, { [styles.linkAsButtonDisabled]: disabled });

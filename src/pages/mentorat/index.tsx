@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -37,12 +37,7 @@ export default function MentoratPage() {
                   </p>
                 </span>
                 <div className={styles.linkAsButtonWrapper}>
-                  <LinkAsButton
-                    href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution"
-                    target="_blank"
-                  >
-                    Je trouve mon mentor
-                  </LinkAsButton>
+                  <Link href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" target="_blank" appearance="asPrimaryButton">Je trouve mon mentor</Link>
                 </div>
               </div>
               <div className={styles.headingContainer__TextContent}>
@@ -55,12 +50,7 @@ export default function MentoratPage() {
                   </p>
                 </span>
                 <div className={styles.linkAsButtonWrapper}>
-                  <LinkAsButton
-                    href="/je-deviens-mentor"
-                    target="_blank"
-                  >
-                    Je deviens mentor
-                  </LinkAsButton>
+                  <Link href="/je-deviens-mentor" target="_blank" appearance="asPrimaryButton">Je deviens mentor</Link>
                 </div>
               </div>
             </div>

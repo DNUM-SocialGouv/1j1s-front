@@ -7,8 +7,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -62,19 +61,18 @@ export default function Accompagnement() {
 
   function displayBoutonRechercherMissionLocale() {
     return <div className={styles.missionLocaleButtonContainer}>
-      <LinkAsButton href="https://www.unml.info/les-missions-locales/annuaire/" className={classNames(styles.buttonChercher)}>Trouver ma mission locale</LinkAsButton>
-      <br />
-      <LinkAsButton href="/articles/mission-locale" className={styles.buttonEnSavoirPlus}>En savoir plus<Icon name={'angle-right'}/></LinkAsButton>
+      <Link href="https://www.unml.info/les-missions-locales/annuaire/" appearance='asPrimaryButton'>Trouver ma mission locale</Link>
+      <Link href="/articles/mission-locale" appearance='asSecondaryButton'>En savoir plus</Link>
     </div>;
   }
 
 
   function displayBoutonRechercherStructureAccueil() {
-    return <LinkAsButton href="https://infojeunesfrance.org/carte-interactive/" className={classNames(styles.buttonChercher)}>Trouver ma structure Info Jeunes</LinkAsButton>;
+    return <Link href="https://infojeunesfrance.org/carte-interactive/" appearance="asPrimaryButton" className={styles.button}>Trouver ma structure Info Jeunes</Link>;
   }
 
   function displayBoutonRechercherCentrePoleEmploi() {
-    return <LinkAsButton href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" className={classNames(styles.buttonChercher)}>Trouver mon centre Pôle Emploi</LinkAsButton>;
+    return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" appearance="asPrimaryButton" className={styles.button}>Trouver mon centre Pôle Emploi</Link>;
   }
 
   return (
