@@ -15,5 +15,6 @@ export default function useSanitize(dirty: string | undefined) {
 }
 
 function replaceCarriageReturn(initial: string) {
-  return initial.trim().replaceAll('\n', '<br />');
+  const carriageReturnRegex = new RegExp('\\n', 'g');
+  return initial.trim().replace(carriageReturnRegex, '<br />');
 }
