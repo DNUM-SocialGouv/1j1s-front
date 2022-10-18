@@ -119,7 +119,7 @@ describe('Header', () => {
         expect(menu).toBeInTheDocument();
       });
 
-      it('positionne le menu dans le bon sous menu', () => {
+      it('positionne le menu dans le bon sous menu de niveau 1', () => {
         mockUseRouter({ pathname: '/decouvrir-les-metiers' });
         render(<Header/>);
         const button = screen.getByRole('button');
@@ -127,6 +127,16 @@ describe('Header', () => {
         const menu = screen.getByRole('navigation');
         expect(menu).toBeInTheDocument();
         expect(screen.getByText('Découvrir les métiers')).toBeInTheDocument();
+      });
+
+      it('positionne le menu dans le bon sous menu de niveau 2', () => {
+        mockUseRouter({ pathname: '/je-deviens-mentor' });
+        render(<Header/>);
+        const button = screen.getByRole('button');
+        fireEvent.click(button);
+        const menu = screen.getByRole('navigation');
+        expect(menu).toBeInTheDocument();
+        expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
       });
     });
     describe('Au clic sur un item du menu', () => {

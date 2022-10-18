@@ -96,6 +96,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
         <EmbeddedNavItem
           label={item.label}
           key={index}
+          isActive={isItemActive(item, path)}
           onClick={(e) => {
             e.stopPropagation();
             selectEmbeddedNavItem(item);
