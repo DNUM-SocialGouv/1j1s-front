@@ -7,7 +7,7 @@ import { navigationItemList } from '~/client/components/layouts/Header/Navigatio
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 
-export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void }){
+export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path: string }) {
   const {
     accueil,
     accompagnementNav,
@@ -20,21 +20,21 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void }){
   const [path, setPath] = useState(() => router.pathname || '');
 
   useEffect(() => {
-    if (path !== router.pathname){
+    if (path !== router.pathname) {
       setPath(router.pathname);
     }
   }, [path, setPath, router]);
-	
+
   return (
     <Container className={styles.headerModalContainer}>
       <nav role="navigation">
         <ul className={styles.headerModalNavigationList}>
-          <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path}  onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}  onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path}  onClick={toggleModal} />
-          <NavItemWithSubItems className={styles.navItem} item={employeurNav} path={path} onClick={toggleModal} />
+          <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} onClick={toggleModal}/>
+          <NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} onClick={toggleModal}/>
+          <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} onClick={toggleModal}/>
+          <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path} onClick={toggleModal}/>
+          <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} onClick={toggleModal}/>
+          <NavItemWithSubItems className={styles.navItem} item={employeurNav} path={path} onClick={toggleModal}/>
         </ul>
       </nav>
     </Container>

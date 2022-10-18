@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
@@ -14,6 +15,15 @@ export function HeaderBody() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isLargeScreen } = useBreakpoint();
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const router = useRouter();
+  const [path, setPath] = useState(() => router.pathname || '');
+
+  useEffect(() => {
+    if (path !== router.pathname){
+      setPath(router.pathname);
+    }
+  }, [path, setPath, router]);
 
   return (
     <Container className={styles.headerBody}>
@@ -35,7 +45,7 @@ export function HeaderBody() {
             <span>Menu</span>
           </ModalComponent.Title>
           <ModalComponent.Content>
-            <HeaderNavMobile toggleModal={toggleModal} />
+            <HeaderNavMobile toggleModal={toggleModal} path={path}/>
           </ModalComponent.Content>
         </ModalComponent>
       }

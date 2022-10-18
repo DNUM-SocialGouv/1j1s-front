@@ -184,7 +184,7 @@
   }
 }
 
-.navItemLabel[aria-current=true], .subNavItemLabel[aria-current=true] {
+.navItemLabel[aria-current=true], .subNavItemLabel[aria-current=true], .embeddedNavItem[aria-current=true] {
   @include underline;
   @extend %bold;
 }
