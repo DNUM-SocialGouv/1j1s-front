@@ -138,6 +138,19 @@ describe('Header', () => {
         expect(menu).toBeInTheDocument();
         expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
       });
+
+      it('positionne le menu dans le bon sous menu de niveau 2 et permet de retourner en arrière', () => {
+        mockUseRouter({ pathname: '/je-deviens-mentor' });
+        render(<Header/>);
+        const button = screen.getByRole('button');
+        fireEvent.click(button);
+        const menu = screen.getByRole('navigation');
+        expect(menu).toBeInTheDocument();
+        expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
+        const retourEnArrière = screen.getByText('Recruter et agir pour les jeunes');
+        fireEvent.click(retourEnArrière);
+        expect(screen.getByText('Je suis employeur')).toBeInTheDocument();
+      });
     });
     describe('Au clic sur un item du menu', () => {
       it('ferme le menu de navigation', () => {

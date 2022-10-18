@@ -70,7 +70,6 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
     }
   }
 
-
   useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
     document.addEventListener('keyup', closeMenuOnEscape);
@@ -80,6 +79,15 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
       document.removeEventListener('keyup', closeMenuOnEscape);
     };
   }, [closeMenuOnEscape, closeOptionsOnClickOutside]);
+
+  useEffect(() => {
+    for (const item of root.children) {
+      if (!isNavigationItem(item) && isItemActive(item, path)) {
+        selectEmbeddedNavItem(item);
+        break;
+      }
+    }
+  }, [path, root]);
 
   const subNav = subItems.map((item, index) => {
     if (isNavigationItem(item)) {
