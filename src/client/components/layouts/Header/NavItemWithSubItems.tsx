@@ -15,6 +15,12 @@ interface NavItemWithSubItemsProps {
   item: NavigationItemWithChildren;
 }
 
+function isItemActive(item: NavigationItemWithChildren, path: string): boolean {
+  return item.children.some((subItem) => {
+    return isNavigationItem(subItem) ? subItem.link === path : isItemActive(subItem, path);
+  });
+}
+
 export function NavItemWithSubItems({ className, onClick, item: root, path }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
   const optionsRef = useRef<HTMLLIElement>(null);
   const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
@@ -24,7 +30,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
   const isRoot = root.label === currentItem.label;
 
   const isActive = useMemo(() => {
-    return root.children.some((subItem) => isNavigationItem(subItem) && subItem.link === path);
+    return isItemActive(root, path);
   }, [path, root]);
   const [isExpanded, setIsExpanded] = useState(isActive);
 
