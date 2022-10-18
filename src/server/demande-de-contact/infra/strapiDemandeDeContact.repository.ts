@@ -9,11 +9,13 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
 
   constructor(private httpClientService: HttpClientService) {
   }
+
   async saveCEJ(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {
     try {
       await this.httpClientService.post('contact-cejs', {
         data: {
           age: demandeDeContactCEJ.age,
+          code_postal: demandeDeContactCEJ.codePostal,
           email: demandeDeContactCEJ.email,
           nom: demandeDeContactCEJ.nom,
           prenom: demandeDeContactCEJ.prénom,

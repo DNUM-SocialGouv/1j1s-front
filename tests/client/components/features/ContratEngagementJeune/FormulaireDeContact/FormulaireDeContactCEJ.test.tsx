@@ -93,11 +93,12 @@ describe('<FormulaireDeContactCEJ />', () => {
         // Then
         expect(demandeDeContactServiceMock.envoyerPourLeCEJ).toHaveBeenCalledWith({
           age: 19,
+          codePostal: '75001',
           email: 'toto@msn.fr',
           nom: 'Mc Totface',
           prénom: 'Toto',
           téléphone: '0123456789',
-          ville: 'Paris (75001)',
+          ville: 'Paris',
         });
       });
       it('appelle la propriété onSuccess', async () => {

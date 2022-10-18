@@ -10,6 +10,7 @@ export interface FormulaireDemandeDeContactCEJ {
   prénom: string
   téléphone: string
   ville: string
+  codePostal: string
 }
 
 export interface FormulaireDemandeDeContactEntreprise {
