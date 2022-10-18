@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.2.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.3...v2.2.0) (2022-10-18)
+
+
+### Features
+
+* ancrage top-up ensemble des pages ([6f27e29](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f27e295a540f70f5bccac57ae90da97caf5f3b8))
+* **CEJ:** [717] Ajout du code postal à l'enregistrement de la ville pour le contact CEJ ([#402](https://github.com/DNUM-SocialGouv/1j1s-front/issues/402)) ([47ce69d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/47ce69db3f1a4349925670929e85e49cf2a8a58b))
+* **CEJ:** corrections ([69c3af2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/69c3af21d0cf74a0e4e3282284d2645b76545124))
+* **menu:** [789] Ajout de la position actuelle dans le menu employeurs ([#406](https://github.com/DNUM-SocialGouv/1j1s-front/issues/406)) ([c76193d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c76193d8683cd5999400d7cab0a5886f7cf20ab0))
+* quitter listbox avec le bouton escape ([a0e1286](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a0e1286b44d41884ad185d56d3a9979504ffd0a1))
+
+
+### Bug Fixes
+
+* **contenu:** remove duplicate content in contenu page ([9b3bb84](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9b3bb84b67e415e04db369d07f06c794a0164382))
+* **emplois:** uppercase offre emploi id from context params to get it ([ea3f9e2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ea3f9e21b4e94b242b5dfc97e4aea20086d43066))
+* **job-etudiant:** ajout useReferrer() dans recherche job étudiant ([#419](https://github.com/DNUM-SocialGouv/1j1s-front/issues/419)) ([ba9e520](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ba9e5203fc8c278d4ca8525c9298e75feea5b0de))
+* **support:** change replaceAll to replace with regex in order to support old browsers ([cdb888c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cdb888c8679d71c8a9a1d0bc2c079f2cda8958fa))
+
 ## [2.1.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.2...v2.1.3) (2022-10-14)
 
 
