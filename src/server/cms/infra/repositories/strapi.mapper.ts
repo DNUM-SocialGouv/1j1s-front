@@ -113,26 +113,27 @@ function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursRespo
   }));
 }
 
-export function mapMesuresJeunes(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
+export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
   const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
 
   return {
-    accompagnement: mapCartesMesuresJeuneList(accompagnement),
-    aidesFinancières: mapCartesMesuresJeuneList(aidesFinancieres),
-    orienterFormer: mapCartesMesuresJeuneList(orienterFormer),
-    vieProfessionnelle: mapCartesMesuresJeuneList(vieProfessionnelle),
+    accompagnement: mapCartesEspaceJeuneList(accompagnement),
+    aidesFinancières: mapCartesEspaceJeuneList(aidesFinancieres),
+    orienterFormer: mapCartesEspaceJeuneList(orienterFormer),
+    vieProfessionnelle: mapCartesEspaceJeuneList(vieProfessionnelle),
   };
 }
 
-function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteEspaceJeuneResponse[]): CarteEspaceJeune[] {
-  return cartesMesuresJeunesList.map<CarteEspaceJeune>((carteMesuresJeunes) => {
-    const { banniere, contenu, titre, url, pourQui } = carteMesuresJeunes;
+function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneResponse[]): CarteEspaceJeune[] {
+  return cartesEspaceJeuneList.map<CarteEspaceJeune>((carteEspaceJeune) => {
+    const { banniere, contenu, titre, url, pourQui, article } = carteEspaceJeune;
     return {
       bannière: mapImage(banniere),
       concerné: pourQui,
       contenu,
       titre,
       url,
+      ...(article.data ? { article: mapArticleRelation(article) } : {}),
     };
   });
 }

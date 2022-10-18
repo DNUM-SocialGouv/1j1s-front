@@ -3,9 +3,9 @@ import { anEspaceJeune,anEspaceJeuneResponse } from '@tests/fixtures/domain/espa
 
 import {
   mapArticle,
+  mapEspaceJeune,
   mapImage,
   mapMentionObligatoire,
-  mapMesuresJeunes,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 
 describe('strapi mapper', () => {
@@ -67,7 +67,7 @@ describe('strapi mapper', () => {
       it('retourne les mesures jeunes', () => {
         const mesuresJeunesResponse = anEspaceJeuneResponse();
         const expectedMesuresJeunes = anEspaceJeune();
-        const mesuresJeunes = mapMesuresJeunes(mesuresJeunesResponse);
+        const mesuresJeunes = mapEspaceJeune(mesuresJeunesResponse);
         expect(mesuresJeunes).toEqual(expectedMesuresJeunes);
       });
     });

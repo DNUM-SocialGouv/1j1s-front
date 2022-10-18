@@ -5,10 +5,10 @@ import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import {
-  mapArticle, mapFicheMetier,
+  mapArticle,   mapEspaceJeune,
+  mapFicheMetier,
   mapMentionObligatoire,
   mapMesuresEmployeurs,
-  mapMesuresJeunes,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import {
   ArticleAttributesResponse,
@@ -71,7 +71,7 @@ export class StrapiCmsRepository implements CmsRepository {
     };
     return await this.httpClientService.get<StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>, EspaceJeune>(
       `mesure-jeune?${qs.stringify(query, { encode: false })}`,
-      mapMesuresJeunes,
+      mapEspaceJeune,
     );
   }
 
