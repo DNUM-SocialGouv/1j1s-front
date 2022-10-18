@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { anEspaceJeune } from '@tests/fixtures/domain/espaceJeune';
+import { anEspaceJeune } from '@tests/fixtures/domain/espaceJeune.fixture';
 
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
 

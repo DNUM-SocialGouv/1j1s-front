@@ -1,5 +1,5 @@
 import { anArticle } from '@tests/fixtures/domain/article.fixture';
-import { anEspaceJeune } from '@tests/fixtures/domain/espaceJeune';
+import { anEspaceJeune } from '@tests/fixtures/domain/espaceJeune.fixture';
 import { aFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
 import { desMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
 import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';

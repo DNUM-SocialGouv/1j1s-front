@@ -1,5 +1,6 @@
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import {
+  ArticleSimpleAttributesResponse,
   EspaceJeuneAttributesResponse,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
@@ -7,6 +8,11 @@ import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsRe
 
 export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
+    article: {
+      contenu: 'Contenu',
+      slug: 'titre',
+      titre: 'Titre',
+    },
     bannière: {
       alt: 'text',
       url: 'https://animage.jpg',
@@ -21,6 +27,11 @@ export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEs
 
 export function aDeuxièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
+    article: {
+      contenu: 'Contenu',
+      slug: 'titre',
+      titre: 'Titre',
+    },
     bannière: {
       alt: 'text',
       url: 'https://animage.jpg',
@@ -35,6 +46,11 @@ export function aDeuxièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>)
 
 export function aTroisièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
+    article: {
+      contenu: 'Contenu',
+      slug: 'titre',
+      titre: 'Titre',
+    },
     bannière: {
       alt: 'text',
       url: 'https://animage.jpg',
@@ -49,6 +65,11 @@ export function aTroisièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>
 
 export function aQuatrièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
   return {
+    article: {
+      contenu: 'Contenu',
+      slug: 'titre',
+      titre: 'Titre',
+    },
     bannière: {
       alt: 'text',
       url: 'https://animage.jpg',
@@ -80,6 +101,18 @@ function aStrapiImage(): Strapi.ImageAttributes {
   };
 }
 
+function aStrapiArticleResponse(): StrapiSingleTypeResponse<ArticleSimpleAttributesResponse> {
+  return {
+    data: {
+      attributes: {
+        contenu: 'Contenu',
+        slug: 'titre',
+        titre: 'Titre',
+      },
+    },
+  };
+}
+
 function aStrapiResponseImage(): Strapi.Image {
   return {
     data: {
@@ -94,6 +127,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
       attributes: {
         accompagnement: [
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -101,6 +135,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un deuxième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -108,6 +143,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une deuxième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un troisième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -115,6 +151,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une troisième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un quatrième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -124,6 +161,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
         ],
         aidesFinancieres: [
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -131,6 +169,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un deuxième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -138,6 +177,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une deuxième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un troisième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -145,6 +185,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une troisième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un quatrième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -154,6 +195,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
         ],
         orienterFormer: [
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -161,6 +203,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un deuxième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -168,6 +211,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une deuxième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un troisième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -175,6 +219,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une troisième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un quatrième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -184,6 +229,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
         ],
         vieProfessionnelle: [
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -191,6 +237,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un deuxième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -198,6 +245,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une deuxième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un troisième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
@@ -205,6 +253,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
             url: 'Une troisième belle url de carte',
           },
           {
+            article: aStrapiArticleResponse(),
             banniere: aStrapiResponseImage(),
             contenu: 'Un quatrième beau contenu de carte',
             pourQui: 'pour les 12 à 18mois',
