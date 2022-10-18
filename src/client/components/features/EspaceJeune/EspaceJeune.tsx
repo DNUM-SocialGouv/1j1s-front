@@ -2,13 +2,13 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
-import { splitCardList } from '~/client/components/features/EspaceJeune/splitCardList';
 import { CardFlip } from '~/client/components/ui/Card/CardFlip';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useSanitize from '~/client/hooks/useSanitize';
+import { getExtrait } from '~/client/utils/getExtrait.utils';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 
 interface EspaceJeuneProps {
@@ -23,19 +23,22 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
     const titre = useSanitize(carte.titre);
     const bannière = carte.bannière?.url || '';
     const url = useSanitize(carte.url);
+    const link = carte.article
+      ? `/articles/${carte.article.slug}`
+      : url;
     const contenu = useSanitize(carte.contenu);
+    const extrait = getExtrait(contenu, 110);
     const concerné = useSanitize(carte.concerné) || '';
 
     return <CardFlip
       key={index}
       imageUrl={bannière}
-      link={url}
-      linkLabel="En savoir plus"
+      link={link}
       title={titre}
       flipCardContent={concerné}
       data-testid="card"
     >
-      <Marked markdown={contenu} />
+      <Marked markdown={extrait} />
     </CardFlip>;
   }
 
@@ -46,18 +49,12 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
       return CarteEspaceJeune(carte, index);
     });
   }
-  
-  function displayMoreCartes(cardList: CarteEspaceJeune[]) {
-    const cardListSplit = splitCardList(cardList.slice(MAX_CARTE_PER_ROW), MAX_CARTE_PER_ROW);
-    return cardListSplit.map((cardList: CarteEspaceJeune[], index: number) => {
-      return <div className={classNames(styles.cardList, styles.cardListPaddingSeeMore)} key={index}>
-        {cardList ? cardList.map((carte, index) => {
-          return CarteEspaceJeune(carte, index);
-        })
-          : undefined}
-      </div>;
 
+  function displayMoreCartes(cardList: CarteEspaceJeune[]) {
+    return cardList.slice(MAX_CARTE_PER_ROW).map((carte, index) => {
+      return CarteEspaceJeune(carte, index);
     });
+
   }
 
   function displaySectionCartes(category: CarteEspaceJeune[]) {
@@ -67,7 +64,9 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
       </div>
       {category.length > MAX_CARTE_PER_ROW &&
         <SeeMore>
-          {displayMoreCartes(category)}
+          <div className={classNames(styles.cardList, styles.cardListPadding)}>
+            {displayMoreCartes(category)}
+          </div>
         </SeeMore>
       }
     </>;

@@ -6,6 +6,7 @@ import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmploy
 import { CardFlip } from '~/client/components/ui/Card/CardFlip';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
+import { getExtrait } from '~/client/utils/getExtrait.utils';
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 
 import Marked from '../../ui/Marked/Marked';
@@ -50,28 +51,20 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
   const bannière = carte.bannière?.url || '';
   const url = useSanitize(carte.url);
   const contenu = useSanitize(carte.contenu);
-  const brief = extrait(contenu, 110);
+  const brief = getExtrait(contenu, 110);
   const link = carte.article
     ? `/articles/${carte.article.slug}`
     : url;
-  const pourQui = useSanitize(carte.pourQui) || '';
+  const pourQui = carte.pourQui || '';
 
 
   return <CardFlip
     imageUrl={bannière}
     link={link}
-    linkLabel="En savoir plus"
     title={titre}
     flipCardContent={pourQui}
     data-testid="card"
   >
     <Marked markdown={brief} />
   </CardFlip>;
-}
-
-function extrait(contenu: string, size = 120): string {
-  const end = contenu.substring(size);
-  const charactersLeft = end.indexOf(' ');
-  const brief = contenu.substring(0, size + charactersLeft);
-  return `${brief} [...]`;
 }

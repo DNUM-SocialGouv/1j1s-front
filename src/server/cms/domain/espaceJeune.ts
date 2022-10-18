@@ -1,3 +1,4 @@
+import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
 
 export interface EspaceJeune {
@@ -12,5 +13,6 @@ export interface CarteEspaceJeune {
   contenu: string
   bannière: Image | undefined
   url: string
+  article?: Article
   concerné : string
 }

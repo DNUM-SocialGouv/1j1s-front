@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import React, {
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -15,21 +17,38 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 interface CardProps {
   imageUrl: string
   link: string
-  linkLabel?: string
   title: string
   titleLevel?: HtmlHeadingTag
   flipCardContent: string
 }
 
-export const CardFlip = ({ children, imageUrl, link, linkLabel, title, titleLevel, flipCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
+export const CardFlip = ({ children, imageUrl, link, title, titleLevel, flipCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
+  const cardFlipRef = useRef<HTMLDivElement>(null);
   const isInternalLink = useIsInternalLink(link);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [isAnimationOn, setIsAnimationOn] = useState(false);
   const hasFlipCardContent = !!flipCardContent.length;
 
-  const icon = useMemo(function () {
-    return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
-  }, [isInternalLink]);
+
+  useEffect(function setFocusOnFlip() {
+    if (isCardFlipped) {
+      const currentItem = cardFlipRef.current as HTMLDivElement;
+      const firstElement = currentItem.getElementsByTagName('button')[0];
+      firstElement.focus();
+    }
+  }, [isCardFlipped]);
+
+
+  const test = useMemo(function () {
+    return <Link
+      href={link}
+      prefetch={false}
+      className={styles.cardAction}
+    >
+      <span>{isInternalLink ? 'Lire l\'article' : 'En savoir plus'}</span>
+      <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />
+    </Link>;
+  }, [isInternalLink, link]);
 
   const CardTitle = ({ children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) => {
     return React.createElement(titleLevel || 'h3', { className: className }, children);
@@ -40,6 +59,8 @@ export const CardFlip = ({ children, imageUrl, link, linkLabel, title, titleLeve
     if(reverse) {
       setTimeout(() => {
         setIsCardFlipped(!isCardFlipped);
+        const flipButton = document.getElementById('flipButton');
+        if (flipButton) flipButton.focus();
       }, 500);
     } else {
       setIsCardFlipped(!isCardFlipped);
@@ -59,18 +80,11 @@ export const CardFlip = ({ children, imageUrl, link, linkLabel, title, titleLeve
         </div>
 
         <div className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
-          {hasFlipCardContent && <button onClick={() => flipCard()}>Qui est concerné ?</button>}
-          <Link
-            href={link}
-            prefetch={false}
-            className={styles.cardAction}
-          >
-            <span>{linkLabel}</span>
-            {icon}
-          </Link>
+          {hasFlipCardContent && <button id='flipButton' onClick={() => flipCard()}>Qui est concerné ?</button>}
+          {test}
         </div>
       </div>
-      { isCardFlipped && <div className={classNames(styles.card, styles.cardFlipBack)}>
+      { isCardFlipped && <div ref={cardFlipRef} className={classNames(styles.card, styles.cardFlipBack)}>
         <button onClick={() => flipCard(true)} className={styles.cardFlipBackAction}>
           <span className="sr-only">masquer la section qui est concerné</span>
           <Icon name='angle-left' aria-hidden="true"/>

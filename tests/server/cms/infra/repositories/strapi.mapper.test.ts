@@ -1,5 +1,5 @@
 import { anArticle, anArticleResponse } from '@tests/fixtures/domain/article.fixture';
-import { anEspaceJeune,anEspaceJeuneResponse } from '@tests/fixtures/domain/mesuresJeunes.fixture';
+import { anEspaceJeune,anEspaceJeuneResponse } from '@tests/fixtures/domain/espaceJeune';
 
 import {
   mapArticle,

@@ -46,6 +46,7 @@ export interface CarteEspaceJeuneResponse {
     contenu: string
     url: string
     banniere: Strapi.Image
+    article?: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
     pourQui: string
 }
 
