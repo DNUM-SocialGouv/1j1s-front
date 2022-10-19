@@ -6,6 +6,7 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { isNavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import { EmbeddedNavItem } from './EmbeddedNavItem';
 
@@ -22,11 +23,12 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
   const label = currentItem.label;
   const subItems = currentItem.children;
   const isRoot = root.label === currentItem.label;
+  const { isLargeScreen } = useBreakpoint();
 
   const isActive = useMemo(() => {
     return isItemActive(root, path);
   }, [path, root]);
-  const [isExpanded, setIsExpanded] = useState(isActive);
+  const [isExpanded, setIsExpanded] = useState(isActive && !isLargeScreen);
 
   const reset = useCallback(() => {
     setIsExpanded(false);
