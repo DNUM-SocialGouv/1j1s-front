@@ -11,10 +11,10 @@ export class ApiPoleEmploiRéférentielRepository {
 
   private CACHE_KEY = 'REFERENTIEL_COMMUNE';
 
-  async findCodeInseeInRéférentielCommune(codePostal: string): Promise<string> {
+  async findCodeInseeInRéférentielCommune(code: string): Promise<string> {
     const responseInCache = await this.cacheService.get<RésultatsRéférentielCommunesResponse[]>(this.CACHE_KEY);
     if(responseInCache) {
-      return mapCodeInsee(responseInCache, codePostal);
+      return mapCodeInsee(responseInCache, code);
     } else {
       const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
         '/communes',
@@ -23,9 +23,9 @@ export class ApiPoleEmploiRéférentielRepository {
       switch (response.instance) {
         case 'success': {
           this.cacheService.set(this.CACHE_KEY, response.result, 24);
-          return mapCodeInsee(response.result, codePostal);
+          return mapCodeInsee(response.result, code);
         }
-        case 'failure': return codePostal;
+        case 'failure': return code;
       }
     }
   };

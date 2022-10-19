@@ -139,19 +139,19 @@ describe('mapper pour l api pole emploi', () => {
   });
 
   describe('mapCodeInsee', () => {
-    describe('quand on récupère bien le code insee du code postal recherché', () => {
+    describe('quand on récupère bien le code insee de la localisation recherchée', () => {
       it('retourne le code insee correspondant', () => {
-        const result = mapCodeInsee(aRésultatsRéférentielCommunesResponseList(), '55000');
+        const result = mapCodeInsee(aRésultatsRéférentielCommunesResponseList(), '55221');
 
         expect(result).toEqual('55221');
       });
     });
 
-    describe('quand on récupère pas le code insee du code postal recherché', () => {
-      it('retourne le code postal', () => {
-        const result = mapCodeInsee(aRésultatsRéférentielCommunesResponseList(), '75001');
+    describe('quand on récupère pas le code insee de la localisation recherchée', () => {
+      it('retourne le code passé en paramètre', () => {
+        const result = mapCodeInsee(aRésultatsRéférentielCommunesResponseList(), '75101');
 
-        expect(result).toEqual('75001');
+        expect(result).toEqual('75101');
       });
     });
   });

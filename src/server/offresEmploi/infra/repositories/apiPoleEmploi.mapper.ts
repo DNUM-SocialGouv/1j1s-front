@@ -130,7 +130,27 @@ function getNombreRésultats(filtrePossibleResponseList: RésultatsRechercheOffr
   return Math.max(...maxNombreRésultatList);
 }
 
-export function mapCodeInsee(response: RésultatsRéférentielCommunesResponse[], codePostalToFindInRéférentiel: string): string {
-  const finded = response.find((response) => response.codePostal === codePostalToFindInRéférentiel);
-  return finded ? finded.code : codePostalToFindInRéférentiel;
+
+const enum CodeInseeCommuneAvecArrondissement  {
+  CODE_INSEE_PARIS = '75056',
+  CODE_INSEE_LYON = '69123',
+  CODE_INSEE_MARSEILLE = '13055',
+}
+
+const enum CodeInseeCommunePremierArrondissement  {
+  CODE_INSEE_PARIS_01 = '75101',
+  CODE_INSEE_LYON_01 = '69381',
+  CODE_INSEE_MARSEILLE_01 = '13201',
+}
+
+function checkCodeCommuneAvecArrondissment(codeToFindInRéférentiel: string): string {
+  if (codeToFindInRéférentiel === CodeInseeCommuneAvecArrondissement.CODE_INSEE_PARIS) return CodeInseeCommunePremierArrondissement.CODE_INSEE_PARIS_01;
+  if (codeToFindInRéférentiel === CodeInseeCommuneAvecArrondissement.CODE_INSEE_MARSEILLE) return CodeInseeCommunePremierArrondissement.CODE_INSEE_MARSEILLE_01;
+  if (codeToFindInRéférentiel === CodeInseeCommuneAvecArrondissement.CODE_INSEE_LYON) return CodeInseeCommunePremierArrondissement.CODE_INSEE_LYON_01;
+  return codeToFindInRéférentiel;
+}
+
+export function mapCodeInsee(response: RésultatsRéférentielCommunesResponse[], codeToFindInRéférentiel: string): string {
+  const found = response.find((response) => response.code === codeToFindInRéférentiel);
+  return found ? found.code : checkCodeCommuneAvecArrondissment(codeToFindInRéférentiel);
 }
