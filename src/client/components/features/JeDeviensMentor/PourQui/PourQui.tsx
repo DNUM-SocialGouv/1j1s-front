@@ -10,7 +10,7 @@ export function PourQui() {
         <Marked markdown={contenuHeader} />
 
         <div className={styles.linkAsButtonWrapper}>
-          <Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" target="_blank" appearance='asPrimaryButton'>Je deviens mentor</Link>
+          <Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance='asPrimaryButton'>Je deviens mentor</Link>
           <Link href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>J&apos;engage mon entreprise</Link>
         </div>
       </Container>

@@ -23,13 +23,9 @@ export default function RejoignezMobilisation() {
         <span>Les entreprises s&apos;engagent</span>
       </div>
       <Marked markdown={contenuHeader}/>
-
       <div className={styles.linkAsButtonWrapper}>
         <Link href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la mobilisation</Link>
-        <Link
-          href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees"
-          target="_blank"
-          appearance="asSecondaryButton">Découvrir les entreprises engagées</Link>
+        <Link href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">Découvrir les entreprises engagées</Link>
       </div>
     </Container>
   </div>;

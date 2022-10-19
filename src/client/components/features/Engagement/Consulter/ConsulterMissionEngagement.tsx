@@ -23,7 +23,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
         <TagList list={missionEngagement.étiquetteList} aria-label="Caractéristiques de la mission" />
         <div className={commonStyles.buttonAsLinkWrapper}>
           <div className={commonStyles.buttonAsLink}>
-            {missionEngagement.url && <Link href={missionEngagement.url} target="_blank" appearance="asPrimaryButton">Postuler</Link>}
+            {missionEngagement.url && <Link href={missionEngagement.url} appearance="asPrimaryButton">Postuler</Link>}
           </div>
         </div>
       </header>

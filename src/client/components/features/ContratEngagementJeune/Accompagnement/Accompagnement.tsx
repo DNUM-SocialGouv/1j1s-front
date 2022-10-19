@@ -73,7 +73,7 @@ export default function Accompagnement() {
             <ModalComponent.Content className={styles.accompagnementModalContent}>
               <div>
                 <h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi</h1>
-                <Link href={lienPôleEmploi} target="_blank" appearance="asPrimaryButton">Je contacte mon conseiller</Link>
+                <Link href={lienPôleEmploi} appearance="asPrimaryButton">Je contacte mon conseiller</Link>
               </div>
             </ModalComponent.Content>
           </ModalComponent>
@@ -82,7 +82,7 @@ export default function Accompagnement() {
               <div>
                 <h1>Vous pouvez bénéficier des services de Pôle Emploi</h1>
                 <p>Inscrivez-vous à Pôle Emploi pour bénéficier d&apos;un  accompagnement répondant à vos besoins </p>
-                <Link href={deuxièmeLienPôleEmploi} className={styles.accompagnementModalContentLink} target="_blank" appearance='asPrimaryButton'>
+                <Link href={deuxièmeLienPôleEmploi} className={styles.accompagnementModalContentLink} appearance='asPrimaryButton'>
                   Inscrivez-vous à Pôle Emploi
                 </Link>
               </div>

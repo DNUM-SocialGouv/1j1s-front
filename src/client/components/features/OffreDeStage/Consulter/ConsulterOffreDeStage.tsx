@@ -37,7 +37,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
         <TagList list={listeEtiquettes} aria-label="Caractéristiques de l'offre de stage"/>
         <div className={commonStyles.buttonAsLinkWrapper}>
           <div className={commonStyles.buttonAsLink}>
-            {offreDeStage.urlDeCandidature && <Link href={offreDeStage.urlDeCandidature} target="_blank" appearance="asPrimaryButton">Postuler</Link>}
+            {offreDeStage.urlDeCandidature && <Link href={offreDeStage.urlDeCandidature} appearance="asPrimaryButton">Postuler</Link>}
           </div>
         </div>
       </header>

@@ -125,7 +125,7 @@ export default function EuropePage() {
               </div>
             </div>
             <div className={styles.buttonWrapper}>
-              <Link href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr" target="_blank" appearance="asPrimaryButton">En savoir plus</Link>
+              <Link href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr" appearance="asPrimaryButton">En savoir plus</Link>
             </div>
 
           </article>
@@ -171,7 +171,7 @@ export default function EuropePage() {
               </div>
             </div>
             <div className={styles.buttonWrapper}>
-              <Link href="https://info.erasmusplus.fr/" target="_blank" appearance="asPrimaryButton">En savoir plus</Link>
+              <Link href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</Link>
             </div>
 
           </article>
@@ -218,7 +218,7 @@ export default function EuropePage() {
           </h2>
           <p>Quel est mon niveau d&apos;anglais ? Rien de plus simple avec le test en ligne de Wall Street English. Vous êtes évalué sur votre niveau de grammaire, de vocabulaire, de compréhension écrite et orale.</p>
           <div className={styles.buttonWrapper}>
-            <Link href="https://lp.wallstreetenglish.fr/1jeune-1solution" target="_blank" appearance="asPrimaryButton" className={styles.buttonOnDarkBackground}>Je veux me tester</Link>
+            <Link href="https://lp.wallstreetenglish.fr/1jeune-1solution" appearance="asPrimaryButton" className={styles.buttonOnDarkBackground}>Je veux me tester</Link>
           </div>
           <span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>
         </div>
