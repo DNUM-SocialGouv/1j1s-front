@@ -37,6 +37,15 @@ export function HeaderBody() {
           }
         </div>
         <Link className={styles.headerTitle} href="/">1jeune1solution</Link>
+        { isLargeScreen &&
+          <Link href="https://solidarites-sante.gouv.fr/metiers-et-concours/metiers-soin-et-accompagnement/metiersdusoin" className={styles.headerBanner}>
+            <div>
+              <div className={styles.headerBannerTitle}>Renseignez-vous</div>
+              <div className={styles.headerBannerContent}>Les métiers du soin et de l’accompagnement recrutent.</div>
+            </div>
+            <Icon className={styles.headerBannerIcon} name='angle-right' />
+          </Link>
+        }
       </div>
       { !isLargeScreen &&
         <ModalComponent close={toggleModal} isOpen={isModalOpen}>
