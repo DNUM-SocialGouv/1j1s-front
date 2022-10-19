@@ -48,12 +48,21 @@
 
   .buttonFormulaire {
     margin-top: 24px;
+
+    p {
+      width: 100%;
+      font-size: 0.7rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   > button[type=submit] {
     margin-top: 20px;
   }
+
 }
+
 
 .mandatoryFields {
   @extend %text-medium;
@@ -69,23 +78,14 @@
 }
 
 .footer {
+  width: 100%;
+  margin: auto;
+  text-align: left;
   @extend %text-small;
-  margin-bottom: 20px;
 
   > span {
     color: $color-primary;
     cursor: pointer;
-  }
-}
-
-.décharge {
-  width: 100%;
-  border-radius: 30px;
-  margin-bottom: 2rem;
-
-  p {
-    font-size: 0.7rem;
-    margin-top: 1rem;
   }
 }
 
@@ -159,24 +159,24 @@
       > button {
         width: 40%;
       }
-    }
-  }
 
-  .décharge {
-    padding: 0 17rem;
-    p {
-      font-size: 0.7rem;
-      padding: 1rem;
-      margin: inherit;
+      p {
+        width: 40%;
+        font-size: 0.7rem;
+        padding: 1rem;
+        margin: auto;
+        text-align: left;
+      }
     }
   }
+}
 
   .footer {
-    padding: 0 26rem;
+    width: 33%;
+
   }
 
   .success {
     width: 50%;
     margin: auto;
   }
-}
