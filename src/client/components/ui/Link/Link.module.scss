@@ -31,6 +31,7 @@ $content-area: 1.35;
 
 .secondaryButton {
   border: 1px solid $color-primary;
+  background-color: $color-on-primary;
   color: $color-primary;
 
   &:hover {

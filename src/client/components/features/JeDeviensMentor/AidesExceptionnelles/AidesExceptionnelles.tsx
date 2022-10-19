@@ -1,8 +1,7 @@
 import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles.module.scss';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 
 export default function AidesExceptionnelles() {
 
@@ -12,12 +11,7 @@ export default function AidesExceptionnelles() {
         <h2 className={styles.aidesContainerTitre}>Les entreprises s’engagent,
           <span className={styles.aidesContainerTitreAccroche}>  une mobilisation des entreprises pour l’emploi des jeunes</span>
         </h2>
-        <LinkAsButton
-          href="/les-entreprises-s-engagent"
-        >
-          Rejoindre la mobilisation
-          <Icon name={'angle-right'}/>
-        </LinkAsButton>
+        <Link href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>Rejoindre la mobilisation</Link>
       </div>
     </section>
   );

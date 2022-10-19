@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
 
 const contenuHeader = `
@@ -25,16 +25,11 @@ export default function RejoignezMobilisation() {
       <Marked markdown={contenuHeader}/>
 
       <div className={styles.linkAsButtonWrapper}>
-        <LinkAsButton href="/les-entreprises-s-engagent/inscription">
-        Rejoindre la mobilisation
-        </LinkAsButton>
-        <LinkAsButton
-          className={styles.linkAsButtonMentorat}
+        <Link href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la mobilisation</Link>
+        <Link
           href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees"
           target="_blank"
-        >
-        Découvrir les entreprises engagées
-        </LinkAsButton>
+          appearance="asSecondaryButton">Découvrir les entreprises engagées</Link>
       </div>
     </Container>
   </div>;

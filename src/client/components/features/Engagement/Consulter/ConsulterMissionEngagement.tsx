@@ -2,7 +2,7 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { Mission } from '~/server/engagement/domain/engagement';
@@ -23,12 +23,7 @@ export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissi
         <TagList list={missionEngagement.étiquetteList} aria-label="Caractéristiques de la mission" />
         <div className={commonStyles.buttonAsLinkWrapper}>
           <div className={commonStyles.buttonAsLink}>
-            <LinkAsButton
-              href={missionEngagement.url}
-              target="_blank"
-            >
-              Postuler
-            </LinkAsButton>
+            {missionEngagement.url && <Link href={missionEngagement.url} target="_blank" appearance="asPrimaryButton">Postuler</Link>}
           </div>
         </div>
       </header>

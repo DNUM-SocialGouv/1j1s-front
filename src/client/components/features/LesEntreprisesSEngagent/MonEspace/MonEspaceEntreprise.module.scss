@@ -27,24 +27,22 @@
   }
 
   &Connexion {
-    margin-bottom: 0.5rem;
-    display: flex;
+    display: block;
+    margin-bottom: 1.5rem;
   }
 
   &Inscription {
-    display: contents;
-    background-color: transparent !important;
-    color: $color-primary !important;
-    font-size: 1rem;
+    color: $color-primary;
+    display: block;
+    text-align: center;
 
-    &Lien {
-      text-align: left;
-      display: grid;
-      gap: 0.5rem;
-      grid-template-columns: 1fr 10fr;
-      align-items: center;
-      line-height: 1.5rem;
-      margin-top: 2rem;
+    svg {
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    &:hover {
+      color: $color-primary-on-hover;
     }
   }
 }
@@ -92,8 +90,7 @@
     }
 
     &Connexion {
-      padding: 1rem 1rem;
-      margin-bottom: 1rem;
+      display: block;
     }
 
     &Inscription {

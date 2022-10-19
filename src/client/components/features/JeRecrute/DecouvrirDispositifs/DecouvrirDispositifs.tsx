@@ -1,6 +1,6 @@
 import styles from '~/client/components/features/JeRecrute/DecouvrirDispositifs/DecouvrirDispositifs.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 
 
 export function DécouvrirDispositifs () {
@@ -15,14 +15,8 @@ export function DécouvrirDispositifs () {
       <Container className={styles.recruter}>
         <h2>Vous cherchez à recruter ?</h2>
         <p>Dans le cadre du plan 1 jeune, 1 solution, nous vous accompagnons dans la recherche de vos futurs collaborateurs.</p>
-        <ul>
-          <li>
-            <LinkAsButton href="/je-recrute/deposer-une-offre-d-emploi">Déposer une offre d&apos;emploi ou d&apos;alternance</LinkAsButton>
-          </li>
-          <li>
-            <LinkAsButton href={MAIL_TO}>Déposer une offre de stage</LinkAsButton>
-          </li>
-        </ul>
+        <Link href="/je-recrute/deposer-une-offre-d-emploi" appearance='asPrimaryButton'>Déposer une offre d&apos;emploi ou d&apos;alternance</Link>
+        <Link href={MAIL_TO} appearance='asPrimaryButton'>Déposer une offre de stage</Link>
       </Container>
     </div>
   );
