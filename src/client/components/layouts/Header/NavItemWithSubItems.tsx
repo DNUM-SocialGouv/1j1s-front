@@ -46,6 +46,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
     }
   }, [reset]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function selectEmbeddedNavItem(item: NavigationItemWithChildren) {
     setPreviousEmbeddedItems([currentItem, ...previousEmbeddedItems]);
     setCurrentItem(item);
@@ -81,7 +82,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
         break;
       }
     }
-  }, [path, root]);
+  }, [path, root, selectEmbeddedNavItem]);
 
   const subNav = subItems.map((item, index) => {
     if (isNavigationItem(item)) {
