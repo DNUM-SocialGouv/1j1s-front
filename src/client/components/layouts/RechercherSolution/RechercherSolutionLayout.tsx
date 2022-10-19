@@ -28,6 +28,7 @@ interface RechercherSolutionLayoutProps<T> {
   formulaireRecherche: React.ReactNode
   isLoading: boolean
   listeSolution: T[]
+  ariaLabelListeSolution?: string
   messageRésultatRecherche: string
   nombreSolutions: number
   paginationOffset?: number
@@ -42,6 +43,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     étiquettesRecherche,
     formulaireRecherche,
     listeSolution,
+    ariaLabelListeSolution,
     messageRésultatRecherche,
     mapToLienSolution,
     nombreSolutions,
@@ -54,7 +56,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
   const hasRouterQuery = Object.keys(router.query).length > 0;
 
   const displaySolutionList = () => (
-    <ul>
+    <ul aria-label={ariaLabelListeSolution}>
       {
         listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
           <li key={lienSolution.id}>

@@ -87,6 +87,7 @@ export function RechercherOffreEmploi() {
           formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
           isLoading={isLoading}
           listeSolution={offreEmploiList}
+          ariaLabelListeSolution="Offres d'emplois"
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapOffreEmploiToLienSolution}
