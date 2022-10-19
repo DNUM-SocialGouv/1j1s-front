@@ -1,15 +1,15 @@
 export interface NavigationItemWithChildren {
-	label: string
-  legend?: string
-	children: Array<NavigationItem | NavigationItemWithChildren>
+  label: string;
+  legend?: string;
+  children: Array<NavigationItem | NavigationItemWithChildren>;
 }
 
 export interface NavigationItem {
-	label: string
-	link: string
+  label: string;
+  link: string;
 }
 
-export function isNavigationItem (nav: NavigationItem | NavigationItemWithChildren): nav is NavigationItem {
+export function isNavigationItem(nav: NavigationItem | NavigationItemWithChildren): nav is NavigationItem {
   return 'link' in nav;
 }
 
@@ -59,11 +59,14 @@ const engagementNav: NavigationItemWithChildren = {
 const employeurNav: NavigationItemWithChildren = {
   children: [
     { label: 'Rejoindre la mobilisation', link: '/les-entreprises-s-engagent' },
-    { children: [
-      { label: 'Je recrute', link: '/je-recrute' },
-      { label: 'Je deviens mentor', link: '/je-deviens-mentor' },
-      { label: 'Je propose des immersions', link: '/immersions' },
-    ], label: 'Recruter et agir pour les jeunes' },
+    {
+      children: [
+        { label: 'Je recrute', link: '/je-recrute' },
+        { label: 'Je deviens mentor', link: '/je-deviens-mentor' },
+        { label: 'Je propose des immersions', link: '/immersions' },
+        { label: 'Je forme les jeunes grâce à l\'emploi', link: '/rejoindre-mobilisation-poe' },
+      ], label: 'Recruter et agir pour les jeunes',
+    },
     { label: 'Découvrir les mesures employeurs', link: '/mesures-employeurs' },
     { label: 'Accéder à mon espace', link: '/mon-espace' },
   ],
