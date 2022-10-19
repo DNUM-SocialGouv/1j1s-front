@@ -15,6 +15,7 @@
     "lint:fix": "eslint --fix .",
     "test": "jest",
     "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "tw": "jest --watch",
     "release": "standard-version",
     "prepare": "husky install",

@@ -19,6 +19,28 @@ export function aRésultatsRechercheOffreEmploi(override?: Partial<RésultatsRec
   };
 }
 
+export function aRésultatEchantillonOffreEmploi(): RésultatsRechercheOffreEmploi {
+  return {
+    nombreRésultats: 15,
+    résultats: [
+      aBarmanOffreEmploi(),
+      aMaçonOffreEmploi(),
+      aValetOffreEmploi(),
+      aBarmanOffreEmploi(),
+      aMaçonOffreEmploi(),
+      aValetOffreEmploi(),
+      aBarmanOffreEmploi(),
+      aMaçonOffreEmploi(),
+      aValetOffreEmploi(),
+      aBarmanOffreEmploi(),
+      aMaçonOffreEmploi(),
+      aValetOffreEmploi(),
+      aBarmanOffreEmploi(),
+      aMaçonOffreEmploi(),
+      aValetOffreEmploi(),
+    ],
+  };
+}
 export function aBarmanOffreEmploi(): OffreEmploi {
   return {
     compétenceList:[],
