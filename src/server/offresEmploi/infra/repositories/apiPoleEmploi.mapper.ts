@@ -144,10 +144,16 @@ const enum CodeInseeCommunePremierArrondissement  {
 }
 
 function checkCodeCommuneAvecArrondissment(codeToFindInRéférentiel: string): string {
-  if (codeToFindInRéférentiel === CodeInseeCommuneAvecArrondissement.CODE_INSEE_PARIS) return CodeInseeCommunePremierArrondissement.CODE_INSEE_PARIS_01;
-  if (codeToFindInRéférentiel === CodeInseeCommuneAvecArrondissement.CODE_INSEE_MARSEILLE) return CodeInseeCommunePremierArrondissement.CODE_INSEE_MARSEILLE_01;
-  if (codeToFindInRéférentiel === CodeInseeCommuneAvecArrondissement.CODE_INSEE_LYON) return CodeInseeCommunePremierArrondissement.CODE_INSEE_LYON_01;
-  return codeToFindInRéférentiel;
+  switch (codeToFindInRéférentiel) {
+    case CodeInseeCommuneAvecArrondissement.CODE_INSEE_PARIS:
+      return CodeInseeCommunePremierArrondissement.CODE_INSEE_PARIS_01;
+    case CodeInseeCommuneAvecArrondissement.CODE_INSEE_MARSEILLE:
+      return CodeInseeCommunePremierArrondissement.CODE_INSEE_MARSEILLE_01;
+    case CodeInseeCommuneAvecArrondissement.CODE_INSEE_LYON:
+      return CodeInseeCommunePremierArrondissement.CODE_INSEE_LYON_01;
+    default:
+      return codeToFindInRéférentiel;
+  }
 }
 
 export function mapCodeInsee(response: RésultatsRéférentielCommunesResponse[], codeToFindInRéférentiel: string): string {
