@@ -1,3 +1,5 @@
+import AidesExceptionnelles
+  from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import DecouvrirMesuresEmployeurs
   from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
 
@@ -14,6 +16,7 @@ export function JeRecrute () {
       <main>
         <DécouvrirDispositifs />
         <DecouvrirMesuresEmployeurs />
+        <AidesExceptionnelles />
       </main>
     </>
   );
