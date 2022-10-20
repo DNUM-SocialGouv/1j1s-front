@@ -11,7 +11,7 @@
     "build": "next build",
     "check": "tsc --noEmit",
     "start": "next start",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "eslint . --max-warnings=1",
     "lint:fix": "eslint --fix .",
     "test": "jest",
     "tw": "jest --watch",
