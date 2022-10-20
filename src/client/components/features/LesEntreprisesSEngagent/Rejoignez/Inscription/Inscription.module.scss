@@ -147,6 +147,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      margin-bottom: 4rem;
 
       > div {
         width: 48%;
@@ -157,11 +158,11 @@
       text-align: center;
 
       > button {
-        width: 40%;
+        width: 50%;
       }
 
       p {
-        width: 40%;
+        width: 50%;
         font-size: 0.7rem;
         padding: 1rem;
         margin: auto;
@@ -169,14 +170,14 @@
       }
     }
   }
-}
 
   .footer {
-    width: 33%;
-
+    width: 40%;
   }
 
   .success {
     width: 50%;
     margin: auto;
   }
+}
+
