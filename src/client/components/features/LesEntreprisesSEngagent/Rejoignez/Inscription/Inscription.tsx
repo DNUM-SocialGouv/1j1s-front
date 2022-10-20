@@ -202,7 +202,7 @@ export default function Inscription() {
                   />
                 </div>
 
-                <div className={styles.buttonFormulaire}>
+                <div className={styles.buttonSuivant}>
                   <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Suivant' type='submit' />
                   <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
                       Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
@@ -286,7 +286,7 @@ export default function Inscription() {
                   />
                 </div>
 
-                <div className={styles.buttonFormulaire}>
+                <div className={styles.buttonEnvoyerFormulaire}>
                   <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Envoyer le formulaire' type='submit' />
                   <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
                       Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP

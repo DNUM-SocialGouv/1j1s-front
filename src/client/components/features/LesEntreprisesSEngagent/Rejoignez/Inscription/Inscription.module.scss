@@ -46,7 +46,18 @@
     margin-top: 24px;
   }
 
-  .buttonFormulaire {
+  .buttonSuivant {
+    margin-top: 24px;
+
+    p {
+      width: 100%;
+      font-size: 0.7rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .buttonEnvoyerFormulaire {
     margin-top: 24px;
 
     p {
@@ -147,15 +158,33 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-bottom: 4rem;
 
       > div {
         width: 48%;
       }
     }
 
-    .buttonFormulaire {
+    .buttonSuivant {
       text-align: center;
+      margin-top: 4rem;
+
+
+      > button {
+        width: 50%;
+      }
+
+      p {
+        width: 50%;
+        font-size: 0.7rem;
+        padding: 1rem;
+        margin: auto;
+        text-align: left;
+      }
+    }
+
+    .buttonEnvoyerFormulaire {
+      text-align: center;
+      margin-top: 4rem;
 
       > button {
         width: 50%;
