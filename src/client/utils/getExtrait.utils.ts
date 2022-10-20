@@ -1,4 +1,5 @@
 export function getExtrait(contenu: string, size = 120): string {
+  if (contenu.length < size) return contenu;
   const end = contenu.substring(size);
   const charactersLeft = end.indexOf(' ');
   const brief = contenu.substring(0, size + charactersLeft);
