@@ -65,7 +65,7 @@ describe('Header', () => {
         const accueilNavItem = within(navigation).getByText('Accueil');
         const offresNavItem = within(navigation).getByText('Offres');
 
-        userEvent.click(offresNavItem);
+        fireEvent.click(offresNavItem);
 
         const emploisNavItem = within(navigation).getByText('Emplois');
 
