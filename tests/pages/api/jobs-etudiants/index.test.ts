@@ -33,7 +33,7 @@ describe('rechercher un job étudiant', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffreEmploi());
       },
-      url: '/jobs-etudiants?motCle=boulanger&codeLocalisation=75001&typeLocalisation=COMMUNE&page=1',
+      url: '/jobs-etudiants?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
     });
   });
 });
