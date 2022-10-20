@@ -78,10 +78,10 @@
 }
 
 .footer {
-  width: 100%;
-  margin: auto;
-  text-align: left;
   @extend %text-small;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 1rem;
 
   > span {
     color: $color-primary;
@@ -173,6 +173,7 @@
 
   .footer {
     width: 40%;
+    margin: auto;
   }
 
   .success {
