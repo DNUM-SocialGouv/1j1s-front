@@ -10,16 +10,16 @@ import {
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 
-import { CardFlip } from '~/client/components/ui/Card/CardFlip';
+import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
 
-describe('<CardFlip>', () => {
+describe('<FlippingCard>', () => {
   beforeEach(() => mockUseRouter({}));
   it('utilise le formalisme markdown pour qui est concerné', async () => {
     // Given
     const pourQui = 'ceci est le texte de **pour qui**';
     const user = userEvent.setup();
     // When
-    render(<CardFlip link="/coucou" title="test" imageUrl="/test.img" flipCardContent={ pourQui } />);
+    render(<FlippingCard link="/coucou" title="test" imageUrl="/test.img" flippingCardContent={ pourQui } />);
 
     const button = screen.getByRole('button', { name: 'Qui est concerné ?' });
     user.click(button);

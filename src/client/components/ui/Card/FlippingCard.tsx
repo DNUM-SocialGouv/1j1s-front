@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
-import styles from '~/client/components/ui/Card/CardFlip.module.scss';
+import styles from '~/client/components/ui/Card/FlippingCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
@@ -19,15 +19,15 @@ interface CardProps {
   link: string
   title: string
   titleLevel?: HtmlHeadingTag
-  flipCardContent: string
+  flippingCardContent: string
 }
 
-export const CardFlip = ({ children, imageUrl, link, title, titleLevel, flipCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
+export const FlippingCard = ({ children, imageUrl, link, title, titleLevel, flippingCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
   const cardFlipRef = useRef<HTMLDivElement>(null);
   const isInternalLink = useIsInternalLink(link);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [isAnimationOn, setIsAnimationOn] = useState(false);
-  const hasFlipCardContent = !!flipCardContent.length;
+  const hasFlipCardContent = !!flippingCardContent.length;
 
 
   useEffect(function setFocusOnFlip() {
@@ -39,14 +39,15 @@ export const CardFlip = ({ children, imageUrl, link, title, titleLevel, flipCard
   }, [isCardFlipped]);
 
 
-  const test = useMemo(function () {
+  const linkAsButton = useMemo(function () {
     return <Link
       href={link}
       prefetch={false}
       className={styles.cardAction}
+      appearance="asPrimaryButton"
     >
       <span>{isInternalLink ? 'Lire l\'article' : 'En savoir plus'}</span>
-      <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />
+
     </Link>;
   }, [isInternalLink, link]);
 
@@ -81,7 +82,7 @@ export const CardFlip = ({ children, imageUrl, link, title, titleLevel, flipCard
 
         <div className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
           {hasFlipCardContent && <button id='flipButton' onClick={() => flipCard()}>Qui est concerné ?</button>}
-          {test}
+          {linkAsButton}
         </div>
       </div>
       { isCardFlipped && <div ref={cardFlipRef} className={classNames(styles.card, styles.cardFlipBack)}>
@@ -90,7 +91,7 @@ export const CardFlip = ({ children, imageUrl, link, title, titleLevel, flipCard
           <Icon name='angle-left' aria-hidden="true"/>
         </button>
         <div className={styles.cardFlipBackTitle}>Qui est concerné ?</div>
-        <div className={styles.cardFlipBackContent}><Marked markdown={flipCardContent} /></div>
+        <div className={styles.cardFlipBackContent}><Marked markdown={flippingCardContent} /></div>
       </div>}
     </div>
   );

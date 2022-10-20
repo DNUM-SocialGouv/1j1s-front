@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
-import { CardFlip } from '~/client/components/ui/Card/CardFlip';
+import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
 import { getExtrait } from '~/client/utils/getExtrait.utils';
@@ -51,20 +51,20 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
   const bannière = carte.bannière?.url || '';
   const url = useSanitize(carte.url);
   const contenu = useSanitize(carte.contenu);
-  const brief = getExtrait(contenu, 110);
+  const brief = useMemo(() => getExtrait(contenu, 110), [contenu]);
   const link = carte.article
     ? `/articles/${carte.article.slug}`
     : url;
   const pourQui = carte.pourQui || '';
 
 
-  return <CardFlip
+  return <FlippingCard
     imageUrl={bannière}
     link={link}
     title={titre}
-    flipCardContent={pourQui}
+    flippingCardContent={pourQui}
     data-testid="card"
   >
     <Marked markdown={brief} />
-  </CardFlip>;
+  </FlippingCard>;
 }
