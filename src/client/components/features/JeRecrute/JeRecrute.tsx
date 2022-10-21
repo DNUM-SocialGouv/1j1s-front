@@ -1,3 +1,5 @@
+import AidesExceptionnelles
+  from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import DecouvrirMesuresEmployeurs
   from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
 
@@ -11,9 +13,10 @@ export function JeRecrute () {
         title="Recruter et agir pour les jeunes | 1jeune1solution"
         description="Emploi, formation, accompagnement"
       />
-      <main>
+      <main id="contenu">
         <DécouvrirDispositifs />
         <DecouvrirMesuresEmployeurs />
+        <AidesExceptionnelles />
       </main>
     </>
   );
