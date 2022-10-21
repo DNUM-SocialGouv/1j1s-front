@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from './MonEspaceEntreprise.module.scss';
 
@@ -20,13 +20,11 @@ export default function MonEspaceEntreprise() {
           </div>
         </div>
         <div className={styles.containerBoutons}>
-          <LinkAsButton className={styles.monEspaceConnexion} href="https://www.lesentreprises-sengagent.gouv.fr/login">
-            Je me connecte à mon espace
-          </LinkAsButton>
-          <LinkAsButton className={styles.monEspaceInscription} href={'/les-entreprises-s-engagent'}>
-            <span className={styles.monEspaceInscriptionLien}><Icon
-              name={'information'}/> Je ne suis pas encore inscrit, je rejoins la mobilisation</span>
-          </LinkAsButton>
+          <Link className={styles.monEspaceConnexion} href="https://www.lesentreprises-sengagent.gouv.fr/login" appearance="asPrimaryButton">Je me connecte à mon espace</Link>
+          <Link className={styles.monEspaceInscription} href="/les-entreprises-s-engagent">
+            <Icon name='information'/>
+            Je ne suis pas encore inscrit, je rejoins la mobilisation
+          </Link>
         </div>
       </Container>
     </section>

@@ -1,6 +1,6 @@
 import styles from '~/client/components/features/JeDeviensMentor/PourQui/PourQui.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
 
 export function PourQui() {
@@ -10,18 +10,8 @@ export function PourQui() {
         <Marked markdown={contenuHeader} />
 
         <div className={styles.linkAsButtonWrapper}>
-          <LinkAsButton
-            href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution"
-            target="_blank"
-          >
-                    Je deviens mentor
-          </LinkAsButton>
-          <LinkAsButton
-            href="/les-entreprises-s-engagent"
-            className={styles.linkAsButtonMentorat}
-          >
-                    J&apos;engage mon entreprise
-          </LinkAsButton>
+          <Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance='asPrimaryButton'>Je deviens mentor</Link>
+          <Link href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>J&apos;engage mon entreprise</Link>
         </div>
       </Container>
     </div>);

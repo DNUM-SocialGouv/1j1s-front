@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/Immersions/ReferencesEntreprises/RéférencerEntreprises.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 
 
 export function RéférencerEntreprises () {
@@ -16,11 +16,7 @@ export function RéférencerEntreprises () {
           <li>De les aider à confirmer un projet professionnel en situation réelle de travail</li>
           <li>D’initier un parcours d’embauche pour leur permettre d’accéder à un emploi ou dans le cadre d’une reconversion</li>
         </ul>
-        <div className={styles.referencerBouton}>
-          <LinkAsButton href="/immersions/referencer-mon-entreprise">
-            Référencer mon entreprise
-          </LinkAsButton>
-        </div>
+        <Link className={styles.referencerBouton} href="/immersions/referencer-mon-entreprise" appearance='asPrimaryButton'>Référencer mon entreprise</Link>
       </Container>
     </div>
 

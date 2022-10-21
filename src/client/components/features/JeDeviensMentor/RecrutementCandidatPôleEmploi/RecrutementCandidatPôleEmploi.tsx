@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/RecrutementCandidatPôleEmploi.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
@@ -23,12 +23,7 @@ export default function RecrutementCandidatPôleEmploi() {
       <main id="contenu" className={styles.contenu}>
         <Container className={styles.container}>
           <Marked markdown={contenuHeader}/>
-
-          <div className={styles.bouton}>
-            <LinkAsButton href={'/'}>
-              Être contacté(e) par un conseiller
-            </LinkAsButton>
-          </div>
+          <Link className={styles.bouton} href='/' appearance="asPrimaryButton">Être contacté(e) par un conseiller</Link>
         </Container>
       </main>
     </>

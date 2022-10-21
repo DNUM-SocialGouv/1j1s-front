@@ -1,13 +1,14 @@
 @import "@styles/utilities";
 
-.bannière {
-  background-color:white;
-  color: $color-primary;
+div.bannière {
+  background-color: $color-surface;
+
   h1 {
     font-size: 2rem;
     line-height: 1.4;
+    color: $color-primary;
     > span:not(:first-child) {
-      color: #18753C;
+      color: $color-secondary;
     }
   }
 }

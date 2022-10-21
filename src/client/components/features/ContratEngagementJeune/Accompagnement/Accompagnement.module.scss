@@ -69,8 +69,6 @@
       border-radius: 20px;
     }
     &Content {
-      @extend %text-large;
-      @extend %bold;
       text-align: center;
       color: $color-primary;
       padding: 3rem 2rem 2rem 2rem;
@@ -84,14 +82,12 @@
         margin: 0 2rem;
         font-weight: 400;
       }
-      &Link {
-        @extend %text-regular;
-        font-weight: 500;
-        margin-top: 24px;
 
-        svg {
-          color: $color-on-primary;
-        }
+      &Link {
+        display: block;
+        width: 50%;
+        margin-inline: auto;
+        margin-top: 1.5rem
       }
     }
   }

@@ -15,13 +15,12 @@ import BesoinAide26ans from '~/client/components/features/ContratEngagementJeune
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
 import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
@@ -74,9 +73,7 @@ export default function Accompagnement() {
             <ModalComponent.Content className={styles.accompagnementModalContent}>
               <div>
                 <h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi</h1>
-                <LinkAsButton href={lienPôleEmploi} className={styles.accompagnementModalContentLink} target="_blank">
-                  Je contacte mon conseiller
-                </LinkAsButton>
+                <Link href={lienPôleEmploi} appearance="asPrimaryButton">Je contacte mon conseiller</Link>
               </div>
             </ModalComponent.Content>
           </ModalComponent>
@@ -85,9 +82,9 @@ export default function Accompagnement() {
               <div>
                 <h1>Vous pouvez bénéficier des services de Pôle Emploi</h1>
                 <p>Inscrivez-vous à Pôle Emploi pour bénéficier d&apos;un  accompagnement répondant à vos besoins </p>
-                <LinkAsButton href={deuxièmeLienPôleEmploi} className={styles.accompagnementModalContentLink} target="_blank">
+                <Link href={deuxièmeLienPôleEmploi} className={styles.accompagnementModalContentLink} appearance='asPrimaryButton'>
                   Inscrivez-vous à Pôle Emploi
-                </LinkAsButton>
+                </Link>
               </div>
             </ModalComponent.Content>
           </ModalComponent>
@@ -105,7 +102,7 @@ export default function Accompagnement() {
         <ModalComponent.Content className={!isSuccess ? styles.accompagnementMission__Content : styles.accompagnementMission__ContentSuccess}>
           { !isSuccess && <small>(Tous les champs sont obligatoires)</small> }
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-            <Button onClick={ () => setIsMissionLocaleModalOpen(false)} buttonType="primary" title="Fermer, Revenir à la page" className={styles.accompagnementMissionBoutonSuccess}>Fermer</Button>
+            <ButtonComponent label="Fermer" onClick={() => setIsMissionLocaleModalOpen(false)} title="Revenir à la page" />
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>

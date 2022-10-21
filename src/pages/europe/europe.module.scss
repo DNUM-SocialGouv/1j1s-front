@@ -128,6 +128,16 @@
   a {
     margin: auto;
   }
+
+}
+
+.buttonOnDarkBackground {
+  background-color: $color-background;
+  color: $color-primary;
+
+  &:hover {
+    background-color: $color-background-white-titan;
+  }
 }
 
 @include media(small) {

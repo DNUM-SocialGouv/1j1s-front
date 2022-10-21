@@ -8,7 +8,7 @@ import {
   OffreDeStageDétail,
 } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 
 interface ConsulterOffreDeStageProps {
@@ -37,11 +37,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
         <TagList list={listeEtiquettes} aria-label="Caractéristiques de l'offre de stage"/>
         <div className={commonStyles.buttonAsLinkWrapper}>
           <div className={commonStyles.buttonAsLink}>
-            <LinkAsButton
-              href={offreDeStage.urlDeCandidature}
-              target="_blank">
-              Postuler
-            </LinkAsButton>
+            {offreDeStage.urlDeCandidature && <Link href={offreDeStage.urlDeCandidature} appearance="asPrimaryButton">Postuler</Link>}
           </div>
         </div>
       </header>

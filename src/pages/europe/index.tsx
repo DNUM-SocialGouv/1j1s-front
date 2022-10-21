@@ -7,7 +7,6 @@ import { Link as LinkType } from '~/client/components/props';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkAsButton } from '~/client/components/ui/Link/LinkAsButton';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -126,12 +125,7 @@ export default function EuropePage() {
               </div>
             </div>
             <div className={styles.buttonWrapper}>
-              <LinkAsButton
-                href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
-                target="_blank"
-              >
-                En savoir plus
-              </LinkAsButton>
+              <Link href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr" appearance="asPrimaryButton">En savoir plus</Link>
             </div>
 
           </article>
@@ -177,12 +171,7 @@ export default function EuropePage() {
               </div>
             </div>
             <div className={styles.buttonWrapper}>
-              <LinkAsButton
-                href="https://info.erasmusplus.fr/"
-                target="_blank"
-              >
-                En savoir plus
-              </LinkAsButton>
+              <Link href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</Link>
             </div>
 
           </article>
@@ -196,12 +185,7 @@ export default function EuropePage() {
       <Container className={styles.sectionAidesFinancieres}>
         <h2>Je cherche des aides financières pour vivre une expérience en Europe</h2>
         <div className={styles.buttonWrapper}>
-          <LinkAsButton
-            href="/mes-aides"
-            icon={<Icon name={'angle-right'}/> }
-          >
-            Faire une simulation d’aides
-          </LinkAsButton>
+          <Link href="/mes-aides" appearance="asPrimaryButton">Faire une simulation d’aides</Link>
         </div>
       </Container>
     </div>
@@ -234,13 +218,7 @@ export default function EuropePage() {
           </h2>
           <p>Quel est mon niveau d&apos;anglais ? Rien de plus simple avec le test en ligne de Wall Street English. Vous êtes évalué sur votre niveau de grammaire, de vocabulaire, de compréhension écrite et orale.</p>
           <div className={styles.buttonWrapper}>
-            <LinkAsButton
-              href="https://lp.wallstreetenglish.fr/1jeune-1solution"
-              target="_blank"
-              buttonOnDarkBackground
-            >
-              Je veux me tester
-            </LinkAsButton>
+            <Link href="https://lp.wallstreetenglish.fr/1jeune-1solution" appearance="asPrimaryButton" className={styles.buttonOnDarkBackground}>Je veux me tester</Link>
           </div>
           <span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>
         </div>

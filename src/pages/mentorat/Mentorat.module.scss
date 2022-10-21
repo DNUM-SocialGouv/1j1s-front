@@ -20,14 +20,20 @@
 
     }
     &__TextContent {
-      font-size: 1rem;
-      @include media(large) {
-        font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+
+      p {
+        font-size: 1rem;
+        @include media(large) {
+          font-size: 1.25rem;
+        }
       }
+
       p:first-child {
         @extend %bold;
         margin-bottom: 0.25rem;
       }
+
       &Orange {
         font-size: 1rem;
         @include media(large) {
@@ -37,11 +43,11 @@
         color: $color-tertiary;
         margin-bottom: 0.75rem;
       }
-      margin-bottom: 0.75rem;
 
       .linkAsButtonWrapper {
         margin-top: 1rem;
         a {
+          display: block;
           width: 100%;
         }
       }
@@ -93,6 +99,7 @@
           margin-top: 2rem;
           display: flex;
           a {
+            display: block;
             margin: auto;
             width: initial;
           }
