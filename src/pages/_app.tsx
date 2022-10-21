@@ -26,6 +26,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const sessionId = useSessionId();
+  
   const getLayout = Component.getLayout ?? defaultLayout;
   return (
     <>
@@ -43,7 +44,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           </DependenciesProvider>
         )
       }
-      <CookieConsent/>
+      { process.env.NODE_ENV === 'production' &&
+        <CookieConsent/>
+      }
     </>
   );
 }
