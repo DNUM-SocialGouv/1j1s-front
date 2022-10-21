@@ -13,7 +13,7 @@ import {
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 describe('LocalisationService', () => {
-  describe('rechercheLocalisation', () => {
+  describe('rechercherLocalisation', () => {
     const list = ['1','3','4','6'];
     list.forEach((value) => {
       it(`quand la recherche contient ${value}, on renvoie null`, async () => {
@@ -83,7 +83,7 @@ describe('LocalisationService', () => {
       const result = await localisationService.rechercherLocalisation('34');
 
       // Then
-      expect(result).toEqual(expected);
+      expect(result).toEqual(createSuccess(expected));
       expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=34');
     });
 
@@ -133,7 +133,7 @@ describe('LocalisationService', () => {
         }],
       };
 
-      expect(result).toEqual(expected);
+      expect(result).toEqual(createSuccess(expected));
       expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=Haut');
     });
   });

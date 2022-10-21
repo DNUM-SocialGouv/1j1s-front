@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
@@ -18,7 +19,14 @@ export async function rechercherLocalisationHandler(req: NextApiRequest, res: Ne
     case 'success':
       return res.status(200).json(mapApiResponse(résultatsRechercheLocalisation.result));
     case 'failure':
-      return res.status(500);
+      switch(résultatsRechercheLocalisation.errorType) {
+        case ErreurMétier.SERVICE_INDISPONIBLE:
+          return res.status(503).json({ error: résultatsRechercheLocalisation.errorType });
+        case ErreurMétier.DEMANDE_INCORRECTE:
+          return res.status(400).json({ error: résultatsRechercheLocalisation.errorType });
+        case ErreurMétier.CONTENU_INDISPONIBLE:
+          return res.status(404).json({ error: résultatsRechercheLocalisation.errorType });
+      }
   }
 }
 

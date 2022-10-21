@@ -8,6 +8,7 @@ import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { isSuccess } from '~/server/errors/either';
 import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
@@ -99,9 +100,9 @@ export const InputCommune = (props: InputCommuneProps) => {
 
   const rechercherCommune = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value.length > 1) {
+    if (value.length >= 3) {
       const response  = await localisationService.rechercherCommune(value);
-      if(response.instance === 'success') {
+      if(isSuccess(response)) {
         setCommuneList(response.result.résultats ?? []);
         setCodeCommune('');
         setLatitudeCommune('');

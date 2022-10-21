@@ -1,5 +1,5 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { Either, Success } from '~/server/errors/either';
+import { Either } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
   RechercheLocalisationApiResponse,
@@ -12,7 +12,7 @@ export class LocalisationService {
   private REGEX_ALL_DIGITS = new RegExp(/^\d*$/);
   private FORBIDDEN_CHAR_LENGTH = [1, 4];
 
-  async rechercherLocalisation(recherche: string): Promise<RechercheLocalisationApiResponse | null>  {
+  async rechercherLocalisation(recherche: string): Promise<Either<RechercheLocalisationApiResponse> | null> {
     const localisationsLength = recherche.length;
     if(localisationsLength === 1) {
       return null;
@@ -24,12 +24,10 @@ export class LocalisationService {
       return null;
     }
 
-    const response = await this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
-    // TODO gérer les erreurs dans la liste déroulante ?
-    return (response as Success<RechercheLocalisationApiResponse>).result;
+    return this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
   }
 
   async rechercherCommune(recherche:string): Promise<Either<RésultatsRechercheCommune>> {
-    return await this.httpClientService.get<RésultatsRechercheCommune>(`communes?q=${recherche}`);
+    return this.httpClientService.get<RésultatsRechercheCommune>(`communes?q=${recherche}`);
   }
 }

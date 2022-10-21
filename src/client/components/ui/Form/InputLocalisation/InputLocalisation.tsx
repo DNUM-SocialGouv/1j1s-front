@@ -6,6 +6,7 @@ import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
+import { isSuccess } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
   LocalisationApiResponse,
@@ -94,12 +95,16 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
   const rechercherLocalisation = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const résultats = await localisationService.rechercherLocalisation(value);
-    setLocalisationList(résultats ?? { communeList: [], départementList: [], régionList: [] });
-    setCodeLocalisation('');
-    setTypeLocalisation('');
-    setSuggestionsActive(value.length > 1);
-    setSuggestionIndex(1);
+    const response = await localisationService.rechercherLocalisation(value);
+    if (response && isSuccess(response)) {
+      setLocalisationList(response.result);
+      setCodeLocalisation('');
+      setTypeLocalisation('');
+      setSuggestionsActive(value.length > 1);
+      setSuggestionIndex(1);
+    } else {
+      setLocalisationList({ communeList: [], départementList: [], régionList: [] });
+    }
   }, [localisationService]);
 
   const handleChange = useMemo(() => {
@@ -207,7 +212,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
           currentHoverIndex++;
           return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {isSuggestionListEmpty() &&
+        {isSuggestionListEmpty() && libelléLocalisation.length > 2 &&
           <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.

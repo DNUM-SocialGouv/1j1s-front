@@ -61,12 +61,22 @@ describe('InputLocalisation', () => {
 
       // WHEN
       await user.type(inputLocalisation, 'Pa');
-      const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+      let résultatsLocalisation = screen.queryByTestId('RésultatsLocalisation');
 
       // THEN
-      expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
+      await waitFor(() => {
+        expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
+      });
+      expect(résultatsLocalisation).not.toBeInTheDocument();
 
       // WHEN
+      await user.type(inputLocalisation, 'ris');
+      résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+
+      // THEN
+      expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Paris');
+      expect(résultatsLocalisation).toBeInTheDocument();
+
       const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
       fireEvent.click(résultatLocalisationList[1]);
 

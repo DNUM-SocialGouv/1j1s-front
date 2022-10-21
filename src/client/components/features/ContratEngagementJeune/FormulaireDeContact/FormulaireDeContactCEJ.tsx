@@ -116,7 +116,7 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
           placeholder="Exemple: Paris, Béziers..."
           onSuggestionSelected={(event, suggestion) => {
             setInputCodePostal(suggestion.codePostal);
-            setInputVille(suggestion.nom);
+            setInputVille(suggestion.ville);
           }}
         />
       </div>

@@ -44,6 +44,30 @@ describe('InputCommune', () => {
     });
   });
 
+  describe('quand l\'input a moins de 3 caractères' , () => {
+    it('ne lance pas la recherche', async () => {
+      // GIVEN
+      const localisationServiceMock = aLocalisationServiceWithEmptyRésultat();
+      const user = userEvent.setup();
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider localisationService={localisationServiceMock}>
+          <InputCommune code="" libellé="" latitude="" longitude="" distance=""/>
+        </DependenciesProvider>,
+      );
+      const inputCommune = screen.getByTestId('InputCommune');
+
+      // WHEN
+      await user.type(inputCommune, 'ab');
+
+      // THEN
+      await waitFor(() => {
+        expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('quand la recherche retourne des résultats', () => {
     it('appelle l\'api avec la valeur de la commune sélectionnée', async () => {
       // GIVEN

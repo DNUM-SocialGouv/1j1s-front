@@ -3,13 +3,14 @@ import React, { SyntheticEvent, useCallback } from 'react';
 import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
-import { CommuneLocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { isSuccess } from '~/server/errors/either';
+import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 interface AutocomplétionCommuneProps {
-  onSuggestionSelected?(event: SyntheticEvent, suggestion: CommuneLocalisationApiResponse, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
+  onSuggestionSelected?(event: SyntheticEvent, suggestion: Commune, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
   id?: string;
-  valeurInitiale ?: CommuneLocalisationApiResponse
+  valeurInitiale ?: Commune
   label?: string;
   debounce?: number;
   name?: string;
@@ -22,15 +23,19 @@ export default function InputAutocomplétionCommune(props: AutocomplétionCommun
   const localisationService = useDependency<LocalisationService>('localisationService');
 
   const suggestionsAdresse = useCallback(async (préfixe: string) => {
-    const résultat = await localisationService.rechercherLocalisation(préfixe);
-    return résultat ? résultat.communeList : [];
+    const response = await localisationService.rechercherCommune(préfixe);
+    if (isSuccess(response)) {
+      return response.result.résultats;
+    } else {
+      return [];
+    }
   }, [localisationService]);
 
-  function afficherSuggestion(suggestion: CommuneLocalisationApiResponse) {
+  function afficherSuggestion(suggestion: Commune) {
     return suggestion.libelle;
   }
 
-  function valeurSuggestion(suggestion: CommuneLocalisationApiResponse) {
+  function valeurSuggestion(suggestion: Commune) {
     return suggestion.libelle;
   }
 

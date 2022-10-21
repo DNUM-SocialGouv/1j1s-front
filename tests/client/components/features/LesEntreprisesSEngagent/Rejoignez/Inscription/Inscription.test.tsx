@@ -14,11 +14,7 @@ import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engage
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
-  const localisationService = aLocalisationService({
-    communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
-    départementList: [],
-    régionList: [],
-  });
+  const localisationService = aLocalisationService();
 
   const routerPush = jest.fn();
 
@@ -138,7 +134,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
     it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
       renderComponent();
       const expected: FormulaireEngagement = {
-        codePostal: '75001',
+        codePostal: '75015',
         email: 'toto@email.com',
         nom: 'Tata',
         nomSociété: 'Octo',
@@ -148,7 +144,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
         taille: 'xsmall',
         travail: 'RH',
         téléphone: '0122334455',
-        ville: 'Paris',
+        ville: 'Paris 15e Arrondissement',
       };
 
       await remplirFormulaireEtape1();
@@ -178,7 +174,7 @@ async function remplirFormulaireEtape1() {
   const inputVille = screen.getByLabelText('Indiquez la ville du siège social de l’entreprise');
   await user.type(inputVille, 'Paris');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
-  await waitFor(() => user.click(screen.getByText('Paris (75001)')));
+  await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement')));
 }
 
 async function remplirFormulaireEtape2() {

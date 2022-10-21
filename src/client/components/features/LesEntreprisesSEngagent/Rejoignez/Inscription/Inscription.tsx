@@ -16,7 +16,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
-import { CommuneLocalisationApiResponse } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 import styles from './Inscription.module.scss';
 
@@ -69,7 +69,7 @@ export default function Inscription() {
   const isPremièreEtapeValid = () => Object.values(formulaireEtape1).every((value) => value.length > 0);
   const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
 
-  const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<CommuneLocalisationApiResponse>();
+  const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
   const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 
   function goToEtape2(event: FormEvent<HTMLFormElement>) {
@@ -156,7 +156,7 @@ export default function Inscription() {
                       setFormulaireEtape1({
                         ...formulaireEtape1,
                         codePostal: suggestion.codePostal,
-                        ville: suggestion.nom,
+                        ville: suggestion.ville,
                       });
                     }}
                   />

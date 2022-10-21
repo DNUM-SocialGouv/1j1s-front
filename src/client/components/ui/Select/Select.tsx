@@ -72,11 +72,11 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
 
   const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
     const currentItem = event.target as HTMLElement;
-    if (event.key === KeyBoard.ESCAPE) {
+    if (event.key === KeyBoard.ESCAPE && isOptionListOpen) {
       setIsOptionListOpen(false);
       setFocusToSelectButton(currentItem);
     }
-  }, []);
+  }, [isOptionListOpen]);
 
 
   useEffect(function setEventListenerOnMount() {
