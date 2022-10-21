@@ -13,7 +13,7 @@ export function JeRecrute () {
         title="Recruter et agir pour les jeunes | 1jeune1solution"
         description="Emploi, formation, accompagnement"
       />
-      <main>
+      <main id="contenu">
         <DécouvrirDispositifs />
         <DecouvrirMesuresEmployeurs />
         <AidesExceptionnelles />
