@@ -35,7 +35,7 @@ export default function Document() {
         <NextScript/>
         { process.env.NODE_ENV === 'production' &&
         <Script
-          src="/scripts/smarttag.js"
+          src="/scripts/tarteaucitron.js"
           strategy="beforeInteractive"
         /> }
       </body>

@@ -28,5 +28,11 @@
     "**/*.tsx",
     "types.d.ts",
   ],
-  "exclude": ["node_modules", "public/scripts/smarttag.js"]
+  "exclude": [
+    "node_modules",
+    "public/scripts/smarttag.js",
+    "public/scripts/tarteaucitron.js",
+    "public/tarteaucitron.service.js",
+    "public/lang/*"
+  ],
 }
