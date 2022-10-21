@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -5,8 +6,10 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
   RésultatRechercherMétier,
 } from '~/client/components/features/FicheMétier/RésultatRechercherMétier/RésultatRechercherMétier';
+import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -104,6 +107,12 @@ export default function RechercherFicheMetierPage() {
             { totalNumberOfResult > 0 && ficheMétiers.length > 0 &&
               <Pagination numberOfResult={totalNumberOfResult} numberOfResultPerPage={ficheMétiers.length} />
             }
+          </Container>
+        </div>
+        <EnTeteSection heading="Découvrez des services faits pour vous" />
+        <div className={classNames(styles.additionalSection, 'background-white-lilac')}>
+          <Container className={styles.partnerCardContainer}>
+            <MétierDuSoinPartner />
           </Container>
         </div>
       </main>

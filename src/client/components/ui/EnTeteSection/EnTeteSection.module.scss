@@ -9,11 +9,6 @@
 
   &__Title {
     @extend %bold;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-
-    @include media(large) {
-      font-size: 1.5rem;
-    }
+    @extend %text-medium;
   }
 }

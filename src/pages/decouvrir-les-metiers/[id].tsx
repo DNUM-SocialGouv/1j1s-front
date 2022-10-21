@@ -6,6 +6,7 @@ import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRe
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -30,7 +31,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
           <ConsulterFicheMétier ficheMetier={ficheMetier} />
         </Container>
         <div className={'background-white-lilac'}>
-          <h2 className={styles.partnerInfoTitle}>Informations fournies par ONISEP</h2>
+          <EnTeteSection heading="Informations fournies par ONISEP" />
           <Container className={styles.container}>
             <PartnerCard
               logo="/images/logos/onisep.svg"
