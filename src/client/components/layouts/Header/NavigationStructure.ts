@@ -64,7 +64,6 @@ const employeurNav: NavigationItemWithChildren = {
         { label: 'Je recrute', link: '/je-recrute' },
         { label: 'Je deviens mentor', link: '/je-deviens-mentor' },
         { label: 'Je propose des immersions', link: '/immersions' },
-        { label: 'Je forme les jeunes grâce à l\'emploi', link: '/rejoindre-mobilisation-poe' },
       ], label: 'Recruter et agir pour les jeunes',
     },
     { label: 'Découvrir les mesures employeurs', link: '/mesures-employeurs' },
