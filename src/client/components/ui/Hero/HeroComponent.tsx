@@ -25,9 +25,7 @@ export function HeroComponent({ titlePrimaryText, titleSecondaryText, imgSrc, cl
             <br />
             <span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>
           </h1>
-          <p>
-            {children}
-          </p>
+          {children}
         </div>
       </div>
       {isLargeScreen &&

@@ -52,7 +52,7 @@ export function PartnerCard({ alt = '', description, className, headline, headli
       <>
         <div className={styles.cardLogo}>
           <div className={classNames(styles.cardLogoWrapper, logoRatio === 'paysage' ? styles.cardLogoWrapperPaysage : styles.cardLogoWrapperPortrait)}>
-            <Image alt={alt} src={logo} layout='fill'/>
+            <Image alt={alt} src={logo} layout="fill" objectFit="contain" />
           </div>
         </div>
         <div className={styles.cardBody}>

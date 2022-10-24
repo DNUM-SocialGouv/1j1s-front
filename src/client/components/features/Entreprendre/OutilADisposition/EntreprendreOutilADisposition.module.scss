@@ -1,0 +1,11 @@
+@import "@styles/utilities";
+
+.entreprendreOutilADisposition {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.25rem;
+  text-align: center;
+  border: 1px $color-primary solid;
+  border-radius: 20px;
+}
