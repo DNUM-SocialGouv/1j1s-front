@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.3.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.2.0...v2.3.0) (2022-10-21)
+
+
+### Features
+
+* ajout banniere campagne dans le header ([#425](https://github.com/DNUM-SocialGouv/1j1s-front/issues/425)) ([85680b6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/85680b64d11110ef8eb9f77dea9fd857addd7dc2))
+* ajout carte métiers de soin dans découvrir les métiers ([#432](https://github.com/DNUM-SocialGouv/1j1s-front/issues/432)) ([023fd85](https://github.com/DNUM-SocialGouv/1j1s-front/commit/023fd853f15f7cc60b79cdd5bd479e2513d71fa3))
+* **JeRecrute:** ajout bouton Rejoindre Mobilisation ([5598ef1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5598ef14a7c13482987e9eebb182812d2ea00987))
+* **menu:** [741] Navigation à la page actuelle quand on ouvre le menu mobile ([#422](https://github.com/DNUM-SocialGouv/1j1s-front/issues/422)) ([0a6aa4c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0a6aa4c52a6e4da5a0ad7b653959337e5edcb0c5))
+* **menu:** Remise du lien POE sur le menu ([9aaf657](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9aaf6573fc564ede75e39fc85cb0897f89e7e5e2))
+
+
+### Bug Fixes
+
+* **localisation:** filtre code insee ville avec arrondissment ([60dd03c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/60dd03c1dc11b53a0cfb418b5a2286720a4ffbf5))
+
 ## [2.2.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.1.3...v2.2.0) (2022-10-18)
 
 
