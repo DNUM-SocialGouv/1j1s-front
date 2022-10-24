@@ -16,7 +16,7 @@ export function FoldingSection({ className, innerHtmlContent, isOpen = false, ti
   return (
     <section className={classNames(className, styles.section)}>
       <Accordion open={isOpen} summary={title} summaryAs="h2">
-        <div className={styles.foldingSectionContent}>{innerHtmlContent}</div>
+        <div className={styles.foldingSectionContent} dangerouslySetInnerHTML={{ __html: innerHtmlContent }}></div>
       </Accordion>
     </section>
   );

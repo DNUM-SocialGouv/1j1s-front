@@ -1,7 +1,6 @@
 @import "@styles/utilities";
 
 .section {
-  border: 1px solid $color-separator;
   border-radius: 20px;
   box-shadow: $box-shadow;
   overflow: hidden;
@@ -18,12 +17,25 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+
+  &Content {
+    padding: 1.5rem 1rem;
+
+    @include media(large) {
+      padding-inline: 1.5rem;
+    }
+  }
 }
 
 .foldingSectionContent {
+  padding: 1.5rem 1rem;
   border: 1px solid $color-separator;
   border-radius: 0 0 20px 20px;
   background-color: $color-surface;
+
+  @include media(large) {
+    padding-inline: 1.5rem;
+  }
 }
 
 .abstractSection {
@@ -35,6 +47,7 @@
   @include media(large) {
     grid-template-columns: 1fr 0.5fr 1fr;
     grid-auto-flow: column;
+    padding-inline: 1.5rem;
   }
 }
 

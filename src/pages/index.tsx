@@ -166,7 +166,7 @@ export default function Accueil() {
                 linkLabel="En savoir plus"
                 title="Je veux devenir entrepreneur"
               >
-                <p>Je retrouve les conseils, outils et structures d’accompagnement pour vous m&apos;aider à entreprendre.</p>
+                <p>Je retrouve les conseils, outils et structures d’accompagnement pour m&apos;aider à entreprendre.</p>
               </LinkCard>
               <LinkCard
                 imageUrl="/images/accompagnement.webp"

@@ -76,6 +76,12 @@
   @extend %linkWithRightIcon;
 }
 
+.réseauList {
+  & > li {
+    margin-top: 1rem;
+  }
+}
+
 @include media(medium) {
   .card {
     padding: 1rem 1.5rem;
