@@ -19,18 +19,14 @@
       margin-bottom: 2rem;
       list-style-image: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
 
+
       li {
         display: list-item;
         max-width: 30rem;
+        margin-left: 1rem;
         margin-bottom: 1.5rem;
       }
-
-      li::marker {
-        margin: 1.75rem;
-      }
     }
-
-
 
     h2 {
       @extend %text-large;
@@ -52,7 +48,7 @@
       margin: 2rem 9rem 0 9rem;
 
       section {
-        margin-left: 4rem;
+        margin-left: 5rem;
       }
 
       .listeCitoyen, .listeEmployeur {
