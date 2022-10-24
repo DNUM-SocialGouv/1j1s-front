@@ -15,29 +15,29 @@
     margin-bottom: 2rem;
     line-height: 1.5rem;
 
-   ul {
-    margin-bottom: 2rem;
-    padding-left: 0;
-   }
+    .listeCitoyen, .listeEmployeur {
+      margin-bottom: 2rem;
+      list-style-image: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
 
-    li {
-      display: flex;
-      max-width: 30rem;
-      margin-bottom: 1.5rem;
+      li {
+        display: list-item;
+        max-width: 30rem;
+        margin-bottom: 1.5rem;
+      }
+
+      li::marker {
+        margin: 1.75rem;
+      }
     }
 
-    li::before {
-      content: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
-      margin-right: .75rem;
-    }
+
 
     h2 {
       @extend %text-large;
       @extend %bold;
       max-width: 25rem;
       color: $color-primary;
-      margin-bottom: 2rem;
-      margin-top: 2rem;
+      margin-block: 2rem;
     }
   }
 }
@@ -48,22 +48,16 @@
 
     > article {
       display: flex;
-      justify-content: space-evenly;
+      place-content: center;
       margin: 2rem 9rem 0 9rem;
 
-      section > * > ul {
-        color: $color-on-surface;
+      section {
         margin-left: 4rem;
       }
 
-      section > * > ul li::before {
-        margin-top: 2px;
-        content: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
+      .listeCitoyen, .listeEmployeur {
+        color: $color-on-surface;
       }
-    }
-
-    h2 {
-      margin-left: 4rem;
     }
   }
 }

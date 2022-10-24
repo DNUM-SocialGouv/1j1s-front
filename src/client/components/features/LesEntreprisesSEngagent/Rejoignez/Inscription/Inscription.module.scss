@@ -46,18 +46,7 @@
     margin-top: 24px;
   }
 
-  .buttonSuivant {
-    margin-top: 24px;
-
-    p {
-      width: 100%;
-      font-size: 0.7rem;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  }
-
-  .buttonEnvoyerFormulaire {
+  .validationEtape1, .validationEtape2 {
     margin-top: 24px;
 
     p {
@@ -73,7 +62,6 @@
   }
 
 }
-
 
 .mandatoryFields {
   @extend %text-medium;
@@ -164,10 +152,12 @@
       }
     }
 
-    .buttonSuivant {
-      text-align: center;
+    .validationEtape1 {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
       margin-top: 4rem;
-
+      text-align: left;
 
       > button {
         width: 50%;
@@ -176,15 +166,15 @@
       p {
         width: 50%;
         font-size: 0.7rem;
-        padding: 1rem;
-        margin: auto;
-        text-align: left;
       }
     }
 
-    .buttonEnvoyerFormulaire {
-      text-align: center;
+    .validationEtape2 {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
       margin-top: 4rem;
+      text-align: left;
 
       > button {
         width: 50%;
@@ -193,15 +183,12 @@
       p {
         width: 50%;
         font-size: 0.7rem;
-        padding: 1rem;
-        margin: auto;
-        text-align: left;
       }
     }
   }
 
   .footer {
-    width: 40%;
+    width: 50%;
     margin: auto;
   }
 
