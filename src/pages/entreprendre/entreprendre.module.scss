@@ -51,16 +51,14 @@
   background-color: $color-background-white-lilac;
 
   &Content {
-    margin-inline: -1rem;
-
     & > details + details {
       margin-top: 1rem;
     }
   }
 
-  &Open {
-    > ul > li {
-      margin-top: 1.5rem;
+  .réseauList {
+    & > li {
+      margin-top: 1rem;
     }
   }
 }
@@ -98,5 +96,11 @@
     @extend %bold;
     margin-bottom: 1.5rem;
     color: $color-primary;
+
+    @include media(large) {
+      max-width: 75%;
+      margin-inline: auto;
+      text-align: center;
+    }
   }
 }

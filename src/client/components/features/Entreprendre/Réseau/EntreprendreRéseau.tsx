@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau.module.scss';
-import { ItemTagList, TagListWithSeparation } from '~/client/components/features/Entreprendre/Réseau/TagListWithSeparation';
+import { EntreprendreRéseauStadesProjet,ItemTagList } from '~/client/components/features/Entreprendre/Réseau/StadesProjet/EntreprendreRéseauStadesProjet';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -39,7 +39,7 @@ export function EntreprendreRéseau(props: EntreprendreRéseauProps) {
             </div>
           </header>
           <section className={styles.cardDescription}>
-            {étiquettePhaseList.length > 0 && <TagListWithSeparation list={étiquettePhaseList} aria-label="Caractéristiques de l'offre" />}
+            {étiquettePhaseList.length > 0 && <EntreprendreRéseauStadesProjet list={étiquettePhaseList} aria-label="Caractéristiques de l'offre" />}
             {descriptionPublicConcerné && <p className={styles.descriptionPublicConcerne}>{descriptionPublicConcerné}</p>}
             <span className={styles.callToAction}>Découvrir<ExternalRedirectionIcon /></span>
           </section>
@@ -60,7 +60,7 @@ export function EntreprendreRéseau(props: EntreprendreRéseauProps) {
               { intituléEntreprise && <div className={styles.infoEntrepriseSubTitle}>{intituléEntreprise}</div> }
             </div>
             <p className={styles.descriptionEntreprise}>{descriptionEntreprise}</p>
-            {étiquettePhaseList.length > 0 && <TagListWithSeparation list={étiquettePhaseList} aria-label="Caractéristiques de l'offre" />}
+            {étiquettePhaseList.length > 0 && <EntreprendreRéseauStadesProjet list={étiquettePhaseList} aria-label="Caractéristiques de l'offre" />}
             {descriptionPublicConcerné && <p className={styles.descriptionPublicConcerne}>{descriptionPublicConcerné}</p>}
             <div className={styles.callToAction}>Découvrir<ExternalRedirectionIcon /></div>
           </section>

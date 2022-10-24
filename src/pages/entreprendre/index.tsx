@@ -15,10 +15,9 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from './entreprendre.module.scss';
 
 export default function Entreprendre() {
-
   function displayJeChercheAEtreAccompagné() {
     return (
-      <ul>
+      <ul className={styles.réseauList}>
         <li>
           <EntreprendreRéseau
             logoEntreprise="/images/entreprendre/bge_appui_aux_entrepreneurs.png"
@@ -144,7 +143,7 @@ export default function Entreprendre() {
 
   function displayJeChercheAFinancerMonProjet() {
     return (
-      <ul>
+      <ul className={styles.réseauList}>
         <li>
           <EntreprendreRéseau
             logoEntreprise="/images/entreprendre/france_active.png"
@@ -232,7 +231,7 @@ export default function Entreprendre() {
 
   function displayJeLanceUnProjetDansLEconomieSocialeEtScolaire() {
     return (
-      <ul>
+      <ul className={styles.réseauList}>
         <li>
           <EntreprendreRéseau
             logoEntreprise="/images/entreprendre/live_for_good.png"
@@ -298,25 +297,14 @@ export default function Entreprendre() {
             </h2>
 
             <div className={styles.réseauxContent}>
-              <Accordion title="Je cherche à être accompagné">
-                <div className={styles.réseauxOpen}>
-                  {displayJeChercheAEtreAccompagné()}
-                </div>
+              <Accordion summary="Je cherche à être accompagné" summaryAs="h3">
+                {displayJeChercheAEtreAccompagné()}
               </Accordion>
-
-              <Accordion title="Je cherche à financer mon projet" className={styles.réseauxDetails}>
-                <div className={styles.réseauxOpen}>
-                  {displayJeChercheAFinancerMonProjet()}
-                </div>
+              <Accordion summary="Je cherche à financer mon projet" summaryAs="h3">
+                {displayJeChercheAFinancerMonProjet()}
               </Accordion>
-
-              <Accordion
-                title="Je lance un projet dans l’Economie sociale et solidaire"
-                className={styles.réseauxDetails}
-              >
-                <div className={styles.réseauxOpen}>
-                  {displayJeLanceUnProjetDansLEconomieSocialeEtScolaire()}
-                </div>
+              <Accordion summary="Je lance un projet dans l’Economie sociale et solidaire" summaryAs="h3">
+                {displayJeLanceUnProjetDansLEconomieSocialeEtScolaire()}
               </Accordion>
             </div>
           </Container>

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import styles from '~/client/components/features/Entreprendre/Réseau/TagListWithSeparation.module.scss';
+import styles from '~/client/components/features/Entreprendre/Réseau/StadesProjet/EntreprendreRéseauStadesProjet.module.scss';
 import { CommonProps } from '~/client/components/props';
 import { Tag } from '~/client/components/ui/Tag/Tag';
 
@@ -10,11 +10,11 @@ export interface ItemTagList {
   isBarré: boolean
 }
 
-interface TagListWithSeparationProps extends CommonProps {
+interface EntreprendreRéseauStadesProjetProps extends CommonProps {
   list: ItemTagList[]
 }
 
-export function TagListWithSeparation({ className, list, ...rest }: TagListWithSeparationProps) {
+export function EntreprendreRéseauStadesProjet({ className, list, ...rest }: EntreprendreRéseauStadesProjetProps) {
   const _classNames = classNames(styles.tagList, className);
 
   return (
