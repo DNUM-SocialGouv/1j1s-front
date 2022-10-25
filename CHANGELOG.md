@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.4.0...v2.4.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* **Stage:** correction affichage des tags en mobile ([#415](https://github.com/DNUM-SocialGouv/1j1s-front/issues/415)) ([173e0a1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/173e0a1c610c8290259ece1b96afae20fc6f0257))
+
 ## [2.4.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.3.0...v2.4.0) (2022-10-25)
 
 
