@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.3.0...v2.4.0) (2022-10-25)
+
+
+### Features
+
+* **POE:** masquer du menu ([5fe9a7b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5fe9a7b8ee1d5362113ddd5e50e0f1189e21f934))
+
 ## [2.3.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.2.0...v2.3.0) (2022-10-21)
 
 
