@@ -87,7 +87,7 @@ export default function Accompagnement() {
           <div>Retrouvez les missions locales, les structures infos jeunes et les agences Pôle Emploi les plus proches de chez vous.</div>
         </h2>
       </Hero>
-      <main>
+      <main id="contenu">
         {
           isSmallScreen ? <>
             <section className={classNames(styles.unionNationaleDesMissionsLocales, styles.accompagnementContainer)}>

@@ -44,7 +44,7 @@ export function MesAidesVideo() {
 
         <div className={styles.mesAidesVidéoTranscription}>
           <Accordion
-            title='Lire la transcription'
+            summary="Lire la transcription"
             className={styles.mesAidesVidéoAccordion}
           >
             <p>

@@ -161,6 +161,14 @@ export default function Accueil() {
                 <p>Mettez en avant vos compétences dans un CV, même si vous pensez ne pas avoir d&apos;expérience.</p>
               </LinkCard>
               <LinkCard
+                imageUrl="/images/entrepreneurs.webp"
+                link="/entreprendre"
+                linkLabel="En savoir plus"
+                title="Je veux devenir entrepreneur"
+              >
+                <p>Je retrouve les conseils, outils et structures d’accompagnement pour m&apos;aider à entreprendre.</p>
+              </LinkCard>
+              <LinkCard
                 imageUrl="/images/accompagnement.webp"
                 link="/accompagnement"
                 linkLabel="En savoir plus"

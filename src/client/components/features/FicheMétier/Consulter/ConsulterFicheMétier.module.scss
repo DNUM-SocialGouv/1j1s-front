@@ -1,7 +1,6 @@
 @import "@styles/utilities";
 
 .section {
-  border: 1px solid $color-separator;
   border-radius: 20px;
   box-shadow: $box-shadow;
   overflow: hidden;
@@ -13,53 +12,29 @@
       margin-bottom: 2rem;
     }
   }
-}
 
-.disclosureSection[open] {
-  .sectionDisclosureIcon {
-    transform: rotate(-180deg);
-    transition: transform 0.2s;
-  }
-
-  .sectionHeader {
+  details[open] summary {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
-}
 
-.sectionHeader {
-  padding: 1.5rem;
-  border-bottom: 1px solid $color-separator;
-  list-style: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
+  &Content {
+    padding: 1.5rem 1rem;
 
-.sectionTitle {
-  display: inline-block;
-  color: $color-primary;
-  margin-right: 0.5rem;
-  line-height: 1.6rem;
-  @extend %text-medium;
-  @extend %bold;
-}
-
-.sectionDisclosureIcon {
-  color: $color-primary;
-  vertical-align: bottom;
-  transition: transform 0.2s;
-}
-
-.sectionContent {
-  padding: 2rem;
-
-  h3, h4, h5 {
-    margin-bottom: 1rem;
-    @extend %bold;
+    @include media(large) {
+      padding-inline: 1.5rem;
+    }
   }
+}
 
-  p:not(:last-child) {
-    margin-bottom: 1rem;
+.foldingSectionContent {
+  padding: 1.5rem 1rem;
+  border: 1px solid $color-separator;
+  border-radius: 0 0 20px 20px;
+  background-color: $color-surface;
+
+  @include media(large) {
+    padding-inline: 1.5rem;
   }
 }
 
@@ -72,6 +47,7 @@
   @include media(large) {
     grid-template-columns: 1fr 0.5fr 1fr;
     grid-auto-flow: column;
+    padding-inline: 1.5rem;
   }
 }
 

@@ -42,6 +42,7 @@ const accompagnementNav: NavigationItemWithChildren = {
     { label: 'Mes aides au logement', link: '/logements/aides-logement' },
     { label: 'Le mentorat', link: '/mentorat' },
     { label: 'Je crée mon CV personnalisé', link: '/creer-mon-cv' },
+    { label: 'Entreprendre', link: '/entreprendre' },
     { label: 'Accompagnement', link: '/accompagnement' },
     { label: 'Les mesures jeunes', link: '/espace-jeune' },
   ],

@@ -34,7 +34,7 @@ export default function PlanDuSite() {
     <>
       <HeadTag title="Plan du site | 1jeune1solution" description="Plan du site-"/>
       <Container className={styles.planDuSiteContainer}>
-        <main>
+        <main id="contenu">
 
           <h1 className={styles.planDuSiteTitre}>Plan du site</h1>
 

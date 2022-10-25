@@ -36,7 +36,7 @@ export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMéti
     <>
       <section className={styles.section}>
 			 <h1 className={styles.mainTitle}>{displayedNomMetier}</h1>
-			 <div className={classNames(styles.sectionContent, styles.abstractSection)}>
+			 <div className={classNames(styles.abstractSection, styles.sectionContent)}>
 				 {secteursActivite.length > 0 && <div className={styles.fieldDomaine}>
 					 <span className={styles.fieldLabel}>Domaine(s) :</span>
 					 <div className={styles.fieldContent}>
