@@ -85,6 +85,10 @@
 .réseaux, .marseille, .outilsADisposition {
   padding: 2rem 1rem;
 
+  @include media(large) {
+    padding: 5rem 1rem;
+  }
+
   &Header {
     @extend %subheading;
     @extend %bold;
@@ -93,7 +97,7 @@
 
     @include media(large) {
       max-width: 75%;
-      margin-inline: auto;
+      margin: 0 auto 2.5rem auto;
       text-align: center;
     }
   }
