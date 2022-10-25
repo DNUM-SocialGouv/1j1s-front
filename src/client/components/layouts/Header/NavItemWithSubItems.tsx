@@ -83,6 +83,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
         break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path, root]);
 
   const subNav = subItems.map((item, index) => {
@@ -113,7 +114,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
 
 
   return (
-    <li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
+    <li ref={optionsRef} className={classNames({ [styles.hasNavItemActive]: isActive }, className)}>
       <button
         className={classNames(styles.subNavItemButton, { [styles.embedded]: !isRoot })}
         onClick={() => isRoot ? setIsExpanded(!isExpanded) : popEmbeddedItem()}
