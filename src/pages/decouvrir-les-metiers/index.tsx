@@ -1,62 +1,38 @@
+import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React from 'react';
+import { Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
 
 import {
   RésultatRechercherMétier,
 } from '~/client/components/features/FicheMétier/RésultatRechercherMétier/RésultatRechercherMétier';
 import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
-import { Pagination } from '~/client/components/ui/Pagination/Pagination';
+import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
+import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
+import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
+import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useReferrer from '~/client/hooks/useReferrer';
-import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
-import { getFormAsQuery } from '~/client/utils/form.util';
-import { getQueryValue } from '~/client/utils/queryParams.utils';
-import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import { mapFicheMetier } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.repository';
+import { FicheMétierHttp } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
 
 import styles from './decouvrir-les-metiers.module.scss';
 
+const MEILISEARCH_INDEX = 'fiche-metier';
+const HITS_PER_PAGE = 15;
+
 export default function RechercherFicheMetierPage() {
-  const router = useRouter();
-  const [ficheMétiers, setFicheMétiers] = useState<Partial<FicheMétier>[]>([]);
-  const [totalNumberOfResult, setTotalNumberOfResult] = useState(0);
-  const [inputMotCle, setInputMotCle] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const fichesMetierService = useDependency<FicheMetierService>('ficheMetierService');
-
   useReferrer();
 
-  useEffect (() => {
-    setIsLoading(true);
-    const queryString = stringify(router.query);
-    fichesMetierService.rechercherFichesMétier(queryString).then((response) => {
-      if (response.instance === 'success') {
-        setFicheMétiers(response.result.results);
-        setTotalNumberOfResult(response.result.estimatedTotalResults);
-      }
-      setIsLoading(false);
-    });
-  }, [ficheMétiers.length, fichesMetierService, router.query, totalNumberOfResult]);
+  const searchClient = useDependency<SearchClient>('rechercheClientService');
 
-  useEffect(() => {
-    setInputMotCle(getQueryValue(router.query, 'motCle') || '');
-  }, [router.query]);
-
-  async function updateQueryParams(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const query = getFormAsQuery(event.currentTarget);
-    return router.push({ query }, undefined, { shallow: true });
-  }
+  const resultat = ({ hit }: { hit: Partial<FicheMétierHttp> }) => {
+    return <RésultatRechercherMétier résultat={mapFicheMetier(hit)} />;
+  };
 
   return (
     <>
@@ -65,50 +41,47 @@ export default function RechercherFicheMetierPage() {
         description="Trouver le métier qui vous correspond"/>
       <main id="contenu">
         <LightHero primaryText="Trouvez le métier" secondaryText="qui vous correspond" />
-        <div className={styles.headingSection}>
-          <Container className={styles.formContainer}>
-            <form className={styles.form} role='form' onSubmit={updateQueryParams}>
-              <InputText
-                name="motCle"
-                className={styles.inputNomMetier}
-                label="Indiquez le métier que vous recherchez"
-                placeholder="Exemple: cuisinier"
-                value={inputMotCle}
-                autoFocus
-                onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value) } />
-              <ButtonComponent
-                icon={<Icon name="magnifying-glass" />}
-                iconPosition="right"
-                label="Rechercher"
-                title="Rechercher des fiches métiers"
-                type="submit"
-              />
-            </form>
-          </Container>
-        </div>
-        <div className={styles.resultInfosContainer}>
-          <Container>
-            <Skeleton type="line" isLoading={isLoading}>
-              <div><strong>{totalNumberOfResult}</strong> fiches métiers</div>
-            </Skeleton>
-          </Container>
-        </div>
-        <div className={styles.bodySection}>
-          <Container>
-            <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.skeletonCards}>
-              <ol className={styles.resultList}>
-                {ficheMétiers.map((ficheMetier) =>
-                  <li className={styles.resultCard} key={ficheMetier.id}>
-                    <RésultatRechercherMétier résultat={ficheMetier} />
-                  </li>,
+        <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX} routing={true}>
+          <Configure hitsPerPage={HITS_PER_PAGE}/>
+          <div className={styles.headingSection}>
+            <Container className={styles.formContainer}>
+              <form className={styles.form} role='form'>
+                <div className={styles.inputNomMetier}>
+                  <label>Indiquez le métier que vous recherchez</label>
+                  <SearchBox
+                    classNames={{ input: styles.inputText, loadingIcon: styles.none, reset: styles.none, submit: styles.none, submitIcon: styles.none }}
+                    placeholder="Exemple: cuisinier"
+                    onKeyDown={(e) => {if (e.key == 'Enter') e.preventDefault();}}
+                  />
+                </div>
+                <MeilisearchCustomRefinementList className={styles.inputCentresInteret} attribute='centres_interet' label="Centres d'intérêt" />
+              </form>
+            </Container>
+          </div>
+          <div className={styles.resultInfosContainer}>
+            <Container>
+              <CurrentRefinements
+                classNames={{ category: styles.tag, item: styles.tagList, label: styles.none, noRefinementList: styles.none, noRefinementRoot: styles.none }}
+                transformItems={(items) => (
+                  items.map((item) => ({
+                    ...item,
+                    refinements: item.refinements.map((refinement) => ({
+                      ...refinement,
+                      label: getCapitalizedItems(refinement.label),
+                    })),
+                  }))
                 )}
-              </ol>
-            </Skeleton>
-            { totalNumberOfResult > 0 && ficheMétiers.length > 0 &&
-              <Pagination numberOfResult={totalNumberOfResult} numberOfResultPerPage={ficheMétiers.length} />
-            }
-          </Container>
-        </div>
+              />
+              <MeilisearchStats labelSingulier='fiche métier' labelPluriel='fiches métier'/>
+            </Container>
+          </div>
+          <div className={styles.bodySection}>
+            <Container>
+              <Hits hitComponent={resultat} className={styles.resultList} />
+              <MeiliSearchCustomPagination padding={0} numberOfResultPerPage={HITS_PER_PAGE} />
+            </Container>
+          </div>
+        </InstantSearch>
         <EnTeteSection heading="Découvrez des services faits pour vous" />
         <div className={classNames(styles.additionalSection, 'background-white-lilac')}>
           <Container className={styles.partnerCardContainer}>

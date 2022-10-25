@@ -22,9 +22,15 @@ export function MeilisearchStats(props: UseStatsProps & { labelSingulier: string
   return (
     <>
       {nbHits == 1 &&
-            <h2 className={styles.nombreRésultats}>{nbHits} {labelSingulier}</h2>}
+        <h2 className={styles.stats}>
+          <span className={styles.nombreRésultats}>{nbHits}</span>
+          {labelSingulier}
+        </h2>}
       {nbHits > 1 &&
-            <h2 className={styles.nombreRésultats}>{nbHits} {labelPluriel}</h2>}
+            <h2 className={styles.stats}>
+              <span className={styles.nombreRésultats}>{nbHits}</span>
+              {labelPluriel}
+            </h2>}
       {nbHits == 0 &&
             <ErrorComponent/>
       }
