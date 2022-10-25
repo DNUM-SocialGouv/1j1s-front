@@ -93,6 +93,16 @@ Les types de commit sont donc :
 * **test** : ajoute ou corrige un test
 * **revert** : annule un précédent changement
 
+Les commits de **merge** sont rédigés en français et sont auto-portants, les numéros de tickets Jira n'apparaissent pas dans l'intitulé
+
+Il est nécessaire d'ajouter un contexte pour chaque commit:
+* contexte de **page**
+  _exemple : feat(page emplois): affichage de la liste des résultats_
+* contexte de **composant**
+  _exemple : feat(composant header): ajout de l'url employeur_
+* autre contexte
+  _exemple : docs(contributing): ajout process de commit de merge_
+
 ### Versioning
 Nous suivons le [Semantic Versioning](https://semver.org)
 
