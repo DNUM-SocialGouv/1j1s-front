@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles
-  from '~/client/components/features/FicheMétier/RésultatRechercherMétier/RésultatRechercherMétier.module.scss';
+  from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier.module.scss';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useSanitize from '~/client/hooks/useSanitize';
