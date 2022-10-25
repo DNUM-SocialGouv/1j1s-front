@@ -29,12 +29,11 @@ interface FormulaireEtape1Props {
 }
 
 export enum Etape {
-  ETAPE_1 = 'Etape 1 sur 2',
-  ETAPE_2 = 'Etape 2 sur 2'
+  ETAPE_1 = 'Etape 1 sur 3',
+  ETAPE_2 = 'Etape 2 sur 3',
 }
 
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
-
 
 export function FormulairePOE() {
   const router = useRouter();
@@ -54,6 +53,14 @@ export function FormulairePOE() {
 
   function returnToRejoindreMobilisationPOE() {
     return router.push('/rejoindre-mobilisation-poe');
+  }
+
+  function Mention(){
+    return (
+      <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
+        Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
+      </p>
+    );
   }
 
   return (
@@ -147,16 +154,11 @@ export function FormulairePOE() {
             />
           </div>
 
-          <div className={styles.buttonFormulaire}>
+          <div className={styles.validationEtape1}>
             <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Suivant' type='submit' />
-          </div>
-          <div className={styles.décharge}>
-            <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
-                Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
-            </p>
+            {Mention()}
           </div>
         </form>
-        
       </div>
     </>
   );
