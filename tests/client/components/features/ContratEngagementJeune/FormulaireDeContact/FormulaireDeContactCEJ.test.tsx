@@ -23,11 +23,7 @@ describe('<FormulaireDeContactCEJ />', () => {
       envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
     } as unknown as DemandeDeContactService);
     const demandeDeContactServiceMock = anDemandeDeContactService();
-    const localisationService = aLocalisationService({
-      communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
-      départementList: [],
-      régionList: [],
-    });
+    const localisationService = aLocalisationService();
 
     render(
       <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
@@ -93,12 +89,12 @@ describe('<FormulaireDeContactCEJ />', () => {
         // Then
         expect(demandeDeContactServiceMock.envoyerPourLeCEJ).toHaveBeenCalledWith({
           age: 19,
-          codePostal: '75001',
+          codePostal: '75015',
           email: 'toto@msn.fr',
           nom: 'Mc Totface',
           prénom: 'Toto',
           téléphone: '0123456789',
-          ville: 'Paris',
+          ville: 'Paris 15e Arrondissement',
         });
       });
       it('appelle la propriété onSuccess', async () => {
@@ -177,7 +173,7 @@ export async function remplirFormulaireDeContact(data: ContactInputs, user = use
 
   await userEvent.type(screen.getByLabelText('Ville'), data.ville);
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
-  await waitFor(() => userEvent.click(screen.getByText('Paris (75001)')));
+  await waitFor(() => userEvent.click(screen.getByText('Paris 15e Arrondissement')));
 
   await user.click(screen.getByLabelText('Age'));
   await user.click(screen.getByLabelText(data.age));

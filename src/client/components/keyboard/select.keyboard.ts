@@ -3,7 +3,7 @@ import React from 'react';
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 
 export const setFocusToSelectButton = (currentElement: HTMLElement) => {
-  if (currentElement.parentElement !== null && currentElement.parentElement.parentElement !== null) {
+  if (currentElement.parentElement?.parentElement) {
     currentElement.parentElement.parentElement.getElementsByTagName('button')[0].focus();
   }
 };
