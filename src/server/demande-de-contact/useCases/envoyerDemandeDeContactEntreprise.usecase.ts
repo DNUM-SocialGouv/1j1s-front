@@ -7,7 +7,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
-type EnvoyerDemanderDeContactEntreprise = Partial<{
+type EnvoyerDemandeDeContactEntreprise = Partial<{
     prénom: string
     nom: string
     email: string
@@ -16,10 +16,10 @@ type EnvoyerDemanderDeContactEntreprise = Partial<{
     message: string
 }>
 
-export class EnvoyerDemanderDeContactEntrepriseUseCase {
+export class EnvoyerDemandeDeContactEntrepriseUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
 
-  async handle(command: EnvoyerDemanderDeContactEntreprise): Promise<Either<void>> {
+  async handle(command: EnvoyerDemandeDeContactEntreprise): Promise<Either<void>> {
     try {
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = Joi.attempt(command, DemandeDeContactEntrepriseValidator);
       return this.demandeDeContactRepository.saveEntreprise(demandeDeContactEntreprise);

@@ -1,7 +1,5 @@
 import { DemandeDeContactEntreprise } from '~/server/demande-de-contact/domain/DemandeDeContact';
-import {
-  EnvoyerDemanderDeContactEntrepriseUseCase,
-} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
+import { EnvoyerDemandeDeContactEntrepriseUseCase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
@@ -22,8 +20,9 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
         const repository = {
           saveCEJ: jest.fn(),
           saveEntreprise: jest.fn(),
+          savePOE: jest.fn(),
         };
-        const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemanderDeContactEntrepriseUseCase(repository);
+        const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
 
         // When
         const result = await envoyerDemanderDeContactEntrepriseUseCase.handle({});
@@ -38,8 +37,9 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
       const repository = {
         saveCEJ: jest.fn(),
         saveEntreprise: jest.fn(() => Promise.resolve(createSuccess(undefined))),
+        savePOE: jest.fn(),
       };
-      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemanderDeContactEntrepriseUseCase(repository);
+      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = {
         email: 'toto@msn.fr',
         message: 'rhrh',
@@ -60,8 +60,9 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
       const repository = {
         saveCEJ: jest.fn(),
         saveEntreprise: jest.fn(() => Promise.resolve(createSuccess(undefined))),
+        savePOE: jest.fn(),
       };
-      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemanderDeContactEntrepriseUseCase(repository);
+      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = {
         email: 'toto@msn.fr',
         message: 'rhrh',
@@ -89,8 +90,9 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
           const repository = {
             saveCEJ: jest.fn(),
             saveEntreprise: jest.fn(() => Promise.resolve(createSuccess(undefined))),
+            savePOE: jest.fn(),
           };
-          const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemanderDeContactEntrepriseUseCase(repository);
+          const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
           const commandeInvalide = { ...command, ...invalid };
           // When
           const result = await envoyerDemanderDeContactEntrepriseUseCase.handle(commandeInvalide);

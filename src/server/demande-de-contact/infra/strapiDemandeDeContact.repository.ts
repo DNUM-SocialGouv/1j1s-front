@@ -1,9 +1,12 @@
+import {
+  DemandeDeContactCEJ,
+  DemandeDeContactEntreprise,
+  DemandeDeContactPOE,
+} from '~/server/demande-de-contact/domain/DemandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/DemandeDeContact.repository';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-
-import { DemandeDeContactCEJ, DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
-import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
@@ -39,6 +42,32 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
           prenom: demandeDeContactEntreprise.prénom,
           sujet: demandeDeContactEntreprise.sujet,
           telephone: demandeDeContactEntreprise.téléphone,
+        },
+      });
+    } catch (error) {
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    }
+    return createSuccess(undefined);
+  }
+
+  async savePOE(demandeDeContactPOE: DemandeDeContactPOE, annotation?: string): Promise<Either<void>> {
+    try {
+      await this.httpClientServiceWithAuthentification.post('contacts-poe', {
+        data: {
+          code_postal: demandeDeContactPOE.codePostal,
+          commentaire: demandeDeContactPOE.commentaire,
+          email: demandeDeContactPOE.email,
+          nom: demandeDeContactPOE.nom,
+          nom_societe: demandeDeContactPOE.nomSociété,
+          nombreARecruter: demandeDeContactPOE.nombreARecruter,
+          prenom: demandeDeContactPOE.prénom,
+          secteur: demandeDeContactPOE.secteur,
+          siret: demandeDeContactPOE.siret,
+          taille: demandeDeContactPOE.taille,
+          telephone: demandeDeContactPOE.téléphone,
+          travail: demandeDeContactPOE.travail,
+          ville: demandeDeContactPOE.ville,
+          ...(annotation ? { erreur: annotation } : {}),
         },
       });
     } catch (error) {

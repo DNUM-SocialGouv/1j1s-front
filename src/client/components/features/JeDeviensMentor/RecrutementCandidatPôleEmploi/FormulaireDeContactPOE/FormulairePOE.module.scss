@@ -1,0 +1,192 @@
+@import "@styles/_utilities";
+
+.heroSubtitle {
+  @extend %text-large;
+  margin-top: 1em;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.container {
+  max-width: 78em;
+}
+
+.boutonRetour {
+  border: 1px solid $color-primary;
+  color: $color-primary;
+  padding: 0.6rem 1.5rem 0.6rem 1rem;
+  border-radius: 20px;
+  margin: 1.25rem 0;
+  display: flex;
+}
+
+.formulaire {
+
+  &Input {
+    margin-block: 1.5rem;
+  }
+
+  .label {
+    @extend %bold;
+    margin-top: 1.5rem;
+  }
+
+  .textArea {
+    margin-top: 1rem;
+
+    > textarea {
+      min-height: 8rem;
+      background-color: $color-on-primary;
+      padding-top: 1rem;
+    }
+  }
+
+  .buttonFormulaire {
+    margin-top: 1.5rem;
+  }
+
+  > button[type=submit] {
+    margin-top: 1.25rem;
+  }
+
+  .validation {
+    margin-top: 1.5rem;
+
+    p {
+      width: 100%;
+      font-size: 0.7rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.champsObligatoires {
+  color: $color-primary;
+  margin-top: 1.25rem;
+
+  > p:first-child {
+    @extend %text-large;
+    @extend %bold;
+    margin-bottom: 1rem;
+  }
+
+  > p:last-child {
+    @extend %text-medium;
+  }
+}
+
+.etape {
+  background-color: $color-primary;
+  color: white;
+  max-width: 8rem;
+  text-align: center;
+  padding: 4px;
+}
+
+.success {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  p:first-child {
+    color: $color-primary;
+    @extend %bold;
+    @extend %text-xLarge;
+  }
+
+  p:last-child {
+    color: $color-on-surface;
+    @extend %bold;
+    @extend %text-medium;
+  }
+
+  a {
+    width: 100%;
+  }
+}
+
+
+
+@include media(large) {
+
+  .content {
+    background-color: $color-background;
+    padding: 0 8rem 2rem;
+  }
+
+  .container {
+    max-width: 92em;
+  }
+
+  .etape {
+    margin-left: 8rem;
+  }
+
+  .champsObligatoires {
+    margin-left: 8rem;
+  }
+
+  .boutonRetour {
+    margin-top: 1rem;
+    margin-left: 8rem;
+  }
+
+  .formulaire {
+    background-color: $color-background;
+    border-radius: 40px;
+    padding: 2rem 8rem 1rem;
+    margin-top: 1.5rem;
+
+    &Input {
+      margin-top: inherit;
+      margin-bottom: 1.5rem;
+    }
+
+    .bodyFormulaire {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      > div {
+        width: 48%;
+      }
+    }
+
+    .bodyFormulaireEtape3 {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      > div {
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+
+    }
+
+    .validation {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      margin-top: 4rem;
+      text-align: left;
+
+      > button {
+        width: 50%;
+      }
+
+      p {
+        width: 50%;
+        font-size: 0.7rem;
+      }
+    }
+  }
+  .success {
+    width: 50%;
+    margin: auto;
+  }
+
+}

@@ -8,7 +8,7 @@ import { Age, DemandeDeContactCEJ } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 
-type EnvoyerDemanderDeContactCEJ = Partial<{
+type EnvoyerDemandeDeContactCEJ = Partial<{
   prénom: string
   nom: string
   email: string
@@ -18,11 +18,11 @@ type EnvoyerDemanderDeContactCEJ = Partial<{
   codePostal: string
 }>
 
-export class EnvoyerDemanderDeContactCEJUseCase {
+export class EnvoyerDemandeDeContactCEJUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {
   }
 
-  async handle(command: EnvoyerDemanderDeContactCEJ): Promise<Either<void>> {
+  async handle(command: EnvoyerDemandeDeContactCEJ): Promise<Either<void>> {
     try {
       const demandeDeContactCEJ: DemandeDeContactCEJ = Joi.attempt(command, DemandeDeContactCEJValidator);
       return this.demandeDeContactRepository.saveCEJ(demandeDeContactCEJ);
@@ -42,7 +42,7 @@ const DemandeDeContactCEJValidator = Joi.object({
   ville: Joi.string().required(), // Regex utilsée côté LEE
 });
 
-function validatePhone(input: string): string {
+export function validatePhone(input: string): string {
   const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false });
   if (!isValid) {
     throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
