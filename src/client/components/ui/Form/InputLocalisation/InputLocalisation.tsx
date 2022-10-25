@@ -19,6 +19,8 @@ interface InputLocalisationProps {
   type: string
 }
 
+const MINIMUM_CHAR_NUMBER_FOR_SEARCH = 2;
+
 export const InputLocalisation = (props: InputLocalisationProps) => {
   const { code, libellé, type } = props;
   const localisationService = useDependency<LocalisationService>('localisationService');
@@ -212,7 +214,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
           currentHoverIndex++;
           return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
         })}
-        {isSuggestionListEmpty() && libelléLocalisation.length > 2 &&
+        {isSuggestionListEmpty() && libelléLocalisation.length > MINIMUM_CHAR_NUMBER_FOR_SEARCH &&
           <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.
