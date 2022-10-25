@@ -3745,7 +3745,7 @@ tarteaucitron.services.xiti = {
   name: 'Xiti',
   needConsent: true,
   type: 'analytic',
-  uri: 'https://helpcentre.atinternet-solutions.com/hc/fr/categories/360002439300-Privacy-Centre',
+  uri: 'https://www.atinternet.com/rgpd-et-vie-privee/',
 };
 
 // AT Internet
@@ -3818,7 +3818,7 @@ tarteaucitron.services.atinternet = {
   needConsent: true,
   safeanalytic: false,
   type: 'analytic',
-  uri: 'https://helpcentre.atinternet-solutions.com/hc/fr/categories/360002439300-Privacy-Centre',
+  uri: 'https://www.atinternet.com/rgpd-et-vie-privee/',
 };
 
 // AT Internet
@@ -3843,7 +3843,7 @@ tarteaucitron.services.atinternethightrack = {
   name: 'AT Internet',
   needConsent: true,
   type: 'analytic',
-  uri: 'https://helpcentre.atinternet-solutions.com/hc/fr/categories/360002439300-Privacy-Centre',
+  uri: 'https://www.atinternet.com/rgpd-et-vie-privee/',
 };
 
 // youtube
