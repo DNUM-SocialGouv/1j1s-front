@@ -10,7 +10,7 @@ export function Pourquoi() {
   const displayAccordion = isSmallScreen || isMediumScreen;
 
   function displayListeCitoyen() {
-    return <ul className={styles.listeCitoyen}>
+    return <ul aria-label={'Liste pourquoi vous pouvez devenir mentor'} className={styles.listeCitoyen}>
       <li>Pour partager votre expérience. Vous contribuerez à la réussite de jeunes et les ferez bénéficier de votre propre expérience</li>
       <li>Pour favoriser l’égalité des chances. Vous continuerez à servir la société et demeurrez actif au sein d’un réseau dynamique, même à la retraite</li>
       <li>Pour continuer à apprendre. Vous développerez votre réseau et vos compétences</li>
@@ -18,7 +18,7 @@ export function Pourquoi() {
   }
 
   function displayListeEmployeur() {
-    return <ul className={styles.listeEmployeur}>
+    return <ul aria-label={'Liste pourquoi participer à l’aventure du mentorat en tant qu’employeur'} className={styles.listeEmployeur}>
       <li>Pour offrir la possibilité à ses collaborateurs de former un “binôme” avec un jeune, encadré par une structure spécialisée dans le mentorat</li>
       <li>Pour contribuer à la valorisation de vos collaborateurs, au développement de leurs compétences (ex : bienveillance, écoute, conseil) et à leur épanouissement personnel</li>
       <li>Pour permettre la mise en valeur de votre entreprise et de vos métiers</li>

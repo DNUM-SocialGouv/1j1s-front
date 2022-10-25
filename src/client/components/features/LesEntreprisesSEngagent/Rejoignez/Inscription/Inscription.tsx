@@ -11,6 +11,7 @@ import InputAutocomplétionSecteurActivité, {
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
@@ -205,7 +206,7 @@ export default function Inscription() {
                 <div className={styles.validationEtape1}>
                   <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Suivant' type='submit' />
                   <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
-                      Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
+                      Pour en savoir plus vous pouvez consulter la <Link href={'/confidentialite'}>politique de confidentialité</Link> et les <Link href={'/cgu'}>CGU</Link> de la DGEFP
                   </p>
                 </div>
               </form>
@@ -289,7 +290,7 @@ export default function Inscription() {
                 <div className={styles.validationEtape2}>
                   <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Envoyer le formulaire' type='submit' />
                   <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
-                      Pour en savoir plus vous pouvez consulter la <a href={'/confidentialite'}>politique de confidentialité</a> et les <a href={'/cgu'}>CGU</a> de la DGEFP
+                      Pour en savoir plus vous pouvez consulter la <Link href={'/confidentialite'}>politique de confidentialité</Link> et les <Link href={'/cgu'}>CGU</Link> de la DGEFP
                   </p>
                 </div>
 
