@@ -31,7 +31,7 @@ describe('MesuresEmployeurs', () => {
 
   it('affiches les cartes dispositifs employeurs', () => {
     render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
-    const cartes = screen.getAllByTestId('card');
+    const cartes = screen.getAllByTestId('carteMesuresEmployeurs');
     expect(cartes.length).toEqual(4);
   });
 

@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
 import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
-import { getExtrait } from '~/client/utils/getExtrait.utils';
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 
 import Marked from '../../ui/Marked/Marked';
@@ -49,12 +48,8 @@ interface CarteMesureEmployeurProps {
 function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
   const titre = useSanitize(carte.titre);
   const bannière = carte.bannière?.url || '';
-  const url = useSanitize(carte.url);
-  const contenu = useSanitize(carte.contenu);
-  const brief = useMemo(() => getExtrait(contenu, 110), [contenu]);
-  const link = carte.article
-    ? `/articles/${carte.article.slug}`
-    : url;
+  const link = carte.link;
+  const extrait = useSanitize(carte.extraitContenu);
   const pourQui = carte.pourQui || '';
 
 
@@ -63,8 +58,8 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
     link={link}
     title={titre}
     flippingCardContent={pourQui}
-    data-testid="card"
+    data-testid="carteMesuresEmployeurs"
   >
-    <Marked markdown={brief} />
+    <Marked markdown={extrait} />
   </FlippingCard>;
 }

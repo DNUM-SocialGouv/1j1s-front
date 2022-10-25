@@ -67,8 +67,8 @@ describe('strapi mapper', () => {
       it('retourne les espaces jeunes', () => {
         const espaceJeuneResponse = anEspaceJeuneResponse();
         const expectedEspaceJeune = anEspaceJeune();
-        const mesuresJeunes = mapEspaceJeune(espaceJeuneResponse);
-        expect(mesuresJeunes).toEqual(expectedEspaceJeune);
+        const espaceJeune = mapEspaceJeune(espaceJeuneResponse);
+        expect(espaceJeune).toEqual(expectedEspaceJeune);
       });
     });
   });

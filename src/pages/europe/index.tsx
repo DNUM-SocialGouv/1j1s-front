@@ -82,7 +82,7 @@ export default function EuropePage() {
       <LightHero
         primaryText={'Je découvre les dispositifs pour '}
         secondaryText={'m’accompagner dans mon projet'}
-        titleLevel={'h2'}
+        titleAs={'h2'}
         className={styles.sectionDispositif__Title}
       />
       <Container className={styles.sectionDispositif}>

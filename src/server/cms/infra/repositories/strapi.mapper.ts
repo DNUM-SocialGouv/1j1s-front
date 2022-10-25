@@ -86,12 +86,9 @@ function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): Fi
   };
 }
 
-export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article|undefined {
-  if (!article.data ) {
-    return undefined;
-  }
-  const attr = article.data.attributes;
-  return attr;
+export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article | undefined {
+  if (!article || !article.data ) { return undefined; }
+  return  article.data.attributes;
 }
 
 export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse>): MesuresEmployeurs {
@@ -102,15 +99,21 @@ export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresE
   };
 }
 
-function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursResponse[]): CarteMesuresEmployeurs[] {
-  return listeCartes.map((carte) => ({
-    bannière: mapImage(carte.banniere),
-    contenu: carte.contenu,
-    pourQui : carte.pourQui,
-    titre: carte.titre,
-    url: carte.url,
-    ...(carte.article.data ? { article: mapArticleRelation(carte.article) } : {}),
-  }));
+function mapCartesMesuresEmployeursList(carteMesuresEmployeursList: CarteMesuresEmployeursResponse[]): CarteMesuresEmployeurs[] {
+  return carteMesuresEmployeursList.map<CarteMesuresEmployeurs>((carteMesuresEmployeurs) => {
+    const { banniere, contenu, titre, url, pourQui } = carteMesuresEmployeurs;
+    const article = mapArticleRelation(carteMesuresEmployeurs.article);
+    return {
+      article: article ?? null,
+      bannière: mapImage(banniere),
+      contenu,
+      extraitContenu: getExtraitContenu(contenu, 110),
+      link: article ? `/articles/${article.slug}` : url,
+      pourQui,
+      titre,
+      url,
+    };
+  });
 }
 
 export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
@@ -124,16 +127,27 @@ export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAtt
   };
 }
 
+function getExtraitContenu(contenu: string, size = 120): string {
+  if (contenu.length < size) return contenu;
+  const end = contenu.substring(size);
+  const charactersLeft = end.indexOf(' ');
+  const brief = contenu.substring(0, size + charactersLeft);
+  return `${brief} …`;
+}
+
 function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneResponse[]): CarteEspaceJeune[] {
   return cartesEspaceJeuneList.map<CarteEspaceJeune>((carteEspaceJeune) => {
-    const { banniere, contenu, titre, url, pourQui, article } = carteEspaceJeune;
+    const { banniere, contenu, titre, url, pourQui } = carteEspaceJeune;
+    const article = mapArticleRelation(carteEspaceJeune.article);
     return {
+      article: article ?? null,
       bannière: mapImage(banniere),
       concerné: pourQui,
       contenu,
+      extraitContenu: getExtraitContenu(contenu, 110),
+      link: article ? `/articles/${article.slug}` : url,
       titre,
       url,
-      ...(article.data ? { article: mapArticleRelation(article) } : {}),
     };
   });
 }

@@ -21,8 +21,8 @@
 }
 
 .bannière {
-  background-color:white;
-  color: $color-primary;
+  background-color: $color-background !important;
+  color: $color-primary !important;
   h1 {
     font-size: 2rem;
     line-height: 1.4;

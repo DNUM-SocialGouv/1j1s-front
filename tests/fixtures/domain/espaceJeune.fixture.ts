@@ -1,6 +1,7 @@
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import {
   ArticleSimpleAttributesResponse,
+  CarteEspaceJeuneResponse,
   EspaceJeuneAttributesResponse,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
@@ -10,7 +11,7 @@ export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEs
   return {
     article: {
       contenu: 'Contenu',
-      slug: 'titre',
+      slug: 'slug-titre',
       titre: 'Titre',
     },
     bannière: {
@@ -18,72 +19,22 @@ export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEs
       url: 'https://animage.jpg',
     },
     concerné: 'pour les 12 à 18mois',
-    contenu: 'Un beau contenu de carte',
+    contenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+    extraitContenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s …',
+    link: '/articles/slug-titre',
     titre: 'Un titre de carte',
     url: 'Une belle url de carte',
     ...override,
   };
 }
 
-export function aDeuxièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
-  return {
-    article: {
-      contenu: 'Contenu',
-      slug: 'titre',
-      titre: 'Titre',
-    },
-    bannière: {
-      alt: 'text',
-      url: 'https://animage.jpg',
-    },
-    concerné: 'pour les 12 à 18mois',
-    contenu: 'Un deuxième beau contenu de carte',
-    titre: 'Un deuxième titre de carte',
-    url: 'Une deuxième belle url de carte',
-    ...override,
-  };
-}
-
-export function aTroisièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
-  return {
-    article: {
-      contenu: 'Contenu',
-      slug: 'titre',
-      titre: 'Titre',
-    },
-    bannière: {
-      alt: 'text',
-      url: 'https://animage.jpg',
-    },
-    concerné: 'pour les 12 à 18mois',
-    contenu: 'Un troisième beau contenu de carte',
-    titre: 'Un troisième titre de carte',
-    url: 'Une troisième belle url de carte',
-    ...override,
-  };
-}
-
-export function aQuatrièmeCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {
-  return {
-    article: {
-      contenu: 'Contenu',
-      slug: 'titre',
-      titre: 'Titre',
-    },
-    bannière: {
-      alt: 'text',
-      url: 'https://animage.jpg',
-    },
-    concerné: 'pour les 12 à 18mois',
-    contenu: 'Un quatrième beau contenu de carte',
-    titre: 'Un quatrième titre de carte',
-    url: 'Une quatrième belle url de carte',
-    ...override,
-  };
-}
-
 export function aCarteEspaceJeuneList(): CarteEspaceJeune[] {
-  return [aCarteEspaceJeune(), aDeuxièmeCarteEspaceJeune(), aTroisièmeCarteEspaceJeune(), aQuatrièmeCarteEspaceJeune()];
+  return [
+    aCarteEspaceJeune(),
+    aCarteEspaceJeune({ article: null, link: 'Une belle url de carte' }),
+    aCarteEspaceJeune(),
+    aCarteEspaceJeune(),
+  ];
 }
 
 export function anEspaceJeune(): EspaceJeune {
@@ -106,7 +57,7 @@ function aStrapiArticleResponse(): StrapiSingleTypeResponse<ArticleSimpleAttribu
     data: {
       attributes: {
         contenu: 'Contenu',
-        slug: 'titre',
+        slug: 'slug-titre',
         titre: 'Titre',
       },
     },
@@ -121,145 +72,45 @@ function aStrapiResponseImage(): Strapi.Image {
   };
 }
 
+function aCarteEspaceJeuneResponse(override?: Partial<CarteEspaceJeuneResponse>): CarteEspaceJeuneResponse {
+  return {
+    article: aStrapiArticleResponse(),
+    banniere: aStrapiResponseImage(),
+    contenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+    pourQui: 'pour les 12 à 18mois',
+    titre: 'Un titre de carte',
+    url: 'Une belle url de carte',
+    ...override,
+  };
+}
+
 export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>>): StrapiSingleTypeResponse<EspaceJeuneAttributesResponse> {
   return {
     data: {
       attributes: {
         accompagnement: [
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un titre de carte',
-            url: 'Une belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un deuxième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un deuxième titre de carte',
-            url: 'Une deuxième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un troisième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un troisième titre de carte',
-            url: 'Une troisième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un quatrième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un quatrième titre de carte',
-            url: 'Une quatrième belle url de carte',
-          },
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse({ article: undefined }),
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse(),
         ],
         aidesFinancieres: [
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un titre de carte',
-            url: 'Une belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un deuxième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un deuxième titre de carte',
-            url: 'Une deuxième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un troisième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un troisième titre de carte',
-            url: 'Une troisième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un quatrième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un quatrième titre de carte',
-            url: 'Une quatrième belle url de carte',
-          },
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse({ article: undefined }),
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse(),
         ],
         orienterFormer: [
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un titre de carte',
-            url: 'Une belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un deuxième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un deuxième titre de carte',
-            url: 'Une deuxième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un troisième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un troisième titre de carte',
-            url: 'Une troisième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un quatrième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un quatrième titre de carte',
-            url: 'Une quatrième belle url de carte',
-          },
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse({ article: undefined }),
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse(),
         ],
         vieProfessionnelle: [
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un titre de carte',
-            url: 'Une belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un deuxième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un deuxième titre de carte',
-            url: 'Une deuxième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un troisième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un troisième titre de carte',
-            url: 'Une troisième belle url de carte',
-          },
-          {
-            article: aStrapiArticleResponse(),
-            banniere: aStrapiResponseImage(),
-            contenu: 'Un quatrième beau contenu de carte',
-            pourQui: 'pour les 12 à 18mois',
-            titre: 'Un quatrième titre de carte',
-            url: 'Une quatrième belle url de carte',
-          },
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse({ article: undefined }),
+          aCarteEspaceJeuneResponse(),
+          aCarteEspaceJeuneResponse(),
         ],
       },
     },

@@ -18,11 +18,11 @@ interface CardProps {
   imageUrl: string
   link: string
   title: string
-  titleLevel?: HtmlHeadingTag
+  titleAs?: HtmlHeadingTag
   flippingCardContent: string
 }
 
-export const FlippingCard = ({ children, imageUrl, link, title, titleLevel, flippingCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
+export const FlippingCard = ({ children, imageUrl, link, title, titleAs, flippingCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
   const cardFlipRef = useRef<HTMLDivElement>(null);
   const isInternalLink = useIsInternalLink(link);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -51,8 +51,8 @@ export const FlippingCard = ({ children, imageUrl, link, title, titleLevel, flip
     </Link>;
   }, [isInternalLink, link]);
 
-  const CardTitle = ({ children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) => {
-    return React.createElement(titleLevel || 'h3', { className: className }, children);
+  const CardTitle = ({ children, className }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) => {
+    return React.createElement(titleAs || 'h3', { className: className }, children);
   };
 
   const flipCard = (reverse = false) => {
