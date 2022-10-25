@@ -23,7 +23,7 @@ export default function RecrutementCandidatPôleEmploi() {
       <main id="contenu" className={styles.contenu}>
         <Container className={styles.container}>
           <Marked markdown={contenuHeader}/>
-          <Link className={styles.bouton} href='/' appearance="asPrimaryButton">Être contacté(e) par un conseiller</Link>
+          <Link className={styles.bouton} href='/rejoindre-mobilisation-poe/formulaire-poe' appearance="asPrimaryButton">Être contacté(e) par un conseiller</Link>
         </Container>
       </main>
     </>
