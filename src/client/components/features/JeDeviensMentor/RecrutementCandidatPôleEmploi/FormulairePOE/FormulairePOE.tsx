@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, useState } from 'react';
 
-import styles from '~/client/components/features/Immersions/ReferencesEntreprises/RéférencerImmersion.module.scss';
+import styles from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulairePOE/FormulairePOE.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import InputAutocomplétionSecteurActivité
@@ -20,10 +20,10 @@ import {
 export type FormulaireEngagement = FormulaireEtape1Props;
 
 interface FormulaireEtape1Props {
+  siret: string;
   nomSociété: string;
   codePostal: string;
   ville: string;
-  siret: string;
   secteur: string;
   taille: string;
 }
@@ -58,7 +58,10 @@ export function FormulairePOE() {
 
   return (
     <>
-      <HeadTag title="je référence mon entreprise pour des immersions | 1jeune1solution"/>
+      <HeadTag
+        title="Je forme les jeunes grâce à l'emploi"
+        description="Votre entreprise recrute ou porte une initiative pour les jeunes ?"
+      />
       <Hero>
         <p><b>Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche</b></p>
         <p className={styles.heroSubtitle}>Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement</p>
