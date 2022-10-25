@@ -1,10 +1,10 @@
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
 import { MeiliSearch } from 'meilisearch';
 
-import {
-  AlternanceDependencies,
-  alternanceDependenciesContainer,
-} from '~/server/alternances/configuration/alternanceDependencies';
+import { ApiAlternanceRepository } from '~/server/alternances/infra/repositories/apiAlternance.repository';
+import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
+import { RechercherAlternanceUseCase } from '~/server/alternances/useCases/rechercherAlternance.useCase';
+import { RechercherMétierUseCase } from '~/server/alternances/useCases/rechercherMétierUseCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import {
   DemandeDeContactDependencies,
@@ -34,6 +34,7 @@ import {
   OffresEmploiDependencies,
   offresEmploiDependenciesContainer,
 } from '~/server/offresEmploi/configuration/offresEmploi.dependencies';
+import { ApiPoleEmploiOffreRepository } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.repository';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
@@ -43,6 +44,12 @@ import { buildHttpClientConfigList } from '~/server/services/http/httpClientConf
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
 import { ApiRejoindreLaMobilisationRepository } from '../entreprises/infra/ApiRejoindreLaMobilisation.repository';
+
+interface AlternanceDependencies {
+  rechercherMétier: RechercherMétierUseCase;
+  rechercherAlternance: RechercherAlternanceUseCase;
+  consulterOffreAlternance: ConsulterOffreAlternanceUseCase;
+}
 
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
@@ -81,7 +88,15 @@ export const dependenciesContainer = (): Dependencies => {
 
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
   const offreEmploiDependencies = offresEmploiDependenciesContainer(poleEmploiOffresClientService, apiPoleEmploiRéférentielRepository, cacheService);
-  const alternanceDependencies = alternanceDependenciesContainer(laBonneAlternanceClientService);
+
+  const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresClientService, apiPoleEmploiRéférentielRepository, cacheService);
+  const apiAlternanceRepository = new ApiAlternanceRepository(laBonneAlternanceClientService, apiPoleEmploiOffreRepository);
+  const alternanceDependencies: AlternanceDependencies = {
+    consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiAlternanceRepository),
+    rechercherAlternance: new RechercherAlternanceUseCase(apiAlternanceRepository),
+    rechercherMétier: new RechercherMétierUseCase(apiAlternanceRepository),
+
+  };
   const engagementDependencies = engagementDependenciesContainer(engagementClientService);
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const demandeDeContactDependencies = demandeDeContactDependenciesContainer(

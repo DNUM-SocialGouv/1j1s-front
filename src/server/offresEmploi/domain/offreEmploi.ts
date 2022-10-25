@@ -153,11 +153,14 @@ export interface OffreEmploiFiltre {
   motClé?: string
   typeDeContratList: string[]
   page: number
+  nombreOffreParPage?: number
   localisation?: OffreEmploiFiltreLocalisation
   tempsDeTravail?: string
   grandDomaineList: string[]
   experienceExigence?: string
   dureeHebdoMax?: string
+  natureContrats: string[]
+  codeROMEs: string[]
 }
 
 export interface OffreEmploiEchantillonFiltre {

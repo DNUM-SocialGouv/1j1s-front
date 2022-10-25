@@ -35,11 +35,13 @@ function jobÉtudiantRequestMapper(request: NextApiRequest): OffreFiltre {
     };
   }
   return {
+    codeROMEs: [],
     dureeHebdoMax: '1600',
     experienceExigence: '',
     grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: mapLocalisation(query),
     motClé: query.motCle ? String(query.motCle) : '',
+    natureContrats: [],
     page: Number(query.page),
     tempsDeTravail: 'tempsPartiel',
     typeDeContratList: ['CDD', 'MIS', 'SAI'],

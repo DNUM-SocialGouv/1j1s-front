@@ -90,6 +90,7 @@ export function aValetOffreEmploi(): OffreEmploi {
 
 export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): OffreFiltre {
   return {
+    codeROMEs: [],
     dureeHebdoMax: '',
     experienceExigence: '',
     grandDomaineList: [],
@@ -98,6 +99,7 @@ export function anOffreEmploiFiltre(override?: Partial<OffreEmploiFiltre>): Offr
       type: TypeLocalisation.REGION,
     },
     motClé: 'boulanger',
+    natureContrats: [],
     page: 1,
     typeDeContratList: ['CDD', 'CDI'],
     ...override,

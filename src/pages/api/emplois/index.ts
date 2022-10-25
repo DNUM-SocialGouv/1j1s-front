@@ -30,11 +30,13 @@ function offreEmploiRequestMapper(request: NextApiRequest): OffreFiltre {
   if (isEchantillonOffreEmploi) return { page: Number(query.page) };
 
   return {
+    codeROMEs: [],
     dureeHebdoMax: query.dureeHebdoMax ? String(query.dureeHebdoMax) : '',
     experienceExigence: query.experienceExigence ? String(query.experienceExigence) : '',
     grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
     localisation: mapLocalisation(query),
     motClé: query.motCle ? String(query.motCle) : '',
+    natureContrats: [],
     page: Number(query.page),
     tempsDeTravail: query.tempsDeTravail ? String(query.tempsDeTravail) : '',
     typeDeContratList: query.typeDeContrats ? toArray(query.typeDeContrats) : [],

@@ -53,10 +53,11 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
   }
 
   async buildParamètresRecherche(offreEmploiFiltre: OffreEmploiFiltre): Promise<string | undefined> {
-    if((offreEmploiFiltre.page * NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE - 1) > this.MAX_AUTHORIZED_RANGE) {
+    const nombreRésultatsOffreEmploiParPage = offreEmploiFiltre.nombreOffreParPage ? offreEmploiFiltre.nombreOffreParPage : NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE;
+    if((offreEmploiFiltre.page * nombreRésultatsOffreEmploiParPage - 1) > this.MAX_AUTHORIZED_RANGE) {
       return undefined;
     }
-    const range = `${(offreEmploiFiltre.page - 1) * NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}-${offreEmploiFiltre.page * NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE - 1}`;
+    const range = `${(offreEmploiFiltre.page - 1) * nombreRésultatsOffreEmploiParPage}-${offreEmploiFiltre.page * nombreRésultatsOffreEmploiParPage - 1}`;
 
     const localisation = await this.buildParamètreLocalisation(offreEmploiFiltre);
 
@@ -68,14 +69,16 @@ export class ApiPoleEmploiOffreRepository implements OffreEmploiRepository {
 
     // eslint-disable-next-line
     const queryList: Record<string, any> = {
-      experienceExigence: offreEmploiFiltre.experienceExigence,
+      experienceExigence: offreEmploiFiltre.experienceExigence || '',
       grandDomaine: offreEmploiFiltre.grandDomaineList.join(','),
       motsCles: offreEmploiFiltre.motClé || '',
       range,
-      tempsPlein: mapTempsDeTravail(),
-      typeContrat: offreEmploiFiltre.typeDeContratList.join(','),
+      tempsPlein: mapTempsDeTravail() || '',
+      typeContrat: offreEmploiFiltre.typeDeContratList.join(',')  ,
       ...localisation,
-      dureeHebdoMax: offreEmploiFiltre.dureeHebdoMax,
+      codeROME: offreEmploiFiltre.codeROMEs.join(','),
+      dureeHebdoMax: offreEmploiFiltre.dureeHebdoMax || '',
+      natureContrat: offreEmploiFiltre.natureContrats.join(','),
     };
 
     removeUndefinedValueInQueryParameterList(queryList);
