@@ -2,6 +2,7 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
+    "plugin:cypress/recommended",
     "@socialgouv/eslint-config-recommended"
   ],
   "plugins": ["testing-library"],
