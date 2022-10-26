@@ -14,6 +14,8 @@
     "lint": "eslint . --max-warnings=1",
     "lint:fix": "eslint --fix .",
     "test": "jest",
+    "e2e:open": "cypress open",
+    "e2e": "cypress run",
     "tw": "jest --watch",
     "release": "standard-version",
     "prepare": "husky install",
