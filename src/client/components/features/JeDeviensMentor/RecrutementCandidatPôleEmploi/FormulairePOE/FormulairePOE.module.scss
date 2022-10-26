@@ -38,7 +38,7 @@
     margin-top: 20px;
   }
 
-  .validationEtape1 {
+  .validationEtape1, .validationEtape2 {
     margin-top: 24px;
 
     p {
@@ -138,6 +138,23 @@
     }
 
     .validationEtape1 {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      margin-top: 4rem;
+      text-align: left;
+
+      > button {
+        width: 50%;
+      }
+
+      p {
+        width: 50%;
+        font-size: 0.7rem;
+      }
+    }
+
+    .validationEtape2 {
       display: flex;
       flex-direction: column;
       place-items: center;
