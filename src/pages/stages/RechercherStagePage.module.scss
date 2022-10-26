@@ -2,7 +2,7 @@
 
 .stageContainer {
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   border-bottom: 1px solid $color-form-field;
   @include media(large) {
     max-width: 78rem;
@@ -13,7 +13,7 @@
   flex-direction: row;
   align-items: start;
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 3.5rem;
 }
 
 .formWrapper {
@@ -86,4 +86,8 @@ input.stageInputElement {
   ul {
     padding-bottom: 1rem;
   }
+}
+
+.paginationContainer {
+  padding: 5rem 0 3.5rem 0;
 }

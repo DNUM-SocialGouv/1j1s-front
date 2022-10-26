@@ -130,10 +130,13 @@ export default function RechercherOffreStagePage() {
                   root: styles.stageListeRootElement,
                 }
               }/>
-            <MeiliSearchCustomPagination
-              padding={0}
-              numberOfResultPerPage={HITS_PER_PAGE}
-            />
+            <div className={styles.paginationContainer}>
+              <MeiliSearchCustomPagination
+                padding={0}
+                numberOfResultPerPage={HITS_PER_PAGE}
+              />
+            </div>
+
           </InstantSearch>
         </Container>
       </main>
