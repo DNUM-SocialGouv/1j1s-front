@@ -10,6 +10,10 @@
   padding-right: 32px;
 }
 
+.container {
+  max-width: 78em;
+}
+
 .boutonRetour {
   border: 1px solid $color-primary;
   color: $color-primary;
@@ -28,6 +32,16 @@
   .label {
     @extend %bold;
     margin-top: 24px;
+  }
+
+  .textArea {
+    margin-top: 1rem;
+
+    > textarea {
+      min-height: 8rem;
+      background-color: $color-on-primary;
+      padding-top: 1rem;
+    }
   }
 
   .buttonFormulaire {
@@ -108,6 +122,11 @@
     padding-bottom: 2rem;
   }
 
+
+  .container {
+    max-width: 92em;
+  }
+
   .etape {
     margin-left: 8rem;
   }
@@ -134,7 +153,19 @@
 
       > div {
         width: 48%;
+        margin-bottom: 1.5rem;
       }
+    }
+
+    .bodyFormulaireEtape3 {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      > div {
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+
     }
 
     .validationEtape1 {
