@@ -18,7 +18,6 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
-export type FormulaireEngagement = FormulaireEtape1Props & FormulaireEtape2Props & FormulaireEtape3Props;
 
 interface FormulaireEtape1Props {
   siret: string;
@@ -35,11 +34,6 @@ interface FormulaireEtape2Props {
   email: string;
   travail: string;
   téléphone: string;
-}
-
-interface FormulaireEtape3Props {
-  nbRecrutement: string;
-  commentaire: string;
 }
 
 export enum Etape {
@@ -82,12 +76,12 @@ export function FormulairePOE() {
   const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
   const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 
-  function goToEtape2(event: FormEvent<HTMLFormElement>) {
+  function redirectionEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     return (isPremièreEtape() && isPremièreEtapeValid()) && setEtape(Etape.ETAPE_2);
   }
 
-  function goToEtape3(event: FormEvent<HTMLFormElement>) {
+  function redirectionEtape3(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     return (isDeuxièmeEtape() && isDeuxièmeEtapeValid()) && setEtape(Etape.ETAPE_3);
   }
@@ -96,11 +90,11 @@ export function FormulairePOE() {
     return router.push('/rejoindre-mobilisation-poe');
   }
 
-  function returnToEtape1() {
+  function retourEtape1() {
     return setEtape(Etape.ETAPE_1);
   }
 
-  function returnToEtape2() {
+  function retourEtape2() {
     return setEtape(Etape.ETAPE_2);
   }
 
@@ -142,7 +136,7 @@ export function FormulairePOE() {
           </div>
 
           {
-            isPremièreEtape() && <form className={styles.formulaire} onSubmit={goToEtape2}>
+            isPremièreEtape() && <form className={styles.formulaire} onSubmit={redirectionEtape2}>
 
               <div className={styles.bodyFormulaire}>
                 <InputText
@@ -215,7 +209,7 @@ export function FormulairePOE() {
                 />
               </div>
 
-              <div className={styles.validationEtape1}>
+              <div className={styles.validation}>
                 <ButtonComponent icon={<Icon name='angle-right'/>} iconPosition='right' label='Suivant' type='submit'/>
                 {Mention()}
               </div>
@@ -225,7 +219,7 @@ export function FormulairePOE() {
           {
             isDeuxièmeEtape() &&
           <div>
-            <button className={styles.boutonRetour} onClick={returnToEtape1}>
+            <button className={styles.boutonRetour} onClick={retourEtape1}>
               <AngleLeftIcon className={styles.iconeRetour}/> Retour
             </button>
             <div className={styles.mandatoryFields}>
@@ -234,15 +228,16 @@ export function FormulairePOE() {
             </div>
           </div>
           }
+
           {
-            isDeuxièmeEtape() && <form className={styles.formulaire} onSubmit={goToEtape3}>
+            isDeuxièmeEtape() && <form className={styles.formulaire} onSubmit={redirectionEtape3}>
               <div className={styles.bodyFormulaire}>
                 <InputText
                   label="Indiquez votre nom"
                   name="lastName"
                   placeholder="Exemple : Dupont"
-                  value={formulaireEtape2.nom}
                   required
+                  value={formulaireEtape2.nom}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
                     ...formulaireEtape2,
                     nom: event.currentTarget.value,
@@ -291,8 +286,8 @@ export function FormulairePOE() {
                   label="Indiquez votre rôle au sein de l’entreprise"
                   name="job"
                   placeholder="Exemple : RH, Manager référent"
-                  value={formulaireEtape2.travail}
                   required
+                  value={formulaireEtape2.travail}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
                     ...formulaireEtape2,
                     travail: event.currentTarget.value,
@@ -301,7 +296,7 @@ export function FormulairePOE() {
                 />
               </div>
 
-              <div className={styles.validationEtape2}>
+              <div className={styles.validation}>
                 <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Suivant' type='submit' />
                 {Mention()}
               </div>
@@ -312,7 +307,7 @@ export function FormulairePOE() {
             {
               isTroisièmeEtape() &&
             <>
-              <button className={styles.boutonRetour} onClick={returnToEtape2}>
+              <button className={styles.boutonRetour} onClick={retourEtape2}>
                 <AngleLeftIcon className={styles.iconeRetour}/> Retour
               </button>
               <div className={styles.mandatoryFields}>
@@ -322,7 +317,7 @@ export function FormulairePOE() {
             }
 
             {
-              isTroisièmeEtape() && <form className={styles.formulaire} onSubmit={goToEtape2}>
+              isTroisièmeEtape() && <form className={styles.formulaire}>
                 <div className={styles.bodyFormulaireEtape3}>
                   <InputText
                     label="Indiquez le nombre de recrutement POE que vous souhaitez"
@@ -337,7 +332,7 @@ export function FormulairePOE() {
                   />
                 </div>
 
-                <div className={styles.validationEtape1}>
+                <div className={styles.validation}>
                   <ButtonComponent icon={<Icon name='angle-right'/>} iconPosition='right' label='Envoyer mes informations afin d’être rappelé(e)' type='submit'/>
                   <p>En cliquant sur &ldquo;Je souhaite être rappelé&rdquo;, j&apos;accepte que mes données soient transférées au Pole emploi de la zone géographique
                   dans laquelle je réside en vue d&apos;être rappelé</p>
