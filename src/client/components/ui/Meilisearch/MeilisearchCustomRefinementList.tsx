@@ -14,7 +14,7 @@ import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapit
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList.module.scss';
 
 
-export function MeilisearchCustomRefinementList(props: UseRefinementListProps & { label: string }) {
+export function MeilisearchCustomRefinementList(props: UseRefinementListProps & { label: string } & React.HTMLAttributes<HTMLDivElement>) {
   const { refine, items } = useRefinementList(props);
 
   const { label } = props;
@@ -46,7 +46,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
   return (
     <>
-      <div>
+      <div className={props.className} >
         <label className={styles.selectLabel}>{label}</label>
         <div ref={optionsRef} className={styles.selectContainer}>
           <button

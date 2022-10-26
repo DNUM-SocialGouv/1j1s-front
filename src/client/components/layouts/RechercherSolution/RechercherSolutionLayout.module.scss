@@ -26,8 +26,13 @@
   }
 }
 
-.nombreRésultats {
-  @extend %bold, %text-large;
+.stats {
+  @extend %text-medium;
+
+  .nombreRésultats {
+    margin-right: 0.4rem;
+    @extend %bold;
+  }
 }
 
 .listeSolutionsWrapper {

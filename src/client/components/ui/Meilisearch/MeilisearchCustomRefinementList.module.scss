@@ -10,15 +10,20 @@
 }
 
 .button {
-  @extend %text-regular;
+  @extend %text-small;
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
   color: $color-mention-grey;
   padding: 6px 6px 6px 12px;
-  border: 1.5px solid $color-primary;
+  border: 1px solid $color-on-background;
   border-radius: 20px;
   height: 2.5rem;
+
+  &:focus {
+    border: 2px solid $color-primary;
+  }
 }
 
 .listBox {
