@@ -35,7 +35,11 @@ export default function RechercherMétier() {
               onKeyDown={(e) => { if (e.key == 'Enter') e.preventDefault(); }}
             />
           </div>
-          <MeilisearchCustomRefinementList className={styles.inputCentresInteret} attribute='centres_interet' label="Centres d'intérêt" />
+          <MeilisearchCustomRefinementList
+            className={styles.inputCentresInteret}
+            attribute='centres_interet'
+            label="Centres d'intérêt"
+            sortBy={['name:asc']} />
         </Container>
       </div>
       <div className={styles.resultInfosContainer}>
@@ -52,7 +56,7 @@ export default function RechercherMétier() {
               }))
             )}
           />
-          <MeilisearchStats labelSingulier='fiche métier' labelPluriel='fiches métier'/>
+          <MeilisearchStats labelSingulier='fiche métier' labelPluriel='fiches métier' />
         </Container>
       </div>
       <div className={styles.bodySection}>
