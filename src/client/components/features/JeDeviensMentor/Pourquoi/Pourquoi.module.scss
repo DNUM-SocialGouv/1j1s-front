@@ -5,30 +5,21 @@
   margin: 0 auto;
   padding: 16px 28px;
 
-  button {
-    display: contents;
-    color: $color-primary;
-  }
-
   > article {
     margin-top: 2rem;
     margin-bottom: 2rem;
     line-height: 1.5rem;
 
-   ul {
-    margin-bottom: 2rem;
-    padding-left: 0;
-   }
+    .listeCitoyen, .listeEmployeur {
+      margin-bottom: 2rem;
+      margin-left: 0.5rem;
+      list-style-image: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
 
-    li {
-      display: flex;
-      max-width: 30rem;
-      margin-bottom: 1.5rem;
-    }
 
-    li::before {
-      content: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
-      margin-right: .75rem;
+      li {
+        margin-left: 1rem;
+        margin-bottom: 1.5rem;
+      }
     }
 
     h2 {
@@ -36,27 +27,28 @@
       @extend %bold;
       max-width: 25rem;
       color: $color-primary;
-      margin-bottom: 1rem;
-      margin-top: 2rem;
+      margin-block: 2rem;
     }
   }
 }
 
 @include media(large) {
   .pourquoi {
+    padding: 1rem 0rem 4rem 0rem;
 
     > article {
       display: flex;
-      justify-content: space-around;
-      margin: 2rem 9rem 0 9rem;
+      flex-wrap: wrap;
+      place-content: center;
 
-      section > * > ul {
-        color: $color-on-surface;
+      section {
+        margin-left: 5rem;
       }
 
-      section > * > ul li::before {
-        margin-top: 2px;
-        content: url("data:image/svg+xml;charset=utf8,<svg width='16' height='16' viewBox='6 3 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'> <path fill-rule='evenodd' clip-rule='evenodd' d='M16.5653 9.66673L9.41327 2.51473L11.2986 0.629395L21.6693 11.0001L11.2986 21.3707L9.41327 19.4854L16.5653 12.3334H0.335938V9.66673H16.5653Z' fill='%23161616'/> </svg> ");
+      .listeCitoyen, .listeEmployeur {
+        color: $color-on-surface;
+        max-width: 30rem;
+        margin: auto;
       }
     }
   }

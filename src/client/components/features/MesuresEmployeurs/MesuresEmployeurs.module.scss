@@ -6,9 +6,7 @@
   h2 {
     @extend %text-xLarge, %bold;
     text-align: center;
-    margin: 2rem;
-    margin-top: 0;
-    padding-top: 2rem;
+    padding: 4rem;
   }
   .cartes {
     @extend %max-container;
@@ -22,8 +20,8 @@
 
 .mobile .dispositifs {
   h2 {
-    @extend %text-large;
-    text-align: left;
+    margin-top: 0;
+    padding: 2rem;
   }
   .cartes {
     grid-template-columns: 1fr;
