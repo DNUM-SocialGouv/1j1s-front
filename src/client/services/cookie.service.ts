@@ -46,11 +46,11 @@ export class CookieService {
     });
   }
 
-  static getCookieConsent() {
+  static getCookieConsent(service: string) {
     return window.tarteaucitron.proTemp?.split('!')
     ?.reduce((acc: Record<string, unknown>, entry: string) => {
       const [key, value]: string[] = entry.split('=');
       return { ...acc, [key]: value !== 'false' };
-    }, {})?.['atinternet'];
+    }, {})?.[service];
   }
 }
