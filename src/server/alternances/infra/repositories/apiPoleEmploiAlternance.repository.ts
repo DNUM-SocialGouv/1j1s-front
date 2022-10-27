@@ -43,11 +43,11 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
   }
 
   async search(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    if (isOffreEchantillonFiltre(offreFiltre)) return await this.getEchantillonOffreEmploi(offreFiltre);
-    return await this.getOffreEmploiRecherche(offreFiltre);
+    if (isOffreEchantillonFiltre(offreFiltre)) return await this.getEchantillonOffreAlternance(offreFiltre);
+    return await this.getOffreAlternanceRecherche(offreFiltre);
   }
 
-  private async getOffreEmploiRecherche(offreFiltre: OffreFiltre) {
+  private async getOffreAlternanceRecherche(offreFiltre: OffreFiltre) {
     const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(offreFiltre);
     if(paramètresRecherche) {
       return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffre>(
@@ -58,7 +58,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
     return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
   }
 
-  private async getEchantillonOffreEmploi(offreFiltre: OffreFiltre) {
+  private async getEchantillonOffreAlternance(offreFiltre: OffreFiltre) {
     const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_ALTERNANCE_KEY);
     const range = buildRangeParamètre(offreFiltre);
 

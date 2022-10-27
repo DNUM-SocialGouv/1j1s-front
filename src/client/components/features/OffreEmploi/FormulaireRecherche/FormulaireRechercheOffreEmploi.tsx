@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import styles
-  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffre.module.scss';
+import styles from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';

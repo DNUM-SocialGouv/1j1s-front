@@ -104,7 +104,7 @@ describe('mapper pour l api pole emploi', () => {
           const formationResponse = undefined;
           //when
           const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
-          const résultatAttendu: OffreEmploi.Formation[] = [];
+          const résultatAttendu: Offre.Formation[] = [];
           //then
           expect(mappedOffreEmploiFormationList).toEqual(résultatAttendu);
         });
@@ -117,7 +117,7 @@ describe('mapper pour l api pole emploi', () => {
           //when
           const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
 
-          const résultatAttendu: OffreEmploi.Formation[] = [
+          const résultatAttendu: Offre.Formation[] = [
             { commentaire: 'DE docteur en médecine', libellé: 'Bac+5 et plus ou équivalents' },
             { commentaire: 'Licence pro commerce', libellé: 'Bac+3 et plus ou équivalents' },
           ];
@@ -129,7 +129,7 @@ describe('mapper pour l api pole emploi', () => {
           const formationResponse = anOffreEmploiResponseFormationListAvecFormationNonDéfinie();
 
           const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
-          const résultatAttendu: OffreEmploi.Formation[] = [
+          const résultatAttendu: Offre.Formation[] = [
             { commentaire: 'DE docteur en médecine', libellé: 'Bac+5 et plus ou équivalents' },
           ];
           expect(mappedOffreEmploiFormationList).toEqual(résultatAttendu);

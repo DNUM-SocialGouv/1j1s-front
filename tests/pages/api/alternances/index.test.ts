@@ -14,9 +14,9 @@ import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 describe('rechercher une alternance', () => {
   it('retourne la liste des alternances filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
-      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E2,FS')
+      .get('/search?commune=75101&motsCles=boulanger&range=0-14&natureContrat=E2,FS')
       .reply(401)
-      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E2,FS')
+      .get('/search?commune=75101&motsCles=boulanger&range=0-14&natureContrat=E2,FS')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
@@ -34,7 +34,7 @@ describe('rechercher une alternance', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffre());
       },
-      url: '/emplois?motCle=boulanger&typeDeContrats=CDD,CDI&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
+      url: '/emplois?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
     });
   });
 

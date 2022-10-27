@@ -13,4 +13,8 @@ export class OffreEmploiService {
   async rechercherJobÉtudiant(query: string): Promise<Either<RésultatsRechercheOffre>> {
     return await this.httpClientService.get<RésultatsRechercheOffre>(`jobs-etudiants?${query}`);
   }
+
+  async rechercherAlternance(query: string): Promise<Either<RésultatsRechercheOffre>> {
+    return await this.httpClientService.get<RésultatsRechercheOffre>(`alternances?${query}`);
+  }
 }

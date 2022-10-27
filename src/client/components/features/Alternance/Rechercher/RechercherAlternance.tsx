@@ -6,93 +6,115 @@ import {
   FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
+import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
-import { SimulationAlternancePartner } from '~/client/components/features/Partner/SimulationAlternancePartner';
-import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
+import {
+  LienSolution,
+  RechercherSolutionLayout,
+} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
-import { AlternanceService } from '~/client/services/alternances/alternance.service';
-import { mapAlternanceToLienSolution } from '~/client/utils/alternance.utils';
+import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
+import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
-import { Alternance } from '~/server/alternances/domain/alternance';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
+
+const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
+const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherAlternance() {
   const router = useRouter();
-  const queryParams = useAlternanceQuery();
-  const alternanceService  = useDependency<AlternanceService>('alternanceService');
+  const offreEmploiQuery = useOffreEmploiQuery();
+  const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
 
-  const [title, setTitle] = useState<string>('Rechercher une alternance | 1jeune1solution');
-  const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
+  const MAX_PAGE = 65;
+
+  const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
+  const [alternanceList, setAlternanceList] = useState<Offre[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
-
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
 
   useEffect(() => {
     const queryString = stringify(router.query);
-    if (queryString) {
-      setIsLoading(true);
-      setErreurRecherche(undefined);
-      alternanceService.rechercherAlternance(queryString)
-        .then((response) => {
-          if (response.instance === 'success') {
-            setTitle(getRechercherOffreHeadTagTitre(`Rechercher une alternance ${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-            setAlternanceList(response.result.résultats);
-            setNombreRésultats(response.result.nombreRésultats);
-          } else {
-            setTitle(getRechercherOffreHeadTagTitre('Rechercher une alternance', response.errorType));
-            setErreurRecherche(response.errorType);
-          }
-          setIsLoading(false);
-        });
-    }
-  }, [router.query, alternanceService]);
+
+    setIsLoading(true);
+    setErreurRecherche(undefined);
+    offreEmploiService.rechercherAlternance(queryString)
+      .then((response) => {
+        if (response.instance === 'success') {
+          setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setAlternanceList(response.result.résultats);
+          setNombreRésultats(response.result.nombreRésultats);
+        } else {
+          setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
+          setErreurRecherche(response.errorType);
+        }
+        setIsLoading(false);
+      });
+  }, [router.query, offreEmploiService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
     const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
     if (nombreRésultats > 1) {
-      messageRésultatRechercheSplit.push(`contrats d'alternances pour ${queryParams.metierSelectionne}`);
+      messageRésultatRechercheSplit.push('offres d’alternances');
     } else {
-      messageRésultatRechercheSplit.push(`contrat d'alternance pour ${queryParams.metierSelectionne}`);
+      messageRésultatRechercheSplit.push('offre d’alternance');
+    }
+    if (offreEmploiQuery.motCle) {
+      messageRésultatRechercheSplit.push(`pour ${offreEmploiQuery.motCle}`);
     }
     return messageRésultatRechercheSplit.join(' ');
-  }, [nombreRésultats, queryParams.metierSelectionne]);
-
-  const partnerCardList = [
-    SimulationAlternancePartner().props,
-    OnisepPartnerCard().props,
-  ];
+  }, [nombreRésultats, offreEmploiQuery.motCle]);
 
   return (
     <>
       <HeadTag
         title={title}
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
+        description="Des milliers d’alternances sélectionnées pour vous"
       />
       <main id="contenu">
         <RechercherSolutionLayout
           bannière={<BannièreAlternance/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={<TagList list={[queryParams.libelleCommune]} aria-label="Filtres de la recherche" />}
-          formulaireRecherche={<FormulaireRechercheAlternance/>}
+          étiquettesRecherche={offreEmploiQuery.libelleLocalisation ? <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche" /> : null}
+          formulaireRecherche={<FormulaireRechercheAlternance />}
           isLoading={isLoading}
           listeSolution={alternanceList}
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapAlternanceToLienSolution}
+          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
+          maxPage={MAX_PAGE}
         />
-        {PartnerCardList(partnerCardList)}
+        {PartnerCardList([
+          LaBonneBoitePartner().props,
+          OnisepPartnerCard().props,
+          ServiceCiviquePartner().props,
+        ])}
       </main>
     </>
   );
 }
 
+function mapAlternanceToLienSolution(offreEmploi: Offre): LienSolution {
+  return {
+    descriptionOffre: offreEmploi.description,
+    id: offreEmploi.id,
+    intituléOffre: offreEmploi.intitulé,
+    lienOffre: `/emplois/${offreEmploi.id}`,
+    logoEntreprise: offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI,
+    nomEntreprise: offreEmploi.entreprise.nom,
+    étiquetteOffreList: offreEmploi.étiquetteList,
+  };
+}
+
 function BannièreAlternance() {
   return (
-    <LightHero primaryText="Avec la Bonne Alternance, trouvez l’entreprise qu’il vous faut" secondaryText="pour réaliser votre projet d’alternance" />
+    <LightHero primaryText="Des milliers d’alternances" secondaryText="sélectionnés pour vous par Pôle Emploi" />
   );
 }

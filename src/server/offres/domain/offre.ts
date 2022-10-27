@@ -1,4 +1,3 @@
-import { JobEtudiantFiltre } from '~/server/jobs-étudiants/domain/jobs-étudiants';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 export type OffreId = string;

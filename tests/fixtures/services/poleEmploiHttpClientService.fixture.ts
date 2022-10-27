@@ -140,7 +140,7 @@ function aValetOffreEmploiResponse(): OffreResponse {
   };
 }
 
-function aFiltresPossiblesResponse(): RésultatsRechercheOffreEmploiResponse.FiltresPossibles[] {
+function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponse.FiltresPossibles[] {
   return [
     {
       agregation: [

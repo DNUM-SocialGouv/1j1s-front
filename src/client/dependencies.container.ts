@@ -1,8 +1,6 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
-import { AlternanceService } from '~/client/services/alternances/alternance.service';
-import { MétierRecherchéService } from '~/client/services/alternances/métierRecherché.service';
 import { AnalyticsService } from '~/client/services/analyticsService';
 import { AnalyticsServiceFake } from '~/client/services/analyticsServiceFake';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
@@ -21,10 +19,8 @@ const MAX_LIMITE_STAGES = 100000;
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
-  alternanceService: AlternanceService
   localisationService: LocalisationService
   ficheMetierService: FicheMetierService
-  métierRecherchéService: MétierRecherchéService
   missionEngagementService: MissionEngagementService
   offreEmploiService: OffreEmploiService
   rechercheClientService: SearchClient
@@ -45,8 +41,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const httpClientService =  new HttpClientService(sessionId, loggerService);
   const offreEmploiService = new OffreEmploiService(httpClientService);
   const localisationService = new LocalisationService(httpClientService);
-  const alternanceService = new AlternanceService(httpClientService);
-  const métierRecherchéService = new MétierRecherchéService(httpClientService);
   const missionEngagementService = new MissionEngagementService(httpClientService);
   const demandeDeContactService = new DemandeDeContactService(httpClientService);
   const ficheMetierService = new FicheMetierService(httpClientService);
@@ -69,14 +63,12 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   );
 
   return {
-    alternanceService,
     analyticsService,
     demandeDeContactService,
     ficheMetierService,
     lesEntreprisesSEngagementService,
     localisationService,
     missionEngagementService,
-    métierRecherchéService,
     offreEmploiService,
     rechercheClientService,
   };
