@@ -86,7 +86,7 @@ export function FormulairePOE() {
     return (isDeuxièmeEtape() && isDeuxièmeEtapeValid()) && setEtape(Etape.ETAPE_3);
   }
 
-  function returnToRejoindreMobilisationPOE() {
+  function redirectionRejoindreMobilisationPOE() {
     return router.push('/rejoindre-mobilisation-poe');
   }
 
@@ -124,10 +124,10 @@ export function FormulairePOE() {
             {
               isPremièreEtape() &&
             <>
-              <button className={styles.boutonRetour} onClick={returnToRejoindreMobilisationPOE}>
+              <button className={styles.boutonRetour} onClick={redirectionRejoindreMobilisationPOE}>
                 <AngleLeftIcon className={styles.iconeRetour}/> Retour
               </button>
-              <div className={styles.mandatoryFields}>
+              <div className={styles.champsObligatoires}>
                 <p>Etape 1 : Votre entreprise</p>
                 <p>Tous les champs du formulaire sont obligatoires</p>
               </div>
@@ -222,7 +222,7 @@ export function FormulairePOE() {
             <button className={styles.boutonRetour} onClick={retourEtape1}>
               <AngleLeftIcon className={styles.iconeRetour}/> Retour
             </button>
-            <div className={styles.mandatoryFields}>
+            <div className={styles.champsObligatoires}>
               <p>Etape 2 : Vos informations personnelles</p>
               <p>Tous les champs du formulaire sont obligatoires</p>
             </div>
@@ -310,7 +310,7 @@ export function FormulairePOE() {
               <button className={styles.boutonRetour} onClick={retourEtape2}>
                 <AngleLeftIcon className={styles.iconeRetour}/> Retour
               </button>
-              <div className={styles.mandatoryFields}>
+              <div className={styles.champsObligatoires}>
                 <p> Etape 3 : Vos besoins et commentaires</p>
               </div>
             </>

@@ -64,9 +64,19 @@
   }
 }
 
-.mandatoryFields {
-  @extend %text-medium;
+.champsObligatoires {
+  color: $color-primary;
   margin-top: 20px;
+
+  > p:first-child {
+    @extend %text-large;
+    @extend %bold;
+    margin-bottom: 1rem;
+  }
+
+  > p:last-child {
+    @extend %text-medium;
+  }
 }
 
 .etape {
@@ -77,51 +87,12 @@
   padding: 4px;
 }
 
-.footer {
-  @extend %text-small;
-  margin-bottom: 20px;
-
-  > span {
-    color: $color-primary;
-    cursor: pointer;
-  }
-}
-
-.success {
-  color: $color-primary;
-  @extend %bold;
-  @extend %text-xLarge;
-  padding: 40px;
-}
-
 @include media(large) {
 
-  .header {
-    padding: 4rem 16rem;
-    flex-direction: row;
-    gap: 2.5rem;
-
-    .titre {
-      font-size: 20px;
-      padding: 1rem 3rem 0 0;
-      margin-top: 0;
-      margin-bottom: 4rem;
-    }
-
-    .logo {
-      padding: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
   .content {
-    background-color: $color-background; //TODO pour Olivia
-    padding-left: 8rem;
-    padding-right: 8rem;
-    padding-bottom: 2rem;
+    background-color: $color-background;
+    padding: 0 8rem 2rem;
   }
-
 
   .container {
     max-width: 92em;
@@ -131,7 +102,7 @@
     margin-left: 8rem;
   }
 
-  .mandatoryFields {
+  .champsObligatoires {
     margin-left: 8rem;
   }
 
@@ -141,7 +112,7 @@
   }
 
   .formulaire {
-    background-color: white; // TODO pour Olivia
+    background-color: $color-background;
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;
@@ -184,32 +155,5 @@
         font-size: 0.7rem;
       }
     }
-
-    .validationEtape2 {
-      display: flex;
-      flex-direction: column;
-      place-items: center;
-      margin-top: 4rem;
-      text-align: left;
-
-      > button {
-        width: 50%;
-      }
-
-      p {
-        width: 50%;
-        font-size: 0.7rem;
-      }
-    }
-
-  }
-
-  .footer {
-    text-align: center;
-  }
-
-  .success {
-    width: 50%;
-    margin: auto;
   }
 }
