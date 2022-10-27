@@ -24,7 +24,7 @@ import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE, OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
@@ -37,7 +37,7 @@ export function RechercherOffreEmploi() {
   const MAX_PAGE = 65;
 
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-  const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
+  const [offreEmploiList, setOffreEmploiList] = useState<Offre[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
@@ -90,7 +90,7 @@ export function RechercherOffreEmploi() {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapOffreEmploiToLienSolution}
-          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
+          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
           maxPage={MAX_PAGE}
         />
         <EnTeteSection heading="Découvrez des services faits pour vous"/>
@@ -104,7 +104,7 @@ export function RechercherOffreEmploi() {
   );
 }
 
-function mapOffreEmploiToLienSolution(offreEmploi: OffreEmploi): LienSolution {
+function mapOffreEmploiToLienSolution(offreEmploi: Offre): LienSolution {
   return {
     descriptionOffre: offreEmploi.description,
     id: offreEmploi.id,

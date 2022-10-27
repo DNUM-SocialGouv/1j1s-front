@@ -1,6 +1,6 @@
 import {
   ApiPoleEmploiRéférentielRepository,
-} from '~/server/offresEmploi/infra/repositories/apiPoleEmploiRéférentiel.repository';
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
 
 export function aApiPoleEmploiRéférentielRepository(): ApiPoleEmploiRéférentielRepository {
   return {

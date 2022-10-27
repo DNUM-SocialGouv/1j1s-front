@@ -1,27 +1,62 @@
-import { aRésultatsRechercheAlternance } from '@tests/fixtures/domain/alternance.fixture';
-import { anAlternanceListResponse } from '@tests/fixtures/services/laBonneAlternanceHttpClientService.fixture';
+import { aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
+import {
+  aRésultatRechercheOffreEmploiAxiosResponse,
+  aRésultatRéférentielCommuneResponse,
+} from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherAlternanceHandler } from '~/pages/api/alternances';
-import { RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { alternanceFiltreMapper, rechercherAlternanceHandler } from '~/pages/api/alternances';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 
 describe('rechercher une alternance', () => {
   it('retourne la liste des alternances filtrée', async () => {
-    nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/V1/')
-      .get('/jobs?insee=75101&romes=D1103%2CD1101%2CH2101&longitude=2&latitude=48&radius=30&caller=1jeune1solution')
-      .reply(200, anAlternanceListResponse().data);
+    nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
+      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E2,FS')
+      .reply(401)
+      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E2,FS')
+      .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
+    nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
+      .get('/communes')
+      .reply(200, aRésultatRéférentielCommuneResponse().data);
 
-    await testApiHandler<RésultatsRechercheAlternance | ErrorHttpResponse>({
+    nock('https://entreprise.pole-emploi.fr')
+      .post('/connexion/oauth2/access_token?realm=partenaire')
+      .reply(200, { access_token: 'fake_access_token' });
+
+    await testApiHandler<RésultatsRechercheOffre | ErrorHttpResponse>({
       handler: (req, res) => rechercherAlternanceHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
-        expect(json).toEqual(aRésultatsRechercheAlternance());
+        expect(json).toEqual(aRésultatsRechercheOffre());
       },
-      url: '/alternances?codeCommune=75101&codeRomes=D1103,D1101,H2101&distanceCommune=30&longitudeCommune=2&latitudeCommune=48',
+      url: '/emplois?motCle=boulanger&typeDeContrats=CDD,CDI&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
+    });
+  });
+
+  it('map la request parameters to AlternanceFiltre', () => {
+    const request: NextApiRequest = {
+      query: {
+        codeLocalisation: '75101',
+        motCle: 'boulanger',
+        page: '1',
+        typeLocalisation: 'COMMUNE',
+      },
+    } as unknown as NextApiRequest;
+
+    const result = alternanceFiltreMapper(request);
+
+    expect(result).toEqual({
+      localisation: {
+        code: '75101',
+        type: 'COMMUNE',
+      },
+      motClé: 'boulanger',
+      page: 1,
     });
   });
 });

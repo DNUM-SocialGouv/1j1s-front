@@ -1,11 +1,11 @@
-import { aBarmanOffreEmploi, aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aBarmanOffre, aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
 
 import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
 
 export function anOffreEmploiService(): OffreEmploiService {
   return {
-    rechercherJobÉtudiant: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffreEmploi() }),
-    rechercherOffreEmploi: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffreEmploi() }),
+    rechercherJobÉtudiant: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffre() }),
+    rechercherOffreEmploi: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffre() }),
   } as unknown as OffreEmploiService;
 }
 
@@ -13,11 +13,11 @@ export function aSingleResultOffreEmploiService(): OffreEmploiService {
   return {
     rechercherJobÉtudiant: jest.fn().mockResolvedValue({
       instance: 'success',
-      result: aRésultatsRechercheOffreEmploi({ nombreRésultats: 1, résultats: [aBarmanOffreEmploi()] }),
+      result: aRésultatsRechercheOffre({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
     }),
     rechercherOffreEmploi: jest.fn().mockResolvedValue({
       instance: 'success',
-      result: aRésultatsRechercheOffreEmploi({ nombreRésultats: 1, résultats: [aBarmanOffreEmploi()] }),
+      result: aRésultatsRechercheOffre({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
     }),
   } as unknown as OffreEmploiService;
 }
@@ -26,11 +26,11 @@ export function aNoResultOffreEmploiService(): OffreEmploiService {
   return {
     rechercherJobÉtudiant: jest.fn().mockResolvedValue({
       instance: 'success',
-      result: aRésultatsRechercheOffreEmploi({ nombreRésultats: 0, résultats: [] }),
+      result: aRésultatsRechercheOffre({ nombreRésultats: 0, résultats: [] }),
     }),
     rechercherOffreEmploi: jest.fn().mockResolvedValue({
       instance: 'success',
-      result: aRésultatsRechercheOffreEmploi({ nombreRésultats: 0, résultats: [] }),
+      result: aRésultatsRechercheOffre({ nombreRésultats: 0, résultats: [] }),
     }),
   } as unknown as OffreEmploiService;
 }

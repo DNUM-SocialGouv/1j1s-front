@@ -10,7 +10,7 @@ import React from 'react';
 
 import { Select } from '~/client/components/ui/Select/Select';
 import { mapTypeDeContratToOffreEmploiCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre } from '~/server/offres/domain/offre';
 
 describe('Select', () => {
 

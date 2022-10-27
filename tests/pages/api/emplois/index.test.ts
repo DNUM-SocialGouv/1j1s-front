@@ -1,21 +1,22 @@
-import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
 import {
   aRésultatRechercheOffreEmploiAxiosResponse,
   aRésultatRéférentielCommuneResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherOffreEmploiHandler } from '~/pages/api/emplois';
+import { emploiFiltreMapper, rechercherOffreEmploiHandler } from '~/pages/api/emplois';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 
 describe('rechercher une offre d\'emploi', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
-      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
+      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI')
       .reply(401)
-      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
+      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
@@ -26,14 +27,40 @@ describe('rechercher une offre d\'emploi', () => {
       .post('/connexion/oauth2/access_token?realm=partenaire')
       .reply(200, { access_token: 'fake_access_token' });
 
-    await testApiHandler<RésultatsRechercheOffreEmploi | ErrorHttpResponse>({
+    await testApiHandler<RésultatsRechercheOffre | ErrorHttpResponse>({
       handler: (req, res) => rechercherOffreEmploiHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
-        expect(json).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(json).toEqual(aRésultatsRechercheOffre());
       },
       url: '/emplois?motCle=boulanger&typeDeContrats=CDD,CDI&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
+    });
+  });
+
+  it('map la request parameters to EmploiFiltre', () => {
+    const request: NextApiRequest = {
+      query: {
+        codeLocalisation: '75101',
+        motCle: 'boulanger',
+        page: '1',
+        typeLocalisation: 'COMMUNE',
+      },
+    } as unknown as NextApiRequest;
+
+    const result = emploiFiltreMapper(request);
+
+    expect(result).toEqual({
+      experienceExigence: undefined,
+      grandDomaineList: undefined,
+      localisation: {
+        code: '75101',
+        type: 'COMMUNE',
+      },
+      motClé: 'boulanger',
+      page: 1,
+      tempsDeTravail: undefined,
+      typeDeContratList: undefined,
     });
   });
 });

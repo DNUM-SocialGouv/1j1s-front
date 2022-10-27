@@ -5,7 +5,7 @@ import React, {
 
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre } from '~/server/offres/domain/offre';
 
 export function ÉtiquettesFiltreOffreEmploi() {
   const [filtres, setFiltres] = useState<string[]>([]);

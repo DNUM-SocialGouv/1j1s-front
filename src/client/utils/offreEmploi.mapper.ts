@@ -1,7 +1,7 @@
 import {
-  OffreEmploi,
+  Offre,
   RéférentielDomaine,
-} from '~/server/offresEmploi/domain/offreEmploi';
+} from '~/server/offres/domain/offre';
 
 export function mapTypeDeContratToOffreEmploiCheckboxFiltre(typeDeContratList: OffreEmploi.TypeDeContrat[]): OffreEmploi.CheckboxFiltre[] {
   return typeDeContratList.map((typeDeContrat) => {

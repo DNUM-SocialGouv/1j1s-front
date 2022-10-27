@@ -1,21 +1,22 @@
-import { aRésultatsRechercheOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
 import {
   aRésultatRechercheOffreEmploiAxiosResponse,
   aRésultatRéférentielCommuneResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherJobÉtudiantHandler } from '~/pages/api/jobs-etudiants';
+import { jobÉtudiantFiltreMapper, rechercherJobÉtudiantHandler } from '~/pages/api/jobs-etudiants';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { RésultatsRechercheOffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 
 describe('rechercher un job étudiant', () => {
   it('retourne la liste des jobs étudiants filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
-      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
+      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI')
       .reply(401)
-      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
+      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
@@ -26,14 +27,37 @@ describe('rechercher un job étudiant', () => {
       .post('/connexion/oauth2/access_token?realm=partenaire')
       .reply(200, { access_token: 'fake_access_token' });
 
-    await testApiHandler<RésultatsRechercheOffreEmploi | ErrorHttpResponse>({
+    await testApiHandler<RésultatsRechercheOffre | ErrorHttpResponse>({
       handler: (req, res) => rechercherJobÉtudiantHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
-        expect(json).toEqual(aRésultatsRechercheOffreEmploi());
+        expect(json).toEqual(aRésultatsRechercheOffre());
       },
       url: '/jobs-etudiants?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
+    });
+  });
+
+  it('map la request parameters to JobEtudiantFiltre', () => {
+    const request: NextApiRequest = {
+      query: {
+        codeLocalisation: '75101',
+        motCle: 'boulanger',
+        page: '1',
+        typeLocalisation: 'COMMUNE',
+      },
+    } as unknown as NextApiRequest;
+
+    const result = jobÉtudiantFiltreMapper(request);
+
+    expect(result).toEqual({
+      grandDomaineList: undefined,
+      localisation: {
+        code: '75101',
+        type: 'COMMUNE',
+      },
+      motClé: 'boulanger',
+      page: 1,
     });
   });
 });

@@ -1,16 +1,12 @@
-import {
-  AlternanceId,
-  From,
-} from '~/server/alternances/domain/alternance';
-import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
-import { ConsulterOffreAlternanceMatcha } from '~/server/alternances/infra/repositories/alternance.type';
 import { Either } from '~/server/errors/either';
+import { Offre, OffreId } from '~/server/offres/domain/offre';
+import { OffreRepository } from '~/server/offres/domain/offre.repository';
 
 export class ConsulterOffreAlternanceUseCase {
-  constructor(private alternanceRepository: AlternanceRepository) {
+  constructor(private offreRepository: OffreRepository) {
   }
 
-  async handle(id: AlternanceId, from: From): Promise<Either<ConsulterOffreAlternanceMatcha>> {
-    return await this.alternanceRepository.getOffreAlternanceMatcha(id, from);
+  async handle(id: OffreId): Promise<Either<Offre>> {
+    return await this.offreRepository.get(id);
   }
 }

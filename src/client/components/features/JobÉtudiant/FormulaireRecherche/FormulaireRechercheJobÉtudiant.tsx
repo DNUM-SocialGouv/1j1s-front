@@ -8,12 +8,12 @@ import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
+import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
   mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
-import { référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
 
 
 export function FormulaireRechercheJobÉtudiant() {

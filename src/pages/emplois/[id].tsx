@@ -5,11 +5,11 @@ import React from 'react';
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
-import { OffreEmploi, OffreEmploiId } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { dependencies } from '~/server/start';
 
 interface ConsulterOffreEmploiPageProps {
-  offreEmploi: OffreEmploi;
+  offreEmploi: Offre;
 }
 
 export default function ConsulterOffreEmploiPage({ offreEmploi }: ConsulterOffreEmploiPageProps) {
@@ -24,7 +24,7 @@ export default function ConsulterOffreEmploiPage({ offreEmploi }: ConsulterOffre
 }
 
 interface EmploiContext extends ParsedUrlQuery {
-  id: OffreEmploiId;
+  id: OffreId;
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterOffreEmploiPageProps>> {

@@ -1,4 +1,4 @@
-import { OffreEmploiResponse } from '~/server/offresEmploi/infra/repositories/apiPoleEmploiOffre.response';
+import { OffreResponse } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
 
 export function anOffreEmploiResponseCompétenceList(): OffreEmploiResponse.Compétence[] {
   return [
