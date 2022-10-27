@@ -116,8 +116,8 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   );
 }
 
-function ModalTitle({ titleLevel = 'h1', children, className, id }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-  return React.createElement(titleLevel, { className: classNames(className, styles.modalTitle), id }, children );
+function ModalTitle({ titleAs = 'h1', children, className, id }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
+  return React.createElement(titleAs, { className: classNames(className, styles.modalTitle), id }, children );
 }
 
 function ModalContent({ children, className }: React.HTMLAttributes<HTMLDivElement>) {

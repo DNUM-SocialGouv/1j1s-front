@@ -1,25 +1,25 @@
 import { GetStaticPropsResult } from 'next';
 
-import { MesuresJeunesComponent } from '~/client/components/features/MesuresJeunes/MesuresJeunes';
+import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
 import useReferrer from '~/client/hooks/useReferrer';
-import { MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
+import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { dependencies } from '~/server/start';
 
 
-interface MesuresJeunesPageProps {
-  mesuresJeunes : MesuresJeunes
+interface EspaceJeunePageProps {
+  espaceJeune : EspaceJeune
 }
 
-export default function MesuresJeunesPage({ mesuresJeunes }: MesuresJeunesPageProps) {
+export default function EspaceJeunePage({ espaceJeune }: EspaceJeunePageProps) {
   useReferrer();
   
   return (
-    <MesuresJeunesComponent mesuresJeunes={ mesuresJeunes } />
+    <EspaceJeuneComponent espaceJeune={ espaceJeune } />
   );
 }
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresJeunesPageProps>> {
-  const response = await dependencies.cmsDependencies.récupérerMesuresJeunes.handle();
+export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
+  const response = await dependencies.cmsDependencies.récupérerEspaceJeune.handle();
 
   if (response.instance === 'failure') {
     return { notFound: true, revalidate: 1 };
@@ -27,7 +27,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresJeun
 
   return {
     props: {
-      mesuresJeunes: JSON.parse(JSON.stringify(response.result)),
+      espaceJeune: JSON.parse(JSON.stringify(response.result)),
     },
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };

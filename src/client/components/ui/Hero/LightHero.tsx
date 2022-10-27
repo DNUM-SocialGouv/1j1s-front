@@ -12,13 +12,13 @@ import styles from './LightHero.module.scss';
 interface LightHeroProps extends CommonProps{
 	primaryText: string
 	secondaryText?: string
-  titleLevel?: HtmlHeadingTag
+  titleAs?: HtmlHeadingTag
 }
 
-export function LightHero({ primaryText, secondaryText, titleLevel, className }: LightHeroProps) {
+export function LightHero({ primaryText, secondaryText, titleAs, className }: LightHeroProps) {
 
   function Title() {
-    return React.createElement(titleLevel || 'h1', { className: classNames(styles.heroTitle, className ) },
+    return React.createElement(titleAs || 'h1', { className: classNames(styles.heroTitle, className ) },
       <>
         <span className={styles.heroTitlePrimaryText}>{primaryText}</span>
         {secondaryText && <span className={styles.heroTitleSecondaryText}>{secondaryText}</span>}

@@ -1,11 +1,11 @@
 import { anArticle, anArticleResponse } from '@tests/fixtures/domain/article.fixture';
-import { aMesuresJeunes, aMesuresJeunesResponse } from '@tests/fixtures/domain/mesuresJeunes.fixture';
+import { anEspaceJeune,anEspaceJeuneResponse } from '@tests/fixtures/domain/espaceJeune.fixture';
 
 import {
   mapArticle,
+  mapEspaceJeune,
   mapImage,
   mapMentionObligatoire,
-  mapMesuresJeunes,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 
 describe('strapi mapper', () => {
@@ -62,13 +62,13 @@ describe('strapi mapper', () => {
     });
   });
 
-  describe('mapMesuresJeunes', () => {
-    describe('lorsque la liste contient les mesures jeunes', () => {
-      it('retourne les mesures jeunes', () => {
-        const mesuresJeunesResponse = aMesuresJeunesResponse();
-        const expectedMesuresJeunes = aMesuresJeunes();
-        const mesuresJeunes = mapMesuresJeunes(mesuresJeunesResponse);
-        expect(mesuresJeunes).toEqual(expectedMesuresJeunes);
+  describe('mapEspaceJeune', () => {
+    describe('lorsque la liste contient les espaces jeune', () => {
+      it('retourne les espaces jeunes', () => {
+        const espaceJeuneResponse = anEspaceJeuneResponse();
+        const expectedEspaceJeune = anEspaceJeune();
+        const espaceJeune = mapEspaceJeune(espaceJeuneResponse);
+        expect(espaceJeune).toEqual(expectedEspaceJeune);
       });
     });
   });

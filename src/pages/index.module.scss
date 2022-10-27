@@ -71,7 +71,7 @@
 }
 
 
-@media only screen and (min-width:48em) {
+@include media(medium) {
     .cardListPaddingSeeMore {
         padding: 0.5rem 1.125rem 1.5rem 1.125rem;
     }
@@ -82,7 +82,7 @@
     }
 
     .cardList > a {
-        width: 360px;
+        width: 22.5rem;
     }
 
     .sectionHeader {

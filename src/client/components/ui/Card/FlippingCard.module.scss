@@ -1,0 +1,149 @@
+@import "@styles/utilities";
+
+.animate {
+  --rotate-y: 180deg;
+}
+.cardWrapper {
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 700ms;
+  transform: rotateY(var(--rotate-y, 0));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
+  background-color: $color-on-primary;
+  max-height: calc(250px + 8.75rem);
+  overflow: hidden;
+
+  &ImageWrapper {
+    position: relative;
+    flex: 0 0 150px;
+    overflow: hidden;
+  }
+
+  &Flip {
+    backface-visibility: hidden;
+  }
+
+  &FlipBack {
+    width: 100%;
+    backface-visibility: hidden;
+    background-color: $color-primary;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transform: rotateY(180deg) translateZ(1px);
+    color: $color-on-primary;
+    padding: 1rem;
+    &Action {
+      background-color: $color-on-primary;
+      border-radius: 50%;
+      padding: 0.25rem;
+      line-height: 1.4;
+      font-size: 1rem;
+      color: $color-primary;
+      width: 2rem;
+      height: 2rem;
+    }
+    &Title {
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.2;
+      margin: 1.5rem 0;
+    }
+    &Content {
+      display: flex;
+      align-items: center;
+      min-height: 10.75rem;
+      overflow: auto;
+      padding-inline: 1rem;
+    }
+  }
+
+  &Content {
+    min-height: 8.75rem;
+    padding: 1rem 1.5rem 0;
+    overflow: auto;
+
+    &Title {
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    > *:not(:first-child) {
+      font-size: 0.75rem;
+    }
+
+  }
+
+  &ActionWrapper {
+    display: flex;
+    padding: 1rem 1.5rem;
+    &SpaceBetween {
+      justify-content: space-between;
+    }
+    &FlexEnd {
+      justify-content: flex-end;
+    }
+    button {
+      text-decoration: underline;
+      color: $color-primary;
+      font-size: 0.875rem;
+    }
+  }
+
+  &Action {
+    @extend %background-primary;
+    border-radius: 20px;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-end;
+    font-size: 0.875rem;
+    padding: 0 1.5rem;
+    text-decoration: none;
+    svg {
+      margin-left: 0.5ch;
+    }
+  }
+}
+
+@include media(medium) {
+  .card {
+    max-height: calc(17.5rem + 8.75rem);
+    &ImageWrapper {
+      flex: 0 0 180px;
+    }
+
+    &FlipBackContent {
+      > *:first-child {
+        padding-top: 1rem;
+      }
+    }
+
+    &Content {
+      min-height: 170px;
+      &Title {
+        font-size: 1.25rem;
+      }
+      > *:not(:first-child) {
+        font-size: 1rem;
+      }
+    }
+
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .cardWrapper, .cardFlipBack {
+    transform: none;
+  }
+}

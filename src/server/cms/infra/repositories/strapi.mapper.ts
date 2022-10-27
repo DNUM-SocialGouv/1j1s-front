@@ -1,13 +1,13 @@
 import { Article } from '~/server/cms/domain/article';
+import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
-import { CarteMesuresJeunes, MesuresJeunes } from '~/server/cms/domain/mesuresJeunes';
 import {
   ArticleAttributesResponse,
   ArticleSimpleAttributesResponse,
+  CarteEspaceJeuneResponse,
   CarteMesuresEmployeursResponse,
-  CarteMesuresJeunesResponse,
+  EspaceJeuneAttributesResponse,
   MesuresEmployeursAttributesResponse,
-  MesuresJeunesAttributesResponse,
   StrapiCollectionTypeResponse,
   StrapiImage,
   StrapiSingleTypeResponse,
@@ -86,12 +86,9 @@ function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): Fi
   };
 }
 
-export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article|undefined {
-  if (!article.data ) {
-    return undefined;
-  }
-  const attr = article.data.attributes;
-  return attr;
+export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article | undefined {
+  if (!article || !article.data ) { return undefined; }
+  return  article.data.attributes;
 }
 
 export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse>): MesuresEmployeurs {
@@ -102,34 +99,53 @@ export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresE
   };
 }
 
-function mapCartesMesuresEmployeursList(listeCartes: CarteMesuresEmployeursResponse[]): CarteMesuresEmployeurs[] {
-  return listeCartes.map((carte) => ({
-    bannière: mapImage(carte.banniere),
-    contenu: carte.contenu,
-    pourQui : carte.pourQui,
-    titre: carte.titre,
-    url: carte.url,
-    ...(carte.article.data ? { article: mapArticleRelation(carte.article) } : {}),
-  }));
+function mapCartesMesuresEmployeursList(carteMesuresEmployeursList: CarteMesuresEmployeursResponse[]): CarteMesuresEmployeurs[] {
+  return carteMesuresEmployeursList.map<CarteMesuresEmployeurs>((carteMesuresEmployeurs) => {
+    const { banniere, contenu, titre, url, pourQui } = carteMesuresEmployeurs;
+    const article = mapArticleRelation(carteMesuresEmployeurs.article);
+    return {
+      article: article ?? null,
+      bannière: mapImage(banniere),
+      contenu,
+      extraitContenu: getExtraitContenu(contenu, 110),
+      link: article ? `/articles/${article.slug}` : url,
+      pourQui,
+      titre,
+      url,
+    };
+  });
 }
 
-export function mapMesuresJeunes(response: StrapiSingleTypeResponse<MesuresJeunesAttributesResponse>): MesuresJeunes {
+export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
   const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
 
   return {
-    accompagnement: mapCartesMesuresJeuneList(accompagnement),
-    aidesFinancières: mapCartesMesuresJeuneList(aidesFinancieres),
-    orienterFormer: mapCartesMesuresJeuneList(orienterFormer),
-    vieProfessionnelle: mapCartesMesuresJeuneList(vieProfessionnelle),
+    accompagnement: mapCartesEspaceJeuneList(accompagnement),
+    aidesFinancières: mapCartesEspaceJeuneList(aidesFinancieres),
+    orienterFormer: mapCartesEspaceJeuneList(orienterFormer),
+    vieProfessionnelle: mapCartesEspaceJeuneList(vieProfessionnelle),
   };
 }
 
-function mapCartesMesuresJeuneList(cartesMesuresJeunesList: CarteMesuresJeunesResponse[]): CarteMesuresJeunes[] {
-  return cartesMesuresJeunesList.map<CarteMesuresJeunes>((carteMesuresJeunes) => {
-    const { banniere, contenu, titre, url } = carteMesuresJeunes;
+function getExtraitContenu(contenu: string, size = 120): string {
+  if (contenu.length < size) return contenu;
+  const end = contenu.substring(size);
+  const charactersLeft = end.indexOf(' ');
+  const brief = contenu.substring(0, size + charactersLeft);
+  return `${brief} …`;
+}
+
+function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneResponse[]): CarteEspaceJeune[] {
+  return cartesEspaceJeuneList.map<CarteEspaceJeune>((carteEspaceJeune) => {
+    const { banniere, contenu, titre, url, pourQui } = carteEspaceJeune;
+    const article = mapArticleRelation(carteEspaceJeune.article);
     return {
+      article: article ?? null,
       bannière: mapImage(banniere),
-      contenu: contenu,
+      concerné: pourQui,
+      contenu,
+      extraitContenu: getExtraitContenu(contenu, 110),
+      link: article ? `/articles/${article.slug}` : url,
       titre,
       url,
     };

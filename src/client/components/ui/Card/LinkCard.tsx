@@ -12,13 +12,13 @@ interface LinkCardProps {
 	link: string
 	linkLabel?: string
 	title: string
-  titleLevel?: HtmlHeadingTag
+  titleAs?: HtmlHeadingTag
 }
 
-export function LinkCard({ children, imageUrl, link, linkLabel, title, titleLevel }: React.PropsWithChildren<LinkCardProps>)  {
+export function LinkCard({ children, imageUrl, link, linkLabel, title, titleAs }: React.PropsWithChildren<LinkCardProps>)  {
 
-  function LinkCardTitle({ children, className }: { titleLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-    return React.createElement(titleLevel || 'h3', { className: className }, children);
+  function LinkCardTitle({ children, className }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
+    return React.createElement(titleAs || 'h3', { className: className }, children);
   }
 
   return (

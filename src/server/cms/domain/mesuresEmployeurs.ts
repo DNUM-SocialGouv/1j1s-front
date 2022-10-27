@@ -11,7 +11,9 @@ export interface CarteMesuresEmployeurs {
   contenu: string
   bannière: Image | undefined
   url?: string
-  article?: Article
+  article: Article | null
   pourQui : string
+  link: string
+  extraitContenu: string
 }
 

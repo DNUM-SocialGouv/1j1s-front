@@ -10,6 +10,10 @@
   justify-content: center;
   gap: 1.5rem;
   flex-direction: column;
+  flex-wrap: wrap;
+  max-width: $breakpoint-xl;
+  margin: auto;
+
 }
 
 .heroText {
@@ -17,8 +21,8 @@
 }
 
 .bannière {
-  background-color:white;
-  color: $color-primary;
+  background-color: $color-background !important;
+  color: $color-primary !important;
   h1 {
     font-size: 2rem;
     line-height: 1.4;
@@ -63,7 +67,7 @@
 }
 
 
-@include media(medium){
+@include media(medium) {
   .cardListPaddingSeeMore {
     padding: 0.5rem 1.125rem 1.5rem 1.125rem;
   }
@@ -71,10 +75,9 @@
   .cardList {
     gap: 2rem;
     flex-direction: row;
-  }
-
-  .cardList > a {
-    width: 360px;
+    > div {
+      width: 22.5rem;
+    }
   }
 
   .sectionHeader {
