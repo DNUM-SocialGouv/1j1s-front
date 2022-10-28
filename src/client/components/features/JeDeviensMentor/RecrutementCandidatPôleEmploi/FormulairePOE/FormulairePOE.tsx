@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulairePOE/FormulairePOE.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -19,23 +19,6 @@ import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 
-interface FormulaireEtape1Props {
-  siret: string;
-  nomSociété: string;
-  codePostal: string;
-  ville: string;
-  secteur: string;
-  taille: string;
-}
-
-interface FormulaireEtape2Props {
-  prénom: string;
-  nom: string;
-  email: string;
-  travail: string;
-  téléphone: string;
-}
-
 export enum Etape {
   ETAPE_1 = 'Etape 1 sur 3',
   ETAPE_2 = 'Etape 2 sur 3',
@@ -49,41 +32,22 @@ export function FormulairePOE() {
   const router = useRouter();
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
 
-  const [formulaireEtape1, setFormulaireEtape1] = useState<FormulaireEtape1Props>({
-    codePostal: '',
-    nomSociété: '',
-    secteur: '',
-    siret: '',
-    taille: '',
-    ville: '',
-  });
-
-  const [formulaireEtape2, setFormulaireEtape2] = useState<FormulaireEtape2Props>({
-    email: '',
-    nom: '',
-    prénom: '',
-    travail: '',
-    téléphone: '',
-  });
-
 
   const isPremièreEtape = () => etape === Etape.ETAPE_1;
   const isDeuxièmeEtape = () => etape === Etape.ETAPE_2;
   const isTroisièmeEtape = () => etape === Etape.ETAPE_3;
-  const isPremièreEtapeValid = () => Object.values(formulaireEtape1).every((value) => value.length > 0);
-  const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
 
   const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
   const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 
   function redirectionEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    return (isPremièreEtape() && isPremièreEtapeValid()) && setEtape(Etape.ETAPE_2);
+    return isPremièreEtape() && setEtape(Etape.ETAPE_2);
   }
 
   function redirectionEtape3(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    return (isDeuxièmeEtape() && isDeuxièmeEtapeValid()) && setEtape(Etape.ETAPE_3);
+    return isDeuxièmeEtape() && setEtape(Etape.ETAPE_3);
   }
 
   function redirectionRejoindreMobilisationPOE() {
@@ -143,11 +107,6 @@ export function FormulairePOE() {
                   label="Indiquez le nom de l’entreprise"
                   name="companyName"
                   placeholder="Exemple : Crédit Agricole, SNCF…"
-                  value={formulaireEtape1.nomSociété}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
-                    ...formulaireEtape1,
-                    nomSociété: event.currentTarget.value,
-                  })}
                   required
                   className={styles.formulaireInput}
                 />
@@ -160,24 +119,14 @@ export function FormulairePOE() {
                   valeurInitiale={autocomplétionCommuneValeur}
                   onSuggestionSelected={(event, suggestion) => {
                     setAutocomplétionCommuneValeur(suggestion);
-                    setFormulaireEtape1({
-                      ...formulaireEtape1,
-                      codePostal: suggestion.codePostal,
-                      ville: suggestion.ville,
-                    });
                   }}
                 />
                 <InputText
                   label="Indiquez votre numéro de SIRET"
                   name="companySiret"
                   placeholder="Exemple : 12345678901112"
-                  value={formulaireEtape1.siret}
                   required
                   pattern={'^[0-9]{14}$'}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
-                    ...formulaireEtape1,
-                    siret: event.currentTarget.value,
-                  })}
                   className={styles.formulaireInput}
                 />
                 <InputAutocomplétionSecteurActivité
@@ -189,10 +138,6 @@ export function FormulairePOE() {
                   valeurInitiale={secteurActivitéValeur}
                   onSuggestionSelected={(event, suggestion) => {
                     setSecteurActivitéValeur(suggestion);
-                    setFormulaireEtape1({
-                      ...formulaireEtape1,
-                      secteur: suggestion.valeur,
-                    });
                   }}
                 />
                 <Select
@@ -201,11 +146,6 @@ export function FormulairePOE() {
                   name="companySize"
                   placeholder="Exemple : 500 à 999 salariés"
                   optionList={taillesEntreprises}
-                  onChange={(value: string) => setFormulaireEtape1({
-                    ...formulaireEtape1,
-                    taille: value,
-                  })}
-                  value={formulaireEtape1.taille}
                 />
               </div>
 
@@ -237,23 +177,13 @@ export function FormulairePOE() {
                   name="lastName"
                   placeholder="Exemple : Dupont"
                   required
-                  value={formulaireEtape2.nom}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
-                    ...formulaireEtape2,
-                    nom: event.currentTarget.value,
-                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
                   label="Indiquez votre prénom"
                   name="firstName"
                   placeholder="Exemple : David"
-                  value={formulaireEtape2.prénom}
                   required
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
-                    ...formulaireEtape2,
-                    prénom: event.currentTarget.value,
-                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -261,12 +191,7 @@ export function FormulairePOE() {
                   name="phone"
                   placeholder="Exemple : 0601020304"
                   pattern="^(\+33|0|0033)[1-9]\d{8}$"
-                  value={formulaireEtape2.téléphone}
                   required
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
-                    ...formulaireEtape2,
-                    téléphone: event.currentTarget.value,
-                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -274,12 +199,7 @@ export function FormulairePOE() {
                   type="email"
                   name="email"
                   placeholder="Exemple : david.dupont@exemple.fr"
-                  value={formulaireEtape2.email}
                   required
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
-                    ...formulaireEtape2,
-                    email: event.currentTarget.value,
-                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -287,11 +207,6 @@ export function FormulairePOE() {
                   name="job"
                   placeholder="Exemple : RH, Manager référent"
                   required
-                  value={formulaireEtape2.travail}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
-                    ...formulaireEtape2,
-                    travail: event.currentTarget.value,
-                  })}
                   className={styles.formulaireInput}
                 />
               </div>
