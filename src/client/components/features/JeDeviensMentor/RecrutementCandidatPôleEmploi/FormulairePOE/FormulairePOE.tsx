@@ -140,19 +140,6 @@ export function FormulairePOE() {
 
               <div className={styles.bodyFormulaire}>
                 <InputText
-                  label="Indiquez votre numéro de SIRET"
-                  name="companySiret"
-                  placeholder="Exemple : 12345678901112"
-                  value={formulaireEtape1.siret}
-                  required
-                  pattern={'^[0-9]{14}$'}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
-                    ...formulaireEtape1,
-                    siret: event.currentTarget.value,
-                  })}
-                  className={styles.formulaireInput}
-                />
-                <InputText
                   label="Indiquez le nom de l’entreprise"
                   name="companyName"
                   placeholder="Exemple : Crédit Agricole, SNCF…"
@@ -179,6 +166,19 @@ export function FormulairePOE() {
                       ville: suggestion.ville,
                     });
                   }}
+                />
+                <InputText
+                  label="Indiquez votre numéro de SIRET"
+                  name="companySiret"
+                  placeholder="Exemple : 12345678901112"
+                  value={formulaireEtape1.siret}
+                  required
+                  pattern={'^[0-9]{14}$'}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                    ...formulaireEtape1,
+                    siret: event.currentTarget.value,
+                  })}
+                  className={styles.formulaireInput}
                 />
                 <InputAutocomplétionSecteurActivité
                   required
