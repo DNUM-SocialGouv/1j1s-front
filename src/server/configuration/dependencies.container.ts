@@ -32,7 +32,7 @@ import {
 } from '~/server/fiche-metier/configuration/ficheMetier.dependencies';
 import {
   ApiPoleEmploiJobÉtudiantRepository,
-} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiantRepository';
+} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
 import { RechercherOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobÉtudiantUseCase';
 import {

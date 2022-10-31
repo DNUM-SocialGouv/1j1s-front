@@ -17,7 +17,7 @@ import { createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
   ApiPoleEmploiJobÉtudiantRepository,
-} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiantRepository';
+} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
   mapOffre,
