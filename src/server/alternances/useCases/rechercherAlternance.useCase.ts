@@ -6,6 +6,6 @@ export class RechercherAlternanceUseCase {
   constructor(private offreRepository: OffreRepository) {}
 
   async handle(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    return await this.offreRepository.search(offreFiltre);
+    return this.offreRepository.search(offreFiltre);
   }
 }

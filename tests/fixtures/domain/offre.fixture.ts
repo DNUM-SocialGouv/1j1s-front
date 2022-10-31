@@ -98,13 +98,13 @@ export function anOffreEmploiFiltre(override?: Partial<EmploiFiltre>): EmploiFil
   };
 }
 
-export function anOffreEchantillonFiltre(): OffreFiltre {
+export function anOffreÉchantillonFiltre(): OffreFiltre {
   return {
     page: 1,
   };
 }
 
-export function anOffreEchantillonAvecLocalisationEtMotCléFiltre(override?: Partial<OffreFiltre>): OffreFiltre {
+export function anOffreÉchantillonAvecLocalisationEtMotCléFiltre(override?: Partial<OffreFiltre>): OffreFiltre {
   return {
     localisation: {
       code: '75001',

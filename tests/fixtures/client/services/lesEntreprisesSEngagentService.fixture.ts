@@ -5,7 +5,7 @@ import { Entreprise } from '~/server/entreprises/domain/Entreprise';
 import { RejoindreLaMobilisation } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createSuccess } from '~/server/errors/either';
 
-export function aLesEntreprisesSEngagementService(): LesEntreprisesSEngagentService {
+export function aLesEntreprisesSEngagentService(): LesEntreprisesSEngagentService {
   return {
     envoyerFormulaireEngagement: jest.fn().mockResolvedValue(createSuccess(undefined)),
   } as unknown as LesEntreprisesSEngagentService;

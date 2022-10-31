@@ -21,8 +21,7 @@ export class PoleEmploiParamètreBuilderService {
 
     const localisation = await this.buildLocalisation(offreFiltre);
 
-    // eslint-disable-next-line
-    const queryList: Record<string, any> = {
+    const queryList: Record<string, string> = {
       ...localisation,
       motsCles: offreFiltre.motClé || '',
       range: buildRangeParamètre(offreFiltre),
@@ -35,22 +34,25 @@ export class PoleEmploiParamètreBuilderService {
     return params.toString();
   }
 
-  private async buildLocalisation(offreEmploiFiltre: OffreFiltre) {
+  private async buildLocalisation(offreEmploiFiltre: OffreFiltre): Promise<Record<string, string>> {
     if (offreEmploiFiltre.localisation) {
       const typeLocalisation = offreEmploiFiltre.localisation.type;
-      if (typeLocalisation === TypeLocalisation.REGION) {
-        return { region: offreEmploiFiltre.localisation.code };
-      } else if (typeLocalisation === TypeLocalisation.DEPARTEMENT) {
-        return { departement: offreEmploiFiltre.localisation.code };
-      } else if (typeLocalisation === TypeLocalisation.COMMUNE) {
-        const codeInseeInRéférentiel = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(offreEmploiFiltre.localisation.code);
-        return { commune: codeInseeInRéférentiel };
+      switch (typeLocalisation) {
+        case TypeLocalisation.REGION:
+          return { region: offreEmploiFiltre.localisation.code };
+        case TypeLocalisation.DEPARTEMENT:
+          return { departement: offreEmploiFiltre.localisation.code };
+        case TypeLocalisation.COMMUNE: {
+          const codeInseeInRéférentiel = await this.apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune(offreEmploiFiltre.localisation.code);
+          return { commune: codeInseeInRéférentiel };
+        }
+        default:
+          return {};
       }
     } else {
-      return undefined;
+      return {};
     }
   }
-
 }
 
 export function buildRangeParamètre(offreFiltre: OffreFiltre) {

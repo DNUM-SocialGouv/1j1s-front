@@ -8,17 +8,17 @@ import { PageContextParamsException } from '~/server/exceptions/pageContextParam
 import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { dependencies } from '~/server/start';
 
-interface ConsulterJobEtudiantPageProps {
-  jobEtudiant: Offre;
+interface ConsulterJobÉtudiantPageProps {
+  jobÉtudiant: Offre;
 }
 
-export default function ConsulterJobEtudiantPage({ jobEtudiant }: ConsulterJobEtudiantPageProps) {
-  if (!jobEtudiant) return null;
+export default function ConsulterJobÉtudiantPage({ jobÉtudiant }: ConsulterJobÉtudiantPageProps) {
+  if (!jobÉtudiant) return null;
 
   return (
     <>
-      <HeadTag title={`${jobEtudiant.intitulé} | 1jeune1solution`} />
-      <ConsulterOffreEmploi offreEmploi={jobEtudiant} />
+      <HeadTag title={`${jobÉtudiant.intitulé} | 1jeune1solution`} />
+      <ConsulterOffreEmploi offreEmploi={jobÉtudiant} />
     </>
   );
 }
@@ -27,7 +27,7 @@ interface EmploiContext extends ParsedUrlQuery {
   id: OffreId;
 }
 
-export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobEtudiantPageProps>> {
+export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobÉtudiantPageProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
@@ -40,7 +40,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
 
   return {
     props: {
-      jobEtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
+      jobÉtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
     },
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };

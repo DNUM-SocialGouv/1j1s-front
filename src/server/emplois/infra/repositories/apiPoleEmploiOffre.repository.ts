@@ -1,7 +1,7 @@
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { isOffreEchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { isOffreÉchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
   mapOffre,
@@ -33,24 +33,23 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
   private ECHANTILLON_OFFRE_EMPLOI_KEY = 'ECHANTILLON_OFFRE_EMPLOI_KEY';
 
   async get(id: OffreId): Promise<Either<Offre>> {
-    return await this.httpClientServiceWithAuthentification.get<OffreResponse, Offre>(
+    return this.httpClientServiceWithAuthentification.get<OffreResponse, Offre>(
       `/${id}`,
       mapOffre,
     );
   }
 
   async search(emploiFiltre: EmploiFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    if (isOffreEchantillonFiltre(emploiFiltre)) return await this.getEchantillonOffreEmploi(emploiFiltre);
-    return await this.getOffreEmploiRecherche(emploiFiltre);
+    if (isOffreÉchantillonFiltre(emploiFiltre)) return this.getÉchantillonOffreEmploi(emploiFiltre);
+    return this.getOffreEmploiRecherche(emploiFiltre);
   }
 
   async buildEmploiParamètresRecherche(emploiFiltre: EmploiFiltre): Promise<string | undefined> {
-    // eslint-disable-next-line
-    const queryList: Record<string, any> = {
+    const queryList: Record<string, string> = {
       experienceExigence: emploiFiltre.experienceExigence || '',
-      grandDomaine: emploiFiltre.grandDomaineList && emploiFiltre.grandDomaineList.join(',') || '',
+      grandDomaine: emploiFiltre.grandDomaineList?.join(',') || '',
       tempsPlein: buildTempsDeTravailParamètre(emploiFiltre),
-      typeContrat: emploiFiltre.typeDeContratList && emploiFiltre.typeDeContratList.join(',') || '',
+      typeContrat: emploiFiltre.typeDeContratList?.join(',') || '',
     };
 
     removeUndefinedValueInQueryParameterList(queryList);
@@ -64,7 +63,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
     const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(emploiFiltre);
     const emploiParamètresRecherche = await this.buildEmploiParamètresRecherche(emploiFiltre);
     if(paramètresRecherche) {
-      return await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffre>(
+      return this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffre>(
         `/search?${emploiParamètresRecherche}&${paramètresRecherche}&${this.paramètreParDéfaut}`,
         mapRésultatsRechercheOffre,
       );
@@ -72,7 +71,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
     return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
   }
 
-  private async getEchantillonOffreEmploi(emploiFiltre: EmploiFiltre) {
+  private async getÉchantillonOffreEmploi(emploiFiltre: EmploiFiltre) {
     const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_EMPLOI_KEY);
     const range = buildRangeParamètre(emploiFiltre);
 

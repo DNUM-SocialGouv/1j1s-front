@@ -1,12 +1,7 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import {
-  isOffreÉchantillonFiltre,
-  Offre,
-  OffreFiltre,
-  OffreId,
-  RésultatsRechercheOffre,
-} from '~/server/offres/domain/offre';
+import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
+import { isOffreÉchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
   mapOffre,
@@ -23,17 +18,19 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
-export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
+export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
+
   constructor(
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
   ) {}
-  
-  paramètreParDéfaut = 'natureContrat=E2,FS';
 
-  private ECHANTILLON_OFFRE_ALTERNANCE_KEY = 'ECHANTILLON_OFFRE_ALTERNANCE_KEY';
+  paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
+
+  private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
 
   async get(id: OffreId): Promise<Either<Offre>> {
     return this.httpClientServiceWithAuthentification.get<OffreResponse, Offre>(
@@ -42,25 +39,38 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
     );
   }
 
-  async search(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    if (isOffreÉchantillonFiltre(offreFiltre)) return this.getÉchantillonOffreAlternance(offreFiltre);
-    return this.getOffreAlternanceRecherche(offreFiltre);
+  async search(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
+    if (isOffreÉchantillonFiltre(jobÉtudiantFiltre)) return this.getÉchantillonJobÉtudiant(jobÉtudiantFiltre);
+    return this.getOffreJobÉtudiantRecherche(jobÉtudiantFiltre);
   }
 
-  private async getOffreAlternanceRecherche(offreFiltre: OffreFiltre) {
-    const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(offreFiltre);
+  async buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<string | undefined> {
+    const queryList: Record<string, string> = {
+      grandDomaine: jobÉtudiantFiltre.grandDomaineList?.join(',') || '',
+    };
+
+    removeUndefinedValueInQueryParameterList(queryList);
+
+    const params = new URLSearchParams(queryList);
+
+    return params.toString();
+  }
+
+  private async getOffreJobÉtudiantRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre) {
+    const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(jobÉtudiantFiltre);
+    const jobÉtudiantParamètresRecherche = await this.buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre);
     if(paramètresRecherche) {
       return this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffre>(
-        `/search?${paramètresRecherche}&${this.paramètreParDéfaut}`,
+        `/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
         mapRésultatsRechercheOffre,
       );
     }
     return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
   }
 
-  private async getÉchantillonOffreAlternance(offreFiltre: OffreFiltre) {
-    const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_ALTERNANCE_KEY);
-    const range = buildRangeParamètre(offreFiltre);
+  async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobÉtudiantFiltre) {
+    const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY);
+    const range = buildRangeParamètre(jobÉtudiantFiltre);
 
     if (responseInCache) return createSuccess(mapRésultatsRechercheOffre(responseInCache));
     else {
@@ -70,12 +80,11 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
       );
       switch (response.instance) {
         case 'success': {
-          this.cacheService.set(this.ECHANTILLON_OFFRE_ALTERNANCE_KEY, response.result, 24);
+          this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.result, 24);
           return createSuccess(mapRésultatsRechercheOffre(response.result));
         }
         case 'failure': return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
       }
     }
   }
-
 }

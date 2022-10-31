@@ -7,7 +7,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 
@@ -19,7 +19,7 @@ export function FormulaireRechercheAlternance() {
   const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState<string>('');
   const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
 
-  const queryParams = useOffreEmploiQuery();
+  const queryParams = useOffreQuery();
   const router = useRouter();
 
   useEffect(function initFormValues() {

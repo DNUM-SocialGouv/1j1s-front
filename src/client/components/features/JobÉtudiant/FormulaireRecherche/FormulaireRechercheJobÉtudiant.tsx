@@ -9,10 +9,10 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
+  mapRéférentielDomaineToOffreCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 
 
@@ -25,7 +25,7 @@ export function FormulaireRechercheJobÉtudiant() {
   const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState<string>('');
   const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
 
-  const queryParams = useOffreEmploiQuery();
+  const queryParams = useOffreQuery();
   const router = useRouter();
 
   useEffect(function initFormValues() {
@@ -67,7 +67,7 @@ export function FormulaireRechercheJobÉtudiant() {
 
           <Select
             multiple
-            optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+            optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
             onChange={setInputDomaine}
             label="Domaine"
             value={inputDomaine}

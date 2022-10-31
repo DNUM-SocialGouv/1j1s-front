@@ -13,10 +13,10 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
+  mapRéférentielDomaineToOffreCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 import { Offre } from '~/server/offres/domain/offre';
@@ -46,7 +46,7 @@ export function FormulaireRechercheOffreEmploi() {
   const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState('');
   const [inputCodeLocalisation, setInputCodeLocalisation] = useState('');
 
-  const queryParams = useOffreEmploiQuery();
+  const queryParams = useOffreQuery();
   const { isSmallScreen } = useBreakpoint();
   const router = useRouter();
 
@@ -222,7 +222,7 @@ export function FormulaireRechercheOffreEmploi() {
             />
             <Select
               multiple
-              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+              optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
               onChange={setInputDomaine}
               value={inputDomaine}
               name="grandDomaine"

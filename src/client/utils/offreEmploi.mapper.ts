@@ -4,12 +4,12 @@ export function mapTypeDeContratToOffreEmploiCheckboxFiltre(typeDeContratList: O
   return typeDeContratList.map((typeDeContrat) => {
     return {
       libellé: typeDeContrat.libelléCourt,
-      valeur: typeDeContrat.valeur as string,
+      valeur: typeDeContrat.valeur.toString(),
     };
   });
 }
 
-export function mapRéférentielDomaineToOffreEmploiCheckboxFiltre(domaineList: RéférentielDomaine[]): Offre.CheckboxFiltre[] {
+export function mapRéférentielDomaineToOffreCheckboxFiltre(domaineList: RéférentielDomaine[]): Offre.CheckboxFiltre[] {
   return domaineList.map((domaine) => {
     return {
       libellé: domaine.libelle,

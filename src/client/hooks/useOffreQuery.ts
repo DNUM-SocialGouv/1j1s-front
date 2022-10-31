@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface OffreEmploiQueryParams {
+interface OffreQueryParams {
   motCle?: string
   typeDeContrats?: string
   typeLocalisation?: string
@@ -14,8 +14,8 @@ interface OffreEmploiQueryParams {
   grandDomaine?: string
 }
 
-export function useOffreEmploiQuery(): OffreEmploiQueryParams {
-  const [offreEmploiQueryParams, setOffreEmploiQueryParams] = useState<OffreEmploiQueryParams>({
+export function useOffreQuery(): OffreQueryParams {
+  const [offreQueryParams, setOffreQueryParams] = useState<OffreQueryParams>({
     codeLocalisation: undefined,
     experienceExigence: undefined,
     grandDomaine: undefined,
@@ -29,7 +29,7 @@ export function useOffreEmploiQuery(): OffreEmploiQueryParams {
   const { query } = useRouter();
 
   useEffect(() => {
-    setOffreEmploiQueryParams({
+    setOffreQueryParams({
       codeLocalisation: getSingleQueryParam(query.codeLocalisation),
       experienceExigence: getSingleQueryParam(query.experienceExigence),
       grandDomaine: getSingleQueryParam(query.grandDomaine),
@@ -41,5 +41,5 @@ export function useOffreEmploiQuery(): OffreEmploiQueryParams {
     });
   }, [query]);
 
-  return offreEmploiQueryParams;
+  return offreQueryParams;
 }

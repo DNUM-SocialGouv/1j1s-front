@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { Offre } from '~/server/offres/domain/offre';
 
 export function ÉtiquettesFiltreOffreEmploi() {
   const [filtres, setFiltres] = useState<string[]>([]);
-  const offreEmploiQuery = useOffreEmploiQuery();
+  const offreEmploiQuery = useOffreQuery();
 
   useEffect(() => {
     const filtreList: string[] = [];

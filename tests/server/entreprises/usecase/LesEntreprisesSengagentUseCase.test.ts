@@ -1,4 +1,4 @@
-import { uneCommandeRejoindreLaMobilisation, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { uneCommandeRejoindreLaMobilisation, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
@@ -35,7 +35,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
         // Then
         expect(secondaryRepository.save).not.toHaveBeenCalled();
       });
-      it('résoud un succès', async () => {
+      it('résout un succès', async () => {
         // When
         const actual = await usecase.rejoindreLaMobilisation(commande);
         // Then
@@ -52,7 +52,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
           // Then
           expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise, ErreurMétier.SERVICE_INDISPONIBLE);
         });
-        it('résoud un succès', async () => {
+        it('résout un succès', async () => {
           // When
           const actual = await usecase.rejoindreLaMobilisation(commande);
           // Then
@@ -63,7 +63,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
           beforeEach(() => {
             secondaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
           });
-          it('résoud une erreur SERVICE INDISPONIBLE', async () => {
+          it('résout une erreur SERVICE INDISPONIBLE', async () => {
             // When
             const actual = await usecase.rejoindreLaMobilisation(commande);
             // Then
@@ -83,7 +83,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
           // Then
           expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise, ErreurMétier.DEMANDE_INCORRECTE);
         });
-        it('résoud un succès', async () => {
+        it('résout un succès', async () => {
           // When
           const actual = await usecase.rejoindreLaMobilisation(commande);
           // Then
@@ -131,7 +131,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
     ];
     for (const invalid of invalidFields) {
       describe(`mais avec ${JSON.stringify(invalid)}`, () => {
-        it('résoud une Failure', async () => {
+        it('résout une Failure', async () => {
           // Given
           const commandeInvalide = { ...commande, ...invalid };
           // When

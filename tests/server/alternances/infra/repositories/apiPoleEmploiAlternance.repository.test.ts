@@ -1,11 +1,11 @@
 import {
   aBarmanOffre,
-  anOffreEchantillonFiltre,
+  anOffreÉchantillonFiltre,
   anOffreEmploiFiltre,
   aRésultatsRechercheOffre,
 } from '@tests/fixtures/domain/offre.fixture';
 import {
-  aPoleEmploiParamTreBuilderService,
+  aPoleEmploiParamètreBuilderService,
 } from '@tests/fixtures/server/offresEmploi/poleEmploiParamètreBuilder.service.fixture';
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
 import {
@@ -39,7 +39,7 @@ describe('ApiPoleEmploiAlternanceRepository', () => {
   beforeEach(() => {
     cacheService = new MockedCacheService();
     httpClientServiceWithAuthentification = aPoleEmploiHttpClient();
-    poleEmploiParamètreBuilderService = aPoleEmploiParamTreBuilderService();
+    poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
     apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService);
   });
 
@@ -78,7 +78,7 @@ describe('ApiPoleEmploiAlternanceRepository', () => {
           jest.spyOn(cacheService, 'get').mockResolvedValue(null);
           jest.spyOn(cacheService, 'set');
 
-          const offreFiltre = anOffreEchantillonFiltre();
+          const offreFiltre = anOffreÉchantillonFiltre();
 
           const { result } = await apiPoleEmploiAlternanceRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
 
@@ -99,7 +99,7 @@ describe('ApiPoleEmploiAlternanceRepository', () => {
           jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
           jest.spyOn(cacheService, 'set');
 
-          const offreFiltre = anOffreEchantillonFiltre();
+          const offreFiltre = anOffreÉchantillonFiltre();
 
           const { result } = await apiPoleEmploiAlternanceRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
 

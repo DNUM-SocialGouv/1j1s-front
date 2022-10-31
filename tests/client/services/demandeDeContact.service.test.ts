@@ -12,6 +12,7 @@ describe('DemandeDeContactService', () => {
       const demandeContactService = new DemandeDeContactService(httpClientService);
       const body = {
         age: 18,
+        codePostal: '95000',
         email: 'toto@msn.fr',
         nom: 'Mc Totface',
         prénom: 'Toto',
@@ -32,6 +33,7 @@ describe('DemandeDeContactService', () => {
       const demandeContactService = new DemandeDeContactService(httpClientService);
       const body = {
         age: 18,
+        codePostal: '95000',
         email: 'toto@msn.fr',
         nom: 'Mc Totface',
         prénom: 'Toto',

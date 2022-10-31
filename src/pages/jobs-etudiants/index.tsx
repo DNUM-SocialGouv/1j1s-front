@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
 import useReferrer from '~/client/hooks/useReferrer';
 
-export default function RechercherJobEtudiantPage() {
+export default function RechercherJobÉtudiantPage() {
   const router = useRouter();
 
   useReferrer();

@@ -31,10 +31,10 @@ import {
   ficheMetierDependenciesContainer,
 } from '~/server/fiche-metier/configuration/ficheMetier.dependencies';
 import {
-  ApiPoleEmploiJobEtudiantRepository,
-} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobEtudiant.repository';
-import { ConsulterOffreJobEtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobEtudiant.useCase';
-import { RechercherOffreJobEtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobEtudiant.useCase';
+  ApiPoleEmploiJobÉtudiantRepository,
+} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiantRepository';
+import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
+import { RechercherOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobÉtudiantUseCase';
 import {
   localisationDependenciesContainer,
   LocalisationsDependencies,
@@ -60,7 +60,7 @@ export type Dependencies = {
   localisationDependencies: LocalisationsDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies
   entrepriseDependencies: EntrepriseDependencies
-  offreJobEtudiantDependencies: OffresJobEtudiantDependencies
+  offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
   offreAlternanceDependencies: OffresAlternanceDependencies
 };
 
@@ -69,9 +69,9 @@ export interface OffresEmploiDependencies {
   rechercherOffreEmploi: RechercherOffreEmploiUseCase
 }
 
-export interface OffresJobEtudiantDependencies {
-  consulterOffreJobEtudiant: ConsulterOffreJobEtudiantUseCase
-  rechercherOffreJobEtudiant: RechercherOffreJobEtudiantUseCase
+export interface OffresJobÉtudiantDependencies {
+  consulterOffreJobÉtudiant: ConsulterOffreJobÉtudiantUseCase
+  rechercherOffreJobÉtudiant: RechercherOffreJobÉtudiantUseCase
 }
 
 export interface OffresAlternanceDependencies {
@@ -122,10 +122,10 @@ export const dependenciesContainer = (): Dependencies => {
     rechercherOffreEmploi: new RechercherOffreEmploiUseCase(apiPoleEmploiOffreRepository),
   };
 
-  const apiPoleJobEtudiantOffreRepository = new ApiPoleEmploiJobEtudiantRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
-  const offreJobEtudiantDependencies: OffresJobEtudiantDependencies = {
-    consulterOffreJobEtudiant: new ConsulterOffreJobEtudiantUseCase(apiPoleJobEtudiantOffreRepository),
-    rechercherOffreJobEtudiant: new RechercherOffreJobEtudiantUseCase(apiPoleJobEtudiantOffreRepository),
+  const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
+  const offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies = {
+    consulterOffreJobÉtudiant: new ConsulterOffreJobÉtudiantUseCase(apiPoleEmploiJobÉtudiantOffreRepository),
+    rechercherOffreJobÉtudiant: new RechercherOffreJobÉtudiantUseCase(apiPoleEmploiJobÉtudiantOffreRepository),
   };
   
   const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
@@ -145,6 +145,6 @@ export const dependenciesContainer = (): Dependencies => {
     localisationDependencies,
     offreAlternanceDependencies,
     offreEmploiDependencies,
-    offreJobEtudiantDependencies,
+    offreJobÉtudiantDependencies: offreJobÉtudiantDependencies,
   };
 };

@@ -166,7 +166,7 @@ export interface RéférentielDomaine {
 
 export const NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE = 15;
 
-export function isOffreEchantillonFiltre(offreFiltre: OffreFiltre) {
+export function isOffreÉchantillonFiltre(offreFiltre: OffreFiltre) {
   const { page, ...rest } = offreFiltre;
   const emploiFiltreSanitanized = Object.values(rest);
   return page === 1 && emploiFiltreSanitanized.every((value) => value === undefined);

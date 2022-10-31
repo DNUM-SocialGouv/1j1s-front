@@ -52,7 +52,7 @@ export default function Inscription() {
   const [isContactezNousOpen, setIsContactezNousOpen] = useState<boolean>(false);
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-  const lesEntreprisesSEngagementService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagementService');
+  const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 
   const [formulaireEtape1, setFormulaireEtape1] = useState<FormulaireEtape1Props>({
     codePostal: '',
@@ -90,7 +90,7 @@ export default function Inscription() {
     event.preventDefault();
 
     if (isPremièreEtapeValid() && isDeuxièmeEtapeValid()) {
-      const response = await lesEntreprisesSEngagementService.envoyerFormulaireEngagement({ ...formulaireEtape1, ...formulaireEtape2 });
+      const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireEtape1, ...formulaireEtape2 });
 
       if (isSuccess(response)) {
         setIsFormSuccessfullySent(true);

@@ -7,6 +7,6 @@ export class ConsulterOffreEmploiUseCase {
   }
 
   async handle(id: OffreId): Promise<Either<Offre>> {
-    return await this.offreRepository.get(id);
+    return this.offreRepository.get(id);
   }
 }

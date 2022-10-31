@@ -8,10 +8,10 @@ import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
-  anOffreEmploiService,
-  aNoResultOffreEmploiService,
-  aSingleResultOffreEmploiService,
-} from '@tests/fixtures/client/services/offreEmploiService.fixture';
+  anOffreService,
+  aNoResultOffreService,
+  aSingleResultOffreService,
+} from '@tests/fixtures/client/services/offreService.fixture';
 import React from 'react';
 
 import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
@@ -29,13 +29,13 @@ describe('RechercherJobÉtudiant', () => {
   describe('quand le composant est affiché sans recherche', () => {
     it('affiche un formulaire pour la recherche de jobs étudiants,  avec un échantillon de résultat', async () => {
       // GIVEN
-      const offreEmploiServiceMock = anOffreEmploiService();
+      const offreServiceMock = anOffreService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { page: '1' } });
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}
+          offreService={offreServiceMock}
         >
           <RechercherJobÉtudiant/>
         </DependenciesProvider>,
@@ -43,7 +43,7 @@ describe('RechercherJobÉtudiant', () => {
 
       // WHEN
       const formulaireRechercheOffreEmploi = screen.getByRole('form');
-      expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalled();
+      expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalled();
       expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
       const errorMessage = screen.queryByText('0 résultat');
 
@@ -57,7 +57,7 @@ describe('RechercherJobÉtudiant', () => {
     describe('quand la recherche ne comporte pas de mot clé', () => {
       it('affiche les critères de recherche sous forme d\'étiquettes', async () => {
         // GIVEN
-        const offreEmploiServiceMock = anOffreEmploiService();
+        const offreServiceMock = anOffreService();
         const localisationServiceMock = aLocalisationService();
         mockUseRouter({});
         mockUseRouter({
@@ -72,14 +72,14 @@ describe('RechercherJobÉtudiant', () => {
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            offreEmploiService={offreEmploiServiceMock}
+            offreService={offreServiceMock}
           >
             <RechercherJobÉtudiant/>
           </DependenciesProvider>,
         );
 
         // THEN
-        expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
+        expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
         const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
         expect(filtresRecherche).toBeInTheDocument();
@@ -90,14 +90,14 @@ describe('RechercherJobÉtudiant', () => {
     describe('quand on recherche par mot clé', () => {
       it('affiche les résultats de recherche et le nombre de résultats', async () => {
         // GIVEN
-        const offreEmploiServiceMock = anOffreEmploiService();
+        const offreServiceMock = anOffreService();
         const localisationServiceMock = aLocalisationService();
         mockUseRouter({ query: { motCle: 'boulanger', page: '1' } });
 
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            offreEmploiService={offreEmploiServiceMock}
+            offreService={offreServiceMock}
           >
             <RechercherJobÉtudiant/>
           </DependenciesProvider>,
@@ -110,7 +110,7 @@ describe('RechercherJobÉtudiant', () => {
         // THEN
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
         expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
-        expect(offreEmploiServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('motCle=boulanger&page=1');
+        expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith('motCle=boulanger&page=1');
       });
     });
   });
@@ -118,14 +118,14 @@ describe('RechercherJobÉtudiant', () => {
   describe('quand le composant est affiché avec une recherche comportant un seul résultat', () => {
     it('affiche le nombre de résultat au singulier', async () => {
       // GIVEN
-      const offreEmploiServiceMock = aSingleResultOffreEmploiService();
+      const offreServiceMock = aSingleResultOffreService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'barman', page: '1' } });
 
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}
+          offreService={offreServiceMock}
         >
           <RechercherJobÉtudiant/>
         </DependenciesProvider>,
@@ -142,14 +142,14 @@ describe('RechercherJobÉtudiant', () => {
   describe('quand le composant est affiché avec une recherche sans résultats', () => {
     it('affiche un message dédié', async () => {
       // GIVEN
-      const offreEmploiServiceMock = aNoResultOffreEmploiService();
+      const offreServiceMock = aNoResultOffreService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}
+          offreService={offreServiceMock}
         >
           <RechercherJobÉtudiant/>
         </DependenciesProvider>,

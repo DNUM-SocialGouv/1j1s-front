@@ -1,4 +1,4 @@
-import { unContenuEntreprise, uneCommandeRejoindreLaMobilisation, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { unContenuEntreprise, uneCommandeRejoindreLaMobilisation, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 

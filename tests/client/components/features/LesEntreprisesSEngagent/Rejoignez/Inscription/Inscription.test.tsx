@@ -5,7 +5,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
-import { aLesEntreprisesSEngagementService } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { aLesEntreprisesSEngagentService } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 
 import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
@@ -13,7 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription';
 
 describe('LesEntreprisesSEngagentInscription', () => {
-  const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagementService();
+  const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
   const localisationService = aLocalisationService();
 
   const routerPush = jest.fn();
@@ -36,7 +36,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
   const renderComponent = () => {
     render(
-      <DependenciesProvider lesEntreprisesSEngagementService={aLesEntreprisesSEngagementServiceMock} localisationService={localisationService}>
+      <DependenciesProvider lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock} localisationService={localisationService}>
         <LesEntreprisesSEngagentInscription/>
       </DependenciesProvider>,
     );

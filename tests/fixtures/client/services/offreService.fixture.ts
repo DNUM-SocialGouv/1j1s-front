@@ -1,15 +1,15 @@
 import { aBarmanOffre, aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
 
-import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
+import { OffreService } from '~/client/services/offre/offreService';
 
-export function anOffreEmploiService(): OffreEmploiService {
+export function anOffreService(): OffreService {
   return {
     rechercherJobÉtudiant: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffre() }),
     rechercherOffreEmploi: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffre() }),
-  } as unknown as OffreEmploiService;
+  } as unknown as OffreService;
 }
 
-export function aSingleResultOffreEmploiService(): OffreEmploiService {
+export function aSingleResultOffreService(): OffreService {
   return {
     rechercherJobÉtudiant: jest.fn().mockResolvedValue({
       instance: 'success',
@@ -19,10 +19,10 @@ export function aSingleResultOffreEmploiService(): OffreEmploiService {
       instance: 'success',
       result: aRésultatsRechercheOffre({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
     }),
-  } as unknown as OffreEmploiService;
+  } as unknown as OffreService;
 }
 
-export function aNoResultOffreEmploiService(): OffreEmploiService {
+export function aNoResultOffreService(): OffreService {
   return {
     rechercherJobÉtudiant: jest.fn().mockResolvedValue({
       instance: 'success',
@@ -32,5 +32,5 @@ export function aNoResultOffreEmploiService(): OffreEmploiService {
       instance: 'success',
       result: aRésultatsRechercheOffre({ nombreRésultats: 0, résultats: [] }),
     }),
-  } as unknown as OffreEmploiService;
+  } as unknown as OffreService;
 }

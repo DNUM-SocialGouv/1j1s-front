@@ -7,6 +7,6 @@ export class RechercherOffreEmploiUseCase {
   }
 
   async handle(offreEmploiFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    return await this.offreRepository.search(offreEmploiFiltre);
+    return this.offreRepository.search(offreEmploiFiltre);
   }
 }

@@ -38,7 +38,7 @@ describe('rechercher un job étudiant', () => {
     });
   });
 
-  it('map la request parameters to JobEtudiantFiltre', () => {
+  it('map la request parameters to JobÉtudiantFiltre', () => {
     const request: NextApiRequest = {
       query: {
         codeLocalisation: '75101',
