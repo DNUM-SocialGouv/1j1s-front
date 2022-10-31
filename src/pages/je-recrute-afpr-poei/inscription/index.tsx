@@ -4,7 +4,7 @@ import {
   FormulairePOE,
 } from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulairePOE/FormulairePOE';
 
-export default function RejoindreMobilisationPOEFormulaire() {
+export default function JeRecruteAFPRPOEIInscription() {
   return (
     <FormulairePOE />
   );

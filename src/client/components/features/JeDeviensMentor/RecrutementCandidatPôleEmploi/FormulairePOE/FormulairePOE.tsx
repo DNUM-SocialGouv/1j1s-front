@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulairePOE/FormulairePOE.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -18,6 +18,24 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
+export type FormulaireEngagement = FormulaireEtape1Props & FormulaireEtape2Props;
+
+interface FormulaireEtape1Props {
+  nomSociété: string;
+  codePostal: string;
+  ville: string;
+  siret: string;
+  secteur: string;
+  taille: string;
+}
+
+interface FormulaireEtape2Props {
+  nom: string;
+  prénom: string;
+  téléphone: string;
+  email: string;
+  travail: string;
+}
 
 export enum Etape {
   ETAPE_1 = 'Etape 1 sur 3',
@@ -32,26 +50,46 @@ export function FormulairePOE() {
   const router = useRouter();
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
 
+  const [formulaireEtape1, setFormulaireEtape1] = useState<FormulaireEtape1Props>({
+    codePostal: '',
+    nomSociété: '',
+    secteur: '',
+    siret: '',
+    taille: '',
+    ville: '',
+  });
+
+  const [formulaireEtape2, setFormulaireEtape2] = useState<FormulaireEtape2Props>({
+    email: '',
+    nom: '',
+    prénom: '',
+    travail: '',
+    téléphone: '',
+  });
+
 
   const isPremièreEtape = () => etape === Etape.ETAPE_1;
   const isDeuxièmeEtape = () => etape === Etape.ETAPE_2;
   const isTroisièmeEtape = () => etape === Etape.ETAPE_3;
+  const isPremièreEtapeValid = () => Object.values(formulaireEtape1).every((value) => value.length > 0);
+  const isDeuxièmeEtapeValid = () => Object.values(formulaireEtape2).every((value) => value.length > 0);
+
 
   const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
   const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 
   function redirectionEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    return isPremièreEtape() && setEtape(Etape.ETAPE_2);
+    return (isPremièreEtape() && isPremièreEtapeValid()) && setEtape(Etape.ETAPE_2);
   }
 
   function redirectionEtape3(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    return isDeuxièmeEtape() && setEtape(Etape.ETAPE_3);
+    return (isDeuxièmeEtape() && isDeuxièmeEtapeValid()) && setEtape(Etape.ETAPE_3);
   }
 
   function redirectionRejoindreMobilisationPOE() {
-    return router.push('/rejoindre-mobilisation-poe');
+    return router.push('/je-recrute-afpr-poei');
   }
 
   function retourEtape1() {
@@ -108,6 +146,11 @@ export function FormulairePOE() {
                   name="companyName"
                   placeholder="Exemple : Crédit Agricole, SNCF…"
                   required
+                  value={formulaireEtape1.nomSociété}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                    ...formulaireEtape1,
+                    nomSociété: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
                 <InputAutocomplétionCommune
@@ -119,6 +162,11 @@ export function FormulairePOE() {
                   valeurInitiale={autocomplétionCommuneValeur}
                   onSuggestionSelected={(event, suggestion) => {
                     setAutocomplétionCommuneValeur(suggestion);
+                    setFormulaireEtape1({
+                      ...formulaireEtape1,
+                      codePostal: suggestion.codePostal,
+                      ville: suggestion.ville,
+                    });
                   }}
                 />
                 <InputText
@@ -127,6 +175,11 @@ export function FormulairePOE() {
                   placeholder="Exemple : 12345678901112"
                   required
                   pattern={'^[0-9]{14}$'}
+                  value={formulaireEtape1.siret}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape1({
+                    ...formulaireEtape1,
+                    siret: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
                 <InputAutocomplétionSecteurActivité
@@ -138,6 +191,10 @@ export function FormulairePOE() {
                   valeurInitiale={secteurActivitéValeur}
                   onSuggestionSelected={(event, suggestion) => {
                     setSecteurActivitéValeur(suggestion);
+                    setFormulaireEtape1({
+                      ...formulaireEtape1,
+                      secteur: suggestion.valeur,
+                    });
                   }}
                 />
                 <Select
@@ -146,6 +203,11 @@ export function FormulairePOE() {
                   name="companySize"
                   placeholder="Exemple : 500 à 999 salariés"
                   optionList={taillesEntreprises}
+                  value={formulaireEtape1.taille}
+                  onChange={(value: string) => setFormulaireEtape1({
+                    ...formulaireEtape1,
+                    taille: value,
+                  })}
                 />
               </div>
 
@@ -177,6 +239,11 @@ export function FormulairePOE() {
                   name="lastName"
                   placeholder="Exemple : Dupont"
                   required
+                  value={formulaireEtape2.nom}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                    ...formulaireEtape2,
+                    nom: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -184,6 +251,11 @@ export function FormulairePOE() {
                   name="firstName"
                   placeholder="Exemple : David"
                   required
+                  value={formulaireEtape2.prénom}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                    ...formulaireEtape2,
+                    prénom: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -192,6 +264,11 @@ export function FormulairePOE() {
                   placeholder="Exemple : 0601020304"
                   pattern="^(\+33|0|0033)[1-9]\d{8}$"
                   required
+                  value={formulaireEtape2.téléphone}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                    ...formulaireEtape2,
+                    téléphone: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -200,6 +277,11 @@ export function FormulairePOE() {
                   name="email"
                   placeholder="Exemple : david.dupont@exemple.fr"
                   required
+                  value={formulaireEtape2.email}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                    ...formulaireEtape2,
+                    email: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
                 <InputText
@@ -207,6 +289,11 @@ export function FormulairePOE() {
                   name="job"
                   placeholder="Exemple : RH, Manager référent"
                   required
+                  value={formulaireEtape2.travail}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape2({
+                    ...formulaireEtape2,
+                    travail: event.currentTarget.value,
+                  })}
                   className={styles.formulaireInput}
                 />
               </div>
@@ -235,7 +322,7 @@ export function FormulairePOE() {
               isTroisièmeEtape() && <form className={styles.formulaire}>
                 <div className={styles.bodyFormulaireEtape3}>
                   <InputText
-                    label="Indiquez le nombre de recrutement POE que vous souhaitez"
+                    label="Indiquez le nombre de recrutement AFPR/POE que vous souhaitez"
                     name="nombre-recrutement"
                     placeholder="Exemple : 3"
                   />
