@@ -64,7 +64,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
     const emploiParamètresRecherche = await this.buildEmploiParamètresRecherche(emploiFiltre);
     if(paramètresRecherche) {
       return this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffre>(
-        `/search?${emploiParamètresRecherche}&${paramètresRecherche}&${this.paramètreParDéfaut}`,
+        `/search?${emploiParamètresRecherche}&${paramètresRecherche}`,
         mapRésultatsRechercheOffre,
       );
     }

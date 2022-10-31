@@ -161,7 +161,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
         expect(result).toEqual(aRésultatsRechercheOffre());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          '/search?typeContrat=CDD%2CCDI&region=34&motsCles=boulanger&range=0-14&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI',
+          '/search?typeContrat=CDD%2CCDI&region=34&motsCles=boulanger&range=0-14',
           mapRésultatsRechercheOffre,
         );
       });

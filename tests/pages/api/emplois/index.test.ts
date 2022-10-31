@@ -14,9 +14,9 @@ import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 describe('rechercher une offre d\'emploi', () => {
   it('retourne la liste des offres d\'emploi filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
-      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI')
+      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
       .reply(401)
-      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI')
+      .get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')

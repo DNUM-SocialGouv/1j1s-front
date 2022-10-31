@@ -86,7 +86,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
           expect(result).toEqual(aRésultatsRechercheOffre());
           expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-            '/search?range=0-14&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
+            '/search?range=0-14&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
             mapRésultatsRechercheOffreResponse,
           );
 
@@ -150,7 +150,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
     });
 
     describe('quand nombre de résultat est présent dans la réponse', () => {
-      it('recherche les offres d’emploi de pole emploi', async () => {
+      it('recherche les jobs étudiants de pole emploi', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
           .mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
@@ -163,7 +163,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
         expect(result).toEqual(aRésultatsRechercheOffre());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-          '/search?region=34&motsCles=boulanger&range=0-14&&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
+          '/search?region=34&motsCles=boulanger&range=0-14&&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI',
           mapRésultatsRechercheOffre,
         );
       });

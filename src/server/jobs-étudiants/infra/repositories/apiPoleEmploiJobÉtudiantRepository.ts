@@ -28,7 +28,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     private cacheService: CacheService,
   ) {}
 
-  paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI&dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
+  paramètreParDéfaut = 'dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
 
   private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
 
