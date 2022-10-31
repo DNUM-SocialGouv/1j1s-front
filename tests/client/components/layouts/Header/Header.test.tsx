@@ -81,7 +81,7 @@ describe('Header', () => {
 
         const navigation = screen.getByRole('navigation');
         const accueilNavItem = within(navigation).getByText('Accueil');
-        const lesNavItem = within(navigation).getAllByText('Je suis employeur').at(0);
+        const lesNavItem = within(navigation).getAllByText('Je suis employeur').at(0) as HTMLElement;
 
         fireEvent.click(lesNavItem);
 

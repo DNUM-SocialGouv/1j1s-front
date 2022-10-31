@@ -1,25 +1,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { AlternanceFiltre, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
+import { OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
+import { handleResponse } from '~/server/utils/handleResponse.util';
 
-export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheAlternance | ErrorHttpResponse>) {
-  const résultatsRechercheAlternance = await dependencies.alternanceDependencies.rechercherAlternance
-    .handle(alternanceRequestMapper(req));
-  return res.status(200).json(résultatsRechercheAlternance);
+export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
+  const résultatsRechercheAlternance = await dependencies.offreAlternanceDependencies.rechercherOffreAlternance.handle(alternanceFiltreMapper(req));
+  return handleResponse(résultatsRechercheAlternance, res);
 }
 
 export default monitoringHandler(rechercherAlternanceHandler);
 
-function alternanceRequestMapper(request: NextApiRequest): AlternanceFiltre {
+export function alternanceFiltreMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;
   return {
-    code: query.codeCommune ? query.codeCommune.toString() : undefined,
-    codeRomeList: query.codeRomes?.toString().split(',') || [],
-    latitude: query.latitudeCommune ? query.latitudeCommune.toString() : undefined,
-    longitude: query.longitudeCommune ? query.longitudeCommune.toString() : undefined,
-    radius: query.distanceCommune ? query.distanceCommune.toString(): undefined,
+    localisation: mapLocalisation(query),
+    motClé: query.motCle ? String(query.motCle) : '',
+    page: Number(query.page),
   };
 }

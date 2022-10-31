@@ -1,4 +1,4 @@
-import { unContenuEntreprise, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { unContenuEntreprise, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
@@ -39,7 +39,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
       expect(strapi.isDone()).toBe(true);
       expect(bodyTrap.value()).toEqual(expectedBody);
     });
-    it('résoud un Success', async () => {
+    it('résout un Success', async () => {
       // Given
       nock(strapiUrl)
         .post('/entreprises')
@@ -71,7 +71,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
     });
 
     describe('Quand la requête HTTP échoue', () => {
-      it('Résoud une Failure', async () => {
+      it('Résout une Failure', async () => {
       // Given
         nock(strapiUrl)
           .post('/entreprises')

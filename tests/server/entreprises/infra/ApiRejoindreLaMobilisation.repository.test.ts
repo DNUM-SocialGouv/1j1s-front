@@ -1,4 +1,4 @@
-import { uneEntreprise, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagementService.fixture';
+import { uneEntreprise, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
@@ -35,7 +35,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       expect(api.isDone()).toEqual(true);
       expect(trap.value()).toEqual(uneEntrepriseMember());
     });
-    it('résoud une erreur quand le service est indisponible', async () => {
+    it('résout une erreur quand le service est indisponible', async () => {
       // Given
       nock('https://lesentreprisesengagent.france')
         .post('/api/members')
@@ -46,7 +46,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Then
       expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
     });
-    it('résoud une erreur quand les données sont invalides', async () => {
+    it('résout une erreur quand les données sont invalides', async () => {
       // Given
       nock('https://lesentreprisesengagent.france')
         .post('/api/members')
@@ -57,7 +57,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Then
       expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
     });
-    it('résoud une erreur quand l\'entreprise est déjà engagée', async () => {
+    it('résout une erreur quand l\'entreprise est déjà engagée', async () => {
       // Given
       nock('https://lesentreprisesengagent.france')
         .post('/api/members')
@@ -68,7 +68,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Then
       expect(actual).toEqual(createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT));
     });
-    it('résoud une erreur quand il y a une erreur réseau', async () => {
+    it('résout une erreur quand il y a une erreur réseau', async () => {
       // Given
       const entreprise = uneEntreprise();
       // When

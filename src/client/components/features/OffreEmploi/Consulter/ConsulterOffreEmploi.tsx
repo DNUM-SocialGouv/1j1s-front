@@ -5,10 +5,10 @@ import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre } from '~/server/offres/domain/offre';
 
 interface ConsulterOffreEmploiProps {
-  offreEmploi: OffreEmploi
+  offreEmploi: Offre
 }
 
 export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps) {

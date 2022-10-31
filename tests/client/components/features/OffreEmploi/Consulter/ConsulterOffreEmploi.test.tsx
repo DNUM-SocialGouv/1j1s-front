@@ -4,7 +4,7 @@
 
 import { render, screen, within } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
-import { aBarmanOffreEmploi, aMaçonOffreEmploi, aValetOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aBarmanOffre, aMaçonOffre, aValetOffre } from '@tests/fixtures/domain/offre.fixture';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 
@@ -20,7 +20,7 @@ describe('ConsulterOffreEmploi', () => {
   });
 
   it('affiche l\'offre d\'emploi', () => {
-    const offreEmploi = aMaçonOffreEmploi();
+    const offreEmploi = aMaçonOffre();
 
     render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 
@@ -35,7 +35,7 @@ describe('ConsulterOffreEmploi', () => {
   });
 
   it('permet de postuler à l\'offre d\'emploi', () => {
-    const offreEmploi = aValetOffreEmploi();
+    const offreEmploi = aValetOffre();
 
     render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 
@@ -46,7 +46,7 @@ describe('ConsulterOffreEmploi', () => {
   });
 
   it('affiche la formation requise dans un paragraphe', () => {
-    const offreEmploi = aMaçonOffreEmploi();
+    const offreEmploi = aMaçonOffre();
 
     render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 
@@ -58,7 +58,7 @@ describe('ConsulterOffreEmploi', () => {
   });
 
   it('affiche les formations requises dans une liste', () => {
-    const offreEmploi = aBarmanOffreEmploi();
+    const offreEmploi = aBarmanOffre();
 
     render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 

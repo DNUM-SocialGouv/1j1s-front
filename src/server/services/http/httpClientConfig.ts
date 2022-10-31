@@ -29,15 +29,6 @@ const getApiEngagementConfig = (configurationService: ConfigurationService): Htt
   });
 };
 
-const getApiLaBonneAlternanceConfig = (configurationService: ConfigurationService): HttpClientConfig => {
-  return ({
-    apiKey: undefined,
-    apiName: 'API_LA_BONNE_ALTERNANCE',
-    apiUrl: configurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_BASE_URL,
-    overrideInterceptor: false,
-  });
-};
-
 const getAuthApiStrapiConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   const [ login, password ] = configurationService.getConfiguration().STRAPI_AUTH.split(':');
   return ({
@@ -119,7 +110,6 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
-    laBonneAlternanceClientService: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService)),
     lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),

@@ -10,7 +10,7 @@ import React from 'react';
 
 import { Select } from '~/client/components/ui/Select/Select';
 import { mapTypeDeContratToOffreEmploiCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
-import { OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre } from '~/server/offres/domain/offre';
 
 describe('Select', () => {
 
@@ -22,7 +22,7 @@ describe('Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -44,7 +44,7 @@ describe('Select', () => {
       render(
         <Select
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
         />,
       );
@@ -72,7 +72,7 @@ describe('Select', () => {
       render(
         <Select
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           onChange={onChangeSpy}
         />,
@@ -96,7 +96,7 @@ describe('Select', () => {
           <Select
             name="monselect"
             required={true}
-            optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+            optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
             label="Mon Select"
           />,
         );
@@ -117,7 +117,7 @@ describe('Select', () => {
               <Select
                 name="monselect"
                 required={true}
-                optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+                optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
                 label="Mon Select"
               />
             </>
@@ -142,7 +142,7 @@ describe('Select', () => {
               <Select
                 name="monselect"
                 required={true}
-                optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+                optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
                 label="Mon Select"
               />
             </>
@@ -168,7 +168,7 @@ describe('Select', () => {
         <Select
           multiple
           placeholder={'Type de contrat'}
-          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
           label={'Type de contrat'}
         />,
       );
@@ -191,7 +191,7 @@ describe('Select', () => {
         <Select
           multiple
           placeholder={'Type de contrat'}
-          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
           label={'Type de contrat'}
         />,
       );
@@ -223,7 +223,7 @@ describe('Keyboard Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -245,7 +245,7 @@ describe('Keyboard Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -270,7 +270,7 @@ describe('Keyboard Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -292,7 +292,7 @@ describe('Keyboard Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -324,7 +324,7 @@ describe('Keyboard Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -354,7 +354,7 @@ describe('Keyboard Select', () => {
         <Select
           placeholder={'Temps de travail'}
           name="tempsDeTravail"
-          optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+          optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
           label={'Temps de travail'}
           value=""
         />,
@@ -383,7 +383,7 @@ describe('Keyboard Select', () => {
         <Select
           multiple
           placeholder={'Type de contrat'}
-          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+          optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
           label={'Type de contrat'}
         />,
       );

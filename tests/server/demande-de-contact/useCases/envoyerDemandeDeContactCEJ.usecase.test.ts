@@ -18,7 +18,7 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
     };
 
     describe('quand la command ne contient aucun champ', () => {
-      it('résoud une DEMANDE_INCORRECTE', async () => {
+      it('résout une DEMANDE_INCORRECTE', async () => {
         // Given
         const repository = {
           saveCEJ: jest.fn(),
@@ -87,7 +87,7 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
     ];
     for (const invalid of invalidFields) {
       describe(`mais avec ${JSON.stringify(invalid)}`, () => {
-        it('résoud une Failure', async () => {
+        it('résout une Failure', async () => {
           // Given
           const repository = {
             saveCEJ: jest.fn(() => Promise.resolve(createSuccess(undefined))),

@@ -8,9 +8,9 @@ import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import {
-  anOffreEmploiService,
-  aNoResultOffreEmploiService,
-  aSingleResultOffreEmploiService } from '@tests/fixtures/client/services/offreEmploiService.fixture';
+  anOffreService,
+  aNoResultOffreService,
+  aSingleResultOffreService } from '@tests/fixtures/client/services/offreService.fixture';
 import React from 'react';
 
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
@@ -28,13 +28,13 @@ describe('RechercherOffreEmploi', () => {
   describe('quand le composant est affiché sans recherche', () => {
     it('affiche un formulaire pour la recherche d\'offres d\'emploi, avec un échantillon de résultat', async () => {
       // GIVEN
-      const offreEmploiServiceMock = anOffreEmploiService();
+      const offreServiceMock = anOffreService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { page: '1' } });
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}
+          offreService={offreServiceMock}
         >
           <RechercherOffreEmploi/>
         </DependenciesProvider>,
@@ -55,7 +55,7 @@ describe('RechercherOffreEmploi', () => {
     describe('quand la recherche ne comporte pas de mot clé', () => {
       it('affiche les critères de recherche sous forme d\'étiquettes', async () => {
         // GIVEN
-        const offreEmploiServiceMock = anOffreEmploiService();
+        const offreServiceMock = anOffreService();
         const localisationServiceMock = aLocalisationService();
         mockUseRouter({});
         mockUseRouter({
@@ -70,13 +70,13 @@ describe('RechercherOffreEmploi', () => {
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            offreEmploiService={offreEmploiServiceMock}>
+            offreService={offreServiceMock}>
             <RechercherOffreEmploi/>
           </DependenciesProvider>,
         );
 
         // THEN
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
+        expect(offreServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
         expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
         const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
         expect(filtresRecherche).toBeInTheDocument();
@@ -87,14 +87,14 @@ describe('RechercherOffreEmploi', () => {
     describe('quand on recherche par mot clé', () => {
       it('affiche les résultats de recherche et le nombre de résultats', async () => {
         // GIVEN
-        const offreEmploiServiceMock = anOffreEmploiService();
+        const offreServiceMock = anOffreService();
         const localisationServiceMock = aLocalisationService();
         mockUseRouter({ query: { motCle: 'boulanger', page: '1' } });
 
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            offreEmploiService={offreEmploiServiceMock}
+            offreService={offreServiceMock}
           >
             <RechercherOffreEmploi/>
           </DependenciesProvider>,
@@ -107,7 +107,7 @@ describe('RechercherOffreEmploi', () => {
         // THEN
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
         expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
-        expect(offreEmploiServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
+        expect(offreServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
       });
     });
   });
@@ -115,14 +115,14 @@ describe('RechercherOffreEmploi', () => {
   describe('quand le composant est affiché pour une recherche comportant un seul résultat', () => {
     it('affiche le nombre de résultat au singulier', async () => {
       // GIVEN
-      const offreEmploiServiceMock = aSingleResultOffreEmploiService();
+      const offreServiceMock = aSingleResultOffreService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'barman', page: '1' } });
 
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}
+          offreService={offreServiceMock}
         >
           <RechercherOffreEmploi/>
         </DependenciesProvider>,
@@ -139,14 +139,14 @@ describe('RechercherOffreEmploi', () => {
   describe('quand le composant est affiché pour une recherche sans résultats', () => {
     it('affiche un message dédié', async () => {
       // GIVEN
-      const offreEmploiServiceMock = aNoResultOffreEmploiService();
+      const offreServiceMock = aNoResultOffreService();
       const localisationServiceMock = aLocalisationService();
       mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          offreEmploiService={offreEmploiServiceMock}
+          offreService={offreServiceMock}
         >
           <RechercherOffreEmploi/>
         </DependenciesProvider>,

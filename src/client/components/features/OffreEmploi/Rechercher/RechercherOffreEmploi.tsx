@@ -20,24 +20,24 @@ import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSectio
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
-import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
+import { OffreService } from '~/client/services/offre/offreService';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE, OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherOffreEmploi() {
   const router = useRouter();
-  const offreEmploiQuery = useOffreEmploiQuery();
-  const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
+  const offreQuery = useOffreQuery();
+  const offreService = useDependency<OffreService>('offreService');
 
   const MAX_PAGE = 65;
 
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-  const [offreEmploiList, setOffreEmploiList] = useState<OffreEmploi[]>([]);
+  const [offreEmploiList, setOffreEmploiList] = useState<Offre[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
@@ -46,7 +46,7 @@ export function RechercherOffreEmploi() {
     const queryString = stringify(router.query);
     setIsLoading(true);
     setErreurRecherche(undefined);
-    offreEmploiService.rechercherOffreEmploi(queryString)
+    offreService.rechercherOffreEmploi(queryString)
       .then((response) => {
         if (response.instance === 'success') {
           setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -58,7 +58,7 @@ export function RechercherOffreEmploi() {
         }
         setIsLoading(false);
       });
-  }, [router.query, offreEmploiService]);
+  }, [router.query, offreService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
     const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
@@ -67,11 +67,11 @@ export function RechercherOffreEmploi() {
     } else {
       messageRésultatRechercheSplit.push('offre d\'emploi');
     }
-    if (offreEmploiQuery.motCle) {
-      messageRésultatRechercheSplit.push(`pour ${offreEmploiQuery.motCle}`);
+    if (offreQuery.motCle) {
+      messageRésultatRechercheSplit.push(`pour ${offreQuery.motCle}`);
     }
     return messageRésultatRechercheSplit.join(' ');
-  }, [nombreRésultats, offreEmploiQuery.motCle]);
+  }, [nombreRésultats, offreQuery.motCle]);
 
   return (
     <>
@@ -90,7 +90,7 @@ export function RechercherOffreEmploi() {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapOffreEmploiToLienSolution}
-          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
+          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
           maxPage={MAX_PAGE}
         />
         <EnTeteSection heading="Découvrez des services faits pour vous"/>
@@ -104,7 +104,7 @@ export function RechercherOffreEmploi() {
   );
 }
 
-function mapOffreEmploiToLienSolution(offreEmploi: OffreEmploi): LienSolution {
+function mapOffreEmploiToLienSolution(offreEmploi: Offre): LienSolution {
   return {
     descriptionOffre: offreEmploi.description,
     id: offreEmploi.id,

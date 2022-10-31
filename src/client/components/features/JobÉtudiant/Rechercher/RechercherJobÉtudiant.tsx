@@ -17,24 +17,24 @@ import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
-import { OffreEmploiService } from '~/client/services/offreEmploi/offreEmploi.service';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
+import { OffreService } from '~/client/services/offre/offreService';
 import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE, OffreEmploi } from '~/server/offresEmploi/domain/offreEmploi';
+import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherJobÉtudiant() {
   const router = useRouter();
-  const offreEmploiQuery = useOffreEmploiQuery();
-  const offreEmploiService = useDependency<OffreEmploiService>('offreEmploiService');
+  const offreEmploiQuery = useOffreQuery();
+  const offreService = useDependency<OffreService>('offreService');
 
   const MAX_PAGE = 65;
 
   const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-  const [jobÉtudiantList, setJobÉtudiantList] = useState<OffreEmploi[]>([]);
+  const [jobÉtudiantList, setJobÉtudiantList] = useState<Offre[]>([]);
   const [nombreRésultats, setNombreRésultats] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
@@ -44,7 +44,7 @@ export function RechercherJobÉtudiant() {
 
     setIsLoading(true);
     setErreurRecherche(undefined);
-    offreEmploiService.rechercherJobÉtudiant(queryString)
+    offreService.rechercherJobÉtudiant(queryString)
       .then((response) => {
         if (response.instance === 'success') {
           setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -56,7 +56,7 @@ export function RechercherJobÉtudiant() {
         }
         setIsLoading(false);
       });
-  }, [router.query, offreEmploiService]);
+  }, [router.query, offreService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
     const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
@@ -88,7 +88,7 @@ export function RechercherJobÉtudiant() {
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
           mapToLienSolution={mapJobÉtudiantToLienSolution}
-          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_EMPLOI_PAR_PAGE}
+          paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
           maxPage={MAX_PAGE}
         />
         {PartnerCardList([
@@ -101,7 +101,7 @@ export function RechercherJobÉtudiant() {
   );
 }
 
-function mapJobÉtudiantToLienSolution(offreEmploi: OffreEmploi): LienSolution {
+function mapJobÉtudiantToLienSolution(offreEmploi: Offre): LienSolution {
   return {
     descriptionOffre: offreEmploi.description,
     id: offreEmploi.id,

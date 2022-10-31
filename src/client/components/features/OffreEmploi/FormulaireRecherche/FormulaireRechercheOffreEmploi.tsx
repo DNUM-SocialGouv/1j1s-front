@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import styles
-  from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
+import styles from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
@@ -12,14 +11,15 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Select } from '~/client/components/ui/Select/Select';
+import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { useOffreEmploiQuery } from '~/client/hooks/useOffreEmploiQuery';
+import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-  mapRéférentielDomaineToOffreEmploiCheckboxFiltre,
+  mapRéférentielDomaineToOffreCheckboxFiltre,
   mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
-import { OffreEmploi, référentielDomaineList } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre } from '~/server/offres/domain/offre';
 
 function updateFilterQuery(filterQuery: string, filterToToggle: string) {
   const currentString = filterQuery.split(',').filter((element) => element);
@@ -46,7 +46,7 @@ export function FormulaireRechercheOffreEmploi() {
   const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState('');
   const [inputCodeLocalisation, setInputCodeLocalisation] = useState('');
 
-  const queryParams = useOffreEmploiQuery();
+  const queryParams = useOffreQuery();
   const { isSmallScreen } = useBreakpoint();
   const router = useRouter();
 
@@ -137,7 +137,7 @@ export function FormulaireRechercheOffreEmploi() {
             </ModalComponent.Title>
             <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
               <FilterAccordion title="Type de contrat" open>
-                {OffreEmploi.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+                {Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
                   <Checkbox
                     key={`Type de contrat${index}`}
                     label={typeDeContrat.libelléLong}
@@ -148,7 +148,7 @@ export function FormulaireRechercheOffreEmploi() {
                 ))}
               </FilterAccordion>
               <FilterAccordion title="Temps de travail">
-                {OffreEmploi.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
+                {Offre.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
                   <Radio
                     key={index}
                     label={tempsDeTravail.libellé}
@@ -160,7 +160,7 @@ export function FormulaireRechercheOffreEmploi() {
                 ))}
               </FilterAccordion>
               <FilterAccordion title="Niveau demandé">
-                {OffreEmploi.EXPÉRIENCE.map((expérience, index) => (
+                {Offre.EXPÉRIENCE.map((expérience, index) => (
                   <Radio
                     key={`Niveau demandé${index}`}
                     label={expérience.libellé}
@@ -200,7 +200,7 @@ export function FormulaireRechercheOffreEmploi() {
           <div className={styles.filtreRechercheDesktop}>
             <Select
               multiple
-              optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(OffreEmploi.TYPE_DE_CONTRAT_LIST)}
+              optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
               onChange={setInputTypeDeContrat}
               label="Type de contrat"
               value={inputTypeDeContrat}
@@ -208,21 +208,21 @@ export function FormulaireRechercheOffreEmploi() {
             />
             <Select
               name="tempsDeTravail"
-              optionList={OffreEmploi.TEMPS_DE_TRAVAIL_LIST}
+              optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
               onChange={setInputTempsDeTravail}
               value={inputTempsDeTravail}
               label="Temps de travail"
             />
             <Select
               name="experienceExigence"
-              optionList={OffreEmploi.EXPÉRIENCE}
+              optionList={Offre.EXPÉRIENCE}
               onChange={setInputExpérience}
               value={inputExpérience}
               label="Niveau demandé"
             />
             <Select
               multiple
-              optionList={mapRéférentielDomaineToOffreEmploiCheckboxFiltre(référentielDomaineList)}
+              optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
               onChange={setInputDomaine}
               value={inputDomaine}
               name="grandDomaine"

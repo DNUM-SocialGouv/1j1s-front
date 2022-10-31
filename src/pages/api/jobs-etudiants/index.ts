@@ -1,61 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
-import {
-  OffreEmploiFiltreLocalisation,
-  OffreFiltre,
-  RésultatsRechercheOffreEmploi,
-} from '~/server/offresEmploi/domain/offreEmploi';
+import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { mapLocalisation, toArray } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
-const FIRST_PAGE = '1';
-
-export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffreEmploi | ErrorHttpResponse>) {
-  const résultatsRechercheJobÉtudiant = await dependencies.offreEmploiDependencies.rechercherOffreEmploi
-    .handle(jobÉtudiantRequestMapper(req));
+export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
+  const résultatsRechercheJobÉtudiant = await dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle(jobÉtudiantFiltreMapper(req));
   return handleResponse(résultatsRechercheJobÉtudiant, res);
 }
 
 export default monitoringHandler(rechercherJobÉtudiantHandler);
 
-function jobÉtudiantRequestMapper(request: NextApiRequest): OffreFiltre {
+export function jobÉtudiantFiltreMapper(request: NextApiRequest): JobÉtudiantFiltre {
   const { query } = request;
-  const isEchantillonJobEtudiant = Object.keys(query).length === 1
-    && 'page' in query
-    && query.page === FIRST_PAGE;
-  if (isEchantillonJobEtudiant) {
-    return {
-      dureeHebdoMax: '1600',
-      page: Number(query.page),
-      tempsDeTravail: 'tempsPartiel',
-      typeDeContratList: ['CDD', 'MIS', 'SAI'],
-    };
-  }
+
   return {
-    dureeHebdoMax: '1600',
-    experienceExigence: '',
-    grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : [],
+    grandDomaineList: query.grandDomaine ? toArray(query.grandDomaine) : undefined,
     localisation: mapLocalisation(query),
     motClé: query.motCle ? String(query.motCle) : '',
     page: Number(query.page),
-    tempsDeTravail: 'tempsPartiel',
-    typeDeContratList: ['CDD', 'MIS', 'SAI'],
   };
-}
-
-function mapLocalisation(query: { [key: string]: string | string[] | undefined }): OffreEmploiFiltreLocalisation | undefined {
-  const { codeLocalisation, typeLocalisation } = query;
-  return (typeLocalisation as TypeLocalisation in TypeLocalisation)
-    ? {
-      code: String(codeLocalisation),
-      type: typeLocalisation as TypeLocalisation,
-    }
-    : undefined;
-}
-
-function toArray(query: string | string[]): string[] {
-  return query.toString().split(',');
 }

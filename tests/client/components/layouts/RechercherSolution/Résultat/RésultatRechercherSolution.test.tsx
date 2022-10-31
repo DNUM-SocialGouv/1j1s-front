@@ -5,7 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { aBarmanOffreEmploi } from '@tests/fixtures/domain/offreEmploi.fixture';
+import { aBarmanOffre } from '@tests/fixtures/domain/offre.fixture';
 
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
@@ -17,7 +17,7 @@ describe('RésultatRechercherSolution', () => {
   });
 
   it('affiche une carte emploi avec un résumé de l\'offre', () => {
-    const offreEmploi = aBarmanOffreEmploi();
+    const offreEmploi = aBarmanOffre();
     const defaultLogo = '/images/logos/pole-emploi.svg';
 
     render(

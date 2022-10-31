@@ -1,10 +1,11 @@
-import { AlternanceFiltre, RésultatsRechercheAlternance } from '~/server/alternances/domain/alternance';
-import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
+import { Either } from '~/server/errors/either';
+import { OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { OffreRepository } from '~/server/offres/domain/offre.repository';
 
 export class RechercherAlternanceUseCase {
-  constructor(private alternanceRepository: AlternanceRepository) {}
+  constructor(private offreRepository: OffreRepository) {}
 
-  async handle(alternanceFiltre: AlternanceFiltre): Promise<RésultatsRechercheAlternance> {
-    return await this.alternanceRepository.searchAlternance(alternanceFiltre);
+  async handle(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
+    return this.offreRepository.search(offreFiltre);
   }
 }

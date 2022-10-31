@@ -5,29 +5,29 @@ import React from 'react';
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
-import { OffreEmploi, OffreEmploiId } from '~/server/offresEmploi/domain/offreEmploi';
+import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { dependencies } from '~/server/start';
 
-interface ConsulterJobEtudiantPageProps {
-  jobEtudiant: OffreEmploi;
+interface ConsulterJobÉtudiantPageProps {
+  jobÉtudiant: Offre;
 }
 
-export default function ConsulterJobEtudiantPage({ jobEtudiant }: ConsulterJobEtudiantPageProps) {
-  if (!jobEtudiant) return null;
+export default function ConsulterJobÉtudiantPage({ jobÉtudiant }: ConsulterJobÉtudiantPageProps) {
+  if (!jobÉtudiant) return null;
 
   return (
     <>
-      <HeadTag title={`${jobEtudiant.intitulé} | 1jeune1solution`} />
-      <ConsulterOffreEmploi offreEmploi={jobEtudiant} />
+      <HeadTag title={`${jobÉtudiant.intitulé} | 1jeune1solution`} />
+      <ConsulterOffreEmploi offreEmploi={jobÉtudiant} />
     </>
   );
 }
 
 interface EmploiContext extends ParsedUrlQuery {
-  id: OffreEmploiId;
+  id: OffreId;
 }
 
-export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobEtudiantPageProps>> {
+export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobÉtudiantPageProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
@@ -40,7 +40,7 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
 
   return {
     props: {
-      jobEtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
+      jobÉtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
     },
     revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
   };
