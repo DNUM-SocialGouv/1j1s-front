@@ -155,6 +155,11 @@ async function redirects() {
       permanent: true,
       source: '/stages/deposer-offre',
     },
+    {
+      destination: '/les-entreprises-s-engagent',
+      permanent: true,
+      source: '/entreprises/:nom*',
+    },
   ];
 }
 
