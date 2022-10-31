@@ -6,8 +6,7 @@
 }
 
 .content {
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-block: 2rem;
 }
 
 .container {
@@ -17,9 +16,9 @@
 .boutonRetour {
   border: 1px solid $color-primary;
   color: $color-primary;
-  padding: 10px 24px 10px 18px;
+  padding: 0.6rem 1.5rem 0.6rem 1rem;
   border-radius: 20px;
-  margin: 20px 0;
+  margin: 1.25rem 0;
   display: flex;
 }
 
@@ -31,7 +30,7 @@
 
   .label {
     @extend %bold;
-    margin-top: 24px;
+    margin-top: 1.5rem;
   }
 
   .textArea {
@@ -45,15 +44,15 @@
   }
 
   .buttonFormulaire {
-    margin-top: 24px;
+    margin-top: 1.5rem;
   }
 
   > button[type=submit] {
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
 
   .validation {
-    margin-top: 24px;
+    margin-top: 1.5rem;
 
     p {
       width: 100%;
@@ -66,7 +65,7 @@
 
 .champsObligatoires {
   color: $color-primary;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 
   > p:first-child {
     @extend %text-large;

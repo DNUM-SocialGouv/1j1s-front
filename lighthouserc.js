@@ -27,6 +27,7 @@ module.exports = {
         'https://1j1s-front.osc-fr1.scalingo.io/les-entreprises-s-engagent',
         'https://1j1s-front.osc-fr1.scalingo.io/immersions',
         'https://1j1s-front.osc-fr1.scalingo.io/mesures-employeurs',
+        'https://1j1s-front.osc-fr1.scalingo.io/je-recrute-afpr-poei',
       ],
     },
     server: {
