@@ -1,10 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { Either } from '~/server/errors/either';
-import { ClientService } from '~/server/services/http/client.service';
 import { HttpClientConfig } from '~/server/services/http/httpClientConfig';
+import { OldClientService } from '~/server/services/http/oldClientService';
 
-export class HttpClientService extends ClientService {
+export class OldHttpClientService extends OldClientService {
   constructor (private clientConfig: HttpClientConfig) {
     const label = clientConfig.apiName;
     const url = clientConfig.apiUrl;

@@ -5,11 +5,12 @@ import {
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../services/http/oldHttpClientService';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
   constructor(
-    private readonly httpClientService: HttpClientService,
+    private readonly httpClientService: OldHttpClientService,
   ) {
   }
 

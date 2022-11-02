@@ -1,8 +1,9 @@
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+import { HttpClientService } from '~/server/services/http/httpClientService';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
+import { OldHttpClientService } from './oldHttpClientService';
 import { StrapiLoginTokenAgent } from './StrapiLoginTokenAgent';
 
 export interface HttpClientConfig {
@@ -107,13 +108,13 @@ const getApiPoleEmploiReferentielsConfig = (configurationService: ConfigurationS
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
   return {
-    adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
+    adresseClientService: new OldHttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
-    geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
-    lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
+    geoGouvClientService: new OldHttpClientService(getApiGeoGouvConfig(configurationService)),
+    lesEntreprisesSEngagentClientService: new OldHttpClientService(getApiLEEConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
-    strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
+    strapiClientService: new OldHttpClientService(getApiStrapiConfig(configurationService)),
   };
 }

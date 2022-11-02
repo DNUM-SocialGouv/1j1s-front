@@ -4,9 +4,9 @@ import { Either } from '~/server/errors/either';
 import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
 import { LoggerService } from '~/server/services/logger.service';
 
-import { HttpClientService } from './httpClient.service';
+import { OldHttpClientService } from './oldHttpClientService';
 
-export class HttpClientServiceWithAuthentification extends HttpClientService {
+export class HttpClientServiceWithAuthentification extends OldHttpClientService {
   private tokenAgent: TokenAgent;
   private retries = new Set<object>();
   private isRefreshingToken?: Promise<void>;

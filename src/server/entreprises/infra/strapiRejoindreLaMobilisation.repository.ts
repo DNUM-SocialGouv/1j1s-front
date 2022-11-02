@@ -1,13 +1,13 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
 
+import { OldHttpClientService } from '../../services/http/oldHttpClientService';
 import { Entreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobilisationRepository {
 
-  constructor(private httpClientService: HttpClientService) {
+  constructor(private httpClientService: OldHttpClientService) {
   }
   async save(entreprise: Entreprise, annotation?: string): Promise<Either<void>> {
     try {

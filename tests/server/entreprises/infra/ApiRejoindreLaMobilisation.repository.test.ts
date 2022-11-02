@@ -5,7 +5,8 @@ import nock from 'nock';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/ApiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../../src/server/services/http/oldHttpClientService';
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
   const entrepriseApiUrl = 'https://lesentreprisesengagent.france';
@@ -15,7 +16,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
   describe('.save', () => {
     let repository: ApiRejoindreLaMobilisationRepository;
     beforeEach(() => {
-      const client = new HttpClientService({
+      const client = new OldHttpClientService({
         apiName: 'test LEE',
         apiUrl: entrepriseApiUrl,
       });

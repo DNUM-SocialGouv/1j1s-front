@@ -5,7 +5,8 @@ import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consul
 import { RécupérerEspaceJeuneUseCase } from '~/server/cms/useCases/récupérerEspaceJeuneUseCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../services/http/oldHttpClientService';
 
 export interface CmsDependencies {
   consulterArticle: ConsulterArticleUseCase
@@ -18,7 +19,7 @@ export interface CmsDependencies {
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
 
-export const cmsDependenciesContainer = (httpClientService: HttpClientService, configurationService: ConfigurationService): CmsDependencies => {
+export const cmsDependenciesContainer = (httpClientService: OldHttpClientService, configurationService: ConfigurationService): CmsDependencies => {
   const repository = new StrapiCmsRepository(httpClientService);
   const { IS_REVIEW_APP } = configurationService.getConfiguration();
   const duréeDeValiditéEnSecondes = IS_REVIEW_APP ? 20 : UN_JOUR_EN_SECONDES;

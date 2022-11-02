@@ -15,10 +15,11 @@ import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.r
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../../../src/server/services/http/oldHttpClientService';
 
 describe('strapi cms repository', () => {
-  let httpClientService: HttpClientService;
+  let httpClientService: OldHttpClientService;
   let strapiCmsRepository: StrapiCmsRepository;
 
   describe('getArticleBySlug', () => {
