@@ -379,7 +379,12 @@ export function FormulairePOE() {
         </>
       }
       {isFormSuccessfullySent &&
-        <div className={styles.success}>Félicitations, votre formulaire a bien été envoyé !</div>}
+          <div className={styles.success}>
+            <p>Félicitations, votre formulaire a bien été envoyé !</p>
+            <p>Vous serez recontacté(e) dès que possible</p>
+            <Link href="/" appearance='asPrimaryButton'>Retourner à l&apos;accueil</Link>
+          </div>
+      }
     </>
   );
 }

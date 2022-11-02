@@ -87,10 +87,26 @@
 }
 
 .success {
-  color: $color-primary;
-  @extend %bold;
-  @extend %text-xLarge;
-  padding: 40px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  p:first-child {
+    color: $color-primary;
+    @extend %bold;
+    @extend %text-xLarge;
+  }
+
+  p:last-child {
+    color: $color-on-surface;
+    @extend %bold;
+    @extend %text-medium;
+  }
+
+  a {
+    width: 50%;
+  }
 }
 
 
