@@ -14,6 +14,29 @@ export function aRésultatsRechercheOffre(override?: Partial<RésultatsRecherche
   };
 }
 
+export function aRésultatEchantillonOffre(): RésultatsRechercheOffre {
+  return {
+    nombreRésultats: 15,
+    résultats: [
+      aBarmanOffre(),
+      aMaçonOffre(),
+      aValetOffre(),
+      aBarmanOffre(),
+      aMaçonOffre(),
+      aValetOffre(),
+      aBarmanOffre(),
+      aMaçonOffre(),
+      aValetOffre(),
+      aBarmanOffre(),
+      aMaçonOffre(),
+      aValetOffre(),
+      aBarmanOffre(),
+      aMaçonOffre(),
+      aValetOffre(),
+    ],
+  };
+}
+
 export function aBarmanOffre(): Offre {
   return {
     compétenceList:[],
