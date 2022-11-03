@@ -18,8 +18,9 @@ import {
   FicheMetierNestedFieldStatut } from '~/server/fiche-metier/domain/ficheMetier';
 import {
   FicheMétierHttp,
-  FicheMétierHttpNestedField, FicheMétierHttpNestedFieldStatut,
-} from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
+  FicheMétierHttpNestedField,
+  FicheMétierHttpNestedFieldStatut,
+} from '~/server/fiche-metier/domain/ficheMetierHttp';
 
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
 

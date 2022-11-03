@@ -9,8 +9,7 @@ import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { mapFicheMetier } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.repository';
-import { FicheMétierHttp } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
+import { FicheMétierHttp, mapFicheMetier } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
 import styles from './RechercherMétier.module.scss';
 

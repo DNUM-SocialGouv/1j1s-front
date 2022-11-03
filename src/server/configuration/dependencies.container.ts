@@ -1,5 +1,4 @@
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
-import { MeiliSearch } from 'meilisearch';
 
 import {
   ApiPoleEmploiAlternanceRepository,
@@ -26,10 +25,6 @@ import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
 import {
-  FicheMetierDependencies,
-  ficheMetierDependenciesContainer,
-} from '~/server/fiche-metier/configuration/ficheMetier.dependencies';
-import {
   ApiPoleEmploiJobÉtudiantRepository,
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
@@ -55,7 +50,6 @@ export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
-  fichesMetierDependencies: FicheMetierDependencies;
   localisationDependencies: LocalisationsDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies
   entrepriseDependencies: EntrepriseDependencies
@@ -101,12 +95,7 @@ export const dependenciesContainer = (): Dependencies => {
     strapiClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
-
-  const { NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL } = serverConfigurationService.getConfiguration();
-  const meiliSearchClient = new MeiliSearch({ apiKey: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, host: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL });
-
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
-
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
     new StrapiDemandeDeContactRepository(strapiAuthClientService),
@@ -115,7 +104,6 @@ export const dependenciesContainer = (): Dependencies => {
     new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentClientService),
     new StrapiRejoindreLaMobilisationRepository(strapiAuthClientService),
   );
-  const fichesMetierDependencies = ficheMetierDependenciesContainer(meiliSearchClient);
 
   const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);
   const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
@@ -148,7 +136,6 @@ export const dependenciesContainer = (): Dependencies => {
     demandeDeContactDependencies,
     engagementDependencies,
     entrepriseDependencies,
-    fichesMetierDependencies,
     localisationDependencies,
     offreAlternanceDependencies,
     offreEmploiDependencies,
