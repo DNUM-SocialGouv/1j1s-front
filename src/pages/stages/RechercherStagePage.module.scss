@@ -1,11 +1,14 @@
 @import "@styles/utilities";
 
-.stageContainer {
-  margin: 0 auto;
-  padding: 1rem 1rem;
-  border-bottom: 1px solid $color-form-field;
+.stageListeResultatsWrapper {
+  padding: 2rem 1rem;
+}
+
+.stageFormWrapper {
+  padding: 1rem 1rem 3rem 1rem;
+
   @include media(large) {
-    max-width: 78rem;
+    padding: 1rem;
   }
 }
 
@@ -36,23 +39,12 @@ input.stageInputElement {
   width: 100%;
 }
 
-.stageListeRootElement > ol li {
+.stageListeRootElement > ol > li {
   display: block;
-
-  @include media(large) {
-    margin-bottom: 1rem;
-  }
+  margin-bottom: 1rem;
 }
 
-.stageListeRootElement > ol {
-  padding: 0;
-}
-
-.stageItemElement {
-  padding: 0;
-}
-
-.stageTagItem{
+.stageTagItem {
   display: inline;
 }
 
@@ -78,10 +70,7 @@ input.stageInputElement {
 }
 
 .informationRésultats {
-  border-bottom: 1px solid $color-separator;
-  border-top: 1px solid $color-separator;
-  padding: 2rem 0;
-  margin-bottom: 2.5rem;
+  padding: 2rem 1rem;
 
   ul {
     padding-bottom: 1rem;

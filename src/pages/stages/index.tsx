@@ -1,11 +1,20 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
+import classNames from 'classnames';
 import React from 'react';
-import { Configure, CurrentRefinements, Hits, InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
+import {
+  Configure,
+  CurrentRefinements,
+  Hits,
+  InstantSearch,
+  SearchBox,
+  useInstantSearch,
+} from 'react-instantsearch-hooks-web';
 
 import { Domaines, OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
@@ -45,10 +54,43 @@ const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   />;
 };
 
+function disableEnterKey() {
+  return (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+    }
+  };
+}
+
 export default function RechercherOffreStagePage() {
   useReferrer();
 
   const searchClient = useDependency<SearchClient>('rechercheClientService');
+
+  function AfficherListeDeRésultats() {
+    const { status } = useInstantSearch();
+
+    return <>
+      <div className={classNames(styles.stageListeResultatsWrapper, 'background-white-lilac')}>
+        <Container>
+          <Skeleton type='card' isLoading={status === 'loading'} repeat={2}>
+            <></>
+          </Skeleton>
+          <Hits
+            hitComponent={Résultat}
+            classNames={{ root: styles.stageListeRootElement }}
+          />
+          <div className={styles.paginationContainer}>
+            <MeiliSearchCustomPagination
+              padding={0}
+              numberOfResultPerPage={HITS_PER_PAGE}
+            />
+          </div>
+        </Container>
+      </div>
+    </>;
+  }
+
   return (
     <>
       <HeadTag
@@ -59,86 +101,76 @@ export default function RechercherOffreStagePage() {
           primaryText="Des milliers d'offres de stages"
           secondaryText="sélectionnées pour vous"
         />
-        <Container className={[styles.stageContainer].join(' ')}>
-          <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX}
-            routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
-            <Configure hitsPerPage={HITS_PER_PAGE}/>
-            <form className={styles.stageForm}>
-              <div className={styles.formWrapper}>
-                <div className={styles.formElement}>
-                  <label>Métiers, mots clés, …</label>
-                  <SearchBox
-                    onKeyDown={(e) => {
-                      if (e.key == 'Enter') {
-                        e.preventDefault();
+        <InstantSearch searchClient={searchClient} indexName={MEILISEARCH_INDEX}
+          routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}>
+          <Configure hitsPerPage={HITS_PER_PAGE}/>
+          <div className={'separator'}>
+            <Container className={styles.stageFormWrapper}>
+              <form className={styles.stageForm}>
+                <div className={styles.formWrapper}>
+                  <div className={styles.formElement}>
+                    <label>Métiers, mots clés, …</label>
+                    <SearchBox
+                      onKeyDown={disableEnterKey()}
+                      className='recherche-principale-stage'
+                      placeholder="Métiers, mots clés, …"
+                      classNames={
+                        {
+                          input: ['fr-input', styles.stageInputElement].join(' '),
+                          loadingIcon: styles.none,
+                          reset: styles.none,
+                          submit: styles.none,
+                          submitIcon: styles.none,
+                        }
                       }
-                    }}
-                    className='recherche-principale-stage'
-                    placeholder="Métiers, mots clés, …"
-                    classNames={
-                      {
-                        input: ['fr-input', styles.stageInputElement].join(' '),
-                        loadingIcon: styles.none,
-                        reset: styles.none,
-                        submit: styles.none,
-                        submitIcon: styles.none,
-                      }
-                    }
-                  />
+                    />
+                  </div>
+                  <MeilisearchInputRefinement attribute={'localisationFiltree'}
+                    limit={LIMIT_MAX_FACETS}/>
+                  <MeilisearchCustomRefinementList
+                    attribute={'domaines'}
+                    limit={LIMIT_MAX_DOMAINS}
+                    label={'Domaines'}
+                    sortBy={['name:asc']}/>
+                  <MeilisearchCustomRefinementList
+                    attribute={'dureeCategorisee'}
+                    label={'Durée de stage'}
+                    sortBy={['name:asc']}/>
                 </div>
-                <MeilisearchInputRefinement attribute={'localisationFiltree'} limit={LIMIT_MAX_FACETS}/>
-                <MeilisearchCustomRefinementList
-                  attribute={'domaines'}
-                  limit={LIMIT_MAX_DOMAINS}
-                  label={'Domaines'}
-                  sortBy={['name:asc']}/>
-                <MeilisearchCustomRefinementList
-                  attribute={'dureeCategorisee'}
-                  label={'Durée de stage'}
-                  sortBy={['name:asc']}/>
+              </form>
+            </Container>
+          </div>
+          <div className={'separator'}>
+            <Container>
+              <div className={styles.informationRésultats}>
+                <CurrentRefinements
+                  transformItems={(items) => {
+                    return items
+                      .map((item) => ({
+                        ...item,
+                        refinements: item.refinements
+                          .map((refinement) => ({
+                            ...refinement,
+                            label: getCapitalizedItems(refinement.label),
+                          })),
+                      }));
+                  }}
+                  classNames={
+                    {
+                      category: styles.stageTagCategoryElement,
+                      categoryLabel: styles.stageTagItem,
+                      item: styles.stageTagItem,
+                      label: styles.none,
+                      noRefinementList: styles.none,
+                      noRefinementRoot: styles.none,
+                    }
+                  }/>
+                <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
               </div>
-            </form>
-            <div className={styles.informationRésultats}>
-              <CurrentRefinements
-                transformItems={(items) => {
-                  return items.map((item) => ({
-                    ...item,
-                    refinements: item.refinements.map((refinement) => ({
-                      ...refinement,
-                      label: getCapitalizedItems(refinement.label),
-                    })),
-                  }));
-                }
-                }
-                classNames={
-                  {
-                    category: styles.stageTagCategoryElement,
-                    categoryLabel: styles.stageTagItem,
-                    item: styles.stageTagItem,
-                    label: styles.none,
-                    noRefinementList: styles.none,
-                    noRefinementRoot: styles.none,
-                  }
-                }/>
-              <MeilisearchStats labelSingulier='offre de stage' labelPluriel='offres de stage'/>
-            </div>
-            <Hits
-              hitComponent={Résultat}
-              classNames={
-                {
-                  item: styles.stageItemElement,
-                  root: styles.stageListeRootElement,
-                }
-              }/>
-            <div className={styles.paginationContainer}>
-              <MeiliSearchCustomPagination
-                padding={0}
-                numberOfResultPerPage={HITS_PER_PAGE}
-              />
-            </div>
-
-          </InstantSearch>
-        </Container>
+            </Container>
+          </div>
+          <AfficherListeDeRésultats/>
+        </InstantSearch>
       </main>
     </>
   );
