@@ -4,31 +4,20 @@ import phone from 'phone';
 import { ContactPOE } from '~/server/contact-poe/domain/ContactPOE';
 import { FormerPoleEmploiRepository } from '~/server/contact-poe/domain/FormerPoleEmploi.repository';
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
-import { createFailure, createSuccess, Either, isFailure, isSuccess } from '~/server/errors/either';
+import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
+
 export class JeRecruteAfprPoeiUseCase {
-  constructor(
-    private premierRepository: FormerPoleEmploiRepository,
-    private secondRepository: FormerPoleEmploiRepository,
-  ) {}
-  
+  constructor(private formerPoleEmploiRepository: FormerPoleEmploiRepository) {}
+
   async formerPoleEmploi(command: FormerPoleEmploi): Promise<Either<void>> {
-    let contactpoe: ContactPOE;
     try {
-      contactpoe = Joi.attempt(command, ContactPOEValidator);
+      const contactPOE: ContactPOE = Joi.attempt(command, ContactPOEValidator);
+      return this.formerPoleEmploiRepository.save(contactPOE);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
-    const primarySave = await this.premierRepository.save(contactpoe);
-    if (isFailure(primarySave)) {
-      if (isSuccess(await this.secondRepository.save(contactpoe, primarySave.errorType))) {
-        return createSuccess(undefined);
-      } else {
-        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-      }
-    }
-    return primarySave;
   }
 }
 
@@ -53,9 +42,9 @@ const ContactPOEValidator = Joi.object({
   commentaire: Joi.string(),
   // Regex utilsée côté LEE
   email: Joi.string().email().required(),
-  nbRecrutement: Joi.string(),
   nom: Joi.string().required(),
   nomSociété: Joi.string().required(),
+  nombreARecruter: Joi.string(),
   prénom: Joi.string().required(),
   secteur: Joi.string().valid(...Object.keys(SecteurDActivité)).required(),
   siret: Joi.string().pattern(/^[0-9]+$/, 'numbers').length(14).required(),

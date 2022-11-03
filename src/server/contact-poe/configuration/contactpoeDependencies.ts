@@ -7,9 +7,8 @@ export interface ContactpoeDependencies {
 
 export const contactpoeDependenciesContainer = (
   jeRecruteAfprPoei: FormerPoleEmploiRepository,
-  sauvegarde: FormerPoleEmploiRepository,
 ): ContactpoeDependencies => {
   return {
-    jeRecruteAfprPoeiUseCase: new JeRecruteAfprPoeiUseCase(jeRecruteAfprPoei, sauvegarde),
+    jeRecruteAfprPoeiUseCase: new JeRecruteAfprPoeiUseCase(jeRecruteAfprPoei),
   };
 };

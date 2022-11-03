@@ -41,7 +41,7 @@ interface FormulaireEtape2Props {
 }
 
 interface FormulaireEtape3Props {
-  nbRecrutement: string;
+  nombreARecruter: string;
   commentaire: string;
 }
 
@@ -49,7 +49,6 @@ export enum Etape {
   ETAPE_1 = 'Etape 1 sur 3',
   ETAPE_2 = 'Etape 2 sur 3',
   ETAPE_3 = 'Etape 3 sur 3',
-
 }
 
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
@@ -80,7 +79,7 @@ export function FormulairePOE() {
 
   const [formulaireEtape3, setFormulaireEtape3] = useState<FormulaireEtape3Props>({
     commentaire: '',
-    nbRecrutement: '',
+    nombreARecruter: '',
   });
 
 
@@ -115,7 +114,7 @@ export function FormulairePOE() {
     return setEtape(Etape.ETAPE_2);
   }
 
-  async function sentForm(event: FormEvent<HTMLFormElement>) {
+  async function sendForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (isPremièreEtapeValid() && isDeuxièmeEtapeValid()) {
@@ -342,21 +341,21 @@ export function FormulairePOE() {
               }
 
               {
-                isTroisièmeEtape() && <form className={styles.formulaire} onSubmit={sentForm}>
+                isTroisièmeEtape() && <form className={styles.formulaire} onSubmit={sendForm}>
                   <div className={styles.bodyFormulaireEtape3}>
                     <InputText
-                      label="Indiquez le nombre de recrutement AFPR/POE que vous souhaitez"
+                      label="Indiquez le nombre de recrutements AFPR/POE que vous souhaitez"
                       name="nombre-recrutement"
                       placeholder="Exemple : 3"
-                      value={formulaireEtape3.nbRecrutement}
+                      value={formulaireEtape3.nombreARecruter}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape3({
                         ...formulaireEtape3,
-                        nbRecrutement: event.currentTarget.value,
+                        nombreARecruter: event.currentTarget.value,
                       })}
                     />
                     <InputArea
                       className={styles.textArea}
-                      label="Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugieriez utiles"
+                      label="Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugieriez utiles"
                       name="commentaires"
                       placeholder="Saisissez votre texte ici"
                       value={formulaireEtape3.commentaire}
