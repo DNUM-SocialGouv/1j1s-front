@@ -2,7 +2,7 @@
 import { SearchResponse } from 'meilisearch';
 
 import { FicheMétier, FicheMétierResult } from '~/server/fiche-metier/domain/ficheMetier';
-import { FicheMétierHttp } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
+import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
 export function aFicheMetier(override?: Partial<FicheMétier>) {
   return {

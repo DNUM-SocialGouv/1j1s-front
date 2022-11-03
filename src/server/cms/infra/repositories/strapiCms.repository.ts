@@ -20,7 +20,7 @@ import {
 } from '~/server/cms/infra/repositories/strapi.response';
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { FicheMétierHttp } from '~/server/fiche-metier/infra/repositories/ficheMetierMeilisearch.response';
+import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
 import { OldHttpClientService } from '../../../services/http/oldHttpClientService';
 import { MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
