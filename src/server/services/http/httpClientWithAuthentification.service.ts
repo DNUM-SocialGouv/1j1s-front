@@ -1,32 +1,30 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { Either } from '~/server/errors/either';
 import { HttpClientWithAuthentificationConfig, TokenAgent } from '~/server/services/http/httpClientConfig';
+import { HttpClientService } from '~/server/services/http/httpClientService';
 import { LoggerService } from '~/server/services/logger.service';
 
-import { OldHttpClientService } from './oldHttpClientService';
-
-export class HttpClientServiceWithAuthentification extends OldHttpClientService {
+export class HttpClientServiceWithAuthentification extends HttpClientService {
   private tokenAgent: TokenAgent;
-  private retries = new Set<object>();
   private isRefreshingToken?: Promise<void>;
+  private readonly apiName: string;
 
   constructor (private config: HttpClientWithAuthentificationConfig) {
-    const { apiName, apiUrl } = config;
-    super({ apiName, apiUrl, overrideInterceptor: false });
+    super(config);
     this.tokenAgent = config.tokenAgent;
+    this.apiName = config.apiName;
   }
 
-  async get<Response, Retour>(
+  async get<Response>(
     endpoint: string,
-    mapper: (data: Response) => Retour,
     config?: AxiosRequestConfig,
-  ): Promise<Either<Retour>> {
-    const makeRequest = () => super.getRequest(endpoint, mapper, config, false);
+  ): Promise<AxiosResponse<Response>> {
+    const makeRequest = () => super.get<Response>(endpoint, config);
     try {
-      return await this.makeRequestWithRetry(makeRequest);
-    } catch (e: unknown) {
-      return this.mapError(endpoint, e);
+      return await this.makeRequestWithRetry<Response>(makeRequest);
+    } catch (e) {
+      LoggerService.error(`[ API ${this.apiName}] failed to refresh make refresh token`);
+      throw e;
     }
   }
 
@@ -38,16 +36,17 @@ export class HttpClientServiceWithAuthentification extends OldHttpClientService 
     return this.makeRequestWithRetry(makeRequest);
   }
 
-  private async makeRequestWithRetry<R> (makeRequest: () => Promise<R>): Promise<R> {
+  private async makeRequestWithRetry<Response> (makeRequest: () => Promise<AxiosResponse<Response>>): Promise<AxiosResponse<Response>> {
     try {
       return await makeRequest();
     } catch (error: unknown) {
-      if (!this.shouldRetry(error)) { throw error; }
+      if (!this.shouldRetry(error)) {
+        throw error;
+      }
       try {
         await this.refreshToken();
       } catch (authError) {
-        LoggerService.error(`${this.apiName} failed to refresh token ${authError}`);
-        LoggerService.error(`${this.apiName} ${error.response?.status} ${error.config?.baseURL}${error.config?.url}`);
+        LoggerService.error(`[ API ${this.apiName}] failed to refresh token ${authError}`);
         throw error;
       }
       return makeRequest();

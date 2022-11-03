@@ -6,7 +6,6 @@ import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
   mapOffre,
   mapRésultatsRechercheOffre,
-  mapRésultatsRechercheOffreResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
   OffreResponse,
@@ -18,6 +17,7 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
@@ -33,10 +33,16 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
   private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
 
   async get(id: OffreId): Promise<Either<Offre>> {
-    return this.httpClientServiceWithAuthentification.get<OffreResponse, Offre>(
-      `/${id}`,
-      mapOffre,
-    );
+    try {
+      const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
+      if(response.status === 204) {
+        return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+      }
+      return createSuccess(mapOffre(response.data));
+    } catch (e) {
+      LoggerService.error('[API Pole Emploi] impossible de récupérer la ressource');
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    }
   }
 
   async search(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
@@ -60,10 +66,18 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(jobÉtudiantFiltre);
     const jobÉtudiantParamètresRecherche = await this.buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre);
     if(paramètresRecherche) {
-      return this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffre>(
-        `/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
-        mapRésultatsRechercheOffre,
-      );
+      try {
+        const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
+          `/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
+        );
+        if(response.status === 204) {
+          return createSuccess({ nombreRésultats: 0, résultats: [] });
+        }
+        return createSuccess(mapRésultatsRechercheOffre(response.data));
+      } catch (e) {
+        LoggerService.error('[API Pole Emploi] impossible de rechercher');
+        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      }
     }
     return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
   }
@@ -72,18 +86,18 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY);
     const range = buildRangeParamètre(jobÉtudiantFiltre);
 
-    if (responseInCache) return createSuccess(mapRésultatsRechercheOffre(responseInCache));
-    else {
-      const response =  await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse, RésultatsRechercheOffreResponse>(
-        `/search?range=${range}&${this.paramètreParDéfaut}`,
-        mapRésultatsRechercheOffreResponse,
-      );
-      switch (response.instance) {
-        case 'success': {
-          this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.result, 24);
-          return createSuccess(mapRésultatsRechercheOffre(response.result));
-        }
-        case 'failure': return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    if (responseInCache) {
+      return createSuccess(mapRésultatsRechercheOffre(responseInCache));
+    } else {
+      try {
+        const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
+          `/search?range=${range}&${this.paramètreParDéfaut}`,
+        );
+        this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.data, 24);
+        return createSuccess(mapRésultatsRechercheOffre(response.data));
+      } catch (e) {
+        LoggerService.error('[API Pole Emploi] impossible de rechercher');
+        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
       }
     }
   }

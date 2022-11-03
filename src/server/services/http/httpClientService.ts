@@ -21,4 +21,8 @@ export class HttpClientService {
   async post<Body>(endpoint: string, body: Body) {
     return this.client.post(endpoint, body);
   }
+
+  protected setAuthorizationHeader(token: string): void {
+    this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
 }

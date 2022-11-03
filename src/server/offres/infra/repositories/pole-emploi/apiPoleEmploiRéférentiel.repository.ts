@@ -16,17 +16,9 @@ export class ApiPoleEmploiRéférentielRepository {
     if(responseInCache) {
       return mapCodeInsee(responseInCache, code);
     } else {
-      const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[], RésultatsRéférentielCommunesResponse[]>(
-        '/communes',
-        (data) => data,
-      );
-      switch (response.instance) {
-        case 'success': {
-          this.cacheService.set(this.CACHE_KEY, response.result, 24);
-          return mapCodeInsee(response.result, code);
-        }
-        case 'failure': return code;
-      }
+      const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[]>('/communes');
+      this.cacheService.set(this.CACHE_KEY, response.data, 24);
+      return mapCodeInsee(response.data, code);
     }
   };
 }
