@@ -1,3 +1,5 @@
+import axios, { AxiosError } from 'axios';
+
 import {
   Mission,
   MissionEngagementFiltre,
@@ -11,26 +13,48 @@ import {
   RésultatsMissionEngagementResponse,
   RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import { Either } from '~/server/errors/either';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { HttpClientService } from '~/server/services/http/httpClientService';
+import { LoggerService } from '~/server/services/logger.service';
+
+interface ApiEngagementErrorResponse {
+  error: string
+}
 
 export class ApiEngagementRepository implements EngagementRepository {
-  constructor(private httpClientService: HttpClientService) {
-  }
+  constructor(private httpClientService: HttpClientService) {}
 
   async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
-    return await this.httpClientService.get<RésultatsMissionEngagementResponse, Mission>(
-      `mission/${id}`,
-      mapMission,
-    );
+    try {
+      const response = await this.httpClientService.get<RésultatsMissionEngagementResponse>(
+        `mission/${id}`,
+      );
+      return createSuccess(mapMission(response.data));
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        const error: AxiosError<ApiEngagementErrorResponse> = e as AxiosError<ApiEngagementErrorResponse>;
+        if (e.response?.status === 403 && error.response?.data.error === 'Id not valid') {
+          LoggerService.warn('[API Engagement] Id de mission invalide');
+          return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+        }
+      }
+      LoggerService.error('[API Engagement] Impossible de récupérer la mission ' + id);
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    }
   }
 
   async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
     const paramètresRecherche = buildParamètresRechercheApiEngagement(missionEngagementFiltre);
 
-    return await this.httpClientService.get<RésultatsRechercheMissionEngagementResponse, RésultatsRechercheMission>(
-      `mission/search?${paramètresRecherche}`,
-      mapRésultatsRechercheMission,
-    );
+    try {
+      const response = await this.httpClientService.get<RésultatsRechercheMissionEngagementResponse>(
+        `mission/search?${paramètresRecherche}`,
+      );
+      return createSuccess(mapRésultatsRechercheMission(response.data));
+    } catch (e) {
+      LoggerService.error('[API Engagement] Impossible de recherche les missions');
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    }
   }
 }

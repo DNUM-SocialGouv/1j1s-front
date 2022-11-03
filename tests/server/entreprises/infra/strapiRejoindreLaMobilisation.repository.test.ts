@@ -7,7 +7,8 @@ import {
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
 import { createFailure,createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../../src/server/services/http/oldHttpClientService';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
   const entreprise = uneEntreprise();
@@ -18,7 +19,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
   const strapiUrl = 'http://strapi.local/api';
 
   describe('.save()', () => {
-    const client = new HttpClientService({
+    const client = new OldHttpClientService({
       apiName: 'test strapi',
       apiUrl: strapiUrl,
     });

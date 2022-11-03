@@ -1,9 +1,10 @@
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../http/oldHttpClientService';
 
 export class StrapiCmsService {
   constructor(
-    private httpClientService: HttpClientService,
+    private httpClientService: OldHttpClientService,
     private configurationService: ConfigurationService,
   ) {
   }

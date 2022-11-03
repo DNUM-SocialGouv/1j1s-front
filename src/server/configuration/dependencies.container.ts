@@ -15,10 +15,9 @@ import { StrapiDemandeDeContactRepository } from '~/server/demande-de-contact/in
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import { ConsulterOffreEmploiUseCase } from '~/server/emplois/useCases/consulterOffreEmploi.useCase';
 import { RechercherOffreEmploiUseCase } from '~/server/emplois/useCases/rechercherOffreEmploi.useCase';
-import {
-  EngagementDependencies,
-  engagementDependenciesContainer,
-} from '~/server/engagement/configuration/engagementDependencies';
+import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
+import { ConsulterMissionEngagementUseCase } from '~/server/engagement/useCases/consulterMissionEngagement.useCase';
+import { RechercherMissionEngagementUseCase } from '~/server/engagement/useCases/rechercherMissionEngagement.useCase';
 import {
   EntrepriseDependencies,
   entrepriseDependenciesContainer,
@@ -79,6 +78,11 @@ export interface OffresAlternanceDependencies {
   rechercherOffreAlternance: RechercherAlternanceUseCase
 }
 
+export interface EngagementDependencies {
+  rechercherMissionEngagement: RechercherMissionEngagementUseCase;
+  consulterMissionEngagement: ConsulterMissionEngagementUseCase;
+}
+
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
   let cacheService: CacheService;
@@ -102,8 +106,7 @@ export const dependenciesContainer = (): Dependencies => {
   const meiliSearchClient = new MeiliSearch({ apiKey: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY, host: NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL });
 
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
-  
-  const engagementDependencies = engagementDependenciesContainer(engagementClientService);
+
   const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
     new StrapiDemandeDeContactRepository(strapiAuthClientService),
@@ -133,8 +136,12 @@ export const dependenciesContainer = (): Dependencies => {
     consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
     rechercherOffreAlternance: new RechercherAlternanceUseCase(apiPoleEmploiAlternanceRepository),
   };
-  
-  
+
+  const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
+  const engagementDependencies: EngagementDependencies = {
+    consulterMissionEngagement: new ConsulterMissionEngagementUseCase(apiEngagementRepository),
+    rechercherMissionEngagement: new RechercherMissionEngagementUseCase(apiEngagementRepository),
+  };
 
   return {
     cmsDependencies,
@@ -145,6 +152,6 @@ export const dependenciesContainer = (): Dependencies => {
     localisationDependencies,
     offreAlternanceDependencies,
     offreEmploiDependencies,
-    offreJobÉtudiantDependencies: offreJobÉtudiantDependencies,
+    offreJobÉtudiantDependencies,
   };
 };

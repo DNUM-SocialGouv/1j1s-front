@@ -3,10 +3,11 @@ import { anApiAdresseHttpClientService } from '@tests/fixtures/services/apiAdres
 import { createSuccess, Success } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../../../src/server/services/http/oldHttpClientService';
 
 describe('ApiAdresseRepository', () => {
-  let httpClientService: HttpClientService;
+  let httpClientService: OldHttpClientService;
   let apiAdresseRepository: ApiAdresseRepository;
 
   beforeEach(() => {

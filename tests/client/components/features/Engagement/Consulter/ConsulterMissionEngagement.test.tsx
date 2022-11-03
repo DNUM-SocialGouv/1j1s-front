@@ -4,7 +4,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { mockSmallScreen } from '@tests/client/window.mock';
 import {
-  anAmbassadeurDuDonDeVêtementMissionSolo,
+  anAmbassadeurDuDonDeVêtementMission,
 } from '@tests/fixtures/domain/missionEngagement.fixture';
 import React from 'react';
 
@@ -24,7 +24,7 @@ describe('ConsulterMission', () => {
 
   describe('quand on consulte une mission', () => {
     it('affiche l\'offre de mission', async () => {
-      const offreMission = anAmbassadeurDuDonDeVêtementMissionSolo();
+      const offreMission = anAmbassadeurDuDonDeVêtementMission();
 
       render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 

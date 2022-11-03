@@ -4,7 +4,7 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { LoggerService } from '~/server/services/logger.service';
 
-export abstract class ClientService {
+export abstract class OldClientService {
   readonly client: AxiosInstance;
 
   abstract get<Response, Retour>(

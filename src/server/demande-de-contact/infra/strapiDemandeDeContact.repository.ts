@@ -1,13 +1,13 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
 
+import { OldHttpClientService } from '../../services/http/oldHttpClientService';
 import { DemandeDeContactCEJ, DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
-  constructor(private httpClientService: HttpClientService) {
+  constructor(private httpClientService: OldHttpClientService) {
   }
 
   async saveCEJ(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {

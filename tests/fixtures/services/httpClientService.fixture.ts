@@ -30,20 +30,6 @@ export function anAxiosInstance(): AxiosInstance {
   } as unknown as AxiosInstance;
 }
 
-export function anAxiosErreur(status: number): AxiosError {
-  return {
-    cause: undefined,
-    code: '',
-    config: undefined as unknown as AxiosRequestConfig,
-    isAxiosError: true,
-    message: 'AxiosError',
-    name: '',
-    request: {},
-    response: anAxiosResponse({}, status),
-    stack: '',
-    toJSON: jest.fn(),
-  };}
-
 export function anAxiosResponse<T>(
   data: T,
   status?: number,
@@ -58,9 +44,8 @@ export function anAxiosResponse<T>(
   };
 }
 
-export function anAxiosError(): AxiosError {
+export function anAxiosError(override: Partial<AxiosError>): AxiosError {
   return {
-    cause: new Error(),
     config: {},
     isAxiosError: true,
     message: '',
@@ -69,5 +54,6 @@ export function anAxiosError(): AxiosError {
     stack: '',
     status: '400',
     toJSON(): object {return {};},
-  };
+    ...override,
+  } as unknown as AxiosError;
 }

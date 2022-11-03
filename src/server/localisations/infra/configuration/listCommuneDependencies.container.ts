@@ -1,6 +1,7 @@
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
-import { HttpClientService } from '~/server/services/http/httpClient.service';
+
+import { OldHttpClientService } from '../../../services/http/oldHttpClientService';
 
 
 export interface ListeCommuneDependenciesContainer {
@@ -8,7 +9,7 @@ export interface ListeCommuneDependenciesContainer {
 };
 
 export const rechercherCommuneDependenciesContainer = (
-  httpClientService: HttpClientService,
+  httpClientService: OldHttpClientService,
 ): ListeCommuneDependenciesContainer => {
   const apiAdresseRepository = new ApiAdresseRepository(
     httpClientService,

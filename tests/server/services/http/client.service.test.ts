@@ -2,9 +2,9 @@ import nock from 'nock';
 
 import { Either, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ClientService } from '~/server/services/http/client.service';
+import { OldClientService } from '~/server/services/http/oldClientService';
 
-class FakeHttpClientService extends ClientService {
+class FakeHttpClientService extends OldClientService {
   constructor() {
     super('apiName', 'http://baseUrl/');
   }
