@@ -1,4 +1,5 @@
 import { aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
+import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aRésultatRechercheOffreEmploiAxiosResponse,
   aRésultatRéférentielCommuneResponse,
@@ -15,7 +16,7 @@ describe('rechercher une alternance', () => {
   it('retourne la liste des alternances filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
       .get('/search?commune=75101&motsCles=boulanger&range=0-14&natureContrat=E2,FS')
-      .reply(401)
+      .reply(401, anAxiosError({ response: anAxiosResponse({}, 401) }))
       .get('/search?commune=75101&motsCles=boulanger&range=0-14&natureContrat=E2,FS')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 

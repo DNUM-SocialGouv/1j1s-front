@@ -1,27 +1,24 @@
 import {
   aBarmanOffre,
+  anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
   anOffreÉchantillonFiltre,
   anOffreEmploiFiltre,
-  aRésultatsRechercheOffre,
-} from '@tests/fixtures/domain/offre.fixture';
+  aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
 import {
   aPoleEmploiParamètreBuilderService,
 } from '@tests/fixtures/server/offresEmploi/poleEmploiParamètreBuilder.service.fixture';
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import {
+  aBarmanOffreEmploiApiResponse,
   aPoleEmploiHttpClient,
-  aRésultatsRechercheOffreEmploiResponse,
+  aRésultatsRechercheOffreEmploiApiResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
-import { createSuccess, Failure, Success } from '~/server/errors/either';
+import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
-import {
-  mapOffre,
-  mapRésultatsRechercheOffre,
-  mapRésultatsRechercheOffreResponse,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
   PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
@@ -46,7 +43,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('récupère l’offre d’emploi selon l’id', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aBarmanOffre()));
+          .mockResolvedValue(anAxiosResponse(aBarmanOffreEmploiApiResponse()));
         const expected = aBarmanOffre();
         const offreEmploiId = expected.id;
 
@@ -55,7 +52,6 @@ describe('ApiPoleEmploiOffreRepository', () => {
         expect(result).toEqual(expected);
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
           '/132LKFB',
-          mapOffre,
         );
       });
     });
@@ -67,7 +63,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
         it("fait l'appel à l'api et set les informations dans le cache", async () => {
           jest
             .spyOn(httpClientServiceWithAuthentification, 'get')
-            .mockResolvedValue(createSuccess(aRésultatsRechercheOffreEmploiResponse()));
+            .mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
 
           jest
             .spyOn(poleEmploiParamètreBuilderService, 'buildCommonParamètresRecherche')
@@ -85,16 +81,15 @@ describe('ApiPoleEmploiOffreRepository', () => {
           expect(result).toEqual(aRésultatsRechercheOffre());
           expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
             '/search?range=0-14&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI',
-            mapRésultatsRechercheOffreResponse,
           );
 
-          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY', aRésultatsRechercheOffreEmploiResponse(), 24);
+          expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY', aRésultatsRechercheOffreEmploiApiResponse(), 24);
         });
       });
 
       describe('quand les informations sont déjà en cache', () => {
         it("ne fait pas l'appel à l'api et get les informations du cache", async () => {
-          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+          jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
           jest.spyOn(cacheService, 'set');
 
           const offreFiltre = anOffreÉchantillonFiltre();
@@ -116,9 +111,9 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it("ne get pas les informations du cache et fait appel à l'api avec les filtres", async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
 
-        jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiResponse());
+        jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
         jest.spyOn(cacheService, 'set');
 
         const offreFiltre = anOffreEmploiFiltre();
@@ -151,7 +146,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
       it('recherche les offres d’emploi de pole emploi', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
         jest
           .spyOn(poleEmploiParamètreBuilderService, 'buildCommonParamètresRecherche')
           .mockResolvedValue('region=34&motsCles=boulanger&range=0-14');
@@ -162,8 +157,19 @@ describe('ApiPoleEmploiOffreRepository', () => {
         expect(result).toEqual(aRésultatsRechercheOffre());
         expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
           '/search?typeContrat=CDD%2CCDI&region=34&motsCles=boulanger&range=0-14',
-          mapRésultatsRechercheOffre,
         );
+      });
+    });
+
+    describe('quand l’api renvoie une 204', () => {
+      it('retourne un success avec une liste vide', async () => {
+        jest
+          .spyOn(httpClientServiceWithAuthentification, 'get')
+          .mockResolvedValue(anAxiosResponse({}, 204));
+
+        const { result } = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<RésultatsRechercheOffre>;
+
+        expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
       });
     });
   });

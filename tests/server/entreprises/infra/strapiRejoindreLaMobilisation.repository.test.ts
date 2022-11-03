@@ -1,14 +1,16 @@
-import { unContenuEntreprise, uneEntreprise } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
+import {
+  unContenuEntreprise,
+  uneEntreprise,
+} from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
 import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
-import { createFailure,createSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { OldHttpClientService } from '../../../../src/server/services/http/oldHttpClientService';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
   const entreprise = uneEntreprise();
@@ -19,9 +21,12 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
   const strapiUrl = 'http://strapi.local/api';
 
   describe('.save()', () => {
-    const client = new OldHttpClientService({
+    const client = new HttpClientServiceWithAuthentification({
       apiName: 'test strapi',
       apiUrl: strapiUrl,
+      tokenAgent: {
+        getToken: jest.fn(),
+      },
     });
     const repository = new StrapiRejoindreLaMobilisationRepository(client);
 
@@ -40,6 +45,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
       expect(strapi.isDone()).toBe(true);
       expect(bodyTrap.value()).toEqual(expectedBody);
     });
+
     it('résout un Success', async () => {
       // Given
       nock(strapiUrl)
@@ -50,6 +56,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
       // Then
       expect(result).toEqual(createSuccess(undefined));
     });
+
     describe('Quand il y a une annotation', () => {
       it('ajoute l\'annotation aux champs envoyés', async () => {
         // Given

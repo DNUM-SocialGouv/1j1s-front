@@ -2,9 +2,9 @@ import {
   aRésultatsRéférentielCommunesResponseList,
 } from '@tests/fixtures/server/offresEmploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { aPoleEmploiHttpClient } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
-import { createSuccess } from '~/server/errors/either';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
@@ -33,7 +33,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code insee', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
         const expected = '55000';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('55000');
@@ -46,7 +46,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code passé en paramètre', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
         const expected = '75999';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('75999');
@@ -58,7 +58,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code insee de paris 01', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
         const expected = '75101';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('75056');
@@ -71,7 +71,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code insee de marseille 01', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
         const expected = '13201';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('13055');
@@ -84,7 +84,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
       it('retourne le code insee de Lyon 01', async () => {
         jest
           .spyOn(httpClientServiceWithAuthentification, 'get')
-          .mockResolvedValue(createSuccess(aRésultatsRéférentielCommunesResponseList()));
+          .mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
         const expected = '69381';
 
         const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('69123');

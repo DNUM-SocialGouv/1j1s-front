@@ -1,18 +1,18 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
-import { OldHttpClientService } from '../../services/http/oldHttpClientService';
 import { DemandeDeContactCEJ, DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
-  constructor(private httpClientService: OldHttpClientService) {
+  constructor(private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification) {
   }
 
   async saveCEJ(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {
     try {
-      await this.httpClientService.post('contact-cejs', {
+      await this.httpClientServiceWithAuthentification.post('contact-cejs', {
         data: {
           age: demandeDeContactCEJ.age,
           code_postal: demandeDeContactCEJ.codePostal,
@@ -31,7 +31,7 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
 
   async saveEntreprise(demandeDeContactEntreprise: DemandeDeContactEntreprise): Promise<Either<void>> {
     try {
-      await this.httpClientService.post('contact-entreprises', {
+      await this.httpClientServiceWithAuthentification.post('contact-entreprises', {
         data: {
           email: demandeDeContactEntreprise.email,
           message: demandeDeContactEntreprise.message,

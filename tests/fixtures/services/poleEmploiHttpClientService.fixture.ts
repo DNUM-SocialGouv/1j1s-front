@@ -21,7 +21,7 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<R
   return anAxiosResponse({
     filtresPossibles: aFiltresPossiblesResponse(),
     resultats: [
-      aBarmanOffreEmploiResponse(),
+      aBarmanOffreEmploiApiResponse(),
       aMaçonOffreEmploiResponse(),
       aValetOffreEmploiResponse(),
     ],
@@ -29,11 +29,11 @@ export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<R
   });
 }
 
-export function aRésultatsRechercheOffreEmploiResponse() {
+export function aRésultatsRechercheOffreEmploiApiResponse() {
   return {
     filtresPossibles: aFiltresPossiblesResponse(),
     resultats: [
-      aBarmanOffreEmploiResponse(),
+      aBarmanOffreEmploiApiResponse(),
       aMaçonOffreEmploiResponse(),
       aValetOffreEmploiResponse(),
     ],
@@ -68,11 +68,7 @@ export function aRésultatRéférentielCommuneResponse() {
   ]);
 }
 
-export function aBarmanOffreEmploiAxiosResponse(): AxiosResponse<OffreResponse> {
-  return anAxiosResponse(aBarmanOffreEmploiResponse());
-}
-
-function aBarmanOffreEmploiResponse(): OffreResponse {
+export function aBarmanOffreEmploiApiResponse(): OffreResponse {
   return {
     description: 'Nous recherchons pour la saison demi-mai à mi-octobre 2022 un(e) Barman h/f.\n\nVos missions principales: \n- Vous effectuez le service au comptoir, en salle, en terrasse, de boissons chaudes ou froides selon la législation relative à la consommation d\'alcools. \n- Vous entretenez la verrerie, les équipements du bar et les locaux selon les règles d\'hygiène et la réglementation  en vigueur.\n- Vous participez à la vie de la paillote. \n \nVous travaillez vendredi et samedi. \n\n\n',
     dureeTravailLibelleConverti: 'Temps partiel',
