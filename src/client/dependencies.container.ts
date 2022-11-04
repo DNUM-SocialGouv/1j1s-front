@@ -3,9 +3,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
-import {
-  LesEntreprisesSEngagentService,
-} from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
+import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
@@ -23,7 +21,7 @@ export type Dependencies = {
   offreService: OffreService
   rechercheClientService: SearchClient
   demandeDeContactService: DemandeDeContactService
-  lesEntreprisesSEngagementService: LesEntreprisesSEngagentService
+  lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 }
 
 class DependencyInitException extends Error {
@@ -61,10 +59,10 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   return {
     demandeDeContactService,
     ficheMetierService,
-    lesEntreprisesSEngagentService: lesEntreprisesSEngagentService,
+    lesEntreprisesSEngagentService,
     localisationService,
     missionEngagementService,
-    offreService: offreService,
+    offreService,
     rechercheClientService,
   };
 }
