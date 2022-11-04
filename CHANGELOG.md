@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.5.0...v2.5.1) (2022-11-04)
+
+
+### Miscellaneous Chores
+
+* **version:** release 2.5.1 ([#460](https://github.com/DNUM-SocialGouv/1j1s-front/issues/460)) ([b5f80ca](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b5f80ca49c0765771e97a37357837097796f5f16))
+
 ## [2.5.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.4.1...v2.5.0) (2022-11-03)
 
 
