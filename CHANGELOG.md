@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.5.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.4.1...v2.5.0) (2022-11-03)
+
+
+### Features
+
+* **alternance:** récupération des offres d'alternance via l'API Pôle Emploi ([a21b80d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a21b80d4a792284cc8bf1844ad6db70607ced913))
+* **cartes:** flip carte espace jeune et mesures employeurs ([216111e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/216111e7ed82a1f1ed9ca2668434c73f80a4b03f))
+* **engagement:** retour d'une 403 en demande incorrecte ([2687c54](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2687c5437f5c1c85a46ddf116bfb848d9518fb60))
+* **entreprendre:** nouvelle page ([ced8cc2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ced8cc2c037248c3261ef552523977efdeb684ed))
+* **redirection:** redirection entreprises ([c1f41c2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1f41c2e9a66e919489c77d30991f25fb3cbb59a))
+* **Stage:** ajout de la description de l'employeur dans le détail d'une offre ([aef0ba4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aef0ba432260a2708b37a7a5be14d8da18ffdbe9))
+
+
+### Bug Fixes
+
+* **localisation:** gestion des recherches à une ou deux lettres pour éviter les timeout ([a831e52](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a831e5235b5ea37f04547d3759bc4e49cdb6211c))
+* **Stage:** retours ux ui ([5216cb8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5216cb899f47fa23c283c46abbcdc866fc3e195a))
+* **UX:** ajustements ([f01d167](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f01d16739177df87ef2fbffb4f995f46873bdec8))
+
 ## [2.4.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.4.0...v2.4.1) (2022-10-25)
 
 
