@@ -43,7 +43,7 @@ describe('Pagination', () => {
     });
   });
 
-  describe('quand il y a 100 résultats et 1O résultat par page à afficher', () => {
+  describe('quand il y a 100 résultats et 1O résultats par page à afficher', () => {
     describe('doit désactiver la return to first page et Page précédente', () => {
       it('doit afficher les 4 premières pages, une ellipse, la page 16, Page suivante et le go to last page', () => {
         mockLargeScreen();
@@ -208,6 +208,20 @@ describe('Pagination', () => {
       );
 
       expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('quand il y moins de 12 résultats et 1O résultats par page à afficher', () => {
+    it('affiche la pagination avec 2 pages', () => {
+      mockLargeScreen();
+      mockUseRouter({});
+      render(
+        <Pagination numberOfResult={12} numberOfResultPerPage={10} />,
+      );
+      expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();
+      expect(screen.getByText('2')).toBeInTheDocument();
+      expect(screen.queryByText('3')).not.toBeInTheDocument();
+
     });
   });
 });

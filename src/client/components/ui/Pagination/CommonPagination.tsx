@@ -147,7 +147,8 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
   return (
     <>
       {
-        numberOfPageList.length >= 2 && <ul key='Pagination' className={styles.pagination}>
+        numberOfPageList.length >= 1
+        && <ul key='Pagination' className={styles.pagination}>
           { displayPrevious() }
           { displayIntermediatePages() }
           { displayEllipsis() }
