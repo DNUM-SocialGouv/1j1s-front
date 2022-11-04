@@ -7,7 +7,6 @@ export class ServerConfigurationService implements ConfigurationService {
       API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
       API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
-      API_LA_BONNE_ALTERNANCE_BASE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_BASE_URL'),
       API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
       API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
       API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
@@ -16,7 +15,7 @@ export class ServerConfigurationService implements ConfigurationService {
       NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
       POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
       POLE_EMPLOI_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_SECRET'),
-      POLE_EMPLOI_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_SCOPE'),
+      POLE_EMPLOI_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_SCOPE').replaceAll(',', ' '),
       POLE_EMPLOI_CONNECT_URL: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_URL'),
       REDIS_DB: Number(ServerConfigurationService.getOrThrowError('REDIS_DB')),
       REDIS_HOST: ServerConfigurationService.getOrThrowError('REDIS_HOST'),
@@ -65,7 +64,6 @@ export interface EnvironmentVariables {
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string;
   readonly API_ENGAGEMENT_BASE_URL: string;
   readonly API_GEO_BASE_URL: string;
-  readonly API_LA_BONNE_ALTERNANCE_BASE_URL: string;
   readonly API_POLE_EMPLOI_OFFRES_URL: string;
   readonly API_POLE_EMPLOI_REFERENTIEL_URL: string;
   readonly IS_REVIEW_APP: string

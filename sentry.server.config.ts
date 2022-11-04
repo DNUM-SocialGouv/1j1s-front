@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/nextjs';
 
 const DEFAULT_SENTRY_SERVER_ENVIRONMENT = 'local';
 
-const userAgentBlacklist = process.env.SENTRY_USER_AGENT_BLACKLIST?.split(' ');
+const userAgentBlacklist = process.env.SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
 Sentry.init({
   beforeSend(event) {
