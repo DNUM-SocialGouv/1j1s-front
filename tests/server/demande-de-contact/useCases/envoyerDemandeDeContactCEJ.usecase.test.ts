@@ -1,11 +1,9 @@
 import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/DemandeDeContact';
-import {
-  EnvoyerDemanderDeContactCEJUseCase,
-} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
+import { EnvoyerDemandeDeContactCEJUseCase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-describe('EnvoyerDemanderDeContact pour le CEJ', () => {
+describe('EnvoyerDemandeDeContact pour le CEJ', () => {
   describe('.handle(command)', () => {
     const command = {
       age: 18,
@@ -23,8 +21,9 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
         const repository = {
           saveCEJ: jest.fn(),
           saveEntreprise: jest.fn(),
+          savePOE: jest.fn(),
         };
-        const usecase = new EnvoyerDemanderDeContactCEJUseCase(repository);
+        const usecase = new EnvoyerDemandeDeContactCEJUseCase(repository);
 
         // When
         const result = await usecase.handle({});
@@ -39,8 +38,9 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
       const repository = {
         saveCEJ: jest.fn(() => Promise.resolve(createSuccess(undefined))),
         saveEntreprise: jest.fn(),
+        savePOE: jest.fn(),
       };
-      const usecase = new EnvoyerDemanderDeContactCEJUseCase(repository);
+      const usecase = new EnvoyerDemandeDeContactCEJUseCase(repository);
       const demandeDeContactCEJ: DemandeDeContactCEJ = {
         age: 18,
         codePostal: '95000',
@@ -61,8 +61,9 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
       const repository = {
         saveCEJ: jest.fn(() => Promise.resolve(createSuccess(undefined))),
         saveEntreprise: jest.fn(),
+        savePOE: jest.fn(),
       };
-      const usecase = new EnvoyerDemanderDeContactCEJUseCase(repository);
+      const usecase = new EnvoyerDemandeDeContactCEJUseCase(repository);
       const demandeDeContactCEJ: DemandeDeContactCEJ = {
         age: 18,
         codePostal: '95000',
@@ -92,8 +93,9 @@ describe('EnvoyerDemanderDeContact pour le CEJ', () => {
           const repository = {
             saveCEJ: jest.fn(() => Promise.resolve(createSuccess(undefined))),
             saveEntreprise: jest.fn(),
+            savePOE: jest.fn(),
           };
-          const usecase = new EnvoyerDemanderDeContactCEJUseCase(repository);
+          const usecase = new EnvoyerDemandeDeContactCEJUseCase(repository);
           const commandeInvalide = { ...command, ...invalid };
           // When
           const result = await usecase.handle(commandeInvalide);

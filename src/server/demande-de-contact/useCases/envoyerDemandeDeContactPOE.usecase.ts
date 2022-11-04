@@ -7,7 +7,7 @@ import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domai
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-export interface EnvoyerDemandeDeContactPOE {
+type EnvoyerDemandeDeContactPOE = Partial<{
   nomSociété: string;
   codePostal: string;
   ville: string;
@@ -21,7 +21,7 @@ export interface EnvoyerDemandeDeContactPOE {
   téléphone: string;
   nbRecrutment: string;
   commentaire: string;
-}
+}>
 
 export class EnvoyerDemandeDeContactPOEUsecase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {
