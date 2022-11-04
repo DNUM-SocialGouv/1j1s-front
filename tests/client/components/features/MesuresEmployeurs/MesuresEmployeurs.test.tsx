@@ -5,11 +5,13 @@
 import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '@tests/client/useRouter.mock';
 import { mockSmallScreen } from '@tests/client/window.mock';
-import { desMesuresEmployeurs } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
+import { aCartesMesuresEmployeursList } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
 
 import { MesuresEmployeursComponent } from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs';
 
-const mesuresEmployeurs = desMesuresEmployeurs();
+const mesuresEmployeurs = {
+  dispositifs: aCartesMesuresEmployeursList(),
+};
 
 describe('MesuresEmployeurs', () => {
   beforeEach(() => {
@@ -33,14 +35,6 @@ describe('MesuresEmployeurs', () => {
     render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
     const cartes = screen.getAllByTestId('carteMesuresEmployeurs');
     expect(cartes.length).toEqual(4);
-  });
-
-  it('affiche un lien local pour les articles internes ou externe pour les sites étrangers', () => {
-    render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
-    const [ external, internal ] = screen.getAllByRole('link');
-    /* eslint-disable testing-library/no-node-access */
-    expect(external).toHaveAttribute('href', expect.stringMatching(/^https:\/\//));
-    expect(internal).toHaveAttribute('href', '/articles/slug-article');
   });
 });
 
