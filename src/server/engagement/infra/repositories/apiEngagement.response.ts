@@ -16,7 +16,7 @@ export interface MissionEngagementResponse {
   startAt?: string
   title: string
   openToMinors?: string
-  _id?: string
+  id?: string
 }
 
 export interface ConsulterMissionEngagementResponse extends MissionEngagementResponse {

@@ -6,7 +6,6 @@ import { RésultatsMissionEngagementResponse } from '~/server/engagement/infra/r
 export function anAmbassadeurDuDonDeVêtementMissionResponse(): RésultatsMissionEngagementResponse {
   return {
     data: {
-      _id: '6278e8ced7dda60703c3ca40',
       applicationUrl: 'https://api.api-engagement.beta.gouv.fr/r/6278e8ced7dda60703c3ca40/5fa438777a2fa04fc30aeaa6',
       associationName: 'Ebs le relais val de seine',
       city: 'Poissy',
@@ -15,6 +14,7 @@ export function anAmbassadeurDuDonDeVêtementMissionResponse(): RésultatsMissio
       departmentName: 'Yvelines',
       description: ' • Faire connaître les activités du Relais et inciter au don de textiles dans\n   votre quartier \n • Prévenir en cas de débordement ou de dégradation constatés d’une borne\n • Sensibiliser vos voisins \n • Participer à des évènements de collecte de collecte à proximité de son\n   domicile\n\n\\n\\nObjectifs: \\n\n\nNous désirons innover en développant un réseau d’ambassadeurs bénévoles autour\ndu geste du don dans la ville de Poissy, chaque ambassadeur se voyant assigné un\npoint de collecte - « une borne » - à proximité de son domicile et pouvant par\nla suite organiser des animations autour de la réduction des déchets et du tri\ndes textiles. ',
       duration: 5,
+      id: '6278e8ced7dda60703c3ca40',
       location: {
         lat: 48.930286,
         lon: 2.033494,
