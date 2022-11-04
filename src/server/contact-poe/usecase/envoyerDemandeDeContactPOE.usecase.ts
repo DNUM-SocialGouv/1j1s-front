@@ -7,21 +7,7 @@ import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domai
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-
-export class EnvoyerDemandeDeContactPOEUsecase {
-  constructor(private demandeDeContactPOERepository: DemandeDeContactPOERepository) {}
-
-  async formerPoleEmploi(command: FormerPoleEmploi): Promise<Either<void>> {
-    try {
-      const contactPOE: DemandeDeContactPOE = Joi.attempt(command, ContactPOEValidator);
-      return this.demandeDeContactPOERepository.savePOE(contactPOE);
-    } catch (e) {
-      return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-    }
-  }
-}
-
-export interface FormerPoleEmploi  {
+export interface EnvoyerDemandeDeContactPOE {
   nomSociété: string;
   codePostal: string;
   ville: string;
@@ -37,7 +23,21 @@ export interface FormerPoleEmploi  {
   commentaire: string;
 }
 
-const ContactPOEValidator = Joi.object({
+export class EnvoyerDemandeDeContactPOEUsecase {
+  constructor(private demandeDeContactPOERepository: DemandeDeContactPOERepository) {
+  }
+
+  async handle(command: EnvoyerDemandeDeContactPOE): Promise<Either<void>> {
+    try {
+      const contactPOE: DemandeDeContactPOE = Joi.attempt(command, DemandeDeContactPOEValidator);
+      return this.demandeDeContactPOERepository.savePOE(contactPOE);
+    } catch (e) {
+      return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    }
+  }
+}
+
+const DemandeDeContactPOEValidator = Joi.object({
   codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(),
   commentaire: Joi.string(),
   // Regex utilsée côté LEE
@@ -53,8 +53,9 @@ const ContactPOEValidator = Joi.object({
   téléphone: Joi.string().custom(validatePhone).required(),
   ville: Joi.string().required(),
 });
-function validatePhone (input: string): string {
-  const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false  });
+
+function validatePhone(input: string): string {
+  const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false });
   if (!isValid) {
     throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
   }

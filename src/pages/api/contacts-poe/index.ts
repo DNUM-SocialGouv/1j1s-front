@@ -9,7 +9,7 @@ export async function enregistrerContactPOEHandler(req: NextApiRequest, res: Nex
   if (req.method !== 'POST') {
     return res.status(406).end();
   }
-  const response = await dependencies.contactpoeDependencies.demandeDeContactPOEUsecase.formerPoleEmploi(req.body);
+  const response = await dependencies.contactpoeDependencies.demandeDeContactPOEUsecase.handle(req.body);
   return handleResponse(response, res);
 }
 
