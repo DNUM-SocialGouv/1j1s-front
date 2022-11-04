@@ -5,17 +5,20 @@ import {
 import {
   EnvoyerDemanderDeContactEntrepriseUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
+import { EnvoyerDemandeDeContactPOEUsecase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactPOE.usecase';
 
 export interface DemandeDeContactDependencies {
-  envoyerDemanderDeContactCEJUseCase: EnvoyerDemanderDeContactCEJUseCase
-  envoyerDemanderDeContactEntrepriseUseCase: EnvoyerDemanderDeContactEntrepriseUseCase
+  envoyerDemandeDeContactCEJUseCase: EnvoyerDemanderDeContactCEJUseCase
+  envoyerDemandeDeContactEntrepriseUseCase: EnvoyerDemanderDeContactEntrepriseUseCase
+  envoyerDemandeDeContactPOEUsecase: EnvoyerDemandeDeContactPOEUsecase
 }
 
 export const demandeDeContactDependenciesContainer = (
   demandeDeContactRepository: DemandeDeContactRepository,
 ): DemandeDeContactDependencies => {
   return {
-    envoyerDemanderDeContactCEJUseCase: new EnvoyerDemanderDeContactCEJUseCase(demandeDeContactRepository),
-    envoyerDemanderDeContactEntrepriseUseCase: new EnvoyerDemanderDeContactEntrepriseUseCase(demandeDeContactRepository),
+    envoyerDemandeDeContactCEJUseCase: new EnvoyerDemanderDeContactCEJUseCase(demandeDeContactRepository),
+    envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemanderDeContactEntrepriseUseCase(demandeDeContactRepository),
+    envoyerDemandeDeContactPOEUsecase: new EnvoyerDemandeDeContactPOEUsecase(demandeDeContactRepository),
   };
 };
