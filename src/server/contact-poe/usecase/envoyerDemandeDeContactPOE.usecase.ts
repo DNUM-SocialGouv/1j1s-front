@@ -1,20 +1,20 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { ContactPOE } from '~/server/contact-poe/domain/ContactPOE';
-import { FormerPoleEmploiRepository } from '~/server/contact-poe/domain/FormerPoleEmploi.repository';
+import { DemandeDeContactPOE } from '~/server/contact-poe/domain/DemandeDeContactPOE';
+import { DemandeDeContactPOERepository } from '~/server/contact-poe/domain/DemandeDeContactPOERepository';
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 
-export class JeRecruteAfprPoeiUseCase {
-  constructor(private formerPoleEmploiRepository: FormerPoleEmploiRepository) {}
+export class EnvoyerDemandeDeContactPOEUsecase {
+  constructor(private demandeDeContactPOERepository: DemandeDeContactPOERepository) {}
 
   async formerPoleEmploi(command: FormerPoleEmploi): Promise<Either<void>> {
     try {
-      const contactPOE: ContactPOE = Joi.attempt(command, ContactPOEValidator);
-      return this.formerPoleEmploiRepository.save(contactPOE);
+      const contactPOE: DemandeDeContactPOE = Joi.attempt(command, ContactPOEValidator);
+      return this.demandeDeContactPOERepository.savePOE(contactPOE);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
@@ -38,7 +38,7 @@ export interface FormerPoleEmploi  {
 }
 
 const ContactPOEValidator = Joi.object({
-  codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(), 
+  codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(),
   commentaire: Joi.string(),
   // Regex utilsée côté LEE
   email: Joi.string().email().required(),
