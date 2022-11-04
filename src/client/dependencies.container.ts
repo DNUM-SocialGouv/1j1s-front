@@ -1,13 +1,9 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
-import { AnalyticsService } from '~/client/services/analyticsService';
-import { AnalyticsServiceFake } from '~/client/services/analyticsServiceFake';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
-import {
-  LesEntreprisesSEngagentService,
-} from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
+import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
@@ -26,7 +22,6 @@ export type Dependencies = {
   rechercheClientService: SearchClient
   demandeDeContactService: DemandeDeContactService
   lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
-  analyticsService: AnalyticsService | AnalyticsServiceFake
 }
 
 class DependencyInitException extends Error {
@@ -37,7 +32,6 @@ class DependencyInitException extends Error {
 
 export default function dependenciesContainer(sessionId: string): Dependencies {
   const loggerService = new LoggerService(sessionId);
-  const analyticsService = process.env.NODE_ENV === 'production' ?  new AnalyticsService() : new AnalyticsServiceFake();
   const httpClientService =  new HttpClientService(sessionId, loggerService);
   const offreService = new OffreService(httpClientService);
   const localisationService = new LocalisationService(httpClientService);
@@ -63,13 +57,12 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   );
 
   return {
-    analyticsService,
     demandeDeContactService,
     ficheMetierService,
-    lesEntreprisesSEngagentService: lesEntreprisesSEngagentService,
+    lesEntreprisesSEngagentService,
     localisationService,
     missionEngagementService,
-    offreService: offreService,
+    offreService,
     rechercheClientService,
   };
 }

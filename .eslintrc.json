@@ -11,7 +11,12 @@
       "version": 27
     }
   },
-  "ignorePatterns": ["public/scripts/smarttag.js", "cypress/*"],
+  "ignorePatterns": [
+    "public/scripts/smarttag.js",
+    "public/scripts/tarteaucitron.js",
+    "public/tarteaucitron.service.js",
+    "public/lang/*"
+  ],
   "rules": {
     "prettier/prettier": "off",
     "indent": [2, 2, { "SwitchCase": 1 }],

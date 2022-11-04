@@ -1,4 +1,5 @@
-import { aBarmanOffre, aRésultatEchantillonOffre } from "@tests/fixtures/domain/offre.fixture"
+/* eslint-disable jest/expect-expect */
+import { aBarmanOffre, aRésultatEchantillonOffre } from '@tests/fixtures/domain/offre.fixture';
 
 describe('Parcours emplois', () => {
   before(() => {

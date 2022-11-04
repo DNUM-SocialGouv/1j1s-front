@@ -3,6 +3,7 @@ import '~/styles/main.scss';
 
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React, { ReactElement, ReactNode } from 'react';
 
@@ -10,6 +11,9 @@ import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
+
+const CookieConsent = dynamic(() => import(/* webpackChunkName: 'cookieConsent' */ '~/client/components/features/CookieConsent/CookieConsent'), { ssr: false });
+
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -22,6 +26,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const sessionId = useSessionId();
+  
   const getLayout = Component.getLayout ?? defaultLayout;
   return (
     <>
@@ -38,6 +43,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             {getLayout(<Component {...pageProps} />)}
           </DependenciesProvider>
         )
+      }
+      { process.env.NODE_ENV === 'production' &&
+        <CookieConsent/>
       }
     </>
   );
