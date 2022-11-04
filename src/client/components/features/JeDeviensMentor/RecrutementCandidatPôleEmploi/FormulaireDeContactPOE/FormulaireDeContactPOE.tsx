@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
-import styles from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulairePOE/FormulairePOE.module.scss';
+import styles from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulaireDeContactPOE/FormulairePOE.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
-import InputAutocomplétionSecteurActivité
-, { SecteurActivité } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
+import InputAutocomplétionSecteurActivité, {
+  SecteurActivité,
+} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Hero } from '~/client/components/ui/Hero/Hero';
@@ -16,7 +17,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { JeRecruteAfprPoeiService } from '~/client/services/je-recrute-afpr-poei/jeRecruteAfprPoei.service';
+import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
@@ -53,10 +54,10 @@ export enum Etape {
 
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
-export function FormulairePOE() {
+export function FormulaireDeContactPOE() {
   const router = useRouter();
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
-  const jeRecruteAfprPoeiService = useDependency<JeRecruteAfprPoeiService>('jeRecruteAfprPoeiService');
+  const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
 
 
@@ -118,7 +119,7 @@ export function FormulairePOE() {
     event.preventDefault();
 
     if (isPremièreEtapeValid() && isDeuxièmeEtapeValid()) {
-      const response = await jeRecruteAfprPoeiService.envoyerFormulairePoleEmploi({ ...formulaireEtape1, ...formulaireEtape2, ...formulaireEtape3 });
+      const response = await demandeDeContactService.envoyerPourLePOE({ ...formulaireEtape1, ...formulaireEtape2, ...formulaireEtape3 });
 
       if (isSuccess(response)) {
         setIsFormSuccessfullySent(true);
@@ -126,10 +127,11 @@ export function FormulairePOE() {
     }
   }
 
-  function Mention(){
+  function Mention() {
     return (
       <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
-        Pour en savoir plus vous pouvez consulter la <Link href={'/confidentialite'}>politique de confidentialité</Link> et les <Link href={'/cgu'}>CGU</Link> de la DGEFP
+        Pour en savoir plus vous pouvez consulter la <Link href={'/confidentialite'}>politique de confidentialité</Link> et les <Link
+        href={'/cgu'}>CGU</Link> de la DGEFP
       </p>
     );
   }
@@ -145,7 +147,8 @@ export function FormulairePOE() {
         <>
           <Hero>
             <p><b>Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche</b></p>
-            <p className={styles.heroSubtitle}>Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement</p>
+            <p className={styles.heroSubtitle}>Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous
+              rapidement</p>
           </Hero>
 
           <div className={styles.content}>
@@ -237,7 +240,7 @@ export function FormulairePOE() {
                   </div>
 
                   <div className={styles.validation}>
-                    <ButtonComponent icon={<Icon name='angle-right'/>} iconPosition='right' label='Suivant' type='submit'/>
+                    <ButtonComponent icon={<Icon name="angle-right"/>} iconPosition="right" label="Suivant" type="submit"/>
                     {Mention()}
                   </div>
                 </form>
@@ -323,7 +326,7 @@ export function FormulairePOE() {
                   </div>
 
                   <div className={styles.validation}>
-                    <ButtonComponent icon={<Icon name='angle-right' />} iconPosition='right' label='Suivant' type='submit' />
+                    <ButtonComponent icon={<Icon name="angle-right"/>} iconPosition="right" label="Suivant" type="submit"/>
                     {Mention()}
                   </div>
                 </form>
@@ -367,9 +370,11 @@ export function FormulairePOE() {
                   </div>
 
                   <div className={styles.validation}>
-                    <ButtonComponent icon={<Icon name='angle-right'/>} iconPosition='right' label='Envoyer mes informations afin d’être rappelé(e)' type='submit'/>
-                    <p>En cliquant sur &ldquo;Je souhaite être rappelé&rdquo;, j&apos;accepte que mes données soient transférées au Pole emploi de la zone géographique
-                  dans laquelle je réside en vue d&apos;être rappelé</p>
+                    <ButtonComponent icon={<Icon name="angle-right"/>} iconPosition="right" label="Envoyer mes informations afin d’être rappelé(e)"
+                      type="submit"/>
+                    <p>En cliquant sur &ldquo;Je souhaite être rappelé&rdquo;, j&apos;accepte que mes données soient transférées au Pole emploi de la
+                      zone géographique
+                      dans laquelle je réside en vue d&apos;être rappelé</p>
                   </div>
                 </form>
               }
@@ -378,11 +383,11 @@ export function FormulairePOE() {
         </>
       }
       {isFormSuccessfullySent &&
-          <div className={styles.success}>
-            <p>Félicitations, votre formulaire a bien été envoyé !</p>
-            <p>Vous serez recontacté(e) dès que possible</p>
-            <Link href="/" appearance='asPrimaryButton'>Retourner à l&apos;accueil</Link>
-          </div>
+        <div className={styles.success}>
+          <p>Félicitations, votre formulaire a bien été envoyé !</p>
+          <p>Vous serez recontacté(e) dès que possible</p>
+          <Link href="/" appearance="asPrimaryButton">Retourner à l&apos;accueil</Link>
+        </div>
       }
     </>
   );
