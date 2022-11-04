@@ -1,3 +1,5 @@
+import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
+
 export type DemandeDeContactType = 'CEJ' | 'LesEntreprisesSEngagent'
 
 export interface DemandeDeContact {
@@ -16,6 +18,18 @@ export interface DemandeDeContactCEJ extends DemandeDeContact {
   ville: string;
   codePostal: string;
   age: Age;
+}
+
+export interface DemandeDeContactPOE extends DemandeDeContact{
+  nomSociété: string;
+  siret: string;
+  taille: keyof typeof TailleDEntreprise;
+  secteur: keyof typeof SecteurDActivité;
+  codePostal: string;
+  ville: string;
+  nombreARecruter: string;
+  travail: string;
+  commentaire: string;
 }
 
 type Age = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30;

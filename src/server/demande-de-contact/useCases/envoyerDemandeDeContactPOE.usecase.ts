@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { DemandeDeContactPOE } from '~/server/contact-poe/domain/DemandeDeContactPOE';
-import { DemandeDeContactPOERepository } from '~/server/contact-poe/domain/DemandeDeContactPOERepository';
+import { DemandeDeContactPOE } from '~/server/demande-de-contact/domain/DemandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/DemandeDeContact.repository';
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -24,13 +24,13 @@ export interface EnvoyerDemandeDeContactPOE {
 }
 
 export class EnvoyerDemandeDeContactPOEUsecase {
-  constructor(private demandeDeContactPOERepository: DemandeDeContactPOERepository) {
+  constructor(private demandeDeContactRepository: DemandeDeContactRepository) {
   }
 
   async handle(command: EnvoyerDemandeDeContactPOE): Promise<Either<void>> {
     try {
-      const contactPOE: DemandeDeContactPOE = Joi.attempt(command, DemandeDeContactPOEValidator);
-      return this.demandeDeContactPOERepository.savePOE(contactPOE);
+      const demandeDeContactPOE: DemandeDeContactPOE = Joi.attempt(command, DemandeDeContactPOEValidator);
+      return this.demandeDeContactRepository.savePOE(demandeDeContactPOE);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }

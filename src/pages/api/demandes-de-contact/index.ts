@@ -20,11 +20,11 @@ export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, re
 
   switch(type as DemandeDeContactType) {
     case 'CEJ': {
-      response = await dependencies.demandeDeContactDependencies.envoyerDemanderDeContactCEJUseCase.handle(req.body);
+      response = await dependencies.demandeDeContactDependencies.envoyerDemandeDeContactCEJUseCase.handle(req.body);
       break;
     }
     case 'LesEntreprisesSEngagent': {
-      response = await dependencies.demandeDeContactDependencies.envoyerDemanderDeContactEntrepriseUseCase.handle(req.body);
+      response = await dependencies.demandeDeContactDependencies.envoyerDemandeDeContactEntrepriseUseCase.handle(req.body);
       break;
     }
     default: {
