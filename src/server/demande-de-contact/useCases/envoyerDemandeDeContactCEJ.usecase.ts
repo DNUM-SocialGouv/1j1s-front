@@ -8,7 +8,7 @@ import { Age, DemandeDeContactCEJ } from '../domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 
-type EnvoyerDemanderDeContactCEJ = Partial<{
+type EnvoyerDemandeDeContactCEJ = Partial<{
   prénom: string
   nom: string
   email: string
@@ -18,11 +18,11 @@ type EnvoyerDemanderDeContactCEJ = Partial<{
   codePostal: string
 }>
 
-export class EnvoyerDemanderDeContactCEJUseCase {
+export class EnvoyerDemandeDeContactCEJUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {
   }
 
-  async handle(command: EnvoyerDemanderDeContactCEJ): Promise<Either<void>> {
+  async handle(command: EnvoyerDemandeDeContactCEJ): Promise<Either<void>> {
     try {
       const demandeDeContactCEJ: DemandeDeContactCEJ = Joi.attempt(command, DemandeDeContactCEJValidator);
       return this.demandeDeContactRepository.saveCEJ(demandeDeContactCEJ);
