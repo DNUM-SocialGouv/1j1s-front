@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {
-  FormulairePOE,
-} from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulairePOE/FormulairePOE';
+  FormulaireDeContactPOE,
+} from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulaireDeContactPOE/FormulaireDeContactPOE';
 
 export default function JeRecruteAfprPoeiInscription() {
   return (
-    <FormulairePOE />
+    <FormulaireDeContactPOE />
   );
 }
