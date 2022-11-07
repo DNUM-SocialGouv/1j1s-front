@@ -112,7 +112,7 @@ export default function Inscription() {
         <>
           <div className={styles.header}>
             <div className={styles.logo}>
-              <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="144.2" height="80"/>
+              <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="144" height="80"/>
             </div>
             <div className={styles.titre}>
               <span>REJOIGNEZ  &ldquo;LES ENTREPRISES S&apos;ENGAGENT&rdquo;</span>

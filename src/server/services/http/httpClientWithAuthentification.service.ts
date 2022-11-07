@@ -47,7 +47,7 @@ export class HttpClientServiceWithAuthentification extends OldHttpClientService 
         await this.refreshToken();
       } catch (authError) {
         LoggerService.error(`${this.apiName} failed to refresh token ${authError}`);
-        LoggerService.error(`${this.apiName} ${error.response?.status} ${error.config.baseURL}${error.config.url}`);
+        LoggerService.error(`${this.apiName} ${error.response?.status} ${error.config?.baseURL}${error.config?.url}`);
         throw error;
       }
       return makeRequest();
