@@ -1,10 +1,4 @@
-import {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosResponseHeaders,
-} from 'axios';
+import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, RawAxiosResponseHeaders } from 'axios';
 
 export function anAxiosInstance(): AxiosInstance {
   return {
@@ -33,7 +27,7 @@ export function anAxiosInstance(): AxiosInstance {
 export function anAxiosResponse<T>(
   data: T,
   status?: number,
-  headers: AxiosResponseHeaders = {},
+  headers: RawAxiosResponseHeaders = {},
 ): AxiosResponse<T> {
   return {
     config: undefined as unknown as AxiosRequestConfig,
