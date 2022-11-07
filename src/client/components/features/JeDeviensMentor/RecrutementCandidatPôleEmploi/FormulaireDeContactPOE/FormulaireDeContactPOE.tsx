@@ -383,11 +383,13 @@ export function FormulaireDeContactPOE() {
         </>
       }
       {isFormSuccessfullySent &&
-        <div className={styles.success}>
-          <p>Félicitations, votre formulaire a bien été envoyé !</p>
-          <p>Vous serez recontacté(e) dès que possible</p>
-          <Link href="/" appearance="asPrimaryButton">Retourner à l&apos;accueil</Link>
-        </div>
+        <Container className={styles.container}>
+          <div className={styles.success}>
+            <p>Félicitations, votre formulaire a bien été envoyé !</p>
+            <p>Vous serez recontacté(e) dès que possible</p>
+            <Link href="/" appearance="asPrimaryButton">Retourner à l&apos;accueil</Link>
+          </div>
+        </Container>
       }
     </>
   );
