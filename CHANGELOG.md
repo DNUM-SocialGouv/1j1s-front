@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.5.1...v2.6.0) (2022-11-07)
+
+
+### Features
+
+* **cookie:** ajout tarte au citron et gta ([2b1ee57](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b1ee571dba57d8979c7f8e533b62cb9e5175de3))
+
+
+### Bug Fixes
+
+* **Stage:** corrections de retours ux ui ([7c7859b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c7859bb63d62c52a67809cda7823a234a6c198a))
+
 ## [2.5.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.5.0...v2.5.1) (2022-11-04)
 
 
