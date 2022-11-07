@@ -3,7 +3,8 @@ import {
   anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
   anOffreÉchantillonFiltre,
   anOffreEmploiFiltre,
-  aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
+  aRésultatsRechercheOffre,
+} from '@tests/fixtures/domain/offre.fixture';
 import {
   aPoleEmploiParamètreBuilderService,
 } from '@tests/fixtures/server/offresEmploi/poleEmploiParamètreBuilder.service.fixture';

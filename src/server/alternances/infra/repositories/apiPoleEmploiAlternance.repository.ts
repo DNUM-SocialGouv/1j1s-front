@@ -12,6 +12,7 @@ import {
   mapOffre,
   mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
+import { handleSearchFailureError } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
 import {
   OffreResponse,
   RésultatsRechercheOffreResponse,
@@ -65,8 +66,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
         }
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        LoggerService.error('[API Pole Emploi] impossible de rechercher');
-        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+        return handleSearchFailureError(e);
       }
 
     }
