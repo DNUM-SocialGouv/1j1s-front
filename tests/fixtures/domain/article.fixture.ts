@@ -7,7 +7,6 @@ import {
   StrapiCollectionTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
 
-
 export function anArticle(override?: Partial<Article>): Article {
   return {
     bannière: undefined,

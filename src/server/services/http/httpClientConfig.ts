@@ -115,6 +115,6 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
-    strapiClientService: new OldHttpClientService(getApiStrapiConfig(configurationService)),
+    strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
   };
 }
