@@ -35,7 +35,8 @@
     "@typescript-eslint/no-namespace": "off",
     "quote-props": ["error", "as-needed"],
     "no-console": "error",
-    "import/named": "off"
+    "import/named": "off",
+    "import/no-named-as-default-member": "off"
   },
   "overrides": [
     // Only uses Testing Library lint rules in test files
