@@ -143,7 +143,7 @@ describe('StrapiDemandeDeContactRepository', () => {
           email: 'test@test.com',
           nom: 'TEST',
           nom_societe: 'Société de test',
-          nombre_a_recruter: '5',
+          nombreARecruter: '5',
           prenom: 'Test',
           secteur: 'agriculture',
           siret: '12345678901234',
