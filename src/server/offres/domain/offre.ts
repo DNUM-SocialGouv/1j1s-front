@@ -162,11 +162,13 @@ export interface OffreEmploiFiltreLocalisation {
 type DomaineCode = 'M' | 'B' | 'C' | 'F' | 'D' | 'E' | 'M14' | 'M13' | 'A' | 'G' | 'C15' | 'H' | 'M18' | 'I' | 'M17' | 'M15' | 'J' | 'M16' | 'K' | 'L' | 'L14' | 'N'
 
 export interface RéférentielDomaine {
-  code: string
+  code: DomaineCode
   libelle: string
 }
 
 export const NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE = 15;
+const MAX_RESULT_ALLOWED = 1000;
+export const MAX_PAGE_ALLOWED = Math.floor(MAX_RESULT_ALLOWED / NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE);
 
 export function isOffreÉchantillonFiltre(offreFiltre: OffreFiltre) {
   const { page, ...rest } = offreFiltre;

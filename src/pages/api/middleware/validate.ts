@@ -1,5 +1,6 @@
-import withJoi from 'next-joi'
-import { ErreurMétier } from '~/server/errors/erreurMétier.types'
+import withJoi from 'next-joi';
+
+import { LoggerService } from '~/server/services/logger.service';
 
 export const validate = withJoi({
   /**
@@ -7,7 +8,7 @@ export const validate = withJoi({
    * we can customize the error response.
    */
   onValidationError: (_, res) => {
-    console.log('onValidationError', _.query)
-    return res.status(400).json({ error:  'oups...' });
+    LoggerService.warn('[QUERY PARAMS URL] les paramètres dans l\'url ne respectent pas le schema de validation');
+    return res.status(400).json({ error:  'les paramètres dans l\'url ne respectent pas le schema de validation' });
   },
-})
+});

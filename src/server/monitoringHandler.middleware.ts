@@ -3,7 +3,6 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function monitoringHandler(handler: any) {
-  console.log('HERE in monitoringHandler')
   return function (req: NextApiRequest, res: NextApiResponse): NextApiHandler {
     const transactionId = req.headers['x-transaction-id'] as string;
     const sessionId = req.headers['x-session-id'] as string;
