@@ -6,7 +6,7 @@
 }
 
 .content {
-  padding-block: 2rem;
+  padding: 1rem;
 }
 
 .container {
@@ -25,7 +25,7 @@
 .formulaire {
 
   &Input {
-    margin-bottom: 1.5rem;
+    margin-block: 1.5rem;
   }
 
   .label {
@@ -90,7 +90,7 @@
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 
   p:first-child {
     color: $color-primary;
@@ -105,7 +105,7 @@
   }
 
   a {
-    width: 50%;
+    width: 100%;
   }
 }
 
@@ -140,6 +140,10 @@
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;
+
+    &Input {
+      margin-bottom: 1.5rem;
+    }
 
     .bodyFormulaire {
       display: flex;
