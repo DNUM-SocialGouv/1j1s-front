@@ -108,9 +108,9 @@ const getApiPoleEmploiReferentielsConfig = (configurationService: ConfigurationS
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
   return {
-    adresseClientService: new OldHttpClientService(getApiAdresseConfig(configurationService)),
+    adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
-    geoGouvClientService: new OldHttpClientService(getApiGeoGouvConfig(configurationService)),
+    geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     lesEntreprisesSEngagentClientService: new OldHttpClientService(getApiLEEConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),

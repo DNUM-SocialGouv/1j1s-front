@@ -29,10 +29,10 @@ import {
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
 import { RechercherOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobÉtudiantUseCase';
-import {
-  localisationDependenciesContainer,
-  LocalisationsDependencies,
-} from '~/server/localisations/configuration/localisations.dependencies';
+import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
+import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
+import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
+import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
@@ -50,7 +50,7 @@ export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
-  localisationDependencies: LocalisationsDependencies;
+  localisationDependencies: LocalisationDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies
   entrepriseDependencies: EntrepriseDependencies
   offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
@@ -77,6 +77,11 @@ export interface EngagementDependencies {
   consulterMissionEngagement: ConsulterMissionEngagementUseCase;
 }
 
+export interface LocalisationDependencies {
+  listeLocalisation: RechercherLocalisationUseCase;
+  rechercherCommune: RechercherCommuneUseCase;
+}
+
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
   let cacheService: CacheService;
@@ -93,10 +98,11 @@ export const dependenciesContainer = (): Dependencies => {
     poleEmploiReferentielsClientService,
     strapiAuthClientService,
     strapiClientService,
+    adresseClientService,
+    geoGouvClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
-  const localisationDependencies = localisationDependenciesContainer(serverConfigurationService);
   const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
     new StrapiDemandeDeContactRepository(strapiAuthClientService),
   );
@@ -129,6 +135,13 @@ export const dependenciesContainer = (): Dependencies => {
   const engagementDependencies: EngagementDependencies = {
     consulterMissionEngagement: new ConsulterMissionEngagementUseCase(apiEngagementRepository),
     rechercherMissionEngagement: new RechercherMissionEngagementUseCase(apiEngagementRepository),
+  };
+
+  const apiAdresseRepository = new ApiAdresseRepository(adresseClientService);
+  const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
+  const localisationDependencies: LocalisationDependencies = {
+    listeLocalisation: new RechercherLocalisationUseCase(apiGeoLocalisationRepository, apiAdresseRepository),
+    rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository),
   };
 
   return {
