@@ -32,14 +32,12 @@ export default function CookieConsent() {
     const googleTagManagerCookieConsent = CookieService.getCookieConsent(googleTagManager);
     if (googleTagManagerCookieConsent !== undefined && googleTagManagerCookieConsent !== false) {
       window.tarteaucitron.user.multiplegtagUa = ['DC-2953234'];
-      if (router.pathname === '/decouvrir-les-metiers') {
-        window.tarteaucitron.user.gtagMore = function () {
-          window.gtag('event', 'conversion', {
-            allow_custom_scripts: true,
-            send_to: 'DC-2953234/SIG-M0/lpformat+unique',
-          });
-        };
-      }
+      window.tarteaucitron.user.gtagMore = function () {
+        window.gtag('event', 'conversion', {
+          allow_custom_scripts: true,
+          send_to: 'DC-2953234/SIG-M0/lpformat+unique',
+        });
+      };
     }
 
     (window.tarteaucitron.job = window.tarteaucitron.job || []).push(googleTagManager);
