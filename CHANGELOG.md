@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.2...v2.6.3) (2022-11-08)
+
+
+### Bug Fixes
+
+* **dependencies:** rollback next ([121117a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/121117af97c2a81a2c9445cee9f9bebd5d4703cf))
+
 ## [2.6.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.1...v2.6.2) (2022-11-08)
 
 
