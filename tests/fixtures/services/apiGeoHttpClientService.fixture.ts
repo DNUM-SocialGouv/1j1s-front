@@ -1,14 +1,14 @@
 import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
-import { OldHttpClientService } from '../../../src/server/services/http/oldHttpClientService';
+import { HttpClientService } from '~/server/services/http/httpClientService';
 
-export function aApiGeoHttpClientService(): OldHttpClientService {
+export function aApiGeoHttpClientService(): HttpClientService {
   return {
     client: anAxiosInstance(),
     get: jest.fn(),
     post: jest.fn(),
-  } as unknown as OldHttpClientService;
+  } as unknown as HttpClientService;
 }
 
 export function aRechercheCommuneResponse(): AxiosResponse {

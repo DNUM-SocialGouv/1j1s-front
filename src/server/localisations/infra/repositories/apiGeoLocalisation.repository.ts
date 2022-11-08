@@ -1,16 +1,17 @@
-import { Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
   ApiDecoupageAdministratifResponse,
 } from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
 import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-
-import { OldHttpClientService } from '../../../services/http/oldHttpClientService';
+import { HttpClientService } from '~/server/services/http/httpClientService';
+import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
-    private readonly httpClientService: OldHttpClientService,
+    private readonly httpClientService: HttpClientService,
   ) {
   }
 
@@ -39,9 +40,13 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
   }
 
   private async request(endpoint: string): Promise<Either<Localisation[]>> {
-    return await this.httpClientService.get<ApiDecoupageAdministratifResponse[], Localisation[]>(
-      endpoint,
-      mapLocalisationList,
-    );
+    try {
+      const response = await this.httpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
+      return createSuccess(mapLocalisationList(response.data));
+    } catch (e) {
+      LoggerService.error('[API Localisation] impossible de rechercher');
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    }
+
   }
 }
