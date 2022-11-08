@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -17,7 +17,7 @@ export abstract class OldClientService {
     protected apiName: string,
     baseURL: string,
     overrideInterceptorsResponse = false,
-    headers: RawAxiosRequestHeaders = {},
+    headers: AxiosRequestHeaders = {},
   ) {
     this.client = axios.create({
       baseURL,

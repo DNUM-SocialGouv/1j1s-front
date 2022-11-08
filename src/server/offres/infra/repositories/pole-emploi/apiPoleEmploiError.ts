@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -25,7 +25,7 @@ export const errorFromApiPoleEmploi = [
 export function handleSearchFailureError(e: unknown) {
   if (axios.isAxiosError(e)) {
     const error: AxiosError<ApiPoleEmploiErrorResponse> = e as AxiosError<ApiPoleEmploiErrorResponse>;
-    if(error.response?.status === 400 && errorFromApiPoleEmploi.includes(e.response?.data.message)) {
+    if(error.response?.status === 400 && errorFromApiPoleEmploi.includes((<AxiosResponse<{ message: string }>> e?.response)?.data?.message)) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     } else {
       LoggerService.warn('[API Pole Emploi] recherche incorrecte');
