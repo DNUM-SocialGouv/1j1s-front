@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.1...v2.6.2) (2022-11-08)
+
+
+### Bug Fixes
+
+* **cookie:** remove condtion path for google tag manager ([1300448](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1300448b024c9ed665a8b19977b42e2d27907afd))
+
 ## [2.6.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.0...v2.6.1) (2022-11-07)
 
 
