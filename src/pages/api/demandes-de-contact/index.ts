@@ -12,15 +12,16 @@ export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, re
   if (req.method !== 'POST') {
     return res.status(406).end();
   }
-
-  const { type } = req.body;
+  const { type } = JSON.parse(req.body);
   const command = req.body;
   delete command.type;
   let response;
 
   switch(type as DemandeDeContactType) {
     case 'CEJ': {
-      response = await dependencies.demandeDeContactDependencies.envoyerDemanderDeContactCEJUseCase.handle(req.body);
+      const body = JSON.parse(req.body);
+      delete body['type'];
+      response = await dependencies.demandeDeContactDependencies.envoyerDemanderDeContactCEJUseCase.handle(body);
       break;
     }
     case 'LesEntreprisesSEngagent': {

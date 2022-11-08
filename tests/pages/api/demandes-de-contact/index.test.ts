@@ -45,7 +45,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
           handler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
           test: async ({ fetch }) => {
             const res = await fetch({
-              body: JSON.stringify({
+              body: {
                 age: 18,
                 codePostal: '95000',
                 email: 'toto@msn.fr',
@@ -54,7 +54,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
                 type: 'CEJ',
                 téléphone: '0678954322',
                 ville: 'Cergy',
-              }),
+              },
               headers: {
                 'content-type': 'application/json',
               },
