@@ -1,9 +1,12 @@
+import {
+  DemandeDeContactCEJ,
+  DemandeDeContactEntreprise,
+  DemandeDeContactPOE,
+} from '~/server/demande-de-contact/domain/DemandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/DemandeDeContact.repository';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-
-import { DemandeDeContactCEJ, DemandeDeContactEntreprise, DemandeDeContactPOE } from '../domain/DemandeDeContact';
-import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
@@ -56,7 +59,7 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
           email: demandeDeContactPOE.email,
           nom: demandeDeContactPOE.nom,
           nom_societe: demandeDeContactPOE.nomSociété,
-          nombre_a_recruter: demandeDeContactPOE.nombreARecruter,
+          nombreARecruter: demandeDeContactPOE.nombreARecruter,
           prenom: demandeDeContactPOE.prénom,
           secteur: demandeDeContactPOE.secteur,
           siret: demandeDeContactPOE.siret,
