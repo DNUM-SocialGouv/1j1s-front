@@ -159,6 +159,8 @@ export interface OffreEmploiFiltreLocalisation {
   code: string
 }
 
+type DomaineCode = 'M' | 'B' | 'C' | 'F' | 'D' | 'E' | 'M14' | 'M13' | 'A' | 'G' | 'C15' | 'H' | 'M18' | 'I' | 'M17' | 'M15' | 'J' | 'M16' | 'K' | 'L' | 'L14' | 'N'
+
 export interface RéférentielDomaine {
   code: string
   libelle: string
@@ -168,6 +170,6 @@ export const NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE = 15;
 
 export function isOffreÉchantillonFiltre(offreFiltre: OffreFiltre) {
   const { page, ...rest } = offreFiltre;
-  const emploiFiltreSanitanized = Object.values(rest);
-  return page === 1 && emploiFiltreSanitanized.every((value) => value === undefined);
+  const emploiFiltreSanitized = Object.values(rest);
+  return page === 1 && emploiFiltreSanitized.every((value) => value === undefined);
 }
