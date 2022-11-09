@@ -24,23 +24,14 @@ export default function CookieConsent() {
       };
     }
 
-    (window.tarteaucitron.job = window.tarteaucitron.job || []).push(atInternet);
+    window.tarteaucitron.job = window.tarteaucitron.job || [];
+    window.tarteaucitron.job.push(atInternet);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
   useEffect(function setGoogleTagManagerCookie() {
-    const googleTagManagerCookieConsent = CookieService.getCookieConsent(googleTagManager);
-    if (googleTagManagerCookieConsent !== undefined && googleTagManagerCookieConsent !== false) {
-      window.tarteaucitron.user.multiplegtagUa = ['DC-2953234'];
-      window.tarteaucitron.user.gtagMore = function () {
-        window.gtag('event', 'conversion', {
-          allow_custom_scripts: true,
-          send_to: 'DC-2953234/SIG-M0/lpformat+unique',
-        });
-      };
-    }
-
-    (window.tarteaucitron.job = window.tarteaucitron.job || []).push(googleTagManager);
+    window.tarteaucitron.job = window.tarteaucitron.job || [];
+    window.tarteaucitron.job.push(googleTagManager);
   }, [router.pathname]);
 
   return (
