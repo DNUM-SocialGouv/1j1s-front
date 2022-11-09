@@ -42,7 +42,7 @@ const DemandeDeContactCEJValidator = Joi.object({
   ville: Joi.string().required(), // Regex utilsée côté LEE
 });
 
-function validatePhone(input: string): string {
+export function validatePhone(input: string): string {
   const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false });
   if (!isValid) {
     throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
