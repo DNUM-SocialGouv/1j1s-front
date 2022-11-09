@@ -12,6 +12,7 @@ import { OffreService } from '~/client/services/offre/offreService';
 import { DemandeDeContactService } from './services/demandeDeContact.service';
 
 const MAX_LIMITE_STAGES = 100000;
+const MARKETING_QUERY_PARAMS = 'xtor'|| 'dclid';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -50,11 +51,34 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
     );
   }
 
-  const rechercheClientService = instantMeiliSearch(
+  const searchClient = instantMeiliSearch(
     meiliSearchBaseUrl,
     meiliSearchApiKey,
     { keepZeroFacets: true, paginationTotalHits: MAX_LIMITE_STAGES },
   );
+
+  const rechercheClientService: SearchClient = {
+    ...searchClient,
+    search(requests) {
+      if (requests.every(({ params }) => params && params.query?.includes(MARKETING_QUERY_PARAMS))) {
+        return Promise.resolve({
+          results: requests.map(() => ({
+            exhaustiveNbHits: false,
+            hits: [],
+            hitsPerPage: 0,
+            nbHits: 0,
+            nbPages: 0,
+            page: 0,
+            params: '',
+            processingTimeMS: 0,
+            query: '',
+          })),
+        });
+      }
+
+      return searchClient.search(requests);
+    },
+  };
 
   return {
     demandeDeContactService,
