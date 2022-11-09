@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.7.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.3...v2.7.0) (2022-11-09)
+
+
+### Features
+
+* **localisation:** gestion erreur ([a60c5e8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a60c5e81bdfaeece7a975790f0c27a0f3bbfcdd9))
+* **pole emploi:** ajout des erreurs de recherche custom ([60cb8be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/60cb8bec848827cc54870d6725e3bde5f7173c04))
+* **pole_emploi:** ajout des erreurs par endpoint ([ee6e5da](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ee6e5da0a10ff4800c4a40dc2d87115a9f70b3ba))
+
+
+### Bug Fixes
+
+* **dependencies:** retour d'Axios en version précédente ([993c1bf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/993c1bf37bda0450734b19232e919d20f8dfd509))
+
 ## [2.6.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.2...v2.6.3) (2022-11-08)
 
 
