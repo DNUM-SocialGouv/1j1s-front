@@ -176,6 +176,25 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
     });
   });
 
+  describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli l’étape 3', () => {
+    it('il enregistre car les champs sont facultatifs', async () => {
+      renderComponent();
+
+      await remplirFormulaireEtape1();
+      await directionNouvelleEtape();
+      await remplirFormulaireEtape2();
+      await directionNouvelleEtape();
+
+      const inputNbRecrutement = screen.getByRole('textbox', { name: 'Indiquez le nombre de recrutements AFPR/POE que vous souhaitez' });
+      await userEvent.type(inputNbRecrutement, '4');
+      const inputCommentaire = screen.getByRole('textbox', { name: 'Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugieriez utiles' });
+      await userEvent.type(inputCommentaire, 'Coucou le commentaire');
+
+      expect(screen.getByRole('textbox', { name: 'Indiquez le nombre de recrutements AFPR/POE que vous souhaitez' })).toHaveValue('4');
+      expect(screen.getByRole('textbox', { name: 'Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugieriez utiles' })).toHaveValue('Coucou le commentaire');
+    });
+  });
+
   describe('quand l’utilisateur a rempli tous les champs et clique sur le bouton Envoyer', () => {
     it('appelle l’api avec les valeurs du formulaire de l’étape 1, 2 et 3 et affiche un message de succès à l’utilisateur', async () => {
       renderComponent();
