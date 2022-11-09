@@ -1,8 +1,8 @@
 import Joi from 'joi';
-import phone from 'phone';
 
 import { DemandeDeContactPOE } from '~/server/demande-de-contact/domain/DemandeDeContact';
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/DemandeDeContact.repository';
+import { validatePhone } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -19,7 +19,7 @@ type EnvoyerDemandeDeContactPOE = Partial<{
   email: string;
   travail: string;
   téléphone: string;
-  nbRecrutment: string;
+  nombreARecruter: string;
   commentaire: string;
 }>
 
@@ -53,11 +53,3 @@ const DemandeDeContactPOEValidator = Joi.object({
   téléphone: Joi.string().custom(validatePhone).required(),
   ville: Joi.string().required(),
 });
-
-function validatePhone(input: string): string {
-  const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false });
-  if (!isValid) {
-    throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
-  }
-  return phoneNumber;
-}
