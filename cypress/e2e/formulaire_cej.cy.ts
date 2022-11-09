@@ -1,0 +1,45 @@
+/***
+ * DEVNOTE
+ * il faut configurer votre .env avec
+ * STRAPI_BASE_URL=http://127.0.0.1:1337/
+ * STRAPI_URL_API=http://127.0.0.1:1337/api/
+ * car cypress n'a pas accès au localhost:1337
+ */
+/* eslint-disable jest/expect-expect */
+describe('Parcours formulaire cej', () => {
+  before(() => {
+    cy.viewport('iphone-6');
+    cy.visit('/contrat-engagement-jeune');
+  });
+  it('clique sur le bouton qui affiche le formulaire de contact', () => {
+    cy.get('button').contains('Je souhaite être contacté(e)').click();
+  });
+  context('quand l’utilisateur correctement remplie le formulaire', () => {
+    it('affiche un message de succès', () => {
+
+      cy.get('input[name="firstname"]').type('jean');
+      wait();
+      cy.get('input[name="lastname"]').type('dupont');
+      wait();
+      cy.get('input[type="email"]').type('jean.dupont@mail.com');
+      wait();
+      cy.get('input[type="tel"]').type('0688552233');
+      wait();
+      cy.get('button').contains('Sélectionnez votre choix').click();
+      cy.get('ul[role="listbox"]').first().click();
+      wait();
+      cy.get('input[name="ville"]').type('par');
+      cy.get('ul[role="listbox"]').first().click();
+      wait();
+
+      cy.get('button').contains('Envoyer la demande').click();
+
+      cy.get('#dialog_label_success').contains('Votre demande a bien été transmise !');
+    });
+  });
+});
+
+function wait() {
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(500);
+}
