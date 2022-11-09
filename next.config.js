@@ -177,8 +177,7 @@ const moduleExports = {
   reactStrictMode: true,
   redirects,
   sentry: {
-    disableClientWebpackPlugin: true,
-    disableServerWebpackPlugin: true,
+    hideSourceMaps: true,
   },
   webpack(config, { isServer }) {
     if (!isServer) {
