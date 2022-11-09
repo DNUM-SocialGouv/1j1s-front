@@ -23,6 +23,9 @@ Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   enabled: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'production' || process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'integration',
   environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || DEFAULT_SENTRY_CLIENT_ENVIRONMENT,
+  initialScope: {
+    level: 'error',
+  },
   release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,
   tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
 });
