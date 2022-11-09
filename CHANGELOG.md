@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.7.0...v2.7.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* **cookie:** modification cookie service pour google tag manager ([926631c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/926631ca95b39b6eded260f66a63f3ef0bb1cf71))
+
 ## [2.7.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.6.3...v2.7.0) (2022-11-09)
 
 
