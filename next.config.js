@@ -16,7 +16,7 @@ const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/fiche-metier/search *.lon.meilisearch.io/indexes/offre-de-stage/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
+const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/fiche-metier/search *.lon.meilisearch.io/indexes/offre-de-stage/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr *.doubleclick.net';
 const ANALYTICS_SOURCES = '*.xiti.com *.googletagmanager.com';
 
 const contentSecurityPolicy = `
@@ -25,7 +25,7 @@ const contentSecurityPolicy = `
   img-src 'self' data: ${BUCKET_S3_URL} ${STRAPI_MEDIA_URL} ${ANALYTICS_SOURCES};
   style-src 'self' 'unsafe-inline';
   frame-ancestors 'none';
-  frame-src *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube.com;
+  frame-src *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube.com *.doubleclick.net;
   form-action 'self';
   base-uri 'none';
 `;
