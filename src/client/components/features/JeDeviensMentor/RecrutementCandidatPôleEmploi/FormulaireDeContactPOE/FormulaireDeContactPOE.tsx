@@ -350,6 +350,7 @@ export function FormulaireDeContactPOE() {
                       label="Indiquez le nombre de recrutements AFPR/POE que vous souhaitez"
                       name="nombre-recrutement"
                       placeholder="Exemple : 3"
+                      pattern="^(([1-9]*)|(([1-9]*)\.([0-9]*)))$"
                       value={formulaireEtape3.nombreARecruter}
                       onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireEtape3({
                         ...formulaireEtape3,
