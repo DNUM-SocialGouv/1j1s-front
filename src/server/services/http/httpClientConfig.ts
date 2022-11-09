@@ -3,7 +3,6 @@ import { HttpClientService } from '~/server/services/http/httpClientService';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
-import { OldHttpClientService } from './oldHttpClientService';
 import { StrapiLoginTokenAgent } from './StrapiLoginTokenAgent';
 
 export interface HttpClientConfig {
@@ -111,7 +110,7 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
-    lesEntreprisesSEngagentClientService: new OldHttpClientService(getApiLEEConfig(configurationService)),
+    lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),

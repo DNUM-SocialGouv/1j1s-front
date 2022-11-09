@@ -1,12 +1,14 @@
-import { uneEntreprise, uneEntrepriseMember } from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
+import {
+  uneEntreprise,
+  uneEntrepriseMember,
+} from '@tests/fixtures/client/services/lesEntreprisesSEngagentService.fixture';
 import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/ApiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { OldHttpClientService } from '../../../../src/server/services/http/oldHttpClientService';
+import { HttpClientService } from '~/server/services/http/httpClientService';
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
   const entrepriseApiUrl = 'https://lesentreprisesengagent.france';
@@ -16,7 +18,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
   describe('.save', () => {
     let repository: ApiRejoindreLaMobilisationRepository;
     beforeEach(() => {
-      const client = new OldHttpClientService({
+      const client = new HttpClientService({
         apiName: 'test LEE',
         apiUrl: entrepriseApiUrl,
       });
