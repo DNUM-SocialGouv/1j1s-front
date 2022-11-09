@@ -49,7 +49,7 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
         LoggerService.error(`[ API ${this.apiName}] failed to refresh token ${authError}`);
         throw error;
       }
-      return makeRequest();
+      return await makeRequest();
     }
   }
 
@@ -60,9 +60,9 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
     return error.response?.status === 401 || error.response?.status === 403;
   }
 
-  refreshToken(): Promise<void> {
+  async refreshToken(): Promise<void> {
     if (this.isRefreshingToken) {
-      return this.isRefreshingToken;
+      return await this.isRefreshingToken;
     }
     return this.isRefreshingToken = this.tokenAgent.getToken()
       .then((token) => {
