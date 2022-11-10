@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.8.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.7.1...v2.8.0) (2022-11-10)
+
+
+### Features
+
+* **POE:** Ajout formulaire contact POE ([a55b993](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a55b993245f0ab112dc4d0716edded81e2bb8f4e))
+
+
+### Bug Fixes
+
+* **SearchClient:** ajout d'un filtre pour empêcher des query params de marketing ([0c0868b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0c0868bdb6236e0061897a7422602a696231be5f))
+* **transverse/pagination:** update CommonPagination component ([9ec90a3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9ec90a3c953629dd9658546bab6800d9b8d929a9))
+
 ## [2.7.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.7.0...v2.7.1) (2022-11-09)
 
 
