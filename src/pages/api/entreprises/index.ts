@@ -9,7 +9,7 @@ export async function enregistrerEntreprisesHandler(req: NextApiRequest, res: Ne
   if (req.method !== 'POST') {
     return res.status(406).end();
   }
-  const response = await dependencies.entrepriseDependencies.lesEntreprisesSEngagementUseCase.rejoindreLaMobilisation(req.body);
+  const response = await dependencies.entrepriseDependencies.lesEntreprisesSEngagentUseCase.rejoindreLaMobilisation(req.body);
   return handleResponse(response, res);
 }
 
