@@ -48,7 +48,7 @@ export async function getStaticProps(context: GetStaticPropsContext<MissionConte
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   return {
-    fallback: true,
+    fallback: 'blocking',
     paths: [],
   };
 }
