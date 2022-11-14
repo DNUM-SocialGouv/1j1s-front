@@ -86,7 +86,6 @@
 
     > .navSection {
       display: flex;
-      flex-direction: flex;
       justify-content: space-between;
 
       > .navSectionHeader {
@@ -154,6 +153,7 @@
 .navItemLabel[aria-current=true], .employeursLien[aria-current=true] {
   @include underline;
   @extend %bold;
+  pointer-events: none;
 }
 
 @include media(xlarge) {

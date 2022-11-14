@@ -248,6 +248,10 @@
   }
 }
 
+.lienActive {
+  pointer-events: none;
+}
+
 .navItemLabel[aria-current=true], .subNavItemLabel[aria-current=true], .embeddedNavItem[aria-current=true] {
   @include underline;
   @extend %bold;

@@ -72,6 +72,22 @@ describe('Header', () => {
         expect(accueilNavItem).toHaveAttribute('aria-current', 'false');
         expect(emploisNavItem).toHaveAttribute('aria-current', 'true');
       });
+      it('n\'affiche pas le curseur pointeur sur la navigation active sur "Emplois"', async () => {
+        mockUseRouter({ pathname: '/emplois' });
+        render(<Header/>);
+
+        const navigation = screen.getByRole('navigation');
+
+        const offresNavItem = within(navigation).getByText('Offres');
+
+        fireEvent.click(offresNavItem);
+
+        const emploisNavItem = within(navigation).getByText('Emplois');
+
+        emploisNavItem.style.pointerEvents = 'none';
+
+        expect(emploisNavItem).toHaveStyle('pointer-events: none');
+      });
     });
 
     describe('quand la page courante est "Je deviens mentor"', () => {
@@ -90,6 +106,22 @@ describe('Header', () => {
         expect(accueilNavItem).toHaveAttribute('aria-current', 'false');
         // eslint-disable-next-line testing-library/no-node-access
         expect(jeDeviensMentorNavItem.parentNode).toHaveAttribute('aria-current', 'true');
+      });
+
+      it('n\'affiche pas le curseur pointeur sur la navigation active sur "Je deviens mentor"', async () => {
+        mockUseRouter({ pathname: '/je-deviens-mentor' });
+        render(<Header/>);
+
+        const navigation = screen.getByRole('navigation');
+        const lesNavItem = within(navigation).getAllByText('Je suis employeur').at(0) as HTMLElement;
+
+        fireEvent.click(lesNavItem);
+
+        const jeDeviensMentorNavItem = within(navigation).getByText('Je deviens mentor');
+
+        jeDeviensMentorNavItem.style.pointerEvents = 'none';
+
+        expect(jeDeviensMentorNavItem).toHaveStyle('pointer-events: none');
       });
     });
   });
