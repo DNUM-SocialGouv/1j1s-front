@@ -69,7 +69,7 @@ function listsFromChildren(path: string, item: NavigationItemWithChildren | Navi
   if (isNavigationItem(item)) {
     return (
       <li key={item.link} className={styles.navLeaf}>
-        <span aria-current={isActive} onClick={onItemChosen} className={styles.employeursLien}>
+        <span aria-current={isActive} onClick={onItemChosen} className={styles.employeursLien} style={{ pointerEvents: isActive ? 'none' : 'auto' }}>
           <Link href={item.link}>
             {item.label}
           </Link>
