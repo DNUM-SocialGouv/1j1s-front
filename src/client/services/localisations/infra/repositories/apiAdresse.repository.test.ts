@@ -1,10 +1,10 @@
 import { anApiAdresseHttpClientService } from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
 import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
+import { ApiAdresseRepository } from '~/client/services/localisations/infra/repositories/apiAdresse.repository';
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 describe('ApiAdresseRepository', () => {

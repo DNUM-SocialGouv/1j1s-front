@@ -3,8 +3,8 @@ import React, { SyntheticEvent, useCallback } from 'react';
 import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
+import { Commune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import { isSuccess } from '~/server/errors/either';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 interface AutocomplétionCommuneProps {
   onSuggestionSelected?(event: SyntheticEvent, suggestion: Commune, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;

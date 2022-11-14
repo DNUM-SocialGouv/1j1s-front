@@ -18,9 +18,9 @@ import { Select } from '~/client/components/ui/Select/Select';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
+import { Commune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 export type FormulairesPoleEmploi = FormulaireEtape1Props & FormulaireEtape2Props & FormulaireEtape3Props;
 

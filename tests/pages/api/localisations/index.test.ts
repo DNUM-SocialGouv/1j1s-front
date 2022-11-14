@@ -3,12 +3,12 @@ import { aRechercheAdresseResponse } from '@tests/fixtures/services/apiAdresseHt
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
+import {
+  RechercheLocalisationApiResponse,
+} from '~/client/services/localisations/infra/controllers/RechercheLocalisationApiResponse';
 import { mapApiResponse, rechercherLocalisationHandler } from '~/pages/api/localisations';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import {
-  RechercheLocalisationApiResponse,
-} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 describe('rechercher une localisation', () => {
   describe('quand la réponse est en succès' , () => {

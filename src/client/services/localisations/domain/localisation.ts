@@ -1,4 +1,4 @@
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import { Commune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 
 export interface Localisation {
   nom: string

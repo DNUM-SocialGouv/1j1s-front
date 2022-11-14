@@ -1,6 +1,6 @@
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
+import { LocalisationAvecCoordonnéesRepository } from '~/client/services/localisations/domain/localisationAvecCoordonnées.repository';
 import { Either } from '~/server/errors/either';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { LocalisationAvecCoordonnéesRepository } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
 
 export class RechercherCommuneUseCase {
   constructor(private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {

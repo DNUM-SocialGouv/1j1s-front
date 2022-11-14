@@ -1,4 +1,4 @@
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+import { TypeLocalisation } from '~/client/services/localisations/domain/localisation';
 import { OffreEmploiFiltreLocalisation } from '~/server/offres/domain/offre';
 
 export function mapLocalisation(query: { [key: string]: string | string[] | undefined }): OffreEmploiFiltreLocalisation | undefined {

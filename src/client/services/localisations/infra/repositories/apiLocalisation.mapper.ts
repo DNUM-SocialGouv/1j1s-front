@@ -1,9 +1,9 @@
-import { Localisation } from '~/server/localisations/domain/localisation';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
+import { Localisation } from '~/client/services/localisations/domain/localisation';
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
+import { ApiAdresseResponse } from '~/client/services/localisations/infra/repositories/apiAdresse.response';
 import {
   ApiDecoupageAdministratifResponse,
-} from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
+} from '~/client/services/localisations/infra/repositories/apiGeoLocalisation.response';
 
 export function mapLocalisationList(response: ApiDecoupageAdministratifResponse[]): Localisation[] {
   return response.map((commune) => ({

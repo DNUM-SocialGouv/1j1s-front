@@ -1,4 +1,4 @@
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+import { TypeLocalisation } from '~/client/services/localisations/domain/localisation';
 
 export type OffreId = string;
 
@@ -35,7 +35,7 @@ export namespace Offre {
     nom?: string
     logo?: string
   }
-  
+
   export interface Formation {
     libellé?: string
     commentaire?: string
@@ -82,7 +82,7 @@ export namespace Offre {
 
 
   type Temps = 'tempsPlein' | 'tempsPartiel' | 'indifférent'
-  
+
   export interface TempsDeTravail {
     libellé: string
     valeur: Temps
@@ -130,7 +130,7 @@ export namespace Offre {
     libellé: 'De 1 à 3 ans',
     valeur: 'S',
   };
-  
+
   export const EXPÉRIENCE: ExpérienceAttendu[] = [
     Offre.EXPÉRIENCE_DEBUTANT,
     Offre.EXPÉRIENCE_SOUHAITÉ,

@@ -1,5 +1,5 @@
+import { TypeLocalisation } from '~/client/services/localisations/domain/localisation';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, OffreFiltre } from '~/server/offres/domain/offre';
 import {
   ApiPoleEmploiRéférentielRepository,

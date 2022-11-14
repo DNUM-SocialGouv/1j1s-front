@@ -15,9 +15,9 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
+import { Commune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 import styles from './Inscription.module.scss';
 

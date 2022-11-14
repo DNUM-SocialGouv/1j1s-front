@@ -4,7 +4,7 @@ import { aRechercheCommuneResponse } from '@tests/fixtures/services/apiGeoHttpCl
 import {
   mapLocalisationList,
   mapRésultatsRechercheCommune,
-} from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
+} from '~/client/services/localisations/infra/repositories/apiLocalisation.mapper';
 
 describe('mapper pour les api de geo localisation', () => {
   describe('mapLocalisationList', () => {

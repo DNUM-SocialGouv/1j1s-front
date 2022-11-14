@@ -1,16 +1,17 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
-import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+
+import { RechercheLocalisation } from '../domain/localisation';
+import { LocalisationRepository } from '../domain/localisation.repository';
 import {
   LocalisationAvecCoordonnéesRepository,
-} from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
-import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheLocalisationUtils';
+} from '../domain/localisationAvecCoordonnées.repository';
+import RechercheLocalisationUtils from '../domain/rechercheLocalisationUtils';
 
 const MIN_CHAR_LENGTH_FOR_SEARCH = 3;
 
 export class RechercherLocalisationUseCase {
-  constructor(private localisationRepository: LocalisationRepository, 
+  constructor(private localisationRepository: LocalisationRepository,
               private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {}
 
   async handle(recherche: string): Promise<Either<RechercheLocalisation>> {

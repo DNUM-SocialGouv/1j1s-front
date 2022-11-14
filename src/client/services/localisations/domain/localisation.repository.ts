@@ -1,5 +1,5 @@
+import { Localisation } from '~/client/services/localisations/domain/localisation';
 import { Either } from '~/server/errors/either';
-import { Localisation } from '~/server/localisations/domain/localisation';
 
 export interface LocalisationRepository {
   getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>>;

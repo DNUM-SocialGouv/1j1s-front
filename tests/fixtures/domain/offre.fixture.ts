@@ -1,5 +1,5 @@
+import { TypeLocalisation } from '~/client/services/localisations/domain/localisation';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { Offre, OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 
 export function aRésultatsRechercheOffre(override?: Partial<RésultatsRechercheOffre>): RésultatsRechercheOffre {

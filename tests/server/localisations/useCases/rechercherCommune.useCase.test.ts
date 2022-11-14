@@ -3,9 +3,9 @@ import {
   aRésultatsRechercheCommune,
 } from '@tests/fixtures/domain/localisationAvecCoordonnées.fixture';
 
+import { LocalisationAvecCoordonnéesRepository } from '~/client/services/localisations/domain/localisationAvecCoordonnées.repository';
+import { RechercherCommuneUseCase } from '~/client/services/localisations/useCases/rechercherCommune.useCase';
 import { createSuccess } from '~/server/errors/either';
-import { LocalisationAvecCoordonnéesRepository } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
-import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
 
 describe('RechercherCommuneUseCase', () => {
   let localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository;

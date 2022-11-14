@@ -6,11 +6,11 @@ import { aCommuneListApiResponse, aDépartementListApiResponse } from '@tests/fi
 import { aRésultatsRechercheCommune } from '@tests/fixtures/domain/localisationAvecCoordonnées.fixture';
 
 import { LocalisationService } from '~/client/services/localisation.service';
-import { createSuccess } from '~/server/errors/either';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import {
   RechercheLocalisationApiResponse,
-} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+} from '~/client/services/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { createSuccess } from '~/server/errors/either';
 
 describe('LocalisationService', () => {
   describe('rechercherLocalisation', () => {

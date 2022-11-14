@@ -1,8 +1,8 @@
 import { aApiGeoHttpClientService } from '@tests/fixtures/services/apiGeoHttpClientService.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
+import { ApiGeoLocalisationRepository } from '~/client/services/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { createSuccess } from '~/server/errors/either';
-import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 describe('ApiGeoLocalisationRepository', () => {

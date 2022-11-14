@@ -1,4 +1,4 @@
-import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheLocalisationUtils';
+import RechercheLocalisationUtils from '~/client/services/localisations/domain/rechercheLocalisationUtils';
 
 describe('RechercheLocalisationUtils', () => {
   describe('isRechercheByNumeroCodePostal', () => {

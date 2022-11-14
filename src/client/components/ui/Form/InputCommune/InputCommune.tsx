@@ -7,10 +7,10 @@ import styles from '~/client/components/ui/Form/Input.module.scss';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
+import { radiusList } from '~/client/services/localisations/domain/localisation';
+import { Commune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import { isSuccess } from '~/server/errors/either';
-import { radiusList } from '~/server/localisations/domain/localisation';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 interface InputCommuneProps {
   code: string

@@ -1,10 +1,10 @@
-import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
-import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { Localisation, RechercheLocalisation } from '~/client/services/localisations/domain/localisation';
+import { LocalisationRepository } from '~/client/services/localisations/domain/localisation.repository';
 import {
   CommuneLocalisationApiResponse,
   LocalisationApiResponse,
   RechercheLocalisationApiResponse,
-} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+} from '~/client/services/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 export function aLocalisationRepository(): LocalisationRepository {
   return {

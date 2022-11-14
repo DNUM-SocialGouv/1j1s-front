@@ -1,8 +1,8 @@
 import {
   Commune,
   RésultatsRechercheCommune,
-} from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { LocalisationAvecCoordonnéesRepository } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+} from '~/client/services/localisations/domain/localisationAvecCoordonnées';
+import { LocalisationAvecCoordonnéesRepository } from '~/client/services/localisations/domain/localisationAvecCoordonnées.repository';
 
 export function aLocalisationAvecCoordonnéesRepository() : LocalisationAvecCoordonnéesRepository {
   return {

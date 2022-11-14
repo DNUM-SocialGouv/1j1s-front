@@ -1,5 +1,9 @@
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
 
+import { ApiAdresseRepository } from '~/client/services/localisations/infra/repositories/apiAdresse.repository';
+import { ApiGeoLocalisationRepository } from '~/client/services/localisations/infra/repositories/apiGeoLocalisation.repository';
+import { RechercherCommuneUseCase } from '~/client/services/localisations/useCases/rechercherCommune.useCase';
+import { RechercherLocalisationUseCase } from '~/client/services/localisations/useCases/rechercherLocalisation.useCase';
 import {
   ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
@@ -29,10 +33,6 @@ import {
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
 import { RechercherOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobÉtudiantUseCase';
-import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
-import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
-import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';

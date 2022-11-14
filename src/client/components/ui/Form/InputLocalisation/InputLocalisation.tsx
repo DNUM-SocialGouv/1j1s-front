@@ -6,12 +6,12 @@ import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation.service';
-import { isSuccess } from '~/server/errors/either';
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+import { TypeLocalisation } from '~/client/services/localisations/domain/localisation';
 import {
   LocalisationApiResponse,
   RechercheLocalisationApiResponse,
-} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+} from '~/client/services/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { isSuccess } from '~/server/errors/either';
 
 interface InputLocalisationProps {
   code: string

@@ -1,9 +1,9 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { Either } from '~/server/errors/either';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import {
   RechercheLocalisationApiResponse,
-} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+} from '~/client/services/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { Either } from '~/server/errors/either';
 
 export class LocalisationService {
   constructor(private readonly httpClientService: HttpClientService ) {}

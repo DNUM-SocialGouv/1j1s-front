@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import { Localisation, RechercheLocalisation } from '~/client/services/localisations/domain/localisation';
+import { Commune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import {
   CommuneLocalisationApiResponse,
   LocalisationApiResponse,
   RechercheLocalisationApiResponse,
-} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
+} from '~/client/services/localisations/infra/controllers/RechercheLocalisationApiResponse';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 

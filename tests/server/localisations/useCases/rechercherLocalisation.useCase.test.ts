@@ -5,14 +5,14 @@ import {
   aRésultatsRechercheCommune,
 } from '@tests/fixtures/domain/localisationAvecCoordonnées.fixture';
 
-import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
-import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { RechercheLocalisation } from '~/client/services/localisations/domain/localisation';
+import { LocalisationRepository } from '~/client/services/localisations/domain/localisation.repository';
 import {
   LocalisationAvecCoordonnéesRepository,
-} from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
-import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
+} from '~/client/services/localisations/domain/localisationAvecCoordonnées.repository';
+import { RechercherLocalisationUseCase } from '~/client/services/localisations/useCases/rechercherLocalisation.useCase';
+import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('RechercherLocalisationUseCase', () => {
   let localisationRepository: LocalisationRepository;

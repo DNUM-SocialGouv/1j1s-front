@@ -1,11 +1,11 @@
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { Localisation } from '~/server/localisations/domain/localisation';
-import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { Localisation } from '~/client/services/localisations/domain/localisation';
+import { LocalisationRepository } from '~/client/services/localisations/domain/localisation.repository';
 import {
   ApiDecoupageAdministratifResponse,
-} from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
-import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
+} from '~/client/services/localisations/infra/repositories/apiGeoLocalisation.response';
+import { mapLocalisationList } from '~/client/services/localisations/infra/repositories/apiLocalisation.mapper';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { LoggerService } from '~/server/services/logger.service';
 

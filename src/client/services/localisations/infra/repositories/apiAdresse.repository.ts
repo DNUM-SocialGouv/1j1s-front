@@ -1,13 +1,13 @@
 import axios, { AxiosError } from 'axios';
 
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import {
   LocalisationAvecCoordonnéesRepository,
-} from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
-import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
-import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
+} from '~/client/services/localisations/domain/localisationAvecCoordonnées.repository';
+import { ApiAdresseResponse } from '~/client/services/localisations/infra/repositories/apiAdresse.response';
+import { mapRésultatsRechercheCommune } from '~/client/services/localisations/infra/repositories/apiLocalisation.mapper';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { LoggerService } from '~/server/services/logger.service';
 

@@ -3,9 +3,9 @@ import { aRechercheAdresseResponse } from '@tests/fixtures/services/apiAdresseHt
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
+import { RésultatsRechercheCommune } from '~/client/services/localisations/domain/localisationAvecCoordonnées';
 import { rechercherCommuneHandler } from '~/pages/api/communes';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 describe('rechercherCommuneHandler', () => {
   describe('quand l\'api répond avec une 200', () => {
