@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 import { aBarmanOffre, aRésultatEchantillonOffre } from '../../tests/fixtures/domain/offre.fixture';
 
 describe('Parcours emplois', () => {
@@ -42,6 +41,17 @@ describe('Parcours emplois - Erreur paramètres url', () => {
         beforeEach(() => {
           cy.viewport('iphone-6');
           cy.visit('/emplois?page=67');
+        });
+
+        it('retourne une erreur de demande incorrecte', () => {
+          cy.contains('Erreur - Demande incorrecte').should('exist');
+        });
+      });
+
+      describe('quand le paramètre page est inférieur au minimum autorisé', () => {
+        beforeEach(() => {
+          cy.viewport('iphone-6');
+          cy.visit('/emplois?page=0');
         });
 
         it('retourne une erreur de demande incorrecte', () => {

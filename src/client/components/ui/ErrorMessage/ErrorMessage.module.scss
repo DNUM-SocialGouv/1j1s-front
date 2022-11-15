@@ -1,11 +1,14 @@
 @import "@styles/utilities";
 
 .errorMessage {
-  padding: 1rem;
   & > * {
+    display: block;
     margin-bottom: 1rem;
   }
-  p:first-child {
+  &Wrapper {
+    padding: 1rem;
+  }
+  &Title {
     font-size: 1.5rem;
     line-height: 2rem;
     @extend %bold;
@@ -13,7 +16,7 @@
 }
 
 @media screen and (min-width: 48em) {
-  .errorMessage {
+  .errorMessageWrapper {
     text-align: center;
     max-width: 36em;
     margin: auto;

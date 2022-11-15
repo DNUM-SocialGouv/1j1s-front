@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 describe('Parcours alternance', () => {
   describe("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
     context('quand le paramètre page est erroné ', () => {
@@ -12,6 +11,18 @@ describe('Parcours alternance', () => {
           cy.contains('Erreur - Demande incorrecte').should('exist');
         });
       });
+
+      describe('quand le paramètre page est inférieur au minimum autorisé', () => {
+        beforeEach(() => {
+          cy.viewport('iphone-6');
+          cy.visit('/apprentissage?page=0');
+        });
+
+        it('retourne une erreur de demande incorrecte', () => {
+          cy.contains('Erreur - Demande incorrecte').should('exist');
+        });
+      });
+
 
       describe("quand le paramètre page n'est pas un nombre", () => {
         beforeEach(() => {

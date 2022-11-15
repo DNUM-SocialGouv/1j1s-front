@@ -46,6 +46,13 @@
         "**/?(*.)+(spec|test).[jt]s?(x)"
       ],
       "extends": ["plugin:testing-library/react"]
+    },
+    {
+      "files": ["*.cy.ts"],
+      "rules": {
+        "jest/expect-expect": "off"
+      }
     }
+
   ]
 }

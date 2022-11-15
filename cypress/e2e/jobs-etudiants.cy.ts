@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 describe('Parcours jobs étudiants', () => {
   describe("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
     context('quand le paramètre page est erroné ', () => {
@@ -6,6 +5,17 @@ describe('Parcours jobs étudiants', () => {
         beforeEach(() => {
           cy.viewport('iphone-6');
           cy.visit('/jobs-etudiants?page=67');
+        });
+
+        it('retourne une erreur de demande incorrecte', () => {
+          cy.contains('Erreur - Demande incorrecte').should('exist');
+        });
+      });
+
+      describe('quand le paramètre page est inférieur au minimum autorisé', () => {
+        beforeEach(() => {
+          cy.viewport('iphone-6');
+          cy.visit('/jobs-etudiants?page=0');
         });
 
         it('retourne une erreur de demande incorrecte', () => {

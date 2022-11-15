@@ -17,7 +17,7 @@ export const querySchema = Joi.object({
   codeLocalisation: Joi.number(),
   libelleLocalisation: Joi.string(),
   motCle: Joi.string(),
-  page: Joi.number().max(MAX_PAGE_ALLOWED).required(),
+  page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
   typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 });
 

@@ -27,7 +27,7 @@ const querySchema = Joi.object({
   grandDomaineList: transformQueryToArray.array().items(Joi.string().valid('M', 'B', 'C', 'F', 'D', 'E', 'M14', 'M13', 'A', 'G', 'C15', 'H', 'M18', 'I', 'M17', 'M15', 'J', 'M16', 'K', 'L', 'L14', 'N')),
   libelleLocalisation: Joi.string(),
   motCle: Joi.string(),
-  page: Joi.number().max(MAX_PAGE_ALLOWED).required(),
+  page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
   tempsDeTravail: Joi.string().valid('tempsPlein', 'tempsPartiel', 'indifférent'),
   typeDeContrats: transformQueryToArray.array().items(Joi.string().valid('CDD', 'CDI', 'SAI', 'MIS')),
   typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
