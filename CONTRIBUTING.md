@@ -96,6 +96,51 @@ Les types de commit sont donc :
 ### Versioning
 Nous suivons le [Semantic Versioning](https://semver.org)
 
+Les commits de **merge** sont rédigés en français et sont auto-portants, les numéros de tickets Jira n'apparaissent pas dans l'intitulé
+
+Il est nécessaire d'ajouter un contexte, voir un sous-contexte pour chaque commit, le contexte sera toujours en minuscule:
+
+
+liste des contextes de **page** autorisées (non exaustive):
+- emplois
+- stages
+- alternance
+- jobs étudiants
+- emplois europe
+- formations
+- dem (pour découvrir les métiers)
+- évènement
+- cej (pour contrat engagement jeune)
+- aides
+- logement
+- mentorat
+- entreprendre
+- accompagnement
+- espace jeune  
+- engagement 
+- employeur
+  
+Exemple d'utilisation avec sous-contexte:
+
+- _feat(emplois/recherche): ajout du formulaire de recherche_
+- _feat(emplois/résultats): affichage de la liste des résultats_
+- _feat(emplois/détails): affichage des détails d'une offre d'emplois_
+
+Dans le cas d'une implémentation transverse on utilisera le contexte **multiple**
+
+_exemple : feat(multiple): sécurisation des appels API_
+
+Pour les contextes de **composant** le nom du composant est à préciser.
+
+Dans le cas d'une modification d'un composant déjà existant il faudra employer le type de commit **chore**.
+
+_exemple : chore(header): modification du composant header_
+
+Si la modification concerne un fix utiliser le type de commit adéquat **fix**
+
+_exemple : fix(header): mis à jour des urls de navigation_
+
+
 ### Recommendations de NextJS
 * [Data fetching](https://nextjs.org/docs/basic-features/data-fetching/overview)
 * [Going to production](https://nextjs.org/docs/going-to-production)
