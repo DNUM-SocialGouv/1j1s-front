@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect } from 'react';
@@ -12,10 +12,9 @@ import {
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import indexServices from '~/client/services/index.service';
 
-const ONE_DAY_IN_SECONDS = '86400';
-const ONE_HOUR_IN_SECONDS = '3600';
-const MAX_CACHE_TIME = ONE_DAY_IN_SECONDS;
+const ONE_HOUR_IN_SECONDS = 3600;
 const REVALIDATE_CACHE_TIME = ONE_HOUR_IN_SECONDS;
+const NEXT_NOT_FOUND_PAGE = { notFound: true, revalidate: 1 } as GetStaticPropsResult<ConsulterStagePageProps>;
 
 const recupérerOffreDeStage = async (slug: string): Promise<OffreDeStageDétail> => indexServices.offreDeStage.get(slug);
 
@@ -43,12 +42,8 @@ interface ConsulterStagePageProps {
   offreDeStage: OffreDeStageAttributesFromCMS;
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext<StageContext>): Promise<GetServerSidePropsResult<ConsulterStagePageProps>> {
+export async function getStaticProps(context: GetStaticPropsContext<StageContext>): Promise<GetStaticPropsResult<ConsulterStagePageProps>> {
   const { id } = context.params as { id: string };
-  context.res.setHeader(
-    'Cache-Control',
-    `public, s-maxage=${MAX_CACHE_TIME}, stale-while-revalidate=${REVALIDATE_CACHE_TIME}`,
-  );
 
   try {
     const offreDeStage = await recupérerOffreDeStage(id);
@@ -56,12 +51,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Stag
       props: {
         offreDeStage,
       },
+      revalidate: REVALIDATE_CACHE_TIME,
     };
   } catch (e) {
     const error: AxiosError | Error = e as AxiosError | Error;
     if (error instanceof AxiosError && error.response?.status === 404) {
-      return { notFound: true };
+      return NEXT_NOT_FOUND_PAGE;
     }
     throw e;
   }
+}
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  return {
+    fallback: 'blocking',
+    paths: [],
+  };
 }
