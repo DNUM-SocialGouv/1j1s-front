@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.9.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.8.0...v2.9.0) (2022-11-15)
+
+
+### Features
+
+* **http client:** suppression du dernier repo qui utilisait le old http client ([a9f6d5b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a9f6d5ba64aa5c166a596cc0625ca4cc28a112c5))
+* **test e2e:** ajout d'un test pour le formulaire de contact ([6f6a1c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f6a1c824141ed3f888298176263991f61bcff4c))
+* **test e2e:** ajout d'un test pour le formulaire de contact ([6f6a1c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f6a1c824141ed3f888298176263991f61bcff4c))
+
+
+### Bug Fixes
+
+* **CEJ:** [977] Tentative de fix des 401 à répétition sur le Sentry ([f86eede](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f86eede72f5f9b583f4bc2503589142caa86324b))
+
 ## [2.8.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.7.1...v2.8.0) (2022-11-10)
 
 
