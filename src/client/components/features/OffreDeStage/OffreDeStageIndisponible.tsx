@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import React from 'react';
 
 import styles from '~/client/components/features/404/404.module.scss';

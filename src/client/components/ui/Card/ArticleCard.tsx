@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from 'next/legacy/image';
 import React from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from './ArticleCard.module.scss';
 
@@ -17,7 +17,7 @@ interface ArticleCardProps {
 
 export function ArticleCard({ className, children, imageSrc, titleLabel, link, linkLabel = "Lire l'article" }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
   return (
-    <Link href={link}>
+    <Link href={link} className="underline-none">
       <article className={classNames(styles.articleCard, className)}>
         <div className={styles.imageWrapper}>
           <Image src={imageSrc} alt='' layout='fill' objectFit='contain' />

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import bannièreImage from 'public/images/cej.webp';
 import React from 'react';
 

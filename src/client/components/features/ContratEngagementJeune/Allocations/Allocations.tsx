@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import illustration from 'public/images/CEJ/benefit-from-it.png';
 import React from 'react';
 

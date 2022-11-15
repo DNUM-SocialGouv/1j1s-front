@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import infoJeunesImage from 'public/images/logos/info-jeunes.svg';
 import poleEmploiImage from 'public/images/logos/pole-emploi.svg';
 import missionLocaleImage from 'public/images/logos/union-mission-locale.svg';
