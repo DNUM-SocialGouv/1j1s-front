@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import React, { MouseEventHandler } from 'react';
 
 import styles from '~/client/components/layouts/Header/Header.module.scss';
+import { Link } from '~/client/components/ui/Link/Link';
 
 interface NavItemProps {
 	label: string
@@ -12,11 +12,9 @@ interface NavItemProps {
 
 export function NavItem({ className, label, link, isActive, onClick }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
   return (
-    <li className={className}>
+    <li className={className} onClick={onClick}>
       <Link href={link} prefetch={false}>
-	      <a onClick={onClick}>
-	        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
-	      </a>
+        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
       </Link>
     </li>
   );

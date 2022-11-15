@@ -28,17 +28,6 @@ export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = 
   } as unknown as NextRouter));
 }
 
-export function mockUseRouterOnce({ asPath = '', pathname = '', query = {}, route = '', push = jest.fn(), replace = jest.fn() }: MockUseRouter) {
-  useRouter.mockImplementationOnce(() => ({
-    asPath,
-    pathname,
-    push,
-    query,
-    replace,
-    route,
-  } as unknown as NextRouter));
-}
-
 export const createMockRouter = (router: Partial<NextRouter>): NextRouter => {
   return {
     asPath: '/',
@@ -52,6 +41,7 @@ export const createMockRouter = (router: Partial<NextRouter>): NextRouter => {
       off: jest.fn(),
       on: jest.fn(),
     },
+    forward: jest.fn(),
     isFallback: false,
     isLocaleDomain: false,
     isPreview: false,

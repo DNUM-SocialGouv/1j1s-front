@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import Link from 'next/link';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
+import { Link } from '~/client/components/ui/Link/Link';
 import { useExitModal } from '~/client/hooks/useExitModal';
 
 import { Icon } from '../../ui/Icon/Icon';

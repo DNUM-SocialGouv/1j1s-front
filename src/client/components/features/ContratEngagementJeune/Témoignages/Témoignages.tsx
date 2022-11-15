@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/legacy/image';
 import portraitKévin from 'public/images/CEJ/vignette-kevin.jpg';
 import portraitLatifa from 'public/images/CEJ/vignette-latifa.jpg';
 import React from 'react';

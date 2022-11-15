@@ -39,7 +39,7 @@
     "just-range": "^4.1.1",
     "lodash.debounce": "^4.0.8",
     "marked": "^4.0.17",
-    "next": "^12.2.0",
+    "next": "^13.0.3",
     "phone": "^3.1.25",
     "react": "^18.2.0",
     "react-autosuggest": "^10.1.0",

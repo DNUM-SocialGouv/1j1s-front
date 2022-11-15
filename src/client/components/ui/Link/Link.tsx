@@ -24,8 +24,9 @@ export function Link({ appearance = 'default', className, children, href, prefet
     }
   }, [appearance]);
 
+  // Must use legacyBehavior because of [this issue](https://github.com/vercel/next.js/issues/41962)
   return isInternalLink ? (
-    <LinkNext href={href} prefetch={prefetch}>
+    <LinkNext legacyBehavior href={href} prefetch={prefetch}>
       <a className={classNames(className, appearanceClass)} {...rest}>
         {children}
         {hasIcon && <Icon name='arrow-right' />}

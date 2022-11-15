@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import logoImage from 'public/images/CEJ/logo.svg';
 import logoApple from 'public/images/logos/apple.svg';
 import logoGoogle from 'public/images/logos/google-play.svg';
