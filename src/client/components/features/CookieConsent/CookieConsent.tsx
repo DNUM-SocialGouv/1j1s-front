@@ -11,7 +11,9 @@ export default function CookieConsent() {
   const analyticsService = new AnalyticsService();
 
   useEffect(() => {
-    CookieService.init();
+    if (window !== undefined) {
+      CookieService.init();
+    }
   }, []);
 
   useEffect(function setAtInternetCookie() {
@@ -29,6 +31,7 @@ export default function CookieConsent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
+  // TODO delete after Campaign
   useEffect(function setGoogleTagManagerCookie() {
     window.tarteaucitron.job = window.tarteaucitron.job || [];
     window.tarteaucitron.job.push(googleTagManager);
