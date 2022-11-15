@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
@@ -62,9 +62,34 @@ export async function getStaticProps(context: GetStaticPropsContext<StageContext
   }
 }
 
+const recupererSlugsDesStages = async (baseURL: string, page= 1) => {
+  const reponse = await axios.get(baseURL + '/api/offres-de-stage/?fields[]=slug&pagination[page]=' + page + '&pagination[pageSize]=255');
+  return reponse.data.data.map(({ attributes }: {attributes: OffreDeStageAttributesFromCMS}) => attributes.slug);
+};
+
+const recupererTousLesSlugs = async (): Promise<Array<string>> => {
+  const baseUrl = 'https://1j1s-stage-content-manager.osc-fr1.scalingo.io';
+  let slugs: string[] = [];
+  let pageActuelle = 1;
+
+  let nombreDeSlug = 0;
+  do {
+    nombreDeSlug = slugs.length;
+    const results = await recupererSlugsDesStages(baseUrl, pageActuelle);
+    slugs = slugs.concat(results);
+    pageActuelle++;
+  } while (nombreDeSlug !== slugs.length);
+
+  return slugs;
+};
+
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+
+  const slugs = await recupererTousLesSlugs();
   return {
     fallback: 'blocking',
-    paths: [],
+    paths: [
+      ...slugs.map((slug) => ({ params: { id: slug } })),
+    ],
   };
 }
