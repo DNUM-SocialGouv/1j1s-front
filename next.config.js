@@ -178,6 +178,7 @@ const moduleExports = {
   redirects,
   sentry: {
     hideSourceMaps: true,
+    silent: true,
   },
   webpack(config, { isServer }) {
     if (!isServer) {
