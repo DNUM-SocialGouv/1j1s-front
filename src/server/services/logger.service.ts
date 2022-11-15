@@ -3,6 +3,8 @@
 import * as Sentry from '@sentry/nextjs';
 import Chalk from 'chalk';
 
+import { SentryException } from '~/server/exceptions/sentryException';
+
 export class LoggerService {
   private static log(
     message: string,
@@ -24,6 +26,24 @@ export class LoggerService {
 
   static error(message: string) {
     this.log(message, 'error');
+  }
+
+  static warnWithExtra(exception: SentryException) {
+    Sentry.captureMessage(exception.message, (scope) => {
+      scope.setLevel('warning');
+      scope.setExtras(exception.extra);
+      scope.setTags(exception.tag);
+      return scope;
+    });
+  }
+
+  static errorWithExtra(exception: SentryException) {
+    Sentry.captureMessage(exception.message, (scope) => {
+      scope.setLevel('error');
+      scope.setExtras(exception.extra);
+      scope.setTags(exception.tag);
+      return scope;
+    });
   }
 
   private static formatLevel(level: Sentry.SeverityLevel) {

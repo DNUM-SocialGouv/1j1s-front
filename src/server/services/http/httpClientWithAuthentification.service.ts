@@ -20,12 +20,7 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<Response>> {
     const makeRequest = () => super.get<Response>(endpoint, config);
-    try {
-      return await this.makeRequestWithRetry<Response>(makeRequest);
-    } catch (e) {
-      LoggerService.error(`[ API ${this.apiName}] failed to refresh make refresh token`);
-      throw e;
-    }
+    return await this.makeRequestWithRetry<Response>(makeRequest);
   }
 
   async post<Body>(

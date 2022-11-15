@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { SentryException } from '~/server/exceptions/sentryException';
 import { LoggerService } from '~/server/services/logger.service';
 
 export interface ApiPoleEmploiErrorResponse {
@@ -22,16 +23,51 @@ export const errorFromApiPoleEmploi = [
   'Format du paramètre « experienceExigence » incorrect. D, E ou S attendu.',
 ];
 
-export function handleSearchFailureError(e: unknown) {
+export function handleSearchFailureError(e: unknown, context: string) {
   if (axios.isAxiosError(e)) {
     const error: AxiosError<ApiPoleEmploiErrorResponse> = e as AxiosError<ApiPoleEmploiErrorResponse>;
     if(error.response?.status === 400 && errorFromApiPoleEmploi.includes((<AxiosResponse<{ message: string }>> e?.response)?.data?.message)) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     } else {
-      LoggerService.warn('[API Pole Emploi] recherche incorrecte');
+      LoggerService.warnWithExtra(
+        new SentryException(
+          '[API Pole Emploi] impossible d’éffectuer une recherche',
+          { context: `recherche ${context}`, source: 'API Pole Emploi' },
+          { errorDetail: error.response?.data },
+        ),
+      );
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
   }
-  LoggerService.error('[API Pole Emploi] impossible de rechercher');
+  LoggerService.errorWithExtra(new SentryException(
+    '[API Pole Emploi] impossible d’éffectuer une recherche',
+    { context: 'recherche offre emploi', source: 'API Pole Emploi' },
+    { stacktrace: (<Error> e).stack },
+  ));
+  return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+}
+
+export function handleGetFailureError(e: unknown, context: string) {
+  if (axios.isAxiosError(e)) {
+    const error: AxiosError<ApiPoleEmploiErrorResponse> = e as AxiosError<ApiPoleEmploiErrorResponse>;
+    if(error.response?.status === 400 && (<AxiosResponse<{ message: string }>> e?.response)?.data?.message === 'Le format de l\'id de l\'offre recherchée est incorrect.') {
+      return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    } else {
+      LoggerService.warnWithExtra(
+        new SentryException(
+          '[API Pole Emploi] impossible de récupérer une ressource',
+          { context: `détail ${context}`, source: 'API Pole Emploi' },
+          { errorDetail: error.response?.data },
+        ),
+      );
+      return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    }
+  }
+  LoggerService.errorWithExtra(new SentryException(
+    '[API Pole Emploi] impossible de récupérer une ressource',
+    { context: 'détail offre emploi', source: 'API Pole Emploi' },
+    { stacktrace: (<Error> e).stack },
+  ));
+
   return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 }

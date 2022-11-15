@@ -12,7 +12,10 @@ import {
   mapOffre,
   mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
-import { handleSearchFailureError } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
+import {
+  handleGetFailureError,
+  handleSearchFailureError,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
 import {
   OffreResponse,
   RésultatsRechercheOffreResponse,
@@ -23,7 +26,6 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
   constructor(
@@ -44,7 +46,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
       }
       return createSuccess(mapOffre(response.data));
     } catch (e) {
-      LoggerService.error('[API Pole Emploi] impossible de récupérer la ressource');
+      handleGetFailureError(e, 'alternance');
       return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     }
   }
@@ -66,7 +68,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
         }
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        return handleSearchFailureError(e);
+        return handleSearchFailureError(e, 'alternance');
       }
 
     }
@@ -87,8 +89,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
         this.cacheService.set(this.ECHANTILLON_OFFRE_ALTERNANCE_KEY, response.data, 24);
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        LoggerService.error('[API Pole Emploi] impossible de rechercher');
-        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+        return handleSearchFailureError(e, 'alternance');
       }
     }
   }
