@@ -121,7 +121,7 @@ export type OffreDeStageAttributesFromCMS = {
   teletravailPossible?: boolean
 }
 
-type OffreDeStageDataFromCMS = {
+export type OffreDeStageDataFromCMS = {
   id: number,
   attributes: OffreDeStageAttributesFromCMS
 }
