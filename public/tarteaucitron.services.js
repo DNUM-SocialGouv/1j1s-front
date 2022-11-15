@@ -3750,7 +3750,7 @@ tarteaucitron.services.xiti = {
 
 // AT Internet
 tarteaucitron.services.atinternet = {
-  cookies: ['atidvisitor', 'atreman', 'atredir', 'atsession'],
+  cookies: ['atidvisitor', 'atreman', 'atredir', 'atsession', 'atuserid', 'atauthority'],
   fallback: function () {
     'use strict';
     if (tarteaucitron.user.atLibUrl === undefined) {
