@@ -146,10 +146,6 @@
   }
 }
 
-.employeursLien {
-  cursor: pointer;
-}
-
 .navItemLabel[aria-current=true], .employeursLien[aria-current=true] {
   @include underline;
   @extend %bold;

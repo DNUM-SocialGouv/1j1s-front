@@ -202,8 +202,9 @@
   color: $color-on-surface;
 
   &:hover {
-    & > a > .navItemLabel {
+    & > .navItemLabel {
       @include underline;
+      cursor: pointer;
     }
   }
 

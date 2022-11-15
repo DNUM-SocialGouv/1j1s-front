@@ -40,15 +40,17 @@ export function NavEmployeurs({ item: root, path }: NavEmployeursProps) {
 
   return (
     <li className={styles.navItem}>
-      <button className={styles.navItemButton}
-        onClick={(e) => {
+      {isActive ?
+        <button className={styles.navItemButton} onClick={(e) => {
           e.stopPropagation();
           setIsExpanded(!isExpanded);
         }}
-      >
-        <span className={styles.navItemLabel} aria-current={isActive}>{root.label}</span>
-        <Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })}/>
-      </button>
+        >
+          <span className={styles.navItemLabel} aria-current={isActive}>{root.label}</span>
+          <Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })}/>
+        </button>
+        : <span className={styles.navItemLabel}>{root.label}</span>
+      }
       <div ref={wrapper} className={classNames(styles.navWrapper, { [styles.expanded]: isExpanded })}>
         <ul ref={content} className={styles.navDetail}>
           {listsFromChildren(path, root, () => setIsExpanded(false))}
@@ -69,7 +71,7 @@ function listsFromChildren(path: string, item: NavigationItemWithChildren | Navi
   if (isNavigationItem(item)) {
     return (
       <li key={item.link} className={styles.navLeaf}>
-        <span aria-current={isActive} onClick={onItemChosen} className={styles.employeursLien}>
+        <span aria-current={isActive} onClick={onItemChosen} className={classNames({ [styles.employeursLien]: isActive })}>
           <Link href={item.link}>
             {item.label}
           </Link>
