@@ -9,8 +9,6 @@ import {
   RésultatsRéférentielCommunesResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
 
-export const mapRésultatsRechercheOffreResponse = (response:RésultatsRechercheOffreResponse): RésultatsRechercheOffreResponse  => response;
-
 export function mapRésultatsRechercheOffre(response: RésultatsRechercheOffreResponse): RésultatsRechercheOffre {
   return {
     nombreRésultats: getNombreRésultats(response.filtresPossibles),

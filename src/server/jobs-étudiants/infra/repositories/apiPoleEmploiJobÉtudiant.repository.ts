@@ -7,7 +7,10 @@ import {
   mapOffre,
   mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
-import { handleSearchFailureError } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
+import {
+  handleGetFailureError,
+  handleSearchFailureError,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
 import {
   OffreResponse,
   RésultatsRechercheOffreResponse,
@@ -18,7 +21,6 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
@@ -41,8 +43,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
       }
       return createSuccess(mapOffre(response.data));
     } catch (e) {
-      LoggerService.error('[API Pole Emploi] impossible de récupérer la ressource');
-      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      return handleGetFailureError(e, 'job étudiant');
     }
   }
 
@@ -76,7 +77,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
         }
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        return handleSearchFailureError(e);
+        return handleSearchFailureError(e, 'job étudiant');
       }
     }
     return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
@@ -96,8 +97,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
         this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.data, 24);
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        LoggerService.error('[API Pole Emploi] impossible de rechercher');
-        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+        return handleSearchFailureError(e, 'job étudiant');
       }
     }
   }
