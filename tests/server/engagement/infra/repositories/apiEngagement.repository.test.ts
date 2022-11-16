@@ -77,7 +77,6 @@ describe('ApiEngagementRepository', () => {
       it('retourne une erreur contenu indisponible', async () => {
         jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError(anInvalidIdMissionResponse()));
 
-
         const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
 
         expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);

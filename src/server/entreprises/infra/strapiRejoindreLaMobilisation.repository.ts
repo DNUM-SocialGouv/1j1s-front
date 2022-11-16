@@ -1,5 +1,5 @@
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { handleGetFailureError } from '~/server/entreprises/infra/apiRejoindreLaMobilisationError';
+import { createSuccess, Either } from '~/server/errors/either';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 import { Entreprise } from '../domain/Entreprise';
@@ -27,8 +27,8 @@ export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobil
           ...(annotation ? { erreur: annotation } : {}),
         },
       });
-    } catch (error) {
-      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+    } catch (e) {
+      return handleGetFailureError(e, 'strapi rejoindre mobilisation');
     }
     return createSuccess(undefined);
   }

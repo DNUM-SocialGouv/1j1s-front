@@ -5,7 +5,7 @@ import {
 import { Trap } from '@tests/fixtures/trap';
 import nock from 'nock';
 
-import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/ApiRejoindreLaMobilisation.repository';
+import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClientService';
@@ -53,7 +53,14 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Given
       nock('https://lesentreprisesengagent.france')
         .post('/api/members')
-        .reply(400, {});
+        .replyWithError({
+          response: {
+            data: {
+              message: '[API Rejoindre Mobilisation] 400 Bad request pour la ressource',
+            },
+            status: 400,
+          },
+        });
       const entreprise = uneEntreprise();
       // When
       const actual = await repository.save(entreprise);
@@ -64,12 +71,37 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Given
       nock('https://lesentreprisesengagent.france')
         .post('/api/members')
-        .reply(409, {});
+        .replyWithError({
+          response: {
+            data: {
+              message: '[API Rejoindre Mobilisation] 409 Conflict Identifiant',
+            },
+            status: 409,
+          },
+        });
       const entreprise = uneEntreprise();
       // When
       const actual = await repository.save(entreprise);
       // Then
       expect(actual).toEqual(createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT));
+    });
+    it('résout une erreur quand LEE n arrivent pas a insérer le formulaire', async () => {
+      // Given
+      nock('https://lesentreprisesengagent.france')
+        .post('/api/members')
+        .replyWithError({
+          response: {
+            data: {
+              message: '[API Rejoindre Mobilisation] 404 Contenu indisponible',
+            },
+            status: 404,
+          },
+        });
+      const entreprise = uneEntreprise();
+      // When
+      const actual = await repository.save(entreprise);
+      // Then
+      expect(actual).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
     });
     it('résout une erreur quand il y a une erreur réseau', async () => {
       // Given
