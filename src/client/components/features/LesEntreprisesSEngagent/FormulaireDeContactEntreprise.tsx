@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
@@ -111,8 +111,8 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
               />
               <div className={styles.formulaireDeRappelButton}>
                 { isLoading
-                  ? (<Button disabled buttonType="primary"><SpinnerIcon /></Button>)
-                  : (<Button buttonType="primary">Envoyer la demande</Button>)
+                  ? (<ButtonComponent disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
+                  : (<ButtonComponent label="Envoyer la demande" />)
                 }
               </div>
               <div className={styles.décharge}>
@@ -130,11 +130,9 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
             <div id="dialog_label_envoyé">Votre demande a bien été transmise !</div>
           </ModalComponent.Title>
           <ModalComponent.Content>
-            <div className={ styles.success }>
-              <span>
-                <CheckIcon circled={ true } animate />
-              </span>
-              <Button onClick={close} buttonType="primary" title="Fermer, Revenir à la page">Fermer</Button>
+            <div className={styles.success}>
+              <CheckIcon circled={true} animate className={styles.successIcon} />
+              <ButtonComponent label="Fermer" onClick={close} />
             </div>
           </ModalComponent.Content>
         </>

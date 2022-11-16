@@ -8,6 +8,18 @@
     @extend %text-regular;
   }
 
+  &[disabled] {
+    border: 1px solid $color-disabled;
+    background-color: $color-disabled;
+    color: $color-on-disabled;
+    cursor: not-allowed;
+
+    &:hover {
+      border: 1px solid $color-disabled;
+      background-color: $color-disabled;
+    }
+  }
+
   &Primary {
     border: 1px solid $color-primary;
     background-color: $color-primary;
