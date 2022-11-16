@@ -9,10 +9,8 @@ import { OffreDeStageAttributesFromCMS } from '~/client/components/features/Offr
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import indexServices from '~/client/services/index.service';
 
-const ONE_HOUR_IN_SECONDS = 3600;
-const REVALIDATE_CACHE_TIME = ONE_HOUR_IN_SECONDS;
-const NEXT_NOT_FOUND_PAGE = { notFound: true, revalidate: 1 } as GetStaticPropsResult<ConsulterStagePageProps>;
-
+import { PageContextParamsException } from '../../server/exceptions/pageContextParams.exception';
+import { dependencies } from '../../server/start';
 
 export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {
   const router = useRouter();
@@ -39,7 +37,10 @@ interface ConsulterStagePageProps {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<StageContext>): Promise<GetStaticPropsResult<ConsulterStagePageProps>> {
-  const { id: slug } = context.params as { id: string };
+  if (!context.params) {
+    throw new PageContextParamsException();
+  }
+  const { id: slug } = context.params;
 
   try {
     const offreDeStage = await indexServices.offreDeStage.get(slug);;
@@ -47,24 +48,20 @@ export async function getStaticProps(context: GetStaticPropsContext<StageContext
       props: {
         offreDeStage,
       },
-      revalidate: REVALIDATE_CACHE_TIME,
+      revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
     };
   } catch (e) {
     const error: AxiosError | Error = e as AxiosError | Error;
     if (error instanceof AxiosError && error.response?.status === 404) {
-      return NEXT_NOT_FOUND_PAGE;
+      return { notFound: true, revalidate: 1 };
     }
     throw e;
   }
 }
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-
-  const slugs = await indexServices.offreDeStage.listeTousLesSlugs();
   return {
     fallback: 'blocking',
-    paths: [
-      ...slugs.map((slug) => ({ params: { id: slug } })),
-    ],
+    paths: [],
   };
 }
