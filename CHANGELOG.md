@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.10.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.9.0...v2.10.0) (2022-11-16)
+
+
+### Features
+
+* **pole emploi:** ajout de tag et extra pour les logs ([7e2a5d1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7e2a5d13a5872a337008350e32c01e3bf41b67eb))
+
+
+### Bug Fixes
+
+* **jobs etudiants:** Passage en serverSideProps ([772425b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/772425b513d7e41b8b2259f50de220996afc77f0))
+* **multiple:** Fix fallback pour 404 sur emplois, benevolat, decouvrir les metiers, jobs etudiants, service civique ([cc5294a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cc5294a49ddaea8bb2e0be9fba90a4a7335abf2d))
+* **multiple:** unification pages jobs-etudiants et stages en StaticProps ([e56d8d6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e56d8d6c4072556700eddbd6bc130590d07d067e))
+* **stages:** deplacement de la recuperation des slugs dans le service stage ([7858ddf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7858ddf7233491b75cb2da74bd340bc8a33fc511))
+* **stages:** Passage en staticProps (version actuelle sans build) ([a1fb674](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a1fb674855e1a63edc19d564c5acdd56450ee6bc))
+* **stages:** Passage en StaticProps avec build ([230f031](https://github.com/DNUM-SocialGouv/1j1s-front/commit/230f03113df8affb3e321b3ce74a0c1d79589653))
+* **stages:** retire la recuperation des slugs (inutile sans ISR) ([718e804](https://github.com/DNUM-SocialGouv/1j1s-front/commit/718e804c1d40a9d1c732b4fba145e9365f784db7))
+
 ## [2.9.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.8.0...v2.9.0) (2022-11-15)
 
 
