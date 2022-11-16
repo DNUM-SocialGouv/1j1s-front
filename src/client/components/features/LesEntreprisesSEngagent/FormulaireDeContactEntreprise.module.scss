@@ -55,7 +55,7 @@
 .success {
   text-align: center;
 
-  span {
+  &Icon {
     display: flex;
     margin: 1rem auto;
     width: 120px;
@@ -65,6 +65,7 @@
     justify-content: center;
   }
 }
+
 
 .textArea {
   margin-top: 1rem;

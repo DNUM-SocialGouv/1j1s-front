@@ -7,7 +7,7 @@ import React, {
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -29,12 +29,7 @@ export default function Rappel() {
     <div className={classNames(styles.rappel, 'background-white-lilac')}>
       <Container className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
-        <Button
-          onClick={() => setIsPopInOpen(true)}
-          buttonType="withRightIcon"
-          icon={<AngleRightIcon/>}>
-          Je souhaite être contacté(e)
-        </Button>
+        <ButtonComponent label='Je souhaite être contacté(e)' icon={<AngleRightIcon/>} iconPosition='right' onClick={() => setIsPopInOpen(true)} />
       </Container>
       <ModalComponent
         className={styles.rappelModal}
@@ -49,7 +44,7 @@ export default function Rappel() {
         <ModalComponent.Content className={!isSuccess ? styles.rappelContent : styles.rappelContentSuccess}>
           { !isSuccess && <small>(Tous les champs sont obligatoires)</small> }
           <FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-            <Button onClick={ () => setIsPopInOpen(false)} buttonType="primary" title="Fermer, Revenir à la page" className={styles.btnSuccess}>Fermer</Button>
+            <ButtonComponent label='Fermer' onClick={ () => setIsPopInOpen(false)} title="Fermer, Revenir à la page" />
           </FormulaireDeContactCEJ>
         </ModalComponent.Content>
       </ModalComponent>

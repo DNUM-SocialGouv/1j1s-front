@@ -2,7 +2,7 @@ import range from 'just-range';
 import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
-import { Button } from '~/client/components/ui/Button/Button';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
@@ -123,8 +123,8 @@ export default function FormulaireDeContactCEJ({ children, onSuccess }: PropsWit
       </div>
       <div className={styles.formulaireDeRappelButton}>
         {isLoading
-          ? (<Button disabled buttonType="primary"><SpinnerIcon/></Button>)
-          : (<Button buttonType="primary">Envoyer la demande</Button>)
+          ? (<ButtonComponent disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
+          : (<ButtonComponent label="Envoyer la demande" />)
         }
 
       </div>
