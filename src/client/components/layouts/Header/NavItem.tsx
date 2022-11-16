@@ -14,10 +14,8 @@ export function NavItem({ className, label, link, isActive, onClick }: NavItemPr
   return (
     <li className={className} onClick={onClick}>
       <Link href={link} prefetch={false}>
-		  <Link href={link} prefetch={false}>
-			  <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
-		  </Link>
-	  </Link>
+        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
+      </Link>
     </li>
   );
 }

@@ -40,17 +40,15 @@ export function NavEmployeurs({ item: root, path }: NavEmployeursProps) {
 
   return (
     <li className={styles.navItem}>
-      {isActive ?
-        <button className={styles.navItemButton} onClick={(e) => {
+      <button className={styles.navItemButton}
+        onClick={(e) => {
           e.stopPropagation();
           setIsExpanded(!isExpanded);
         }}
-        >
-          <span className={styles.navItemLabel} aria-current={isActive}>{root.label}</span>
-          <Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })}/>
-        </button>
-        : <span className={styles.navItemLabel}>{root.label}</span>
-      }
+      >
+        <span className={styles.navItemLabel} aria-current={isActive}>{root.label}</span>
+        <Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })}/>
+      </button>
       <div ref={wrapper} className={classNames(styles.navWrapper, { [styles.expanded]: isExpanded })}>
         <ul ref={content} className={styles.navDetail}>
           {listsFromChildren(path, root, () => setIsExpanded(false))}
