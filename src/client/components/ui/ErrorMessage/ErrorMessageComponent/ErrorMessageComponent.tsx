@@ -1,17 +1,18 @@
+import styles from '~/client/components/ui/ErrorMessage/ErrorMessage.module.scss';
+
 interface ErrorMessageProps {
-  className?: string,
   explanationText: string,
   solutionText?: string,
   title: string
 }
 
 export const ErrorMessageComponent = (props: ErrorMessageProps) => {
-  const { className, explanationText, solutionText, title } = props;
+  const { explanationText, solutionText, title } = props;
   return (
-    <div className={className}>
-      <h1>{title}</h1>
-      <p className="bold">{explanationText}</p>
-      <p>{solutionText}</p>
-    </div>
+    <p className={styles.errorMessage}>
+      <strong className={styles.errorMessageTitle}>{title}</strong>
+      <span className="bold">{explanationText}</span>
+      {solutionText && <span>{solutionText}</span>}
+    </p>
   );
 };

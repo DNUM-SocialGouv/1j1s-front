@@ -1,92 +1,95 @@
-import { RéférentielDomaine } from '~/server/offres/domain/offre';
+import {
+  DomaineCode,
+  RéférentielDomaine,
+} from '~/server/offres/domain/offre';
 
 export const référentielDomaineList: RéférentielDomaine[] = [
   {
-    code: 'M',
+    code: DomaineCode.M,
     libelle: 'Achats / Comptabilité / Gestion',
   },
   {
-    code: 'B',
+    code: DomaineCode.B,
     libelle: 'Arts / Artisanat d\'art',
   },
   {
-    code: 'C',
+    code: DomaineCode.C,
     libelle: 'Banque / Assurance',
   },
   {
-    code: 'F',
+    code: DomaineCode.F,
     libelle: 'Bâtiment / Travaux Publics',
   },
   {
-    code: 'D',
+    code: DomaineCode.D,
     libelle: 'Commerce / Vente',
   },
   {
-    code: 'E',
+    code: DomaineCode.E,
     libelle: 'Communication / Multimédia',
   },
   {
-    code: 'M14',
+    code: DomaineCode.M14,
     libelle: 'Conseil / Etudes',
   },
   {
-    code: 'M13',
+    code: DomaineCode.M13,
     libelle: 'Direction d\'entreprise',
   },
   {
-    code: 'A',
+    code: DomaineCode.A,
     libelle: 'Espaces verts et naturels / Agriculture / Pêche / Soins aux animaux',
   },
   {
-    code: 'G',
+    code: DomaineCode.G,
     libelle: 'Hôtellerie - Restauration / Tourisme / Animation',
   },
   {
-    code: 'C15',
+    code: DomaineCode.C15,
     libelle: 'Immobilier',
   },
   {
-    code: 'H',
+    code: DomaineCode.H,
     libelle: 'Industrie',
   },
   {
-    code: 'M18',
+    code: DomaineCode.M18,
     libelle: 'Informatique / Télécommunication',
   },
   {
-    code: 'I',
+    code: DomaineCode.I,
     libelle: 'Installation / Maintenance',
   },
   {
-    code: 'M17',
+    code: DomaineCode.M17,
     libelle: 'Marketing / Stratégie commerciale',
   },
   {
-    code: 'M15',
+    code: DomaineCode.M15,
     libelle: 'Ressources Humaines',
   },
   {
-    code: 'J',
+    code: DomaineCode.J,
     libelle: 'Santé',
   },
   {
-    code: 'M16',
+    code: DomaineCode.M16,
     libelle: 'Secrétariat / Assistanat',
   },
   {
-    code: 'K',
+    code: DomaineCode.K,
     libelle: 'Services à la personne / à la collectivité',
   },
   {
-    code: 'L',
+    code: DomaineCode.L,
     libelle: 'Spectacle',
   },
   {
-    code: 'L14',
+    code: DomaineCode.L14,
     libelle: 'Sport',
   },
   {
-    code: 'N',
+    code: DomaineCode.N,
     libelle: 'Transport / Logistique',
   },
 ];

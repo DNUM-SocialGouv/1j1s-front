@@ -35,7 +35,7 @@ export namespace Offre {
     nom?: string
     logo?: string
   }
-  
+
   export interface Formation {
     libellé?: string
     commentaire?: string
@@ -82,7 +82,7 @@ export namespace Offre {
 
 
   type Temps = 'tempsPlein' | 'tempsPartiel' | 'indifférent'
-  
+
   export interface TempsDeTravail {
     libellé: string
     valeur: Temps
@@ -130,7 +130,7 @@ export namespace Offre {
     libellé: 'De 1 à 3 ans',
     valeur: 'S',
   };
-  
+
   export const EXPÉRIENCE: ExpérienceAttendu[] = [
     Offre.EXPÉRIENCE_DEBUTANT,
     Offre.EXPÉRIENCE_SOUHAITÉ,
@@ -159,15 +159,42 @@ export interface OffreEmploiFiltreLocalisation {
   code: string
 }
 
+export enum DomaineCode {
+  M = 'M',
+  B = 'B',
+  C = 'C',
+  F = 'F',
+  D = 'D',
+  E = 'E',
+  M14 = 'M14',
+  M13 = 'M13',
+  A = 'A',
+  G = 'G',
+  C15 = 'C15',
+  H = 'H',
+  M18 = 'M18',
+  I = 'I',
+  M17 = 'M17',
+  M15 = 'M15',
+  J = 'J',
+  M16 = 'M16',
+  K = 'K',
+  L = 'L',
+  L14 = 'L14',
+  N = 'N'
+}
+
 export interface RéférentielDomaine {
-  code: string
+  code: DomaineCode
   libelle: string
 }
 
 export const NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE = 15;
+const MAX_RESULT_ALLOWED = 1000;
+export const MAX_PAGE_ALLOWED = Math.floor(MAX_RESULT_ALLOWED / NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE);
 
 export function isOffreÉchantillonFiltre(offreFiltre: OffreFiltre) {
   const { page, ...rest } = offreFiltre;
-  const emploiFiltreSanitanized = Object.values(rest);
-  return page === 1 && emploiFiltreSanitanized.every((value) => value === undefined);
+  const emploiFiltreSanitized = Object.values(rest);
+  return page === 1 && emploiFiltreSanitized.every((value) => value === undefined);
 }

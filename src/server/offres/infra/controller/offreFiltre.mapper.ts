@@ -11,6 +11,3 @@ export function mapLocalisation(query: { [key: string]: string | string[] | unde
     : undefined;
 }
 
-export function toArray(query: string | string[]): string[] {
-  return query.toString().split(',');
-}
