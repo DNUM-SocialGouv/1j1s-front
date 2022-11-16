@@ -3,9 +3,10 @@
 .errorMessage {
   padding: 1rem;
   & > * {
+    display: block;
     margin-bottom: 1rem;
   }
-  h1 {
+  &Title {
     font-size: 1.5rem;
     line-height: 2rem;
     @extend %bold;

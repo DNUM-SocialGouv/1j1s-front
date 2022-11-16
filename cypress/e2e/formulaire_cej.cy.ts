@@ -5,7 +5,6 @@
  * STRAPI_URL_API=http://127.0.0.1:1337/api/
  * car cypress n'a pas accès au localhost:1337
  */
-/* eslint-disable jest/expect-expect */
 describe('Parcours formulaire cej', () => {
   before(() => {
     cy.viewport('iphone-6');
