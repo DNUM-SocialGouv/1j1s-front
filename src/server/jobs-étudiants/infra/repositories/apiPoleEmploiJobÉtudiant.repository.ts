@@ -97,7 +97,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
         this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.data, 24);
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        return handleSearchFailureError(e, 'job étudiant');
+        return handleSearchFailureError(e, 'échantillon job étudiant');
       }
     }
   }

@@ -46,7 +46,7 @@ import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
-import { ApiRejoindreLaMobilisationRepository } from '../entreprises/infra/ApiRejoindreLaMobilisation.repository';
+import { ApiRejoindreLaMobilisationRepository } from '../entreprises/infra/apiRejoindreLaMobilisation.repository';
 
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;

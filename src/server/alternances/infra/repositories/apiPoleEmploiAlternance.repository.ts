@@ -46,8 +46,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
       }
       return createSuccess(mapOffre(response.data));
     } catch (e) {
-      handleGetFailureError(e, 'alternance');
-      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      return handleGetFailureError(e, 'alternance');
     }
   }
 
@@ -89,7 +88,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
         this.cacheService.set(this.ECHANTILLON_OFFRE_ALTERNANCE_KEY, response.data, 24);
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        return handleSearchFailureError(e, 'alternance');
+        return handleSearchFailureError(e, 'échantillon alternance');
       }
     }
   }

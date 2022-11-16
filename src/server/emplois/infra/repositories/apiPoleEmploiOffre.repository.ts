@@ -43,8 +43,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
       }
       return createSuccess(mapOffre(response.data));
     } catch (e) {
-      handleGetFailureError(e, 'offre emploi');
-      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      return handleGetFailureError(e, 'offre emploi');
     }
   }
 
@@ -99,7 +98,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
         this.cacheService.set(this.ECHANTILLON_OFFRE_EMPLOI_KEY, response.data, 24);
         return createSuccess(mapRésultatsRechercheOffre(response.data));
       } catch (e) {
-        return handleSearchFailureError(e, 'offre emploi');
+        return handleSearchFailureError(e, 'échantillon offre emploi');
       }
     }
   }

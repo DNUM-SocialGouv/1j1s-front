@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {
   DemandeDeContactCEJ,
   DemandeDeContactEntreprise,
@@ -6,7 +8,9 @@ import {
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/DemandeDeContact.repository';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { SentryException } from '~/server/exceptions/sentryException';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 export class StrapiDemandeDeContactRepository implements DemandeDeContactRepository {
 
@@ -26,7 +30,21 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
           ville: demandeDeContactCEJ.ville,
         },
       });
-    } catch (error) {
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        LoggerService.errorWithExtra(new SentryException(
+          '[API Demande de contact] Erreur inconnue - Erreur insertion formulaire',
+          { context: 'formulaire cej', source: 'API Demande de contact' },
+          { errorDetail: e.response?.data },
+        ));
+      } else {
+        LoggerService.errorWithExtra(new SentryException(
+          '[API Demande de contact] Erreur inconnue - Erreur insertion formulaire',
+          { context: 'formulaire cej', source: 'API Demande de contact' },
+          { stacktrace: (<Error> e).stack },
+        ));
+      }
+
       return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     }
     return createSuccess(undefined);
@@ -44,7 +62,20 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
           telephone: demandeDeContactEntreprise.téléphone,
         },
       });
-    } catch (error) {
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        LoggerService.errorWithExtra(new SentryException(
+          '[API Demande de contact] Erreur inconnue - Erreur insertion formulaire',
+          { context: 'formulaire entreprise', source: 'API Demande de contact' },
+          { errorDetail: e.response?.data },
+        ));
+      } else {
+        LoggerService.errorWithExtra(new SentryException(
+          '[API Demande de contact] Erreur inconnue - Erreur insertion formulaire',
+          { context: 'formulaire entreprise', source: 'API Demande de contact' },
+          { stacktrace: (<Error> e).stack },
+        ));
+      }
       return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     }
     return createSuccess(undefined);
@@ -70,7 +101,20 @@ export class StrapiDemandeDeContactRepository implements DemandeDeContactReposit
           ...(annotation ? { erreur: annotation } : {}),
         },
       });
-    } catch (error) {
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        LoggerService.errorWithExtra(new SentryException(
+          '[API Demande de contact] Erreur inconnue - Erreur insertion formulaire',
+          { context: 'formulaire poe', source: 'API Demande de contact' },
+          { errorDetail: e.response?.data },
+        ));
+      } else {
+        LoggerService.errorWithExtra(new SentryException(
+          '[API Demande de contact] Erreur inconnue - Erreur insertion formulaire',
+          { context: 'formulaire poe', source: 'API Demande de contact' },
+          { stacktrace: (<Error> e).stack },
+        ));
+      }
       return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     }
     return createSuccess(undefined);

@@ -1,13 +1,12 @@
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
   ApiDecoupageAdministratifResponse,
 } from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
 import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
+import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiLocalisationError';
 import { HttpClientService } from '~/server/services/http/httpClientService';
-import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
   constructor(
@@ -44,9 +43,7 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
       const response = await this.httpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
       return createSuccess(mapLocalisationList(response.data));
     } catch (e) {
-      LoggerService.error('[API Localisation] impossible de rechercher');
-      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      return handleGetFailureError(e, 'localisation');
     }
-
   }
 }
