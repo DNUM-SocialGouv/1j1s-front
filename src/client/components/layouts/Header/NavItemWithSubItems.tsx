@@ -83,6 +83,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
         break;
       }
     }
+    /* eslint-disable */
   }, [path, root]);
 
   const subNav = subItems.map((item, index) => {
