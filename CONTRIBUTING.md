@@ -108,7 +108,7 @@ liste des contextes de **page** autorisées (non exaustive):
 - jobs étudiants
 - emplois europe
 - formations
-- dem (pour découvrir les métiers)
+- metiers (pour découvrir les métiers)
 - évènement
 - cej (pour contrat engagement jeune)
 - aides

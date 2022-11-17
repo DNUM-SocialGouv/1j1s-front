@@ -1,6 +1,7 @@
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
@@ -20,6 +21,13 @@ interface ConsulterFicheMetierPageProps {
 }
 
 export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
+  const router = useRouter();
+
+  useEffect(()=>{
+    window.addEventListener('popstate', () => router.reload() );
+    return () => window.removeEventListener('popstate', () => router.reload());
+  }, [router]);
+
   if (!ficheMetier) return null;
 
   return (
