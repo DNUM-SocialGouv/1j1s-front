@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.11.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.10.0...v2.11.0) (2022-11-17)
+
+
+### Features
+
+* **multiple/sécurité:** validation des paramètres url dans le controller ([6d1e72b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6d1e72bdef47b866d448f82ba707df1989125f47))
+
 ## [2.10.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.9.0...v2.10.0) (2022-11-16)
 
 
