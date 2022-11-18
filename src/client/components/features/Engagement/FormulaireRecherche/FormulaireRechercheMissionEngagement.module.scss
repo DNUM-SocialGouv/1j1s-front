@@ -42,8 +42,7 @@
     align-items: flex-end;
     gap: 1rem;
     flex-wrap: wrap;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-block: 0;
     > div {
       flex-grow: 1;
     }

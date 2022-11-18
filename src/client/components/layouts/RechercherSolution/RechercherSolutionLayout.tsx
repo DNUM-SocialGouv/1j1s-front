@@ -15,7 +15,6 @@ export interface LienSolution {
   id: string
   lienOffre: string
   intituléOffre: string
-  descriptionOffre?: string
   logoEntreprise: string
   nomEntreprise?: string
   étiquetteOffreList: string[]
@@ -65,7 +64,6 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
               intituléOffre={lienSolution.intituléOffre}
               logoEntreprise={lienSolution.logoEntreprise}
               nomEntreprise={lienSolution.nomEntreprise}
-              descriptionOffre={lienSolution.descriptionOffre}
               étiquetteOffreList={lienSolution.étiquetteOffreList}
             />
           </li>

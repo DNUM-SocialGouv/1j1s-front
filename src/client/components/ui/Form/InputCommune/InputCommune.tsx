@@ -14,15 +14,16 @@ import { Commune } from '~/server/localisations/domain/localisationAvecCoordonn�
 
 interface InputCommuneProps {
   code: string
-  distance: string
+  distance?: string
   id?: string
-  latitude: string
+  latitude?: string
   libellé: string
-  longitude: string
+  longitude?: string
+  showRadius?: boolean
 }
 
 export const InputCommune = (props: InputCommuneProps) => {
-  const { code, distance, id, libellé, latitude, longitude } = props;
+  const { code, distance, id, libellé, latitude, longitude, showRadius = true } = props;
 
   const localisationService = useDependency<LocalisationService>('localisationService');
 
@@ -91,9 +92,9 @@ export const InputCommune = (props: InputCommuneProps) => {
       clearCommune();
     } else {
       setCodeCommune(code);
-      setLatitudeCommune(latitude);
-      setDistanceCommune(distance);
-      setLongitudeCommune(longitude);
+      setLatitudeCommune(latitude || '');
+      setDistanceCommune(distance || '');
+      setLongitudeCommune(longitude || '');
       setLibelléCommune(libellé);
     }
   }, [libellé, code, longitude, latitude, distance, clearCommune]);
@@ -108,7 +109,7 @@ export const InputCommune = (props: InputCommuneProps) => {
         setLatitudeCommune('');
         setLongitudeCommune('');
         setSuggestionsActive(value.length > 1);
-        setSuggestionIndex(1);
+        setSuggestionIndex(0);
       } else {
         // TODO: implement error management
       }
@@ -235,7 +236,7 @@ export const InputCommune = (props: InputCommuneProps) => {
           {suggestionsActive && <SuggestionsCommuneList/>}
         </div>
       </div>
-      { codeCommune &&
+      { codeCommune && showRadius &&
       <Select
         label="Rayon"
         name="distanceCommune"

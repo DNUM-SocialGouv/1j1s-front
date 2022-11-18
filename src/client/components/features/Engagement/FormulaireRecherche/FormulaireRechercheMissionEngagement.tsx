@@ -40,7 +40,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 
   async function rechercherMission(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const query = getFormAsQuery(event.currentTarget);
+    const query = getFormAsQuery(event.currentTarget, queryParams);
     return router.push({ query }, undefined, { shallow: true });
   }
 

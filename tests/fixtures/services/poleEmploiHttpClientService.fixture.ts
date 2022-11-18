@@ -1,21 +1,10 @@
-import { anAxiosInstance, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { AxiosResponse } from 'axios';
 
 import {
   OffreResponse,
   RésultatsRechercheOffreResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-
-export function aPoleEmploiHttpClient(): HttpClientServiceWithAuthentification {
-  return {
-    client: anAxiosInstance(),
-    get: jest.fn(),
-    post: jest.fn(),
-    refreshToken: jest.fn(),
-    setAuthorizationHeader: jest.fn(),
-  } as unknown as HttpClientServiceWithAuthentification;
-}
 
 export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<RésultatsRechercheOffreResponse>): AxiosResponse<RésultatsRechercheOffreResponse> {
   return anAxiosResponse({

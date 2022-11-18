@@ -79,6 +79,15 @@ const getApiAdresseConfig = (configurationService: ConfigurationService): HttpCl
   });
 };
 
+const getApiÉtablissementsPublicsConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+  return ({
+    apiKey: undefined,
+    apiName: 'API_ETABLISSEMENTS_PUBLICS',
+    apiUrl: configurationService.getConfiguration().API_ETABLISSEMENTS_PUBLICS,
+    overrideInterceptor: false,
+  });
+};
+
 const getApiPoleEmploiOffresConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return ({
     apiName: 'API_POLE_EMPLOI',
@@ -115,5 +124,6 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
     strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
+    établissementAccompagnementClientService: new HttpClientService(getApiÉtablissementsPublicsConfig(configurationService)),
   };
 }

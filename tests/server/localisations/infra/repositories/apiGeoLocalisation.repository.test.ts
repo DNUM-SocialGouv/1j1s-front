@@ -1,5 +1,4 @@
-import { aApiGeoHttpClientService } from '@tests/fixtures/services/apiGeoHttpClientService.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { anAxiosResponse, anHttpClientService } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { createSuccess } from '~/server/errors/either';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
@@ -11,7 +10,7 @@ describe('ApiGeoLocalisationRepository', () => {
   let httpClientService: HttpClientService;
 
   beforeEach(() => {
-    httpClientService = aApiGeoHttpClientService();
+    httpClientService = anHttpClientService();
 
     apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
       httpClientService,

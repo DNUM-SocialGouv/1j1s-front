@@ -1,5 +1,4 @@
-import { anApiAdresseHttpClientService } from '@tests/fixtures/services/apiAdresseHttpClientService.fixture';
-import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import { anAxiosError, anAxiosResponse, anHttpClientService } from '@tests/fixtures/services/httpClientService.fixture';
 
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -12,7 +11,7 @@ describe('ApiAdresseRepository', () => {
   let apiAdresseRepository: ApiAdresseRepository;
 
   beforeEach(() => {
-    httpClientService = anApiAdresseHttpClientService();
+    httpClientService = anHttpClientService();
     apiAdresseRepository = new ApiAdresseRepository(httpClientService);
   });
 

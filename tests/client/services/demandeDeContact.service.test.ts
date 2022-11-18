@@ -1,4 +1,4 @@
-import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
+import { anHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 
 import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -8,7 +8,7 @@ describe('DemandeDeContactService', () => {
   describe('.envoyerPourLeCEJ()', () => {
     it('appelle l\'API avec les paramètres du formulaire de contact et retourne un success', async () => {
       // Given
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const demandeContactService = new DemandeDeContactService(httpClientService);
       const body = {
         age: 18,
@@ -29,7 +29,7 @@ describe('DemandeDeContactService', () => {
     });
     it('appelle API avec les paramètres du formulaire de contact et retourne une Failure', async () => {
       // Given
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const demandeContactService = new DemandeDeContactService(httpClientService);
       const body = {
         age: 18,
@@ -55,7 +55,7 @@ describe('DemandeDeContactService', () => {
   describe('.envoyerPourLesEntreprisesSEngagent()', () => {
     it('appelle l\'API avec les paramètres du formulaire de contact et retourne un success', async () => {
       // Given
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const demandeContactService = new DemandeDeContactService(httpClientService);
       const body = {
         email: 'toto@msn.fr',
@@ -75,7 +75,7 @@ describe('DemandeDeContactService', () => {
     });
     it('appelle API avec les paramètres du formulaire de contact et retourne une Failure', async () => {
       // Given
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const demandeContactService = new DemandeDeContactService(httpClientService);
       const body = {
         email: 'toto@msn.fr',

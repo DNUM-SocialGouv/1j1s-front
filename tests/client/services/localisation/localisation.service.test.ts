@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
+import { anHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { aCommuneListApiResponse, aDépartementListApiResponse } from '@tests/fixtures/domain/localisation.fixture';
 import { aRésultatsRechercheCommune } from '@tests/fixtures/domain/localisationAvecCoordonnées.fixture';
 
@@ -17,7 +17,7 @@ describe('LocalisationService', () => {
     const list = ['1','3','4','6'];
     list.forEach((value) => {
       it(`quand la recherche contient ${value}, on renvoie null`, async () => {
-        const httpClientService = aHttpClientService();
+        const httpClientService = anHttpClientService();
         const localisationService = new LocalisationService(httpClientService);
 
         const result = await localisationService.rechercherLocalisation(value);
@@ -27,7 +27,7 @@ describe('LocalisationService', () => {
     });
 
     it('quand la recherche contient un caractère spécial sauf accents et espaces, on renvoie null', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
 
       const result = await localisationService.rechercherLocalisation('$$');
@@ -36,7 +36,7 @@ describe('LocalisationService', () => {
     });
 
     it('quand la recherche contient qu\'un seul caractère, on renvoie null', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
 
       const result = await localisationService.rechercherLocalisation('a');
@@ -46,7 +46,7 @@ describe('LocalisationService', () => {
 
     it('quand on recherche un nombre, on renvoie les départements et les communes', async () => {
       // Given
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
       const expected: RechercheLocalisationApiResponse = {
         communeList: [
@@ -88,7 +88,7 @@ describe('LocalisationService', () => {
     });
 
     it('quand la recherche contient des lettres, on renvoie les communes, départements et régions correspondantes', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
 
       const rechercheLocalisationApiResponse: RechercheLocalisationApiResponse = {
@@ -140,7 +140,7 @@ describe('LocalisationService', () => {
 
   describe('rechercherCommune', () => {
     it('appelle communes avec la recherche', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const localisationService = new LocalisationService(httpClientService);
       const query='pari';
       const expected: RésultatsRechercheCommune = {

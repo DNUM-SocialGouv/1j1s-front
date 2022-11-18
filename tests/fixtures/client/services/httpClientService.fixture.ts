@@ -1,6 +1,6 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
 
-export function aHttpClientService(): HttpClientService {
+export function anHttpClientService(): HttpClientService {
   return {
     delete: jest.fn(),
     get: jest.fn(),

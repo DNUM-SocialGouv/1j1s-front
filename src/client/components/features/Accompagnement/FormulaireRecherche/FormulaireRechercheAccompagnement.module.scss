@@ -1,0 +1,45 @@
+@import "@styles/utilities";
+
+.rechercheOffreForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtresRechercherOffre {
+  flex: 1 0;
+}
+
+.inputButtonWrapper > * {
+  margin-bottom: 1.5rem;
+}
+
+.buttonRechercher > button {
+  width: 100%;
+}
+
+@include media(medium){
+  .rechercheOffreForm {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .buttonRechercher {
+    margin-top: 28px;
+    margin-left: 40px;
+  }
+
+  .inputButtonWrapper {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-block: 0;
+  }
+
+  .inputButtonWrapper > div {
+    flex-grow: 1;
+  }
+}

@@ -5,6 +5,9 @@ import poleEmploiImage from 'public/images/logos/pole-emploi.svg';
 import missionLocaleImage from 'public/images/logos/union-mission-locale.svg';
 import React from 'react';
 
+import {
+  RechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/RechercherAccompagnement';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -73,6 +76,10 @@ export default function Accompagnement() {
 
   function displayBoutonRechercherCentrePoleEmploi() {
     return <Link href="https://www.pole-emploi.fr/annuaire/votre-pole-emploi.html" appearance="asPrimaryButton" className={styles.button}>Trouver mon centre Pôle Emploi</Link>;
+  }
+
+  if (process.env.NEXT_PUBLIC_RECHERCHE_ACCOMPAGNEMENT_FEATURE === '1') {
+    return <RechercherAccompagnement />;
   }
 
   return (
