@@ -20,7 +20,7 @@ const querySchema = Joi.object({
   codeLocalisation: Joi.number(),
   grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
   libelleLocalisation: Joi.string(),
-  motCle: Joi.string().alphanum(),
+  motCle: Joi.string(),
   page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
   typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 });

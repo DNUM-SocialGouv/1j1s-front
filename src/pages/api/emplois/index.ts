@@ -27,7 +27,7 @@ const querySchema = Joi.object({
   experienceExigence: Joi.string().valid('D', 'S', 'E'),
   grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
   libelleLocalisation: Joi.string(),
-  motCle: Joi.string().alphanum(),
+  motCle: Joi.string(),
   page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
   tempsDeTravail: Joi.string().valid('tempsPlein', 'tempsPartiel', 'indifférent'),
   typeDeContrats: transformQueryToArray.array().items(Joi.string().valid('CDD', 'CDI', 'SAI', 'MIS')),

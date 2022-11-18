@@ -16,7 +16,7 @@ import { handleResponse } from '~/server/utils/handleResponse.util';
 export const querySchema = Joi.object({
   codeLocalisation: Joi.number(),
   libelleLocalisation: Joi.string(),
-  motCle: Joi.string().alphanum(),
+  motCle: Joi.string(),
   page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
   typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 });
