@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.11.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.11.0...v2.11.1) (2022-11-18)
+
+
+### Bug Fixes
+
+* **multiple:** retrait du check alphanumerique sur la query mot clé ([7d045b7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d045b7b587efcd2dc4192ae32de0fffc18688ea))
+
 ## [2.11.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.10.0...v2.11.0) (2022-11-17)
 
 
