@@ -10,13 +10,15 @@ interface HeroWithButtonLinkProps {
   titleSecondaryText?: React.ReactNode
   content: React.ReactNode
   buttonLabel: string
+  buttonLabelSecondary?: string
   buttonHref: string
+  buttonHrefSecondary?: string
   imgSrc: string
   additionalInformation?: React.ReactNode
 }
 
 export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
-  const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonHref, imgSrc, additionalInformation } = props;
+  const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonLabelSecondary, buttonHref, buttonHrefSecondary, imgSrc, additionalInformation } = props;
 
   const { isLargeScreen } = useBreakpoint();
 
@@ -31,7 +33,10 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
           <p className={styles.headingContainer__TextContent}>
             {content}
           </p>
-          <Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</Link>
+          <div className={styles.linkAsButtonContainer}>
+            <Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</Link><br />
+            {(buttonLabelSecondary && buttonHrefSecondary) && <Link className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</Link>}
+          </div>
           {additionalInformation}
         </div>
       </div>
