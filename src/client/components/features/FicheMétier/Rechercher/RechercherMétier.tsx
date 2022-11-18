@@ -37,8 +37,8 @@ export default function RechercherMétier() {
           <MeilisearchCustomRefinementList
             className={styles.inputCentresInteret}
             attribute='centres_interet'
-            label="Centres d'intérêt"
-            sortBy={['name:asc']} />
+            limit={100}
+            label="Centres d'intérêt" />
         </Container>
       </div>
       <div className={styles.resultInfosContainer}>
