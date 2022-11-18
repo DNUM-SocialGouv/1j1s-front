@@ -2,10 +2,10 @@
 
 
 .recruter {
-  padding: 4rem 2rem 4rem 2rem;
+  padding: 4rem 2rem;
   text-align: center;
 
-  h2 {
+  h1 {
     @extend %bold;
     color: $color-primary;
     margin-bottom: 1em;
@@ -31,7 +31,8 @@
 
 @include media(medium) {
   .recruter {
-    padding: 4rem 19rem 4rem 19rem;
+    width: 35rem;
+    padding: 4rem;
     margin: auto;
   }
 }
