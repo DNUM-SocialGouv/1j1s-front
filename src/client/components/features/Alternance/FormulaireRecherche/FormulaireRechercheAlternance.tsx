@@ -31,7 +31,7 @@ export function FormulaireRechercheAlternance() {
 
   async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const query = getFormAsQuery(event.currentTarget);
+    const query = getFormAsQuery(event.currentTarget, queryParams);
     return router.push({ query }, undefined, { shallow: true });
   }
 

@@ -8,10 +8,12 @@ import {
   aPoleEmploiParamètreBuilderService,
 } from '@tests/fixtures/server/offresEmploi/poleEmploiParamètreBuilder.service.fixture';
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import {
+  anAxiosResponse,
+  anHttpClientServiceWithAuthentification,
+} from '@tests/fixtures/services/httpClientService.fixture';
 import {
   aBarmanOffreEmploiApiResponse,
-  aPoleEmploiHttpClient,
   aRésultatsRechercheOffreEmploiApiResponse,
 } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
 
@@ -35,7 +37,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
   beforeEach(() => {
     cacheService = new MockedCacheService();
-    httpClientServiceWithAuthentification = aPoleEmploiHttpClient();
+    httpClientServiceWithAuthentification = anHttpClientServiceWithAuthentification();
     poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
     apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService);
   });

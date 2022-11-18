@@ -1,15 +1,15 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
+import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
+import { ÉtablissementAccompagnementService } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { LesEntreprisesSEngagentService } from '~/client/services/les-entreprises-s-engagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { OffreService } from '~/client/services/offre/offreService';
-
-import { DemandeDeContactService } from './services/demandeDeContact.service';
+import { OffreService } from '~/client/services/offre/offre.service';
 
 const MAX_LIMITE_STAGES = 100000;
 const MARKETING_QUERY_PARAMS = 'xtor'|| 'dclid';
@@ -23,6 +23,7 @@ export type Dependencies = {
   rechercheClientService: SearchClient
   demandeDeContactService: DemandeDeContactService
   lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
+  établissementAccompagnementService: ÉtablissementAccompagnementService
 }
 
 class DependencyInitException extends Error {
@@ -40,6 +41,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const demandeDeContactService = new DemandeDeContactService(httpClientService);
   const ficheMetierService = new FicheMetierService(httpClientService);
   const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
+  const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 
   const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
   const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -88,5 +90,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
     missionEngagementService,
     offreService,
     rechercheClientService,
+    établissementAccompagnementService,
   };
 }

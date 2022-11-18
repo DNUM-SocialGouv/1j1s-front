@@ -2,8 +2,10 @@ import {
   aRésultatsRéférentielCommunesResponseList,
 } from '@tests/fixtures/server/offresEmploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
-import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
-import { aPoleEmploiHttpClient } from '@tests/fixtures/services/poleEmploiHttpClientService.fixture';
+import {
+  anAxiosResponse,
+  anHttpClientServiceWithAuthentification,
+} from '@tests/fixtures/services/httpClientService.fixture';
 
 import {
   ApiPoleEmploiRéférentielRepository,
@@ -23,7 +25,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
   let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
   beforeEach(() => {
-    httpClientServiceWithAuthentification = aPoleEmploiHttpClient();
+    httpClientServiceWithAuthentification = anHttpClientServiceWithAuthentification();
     cacheService = new MockedCacheService();
     apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(httpClientServiceWithAuthentification, cacheService);
   });

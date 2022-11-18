@@ -2,8 +2,11 @@ import { anArticle, anArticleAxiosResponse } from '@tests/fixtures/domain/articl
 import { anEspaceJeune, anEspaceJeuneResponse } from '@tests/fixtures/domain/espaceJeune.fixture';
 import { aFicheMetier, aStrapiFicheMetier } from '@tests/fixtures/domain/ficheMetier.fixture';
 import { desMesuresEmployeurs, mesuresEmployeursResponse } from '@tests/fixtures/domain/mesuresEmployeurs.fixture';
-import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
-import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
+import {
+  anAxiosError,
+  anAxiosResponse,
+  anHttpClientServiceWithAuthentification,
+} from '@tests/fixtures/services/httpClientService.fixture';
 
 import { Article } from '~/server/cms/domain/article';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
@@ -22,7 +25,7 @@ describe('strapi cms repository', () => {
   describe('getArticleBySlug', () => {
     describe('Si un article est trouvé', () => {
       it('récupère l\'article selon le slug', async () => {
-        httpClientService = aStrapiHttpClientService();
+        httpClientService = anHttpClientServiceWithAuthentification();
         strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anArticleAxiosResponse());
@@ -42,7 +45,7 @@ describe('strapi cms repository', () => {
     const expectedFicheMetier = aFicheMetier();
 
     beforeEach(() => {
-      httpClientService = aStrapiHttpClientService();
+      httpClientService = anHttpClientServiceWithAuthentification();
       strapiCmsRepository = new StrapiCmsRepository(httpClientService);
     });
     afterEach(() => {
@@ -77,7 +80,7 @@ describe('strapi cms repository', () => {
 
   describe('getMentionObligatoire', () => {
     it('retourne le mention obligatoire a consulter', async () => {
-      httpClientService = aStrapiHttpClientService();
+      httpClientService = anHttpClientServiceWithAuthentification();
       strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
@@ -102,7 +105,7 @@ describe('strapi cms repository', () => {
   describe('getEspaceJeune', () => {
     describe('Si les cartes mesures jeunes sont trouvés', () => {
       it('récupère les cartes jeunes', async () => {
-        httpClientService = aStrapiHttpClientService();
+        httpClientService = anHttpClientServiceWithAuthentification();
         strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anEspaceJeuneResponse()));
@@ -117,7 +120,7 @@ describe('strapi cms repository', () => {
   describe('.getMesuresEmployeurs()', () => {
     describe('quand les cartes sont trouvées', () => {
       it('récupère les cartes jeunes', async () => {
-        httpClientService = aStrapiHttpClientService();
+        httpClientService = anHttpClientServiceWithAuthentification();
         strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(mesuresEmployeursResponse()));

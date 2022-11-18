@@ -1,4 +1,4 @@
-import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
+import { anHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 
 import {
@@ -10,7 +10,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 describe('LesEntreprisesSEngagentService', () => {
   describe('l’envoie du formulaire c’est bien passé', () => {
     it('revoie un Success', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(undefined));
       const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 
@@ -47,7 +47,7 @@ describe('LesEntreprisesSEngagentService', () => {
 
   describe('l’envoie du formulaire tombe en erreur', () => {
     it('revoie une Failure', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       jest.spyOn(httpClientService, 'post').mockRejectedValue(new Error('Error'));
       const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 

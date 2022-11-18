@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import FormulaireDeContactEntreprise
@@ -27,13 +27,15 @@ describe('FormulaireDeContactEntreprise', () => {
       await remplirFormulaireDeContact();
       await cliqueBoutonEnvoyerLaDemande();
 
-      expect(aDemandeDeContactService.envoyerPourLesEntreprisesSEngagent).toHaveBeenCalledWith({
-        email: 'jean.dupont@gmail.com',
-        message: 'super rrr',
-        nom: 'Dupont',
-        prénom: 'Jean',
-        sujet: 'super sujet',
-        téléphone: '0611223344',
+      await waitFor(async () => {
+        expect(aDemandeDeContactService.envoyerPourLesEntreprisesSEngagent).toHaveBeenCalledWith({
+          email: 'jean.dupont@gmail.com',
+          message: 'super rrr',
+          nom: 'Dupont',
+          prénom: 'Jean',
+          sujet: 'super sujet',
+          téléphone: '0611223344',
+        });
       });
       expect(await screen.findByText('Votre demande a bien été transmise !')).toBeInTheDocument();
     });
@@ -59,5 +61,7 @@ async function remplirFormulaireDeContact() {
 }
 
 async function cliqueBoutonEnvoyerLaDemande() {
-  fireEvent.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
+  const user = userEvent.setup();
+  const submit = await screen.findByRole('button', { name: 'Envoyer la demande' });
+  user.click(submit);
 }

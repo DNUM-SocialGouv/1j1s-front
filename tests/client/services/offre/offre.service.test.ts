@@ -1,16 +1,16 @@
 /**
  * @jest-environment jsdom
  */
-import { aHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
+import { anHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
 import { aRésultatsRechercheOffre } from '@tests/fixtures/domain/offre.fixture';
 
-import { OffreService } from '~/client/services/offre/offreService';
+import { OffreService } from '~/client/services/offre/offre.service';
 import { createSuccess } from '~/server/errors/either';
 
-describe('OffreEmploiService', () => {
+describe('OffreService', () => {
   describe('rechercherOffreEmploi', () => {
     it('appelle emploi avec la requête', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const offreService = new OffreService(httpClientService);
       const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI&page=1';
 
@@ -25,7 +25,7 @@ describe('OffreEmploiService', () => {
 
   describe('rechercherJobÉtudiant', () => {
     it('appelle emploi avec la requête', async () => {
-      const httpClientService = aHttpClientService();
+      const httpClientService = anHttpClientService();
       const offreService = new OffreService(httpClientService);
       const offreEmploiQuery = 'motCle=barman&page=1';
 

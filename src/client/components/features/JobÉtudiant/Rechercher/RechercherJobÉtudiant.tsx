@@ -18,8 +18,8 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
-import { OffreService } from '~/client/services/offre/offreService';
-import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
+import { OffreService } from '~/client/services/offre/offre.service';
+import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
 
@@ -47,11 +47,11 @@ export function RechercherJobÉtudiant() {
     offreService.rechercherJobÉtudiant(queryString)
       .then((response) => {
         if (response.instance === 'success') {
-          setTitle(getRechercherOffreHeadTagTitre(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
+          setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
           setJobÉtudiantList(response.result.résultats);
           setNombreRésultats(response.result.nombreRésultats);
         } else {
-          setTitle(getRechercherOffreHeadTagTitre(PREFIX_TITRE_PAGE, response.errorType));
+          setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
           setErreurRecherche(response.errorType);
         }
         setIsLoading(false);
@@ -103,7 +103,6 @@ export function RechercherJobÉtudiant() {
 
 function mapJobÉtudiantToLienSolution(offreEmploi: Offre): LienSolution {
   return {
-    descriptionOffre: offreEmploi.description,
     id: offreEmploi.id,
     intituléOffre: offreEmploi.intitulé,
     lienOffre: `/jobs-etudiants/${offreEmploi.id}`,

@@ -16,7 +16,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
-import { getRechercherOffreHeadTagTitre } from '~/client/utils/rechercherOffreHeadTagTitre.util';
+import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
 import {
   bénévolatDomaineList,
@@ -55,11 +55,11 @@ export function RechercherMission(props: RechercherMissionProps) {
         .rechercherMission(queryString, category)
         .then((response) => {
           if (response.instance === 'success') {
-            setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
+            setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
             setMissionList(response.result.résultats);
             setNombreRésultats(response.result.nombreRésultats);
           } else {
-            setTitle(getRechercherOffreHeadTagTitre(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
+            setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
             setErreurRecherche(response.errorType);
           }
           setIsLoading(false);
@@ -111,7 +111,6 @@ export function RechercherMission(props: RechercherMissionProps) {
 
 function mapMissionBénévolatToLienSolution(mission: Mission): LienSolution {
   return {
-    descriptionOffre: mission.description,
     id: mission.id,
     intituléOffre: mission.titre,
     lienOffre: `/benevolat/${mission.id}`,
@@ -123,7 +122,6 @@ function mapMissionBénévolatToLienSolution(mission: Mission): LienSolution {
 
 function mapMissionServiceCiviqueToLienSolution(mission: Mission): LienSolution {
   return {
-    descriptionOffre: mission.description,
     id: mission.id,
     intituléOffre: mission.titre,
     lienOffre: `/service-civique/${mission.id}`,

@@ -8,8 +8,11 @@ import {
   anInvalidIdMissionResponse,
   aSearchMissionEngagementResponse,
 } from '@tests/fixtures/server/engagement/apiEngagement.response.fixture';
-import { anEngagementHttpClientService } from '@tests/fixtures/services/engagementHttpClientService.fixture';
-import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
+import {
+  anAxiosError,
+  anAxiosResponse,
+  anHttpClientService,
+} from '@tests/fixtures/services/httpClientService.fixture';
 
 import { Mission, RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
@@ -31,7 +34,7 @@ describe('ApiEngagementRepository', () => {
   let apiEngagementRepository: ApiEngagementRepository;
 
   beforeEach(() => {
-    httpClientService = anEngagementHttpClientService();
+    httpClientService = anHttpClientService();
     apiEngagementRepository = new ApiEngagementRepository(httpClientService);
   });
 

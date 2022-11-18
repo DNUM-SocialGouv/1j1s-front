@@ -26,6 +26,8 @@ import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
+import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import { RechercherÉtablissementAccompagnementUseCase } from '~/server/établissement-accompagnement/useCase/rechercherÉtablissementAccompagnement.useCase';
 import {
   ApiPoleEmploiJobÉtudiantRepository,
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
@@ -57,6 +59,7 @@ export type Dependencies = {
   entrepriseDependencies: EntrepriseDependencies
   offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
   offreAlternanceDependencies: OffresAlternanceDependencies
+  établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
 };
 
 export interface OffresEmploiDependencies {
@@ -94,6 +97,10 @@ export interface EntrepriseDependencies {
   lesEntreprisesSEngagentUseCase: LesEntreprisesSEngagentUseCase
 }
 
+export interface ÉtablissementAccompagnementDependencies {
+  rechercherÉtablissementAccompagnementUseCase: RechercherÉtablissementAccompagnementUseCase
+}
+
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
   let cacheService: CacheService;
@@ -112,6 +119,7 @@ export const dependenciesContainer = (): Dependencies => {
     strapiClientService,
     adresseClientService,
     geoGouvClientService,
+    établissementAccompagnementClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
@@ -162,6 +170,11 @@ export const dependenciesContainer = (): Dependencies => {
     lesEntreprisesSEngagentUseCase: new LesEntreprisesSEngagentUseCase(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository),
   };
 
+  const apiGouvRepository = new ApiÉtablissementPublicRepository(établissementAccompagnementClientService);
+  const établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies = {
+    rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiGouvRepository),
+  };
+
   return {
     cmsDependencies,
     demandeDeContactDependencies,
@@ -171,5 +184,6 @@ export const dependenciesContainer = (): Dependencies => {
     offreAlternanceDependencies,
     offreEmploiDependencies,
     offreJobÉtudiantDependencies,
+    établissementAccompagnementDependencies: établissementAccompagnementDependencies,
   };
 };

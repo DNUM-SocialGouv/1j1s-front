@@ -1,6 +1,10 @@
-import { aStrapiHttpClientService } from '@tests/fixtures/services/strapiHttpClientService.fixture';
+import { anHttpClientServiceWithAuthentification } from '@tests/fixtures/services/httpClientService.fixture';
 
-import { DemandeDeContactCEJ, DemandeDeContactEntreprise, DemandeDeContactPOE } from '~/server/demande-de-contact/domain/DemandeDeContact';
+import {
+  DemandeDeContactCEJ,
+  DemandeDeContactEntreprise,
+  DemandeDeContactPOE,
+} from '~/server/demande-de-contact/domain/DemandeDeContact';
 import { StrapiDemandeDeContactRepository } from '~/server/demande-de-contact/infra/strapiDemandeDeContact.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -20,7 +24,7 @@ describe('StrapiDemandeDeContactRepository', () => {
 
     it('fait un POST vers Strapi', async () => {
       // Given
-      const spy = aStrapiHttpClientService();
+      const spy = anHttpClientServiceWithAuthentification();
       const repository = new StrapiDemandeDeContactRepository(spy);
       const expectedBody = {
         data: {
@@ -40,7 +44,7 @@ describe('StrapiDemandeDeContactRepository', () => {
     });
     it('résout un Success', async () => {
       // Given
-      const spy = aStrapiHttpClientService();
+      const spy = anHttpClientServiceWithAuthentification();
       const repository = new StrapiDemandeDeContactRepository(spy);
       // When
       const result = await repository.saveCEJ(demandeDeContactCEJ);
@@ -51,7 +55,7 @@ describe('StrapiDemandeDeContactRepository', () => {
     describe('Quand la requête HTTP échoue', () => {
       it('Résout une Failure', async () => {
         // Given
-        const spy = aStrapiHttpClientService();
+        const spy = anHttpClientServiceWithAuthentification();
         jest.spyOn(spy, 'post').mockRejectedValue(new Error('Erreur non gérée'));
         const repository = new StrapiDemandeDeContactRepository(spy);
         // When
@@ -74,7 +78,7 @@ describe('StrapiDemandeDeContactRepository', () => {
 
     it('fait un POST vers Strapi', async () => {
       // Given
-      const spy = aStrapiHttpClientService();
+      const spy = anHttpClientServiceWithAuthentification();
       const repository = new StrapiDemandeDeContactRepository(spy);
       const expectedBody = {
         data: {
@@ -93,7 +97,7 @@ describe('StrapiDemandeDeContactRepository', () => {
     });
     it('résout un Success', async () => {
       // Given
-      const spy = aStrapiHttpClientService();
+      const spy = anHttpClientServiceWithAuthentification();
       const repository = new StrapiDemandeDeContactRepository(spy);
       // When
       const result = await repository.saveEntreprise(demandeDeContactEntreprise);
@@ -104,7 +108,7 @@ describe('StrapiDemandeDeContactRepository', () => {
     describe('Quand la requête HTTP échoue', () => {
       it('Résout une Failure', async () => {
         // Given
-        const spy = aStrapiHttpClientService();
+        const spy = anHttpClientServiceWithAuthentification();
         jest.spyOn(spy, 'post').mockRejectedValue(new Error('Erreur non gérée'));
         const repository = new StrapiDemandeDeContactRepository(spy);
         // When
@@ -134,7 +138,7 @@ describe('StrapiDemandeDeContactRepository', () => {
 
     it('fait un POST vers Strapi', async () => {
       // Given
-      const spy = aStrapiHttpClientService();
+      const spy = anHttpClientServiceWithAuthentification();
       const repository = new StrapiDemandeDeContactRepository(spy);
       const expectedBody = {
         data: {
@@ -161,7 +165,7 @@ describe('StrapiDemandeDeContactRepository', () => {
 
     it('résout un Success', async () => {
       // Given
-      const spy = aStrapiHttpClientService();
+      const spy = anHttpClientServiceWithAuthentification();
       const repository = new StrapiDemandeDeContactRepository(spy);
       // When
       const result = await repository.savePOE(demandeDeContactPOE);
@@ -172,7 +176,7 @@ describe('StrapiDemandeDeContactRepository', () => {
     describe('Quand la requête HTTP échoue', () => {
       it('Résout une Failure', async () => {
         // Given
-        const spy = aStrapiHttpClientService();
+        const spy = anHttpClientServiceWithAuthentification();
         jest.spyOn(spy, 'post').mockRejectedValue(new Error('Erreur non gérée'));
         const repository = new StrapiDemandeDeContactRepository(spy);
         // When

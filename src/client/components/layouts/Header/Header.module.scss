@@ -95,12 +95,12 @@
     padding-block: 0.5rem;
     padding-inline: 1rem;
     border: 1px solid $color-primary;
-    box-shadow: 1px 1px 0px $color-primary,
-                2px 2px 0px $color-primary,
-                3px 3px 0px $color-primary,
-                4px 4px 0px $color-primary,
-                5px 5px 0px $color-primary,
-                6px 6px 0px $color-primary;
+    box-shadow: 1px 1px 0 $color-primary,
+                2px 2px 0 $color-primary,
+                3px 3px 0 $color-primary,
+                4px 4px 0 $color-primary,
+                5px 5px 0 $color-primary,
+                6px 6px 0 $color-primary;
     display: flex;
     justify-content: space-between;
     align-items: center;

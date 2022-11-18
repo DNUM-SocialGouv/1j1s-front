@@ -6,6 +6,7 @@ export class ServerConfigurationService implements ConfigurationService {
       API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
       API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
       API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
+      API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
       API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
       API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
       API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
@@ -60,10 +61,11 @@ class EnvironmentVariablesException extends Error {
 
 export interface EnvironmentVariables {
   readonly API_ADRESSE_BASE_URL: string;
-  readonly API_LES_ENTREPRISES_SENGAGENT_URL: string;
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string;
   readonly API_ENGAGEMENT_BASE_URL: string;
+  readonly API_ETABLISSEMENTS_PUBLICS: string;
   readonly API_GEO_BASE_URL: string;
+  readonly API_LES_ENTREPRISES_SENGAGENT_URL: string;
   readonly API_POLE_EMPLOI_OFFRES_URL: string;
   readonly API_POLE_EMPLOI_REFERENTIEL_URL: string;
   readonly IS_REVIEW_APP: string
