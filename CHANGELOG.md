@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.12.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.0...v2.12.1) (2022-11-21)
+
+
+### Bug Fixes
+
+* **document:** correction chemin du favicon 128 ([63cb69f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/63cb69f02b474947cbea47061abee42961cfc930))
+
 ## [2.12.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.11.1...v2.12.0) (2022-11-21)
 
 
