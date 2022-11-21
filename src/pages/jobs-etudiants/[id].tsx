@@ -1,8 +1,4 @@
-import {
-  GetStaticPathsResult,
-  GetStaticPropsContext,
-  GetStaticPropsResult,
-} from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -31,7 +27,7 @@ interface EmploiContext extends ParsedUrlQuery {
   id: OffreId;
 }
 
-export async function getStaticProps(context: GetStaticPropsContext<EmploiContext>): Promise<GetStaticPropsResult<ConsulterJobÉtudiantPageProps>> {
+export async function getServerSideProps(context: GetServerSidePropsContext<EmploiContext>): Promise<GetServerSidePropsResult<ConsulterJobÉtudiantPageProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
@@ -39,20 +35,12 @@ export async function getStaticProps(context: GetStaticPropsContext<EmploiContex
   const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
 
   if (offreEmploi.instance === 'failure') {
-    return { notFound: true, revalidate: 1 };
+    return { notFound: true };
   }
 
   return {
     props: {
       jobÉtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
     },
-    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
-  };
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: 'blocking',
-    paths: [],
   };
 }
