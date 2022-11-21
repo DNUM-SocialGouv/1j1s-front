@@ -3,5 +3,10 @@
     "IS_REVIEW_APP": {
       "value": "true"
     }
+  },
+  "env": {
+    "SENTRY_ENVIRONMENT": {
+      "value": "review_app"
+    }
   }
 }
