@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.12.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.11.1...v2.12.0) (2022-11-21)
+
+
+### Features
+
+* **evenement:** ajout bouton mission locale ([4979457](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4979457f214aab873914297699489bd675b4aa65))
+* **logger:** ajout context et détail de l erreur ([0936dc2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0936dc2041a39eb2640f5f0cf0390d9cdb7b8cfd))
+
+
+### Bug Fixes
+
+* **fiche métier:** limit de récup a 100 ([8932c75](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8932c75abe6ae1baadb3665809d13caa76da0ff9))
+* **multiple:** remplacer getStaticProps par getServerSideProps ([23e32c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/23e32c32427501a9ddb4c2b9e60f899c2e409c7f))
+
 ## [2.11.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.11.0...v2.11.1) (2022-11-18)
 
 
