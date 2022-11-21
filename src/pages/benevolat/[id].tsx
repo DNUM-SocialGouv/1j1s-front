@@ -1,8 +1,10 @@
-import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import { ConsulterMissionEngagement } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
+import {
+  ConsulterMissionEngagement,
+} from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { Mission, MissionId } from '~/server/engagement/domain/engagement';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -27,7 +29,7 @@ interface MissionContext extends ParsedUrlQuery {
   id: MissionId;
 }
 
-export async function getStaticProps(context: GetStaticPropsContext<MissionContext>): Promise<GetStaticPropsResult<ConsulterMissionEngagementPageProps>> {
+export async function getServerSideProps(context: GetServerSidePropsContext<MissionContext>): Promise<GetServerSidePropsResult<ConsulterMissionEngagementPageProps>> {
   if (!context.params) {
     throw new PageContextParamsException();
   }
@@ -35,20 +37,12 @@ export async function getStaticProps(context: GetStaticPropsContext<MissionConte
   const missionEngagement = await dependencies.engagementDependencies.consulterMissionEngagement.handle(id);
 
   if (missionEngagement.instance === 'failure') {
-    return { notFound: true, revalidate: 1 };
+    return { notFound: true };
   }
 
   return {
     props: {
       missionEngagement: JSON.parse(JSON.stringify(missionEngagement.result)),
     },
-    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
-  };
-}
-
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: 'blocking',
-    paths: [],
   };
 }
