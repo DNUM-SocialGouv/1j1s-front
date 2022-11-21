@@ -5,7 +5,18 @@
 import * as Sentry from '@sentry/nextjs';
 
 const DEFAULT_SENTRY_SERVER_ENVIRONMENT = 'local';
+const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['integration', 'production', 'review_app'];
+const SENTRY_ENVIRONMENTS_ENABLE_DEBUG = ['local', 'review_app'];
 
+const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.SENTRY_ENVIRONMENT!);
+const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.SENTRY_ENVIRONMENT!);
+
+const releaseName = () => {
+  if(process.env.SENTRY_ENVIRONMENT === 'review_app') {
+    return 'reviewApp';
+  }
+  return `${process.env.npm_package_name}@${process.env.npm_package_version}`;
+};
 const userAgentBlacklist = process.env.SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
 Sentry.init({
@@ -20,10 +31,11 @@ Sentry.init({
     }
     return event;
   },
+  debug: DEBUG_DATA,
   dsn: process.env.SENTRY_DSN,
-  enabled: process.env.SENTRY_ENVIRONMENT === 'production' || process.env.SENTRY_ENVIRONMENT === 'integration',
+  enabled: SEND_DATA,// vérifier
   environment: process.env.SENTRY_ENVIRONMENT || DEFAULT_SENTRY_SERVER_ENVIRONMENT,
-  release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,
+  release: releaseName(),
   tracesSampleRate: Number(process.env.SENTRY_TRACES_SAMPLE_RATE),
 });
 
