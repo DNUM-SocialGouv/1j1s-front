@@ -75,12 +75,20 @@ const employeurNav: NavigationItemWithChildren = {
   legend: 'Découvrez des services faits pour vous !',
 };
 
+const logementsNav: NavigationItemWithChildren = {
+  children: [
+    { label: 'Annonces', link: '/annonces' },
+  ],
+  label: 'Logement',
+};
+
 export interface NavigationItemList {
   accueil: NavigationItem,
   offresNav: NavigationItemWithChildren,
   orientationNav: NavigationItemWithChildren,
   accompagnementNav: NavigationItemWithChildren,
   engagementNav: NavigationItemWithChildren,
+  logementsNav: NavigationItemWithChildren
   employeurNav: NavigationItemWithChildren,
 }
 
@@ -89,6 +97,7 @@ export const navigationItemList: NavigationItemList = {
   accueil,
   employeurNav,
   engagementNav,
+  logementsNav,
   offresNav,
   orientationNav,
 };
