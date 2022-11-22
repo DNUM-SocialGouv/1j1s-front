@@ -10,7 +10,7 @@ const userAgentBlacklist = process.env.SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
 Sentry.init({
   beforeSend(event) {
-    if(!event.request?.headers) {
+    if (!event.request?.headers) {
       return event;
     }
     const userAgent: string | undefined = event.request.headers['user-agent'];
@@ -25,4 +25,8 @@ Sentry.init({
   environment: process.env.SENTRY_ENVIRONMENT || DEFAULT_SENTRY_SERVER_ENVIRONMENT,
   release: `${process.env.npm_package_name}@${process.env.npm_package_version}`,
   tracesSampleRate: Number(process.env.SENTRY_TRACES_SAMPLE_RATE),
+});
+
+Sentry.configureScope((scope) => {
+  scope.setLevel(process.env.SENTRY_LOG_LEVEL);
 });
