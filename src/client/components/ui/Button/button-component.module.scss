@@ -79,7 +79,8 @@
     padding-block: 0.25rem;
 
     &:hover {
-      background-color: $color-background-white-titan;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     svg {

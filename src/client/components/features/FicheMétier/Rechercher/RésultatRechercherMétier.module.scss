@@ -1,37 +1,31 @@
 @import "@styles/utilities";
 
-.cardBody {
-  background-color: $color-on-secondary;
-  box-shadow: $box-shadow;
+.resultat {
   border-left: 3px solid $color-primary;
-  border-radius: 10px;
   padding: 1.5rem 2rem;
-}
 
-.cardTitle {
-  @extend %bold;
-  margin-bottom: 1rem;
-}
-
-.cardContent {
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  & > p {
-    margin: 0;
+  &Content {
+    display: flex;
+    flex-direction: column;
   }
-}
 
-.cardLink {
-  @extend %linkWithRightIcon;
-  text-align: right;
-  display: block;
-}
+  &Title {
+    margin-bottom: 1rem;
+  }
 
-.cardLinkIcon {
-  vertical-align: bottom;
+  &Description {
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @include media(large) {
+      margin-bottom: 0;
+    }
+  }
+
+  &Button {
+    align-self: end;
+  }
 }
