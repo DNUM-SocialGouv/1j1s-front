@@ -31,5 +31,5 @@ Sentry.init({
 });
 
 Sentry.configureScope((scope) => {
-  scope.setLevel(process.env.SENTRY_LOG_LEVEL);
+  scope.setLevel(process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL);
 });
