@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.3...v2.13.0) (2022-11-22)
+
+
+### Features
+
+* **logement:** ajout feature flipping ([7945aa6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7945aa63f08eac217407408251126f776d34434b))
+
 ## [2.12.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.2...v2.12.3) (2022-11-22)
 
 
