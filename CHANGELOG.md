@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.12.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.1...v2.12.2) (2022-11-22)
+
+
+### Bug Fixes
+
+* **multiple:** ajout middleware router pour sanitizer les query dans les urls ([75ff1c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/75ff1c877370aa9ee5cfd8be639000d8d28d5f23))
+
 ## [2.12.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.0...v2.12.1) (2022-11-21)
 
 
