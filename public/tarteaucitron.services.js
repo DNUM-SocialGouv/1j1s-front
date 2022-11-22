@@ -4190,7 +4190,7 @@ tarteaucitron.services.multiplegtag = {
     }
   },
   key: 'multiplegtag',
-  name: 'Google Analytics (gtag.js)',
+  name: 'Google Foodlight (gtag.json)',
   needConsent: true,
   type: 'analytic',
   uri: 'https://support.google.com/analytics/answer/6004245',
