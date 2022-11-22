@@ -20,7 +20,7 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path
   const router = useRouter();
   const [path, setPath] = useState(() => router.pathname || '');
 
-  const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE;
+  const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
 
   useEffect(() => {
     if (path !== router.pathname) {
@@ -37,7 +37,7 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path
           <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} onClick={toggleModal}/>
           <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path} onClick={toggleModal}/>
           <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} onClick={toggleModal}/>
-          { !!displayAnnoncesLogement && <NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} onClick={toggleModal}/>}
+          { displayAnnoncesLogement && <NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} onClick={toggleModal}/>}
           <NavItemWithSubItems className={styles.navItem} item={employeurNav} path={path} onClick={toggleModal}/>
         </ul>
       </nav>
