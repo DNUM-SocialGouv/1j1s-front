@@ -25,7 +25,7 @@ export function HeaderNavDesktop() {
   const router = useRouter();
   const [path, setPath] = useState(() => router.pathname || '');
 
-  const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE;
+  const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
 
   useEffect(() => {
     if (path !== router.pathname){
@@ -46,7 +46,7 @@ export function HeaderNavDesktop() {
             <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} />
             <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}/>
             <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
-            { !!displayAnnoncesLogement && <NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} />}
+            { displayAnnoncesLogement && <NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} />}
           </ul>
           <ul className={styles.headerNavigationListRight}>
             <NavEmployeurs item={employeurNav} path={path}/>
