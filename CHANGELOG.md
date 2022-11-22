@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.12.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.2...v2.12.3) (2022-11-22)
+
+
+### Bug Fixes
+
+* **metiers:** correction bouton retour dans la page détail d'un metier ([cda11dd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cda11dd7c26288092ed8a0bca0cf3afbb35b9d7b))
+
 ## [2.12.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.1...v2.12.2) (2022-11-22)
 
 
