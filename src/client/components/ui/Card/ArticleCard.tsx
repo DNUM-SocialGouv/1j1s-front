@@ -1,11 +1,9 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
 import React from 'react';
 
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 
+import { CardComponent } from './AbstractCard/CardComponent';
 import styles from './ArticleCard.module.scss';
 
 interface ArticleCardProps {
@@ -17,17 +15,13 @@ interface ArticleCardProps {
 
 export function ArticleCard({ className, children, imageSrc, titleLabel, link, linkLabel = "Lire l'article" }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
   return (
-    <Link href={link} className="underline-none">
-      <article className={classNames(styles.articleCard, className)}>
-        <div className={styles.imageWrapper}>
-          <Image src={imageSrc} alt='' layout='fill' objectFit='contain' />
-        </div>
-        <div className={styles.content}>
-          <h3 className={styles.title}>{titleLabel}</h3>
-          <div className={styles.description}>{children}</div>
-          <ButtonComponent className={styles.cta} label={linkLabel} icon={<Icon name='arrow-right' />} iconPosition='right' />
-        </div>
-      </article>
-    </Link>
+    <CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'} link={link}>
+      <CardComponent.Image className={styles.imageWrapper} src={imageSrc} />
+      <CardComponent.Content className={styles.content}>
+        <CardComponent.Title className={styles.title}>{titleLabel}</CardComponent.Title>
+        {children}
+        <CardComponent.Button className={styles.cta} appearance={'primary'} icon={<Icon name={'arrow-right'}/>} label={linkLabel} />
+      </CardComponent.Content>
+    </CardComponent>
   );
 }
