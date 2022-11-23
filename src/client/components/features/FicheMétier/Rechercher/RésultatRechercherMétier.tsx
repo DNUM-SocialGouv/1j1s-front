@@ -5,7 +5,7 @@ import styles
 import useSanitize from '~/client/hooks/useSanitize';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
-import { CardComponent } from '../../../ui/Card/CardComponent';
+import { CardComponent } from '../../../ui/Card/AbstractCard/CardComponent';
 import { Icon } from '../../../ui/Icon/Icon';
 
 interface RésultatRechercherMétierProps {

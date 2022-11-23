@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 
-import { HtmlHeadingTag } from '../../props';
+import { HtmlHeadingTag } from '../../../props';
 import styles from './CardComponent.module.scss';
 
 interface CardComponentProps {
@@ -35,14 +35,14 @@ function CardContent({ children, className, rest }: React.HTMLAttributes<HTMLDiv
 function CardButton({ appearance = 'tertiary', className, icon, label }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
   const appearanceClass = useMemo(() => {
     switch (appearance) {
-      case 'primary': return styles.cardComponentButtonPrimary;
-      case 'secondary': return styles.cardComponentButtonSecondary;
-      case 'tertiary': return styles.cardComponentButtonTertiary;
+      case 'primary': return styles.cardButtonPrimary;
+      case 'secondary': return styles.cardButtonSecondary;
+      case 'tertiary': return styles.cardButtonTertiary;
     }
   }, [appearance]);
 
   return (
-    <span className={classNames(className, appearanceClass, styles.cardComponentButton)}>
+    <span className={classNames(className, appearanceClass, styles.cardButton)}>
       <span>{label}</span>
       {icon}
     </span>

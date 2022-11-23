@@ -15,26 +15,28 @@
   &Vertical {
     flex-direction: column;
   }
+}
 
-  &ImageWrapper {
-    min-height: 50px;
-    min-width: 50px;
-    position: relative;
+.cardImageWrapper {
+  min-height: 50px;
+  min-width: 50px;
+  position: relative;
+}
+
+.cardTitle {
+  @extend %bold;
+}
+
+.cardButton {
+  line-height: 1.6em;
+  text-align: center;
+
+  svg {
+    margin-left: 0.3rem;
+    vertical-align: bottom;
   }
 
-  &Title {
-    @extend %bold;
-  }
-
-  &Button {
-    line-height: 1.6em;
-
-    svg {
-      vertical-align: bottom;
-    }
-  }
-
-  &ButtonPrimary {
+  &Primary {
     border-radius: 50px;
     border: 1px solid $color-primary;
     background-color: $color-primary;
@@ -52,7 +54,7 @@
     }
   }
 
-  &ButtonSecondary {
+  &Secondary {
     border-radius: 50px;
     border: 1px solid $color-primary;
     color: $color-primary;
@@ -70,7 +72,7 @@
     }
   }
 
-  &ButtonTertiary {
+  &Tertiary {
     color: $color-primary;
 
     &:hover {
@@ -79,5 +81,6 @@
     }
   }
 }
+
 
 
