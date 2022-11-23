@@ -1,7 +1,9 @@
-import type { Config } from '@jest/types';
+import nextJest from 'next/jest';
 
-const config: Config.InitialOptions = {
-  globalSetup: './jest.setup.ts',
+const createJestConfig = nextJest({ dir: './' });
+
+const customJestConfig = {
+  moduleDirectories: ['node_modules', '<rootDir>/'],
   moduleNameMapper: {
     '\\.(css|scss)$': '<rootDir>/tests/style.mock.ts',
     '\\.(png|jpg|jpeg)$': '<rootDir>/tests/image.mock.ts',
@@ -12,4 +14,4 @@ const config: Config.InitialOptions = {
   setupFilesAfterEnv: ['./react-testing-library.setup.ts'],
 };
 
-export default config;
+module.exports = createJestConfig(customJestConfig);

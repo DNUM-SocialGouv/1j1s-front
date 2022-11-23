@@ -171,6 +171,9 @@ async function redirects() {
 }
 
 const moduleExports = {
+  compiler: {
+    removeConsole: true,
+  },
   compress: true,
   env: {
     npm_package_name: process.env.npm_package_name,
