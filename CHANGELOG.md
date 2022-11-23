@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.14.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.13.0...v2.14.0) (2022-11-23)
+
+
+### Features
+
+* **evenement:** ajout ff recherche evenement ([4e73071](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4e730718ae0b4855c92a5bae4e7f8c7a892b3e30))
+
 ## [2.13.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.12.3...v2.13.0) (2022-11-22)
 
 
