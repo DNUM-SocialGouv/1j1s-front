@@ -4,10 +4,13 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import {
+  RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 
 import { Skeleton } from '../../ui/Loader/Skeleton/Skeleton';
 
@@ -18,6 +21,7 @@ export interface LienSolution {
   logoEntreprise: string
   nomEntreprise?: string
   étiquetteOffreList: string[]
+  horaires?: ÉtablissementAccompagnement.Horaire[]
 }
 
 interface RechercherSolutionLayoutProps<T> {
@@ -33,6 +37,22 @@ interface RechercherSolutionLayoutProps<T> {
   paginationOffset?: number
   maxPage?: number
   mapToLienSolution(data: T): LienSolution
+  displaySolution?(lienSolution: LienSolution): React.ReactNode
+}
+
+function defaultDisplaySolution(lienSolution: LienSolution): React.ReactNode {
+  return (
+    <li key={lienSolution.id}>
+      <RésultatRechercherSolution
+        lienOffre={lienSolution.lienOffre}
+        intituléOffre={lienSolution.intituléOffre}
+        logoEntreprise={lienSolution.logoEntreprise}
+        nomEntreprise={lienSolution.nomEntreprise}
+        étiquetteOffreList={lienSolution.étiquetteOffreList}
+        horaires={lienSolution.horaires}
+      />
+    </li>
+  );
 }
 
 export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps<T>) {
@@ -49,25 +69,16 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
     paginationOffset,
     maxPage,
     isLoading,
+    displaySolution = defaultDisplaySolution,
   } = props;
 
   const router = useRouter();
   const hasRouterQuery = Object.keys(router.query).length > 0;
 
-  const displaySolutionList = () => (
+  const displaySolutionList = (displaySolution: (lienSolution: LienSolution) => React.ReactNode) => (
 	  <ul aria-label={ariaLabelListeSolution}>
       {
-        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => (
-          <li key={lienSolution.id}>
-            <RésultatRechercherSolution
-              lienOffre={lienSolution.lienOffre}
-              intituléOffre={lienSolution.intituléOffre}
-              logoEntreprise={lienSolution.logoEntreprise}
-              nomEntreprise={lienSolution.nomEntreprise}
-              étiquetteOffreList={lienSolution.étiquetteOffreList}
-            />
-          </li>
-        ))
+        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution) => displaySolution(lienSolution))
       }
     </ul>
   );
@@ -100,7 +111,7 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
                 <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
                   <Container>
                     <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                      {displaySolutionList()}
+                      {displaySolutionList(displaySolution)}
                     </Skeleton>
                     {paginationOffset && nombreSolutions > paginationOffset &&
                     <div className={styles.pagination}>

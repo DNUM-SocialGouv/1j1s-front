@@ -1,4 +1,6 @@
-import { RésultatRechercheÉtablissementPublicResponse } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
+import {
+  RésultatRechercheÉtablissementPublicResponse,
+} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
 
 export function aRésultatRechercheÉtablissementPublicResponse(): RésultatRechercheÉtablissementPublicResponse {
   return {
@@ -58,7 +60,7 @@ export function aRésultatRechercheÉtablissementPublicResponse(): RésultatRech
               heures: [
                 {
                   a: '17:00:00',
-                  de: '13:30:00',
+                  de: '13:00:00',
                 },
               ],
             },
@@ -94,7 +96,7 @@ export function aRésultatRechercheÉtablissementPublicResponse(): RésultatRech
           email: 'cyberbase@cauvaldor.fr',
           horaires: [
             {
-              au: 'Vendredi',
+              au: 'Jeudi',
               du: 'Lundi',
               heures: [
                 {

@@ -1,0 +1,174 @@
+@import "@styles/utilities";
+
+.card {
+  padding: 1rem;
+
+  @include media(large) {
+    align-items: center;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 0 0;
+  }
+}
+
+.content {
+  display: flex;
+  align-self: stretch;
+}
+
+.logo {
+  height: 110px;
+  width: 110px;
+  margin-right: .7em;
+
+  @include media(large) {
+    margin-right: 2em;
+  }
+}
+
+.mainContent {
+  align-self: center;
+
+  @include media(large) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.logoAlignment {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  @extend %text-medium;
+  @include media(large) {
+    font-size: 1.2em;
+  }
+}
+
+.address {
+  margin-top: .2em;
+  font-size: .9em;
+  @include media(large) {
+    font-size: 1em;
+  }
+}
+
+.tags {
+  list-style-type: none;
+  margin-top: .5em;
+
+  @include media (large) {
+    margin-top: auto;
+  }
+}
+
+.button {
+  margin-top: 1em;
+  font-weight: bold;
+  color: $color-primary;
+  align-self: center;
+  text-decoration: none;
+
+  @include media(large) {
+    width: 10.5em;
+    font-size: 1.1em;
+    align-self: auto;
+  }
+
+  &:hover {
+    color: $color-primary-on-hover;
+  }
+}
+
+.buttonIcon {
+  margin-left: .4em;
+  padding-top: .3em;
+}
+
+.details {
+  cursor: default;
+  margin-top: .2em;
+  width: 15em;
+  align-self: center;
+
+  @include media(large) {
+    margin-left: auto;
+    width: 17em;
+    align-self: flex-start;
+  }
+
+  .summary {
+    font-size: .9em;
+    font-weight: normal;
+    padding: .5rem 0 0 0;
+    text-align: center;
+    text-decoration: underline;
+    color: $color-primary;
+    background-repeat: no-repeat;
+    background-position: calc(50% + 7rem) .5em;
+    background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23566BB1' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
+    list-style: none;
+    cursor: pointer;
+
+    @include media(large) {
+      font-size: 1em;
+      padding: 0 0 0 0;
+      background-position: 24.5ch 0em;
+      text-align: left;
+      margin-left: 1em;
+    }
+
+    &:hover {
+      color: $color-primary-on-hover;
+      background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23735BF2' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");    list-style: none;
+    }
+
+    &, & > * {
+      @extend %bold;
+    }
+
+  }
+
+  &[open] .summary {
+    background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='24' viewBox='0 0 24 24' fill='%23566BB1' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 10.8281L7.04999 15.7781L5.63599 14.3641L12 8.00008L18.364 14.3641L16.95 15.7781L12 10.8281Z' /></svg>");
+
+    &:hover {
+      background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='24' viewBox='0 0 24 24' fill='%23735BF2' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 10.8281L7.04999 15.7781L5.63599 14.3641L12 8.00008L18.364 14.3641L16.95 15.7781L12 10.8281Z' /></svg>");
+    }
+  }
+}
+
+.horaireBackground {
+  width: 16.7em;
+  margin-top: .3em;
+  display: flex;
+  align-self: center;
+
+  @include media(large) {
+    width: calc(100% - 1em);
+    margin-top: .3em;
+    margin-left: .2em;
+  }
+}
+
+.listeHoraire {
+  list-style: none;
+  font-size: .8em;
+  margin: .5em auto .6em;
+  width: 15em;
+
+  @include media(large) {
+    width: auto;
+    margin-left: 1em;
+  }
+}
+
+.horaireJour {
+  font-weight: bold;
+}
+
+.horaireHeure {
+  margin-left: .5ch;
+}

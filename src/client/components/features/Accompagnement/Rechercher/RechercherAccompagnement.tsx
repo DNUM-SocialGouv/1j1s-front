@@ -2,7 +2,12 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { FormulaireRechercheAccompagnement } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
+import {
+  FormulaireRechercheAccompagnement,
+} from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
+import {
+  RésultatRechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
 import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
@@ -83,6 +88,7 @@ export function RechercherAccompagnement() {
           nombreSolutions={établissementAccompagnementList.length}
           mapToLienSolution={mapAccompagnementToLienSolution}
           ariaLabelListeSolution={'Établissements d‘accompagnement'}
+          displaySolution={displayAccompagnement}
         />
         <EnTeteSection heading="Découvrez d’autres services faits pour vous"/>
         {PartnerCardList([
@@ -97,9 +103,10 @@ export function RechercherAccompagnement() {
 
 function mapAccompagnementToLienSolution(établissementAccompagnement: ÉtablissementAccompagnement): LienSolution {
   return {
+    horaires: établissementAccompagnement.horaires,
     id: établissementAccompagnement.id,
     intituléOffre: établissementAccompagnement.nom,
-    lienOffre: `mailto:${établissementAccompagnement.id}`,
+    lienOffre: établissementAccompagnement.email ? `mailto:${établissementAccompagnement.email}` : '#',
     logoEntreprise: '/images/logos/info-jeunes.svg',
     nomEntreprise: établissementAccompagnement.adresse,
     étiquetteOffreList: [établissementAccompagnement.telephone, établissementAccompagnement.email],
@@ -109,5 +116,20 @@ function mapAccompagnementToLienSolution(établissementAccompagnement: Établiss
 function BannièreAccompagnement() {
   return (
     <LightHero primaryText="Je recherche un accompagnement proche de chez moi," secondaryText="je veux être aidé dans mes démarches et mon parcours" />
+  );
+}
+
+function displayAccompagnement(lienSolution: LienSolution): React.ReactNode {
+  return (
+    <li key={lienSolution.id}>
+      <RésultatRechercherAccompagnement
+        lienOffre={lienSolution.lienOffre}
+        intituléOffre={lienSolution.intituléOffre}
+        logoEntreprise={lienSolution.logoEntreprise}
+        nomEntreprise={lienSolution.nomEntreprise}
+        étiquetteOffreList={lienSolution.étiquetteOffreList}
+        horaires={lienSolution.horaires}
+      />
+    </li>
   );
 }
