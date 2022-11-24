@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import Link from 'next/link';
 import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -13,15 +14,17 @@ interface ArticleCardProps {
   linkLabel?: string
 }
 
-export function ArticleCard({ className, children, imageSrc, titleLabel, link, linkLabel = "Lire l'article" }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function ArticleCard({ className, children, imageSrc, titleLabel, link, linkLabel = 'Lire l‘article' }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
   return (
-    <CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'} link={link}>
-      <CardComponent.Image className={styles.imageWrapper} src={imageSrc} />
-      <CardComponent.Content className={styles.content}>
-        <CardComponent.Title className={styles.title}>{titleLabel}</CardComponent.Title>
-        {children}
-        <CardComponent.Button className={styles.cta} appearance={'primary'} icon={<Icon name={'arrow-right'}/>} label={linkLabel} />
-      </CardComponent.Content>
-    </CardComponent>
+    <Link href={link} className={'underline-none'}>
+      <CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'}>
+        <CardComponent.Image className={styles.imageWrapper} src={imageSrc} />
+        <CardComponent.Content className={styles.content}>
+          <CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
+          {children}
+          <CardComponent.FakeLink className={styles.cta} appearance={'primary'} icon={<Icon name={'arrow-right'}/>} label={linkLabel} />
+        </CardComponent.Content>
+      </CardComponent>
+    </Link>
   );
 }

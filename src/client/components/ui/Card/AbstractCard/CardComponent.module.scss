@@ -2,11 +2,10 @@
 
 .cardComponent {
   display: flex;
-  background-color: $color-on-secondary;
+  background-color: $color-surface;
   box-shadow: $box-shadow;
   border-radius: 10px;
   overflow: hidden;
-  text-decoration: none;
 
   &Horizontal {
     flex-direction: row;
