@@ -4,7 +4,9 @@
 
 import { render, screen, within } from '@testing-library/react';
 
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import {
+  RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { mockUseRouter } from '~/client/useRouter.mock';
 import { mockSmallScreen } from '~/client/window.mock';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
@@ -24,7 +26,6 @@ describe('RésultatRechercherSolution', () => {
       <RésultatRechercherSolution
         intituléOffre={offreEmploi.intitulé}
         lienOffre={`/emplois/${offreEmploi.id}`}
-        descriptionOffre={offreEmploi.description}
         logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
         nomEntreprise={offreEmploi.entreprise.nom}
         étiquetteOffreList={offreEmploi.étiquetteList}

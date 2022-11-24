@@ -126,7 +126,7 @@ describe('RechercherAccompagnement', () => {
         );
 
         // WHEN
-        const résultatRechercheÉtablissementAccompagnementList = await screen.findAllByTestId('RésultatRechercherSolution');
+        const résultatRechercheÉtablissementAccompagnementList = await screen.findAllByTestId('RésultatRechercherAccompagnement');
         const rechercheÉtablissementAccompagnementNombreRésultats = await screen.findByText('3 établissements d‘accompagnement pour les structures Infos Jeunes');
 
         // THEN

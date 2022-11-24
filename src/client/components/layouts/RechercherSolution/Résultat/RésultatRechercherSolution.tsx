@@ -37,7 +37,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
             <div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
           </div>
           { !isSmallScreen && cardDescription()}
-
+          
         </div>
       </header>
       { isSmallScreen && cardDescription()}
