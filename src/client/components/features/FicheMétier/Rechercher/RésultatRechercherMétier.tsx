@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useMemo } from 'react';
 
 import styles
@@ -21,12 +22,14 @@ export function RésultatRechercherMétier({ résultat }: RésultatRechercherMé
   if (!résultat.nomMetier) return null;
 
   return (
-    <CardComponent className={styles.resultat} layout={'horizontal'} link={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier)}`}>
-      <CardComponent.Content className={styles.resultatContent}>
-        <CardComponent.Title className={styles.resultatTitle}>{nomMetier}</CardComponent.Title>
-        <div className={styles.resultatDescription} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }}/>
-        <CardComponent.Button appearance={'tertiary'} className={styles.resultatButton} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
-      </CardComponent.Content>
-    </CardComponent>
+    <Link href={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier)}`} className={'underline-none'}>
+      <CardComponent className={styles.resultatCard} layout={'horizontal'}>
+        <CardComponent.Content className={styles.content}>
+          <CardComponent.Title className={styles.title} titleAs={'h2'}>{nomMetier}</CardComponent.Title>
+          <div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }}/>
+          <CardComponent.FakeLink appearance={'tertiary'} className={styles.link} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
+        </CardComponent.Content>
+      </CardComponent>
+    </Link>
   );
 }
