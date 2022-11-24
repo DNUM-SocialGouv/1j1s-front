@@ -177,6 +177,8 @@ const moduleExports = {
   reactStrictMode: true,
   redirects,
   sentry: {
+    disableClientWebpackPlugin: process.env.IS_REVIEW_APP ? true : false,
+    disableServerWebpackPlugin: process.env.IS_REVIEW_APP ? true : false,
     hideSourceMaps: true,
     silent: true,
   },
