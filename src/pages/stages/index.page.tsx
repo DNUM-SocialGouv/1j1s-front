@@ -70,25 +70,23 @@ export default function RechercherOffreStagePage() {
   function AfficherListeDeRésultats() {
     const { status } = useInstantSearch();
 
-    return <>
-      <div className={classNames(styles.stageListeResultatsWrapper, 'background-white-lilac')}>
-        <Container>
-          <Skeleton type='card' isLoading={status === 'loading'} repeat={2}>
-            <></>
-          </Skeleton>
-          <Hits
-            hitComponent={Résultat}
-            classNames={{ root: styles.stageListeRootElement }}
+    return <div className={classNames(styles.stageListeResultatsWrapper, 'background-white-lilac')}>
+      <Container>
+        <Skeleton type='card' isLoading={status === 'loading'} repeat={2}>
+          <></>
+        </Skeleton>
+        <Hits
+          hitComponent={Résultat}
+          classNames={{ root: styles.stageListeRootElement }}
+        />
+        <div className={styles.paginationContainer}>
+          <MeiliSearchCustomPagination
+            padding={0}
+            numberOfResultPerPage={HITS_PER_PAGE}
           />
-          <div className={styles.paginationContainer}>
-            <MeiliSearchCustomPagination
-              padding={0}
-              numberOfResultPerPage={HITS_PER_PAGE}
-            />
-          </div>
-        </Container>
-      </div>
-    </>;
+        </div>
+      </Container>
+    </div>;
   }
 
   return (
@@ -108,7 +106,7 @@ export default function RechercherOffreStagePage() {
             <Container className={styles.stageFormWrapper}>
               <form className={styles.stageForm}>
                 <div className={styles.formWrapper}>
-                  <div className={styles.formElement}>
+                  <div>
                     <label>Métiers, mots clés, …</label>
                     <SearchBox
                       onKeyDown={disableEnterKey()}

@@ -1,0 +1,51 @@
+@import "@styles/utilities";
+
+.resultatCard {
+  border-left: 4px solid $color-primary;
+  padding: 1.5rem 2rem;
+}
+
+.content {
+  width: 100%;
+  flex-direction: column;
+}
+
+.event {
+  line-height: 1.5;
+
+  &Title {
+    @extend %bold;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &Details {
+    min-height: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  &Details:first-letter {
+    text-transform: uppercase;
+  }
+
+  &Organizer {
+    font-weight: normal;
+  }
+}
+
+.callToAction {
+  @extend %linkWithRightIcon;
+}
+
+.tagLink{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tagList {
+  color: $color-primary;
+}
+
