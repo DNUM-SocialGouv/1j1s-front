@@ -3,16 +3,17 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-const SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP = ['integration', 'production'];
-const NODE_ENV_ENABLE_SOURCEMAP = 'production';
-
-const shouldUploadSourceMap = (env = process.env.NODE_ENV , sentryEnv = process.env.SENTRY_ENVIRONMENT) => SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP.includes(sentryEnv && env === NODE_ENV_ENABLE_SOURCEMAP );
-const UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require('@sentry/nextjs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { URL } = require('url');
+
+const SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP = ['integration', 'production'];
+const NODE_ENV_ENABLE_SOURCEMAP = 'production';
+
+const shouldUploadSourceMap = (env = process.env.NODE_ENV , sentryEnv = process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT) => SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP.includes(sentryEnv) && env === NODE_ENV_ENABLE_SOURCEMAP;
+const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
+
 
 function getHostName(uri) {
   return new URL(uri).hostname;
@@ -183,8 +184,8 @@ const moduleExports = {
   reactStrictMode: true,
   redirects,
   sentry: {
-    disableClientWebpackPlugin: UPLOAD_SOURCEMAP, // vérifier
-    disableServerWebpackPlugin: UPLOAD_SOURCEMAP, // vérifier
+    disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
+    disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
     hideSourceMaps: true,
     silent: true,
   },

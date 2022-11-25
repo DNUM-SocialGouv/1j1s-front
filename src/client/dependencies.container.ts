@@ -59,7 +59,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 
   const rechercheClientService: SearchClient = {
     ...searchClient,
-    search(requests) {
+    search(requests: any[]) {
       if (requests.every(({ params }) => params && params.query?.includes(MARKETING_QUERY_PARAMS))) {
         return Promise.resolve({
           results: requests.map(() => ({
