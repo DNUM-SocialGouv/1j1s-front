@@ -22,6 +22,12 @@ interface InputCommuneProps {
   showRadius?: boolean
 }
 
+function isInputEmptyWhileUserClickedOnSearchButton(e: MouseEvent, libelléCommune: string): boolean {
+  return ((e.target as Node).textContent === 'Rechercher'
+        || ((e.target as Node).parentNode !== undefined && (e.target as Node).parentNode?.textContent === 'Rechercher'))
+      && libelléCommune === '';
+}
+
 export const InputCommune = (props: InputCommuneProps) => {
   const { code, distance, id, libellé, latitude, longitude, showRadius = true } = props;
 
@@ -34,6 +40,7 @@ export const InputCommune = (props: InputCommuneProps) => {
   const [latitudeCommune, setLatitudeCommune] = useState<string>(latitude || '');
   const [longitudeCommune, setLongitudeCommune] = useState<string>(longitude || '');
   const [distanceCommune, setDistanceCommune] = useState<string>(distance || '');
+  const [error, setError] = useState(false);
 
   const [communeList, setCommuneList] = useState<Commune[]>([]);
 
@@ -63,13 +70,25 @@ export const InputCommune = (props: InputCommuneProps) => {
     if (!(autocompleteRef.current)?.contains(e.target as Node)) {
       cancelCommuneSelect();
     }
-  }, [autocompleteRef, cancelCommuneSelect]);
+    if (isInputEmptyWhileUserClickedOnSearchButton(e, libelléCommune)) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [autocompleteRef, cancelCommuneSelect, libelléCommune]);
 
   const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
       cancelCommuneSelect();
     }
-  }, [cancelCommuneSelect]);
+    if ((e.key === KeyBoard.TAB || e.key === KeyBoard.ENTER)) {
+      if (libelléCommune === '') {
+        setError(true);
+      } else {
+        setError(false);
+      }
+    }
+  }, [cancelCommuneSelect, libelléCommune]);
 
   useEffect(function gérerPerteDeFocus() {
     document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
@@ -220,7 +239,7 @@ export const InputCommune = (props: InputCommuneProps) => {
               aria-controls={LOCALISATION_SUGGESTIONS_ID}
               aria-activedescendant="rechercherCommune"
               placeholder={'Exemple: Paris, Béziers...'}
-              className={classNames(styles.formControlInput, styles.libelleInput)}
+              className={classNames(styles.formControlInput, styles.libelleInput, error && styles.formControlInputError)}
               value={libelléCommune}
               onChange={(event) => {
                 setLibelléCommune(event.target.value);
@@ -229,6 +248,11 @@ export const InputCommune = (props: InputCommuneProps) => {
               onKeyDown={handleKeyDown}
               onClick={() => setSuggestionsActive(!!codeCommune)}
             />
+            {(error) && (
+              <p className={classNames(styles.instructionMessageError)}>
+                Veuillez saisir une localisation
+              </p>
+            )}
             <input type="hidden" name="codeCommune" value={codeCommune} />
             <input type="hidden" name="latitudeCommune" value={latitudeCommune} />
             <input type="hidden" name="longitudeCommune" value={longitudeCommune} />
