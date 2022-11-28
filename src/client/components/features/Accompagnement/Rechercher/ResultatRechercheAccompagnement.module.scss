@@ -1,8 +1,20 @@
 @import "@styles/utilities";
 
 .card {
-  border-left: 4px solid $color-primary;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
+  flex-direction: column;
+
+  @include media(large) {
+    flex-direction: row;
+    border-left: 4px solid $color-primary;
+    padding: 1rem 1.5rem;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.header {
+  display: flex;
   align-items: center;
   gap: 2rem;
 }
@@ -13,13 +25,29 @@
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-self: stretch;
-  flex-grow: 1;
+  display: block;
+  margin-bottom: 1.5rem;
+
+  @include media(large) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+    flex-grow: 1;
+    margin-bottom: 0;
+  }
 }
 
 .title {
   @extend %text-medium;
+}
+
+.adresse {
+  @extend %text-small;
+  margin-bottom: 0.5rem;
+}
+
+.button {
+  width: 50%;
+  align-self: center;
 }

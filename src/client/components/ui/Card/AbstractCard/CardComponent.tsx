@@ -26,15 +26,15 @@ export function CardComponent({ children, className, layout }: CardComponentProp
   );
 }
 
-function CardContent({ children, className, rest }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={className} {...rest}>{children}</div>;
+function CardContent({ children, className }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={className}>{children}</div>;
 }
 
-function CardButton({ appearance = 'tertiary', className, icon, label, rest }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
-  return <ButtonComponent className={className} appearance={appearance} label={label} icon={icon} iconPosition={'right'} {...rest} />;
+function CardButton({ appearance = 'tertiary', className, icon, label }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
+  return <ButtonComponent className={className} appearance={appearance} label={label || ''} icon={icon} iconPosition={'right'} />;
 }
 
-function CardFakeLink({ appearance = 'tertiary', className, icon, label, rest }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
+function CardFakeLink({ appearance = 'tertiary', className, icon, label }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
   const appearanceClass = useMemo(() => {
     switch (appearance) {
       case 'primary': return styles.cardButtonPrimary;
@@ -44,15 +44,15 @@ function CardFakeLink({ appearance = 'tertiary', className, icon, label, rest }:
   }, [appearance]);
 
   return (
-    <span className={classNames(className, appearanceClass, styles.cardButton)} {...rest}>
+    <span className={classNames(className, appearanceClass, styles.cardButton)}>
       <span>{label}</span>
       {icon}
     </span>
   );
 }
 
-function CardLink({ appearance = 'default', className, href, label, rest }: { appearance?: 'default' | 'asPrimaryButton' | 'asSecondaryButton', icon?: React.ReactNode, href: string, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
-  return <Link className={className} appearance={appearance} href={href} {...rest}>{label}</Link>;
+function CardLink({ appearance = 'default', className, href, label }: { appearance?: 'default' | 'asPrimaryButton' | 'asSecondaryButton', icon?: React.ReactNode, href: string, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
+  return <Link className={className} appearance={appearance} href={href}>{label}</Link>;
 }
 
 function CardImage({ className, src }: { src: string } & React.HTMLAttributes<HTMLDivElement>) {
