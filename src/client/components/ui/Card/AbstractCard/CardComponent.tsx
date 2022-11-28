@@ -51,8 +51,8 @@ function CardFakeLink({ appearance = 'tertiary', className, icon, label, rest }:
   );
 }
 
-function CardLink({ className, href, label, rest }: { icon?: React.ReactNode, href: string, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
-  return <Link className={className} href={href} {...rest}>{label}</Link>;
+function CardLink({ appearance = 'default', className, href, label, rest }: { appearance?: 'default' | 'asPrimaryButton' | 'asSecondaryButton', icon?: React.ReactNode, href: string, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
+  return <Link className={className} appearance={appearance} href={href} {...rest}>{label}</Link>;
 }
 
 function CardImage({ className, src }: { src: string } & React.HTMLAttributes<HTMLDivElement>) {
