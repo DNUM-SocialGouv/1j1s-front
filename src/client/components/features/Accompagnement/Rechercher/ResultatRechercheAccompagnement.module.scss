@@ -1,0 +1,25 @@
+@import "@styles/utilities";
+
+.card {
+  border-left: 4px solid $color-primary;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  gap: 2rem;
+}
+
+.image {
+  height: 120px;
+  width: 120px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.title {
+  @extend %text-medium;
+}
