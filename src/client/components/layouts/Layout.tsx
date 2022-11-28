@@ -21,12 +21,12 @@ export function Layout({ children }: React.PropsWithChildren) {
   }, []);
 
   return (
-    <main ref={ surface }>
+    <div ref={ surface }>
       <SkipLink/>
       {isLoading && <Header/>}
       {children}
       <Footer/>
       <Bouée surface={ surface } />
-    </main>
+    </div>
   );
 }
