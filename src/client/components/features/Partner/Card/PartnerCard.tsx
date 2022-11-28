@@ -1,21 +1,21 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
 import React, {
   useMemo,
 } from 'react';
 
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
+import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
+
 interface PartnerCardProps {
-  alt?: string
   description: string
   headline?: string
   headlineColor?: string
   logo: string
-  logoRatio?: 'portrait' | 'paysage'
   link: string
   linkLabel: string
   title?: string
@@ -38,8 +38,10 @@ export function PartnerCardList(list: PartnerCardProps[], title?: string){
   );
 }
 
-export function PartnerCard({ alt = '', description, className, headline, headlineColor, logo, logoRatio = 'portrait', link, linkLabel, title }: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function PartnerCard({ description, className, headline, headlineColor, logo, link, linkLabel, title }: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
   const isInternalLink = useIsInternalLink(link);
+  const { isLargeScreen } = useBreakpoint();
+
 
   const icon = useMemo(function () {
     return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
@@ -49,25 +51,39 @@ export function PartnerCard({ alt = '', description, className, headline, headli
 
   return (
     <Link href={link} className={classNames(styles.card, className, 'underline-none')}>
-      <>
-        <div className={styles.cardLogo}>
-          <div className={classNames(styles.cardLogoWrapper, logoRatio === 'paysage' ? styles.cardLogoWrapperPaysage : styles.cardLogoWrapperPortrait)}>
-            <Image alt={alt} src={logo} layout="fill" objectFit="contain" />
+      {isLargeScreen ?
+        <CardComponent layout={'horizontal'} className={styles.card}>
+          <div className={styles.cardLogo}>
+            <CardComponent.Image className={classNames(styles.cardLogoWrapper, styles.cardLogoWrapperPaysage)} src={logo}/>
           </div>
-        </div>
-        <div className={styles.cardBody}>
-          {title && <span className={styles.cardBody__Title}>{title}</span>}
-          <p>
-            {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
-            {description}
-          </p>
-          <span className={styles.cardAction}>
-            <span>{linkLabel}</span>
-            {icon}
-          </span>
-        </div>
-      </>
+          <CardComponent.Content className={styles.cardBody}>
+            <CardComponent.Title className={styles.cardBody__Title} titleAs={'h2'}>{title}</CardComponent.Title>
+            <p>
+              {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
+              {description}
+            </p>
+            <span className={styles.cardAction}>
+              <CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
+            </span>
+          </CardComponent.Content>
+        </CardComponent>
+        :
+        <CardComponent layout={'vertical'} className={styles.card}>
+          <div className={styles.cardLogo}>
+            <CardComponent.Image className={classNames(styles.cardLogoWrapper, styles.cardLogoWrapperPortrait)} src={logo} />
+          </div>
+          <CardComponent.Content className={styles.cardBody}>
+            <CardComponent.Title className={styles.cardBody__Title} titleAs={'h2'}>{title}</CardComponent.Title>
+            <p>
+              {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
+              {description}
+            </p>
+            <span className={styles.cardAction}>
+              <CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
+            </span>
+          </CardComponent.Content>
+        </CardComponent>
+      }
     </Link>
   );
-
 }
