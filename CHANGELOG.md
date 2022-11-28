@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.15.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.14.0...v2.15.0) (2022-11-28)
+
+
+### Features
+
+* **accompagnement:** carte résultat format mobile ([133cdd8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/133cdd8c94a789c8223082189e61dca5c7794ce6))
+* **accompagnement:** creation composant carte pour resultats infos jeunes ([4d53bab](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4d53bab353ce358984599e1b0f3271083e6cc55d))
+* **accompagnement:** gestion d'erreur InputCommune ([5bf2405](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5bf24051b4a7074b65fa662400822c154260587b))
+* **accompagnement:** recherche d'établissement d'accompagnement par localisation ([b3da637](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3da637036fa4b757e5836f42c5f08c87155f56f))
+
+
+### Bug Fixes
+
+* **multiple:** layout enleve le main sur la bouée ([bf75134](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bf751346623f0dcabf90ab064c073330c52ac295))
+
 ## [2.14.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.13.0...v2.14.0) (2022-11-23)
 
 
