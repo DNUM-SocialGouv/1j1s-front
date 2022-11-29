@@ -25,7 +25,7 @@ export function PartnerCardList(list: PartnerCardProps[], title?: string){
   return(
     <div className={styles.partnerListWrapper}>
       {title && <h2 className={styles.partnerListTitle}>{title}</h2>}
-      <ul className={styles.partnerList}>
+      <ul className={styles.partnerList} aria-label="Liste des partenaires">
         {list.map((partnerCardProps, index) => {
           return(
             <li key={index}>
@@ -51,39 +51,21 @@ export function PartnerCard({ description, className, headline, headlineColor, l
 
   return (
     <Link href={link} className={classNames(styles.card, className, 'underline-none')}>
-      {isLargeScreen ?
-        <CardComponent layout={'horizontal'} className={styles.card}>
-          <div className={styles.cardLogo}>
-            <CardComponent.Image className={classNames(styles.cardLogoWrapper, styles.cardLogoWrapperPaysage)} src={logo}/>
-          </div>
-          <CardComponent.Content className={styles.cardBody}>
-            <CardComponent.Title className={styles.cardBody__Title} titleAs={'h2'}>{title}</CardComponent.Title>
-            <p>
-              {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
-              {description}
-            </p>
-            <span className={styles.cardAction}>
-              <CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
-            </span>
-          </CardComponent.Content>
-        </CardComponent>
-        :
-        <CardComponent layout={'vertical'} className={styles.card}>
-          <div className={styles.cardLogo}>
-            <CardComponent.Image className={classNames(styles.cardLogoWrapper, styles.cardLogoWrapperPortrait)} src={logo} />
-          </div>
-          <CardComponent.Content className={styles.cardBody}>
-            <CardComponent.Title className={styles.cardBody__Title} titleAs={'h2'}>{title}</CardComponent.Title>
-            <p>
-              {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
-              {description}
-            </p>
-            <span className={styles.cardAction}>
-              <CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
-            </span>
-          </CardComponent.Content>
-        </CardComponent>
-      }
+      <CardComponent layout={ isLargeScreen ? 'horizontal' : 'vertical' }>
+        <div className={styles.cardLogo}>
+          <CardComponent.Image className={styles.cardLogoPartner} src={logo}/>
+        </div>
+        <CardComponent.Content className={styles.cardBody}>
+          <div className={styles.cardBody__Title}>{title}</div>
+          <p>
+            {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
+            {description}
+          </p>
+          <span className={styles.cardAction}>
+            <CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
+          </span>
+        </CardComponent.Content>
+      </CardComponent>
     </Link>
   );
 }

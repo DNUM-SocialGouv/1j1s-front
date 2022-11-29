@@ -29,28 +29,17 @@
 
 .card {
   display: block;
-  background: $color-surface;
-  border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
 
   &Logo {
     padding: 1.5rem;
-    border-bottom: 1px solid $color-separator;
-  }
 
-  &LogoWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &LogoWrapperPaysage {
-    height: 72px;
-  }
-
-  &LogoWrapperPortrait {
-    height: 72px;
+    &Partner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 4.5rem;
+    }
   }
 
   &Action {
@@ -81,7 +70,6 @@
   @include media(large) {
     display: flex;
     align-items: center;
-    border: 1px solid $color-separator;
 
     &Logo {
       flex-shrink: 0;

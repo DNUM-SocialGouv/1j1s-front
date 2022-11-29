@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
 import {
@@ -132,6 +132,31 @@ describe('RechercherAccompagnement', () => {
         // THEN
         expect(résultatRechercheÉtablissementAccompagnementList).toHaveLength(3);
         expect(rechercheÉtablissementAccompagnementNombreRésultats).toBeInTheDocument();
+      });
+    });
+
+    it('affiche les informations des cards', () => {
+      // Given
+      mockUseRouter({});
+      const établissementAccompagnementService = anÉtablissementAccompagnementService();
+      const localisationService = aLocalisationService();
+      render(
+        <DependenciesProvider
+          établissementAccompagnementService={établissementAccompagnementService}
+          localisationService={localisationService}
+        >
+          <RechercherAccompagnement />
+        </DependenciesProvider>,
+      );
+
+      // When
+      const listeDesPartenaires = screen.getByRole('list', { name : 'Liste des partenaires' });
+      const partnerListItemList = within(listeDesPartenaires).getAllByRole('listitem');
+      // Then
+      expect(listeDesPartenaires).toBeInTheDocument();
+      expect(partnerListItemList).toHaveLength(3);
+      partnerListItemList.forEach((partnerListItem) => {
+        expect(within(partnerListItem).getByRole('link')).toBeInTheDocument();
       });
     });
   });
