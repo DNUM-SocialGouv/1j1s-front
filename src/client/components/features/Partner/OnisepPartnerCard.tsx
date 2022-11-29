@@ -11,7 +11,6 @@ export function OnisepPartnerCard() {
       linkLabel="Je découvre les métiers"
       link="/decouvrir-les-metiers"
       logo="/images/logos/onisep.svg"
-      logoRatio='paysage'
       title="Besoin d'informations sur les métiers ?"
     />
   );

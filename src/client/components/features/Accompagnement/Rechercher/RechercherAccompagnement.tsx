@@ -3,6 +3,10 @@ import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { FormulaireRechercheAccompagnement } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
+import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
+import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
+import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
+import { PoleEmploiCard } from '~/client/components/features/Partner/PoleEmploiCard';
 import {
   LienSolution,
   RechercherSolutionLayout,
@@ -79,6 +83,11 @@ export function RechercherAccompagnement() {
           mapToLienSolution={mapAccompagnementToLienSolution}
           ariaLabelListeSolution={'Établissements d‘accompagnement'}
         />
+        {PartnerCardList([
+          MissionsLocalesCard().props,
+          InfoJeunesCard().props,
+          PoleEmploiCard().props,
+        ])}
       </main>
     </>
   );
