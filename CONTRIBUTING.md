@@ -1,67 +1,25 @@
-Contribuer à 1j1s-front
-===
+# 1jeune1Solution
+Contribuer à 1j1s-front, standards de développement
 
-Commencer
----
-
-### Pré-requis
-* [NodeJS](https://nodejs.org/fr/), version 16
-* [Docker](https://docs.docker.com/desktop/)
-* [docker-compose](https://docs.docker.com/compose/)
-
-### Environnement de développement
-```bash
-docker-compose up
-npm run dev
-```
-
-* [Front en local](http://localhost:3000)
-* [Swagger API](http://localhost:3000/api)
-
-### Environnement de production
-```bash
-npm run build
-npm run start
-```
-* [Front en local](http://localhost:3000)
-
-
-### Commandes utiles
-| Commande        | Fonction               |
-| --------------- | ---------------------- |
-| npm run lint    | Formater le code       |
-| npm run test    | Exécuter les tests     |
-| npm run release | Versionner le code     |
-
-
-Technologies
----
-* Langage : TypeScript
-* Framework front : NextJS
-* Style : CSS Modules
-
-Standards de développement
----
-### Stratégie de test
+## Stratégie de test
 * tests unitaires autant que possible
 * tests d'intégration sur les endpoints API, cas passant
-* tests de composants via React Testing Library sur les composants comportant de la logique d'affichage, de la validation (formulaires) et récupérant des données
+* tests de composants via React Testing Library sur les composants comportant de la logique d'affichage, de la validation (formulaires) et récupération de données
 
-### Naming
+## Naming
 
-#### Langue
+### Langue
 * les objets métiers sont en **français**
 * les intitulés de test sont en **français**
 * Le reste du code est en **anglais**
 
 _exemple : getJobÉtudiant, OffreEmploi, it("récupère la liste des alternances", () => ...)_
 
-#### Collection
+### Collection
 Une variable représentant une collection sera suffixée par le mot `List` afin d'éviter le pluriel, parfois en conflit avec des mots invariables
 
-### Code
-* inutile d'ajouter le prefix d'attribut **readonly** dans les paramètres de fonctions ou constructor
-* privilégier le retour de [ ] pour les list quand ce dernier est null ou undefined
+## Code
+* privilégier le retour de [ ] pour les listes vides plutôt que null ou undefined
 * privilégier les fonctions nommées et avec le constructeur `function`
 * nommer la callback des useEffect
 
@@ -71,14 +29,11 @@ useEffect(function myFunction() {
 }, []);
 ```
 
-### Css
-* privilégier un maximum les classes du design système de l'Etat
-
-#### Fichiers et dossiers
+### Fichiers et dossiers
 * composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.css`
 * tout le reste : camelCase, `httpClient.service.ts`, `offre-emploi.ts`, `offreEmploi.repository.ts`
 
-### Commits
+## Commits
 Nous suivons [conventional commits](https://conventionalcommits.org/)
 Les types de commit sont donc :
 * **feat** : nouvelle fonctionnalité
@@ -93,15 +48,15 @@ Les types de commit sont donc :
 * **test** : ajoute ou corrige un test
 * **revert** : annule un précédent changement
 
-### Versioning
+## Versioning
 Nous suivons le [Semantic Versioning](https://semver.org)
 
-Les commits de **merge** sont rédigés en français et sont auto-portants, les numéros de tickets Jira n'apparaissent pas dans l'intitulé
+Les commits de **merge** sont rédigés en français et sont autoportants, les numéros de tickets Jira n'apparaissent pas dans l'intitulé.
 
-Il est nécessaire d'ajouter un contexte, voir un sous-contexte pour chaque commit, le contexte sera toujours en minuscule:
+Il est nécessaire d'ajouter un contexte, voir un sous-contexte pour chaque commit, le contexte sera toujours en minuscule :
 
 
-liste des contextes de **page** autorisées (non exaustive):
+Liste des contextes de **pages** autorisées (non exhaustive):
 - emplois
 - stages
 - alternance
@@ -120,7 +75,7 @@ liste des contextes de **page** autorisées (non exaustive):
 - engagement 
 - employeur
   
-Exemple d'utilisation avec sous-contexte:
+Exemple d'utilisation avec sous-contexte :
 
 - _feat(emplois/recherche): ajout du formulaire de recherche_
 - _feat(emplois/résultats): affichage de la liste des résultats_
@@ -141,15 +96,15 @@ Si la modification concerne un fix utiliser le type de commit adéquat **fix**
 _exemple : fix(header): mis à jour des urls de navigation_
 
 
-### Recommendations de NextJS
+## Recommendations de NextJS
 * [Data fetching](https://nextjs.org/docs/basic-features/data-fetching/overview)
 * [Going to production](https://nextjs.org/docs/going-to-production)
 
 
-### A11Y
+## A11Y
 [MDN Accessibilité](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
 
-#### Lexique utilisé dans le projet
+### Lexique utilisé dans le projet
 
 - aria-expanded: set on an element to indicate if a control is expanded or collapsed, and whether or not its child elements are displayed or hidden
 - aria-owns: identifies an element (or elements) in order to define a visual, functional, or contextual relationship between a parent and its child elements when the DOM hierarchy cannot be used to represent the relationship
@@ -159,3 +114,18 @@ _exemple : fix(header): mis à jour des urls de navigation_
 - aria-activedescendant: identifies the currently active element when focus is on a composite widget, combobox, textbox, group, or application.
 - aria-labelledby: identifies the element (or elements) that labels the element it is applied to.
 - aria-selected: indicates the current "selected" state of various widgets
+
+## Erreurs connues
+
+### Les pages de contenu ne s'affichent pas
+Vos Strapi sont ils allumés et configurés correctement ?
+
+### La recherche mène sur des pages non trouvées 
+Appelez-vous le même meilisearch que votre cms ?
+Avez-vous saisi du contenu dans le meilisearch ?
+Si oui, cliquez sur "refresh" sur l'index sur votre strapi
+
+### `npm ci` ne marche pas et `npm install` change votre `package.lock`
+Vous avez probablement un processeur arm (mac m1 ou m2 par exemple).
+Certaines de nos bibliothèques de composantes ont des versions non optimales.
+Dans ce cas, faites un npm install mais ne commitez surtout pas votre nouveau `package.lock` au risque de bloquer la production.
