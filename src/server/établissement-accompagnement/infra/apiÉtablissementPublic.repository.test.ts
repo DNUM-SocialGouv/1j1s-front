@@ -1,12 +1,11 @@
+import { createSuccess, Failure } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { anÉtablissementAccompagnementList } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
 import {
   anAxiosError,
   anAxiosResponse,
   anHttpClientService,
-} from '@tests/fixtures/services/httpClientService.fixture';
-
-import { createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anÉtablissementAccompagnementList } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '~/server/services/http/httpClientService.fixture';
 
 import { aRésultatRechercheÉtablissementPublicResponse } from './apiÉtablissementPublic.fixture';
 import { ApiÉtablissementPublicRepository } from './apiÉtablissementPublic.repository';

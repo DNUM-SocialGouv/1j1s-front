@@ -1,5 +1,3 @@
-import { MockedCacheService } from '@tests/fixtures/services/cacheService.fixture';
-
 import {
   ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
@@ -44,6 +42,7 @@ import {
   PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
+import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';

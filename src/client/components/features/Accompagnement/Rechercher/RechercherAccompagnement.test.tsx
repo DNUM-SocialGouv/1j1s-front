@@ -2,9 +2,6 @@
  * @jest-environment jsdom
  */
 import { render, screen } from '@testing-library/react';
-import { mockUseRouter } from '@tests/client/useRouter.mock';
-import { mockSmallScreen } from '@tests/client/window.mock';
-import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import React from 'react';
 
 import {
@@ -14,6 +11,9 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import {
   anÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 

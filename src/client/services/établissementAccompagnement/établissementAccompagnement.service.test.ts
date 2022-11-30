@@ -1,8 +1,7 @@
-import { anHttpClientService } from '@tests/fixtures/client/services/httpClientService.fixture';
-
 import {
   ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { createSuccess } from '~/server/errors/either';
 import {
   anÉtablissementAccompagnementList,
