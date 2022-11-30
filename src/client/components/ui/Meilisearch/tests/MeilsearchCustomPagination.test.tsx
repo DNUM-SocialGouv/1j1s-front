@@ -4,10 +4,10 @@
 import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-import { mockLargeScreen } from '@tests/client/window.mock';
 import React from 'react';
 
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import { mockLargeScreen } from '~/client/window.mock';
 
 import { MeiliSearchCustomPagination } from '../MeiliSearchCustomPagination';
 

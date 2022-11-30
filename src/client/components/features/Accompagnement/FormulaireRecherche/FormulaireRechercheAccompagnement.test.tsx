@@ -3,15 +3,15 @@
  */
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockUseRouter } from '@tests/client/useRouter.mock';
-import { mockSmallScreen } from '@tests/client/window.mock';
-import { aLocalisationService } from '@tests/fixtures/client/services/localisationService.fixture';
 import React from 'react';
 
 import {
   FormulaireRechercheAccompagnement,
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 
 describe('FormulaireRechercheAccompagnement', () => {
   beforeEach(() => {

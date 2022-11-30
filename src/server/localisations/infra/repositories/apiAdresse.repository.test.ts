@@ -1,10 +1,9 @@
-import { anAxiosError, anAxiosResponse, anHttpClientService } from '@tests/fixtures/services/httpClientService.fixture';
-
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { HttpClientService } from '~/server/services/http/httpClientService';
+import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
 
 describe('ApiAdresseRepository', () => {
   let httpClientService: HttpClientService;

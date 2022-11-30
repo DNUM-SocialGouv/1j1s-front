@@ -1,4 +1,4 @@
-import { aBarmanOffre, aRésultatEchantillonOffre } from '../../tests/fixtures/domain/offre.fixture';
+import { aBarmanOffre, aRésultatEchantillonOffre } from '../../src/server/offres/domain/offre.fixture';
 
 describe('Parcours emplois', () => {
   before(() => {

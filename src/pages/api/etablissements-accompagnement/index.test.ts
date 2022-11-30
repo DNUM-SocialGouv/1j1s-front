@@ -1,4 +1,3 @@
-import { anAxiosError, anAxiosResponse } from '@tests/fixtures/services/httpClientService.fixture';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -12,6 +11,7 @@ import {
 import {
   aRésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
+import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 describe('rechercher un établissement d‘accompagnement', () => {
   describe('lorsque la recherche est valide', () => {

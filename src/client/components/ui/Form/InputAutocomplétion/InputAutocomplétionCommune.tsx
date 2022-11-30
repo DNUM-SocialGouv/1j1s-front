@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useCallback } from 'react';
 
 import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { LocalisationService } from '~/client/services/localisation.service';
+import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { isSuccess } from '~/server/errors/either';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 

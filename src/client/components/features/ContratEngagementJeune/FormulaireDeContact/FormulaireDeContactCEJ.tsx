@@ -10,7 +10,7 @@ import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { DemandeDeContactService } from '~/client/services/demandeDeContact.service';
+import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
 const ageOptions: Option[] = range(16, 31).map((age) => {

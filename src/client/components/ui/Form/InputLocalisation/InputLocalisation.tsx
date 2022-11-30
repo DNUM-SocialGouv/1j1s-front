@@ -5,7 +5,7 @@ import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState }
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { LocalisationService } from '~/client/services/localisation.service';
+import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { isSuccess } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
