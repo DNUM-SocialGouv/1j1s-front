@@ -6,10 +6,9 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
+import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
 import { mockLargeScreen } from '~/client/window.mock';
-
-import { MeiliSearchCustomPagination } from '../MeiliSearchCustomPagination';
 
 declare type CreateURL<TValue> = (value: TValue) => string;
 

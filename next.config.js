@@ -183,7 +183,7 @@ const moduleExports = {
   images: {
     domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL],
   },
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js','controller.ts','controller.js'],
+  pageExtensions: ['page.tsx','controller.ts'],
   poweredByHeader: false,
   reactStrictMode: true,
   redirects,
