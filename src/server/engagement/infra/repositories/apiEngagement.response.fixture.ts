@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 
-import { anAxiosResponse } from '../../../services/http/httpClientService.fixture';
-import { RésultatsMissionEngagementResponse } from './apiEngagement.response';
+import { RésultatsMissionEngagementResponse } from '~/server/engagement/infra/repositories/apiEngagement.response';
+import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 export function anAmbassadeurDuDonDeVêtementMissionResponse(): RésultatsMissionEngagementResponse {
   return {

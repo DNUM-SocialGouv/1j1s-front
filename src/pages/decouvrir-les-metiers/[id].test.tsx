@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/useRouter.mock';
 import { mockSmallScreen } from '~/client/window.mock';
-import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[id]';
+import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[id].page';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 
 describe('Page consulter fiche métier', () => {

@@ -1,6 +1,6 @@
-import { StrapiCollectionTypeResponse } from '../../cms/infra/repositories/strapi.response';
-import { FicheMétier } from './ficheMetier';
-import { FicheMétierHttp } from './ficheMetierHttp';
+import { StrapiCollectionTypeResponse } from '~/server/cms/infra/repositories/strapi.response';
+import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
 export function aFicheMetier(override?: Partial<FicheMétier>) {
   return {

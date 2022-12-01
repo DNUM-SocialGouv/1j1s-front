@@ -1,4 +1,4 @@
-import { Article } from './article';
+import { Article } from '~/server/cms/domain/article';
 
 export function anContenu(override?: Partial<Article>): Article {
   return {

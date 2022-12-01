@@ -1,5 +1,5 @@
-import { aBarmanOffre, aRésultatsRechercheOffre } from '../../../server/offres/domain/offre.fixture';
-import { OffreService } from './offre.service';
+import { OffreService } from '~/client/services/offre/offre.service';
+import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 
 export function anOffreService(): OffreService {
   return {

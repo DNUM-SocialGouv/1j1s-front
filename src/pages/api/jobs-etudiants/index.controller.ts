@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate';
+import { validate } from '~/pages/api/middleware/validate.controller';
 import { transformQueryToArray } from '~/pages/api/validate.utils';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';

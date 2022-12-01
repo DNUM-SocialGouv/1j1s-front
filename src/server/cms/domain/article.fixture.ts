@@ -1,10 +1,11 @@
 import { AxiosResponse } from 'axios';
 
-import { anAxiosResponse } from '../../services/http/httpClientService.fixture';
 import {
   ArticleAttributesResponse,
   StrapiCollectionTypeResponse,
-} from '../infra/repositories/strapi.response';
+} from '~/server/cms/infra/repositories/strapi.response';
+import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+
 import { Article } from './article';
 
 export function anArticle(override?: Partial<Article>): Article {

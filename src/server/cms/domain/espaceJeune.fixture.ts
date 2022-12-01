@@ -1,10 +1,11 @@
-import { strapiImageFixture } from '../infra/repositories/strapi.fixture';
+import { strapiImageFixture } from '~/server/cms/infra/repositories/strapi.fixture';
 import {
   ArticleSimpleAttributesResponse,
   CarteEspaceJeuneResponse,
   EspaceJeuneAttributesResponse,
   StrapiSingleTypeResponse,
-} from '../infra/repositories/strapi.response';
+} from '~/server/cms/infra/repositories/strapi.response';
+
 import { CarteEspaceJeune, EspaceJeune } from './espaceJeune';
 
 export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEspaceJeune {

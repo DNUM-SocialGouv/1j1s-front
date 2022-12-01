@@ -3,7 +3,8 @@ import React from 'react';
 
 import MaintenancePoleEmploi from '~/client/components/features/MaintenancePoleEmploi/MaintenancePoleEmploi';
 import { LayoutMaintenance } from '~/client/components/layouts/LayoutMaintenance';
-import type { NextPageWithLayout } from '~/pages/_app';
+
+import type { NextPageWithLayout } from '../_app.page';
 
 const Page: NextPageWithLayout = () => {
   return (

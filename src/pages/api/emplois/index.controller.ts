@@ -4,7 +4,7 @@ import type {
   NextApiResponse,
 } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate';
+import { validate } from '~/pages/api/middleware/validate.controller';
 import { transformQueryToArray } from '~/pages/api/validate.utils';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';

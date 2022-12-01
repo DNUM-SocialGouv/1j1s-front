@@ -18,15 +18,14 @@
     "baseUrl": "./",
     "paths": {
       "~/*": ["src/*"],
-      "@styles/*": ["src/styles/*"],
-      "@tests/*": ["tests/*"]
+      "@styles/*": ["src/styles/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "types.d.ts",
+    "types.d.ts"
   ],
   "exclude": [
     "node_modules",
@@ -34,5 +33,5 @@
     "public/scripts/tarteaucitron.js",
     "public/tarteaucitron.service.js",
     "public/lang/*"
-  ],
+  ]
 }

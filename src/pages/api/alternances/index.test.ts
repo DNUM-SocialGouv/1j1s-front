@@ -2,7 +2,7 @@ import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { alternanceFiltreMapper, rechercherAlternanceHandler } from '~/pages/api/alternances/index';
+import { alternanceFiltreMapper, rechercherAlternanceHandler } from '~/pages/api/alternances/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';

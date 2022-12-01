@@ -2,7 +2,7 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherCommuneHandler } from '~/pages/api/communes/index';
+import { rechercherCommuneHandler } from '~/pages/api/communes/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresseHttpClientService.fixture';

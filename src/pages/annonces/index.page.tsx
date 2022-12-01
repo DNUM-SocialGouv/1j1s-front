@@ -1,4 +1,4 @@
-import NotFound from '~/pages/404';
+import NotFound from '~/pages/404.page';
 
 
 export default function AnnoncesPage() {
