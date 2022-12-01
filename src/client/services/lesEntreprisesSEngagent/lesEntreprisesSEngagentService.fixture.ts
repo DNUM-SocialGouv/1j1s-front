@@ -1,6 +1,7 @@
-import { Entreprise } from '../../../server/entreprises/domain/Entreprise';
-import { RejoindreLaMobilisation } from '../../../server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
-import { createSuccess } from '../../../server/errors/either';
+import { Entreprise } from '~/server/entreprises/domain/Entreprise';
+import { RejoindreLaMobilisation } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
+import { createSuccess } from '~/server/errors/either';
+
 import {
   LesEntreprisesSEngagentService,
 } from './lesEntreprisesSEngagent.service';

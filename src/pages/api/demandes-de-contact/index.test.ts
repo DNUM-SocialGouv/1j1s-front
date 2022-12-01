@@ -1,7 +1,7 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { enregistrerDemandeDeContactHandler } from '~/pages/api/demandes-de-contact/index';
+import { enregistrerDemandeDeContactHandler } from '~/pages/api/demandes-de-contact/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 describe('enregistrerDemandeDeContactHandler', () => {

@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { anAxiosResponse } from '../../../../services/http/httpClientService.fixture';
+import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+
 import {
   OffreResponse,
   RésultatsRechercheOffreResponse,

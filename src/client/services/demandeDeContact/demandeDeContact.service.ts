@@ -1,8 +1,7 @@
 import { FormulairesPoleEmploi } from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulaireDeContactPOE/FormulaireDeContactPOE';
+import { HttpClientService } from '~/client/services/httpClient.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { HttpClientService } from '../httpClient.service';
 
 export interface FormulaireDemandeDeContactCEJ {
   age: number;

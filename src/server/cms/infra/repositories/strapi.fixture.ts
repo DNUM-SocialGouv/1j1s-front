@@ -1,4 +1,4 @@
-import { Strapi } from '../../../services/cms/infra/repositories/responses/cmsResponse';
+import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export function strapiImageFixture(override?: Strapi.ImageAttributes): Strapi.Image {
   return {

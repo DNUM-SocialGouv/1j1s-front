@@ -15,7 +15,7 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact/dema
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { mockUseRouter } from '~/client/useRouter.mock';
 import { mockLargeScreen } from '~/client/window.mock';
-import JeRecruteAfprPoeiInscription from '~/pages/je-recrute-afpr-poei/inscription';
+import JeRecruteAfprPoeiInscription from '~/pages/je-recrute-afpr-poei/inscription/index.page';
 import { createSuccess } from '~/server/errors/either';
 
 describe('<JeRecruteAfprPoeiInscription />', () => {

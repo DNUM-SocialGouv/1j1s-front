@@ -1,9 +1,10 @@
-import { createSuccess } from '../../../server/errors/either';
+import { createSuccess } from '~/server/errors/either';
 import {
   aLocalisationList,
   aLocalisationListWithEmptyValue,
-} from '../../../server/localisations/domain/localisation.fixture';
-import { aCommuneList } from '../../../server/localisations/domain/localisationAvecCoordonnées.fixture';
+} from '~/server/localisations/domain/localisation.fixture';
+import { aCommuneList } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+
 import { LocalisationService } from './localisation.service';
 
 export function aLocalisationService(retourRechercheLocalisation = aLocalisationList()): LocalisationService {

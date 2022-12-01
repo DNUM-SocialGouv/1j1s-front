@@ -10,7 +10,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aLesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { mockUseRouter } from '~/client/useRouter.mock';
-import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription';
+import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();

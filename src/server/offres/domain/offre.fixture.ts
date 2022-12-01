@@ -1,6 +1,6 @@
-import { EmploiFiltre } from '../../emplois/domain/emploi';
-import { TypeLocalisation } from '../../localisations/domain/localisation';
-import { Offre, OffreFiltre, RésultatsRechercheOffre } from './offre';
+import { EmploiFiltre } from '~/server/emplois/domain/emploi';
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+import { Offre, OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 
 export function aRésultatsRechercheOffre(override?: Partial<RésultatsRechercheOffre>): RésultatsRechercheOffre {
   return {

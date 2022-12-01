@@ -1,7 +1,7 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherMissionHandler } from '~/pages/api/services-civique/index';
+import { rechercherMissionHandler } from '~/pages/api/services-civique/index.controller';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 import { aSearchMissionEngagementResponse } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';

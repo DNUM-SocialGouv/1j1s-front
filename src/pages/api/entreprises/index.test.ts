@@ -2,7 +2,7 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { unContenuEntreprise, uneCommandeRejoindreLaMobilisation, uneEntrepriseMember } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
-import { enregistrerEntreprisesHandler } from '~/pages/api/entreprises/index';
+import { enregistrerEntreprisesHandler } from '~/pages/api/entreprises/index.controller';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 

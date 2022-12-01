@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate';
+import { validate } from '~/pages/api/middleware/validate.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';

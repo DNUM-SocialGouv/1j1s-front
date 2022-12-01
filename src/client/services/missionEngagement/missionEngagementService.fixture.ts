@@ -1,8 +1,8 @@
+import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import {
   anAmbassadeurDuDonDeVêtementMission,
   aRésultatRechercheMission,
-} from '../../../server/engagement/domain/missionEngagement.fixture';
-import { MissionEngagementService } from './missionEngagement.service';
+} from '~/server/engagement/domain/missionEngagement.fixture';
 
 export function aMissionEngagementService(): MissionEngagementService {
   return {

@@ -1,11 +1,12 @@
-import { strapiImageFixture } from '../infra/repositories/strapi.fixture';
+import { aStrapiArticleResponse } from '~/server/cms/domain/espaceJeune.fixture';
+import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
+import { strapiImageFixture } from '~/server/cms/infra/repositories/strapi.fixture';
+
 import {
   CarteMesuresEmployeursResponse,
   MesuresEmployeursAttributesResponse,
   StrapiSingleTypeResponse,
 } from '../infra/repositories/strapi.response';
-import { aStrapiArticleResponse } from './espaceJeune.fixture';
-import { CarteMesuresEmployeurs, MesuresEmployeurs } from './mesuresEmployeurs';
 
 export function desMesuresEmployeurs(): MesuresEmployeurs {
   return {

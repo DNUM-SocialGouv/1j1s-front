@@ -5,7 +5,7 @@
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/window.mock';
-import MentoratPage from '~/pages/mentorat/index';
+import MentoratPage from '~/pages/mentorat/index.page';
 
 describe('MentoratPage', () => {
   beforeEach(() => {
