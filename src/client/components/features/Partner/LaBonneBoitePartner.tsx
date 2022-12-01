@@ -10,7 +10,7 @@ export function LaBonneBoitePartner() {
       link="https://labonneboite.pole-emploi.fr/"
       title="Et si vous contactiez directement les entreprises ?"
       headline="N'envoyez plus vos CV au hasard !"
-      headlineColor="#C7297E"
+      headlineColor="asBonneBoiteColor"
       description="Identifiez et contactez les entreprises qui peuvent être susceptibles de recruter même si elles n'ont pas déposé d'offres. Nos outils détectent les entreprises qui vont probablement embaucher dans les 6 prochains mois."
     />
   );

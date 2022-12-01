@@ -1,5 +1,9 @@
 @import "@styles/utilities";
 
+.accompagnementContainer {
+  padding: 2rem;
+}
+
 .accompagnementHero {
   > div:first-child {
     @extend %text-xLarge;
@@ -9,4 +13,126 @@
     margin-top: 1rem;
     @extend %text-medium;
   }
+}
+
+.unionNationaleDesMissionsLocales {
+  display: flex;
+  flex-direction: column;
+}
+
+.infosJeunes {
+  &Wrapper {
+    border-top: 1px solid #929292;
+    border-bottom: 1px solid #929292;
+  }
+  display: flex;
+  flex-direction: column;
+  background-color: $color-background-white-lilac;
+}
+
+.poleEmploi {
+  display: flex;
+  flex-direction: column;
+}
+
+.petiteDescriptionStructure {
+  margin-top: 1.5rem;
+  @extend %text-large;
+
+  span:first-child {
+    color: $color-primary;
+    @extend %bold;
+  }
+
+  span:last-child {
+    color: $color-secondary;
+  }
+}
+
+.imageContainer {
+  margin: auto;
+}
+
+.missionLocaleImageContainer {
+  width: 224px;
+  height: 88px;
+  position: relative;
+}
+
+.infoJeunesImageContainer {
+  width: 224px;
+  height: 104px;
+  position: relative;
+}
+
+.poleEmploiImageContainer {
+  width: 180px;
+  height: 150px;
+  position: relative;
+}
+
+.customSeeMoreClosed {
+  width: 100%;
+  text-align: left;
+  padding-left: 0;
+}
+
+.buttonEnSavoirPlus {
+  background-color: $color-background-white-lilac;
+  color: $color-primary;
+  border: 1px solid $color-primary;
+  padding: 1rem 0.8rem;
+}
+
+.missionLocaleButtonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+@include media(large) {
+  .accompagnementContainer {
+    padding: 4rem 1rem;
+  }
+
+  .unionNationaleDesMissionsLocales {
+    flex-direction: row;
+  }
+
+  .infosJeunes {
+    flex-direction: row;
+  }
+
+  .poleEmploi {
+    flex-direction: row;
+  }
+
+  .imageContainer {
+    margin: inherit;
+  }
+
+  .logoContainer {
+    width: 30%;
+    margin-right: 3.5rem;
+  }
+
+  .longueDescriptionContainer {
+    width: 65%;
+
+    p {
+      line-height: 1.5rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .missionLocaleButtonContainer {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.button {
+  display: inline-block;
+  margin-top: 2rem;
 }

@@ -14,20 +14,22 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 interface PartnerCardProps {
   description: string
   headline?: string
-  headlineColor?: string
+  headlineColor?: 'default' | 'asBonneBoiteColor' | 'asOnisepColor' | 'asServiceCiviqueColor'
   logo: string
   link: string
   linkLabel: string
   title?: string
+  name?: string
 }
 
 export function PartnerCardList(list: PartnerCardProps[], title?: string){
+  const listPartner = 'Liste des partenaires';
   return(
     <div className={styles.partnerListWrapper}>
       {title && <h2 className={styles.partnerListTitle}>{title}</h2>}
-      <ul className={styles.partnerList} aria-label="Liste des partenaires">
+      <ul className={styles.partnerList} aria-label={listPartner}>
         {list.map((partnerCardProps, index) => {
-          return(
+          return (
             <li key={index}>
               {PartnerCard(partnerCardProps)}
             </li>
@@ -42,23 +44,28 @@ export function PartnerCard({ description, className, headline, headlineColor, l
   const isInternalLink = useIsInternalLink(link);
   const { isLargeScreen } = useBreakpoint();
 
+  const appearanceLinkBold = useMemo(() => {
+    switch (headlineColor) {
+      case 'asBonneBoiteColor': return styles.bonneBoiteColor;
+      case 'asOnisepColor': return styles.onisepColor;
+      case 'asServiceCiviqueColor': return styles.serviceCiviqueColor;
+      default: return styles.link;
+    }
+  }, [headlineColor]);
 
   const icon = useMemo(function () {
     return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
   }, [isInternalLink]);
 
-  const hasHeadlineColor = headlineColor ? { color: headlineColor } : { color: 'inherit' };
 
   return (
     <Link href={link} className={classNames(styles.card, className, 'underline-none')}>
       <CardComponent layout={ isLargeScreen ? 'horizontal' : 'vertical' }>
-        <div className={styles.cardLogo}>
-          <CardComponent.Image className={styles.cardLogoPartner} src={logo}/>
-        </div>
+        <CardComponent.Image className={styles.cardLogo} src={logo}/>
         <CardComponent.Content className={styles.cardBody}>
           <div className={styles.cardBody__Title}>{title}</div>
           <p>
-            {headline && <strong style={hasHeadlineColor} className={styles.cardHeadline}>{headline}</strong>}
+            {headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
             {description}
           </p>
           <span className={styles.cardAction}>

@@ -31,15 +31,10 @@
   display: block;
 
   &Logo {
-    padding: 1.5rem;
-
-    &Partner {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 4.5rem;
-    }
+    align-items: center;
+    justify-content: center;
+    height: 4.5rem;
+    margin: 3.5rem 2rem 2rem 2rem;
   }
 
   &Action {
@@ -63,6 +58,21 @@
     }
   }
 
+  .bonneBoiteColor {
+    @extend %bold;
+    color: $color-partner-bonne-boite;
+  }
+
+  .onisepColor {
+    @extend %bold;
+    color: $color-partner-onisep;
+  }
+
+  .serviceCiviqueColor {
+    @extend %bold;
+    color: $color-partner-service-civique;
+  }
+
   &Headline:after {
     content: " ";
   }
@@ -75,7 +85,6 @@
       flex-shrink: 0;
       width: 280px;
       border: 0;
-      margin: 2rem;
     }
 
     &Body {
