@@ -150,13 +150,13 @@ describe('RechercherAccompagnement', () => {
       );
 
       // When
-      const listeDesPartenaires = screen.getByRole('list', { name : 'Liste des partenaires' });
-      const partnerListItemList = within(listeDesPartenaires).getAllByRole('listitem');
+      const partenaireList = screen.getByRole('list', { name : 'Liste des partenaires' });
+      const partenaireListItemList = within(partenaireList).getAllByRole('listitem');
       // Then
-      expect(listeDesPartenaires).toBeInTheDocument();
-      expect(partnerListItemList).toHaveLength(3);
-      partnerListItemList.forEach((partnerListItem) => {
-        expect(within(partnerListItem).getByRole('link')).toBeInTheDocument();
+      expect(partenaireList).toBeInTheDocument();
+      expect(partenaireListItemList).toHaveLength(3);
+      partenaireListItemList.forEach((partenaireListItem) => {
+        expect(within(partenaireListItem).getByRole('link')).toBeInTheDocument();
       });
     });
   });
