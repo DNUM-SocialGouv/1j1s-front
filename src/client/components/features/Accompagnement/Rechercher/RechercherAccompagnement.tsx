@@ -11,6 +11,7 @@ import {
   LienSolution,
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -83,6 +84,7 @@ export function RechercherAccompagnement() {
           mapToLienSolution={mapAccompagnementToLienSolution}
           ariaLabelListeSolution={'Établissements d‘accompagnement'}
         />
+        <EnTeteSection heading="Découvrez d’autres services faits pour vous"/>
         {PartnerCardList([
           MissionsLocalesCard().props,
           InfoJeunesCard().props,

@@ -9,6 +9,8 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
+import useReferrer from '~/client/hooks/useReferrer';
+
 
 
 interface PartnerCardProps {
@@ -24,6 +26,7 @@ interface PartnerCardProps {
 
 export function PartnerCardList(list: PartnerCardProps[], title?: string){
   const listPartner = 'Liste des partenaires';
+
   return(
     <div className={styles.partnerListWrapper}>
       {title && <h2 className={styles.partnerListTitle}>{title}</h2>}
@@ -43,6 +46,7 @@ export function PartnerCardList(list: PartnerCardProps[], title?: string){
 export function PartnerCard({ description, className, headline, headlineColor, logo, link, linkLabel, title }: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
   const isInternalLink = useIsInternalLink(link);
   const { isLargeScreen } = useBreakpoint();
+  useReferrer();
 
   const appearanceLinkBold = useMemo(() => {
     switch (headlineColor) {
