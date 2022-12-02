@@ -42,6 +42,7 @@ export function FormulaireRechercheAccompagnement() {
             code={inputCodeCommune}
             libellé={inputLibelléCommune}
             showRadius={false}
+            required
           />
         </div>
       </div>

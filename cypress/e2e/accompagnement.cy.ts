@@ -17,7 +17,16 @@ describe('Parcours Accompagnement', () => {
       cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 2);
     });
   });
-  describe('quand l‘utilisateur ajoute des paramettre incorrecte à la query', () => {
+  describe('quand l‘utilisateur n‘écrit rien et fait une recherche', () => {
+    before(() => {
+      cy.visit('/accompagnement');
+    });
+    it('affiche un text indiquant qu‘il faut saisir une localisation', () => {
+      cy.get('button[type=submit]').type('{enter}');
+      cy.contains('Veuillez saisir une localisation');
+    });
+  });
+  describe('quand l‘utilisateur ajoute des paramètre incorrecte à la query', () => {
     before(() => {
       cy.visit('http://localhost:3000/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
     });

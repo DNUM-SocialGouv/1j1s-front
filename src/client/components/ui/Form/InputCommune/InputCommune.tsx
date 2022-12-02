@@ -20,16 +20,21 @@ interface InputCommuneProps {
   libellé: string
   longitude?: string
   showRadius?: boolean
+  required?: boolean
+}
+
+function clickedOnSearchButton(target: Node) {
+  return target.textContent === 'Rechercher'
+    || (target.parentNode !== undefined && target.parentNode?.textContent === 'Rechercher');
 }
 
 function isInputEmptyWhileUserClickedOnSearchButton(e: MouseEvent, libelléCommune: string): boolean {
-  return ((e.target as Node).textContent === 'Rechercher'
-        || ((e.target as Node).parentNode !== undefined && (e.target as Node).parentNode?.textContent === 'Rechercher'))
+  return clickedOnSearchButton((e.target) as Node)
       && libelléCommune === '';
 }
 
 export const InputCommune = (props: InputCommuneProps) => {
-  const { code, distance, id, libellé, latitude, longitude, showRadius = true } = props;
+  const { code, distance, id, libellé, latitude, longitude, showRadius = true, required = false } = props;
 
   const localisationService = useDependency<LocalisationService>('localisationService');
 
@@ -40,7 +45,7 @@ export const InputCommune = (props: InputCommuneProps) => {
   const [latitudeCommune, setLatitudeCommune] = useState<string>(latitude || '');
   const [longitudeCommune, setLongitudeCommune] = useState<string>(longitude || '');
   const [distanceCommune, setDistanceCommune] = useState<string>(distance || '');
-  const [error, setError] = useState(false);
+  const [invalid, setInvalid] = useState(false);
 
   const [communeList, setCommuneList] = useState<Commune[]>([]);
 
@@ -71,9 +76,9 @@ export const InputCommune = (props: InputCommuneProps) => {
       cancelCommuneSelect();
     }
     if (isInputEmptyWhileUserClickedOnSearchButton(e, libelléCommune)) {
-      setError(true);
+      setInvalid(true);
     } else {
-      setError(false);
+      setInvalid(false);
     }
   }, [autocompleteRef, cancelCommuneSelect, libelléCommune]);
 
@@ -83,9 +88,9 @@ export const InputCommune = (props: InputCommuneProps) => {
     }
     if ((e.key === KeyBoard.TAB || e.key === KeyBoard.ENTER)) {
       if (libelléCommune === '') {
-        setError(true);
+        setInvalid(true);
       } else {
-        setError(false);
+        setInvalid(false);
       }
     }
   }, [cancelCommuneSelect, libelléCommune]);
@@ -239,7 +244,7 @@ export const InputCommune = (props: InputCommuneProps) => {
               aria-controls={LOCALISATION_SUGGESTIONS_ID}
               aria-activedescendant="rechercherCommune"
               placeholder={'Exemple: Paris, Béziers...'}
-              className={classNames(styles.formControlInput, styles.libelleInput, error && styles.formControlInputError)}
+              className={classNames(styles.formControlInput, required && invalid && styles.formControlInputError)}
               value={libelléCommune}
               onChange={(event) => {
                 setLibelléCommune(event.target.value);
@@ -248,10 +253,10 @@ export const InputCommune = (props: InputCommuneProps) => {
               onKeyDown={handleKeyDown}
               onClick={() => setSuggestionsActive(!!codeCommune)}
             />
-            {(error) && (
-              <p className={classNames(styles.instructionMessageError)}>
+            {(required && invalid) && (
+              <span className={classNames(styles.instructionMessageError)}>
                 Veuillez saisir une localisation
-              </p>
+              </span>
             )}
             <input type="hidden" name="codeCommune" value={codeCommune} />
             <input type="hidden" name="latitudeCommune" value={latitudeCommune} />
@@ -271,6 +276,5 @@ export const InputCommune = (props: InputCommuneProps) => {
       />
       }
     </>
-
   );
 };
