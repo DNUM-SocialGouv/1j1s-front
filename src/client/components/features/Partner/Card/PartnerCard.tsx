@@ -16,7 +16,7 @@ import useReferrer from '~/client/hooks/useReferrer';
 interface PartnerCardProps {
   description: string
   headline?: string
-  headlineColor?: 'default' | 'asBonneBoiteColor' | 'asOnisepColor' | 'asServiceCiviqueColor'
+  headlineColor?: 'default' | 'pink' | 'red' | 'blue'
   logo: string
   link: string
   linkLabel: string
@@ -50,9 +50,9 @@ export function PartnerCard({ description, className, headline, headlineColor, l
 
   const appearanceLinkBold = useMemo(() => {
     switch (headlineColor) {
-      case 'asBonneBoiteColor': return styles.bonneBoiteColor;
-      case 'asOnisepColor': return styles.onisepColor;
-      case 'asServiceCiviqueColor': return styles.serviceCiviqueColor;
+      case 'pink': return styles.bonneBoiteColor;
+      case 'red': return styles.onisepColor;
+      case 'blue': return styles.serviceCiviqueColor;
       default: return styles.link;
     }
   }, [headlineColor]);
