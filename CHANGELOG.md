@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.16.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.15.1...v2.16.0) (2022-12-02)
+
+
+### Features
+
+* **accompagnement:** ajout EnTeteSection et bouton retour ([9b7535d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9b7535d4b2a9edd14b7cfac4ceaf79e9ad1306bf))
+* **accompagnement:** liste des partenaires ([694ae98](https://github.com/DNUM-SocialGouv/1j1s-front/commit/694ae984c8d456d117174a5828926bb9d3bba235))
+* **accompagnement:** liste des partenaires ([11bce35](https://github.com/DNUM-SocialGouv/1j1s-front/commit/11bce35f072bc5a3a7466ed0f158c2c7e24dc76a))
+* **accompagnement:** review liste des partenaires ([3451c3f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3451c3f724c0c2f2f4ede686bc19eaf827b684f7))
+* **accompagnement:** wording couleurs des cards partenaires ([e53abe4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e53abe429693fad84cef4761b86aa249324c511c))
+* **Evenement:** ajout de la page rechercher un evenement ([556d4c1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/556d4c141a9bf69e3140ade29d61815e114838f5))
+* **partner:** refacto PartnerCard ([2adffb6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2adffb60532d2077fd29d14f781ef81af58b0830))
+
 ## [2.15.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.15.0...v2.15.1) (2022-12-02)
 
 
