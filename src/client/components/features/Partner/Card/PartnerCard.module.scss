@@ -60,17 +60,17 @@
 
   .bonneBoiteColor {
     @extend %bold;
-    color: $color-partner-bonne-boite;
+    color: #C7297E;
   }
 
   .onisepColor {
     @extend %bold;
-    color: $color-partner-onisep;
+    color: #C52E25;
   }
 
   .serviceCiviqueColor {
     @extend %bold;
-    color: $color-partner-service-civique;
+    color: #107CC0;
   }
 
   &Headline:after {
