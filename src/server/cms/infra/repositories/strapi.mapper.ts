@@ -12,6 +12,8 @@ import {
   StrapiImage,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
+import { createFailure } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
   FicheMétier,
   FicheMetierNestedField,
@@ -46,6 +48,9 @@ export function mapArticle(articleResponse: StrapiCollectionTypeResponse<Article
 }
 
 export function mapFicheMetier(ficheMetierResponse: StrapiCollectionTypeResponse<FicheMétierHttp>): FicheMétier {
+  if (!ficheMetierResponse.data[0]){
+    throw createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+  }
   const ficheMetier = ficheMetierResponse.data[0].attributes;
 
   return {
