@@ -1,4 +1,3 @@
-import range from 'just-range';
 import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
@@ -13,7 +12,10 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
-const ageOptions: Option[] = range(16, 31).map((age) => {
+const AGE_MINIMUM = 16;
+
+const ageOptions: Option[] = Array.from(Array(15).keys()).map((index) => {
+  const age = index + AGE_MINIMUM;
   return {
     libellé: `${age} ans`,
     valeur: `${age}`,
