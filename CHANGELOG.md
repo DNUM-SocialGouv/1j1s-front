@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.15.0...v2.15.1) (2022-12-02)
+
+
+### Bug Fixes
+
+* **communes:** renommage du fichier .tsx en .ts ([fac7d74](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fac7d74a93a16c1b4ce7f25e89a959a2a92a2599))
+
 ## [2.15.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.14.0...v2.15.0) (2022-11-28)
 
 
