@@ -11,8 +11,6 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 import useReferrer from '~/client/hooks/useReferrer';
 
-
-
 interface PartnerCardProps {
   description: string
   headline?: string
@@ -21,16 +19,14 @@ interface PartnerCardProps {
   link: string
   linkLabel: string
   title?: string
-  name?: string
 }
 
 export function PartnerCardList(list: PartnerCardProps[], title?: string){
-  const listPartner = 'Liste des partenaires';
 
   return(
     <div className={styles.partnerListWrapper}>
       {title && <h2 className={styles.partnerListTitle}>{title}</h2>}
-      <ul className={styles.partnerList} aria-label={listPartner}>
+      <ul className={styles.partnerList} aria-label="Liste des partenaires">
         {list.map((partnerCardProps, index) => {
           return (
             <li key={index}>
