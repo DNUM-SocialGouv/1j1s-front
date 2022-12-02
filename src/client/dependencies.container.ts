@@ -11,7 +11,6 @@ import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 
-const MAX_LIMITE_STAGES = 100000;
 const MARKETING_QUERY_PARAMS = 'xtor'|| 'dclid';
 
 export type Dependency = Dependencies[keyof Dependencies];
@@ -56,7 +55,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const searchClient = instantMeiliSearch(
     meiliSearchBaseUrl,
     meiliSearchApiKey,
-    { keepZeroFacets: true, paginationTotalHits: MAX_LIMITE_STAGES },
+    { keepZeroFacets: true },
   );
 
   const rechercheClientService: SearchClient = {
