@@ -3,7 +3,7 @@ export interface ÉtablissementAccompagnement {
   adresse?: string;
   id: string
   telephone: string;
-  email: string;
+  email?: string;
   horaires: ÉtablissementAccompagnement.Horaire[];
 }
 
@@ -15,8 +15,8 @@ export namespace ÉtablissementAccompagnement {
 
   export namespace Horaire {
     export interface Heure {
-      heureDébut: string;
-      heureFin: string;
+      début: string;
+      fin: string;
     }
   }
 }

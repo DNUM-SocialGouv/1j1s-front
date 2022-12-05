@@ -126,12 +126,18 @@ describe('RechercherAccompagnement', () => {
         );
 
         // WHEN
-        const résultatRechercheÉtablissementAccompagnementList = await screen.findAllByTestId('RésultatRechercherAccompagnement');
+        const résultatRechercheÉtablissementAccompagnementListHeader = await screen.findByRole('list', { name: 'Établissements d‘accompagnement' });
+        const résultatRechercheÉtablissementAccompagnementTitle = await within(résultatRechercheÉtablissementAccompagnementListHeader).findAllByRole('heading', { level: 2 });
+
         const rechercheÉtablissementAccompagnementNombreRésultats = await screen.findByText('3 établissements d‘accompagnement pour les structures Infos Jeunes');
 
         // THEN
-        expect(résultatRechercheÉtablissementAccompagnementList).toHaveLength(3);
+        expect(résultatRechercheÉtablissementAccompagnementTitle).toHaveLength(3);
         expect(rechercheÉtablissementAccompagnementNombreRésultats).toBeInTheDocument();
+
+        expect(résultatRechercheÉtablissementAccompagnementTitle[0].textContent).toEqual('Point information jeunesse - Saint-Céré');
+        expect(résultatRechercheÉtablissementAccompagnementTitle[1].textContent).toEqual('Point information jeunesse - Figeac');
+        expect(résultatRechercheÉtablissementAccompagnementTitle[2].textContent).toEqual('Point information jeunesse - Saint-Céré');
       });
     });
 

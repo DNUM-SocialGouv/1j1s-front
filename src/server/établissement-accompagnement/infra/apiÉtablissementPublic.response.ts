@@ -13,7 +13,7 @@ export namespace RésultatRechercheÉtablissementPublicResponse {
       nom: string,
       adresses: Properties.Adresse[],
       horaires: Properties.Horaire[],
-      email: string,
+      email?: string,
       telephone: string,
     }
 
