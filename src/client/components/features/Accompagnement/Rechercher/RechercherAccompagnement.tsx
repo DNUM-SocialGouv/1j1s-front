@@ -12,10 +12,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
 import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
 import { PoleEmploiCard } from '~/client/components/features/Partner/PoleEmploiCard';
-import {
-  LienSolution,
-  RechercherSolutionLayout,
-} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
@@ -28,6 +25,16 @@ import {
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+
+export interface LienSolutionAccompagnement {
+  id: string
+  lienOffre?: string
+  intituléOffre: string
+  logoEntreprise: string
+  nomEntreprise?: string
+  étiquetteOffreList: (string | undefined)[]
+  horaires?: ÉtablissementAccompagnement.Horaire[]
+}
 
 export function RechercherAccompagnement() {
   const router = useRouter();
@@ -101,12 +108,12 @@ export function RechercherAccompagnement() {
   );
 }
 
-function mapAccompagnementToLienSolution(établissementAccompagnement: ÉtablissementAccompagnement): LienSolution {
+function mapAccompagnementToLienSolution(établissementAccompagnement: ÉtablissementAccompagnement): LienSolutionAccompagnement {
   return {
     horaires: établissementAccompagnement.horaires,
     id: établissementAccompagnement.id,
     intituléOffre: établissementAccompagnement.nom,
-    lienOffre: établissementAccompagnement.email ? `mailto:${établissementAccompagnement.email}` : '#',
+    lienOffre: établissementAccompagnement.email ? `mailto:${établissementAccompagnement.email}` : undefined,
     logoEntreprise: '/images/logos/info-jeunes.svg',
     nomEntreprise: établissementAccompagnement.adresse,
     étiquetteOffreList: [établissementAccompagnement.telephone, établissementAccompagnement.email],
@@ -119,16 +126,16 @@ function BannièreAccompagnement() {
   );
 }
 
-function displayAccompagnement(lienSolution: LienSolution): React.ReactNode {
+function displayAccompagnement(lienAccompagnement: LienSolutionAccompagnement): React.ReactNode {
   return (
-    <li key={lienSolution.id}>
+    <li key={lienAccompagnement.id}>
       <RésultatRechercherAccompagnement
-        lienOffre={lienSolution.lienOffre}
-        intituléOffre={lienSolution.intituléOffre}
-        logoEntreprise={lienSolution.logoEntreprise}
-        nomEntreprise={lienSolution.nomEntreprise}
-        étiquetteOffreList={lienSolution.étiquetteOffreList}
-        horaires={lienSolution.horaires}
+        lienOffre={lienAccompagnement.lienOffre}
+        intituléOffre={lienAccompagnement.intituléOffre}
+        logoEntreprise={lienAccompagnement.logoEntreprise}
+        nomEntreprise={lienAccompagnement.nomEntreprise}
+        étiquetteOffreList={lienAccompagnement.étiquetteOffreList}
+        horaires={lienAccompagnement.horaires}
       />
     </li>
   );
