@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.1...v2.16.2) (2022-12-05)
+
+
+### Bug Fixes
+
+* **Fiche métier:** gestion de l'erreur quand contenu indisponible ([e7c133d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e7c133d7808af7a08ffc3deafd79d7272aae7242))
+
 ## [2.16.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.0...v2.16.1) (2022-12-02)
 
 
