@@ -12,9 +12,9 @@ import { RésultatRechercheÉtablissementPublicResponse } from './apiÉtablissem
 export class ApiÉtablissementPublicRepository {
   constructor(private httpClient: HttpClientService) {}
 
-  async search(commune: string): Promise<Either<ÉtablissementAccompagnement[]>> {
+  async search({ commune, typeAccompagnement }: { commune: string, typeAccompagnement: string }): Promise<Either<ÉtablissementAccompagnement[]>> {
     try {
-      const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/cij`);
+      const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);
       return createSuccess(mapÉtablissementAccompagnement(data));
     } catch (e) {
       LoggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');

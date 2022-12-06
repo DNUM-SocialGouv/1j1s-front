@@ -43,14 +43,21 @@
 }
 
 .button {
-    @extend %text-regular;
+    @extend %text-small;
     display: flex;
+    height: 2.5rem;
+    align-items: center;
     width: 100%;
     justify-content: space-between;
     color: $color-mention-grey;
     padding: 6px 6px 6px 12px;
-    border: 1.5px solid $color-primary;
+    border: 1px solid $color-on-background;
     border-radius: 20px;
+
+    &[aria-expanded=true] {
+        border-color: $color-primary;
+        background-color: $color-background-white-lilac;
+    }
 
     &Invalid {
        border: solid 2px $color-error !important;

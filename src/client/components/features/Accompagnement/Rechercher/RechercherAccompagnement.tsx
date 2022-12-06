@@ -49,7 +49,7 @@ export function RechercherAccompagnement() {
   useEffect(function rechercherÉtablissementAccompagnement() {
     const queryString = stringify(router.query);
 
-    if(queryString) {
+    if (queryString) {
       setIsLoading(true);
       setErreurRecherche(undefined);
       établissementAccompagnementService.rechercher(queryString)
@@ -87,8 +87,8 @@ export function RechercherAccompagnement() {
         <RechercherSolutionLayout
           bannière={<BannièreAccompagnement/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={accompagnementQuery.libelleCommune ? <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche" /> : null}
-          formulaireRecherche={<FormulaireRechercheAccompagnement />}
+          étiquettesRecherche={accompagnementQuery.libelleCommune ? <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche"/> : null}
+          formulaireRecherche={<FormulaireRechercheAccompagnement/>}
           isLoading={isLoading}
           listeSolution={établissementAccompagnementList}
           messageRésultatRecherche={messageRésultatRecherche}

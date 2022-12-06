@@ -1,34 +1,23 @@
 @import "@styles/utilities";
 
-.rechercherAccompagnement {
-  @include media(medium) {
-    padding-top: 1.5rem;
-    padding-bottom: 2.5rem;
-  }
-
-  &Hint {
-    font-size: .8rem;
-    margin-bottom: .5rem;
-
-    @include media(medium) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  &Wrapper {
-    display: flex;
-    flex-direction: column;
-
-    @include media(medium) {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-  }
+.rechercheOffreForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.inputButtonWrapper > * {
-  margin-bottom: 1.5rem;
-  flex: 1 0;
+.filtresRecherche {
+  flex-grow: 1;
+  margin-bottom: .5rem;
+}
+
+.inputCommune {
+  flex-grow: 0.8;
+  margin-bottom: 1rem;
+}
+
+.inputAccompagnement {
+  flex-grow: 0.2;
 }
 
 .buttonRechercher > button {
@@ -36,21 +25,18 @@
 }
 
 @include media(medium){
+  .filtresRecherche {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .rechercheOffreForm {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-block: 2.5rem;
+  }
+
   .buttonRechercher {
     margin-top: 28px;
-    margin-left: 40px;
-  }
-
-  .inputButtonWrapper {
-    display: flex;
-    width: 100%;
-    align-items: flex-end;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-block: 0;
-  }
-
-  .inputButtonWrapper > div {
-    flex-grow: 1;
   }
 }

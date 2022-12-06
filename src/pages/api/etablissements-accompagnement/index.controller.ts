@@ -9,8 +9,9 @@ import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const querySchema = Joi.object({
-  codeCommune: Joi.string(),
-  libelleCommune: Joi.string(),
+  codeCommune: Joi.string().alphanum().max(5),
+  libelleCommune: Joi.string().max(60),
+  typeAccompagnement: Joi.string().valid('cij','mission_locale','pole_emploi').required(),
 });
 
 export async function rechercherÉtablissementAccompagnementHandler(
@@ -20,7 +21,7 @@ export async function rechercherÉtablissementAccompagnementHandler(
   const résultatsRechercheÉtablissementAccompagnement = await dependencies
     .établissementAccompagnementDependencies
     .rechercherÉtablissementAccompagnementUseCase
-    .handle(String(query.codeCommune));
+    .handle({ commune: String(query.codeCommune), typeAccompagnement: String(query.typeAccompagnement) });
   return handleResponse(résultatsRechercheÉtablissementAccompagnement, res);
 }
 

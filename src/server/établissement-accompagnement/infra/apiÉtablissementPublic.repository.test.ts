@@ -22,10 +22,11 @@ describe('ApiÉtablissementPublicRepository', () => {
         const repository = new ApiÉtablissementPublicRepository(httpClient);
         const expected = createSuccess(anÉtablissementAccompagnementList());
         const commune = '46100';
-        
+        const typeAccompagnement = 'cij';
+
         // when
-        const result = await repository.search(commune);
-        
+        const result = await repository.search({ commune, typeAccompagnement });
+
         // then
         expect(httpClient.get).toHaveBeenCalledWith('communes/46100/cij');
         expect(result).toEqual(expected);
@@ -40,11 +41,12 @@ describe('ApiÉtablissementPublicRepository', () => {
           response: anAxiosResponse({}, 404),
         }));
         const commune = '46100';
+        const typeAccompagnement = 'cij';
 
         const repository = new ApiÉtablissementPublicRepository(httpClient);
         
         // when
-        const result = await repository.search(commune);
+        const result = await repository.search({ commune, typeAccompagnement });
         
         // then
         expect(httpClient.get).toHaveBeenCalledWith('communes/46100/cij');
@@ -60,11 +62,12 @@ describe('ApiÉtablissementPublicRepository', () => {
           response: anAxiosResponse({}, 500),
         }));
         const commune = '46100';
+        const typeAccompagnement = 'cij';
 
         const repository = new ApiÉtablissementPublicRepository(httpClient);
         
         // when
-        const result = await repository.search(commune);
+        const result = await repository.search({ commune, typeAccompagnement });
         
         // then
         expect(httpClient.get).toHaveBeenCalledWith('communes/46100/cij');

@@ -33,9 +33,7 @@ function isInputEmptyWhileUserClickedOnSearchButton(e: MouseEvent, libelléCommu
       && libelléCommune === '';
 }
 
-export const InputCommune = (props: InputCommuneProps) => {
-  const { code, distance, id, libellé, latitude, longitude, showRadius = true, required = false } = props;
-
+export const InputCommune = ({ className, code, distance, id, libellé, latitude, longitude, required = false, showRadius = true }: InputCommuneProps & React.HTMLAttributes<HTMLDivElement>) => {
   const localisationService = useDependency<LocalisationService>('localisationService');
 
   const [suggestionIndex, setSuggestionIndex] = useState(1);
@@ -221,7 +219,7 @@ export const InputCommune = (props: InputCommuneProps) => {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={classNames(styles.wrapper, className)}>
         <label htmlFor="rechercherCommune" id={id || LOCALISATION_LABEL_ID}>
           Localisation
         </label>
