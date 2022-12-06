@@ -23,7 +23,7 @@ const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/fiche-metier/search *.lon.meilisearch.io/indexes/offre-de-stage/search *.lon.meilisearch.io/indexes/evenement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
+const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/fiche-metier/search *.lon.meilisearch.io/indexes/offre-de-stage/search *.lon.meilisearch.io/indexes/evenement/search *.lon.meilisearch.io/indexes/annonce-de-logement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
 const ANALYTICS_SOURCES = '*.xiti.com *.googletagmanager.com *.googleadservices.com *.google.com';
 
 const contentSecurityPolicy = `

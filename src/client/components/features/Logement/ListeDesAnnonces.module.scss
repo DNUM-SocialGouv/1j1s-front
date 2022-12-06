@@ -1,0 +1,53 @@
+@import "@styles/utilities";
+
+.listeDesAnnoncesWrapper {
+  background-color: $color-background-white-lilac;
+  padding: 2rem 1.25rem;
+
+  & ol {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: $breakpoint-xl;
+    margin: auto;
+
+    & li {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+@include media(medium) {
+  .listeDesAnnoncesWrapper {
+    & ol {
+      gap: 2rem;
+      flex-direction: row;
+      > li {
+        width: 22.5rem;
+      }
+    }
+  }
+
+}
+
+
+.skeletonDisplay {
+  display: flex;
+  flex-direction: column;
+  > li {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .skeletonDisplay {
+    flex-direction: row;
+    justify-content: space-around;
+    > li {
+      width: 22.5rem;
+    }
+  }
+}

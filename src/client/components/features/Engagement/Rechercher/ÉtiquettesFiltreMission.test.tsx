@@ -6,8 +6,8 @@ import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
 import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
-import { mockUseRouter } from '~/client/useRouter.mock';
-import { mockSmallScreen } from '~/client/window.mock';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 
 describe('Étiquettes filtre mission', () => {
 

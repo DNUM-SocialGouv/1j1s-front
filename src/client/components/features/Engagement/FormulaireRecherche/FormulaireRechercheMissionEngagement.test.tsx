@@ -8,9 +8,9 @@ import React from 'react';
 import {
   FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { mockUseRouter } from '~/client/useRouter.mock';
 import { aMissionEngagementDomainList } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('FormulaireRechercheMissionEngagement', () => {

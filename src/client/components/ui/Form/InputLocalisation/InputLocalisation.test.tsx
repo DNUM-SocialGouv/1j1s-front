@@ -8,12 +8,12 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
   aLocalisationService,
   aLocalisationServiceWithEmptyRésultat,
 } from '~/client/services/localisation/localisationService.fixture';
-import { mockUseRouter } from '~/client/useRouter.mock';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('InputLocalisation', () => {

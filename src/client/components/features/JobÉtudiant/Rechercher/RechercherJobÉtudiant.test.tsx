@@ -7,6 +7,8 @@ import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
 import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import {
@@ -14,8 +16,6 @@ import {
   aNoResultOffreService,
   aSingleResultOffreService,
 } from '~/client/services/offre/offreService.fixture';
-import { mockUseRouter } from '~/client/useRouter.mock';
-import { mockSmallScreen } from '~/client/window.mock';
 
 describe('RechercherJobÉtudiant', () => {
   beforeEach(() => {

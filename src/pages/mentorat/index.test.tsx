@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { mockSmallScreen } from '~/client/window.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import MentoratPage from '~/pages/mentorat/index.page';
 
 describe('MentoratPage', () => {

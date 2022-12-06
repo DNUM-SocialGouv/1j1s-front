@@ -110,11 +110,10 @@ export default function RechercherOffreStagePage() {
                     <label>Métiers, mots clés, …</label>
                     <SearchBox
                       onKeyDown={disableEnterKey()}
-                      className='recherche-principale-stage'
                       placeholder="Métiers, mots clés, …"
                       classNames={
                         {
-                          input: ['fr-input', styles.stageInputElement].join(' '),
+                          input: styles.stageInputElement,
                           loadingIcon: styles.none,
                           reset: styles.none,
                           submit: styles.none,

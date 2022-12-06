@@ -7,8 +7,8 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
-import { mockUseRouter } from '~/client/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/window.mock';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 const REVENIR_A_LA_PREMIERE_PAGE = 'Revenir à la première page';
 const REVENIR_A_LA_PAGE_PRECENDENTE = 'Revenir à la page précédente';

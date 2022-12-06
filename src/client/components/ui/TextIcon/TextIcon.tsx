@@ -7,12 +7,16 @@ import styles from '~/client/components/ui/TextIcon/TextIcon.module.scss';
 interface TextIconProps extends CommonProps{
   text: string
   icon: React.ReactNode
+  iconPosition?: 'right' | 'left'
 }
-export const TextIcon = ({ text, icon, className }: TextIconProps) => {
-  const _classNames = classNames(styles.textIcon, className);
+export const TextIcon = ({ text, icon, className, iconPosition='right' }: TextIconProps) => {
+  const _classNames = classNames(styles.textIcon, iconPosition ? styles.spaceForLeftIcon : styles.spaceForRightIcon, className);
+
   return (
     <span className={_classNames}>
-      {text} {icon}
+      { iconPosition === 'left' ? <>{icon} {text}</> : <>{text} {icon}</>
+      }
     </span>
   );
 };
+

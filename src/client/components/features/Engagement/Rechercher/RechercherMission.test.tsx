@@ -6,15 +6,15 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import {
   aMissionEngagementService,
   aSingleResultMissionEngagementService,
 } from '~/client/services/missionEngagement/missionEngagementService.fixture';
-import { mockUseRouter } from '~/client/useRouter.mock';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
-import { mockSmallScreen } from '~/client/window.mock';
 
 describe('RechercherMission', () => {
   beforeEach(() => {
