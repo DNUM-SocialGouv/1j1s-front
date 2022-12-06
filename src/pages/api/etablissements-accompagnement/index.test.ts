@@ -27,7 +27,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
           const json = await res.json();
           expect(json).toEqual(anÉtablissementAccompagnementList());
         },
-        url: '/etablissements-accompagnement?codeCommune=46100',
+        url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
       });
     });
   });
@@ -44,7 +44,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
           const json = await res.json();
           expect(json).toEqual({ error: ErreurMétier.DEMANDE_INCORRECTE });
         },
-        url: '/etablissements-accompagnement?codeCommune=46100',
+        url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
       });
     });
   });

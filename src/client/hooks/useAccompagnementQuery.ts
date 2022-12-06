@@ -6,12 +6,14 @@ import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 interface AccompagnementQueryParams {
   codeCommune?: string
   libelleCommune?: string
+  typeAccompagnement?: string
 }
 
 export function useAccompagnementQuery(): AccompagnementQueryParams {
   const [accompagnementQueryParams, setAccompagnementQueryParams] = useState<AccompagnementQueryParams>({
     codeCommune: undefined,
     libelleCommune: undefined,
+    typeAccompagnement: undefined,
   });
 
   const { query } = useRouter();
@@ -20,6 +22,7 @@ export function useAccompagnementQuery(): AccompagnementQueryParams {
     setAccompagnementQueryParams({
       codeCommune: getSingleQueryParam(query.codeCommune),
       libelleCommune: getSingleQueryParam(query.libelleCommune),
+      typeAccompagnement: getSingleQueryParam(query.typeAccompagnement),
     });
   }, [query]);
 

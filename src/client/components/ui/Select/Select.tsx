@@ -30,7 +30,7 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
-export function Select({ optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps) {
+export function Select({ className, optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps & React.HTMLAttributes<HTMLDivElement>) {
   const optionsRef = useRef<HTMLDivElement>(null);
   const listBoxRef = useRef<HTMLUListElement>(null);
 
@@ -181,7 +181,7 @@ export function Select({ optionList, value, placeholder, name, label, multiple, 
   );
 
   return (
-    <div className={styles.selectWrapper}>
+    <div className={classNames(styles.selectWrapper, className)}>
       <label className={styles.selectLabel} id={labelledBy.current}>
         {label}
       </label>
