@@ -8,14 +8,14 @@ interface SkeletonProps extends CommonProps {
   type: SkeletonType,
   repeat?: number,
   isLoading: boolean,
-  children: React.ReactElement,
+  children?: React.ReactElement,
 }
 
 type SkeletonType = 'card' | 'tag' | 'line';
 
 
 export const Skeleton = (props: SkeletonProps) => {
-  const { type, repeat = 1, isLoading, children, className } = props;
+  const { type, repeat = 1, isLoading, children = <></>, className } = props;
 
   const card = useMemo(() =>
     (

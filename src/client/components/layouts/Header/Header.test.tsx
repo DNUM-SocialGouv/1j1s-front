@@ -7,8 +7,8 @@ import userEvent from '@testing-library/user-event';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 import { Header } from '~/client/components/layouts/Header/Header';
-import { createMockRouter, mockUseRouter } from '~/client/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/window.mock';
+import { createMockRouter, mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import resetAllMocks = jest.resetAllMocks;
 
 describe('Header', () => {

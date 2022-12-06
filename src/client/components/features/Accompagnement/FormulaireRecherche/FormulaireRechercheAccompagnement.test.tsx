@@ -8,10 +8,10 @@ import React from 'react';
 import {
   FormulaireRechercheAccompagnement,
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { mockUseRouter } from '~/client/useRouter.mock';
-import { mockSmallScreen } from '~/client/window.mock';
 
 describe('FormulaireRechercheAccompagnement', () => {
   beforeEach(() => {

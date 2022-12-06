@@ -1,9 +1,13 @@
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
 // eslint-disable-next-line import/named
 import { RefinementListRenderState } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
+import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
 import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 // eslint-disable-next-line import/named
-import { UseRefinementListProps } from 'react-instantsearch-hooks-web';
+import {
+  UseRefinementListProps,
+  UseSearchBoxProps,
+} from 'react-instantsearch-hooks-web';
 /*
 * UsePagination associé à un getter sur la librairie.
 * Ce getter est défini en readonly (non-configurable)
@@ -32,7 +36,7 @@ function realMockUsePagination(_props: UsePaginationProps): PaginationRenderStat
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUseRefinementList(props: UseRefinementListProps): RefinementListRenderState {
+function realMockUseRefinementList(_props: UseRefinementListProps): RefinementListRenderState {
   return {
     canRefine: true,
     canToggleShowMore: true,
@@ -48,7 +52,18 @@ function realMockUseRefinementList(props: UseRefinementListProps): RefinementLis
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
+  return {
+    clear: jest.fn(),
+    isSearchStalled: false,
+    query: 'ma-query',
+    refine: jest.fn(),
+  };
+}
+
 module.exports = {
   usePagination: realMockUsePagination,
   useRefinementList: realMockUseRefinementList,
+  useSearchBox: realMockUseSearchBox,
 };

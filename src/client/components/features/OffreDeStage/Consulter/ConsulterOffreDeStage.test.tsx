@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
-import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('ConsulterOffreDeStage', () => {
   const offreDeStage: OffreDeStageDétail = {

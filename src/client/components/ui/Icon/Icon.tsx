@@ -21,6 +21,7 @@ import { HomeIcon } from '~/client/components/ui/Icon/home.icon';
 import { InformationIcon } from '~/client/components/ui/Icon/information.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { MailIcon } from '~/client/components/ui/Icon/mail.icon';
+import { MapPinIcon } from '~/client/components/ui/Icon/map-pin.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 
@@ -45,6 +46,7 @@ type IconName =
   | 'information'
   | 'magnifying-glass'
   | 'mail'
+  | 'map-pin'
   | 'menu'
   | 'trophy'
 
@@ -93,7 +95,9 @@ export function Icon({ name, className, ...rest }: IconProps) {
       case 'information':
         return <InformationIcon className={className} aria-hidden={true} {...rest} />;
       case 'magnifying-glass':
-        return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest} />;
+        return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest}/>;
+      case 'map-pin':
+        return <MapPinIcon className={className} aria-hidden={true} {...rest} />;
       case 'menu':
         return <MenuIcon className={className} aria-hidden={true} {...rest} />;
       case 'mail':

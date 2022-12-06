@@ -10,7 +10,7 @@ import {
 import userEvent from '@testing-library/user-event';
 
 import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
-import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('<FlippingCard>', () => {
   beforeEach(() => mockUseRouter({}));

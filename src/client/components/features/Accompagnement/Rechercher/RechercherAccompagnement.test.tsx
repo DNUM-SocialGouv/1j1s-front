@@ -7,13 +7,13 @@ import React from 'react';
 import {
   RechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/RechercherAccompagnement';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
   anÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { mockUseRouter } from '~/client/useRouter.mock';
-import { mockSmallScreen } from '~/client/window.mock';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 

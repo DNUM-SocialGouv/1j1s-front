@@ -7,8 +7,8 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Select } from '~/client/components/ui/Select/Select';
-import { KeyBoard } from '~/client/keyboard.fixture';
 import { mapTypeDeContratToOffreEmploiCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
 import { Offre } from '~/server/offres/domain/offre';
 
