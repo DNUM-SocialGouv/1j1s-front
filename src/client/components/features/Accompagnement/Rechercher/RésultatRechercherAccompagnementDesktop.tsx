@@ -32,8 +32,7 @@ export function RésultatRechercherAccompagnementDesktop(props: Omit<LienSolutio
           </a>
         </div>
         <details className={styles.details}>
-          <summary className={styles.summary}>Voir les horaires d‘ouverture
-          </summary>
+          <summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
           <div className={styles.horaireBackground}>
             <ol className={styles.listeHoraire}>
               {horaires?.map((horaire) => (

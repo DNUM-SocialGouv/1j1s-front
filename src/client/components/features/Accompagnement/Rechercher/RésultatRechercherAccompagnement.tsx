@@ -53,7 +53,7 @@ export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccomp
         étiquetteOffreList={étiquetteOffreList}
         lienOffre={lienOffre}
         horaires={horaires}
-      ></RésultatRechercherAccompagnementDesktop>
+      />
     );
   } else {
 	  return (
@@ -64,7 +64,7 @@ export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccomp
         étiquetteOffreList={étiquetteOffreList}
         lienOffre={lienOffre}
         horaires={horaires}
-      ></RésultatRechercherAccompagnementMobile>
+      />
     );
   }
 }
