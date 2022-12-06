@@ -34,15 +34,22 @@ export default function Document() {
         <Main/>
         <NextScript/>
         { process.env.NODE_ENV === 'production' &&
-            <Script
-              src="/scripts/tarteaucitron.js"
-              strategy="beforeInteractive"
-            />
+          <Script
+            src="/scripts/smarttag.js"
+            strategy="beforeInteractive"
+          />
+        }
+        { process.env.NODE_ENV === 'production' &&
+          <Script
+            src="/scripts/tarteaucitron.js"
+            strategy="beforeInteractive"
+          />
         }
         { process.env.NODE_ENV === 'production' &&
           <Script
             async src="https://www.googletagmanager.com/gtag/js?id=DC-2953234"
-            strategy="beforeInteractive" />
+            strategy="beforeInteractive"
+          />
         }
       </body>
     </Html>
