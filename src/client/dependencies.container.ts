@@ -1,6 +1,9 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
+import { AnalyticsService } from '~/client/services/analytics/analytics';
+import { AnalyticsDevService } from '~/client/services/analytics/analytics.dev.service';
+import { AnalyticsProdService } from '~/client/services/analytics/analytics.prod.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { ÉtablissementAccompagnementService } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
@@ -23,6 +26,7 @@ export type Dependencies = {
   demandeDeContactService: DemandeDeContactService
   lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
   établissementAccompagnementService: ÉtablissementAccompagnementService
+  analyticsService: AnalyticsService
 }
 
 class DependencyInitException extends Error {
@@ -41,6 +45,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const ficheMetierService = new FicheMetierService(httpClientService);
   const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
   const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
+  const analyticsService = process.env.NODE_ENV === 'production' ? new AnalyticsProdService() : new AnalyticsDevService();
 
   const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
   const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -82,6 +87,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   };
 
   return {
+    analyticsService,
     demandeDeContactService,
     ficheMetierService,
     lesEntreprisesSEngagentService,
