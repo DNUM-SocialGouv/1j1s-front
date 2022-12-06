@@ -1,5 +1,7 @@
 import nextJest from 'next/jest';
 
+process.env.TZ = 'utc';
+
 const createJestConfig = nextJest({ dir: './' });
 
 const customJestConfig = {
