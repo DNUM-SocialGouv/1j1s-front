@@ -8,6 +8,7 @@ const FORBIDDEN_QUERY_LIST = [
   'dclid',
   'utm_source',
   'utm_medium',
+  'opti_enovate',
 ];
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
