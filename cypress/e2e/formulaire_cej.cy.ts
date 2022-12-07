@@ -20,19 +20,13 @@ describe('Parcours formulaire cej', () => {
     it('affiche un message de succès', () => {
 
       cy.get('input[name="firstname"]').type('jean');
-      wait();
       cy.get('input[name="lastname"]').type('dupont');
-      wait();
       cy.get('input[type="email"]').type('jean.dupont@mail.com');
-      wait();
       cy.get('input[type="tel"]').type('0688552233');
-      wait();
       cy.get('button').contains('Sélectionnez votre choix').click();
       cy.get('ul[role="listbox"]').first().click();
-      wait();
       cy.get('input[name="ville"]').type('par');
       cy.get('ul[role="listbox"]').first().click();
-      wait();
 
       cy.get('button').contains('Envoyer la demande').click();
 
@@ -40,8 +34,3 @@ describe('Parcours formulaire cej', () => {
     });
   });
 });
-
-function wait() {
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(500);
-}
