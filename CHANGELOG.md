@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.2...v2.16.3) (2022-12-07)
+
+
+### Bug Fixes
+
+* **api_adresse:** dont log 504 ([fd38799](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd38799d2dc4d980aca7644bf6a4a756eac9a77d))
+
 ## [2.16.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.1...v2.16.2) (2022-12-05)
 
 
