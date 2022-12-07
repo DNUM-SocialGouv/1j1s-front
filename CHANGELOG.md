@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.18.0...v2.19.0) (2022-12-07)
+
+
+### Features
+
+* **engagement:** ajout joi sur le controller ([720aef6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/720aef61146d8170159782f0a852c9acaac4cf39))
+
 ## [2.18.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.17.0...v2.18.0) (2022-12-07)
 
 
