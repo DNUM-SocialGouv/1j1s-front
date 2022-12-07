@@ -8,16 +8,21 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
+import { BookIcon } from '~/client/components/ui/Icon/book.icon';
+import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { BurgerMenuIcon } from '~/client/components/ui/Icon/burger-menu.icon';
 import { BurgerMenuLeftIcon } from '~/client/components/ui/Icon/burger-menu-left.icon';
 import { CloseIcon } from '~/client/components/ui/Icon/close.icon';
+import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { ErrorIcon } from '~/client/components/ui/Icon/error.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { HomeIcon } from '~/client/components/ui/Icon/home.icon';
 import { InformationIcon } from '~/client/components/ui/Icon/information.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
+import { MailIcon } from '~/client/components/ui/Icon/mail.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
+import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 
 type IconName =
   'angle-down'
@@ -27,64 +32,78 @@ type IconName =
   | 'angle-right-from-line'
   | 'angle-up'
   | 'arrow-right'
+  | 'book'
+  | 'brief-case'
   | 'burger-menu'
   | 'burger-menu-left'
   | 'close'
+  | 'compass'
   | 'error'
   | 'external-redirection'
   | 'filter'
   | 'home'
   | 'information'
   | 'magnifying-glass'
+  | 'mail'
   | 'menu'
+  | 'trophy'
 
 interface IconProps extends CommonProps {
   name: IconName
-  isDecorative?: boolean
 }
 
-export function Icon({ name, className, isDecorative }: IconProps) {
+export function Icon({ name, className, ...rest }: IconProps) {
 
   const getIcon = useMemo(() => {
     switch (name) {
       case 'angle-down':
-        return <AngleDownIcon className={className} isDecorative={isDecorative} />;
+        return <AngleDownIcon className={className} aria-hidden={true} {...rest} />;
       case 'angle-left':
-        return <AngleLeftIcon className={className} isDecorative={isDecorative} />;
+        return <AngleLeftIcon className={className} aria-hidden={true} {...rest} />;
       case 'angle-left-from-line':
-        return <AngleLeftFromLineIcon className={className} isDecorative={isDecorative} />;
+        return <AngleLeftFromLineIcon className={className} aria-hidden={true} {...rest} />;
       case 'angle-right':
-        return <AngleRightIcon className={className} isDecorative={isDecorative} />;
+        return <AngleRightIcon className={className} aria-hidden={true} {...rest} />;
       case 'angle-right-from-line':
-        return <AngleRightFromLineIcon className={className} isDecorative={isDecorative} />;
+        return <AngleRightFromLineIcon className={className} aria-hidden={true} {...rest} />;
       case 'angle-up':
-        return <AngleUpIcon className={className} isDecorative={isDecorative} />;
+        return <AngleUpIcon className={className} aria-hidden={true} {...rest} />;
       case 'arrow-right':
-        return <ArrowRightIcon className={className} isDecorative={isDecorative} />;
+        return <ArrowRightIcon className={className} aria-hidden={true} {...rest} />;
+      case 'book':
+        return <BookIcon className={className} aria-hidden={true} {...rest} />;
+      case 'brief-case':
+        return <BriefCaseIcon className={className} aria-hidden={true} {...rest} />;
       case 'burger-menu':
-        return <BurgerMenuIcon className={className} isDecorative={isDecorative} />;
+        return <BurgerMenuIcon className={className} aria-hidden={true} {...rest} />;
       case 'burger-menu-left':
-        return <BurgerMenuLeftIcon className={className} isDecorative={isDecorative} />;
+        return <BurgerMenuLeftIcon className={className} aria-hidden={true} {...rest} />;
       case 'close':
-        return <CloseIcon className={className} isDecorative={isDecorative} />;
+        return <CloseIcon className={className} aria-hidden={true} {...rest} />;
+      case 'compass':
+        return <CompassIcon className={className} aria-hidden={true} {...rest} />;
       case 'error':
-        return <ErrorIcon className={className} isDecorative={isDecorative} />;
+        return <ErrorIcon className={className} aria-hidden={true} {...rest} />;
       case 'external-redirection':
-        return <ExternalRedirectionIcon className={className} isDecorative={isDecorative} />;
+        return <ExternalRedirectionIcon className={className} aria-hidden={true} {...rest} />;
       case 'filter':
-        return <FilterIcon className={className} isDecorative={isDecorative} />;
+        return <FilterIcon className={className} aria-hidden={true} {...rest} />;
       case 'home':
-        return <HomeIcon className={className} isDecorative={isDecorative} />;
+        return <HomeIcon className={className} aria-hidden={true} {...rest} />;
       case 'information':
-        return <InformationIcon className={className} isDecorative={isDecorative} />;
+        return <InformationIcon className={className} aria-hidden={true} {...rest} />;
       case 'magnifying-glass':
-        return <MagnifyingGlassIcon className={className} isDecorative={isDecorative} />;
+        return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest} />;
       case 'menu':
-        return <MenuIcon className={className} isDecorative={isDecorative} />;
+        return <MenuIcon className={className} aria-hidden={true} {...rest} />;
+      case 'mail':
+        return <MailIcon className={className} aria-hidden={true} {...rest} />;
+      case 'trophy':
+        return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
       default:
         return null;
     }
-  }, [name, className, isDecorative]);
+  }, [name, className, rest]);
 
   return ( getIcon );
 }
