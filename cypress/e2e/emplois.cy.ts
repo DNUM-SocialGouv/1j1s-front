@@ -108,6 +108,17 @@ describe('Parcours emplois - Erreur paramètres url', () => {
           cy.contains('Erreur - Demande incorrecte').should('exist');
         });
       });
+
+    });
+    describe('quand le paramètre codeLocalisation est de format lettre et chiffre', () => {
+      beforeEach(() => {
+        cy.viewport('iphone-6');
+        cy.visit('/emplois?typeLocalisation=COMMUNE&codeLocalisation=2A004&page=1');
+      });
+
+      it('ne retourne pas d\'erreur', () => {
+        cy.contains('Erreur - Demande incorrecte').should('not.exist');
+      });
     });
 
     context('quand le paramètre typeDeContrats est erroné', () => {

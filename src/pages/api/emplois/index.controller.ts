@@ -23,7 +23,7 @@ import { queryToArray } from '~/server/utils/queryToArray.utils';
 
 
 const querySchema = Joi.object({
-  codeLocalisation: Joi.number(),
+  codeLocalisation: Joi.string().alphanum().max(5),
   experienceExigence: Joi.string().valid('D', 'S', 'E'),
   grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
   libelleLocalisation: Joi.string(),

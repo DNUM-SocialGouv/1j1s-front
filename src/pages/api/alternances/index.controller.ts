@@ -14,7 +14,7 @@ import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const querySchema = Joi.object({
-  codeLocalisation: Joi.number(),
+  codeLocalisation: Joi.string().alphanum().max(5),
   libelleLocalisation: Joi.string(),
   motCle: Joi.string(),
   page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
