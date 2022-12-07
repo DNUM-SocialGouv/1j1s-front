@@ -24,4 +24,19 @@ describe('rechercher une mission du service civique', () => {
       url: 'services-civique?page=1',
     });
   });
+
+  describe('quand le schema des paramètres n‘est pas respecté', () => {
+    it('retourne directement une erreur', async () => {
+      await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
+        handler: (req, res) => rechercherMissionHandler(req, res),
+        test: async ({ fetch }) => {
+          const res = await fetch({ method: 'GET' });
+          const json = await res.json();
+          expect(res.status).toEqual(503);
+          expect(json).toEqual({ error: 'SERVICE_INDISPONIBLE' });
+        },
+        url: 'services-civique?page=-1',
+      });
+    });
+  });
 });
