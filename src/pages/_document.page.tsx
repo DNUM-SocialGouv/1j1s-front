@@ -2,6 +2,8 @@ import { Head, Html, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 import React from 'react';
 
+const IS_COOKIE_CONSENT_NEEDED = false;
+
 export default function Document() {
   return (
     <Html lang="fr">
@@ -40,14 +42,9 @@ export default function Document() {
           />
         }
         { process.env.NODE_ENV === 'production' &&
+          IS_COOKIE_CONSENT_NEEDED &&
           <Script
             src="/scripts/tarteaucitron.js"
-            strategy="beforeInteractive"
-          />
-        }
-        { process.env.NODE_ENV === 'production' &&
-          <Script
-            async src="https://www.googletagmanager.com/gtag/js?id=DC-2953234"
             strategy="beforeInteractive"
           />
         }

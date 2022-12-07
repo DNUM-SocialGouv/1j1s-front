@@ -4169,8 +4169,6 @@ tarteaucitron.services.multiplegtag = {
   js: function () {
     'use strict';
     window.dataLayer = window.dataLayer || [];
-    // TODO: delete after Campaign
-    tarteaucitron.user.multiplegtagUa = ['DC-2953234'];
     if (tarteaucitron.user.multiplegtagUa !== undefined) {
       tarteaucitron.user.multiplegtagUa.forEach(function (ua) {
         tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + ua, '', function () {
@@ -4178,13 +4176,6 @@ tarteaucitron.services.multiplegtag = {
           gtag('js', new Date());
           var additional_config_info = (timeExpire !== undefined) ? { anonymize_ip: true, cookie_expires: timeExpire / 1000 } : { anonymize_ip: true };
           gtag('config', ua, additional_config_info);
-          // TODO: delete after Campaign
-          if (window.location.pathname === '/decouvrir-les-metiers') {
-            gtag('event', 'conversion', {
-              allow_custom_scripts: true,
-              send_to: 'DC-2953234/SIG-M0/lpformat+unique',
-            });
-          }
         });
       });
     }
