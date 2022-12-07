@@ -5,11 +5,11 @@ import React from 'react';
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
-import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
-import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
+
+import { Icon } from '../client/components/ui/Icon/Icon';
 
 const SeeMore = dynamic(() => import(/* webpackChunkName: 'seeMore' */ '~/client/components/ui/SeeMore/SeeMore'), { ssr: false });
 
@@ -24,7 +24,7 @@ export default function Accueil() {
       <main id="contenu">
         <section className={classNames(styles.section, styles.sectionNosOffres)}>
           <h2 id="offres" className={styles.sectionHeader}>
-            <BriefCaseIcon className={styles.sectionNosOffresHeaderIcon} />
+            <Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />
             Découvrez nos offres
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>
@@ -190,7 +190,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
           <h2 id="engagement-benevolat" className={styles.sectionHeader}>
-            <TrophyIcon className={styles.sectionEngagementBénévolatHeaderIcon} />
+            <Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon} />
             Engagement et bénévolat
           </h2>
           <div className={styles.cardList}>

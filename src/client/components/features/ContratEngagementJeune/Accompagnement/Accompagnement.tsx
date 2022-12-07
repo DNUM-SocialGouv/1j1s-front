@@ -1,9 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import AutresBesoins
@@ -11,15 +6,16 @@ import AutresBesoins
 import AutresBesoins26ans
   from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins26ans';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
-import BesoinAide26ans from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide26ans';
+import BesoinAide26ans
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide26ans';
 import Démarrage from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Démarrage';
 import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
-import PasDAccompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
+import PasDAccompagnement
+  from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
-import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
-import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
@@ -112,7 +108,7 @@ export default function Accompagnement() {
             <h1 className={styles.accompagnementDispositifs__Title}>Découvrez les dispositifs référencés sur le portail 1jeune1solution</h1>
             <div className={styles.accompagnementDispositifsPosition}>
               <Link href={'/#offres'} className={styles.accompagnementDispositifsPositionIcon}>
-                <BriefCaseIcon className={styles.accompagnementDispositifsPositionIconOffre} />
+                <Icon name="brief-case" className={styles.accompagnementDispositifsPositionIconOffre} />
                 <p>Découvrez nos offres</p>
               </Link>
               <Link href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
@@ -124,7 +120,7 @@ export default function Accompagnement() {
                 <p>Aides et accompagnement</p>
               </Link>
               <Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>
-                <TrophyIcon className={styles.accompagnementDispositifsPositionIconBenevolat} />
+                <Icon name="trophy" className={styles.accompagnementDispositifsPositionIconBenevolat} />
                 <p>Engagement</p>
               </Link>
             </div>
