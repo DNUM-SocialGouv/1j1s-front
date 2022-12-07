@@ -19,7 +19,7 @@ export function RésultatRechercherAccompagnementDesktop(props: Omit<LienSolutio
         <CardComponent.Image className={styles.logo} src={logoEntreprise}/>
         <div className={styles.mainContent}>
           <div className={styles.logoAlignment}>
-            <CardComponent.Title className={styles.title} titleAs={'h2'}>
+            <CardComponent.Title className={styles.title} titleAs={'h3'}>
               {intituléOffre}
             </CardComponent.Title>
             {nomEntreprise && <span className={styles.address}>{nomEntreprise}</span>}

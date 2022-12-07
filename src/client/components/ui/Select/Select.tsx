@@ -18,7 +18,7 @@ interface SelectProps {
   name?: string;
   multiple?: boolean;
   required?: boolean;
-  onChange?: (value: string) => void;
+  onChange?: (value: string) => void; // FIXME: utiliser le type natif onChange de React.HTMLAttributes<HTMLInputElement>
 }
 
 export interface Option {

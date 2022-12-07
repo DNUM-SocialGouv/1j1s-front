@@ -18,7 +18,7 @@ export function RésultatRechercherAccompagnementMobile(props: Omit<LienSolution
       <CardComponent.Content className={styles.content}>
         <CardComponent.Image className={styles.logo} src={logoEntreprise}/>
         <div className={styles.mainContent}>
-          <CardComponent.Title className={styles.title} titleAs={'h2'}>
+          <CardComponent.Title className={styles.title} titleAs={'h3'}>
             {intituléOffre}
           </CardComponent.Title>
           {nomEntreprise && <span className={styles.address}>{nomEntreprise}</span>}

@@ -115,7 +115,7 @@ describe('RechercherAccompagnement', () => {
         const établissementAccompagnementService = anÉtablissementAccompagnementService();
         const localisationServiceMock = aLocalisationService();
 
-        mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris' } });
+        mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'cij' } });
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
@@ -127,14 +127,14 @@ describe('RechercherAccompagnement', () => {
 
         // WHEN
         const résultatRechercheÉtablissementAccompagnementListHeader = await screen.findByRole('list', { name: 'Établissements d‘accompagnement' });
-        const résultatRechercheÉtablissementAccompagnementTitle = await within(résultatRechercheÉtablissementAccompagnementListHeader).findAllByRole('heading', { level: 2 });
+        const résultatRechercheÉtablissementAccompagnementTitle = await within(résultatRechercheÉtablissementAccompagnementListHeader).findAllByRole('heading', { level: 3 });
 
         const rechercheÉtablissementAccompagnementNombreRésultats = await screen.findByText('3 établissements d‘accompagnement pour les structures Infos Jeunes');
 
         // THEN
         expect(résultatRechercheÉtablissementAccompagnementTitle).toHaveLength(3);
-        expect(rechercheÉtablissementAccompagnementNombreRésultats).toBeInTheDocument();
 
+        expect(rechercheÉtablissementAccompagnementNombreRésultats).toBeInTheDocument();
         expect(résultatRechercheÉtablissementAccompagnementTitle[0].textContent).toEqual('Point information jeunesse - Saint-Céré');
         expect(résultatRechercheÉtablissementAccompagnementTitle[1].textContent).toEqual('Point information jeunesse - Figeac');
         expect(résultatRechercheÉtablissementAccompagnementTitle[2].textContent).toEqual('Point information jeunesse - Saint-Céré');

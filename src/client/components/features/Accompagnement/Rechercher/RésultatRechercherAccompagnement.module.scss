@@ -13,14 +13,10 @@
 .content {
   display: flex;
   align-self: stretch;
+  gap: 1.5rem;
 }
 .logo {
   width: 6.8rem;
-  margin-right: .7rem;
-
-  @include media(large) {
-    margin-right: 2rem;
-  }
 
   &Alignment {
     width: 100%;
@@ -119,7 +115,7 @@
     @include media(large) {
       font-size: 1rem;
       padding: 0 0 0 0;
-      background-position: 24.5ch 0;
+      background-position: 23ch 0;
       text-align: left;
       margin-left: 1rem;
     }
@@ -146,19 +142,17 @@
 
 .horaireBackground {
   width: 16.7rem;
-  margin-top: .3rem;
   display: flex;
   align-self: center;
 
   @include media(large) {
     width: calc(100% - 1rem);
-    margin-top: .3rem;
-    margin-left: .2rem;
   }
 }
 
 .listeHoraire {
   list-style: none;
+  line-height: 1.15rem;
   font-size: .8rem;
   margin: .4rem auto .4rem;
   width: 12rem;

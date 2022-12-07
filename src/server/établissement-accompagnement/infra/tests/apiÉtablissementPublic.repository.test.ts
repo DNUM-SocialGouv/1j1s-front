@@ -7,8 +7,8 @@ import {
   anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
 
+import { ApiÉtablissementPublicRepository } from '../apiÉtablissementPublic.repository';
 import { aRésultatRechercheÉtablissementPublicResponse } from './apiÉtablissementPublic.fixture';
-import { ApiÉtablissementPublicRepository } from './apiÉtablissementPublic.repository';
 
 describe('ApiÉtablissementPublicRepository', () => {
   describe('search', () => {
