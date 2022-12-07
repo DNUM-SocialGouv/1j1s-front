@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.17.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.3...v2.17.0) (2022-12-07)
+
+
+### Features
+
+* **accompagnement:** afficher les horaires sur les cartes info-jeunes ([81f5c34](https://github.com/DNUM-SocialGouv/1j1s-front/commit/81f5c3471ddd0ca9cfdfb4d24a5f73980f721df7))
+
 ## [2.16.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.2...v2.16.3) (2022-12-07)
 
 
