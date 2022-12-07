@@ -13,8 +13,10 @@ interface ApiAdresseErrorResponse {
 export function handleGetFailureError(e: unknown, context: string) {
   if (axios.isAxiosError(e)) {
     const error: AxiosError<ApiAdresseErrorResponse> = e as AxiosError<ApiAdresseErrorResponse>;
-    if(error.response?.status === 400 && (<AxiosResponse<{ message: string }>> e?.response)?.data?.message === 'Le format de l’id de l’adresse recherchée est incorrect.') {
+    if (error.response?.status === 400 && (<AxiosResponse<{ message: string }>>e?.response)?.data?.message === 'Le format de l’id de l’adresse recherchée est incorrect.') {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+    } if(error.response?.status === 504) {
+      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
     } else {
       LoggerService.warnWithExtra(
         new SentryException(
