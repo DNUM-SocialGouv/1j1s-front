@@ -24,4 +24,19 @@ describe('rechercher une mission de bénévolat', () => {
       url: 'benevolats?page=1',
     });
   });
+
+  describe('quand le schema des paramètres n‘est pas respecté', () => {
+    it('retourne directement une erreur', async () => {
+      await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
+        handler: (req, res) => rechercherMissionHandler(req, res),
+        test: async ({ fetch }) => {
+          const res = await fetch({ method: 'GET' });
+          const json = await res.json();
+          expect(res.status).toEqual(503);
+          expect(json).toEqual({ error: 'SERVICE_INDISPONIBLE' });
+        },
+        url: 'benevolats?page=-1',
+      });
+    });
+  });
 });

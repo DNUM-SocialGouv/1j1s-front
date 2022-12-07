@@ -33,7 +33,7 @@ describe('Parcours formulaire cej', () => {
 
       cy.get('button').contains('Envoyer la demande').click();
 
-      cy.get('#dialog_label_success').contains('Votre demande a bien été transmise !');
+      cy.contains('Votre demande a bien été transmise !').should('be.visible');
     });
   });
 });

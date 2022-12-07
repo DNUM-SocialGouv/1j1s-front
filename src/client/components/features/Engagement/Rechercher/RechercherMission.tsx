@@ -93,6 +93,7 @@ export function RechercherMission(props: RechercherMissionProps) {
       />
       <main id="contenu">
         <RechercherSolutionLayout
+          ariaLabelListeSolution={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}
           bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
           erreurRecherche={erreurRecherche}
           étiquettesRecherche={<ÉtiquettesFiltreMission/>}
