@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.18.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.17.0...v2.18.0) (2022-12-07)
+
+
+### Features
+
+* **analytics:** envoie le tracking des navigations ([d324ce1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d324ce1a6e34ca5dcdd63b3cb8caac03378311d9))
+
 ## [2.17.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.16.3...v2.17.0) (2022-12-07)
 
 
