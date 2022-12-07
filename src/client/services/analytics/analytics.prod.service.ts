@@ -8,21 +8,18 @@ declare global {
   }
 }
 
-const GOOGLE_TAG_MANAGER_SERVICE = 'multiplegtag';
+const IS_COOKIE_CONSENT_NEEDED = false;
 
 export class AnalyticsProdService implements AnalyticsService {
   private tag;
 
   constructor() {
     this.tag = this.initTagTracker();
-    this.initCookieConsent();
+    IS_COOKIE_CONSENT_NEEDED && this.initCookieConsent();
   }
 
   private initTagTracker() {
     try {
-      window.tarteaucitron.job = window.tarteaucitron.job || [];
-      window.tarteaucitron.job.push(GOOGLE_TAG_MANAGER_SERVICE);
-
       return new window.ATInternet.Tracker.Tag();
     } catch(e) {
       return {

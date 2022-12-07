@@ -65,8 +65,8 @@ describe('AnalyticsProdService', () => {
     new AnalyticsProdService();
 
     expect(tagSpy).toHaveBeenCalled();
-    expect(initSpy).toHaveBeenCalledWith(expectedCookiesSettings);
-    expect((global as any).tarteaucitron.job).toEqual(['multiplegtag']);
+    // Toggle test when cookie consent is needed
+    expect(initSpy).not.toHaveBeenCalledWith(expectedCookiesSettings);
   });
 
   describe('sendPage', () => {

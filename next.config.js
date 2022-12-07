@@ -23,16 +23,16 @@ const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/fiche-metier/search *.lon.meilisearch.io/indexes/offre-de-stage/search *.lon.meilisearch.io/indexes/evenement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr *.doubleclick.net';
+const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.lon.meilisearch.io/indexes/fiche-metier/search *.lon.meilisearch.io/indexes/offre-de-stage/search *.lon.meilisearch.io/indexes/evenement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
 const ANALYTICS_SOURCES = '*.xiti.com *.googletagmanager.com *.googleadservices.com *.google.com';
 
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
   script-src 'self' ${ANALYTICS_SOURCES};
-  img-src 'self' googleads.g.doubleclick.net *.google.com data: ${BUCKET_S3_URL} ${STRAPI_MEDIA_URL} ${ANALYTICS_SOURCES};
+  img-src 'self' *.google.com data: ${BUCKET_S3_URL} ${STRAPI_MEDIA_URL} ${ANALYTICS_SOURCES};
   style-src 'self' 'unsafe-inline';
   frame-ancestors 'none';
-  frame-src *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube.com *.doubleclick.net;
+  frame-src *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube.com;
   form-action 'self';
   base-uri 'none';
 `;
