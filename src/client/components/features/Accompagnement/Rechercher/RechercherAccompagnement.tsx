@@ -25,6 +25,7 @@ import {
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 
 export interface LienSolutionAccompagnement {
   id: string
@@ -69,13 +70,25 @@ export function RechercherAccompagnement() {
   const messageRésultatRecherche: string = useMemo(() => {
     const messageRésultatRechercheSplit: string[] = [`${établissementAccompagnementList.length}`];
     if (établissementAccompagnementList.length > 1) {
-      messageRésultatRechercheSplit.push('établissements d‘accompagnement');
+      messageRésultatRechercheSplit.push('établissements');
     } else {
-      messageRésultatRechercheSplit.push('établissement d‘accompagnement');
+      messageRésultatRechercheSplit.push('établissement');
     }
-    messageRésultatRechercheSplit.push('pour les structures Infos Jeunes');
+
+    switch (accompagnementQuery.typeAccompagnement) {
+      case TypeÉtablissement.AGENCE_POLE_EMPLOI:
+        messageRésultatRechercheSplit.push('d‘accompagnement pour les Agences Pôle Emploi');
+        break;
+      case TypeÉtablissement.INFO_JEUNE:
+        messageRésultatRechercheSplit.push('d‘accompagnement pour les structures Infos Jeunes');
+        break;
+      case TypeÉtablissement.MISSION_LOCALE:
+        messageRésultatRechercheSplit.push('d‘accompagnement pour les structures Missions Locales');
+        break;
+    }
+
     return messageRésultatRechercheSplit.join(' ');
-  }, [établissementAccompagnementList.length]);
+  }, [accompagnementQuery.typeAccompagnement, établissementAccompagnementList.length]);
 
   return (
     <>

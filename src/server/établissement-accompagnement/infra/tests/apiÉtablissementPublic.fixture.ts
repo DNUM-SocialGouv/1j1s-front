@@ -1,6 +1,6 @@
 import {
   RésultatRechercheÉtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
+} from '../apiÉtablissementPublic.response';
 
 export function aRésultatRechercheÉtablissementPublicResponse(): RésultatRechercheÉtablissementPublicResponse {
   return {

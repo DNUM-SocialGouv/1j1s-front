@@ -9,6 +9,13 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+
+const typeAccompagnementListe: Option[] = [
+  { libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.AGENCE_POLE_EMPLOI },
+  { libellé: 'Missions locales', valeur: TypeÉtablissement.MISSION_LOCALE },
+  { libellé: 'Info jeunes', valeur: TypeÉtablissement.INFO_JEUNE },
+];
 
 export function FormulaireRechercheAccompagnement() {
   const rechercheAccompagnementForm = useRef<HTMLFormElement>(null);
@@ -20,12 +27,6 @@ export function FormulaireRechercheAccompagnement() {
   const queryParams = useAccompagnementQuery();
   const router = useRouter();
 
-  const typeAccompagnementListe: Option[] = [
-    { libellé: 'Agences Pôle Emploi', valeur: 'pole_emploi' },
-    { libellé: 'Missions locales', valeur: 'mission_locale' },
-    { libellé: 'Info jeunes', valeur: 'cij' },
-  ];
-
   useEffect(function initFormValues() {
     setInputCodeCommune(queryParams.codeCommune || '');
     setInputLibelléCommune(queryParams.libelleCommune || '');
@@ -34,8 +35,10 @@ export function FormulaireRechercheAccompagnement() {
 
   async function updateRechercheAccompagnementQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const query = getFormAsQuery(event.currentTarget, queryParams, false);
-    return router.push({ query }, undefined, { shallow: true });
+    if (event.currentTarget.checkValidity()) {
+      const query = getFormAsQuery(event.currentTarget, queryParams, false);
+      return router.push({ query }, undefined, { shallow: true });
+    }
   }
 
   return (
@@ -52,12 +55,15 @@ export function FormulaireRechercheAccompagnement() {
           required
           showRadius={false}/>
         <Select
+          required
           className={styles.inputAccompagnement}
           label={'Type d‘accompagnement'}
           name={'typeAccompagnement'}
           optionList={typeAccompagnementListe}
           value={inputAccompagnement}
-          onChange={(value) => setInputAccompagnement(value)}/>
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          onChange={setInputAccompagnement}/>
       </div>
       <ButtonComponent
         className={styles.buttonRechercher}

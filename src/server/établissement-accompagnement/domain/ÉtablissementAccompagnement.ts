@@ -20,3 +20,4 @@ export namespace ÉtablissementAccompagnement {
     }
   }
 }
+

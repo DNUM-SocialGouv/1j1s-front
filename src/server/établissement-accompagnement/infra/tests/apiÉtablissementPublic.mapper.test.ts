@@ -3,12 +3,12 @@ import {
   anotherÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
 import {
-  aRésultatRechercheÉtablissementPublicResponse,
-  aRésultatRechercheÉtablissementPublicResponseInIncorrectOrder,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
-import {
   mapÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
+import {
+  aRésultatRechercheÉtablissementPublicResponse,
+  aRésultatRechercheÉtablissementPublicResponseInIncorrectOrder,
+} from '~/server/établissement-accompagnement/infra/tests/apiÉtablissementPublic.fixture';
 
 describe('Mapper Établissement Accompagnement', () => {
   describe('mapÉtablissementAccompagnement', () => {

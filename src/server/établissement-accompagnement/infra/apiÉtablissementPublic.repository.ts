@@ -9,6 +9,12 @@ import { LoggerService } from '~/server/services/logger.service';
 
 import { RésultatRechercheÉtablissementPublicResponse } from './apiÉtablissementPublic.response';
 
+export enum TypeÉtablissement {
+  AGENCE_POLE_EMPLOI = 'pole_emploi',
+  MISSION_LOCALE = 'mission_locale',
+  INFO_JEUNE = 'cij',
+}
+
 export class ApiÉtablissementPublicRepository {
   constructor(private httpClient: HttpClientService) {}
 
