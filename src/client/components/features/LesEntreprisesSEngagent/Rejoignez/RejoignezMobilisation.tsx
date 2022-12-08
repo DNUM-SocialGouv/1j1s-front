@@ -19,7 +19,7 @@ export default function RejoignezMobilisation() {
   return <div className={styles.content}>
     <Container className={styles.container} >
       <div className={styles.lesEntreprisesSEngagent}>
-        <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="65" height="65"/>
+        <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="65" height="65" aria-hidden="true"/>
         <span>Les entreprises s&apos;engagent</span>
       </div>
       <Marked markdown={contenuHeader}/>

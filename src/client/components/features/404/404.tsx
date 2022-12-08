@@ -25,7 +25,7 @@ export function PageNotFound(){
         </div>
         {!isSmallScreen &&
         <div className={styles.errorLogo}>
-          <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205'/>
+          <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205' aria-hidden="true" />
         </div>
         }
       </main>
