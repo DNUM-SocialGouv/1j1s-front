@@ -1,10 +1,12 @@
+/// <reference types="cypress" />
+
 import {
   anÉtablissementAccompagnementList,
 } from '../../src/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
 
 describe('Parcours Accompagnement', () => {
   describe('quand l‘utilisateur cherche une commune', () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit('/accompagnement');
     });
     it('affiche 2 résultats en cas de réussite', () => {

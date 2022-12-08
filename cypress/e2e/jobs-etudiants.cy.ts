@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Parcours jobs étudiants', () => {
   describe("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
     context('quand le paramètre page est erroné ', () => {

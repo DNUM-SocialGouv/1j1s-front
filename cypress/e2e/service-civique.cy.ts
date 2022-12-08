@@ -1,7 +1,9 @@
+/// <reference types="cypress" />
+
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('Parcours service civique', () => {
-  before(() => {
+  beforeEach(() => {
     cy.viewport('iphone-6');
     cy.visit('/service-civique');
   });
@@ -23,6 +25,11 @@ describe('Parcours service civique', () => {
 
   context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
     it('navigue vers le détail de l‘offre', () => {
+      cy.get('button').contains('Sélectionnez votre choix').click();
+      cy.get('ul[role="listbox"]').first().click();
+
+      cy.get('button').contains('Rechercher').click();
+
       const id = aRésultatRechercheMission().résultats[0].id;
       cy.intercept(`/_next/data/development/service-civique/${id}.json?id=${id}`, {
         pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] },
