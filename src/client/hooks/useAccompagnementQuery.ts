@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface AccompagnementQueryParams {
+export interface AccompagnementQueryParams {
   codeCommune?: string
   libelleCommune?: string
   typeAccompagnement?: string
