@@ -19,7 +19,7 @@ export default function AvantagesMobilisation() {
     <section className={ styles.section }>
       <div className={ styles.container }>
         <aside className= { styles.illustration }>
-          <Image src={ illustration } objectFit='cover' layout='fill' alt='' />
+          <Image src={ illustration } objectFit='cover' layout='fill' alt='' aria-hidden="true" />
         </aside>
         <article className={ styles.article }>
           <Marked markdown={ contenu }/>

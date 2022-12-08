@@ -30,7 +30,7 @@ export function HeaderBody() {
       <div className={styles.headerBodyContainer}>
         <div className={styles.headerLogoWrapper}>
           <Link href="/" className={styles.headerLogo} aria-label="Redirection vers la page d'accueil">
-            <Image src="/images/logos/république-française.svg" alt="" layout="fill"/>
+            <Image src="/images/logos/république-française.svg" alt="" layout="fill" aria-hidden="true"/>
           </Link>
           { !isLargeScreen &&
             <ButtonComponent appearance='tertiary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />

@@ -58,7 +58,7 @@ function CardLink({ appearance = 'default', className, href, label }: { appearan
 function CardImage({ className, src }: { src: string } & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={classNames(styles.cardImageWrapper, className)}>
-      <Image src={src} alt={''} fill={true} />
+      <Image src={src} alt={''} fill={true} aria-hidden="true"/>
     </div>
   );
 }

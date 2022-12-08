@@ -43,7 +43,7 @@ export default function Footer() {
           <div className={styles.footerHeader}>
             <div className={styles.footerSlogan}>
               <div className={styles.footerLogo}>
-                <Image src="/images/logos/mariane.svg" alt="Mariane" width="55" height="20" />
+                <Image src="/images/logos/mariane.svg" alt="" width="55" height="20" />
                 <div className={styles.footerPropriétaire}>
                   <span>Ministère du</span>
                   <span>travail, de</span>
@@ -51,11 +51,11 @@ export default function Footer() {
                   <span>l&apos;insertion</span>
                 </div>
                 <div className={styles.footerDevise}>
-                  <Image src="/images/logos/devise.svg" alt="Mariane" width="52" height="37" />
+                  <Image src="/images/logos/devise.svg" alt="Liberté Égalité Fraternité" width="52" height="37" />
                 </div>
               </div>
               <div className={styles.footerLogoFranceRelance}>
-                <Image src="/images/logos/france-relance.svg" alt="Mariane" width="65" height="65" />
+                <Image src="/images/logos/france-relance.svg" alt="Logo France relance" width="65" height="65" />
               </div>
             </div>
             <div className={styles.footerMessageWrapper}>

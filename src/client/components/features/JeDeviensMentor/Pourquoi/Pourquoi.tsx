@@ -29,7 +29,7 @@ export function Pourquoi() {
     <div className={styles.pourquoi}>
       <article>
         <section>
-          { isLargeScreen && <Image src="/illustrations/mentorat-employeur.svg" alt="" layout="fixed" width={500} height={300}/> }
+          { isLargeScreen && <Image src="/illustrations/mentorat-employeur.svg" alt="" layout="fixed" width={500} height={300} aria-hidden="true"/> }
           <h2>Pourquoi participer à l’aventure du mentorat en tant qu’employeur ?</h2>
           {!displayAccordion && displayListeEmployeur()}
           {displayAccordion && (
@@ -38,7 +38,7 @@ export function Pourquoi() {
             </SeeMore>)}
         </section>
         <section>
-          { isLargeScreen && <Image src="/illustrations/mentorat-citoyen.svg" alt="" layout="fixed" width={500} height={300}/>}
+          { isLargeScreen && <Image src="/illustrations/mentorat-citoyen.svg" alt="" layout="fixed" width={500} height={300} aria-hidden="true"/>}
           <h2>Vous êtes citoyen : vous pouvez devenir mentor !</h2>
           {!displayAccordion && displayListeCitoyen()}
           {displayAccordion && (
