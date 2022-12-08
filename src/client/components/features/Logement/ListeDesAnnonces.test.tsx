@@ -28,7 +28,7 @@ describe('ListeDesAnnonces Component', () => {
     });
   });
 
-  describe('Quand la liste des annonces est chargé', () => {
+  describe('Quand la liste des annonces est chargée', () => {
     it('Affiche une liste d annonces', () => {
 	  render(<ListeDesAnnonces isLoading={false} resultats={<TestComponent/> as React.ReactNode}/>);
 
