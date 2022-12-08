@@ -35,8 +35,7 @@ describe('RechercherAccompagnement', () => {
       render(
         <DependenciesProvider
           localisationService={localisationServiceMock}
-          établissementAccompagnementService={établissementAccompagnementService}
-        >
+          établissementAccompagnementService={établissementAccompagnementService}>
           <RechercherAccompagnement />
         </DependenciesProvider>,
       );
@@ -68,8 +67,7 @@ describe('RechercherAccompagnement', () => {
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            établissementAccompagnementService={établissementAccompagnementService}
-          >
+            établissementAccompagnementService={établissementAccompagnementService}>
             <RechercherAccompagnement />
           </DependenciesProvider>,
         );
@@ -94,8 +92,7 @@ describe('RechercherAccompagnement', () => {
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            établissementAccompagnementService={établissementAccompagnementService}
-          >
+            établissementAccompagnementService={établissementAccompagnementService}>
             <RechercherAccompagnement />
           </DependenciesProvider>,
         );
@@ -110,8 +107,8 @@ describe('RechercherAccompagnement', () => {
       });
     });
 
-    describe('quand on filtre par localisation', () => {
-      it('retourne des établissements liés à la localisation', async () => {
+    describe('quand on filtre par localisation et type d\'accompagnement', () => {
+      it('retourne des établissements liés à la localisation et type d\'accompagnement', async () => {
         const établissementAccompagnementService = anÉtablissementAccompagnementService();
         const localisationServiceMock = aLocalisationService();
 
@@ -119,8 +116,7 @@ describe('RechercherAccompagnement', () => {
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}
-            établissementAccompagnementService={établissementAccompagnementService}
-          >
+            établissementAccompagnementService={établissementAccompagnementService}>
             <RechercherAccompagnement />
           </DependenciesProvider>,
         );
@@ -140,7 +136,6 @@ describe('RechercherAccompagnement', () => {
         expect(résultatRechercheÉtablissementAccompagnementTitle[2].textContent).toEqual('Point information jeunesse - Saint-Céré');
       });
     });
-
     it('affiche les informations des cards', () => {
       // Given
       mockUseRouter({});
@@ -149,8 +144,7 @@ describe('RechercherAccompagnement', () => {
       render(
         <DependenciesProvider
           établissementAccompagnementService={établissementAccompagnementService}
-          localisationService={localisationService}
-        >
+          localisationService={localisationService}>
           <RechercherAccompagnement />
         </DependenciesProvider>,
       );
@@ -164,6 +158,29 @@ describe('RechercherAccompagnement', () => {
       partenaireListItemList.forEach((partenaireListItem) => {
         expect(within(partenaireListItem).getByRole('link')).toBeInTheDocument();
       });
+    });
+  });
+  describe('quand la localisation ou le type d\'accompagnement est manquant', () => {
+    it('n\'effectue pas la recherche', async () => {
+      const établissementAccompagnementService = anÉtablissementAccompagnementService();
+      const localisationServiceMock = aLocalisationService();
+
+      mockUseRouter({ query: { codeCommune: '75056' } });
+      render(
+        <DependenciesProvider
+          localisationService={localisationServiceMock}
+          établissementAccompagnementService={établissementAccompagnementService}>
+          <RechercherAccompagnement />
+        </DependenciesProvider>,
+      );
+
+      // WHEN
+      const résultatRechercheÉtablissementAccompagnementListHeader = screen.queryByRole('list', { name: 'Établissements d‘accompagnement' });
+      const rechercheÉtablissementAccompagnementNombreRésultats = screen.queryByText('3 établissements d‘accompagnement pour les structures Infos Jeunes');
+
+      // THEN
+      expect(résultatRechercheÉtablissementAccompagnementListHeader).not.toBeInTheDocument();
+      expect(rechercheÉtablissementAccompagnementNombreRésultats).not.toBeInTheDocument();
     });
   });
 });

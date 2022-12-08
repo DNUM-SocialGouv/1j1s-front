@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 
 import {
   FormulaireRechercheAccompagnement,
@@ -8,24 +6,24 @@ import {
 import {
   RésultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement';
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
-import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
-import { PoleEmploiCard } from '~/client/components/features/Partner/PoleEmploiCard';
-import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
-import { TagList } from '~/client/components/ui/Tag/TagList';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
+import {PartnerCardList} from '~/client/components/features/Partner/Card/PartnerCard';
+import {InfoJeunesCard} from '~/client/components/features/Partner/InfoJeunesCard';
+import {MissionsLocalesCard} from '~/client/components/features/Partner/MissionsLocalesCard';
+import {PoleEmploiCard} from '~/client/components/features/Partner/PoleEmploiCard';
+import {RechercherSolutionLayout} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {EnTeteSection} from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import {LightHero} from '~/client/components/ui/Hero/LightHero';
+import {TagList} from '~/client/components/ui/Tag/TagList';
+import {HeadTag} from '~/client/components/utils/HeaderTag';
+import {useDependency} from '~/client/context/dependenciesContainer.context';
+import {useAccompagnementQuery} from '~/client/hooks/useAccompagnementQuery';
 import {
   ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
-import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import {formatRechercherSolutionDocumentTitle} from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import {ErreurMétier} from '~/server/errors/erreurMétier.types';
+import {ÉtablissementAccompagnement} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import {TypeÉtablissement} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 
 export interface LienSolutionAccompagnement {
   id: string
@@ -38,7 +36,6 @@ export interface LienSolutionAccompagnement {
 }
 
 export function RechercherAccompagnement() {
-  const router = useRouter();
   const accompagnementQuery = useAccompagnementQuery();
   const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
 
@@ -47,13 +44,16 @@ export function RechercherAccompagnement() {
   const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
   const [title, setTitle] = useState<string | undefined>();
 
-  useEffect(function rechercherÉtablissementAccompagnement() {
-    const queryString = stringify(router.query);
+  const isEachQueryParamPresent = useCallback(() => {
+    const { codeCommune, libelleCommune, typeAccompagnement } = accompagnementQuery;
+    return codeCommune && libelleCommune && typeAccompagnement;
+  }, [accompagnementQuery]);
 
-    if (queryString) {
+  useEffect(function rechercherÉtablissementAccompagnement() {
+    if (isEachQueryParamPresent()) {
       setIsLoading(true);
       setErreurRecherche(undefined);
-      établissementAccompagnementService.rechercher(queryString)
+      établissementAccompagnementService.rechercher(accompagnementQuery)
         .then((response) => {
           if (response.instance === 'success') {
             setTitle(formatRechercherSolutionDocumentTitle(`Rechercher un établissement d‘accompagnement ${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
@@ -65,7 +65,10 @@ export function RechercherAccompagnement() {
           setIsLoading(false);
         });
     }
-  }, [router.query, établissementAccompagnementService]);
+    else {
+      setErreurRecherche(ErreurMétier.DEMANDE_INCORRECTE);
+    }
+  }, [accompagnementQuery, isEachQueryParamPresent, établissementAccompagnementService]);
 
   const messageRésultatRecherche: string = useMemo(() => {
     const messageRésultatRechercheSplit: string[] = [`${établissementAccompagnementList.length}`];
