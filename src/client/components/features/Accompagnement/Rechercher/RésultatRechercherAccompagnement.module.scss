@@ -15,6 +15,7 @@
   align-self: stretch;
   gap: 1.5rem;
 }
+
 .logo {
   width: 6.8rem;
 
@@ -41,39 +42,29 @@
 
 
 .title {
+  margin-bottom: 0.5rem;
   @extend %text-medium;
-  @include media(large) {
-    font-size: 1.2rem;
-  }
 }
 
 .address {
-  margin-top: .2rem;
-  font-size: .9rem;
-  @include media(large) {
-    font-size: 1rem;
-  }
+  @extend %text-regular;
 }
 
 .tags {
   list-style-type: none;
-  margin-top: .5rem;
-
-  @include media (large) {
-    margin-top: auto;
-  }
+  margin-top: auto;
 }
 
 .button {
-  margin-top: 1.1rem;
+  margin-top: 1.25rem;
   font-weight: bold;
   color: $color-primary;
   align-self: center;
   text-decoration: none;
+  cursor: pointer;
 
   @include media(large) {
     width: 11.5rem;
-    font-size: 1.1rem;
     align-self: auto;
   }
 
@@ -83,13 +74,11 @@
 }
 
 .buttonIcon {
-  margin-left: .4rem;
-  padding-top: .3rem;
+  vertical-align: sub;
+  margin-left: 0.5rem;
 }
 
 .details {
-  cursor: default;
-  margin-top: .2rem;
   width: 15rem;
   align-self: center;
 
@@ -100,43 +89,42 @@
   }
 
   .summary {
-    font-size: .9rem;
+    @extend %text-regular;
+    margin-bottom: 0.5rem;
     font-weight: normal;
-    padding: .5rem 0 0 0;
+    padding: 0.5rem 0 0 0;
     text-align: center;
     text-decoration: underline;
+    text-underline-offset: 4px;
     color: $color-primary;
-    background-repeat: no-repeat;
-    background-position: calc(50% + 7rem) .5rem;
-    background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23566BB1' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
-    list-style: none;
     cursor: pointer;
+    list-style: none;
+    width: 16rem;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-repeat: no-repeat;
+      background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23566BB1' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
+      vertical-align: top;
+      margin-left: 0.5rem;
+    }
 
     @include media(large) {
       font-size: 1rem;
-      padding: 0 0 0 0;
-      background-position: 23ch 0;
-      text-align: left;
-      margin-left: 1rem;
+      padding: 0;
     }
 
     &:hover {
       color: $color-primary-on-hover;
-      background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23735BF2' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");    list-style: none;
+      list-style: none;
     }
-
-    &, & > * {
-      @extend %bold;
-    }
-
   }
 
-  &[open] .summary {
-    background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='24' viewBox='0 0 24 24' fill='%23566BB1' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 10.8281L7.04999 15.7781L5.63599 14.3641L12 8.00008L18.364 14.3641L16.95 15.7781L12 10.8281Z' /></svg>");
-
-    &:hover {
-      background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='24' viewBox='0 0 24 24' fill='%23735BF2' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 10.8281L7.04999 15.7781L5.63599 14.3641L12 8.00008L18.364 14.3641L16.95 15.7781L12 10.8281Z' /></svg>");
-    }
+  &[open] .summary:after {
+    transform: rotate(-180deg);
   }
 }
 
@@ -153,20 +141,21 @@
 .listeHoraire {
   list-style: none;
   line-height: 1.15rem;
-  font-size: .8rem;
-  margin: .4rem auto .4rem;
+  margin-block: 0.25rem;
+  margin-left: 1rem;
   width: 12rem;
+  @extend %text-small;
 
   @include media(large) {
+    margin-left: 0;
     width: auto;
-    margin-left: 1rem;
   }
 }
 
 .horaireJour {
-  font-weight: bold;
+  @extend %bold;
 }
 
 .horaireHeure {
-  margin-left: .5ch;
+  margin-left: 0.5ch;
 }

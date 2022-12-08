@@ -63,7 +63,7 @@ describe('RechercherAccompagnement', () => {
         établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createSuccess([]));
         const localisationServiceMock = aLocalisationService();
 
-        mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris' } });
+        mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'cij' } });
         render(
           <DependenciesProvider
             localisationService={localisationServiceMock}

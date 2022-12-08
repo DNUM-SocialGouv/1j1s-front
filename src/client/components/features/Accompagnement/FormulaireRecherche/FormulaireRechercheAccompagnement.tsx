@@ -61,8 +61,6 @@ export function FormulaireRechercheAccompagnement() {
           name={'typeAccompagnement'}
           optionList={typeAccompagnementListe}
           value={inputAccompagnement}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           onChange={setInputAccompagnement}/>
       </div>
       <ButtonComponent
