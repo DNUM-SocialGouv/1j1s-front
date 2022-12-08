@@ -1,16 +1,34 @@
 @import "@styles/utilities";
 
-.rechercheOffreForm {
-  display: flex;
-  flex-direction: column;
-}
+.rechercherAccompagnement {
+  @include media(medium) {
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
 
-.filtresRechercherOffre {
-  flex: 1 0;
+  &Hint {
+    font-size: .8rem;
+    margin-bottom: .5rem;
+
+    @include media(medium) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+
+    @include media(medium) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
 }
 
 .inputButtonWrapper > * {
   margin-bottom: 1.5rem;
+  flex: 1 0;
 }
 
 .buttonRechercher > button {
@@ -18,13 +36,6 @@
 }
 
 @include media(medium){
-  .rechercheOffreForm {
-    flex-direction: row;
-    align-items: flex-start;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-
   .buttonRechercher {
     margin-top: 28px;
     margin-left: 40px;

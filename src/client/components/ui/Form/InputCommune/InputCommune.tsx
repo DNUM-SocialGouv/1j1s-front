@@ -252,6 +252,7 @@ export const InputCommune = (props: InputCommuneProps) => {
               }}
               onKeyDown={handleKeyDown}
               onClick={() => setSuggestionsActive(!!codeCommune)}
+              required={required}
             />
             {(required && invalid) && (
               <span className={classNames(styles.instructionMessageError)}>
