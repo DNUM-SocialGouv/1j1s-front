@@ -52,7 +52,7 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
   }, [id, uuid]);
 
   return (
-    <>
+    <div>
       <label htmlFor={inputRef.current}>{label}</label>
       <span className={styles.customSearchBoxInputWrapper}>
         <input
@@ -69,6 +69,6 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
           </button>
         }
       </span>
-    </>
+    </div>
   );
 };

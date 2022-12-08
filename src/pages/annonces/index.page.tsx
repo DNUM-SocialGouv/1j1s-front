@@ -10,13 +10,12 @@ import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce
 import { ListeDesAnnonces } from '~/client/components/features/Logement/ListeDesAnnonces';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import NotFound from '~/pages/404.page';
 import styles from '~/pages/annonces/RechercherLogement.module.scss';
-
-import { MeilisearchCustomSearchBox } from '../../client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 
 const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
