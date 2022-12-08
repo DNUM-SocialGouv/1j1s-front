@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.0...v2.19.1) (2022-12-08)
+
+
+### Bug Fixes
+
+* **accompagnement:** ne pas afficher bouton contact si email non renseigné ([720776e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/720776e400f879239107c18d3a64e0f4d2465ea0))
+
 ## [2.19.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.18.0...v2.19.0) (2022-12-08)
 
 
