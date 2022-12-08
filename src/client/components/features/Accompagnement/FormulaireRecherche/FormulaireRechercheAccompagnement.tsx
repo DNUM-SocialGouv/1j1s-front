@@ -30,13 +30,15 @@ export function FormulaireRechercheAccompagnement() {
   }
 
   return (
+
     <form
       ref={rechercheAccompagnementForm}
       role="form"
-      className={styles.rechercheOffreForm}
+      className={styles.rechercherAccompagnement}
       onSubmit={updateRechercheAccompagnementQueryParams}
     >
-      <div className={styles.filtresRechercherOffre}>
+      <div className={styles.rechercherAccompagnementHint}>Tous les champs sont obligatoires</div>
+      <div className={styles.rechercherAccompagnementWrapper}>
         <div className={styles.inputButtonWrapper}>
           <InputCommune
             code={inputCodeCommune}
@@ -45,14 +47,14 @@ export function FormulaireRechercheAccompagnement() {
             required
           />
         </div>
-      </div>
-      <div className={styles.buttonRechercher}>
-        <ButtonComponent
-          label='Rechercher'
-          icon={<Icon name="magnifying-glass" />}
-          iconPosition='right'
-          type='submit'
-        />
+        <div className={styles.buttonRechercher}>
+          <ButtonComponent
+            label='Rechercher'
+            icon={<Icon name="magnifying-glass" />}
+            iconPosition='right'
+            type='submit'
+          />
+        </div>
       </div>
     </form>
   );
