@@ -14,6 +14,7 @@ interface SelectProps {
   placeholder?: string;
   optionList: Option[];
   value?: string;
+  className?: string
   label: string;
   name?: string;
   multiple?: boolean;
@@ -30,7 +31,7 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
-export function Select({ className, optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps & React.HTMLAttributes<HTMLDivElement>) {
+export function Select({ className, optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps) {
   const optionsRef = useRef<HTMLDivElement>(null);
   const listBoxRef = useRef<HTMLUListElement>(null);
 

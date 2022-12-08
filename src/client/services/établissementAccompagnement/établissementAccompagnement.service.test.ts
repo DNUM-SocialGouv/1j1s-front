@@ -13,11 +13,15 @@ describe('établissementAccompagnementService', () => {
       const httpClient = anHttpClientService();
       jest.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anÉtablissementAccompagnementList()));
       const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClient);
-      const query = 'codeCommune=41600';
+      const accompagnementQueryParams = {
+        codeCommune: '41600',
+        libelleCommune: 'Lamotte-Beuvron',
+        typeAccompagnement: 'cij',
+      };  
 
-      const actual = await établissementAccompagnementService.rechercher(query);
+      const actual = await établissementAccompagnementService.rechercher(accompagnementQueryParams);
 
-      expect(httpClient.get).toHaveBeenCalledWith('etablissements-accompagnement?codeCommune=41600');
+      expect(httpClient.get).toHaveBeenCalledWith('etablissements-accompagnement?codeCommune=41600&libelleCommune=Lamotte-Beuvron&typeAccompagnement=cij');
       expect(actual).toEqual(createSuccess(anÉtablissementAccompagnementList()));
     });
   });

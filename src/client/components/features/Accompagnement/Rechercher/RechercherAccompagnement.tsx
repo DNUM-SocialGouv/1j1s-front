@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   FormulaireRechercheAccompagnement,
@@ -6,24 +6,24 @@ import {
 import {
   RésultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement';
-import {PartnerCardList} from '~/client/components/features/Partner/Card/PartnerCard';
-import {InfoJeunesCard} from '~/client/components/features/Partner/InfoJeunesCard';
-import {MissionsLocalesCard} from '~/client/components/features/Partner/MissionsLocalesCard';
-import {PoleEmploiCard} from '~/client/components/features/Partner/PoleEmploiCard';
-import {RechercherSolutionLayout} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {EnTeteSection} from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import {LightHero} from '~/client/components/ui/Hero/LightHero';
-import {TagList} from '~/client/components/ui/Tag/TagList';
-import {HeadTag} from '~/client/components/utils/HeaderTag';
-import {useDependency} from '~/client/context/dependenciesContainer.context';
-import {useAccompagnementQuery} from '~/client/hooks/useAccompagnementQuery';
+import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
+import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
+import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
+import { PoleEmploiCard } from '~/client/components/features/Partner/PoleEmploiCard';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { TagList } from '~/client/components/ui/Tag/TagList';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import {
   ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
-import {formatRechercherSolutionDocumentTitle} from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import {ErreurMétier} from '~/server/errors/erreurMétier.types';
-import {ÉtablissementAccompagnement} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import {TypeÉtablissement} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 
 export interface LienSolutionAccompagnement {
   id: string
