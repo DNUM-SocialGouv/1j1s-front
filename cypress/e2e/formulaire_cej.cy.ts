@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 /***
  * DEVNOTE
  * il faut configurer votre .env avec
@@ -5,8 +7,9 @@
  * STRAPI_URL_API=http://127.0.0.1:1337/api/
  * car cypress n'a pas accès au localhost:1337
  */
+
 describe('Parcours formulaire cej', () => {
-  before(() => {
+  beforeEach(() => {
     cy.viewport('iphone-6');
     cy.visit('/contrat-engagement-jeune');
   });

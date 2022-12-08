@@ -1,7 +1,9 @@
+/// <reference types="cypress" />
+
 import { aBarmanOffre, aRésultatEchantillonOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('Parcours emplois', () => {
-  before(() => {
+  beforeEach(() => {
     cy.viewport('iphone-6');
     cy.visit('/emplois');
   });
