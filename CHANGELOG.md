@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.19.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.18.0...v2.19.0) (2022-12-08)
+
+
+### Features
+
+* **analytics:** suppression tracking google ([04c2426](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04c24260222716e6301f9a8f566036c06d3422ec))
+* **engagement:** ajout joi sur le controller ([720aef6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/720aef61146d8170159782f0a852c9acaac4cf39))
+
+
+### Bug Fixes
+
+* **accompagnement:** ajout label "champ obligatoire" pour input localisation ([1c856be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1c856be711e4a15e231268261d0522526236e22b))
+* **multiple:** regression champ localisation service civique et benevolat ([f861d21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f861d21b45269c9a6537725cc533df99dada3222))
+
 ## [2.19.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.18.0...v2.19.0) (2022-12-07)
 
 
