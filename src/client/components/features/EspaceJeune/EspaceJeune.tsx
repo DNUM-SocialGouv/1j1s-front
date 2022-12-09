@@ -18,7 +18,7 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
   return (
     <>
       <HeadTag title="Espace jeune | 1jeune1solution"/>
-      <Hero className={styles.bannière} image="/illustrations/espace-jeune.svg">
+      <Hero className={styles.bannière} image="/illustrations/espace-jeune.svg" ariaHidden>
         <span>Plan 1jeune1solution : Découvrez les solutions pour </span>
         <span>aider chacun d&apos;entre vous à accéder à l&apos;emploi</span>
       </Hero>

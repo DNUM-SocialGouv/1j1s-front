@@ -198,13 +198,13 @@ export default function EuropePage() {
           ? (
             <div className={styles.sectionNiveauAnglais__ImageWrapper}>
               <div className={styles.logoWrapper}>
-                <Image src={'/images/logos/wall-street-english-blue.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+                <Image src={'/images/logos/wall-street-english-blue.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top" aria-hidden="true"/>
               </div>
             </div>
           )
           : (
             <div className={styles.logoWrapper}>
-              <Image src={'/images/logos/wall-street-english.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+              <Image src={'/images/logos/wall-street-english.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top" aria-hidden="true"/>
             </div>
           )
         }

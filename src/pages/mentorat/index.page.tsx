@@ -87,7 +87,7 @@ export default function MentoratPage() {
             </div>
             { isLargeScreen && (
               <div className={styles.imageWrapper}>
-                <Image src="/illustrations/aventure-du-mentorat.svg" alt="" layout="fill" objectFit="contain"/>
+                <Image src="/illustrations/aventure-du-mentorat.svg" alt="" layout="fill" objectFit="contain" aria-hidden="true"/>
               </div>
             ) }
           </article>
