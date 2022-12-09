@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.1...v2.19.2) (2022-12-09)
+
+
+### Bug Fixes
+
+* **Evenement:** correction de retours ux ui ([f40ba84](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f40ba845b7261a184a4d188e18a628075bc7a127))
+
 ## [2.19.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.0...v2.19.1) (2022-12-08)
 
 
