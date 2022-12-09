@@ -1,8 +1,8 @@
 {
   "name": "1j1s-front",
   "engines": {
-    "node": "16",
-    "npm": "8"
+    "node": "18",
+    "npm": "9"
   },
   "version": "2.19.1",
   "private": true,
