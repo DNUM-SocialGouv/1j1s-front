@@ -8,9 +8,10 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroProps extends CommonProps {
   image?: string
+  ariaHidden?: boolean
 }
 
-export function Hero({ children, image, className, ...rest }: React.PropsWithChildren<HeroProps>) {
+export function Hero({ children, image, ariaHidden, className, ...rest }: React.PropsWithChildren<HeroProps>) {
   const { isLargeScreen } = useBreakpoint();
 
   return (
@@ -20,7 +21,7 @@ export function Hero({ children, image, className, ...rest }: React.PropsWithChi
       </h1>
       {image && isLargeScreen && (
         <div className={styles.heroIllustration}>
-          <Image src={image} alt="" layout="fill" objectFit="cover" objectPosition="top left"/>
+          <Image src={image} alt="" layout="fill" objectFit="cover" objectPosition="top left" aria-hidden={ariaHidden}/>
         </div>
       )}
     </div>
