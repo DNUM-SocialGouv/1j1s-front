@@ -19,13 +19,13 @@ export function RésultatRechercherEvenement(props: Evenement) {
         <CardComponent.Content className={styles.content}>
           <div className={styles.event}>
             <div className={styles.eventDetails}>{formatEventDateTime(dateDebut, dateFin)} <span
-              className={styles.eventOrganizer}>- {organismeOrganisateur} -</span> {lieuEvenement.toUpperCase()}
+              className={styles.eventOrganizer}>- {organismeOrganisateur}</span>
             </div>
             <div className={styles.eventTitle}>{titreEvenement}</div>
           </div>
         </CardComponent.Content>
         <div className={styles.tagLink}>
-          <TagList className={styles.tagList} list={[lieuEvenement]} aria-label="Lieu de l'évènement"/>
+          <TagList list={[lieuEvenement]} aria-label="Lieu de l'évènement"/>
           <CardComponent.FakeLink appearance={'tertiary'} icon={<Icon name={'angle-right'}/>}
             label={'En savoir plus'}/>
         </div>
