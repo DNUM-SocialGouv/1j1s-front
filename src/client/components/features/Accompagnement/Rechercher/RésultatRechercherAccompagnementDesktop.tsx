@@ -33,18 +33,20 @@ export function RésultatRechercherAccompagnementDesktop(props: Omit<LienSolutio
             </a>
           }
         </div>
-        <details className={styles.details}>
-          <summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
-          <div className={styles.horaireBackground}>
-            <ol className={styles.listeHoraire}>
-              {horaires?.map((horaire) => (
-                <li key={horaire.jour} className={styles.horaireElement}>
-                  <span className={styles.horaireJour}>{horaire.jour}</span>&nbsp;: {displayHeures(horaire.heures)}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </details>
+        {horaires &&
+          <details className={styles.details}>
+            <summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
+            <div className={styles.horaireBackground}>
+              <ol className={styles.listeHoraire}>
+                {horaires.map((horaire) => (
+                  <li key={horaire.jour} className={styles.horaireElement}>
+                    <span className={styles.horaireJour}>{horaire.jour}</span>&nbsp;: {displayHeures(horaire.heures)}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </details>
+        }
       </CardComponent.Content>
     </CardComponent>
   );

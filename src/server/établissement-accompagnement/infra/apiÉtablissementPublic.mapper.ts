@@ -15,7 +15,7 @@ export function mapÉtablissementAccompagnement(résultatRechercheÉtablissement
   return résultatRechercheÉtablissementPublic.features.map((feature) => ({
     adresse: mapAdresse(feature.properties.adresses),
     email: feature.properties.email,
-    horaires: mapHoraire(feature.properties.horaires),
+    horaires: feature.properties.horaires && mapHoraire(feature.properties.horaires),
     id: feature.properties.id,
     nom: feature.properties.nom,
     telephone: feature.properties.telephone,
