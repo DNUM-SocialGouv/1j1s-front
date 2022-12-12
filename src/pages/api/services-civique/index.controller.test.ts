@@ -11,7 +11,7 @@ import { anAxiosResponse } from '~/server/services/http/httpClientService.fixtur
 describe('rechercher une mission du service civique', () => {
   it('retourne la liste des missions filtrées', async () => {
     nock('https://api.api-engagement.beta.gouv.fr/v0')
-      .get('/mission/search?publisher=5f99dbe75eb1ad767733b206&size=15&from=0')
+      .get('/mission/search?distance=10km&domain=culture-loisirs&from=0&lat=48.841959&lon=2.295289&publisher=5f99dbe75eb1ad767733b206&size=15')
       .reply(200, anAxiosResponse(aSearchMissionEngagementResponse()).data);
 
     await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
@@ -21,7 +21,7 @@ describe('rechercher une mission du service civique', () => {
         const json = await res.json();
         expect(json).toEqual(aRésultatRechercheMission());
       },
-      url: 'services-civique?page=1',
+      url: 'services-civique?domain=culture-loisirs&libelleCommune=Paris%2015e%20Arrondissement%20(75015)&codeCommune=75115&latitudeCommune=48.841959&longitudeCommune=2.295289&distanceCommune=10&page=1',
     });
   });
 

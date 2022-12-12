@@ -12,14 +12,14 @@ describe('Parcours service civique', () => {
       cy.get('button').contains('Sélectionnez votre choix').click();
       cy.get('ul[role="listbox"]').first().click();
 
+      cy.get('input[name="libelleCommune"]').type('paris');
+      cy.get('ul[role="listbox"]').first().click();
+
       cy.get('button').contains('Rechercher').click();
 
-      cy.intercept({
-        pathname: '/api/services-civique',
-        query: { domain: 'culture-loisirs', page: '1' },
-      }, aRésultatRechercheMission());
+      cy.intercept({ pathname: '/api/services-civique' }, aRésultatRechercheMission());
 
-      cy.get('ul[aria-label="Offre pour le service civique"] > li a').should('have.length', 15);
+      cy.get('ul[aria-label="Offre pour le service civique"] > li a').should('have.length', 2);
     });
   });
 
