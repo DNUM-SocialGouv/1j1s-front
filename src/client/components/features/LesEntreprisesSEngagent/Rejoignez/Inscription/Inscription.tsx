@@ -13,6 +13,7 @@ import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
@@ -45,6 +46,10 @@ export enum Etape {
   ETAPE_2 = 'Etape 2 sur 2'
 }
 
+export const TITLE_ETAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 1 sur 2 | 1jeune1solution';
+export const TITLE_ETAPE_2 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 2 sur 2 | 1jeune1solution';
+export const TITLE_VALIDEE = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Formulaire envoyé | 1jeune1solution';
+
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
 export default function Inscription() {
@@ -53,6 +58,7 @@ export default function Inscription() {
   const [etape, setEtape] = useState<Etape>(Etape.ETAPE_1);
   const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
   const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
+  const [title, setTitle] = useState<string>(TITLE_ETAPE_1);
 
   const [formulaireEtape1, setFormulaireEtape1] = useState<FormulaireEtape1Props>({
     codePostal: '',
@@ -75,7 +81,11 @@ export default function Inscription() {
 
   function goToEtape2(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    return (isPremièreEtape() && isPremièreEtapeValid()) && setEtape(Etape.ETAPE_2);
+    setTitle(TITLE_ETAPE_2);
+    if (isPremièreEtape() && isPremièreEtapeValid()) {
+      setTitle(TITLE_ETAPE_2);
+      return setEtape(Etape.ETAPE_2);
+    }
   }
 
   function returnToLesEntreprisesSEngagent() {
@@ -83,6 +93,7 @@ export default function Inscription() {
   }
 
   function returnToEtape1() {
+    setTitle(TITLE_ETAPE_1);
     return setEtape(Etape.ETAPE_1);
   }
 
@@ -93,6 +104,7 @@ export default function Inscription() {
       const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireEtape1, ...formulaireEtape2 });
 
       if (isSuccess(response)) {
+        setTitle(TITLE_VALIDEE);
         setIsFormSuccessfullySent(true);
       }
     }
@@ -107,6 +119,7 @@ export default function Inscription() {
 
   return (
     <>
+      <HeadTag title={title} description={'Formulaire d’inscription pour rejoindre la mobilisation “Les Entreprises s’Engagent”'} />
       {
         !isFormSuccessfullySent &&
         <>

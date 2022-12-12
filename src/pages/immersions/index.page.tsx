@@ -11,8 +11,7 @@ export default function Immersions() {
   return (
     <>
       <HeadTag
-        title="Immersions"
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
+        title="Je propose des immersions | 1jeune1solution"
       />
       <main id="contenu">
         <RéférencerEntreprises />
