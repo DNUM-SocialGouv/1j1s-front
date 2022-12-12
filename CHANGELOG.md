@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.22.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.21.0...v2.22.0) (2022-12-12)
+
+
+### Features
+
+* **logement:** affichage de la liste des annonces ([1806029](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1806029bd869fad151e2e51fcd6b070013182363))
+* **multiple:** création d'un composant custom pour searchbox ([1806029](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1806029bd869fad151e2e51fcd6b070013182363))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to ~7.25.0 ([c4f542c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c4f542cfc858ad60eb046dea2f41d3a5da331c23))
+
 ## [2.21.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.20.0...v2.21.0) (2022-12-12)
 
 
