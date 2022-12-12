@@ -6,18 +6,19 @@ import {
   CurrentRefinements,
   Hits,
   InstantSearch,
+  SearchBox,
   useInstantSearch,
 } from 'react-instantsearch-hooks-web';
 
 import { Evenement } from '~/client/components/features/Evenement/Evenement.type';
 import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/RésultatRechercherEvenement';
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
-import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -33,6 +34,14 @@ const STATUS_LOADING = 'loading';
 export default function PageEvenements() {
   const displayRechercheEvenement = process.env.NEXT_PUBLIC_RECHERCHE_EVENEMENT_FEATURE === '1';
   const searchClient = useDependency<SearchClient>('rechercheClientService');
+
+  function disableEnterKey() {
+    return (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key == KeyBoard.ENTER) {
+        e.preventDefault();
+      }
+    };
+  }
 
   const Résultat = ({ hit: résultat }: { hit: Evenement }) => {
     return <RésultatRechercherEvenement
@@ -103,11 +112,23 @@ export default function PageEvenements() {
               <Container className={styles.evenementFormWrapper}>
                 <form className={styles.evenementForm}>
                   <div className={styles.formWrapper}>
-                    <MeilisearchCustomSearchBox
-                      label="Mot-clé, métier, accompagnement…"
-                      name="motCle"
-                      placeholder="Exemples: gendarmerie, cuisinier, mentorat"
-                    />
+                    <div>
+                      <label>Mot-clé, métier, accompagnement…</label>
+                      <SearchBox
+                        onKeyDown={disableEnterKey()}
+                        className='recherche-principale-evenement'
+                        placeholder="Exemples: gendarmerie, cuisinier, mentorat"
+                        classNames={
+                          {
+                            input: ['fr-input', styles.evenementInput].join(' '),
+                            loadingIcon: styles.none,
+                            reset: styles.none,
+                            submit: styles.none,
+                            submitIcon: styles.none,
+                          }
+                        }
+                      />
+                    </div>
                     <MeilisearchInputRefinement attribute={'lieuEvenement'}
                       limit={LIMIT_MAX_FACETS}/>
                   </div>

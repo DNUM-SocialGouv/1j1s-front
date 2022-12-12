@@ -6,6 +6,7 @@ import {
   CurrentRefinements,
   Hits,
   InstantSearch,
+  SearchBox,
   useInstantSearch,
 } from 'react-instantsearch-hooks-web';
 
@@ -17,7 +18,6 @@ import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
-import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -53,6 +53,14 @@ const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
     key={résultat.slug}
   />;
 };
+
+function disableEnterKey() {
+  return (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+    }
+  };
+}
 
 export default function RechercherOffreStagePage() {
   useReferrer();
@@ -98,11 +106,22 @@ export default function RechercherOffreStagePage() {
             <Container className={styles.stageFormWrapper}>
               <form className={styles.stageForm}>
                 <div className={styles.formWrapper}>
-                  <MeilisearchCustomSearchBox
-                    label="Métiers, mots clés, …"
-                    name="motCle"
-                    placeholder="Métiers, mots clés, …"
-                  />
+                  <div>
+                    <label>Métiers, mots clés, …</label>
+                    <SearchBox
+                      onKeyDown={disableEnterKey()}
+                      placeholder="Métiers, mots clés, …"
+                      classNames={
+                        {
+                          input: styles.stageInputElement,
+                          loadingIcon: styles.none,
+                          reset: styles.none,
+                          submit: styles.none,
+                          submitIcon: styles.none,
+                        }
+                      }
+                    />
+                  </div>
                   <MeilisearchInputRefinement attribute={'localisationFiltree'}
                     limit={LIMIT_MAX_FACETS}/>
                   <MeilisearchCustomRefinementList
