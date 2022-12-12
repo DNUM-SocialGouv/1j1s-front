@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.2...v2.19.3) (2022-12-12)
+
+
+### Bug Fixes
+
+* **multiple:** modification validateur codeLocalisation ([520b1a2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/520b1a275c39c53bc88ab18f77df14ce2c464eb2))
+
 ## [2.19.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.1...v2.19.2) (2022-12-09)
 
 
