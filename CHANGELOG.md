@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.21.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.20.0...v2.21.0) (2022-12-12)
+
+
+### Features
+
+* **entreprise/test e2e:** ajout de test avec cypress sur le formulaire entreprise ([#586](https://github.com/DNUM-SocialGouv/1j1s-front/issues/586)) ([4481c6d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4481c6d81fb2281165f6d388a9bf1cdca63181bf))
+
 ## [2.20.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.3...v2.20.0) (2022-12-12)
 
 
