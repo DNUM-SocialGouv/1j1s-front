@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.20.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.3...v2.20.0) (2022-12-12)
+
+
+### Features
+
+* **engagement:** unrevert joi on engagement ([#590](https://github.com/DNUM-SocialGouv/1j1s-front/issues/590)) ([50d226b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/50d226b839d6a896440606446517a0a25980e177))
+
 ## [2.19.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.19.2...v2.19.3) (2022-12-12)
 
 
