@@ -30,7 +30,7 @@ export default function Accompagnement() {
   function displayMissionLocaleLogoContainer() {
     return (
       <>
-        <div className={classNames(styles.imageContainer, styles.missionLocaleImageContainer)}><Image src={missionLocaleImage} alt="" layout={'fill'}/></div>
+        <div className={classNames(styles.imageContainer, styles.missionLocaleImageContainer)}><Image src={missionLocaleImage} alt="" layout={'fill'} aria-hidden="true"/></div>
         <div className={styles.petiteDescriptionStructure}>
           <span>Les missions locales proposent un suivi personnalisé</span>
           <br />
@@ -43,7 +43,7 @@ export default function Accompagnement() {
   function displayInfoJeunesLogoContainer() {
     return (
       <>
-        <div className={classNames(styles.imageContainer, styles.infoJeunesImageContainer)}><Image src={infoJeunesImage} alt="" layout={'fill'}/></div>
+        <div className={classNames(styles.imageContainer, styles.infoJeunesImageContainer)}><Image src={infoJeunesImage} alt="" layout={'fill'} aria-hidden="true"/></div>
         <div className={styles.petiteDescriptionStructure}>
           <span>Info Jeunes, le réseau d’accueil et d’information des jeunes en France</span>
           <br />
@@ -55,7 +55,7 @@ export default function Accompagnement() {
 
   function displayPoleEmploiLogoContainer() {
     return <>
-      <div className={classNames(styles.imageContainer, styles.poleEmploiImageContainer)}><Image src={poleEmploiImage} alt="" layout={'fill'}/></div>
+      <div className={classNames(styles.imageContainer, styles.poleEmploiImageContainer)}><Image src={poleEmploiImage} alt="" layout={'fill'} aria-hidden="true"/></div>
       <div className={styles.petiteDescriptionStructure}>
         <span>Pôle emploi propose un accompagnement intensif</span>
         <br/>
