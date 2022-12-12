@@ -8,12 +8,12 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
   aLocalisationService,
   aLocalisationServiceWithEmptyRésultat,
 } from '~/client/services/localisation/localisationService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
 
 describe('InputCommune', () => {
   afterEach(() => {

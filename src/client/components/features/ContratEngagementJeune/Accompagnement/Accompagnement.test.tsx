@@ -7,10 +7,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Accompagnement from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
-import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
+import { mockSmallScreen } from '~/client/window.mock';
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);

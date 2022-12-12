@@ -30,6 +30,7 @@
   @extend %text-medium;
 
   .nombreRésultats {
+    margin-right: 0.4rem;
     @extend %bold;
   }
 }

@@ -6,10 +6,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
 import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 
 describe('LesEntreprisesSEngagentInscription', () => {

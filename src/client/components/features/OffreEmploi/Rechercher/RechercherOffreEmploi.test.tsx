@@ -7,14 +7,14 @@ import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import {
   anOffreService,
   aNoResultOffreService,
   aSingleResultOffreService } from '~/client/services/offre/offreService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 
 describe('RechercherOffreEmploi', () => {
   beforeEach(() => {

@@ -5,7 +5,7 @@
 import { render, screen } from '@testing-library/react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockUseRouter } from '~/client/useRouter.mock';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 
 const article = anArticle();

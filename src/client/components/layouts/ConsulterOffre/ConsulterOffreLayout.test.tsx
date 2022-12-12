@@ -5,7 +5,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockUseRouter } from '~/client/useRouter.mock';
 
 describe('ConsulterOffreLayout', () => {
   describe('quand l’utilisateur clique sur le bouton retour', () => {

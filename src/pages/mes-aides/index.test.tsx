@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 import MesAidesPage from '~/pages/mes-aides/index.page';
 
 describe('MesAidesPage', () => {

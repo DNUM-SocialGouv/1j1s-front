@@ -117,6 +117,7 @@
   }
 
   .content {
+    background-color: $color-background; //TODO pour Olivia
     padding-left: 8rem;
     padding-right: 8rem;
     padding-bottom: 2rem;
@@ -136,7 +137,7 @@
   }
 
   .formulaire {
-
+    background-color: white; // TODO pour Olivia
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;

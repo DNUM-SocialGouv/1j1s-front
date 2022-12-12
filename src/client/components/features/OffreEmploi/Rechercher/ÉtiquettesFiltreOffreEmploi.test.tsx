@@ -8,8 +8,8 @@ import React from 'react';
 import {
   ÉtiquettesFiltreOffreEmploi,
 } from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 
 describe('Étiquettes filtre emploi', () => {
 

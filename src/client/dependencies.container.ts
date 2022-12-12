@@ -60,10 +60,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const searchClient = instantMeiliSearch(
     meiliSearchBaseUrl,
     meiliSearchApiKey,
-    {
-      keepZeroFacets: true,
-      primaryKey: 'slug',
-    },
+    { keepZeroFacets: true },
   );
 
   const rechercheClientService: SearchClient = {

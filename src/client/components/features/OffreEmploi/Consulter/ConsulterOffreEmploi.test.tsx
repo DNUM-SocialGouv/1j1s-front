@@ -5,7 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockUseRouter } from '~/client/useRouter.mock';
 import { aBarmanOffre, aMaçonOffre, aValetOffre } from '~/server/offres/domain/offre.fixture';
 
 jest.mock('dompurify', () => {

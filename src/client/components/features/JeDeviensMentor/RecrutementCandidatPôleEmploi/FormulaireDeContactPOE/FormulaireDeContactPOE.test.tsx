@@ -10,11 +10,11 @@ import userEvent from '@testing-library/user-event';
 import {
   FormulairesPoleEmploi,
 } from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulaireDeContactPOE/FormulaireDeContactPOE';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockLargeScreen } from '~/client/window.mock';
 import JeRecruteAfprPoeiInscription from '~/pages/je-recrute-afpr-poei/inscription/index.page';
 import { createSuccess } from '~/server/errors/either';
 

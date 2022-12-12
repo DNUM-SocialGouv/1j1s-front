@@ -5,8 +5,8 @@ import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
 import { ConsulterMissionEngagement } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 import {
   anAmbassadeurDuDonDeVêtementMission,
 } from '~/server/engagement/domain/missionEngagement.fixture';

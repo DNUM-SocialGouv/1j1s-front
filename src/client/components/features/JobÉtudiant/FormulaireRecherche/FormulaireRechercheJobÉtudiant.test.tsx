@@ -10,10 +10,10 @@ import React from 'react';
 import {
   FormulaireRechercheJobÉtudiant,
 } from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/window.mock';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheJobÉtudiant', () => {

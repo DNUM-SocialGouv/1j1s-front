@@ -7,8 +7,8 @@ import { render, screen, within } from '@testing-library/react';
 import {
   RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockUseRouter } from '~/client/useRouter.mock';
+import { mockSmallScreen } from '~/client/window.mock';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('RésultatRechercherSolution', () => {

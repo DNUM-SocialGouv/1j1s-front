@@ -16,26 +16,24 @@ export function useStats(props?: UseStatsProps) {
   );
 }
 
-export function MeilisearchStats(props: UseStatsProps & { labelSingulier: string, labelPluriel: string, isLoading: boolean }) {
-
-  //TODO OLIV SORTIR LE HOOK
+export function MeilisearchStats(props: UseStatsProps & { labelSingulier: string, labelPluriel: string }) {
   const { nbHits } = useStats(props);
   const { labelSingulier, labelPluriel } = props;
   const { status } = useInstantSearch();
 
   function AfficherMessageRésultats() {
     return <>
-      {nbHits === 1 &&
+      {nbHits == 1 &&
             <h2 className={styles.stats}>
               <span className={styles.nombreRésultats}>{nbHits}</span>
-              {' ' + labelSingulier}
+              {labelSingulier}
             </h2>}
       {nbHits > 1 &&
             <h2 className={styles.stats}>
               <span className={styles.nombreRésultats}>{nbHits}</span>
-              {' ' + labelPluriel}
+              {labelPluriel}
             </h2>}
-      {nbHits === 0 &&
+      {nbHits == 0 &&
             <ErrorComponent/>
       }
     </>;
