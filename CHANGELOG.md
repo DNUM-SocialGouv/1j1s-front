@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.22.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.22.0...v2.22.1) (2022-12-12)
+
+
+### Bug Fixes
+
+* **Logement:** ajout d'une props manquante SvgProps ([36d1200](https://github.com/DNUM-SocialGouv/1j1s-front/commit/36d1200cc31e1abf3460e6741d6ed269a6679300))
+
 ## [2.22.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.21.0...v2.22.0) (2022-12-12)
 
 
