@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { RefObject, useEffect } from 'react';
 
 import styles from '~/client/components/ui/Bouée/Bouée.module.scss';
-import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import useDebouncedState from '~/client/hooks/useDebouncedState';
 
 export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }) {
@@ -33,7 +33,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
       onClick={ () => toSurface() }
       title="Remonter en haut de la page"
     >
-      <span><AngleUpIcon /></span>
+      <Icon name={'angle-up'} />
     </button>
   );
 }
