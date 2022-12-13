@@ -21,7 +21,7 @@ export function FormulaireRechercheAccompagnement() {
   const rechercheAccompagnementForm = useRef<HTMLFormElement>(null);
 
   const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
-  const [inputAccompagnement, setInputAccompagnement] = useState<string>('');
+  const [inputTypeAccompagnement, setInputTypeAccompagnement] = useState<string>('');
   const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
 
   const queryParams = useAccompagnementQuery();
@@ -30,45 +30,46 @@ export function FormulaireRechercheAccompagnement() {
   useEffect(function initFormValues() {
     setInputCodeCommune(queryParams.codeCommune || '');
     setInputLibelléCommune(queryParams.libelleCommune || '');
-    setInputAccompagnement(queryParams.typeAccompagnement || '');
+    setInputTypeAccompagnement(queryParams.typeAccompagnement || '');
   }, [queryParams]);
 
   async function updateRechercheAccompagnementQueryParams(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (event.currentTarget.checkValidity()) {
-      const query = getFormAsQuery(event.currentTarget, queryParams, false);
-      return router.push({ query }, undefined, { shallow: true });
-    }
+    const query = getFormAsQuery(event.currentTarget, queryParams, false);
+    return router.push({ query }, undefined, { shallow: true });
   }
 
   return (
-    <form
-      ref={rechercheAccompagnementForm}
-      role="form"
-      className={styles.rechercheOffreForm}
-      onSubmit={updateRechercheAccompagnementQueryParams}>
-      <div className={styles.filtresRecherche}>
-        <InputCommune
-          className={styles.inputCommune}
-          code={inputCodeCommune}
-          libellé={inputLibelléCommune}
-          required
-          showRadius={false}/>
-        <Select
-          required
-          className={styles.inputAccompagnement}
-          label={'Type d‘accompagnement'}
-          name={'typeAccompagnement'}
-          optionList={typeAccompagnementListe}
-          value={inputAccompagnement}
-          onChange={setInputAccompagnement}/>
-      </div>
-      <ButtonComponent
-        className={styles.buttonRechercher}
-        label='Rechercher'
-        icon={<Icon name="magnifying-glass" />}
-        iconPosition='right'
-        type='submit'/>
-    </form>
+    <>
+      <div className={styles.rechercherAccompagnementHint}>Tous les champs sont obligatoires</div>
+      <form
+        ref={rechercheAccompagnementForm}
+        role="form"
+        className={styles.rechercheAccompagnementForm}
+        onSubmit={updateRechercheAccompagnementQueryParams}>
+        <div className={styles.filtresRecherche}>
+          <InputCommune
+            className={styles.inputCommune}
+            code={inputCodeCommune}
+            libellé={inputLibelléCommune}
+            required
+            showRadius={false}/>
+          <Select
+            required
+            className={styles.inputAccompagnement}
+            label={'Type d‘accompagnement'}
+            name={'typeAccompagnement'}
+            optionList={typeAccompagnementListe}
+            value={inputTypeAccompagnement}
+            onChange={setInputTypeAccompagnement}/>
+        </div>
+        <ButtonComponent
+          className={styles.buttonRechercher}
+          label='Rechercher'
+          icon={<Icon name="magnifying-glass" />}
+          iconPosition='right'
+          type='submit'/>
+      </form>
+    </>
   );
 }

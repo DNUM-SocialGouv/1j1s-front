@@ -5,8 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { handleKeyBoardInteraction, setFocusToSelectButton } from '~/client/components/keyboard/select.keyboard';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
-import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 
@@ -199,7 +198,7 @@ export function Select({ className, optionList, value, placeholder, name, label,
           onBlur={() => required ? setIsTouched(true) : undefined}
         >
           <span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
-          {isOptionListOpen ? <AngleUpIcon/> : <AngleDownIcon/>}
+          {isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
         </button>
         {isOptionListOpen && renderOptionList()}
         <input

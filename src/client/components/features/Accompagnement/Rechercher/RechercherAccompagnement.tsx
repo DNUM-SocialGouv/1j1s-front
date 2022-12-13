@@ -68,7 +68,8 @@ export function RechercherAccompagnement() {
     else {
       setErreurRecherche(ErreurMétier.DEMANDE_INCORRECTE);
     }
-  }, [accompagnementQuery, isEachQueryParamPresent, établissementAccompagnementService]);
+    // eslint-disable-next-line
+  }, [accompagnementQuery, isEachQueryParamPresent]);
 
   const messageRésultatRecherche: string = useMemo(() => {
     const messageRésultatRechercheSplit: string[] = [`${établissementAccompagnementList.length}`];
@@ -92,6 +93,21 @@ export function RechercherAccompagnement() {
 
     return messageRésultatRechercheSplit.join(' ');
   }, [accompagnementQuery.typeAccompagnement, établissementAccompagnementList.length]);
+
+  const displayAccompagnement = useCallback(function (lienAccompagnement: LienSolutionAccompagnement): React.ReactNode {
+    return (
+      <li key={lienAccompagnement.id}>
+        <RésultatRechercherAccompagnement
+          lienOffre={lienAccompagnement.lienOffre}
+          intituléOffre={lienAccompagnement.intituléOffre}
+          logoEntreprise={lienAccompagnement.logoEntreprise}
+          nomEntreprise={lienAccompagnement.nomEntreprise}
+          étiquetteOffreList={lienAccompagnement.étiquetteOffreList}
+          horaires={lienAccompagnement.horaires}
+        />
+      </li>
+    );
+  }, []);
 
   return (
     <>
@@ -130,10 +146,19 @@ function mapAccompagnementToLienSolution(établissementAccompagnement: Établiss
     id: établissementAccompagnement.id,
     intituléOffre: établissementAccompagnement.nom,
     lienOffre: établissementAccompagnement.email ? `mailto:${établissementAccompagnement.email}` : undefined,
-    logoEntreprise: '/images/logos/info-jeunes.svg',
+    logoEntreprise: getLogoEntreprise(établissementAccompagnement.typeAccompagnement),
     nomEntreprise: établissementAccompagnement.adresse,
     étiquetteOffreList: [établissementAccompagnement.telephone, établissementAccompagnement.email],
   };
+}
+
+function getLogoEntreprise(typeAccompagnement?: string) {
+  switch (typeAccompagnement) {
+    case 'cij': return '/images/logos/info-jeunes.svg';
+    case 'mission_locale': return '/images/logos/union-mission-locale.svg';
+    case 'pole_emploi': return '/images/logos/pole-emploi.svg';
+  }
+  return '';
 }
 
 function BannièreAccompagnement() {
@@ -142,17 +167,4 @@ function BannièreAccompagnement() {
   );
 }
 
-function displayAccompagnement(lienAccompagnement: LienSolutionAccompagnement): React.ReactNode {
-  return (
-    <li key={lienAccompagnement.id}>
-      <RésultatRechercherAccompagnement
-        lienOffre={lienAccompagnement.lienOffre}
-        intituléOffre={lienAccompagnement.intituléOffre}
-        logoEntreprise={lienAccompagnement.logoEntreprise}
-        nomEntreprise={lienAccompagnement.nomEntreprise}
-        étiquetteOffreList={lienAccompagnement.étiquetteOffreList}
-        horaires={lienAccompagnement.horaires}
-      />
-    </li>
-  );
-}
+
