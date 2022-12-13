@@ -145,7 +145,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
     <>
       {
         numberOfPageList.length >= 1
-        && <ul key='Pagination' className={styles.pagination}>
+        && <ul key='Pagination' className={styles.pagination} aria-label="pagination">
           { displayPrevious() }
           { displayIntermediatePages() }
           { displayEllipsis() }
