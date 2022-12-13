@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.2...v2.23.3) (2022-12-13)
+
+
+### Bug Fixes
+
+* **logement:** mis a jour graphique annonce ([7c82739](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c82739ca3c4e7279f6f7e07b70f0cbb79d46d01))
+
 ## [2.23.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.1...v2.23.2) (2022-12-13)
 
 
