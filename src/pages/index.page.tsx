@@ -4,8 +4,6 @@ import React from 'react';
 
 import { LinkCard } from '~/client/components/ui/Card/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { BookIcon } from '~/client/components/ui/Icon/book.icon';
-import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
@@ -79,7 +77,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
           <h2 id="formation" className={styles.sectionHeader}>
-            <BookIcon className={styles.sectionFormationsOrientationHeaderIcon} />
+            <Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon} />
             Formations et orientation
           </h2>
           <div className={styles.cardList}>
@@ -112,7 +110,7 @@ export default function Accueil() {
 
         <section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
           <h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
-            <CompassIcon className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
+            <Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon}/>
             Aides et accompagnement
           </h2>
           <div className={classNames(styles.cardList, styles.cardListPadding)}>

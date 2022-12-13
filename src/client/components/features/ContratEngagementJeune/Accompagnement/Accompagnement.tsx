@@ -13,8 +13,6 @@ import Handicap from '~/client/components/features/ContratEngagementJeune/Accomp
 import PasDAccompagnement
   from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { BookIcon } from '~/client/components/ui/Icon/book.icon';
-import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -112,11 +110,11 @@ export default function Accompagnement() {
                 <p>Découvrez nos offres</p>
               </Link>
               <Link href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
-                <BookIcon className={styles.accompagnementDispositifsPositionIconFormation} />
+                <Icon name={'book'} className={styles.accompagnementDispositifsPositionIconFormation} />
                 <p>Formation et orientation</p>
               </Link>
               <Link href={'/#aides-orientation-accompagnement'} className={styles.accompagnementDispositifsPositionIcon}>
-                <CompassIcon className={styles.accompagnementDispositifsPositionIconAide} />
+                <Icon name={'compass'} className={styles.accompagnementDispositifsPositionIconAide} />
                 <p>Aides et accompagnement</p>
               </Link>
               <Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>

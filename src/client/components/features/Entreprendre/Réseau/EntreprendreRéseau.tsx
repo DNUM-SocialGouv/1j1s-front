@@ -4,9 +4,10 @@ import React from 'react';
 
 import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau.module.scss';
 import { EntreprendreRéseauPhasesProjet } from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
+
+import { Icon } from '../../../ui/Icon/Icon';
 
 interface Entreprise {
   logo: string
@@ -51,7 +52,7 @@ function EntreprendreRéseau(props: EntreprendreRéseauProps) {
           <div className={styles.cardDescription}>
             <EntreprendreRéseauPhasesProjet phases={phases} />
             {publicConcerné && <p className={styles.descriptionPublicConcerne}>{publicConcerné}</p>}
-            <span className={styles.callToAction}>Découvrir<ExternalRedirectionIcon /></span>
+            <span className={styles.callToAction}>Découvrir<Icon name={'external-redirection'} /></span>
           </div>
         </>
       }
@@ -72,7 +73,7 @@ function EntreprendreRéseau(props: EntreprendreRéseauProps) {
             <p className={styles.descriptionEntreprise}>{entreprise.description}</p>
             <EntreprendreRéseauPhasesProjet phases={phases} />
             {publicConcerné && <p className={styles.descriptionPublicConcerne}>{publicConcerné}</p>}
-            <div className={styles.callToAction}>Découvrir<ExternalRedirectionIcon /></div>
+            <div className={styles.callToAction}>Découvrir<Icon name={'external-redirection'} /></div>
           </section>
         </>
       }

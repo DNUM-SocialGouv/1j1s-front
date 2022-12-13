@@ -18,7 +18,7 @@ export function ArticleCard({ className, children, imageSrc, titleLabel, link, l
   return (
     <Link href={link} className={'underline-none'}>
       <CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'}>
-        <CardComponent.Image className={styles.imageWrapper} src={imageSrc} />
+        <CardComponent.Image className={styles.imageWrapper} src={imageSrc} ariaHidden/>
         <CardComponent.Content className={styles.content}>
           <CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
           {children}

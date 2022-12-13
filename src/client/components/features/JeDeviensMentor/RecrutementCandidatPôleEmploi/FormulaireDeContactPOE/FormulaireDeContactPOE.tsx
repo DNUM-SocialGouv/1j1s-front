@@ -11,7 +11,6 @@ import InputAutocomplétionSecteurActivité, {
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Hero } from '~/client/components/ui/Hero/Hero';
-import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -157,7 +156,7 @@ export function FormulaireDeContactPOE() {
               {
                 isPremièreEtape() && <>
                   <button className={styles.boutonRetour} onClick={redirectionRejoindreMobilisationPOE}>
-                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                    <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
                   </button>
                   <div className={styles.champsObligatoires}>
                     <p>Etape 1 : Votre entreprise</p>
@@ -249,7 +248,7 @@ export function FormulaireDeContactPOE() {
               {
                 isDeuxièmeEtape() && <>
                   <button className={styles.boutonRetour} onClick={retourEtape1}>
-                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                    <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
                   </button>
                   <div className={styles.champsObligatoires}>
                     <p>Etape 2 : Vos informations personnelles</p>
@@ -335,7 +334,7 @@ export function FormulaireDeContactPOE() {
               {
                 isTroisièmeEtape() && <>
                   <button className={styles.boutonRetour} onClick={retourEtape2}>
-                    <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                    <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
                   </button>
                   <div className={styles.champsObligatoires}>
                     <p> Etape 3 : Vos besoins et commentaires</p>

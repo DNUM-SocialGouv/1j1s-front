@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormulairesProps } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
-import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen }: FormulairesProps) {
@@ -11,7 +11,7 @@ export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMis
 
   return <>
     <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Démarrage')}>
-      <AngleLeftIcon className={styles.iconeRetour}/> Retour
+      <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
     </button>
     <p className={styles.accompagnementQuestion}>Quel âge avez-vous ?</p>
     <div>

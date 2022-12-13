@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { isNavigationItem, NavigationItem, navigationItemList, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
-import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
+import { Icon } from '../../client/components/ui/Icon/Icon';
 import styles from './PlanDuSite.module.scss';
 
 export default function PlanDuSite() {
@@ -53,7 +53,7 @@ export default function PlanDuSite() {
             <li><Link href="/accessibilite" >Accessibilité : Partiellement conforme</Link></li>
             <li><Link href="/mentions-legales" >Mentions légales</Link></li>
             <li><Link href="/confidentialite" >Politique de confidentialité</Link></li>
-            <li><Link href={`mailto:${MAIL_TO}`}><TextIcon text="Nous contacter" icon={<ExternalRedirectionIcon />}/></Link></li>
+            <li><Link href={`mailto:${MAIL_TO}`}><TextIcon text="Nous contacter" icon={<Icon name={'external-redirection'} />}/></Link></li>
           </ul>
 
         </main>
