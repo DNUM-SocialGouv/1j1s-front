@@ -4,6 +4,7 @@ import React, {
   useState,
 } from 'react';
 import {
+  Configure,
   Hits,
   InstantSearch,
   useInstantSearch,
@@ -13,6 +14,7 @@ import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce
 import { ListeDesAnnonces } from '~/client/components/features/Logement/ListeDesAnnonces';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchStats } from '~/client/components/ui/Meilisearch/MeilisearchStats';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -22,9 +24,7 @@ import styles from '~/pages/annonces/RechercherLogement.module.scss';
 
 const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
-
-
-
+const ANNONCE_PAR_PAGE = 9 ;
 
 function AfficherFormulaireDeRecherche() {
   return (
@@ -68,6 +68,7 @@ export default function AnnoncesPage() {
 
     return <ListeDesAnnonces
       resultats={<Hits aria-label="Annonces de logement" hitComponent={AnnonceDeLogement}/>}
+      pagination={<MeiliSearchCustomPagination numberOfResultPerPage={ANNONCE_PAR_PAGE} />}
       isLoading={isInstantSearchLoading}
     />;
   };
@@ -90,6 +91,7 @@ export default function AnnoncesPage() {
           indexName={MEILISEARCH_INDEX}
           routing={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
         >
+          <Configure hitsPerPage={ANNONCE_PAR_PAGE}/>
           <AfficherFormulaireDeRecherche />
           <AfficherResultatTotal />
           <AfficherListeDesAnnonces />

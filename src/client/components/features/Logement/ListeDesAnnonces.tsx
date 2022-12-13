@@ -7,17 +7,19 @@ import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 interface ListeDesAnnoncesProps {
   resultats: React.ReactElement
   isLoading: boolean
+  pagination: React.ReactNode
 }
 
 export const ListeDesAnnonces = (props: ListeDesAnnoncesProps) => {
-  const { resultats, isLoading } = props;
+  const { resultats, isLoading, pagination } = props;
 
   return (
     <section className={styles.listeDesAnnoncesWrapper}>
 	  <Container>
         <Skeleton type='card' isLoading={isLoading} repeat={3} className={styles.skeletonDisplay}>
-		  { resultats }
+		      { resultats }
         </Skeleton>
+        { pagination }
 	  </Container>
     </section>
   );
