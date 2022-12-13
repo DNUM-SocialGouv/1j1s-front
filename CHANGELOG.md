@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.0...v2.23.1) (2022-12-13)
+
+
+### Bug Fixes
+
+* **multiple:** Accessibilité Titres entreprises, je-recrute-afpr, immersions ([090841d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/090841db73edd5fed34e4641526ac310a5b29f3b))
+
 ## [2.23.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.22.1...v2.23.0) (2022-12-13)
 
 
