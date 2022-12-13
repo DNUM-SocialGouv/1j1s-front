@@ -23,7 +23,7 @@
 @include media(medium) {
   .listeDesAnnoncesWrapper {
     & ol {
-      gap: 2rem;
+      gap: 2rem 4rem;
       flex-direction: row;
       > li {
         width: 22.5rem;

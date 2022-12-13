@@ -5,7 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 
 interface ListeDesAnnoncesProps {
-  resultats: React.ReactNode
+  resultats: React.ReactElement
   isLoading: boolean
 }
 
@@ -15,8 +15,9 @@ export const ListeDesAnnonces = (props: ListeDesAnnoncesProps) => {
   return (
     <section className={styles.listeDesAnnoncesWrapper}>
 	  <Container>
-        <Skeleton type='card' isLoading={isLoading} repeat={3} className={styles.skeletonDisplay}/>
-        { resultats }
+        <Skeleton type='card' isLoading={isLoading} repeat={3} className={styles.skeletonDisplay}>
+		  { resultats }
+        </Skeleton>
 	  </Container>
     </section>
   );

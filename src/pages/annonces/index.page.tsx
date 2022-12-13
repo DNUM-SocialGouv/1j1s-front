@@ -1,5 +1,8 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
-import React from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import {
   Hits,
   InstantSearch,
@@ -21,12 +24,7 @@ const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 
-function AfficherListeDesAnnonces() {
-  const LOADING_STATUS = 'loading';
-  const { status } = useInstantSearch();
-  const isLoading = status === LOADING_STATUS;
-  return <ListeDesAnnonces resultats={<Hits aria-label="Annonces de logement" hitComponent={AnnonceDeLogement}/>} isLoading={isLoading}/>;
-}
+
 
 function AfficherFormulaireDeRecherche() {
   return (
@@ -58,6 +56,21 @@ function AfficherResultatTotal() {
 export default function AnnoncesPage() {
   const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
   const searchClient = useDependency<SearchClient>('rechercheClientService');
+  const LOADING_STATUS = 'loading';
+  const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
+
+  const AfficherListeDesAnnonces = () => {
+    const { status } = useInstantSearch();
+
+    useEffect(() => {
+      setIsInstantSearchLoading(status === LOADING_STATUS);
+    }, [status]);
+
+    return <ListeDesAnnonces
+      resultats={<Hits aria-label="Annonces de logement" hitComponent={AnnonceDeLogement}/>}
+      isLoading={isInstantSearchLoading}
+    />;
+  };
 
   if (!displayAnnoncesLogement) return <NotFound/>;
   return (

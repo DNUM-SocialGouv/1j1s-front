@@ -10,7 +10,7 @@ interface TextIconProps extends CommonProps{
   iconPosition?: 'right' | 'left'
 }
 export const TextIcon = ({ text, icon, className, iconPosition='right' }: TextIconProps) => {
-  const _classNames = classNames(styles.textIcon, iconPosition ? styles.spaceForLeftIcon : styles.spaceForRightIcon, className);
+  const _classNames = classNames(styles.textIcon, iconPosition === 'right' ? styles.spaceForRightIcon : styles.spaceForLeftIcon, className);
 
   return (
     <span className={_classNames}>

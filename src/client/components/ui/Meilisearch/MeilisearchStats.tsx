@@ -16,12 +16,13 @@ export function useStats(props?: UseStatsProps) {
   );
 }
 
-export function MeilisearchStats(props: UseStatsProps & { labelSingulier: string, labelPluriel: string, isLoading: boolean }) {
+export function MeilisearchStats(props: UseStatsProps & { labelSingulier: string, labelPluriel: string }) {
 
-  //TODO OLIV SORTIR LE HOOK
   const { nbHits } = useStats(props);
   const { labelSingulier, labelPluriel } = props;
+  const LOADING_STATUS = 'loading';
   const { status } = useInstantSearch();
+  const isLoading = status === LOADING_STATUS;
 
   function AfficherMessageRésultats() {
     return <>
@@ -41,7 +42,7 @@ export function MeilisearchStats(props: UseStatsProps & { labelSingulier: string
     </>;
   }
 
-  return <Skeleton type='line' isLoading={status === 'loading'} className={styles.nombreRésultats}>
+  return <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
     <AfficherMessageRésultats/>
   </Skeleton>;
 }
