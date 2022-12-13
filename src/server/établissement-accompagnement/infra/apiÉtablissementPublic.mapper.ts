@@ -19,6 +19,7 @@ export function mapÉtablissementAccompagnement(résultatRechercheÉtablissement
     id: feature.properties.id,
     nom: feature.properties.nom,
     telephone: feature.properties.telephone,
+    typeAccompagnement: feature.properties.pivotLocal,
   }));
 }
 

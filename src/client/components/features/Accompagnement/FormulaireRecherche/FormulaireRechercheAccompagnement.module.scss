@@ -1,6 +1,6 @@
 @import "@styles/utilities";
 
-.rechercheOffreForm {
+.rechercheAccompagnementForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -24,16 +24,22 @@
   width: 100%;
 }
 
+.rechercherAccompagnementHint {
+  padding-top: 1rem;
+  @extend %text-small;
+}
+
 @include media(medium){
   .filtresRecherche {
     display: flex;
     gap: 1rem;
   }
 
-  .rechercheOffreForm {
+  .rechercheAccompagnementForm {
     flex-direction: row;
     align-items: flex-start;
-    padding-block: 2.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
   }
 
   .buttonRechercher {

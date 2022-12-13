@@ -5,6 +5,7 @@ export interface ÉtablissementAccompagnement {
   telephone: string;
   email?: string;
   horaires: ÉtablissementAccompagnement.Horaire[];
+  typeAccompagnement?: string
 }
 
 export namespace ÉtablissementAccompagnement {

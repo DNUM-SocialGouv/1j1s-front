@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import {
   LienSolutionAccompagnement,
@@ -75,13 +75,13 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
   const router = useRouter();
   const hasRouterQuery = Object.keys(router.query).length > 0;
 
-  const displaySolutionList = (displaySolution: (lienSolution: LienSolution | LienSolutionAccompagnement) => React.ReactNode) => (
-	  <ul aria-label={ariaLabelListeSolution}>
+  const displaySolutionList = useCallback((displaySolution: (lienSolution: LienSolution | LienSolutionAccompagnement) => React.ReactNode) => (
+    <ul aria-label={ariaLabelListeSolution}>
       {
         listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution | LienSolutionAccompagnement) => displaySolution(lienSolution))
       }
     </ul>
-  );
+  ), [ariaLabelListeSolution, listeSolution, mapToLienSolution]);
 
   return (
     <>

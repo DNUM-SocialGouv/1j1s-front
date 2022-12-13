@@ -10,7 +10,7 @@ import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const querySchema = Joi.object({
   codeCommune: Joi.string().alphanum().max(5),
-  libelleCommune: Joi.string().max(60),
+  libelleCommune: Joi.string().max(100),
   typeAccompagnement: Joi.string().valid('cij','mission_locale','pole_emploi').required(),
 });
 

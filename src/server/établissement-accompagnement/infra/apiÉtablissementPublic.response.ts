@@ -15,6 +15,7 @@ export namespace RésultatRechercheÉtablissementPublicResponse {
       horaires: Properties.Horaire[],
       email?: string,
       telephone: string,
+      pivotLocal?: string
     }
 
     export namespace Properties {
