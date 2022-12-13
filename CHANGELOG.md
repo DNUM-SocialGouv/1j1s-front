@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.24.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.3...v2.24.0) (2022-12-13)
+
+
+### Features
+
+* **logement/pagination:** ajout pagination annonces ([3aff74f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3aff74fbe927ff6f7a03ecf9db4371dd53876226))
+
 ## [2.23.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.2...v2.23.3) (2022-12-13)
 
 
