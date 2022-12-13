@@ -22,6 +22,8 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import NotFound from '~/pages/404.page';
 import styles from '~/pages/annonces/RechercherLogement.module.scss';
 
+import { MeilisearchCustomRefinementList } from '../../client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
+
 const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
@@ -36,6 +38,7 @@ function AfficherFormulaireDeRecherche() {
             name="ville"
             placeholder="Exemples: Paris, Toulouse"
           />
+          <MeilisearchCustomRefinementList attribute="type" label="Type d'offre" />
         </form>
       </Container>
     </section>
