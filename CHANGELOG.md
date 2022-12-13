@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.23.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.1...v2.23.2) (2022-12-13)
+
+
+### Bug Fixes
+
+* **multiple:** accessibilite ([ccdadef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ccdadef39d0035ae2254bcb153d9260ecbc721c0))
+* **multiple:** ajout aria-hidden pour les images svg ([990ce46](https://github.com/DNUM-SocialGouv/1j1s-front/commit/990ce4695806ca386b2e88c3babd82428b933b2e))
+* **multiple:** refacto Bouée ([a453095](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a4530958182cd0c46c63bc0e50ccd86abfdabb3e))
+* **multiple:** vérification aria-hidden poour les images svg ([72924a0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/72924a092fa5fe2acab6efaf939b7f8307ca235e))
+* **multiple:** vérification aria-hidden poour les images svg ([f05b7ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f05b7ae6f52c7f3b27de35d838c205a1beb667cf))
+
 ## [2.23.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.0...v2.23.1) (2022-12-13)
 
 
