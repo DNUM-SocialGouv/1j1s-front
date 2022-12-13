@@ -19,6 +19,7 @@ describe('AnalyticsProdService', () => {
     (global as any).tarteaucitron = {
       init: initSpy,
       job: [],
+      user: {},
     };
     (global as any).ATInternet = {
       Tracker : {
@@ -41,21 +42,22 @@ describe('AnalyticsProdService', () => {
       adblocker: false,
       bodyPosition: 'bottom',
       closePopup: false,
-      cookieName: 'tarteaucitron',
+      cookieName: 'consentement',
       cookieslist: true,
       groupServices: false,
       handleBrowserDNTRequest: false,
       hashtag: '#tarteaucitron',
       highPrivacy: true,
       iconPosition: 'BottomLeft',
+      iconSrc: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMiAxQzE1LjMxMzcgMSAxOCAzLjY4NjI5IDE4IDdWOEgyMEMyMC41NTIzIDggMjEgOC40NDc3MiAyMSA5VjIxQzIxIDIxLjU1MjMgMjAuNTUyMyAyMiAyMCAyMkg0QzMuNDQ3NzIgMjIgMyAyMS41NTIzIDMgMjFWOUMzIDguNDQ3NzIgMy40NDc3MiA4IDQgOEg2VjdDNiAzLjY4NjI5IDguNjg2MjkgMSAxMiAxWk0xOSAxMEg2VjIwSDE5VjEwWk05IDE3VjE5SDdWMTdIOVpNOSAxNFYxNkg3VjE0SDlaTTkgMTFWMTNIN1YxMUg5Wk0xMiAzQzkuNzkwODYgMyA4IDQuNzkwODYgOCA3VjhIMTZWN0MxNiA0Ljc5MDg2IDE0LjIwOTEgMyAxMiAzWiIgZmlsbD0iIzAwMDA5MSIvPgo8L3N2Zz4K',
       mandatory: true,
       mandatoryCta: true,
       moreInfoLink: true,
       orientation: 'middle',
       privacyUrl: '/confidentialite',
       readmoreLink: '/confidentialite',
-      removeCredit: false,
-      serviceDefaultState: 'wait',
+      removeCredit: true,
+      serviceDefaultState: false,
       showAlertSmall: false,
       showIcon: true,
       useExternalCss: false,
@@ -70,24 +72,66 @@ describe('AnalyticsProdService', () => {
   });
 
   describe('sendPage', () => {
-    it('envoie un événement page au tracking', () => {
-      const page = '/emplois';
+    describe('quand le consentement est autorisé', () => {
+      beforeEach(() => {
+        document.cookie = 'consentement=!atinternet=true';
+      });
 
-      const analyticsService = new AnalyticsProdService();
-      analyticsService.sendPage(page);
+      it('envoie un événement page au tracking', () => {
+        const page = '/emplois';
 
-      expect(pageSetSpy).toHaveBeenCalledWith({ name: page });
+        const analyticsService = new AnalyticsProdService();
+        analyticsService.sendPage(page);
+
+        expect(pageSetSpy).toHaveBeenCalledWith({ name: page });
+      });
+    });
+
+    describe('quand le consentement n‘est pas autorisé', () => {
+      beforeEach(() => {
+        document.cookie = 'consentement=!atinternet=false';
+      });
+
+      it('n‘envoie aucun événement page au tracking', () => {
+        const page = '/emplois';
+
+        const analyticsService = new AnalyticsProdService();
+        analyticsService.sendPage(page);
+
+        expect(pageSetSpy).not.toHaveBeenCalled();
+      });
     });
   });
 
   describe('sendClick', () => {
-    it('envoie un événement click au tracking', () => {
-      const action = 'click';
+    describe('quand le consentement est autorisé', () => {
+      beforeEach(() => {
+        document.cookie = 'consentement=!atinternet=true';
+      });
 
-      const analyticsService = new AnalyticsProdService();
-      analyticsService.sendClick(action);
+      it('envoie un événement click au tracking', () => {
+        const action = 'click';
 
-      expect(clickSendSpy).toHaveBeenCalledWith({ name: action });
+        const analyticsService = new AnalyticsProdService();
+        analyticsService.sendClick(action);
+
+        expect(clickSendSpy).toHaveBeenCalledWith({ name: action });
+      });
+    });
+
+    describe('quand le consentement n‘est pas autorisé', () => {
+      beforeEach(() => {
+        document.cookie = 'consentement=!atinternet=false';
+      });
+
+      it('n‘envoie aucun événement click au tracking', () => {
+        const action = 'click';
+
+        const analyticsService = new AnalyticsProdService();
+        analyticsService.sendClick(action);
+
+        expect(clickSendSpy).not.toHaveBeenCalled();
+      });
     });
   });
 });
