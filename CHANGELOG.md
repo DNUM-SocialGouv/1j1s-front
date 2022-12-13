@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.24.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.24.0...v2.24.1) (2022-12-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to ~7.26.0 ([76d154f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/76d154f562c4634055fd285bd2be2c72b5d03110))
+
 ## [2.24.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.23.3...v2.24.0) (2022-12-13)
 
 
