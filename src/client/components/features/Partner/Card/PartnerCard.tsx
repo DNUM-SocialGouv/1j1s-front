@@ -61,7 +61,7 @@ export function PartnerCard({ description, className, headline, headlineColor, l
   return (
     <Link href={link} className={classNames(styles.card, className, 'underline-none')}>
       <CardComponent layout={ isLargeScreen ? 'horizontal' : 'vertical' }>
-        <CardComponent.Image className={styles.cardLogo} src={logo}/>
+        <CardComponent.Image className={styles.cardLogo} src={logo} ariaHidden/>
         <CardComponent.Content className={styles.cardBody}>
           <div className={styles.cardBody__Title}>{title}</div>
           <p>

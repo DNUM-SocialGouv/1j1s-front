@@ -8,7 +8,7 @@ import FormulaireDeContactCEJ from '~/client/components/features/ContratEngageme
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
@@ -29,7 +29,7 @@ export default function Rappel() {
     <div className={classNames(styles.rappel, 'background-white-lilac')}>
       <Container className={styles.rappelContainer}>
         <Marked markdown={'## J\'ai des questions sur le Contrat d\'Engagement Jeune'}/>
-        <ButtonComponent label='Je souhaite être contacté(e)' icon={<AngleRightIcon/>} iconPosition='right' onClick={() => setIsPopInOpen(true)} />
+        <ButtonComponent label='Je souhaite être contacté(e)' icon={<Icon name={'angle-right'}/>} onClick={() => setIsPopInOpen(true)} />
       </Container>
       <ModalComponent
         className={styles.rappelModal}

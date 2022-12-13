@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
-import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
-import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
-import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Pagination/Pagination.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -66,7 +63,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
             }
           }}
         >
-          <AngleLeftFromLineIcon />
+          <Icon name={'angle-left-from-line'}/>
         </a>
       </li>
       <li key="PreviousPageLiPagination">
@@ -86,7 +83,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
             }
           }}
         >
-          {isSmallScreen ? <AngleLeftIcon /> : <><AngleLeftIcon /> <span>Page précédente</span></>}
+          {isSmallScreen ? <Icon name={'angle-left'}/> : <><Icon name={'angle-left'}/> <span>Page précédente</span></>}
         </a>
       </li>
     </>;
@@ -119,7 +116,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
             }
           }}
         >
-          {isSmallScreen ? <AngleRightIcon /> : <><span>Page suivante</span>  <AngleRightIcon /></>}
+          {isSmallScreen ? <Icon name={'angle-right'}/> : <><span>Page suivante</span>  <Icon name={'angle-right'}/></>}
         </a>
       </li>
       <li key='LastLiPagination'>
@@ -139,7 +136,7 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
             }
           }}
         >
-          <AngleRightFromLineIcon />
+          <Icon name={'angle-right-from-line'}/>
         </a>
       </li></>;
   };

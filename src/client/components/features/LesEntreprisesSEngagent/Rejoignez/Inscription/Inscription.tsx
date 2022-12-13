@@ -9,7 +9,6 @@ import InputAutocomplétionSecteurActivité, {
   SecteurActivité,
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -138,7 +137,7 @@ export default function Inscription() {
             {
               isPremièreEtape() && <div>
                 <button className={styles.boutonRetour} onClick={returnToLesEntreprisesSEngagent}>
-                  <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                  <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
                 </button>
               </div>
             }
@@ -227,7 +226,7 @@ export default function Inscription() {
             {
               isDeuxièmeEtape() && <div>
                 <button className={styles.boutonRetour} onClick={returnToEtape1}>
-                  <AngleLeftIcon className={styles.iconeRetour}/> Retour
+                  <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
                 </button>
               </div>
             }

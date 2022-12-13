@@ -8,8 +8,7 @@ import React, {
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
-import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList.module.scss';
 
@@ -57,7 +56,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
             onClick={() => setIsOptionsOpen(!isOptionsOpen)}
           >
             <span data-testid='Select-Placeholder'>{buttonLabel}</span>
-            {isOptionsOpen ? <AngleUpIcon/> : <AngleDownIcon/>}
+            {isOptionsOpen ? <Icon name={'angle-up'} /> : <Icon name={'angle-down'} />}
           </button>
           <ul style={{ display: isOptionsOpen ? '' : 'none' }}
             className={isOptionsOpen ? styles.listBox : ''}>

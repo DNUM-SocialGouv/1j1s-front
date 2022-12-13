@@ -16,7 +16,7 @@ export function RésultatRechercherAccompagnementMobile(props: Omit<LienSolution
   return (
     <CardComponent layout={'vertical'} className={styles.card}>
       <CardComponent.Content className={styles.content}>
-        <CardComponent.Image className={styles.logo} src={logoEntreprise}/>
+        <CardComponent.Image className={styles.logo} src={logoEntreprise} ariaHidden/>
         <div className={styles.mainContent}>
           <CardComponent.Title className={styles.title} titleAs={'h3'}>
             {intituléOffre}

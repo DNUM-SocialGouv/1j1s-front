@@ -42,7 +42,7 @@
 }
 
 .arrow {
-  background-color: $color-primary;
+  @extend %background-primary;
   display: inline-flex;
   flex-direction: column;
   align-items: center;

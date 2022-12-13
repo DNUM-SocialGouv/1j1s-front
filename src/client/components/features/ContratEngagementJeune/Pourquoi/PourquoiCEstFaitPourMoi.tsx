@@ -1,11 +1,11 @@
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi.module.scss';
-import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
 
 export default function PourquoiCEstFaitPourMoi() {
-  const arrow = <span className={styles.arrow}><ArrowRightIcon color={'white'}/></span>;
+  const arrow = <Icon name={'arrow-right'} className={styles.arrow}/>;
 
   return (
     <section className={styles.section}>
