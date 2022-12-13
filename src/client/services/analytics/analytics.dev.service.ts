@@ -30,8 +30,4 @@ export class AnalyticsDevService implements AnalyticsService {
       name: action,
     });
   }
-
-  getCookieConsent(service: string): boolean {
-    return service === service;
-  }
 }
