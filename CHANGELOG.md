@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.23.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.22.1...v2.23.0) (2022-12-13)
+
+
+### Features
+
+* **accompagnement:** ajout sécurité pour empecher de faire l'appel au BFF si un query param est manquant ([0362557](https://github.com/DNUM-SocialGouv/1j1s-front/commit/036255791f457b29ceb4735f0b1db71d2e2fa51a))
+* **accompagnement:** personnalisation formulaire type d'accompagnement ([6b1b55c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6b1b55c1eb8b3f5ce79c1da6ee82c8ac2a5ec0b7))
+* **accompagnement:** récupération de la liste des établissements avec type d'accompagnement paramétrable ([5cb9276](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5cb9276d868079bde8cd7dbb5f5ed74fd965ba5b))
+* **accompagnement:** refacto styles cartes accompagnement ([7759a68](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7759a68b08aa65d251fc7df0d7d8152480d0aca0))
+* **accompagnement:** rend les horaires optionnelles dans l'affichage car pas toujours retournées par l'api ([87bb9e6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/87bb9e622ed6b86572c5fc8b07bcb1387ce1b727))
+* **accompagnement:** retours de review dev + po ([feecfcf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/feecfcf7790f4030270734394dd61d96bc7d0817))
+
 ## [2.22.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.22.0...v2.22.1) (2022-12-12)
 
 
