@@ -10,13 +10,13 @@
   }
 
   &Contenu {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1rem 0 0.75rem ;
     &EnTete {
       display: flex;
       justify-content: space-between;
       &Type {
         text-transform: uppercase;
-        @extend %text-regular;
+        @extend %text-small;
       }
       &Date {
         @extend %text-small;
@@ -28,8 +28,12 @@
     }
 
     & h3 {
-      @extend %text-medium;
-      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      min-height: 3.125rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 
@@ -38,12 +42,15 @@
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto auto;
     column-gap: 2rem;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem 0;
     @extend %text-medium;
     dd {
       > sup {
         font-size: 0.75rem;
       }
+    }
+    dt {
+      align-self: end;
     }
     dt::after {
       content: "\00a0: ";
@@ -53,13 +60,23 @@
   &Footer {
     display: flex;
     justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 0 0.75rem 1rem 0.75rem;
     @extend %text-small;
 
     &CallToAction {
       color: $color-primary;
       :hover {
         text-decoration: underline;
+      }
+    }
+  }
+}
+
+@include media(medium) {
+  .Card {
+    &Contenu {
+      & h3 {
+        font-size: 1.125rem;
       }
     }
   }
