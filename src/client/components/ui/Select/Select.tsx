@@ -41,28 +41,27 @@ export function Select({ className, optionList, value, placeholder, name, label,
   const [isOptionListOpen, setIsOptionListOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
   const [errorMessage] = useState(SELECT_ERROR_MESSAGE_REQUIRED);
+  
+  const selectedOption = useMemo(() => optionList.find((option) => option.valeur === selectedValue),
+    [optionList, selectedValue]);
 
-
-  useEffect(function onValueChange() {
-    if (value) setSelectedValue(value);
-  }, [value]);
+  const defaultPlaceholder = useMemo(() => multiple ? SELECT_PLACEHOLDER_PLURAL : SELECT_PLACEHOLDER_SINGULAR,
+    [multiple]);
+  
+  const multipleSelectLabel = useMemo(() => {
+    const selectedValueLength = String(selectedValue).split(',').length;
+    return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
+  }, [selectedValue]);
+  
+  const singleSelectLabel = useMemo(() => selectedOption ? selectedOption.libellé : '', [selectedOption]);
 
   const buttonLabel = useMemo(() => {
-    const selectedOption = optionList.find((option) => option.valeur === selectedValue);
-    const defaultMultiplePlaceholder = placeholder ?? SELECT_PLACEHOLDER_PLURAL;
-    const defaultSinglePlaceholder = placeholder ?? SELECT_PLACEHOLDER_SINGULAR;
-    const selectedValueLength = String(selectedValue).split(',').length;
+    if (selectedValue) return multiple ? multipleSelectLabel : singleSelectLabel;
+    if (placeholder) return placeholder;
+    return defaultPlaceholder;
+  }, [defaultPlaceholder, multiple, multipleSelectLabel, placeholder, selectedValue, singleSelectLabel]);
 
-    if (multiple) {
-      return !selectedValue
-        ? defaultMultiplePlaceholder
-        : `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
-    }
-    if (selectedValue) return selectedOption ? selectedOption.libellé : '';
-    return defaultSinglePlaceholder;
-  }, [multiple, placeholder, optionList, selectedValue]);
-
-  const hasError = isTouched && !selectedValue;
+  const hasError = useMemo(() => isTouched && !selectedValue && !isOptionListOpen, [isOptionListOpen, isTouched, selectedValue]);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
@@ -78,7 +77,10 @@ export function Select({ className, optionList, value, placeholder, name, label,
     }
   }, [isOptionListOpen]);
 
-
+  useEffect(function onValueChange() {
+    if (value) setSelectedValue(value);
+  }, [value]);
+  
   useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
     document.addEventListener('keyup', closeOptionsOnEscape);
@@ -136,20 +138,17 @@ export function Select({ className, optionList, value, placeholder, name, label,
       className={styles.options}
       role="listbox"
       ref={listBoxRef}
-      aria-multiselectable={multiple}
-    >
-      {optionList.map((option, index) => {
-        return (
-          <li
-            tabIndex={-1}
-            role="option"
-            key={index}
-            aria-selected={isCurrentItemSelected(option)}
-            onKeyDown={handleKeyDown}>
-            {multiple ? renderCheckBox(option) : renderRadioButton(option)}
-          </li>
-        );
-      })}
+      aria-multiselectable={multiple}>
+      {optionList.map((option, index) =>
+        <li
+          tabIndex={-1}
+          role="option"
+          key={index}
+          aria-selected={isCurrentItemSelected(option)}
+          onKeyDown={handleKeyDown}>
+          {multiple ? renderCheckBox(option) : renderRadioButton(option)}
+        </li>,
+      )}
     </ul>
   );
 
@@ -182,9 +181,7 @@ export function Select({ className, optionList, value, placeholder, name, label,
 
   return (
     <div className={classNames(styles.selectWrapper, className)}>
-      <label className={styles.selectLabel} id={labelledBy.current}>
-        {label}
-      </label>
+      <label className={styles.selectLabel} id={labelledBy.current}>{label}</label>
       <div ref={optionsRef} className={styles.container}>
         <button
           type="button"
@@ -192,11 +189,8 @@ export function Select({ className, optionList, value, placeholder, name, label,
           aria-expanded={isOptionListOpen}
           aria-labelledby={labelledBy.current}
           className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
-          onClick={() => {
-            setIsOptionListOpen(!isOptionListOpen);
-          }}
-          onBlur={() => required ? setIsTouched(true) : undefined}
-        >
+          onClick={() => setIsOptionListOpen(!isOptionListOpen)}
+          onBlur={() => required ? setIsTouched(true) : undefined}>
           <span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
           {isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
         </button>
@@ -207,14 +201,14 @@ export function Select({ className, optionList, value, placeholder, name, label,
           value={selectedValue}
           aria-invalid={hasError}
           aria-errormessage={errorMessageBy.current}
-          data-testid="Select-InputHidden"/>
-
+          data-testid="Select-InputHidden"
+        />
       </div>
-      {hasError && (
+      {hasError &&
         <p className={classNames(styles.inputError)} id={errorMessageBy.current}>
           {errorMessage}
         </p>
-      )}
+      }
     </div>
   );
 }

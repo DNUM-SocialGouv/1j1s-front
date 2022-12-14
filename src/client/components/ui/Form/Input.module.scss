@@ -3,6 +3,11 @@
 .wrapper {
   font-family: inherit;
   position: relative;
+  height: 6rem;
+
+  @include media(large) {
+    height: 6.5rem;
+  }
 }
 
 .suggestionList {
@@ -37,6 +42,7 @@
 
 .formControl {
   &Input {
+    @extend %text-small;
     display: flex;
     align-items: center;
     font-family: inherit;
@@ -49,12 +55,16 @@
     margin-top: 0.5rem;
 
     &:active, &:focus {
-      border-color: $color-primary;
+      border: 1px solid transparent;
+      outline: 2px solid $color-primary;
+      outline-offset: -2px;
       background-color: $color-background-white-lilac;
     }
 
     &Error {
-      border: solid 2px $color-error;
+      border: 1px solid transparent;
+      outline: 2px solid $color-error;
+      outline-offset: -2px;
     }
 
     &Hint {
@@ -75,7 +85,6 @@
 
   &Error{
     @extend %text-small;
-    display: inline-flex;
     align-items: center;
     color: $color-error;
   }

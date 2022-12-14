@@ -7,8 +7,9 @@
     display: block;
     padding-top: 0.5rem;
     & input {
+      font-family: inherit;
       background-color: $color-background;
-      border: 1px solid $color-primary;
+      border: 1px solid $color-on-background;
       border-radius: 1.25rem;
       color: $color-on-background;
       height: 2.5rem;
