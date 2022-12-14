@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.24.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.24.1...v2.24.2) (2022-12-14)
+
+
+### Bug Fixes
+
+* **ui:** fix visuels champs input et select pour empecher leur dépassement ([d053044](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d053044964c0ea4eff77af9d21e3055b4224fe2c))
+
 ## [2.24.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.24.0...v2.24.1) (2022-12-13)
 
 
