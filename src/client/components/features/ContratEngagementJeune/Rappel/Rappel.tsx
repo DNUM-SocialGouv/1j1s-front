@@ -4,7 +4,7 @@ import React, {
   useState,
 } from 'react';
 
-import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
+import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ/FormulaireDeContactCEJ';
 import styles from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';

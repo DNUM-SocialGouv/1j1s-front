@@ -17,7 +17,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
-import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
+import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ/FormulaireDeContactCEJ';
 
 export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide26ans' | 'AutresBesoins' | 'Handicap' | 'AutresBesoins26ans' ;
 

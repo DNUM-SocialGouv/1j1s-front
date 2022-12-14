@@ -1,6 +1,6 @@
 import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
-import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ.module.scss';
+import styles from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ/FormulaireDeContactCEJ.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';

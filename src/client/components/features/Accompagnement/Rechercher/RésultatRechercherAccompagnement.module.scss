@@ -64,7 +64,7 @@
   cursor: pointer;
 
   @include media(large) {
-    width: 11.5rem;
+    width: 12rem;
     align-self: auto;
   }
 
@@ -162,4 +162,42 @@
 
 .horaireHeure {
   margin-left: 0.5ch;
+}
+
+.modale {
+  > div {
+    max-width: 100%;
+  }
+}
+
+.modaleTitle {
+  @extend %bold;
+  font-size: 23px;
+  color: $color-on-background;
+  line-height: 2rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.modaleContent {
+  padding: 0 2rem;
+  small {
+    display:block;
+    @extend %bold;
+    font-size: 18px;
+    margin-top: 1rem;
+    color: $color-primary;
+    text-align: center;
+  }
+  form {
+    margin-top: 1rem;
+  }
+  &Success {
+    display: flex;
+    min-height: 60vh;
+    > div {
+      margin: auto;
+    }
+
+  }
 }

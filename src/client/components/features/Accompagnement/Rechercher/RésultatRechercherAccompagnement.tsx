@@ -42,7 +42,7 @@ export function displayHeures(heure: ÉtablissementAccompagnement.Horaire.Heure[
 
 export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccompagnement, 'id'>) {
   const { isLargeScreen } = useBreakpoint();
-  const { nomEntreprise, étiquetteOffreList, lienOffre, intituléOffre, logoEntreprise, horaires } = props;
+  const { nomEntreprise, étiquetteOffreList, lienOffre, intituléOffre, logoEntreprise, horaires, typeAccompagnement } = props;
 
   if (isLargeScreen) {
     return (
@@ -53,6 +53,7 @@ export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccomp
         étiquetteOffreList={étiquetteOffreList}
         lienOffre={lienOffre}
         horaires={horaires}
+        typeAccompagnement={typeAccompagnement}
       />
     );
   } else {
@@ -64,6 +65,7 @@ export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccomp
         étiquetteOffreList={étiquetteOffreList}
         lienOffre={lienOffre}
         horaires={horaires}
+        typeAccompagnement={typeAccompagnement}
       />
     );
   }
