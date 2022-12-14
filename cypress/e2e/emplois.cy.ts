@@ -4,7 +4,7 @@ import { aBarmanOffre, aRésultatEchantillonOffre } from '~/server/offres/domain
 
 describe('Parcours emplois', () => {
   beforeEach(() => {
-    cy.viewport('iphone-6');
+    cy.viewport('iphone-x');
     cy.visit('/emplois');
   });
   it('affiche 15 résultats par défaut', () => {
@@ -41,7 +41,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre page est erroné ', () => {
       describe('quand le paramètre page est supérieur au maximum autorisé', () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?page=67');
         });
 
@@ -52,7 +52,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
 
       describe('quand le paramètre page est inférieur au minimum autorisé', () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?page=0');
         });
 
@@ -63,7 +63,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
 
       describe("quand le paramètre page n'est pas un nombre", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?page=erreur');
         });
 
@@ -74,7 +74,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
 
       describe("quand le paramètre page n'est pas présent", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?motCle=pas-de-page');
         });
 
@@ -87,7 +87,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre typeLocalisation est erroné', () => {
       describe("quand le paramètre typeLocalisation n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?typeLocalisation=NATION&codeLocalisation=75000&page=1');
         });
 
@@ -100,7 +100,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre codeLocalisation est erroné', () => {
       describe("quand le paramètre codeLocalisation n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?typeLocalisation=COMMUNE&codeLocalisation=erreur&page=1');
         });
 
@@ -112,7 +112,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     });
     describe('quand le paramètre codeLocalisation est de format lettre et chiffre', () => {
       beforeEach(() => {
-        cy.viewport('iphone-6');
+        cy.viewport('iphone-x');
         cy.visit('/emplois?typeLocalisation=COMMUNE&codeLocalisation=2A004&page=1');
       });
 
@@ -124,7 +124,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre typeDeContrats est erroné', () => {
       describe("quand le paramètre typeDeContrats n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?typeDeContrats=RSA&page=1');
         });
 
@@ -137,7 +137,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre grandDomaineList est erroné', () => {
       describe("quand le paramètre grandDomaineList n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?grandDomaineList=CS12&page=1');
         });
 
@@ -150,7 +150,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre tempsDeTravail est erroné', () => {
       describe("quand le paramètre tempsDeTravail n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?tempsDeTravail=tiersTemps&page=1');
         });
 
@@ -163,7 +163,7 @@ describe('Parcours emplois - Erreur paramètres url', () => {
     context('quand le paramètre experienceExigence est erroné', () => {
       describe("quand le paramètre experienceExigence n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/emplois?experienceExigence=A&page=1');
         });
 

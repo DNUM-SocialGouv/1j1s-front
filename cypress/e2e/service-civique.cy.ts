@@ -4,9 +4,10 @@ import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEn
 
 describe('Parcours service civique', () => {
   beforeEach(() => {
-    cy.viewport('iphone-6');
+    cy.viewport('iphone-x');
     cy.visit('/service-civique');
   });
+
   context('quand l‘utilisateur choisi un domaine', () => {
     it('affiche la liste des résultats', () => {
       cy.get('button').contains('Sélectionnez votre choix').click();

@@ -5,7 +5,7 @@ describe('Parcours alternance', () => {
     context('quand le paramètre page est erroné ', () => {
       describe('quand le paramètre page est supérieur au maximum autorisé', () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/apprentissage?page=67');
         });
 
@@ -16,7 +16,7 @@ describe('Parcours alternance', () => {
 
       describe('quand le paramètre page est inférieur au minimum autorisé', () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/apprentissage?page=0');
         });
 
@@ -28,7 +28,7 @@ describe('Parcours alternance', () => {
 
       describe("quand le paramètre page n'est pas un nombre", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/apprentissage?page=erreur');
         });
 
@@ -39,7 +39,7 @@ describe('Parcours alternance', () => {
 
       describe("quand le paramètre page n'est pas présent", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/apprentissage?motCle=pas-de-page');
         });
 
@@ -52,7 +52,7 @@ describe('Parcours alternance', () => {
     context('quand le paramètre typeLocalisation est erroné', () => {
       describe("quand le paramètre typeLocalisation n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/apprentissage?typeLocalisation=NATION&codeLocalisation=75000&page=1');
         });
 
@@ -65,7 +65,7 @@ describe('Parcours alternance', () => {
     context('quand le paramètre codeLocalisation est erroné', () => {
       describe("quand le paramètre codeLocalisation n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/apprentissage?typeLocalisation=COMMUNE&codeLocalisation=erreur&page=1');
         });
 

@@ -5,34 +5,45 @@ import {
 } from '../../src/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
 
 describe('Parcours Accompagnement', () => {
-  describe('quand l‘utilisateur cherche une commune', () => {
+
+  describe('quand l‘utilisateur arrive sur la page sans paramètre', () => {
     beforeEach(() => {
+      cy.viewport('iphone-x');
       cy.visit('/accompagnement');
     });
-    it('affiche 2 résultats en cas de réussite', () => {
-      cy.get('input[type="text"').type('46100');
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(400);
-      cy.get('input[type="text"').type('{enter}');
-      cy.get('button[type=submit]').type('{enter}');
-      cy.intercept('/api/empois', anÉtablissementAccompagnementList());
-      cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 2);
+
+    describe('quand l‘utilisateur cherche une commune', () => {
+      it('affiche 2 résultats en cas de réussite', () => {
+        cy.get('input[name="libelleCommune"]').type('par');
+        cy.get('ul[role="listbox"]').first().click();
+
+        cy.get('button').contains('Sélectionnez votre choix').click();
+        cy.get('ul[role="listbox"]').first().click();
+
+        cy.get('button').contains('Rechercher').click();
+
+        cy.intercept({ pathname: '/api/etablissements-accompagnement' }, anÉtablissementAccompagnementList());
+        cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 3);
+      });
+    });
+
+    describe('quand l‘utilisateur n‘écrit rien et fait une recherche', () => {
+      it('affiche un text indiquant qu‘il faut saisir une localisation', () => {
+        cy.get('button').contains('Rechercher').click();
+        cy.contains('Veuillez saisir une localisation');
+      });
     });
   });
-  describe('quand l‘utilisateur n‘écrit rien et fait une recherche', () => {
-    before(() => {
-      cy.visit('/accompagnement');
-    });
-    it('affiche un text indiquant qu‘il faut saisir une localisation', () => {
-      cy.get('button[type=submit]').type('{enter}');
-      cy.contains('Veuillez saisir une localisation');
-    });
-  });
+
+
   describe('quand l‘utilisateur ajoute des paramètre incorrecte à la query', () => {
-    before(() => {
-      cy.visit('http://localhost:3000/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
+    beforeEach(() => {
+      cy.viewport('iphone-x');
+      cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
     });
-    it('affiche le message "Erreur - Demande incorrecte', () => {
+
+    it('affiche le message "Erreur - Demande incorrecte"', () => {
+      cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
       cy.contains('Erreur - Demande incorrecte').should('be.visible');
     });
   });
