@@ -16,7 +16,7 @@ import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 import { queryToArray } from '~/server/utils/queryToArray.utils';
 
-const querySchema = Joi.object({
+export const jobsEtudiantsQuerySchema = Joi.object({
   codeLocalisation: Joi.string().alphanum().max(5),
   grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
   libelleLocalisation: Joi.string(),
@@ -30,7 +30,7 @@ export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: Ne
   return handleResponse(résultatsRechercheJobÉtudiant, res);
 }
 
-export default monitoringHandler(validate({ query: querySchema }, rechercherJobÉtudiantHandler));
+export default monitoringHandler(validate({ query: jobsEtudiantsQuerySchema }, rechercherJobÉtudiantHandler));
 
 export function jobÉtudiantFiltreMapper(request: NextApiRequest): JobÉtudiantFiltre {
   const { query } = request;

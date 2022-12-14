@@ -1,78 +1,52 @@
 /// <reference types="cypress" />
 
+import { aBarmanOffre, aRésultatEchantillonOffre } from '../../src/server/offres/domain/offre.fixture';
+
 describe('Parcours alternance', () => {
-  describe("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
-    context('quand le paramètre page est erroné ', () => {
-      describe('quand le paramètre page est supérieur au maximum autorisé', () => {
-        beforeEach(() => {
-          cy.viewport('iphone-x');
-          cy.visit('/apprentissage?page=67');
-        });
+  beforeEach(() => {
+    cy.viewport('iphone-x');
+    cy.visit('/apprentissage');
+  });
 
-        it('retourne une erreur de demande incorrecte', () => {
-          cy.contains('Erreur - Demande incorrecte').should('exist');
-        });
-      });
+  it('affiche 15 résultats par défaut', () => {
+    cy.intercept('/api/alternances', aRésultatEchantillonOffre());
+    cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 15);
+  });
 
-      describe('quand le paramètre page est inférieur au minimum autorisé', () => {
-        beforeEach(() => {
-          cy.viewport('iphone-x');
-          cy.visit('/apprentissage?page=0');
-        });
+  it('place le focus sur le premier input du formulaire de recherche', () => {
+    cy.focused().should('have.attr', 'name', 'motCle');
+  });
 
-        it('retourne une erreur de demande incorrecte', () => {
-          cy.contains('Erreur - Demande incorrecte').should('exist');
-        });
-      });
+  context('quand l\'utilisateur rentre un mot clé', () => {
+    it('filtre les résultats par mot clé', () => {
+      cy.intercept({
+        pathname: '/api/alternances',
+        query: { motCle: 'barman' },
+      }, { nombreRésultats: 1, résultats: [aBarmanOffre()] });
+      cy.focused().type('barman').type('{enter}');
 
-
-      describe("quand le paramètre page n'est pas un nombre", () => {
-        beforeEach(() => {
-          cy.viewport('iphone-x');
-          cy.visit('/apprentissage?page=erreur');
-        });
-
-        it('retourne une erreur de demande incorrecte', () => {
-          cy.contains('Erreur - Demande incorrecte').should('exist');
-        });
-      });
-
-      describe("quand le paramètre page n'est pas présent", () => {
-        beforeEach(() => {
-          cy.viewport('iphone-x');
-          cy.visit('/apprentissage?motCle=pas-de-page');
-        });
-
-        it('retourne une erreur de demande incorrecte', () => {
-          cy.contains('Erreur - Demande incorrecte').should('exist');
-        });
-      });
+      cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 1);
     });
 
-    context('quand le paramètre typeLocalisation est erroné', () => {
-      describe("quand le paramètre typeLocalisation n'est pas autorisé", () => {
-        beforeEach(() => {
-          cy.viewport('iphone-x');
-          cy.visit('/apprentissage?typeLocalisation=NATION&codeLocalisation=75000&page=1');
+    context('quand l\'utilisateur veut sélectionner la première offre', () => {
+      it('navigue vers le détail de l\'offre', () => {
+        const id = aBarmanOffre().id;
+        cy.intercept(`/_next/data/development/apprentissage/${id}.json?id=${id}`, {
+          pageProps: { offreAlternance: aBarmanOffre() },
         });
-
-        it('retourne une erreur de demande incorrecte', () => {
-          cy.contains('Erreur - Demande incorrecte').should('exist');
-        });
+        cy.get('ul[aria-label="Offres d’alternances"] > li a').first().click();
       });
     });
+  });
 
-    context('quand le paramètre codeLocalisation est erroné', () => {
-      describe("quand le paramètre codeLocalisation n'est pas autorisé", () => {
-        beforeEach(() => {
-          cy.viewport('iphone-x');
-          cy.visit('/apprentissage?typeLocalisation=COMMUNE&codeLocalisation=erreur&page=1');
-        });
+  context("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
+    beforeEach(() => {
+      cy.viewport('iphone-x');
+      cy.visit('/apprentissage?page=67');
+    });
 
-        it('retourne une erreur de demande incorrecte', () => {
-          cy.contains('Erreur - Demande incorrecte').should('exist');
-        });
-      });
+    it('retourne une erreur de demande incorrecte', () => {
+      cy.contains('Erreur - Demande incorrecte').should('exist');
     });
   });
 });

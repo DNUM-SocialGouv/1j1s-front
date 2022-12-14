@@ -80,6 +80,7 @@ export function RechercherAlternance() {
       />
       <main id="contenu">
         <RechercherSolutionLayout
+          ariaLabelListeSolution={'Offres d’alternances'}
           bannière={<BannièreAlternance/>}
           erreurRecherche={erreurRecherche}
           étiquettesRecherche={offreQuery.libelleLocalisation ? <TagList list={[offreQuery.libelleLocalisation]} aria-label="Filtres de la recherche" /> : null}

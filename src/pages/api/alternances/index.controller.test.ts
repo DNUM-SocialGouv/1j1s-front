@@ -2,7 +2,11 @@ import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { jobÉtudiantFiltreMapper, rechercherJobÉtudiantHandler } from '~/pages/api/jobs-etudiants/index.controller';
+import {
+  alternanceFiltreMapper,
+  alternancesQuerySchema,
+  rechercherAlternanceHandler,
+} from '~/pages/api/alternances/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
@@ -10,13 +14,14 @@ import {
   aRésultatRechercheOffreEmploiAxiosResponse,
   aRésultatRéférentielCommuneResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
+import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
-describe('rechercher un job étudiant', () => {
-  it('retourne la liste des jobs étudiants filtrée', async () => {
+describe('rechercher une alternance', () => {
+  it('retourne la liste des alternances filtrée', async () => {
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres')
-      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
-      .reply(401)
-      .get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
+      .get('/search?commune=75101&motsCles=boulanger&range=0-14&natureContrat=E2,FS')
+      .reply(401, anAxiosError({ response: anAxiosResponse({}, 401) }))
+      .get('/search?commune=75101&motsCles=boulanger&range=0-14&natureContrat=E2,FS')
       .reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
     nock('https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel')
@@ -28,17 +33,17 @@ describe('rechercher un job étudiant', () => {
       .reply(200, { access_token: 'fake_access_token' });
 
     await testApiHandler<RésultatsRechercheOffre | ErrorHttpResponse>({
-      handler: (req, res) => rechercherJobÉtudiantHandler(req, res),
+      handler: (req, res) => rechercherAlternanceHandler(req, res),
       test: async ({ fetch }) => {
         const res = await fetch({ method: 'GET' });
         const json = await res.json();
         expect(json).toEqual(aRésultatsRechercheOffre());
       },
-      url: '/jobs-etudiants?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
+      url: '/emplois?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
     });
   });
 
-  it('map la request parameters to JobÉtudiantFiltre', () => {
+  it('map la request parameters to AlternanceFiltre', () => {
     const request: NextApiRequest = {
       query: {
         codeLocalisation: '75101',
@@ -48,16 +53,31 @@ describe('rechercher un job étudiant', () => {
       },
     } as unknown as NextApiRequest;
 
-    const result = jobÉtudiantFiltreMapper(request);
+    const result = alternanceFiltreMapper(request);
 
     expect(result).toEqual({
-      grandDomaineList: undefined,
       localisation: {
         code: '75101',
         type: 'COMMUNE',
       },
       motClé: 'boulanger',
       page: 1,
+    });
+  });
+
+  describe('Quand les paramètres de l\'url ne respectent pas le schema de validation du controller', () => {
+    it.each([
+      { page: '67' },
+      { page: '0' },
+      { page: 'NaN' },
+      { page: 'nan' },
+      { grandDomaine: 'CS12', page: '1' },
+      { page: '1', typeLocalisation: 'erreur' },
+      { codeLocalisation: 'erreur', page: '1', typeLocalisation: 'COMMUNE' },
+    ])('pour %j on retourne une erreur', (queryParametersToTestInError) => {
+      const result = alternancesQuerySchema.validate(queryParametersToTestInError);
+
+      expect(result.error).toBeDefined();
     });
   });
 });

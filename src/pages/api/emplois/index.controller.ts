@@ -22,7 +22,7 @@ import { handleResponse } from '~/server/utils/handleResponse.util';
 import { queryToArray } from '~/server/utils/queryToArray.utils';
 
 
-const querySchema = Joi.object({
+export const emploisQuerySchema = Joi.object({
   codeLocalisation: Joi.string().alphanum().max(5),
   experienceExigence: Joi.string().valid('D', 'S', 'E'),
   grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
@@ -42,7 +42,7 @@ export async function rechercherOffreEmploiHandler(
   return handleResponse(résultatsRechercheOffreEmploi, res);
 }
 
-export default monitoringHandler(validate({ query: querySchema }, rechercherOffreEmploiHandler));
+export default monitoringHandler(validate({ query: emploisQuerySchema }, rechercherOffreEmploiHandler));
 
 export function emploiFiltreMapper(request: NextApiRequest): EmploiFiltre {
   const { query } = request;

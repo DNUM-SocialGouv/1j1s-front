@@ -31,10 +31,39 @@ describe('Parcours formulaire cej', () => {
       cy.get('input[type="tel"]').type('0688552233');
       cy.get('button').contains('Sélectionnez votre choix').click();
       cy.get('ul[role="listbox"]').first().click();
+
       cy.get('input[name="ville"]').type('par');
+      cy.intercept('GET', '/api/communes?q=par', {
+        résultats: [
+          {
+            code: '75056',
+            codePostal: '75006',
+            coordonnées: {
+              latitude: 48.859,
+              longitude: 2.347,
+            },
+            libelle: 'Paris',
+            ville: 'Paris',
+          },
+        ],
+      }).as('communes');
+      cy.wait('@communes');
       cy.get('ul[role="listbox"]').first().click();
 
+      cy.intercept('POST', '/api/demandes-de-contact', {
+        statusCode: 201,
+      }).as('submit');
       cy.get('button').contains('Envoyer la demande').click();
+      cy.wait('@submit').its('request.body').should('deep.equal', {
+        age: 18,
+        codePostal: '75006',
+        email: 'jean.dupont@mail.com',
+        nom: 'dupont',
+        prénom: 'jean',
+        type: 'CEJ',
+        téléphone: '0688552233',
+        ville: 'Paris',
+      });
 
       cy.contains('Votre demande a bien été transmise !').should('be.visible');
     });
