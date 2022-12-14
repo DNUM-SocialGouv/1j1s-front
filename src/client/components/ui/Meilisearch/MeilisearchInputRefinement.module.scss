@@ -35,14 +35,15 @@
 }
 .formControl {
   &Input {
+    font-family: inherit;
     display: flex;
     align-items: center;
     width: 100%;
     height: 2.5rem;
     padding: 0 16px;
     border-radius: 1.25rem;
-    border: solid 1px $color-on-surface;
-    background-color: $color-form-field;
+    border: solid 1px $color-on-background;
+    background-color: $color-background;
     margin-top: 0.5rem;
 
     &:active, &:focus {
