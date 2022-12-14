@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.24.2...v2.25.0) (2022-12-14)
+
+
+### Features
+
+* **analytics:** manager de consentement de cookie ([11881a3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/11881a3c02aee860eecb2e8fd3fb9b2d6a426835))
+
 ## [2.24.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.24.1...v2.24.2) (2022-12-14)
 
 
