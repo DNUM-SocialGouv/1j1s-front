@@ -6,21 +6,27 @@
  * STRAPI_BASE_URL=http://127.0.0.1:1337/
  * STRAPI_URL_API=http://127.0.0.1:1337/api/
  * car cypress n'a pas accès au localhost:1337
+ *
+ * il faut utiliser le { force : true } parce que cypress ne peut pas remplir des champs pas visible
  */
 
 describe('Parcours formulaire cej', () => {
   beforeEach(() => {
-    cy.viewport('iphone-6');
+    cy.viewport('iphone-x');
     cy.visit('/contrat-engagement-jeune');
   });
-  it('clique sur le bouton qui affiche le formulaire de contact', () => {
-    cy.get('button').contains('Je souhaite être contacté(e)').click();
-  });
-  context('quand l’utilisateur correctement remplie le formulaire', () => {
-    it('affiche un message de succès', () => {
 
-      cy.get('input[name="firstname"]').type('jean');
-      cy.get('input[name="lastname"]').type('dupont');
+  context('quand l’utilisateur correctement remplie le formulaire', () => {
+    it('clique sur le bouton qui affiche le formulaire de contact', () => {
+      cy.get('button').contains('Je souhaite être contacté(e)').click();
+      cy.contains('J\'ai des questions sur le Contrat d\'Engagement Jeune et souhaite être rappelé').should('be.visible');
+    });
+
+    it('affiche un message de succès', () => {
+      cy.get('button').contains('Je souhaite être contacté(e)').click({ force: true });
+
+      cy.get('input[name="firstname"]').type('jean', { force: true });
+      cy.get('input[name="lastname"]').type('dupont', { force: true });
       cy.get('input[type="email"]').type('jean.dupont@mail.com');
       cy.get('input[type="tel"]').type('0688552233');
       cy.get('button').contains('Sélectionnez votre choix').click();

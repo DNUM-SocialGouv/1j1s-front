@@ -5,7 +5,7 @@ describe('Parcours jobs étudiants', () => {
     context('quand le paramètre page est erroné ', () => {
       describe('quand le paramètre page est supérieur au maximum autorisé', () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?page=67');
         });
 
@@ -16,7 +16,7 @@ describe('Parcours jobs étudiants', () => {
 
       describe('quand le paramètre page est inférieur au minimum autorisé', () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?page=0');
         });
 
@@ -27,7 +27,7 @@ describe('Parcours jobs étudiants', () => {
 
       describe("quand le paramètre page n'est pas un nombre", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?page=erreur');
         });
 
@@ -38,7 +38,7 @@ describe('Parcours jobs étudiants', () => {
 
       describe("quand le paramètre page n'est pas présent", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?motCle=pas-de-page');
         });
 
@@ -51,7 +51,7 @@ describe('Parcours jobs étudiants', () => {
     context('quand le paramètre typeLocalisation est erroné', () => {
       describe("quand le paramètre typeLocalisation n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?typeLocalisation=NATION&codeLocalisation=75000&page=1');
         });
 
@@ -64,7 +64,7 @@ describe('Parcours jobs étudiants', () => {
     context('quand le paramètre codeLocalisation est erroné', () => {
       describe("quand le paramètre codeLocalisation n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?typeLocalisation=COMMUNE&codeLocalisation=erreur&page=1');
         });
 
@@ -77,7 +77,7 @@ describe('Parcours jobs étudiants', () => {
     context('quand le paramètre grandDomaineList est erroné', () => {
       describe("quand le paramètre grandDomaineList n'est pas autorisé", () => {
         beforeEach(() => {
-          cy.viewport('iphone-6');
+          cy.viewport('iphone-x');
           cy.visit('/jobs-etudiants?grandDomaineList=CS12&page=1');
         });
 

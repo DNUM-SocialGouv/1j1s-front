@@ -8,8 +8,8 @@
  * car cypress n'a pas accès au localhost:1337
  */
 describe('Parcours formulaire entreprise', () => {
-  before(() => {
-    cy.viewport('iphone-6');
+  beforeEach(() => {
+    cy.viewport('iphone-x');
     cy.visit('/les-entreprises-s-engagent/inscription');
   });
   context('quand l’utilisateur remplit correctement le formulaire', () => {

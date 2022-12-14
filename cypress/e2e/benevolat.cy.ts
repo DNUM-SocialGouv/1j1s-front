@@ -4,7 +4,7 @@ import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEn
 
 describe('Parcours bénévolat', () => {
   beforeEach(() => {
-    cy.viewport('iphone-6');
+    cy.viewport('iphone-x');
     cy.visit('/benevolat');
   });
   context('quand l‘utilisateur choisi un domaine', () => {
