@@ -2,7 +2,11 @@ import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { emploiFiltreMapper, rechercherOffreEmploiHandler } from '~/pages/api/emplois/index.controller';
+import {
+  emploiFiltreMapper,
+  emploisQuerySchema,
+  rechercherOffreEmploiHandler,
+} from '~/pages/api/emplois/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
@@ -61,6 +65,33 @@ describe('rechercher une offre d\'emploi', () => {
       page: 1,
       tempsDeTravail: undefined,
       typeDeContratList: undefined,
+    });
+  });
+
+  describe('Quand les paramètres de l\'url ne respectent pas le schema de validation du controller', () => {
+    it.each([
+      { page: '67' },
+      { page: '0' },
+      { page: 'NaN' },
+      { page: 'nan' },
+      { page: '1', typeDeContrats: 'RSA' },
+      { experienceExigence: 'A', page: '1' },
+      { grandDomaine: 'CS12', page: '1' },
+      { page: '1', tempsDeTravail: 'tiers' },
+      { page: '1', typeLocalisation: 'erreur' },
+      { codeLocalisation: 'erreur', page: '1', typeLocalisation: 'COMMUNE' },
+    ])('pour %j on retourne une erreur', (queryParametersToTestInError) => {
+      const result = emploisQuerySchema.validate(queryParametersToTestInError);
+
+      expect(result.error).toBeDefined();
+    });
+  });
+
+  describe('Quand les paramètres de l\'url respectent le schema de validation du controller', () => {
+    it('on ne retourne pas d\'erreur', () => {
+      const result = emploisQuerySchema.validate({ codeLocalisation:'2A004', page:'1', typeLocalisation:'COMMUNE' });
+
+      expect(result.error).not.toBeDefined();
     });
   });
 });

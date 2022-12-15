@@ -79,6 +79,7 @@ export function RechercherJobÉtudiant() {
       />
       <main id="contenu">
         <RechercherSolutionLayout
+          ariaLabelListeSolution="Offres de jobs étudiants"
           bannière={<BannièreJobÉtudiant/>}
           erreurRecherche={erreurRecherche}
           étiquettesRecherche={offreEmploiQuery.libelleLocalisation ? <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche" /> : null}

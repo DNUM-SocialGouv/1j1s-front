@@ -13,7 +13,7 @@ import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.ma
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
-export const querySchema = Joi.object({
+export const alternancesQuerySchema = Joi.object({
   codeLocalisation: Joi.string().alphanum().max(5),
   libelleLocalisation: Joi.string(),
   motCle: Joi.string(),
@@ -26,7 +26,7 @@ export async function rechercherAlternanceHandler(req: NextApiRequest, res: Next
   return handleResponse(résultatsRechercheAlternance, res);
 }
 
-export default monitoringHandler(validate({ query: querySchema }, rechercherAlternanceHandler));
+export default monitoringHandler(validate({ query: alternancesQuerySchema }, rechercherAlternanceHandler));
 
 export function alternanceFiltreMapper(request: NextApiRequest): OffreFiltre {
   const { query } = request;

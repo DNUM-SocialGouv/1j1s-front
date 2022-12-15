@@ -16,8 +16,25 @@ describe('Parcours formulaire entreprise', () => {
     it('affiche un message de succès', () => {
 
       cy.get('input[name="companyName"]').type('octo');
-      cy.get('input[name="companyPostalCode"]').type('paris');
+
+      cy.get('input[name="companyPostalCode"]').type('par');
+      cy.intercept('GET', '/api/communes?q=par', {
+        résultats: [
+          {
+            code: '75056',
+            codePostal: '75006',
+            coordonnées: {
+              latitude: 48.859,
+              longitude: 2.347,
+            },
+            libelle: 'Paris',
+            ville: 'Paris',
+          },
+        ],
+      }).as('codepostal');
+      cy.wait('@codepostal');
       cy.get('ul[role="listbox"]').first().click();
+
       cy.get('input[name="companySiret"]').type('41816609600069');
       cy.get('input[name="companySector"]').type('admin');
       cy.get('ul[role="listbox"]').first().click();
@@ -34,7 +51,23 @@ describe('Parcours formulaire entreprise', () => {
       cy.get('input[name="job"]').type('rh');
       cy.get('input[name="phone"]').type('0199999999');
 
+      cy.intercept('POST', '/api/entreprises', {
+        statusCode: 201,
+      }).as('submit');
       cy.get('button').contains('Envoyer le formulaire').click();
+      cy.wait('@submit').its('request.body').should('deep.equal', {
+        codePostal: '75006',
+        email: 'jean.dupont@gmail.com',
+        nom: 'dupont',
+        nomSociété: 'octo',
+        prénom: 'jean',
+        secteur: 'public-administration',
+        siret: '41816609600069',
+        taille: 'small',
+        travail: 'rh',
+        téléphone: '0199999999',
+        ville: 'Paris',
+      });
 
       cy.contains('Félicitations, votre formulaire a bien été envoyé !').should('be.visible');
     });
