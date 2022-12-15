@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
-import styles from 'src/client/components/features/Evenement/RésultatRechercherEvenement.module.scss';
 
 import { Evenement } from '~/client/components/features/Evenement/Evenement.type';
+import styles from '~/client/components/features/Evenement/RésultatRechercherEvenement.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';

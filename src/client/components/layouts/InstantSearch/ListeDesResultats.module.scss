@@ -1,14 +1,20 @@
 @import "@styles/utilities";
 
-.listeDesAnnoncesWrapper {
+
+.listeDesResultatsWrapper {
   background-color: $color-background-white-lilac;
-  padding: 2rem 1.25rem;
-  & > div > ul {
-    margin-top: 2.5rem;
-  }
+  padding: 2rem 1rem;
 
   & ol {
     list-style-type: none;
+    & li {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.listeDesResultats {
+  & ol {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
@@ -16,18 +22,11 @@
     flex-wrap: wrap;
     max-width: $breakpoint-xl;
     margin: auto;
-
-    & li {
-      margin-bottom: 1rem;
-    }
   }
 }
 
 @include media(medium) {
-  .listeDesAnnoncesWrapper {
-    & > div > ul {
-      margin-top: 5rem;
-    }
+  .listeDesResultats {
     & ol {
       gap: 2rem 4rem;
       flex-direction: row;
@@ -43,16 +42,14 @@
 .skeletonDisplay {
   display: flex;
   flex-direction: column;
-  > li {
-    margin-bottom: 1.5rem;
-  }
-}
-
-@media screen and (min-width: 48em) {
-  .skeletonDisplay {
+  flex-wrap: wrap;
+  @include media(medium) {
     flex-direction: row;
     justify-content: space-around;
-    > li {
+  }
+  > li {
+    margin-bottom: 1.5rem;
+    @include media(medium) {
       width: 22.5rem;
     }
   }

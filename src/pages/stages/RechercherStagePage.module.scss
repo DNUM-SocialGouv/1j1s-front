@@ -1,25 +1,7 @@
 @import "@styles/utilities";
 
-.stageListeResultatsWrapper {
+.form {
   padding: 2rem 1rem;
-}
-
-.stageFormWrapper {
-  padding: 1rem 1rem 3rem 1rem;
-
-  @include media(large) {
-    padding: 1rem;
-  }
-}
-
-.stageForm {
-  flex-direction: row;
-  align-items: start;
-  padding-top: 40px;
-  padding-bottom: 3.5rem;
-}
-
-.formWrapper {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 2rem;
@@ -27,46 +9,4 @@
   @include media(medium) {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-.stageListeRootElement > ol > li {
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.stageTagItem {
-  display: inline;
-}
-
-.stageTagCategoryElement {
-  display: inline-flex;
-  flex-wrap: wrap;
-
-  @extend %text-small;
-  padding: 2px 8px;
-  margin: 2px 8px 2px 0;
-  background-color: $color-tag;
-  border-radius: calc((2px * 2 + 1.25rem) / 2);
-
-  @include media(large) {
-    padding: 4px 12px;
-    margin: 4px 12px 4px 0;
-    border-radius: calc((4px * 2 + 1.5rem) / 2);
-  }
-}
-
-.none {
-  display: none;
-}
-
-.informationRésultats {
-  padding: 2rem 1rem;
-
-  ul {
-    padding-bottom: 1rem;
-  }
-}
-
-.paginationContainer {
-  padding: 5rem 0 3.5rem 0;
 }

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {
   ChangeEvent,
   useEffect,
@@ -10,11 +11,12 @@ import {
 } from 'react-instantsearch-hooks-web';
 import { v4 as uuidv4 } from 'uuid';
 
+import { CommonProps } from '~/client/components/props';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './MeilisearchCustomSearchBox.module.scss';
 
-interface MeilisearchCustomSearchBoxProps {
+interface MeilisearchCustomSearchBoxProps extends CommonProps {
   id?: string
   label: string
   name: string
@@ -29,6 +31,7 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
     id,
     placeholder,
     resetTitle,
+    className,
   } = props;
   const { refine, clear } = useSearchBox(props);
   const uuid = uuidv4();
@@ -52,7 +55,7 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
   }, [id, uuid]);
 
   return (
-    <div>
+    <div className={classNames(className)}>
       <label htmlFor={inputRef.current}>{label}</label>
       <span className={styles.customSearchBoxInputWrapper}>
         <input

@@ -1,13 +1,17 @@
+import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 import { usePagination } from 'react-instantsearch-hooks-web';
 
+import { CommonProps } from '~/client/components/props';
 import { CommonPagination } from '~/client/components/ui/Pagination/CommonPagination';
 
-export type MeiliSearchCustomPaginationProps = UsePaginationProps & { numberOfResultPerPage: number }
+interface MeiliSearchCustomPaginationProps extends CommonProps {
+  numberOfResultPerPage: number
+}
 
-export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationProps) {
-  const { numberOfResultPerPage } = props;
+export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationProps & UsePaginationProps) {
+  const { numberOfResultPerPage, className } = props;
   const {
     currentRefinement,
     nbHits,
@@ -27,15 +31,17 @@ export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationPr
   const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
   return (
-    <CommonPagination
-      currentPage={currentRefinement}
-      onPageClick={refine}
-      isLastPage={isLastPage}
-      numberOfPageList={numberOfPageList}
-      lastPage={lastPage}
-      isFirstPage={isFirstPage}
-      createURL={createURL}
-    />
+    <div className={classNames(className)}>
+      <CommonPagination
+        currentPage={currentRefinement}
+        onPageClick={refine}
+        isLastPage={isLastPage}
+        numberOfPageList={numberOfPageList}
+        lastPage={lastPage}
+        isFirstPage={isFirstPage}
+        createURL={createURL}
+      />
+    </div>
   );
 }
 
