@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.1...v2.25.2) (2022-12-15)
+
+
+### Bug Fixes
+
+* **cache-redis:** ajout try/catch autours des appels à redis ([b0cecfe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b0cecfe4ea33162eaf9e0769e396f6578f86b1c7))
+
 ## [2.25.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.0...v2.25.1) (2022-12-15)
 
 
