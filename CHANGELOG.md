@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.0...v2.25.1) (2022-12-15)
+
+
+### Bug Fixes
+
+* **ui:** alignement champs de recherche offres emploi, job étudiant, alternance et engagement ([aa683ca](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aa683cab03b57e7cbecc5734454459cdcbd6f945))
+
 ## [2.25.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.24.2...v2.25.0) (2022-12-14)
 
 
