@@ -25,7 +25,7 @@ import { MapPinIcon } from '~/client/components/ui/Icon/map-pin.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 
-type IconName =
+export type IconName =
   'angle-down'
   | 'angle-left'
   | 'angle-left-from-line'

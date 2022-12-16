@@ -1,0 +1,6 @@
+@import "@styles/_utilities";
+
+.décharge {
+  @extend %text-small;
+  text-align: left;
+}

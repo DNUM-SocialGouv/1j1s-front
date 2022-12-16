@@ -1,11 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 
+import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
@@ -116,9 +116,7 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
                 }
               </div>
               <div className={styles.décharge}>
-                <p>Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP afin de les transférer à Pôle Emploi.
-                  Pour en savoir plus vous pouvez consulter la <Link href={'/confidentialite'}>politique de confidentialité</Link> et les <Link href={'/cgu'}>CGU</Link> de la DGEFP
-                </p>
+                <DéchargeRGPD />
               </div>
             </form>
           </ModalComponent.Content>

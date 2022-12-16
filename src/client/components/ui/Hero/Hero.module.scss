@@ -87,10 +87,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @include media(large) {
-    display: initial;
-  }
 }
 
 .linkAsButtonContainer {

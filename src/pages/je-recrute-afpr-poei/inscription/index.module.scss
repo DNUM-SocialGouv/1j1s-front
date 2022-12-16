@@ -14,12 +14,8 @@
 }
 
 .boutonRetour {
-  border: 1px solid $color-primary;
-  color: $color-primary;
-  padding: 0.6rem 1.5rem 0.6rem 1rem;
-  border-radius: 20px;
-  margin: 1.25rem 0;
-  display: flex;
+  @extend %text-regular;
+  margin-block: 1.25rem;
 }
 
 .formulaire {
