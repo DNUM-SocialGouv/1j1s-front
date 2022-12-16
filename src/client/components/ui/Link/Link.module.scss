@@ -2,19 +2,20 @@
 
 $content-area: 1.35;
 
-.primaryButton, .secondaryButton {
+.primaryButton, .secondaryButton, .backButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
   border-radius: 50px;
-  padding-block: 0.5rem;
-  padding-inline: 1.5rem 1.3rem;
+  padding: 0.5rem 1.5rem;
   text-decoration: none;
   line-height: $content-area * 1rem;
-  text-align: center;
 
   & > svg {
-    vertical-align: bottom;
-    margin-left: 0.5rem;
     height: $content-area * 1rem;
     width: $content-area * 1rem;
+    margin-inline: -.3rem;
   }
 }
 
@@ -29,7 +30,7 @@ $content-area: 1.35;
   }
 }
 
-.secondaryButton {
+.secondaryButton, .backButton {
   border: 1px solid $color-primary;
   background-color: $color-on-primary;
   color: $color-primary;

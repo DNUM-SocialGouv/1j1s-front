@@ -11,7 +11,7 @@ const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbo
 
 export default function DéposerUneOffreDEmploi() {
   return (
-    <>
+    <main id="contenu">
       <HeadTag title="Déposer une offre d'emploi ou d'alternance | 1jeune1solution"/>
       <Hero className={styles.hero}>
         <p><b>Déposez votre offre d‘emploi ou d‘alternance sur 1jeune1solution</b></p>
@@ -31,7 +31,7 @@ export default function DéposerUneOffreDEmploi() {
           Emploi.
         </p>
       </Container>
-    </>
+    </main>
   );
 }
 

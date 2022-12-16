@@ -7,15 +7,14 @@ import { beforeEach } from '@jest/globals';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {
-  FormulairesPoleEmploi,
-} from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulaireDeContactPOE/FormulaireDeContactPOE';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import JeRecruteAfprPoeiInscription from '~/pages/je-recrute-afpr-poei/inscription/index.page';
+import JeRecruteAfprPoeiInscription, {
+  FormulairesPoleEmploi,
+} from '~/pages/je-recrute-afpr-poei/inscription/index.page';
 import { createSuccess } from '~/server/errors/either';
 
 describe('<JeRecruteAfprPoeiInscription />', () => {
@@ -70,9 +69,9 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
     it('il peut cliquer sur le bouton Retour pour retourner sur la page JeRecruteAfprPoei', async () => {
       renderComponent();
 
-      await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
+      const retourLink = screen.getByRole('link', { name: 'Retour' });
 
-      expect(routerPush).toHaveBeenCalledWith('/je-recrute-afpr-poei');
+      expect(retourLink).toHaveAttribute('href', '/je-recrute-afpr-poei');
     });
 
     it('il voit afficher la première étape de formulaire', () => {

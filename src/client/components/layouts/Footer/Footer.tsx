@@ -4,7 +4,6 @@ import React from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
 import { Link as LinkType } from '~/client/components/props';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
@@ -47,8 +46,8 @@ export default function Footer() {
                 <div className={styles.footerPropriétaire}>
                   <span>Ministère du</span>
                   <span>travail, de</span>
-                  <span>l&apos;emploi et de</span>
-                  <span>l&apos;insertion</span>
+                  <span>l‘emploi et de</span>
+                  <span>l‘insertion</span>
                 </div>
                 <div className={styles.footerDevise}>
                   <Image src="/images/logos/devise.svg" alt="Liberté Égalité Fraternité" width="52" height="37" />
@@ -65,25 +64,19 @@ export default function Footer() {
               </div>
               <div className={styles.footerLienExterne}>
                 {linkList.map((link) => (<Link href={link.url} key={link.title} className="underline-none" prefetch={false}>
-                  <TextIcon
-                    text={link.title}
-                    icon={<Icon name="external-redirection" />}
-                  />
+                  <TextIcon icon="external-redirection">{link.title}</TextIcon>
                 </Link>))}
               </div>
             </div>
           </div>
           <div className={styles.footerLienUtile}>
             <Link href="/plan-du-site" className="underline-none" prefetch={false}>Plan du site</Link>
-            <Link href="/cgu" className="underline-none" prefetch={false}>Conditions générales d&apos;utilisations</Link>
+            <Link href="/cgu" className="underline-none" prefetch={false}>Conditions générales d‘utilisations</Link>
             <Link href="/accessibilite" className="underline-none" prefetch={false}>Accessibilité : Partiellement conforme</Link>
             <Link href="/mentions-legales" className="underline-none" prefetch={false}>Mentions légales</Link>
             <Link href="/confidentialite" className="underline-none" prefetch={false}>Politique de confidentialité</Link>
             <Link href={`mailto:${MAIL_TO}`} prefetch={false}>
-              <TextIcon
-                text={'Nous contacter'}
-                icon={<Icon name="external-redirection" />}
-              />
+              <TextIcon icon="external-redirection">Nous contacter</TextIcon>
             </Link>
           </div>
           <p className={styles.footerCopyRight}>
@@ -91,10 +84,7 @@ export default function Footer() {
             <Link
               href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
             >
-              <TextIcon
-                text={'etalab-2.0'}
-                icon={<Icon name="external-redirection" />}
-              />
+              <TextIcon icon="external-redirection">etalab-2.0</TextIcon>
             </Link>
           </p>
         </Container>

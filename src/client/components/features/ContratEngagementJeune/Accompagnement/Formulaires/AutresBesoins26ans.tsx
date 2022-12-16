@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FormulairesProps } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { Icon } from '~/client/components/ui/Icon/Icon';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsInscriptionPôleEmploiModalOpen }: FormulairesProps) {
   const [activeCounter, setActiveCounter] = useState(0);
@@ -26,7 +26,7 @@ export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMis
 
   return <>
     <button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Handicap')}>
-      <Icon name={'angle-left'} className={styles.iconeRetour}/> Retour
+      <TextIcon icon="angle-left" iconPosition="left">Retour</TextIcon>
     </button>
     <p className={styles.accompagnementQuestion}>Rencontrez-vous d’autres besoins ?</p>
     <div className={styles.accompagnementBoutons}>

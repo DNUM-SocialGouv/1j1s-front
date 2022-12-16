@@ -33,7 +33,7 @@ describe('Annonce Component', () => {
 
   it('contient une image par défaut', async () => {
     await render(<AnnonceDeLogement hit={uneAnnonceDeLogement}/>);
-    const image = screen.getByRole('img');
+    const image = screen.getByRole('img') as HTMLImageElement;
     expect(image.src).toContain('%2Fimages%2Fdefaut-logement.webp'); // %2F => /
   });
 

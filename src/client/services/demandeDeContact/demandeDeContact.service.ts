@@ -1,5 +1,5 @@
-import { FormulairesPoleEmploi } from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/FormulaireDeContactPOE/FormulaireDeContactPOE';
 import { HttpClientService } from '~/client/services/httpClient.service';
+import { FormulairesPoleEmploi } from '~/pages/je-recrute-afpr-poei/inscription/index.page';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 

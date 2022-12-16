@@ -1,5 +1,5 @@
-import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
 import { HttpClientService } from '~/client/services/httpClient.service';
+import { FormulaireEngagement } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 

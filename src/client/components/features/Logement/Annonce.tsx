@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { AnnonceDeLogementIndexee } from '~/pages/annonces/AnnonceDeLogement.type';
@@ -37,13 +36,10 @@ export const AnnonceDeLogement = (props : HitProps) => {
     </CardComponent.Content>
 
     <span className={styles.CardFooter}>
-      <TextIcon text={annonce.localisationAAfficher} icon={<Icon name="map-pin"/>} iconPosition='left'/>
+      <TextIcon icon="map-pin" iconPosition="left">{annonce.localisationAAfficher}</TextIcon>
       <Link href={annonce.url} key={annonce.slug}
         className={classNames('underline-none', styles.CardFooterCallToAction)} prefetch={false}>
-        <TextIcon
-		  text="Lire l'annonce"
-		  icon={<Icon name="external-redirection"/>}
-        />
+        <TextIcon icon="external-redirection">Lire l‘annonce</TextIcon>
       </Link>
     </span>
   </CardComponent>;

@@ -5,12 +5,13 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { FormulaireEngagement } from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
+import LesEntreprisesSEngagentInscription, {
+  FormulaireEngagement,
+} from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 
 describe('LesEntreprisesSEngagentInscription', () => {
   const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
@@ -47,12 +48,12 @@ describe('LesEntreprisesSEngagentInscription', () => {
   });
 
   describe('quand l’utilisateur arrivent sur la page', () => {
-    it('il peut cliquer sur le bouton Retour pour retourner sur la page de description des entreprises s’engagent', async () => {
+    it('il peut cliquer sur le lien "Retour" pour retourner sur la page de description des entreprises s’engagent', async () => {
       renderComponent();
 
-      await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
+      const retourLink = screen.getByRole('link', { name: 'Retour' });
 
-      expect(routerPush).toHaveBeenCalledWith('/les-entreprises-s-engagent');
+      expect(retourLink).toHaveAttribute('href', '/les-entreprises-s-engagent');
     });
 
     it('il voit afficher la première étape de formulaire', () => {

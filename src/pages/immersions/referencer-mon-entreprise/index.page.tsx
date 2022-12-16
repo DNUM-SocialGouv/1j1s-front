@@ -11,7 +11,7 @@ const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbo
 
 export default function ImmersionReferenceMonEntreprisePage() {
   return (
-    <>
+    <main id="contenu">
       <HeadTag title="je référence mon entreprise pour des immersions | 1jeune1solution"/>
       <Hero>
         <p><b>Je référence mon entreprise</b></p>
@@ -36,6 +36,6 @@ export default function ImmersionReferenceMonEntreprisePage() {
           d‘Utilisation</a> du Groupement d‘intérêt public de plateforme de l‘inclusion.
         </p>
       </Container>
-    </>
+    </main>
   );
 }

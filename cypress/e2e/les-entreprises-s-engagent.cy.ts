@@ -1,8 +1,7 @@
 /// <reference types="cypress" />
 
-import {
-  FormulaireEngagement,
-} from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/Inscription/Inscription';
+
+import { FormulaireEngagement } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 
 const TITLE_ETAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 1 sur 2 | 1jeune1solution';
 const TITLE_ETAPE_2 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 2 sur 2 | 1jeune1solution';
