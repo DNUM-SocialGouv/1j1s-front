@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.3...v2.25.4) (2022-12-16)
+
+
+### Bug Fixes
+
+* **a11y:** ajout attribut title sur iframe employeurs ([a622cb9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a622cb9a2fe242e5838f0a7a26857ab37ad49404))
+
 ## [2.25.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.2...v2.25.3) (2022-12-16)
 
 
