@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import {
+  ModaleFormulaireDeContactMissionLocale,
+} from '~/client/components/features/Accompagnement/FormulaireDeContactMissionLocale/ModaleFormulaireDeContactMissionLocale';
 import {
   LienSolutionAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/RechercherAccompagnement';
@@ -11,8 +14,13 @@ import {
 } from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnementMobile';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 
 import styles from './RésultatRechercherAccompagnement.module.scss';
+
+export interface RésultatRechercherAccompagnementProps extends Omit<LienSolutionAccompagnement, 'id'> {
+  setIsPopInOpen: (value: boolean) => void;
+}
 
 function formatHeure(heure: string) {
   const split = heure.split(':');
@@ -42,29 +50,47 @@ export function displayHeures(heure: ÉtablissementAccompagnement.Horaire.Heure[
 
 export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccompagnement, 'id'>) {
   const { isLargeScreen } = useBreakpoint();
-  const { nomEntreprise, étiquetteOffreList, lienOffre, intituléOffre, logoEntreprise, horaires } = props;
+  const { nomEntreprise, étiquetteOffreList, lienOffre, intituléOffre, logoEntreprise, horaires, typeAccompagnement } = props;
 
-  if (isLargeScreen) {
-    return (
-      <RésultatRechercherAccompagnementDesktop
-        logoEntreprise={logoEntreprise}
-        intituléOffre={intituléOffre}
-        nomEntreprise={nomEntreprise}
-        étiquetteOffreList={étiquetteOffreList}
-        lienOffre={lienOffre}
-        horaires={horaires}
-      />
-    );
-  } else {
-	  return (
-      <RésultatRechercherAccompagnementMobile
-        logoEntreprise={logoEntreprise}
-        intituléOffre={intituléOffre}
-        nomEntreprise={nomEntreprise}
-        étiquetteOffreList={étiquetteOffreList}
-        lienOffre={lienOffre}
-        horaires={horaires}
-      />
-    );
-  }
+  const isMissionLocale = typeAccompagnement === TypeÉtablissement.MISSION_LOCALE;
+  const [isPopInOpen, setIsPopInOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  
+  return (
+    <>
+      {
+        isLargeScreen ?
+          <RésultatRechercherAccompagnementDesktop
+            logoEntreprise={logoEntreprise}
+            intituléOffre={intituléOffre}
+            nomEntreprise={nomEntreprise}
+            étiquetteOffreList={étiquetteOffreList}
+            lienOffre={lienOffre}
+            horaires={horaires}
+            typeAccompagnement={typeAccompagnement}
+            setIsPopInOpen={setIsPopInOpen}
+          />
+          :
+          <RésultatRechercherAccompagnementMobile
+            logoEntreprise={logoEntreprise}
+            intituléOffre={intituléOffre}
+            nomEntreprise={nomEntreprise}
+            étiquetteOffreList={étiquetteOffreList}
+            lienOffre={lienOffre}
+            horaires={horaires}
+            typeAccompagnement={typeAccompagnement}
+            setIsPopInOpen={setIsPopInOpen}
+          />
+      }
+      {
+        isMissionLocale &&
+        <ModaleFormulaireDeContactMissionLocale
+          isPopInOpen={isPopInOpen}
+          setIsPopInOpen={setIsPopInOpen}
+          isSuccess={isSuccess}
+          setIsSuccess={setIsSuccess}
+        />
+      }
+    </>
+  );
 }

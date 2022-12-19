@@ -5,6 +5,6 @@
   color: $color-primary;
 
   &:hover {
-    text-decoration: underline;
+    color: $color-primary-on-hover;
   }
 }

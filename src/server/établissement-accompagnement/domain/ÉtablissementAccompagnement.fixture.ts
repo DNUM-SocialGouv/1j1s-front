@@ -1243,3 +1243,69 @@ export function anotherÉtablissementAccompagnementList(): ÉtablissementAccompa
     },
   ];
 }
+
+export function aÉtablissementMissionLocaleList(): ÉtablissementAccompagnement[] {
+  return [
+    {
+      adresse: '93 rue Jeanne-d\'Arc, 75013 Paris',
+      email: 'email@email.com',
+      horaires: [
+        {
+          heures: [
+            {
+              début: '10:30:00',
+              fin: '13:00:00',
+            },
+            {
+              début: '14:00:00',
+              fin: '19:00:00',
+            },
+          ],
+          jour: 'Lundi',
+        },
+        {
+          heures: [
+            {
+              début: '14:00:00',
+              fin: '19:00:00',
+            },
+          ],
+          jour: 'Mardi',
+        },
+        {
+          heures: [],
+          jour: 'Mercredi',
+        },
+        {
+          heures: [
+            {
+              début: '10:30:00',
+              fin: '13:00:00',
+            },
+            {
+              début: '14:00:00',
+              fin: '19:00:00',
+            },
+          ],
+          jour: 'Jeudi',
+        },
+        {
+          heures: [
+            {
+              début: '14:00:00',
+              fin: '19:00:00',
+            },
+          ],
+          jour: 'Vendredi',
+        },
+        {
+          heures: [],
+          jour: 'Samedi',
+        },
+      ],
+      id: '11c63eb2-68b3-40dc-828e-33c212686173',
+      nom: "Mission locale pour l'insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements",
+      telephone: '01 45 85 20 50',
+      typeAccompagnement: 'mission_locale',
+    }];
+}

@@ -55,21 +55,25 @@
   margin-top: auto;
 }
 
-.button {
+.contactMailÉtablissement {
+  color: $color-primary;
   margin-top: 1.25rem;
   font-weight: bold;
-  color: $color-primary;
-  align-self: center;
   text-decoration: none;
-  cursor: pointer;
 
   @include media(large) {
-    width: 11.5rem;
-    align-self: auto;
+    align-self: flex-start;
   }
+}
 
-  &:hover {
-    color: $color-primary-on-hover;
+.contactFormulaireÉtablissement {
+  margin-top: 1.25rem;
+  font-weight: bold;
+  align-self: center;
+  font-size: 1rem;
+
+  @include media(large) {
+    align-self: flex-start;
   }
 }
 
