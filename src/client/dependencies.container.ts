@@ -14,8 +14,6 @@ import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 
-const MARKETING_QUERY_PARAMS = 'xtor'|| 'dclid';
-
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
   localisationService: LocalisationService
@@ -57,7 +55,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
     );
   }
 
-  const searchClient = instantMeiliSearch(
+  const rechercheClientService = instantMeiliSearch(
     meiliSearchBaseUrl,
     meiliSearchApiKey,
     {
@@ -65,29 +63,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
       primaryKey: 'slug',
     },
   );
-
-  const rechercheClientService: SearchClient = {
-    ...searchClient,
-    search(requests) {
-      if (requests.every(({ params }) => params && params.query?.includes(MARKETING_QUERY_PARAMS))) {
-        return Promise.resolve({
-          results: requests.map(() => ({
-            exhaustiveNbHits: false,
-            hits: [],
-            hitsPerPage: 0,
-            nbHits: 0,
-            nbPages: 0,
-            page: 0,
-            params: '',
-            processingTimeMS: 0,
-            query: '',
-          })),
-        });
-      }
-
-      return searchClient.search(requests);
-    },
-  };
 
   return {
     analyticsService,
