@@ -24,6 +24,8 @@ import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
+import { ApiEnvoieEmailRepository } from '~/server/envoie-email/infra/apiEnvoieEmail.repository';
+import { EnvoyerEmailUseCase } from '~/server/envoie-email/usecase/envoyerEmailUseCase';
 import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import { RechercherÉtablissementAccompagnementUseCase } from '~/server/établissement-accompagnement/useCase/rechercherÉtablissementAccompagnement.useCase';
 import {
@@ -59,6 +61,8 @@ export type Dependencies = {
   offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
   offreAlternanceDependencies: OffresAlternanceDependencies
   établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
+  envoyerEmailDependencies: EnvoyerEmailDependencies
+
 };
 
 export interface OffresEmploiDependencies {
@@ -100,6 +104,10 @@ export interface ÉtablissementAccompagnementDependencies {
   rechercherÉtablissementAccompagnementUseCase: RechercherÉtablissementAccompagnementUseCase
 }
 
+export interface EnvoyerEmailDependencies {
+  envoyerEmailUseCase: EnvoyerEmailUseCase
+}
+
 export const dependenciesContainer = (): Dependencies => {
   const serverConfigurationService = new ServerConfigurationService();
   let cacheService: CacheService;
@@ -119,6 +127,7 @@ export const dependenciesContainer = (): Dependencies => {
     adresseClientService,
     geoGouvClientService,
     établissementAccompagnementClientService,
+    envoyerEmailClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
   const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
@@ -174,11 +183,17 @@ export const dependenciesContainer = (): Dependencies => {
     rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiGouvRepository),
   };
 
+  const apiTipimailepository = new ApiEnvoieEmailRepository(envoyerEmailClientService);
+  const envoyerEmailDependencies: EnvoyerEmailDependencies = {
+    envoyerEmailUseCase: new EnvoyerEmailUseCase(apiTipimailepository),
+  };
+
   return {
     cmsDependencies,
     demandeDeContactDependencies,
     engagementDependencies,
     entrepriseDependencies,
+    envoyerEmailDependencies: envoyerEmailDependencies,
     localisationDependencies,
     offreAlternanceDependencies,
     offreEmploiDependencies,

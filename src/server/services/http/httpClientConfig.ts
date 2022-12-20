@@ -88,6 +88,15 @@ const getApiÉtablissementsPublicsConfig = (configurationService: ConfigurationS
   });
 };
 
+const getApiEnvoyerEmailConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+  return ({
+    apiKey: '4b95ba7843ac8ba295fae64af4e6d479',
+    apiName: 'API_ENVOIE_EMAIL',
+    apiUrl: configurationService.getConfiguration().API_ENVOIE_EMAIL,
+    overrideInterceptor: false,
+  });
+};
+
 const getApiPoleEmploiOffresConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   return ({
     apiName: 'API_POLE_EMPLOI',
@@ -118,6 +127,7 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
   return {
     adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
+    envoyerEmailClientService: new HttpClientService(getApiEnvoyerEmailConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
