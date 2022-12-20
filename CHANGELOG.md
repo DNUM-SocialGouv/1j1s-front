@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.5...v2.25.6) (2022-12-20)
+
+
+### Bug Fixes
+
+* **a11y:** suppression liens vers page accueil sur logo république française et texte 1jeune1solution ([088466e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/088466eafa7a101c9e92ef6b1bd3ddbfa513cf3f))
+
 ## [2.25.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.4...v2.25.5) (2022-12-20)
 
 
