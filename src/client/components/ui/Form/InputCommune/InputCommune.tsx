@@ -23,6 +23,8 @@ interface InputCommuneProps {
   required?: boolean
 }
 
+const MINIMUM_CHAR_NUMBER_FOR_SEARCH = 3;
+
 function clickedOnSearchButton(target: Node) {
   return target.textContent === 'Rechercher'
     || (target.parentNode !== undefined && target.parentNode?.textContent === 'Rechercher');
@@ -123,7 +125,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 
   const rechercherCommune = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value.length >= 3) {
+    if (value.length >= MINIMUM_CHAR_NUMBER_FOR_SEARCH) {
       const response  = await localisationService.rechercherCommune(value);
       if(isSuccess(response)) {
         setCommuneList(response.result.résultats ?? []);

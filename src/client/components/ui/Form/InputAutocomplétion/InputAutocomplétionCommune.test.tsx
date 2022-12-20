@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -28,6 +28,8 @@ describe('InputAutocomplétionCommune', function () {
     await userEvent.type(inputAutocomplétion, texteRecherché);
 
     // Then
-    expect(screen.getByText('Paris 15e Arrondissement')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Paris 15e Arrondissement')).toBeInTheDocument();
+    });
   });
 });

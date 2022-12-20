@@ -18,14 +18,20 @@ interface AutocomplétionCommuneProps {
   required?: boolean;
 }
 
+const MINIMUM_CHAR_NUMBER_FOR_SEARCH = 3;
+
 export default function InputAutocomplétionCommune(props: AutocomplétionCommuneProps) {
   const { onSuggestionSelected, valeurInitiale, ...rest } = props;
   const localisationService = useDependency<LocalisationService>('localisationService');
 
   const suggestionsAdresse = useCallback(async (préfixe: string) => {
-    const response = await localisationService.rechercherCommune(préfixe);
-    if (isSuccess(response)) {
-      return response.result.résultats;
+    if (préfixe.length >= MINIMUM_CHAR_NUMBER_FOR_SEARCH) {
+      const response = await localisationService.rechercherCommune(préfixe);
+      if (isSuccess(response)) {
+        return response.result.résultats;
+      } else {
+        return [];
+      }
     } else {
       return [];
     }
