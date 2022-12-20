@@ -38,13 +38,6 @@
     }
   }
 
-  &Logo {
-    position: relative;
-    overflow: hidden;
-    width: 88px;
-    height: 80px;
-  }
-
   &Title {
     line-height: 1rem;
     @extend %text-large;
