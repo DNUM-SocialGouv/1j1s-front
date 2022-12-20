@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
@@ -7,7 +7,6 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -29,14 +28,18 @@ export function HeaderBody() {
     <Container className={styles.headerBody}>
       <div className={styles.headerBodyContainer}>
         <div className={styles.headerLogoWrapper}>
-          <Link href="/" className={styles.headerLogo} aria-label="Redirection vers la page d'accueil">
-            <Image src="/images/logos/république-française.svg" alt="" layout="fill" aria-hidden="true"/>
-          </Link>
+          <Image
+            src="/images/logos/république-française.svg"
+            alt=""
+            width="88"
+            height="80"
+            aria-hidden="true"
+          />
           { !isLargeScreen &&
             <ButtonComponent appearance='tertiary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
           }
         </div>
-        <Link className={styles.headerTitle} href="/">1jeune1solution</Link>
+        <div className={styles.headerTitle}>1jeune1solution</div>
       </div>
       { !isLargeScreen &&
         <ModalComponent close={toggleModal} isOpen={isModalOpen}>
