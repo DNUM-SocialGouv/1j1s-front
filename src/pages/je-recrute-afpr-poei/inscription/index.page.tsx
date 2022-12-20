@@ -162,7 +162,6 @@ export default function JeRecruteAfprPoeiInscription() {
                           ...formulaireÉtape1,
                           nomSociété: event.currentTarget.value,
                         })}
-                        className={styles.formulaireInput}
                       />
                       <InputAutocomplétionCommune
                         required
@@ -191,12 +190,11 @@ export default function JeRecruteAfprPoeiInscription() {
                           ...formulaireÉtape1,
                           siret: event.currentTarget.value,
                         })}
-                        className={styles.formulaireInput}
                       />
                       <InputAutocomplétionSecteurActivité
                         required
                         id="autocomplete-secteur-activité"
-                        label="Indiquez le secteur d’activité de votre entreprise"
+                        label="Indiquez le secteur d’activité de l’entreprise"
                         name="companySector"
                         placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
                         valeurInitiale={secteurActivitéValeur}
@@ -210,7 +208,7 @@ export default function JeRecruteAfprPoeiInscription() {
                       />
                       <Select
                         required
-                        label="Indiquez la taille de votre entreprise"
+                        label="Indiquez la taille de l’entreprise"
                         name="companySize"
                         placeholder="Exemple : 500 à 999 salariés"
                         optionList={taillesEntreprises}
@@ -234,9 +232,14 @@ export default function JeRecruteAfprPoeiInscription() {
                 </>
               }
               {isDeuxièmeÉtape && <>
-                <button className={styles.boutonRetour} onClick={retourÉtape1}>
-                  <Icon name={'angle-left'}/> Retour
-                </button>
+                <ButtonComponent
+                  appearance="secondary"
+                  className={styles.boutonRetour}
+                  icon={<Icon name="angle-left"/>}
+                  iconPosition="left"
+                  onClick={retourÉtape1}
+                  label="Retour"
+                />
                 <div className={styles.champsObligatoires}>
                   <p>Etape 2 : Vos informations personnelles</p>
                   <p>Tous les champs du formulaire sont obligatoires</p>
@@ -253,7 +256,6 @@ export default function JeRecruteAfprPoeiInscription() {
                         ...formulaireÉtape2,
                         nom: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez votre prénom"
@@ -265,7 +267,6 @@ export default function JeRecruteAfprPoeiInscription() {
                         ...formulaireÉtape2,
                         prénom: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez un numéro de téléphone"
@@ -278,7 +279,6 @@ export default function JeRecruteAfprPoeiInscription() {
                         ...formulaireÉtape2,
                         téléphone: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez une adresse e-mail"
@@ -291,7 +291,6 @@ export default function JeRecruteAfprPoeiInscription() {
                         ...formulaireÉtape2,
                         email: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez votre rôle au sein de l’entreprise"
@@ -303,7 +302,6 @@ export default function JeRecruteAfprPoeiInscription() {
                         ...formulaireÉtape2,
                         travail: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                   </div>
 
@@ -320,9 +318,14 @@ export default function JeRecruteAfprPoeiInscription() {
               </>
               }
               {isTroisièmeÉtape && <>
-                <button className={styles.boutonRetour} onClick={retourÉtape2}>
-                  <Icon name={'angle-left'}/> Retour
-                </button>
+                <ButtonComponent
+                  appearance="secondary"
+                  className={styles.boutonRetour}
+                  icon={<Icon name="angle-left"/>}
+                  iconPosition="left"
+                  onClick={retourÉtape2}
+                  label="Retour"
+                />
                 <div className={styles.champsObligatoires}>
                   <p> Etape 3 : Vos besoins et commentaires</p>
                 </div>

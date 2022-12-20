@@ -156,7 +156,6 @@ export default function LesEntreprisesSEngagentInscription() {
                         ...formulaireÉtape2,
                         prénom: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez votre nom"
@@ -168,7 +167,6 @@ export default function LesEntreprisesSEngagentInscription() {
                         ...formulaireÉtape2,
                         nom: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez votre adresse e-mail de contact"
@@ -182,10 +180,9 @@ export default function LesEntreprisesSEngagentInscription() {
                         ...formulaireÉtape2,
                         email: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
-                      label="Indiquez votre fonction au sein de votre entreprise"
+                      label="Indiquez votre fonction au sein de l’entreprise"
                       name="job"
                       placeholder="Exemple : RH, Chargé de communications"
                       value={formulaireÉtape2.travail}
@@ -194,7 +191,6 @@ export default function LesEntreprisesSEngagentInscription() {
                         ...formulaireÉtape2,
                         travail: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                     <InputText
                       label="Indiquez un numéro de téléphone de contact"
@@ -208,7 +204,6 @@ export default function LesEntreprisesSEngagentInscription() {
                         ...formulaireÉtape2,
                         téléphone: event.currentTarget.value,
                       })}
-                      className={styles.formulaireInput}
                     />
                   </div>
                   <div className={styles.validationEtape2}>
@@ -273,7 +268,6 @@ function PremièreÉtapeInscription({ onSubmit, formData, dispatchFormData }: Pr
               nomSociété: event.currentTarget.value,
             })}
             required
-            className={styles.formulaireInput}
           />
           <InputAutocomplétionCommune
             required
@@ -302,12 +296,11 @@ function PremièreÉtapeInscription({ onSubmit, formData, dispatchFormData }: Pr
               ...formData,
               siret: event.currentTarget.value,
             })}
-            className={styles.formulaireInput}
           />
           <InputAutocomplétionSecteurActivité
             required
             id="autocomplete-secteur-activité"
-            label="Indiquez le secteur d’activité de votre entreprise"
+            label="Indiquez le secteur d’activité de l’entreprise"
             name="companySector"
             placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
             valeurInitiale={secteurActivitéValeur}
@@ -321,7 +314,7 @@ function PremièreÉtapeInscription({ onSubmit, formData, dispatchFormData }: Pr
           />
           <Select
             required
-            label="Indiquez la taille de votre entreprise"
+            label="Indiquez la taille de l’entreprise"
             name="companySize"
             placeholder="Exemple : 250 à 499 salariés"
             optionList={taillesEntreprises}

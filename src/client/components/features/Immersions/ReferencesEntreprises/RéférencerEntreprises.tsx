@@ -16,7 +16,10 @@ export function RéférencerEntreprises () {
           <li>De les aider à confirmer un projet professionnel en situation réelle de travail</li>
           <li>D’initier un parcours d’embauche pour leur permettre d’accéder à un emploi ou dans le cadre d’une reconversion</li>
         </ul>
-        <Link className={styles.referencerBouton} href="/immersions/referencer-mon-entreprise" appearance='asPrimaryButton'>Référencer mon entreprise</Link>
+        <Link
+          className={styles.referencerBouton}
+          href="/immersions/referencer-mon-entreprise"
+          appearance='asPrimaryButton'>Référencer mon entreprise</Link>
       </Container>
     </div>
 

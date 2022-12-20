@@ -3,13 +3,12 @@
 .wrapper {
   font-family: inherit;
   position: relative;
-  height: 6rem;
-
-  @include media(large) {
-    height: 6.5rem;
-  }
+  padding-bottom: 2rem;
 }
-
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
 .suggestionList {
   z-index: 2;
   position: absolute;
@@ -52,7 +51,6 @@
     border-radius: 1.25rem;
     border: solid 1px $color-on-surface;
     background-color: $color-on-primary;
-    margin-top: 0.5rem;
 
     &:active, &:focus {
       border: 1px solid transparent;
@@ -68,9 +66,11 @@
     }
 
     &Hint {
+      position: absolute;
+      bottom: 0;
+      height: 2rem;
       @extend %text-small;
-      margin-top: 0.5rem;
-      margin-bottom: 1.5rem;
+      line-height: 1.2;
       color: $color-error;
     }
   }
@@ -83,8 +83,12 @@
   display: inline-flex;
   align-items: center;
 
-  &Error{
+  &Error {
+    position: absolute;
+    bottom: 0;
+    height: 2rem;
     @extend %text-small;
+    line-height: 1.2;
     align-items: center;
     color: $color-error;
   }

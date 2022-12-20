@@ -13,10 +13,6 @@
   flex: 1 0;
 }
 
-.inputButtonWrapper > * {
-  margin-bottom: 1.5rem;
-}
-
 .filtresAvancésModalTitle > span {
   font-size: 0.875rem;
 }
@@ -67,7 +63,7 @@
 
   .filtreRechercheDesktop {
     display: flex;
-    gap: 1rem;
+    column-gap: 1rem;
     flex-wrap: wrap;
   }
 

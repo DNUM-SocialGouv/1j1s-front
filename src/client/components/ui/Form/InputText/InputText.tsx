@@ -97,7 +97,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
         onBlur={() => setTouched(true) }
         value={valueState}
       />
-      {(error) && (
+      {error && (
         <p className={classNames(styles.textInputHint, styles.textInputHintError)} id={errorId.current}>
           {error}
         </p>

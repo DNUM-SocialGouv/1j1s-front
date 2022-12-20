@@ -1,12 +1,9 @@
 @import "@styles/utilities";
 
 .selectWrapper {
+    position: relative;
     flex-shrink: 0;
-    height: 6rem;
-
-    @include media(large) {
-        height: 6.5rem;
-    }
+    padding-bottom: 2rem;
 }
 
 .selectWrapperFlex {
@@ -87,7 +84,10 @@
 }
 
 .inputError {
-  margin-top: 8px;
+  position: absolute;
+  bottom: 0;
+  height: 2rem;
   @extend %text-small;
+  line-height: 1.2;
   color: $color-error;
 }

@@ -19,11 +19,11 @@
 }
 
 .formulaire {
-
-  &Input {
-    margin-block: 1.5rem;
+  .bodyFormulaire {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
-
   .label {
     @extend %bold;
     margin-top: 1.5rem;
@@ -137,21 +137,6 @@
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;
 
-    &Input {
-      margin-top: inherit;
-      margin-bottom: 1.5rem;
-    }
-
-    .bodyFormulaire {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-
-      > div {
-        width: 48%;
-      }
-    }
-
     .bodyFormulaireEtape3 {
       display: flex;
       flex-direction: column;
@@ -185,4 +170,19 @@
     margin: auto;
   }
 
+}
+
+@include media(xlarge) {
+  .formulaire {
+    padding: 2rem 8rem 1rem;
+
+    .bodyFormulaire {
+      flex-direction: row;
+      justify-content: space-between;
+
+      > div {
+        width: 48%;
+      }
+    }
+  }
 }
