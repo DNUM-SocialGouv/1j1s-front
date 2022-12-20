@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.4...v2.25.5) (2022-12-20)
+
+
+### Bug Fixes
+
+* **a11y:** unicité élément main par page ([f51c548](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f51c548d4be355e7e25f2244a4568963dd1c51e0))
+
 ## [2.25.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.3...v2.25.4) (2022-12-16)
 
 
