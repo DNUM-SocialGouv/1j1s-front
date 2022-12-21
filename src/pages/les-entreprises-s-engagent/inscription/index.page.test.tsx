@@ -61,7 +61,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
       expect(screen.getByText('Etape 1 sur 2')).toBeInTheDocument();
       labelsEtape1.forEach((label) => {
-        expect(screen.getByLabelText(label.name)).toBeInTheDocument();
+        expect(screen.getByText(label.name)).toBeInTheDocument();
       });
     });
   });
@@ -172,7 +172,7 @@ async function remplirFormulaireEtape1() {
   await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
   await user.click(screen.getByLabelText('Indiquez la taille de l’entreprise'));
   await user.click(screen.getByText('20 à 49 salariés'));
-  const inputVille = screen.getByLabelText('Indiquez la ville du siège social de l’entreprise');
+  const inputVille = screen.getByText('Indiquez la ville du siège social de l’entreprise');
   await user.type(inputVille, 'Paris');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
   await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement')));

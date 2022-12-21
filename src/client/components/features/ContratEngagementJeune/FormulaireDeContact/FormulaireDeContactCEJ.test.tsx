@@ -40,10 +40,12 @@ describe('<FormulaireDeContactCEJ />', () => {
     renderComponent();
     // When
     // Then
-    for (const label of labels) {
-      expect(screen.getByLabelText(label)).toBeInTheDocument();
-    }
-
+    expect(screen.getByText('Prénom')).toBeInTheDocument();
+    expect(screen.getByText('Nom')).toBeInTheDocument();
+    expect(screen.getByText('Adresse email')).toBeInTheDocument();
+    expect(screen.getByText('Téléphone')).toBeInTheDocument();
+    expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
+    expect(screen.getByText('Ville')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
   });
 
@@ -62,8 +64,8 @@ describe('<FormulaireDeContactCEJ />', () => {
     // Given
     renderComponent();
     // When
-    await userEvent.click(screen.getByLabelText('Age'));
-    await userEvent.click(screen.getByLabelText('Nom'));
+    await userEvent.click(screen.getByText('Age'));
+    await userEvent.click(screen.getByText('Nom'));
     // When
     const input = await screen.findByTestId('Select-InputHidden');
 
@@ -166,17 +168,17 @@ describe('<FormulaireDeContactCEJ />', () => {
 type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
 
 export async function remplirFormulaireDeContact(data: ContactInputs, user = userEvent.setup(), submit = true) {
-  await user.type(screen.getByLabelText('Prénom'), data.prénom);
-  await user.type(screen.getByLabelText('Nom'), data.nom);
-  await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
-  await user.type(screen.getByLabelText('Adresse email'), data.email);
+  await user.type(screen.getByText('Prénom'), data.prénom);
+  await user.type(screen.getByText('Nom'), data.nom);
+  await user.type(screen.getByText('Téléphone'), data.téléphone);
+  await user.type(screen.getByText('Adresse email'), data.email);
 
-  await userEvent.type(screen.getByLabelText('Ville'), data.ville);
+  await userEvent.type(screen.getByText('Ville'), data.ville);
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
   await waitFor(() => userEvent.click(screen.getByText('Paris 15e Arrondissement')));
 
   await user.click(screen.getByLabelText('Age'));
-  await user.click(screen.getByLabelText(data.age));
+  await user.click(screen.getByText(data.age));
   if (submit) {
     await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
   }

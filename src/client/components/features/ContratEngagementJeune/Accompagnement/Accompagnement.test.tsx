@@ -198,11 +198,11 @@ describe('<Accompagnement />', () => {
 });
 
 function expectFormulaireDeContact() {
-  expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
-  expect(screen.getByLabelText('Nom')).toBeInTheDocument();
-  expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
-  expect(screen.getByLabelText('Age')).toBeInTheDocument();
-  expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
-  expect(screen.getByLabelText('Ville')).toBeInTheDocument();
+  expect(screen.getByText('Prénom')).toBeInTheDocument();
+  expect(screen.getByText('Nom')).toBeInTheDocument();
+  expect(screen.getByText('Adresse email')).toBeInTheDocument();
+  expect(screen.getByText('Age')).toBeInTheDocument();
+  expect(screen.getByText('Téléphone')).toBeInTheDocument();
+  expect(screen.getByText('Ville')).toBeInTheDocument();
   expect(screen.getByText('Envoyer la demande')).toBeInTheDocument();
 }

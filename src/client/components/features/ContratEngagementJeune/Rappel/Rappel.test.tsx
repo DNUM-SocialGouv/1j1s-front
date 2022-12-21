@@ -54,7 +54,7 @@ describe('<Rappel />', () => {
       await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
       // Then
       for (const label of labels) {
-        expect(screen.getByLabelText(label)).toBeInTheDocument();
+        expect(screen.getByText(label)).toBeInTheDocument();
       }
       expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
     });
