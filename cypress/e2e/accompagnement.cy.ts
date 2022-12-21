@@ -3,6 +3,7 @@
 import {
   anÉtablissementAccompagnementList,
 } from '../../src/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+import { interceptGet } from '../interceptGet';
 
 describe('Parcours Accompagnement', () => {
 
@@ -20,12 +21,13 @@ describe('Parcours Accompagnement', () => {
         cy.get('button').contains('Sélectionnez votre choix').click();
         cy.get('ul[role="listbox"]').first().click();
 
-        cy.intercept({
-          pathname: '/api/etablissements-accompagnement',
-        }, anÉtablissementAccompagnementList());
-        cy.get('button').contains('Rechercher').click();
+        interceptGet({
+          actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
+          alias: 'recherche-accompagnement',
+          path: '/api/etablissements-accompagnement*',
+          response: JSON.stringify(anÉtablissementAccompagnementList()),
+        });
 
-        cy.intercept({ pathname: '/api/etablissements-accompagnement' }, anÉtablissementAccompagnementList());
         cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 3);
       });
     });

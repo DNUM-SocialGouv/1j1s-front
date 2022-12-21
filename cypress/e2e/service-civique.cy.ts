@@ -2,6 +2,8 @@
 
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
+import { interceptGet } from '../interceptGet';
+
 describe('Parcours service civique', () => {
   beforeEach(() => {
     cy.viewport('iphone-x');
@@ -13,14 +15,36 @@ describe('Parcours service civique', () => {
       cy.get('button').contains('Sélectionnez votre choix').click();
       cy.get('ul[role="listbox"]').first().click();
 
-      cy.get('input[name="libelleCommune"]').type('paris');
+      interceptGet(
+        {
+          actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').type('paris', { force: true }),
+          alias: 'recherche-communes',
+          path: '/api/communes*',
+          response: JSON.stringify({ résultats: [
+            {
+              code: '75056',
+              codePostal: '75006',
+              coordonnées: {
+                latitude: 48.859,
+                longitude: 2.347,
+              },
+              libelle: 'Paris',
+              ville: 'Paris',
+            },
+          ] } ),
+        },
+      );
       cy.get('ul[role="listbox"]').first().click();
 
-      cy.get('button').contains('Rechercher').click();
-
-      cy.intercept({ pathname: '/api/services-civique' }, aRésultatRechercheMission());
+      interceptGet({
+        actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
+        alias: 'recherche-services-civique',
+        path: '/api/services-civique*',
+        response: JSON.stringify(aRésultatRechercheMission()),
+      });
 
       cy.get('ul[aria-label="Offre pour le service civique"] > li a').should('have.length', 2);
+      cy.get('ul[aria-label="Offre pour le service civique"] > li a').first().should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
     });
   });
 
@@ -29,15 +53,22 @@ describe('Parcours service civique', () => {
       cy.get('button').contains('Sélectionnez votre choix').click();
       cy.get('ul[role="listbox"]').first().click();
 
-      cy.get('button').contains('Rechercher').click();
+      interceptGet({
+        actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
+        alias: 'recherche-services-civique',
+        path: '/api/services-civique*',
+        response: JSON.stringify(aRésultatRechercheMission()),
+      });
 
       const id = aRésultatRechercheMission().résultats[0].id;
-      cy.intercept(`/_next/data/development/service-civique/${id}.json?id=${id}`, {
-        pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] },
+      interceptGet({
+        actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Offre pour le service civique"] > li a').first().click(),
+        alias: 'get-services-civique',
+        path: `/_next/data/*/service-civique/${id}.json?id=${id}`,
+        response: JSON.stringify({ pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] } }),
       });
-      cy.get('ul[aria-label="Offre pour le service civique"] > li a').first().click();
 
-      cy.get('h1').should('be.visible');
+      cy.get('h1').should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
       cy.get('ul[aria-label="Caractéristiques de la mission"]').should('be.visible');
     });
   });
