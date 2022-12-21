@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.26.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.8...v2.26.0) (2022-12-21)
+
+
+### Features
+
+* **accompagnement:** formulaire contact mission locale ([#631](https://github.com/DNUM-SocialGouv/1j1s-front/issues/631)) ([ed2a999](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ed2a999900f6ecab34a54b53fc1fb9f53d3e82b0))
+* **multiple/instantsearch:** ajout instant search layout et refacto  meilisearch input select checkbox ([89add40](https://github.com/DNUM-SocialGouv/1j1s-front/commit/89add40188e01179a0df357eafe77824c02beacf))
+
 ## [2.25.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.7...v2.25.8) (2022-12-21)
 
 
