@@ -46,6 +46,8 @@
 
 .button {
     @extend %text-small;
+    overflow: hidden;
+    position: relative;
     display: flex;
     height: 2.5rem;
     align-items: center;
@@ -74,6 +76,13 @@
     }
 }
 
+.innerInput {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    inset: 0;
+}
+
 .selectedLabel {
     color: $color-on-background;
 }
@@ -84,10 +93,10 @@
 }
 
 .inputError {
-  position: absolute;
-  bottom: 0;
-  height: 2rem;
-  @extend %text-small;
-  line-height: 1.2;
-  color: $color-error;
+    @extend %text-small;
+    position: absolute;
+    bottom: 0;
+    height: 2rem;
+    line-height: 1.2;
+    color: $color-error;
 }

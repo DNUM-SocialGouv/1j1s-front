@@ -18,6 +18,7 @@ interface SelectProps {
   name?: string;
   multiple?: boolean;
   required?: boolean;
+  id?: string
   onChange?: (value: string) => void; // FIXME: utiliser le type natif onChange de React.HTMLAttributes<HTMLInputElement>
 }
 
@@ -30,18 +31,17 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
-export function Select({ className, optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps) {
-  const optionsRef = useRef<HTMLDivElement>(null);
-  const listBoxRef = useRef<HTMLUListElement>(null);
-
-  const labelledBy = useRef(uuidv4());
+export function Select({ className, id, optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps) {
   const errorMessageBy = useRef(uuidv4());
-
+  const optionsRef = useRef<HTMLDivElement>(null);
+  const labelledBy = useRef(uuidv4());
+  const listBoxRef = useRef<HTMLUListElement>(null);
+  const selectId = useRef<string>(id || uuidv4());
   const [isTouched, setIsTouched] = useState(false);
   const [isOptionListOpen, setIsOptionListOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
   const [errorMessage] = useState(SELECT_ERROR_MESSAGE_REQUIRED);
-  
+
   const selectedOption = useMemo(() => optionList.find((option) => option.valeur === selectedValue),
     [optionList, selectedValue]);
 
@@ -181,7 +181,7 @@ export function Select({ className, optionList, value, placeholder, name, label,
 
   return (
     <div className={classNames(styles.selectWrapper, className)}>
-      <label className={styles.selectLabel} id={labelledBy.current}>{label}</label>
+      <label htmlFor={id} className={styles.selectLabel} id={labelledBy.current}>{label}</label>
       <div ref={optionsRef} className={styles.container}>
         <button
           type="button"
@@ -192,17 +192,22 @@ export function Select({ className, optionList, value, placeholder, name, label,
           onClick={() => setIsOptionListOpen(!isOptionListOpen)}
           onBlur={() => required ? setIsTouched(true) : undefined}>
           <span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
+          <input
+            className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
+            id={selectId.current}
+            name={name}
+            value={selectedValue}
+            aria-hidden={true}
+            aria-invalid={hasError}
+            aria-errormessage={errorMessageBy.current}
+            data-testid="Select-InputHidden"
+            autoComplete="off"
+            required={required}
+            onChange={() => ({})}
+          />
           {isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
         </button>
         {isOptionListOpen && renderOptionList()}
-        <input
-          type="hidden"
-          name={name}
-          value={selectedValue}
-          aria-invalid={hasError}
-          aria-errormessage={errorMessageBy.current}
-          data-testid="Select-InputHidden"
-        />
       </div>
       {hasError &&
         <p className={classNames(styles.inputError)} id={errorMessageBy.current}>

@@ -105,7 +105,8 @@ describe('Select', () => {
         const input = await screen.findByTestId('Select-InputHidden');
 
         // Then
-        expect(input).not.toBeInvalid();
+        expect(input).toBeRequired();
+        expect(input).toHaveAttribute('aria-invalid', 'false');
       });
 
       describe('Quand on ouvre la liste d\'option mais qu\'on perd le focus', () => {
@@ -124,7 +125,7 @@ describe('Select', () => {
             ,
           );
           // When
-          await userEvent.click(screen.getByLabelText('Mon Select'));
+          await userEvent.click(screen.getByText('Mon Select'));
           await userEvent.click(screen.getByText('escape'));
 
           // When
