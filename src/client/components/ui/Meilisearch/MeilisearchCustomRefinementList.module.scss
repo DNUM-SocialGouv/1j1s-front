@@ -26,7 +26,7 @@
   }
 }
 
-.listBox {
+.options {
   z-index: 2;
   position: absolute;
   padding: 8px;
@@ -39,9 +39,16 @@
   overflow-y: auto;
 }
 
-.list {
+.option {
   list-style-type: none;
 }
+
+.option:not(:last-child) {
+  border-bottom: 1px solid $color-separator;
+  border-radius: 0;
+}
+
+
 
 .label{
   display: block;

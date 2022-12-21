@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {
   useCallback,
   useEffect,
@@ -8,18 +9,27 @@ import React, {
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import {
+  handleKeyBoardInteraction,
+  setFocusToSelectButton,
+} from '~/client/components/keyboard/select.keyboard';
+import { CommonProps } from '~/client/components/props';
+import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList.module.scss';
 
-
-export function MeilisearchCustomRefinementList(props: UseRefinementListProps & { label: string } & React.HTMLAttributes<HTMLDivElement>) {
+interface MeilisearchCustomRefinementListProps extends CommonProps{
+  label: string
+}
+export function MeilisearchCustomRefinementList(props: UseRefinementListProps & MeilisearchCustomRefinementListProps & React.HTMLAttributes<HTMLDivElement>) {
   const { refine, items } = useRefinementList(props);
+  const { label, className } = props;
 
-  const { label } = props;
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const buttonLabel = 'Sélectionnez vos choix';
   const optionsRef = useRef<HTMLDivElement>(null);
+  const listBoxRef = useRef<HTMLUListElement>(null);
 
   const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
     if (!(optionsRef.current)?.contains(event.target as Node)) {
@@ -28,10 +38,12 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
   }, []);
 
   const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
-    if (event.key === KeyBoard.ESCAPE) {
+    const currentItem = event.target as HTMLElement;
+    if (event.key === KeyBoard.ESCAPE && isOptionsOpen) {
       setIsOptionsOpen(false);
+      setFocusToSelectButton(currentItem);
     }
-  }, []);
+  }, [isOptionsOpen]);
 
   useEffect(function setEventListenerOnMount() {
     document.addEventListener('mousedown', closeOptionsOnClickOutside);
@@ -43,41 +55,64 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
     };
   }, [closeOptionsOnClickOutside, closeOptionsOnEscape]);
 
+  useEffect(function setFocusOnOpen() {
+    if (isOptionsOpen) {
+      const currentItem = optionsRef.current as HTMLDivElement;
+      const firstElement = currentItem.getElementsByTagName('li')[0];
+      firstElement.focus();
+    }
+  }, [isOptionsOpen]);
+
+  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
+    const currentItem = event.target as HTMLElement;
+    const updateValues = () => {
+      const currentInput = currentItem.querySelector('input');
+      if (currentInput === null) return;
+      refine(currentInput.value);
+    };
+
+    handleKeyBoardInteraction(event, currentItem, updateValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const renderOptionList = () => (
+    <ul ref={listBoxRef} role="listbox" aria-multiselectable className={styles.options}>
+      {items.map((item) => (
+        <li
+          tabIndex={-1}
+          role="option"
+          key={item.value}
+          className={styles.option}
+          aria-selected={item.isRefined}
+          onKeyDown={handleKeyDown}
+        >
+          <Checkbox
+            label={getCapitalizedItems(item.label)}
+            value={item.value}
+            checked={item.isRefined}
+            onChange={() => refine(item.value)}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <>
-      <div className={props.className} >
-        <label className={styles.selectLabel}>{label}</label>
-        <div ref={optionsRef} className={styles.selectContainer}>
-          <button
-            type="button"
-            aria-haspopup="listbox"
-            aria-expanded={isOptionsOpen}
-            className={styles.button}
-            onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-          >
-            <span data-testid='Select-Placeholder'>{buttonLabel}</span>
-            {isOptionsOpen ? <Icon name={'angle-up'} /> : <Icon name={'angle-down'} />}
-          </button>
-          <ul style={{ display: isOptionsOpen ? '' : 'none' }}
-            className={isOptionsOpen ? styles.listBox : ''}>
-            {items.map((item) => (
-              <li key={item.value} className={styles.list}>
-                <label className={styles.checkbox}>
-                  <input
-                    checked={item.isRefined}
-                    type="checkbox"
-                    value={item.value}
-                    onChange={() => {
-                      refine(item.value);
-                    }}
-                  />
-                  <span className={styles.label}>{getCapitalizedItems(item.label)}</span>
-                </label>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className={classNames(className)}>
+      <label className={styles.selectLabel}>{label}</label>
+      <div ref={optionsRef} className={styles.selectContainer}>
+        <button
+          type="button"
+          aria-haspopup="listbox"
+          aria-expanded={isOptionsOpen}
+          className={styles.button}
+          onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+        >
+          <span>{buttonLabel}</span>
+          <Icon name={isOptionsOpen ?'angle-up' : 'angle-down' } />
+        </button>
+        {isOptionsOpen && renderOptionList()}
       </div>
-    </>
+    </div>
   );
 }
