@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.25.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.7...v2.25.8) (2022-12-21)
+
+
+### Bug Fixes
+
+* **multiple:** erreur appels api localisation moins de 3 caracteres ([00f9b94](https://github.com/DNUM-SocialGouv/1j1s-front/commit/00f9b945e621e29941da422418d1cee15f51f7eb))
+
 ## [2.25.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.6...v2.25.7) (2022-12-21)
 
 
