@@ -1,0 +1,97 @@
+@import "@styles/utilities";
+
+.selectContainer {
+  position: relative;
+}
+
+.selectLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.button {
+  @extend %text-small;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  color: $color-mention-grey;
+  padding: 6px 6px 6px 12px;
+  border: 1px solid $color-on-background;
+  border-radius: 20px;
+  height: 2.5rem;
+
+  &:focus {
+    border: 2px solid $color-primary;
+  }
+}
+
+.rangeBox {
+  z-index: 2;
+  position: absolute;
+  padding: 12px 64px 24px 32px;
+  width: 100%;
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  background-color: $color-background;
+  margin: 4px 0 0 0;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.label{
+  display: block;
+  border-bottom: 1px solid $color-separator;
+  border-radius: 0;
+}
+
+.unitMax {
+  background-color: $color-primary;
+  color: $color-on-primary;
+  position: absolute;
+  right: 2rem;
+  top: calc(50% - 10px + 0.25rem);
+  width: 2rem;
+  text-align: center;
+}
+
+.unitMin {
+  background-color: $color-primary;
+  color: $color-on-primary;
+  position: absolute;
+  right: 2rem;
+  top: calc(25% - 10px + 0.25rem);
+  width: 2rem;
+  text-align: center;
+}
+
+.formWrapper {
+  position: relative;
+  display: block;
+  padding-top: 0.5rem;
+  > input {
+    font-family: inherit;
+    background-color: $color-background;
+    border: 1px solid $color-on-background;
+    border-radius: 1.25rem;
+    color: $color-on-background;
+    height: 2.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    padding: 0 16px;
+    flex-grow: 1;
+    width: 100%;
+  }
+  @include media(large) {
+    width: 25%;
+    display: inline-block;
+    padding-right: 32px;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+}
