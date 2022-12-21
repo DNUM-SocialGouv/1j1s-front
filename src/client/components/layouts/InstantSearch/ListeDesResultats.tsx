@@ -7,22 +7,22 @@ import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 interface ListeDesResultatsProps {
   resultats: React.ReactElement
   isLoading: boolean
-  isResultatFullScreen: boolean
+  isAffichageListeDeResultatsDesktopDirectionRow: boolean
   skeletonRepeat: number
   pagination: React.ReactNode
 }
 
-export const ListeDesResultats = (props: ListeDesResultatsProps) => {
-  const { resultats, isLoading, isResultatFullScreen, skeletonRepeat, pagination } = props;
+export function ListeDesResultats(props: ListeDesResultatsProps) {
+  const { resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
 
   return (
     <section className={styles.listeDesResultatsWrapper}>
-	  <Container className={isResultatFullScreen ? '' : styles.listeDesResultats}>
+	  <Container className={{ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow }}>
         <Skeleton
           type='card'
           isLoading={isLoading}
           repeat={skeletonRepeat}
-          className={isResultatFullScreen ? '' : styles.skeletonDisplay}
+          className={{ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow } }
         >
           <>
             { resultats }

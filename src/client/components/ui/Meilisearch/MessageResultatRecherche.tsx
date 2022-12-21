@@ -4,7 +4,14 @@ import styles from '~/client/components/layouts/RechercherSolution/RechercherSol
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 
-export function MessageResultatRecherche(props: { labelSingulier: string, labelPluriel: string, isLoading: boolean, numberOfResult: number }) {
+interface MessageResultatRechercheProps {
+  labelSingulier: string
+  labelPluriel: string
+  isLoading: boolean
+  numberOfResult: number
+}
+
+export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
   const { labelSingulier, labelPluriel, isLoading, numberOfResult } = props;
 
   function AfficherMessageRésultats() {

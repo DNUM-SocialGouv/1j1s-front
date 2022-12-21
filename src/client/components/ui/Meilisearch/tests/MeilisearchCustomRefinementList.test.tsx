@@ -26,7 +26,7 @@ let refineMock: jest.Mock<string>;
 
 describe('MeilisearchCustomRefinementList', () => {
   it('monte le composant', async () => {
-    render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+    render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
   });
@@ -47,7 +47,7 @@ describe('MeilisearchCustomRefinementList', () => {
     });
     it('affiche une liste de 3 éléments', async () => {
       const user = userEvent.setup();
-      render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+      render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
       const button = screen.getByRole('button');
       user.click(button);
       await screen.findByRole('listbox');
@@ -56,7 +56,7 @@ describe('MeilisearchCustomRefinementList', () => {
 
     it('affiche "Audit" comme label du premier élément', async () => {
       const user = userEvent.setup();
-      render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+      render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
       const button = screen.getByRole('button');
       user.click(button);
       await screen.findByRole('listbox');
@@ -68,7 +68,7 @@ describe('MeilisearchCustomRefinementList', () => {
       it('appelle la méthode refine une fois', async () => {
         const user = userEvent.setup();
 
-        render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+        render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
         const button = screen.getByRole('button');
         user.click(button);
         await screen.findByRole('listbox');
@@ -81,7 +81,7 @@ describe('MeilisearchCustomRefinementList', () => {
 
       it('appelle la méthode refine avec la valeur "auditeur"', async () => {
         const user = userEvent.setup();
-        render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+        render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
         const button = screen.getByRole('button');
         user.click(button);
         await screen.findByRole('listbox');
@@ -96,7 +96,7 @@ describe('MeilisearchCustomRefinementList', () => {
     describe('Quand la liste déroulante est déja ouverte et que l’utilisateur clique le bouton', () => {
       it('ferme la liste des choix', async () => {
         const user = userEvent.setup();
-        render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+        render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
         const button = screen.getByRole('button');
         user.click(button);
 
@@ -133,7 +133,7 @@ describe('MeilisearchCustomRefinementList Keyboard', () => {
     it('sélectionne la première option avec la touche space ET ne ferme pas la liste des options', async () => {
       const user = userEvent.setup();
 
-      render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+      render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
       const button = screen.getByRole('button');
       button.focus();
       await user.keyboard(KeyBoard.SPACE);
@@ -175,7 +175,7 @@ describe('MeilisearchCustomRefinementList Keyboard', () => {
     it('sélectionne la première option avec la touche space ET ne ferme pas la liste des options', async () => {
       const user = userEvent.setup();
 
-      render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+      render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
       const button = screen.getByRole('button');
       button.focus();
       await user.keyboard(KeyBoard.SPACE);
@@ -223,7 +223,7 @@ describe('MeilisearchCustomRefinementList Keyboard', () => {
     it('sélectionne la première option avec la touche space ET ferme la liste des options avec la touche escape', async () => {
       const user = userEvent.setup();
 
-      render(<MeilisearchCustomRefinementList attribute={'test'} label={'test'}/>);
+      render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
       const button = screen.getByRole('button');
       button.focus();
       await user.keyboard(KeyBoard.SPACE);

@@ -40,24 +40,27 @@ describe('ListeDesResultats Component', () => {
         isLoading={true}
         resultats={<TestComponent/> as React.ReactNode}
         pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
-        isResultatFullScreen={true}
+        isAffichageListeDeResultatsDesktopDirectionRow={true}
         skeletonRepeat={2}
 	  />);
 
 	  const skeletonList = screen.getByLabelText('...En cours de chargement');
 	  expect(skeletonList).toBeInTheDocument();
 
+	  const annoncesDeLogementList = screen.queryByLabelText('Résultats de recherche');
+	  expect(annoncesDeLogementList).not.toBeInTheDocument();
+
     });
 
     describe("quand les résultats prennent toute la largeur de l'écran", () => {
-	  it('affiche le skeleton avec le résultat fullscreen', () => {
+	  it('affiche le skeleton avec un résulat par ligne (en direction column)', () => {
         spyedPagination.mockImplementation(() => mockUsePagination({ isFirstPage: true, nbHits: 2 }));
 
         render(<ListeDesResultats
 		  isLoading={true}
 		  resultats={<TestComponent/> as React.ReactNode}
 		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
-		  isResultatFullScreen={true}
+		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={4}
         />);
 
@@ -74,14 +77,14 @@ describe('ListeDesResultats Component', () => {
 		  isLoading={true}
 		  resultats={<TestComponent/> as React.ReactNode}
 		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
-		  isResultatFullScreen={true}
+		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={2}
         />);
 
         const skeletonList = screen.getByLabelText('...En cours de chargement');
         const numberOfSkeleton = within(skeletonList).getAllByRole('listitem');
         expect(numberOfSkeleton.length).toEqual(2);
-        expect(skeletonList).not.toHaveClass('skeletonDisplay');
+        expect(skeletonList).not.toHaveClass('skeletonAffichageDesktopDirectionRow');
 	  });
     });
 
@@ -93,7 +96,7 @@ describe('ListeDesResultats Component', () => {
 		  isLoading={true}
 		  resultats={<TestComponent/> as React.ReactNode}
 		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
-		  isResultatFullScreen={false}
+		  isAffichageListeDeResultatsDesktopDirectionRow={false}
 		  skeletonRepeat={3}
         />);
 
@@ -102,7 +105,7 @@ describe('ListeDesResultats Component', () => {
 
         const numberOfSkeleton = within(skeletonList).getAllByRole('listitem');
         expect(numberOfSkeleton.length).toEqual(3);
-        expect(skeletonList).toHaveClass('skeletonDisplay');
+        expect(skeletonList).toHaveClass('skeletonAffichageDesktopDirectionRow');
 	  });
     });
   });
@@ -116,7 +119,7 @@ describe('ListeDesResultats Component', () => {
 		  isLoading={false}
 		  resultats={<TestComponent/> as React.ReactNode}
 		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
-		  isResultatFullScreen={true}
+		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={2}
         />);
 
@@ -139,7 +142,7 @@ describe('ListeDesResultats Component', () => {
 		  isLoading={false}
 		  resultats={<TestComponent/> as React.ReactNode}
 		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
-		  isResultatFullScreen={true}
+		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={2}
         />);
 

@@ -17,6 +17,7 @@ const LIMIT_MAX_FACETS = 100000;
 const LIMIT_MAX_DOMAINS = 100;
 const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
+const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
 
 const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
   const listeEtiquettes: Array<string> = résultat.domaines
@@ -42,26 +43,26 @@ const Résultat = ({ hit: résultat }: { hit: OffreDeStageIndexée }) => {
 
 function AfficherFormulaireDeRecherche() {
   return (
-    <form className={styles.form}>
+    <form className={styles.RechercherStageForm} onSubmit={(event) => event.preventDefault()}>
       <MeilisearchCustomSearchBox
         label="Métiers, mots clés, …"
         name="motCle"
         placeholder="Métiers, mots clés, …"
       />
       <MeilisearchInputRefinement
-        attribute={'localisationFiltree'}
+        attribute="localisationFiltree"
         limit={LIMIT_MAX_FACETS}
       />
       <MeilisearchCustomRefinementList
-        attribute={'domaines'}
+        attribute="domaines"
         limit={LIMIT_MAX_DOMAINS}
-        label={'Domaines'}
-        sortBy={['name:asc']}
+        label="Domaines"
+        sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
       />
       <MeilisearchCustomRefinementList
-        attribute={'dureeCategorisee'}
-        label={'Durée de stage'}
-        sortBy={['name:asc']}
+        attribute="dureeCategorisee"
+        label="Durée de stage"
+        sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
       />
     </form>
   );
@@ -88,7 +89,7 @@ export default function RechercherOffreStagePage() {
         ariaLabelListeDesResultats="Offres de stage"
         resultatDeRecherche={Résultat}
         hasTagList
-        isResultatFullScreen
+        isAffichageListeDeResultatsDesktopDirectionRow
       />
     </>
   );

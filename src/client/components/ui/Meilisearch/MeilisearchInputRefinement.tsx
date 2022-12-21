@@ -88,6 +88,9 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!suggestionsActive && event.key === KeyBoard.ENTER) {
+      return;
+    }
     if (event.key === KeyBoard.ARROW_UP) {
       if (suggestionIndex === 0) {
         return;
@@ -140,9 +143,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
   return (
     <>
       <div className={styles.formInput}>
-        <label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>
-                    Localisation
-        </label>
+        <label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>Localisation</label>
         <div ref={autocompleteRef}>
           <div
             id="header-search"

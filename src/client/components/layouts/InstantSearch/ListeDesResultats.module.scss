@@ -20,7 +20,6 @@
     gap: 1.5rem;
     flex-direction: column;
     flex-wrap: wrap;
-    max-width: $breakpoint-xl;
     margin: auto;
   }
 }
@@ -39,7 +38,7 @@
 }
 
 
-.skeletonDisplay {
+.skeletonAffichageDesktopDirectionRow {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

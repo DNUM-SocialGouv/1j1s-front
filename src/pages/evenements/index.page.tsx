@@ -2,13 +2,12 @@ import React from 'react';
 
 import { Evenement } from '~/client/components/features/Evenement/Evenement.type';
 import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/RésultatRechercherEvenement';
+import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/evenements/RechercherEvenementPage.module.scss';
-
-import { InstantSearchLayout } from '../../client/components/layouts/InstantSearch/InstantSearchLayout';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'evenement:dateDebut:asc';
@@ -31,14 +30,14 @@ export default function PageEvenements() {
 
   function AfficherFormulaireDeRecherche() {
     return (
-      <form className={styles.form}>
+      <form className={styles.rechercherEvenementForm} onSubmit={(event) => event.preventDefault()}>
         <MeilisearchCustomSearchBox
           label="Mot-clé, métier, accompagnement…"
           name="motCle"
           placeholder="Exemples: gendarmerie, cuisinier, mentorat"
         />
         <MeilisearchInputRefinement
-          attribute={'lieuEvenement'}
+          attribute="lieuEvenement"
           limit={LIMIT_MAX_FACETS}
         />
       </form>
@@ -82,7 +81,7 @@ export default function PageEvenements() {
           ariaLabelListeDesResultats="Evènements"
           resultatDeRecherche={Résultat}
           hasTagList
-          isResultatFullScreen
+          isAffichageListeDeResultatsDesktopDirectionRow
         />
       </>
       }

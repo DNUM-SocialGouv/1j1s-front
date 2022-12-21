@@ -20,6 +20,7 @@ import {
 const MEILISEARCH_INDEX = 'fiche-metier';
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
+const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
 
 export default function RechercherFicheMetierPage() {
   useReferrer();
@@ -28,7 +29,7 @@ export default function RechercherFicheMetierPage() {
 
   function AfficherFormulaireDeRecherche() {
     return (
-      <form className={styles.form}>
+      <form className={styles.RechercherMetierForm} onSubmit={(event) => event.preventDefault()}>
         <MeilisearchCustomSearchBox
           className={styles.inputNomMetier}
           label="Indiquez le métier que vous recherchez"
@@ -40,7 +41,7 @@ export default function RechercherFicheMetierPage() {
           attribute='centres_interet'
           limit={100}
           label="Centres d'intérêt"
-          sortBy={['name:asc']}
+          sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
         />
       </form>
 
@@ -66,7 +67,7 @@ export default function RechercherFicheMetierPage() {
         ariaLabelListeDesResultats="fiches métier"
         resultatDeRecherche={renderResult}
         hasTagList
-        isResultatFullScreen
+        isAffichageListeDeResultatsDesktopDirectionRow
       />
       <EnTeteSection heading="Découvrez des services faits pour vous" />
       <div className={classNames(styles.additionalSection, 'background-white-lilac')}>

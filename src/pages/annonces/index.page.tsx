@@ -10,10 +10,11 @@ import NotFound from '~/pages/404.page';
 const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
+const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
 
 function AfficherFormulaireDeRecherche() {
   return (
-    <form>
+    <form onSubmit={(event) => event.preventDefault()}>
       <MeilisearchCustomSearchBox
         label="Rechercher par ville"
         name="ville"
@@ -22,7 +23,7 @@ function AfficherFormulaireDeRecherche() {
       <MeilisearchCustomRefinementList
         attribute="type"
         label="Type d'offre"
-        sortBy={['name:asc']}
+        sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
       />
     </form>
   );
@@ -51,7 +52,7 @@ export default function AnnoncesPage() {
         ariaLabelListeDesResultats="Annonces de logement"
         resultatDeRecherche={AnnonceDeLogement}
         hasTagList={false}
-        isResultatFullScreen={false}
+        isAffichageListeDeResultatsDesktopDirectionRow={false}
       />
     </>
   );

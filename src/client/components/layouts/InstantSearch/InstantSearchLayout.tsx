@@ -1,5 +1,6 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import React, {
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -14,13 +15,12 @@ import {
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
+import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-
-import { ListeDesResultats } from './ListeDesResultats';
 
 interface InstantSearchLayoutProps {
   meilisearchIndex: string
@@ -35,10 +35,10 @@ interface InstantSearchLayoutProps {
   ariaLabelListeDesResultats: string
   resultatDeRecherche: React.ReactElement
   hasTagList: boolean
-  isResultatFullScreen: boolean
+  isAffichageListeDeResultatsDesktopDirectionRow: boolean
 }
 
-export const InstantSearchLayout = (props: InstantSearchLayoutProps) => {
+export function InstantSearchLayout(props: InstantSearchLayoutProps) {
   const {
     meilisearchIndex,
     nombreDeResultatParPage,
@@ -52,14 +52,14 @@ export const InstantSearchLayout = (props: InstantSearchLayoutProps) => {
     ariaLabelListeDesResultats,
     resultatDeRecherche,
     hasTagList,
-    isResultatFullScreen,
+    isAffichageListeDeResultatsDesktopDirectionRow,
   } = props;
 
   const searchClient = useDependency<SearchClient>('rechercheClientService');
   const LOADING_STATUS = 'loading';
   const STALLED_STATUS = 'stalled';
 
-  const transformItems: CurrentRefinementsProps['transformItems'] = (items) => {
+  const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items) => {
     return items
       .map((item) => ({
         ...item,
@@ -69,7 +69,8 @@ export const InstantSearchLayout = (props: InstantSearchLayoutProps) => {
             label: getCapitalizedItems(refinement.label),
           })),
       }));
-  };
+  }, []);
+
   const currentRefinementsStyle = { category: styles.TagCategoryElement, item: styles.TagItem, label: 'display-none', noRefinementList: 'display-none', noRefinementRoot: 'display-none' };
 
   const AfficherResultatDeRecherche = () => {
@@ -99,7 +100,7 @@ export const InstantSearchLayout = (props: InstantSearchLayoutProps) => {
           skeletonRepeat={nombreDeSkeleton}
           pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage} className={styles.pagination}/>}
           isLoading={isInstantSearchLoading}
-          isResultatFullScreen={isResultatFullScreen}
+          isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
         />
       </>
     );
