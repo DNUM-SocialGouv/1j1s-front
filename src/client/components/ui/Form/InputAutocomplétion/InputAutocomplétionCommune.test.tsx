@@ -8,14 +8,22 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import {
+  aLocalisationService,
+} from '~/client/services/localisation/localisationService.fixture';
 
 describe('InputAutocomplétionCommune', function () {
-  const localisationService = aLocalisationService();
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
 
   it('doit afficher une proposition de commune quand on tape une recherche', async function () {
     // Given
+    const localisationService = aLocalisationService();
+
     const labelText = 'Ma super autocomplétion';
     const texteRecherché = 'Par';
 
@@ -30,6 +38,32 @@ describe('InputAutocomplétionCommune', function () {
     // Then
     await waitFor(() => {
       expect(screen.getByText('Paris 15e Arrondissement')).toBeInTheDocument();
+    });
+  });
+
+  describe('quand l‘input a moins de 3 caractères' , () => {
+    it('ne lance pas la recherche', async () => {
+      // GIVEN
+      const localisationService = aLocalisationService();
+
+      const labelText = 'Ma super autocomplétion';
+      const texteRecherché = 'Ba';
+
+      mockUseRouter({});
+      render(
+        <DependenciesProvider localisationService={localisationService}>
+          <InputAutocomplétionCommune label={labelText} debounce={1}/>
+        </DependenciesProvider>,
+      );
+      const inputAutocomplétion = screen.getByRole('textbox');
+
+      // WHEN
+      await userEvent.type(inputAutocomplétion, texteRecherché);
+
+      // THEN
+      await waitFor(() => {
+        expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
+      });
     });
   });
 });
