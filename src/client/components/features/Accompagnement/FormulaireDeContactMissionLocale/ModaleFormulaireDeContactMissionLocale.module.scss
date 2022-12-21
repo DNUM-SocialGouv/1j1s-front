@@ -1,0 +1,32 @@
+@import "@styles/utilities";
+
+.modalTitle {
+  @extend %bold;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.modalSubTitle {
+  display:block;
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: $color-primary;
+  text-align: center;
+}
+
+.success {
+  text-align: center;
+
+  &Message {
+    margin: 1rem 0;
+    color: $color-primary;
+  }
+
+  &Icon {
+    margin: auto;
+    width: 8rem;
+    height: 8rem;
+    color: $color-secondary;
+  }
+}

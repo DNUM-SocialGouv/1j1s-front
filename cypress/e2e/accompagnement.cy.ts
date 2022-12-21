@@ -20,6 +20,9 @@ describe('Parcours Accompagnement', () => {
         cy.get('button').contains('Sélectionnez votre choix').click();
         cy.get('ul[role="listbox"]').first().click();
 
+        cy.intercept({
+          pathname: '/api/etablissements-accompagnement',
+        }, anÉtablissementAccompagnementList());
         cy.get('button').contains('Rechercher').click();
 
         cy.intercept({ pathname: '/api/etablissements-accompagnement' }, anÉtablissementAccompagnementList());

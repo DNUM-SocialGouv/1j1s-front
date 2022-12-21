@@ -33,6 +33,7 @@ export interface LienSolutionAccompagnement {
   nomEntreprise?: string
   étiquetteOffreList: (string | undefined)[]
   horaires?: ÉtablissementAccompagnement.Horaire[]
+  typeAccompagnement: string | undefined
 }
 
 export function RechercherAccompagnement() {
@@ -104,6 +105,7 @@ export function RechercherAccompagnement() {
           nomEntreprise={lienAccompagnement.nomEntreprise}
           étiquetteOffreList={lienAccompagnement.étiquetteOffreList}
           horaires={lienAccompagnement.horaires}
+          typeAccompagnement={lienAccompagnement.typeAccompagnement}
         />
       </li>
     );
@@ -148,6 +150,7 @@ function mapAccompagnementToLienSolution(établissementAccompagnement: Établiss
     lienOffre: établissementAccompagnement.email ? `mailto:${établissementAccompagnement.email}` : undefined,
     logoEntreprise: getLogoEntreprise(établissementAccompagnement.typeAccompagnement),
     nomEntreprise: établissementAccompagnement.adresse,
+    typeAccompagnement: établissementAccompagnement.typeAccompagnement,
     étiquetteOffreList: [établissementAccompagnement.telephone, établissementAccompagnement.email],
   };
 }

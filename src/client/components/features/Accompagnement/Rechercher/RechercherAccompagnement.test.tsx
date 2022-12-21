@@ -11,8 +11,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-  anÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
+  aÉtablissementMissionLocaleService,
+  anÉtablissementAccompagnementService } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -181,6 +181,30 @@ describe('RechercherAccompagnement', () => {
       // THEN
       expect(résultatRechercheÉtablissementAccompagnementListHeader).not.toBeInTheDocument();
       expect(rechercheÉtablissementAccompagnementNombreRésultats).not.toBeInTheDocument();
+    });
+  });
+
+  describe('quand le type d‘accompagnement est Mission Locale', () => {
+    it('affiche le bouton "Je souhaite être rappelé"', async () => {
+      const établissementAccompagnementService = aÉtablissementMissionLocaleService();
+      const localisationServiceMock = aLocalisationService();
+
+      mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'mission_locale' } });
+      render(
+        <DependenciesProvider
+          localisationService={localisationServiceMock}
+          établissementAccompagnementService={établissementAccompagnementService}>
+          <RechercherAccompagnement />
+        </DependenciesProvider>,
+      );
+
+      // WHEN
+      const résultatRechercheÉtablissementAccompagnementListHeader = await screen.findByRole('list', { name: 'Établissements d‘accompagnement' });
+      const résultatRechercheÉtablissementAccompagnementButton = await within(résultatRechercheÉtablissementAccompagnementListHeader).findByRole('button');
+
+      // THEN
+      expect(résultatRechercheÉtablissementAccompagnementButton).toBeVisible();
+      expect(résultatRechercheÉtablissementAccompagnementButton.textContent).toEqual('Je souhaite être rappelé');
     });
   });
 });

@@ -7,20 +7,11 @@ import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutoco
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
-import { Option, Select } from '~/client/components/ui/Select/Select';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
-
-const AGE_MINIMUM = 16;
-
-const ageOptions: Option[] = Array.from(Array(15).keys()).map((index) => {
-  const age = index + AGE_MINIMUM;
-  return {
-    libellé: `${age} ans`,
-    valeur: `${age}`,
-  };
-});
 
 interface FormulaireDeContactCEJProps {
   onSuccess?: () => void;
