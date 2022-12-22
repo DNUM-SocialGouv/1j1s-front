@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+import { interceptGet } from '../interceptGet';
+import { interceptPost } from '../interceptPost';
+
 /***
  * DEVNOTE
  * il faut configurer votre .env avec
@@ -15,24 +18,27 @@ describe('Parcours formulaire entreprise', () => {
   context('quand l’utilisateur remplit correctement le formulaire', () => {
     it('affiche un message de succès', () => {
 
-      cy.get('input[name="companyName"]').type('octo');
+      cy.get('input[name="companyName"]').type('octo', { force: true });
 
-      cy.get('input[name="companyPostalCode"]').type('par');
-      cy.intercept('GET', '/api/communes?q=par', {
-        résultats: [
-          {
-            code: '75056',
-            codePostal: '75006',
-            coordonnées: {
-              latitude: 48.859,
-              longitude: 2.347,
+      interceptGet(
+        {
+          actionBeforeWaitTheCall: () => cy.get('input[name="companyPostalCode"]').type('paris', { force: true }),
+          alias: 'recherche-communes',
+          path: '/api/communes*',
+          response: JSON.stringify({ résultats: [
+            {
+              code: '75056',
+              codePostal: '75006',
+              coordonnées: {
+                latitude: 48.859,
+                longitude: 2.347,
+              },
+              libelle: 'Paris',
+              ville: 'Paris',
             },
-            libelle: 'Paris',
-            ville: 'Paris',
-          },
-        ],
-      }).as('codepostal');
-      cy.wait('@codepostal');
+          ] } ),
+        },
+      );
       cy.get('ul[role="listbox"]').first().click();
 
       cy.get('input[name="companySiret"]').type('41816609600069');
@@ -51,23 +57,29 @@ describe('Parcours formulaire entreprise', () => {
       cy.get('input[name="job"]').type('rh');
       cy.get('input[name="phone"]').type('0199999999');
 
-      cy.intercept('POST', '/api/entreprises', {
-        statusCode: 201,
-      }).as('submit');
-      cy.get('button').contains('Envoyer le formulaire').click();
-      cy.wait('@submit').its('request.body').should('deep.equal', {
-        codePostal: '75006',
-        email: 'jean.dupont@gmail.com',
-        nom: 'dupont',
-        nomSociété: 'octo',
-        prénom: 'jean',
-        secteur: 'public-administration',
-        siret: '41816609600069',
-        taille: 'small',
-        travail: 'rh',
-        téléphone: '0199999999',
-        ville: 'Paris',
-      });
+      interceptPost(
+        {
+          actionBeforeWaitTheCall: () => cy.get('button').contains('Envoyer le formulaire').click(),
+          alias: 'submit-form',
+          path: '/api/entreprises',
+          response: JSON.stringify({
+            statusCode: 201,
+          }),
+          responseBodyToCheck: {
+            codePostal: '75006',
+            email: 'jean.dupont@gmail.com',
+            nom: 'dupont',
+            nomSociété: 'octo',
+            prénom: 'jean',
+            secteur: 'public-administration',
+            siret: '41816609600069',
+            taille: 'small',
+            travail: 'rh',
+            téléphone: '0199999999',
+            ville: 'Paris',
+          },
+        },
+      );
 
       cy.contains('Félicitations, votre formulaire a bien été envoyé !').should('be.visible');
     });
