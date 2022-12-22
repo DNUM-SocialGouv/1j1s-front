@@ -90,7 +90,7 @@ const getApiÉtablissementsPublicsConfig = (configurationService: ConfigurationS
 
 const getApiEnvoyerEmailConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: '4b95ba7843ac8ba295fae64af4e6d479',
+    apiKey: undefined,
     apiName: 'TIPIMAIL_API_KEY',
     apiUrl: configurationService.getConfiguration().TIPIMAIL_API_KEY,
     overrideInterceptor: false,
