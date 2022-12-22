@@ -13,11 +13,12 @@ interface ModalProps {
   close: (...args: unknown[]) => unknown
   closeLabel?: string;
   closeTitle?: string;
+  unMountModal?: boolean
 }
 
 const MODAL_ANIMATION_TIME_IN_MS = 300;
 
-export function ModalComponent({ children, className, close, closeLabel = 'Fermer', closeTitle = 'Fermer la modale', isOpen, ...rest }: ModalProps & React.HTMLAttributes<HTMLDialogElement>) {
+export function ModalComponent({ children, className, close, closeLabel = 'Fermer', closeTitle = 'Fermer la modale', unMountModal = true, isOpen, ...rest }: ModalProps & React.HTMLAttributes<HTMLDialogElement>) {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [lastFocusBeforeOpen, setLastFocusBeforeOpen] = useState<HTMLElement | null>(null);
 
@@ -37,7 +38,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
 
   useEffect(function enableDocumentBodyWhenTheModalIsClosing() {
     return () => {
-      disableDocumentBodyScroll(false);
+      disableDocumentBodyScroll((false));
     };
   }, []);
 
@@ -83,9 +84,9 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   }, [isOpen, lastFocusBeforeOpen]);
 
   useEffect(() => {
-    disableDocumentBodyScroll(isOpen);
+    if (unMountModal) disableDocumentBodyScroll(isOpen);
     trapModalFocus();
-  }, [isOpen]);
+  }, [isOpen, unMountModal]);
 
   return (
     <>

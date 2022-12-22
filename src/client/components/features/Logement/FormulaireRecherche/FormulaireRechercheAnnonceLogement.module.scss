@@ -1,0 +1,44 @@
+@import "@styles/utilities";
+
+.RechercherLogementForm {
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+
+  @include media(large) {
+    flex-direction: row;
+  }
+}
+
+.inputVille {
+  flex-basis: 68%;
+}
+
+.inputType, .inputTypeBien {
+  flex-basis: 30%;
+}
+
+
+.filtresAvancésModalContenu {
+  & details {
+    border-top: 1px solid lighten($color-primary, 15%);
+
+    &:last-of-type {
+      border-bottom: 1px solid lighten($color-primary, 15%);
+    }
+  }
+}
+.applyFiltersButton button {
+  width: 100%;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}
