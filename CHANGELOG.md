@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.27.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.26.1...v2.27.0) (2022-12-22)
+
+
+### Features
+
+* **accompagnement:** ajout comportement required composant select ([9a3594c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9a3594c23ec0c88046b587099cbf4fdb3bdcc508))
+
 ## [2.26.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.26.0...v2.26.1) (2022-12-22)
 
 
