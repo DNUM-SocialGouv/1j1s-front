@@ -27,6 +27,7 @@ export class ServerConfigurationService implements ConfigurationService {
       STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
       TIPIMAIL_API_KEY: ServerConfigurationService.getOrThrowError('TIPIMAIL_API_KEY'),
       TIPIMAIL_API_URL: ServerConfigurationService.getOrThrowError('TIPIMAIL_API_URL'),
+      TIPIMAIL_API_USER: ServerConfigurationService.getOrThrowError('TIPIMAIL_API_USER'),
     };
   }
 
@@ -66,8 +67,6 @@ export interface EnvironmentVariables {
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string;
   readonly API_ENGAGEMENT_BASE_URL: string;
   readonly API_ETABLISSEMENTS_PUBLICS: string;
-  readonly TIPIMAIL_API_KEY: string;
-  readonly TIPIMAIL_API_URL: string;
   readonly API_GEO_BASE_URL: string;
   readonly API_LES_ENTREPRISES_SENGAGENT_URL: string;
   readonly API_POLE_EMPLOI_OFFRES_URL: string;
@@ -86,4 +85,7 @@ export interface EnvironmentVariables {
   readonly REDIS_USERNAME: string;
   readonly STRAPI_AUTH: string;
   readonly STRAPI_URL_API: string;
+  readonly TIPIMAIL_API_KEY: string;
+  readonly TIPIMAIL_API_URL: string;
+  readonly TIPIMAIL_API_USER: string;
 }

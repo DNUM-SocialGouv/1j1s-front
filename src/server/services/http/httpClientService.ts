@@ -6,9 +6,9 @@ export class HttpClientService {
   readonly client: AxiosInstance;
 
   constructor (private clientConfig: HttpClientConfig) {
-    const apiKey = clientConfig.apiKey;
+    const headers = clientConfig.apiHeaders;
     const url = clientConfig.apiUrl;
-    this.client = axios.create({ baseURL: url, headers: apiKey ? { apiKey : apiKey } : {} });
+    this.client = axios.create({ baseURL: url, headers });
   }
 
   async get<Response>(

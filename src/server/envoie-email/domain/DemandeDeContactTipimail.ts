@@ -1,5 +1,5 @@
 
-export interface EnvoieEmail {
+export interface DemandeDeContactTipimail {
   to: EnvoieEmail.Contact[];
   msg: EnvoieEmail.Message;
   headers: EnvoieEmail.Headers;
@@ -12,12 +12,13 @@ export namespace EnvoieEmail {
   }
 
   export interface Contact {
-    address: string;
+    address?: string;
     personalName: string;
   }
 
   export interface Message {
     from: Contact;
+    replyTo: Contact;
     subject: string;
     text: string;
   }
