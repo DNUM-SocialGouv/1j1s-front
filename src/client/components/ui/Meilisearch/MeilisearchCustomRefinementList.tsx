@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 // eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
+import { v4 as uuidv4 } from 'uuid';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import {
@@ -28,6 +29,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const buttonLabel = 'Sélectionnez vos choix';
+  const labelledBy = useRef(uuidv4());
   const optionsRef = useRef<HTMLDivElement>(null);
   const listBoxRef = useRef<HTMLUListElement>(null);
 
@@ -99,12 +101,13 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
   return (
     <div className={classNames(className)}>
-      <label className={styles.selectLabel}>{label}</label>
+      <label className={styles.selectLabel} id={labelledBy.current}>{label}</label>
       <div ref={optionsRef} className={styles.selectContainer}>
         <button
           type="button"
           aria-haspopup="listbox"
           aria-expanded={isOptionsOpen}
+          aria-labelledby={labelledBy.current}
           className={styles.button}
           onClick={() => setIsOptionsOpen(!isOptionsOpen)}
         >

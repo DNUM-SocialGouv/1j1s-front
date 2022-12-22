@@ -7,7 +7,7 @@ import { CommonProps } from '~/client/components/props';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 
-interface MeilisearchCustomRefinementListProps extends CommonProps{
+interface MeilisearchCustomRefinementListProps extends CommonProps {
   label: string
 }
 export function MeilisearchCustomRefinementListForModal(props: UseRefinementListProps & MeilisearchCustomRefinementListProps & React.HTMLAttributes<HTMLDivElement>) {

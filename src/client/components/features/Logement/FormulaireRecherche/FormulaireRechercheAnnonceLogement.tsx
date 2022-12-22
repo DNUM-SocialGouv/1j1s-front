@@ -12,15 +12,15 @@ import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/M
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
-
 export function FormulaireRechercheAnnonceLogement() {
   const { isSmallScreen } = useBreakpoint();
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
 
-
   return (
-    <form className={styles.RechercherLogementForm} onSubmit={(event) => event.preventDefault()}>
+    <form
+	  className={styles.RechercherLogementForm}
+	  role="search"
+	  onSubmit={(event) => event.preventDefault()}>
 	  <MeilisearchCustomSearchBox
         className={styles.inputVille}
         label="Rechercher par ville"
@@ -33,13 +33,13 @@ export function FormulaireRechercheAnnonceLogement() {
             className={styles.inputType}
             attribute="type"
             label="Type d'offre"
-            sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+            sortBy={['name:asc']}
 		  />
 		  <MeilisearchCustomRefinementList
             className={styles.inputTypeBien}
             attribute="typeBien"
             label="Type de bien"
-            sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+            sortBy={['name:asc']}
 		  />
         </>
 	  )}
@@ -56,7 +56,7 @@ export function FormulaireRechercheAnnonceLogement() {
 		    className={isFiltresAvancésMobileOpen ? styles.show : styles.hide}
 		    close={() => setIsFiltresAvancésMobileOpen(false)}
 		    closeTitle="Fermer les filtres"
-		    isOpen={true}
+		    isOpen={isFiltresAvancésMobileOpen}
 		    unMountModal={false}
 		    aria-labelledby="dialog_label">
 		    <ModalComponent.Title>
@@ -68,14 +68,14 @@ export function FormulaireRechercheAnnonceLogement() {
 		        <MeilisearchCustomRefinementListForModal
 				  attribute="type"
 				  label="Type d'offre"
-				  sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+				  sortBy={['name:asc']}
 		        />
 			  </FilterAccordion>
 			  <FilterAccordion title="Type de bien">
 		        <MeilisearchCustomRefinementListForModal
 				  attribute="typeBien"
 				  label="Type de bien"
-				  sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+				  sortBy={['name:asc']}
 		        />
 			  </FilterAccordion>
 

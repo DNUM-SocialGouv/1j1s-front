@@ -3,26 +3,29 @@ import React, { useMemo } from 'react';
 
 import styles
   from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier.module.scss';
+import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import useSanitize from '~/client/hooks/useSanitize';
-import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import {
+  FicheMétierHttp,
+  mapFicheMetier,
+} from '~/server/fiche-metier/domain/ficheMetierHttp';
 
-import { CardComponent } from '../../../ui/Card/AbstractCard/CardComponent';
-import { Icon } from '../../../ui/Icon/Icon';
-
-interface RésultatRechercherMétierProps {
-  résultat: Partial<FicheMétier>
+interface HitProps {
+  hit: Partial<FicheMétierHttp>
 }
 
-export function RésultatRechercherMétier({ résultat }: RésultatRechercherMétierProps) {
-  const accrocheMétier = useSanitize(résultat.accrocheMetier);
+export function RésultatRechercherMétier(props: HitProps) {
+  const ficheMetier = mapFicheMetier(props.hit);
+  const accrocheMétier = useSanitize(ficheMetier.accrocheMetier);
   const nomMetier = useMemo(() => {
-    return `${résultat.nomMetier?.charAt(0).toUpperCase()}${résultat.nomMetier?.slice(1)}`;
-  }, [résultat.nomMetier]);
+    return `${ficheMetier.nomMetier?.charAt(0).toUpperCase()}${ficheMetier.nomMetier?.slice(1)}`;
+  }, [ficheMetier.nomMetier]);
 
-  if (!résultat.nomMetier) return null;
+  if (!ficheMetier.nomMetier) return null;
 
   return (
-    <Link href={`/decouvrir-les-metiers/${encodeURIComponent(résultat.nomMetier)}`} className={'underline-none'}>
+    <Link href={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`} className={'underline-none'}>
       <CardComponent className={styles.resultatCard} layout={'horizontal'}>
         <CardComponent.Content className={styles.content}>
           <CardComponent.Title className={styles.title} titleAs={'h2'}>{nomMetier}</CardComponent.Title>

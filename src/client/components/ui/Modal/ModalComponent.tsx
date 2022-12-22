@@ -84,13 +84,13 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   }, [isOpen, lastFocusBeforeOpen]);
 
   useEffect(() => {
-    if (unMountModal) disableDocumentBodyScroll(isOpen);
+    disableDocumentBodyScroll(isOpen);
     trapModalFocus();
   }, [isOpen, unMountModal]);
 
   return (
     <>
-      {isOpen && createPortal(
+      {(isOpen || !unMountModal) && createPortal(
         <dialog
           ref={modalRef}
           className={classNames(className, styles.modal)}

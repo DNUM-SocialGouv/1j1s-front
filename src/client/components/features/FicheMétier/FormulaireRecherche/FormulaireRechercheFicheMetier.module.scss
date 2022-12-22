@@ -1,0 +1,26 @@
+@import "@styles/utilities";
+
+.RechercherMetierForm {
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+
+  @include media(large) {
+    flex-direction: row;
+  }
+
+  @include media(xlarge) {
+    gap: 1.5rem;
+  }
+}
+
+
+.inputNomMetier {
+  flex-basis: 70%;
+}
+
+.inputCentresInteret {
+  flex-basis: 30%;
+}
