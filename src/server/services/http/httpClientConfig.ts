@@ -91,8 +91,8 @@ const getApiÉtablissementsPublicsConfig = (configurationService: ConfigurationS
 const getApiEnvoyerEmailConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
     apiKey: '4b95ba7843ac8ba295fae64af4e6d479',
-    apiName: 'API_ENVOIE_EMAIL',
-    apiUrl: configurationService.getConfiguration().API_ENVOIE_EMAIL,
+    apiName: 'TIPIMAIL_API_KEY',
+    apiUrl: configurationService.getConfiguration().TIPIMAIL_API_KEY,
     overrideInterceptor: false,
   });
 };

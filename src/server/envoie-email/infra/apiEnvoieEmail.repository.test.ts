@@ -9,13 +9,13 @@ import {
   anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
 
-describe('ApiÉtablissementPublicRepository', () => {
-  describe('search', () => {
-    describe('lorsque la recherche retourne une 200', () => {
-      it('retourne la liste des établissements d‘accompagnement', async () => {
+describe('ApiEnvoieEmailRepository', () => {
+  describe('send', () => {
+    describe('lorsque l’envoie retourne une 200', () => {
+      it('envoie le mail', async () => {
         // given
         const httpClient = anHttpClientService();
-        jest.fn().mockResolvedValue(createSuccess(undefined));
+        jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aEnvoieEmailList()));
         const repository = new ApiEnvoieEmailRepository(httpClient);
         const expected = createSuccess(aEnvoieEmailList());
 
@@ -24,6 +24,7 @@ describe('ApiÉtablissementPublicRepository', () => {
         const result = await repository.send(envoieEmail);
 
         // then
+        expect(httpClient.post).toHaveBeenCalledWith('/messages/send',envoieEmail);
         expect(result).toEqual(expected);
       });
     });
@@ -35,7 +36,6 @@ describe('ApiÉtablissementPublicRepository', () => {
         jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
           response: anAxiosResponse({}, 404),
         }));
-
 
         const repository = new ApiEnvoieEmailRepository(httpClient);
         const envoieEmail = unEnvoieEmail();

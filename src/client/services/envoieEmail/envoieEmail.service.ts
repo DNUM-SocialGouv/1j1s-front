@@ -8,8 +8,8 @@ export class EnvoieEmailService {
 
   async envoyer(envoieMail: EnvoieEmail) {
     try {
-      await this.httpClientService.post('/messages/send', envoieMail);
-      return createSuccess(undefined);
+      const { data } = await this.httpClientService.post('/messages/send', envoieMail);
+      return createSuccess(data);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }

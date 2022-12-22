@@ -1,7 +1,7 @@
+import { EnvoieEmail } from '~/server/envoie-email/domain/EnvoieEmail';
+import { aEnvoieEmailList } from '~/server/envoie-email/domain/EnvoieEmail.fixture';
 import { createSuccess } from '~/server/errors/either';
 
-import { EnvoieEmail } from '../../../server/envoie-email/domain/EnvoieEmail';
-import { aEnvoieEmailList } from '../../../server/envoie-email/domain/EnvoieEmail.fixture';
 import { EnvoieEmailService } from './envoieEmail.service';
 
 export function aEnvoieEmailService(): EnvoieEmailService {

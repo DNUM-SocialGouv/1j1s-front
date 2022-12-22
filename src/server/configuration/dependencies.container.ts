@@ -62,7 +62,6 @@ export type Dependencies = {
   offreAlternanceDependencies: OffresAlternanceDependencies
   établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
   envoyerEmailDependencies: EnvoyerEmailDependencies
-
 };
 
 export interface OffresEmploiDependencies {
@@ -183,9 +182,9 @@ export const dependenciesContainer = (): Dependencies => {
     rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiGouvRepository),
   };
 
-  const apiTipimailepository = new ApiEnvoieEmailRepository(envoyerEmailClientService);
+  const apiTipimailRepository = new ApiEnvoieEmailRepository(envoyerEmailClientService);
   const envoyerEmailDependencies: EnvoyerEmailDependencies = {
-    envoyerEmailUseCase: new EnvoyerEmailUseCase(apiTipimailepository),
+    envoyerEmailUseCase: new EnvoyerEmailUseCase(apiTipimailRepository),
   };
 
   return {
