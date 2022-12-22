@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.26.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.26.0...v2.26.1) (2022-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update nextjs monorepo to ~13.1.0 ([b660c6e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b660c6ece844a2c976aaf41a7322b080d3c3e630))
+
 ## [2.26.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.25.8...v2.26.0) (2022-12-21)
 
 
