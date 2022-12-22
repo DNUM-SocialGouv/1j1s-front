@@ -75,15 +75,8 @@
       }
       p {
         @extend %text-small, %background-surface;
-        margin: 0 2rem;
+        margin: 2rem;
         font-weight: 400;
-      }
-
-      &Link {
-        display: block;
-        width: 50%;
-        margin-inline: auto;
-        margin-top: 1.5rem
       }
     }
   }

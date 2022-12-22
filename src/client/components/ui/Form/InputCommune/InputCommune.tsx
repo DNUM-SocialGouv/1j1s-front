@@ -222,7 +222,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
   return (
     <>
       <div className={classNames(styles.wrapper, className)}>
-        <label htmlFor="rechercherCommune" id={id || LOCALISATION_LABEL_ID}>
+        <label htmlFor="rechercherCommune" id={id || LOCALISATION_LABEL_ID} className={styles.label}>
           Localisation
         </label>
         <div ref={autocompleteRef}>

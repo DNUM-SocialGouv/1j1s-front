@@ -27,8 +27,8 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
     { name: 'Indiquez le nom de l’entreprise' },
     { name: 'Indiquez la ville du siège social de l’entreprise' },
     { name: 'Indiquez votre numéro de SIRET' },
-    { name: 'Indiquez le secteur d’activité de votre entreprise' },
-    { name: 'Indiquez la taille de votre entreprise' },
+    { name: 'Indiquez le secteur d’activité de l’entreprise' },
+    { name: 'Indiquez la taille de l’entreprise' },
   ];
 
   const labelsEtape2 = [
@@ -96,7 +96,7 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
       expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' })).toBeValid();
       expect(screen.getByRole('textbox', { name: 'Indiquez la ville du siège social de l’entreprise' })).toBeInvalid();
       expect(screen.getByRole('textbox', { name: 'Indiquez votre numéro de SIRET' })).toBeInvalid();
-      expect(screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de votre entreprise' })).toBeInvalid();
+      expect(screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de l’entreprise' })).toBeInvalid();
     });
   });
 
@@ -232,11 +232,11 @@ async function remplirFormulaireEtape1() {
   await user.type(inputNomSociété, 'Fnac');
   const inputSiret = screen.getByRole('textbox', { name: 'Indiquez votre numéro de SIRET' });
   await user.type(inputSiret, '12345678901112');
-  const inputSecteur = screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de votre entreprise' });
+  const inputSecteur = screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de l’entreprise' });
   await user.type(inputSecteur, 'Santé humaine et action sociale');
   // eslint-disable-next-line testing-library/no-wait-for-side-effects
   await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
-  await user.click(screen.getByLabelText('Indiquez la taille de votre entreprise'));
+  await user.click(screen.getByLabelText('Indiquez la taille de l’entreprise'));
   await user.click(screen.getByText('20 à 49 salariés'));
   const inputVille = screen.getByLabelText('Indiquez la ville du siège social de l’entreprise');
   await user.type(inputVille, 'Paris');

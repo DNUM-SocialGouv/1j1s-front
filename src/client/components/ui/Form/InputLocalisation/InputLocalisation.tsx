@@ -227,7 +227,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>
+      <label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID} className={styles.label}>
         Localisation
       </label>
       <div ref={autocompleteRef}>

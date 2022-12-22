@@ -97,7 +97,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 
   return <>
     <div className={styles.wrapper}>
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && <label htmlFor={id} className={styles.label}>{label}</label>}
       <Autosuggest
         theme={theme}
         inputProps={inputProps}
@@ -109,7 +109,7 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
         renderSuggestion={afficher}
         shouldRenderSuggestions={shouldRenderSuggestions}
       />
-      {inputVide && <div className={styles.formControlInputHint}>Veuillez renseigner ce champ.</div>}
+      {inputVide && <p className={styles.formControlInputHint}>Veuillez renseigner ce champ.</p>}
     </div>
   </>;
 }
