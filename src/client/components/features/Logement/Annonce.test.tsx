@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
-import { AnnonceDeLogementIndexee } from '~/pages/annonces/AnnonceDeLogement.type';
+import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
 
 
 const uneAnnonceDeLogement: AnnonceDeLogementIndexee = {

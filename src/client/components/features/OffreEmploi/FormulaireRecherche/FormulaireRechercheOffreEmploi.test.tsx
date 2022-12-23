@@ -64,13 +64,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const modalComponant = screen.getByRole('dialog');
-        const inputTypeDeContrat = within(modalComponant).getByRole('checkbox', { name: 'Mission intérimaire' });
+        const modalComponent = screen.getByRole('dialog');
+        const inputTypeDeContrat = within(modalComponent).getByRole('checkbox', { name: 'Mission intérimaire' });
         fireEvent.click(inputTypeDeContrat);
 
-        expect(modalComponant).toBeInTheDocument();
+        expect(modalComponent).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -97,13 +97,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const modalComponant = screen.getByRole('dialog');
-        const inputTempsDeTravail = within(modalComponant).getByRole('radio', { name: 'Temps plein' });
+        const modalComponent = screen.getByRole('dialog');
+        const inputTempsDeTravail = within(modalComponent).getByRole('radio', { name: 'Temps plein' });
         fireEvent.click(inputTempsDeTravail);
 
-        expect(modalComponant).toBeInTheDocument();
+        expect(modalComponent).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -130,13 +130,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const modalComponant = screen.getByRole('dialog');
-        const inputExperienceExigence = within(modalComponant).getByRole('radio', { name: 'Moins de 1 an' });
+        const modalComponent = screen.getByRole('dialog');
+        const inputExperienceExigence = within(modalComponent).getByRole('radio', { name: 'Moins de 1 an' });
         fireEvent.click(inputExperienceExigence);
 
-        expect(modalComponant).toBeInTheDocument();
+        expect(modalComponent).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);
@@ -196,14 +196,14 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
         // WHEN
         fireEvent.click(buttonFiltresRecherche);
-        const modalComponant = screen.getByRole('dialog');
-        const inputDomaine = within(modalComponant).getByRole('checkbox', { name: 'Banque / Assurance' });
+        const modalComponent = screen.getByRole('dialog');
+        const inputDomaine = within(modalComponent).getByRole('checkbox', { name: 'Banque / Assurance' });
 
         fireEvent.click(inputDomaine);
 
-        expect(modalComponant).toBeInTheDocument();
+        expect(modalComponent).toBeInTheDocument();
 
-        const buttonAppliquerFiltres = within(modalComponant).getByRole('button', { name: 'Appliquer les filtres' });
+        const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
         // WHEN
         fireEvent.click(buttonAppliquerFiltres);

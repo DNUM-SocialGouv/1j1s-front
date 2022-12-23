@@ -1,5 +1,12 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
+import { CurrentRefinementsConnectorParamsItem } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
+import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventForHits';
+import {
+  BaseHit,
+  Hit,
+} from 'instantsearch.js/es/types/results';
 import React, {
+  JSXElementConstructor,
   useCallback,
   useEffect,
   useState,
@@ -22,6 +29,10 @@ import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 
+export interface HitProps<T> {
+  hit: T
+}
+
 interface InstantSearchLayoutProps {
   meilisearchIndex: string
   nombreDeResultatParPage: number
@@ -33,7 +44,7 @@ interface InstantSearchLayoutProps {
   messageResultatRechercheLabelPluriel: string
   nombreDeSkeleton: number
   ariaLabelListeDesResultats: string
-  resultatDeRecherche: React.ReactElement
+  resultatDeRecherche: JSXElementConstructor<{ hit: Hit<BaseHit>; sendEvent: SendEventForHits; }>
   hasTagList: boolean
   isAffichageListeDeResultatsDesktopDirectionRow: boolean
 }
@@ -59,7 +70,7 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
   const LOADING_STATUS = 'loading';
   const STALLED_STATUS = 'stalled';
 
-  const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items) => {
+  const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
     return items
       .map((item) => ({
         ...item,
@@ -75,7 +86,7 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
 
   const AfficherResultatDeRecherche = () => {
     const { status,  results } = useInstantSearch();
-    const isSettingUp = results.__isArtificial;
+    const isSettingUp: boolean = results.__isArtificial || false;
     const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
 
     useEffect(() => {
