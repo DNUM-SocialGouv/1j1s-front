@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.28.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.27.0...v2.28.0) (2022-12-23)
+
+
+### Features
+
+* **logement:** modale formulaire logement ([c8ae005](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c8ae00580e7b67a0802204d3d387594fc857b6b0))
+
 ## [2.27.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.26.1...v2.27.0) (2022-12-22)
 
 
