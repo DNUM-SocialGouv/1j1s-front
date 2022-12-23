@@ -35,9 +35,9 @@ export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationPr
     refine(pageNumber);
     const listeDesResultats = document.getElementById(`${listeDesResultatsId}`);
     if (listeDesResultats) {
-      const X_AXE = listeDesResultats.offsetLeft;
-      const Y_AXE = listeDesResultats.offsetTop;
-      window.scrollTo(X_AXE, Y_AXE);
+      const axeHorizontal = listeDesResultats.offsetLeft;
+      const axeVertical = listeDesResultats.offsetTop;
+      window.scrollTo(axeHorizontal, axeVertical);
     }
   };
 

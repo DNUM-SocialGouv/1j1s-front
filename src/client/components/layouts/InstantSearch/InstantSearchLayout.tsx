@@ -88,7 +88,7 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
     const { status,  results } = useInstantSearch();
     const isSettingUp: boolean = results.__isArtificial || false;
     const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
-    const LISTE_DES_RESULTATS_ID = 'listeDesResultatsId';
+    const LISTE_DES_RESULTATS_ID = 'idDeLaListeDesResultats';
 
     useEffect(() => {
       setIsInstantSearchLoading((status === LOADING_STATUS || status === STALLED_STATUS) && isSettingUp);
