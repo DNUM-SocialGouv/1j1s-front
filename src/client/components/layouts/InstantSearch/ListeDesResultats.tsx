@@ -5,6 +5,7 @@ import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 
 interface ListeDesResultatsProps {
+  listeDesResultatsId: string
   resultats: React.ReactElement
   isLoading: boolean
   isAffichageListeDeResultatsDesktopDirectionRow: boolean
@@ -13,10 +14,10 @@ interface ListeDesResultatsProps {
 }
 
 export function ListeDesResultats(props: ListeDesResultatsProps) {
-  const { resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
+  const { listeDesResultatsId, resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
 
   return (
-    <section className={styles.listeDesResultatsWrapper}>
+    <section className={styles.listeDesResultatsWrapper} id={listeDesResultatsId}>
 	  <Container className={{ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow }}>
         <Skeleton
           type='card'

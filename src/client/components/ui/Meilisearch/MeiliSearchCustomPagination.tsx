@@ -8,10 +8,11 @@ import { CommonPagination } from '~/client/components/ui/Pagination/CommonPagina
 
 interface MeiliSearchCustomPaginationProps extends CommonProps {
   numberOfResultPerPage: number
+  listeDesResultatsId: string
 }
 
 export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationProps & UsePaginationProps) {
-  const { numberOfResultPerPage, className } = props;
+  const { numberOfResultPerPage, listeDesResultatsId, className } = props;
   const {
     currentRefinement,
     nbHits,
@@ -30,11 +31,21 @@ export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationPr
   }, [nbHits, numberOfResultPerPage]);
   const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
+  const onPageClick = (pageNumber: number) => {
+    refine(pageNumber);
+    const listeDesResultats = document.getElementById(`${listeDesResultatsId}`);
+    if (listeDesResultats) {
+      const X_AXE = listeDesResultats.offsetLeft;
+      const Y_AXE = listeDesResultats.offsetTop;
+      window.scrollTo(X_AXE, Y_AXE);
+    }
+  };
+
   return (
     <div className={classNames(className)}>
       <CommonPagination
         currentPage={currentRefinement}
-        onPageClick={refine}
+        onPageClick={(pageNumber) => onPageClick(pageNumber)}
         isLastPage={isLastPage}
         numberOfPageList={numberOfPageList}
         lastPage={lastPage}

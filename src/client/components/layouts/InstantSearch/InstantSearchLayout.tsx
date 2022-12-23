@@ -88,6 +88,7 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
     const { status,  results } = useInstantSearch();
     const isSettingUp: boolean = results.__isArtificial || false;
     const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
+    const LISTE_DES_RESULTATS_ID = 'listeDesResultatsId';
 
     useEffect(() => {
       setIsInstantSearchLoading((status === LOADING_STATUS || status === STALLED_STATUS) && isSettingUp);
@@ -107,9 +108,10 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
           </Container>
         </section>
         <ListeDesResultats
+          listeDesResultatsId={LISTE_DES_RESULTATS_ID}
           resultats={<Hits aria-label={ariaLabelListeDesResultats} hitComponent={resultatDeRecherche}/>}
           skeletonRepeat={nombreDeSkeleton}
-          pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage} className={styles.pagination}/>}
+          pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage} listeDesResultatsId={LISTE_DES_RESULTATS_ID} className={styles.pagination}/>}
           isLoading={isInstantSearchLoading}
           isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
         />

@@ -1,3 +1,5 @@
+import Mock = jest.Mock
+
 export function mockSmallScreen() {
   Object.defineProperty(window, 'matchMedia', {
     value: jest.fn().mockImplementation((query) => ({
@@ -27,5 +29,23 @@ export function mockLargeScreen() {
       removeListener: jest.fn(),
     })),
     writable: true,
+  });
+}
+
+export function mockGetElementById() {
+  Object.defineProperty(document, 'getElementById', {
+    value: jest.fn().mockImplementation((id) =>({
+      id,
+      offsetLeft: 10,
+      offsetTop: 10,
+    })),
+    writable: true,
+  });
+}
+
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+export function mockScrollTo(scrollTo: Mock<any, any>) {
+  Object.defineProperty(window, 'scrollTo', {
+    value: scrollTo,
   });
 }
