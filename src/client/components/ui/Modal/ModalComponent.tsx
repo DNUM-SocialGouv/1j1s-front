@@ -13,12 +13,12 @@ interface ModalProps {
   close: (...args: unknown[]) => unknown
   closeLabel?: string;
   closeTitle?: string;
-  unMountModal?: boolean
+  keepModalMounted?: boolean
 }
 
 const MODAL_ANIMATION_TIME_IN_MS = 300;
 
-export function ModalComponent({ children, className, close, closeLabel = 'Fermer', closeTitle = 'Fermer la modale', unMountModal = true, isOpen, ...rest }: ModalProps & React.HTMLAttributes<HTMLDialogElement>) {
+export function ModalComponent({ children, className, close, closeLabel = 'Fermer', closeTitle = 'Fermer la modale', keepModalMounted = false, isOpen, ...rest }: ModalProps & React.HTMLAttributes<HTMLDialogElement>) {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [lastFocusBeforeOpen, setLastFocusBeforeOpen] = useState<HTMLElement | null>(null);
 
@@ -38,7 +38,7 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
 
   useEffect(function enableDocumentBodyWhenTheModalIsClosing() {
     return () => {
-      disableDocumentBodyScroll((false));
+      disableDocumentBodyScroll(false);
     };
   }, []);
 
@@ -86,11 +86,11 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
   useEffect(() => {
     disableDocumentBodyScroll(isOpen);
     trapModalFocus();
-  }, [isOpen, unMountModal]);
+  }, [isOpen]);
 
   return (
     <>
-      {(isOpen || !unMountModal) && createPortal(
+      {(isOpen || keepModalMounted) && createPortal(
         <dialog
           ref={modalRef}
           className={classNames(className, styles.modal)}

@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 
 import styles
   from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier.module.scss';
+import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -11,11 +12,7 @@ import {
   mapFicheMetier,
 } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
-interface HitProps {
-  hit: Partial<FicheMétierHttp>
-}
-
-export function RésultatRechercherMétier(props: HitProps) {
+export function RésultatRechercherMétier(props: HitProps<Partial<FicheMétierHttp>>) {
   const ficheMetier = mapFicheMetier(props.hit);
   const accrocheMétier = useSanitize(ficheMetier.accrocheMetier);
   const nomMetier = useMemo(() => {

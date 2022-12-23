@@ -17,7 +17,7 @@ export function FormulaireRechercheFicheMetier() {
 	  />
 	  <MeilisearchCustomRefinementList
         className={styles.inputCentresInteret}
-        attribute='centres_interet'
+        attribute="centres_interet"
         limit={100}
         label="Centres d'intérêt"
         sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}

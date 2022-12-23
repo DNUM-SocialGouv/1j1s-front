@@ -3,17 +3,14 @@ import React from 'react';
 
 import { Evenement } from '~/client/components/features/Evenement/Evenement.type';
 import styles from '~/client/components/features/Evenement/RésultatRechercherEvenement.module.scss';
+import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { formatEventDateTime } from '~/client/utils/formatEventDateTime.util';
 
-interface HitProps {
-  hit: Evenement
-}
-
-export function RésultatRechercherEvenement(props: HitProps) {
+export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
   const { titreEvenement, organismeOrganisateur, dateDebut, dateFin, lieuEvenement, slug } = props.hit;
 
   return (

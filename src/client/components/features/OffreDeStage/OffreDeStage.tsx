@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 
@@ -10,11 +11,8 @@ import {
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 
-interface HitProps {
-  hit: OffreDeStageIndexée
-}
 
-export const OffreDeStage = (props : HitProps) => {
+export const OffreDeStage = (props : HitProps<OffreDeStageIndexée>) => {
   const stage = props.hit;
 
   const listeEtiquettes: Array<string> = stage.domaines

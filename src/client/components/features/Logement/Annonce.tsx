@@ -1,23 +1,19 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import styles from '~/client/components/features/Logement/Annonce.module.scss';
 import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
-import styles from './Annonce.module.scss';
-
-interface HitProps {
-  hit: AnnonceDeLogementIndexee
-}
-
-export const AnnonceDeLogement = (props : HitProps) => {
+export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) => {
   const annonce  = props.hit;
   const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
   return (
-    <CardComponent layout='vertical'>
+    <CardComponent layout="vertical">
       <CardComponent.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>
 
       <CardComponent.Content className={styles.CardContenu}>

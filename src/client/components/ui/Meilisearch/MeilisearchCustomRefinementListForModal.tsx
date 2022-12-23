@@ -1,7 +1,6 @@
-import React from 'react';
+import React  from 'react';
 // eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
-import { v4 as uuidv4 } from 'uuid';
 
 import { CommonProps } from '~/client/components/props';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
@@ -15,9 +14,9 @@ export function MeilisearchCustomRefinementListForModal(props: UseRefinementList
 
   return (
     <>
-	  {items.map((item) => (
+	  {items.map((item, index) => (
         <Checkbox
-		  key={uuidv4()}
+		  key={index}
 		  label={getCapitalizedItems(item.label)}
 		  value={item.value}
 		  checked={item.isRefined}
