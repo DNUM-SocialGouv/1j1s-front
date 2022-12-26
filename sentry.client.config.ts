@@ -16,7 +16,7 @@ const releaseName = (environnement = process.env) => {
   return `${environnement.npm_package_name}@${environnement.npm_package_version}`;
 };
 
-Sentry.init({
+process.env.NODE_ENV === 'production' && Sentry.init({
   beforeSend(event) {
     if(!SEND_DATA) {
       return null;

@@ -184,12 +184,6 @@ const moduleExports = {
   poweredByHeader: false,
   reactStrictMode: true,
   redirects,
-  sentry: {
-    disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
-    disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
-    hideSourceMaps: true,
-    silent: true,
-  },
   webpack(config, { isServer }) {
     if (!isServer) {
       config.optimization.mergeDuplicateChunks = true;
@@ -208,8 +202,13 @@ const moduleExports = {
   },
 };
 
+const sentryModuleExports = {
+  disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
+  disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
+  hideSourceMaps: true,
+  silent: true,
+};
+
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(moduleExports);
-
-
+module.exports = process.env.NODE_ENV === 'production' ? withSentryConfig(moduleExports, sentryModuleExports) : moduleExports;
