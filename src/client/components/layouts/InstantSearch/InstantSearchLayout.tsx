@@ -9,6 +9,7 @@ import React, {
   JSXElementConstructor,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -27,26 +28,30 @@ import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
+import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 
 export interface HitProps<T> {
   hit: T
 }
 
-interface InstantSearchLayoutProps {
-  meilisearchIndex: string
+interface AfficherResultatDeRechercheProps {
   nombreDeResultatParPage: number
-  titre: string
-  sousTitre: string
-  isMeilisearchQueryParamsRoutingEnabled: boolean
-  formulaireDeRecherche: React.ReactElement
   messageResultatRechercheLabelSingulier: string
   messageResultatRechercheLabelPluriel: string
   nombreDeSkeleton: number
   ariaLabelListeDesResultats: string
-  resultatDeRecherche: JSXElementConstructor<{ hit: Hit<BaseHit>; sendEvent: SendEventForHits; }>
-  hasTagList: boolean
   isAffichageListeDeResultatsDesktopDirectionRow: boolean
+  resultatDeRecherche: JSXElementConstructor<{ hit: Hit<BaseHit>; sendEvent: SendEventForHits; }>
+}
+
+interface InstantSearchLayoutProps extends AfficherResultatDeRechercheProps {
+  meilisearchIndex: string
+  titre: string
+  sousTitre: string
+  isMeilisearchQueryParamsRoutingEnabled: boolean
+  formulaireDeRecherche: React.ReactElement
+  hasTagList: boolean
 }
 
 export function InstantSearchLayout(props: InstantSearchLayoutProps) {
@@ -57,18 +62,16 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
     sousTitre,
     isMeilisearchQueryParamsRoutingEnabled,
     formulaireDeRecherche,
+    hasTagList,
     messageResultatRechercheLabelSingulier,
     messageResultatRechercheLabelPluriel,
     nombreDeSkeleton,
     ariaLabelListeDesResultats,
     resultatDeRecherche,
-    hasTagList,
     isAffichageListeDeResultatsDesktopDirectionRow,
   } = props;
 
   const searchClient = useDependency<SearchClient>('rechercheClientService');
-  const LOADING_STATUS = 'loading';
-  const STALLED_STATUS = 'stalled';
 
   const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
     return items
@@ -83,40 +86,15 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
   }, []);
 
   const currentRefinementsStyle = { category: styles.TagCategoryElement, item: styles.TagItem, label: 'display-none', noRefinementList: 'display-none', noRefinementRoot: 'display-none' };
+  const listeDesResultatsRef = useRef(null);
 
-  const AfficherResultatDeRecherche = () => {
-    const { status,  results } = useInstantSearch();
-    const isSettingUp: boolean = results.__isArtificial || false;
-    const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
-    const LISTE_DES_RESULTATS_ID = 'idDeLaListeDesResultats';
-
-    useEffect(() => {
-      setIsInstantSearchLoading((status === LOADING_STATUS || status === STALLED_STATUS) && isSettingUp);
-    }, [status, isSettingUp]);
-
-
-    return (
-      <>
-        <section className="separator">
-          <Container className={styles.ResultatTotal}>
-            <MessageResultatRecherche
-              labelSingulier={messageResultatRechercheLabelSingulier}
-              labelPluriel={messageResultatRechercheLabelPluriel}
-              isLoading={isInstantSearchLoading}
-              numberOfResult={results.nbHits}
-            />
-          </Container>
-        </section>
-        <ListeDesResultats
-          listeDesResultatsId={LISTE_DES_RESULTATS_ID}
-          resultats={<Hits aria-label={ariaLabelListeDesResultats} hitComponent={resultatDeRecherche}/>}
-          skeletonRepeat={nombreDeSkeleton}
-          pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage} listeDesResultatsId={LISTE_DES_RESULTATS_ID} className={styles.pagination}/>}
-          isLoading={isInstantSearchLoading}
-          isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
-        />
-      </>
-    );
+  const scrollToTopOfListeDesResultats = () => {
+    const sectionListeDesResultats = listeDesResultatsRef.current as unknown as HTMLElement;
+    if (sectionListeDesResultats) {
+      const axeHorizontal = sectionListeDesResultats.offsetLeft;
+      const axeVertical = sectionListeDesResultats.offsetTop;
+      window.scrollTo(axeHorizontal, axeVertical);
+    }
   };
 
   return (
@@ -144,8 +122,67 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
             />
           </Container>
         }
-        <AfficherResultatDeRecherche />
+        <AfficherResultatDeRecherche
+          messageResultatRechercheLabelSingulier={messageResultatRechercheLabelSingulier}
+          messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
+          nombreDeSkeleton={nombreDeSkeleton}
+          ariaLabelListeDesResultats={ariaLabelListeDesResultats}
+          resultatDeRecherche={resultatDeRecherche}
+          isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
+          nombreDeResultatParPage={nombreDeResultatParPage}
+          scrollToTopOfListeDesResultats={scrollToTopOfListeDesResultats}
+          ref={listeDesResultatsRef}
+        />
       </InstantSearch>
     </main>
   );
 };
+
+// eslint-disable-next-line react/display-name
+const AfficherResultatDeRecherche = React.forwardRef<HTMLElement | null, AfficherResultatDeRechercheProps & { scrollToTopOfListeDesResultats: () => void }>((props: AfficherResultatDeRechercheProps & { scrollToTopOfListeDesResultats: () => void }, outerRef) => {
+  const {
+    messageResultatRechercheLabelSingulier,
+    messageResultatRechercheLabelPluriel,
+    nombreDeSkeleton,
+    ariaLabelListeDesResultats,
+    resultatDeRecherche,
+    isAffichageListeDeResultatsDesktopDirectionRow,
+    nombreDeResultatParPage,
+    scrollToTopOfListeDesResultats,
+  } = props;
+
+  const LOADING_STATUS = 'loading';
+  const STALLED_STATUS = 'stalled';
+
+  const { status,  results } = useInstantSearch();
+  const isSettingUp: boolean = results.__isArtificial || false;
+  const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
+  const ref = useSynchronizedRef(outerRef);
+
+  useEffect(() => {
+    setIsInstantSearchLoading((status === LOADING_STATUS || status === STALLED_STATUS) && isSettingUp);
+  }, [status, isSettingUp]);
+
+  return (
+    <>
+      <section className="separator">
+        <Container className={styles.ResultatTotal}>
+          <MessageResultatRecherche
+            labelSingulier={messageResultatRechercheLabelSingulier}
+            labelPluriel={messageResultatRechercheLabelPluriel}
+            isLoading={isInstantSearchLoading}
+            numberOfResult={results.nbHits}
+          />
+        </Container>
+      </section>
+      <ListeDesResultats
+        ref={ref}
+        resultats={<Hits aria-label={ariaLabelListeDesResultats} hitComponent={resultatDeRecherche}/>}
+        skeletonRepeat={nombreDeSkeleton}
+        pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage} className={styles.pagination} onPageChange={scrollToTopOfListeDesResultats}/>}
+        isLoading={isInstantSearchLoading}
+        isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
+      />
+    </>
+  );
+});

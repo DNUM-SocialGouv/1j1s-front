@@ -3,16 +3,13 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
-import {
-  mockGetElementById,
-  mockLargeScreen,
-  mockScrollTo,
-} from '~/client/components/window.mock';
+import { mockLargeScreen } from '~/client/components/window.mock';
 
 declare type CreateURL<TValue> = (value: TValue) => string;
 
@@ -27,10 +24,11 @@ const REVENIR_A_LA_PAGE_PRECENDENTE = 'Revenir à la page précédente';
 const ALLER_A_LA_PAGE_SUIVANTE = 'Aller à la page suivante';
 const ALLER_A_LA_DERNIERE_PAGE = 'Aller à la dernière page';
 
+const mockFunctionScrollToTopOfListeDesResultats = jest.fn();
+
 describe('MeilisearchCustomPagination', () => {
   beforeEach(() => {
     mockLargeScreen();
-    mockGetElementById();
   });
 
   afterEach(() => {
@@ -48,7 +46,7 @@ describe('MeilisearchCustomPagination', () => {
         it('Revenir à la première page et Revenir à la page précédente doivent etre disable et Aller à la page suivante et Aller à la dernière page doivent etre enable', () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
@@ -67,7 +65,7 @@ describe('MeilisearchCustomPagination', () => {
         it('Revenir à la première page, Revenir à la page précédente, Aller à la page suivante, Aller à la dernière page doivent etre enable', async () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
@@ -79,12 +77,13 @@ describe('MeilisearchCustomPagination', () => {
         it('affiche "…" dans le document', async () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.getByText('…')).toBeInTheDocument();
         });
       });
+
       describe('quand il s’agit de l’avant avant dernière page', () => {
         beforeEach(() => {
           // GIVEN
@@ -94,7 +93,7 @@ describe('MeilisearchCustomPagination', () => {
         it('n’affiche pas "…" dans le document', async () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.queryByText('…')).not.toBeInTheDocument();
@@ -110,7 +109,7 @@ describe('MeilisearchCustomPagination', () => {
         it('n’affiche pas "…" dans le document', async () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.queryByText('…')).not.toBeInTheDocument();
@@ -126,7 +125,7 @@ describe('MeilisearchCustomPagination', () => {
         it('Revenir à la première page, Revenir à la page précédente doivent etre enable et Aller à la page suivante, Aller à la dernière page doivent etre disable', async () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
@@ -138,7 +137,7 @@ describe('MeilisearchCustomPagination', () => {
         it('n’affiche pas "…" dans le document', async () => {
           // WHEN
           render(
-            <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+            <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
           );
           // THEN
           expect(screen.queryByText('…')).not.toBeInTheDocument();
@@ -167,7 +166,7 @@ describe('MeilisearchCustomPagination', () => {
       it('affiche une liste', () => {
         // WHEN
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         // THEN
         expect(screen.getByRole('list')).toBeInTheDocument();
@@ -176,7 +175,7 @@ describe('MeilisearchCustomPagination', () => {
       it('affiche 2 (première page et précédent) + 4 (pages) + 2 (prochain et dernière page) éléments', () => {
         // WHEN
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         // THEN
         expect(screen.getByRole('list').childNodes.length).toEqual(8);
@@ -186,7 +185,7 @@ describe('MeilisearchCustomPagination', () => {
       it('affiche 1, 2, 3 et 4 en lien dans les éléments de la liste', () => {
         // WHEN
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         // THEN
         expect(screen.getByRole('link', { current: false, name: '1' })).toBeInTheDocument();
@@ -195,96 +194,101 @@ describe('MeilisearchCustomPagination', () => {
         expect(screen.getByRole('link', { current: true, name: '4' })).toBeInTheDocument();
       });
 
-      it('remonte en haut de section au clic sur une page', () => {
+      it('appelle la fonction parent au changement de page', async () => {
         // GIVEN
-        const spyScrollTo = jest.fn();
-        mockScrollTo(spyScrollTo);
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15}  onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
 
         const lien = screen.getByRole('link', { current: false, name: '1' });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(0);
-        expect(spyScrollTo).toHaveBeenCalledWith(10, 10);
+        expect(mockFunctionScrollToTopOfListeDesResultats).toHaveBeenCalled();
       });
 
-      it('refine la première page au clic sur le <<', () => {
+      it('refine la première page au clic sur le <<', async () => {
         // GIVEN
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         const lien = screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(0);
       });
 
-      it('refine la première page au clic sur le 1', () => {
+      it('refine la première page au clic sur le 1', async () => {
         // GIVEN
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         const lien = screen.getByRole('link', { current: false, name: '1' });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(0);
       });
 
-      it('refine la deuxième page au clic sur page suivante', () => {
+      it('refine la deuxième page au clic sur page suivante', async () => {
         // GIVEN
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         const lien = screen.getByRole('link', { current: false, name: REVENIR_A_LA_PAGE_PRECENDENTE });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(2);
       });
 
-      it('refine la deuxième page au clic sur le 2', () => {
+      it('refine la deuxième page au clic sur le 2', async () => {
         // GIVEN
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         const lien = screen.getByRole('link', { current: false, name: '2' });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(1);
       });
 
-      it('refine la dernière page au clic sur la derniere page', () => {
+      it('refine la dernière page au clic sur la derniere page', async () => {
         // GIVEN
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         const lien = screen.getByRole('link', { current: false, name: ALLER_A_LA_PAGE_SUIVANTE });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(4);
       });
 
-      it('refine la page suivante au clic sur le page suivante', () => {
+      it('refine la page suivante au clic sur le page suivante', async () =>  {
         // GIVEN
+        const user = userEvent.setup();
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         const lien = screen.getByRole('link', { current: false, name: ALLER_A_LA_PAGE_SUIVANTE });
         // WHEN
-        fireEvent.click(lien);
+        await user.click(lien);
         // THEN
         expect(refineMock).toHaveBeenCalledTimes(1);
         expect(refineMock).toHaveBeenCalledWith(4);
@@ -312,7 +316,7 @@ describe('MeilisearchCustomPagination', () => {
       it('n affiche pas la pagination', () => {
         // WHEN
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         // THEN
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -340,7 +344,7 @@ describe('MeilisearchCustomPagination', () => {
       it('n affiche pas la pagination', () => {
         // WHEN
         render(
-          <MeiliSearchCustomPagination numberOfResultPerPage={15} listeDesResultatsId='mon-id' />,
+          <MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
         );
         // THEN
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
