@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.29.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.28.0...v2.29.0) (2022-12-26)
+
+
+### Features
+
+* **multiple:** ajout scroll to top au changement de page ([c2b9a13](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c2b9a139d19aba185f4e56f37aca189cc25f4905))
+
 ## [2.28.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.27.0...v2.28.0) (2022-12-23)
 
 
