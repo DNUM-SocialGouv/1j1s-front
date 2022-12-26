@@ -3,6 +3,7 @@ import React from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
+import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 interface ListeDesResultatsProps {
   resultats: React.ReactElement
@@ -12,11 +13,13 @@ interface ListeDesResultatsProps {
   pagination: React.ReactNode
 }
 
-export function ListeDesResultats(props: ListeDesResultatsProps) {
+// eslint-disable-next-line react/display-name
+export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesResultatsProps>((props: ListeDesResultatsProps, outerRef) => {
   const { resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
+  const ref = useSynchronizedRef(outerRef);
 
   return (
-    <section className={styles.listeDesResultatsWrapper}>
+    <section className={styles.listeDesResultatsWrapper} ref={ref}>
 	  <Container className={{ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow }}>
         <Skeleton
           type='card'
@@ -32,4 +35,4 @@ export function ListeDesResultats(props: ListeDesResultatsProps) {
 	  </Container>
     </section>
   );
-};
+});

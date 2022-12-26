@@ -1,3 +1,4 @@
+
 export function mockSmallScreen() {
   Object.defineProperty(window, 'matchMedia', {
     value: jest.fn().mockImplementation((query) => ({

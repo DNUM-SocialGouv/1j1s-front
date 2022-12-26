@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, {
-  ForwardedRef,
-  useCallback, useEffect,
-  useImperativeHandle,
+  useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -10,14 +9,7 @@ import React, {
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
-
-function useSynchronizedRef<T>(ref: ForwardedRef<T | null>) {
-  const innerRef = useRef<T>(null);
-  useImperativeHandle<T | null, T | null>(ref, () => innerRef.current, [
-    innerRef,
-  ]);
-  return innerRef;
-}
+import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 type InputValue = string | ReadonlyArray<string> | number | undefined;
 
