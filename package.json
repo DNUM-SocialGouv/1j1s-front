@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "2.28.0",
+  "version": "2.29.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
