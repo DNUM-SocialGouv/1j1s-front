@@ -33,7 +33,7 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
         </div>
         <div className={styles.offreLead}>
           <div>
-            <div className={styles.offreLeadTitle}>{intituléOffre}</div>
+            <h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>
             <div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
           </div>
           { !isSmallScreen && cardDescription()}
