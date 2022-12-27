@@ -27,19 +27,19 @@ export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
 
   return (
     <Link href={lienOffre} className={classNames(styles.card, 'underline-none')} prefetch={false} data-testid="RésultatRechercherSolution">
-      <header className={styles.cardHeader}>
+      <div className={styles.cardHeader}>
         <div className={styles.cardImageWrapper}>
           <Image alt="" src={logoEntreprise} layout="fill" aria-hidden="true"/>
         </div>
         <div className={styles.offreLead}>
-          <div>
+          <header>
             <h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>
             <div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
-          </div>
+          </header>
           { !isSmallScreen && cardDescription()}
           
         </div>
-      </header>
+      </div>
       { isSmallScreen && cardDescription()}
     </Link>
   );
