@@ -1,0 +1,34 @@
+@import "@styles/utilities";
+
+.container {
+  padding: 1rem;
+  display: flex;
+
+  p {
+    @extend %text-large;
+  }
+}
+
+.title {
+  @extend %subheading, %bold;
+  padding-bottom: 2rem;
+}
+
+.subtitle {
+  margin-bottom: 1rem;
+}
+
+.buttonWrapper {
+  padding: 3rem 0;
+  text-align: center;
+  @include media(medium){
+    text-align: left;
+  }
+}
+
+.errorLogo {
+  flex-shrink: 0;
+  width:40%;
+  margin: auto;
+  text-align: center;
+}
