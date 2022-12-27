@@ -1,9 +1,11 @@
+import { CarteActualite } from '~/server/cms/domain/actualite';
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
 import {
+  ActualiteAttributesResponse,
   ArticleAttributesResponse,
-  ArticleSimpleAttributesResponse,
+  ArticleSimpleAttributesResponse, CarteActualiteResponse,
   CarteEspaceJeuneResponse,
   CarteMesuresEmployeursResponse,
   EspaceJeuneAttributesResponse,
@@ -131,6 +133,25 @@ export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAtt
     orienterFormer: mapCartesEspaceJeuneList(orienterFormer),
     vieProfessionnelle: mapCartesEspaceJeuneList(vieProfessionnelle),
   };
+}
+
+export function mapActualites(response: StrapiSingleTypeResponse<ActualiteAttributesResponse>): CarteActualite[] {
+  return mapCarteActualiteList(response.data.attributes.listeActualites);
+}
+
+function mapCarteActualiteList(cartesActualiteList: CarteActualiteResponse[]): CarteActualite[] {
+  return cartesActualiteList.map((carteActualite) => {
+    const { banniere, contenu, titre, url } = carteActualite;
+    const article = mapArticleRelation(carteActualite.article);
+    return {
+      article: article ?? null,
+      bannière: mapImage(banniere),
+      contenu,
+      extraitContenu: getExtraitContenu(contenu, 110),
+      link: article ? `/articles/${article.slug}` : url,
+      titre,
+    };
+  });
 }
 
 function getExtraitContenu(contenu: string, size = 120): string {

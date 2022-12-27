@@ -1,11 +1,13 @@
 import { AxiosResponse } from 'axios';
 import qs from 'qs';
 
+import { CarteActualite } from '~/server/cms/domain/actualite';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import {
+  mapActualites,
   mapArticle,
   mapEspaceJeune,
   mapFicheMetier,
@@ -30,6 +32,16 @@ import { MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
 
 export class StrapiCmsRepository implements CmsRepository {
   constructor(private httpClientService: HttpClientService) {}
+
+  async getActualites(): Promise<Either<CarteActualite[]>> {
+    const query = {
+      populate: {
+        listeActualites: { populate: '*' },
+      },
+    };
+    const endpoint = `actualite?${qs.stringify(query, { encode: false })}`;
+    return this.getResource(endpoint, mapActualites, 'actualite');
+  }
 
   async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
     const filters = `[slug][$eq]=${slug}&populate[0]=banniere`;
