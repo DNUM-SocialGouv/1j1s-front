@@ -5,6 +5,7 @@ import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/
 import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 // eslint-disable-next-line import/named
 import {
+  UseInstantSearchProps,
   UseRefinementListProps,
   UseSearchBoxProps,
 } from 'react-instantsearch-hooks-web';
@@ -62,7 +63,18 @@ function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function realMockUseInstantSearch(_props: UseInstantSearchProps): unknown {
+  return {
+    error: jest.fn(),
+    refresh: jest.fn(),
+    status: jest.fn(),
+    use: jest.fn(),
+  };
+}
+
 module.exports = {
+  useInstantSearch: realMockUseInstantSearch,
   usePagination: realMockUsePagination,
   useRefinementList: realMockUseRefinementList,
   useSearchBox: realMockUseSearchBox,

@@ -22,7 +22,7 @@ import {
 } from 'react-instantsearch-hooks-web';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
+import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
@@ -109,7 +109,7 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
         indexName={meilisearchIndex}
         routing={isMeilisearchQueryParamsRoutingEnabled}
       >
-        <ErrorBoundary>
+        <InstantSearchErrorBoundary>
           <>
             <Configure hitsPerPage={nombreDeResultatParPage}/>
             <section className="separator">
@@ -137,24 +137,11 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
               ref={listeDesResultatsRef}
             />
           </>
-        </ErrorBoundary>
+        </InstantSearchErrorBoundary>
 
       </InstantSearch>
     </main>
   );
-};
-
-interface ErrorBoundaryProps {
-  children: React.ReactNode
-}
-
-const ErrorBoundary = (props: React.PropsWithChildren<ErrorBoundaryProps>) => {
-  const { error } = useInstantSearch({ catchError: true });
-  const { children } = props;
-
-  if (error) return <ErrorUnavailableService />;
-
-  return <>{ children } </>;
 };
 
 // eslint-disable-next-line react/display-name
