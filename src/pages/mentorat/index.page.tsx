@@ -100,29 +100,29 @@ export default function MentoratPage() {
 function RaisonParticipationsMentorat() {
   return (
     <section className={styles.RaisonParticipationMentoratContainer}>
-      <div className={styles.RaisonParticipationMentoratElement}>
-        <div className={styles.RaisonParticipationMentoratElement__Title}>
-          <Icon name='arrow-right'/>
-          <p>J’ai des difficultés à l’école</p>
-        </div>
-        <p>Votre mentor pourra vous aider à organiser votre travail et à améliorer vos résultats scolaires</p>
-      </div>
-
-      <div className={styles.RaisonParticipationMentoratElement}>
-        <div className={styles.RaisonParticipationMentoratElement__Title}>
-          <Icon name='arrow-right'/>
-          <p>Je ne sais pas quelle orientation choisir</p>
-        </div>
-        <p>Votre mentor pourra vous conseiller et vous guider</p>
-      </div>
-
-      <div className={styles.RaisonParticipationMentoratElement}>
-        <div className={styles.RaisonParticipationMentoratElement__Title}>
-          <Icon name='arrow-right'/>
-          <p>Je cherche un stage, une alternance, un premier emploi</p>
-        </div>
-        <p>Votre mentor pourra vous aider et vous ouvrir son réseau professionnel</p>
-      </div>
+      <ul aria-label="Raisons de participation au Mentorat">
+        <li className={styles.RaisonParticipationMentoratElement}>
+          <div className={styles.RaisonParticipationMentoratElement__Title}>
+            <Icon name='arrow-right'/>
+            <p>J’ai des difficultés à l’école</p>
+          </div>
+          <p>Votre mentor pourra vous aider à organiser votre travail et à améliorer vos résultats scolaires</p>
+        </li>
+        <li className={styles.RaisonParticipationMentoratElement}>
+          <div className={styles.RaisonParticipationMentoratElement__Title}>
+            <Icon name='arrow-right'/>
+            <p>Je ne sais pas quelle orientation choisir</p>
+          </div>
+          <p>Votre mentor pourra vous conseiller et vous guider</p>
+        </li>
+        <li className={styles.RaisonParticipationMentoratElement}>
+          <div className={styles.RaisonParticipationMentoratElement__Title}>
+            <Icon name='arrow-right'/>
+            <p>Je cherche un stage, une alternance, un premier emploi</p>
+          </div>
+          <p>Votre mentor pourra vous aider et vous ouvrir son réseau professionnel</p>
+        </li>
+      </ul>
     </section>
   );
 }

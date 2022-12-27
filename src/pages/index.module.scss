@@ -81,8 +81,12 @@
         flex-direction: row;
     }
 
-    .cardList > a {
+    .cardList > li {
         width: 22.5rem;
+    }
+
+    .cardListElement > a {
+        display: inline-block;
     }
 
     .sectionHeader {
