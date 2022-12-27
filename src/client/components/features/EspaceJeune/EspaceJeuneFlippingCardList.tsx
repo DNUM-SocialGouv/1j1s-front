@@ -31,20 +31,24 @@ export function EspaceJeuneFlippingCardList(cardList: CarteEspaceJeune[], MAX_CA
 
   function displayCartes(cardList: CarteEspaceJeune[]) {
     return cardList.map((carte, index) => {
-      return CarteEspaceJeune(carte, index);
+      return (
+        <li key={index}>
+          {CarteEspaceJeune(carte, index)}
+        </li>
+      );
     });
   }
 
   function displaySectionCartes(cardList: CarteEspaceJeune[]) {
     return <>
-      <div className={classNames(styles.cardList, styles.cardListPadding)}>
+      <ul className={classNames(styles.cardList, styles.cardListPadding)}>
         {displayCartes(cardList.slice(0, MAX_CARTE_PER_ROW))}
-      </div>
+      </ul>
       {cardList.length > MAX_CARTE_PER_ROW &&
       <SeeMore>
-        <div className={classNames(styles.cardList, styles.cardListPadding)}>
+        <ul className={classNames(styles.cardList, styles.cardListPadding)}>
           {displayCartes(cardList.slice(MAX_CARTE_PER_ROW))}
-        </div>
+        </ul>
       </SeeMore>
       }
     </>;

@@ -62,23 +62,28 @@ export default function Footer() {
                 <p>#1jeune1solution</p>
                 <p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.</p>
               </div>
-              <div className={styles.footerLienExterne}>
-                {linkList.map((link) => (<Link href={link.url} key={link.title} className="underline-none" prefetch={false}>
-                  <TextIcon icon="external-redirection">{link.title}</TextIcon>
-                </Link>))}
-              </div>
+              <ul aria-label="Liens externes" className={styles.footerLienExterne}>
+                {linkList.map((link) => (
+                  <li key={link.title}>
+                    <Link href={link.url} className="underline-none" prefetch={false}>
+                      <TextIcon icon="external-redirection">{link.title}</TextIcon>
+                    </Link>
+                  </li>))}
+              </ul>
             </div>
           </div>
-          <div className={styles.footerLienUtile}>
-            <Link href="/plan-du-site" className="underline-none" prefetch={false}>Plan du site</Link>
-            <Link href="/cgu" className="underline-none" prefetch={false}>Conditions générales d‘utilisations</Link>
-            <Link href="/accessibilite" className="underline-none" prefetch={false}>Accessibilité : Partiellement conforme</Link>
-            <Link href="/mentions-legales" className="underline-none" prefetch={false}>Mentions légales</Link>
-            <Link href="/confidentialite" className="underline-none" prefetch={false}>Politique de confidentialité</Link>
-            <Link href={`mailto:${MAIL_TO}`} prefetch={false}>
-              <TextIcon icon="external-redirection">Nous contacter</TextIcon>
-            </Link>
-          </div>
+          <ul aria-label="Liens utiles" className={styles.footerLienUtile}>
+            <li><Link href="/plan-du-site" className="underline-none" prefetch={false}>Plan du site</Link></li>
+            <li><Link href="/cgu" className="underline-none" prefetch={false}>Conditions générales d‘utilisations</Link></li>
+            <li><Link href="/accessibilite" className="underline-none" prefetch={false}>Accessibilité : Partiellement conforme</Link></li>
+            <li><Link href="/mentions-legales" className="underline-none" prefetch={false}>Mentions légales</Link></li>
+            <li><Link href="/confidentialite" className="underline-none" prefetch={false}>Politique de confidentialité</Link></li>
+            <li>
+              <Link href={`mailto:${MAIL_TO}`} prefetch={false}>
+                <TextIcon icon="external-redirection">Nous contacter</TextIcon>
+              </Link>
+            </li>
+          </ul>
           <p className={styles.footerCopyRight}>
             Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;
             <Link

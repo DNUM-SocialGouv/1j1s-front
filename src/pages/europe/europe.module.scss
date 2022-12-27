@@ -59,6 +59,8 @@
       &Content {
         display: flex;
         justify-content: flex-start;
+        margin-bottom: 1.25rem;
+
         svg {
           flex-shrink: 0;
           margin-right: 0.75rem;
@@ -67,6 +69,9 @@
         & > div > p > span {
            display: inline-block;
          }
+      }
+      &List > li {
+        margin-top: 1.25rem;
       }
       & > * {
         margin-bottom: 1.25rem;

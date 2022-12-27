@@ -40,7 +40,6 @@
     flex-wrap: wrap;
     @extend %text-small;
     @extend %bold;
-
   }
 
   &Message {
@@ -61,7 +60,7 @@
     padding-top: 0.7rem;
     font-size: .75rem;
 
-    & > a {
+    & > li {
       padding: 0.7rem 0.7rem 0.7rem 0;
 
       &:not(:last-child) {
