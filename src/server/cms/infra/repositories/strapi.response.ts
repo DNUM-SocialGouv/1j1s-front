@@ -21,6 +21,18 @@ export interface StrapiImageAttributes {
     url: string,
 }
 
+export interface ActualiteAttributesResponse {
+    listeActualites: CarteActualiteResponse[]
+}
+
+export interface CarteActualiteResponse {
+    titre: string
+    contenu: string
+    url: string
+    banniere: Strapi.Image
+    article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
+}
+
 export interface ArticleSimpleAttributesResponse {
     slug: string
     titre: string

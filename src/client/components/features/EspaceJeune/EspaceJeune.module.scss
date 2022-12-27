@@ -33,7 +33,6 @@
 }
 
 .section {
-  padding: 1.5rem;
   &:not(:last-child) {
     margin-bottom: 1.5rem;
   }
@@ -46,23 +45,6 @@
       display: block;
       margin: auto;
     }
-  }
-
-  &VieProfessionnelle {
-    background-color: $color-lighten-blue-navy;
-  }
-  &OrienterFormer {
-    background-color: $color-lighten-tapestry;
-  }
-  &ParcoursAccompagnement {
-    background-color: $color-lighten-smalt-blue;
-  }
-  &AidesFinancières {
-    background-color: $color-lighten-coral;
-  }
-
-  &OrienterFormer, &AidesFinancières {
-    padding-bottom: 2rem;
   }
 }
 

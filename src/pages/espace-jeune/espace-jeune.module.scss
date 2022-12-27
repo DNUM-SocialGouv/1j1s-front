@@ -1,0 +1,35 @@
+@import "@styles/utilities";
+
+.section {
+  padding-inline: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.mesuresJeunesSection {
+  background-color: $color-lighten-blue-navy;
+}
+
+.cartesActualitesList {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+
+  @include media(medium) {
+    max-width: 78rem;
+  }
+}
+
+.carteActualite {
+  @include media(medium) {
+    width: 22.5rem;
+  }
+}
+
+.carteActualiteDescription {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

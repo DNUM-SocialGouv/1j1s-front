@@ -58,7 +58,7 @@ function CardLink({ appearance = 'default', className, href, label }: { appearan
 function CardImage({ className, src, ariaHidden }: { src: string, ariaHidden?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={classNames(styles.cardImageWrapper, className)}>
-      <Image src={src} alt={''} fill={true} aria-hidden={ariaHidden}/>
+      <Image src={src} alt={''} fill={true} aria-hidden={ariaHidden} style={{ objectFit: 'cover' }}/>
     </div>
   );
 }

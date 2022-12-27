@@ -1,3 +1,5 @@
+import { CarteActualite } from '~/server/cms/domain/actualite';
+import { aCarteActualiteFixture, anActualiteFixture } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle, anArticleAxiosResponse } from '~/server/cms/domain/article.fixture';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
@@ -20,6 +22,22 @@ import {
 describe('strapi cms repository', () => {
   let httpClientService: HttpClientService;
   let strapiCmsRepository: StrapiCmsRepository;
+
+  describe('getActualites', () => {
+    describe('Si les actualités sont trouvées', () => {
+      it('récupères les actualités', async () => {
+        httpClientService = anHttpClientServiceWithAuthentification();
+        strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+
+        jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anActualiteFixture()));
+        const expectedCartesActualite = [aCarteActualiteFixture({ titre: 'Actualité 1' })];
+        const result = await strapiCmsRepository.getActualites() as Success<CarteActualite[]>;
+
+        expect(httpClientService.get).toHaveBeenCalledWith('actualite?populate[listeActualites][populate]=*');
+        expect(result.result).toEqual(expectedCartesActualite);
+      });
+    });
+  });
 
   describe('getArticleBySlug', () => {
     describe('Si un article est trouvé', () => {
@@ -116,7 +134,8 @@ describe('strapi cms repository', () => {
       });
     });
   });
-  describe('.getMesuresEmployeurs()', () => {
+
+  describe('getMesuresEmployeurs()', () => {
     describe('quand les cartes sont trouvées', () => {
       it('récupère les cartes jeunes', async () => {
         httpClientService = anHttpClientServiceWithAuthentification();
