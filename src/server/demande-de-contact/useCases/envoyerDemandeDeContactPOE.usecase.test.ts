@@ -1,5 +1,5 @@
-import { DemandeDeContactPOE } from '~/server/demande-de-contact/domain/DemandeDeContact';
-import { EnvoyerDemandeDeContactPOEUsecase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactPOE.usecase';
+import { DemandeDeContactPOE } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { EnvoyerDemandeDeContactPOEUseCase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactPOE.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
@@ -29,7 +29,7 @@ describe('EnvoyerDemanderDeContact pour le POE', () => {
           saveEntreprise: jest.fn(),
           savePOE: jest.fn(),
         };
-        const usecase = new EnvoyerDemandeDeContactPOEUsecase(repository);
+        const usecase = new EnvoyerDemandeDeContactPOEUseCase(repository);
 
         // When
         const result = await usecase.handle({});
@@ -46,7 +46,7 @@ describe('EnvoyerDemanderDeContact pour le POE', () => {
         saveEntreprise: jest.fn(),
         savePOE: jest.fn(() => Promise.resolve(createSuccess(undefined))),
       };
-      const usecase = new EnvoyerDemandeDeContactPOEUsecase(repository);
+      const usecase = new EnvoyerDemandeDeContactPOEUseCase(repository);
       const demandeDeContactPOE: DemandeDeContactPOE = {
         codePostal: '75001',
         commentaire: 'Coucou un commentaire',
@@ -76,7 +76,7 @@ describe('EnvoyerDemanderDeContact pour le POE', () => {
         saveEntreprise: jest.fn(),
         savePOE: jest.fn(() => Promise.resolve(createSuccess(undefined))),
       };
-      const usecase = new EnvoyerDemandeDeContactPOEUsecase(repository);
+      const usecase = new EnvoyerDemandeDeContactPOEUseCase(repository);
       const demandeDeContactPOE: DemandeDeContactPOE = {
         codePostal: '75001',
         commentaire: 'Coucou un commentaire',
@@ -114,7 +114,7 @@ describe('EnvoyerDemanderDeContact pour le POE', () => {
             saveEntreprise: jest.fn(),
             savePOE: jest.fn(() => Promise.resolve(createSuccess(undefined))),
           };
-          const usecase = new EnvoyerDemandeDeContactPOEUsecase(repository);
+          const usecase = new EnvoyerDemandeDeContactPOEUseCase(repository);
           const commandeInvalide = { ...command, ...invalid };
           // When
           const result = await usecase.handle(commandeInvalide);

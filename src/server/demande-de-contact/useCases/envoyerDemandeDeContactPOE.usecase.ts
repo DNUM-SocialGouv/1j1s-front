@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
-import { DemandeDeContactPOE } from '~/server/demande-de-contact/domain/DemandeDeContact';
-import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/DemandeDeContact.repository';
+import { DemandeDeContactPOE } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { validatePhone } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { createFailure, Either } from '~/server/errors/either';
@@ -23,7 +23,7 @@ type EnvoyerDemandeDeContactPOE = Partial<{
   commentaire: string;
 }>
 
-export class EnvoyerDemandeDeContactPOEUsecase {
+export class EnvoyerDemandeDeContactPOEUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {
   }
 

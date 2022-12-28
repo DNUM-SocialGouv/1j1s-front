@@ -4,8 +4,8 @@ import phone from 'phone';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-import { DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
-import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
+import { DemandeDeContactEntreprise } from '../domain/demandeDeContact';
+import { DemandeDeContactRepository } from '../domain/demandeDeContact.repository';
 
 type EnvoyerDemandeDeContactEntreprise = Partial<{
     prénom: string

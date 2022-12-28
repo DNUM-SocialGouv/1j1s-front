@@ -1,4 +1,4 @@
-import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/DemandeDeContact';
+import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { EnvoyerDemandeDeContactCEJUseCase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';

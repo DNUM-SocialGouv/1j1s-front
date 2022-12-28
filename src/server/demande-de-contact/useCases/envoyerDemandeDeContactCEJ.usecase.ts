@@ -1,12 +1,10 @@
 import Joi from 'joi';
 import phone from 'phone';
 
+import { DemandeDeContactCEJ,parseAge } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { Age, DemandeDeContactCEJ } from '../domain/DemandeDeContact';
-import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
-
 
 type EnvoyerDemandeDeContactCEJ = Partial<{
   prénom: string
@@ -33,7 +31,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
 }
 
 const DemandeDeContactCEJValidator = Joi.object({
-  age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(Age).required(),
+  age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(parseAge).required(),
   codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(),
   email: Joi.string().email().required(),
   nom: Joi.string().required(),
