@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
-  ModaleFormulaireDeContactMissionLocale,
-} from '~/client/components/features/Accompagnement/FormulaireDeContactMissionLocale/ModaleFormulaireDeContactMissionLocale';
-import {
-  LienSolutionAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/RechercherAccompagnement';
+  ModalDemandeDeContactAccompagnement,
+} from '~/client/components/features/Accompagnement/DemandeDeContact/ModalDemandeDeContactAccompagnement';
 import {
   RésultatRechercherAccompagnementDesktop,
 } from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnementDesktop';
@@ -13,14 +10,12 @@ import {
   RésultatRechercherAccompagnementMobile,
 } from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnementMobile';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import {
+  ÉtablissementAccompagnement,
+  TypeÉtablissement,
+} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 
 import styles from './RésultatRechercherAccompagnement.module.scss';
-
-export interface RésultatRechercherAccompagnementProps extends Omit<LienSolutionAccompagnement, 'id'> {
-  setIsPopInOpen: (value: boolean) => void;
-}
 
 function formatHeure(heure: string) {
   const split = heure.split(':');
@@ -36,59 +31,60 @@ export function displayHeures(heure: ÉtablissementAccompagnement.Horaire.Heure[
   if (heure.length > 1) {
     return (
       <span className={styles.horaireHeure}>
-        <time dateTime={heure[0].début}>{formatHeure(heure[0].début)}</time> - <time dateTime={heure[0].fin}>{formatHeure(heure[0].fin)}</time> et <time dateTime={heure[1].début}>{formatHeure(heure[1].début)}</time> - <time dateTime={heure[1].fin}>{formatHeure(heure[1].fin)}</time>
+        <time dateTime={heure[0].début}>{formatHeure(heure[0].début)}</time> -
+        <time dateTime={heure[0].fin}>{formatHeure(heure[0].fin)}</time> et
+        <time dateTime={heure[1].début}>{formatHeure(heure[1].début)}</time> -
+        <time dateTime={heure[1].fin}>{formatHeure(heure[1].fin)}</time>
       </span>
     );
   } else {
     return (
       <span className={styles.horaireHeure}>
-        <time dateTime={heure[0].début}>{formatHeure(heure[0].début)}</time> - <time dateTime={heure[0].fin}>{formatHeure(heure[0].fin)}</time>
+        <time dateTime={heure[0].début}>{formatHeure(heure[0].début)}</time> -
+        <time dateTime={heure[0].fin}>{formatHeure(heure[0].fin)}</time>
       </span>
     );
   }
 }
 
-export function RésultatRechercherAccompagnement(props: Omit<LienSolutionAccompagnement, 'id'>) {
-  const { isLargeScreen } = useBreakpoint();
-  const { nomEntreprise, étiquetteOffreList, lienOffre, intituléOffre, logoEntreprise, horaires, typeAccompagnement } = props;
+export interface RésultatRechercherAccompagnementProps {
+  établissement: ÉtablissementAccompagnement
+}
 
-  const isMissionLocale = typeAccompagnement === TypeÉtablissement.MISSION_LOCALE;
+export function RésultatRechercherAccompagnement({ établissement }: RésultatRechercherAccompagnementProps) {
+  const { isLargeScreen } = useBreakpoint();
+
+  const isMissionLocale = établissement.type === TypeÉtablissement.MISSION_LOCALE;
   const [isPopInOpen, setIsPopInOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   
+  const openContactÉtablissementModal = useCallback(() => {
+    setIsPopInOpen(true);
+  }, []);
+
   return (
     <>
       {
         isLargeScreen ?
           <RésultatRechercherAccompagnementDesktop
-            logoEntreprise={logoEntreprise}
-            intituléOffre={intituléOffre}
-            nomEntreprise={nomEntreprise}
-            étiquetteOffreList={étiquetteOffreList}
-            lienOffre={lienOffre}
-            horaires={horaires}
-            typeAccompagnement={typeAccompagnement}
-            setIsPopInOpen={setIsPopInOpen}
+            établissement={établissement}
+            onContactClick={openContactÉtablissementModal}
           />
           :
           <RésultatRechercherAccompagnementMobile
-            logoEntreprise={logoEntreprise}
-            intituléOffre={intituléOffre}
-            nomEntreprise={nomEntreprise}
-            étiquetteOffreList={étiquetteOffreList}
-            lienOffre={lienOffre}
-            horaires={horaires}
-            typeAccompagnement={typeAccompagnement}
-            setIsPopInOpen={setIsPopInOpen}
+            établissement={établissement}
+            onContactClick={openContactÉtablissementModal}
           />
       }
       {
-        isMissionLocale &&
-        <ModaleFormulaireDeContactMissionLocale
-          isPopInOpen={isPopInOpen}
-          setIsPopInOpen={setIsPopInOpen}
-          isSuccess={isSuccess}
-          setIsSuccess={setIsSuccess}
+        isMissionLocale && établissement.email &&
+        <ModalDemandeDeContactAccompagnement
+          contactÉtablissementAccompagnement={{
+            email: établissement.email,
+            nom: établissement.nom,
+            type: établissement.type,
+          }}
+          isOpen={isPopInOpen}
+          setIsOpen={setIsPopInOpen}
         />
       }
     </>
