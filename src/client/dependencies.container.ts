@@ -5,7 +5,6 @@ import { AnalyticsService } from '~/client/services/analytics/analytics';
 import { AnalyticsDevService } from '~/client/services/analytics/analytics.dev.service';
 import { AnalyticsProdService } from '~/client/services/analytics/analytics.prod.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
-import { EnvoieEmailService } from '~/client/services/envoieEmail/envoieEmail.service';
 import { ÉtablissementAccompagnementService } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
@@ -25,7 +24,6 @@ export type Dependencies = {
   demandeDeContactService: DemandeDeContactService
   lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
   établissementAccompagnementService: ÉtablissementAccompagnementService
-  envoyerEmailService: EnvoieEmailService
   analyticsService: AnalyticsService
 }
 
@@ -45,7 +43,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   const ficheMetierService = new FicheMetierService(httpClientService);
   const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
   const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
-  const envoyerEmailService = new EnvoieEmailService(httpClientService);
   const analyticsService = process.env.NODE_ENV === 'production' ? new AnalyticsProdService() : new AnalyticsDevService();
 
   const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
@@ -70,7 +67,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
   return {
     analyticsService,
     demandeDeContactService,
-    envoyerEmailService,
     ficheMetierService,
     lesEntreprisesSEngagentService,
     localisationService,
