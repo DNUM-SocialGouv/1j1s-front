@@ -5,8 +5,10 @@ export interface ÉtablissementAccompagnement {
   telephone: string;
   email?: string;
   horaires: ÉtablissementAccompagnement.Horaire[];
-  typeAccompagnement?: string
+  type: TypeÉtablissement
 }
+
+export type ContactÉtablissementAccompagnement = Required<Pick<ÉtablissementAccompagnement, 'nom' | 'email' | 'type'>>
 
 export namespace ÉtablissementAccompagnement {
   export interface Horaire {
@@ -22,3 +24,8 @@ export namespace ÉtablissementAccompagnement {
   }
 }
 
+export enum TypeÉtablissement {
+  AGENCE_POLE_EMPLOI = 'pole_emploi',
+  MISSION_LOCALE = 'mission_locale',
+  INFO_JEUNE = 'cij',
+}

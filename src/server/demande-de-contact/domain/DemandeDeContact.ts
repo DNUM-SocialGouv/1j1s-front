@@ -1,4 +1,7 @@
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
+import {
+  ContactÉtablissementAccompagnement,
+} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 
 export type DemandeDeContactType = 'CEJ' | 'LesEntreprisesSEngagent';
 
@@ -21,13 +24,14 @@ export interface DemandeDeContactCEJ extends DemandeDeContact {
 }
 
 export interface DemandeDeContactAccompagnement extends DemandeDeContact {
-  ville: string
-  codePostal: string
+  nomCommune: string
+  codeCommune: string
   age: Age
   commentaire: string
+  établissement: ContactÉtablissementAccompagnement
 }
 
-export interface DemandeDeContactPOE extends DemandeDeContact{
+export interface DemandeDeContactPOE extends DemandeDeContact {
   nomSociété: string
   siret: string
   taille: keyof typeof TailleDEntreprise
@@ -39,9 +43,9 @@ export interface DemandeDeContactPOE extends DemandeDeContact{
   commentaire: string
 }
 
-type Age = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30;
+export type Age = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30;
 
-export function Age(a: number): Age {
+export function parseAge(a: number): Age {
   if (a >= 16 && a <= 30 && Math.floor(a) === a) {
     return a as Age;
   }
