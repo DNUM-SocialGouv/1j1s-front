@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.29.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.29.0...v2.29.1) (2022-12-28)
+
+
+### Bug Fixes
+
+* **a11y:** accessibilité titre carte en h3 ([aeb1abe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aeb1abead46ca79c6527171b3fda122a06d02eed))
+
 ## [2.29.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.28.0...v2.29.0) (2022-12-26)
 
 
