@@ -6,11 +6,11 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 import {
-  anÉtablissementAccompagnementList,
+  anOrderedÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
 import {
   aRésultatRechercheÉtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/tests/apiÉtablissementPublic.fixture';
+} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
 import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 describe('rechercher un établissement d‘accompagnement', () => {
@@ -25,7 +25,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
         test: async ({ fetch }) => {
           const res = await fetch({ method: 'GET' });
           const json = await res.json();
-          expect(json).toEqual(anÉtablissementAccompagnementList());
+          expect(json).toEqual(anOrderedÉtablissementAccompagnementList());
         },
         url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
       });
