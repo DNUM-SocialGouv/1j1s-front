@@ -2,7 +2,7 @@ import {
   DemandeDeContactCEJ,
   DemandeDeContactEntreprise,
   DemandeDeContactPOE,
-} from '~/server/demande-de-contact/domain/DemandeDeContact';
+} from '~/server/demande-de-contact/domain/demandeDeContact';
 import { StrapiDemandeDeContactRepository } from '~/server/demande-de-contact/infra/strapiDemandeDeContact.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';

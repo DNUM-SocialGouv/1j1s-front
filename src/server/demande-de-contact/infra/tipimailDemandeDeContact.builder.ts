@@ -1,13 +1,14 @@
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { TipimailDemandeDeContactRequest } from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.request';
 
-import { DemandeDeContactTipimail } from '../../envoie-email/domain/DemandeDeContactTipimail';
-import { DemandeDeContactAccompagnement } from '../domain/DemandeDeContact';
-
-export function buildDemandeDeContactApiTipimail(envoieEmail: DemandeDeContactAccompagnement, etablissement: ÉtablissementAccompagnement ): DemandeDeContactTipimail{
+export function buildDemandeDeContactApiTipimail(
+  demandeDeContactAccompagnement: DemandeDeContactAccompagnement,
+  redirectTo?: string,
+): TipimailDemandeDeContactRequest {
   return {
     headers: {
       'X-TM-DOMAIN': '1jeune1solution.gouv.fr',
-      'X-TM-TAGS': ['accompagnement', 'contact mission locale'],
+      'X-TM-TAGS': ['accompagnement', demandeDeContactAccompagnement.établissement.type],
     },
     msg: {
       from: {
@@ -15,16 +16,23 @@ export function buildDemandeDeContactApiTipimail(envoieEmail: DemandeDeContactAc
         personalName: '1jeune1solution',
       },
       replyTo: {
-        address: envoieEmail.email ,
-        personalName: envoieEmail.prénom,
+        address: demandeDeContactAccompagnement.email,
+        personalName: `${demandeDeContactAccompagnement.prénom} ${demandeDeContactAccompagnement.nom}`,
       },
       subject: 'Demande de contact 1jeune1solution',
-      text: 'Bonjour,\\nUne nouvelle demande de contact vient d\'arriver.',
+      text: `Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :
+    • Prénom : ${demandeDeContactAccompagnement.prénom} 
+    • Nom : ${demandeDeContactAccompagnement.nom} 
+    • Adresse email : ${demandeDeContactAccompagnement.email}
+    • Téléphone : ${demandeDeContactAccompagnement.téléphone}
+    • Age : ${demandeDeContactAccompagnement.age}
+    • Ville : ${demandeDeContactAccompagnement.nomCommune} (${demandeDeContactAccompagnement.codeCommune}) 
+    • Commentaire : ${demandeDeContactAccompagnement.commentaire || 'Aucun commentaire'}`,
     },
     to: [
       {
-        address: etablissement.email,
-        personalName: etablissement.nom,
+        address: redirectTo || demandeDeContactAccompagnement.établissement.email,
+        personalName: demandeDeContactAccompagnement.établissement.nom,
       },
     ],
   };

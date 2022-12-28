@@ -9,7 +9,7 @@ import {
   TipimailDemandeDeContactRepository,
 } from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.repository';
 import {
-  EnvoyerDemandeDeContactAccompagnementUsecase,
+  EnvoyerDemandeDeContactAccompagnementUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactAccompagnement.usecase';
 import {
   EnvoyerDemandeDeContactCEJUseCase,
@@ -18,15 +18,15 @@ import {
   EnvoyerDemandeDeContactEntrepriseUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
 import {
-  EnvoyerDemandeDeContactPOEUsecase,
+  EnvoyerDemandeDeContactPOEUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactPOE.usecase';
-import { EnvoyerEmailUseCaseUsecase } from '~/server/demande-de-contact/useCases/envoyerEmailUseCase.usecase';
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import { ConsulterOffreEmploiUseCase } from '~/server/emplois/useCases/consulterOffreEmploi.useCase';
 import { RechercherOffreEmploiUseCase } from '~/server/emplois/useCases/rechercherOffreEmploi.useCase';
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import { ConsulterMissionEngagementUseCase } from '~/server/engagement/useCases/consulterMissionEngagement.useCase';
 import { RechercherMissionEngagementUseCase } from '~/server/engagement/useCases/rechercherMissionEngagement.useCase';
+import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
@@ -54,8 +54,6 @@ import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 
-import { ApiRejoindreLaMobilisationRepository } from '../entreprises/infra/apiRejoindreLaMobilisation.repository';
-
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
@@ -66,7 +64,6 @@ export type Dependencies = {
   offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
   offreAlternanceDependencies: OffresAlternanceDependencies
   établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
-  demandeDeContactMailDependencies: DemandeDeContactMailDependencies
 };
 
 export interface OffresEmploiDependencies {
@@ -97,7 +94,8 @@ export interface LocalisationDependencies {
 export interface DemandeDeContactDependencies {
   envoyerDemandeDeContactCEJUseCase: EnvoyerDemandeDeContactCEJUseCase
   envoyerDemandeDeContactEntrepriseUseCase: EnvoyerDemandeDeContactEntrepriseUseCase
-  envoyerDemandeDeContactPOEUsecase: EnvoyerDemandeDeContactPOEUsecase
+  envoyerDemandeDeContactPOEUsecase: EnvoyerDemandeDeContactPOEUseCase
+  envoyerDemandeDeContactAccompagnementUseCase: EnvoyerDemandeDeContactAccompagnementUseCase
 }
 
 export interface EntrepriseDependencies {
@@ -106,11 +104,6 @@ export interface EntrepriseDependencies {
 
 export interface ÉtablissementAccompagnementDependencies {
   rechercherÉtablissementAccompagnementUseCase: RechercherÉtablissementAccompagnementUseCase
-}
-
-export interface DemandeDeContactMailDependencies {
-  envoyerEmailUseCase: EnvoyerEmailUseCaseUsecase
-  envoyerDemandeDeContactAccompagnementUseCase: EnvoyerDemandeDeContactAccompagnementUsecase
 }
 
 export const dependenciesContainer = (): Dependencies => {
@@ -171,10 +164,16 @@ export const dependenciesContainer = (): Dependencies => {
   };
 
   const strapiDemandeDeContactRepository = new StrapiDemandeDeContactRepository(strapiAuthClientService);
+  const tipimailDemandeDeContactRepository = new TipimailDemandeDeContactRepository(
+    tipimailClientService,
+    serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
+    serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,
+  );
   const demandeDeContactDependencies: DemandeDeContactDependencies = {
+    envoyerDemandeDeContactAccompagnementUseCase: new EnvoyerDemandeDeContactAccompagnementUseCase(tipimailDemandeDeContactRepository),
     envoyerDemandeDeContactCEJUseCase: new EnvoyerDemandeDeContactCEJUseCase(strapiDemandeDeContactRepository),
     envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemandeDeContactEntrepriseUseCase(strapiDemandeDeContactRepository),
-    envoyerDemandeDeContactPOEUsecase: new EnvoyerDemandeDeContactPOEUsecase(strapiDemandeDeContactRepository),
+    envoyerDemandeDeContactPOEUsecase: new EnvoyerDemandeDeContactPOEUseCase(strapiDemandeDeContactRepository),
   };
 
   const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentClientService);
@@ -183,27 +182,20 @@ export const dependenciesContainer = (): Dependencies => {
     lesEntreprisesSEngagentUseCase: new LesEntreprisesSEngagentUseCase(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository),
   };
 
-  const apiGouvRepository = new ApiÉtablissementPublicRepository(établissementAccompagnementClientService);
+  const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementAccompagnementClientService);
   const établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies = {
-    rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiGouvRepository),
-  };
-
-  const tipimailDemandeDeContactRepository = new TipimailDemandeDeContactRepository(tipimailClientService);
-  const demandeDeContactMailDependencies: DemandeDeContactMailDependencies = {
-    envoyerDemandeDeContactAccompagnementUseCase: new EnvoyerDemandeDeContactAccompagnementUsecase(tipimailDemandeDeContactRepository),
-    envoyerEmailUseCase: new EnvoyerEmailUseCaseUsecase(tipimailDemandeDeContactRepository),
+    rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiÉtablissementPublicRepository),
   };
 
   return {
     cmsDependencies,
     demandeDeContactDependencies,
-    demandeDeContactMailDependencies: demandeDeContactMailDependencies,
     engagementDependencies,
     entrepriseDependencies,
     localisationDependencies,
     offreAlternanceDependencies,
     offreEmploiDependencies,
     offreJobÉtudiantDependencies,
-    établissementAccompagnementDependencies: établissementAccompagnementDependencies,
+    établissementAccompagnementDependencies,
   };
 };
