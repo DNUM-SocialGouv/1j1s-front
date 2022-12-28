@@ -25,7 +25,7 @@ export function RésultatRechercherMétier(props: HitProps<Partial<FicheMétierH
     <Link href={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`} className={'underline-none'}>
       <CardComponent className={styles.resultatCard} layout={'horizontal'}>
         <CardComponent.Content className={styles.content}>
-          <CardComponent.Title className={styles.title} titleAs={'h2'}>{nomMetier}</CardComponent.Title>
+          <CardComponent.Title className={styles.title} titleAs={'h3'}>{nomMetier}</CardComponent.Title>
           <div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }}/>
           <CardComponent.FakeLink appearance={'tertiary'} className={styles.link} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
         </CardComponent.Content>
