@@ -55,3 +55,13 @@ export function generateRefinementListItem(override: Partial<RefinementListItem>
     ...override,
   };
 }
+
+export function mockUseInstantSearch(override: Partial<unknown>) {
+  return {
+    error: jest.fn(),
+    refresh: jest.fn(),
+    status: jest.fn(),
+    use: jest.fn(),
+    ...override,
+  };
+}

@@ -22,6 +22,7 @@ import {
 } from 'react-instantsearch-hooks-web';
 
 import { Container } from '~/client/components/layouts/Container/Container';
+import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
@@ -108,31 +109,36 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
         indexName={meilisearchIndex}
         routing={isMeilisearchQueryParamsRoutingEnabled}
       >
-        <Configure hitsPerPage={nombreDeResultatParPage}/>
-        <section className="separator">
-          <Container>
-            { formulaireDeRecherche }
-          </Container>
-        </section>
-        { hasTagList &&
-          <Container className={styles.TagListWrapper}>
-            <CurrentRefinements
-              transformItems={transformItems}
-              classNames={currentRefinementsStyle}
+        <InstantSearchErrorBoundary>
+          <>
+            <Configure hitsPerPage={nombreDeResultatParPage}/>
+            <section className="separator">
+              <Container>
+                { formulaireDeRecherche }
+              </Container>
+            </section>
+            { hasTagList &&
+            <Container className={styles.TagListWrapper}>
+              <CurrentRefinements
+                transformItems={transformItems}
+                classNames={currentRefinementsStyle}
+              />
+            </Container>
+            }
+            <AfficherResultatDeRecherche
+              messageResultatRechercheLabelSingulier={messageResultatRechercheLabelSingulier}
+              messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
+              nombreDeSkeleton={nombreDeSkeleton}
+              ariaLabelListeDesResultats={ariaLabelListeDesResultats}
+              resultatDeRecherche={resultatDeRecherche}
+              isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
+              nombreDeResultatParPage={nombreDeResultatParPage}
+              scrollToTopOfListeDesResultats={scrollToTopOfListeDesResultats}
+              ref={listeDesResultatsRef}
             />
-          </Container>
-        }
-        <AfficherResultatDeRecherche
-          messageResultatRechercheLabelSingulier={messageResultatRechercheLabelSingulier}
-          messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
-          nombreDeSkeleton={nombreDeSkeleton}
-          ariaLabelListeDesResultats={ariaLabelListeDesResultats}
-          resultatDeRecherche={resultatDeRecherche}
-          isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
-          nombreDeResultatParPage={nombreDeResultatParPage}
-          scrollToTopOfListeDesResultats={scrollToTopOfListeDesResultats}
-          ref={listeDesResultatsRef}
-        />
+          </>
+        </InstantSearchErrorBoundary>
+
       </InstantSearch>
     </main>
   );
@@ -154,9 +160,10 @@ const AfficherResultatDeRecherche = React.forwardRef<HTMLElement | null, Affiche
   const LOADING_STATUS = 'loading';
   const STALLED_STATUS = 'stalled';
 
-  const { status,  results } = useInstantSearch();
+  const { status, results } = useInstantSearch();
   const isSettingUp: boolean = results.__isArtificial || false;
   const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
+
   const ref = useSynchronizedRef(outerRef);
 
   useEffect(() => {

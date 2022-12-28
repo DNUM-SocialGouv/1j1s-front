@@ -1,7 +1,17 @@
-import { PageNotFound } from '~/client/components/features/404/404';
+import React from 'react';
+
+import ErrorNotFound from '~/client/components/layouts/Error/ErrorNotFound';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function NotFound() {
   return (
-    <PageNotFound/>
+    <>
+      <HeadTag
+        title={'Page indisponible | 1jeune1solution'}
+      />
+      <main id="contenu">
+        <ErrorNotFound />
+      </main>
+    </>
   );
 }
