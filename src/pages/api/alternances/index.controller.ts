@@ -2,13 +2,10 @@ import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { validate } from '~/pages/api/middleware/validate.controller';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
-import {
-  MAX_PAGE_ALLOWED,
-  OffreFiltre,
-  RésultatsRechercheOffre,
-} from '~/server/offres/domain/offre';
+import { MAX_PAGE_ALLOWED, OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
@@ -22,6 +19,9 @@ export const alternancesQuerySchema = Joi.object({
 });
 
 export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
+  if (process.env.API_POLE_EMPLOI_FEATURE !== '1') {
+    return res.status(503).json({ error: ErreurMétier.SERVICE_INDISPONIBLE });
+  }
   const résultatsRechercheAlternance = await dependencies.offreAlternanceDependencies.rechercherOffreAlternance.handle(alternanceFiltreMapper(req));
   return handleResponse(résultatsRechercheAlternance, res);
 }

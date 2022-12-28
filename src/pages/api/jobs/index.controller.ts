@@ -1,22 +1,14 @@
 import Joi from 'joi';
-import type {
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { validate } from '~/pages/api/middleware/validate.controller';
 import { transformQueryToArray } from '~/pages/api/validate.utils';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
-import {
-  DomaineCode,
-  MAX_PAGE_ALLOWED,
-  RésultatsRechercheOffre,
-} from '~/server/offres/domain/offre';
-import {
-  mapLocalisation,
-} from '~/server/offres/infra/controller/offreFiltre.mapper';
+import { DomaineCode, MAX_PAGE_ALLOWED, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 import { queryToArray } from '~/server/utils/queryToArray.utils';
@@ -38,6 +30,10 @@ export async function rechercherOffreEmploiHandler(
   req: NextApiRequest,
   res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
   const params = emploiFiltreMapper(req);
+  if (process.env.API_POLE_EMPLOI_FEATURE !== '1') {
+    return res.status(503).json({ error: ErreurMétier.SERVICE_INDISPONIBLE });
+  }
+
   const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle(params);
   return handleResponse(résultatsRechercheOffreEmploi, res);
 }

@@ -3,14 +3,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { validate } from '~/pages/api/middleware/validate.controller';
 import { transformQueryToArray } from '~/pages/api/validate.utils';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
-import {
-  DomaineCode,
-  MAX_PAGE_ALLOWED,
-  RésultatsRechercheOffre,
-} from '~/server/offres/domain/offre';
+import { DomaineCode, MAX_PAGE_ALLOWED, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
@@ -26,6 +23,9 @@ export const jobsEtudiantsQuerySchema = Joi.object({
 });
 
 export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
+  if (process.env.API_POLE_EMPLOI_FEATURE !== '1') {
+    return res.status(503).json({ error: ErreurMétier.SERVICE_INDISPONIBLE });
+  }
   const résultatsRechercheJobÉtudiant = await dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle(jobÉtudiantFiltreMapper(req));
   return handleResponse(résultatsRechercheJobÉtudiant, res);
 }
