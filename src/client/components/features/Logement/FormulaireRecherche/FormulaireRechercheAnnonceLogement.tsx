@@ -6,6 +6,7 @@ import styles from '~/client/components/features/Logement/FormulaireRecherche/Fo
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { MeilisearchCustomRangeInput } from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInput';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomRefinementListForModal } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementListForModal';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
@@ -15,7 +16,10 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 export function FormulaireRechercheAnnonceLogement() {
   const { isSmallScreen } = useBreakpoint();
   const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
-
+  const PRIX_MINIMUM = 0;
+  const PRIX_MAXIMUM = 3000;
+  const SURFACE_MINIMUM = 0;
+  const SURFACE_MAXIMUM = 500;
   return (
     <form
 	  className={styles.RechercherLogementForm}
@@ -40,6 +44,24 @@ export function FormulaireRechercheAnnonceLogement() {
             attribute="typeBien"
             label="Type de bien"
             sortBy={['name:asc']}
+		  />
+		  <MeilisearchCustomRangeInput
+            className={styles.inputSurface}
+            attribute="surface"
+            label="Surface (m²)"
+            placeholder="Indiquez une surface"
+            unite="m²"
+            min={SURFACE_MINIMUM}
+            max={SURFACE_MAXIMUM}
+		  />
+		  <MeilisearchCustomRangeInput
+            className={styles.inputPrix}
+            attribute="prix"
+            label="Prix"
+            placeholder="Indiquez une fourchette de prix"
+            unite="€"
+            min={PRIX_MINIMUM}
+            max={PRIX_MAXIMUM}
 		  />
         </>
 	  )}
@@ -78,7 +100,6 @@ export function FormulaireRechercheAnnonceLogement() {
 				  sortBy={['name:asc']}
 		        />
 			  </FilterAccordion>
-
 		    </ModalComponent.Content>
 		    <ModalComponent.Footer>
 			  <div className={styles.applyFiltersButton}>
@@ -93,7 +114,6 @@ export function FormulaireRechercheAnnonceLogement() {
 		  </ModalComponent>
 		</div>
 	  }
-
     </form>
   );
 }

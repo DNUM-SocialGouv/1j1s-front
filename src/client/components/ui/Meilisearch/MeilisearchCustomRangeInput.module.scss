@@ -1,10 +1,35 @@
 @import "@styles/utilities";
 
+.customRangeInputWrapper {
+  display: inline-flex;
+  padding-bottom: 1.5rem;
+
+  & input {
+    height: 2rem;
+    width: 100%;
+  }
+  & > span {
+    height: 2rem;
+    padding: 4px 16px;
+    display: flex;
+    background-color: $color-primary;
+    color: $color-on-primary;
+  }
+  &LastInput {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+}
+
+.submitButton {
+  margin-top: .5rem;
+}
+
 .selectContainer {
   position: relative;
 }
 
-.selectLabel {
+.label {
   display: block;
   margin-bottom: 0.5rem;
 }
@@ -20,16 +45,12 @@
   border: 1px solid $color-on-background;
   border-radius: 20px;
   height: 2.5rem;
-
-  &:focus {
-    border: 2px solid $color-primary;
-  }
 }
 
 .rangeBox {
   z-index: 2;
   position: absolute;
-  padding: 12px 64px 24px 32px;
+  padding: .75rem 2rem;
   width: 100%;
   border: 1px solid $color-separator;
   border-radius: 20px;
@@ -41,57 +62,11 @@
   flex-direction: column;
 }
 
-.label{
-  display: block;
-  border-bottom: 1px solid $color-separator;
-  border-radius: 0;
-}
-
-.unitMax {
-  background-color: $color-primary;
-  color: $color-on-primary;
+.error {
+  height: 2rem;
   position: absolute;
-  right: 2rem;
-  top: calc(50% - 10px + 0.25rem);
-  width: 2rem;
-  text-align: center;
-}
-
-.unitMin {
-  background-color: $color-primary;
-  color: $color-on-primary;
-  position: absolute;
-  right: 2rem;
-  top: calc(25% - 10px + 0.25rem);
-  width: 2rem;
-  text-align: center;
-}
-
-.formWrapper {
-  position: relative;
-  display: block;
-  padding-top: 0.5rem;
-  > input {
-    font-family: inherit;
-    background-color: $color-background;
-    border: 1px solid $color-on-background;
-    border-radius: 1.25rem;
-    color: $color-on-background;
-    height: 2.5rem;
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    padding: 0 16px;
-    flex-grow: 1;
-    width: 100%;
-  }
-  @include media(large) {
-    width: 25%;
-    display: inline-block;
-    padding-right: 32px;
-  }
-
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
+  bottom: 0rem;
+  color: $color-error;
+  @extend %text-small;
+  line-height: 1.2;
 }

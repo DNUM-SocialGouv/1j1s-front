@@ -1,12 +1,15 @@
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRange, UseRangeProps } from 'react-instantsearch-hooks-web';
+import { v4 as uuidv4 } from 'uuid';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { CommonProps } from '~/client/components/props';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInput.module.scss';
 
-interface MeilisearchCustomRangeInputProps {
+interface MeilisearchCustomRangeInputProps extends CommonProps  {
     label: string
     placeholder: string
     unite: string
@@ -15,15 +18,15 @@ interface MeilisearchCustomRangeInputProps {
 export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCustomRangeInputProps) {
   const {
     refine,
-    start: [currentMinValue, currentMaxValue],
-    range: {
-      min,
-      max,
-    },
   } = useRange(props);
-  const { label, placeholder, unite } = props;
+  const { label, placeholder, unite, min, max, className } = props;
   const [isRangeBoxOpen, setIsRangeBoxOpen] = useState(false);
+  type EmptyInput = '';
+  const [minValue, setMinValue] = useState<number | EmptyInput>('');
+  const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
+  const [error, setError] = useState<string | null>(null);
   const rangeBoxRef = useRef<HTMLDivElement>(null);
+  const labelledBy = useRef(uuidv4());
   const BUTTON_LABEL = 'Appliquer';
 
   const closeRangeBoxOnClickOutside = useCallback((event: MouseEvent) => {
@@ -48,82 +51,89 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
     };
   }, [closeRangeBoxOnClickOutside, closeRangeBoxOnEscape]);
 
-  const unsetNumberInputValue = '' as unknown as number;
-  const values = {
-    max:
-            currentMaxValue !== Infinity && currentMaxValue !== max
-              ? currentMaxValue
-              : unsetNumberInputValue,
-    min:
-            currentMinValue !== -Infinity && currentMinValue !== min
-              ? currentMinValue
-              : unsetNumberInputValue,
-  };
-  const [prevValues, setPrevValues] = useState(values);
-  const [{ from, to }, setRange] = useState({
-    from: values.min,
-    to: values.max,
-  });
+  const onMaxInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setMaxValue(value === '' ? value : Number(value));
+  }, []);
 
-  if (values.min !== prevValues.min || values.max !== prevValues.max) {
-    setRange({ from: values.min, to: values.max });
-    setPrevValues(values);
-  }
+  const onMinInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setMinValue(value === '' ? value : Number(value));
+  }, []);
 
   function refineRange() {
+    if (minValue && maxValue && (minValue > maxValue))  {
+      setError('la valeur minimum ne peut être supérieur à la valeur maximum');
+      return refine([undefined, undefined]);
+    }
+    const from = minValue || undefined;
+    const to = maxValue || undefined;
     refine([from, to]);
+    setIsRangeBoxOpen(false);
   }
+
+  const displayPlaceholder = () => {
+    if (minValue && !maxValue) return `A partir de ${minValue} ${unite}`;
+    if (!minValue && maxValue) return `Jusqu‘à ${maxValue} ${unite}`;
+    if (minValue && maxValue && (minValue < maxValue)) return `De ${minValue} ${unite} à ${maxValue} ${unite}`;
+    return placeholder;
+  };
 
   const renderRangeBox = () => (
     <div className={styles.rangeBox}>
-      <label>Minimum</label>
-      <input
-        type="number"
-        min={min}
-        max={max}
-        value={from?.toString()} // Strips leading `0` from a positive number value
-        onInput={({ currentTarget }) =>
-          setRange({ from: Number(currentTarget.value), to })
-        }/>
-      <span className={styles.unitMin}>
-        {unite}
+      <label className={styles.label} htmlFor={'inputMin'}>Minimum</label>
+      <span className={styles.customRangeInputWrapper}>
+        <input
+          id={'inputMin'}
+          type="number"
+          min={min}
+          max={max}
+          value={minValue}
+          onChange={onMinInputChange}
+          onFocus={() => setError(null)}
+        />
+        <span >
+          {unite}
+        </span>
       </span>
-      <label>Maximum</label>
-      <input
-        type="number"
-        min={min}
-        max={max}
-        value={to?.toString()} // Strips leading `0` from a positive number value
-        placeholder={min?.toString()}
-        onInput={({ currentTarget }) =>
-          setRange({ from, to: Number(currentTarget.value) })
-        }
-      />
-      <span className={styles.unitMax}>
-        {unite}
+      <label className={styles.label}>Maximum</label>
+      <span className={classNames(styles.customRangeInputWrapper, styles.customRangeInputWrapperLastInput)}>
+        <input
+          type="number"
+          min={min}
+          max={max}
+          value={maxValue}
+          onChange={onMaxInputChange}
+          onFocus={() => setError(null)}
+        />
+        <span>
+          {unite}
+        </span>
+        { error && <p className={styles.error}>{error}</p>}
       </span>
-      <ButtonComponent type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
+      <ButtonComponent className={styles.submitButton} type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
     </div>
   );
 
-  return <>
-    <div className={styles.formWrapper}>
-      <label className={styles.selectLabel}>{label}</label>
+  return (
+    <div className={classNames(className)}>
+      <label className={styles.label} id={labelledBy.current}>{label}</label>
       <div ref={rangeBoxRef} className={styles.selectContainer}>
         <button
           type="button"
           aria-haspopup="listbox"
           aria-expanded={isRangeBoxOpen}
+          aria-labelledby={labelledBy.current}
           className={styles.button}
           onClick={() => setIsRangeBoxOpen(!isRangeBoxOpen)}
         >
-          <span>{placeholder}</span>
+          <span>{displayPlaceholder()}</span>
           <Icon name={isRangeBoxOpen ? 'angle-up' : 'angle-down'}/>
         </button>
         {isRangeBoxOpen && renderRangeBox()}
       </div>
     </div>
-  </>;
+  );
 }
 
 
