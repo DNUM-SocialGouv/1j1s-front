@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.30.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.29.1...v2.30.0) (2022-12-28)
+
+
+### Features
+
+* **multiple/meilisearch:** ajout gestion error instantsearch ([47376c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/47376c33215e2ff4034557ce05244d10ba589028))
+
 ## [2.29.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.29.0...v2.29.1) (2022-12-28)
 
 
