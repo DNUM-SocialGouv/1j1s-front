@@ -2,25 +2,29 @@ import classNames from 'classnames';
 import Image from 'next/legacy/image';
 import React from 'react';
 
-import { LienSolution } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-export function RésultatRechercherSolution(props: Omit<LienSolution, 'id'>) {
+export interface RésultatRechercherSolutionProps {
+  lienOffre: string
+  intituléOffre: string
+  logoEntreprise: string
+  nomEntreprise?: string
+  étiquetteOffreList: string[]
+}
+
+export function RésultatRechercherSolution(props: RésultatRechercherSolutionProps) {
   const { lienOffre, intituléOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
   const { isSmallScreen } = useBreakpoint();
 
   const cardDescription = () => {
     return (
       <section className={styles.cardDescription}>
-        {étiquetteOffreList.length > 0 && <TagList list={étiquetteOffreList} aria-label="Caractéristiques de l'offre" />}
-        <span className={styles.callToAction}>
-            En savoir plus
-          <Icon name="angle-right" />
-        </span>
+        {étiquetteOffreList.length > 0 && <TagList list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre" />}
+        <TextIcon icon="angle-right" className={styles.callToAction}>En savoir plus</TextIcon>
       </section>
     );
   };

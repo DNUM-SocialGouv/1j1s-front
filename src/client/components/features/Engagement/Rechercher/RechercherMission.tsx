@@ -7,9 +7,12 @@ import {
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
 import {
-  LienSolution,
-  RechercherSolutionLayout,
-} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+  ListeRésultatsRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+  RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -93,43 +96,46 @@ export function RechercherMission(props: RechercherMissionProps) {
       />
       <main id="contenu">
         <RechercherSolutionLayout
-          ariaLabelListeSolution={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}
-          bannière={<BannièreMission isServiceCivique={isServiceCivique} />}
+          bannière={<BannièreMission isServiceCivique={isServiceCivique}/>}
           erreurRecherche={erreurRecherche}
           étiquettesRecherche={<ÉtiquettesFiltreMission/>}
           formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
           isLoading={isLoading}
-          listeSolution={missionList}
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
-          mapToLienSolution={isServiceCivique ? mapMissionServiceCiviqueToLienSolution: mapMissionBénévolatToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
+          listeSolutionElement={<ListeMission résultatList={missionList} isServiceCivique={isServiceCivique}/>}
         />
       </main>
     </>
   );
 }
 
-function mapMissionBénévolatToLienSolution(mission: Mission): LienSolution {
-  return {
-    id: mission.id,
-    intituléOffre: mission.titre,
-    lienOffre: `/benevolat/${mission.id}`,
-    logoEntreprise: '/images/logos/je-veux-aider.svg',
-    nomEntreprise: mission.nomEntreprise,
-    étiquetteOffreList: mission.étiquetteList,
-  };
+interface ListeRésultatProps {
+  résultatList: Mission[]
+  isServiceCivique: boolean
 }
 
-function mapMissionServiceCiviqueToLienSolution(mission: Mission): LienSolution {
-  return {
-    id: mission.id,
-    intituléOffre: mission.titre,
-    lienOffre: `/service-civique/${mission.id}`,
-    logoEntreprise: '/images/logos/service-civique.svg',
-    nomEntreprise: mission.nomEntreprise,
-    étiquetteOffreList: mission.étiquetteList,
-  };
+function ListeMission({ résultatList, isServiceCivique }: ListeRésultatProps) {
+  if (!résultatList.length) {
+    return null;
+  }
+
+  return (
+    <ListeRésultatsRechercherSolution aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}>
+      {résultatList.map((mission: Mission) => (
+        <li key={mission.id}>
+          <RésultatRechercherSolution
+            intituléOffre={mission.titre}
+            nomEntreprise={mission.nomEntreprise}
+            lienOffre={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
+            logoEntreprise={isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg'}
+            étiquetteOffreList={mission.étiquetteList}
+          />
+        </li>
+      ))}
+    </ListeRésultatsRechercherSolution>
+  );
 }
 
 interface BannièreMissionProps {
@@ -139,6 +145,6 @@ interface BannièreMissionProps {
 function BannièreMission({ isServiceCivique }: BannièreMissionProps) {
   const secondaryText = `grâce aux missions de ${isServiceCivique ? 'Service Civique' : 'Bénévolat'}`;
   return (
-    <LightHero primaryText="Se rendre utile tout en préparant son avenir" secondaryText={secondaryText} />
+    <LightHero primaryText="Se rendre utile tout en préparant son avenir" secondaryText={secondaryText}/>
   );
 }

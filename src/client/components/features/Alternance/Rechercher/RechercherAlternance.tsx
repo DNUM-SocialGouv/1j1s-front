@@ -10,7 +10,9 @@ import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonn
 import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
-  LienSolution,
+  ListeRésultatsRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import {
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
@@ -22,6 +24,8 @@ import { OffreService } from '~/client/services/offre/offre.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
+
+import { RésultatRechercherSolution } from '../../../layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
@@ -80,18 +84,17 @@ export function RechercherAlternance() {
       />
       <main id="contenu">
         <RechercherSolutionLayout
-          ariaLabelListeSolution={'Offres d’alternances'}
           bannière={<BannièreAlternance/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={offreQuery.libelleLocalisation ? <TagList list={[offreQuery.libelleLocalisation]} aria-label="Filtres de la recherche" /> : null}
-          formulaireRecherche={<FormulaireRechercheAlternance />}
+          étiquettesRecherche={offreQuery.libelleLocalisation ?
+            <TagList list={[offreQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/> : null}
+          formulaireRecherche={<FormulaireRechercheAlternance/>}
           isLoading={isLoading}
-          listeSolution={alternanceList}
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
-          mapToLienSolution={mapAlternanceToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
           maxPage={MAX_PAGE}
+          listeSolutionElement={<ListeOffreAlternance résultatList={alternanceList}/>}
         />
         {PartnerCardList([
           LaBonneBoitePartner().props,
@@ -103,19 +106,34 @@ export function RechercherAlternance() {
   );
 }
 
-function mapAlternanceToLienSolution(offreEmploi: Offre): LienSolution {
-  return {
-    id: offreEmploi.id,
-    intituléOffre: offreEmploi.intitulé,
-    lienOffre: `/emplois/${offreEmploi.id}`,
-    logoEntreprise: offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI,
-    nomEntreprise: offreEmploi.entreprise.nom,
-    étiquetteOffreList: offreEmploi.étiquetteList,
-  };
+interface ListeRésultatProps {
+  résultatList: Offre[]
+}
+
+function ListeOffreAlternance({ résultatList }: ListeRésultatProps) {
+  if (!résultatList.length) {
+    return null;
+  }
+
+  return (
+    <ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
+      {résultatList.map((offreEmploi: Offre) => (
+        <li key={offreEmploi.id}>
+          <RésultatRechercherSolution
+            étiquetteOffreList={offreEmploi.étiquetteList}
+            intituléOffre={offreEmploi.intitulé}
+            lienOffre={`/emplois/${offreEmploi.id}`}
+            logoEntreprise={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+            nomEntreprise={offreEmploi.entreprise.nom}
+          />
+        </li>
+      ))}
+    </ListeRésultatsRechercherSolution>
+  );
 }
 
 function BannièreAlternance() {
   return (
-    <LightHero primaryText="Des milliers d’alternances" secondaryText="sélectionnés pour vous par Pôle Emploi" />
+    <LightHero primaryText="Des milliers d’alternances" secondaryText="sélectionnés pour vous par Pôle Emploi"/>
   );
 }

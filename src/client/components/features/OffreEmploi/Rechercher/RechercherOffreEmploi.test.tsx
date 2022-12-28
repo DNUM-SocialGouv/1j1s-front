@@ -26,7 +26,7 @@ describe('RechercherOffreEmploi', () => {
   });
 
   describe('quand le composant est affiché sans recherche', () => {
-    it('affiche un formulaire pour la recherche d\'offres d\'emploi, avec un échantillon de résultat', async () => {
+    it('affiche un formulaire pour la recherche d‘offres d‘emploi, avec un échantillon de résultat', async () => {
       // GIVEN
       const offreServiceMock = anOffreService();
       const localisationServiceMock = aLocalisationService();
@@ -46,14 +46,14 @@ describe('RechercherOffreEmploi', () => {
 
       // THEN
       expect(formulaireRechercheOffreEmploi).toBeInTheDocument();
-      expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
+      expect(await screen.findByText('3 offres d‘emplois')).toBeInTheDocument();
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
 
   describe('quand le composant est affiché pour une recherche avec résultats', () => {
     describe('quand la recherche ne comporte pas de mot clé', () => {
-      it('affiche les critères de recherche sous forme d\'étiquettes', async () => {
+      it('affiche les critères de recherche sous forme d‘étiquettes', async () => {
         // GIVEN
         const offreServiceMock = anOffreService();
         const localisationServiceMock = aLocalisationService();
@@ -77,7 +77,7 @@ describe('RechercherOffreEmploi', () => {
 
         // THEN
         expect(offreServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
-        expect(await screen.findByText('3 offres d\'emplois')).toBeInTheDocument();
+        expect(await screen.findByText('3 offres d‘emplois')).toBeInTheDocument();
         const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
         expect(filtresRecherche).toBeInTheDocument();
         expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26)')).toBeInTheDocument();
@@ -102,7 +102,7 @@ describe('RechercherOffreEmploi', () => {
 
         // WHEN
         const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherSolution');
-        const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres d\'emplois pour boulanger');
+        const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres d‘emplois pour boulanger');
 
         // THEN
         expect(résultatRechercheOffreEmploiList).toHaveLength(3);
@@ -129,7 +129,7 @@ describe('RechercherOffreEmploi', () => {
       );
 
       // WHEN
-      const messageNombreRésultats = await screen.findByText('1 offre d\'emploi pour barman');
+      const messageNombreRésultats = await screen.findByText('1 offre d‘emploi pour barman');
 
       // THEN
       expect(messageNombreRésultats).toBeInTheDocument();

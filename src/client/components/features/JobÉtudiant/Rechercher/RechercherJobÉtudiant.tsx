@@ -10,9 +10,12 @@ import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonn
 import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
-  LienSolution,
-  RechercherSolutionLayout,
-} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+  ListeRésultatsRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+  RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -79,18 +82,17 @@ export function RechercherJobÉtudiant() {
       />
       <main id="contenu">
         <RechercherSolutionLayout
-          ariaLabelListeSolution="Offres de jobs étudiants"
           bannière={<BannièreJobÉtudiant/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={offreEmploiQuery.libelleLocalisation ? <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche" /> : null}
+          étiquettesRecherche={offreEmploiQuery.libelleLocalisation ?
+            <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/> : null}
           formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
           isLoading={isLoading}
-          listeSolution={jobÉtudiantList}
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={nombreRésultats}
-          mapToLienSolution={mapJobÉtudiantToLienSolution}
           paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
           maxPage={MAX_PAGE}
+          listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
         />
         {PartnerCardList([
           LaBonneBoitePartner().props,
@@ -102,19 +104,34 @@ export function RechercherJobÉtudiant() {
   );
 }
 
-function mapJobÉtudiantToLienSolution(offreEmploi: Offre): LienSolution {
-  return {
-    id: offreEmploi.id,
-    intituléOffre: offreEmploi.intitulé,
-    lienOffre: `/jobs-etudiants/${offreEmploi.id}`,
-    logoEntreprise: offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI,
-    nomEntreprise: offreEmploi.entreprise.nom,
-    étiquetteOffreList: offreEmploi.étiquetteList,
-  };
+interface ListeRésultatProps {
+  résultatList: Offre[]
+}
+
+function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
+  if (!résultatList.length) {
+    return null;
+  }
+
+  return (
+    <ListeRésultatsRechercherSolution aria-label="Offres de jobs étudiants">
+      {résultatList.map((offreEmploi: Offre) => (
+        <li key={offreEmploi.id}>
+          <RésultatRechercherSolution
+            étiquetteOffreList={offreEmploi.étiquetteList}
+            intituléOffre={offreEmploi.intitulé}
+            lienOffre={`/jobs-etudiants/${offreEmploi.id}`}
+            logoEntreprise={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+            nomEntreprise={offreEmploi.entreprise.nom}
+          />
+        </li>
+      ))}
+    </ListeRésultatsRechercherSolution>
+  );
 }
 
 function BannièreJobÉtudiant() {
   return (
-    <LightHero primaryText="Des milliers de jobs étudiants" secondaryText="sélectionnés pour vous par Pôle Emploi" />
+    <LightHero primaryText="Des milliers de jobs étudiants" secondaryText="sélectionnés pour vous par Pôle Emploi"/>
   );
 }
