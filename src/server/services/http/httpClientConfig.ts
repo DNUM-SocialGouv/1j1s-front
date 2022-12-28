@@ -81,7 +81,7 @@ const getApiTipimailConfig = (configurationService: ConfigurationService): HttpC
       'X-Tipimail-ApiUser': configurationService.getConfiguration().TIPIMAIL_API_USER,
     },
     apiName: 'API_TIPIMAIL',
-    apiUrl: configurationService.getConfiguration().TIPIMAIL_API_URL,
+    apiUrl: configurationService.getConfiguration().TIPIMAIL_API_BASE_URL,
   });
 };
 
