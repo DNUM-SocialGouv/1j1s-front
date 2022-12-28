@@ -18,7 +18,7 @@ describe('OffreService', () => {
       const result = await offreService.rechercherOffreEmploi(offreEmploiQuery);
 
       expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffre() });
-      expect(httpClientService.get).toHaveBeenCalledWith('emplois?motCle=barman&typeDeContrats=CDD%2CCDI&page=1');
+      expect(httpClientService.get).toHaveBeenCalledWith('jobs?motCle=barman&typeDeContrats=CDD%2CCDI&page=1');
     });
   });
 

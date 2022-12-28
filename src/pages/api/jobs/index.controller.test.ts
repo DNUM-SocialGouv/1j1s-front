@@ -6,7 +6,7 @@ import {
   emploiFiltreMapper,
   emploisQuerySchema,
   rechercherOffreEmploiHandler,
-} from '~/pages/api/emplois/index.controller';
+} from '~/pages/api/jobs/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';

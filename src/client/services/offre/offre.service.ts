@@ -7,7 +7,7 @@ export class OffreService {
   constructor(private httpClientService: HttpClientService) {}
 
   async rechercherOffreEmploi(query: string): Promise<Either<RésultatsRechercheOffre>> {
-    return this.httpClientService.get<RésultatsRechercheOffre>(`emplois?${query}`);
+    return this.httpClientService.get<RésultatsRechercheOffre>(`jobs?${query}`);
   }
 
   async rechercherJobÉtudiant(query: string): Promise<Either<RésultatsRechercheOffre>> {
