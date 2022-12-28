@@ -1,14 +1,14 @@
 import {
-  anÉtablissementAccompagnementList,
-  anotherÉtablissementAccompagnementList,
+  anOrderedÉtablissementAccompagnementList,
+  anUnorderedÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
-import {
-  mapÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
 import {
   aRésultatRechercheÉtablissementPublicResponse,
   aRésultatRechercheÉtablissementPublicResponseInIncorrectOrder,
-} from '~/server/établissement-accompagnement/infra/tests/apiÉtablissementPublic.fixture';
+} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
+import {
+  mapÉtablissementAccompagnement,
+} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
 
 describe('Mapper Établissement Accompagnement', () => {
   describe('mapÉtablissementAccompagnement', () => {
@@ -18,7 +18,7 @@ describe('Mapper Établissement Accompagnement', () => {
         const résultatRechercheÉtablissementPublicResponse = aRésultatRechercheÉtablissementPublicResponse();
         // when
         const result = mapÉtablissementAccompagnement(résultatRechercheÉtablissementPublicResponse);
-        const expected = anÉtablissementAccompagnementList();
+        const expected = anOrderedÉtablissementAccompagnementList();
         // then
         expect(result).toEqual(expected);
       });
@@ -29,7 +29,7 @@ describe('Mapper Établissement Accompagnement', () => {
         const résultatRechercheÉtablissementPublicResponse = aRésultatRechercheÉtablissementPublicResponseInIncorrectOrder();
         // when
         const result = mapÉtablissementAccompagnement(résultatRechercheÉtablissementPublicResponse);
-        const expected = anotherÉtablissementAccompagnementList();
+        const expected = anUnorderedÉtablissementAccompagnementList();
         // then
         expect(result).toEqual(expected);
       });

@@ -1,14 +1,13 @@
 import { createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anÉtablissementAccompagnementList } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+import { anOrderedÉtablissementAccompagnementList } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+import { aRésultatRechercheÉtablissementPublicResponse } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
+import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import {
   anAxiosError,
   anAxiosResponse,
   anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
-
-import { ApiÉtablissementPublicRepository } from '../apiÉtablissementPublic.repository';
-import { aRésultatRechercheÉtablissementPublicResponse } from './apiÉtablissementPublic.fixture';
 
 describe('ApiÉtablissementPublicRepository', () => {
   describe('search', () => {
@@ -20,7 +19,7 @@ describe('ApiÉtablissementPublicRepository', () => {
           .spyOn(httpClient, 'get')
           .mockResolvedValue(anAxiosResponse(aRésultatRechercheÉtablissementPublicResponse()));
         const repository = new ApiÉtablissementPublicRepository(httpClient);
-        const expected = createSuccess(anÉtablissementAccompagnementList());
+        const expected = createSuccess(anOrderedÉtablissementAccompagnementList());
         const commune = '46100';
         const typeAccompagnement = 'cij';
 

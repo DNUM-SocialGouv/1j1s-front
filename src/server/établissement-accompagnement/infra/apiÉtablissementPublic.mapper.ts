@@ -1,4 +1,7 @@
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import {
+  ÉtablissementAccompagnement,
+  TypeÉtablissement,
+} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 import {
   RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
@@ -19,7 +22,7 @@ export function mapÉtablissementAccompagnement(résultatRechercheÉtablissement
     id: feature.properties.id,
     nom: feature.properties.nom,
     telephone: feature.properties.telephone,
-    typeAccompagnement: feature.properties.pivotLocal,
+    type: <TypeÉtablissement>feature.properties.pivotLocal,
   }));
 }
 
