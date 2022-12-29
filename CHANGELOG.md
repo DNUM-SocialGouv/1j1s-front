@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.30.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.30.0...v2.30.1) (2022-12-29)
+
+
+### Bug Fixes
+
+* **multiple:** accessibilité-énumérations-en-liste ([f785960](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f78596076aed7cfb43aecd5e56806a37d0290b65))
+
 ## [2.30.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.29.1...v2.30.0) (2022-12-28)
 
 
