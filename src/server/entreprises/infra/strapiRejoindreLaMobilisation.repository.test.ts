@@ -10,7 +10,6 @@ import {
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-import { Trap } from '~/server/trap';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
   const entreprise = uneEntreprise();
@@ -32,18 +31,15 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
 
     it('fait un POST vers Strapi', async () => {
       // Given
-      const bodyTrap = Trap<object>();
       const strapi = nock(strapiUrl)
-        .post('/entreprises', bodyTrap)
+        .post('/entreprises', {
+          data: unContenuEntreprise(),
+        })
         .reply(201, {});
-      const expectedBody = {
-        data: unContenuEntreprise(),
-      };
       // When
       await repository.save(entreprise);
       // Then
       expect(strapi.isDone()).toBe(true);
-      expect(bodyTrap.value()).toEqual(expectedBody);
     });
 
     it('résout un Success', async () => {
@@ -60,21 +56,22 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
     describe('Quand il y a une annotation', () => {
       it('ajoute l\'annotation aux champs envoyés', async () => {
         // Given
-        const bodyTrap = Trap<object>();
-        nock(strapiUrl)
-          .post('/entreprises', bodyTrap)
-          .reply(201, {});
         const annotation = 'un petit mot pour plus tard';
-        const expectedBody = {
-          data: {
-            ...unContenuEntreprise(),
-            erreur: annotation,
-          },
-        };
+
+        const strapi = nock(strapiUrl)
+          .post('/entreprises', {
+            data: {
+              ...unContenuEntreprise(),
+              erreur: annotation,
+            },
+          })
+          .reply(201, {});
+
         // When
         await repository.save(entreprise, annotation);
+
         // Then
-        expect(bodyTrap.value()).toEqual(expectedBody);
+        expect(strapi.isDone()).toBe(true);
       });
     });
 

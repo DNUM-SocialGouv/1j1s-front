@@ -8,7 +8,6 @@ import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClientService';
-import { Trap } from '~/server/trap';
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
   const entrepriseApiUrl = 'https://lesentreprisesengagent.france';
@@ -26,9 +25,8 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
     });
     it('envoie un POST vers l\'API des entreprise s\'engagent', async () => {
       // Given
-      const trap = Trap<object>();
       const api = nock(entrepriseApiUrl)
-        .post('/api/members', trap)
+        .post('/api/members', uneEntrepriseMember())
         .reply(201, {});
       const entreprise = uneEntreprise();
       // When
@@ -36,7 +34,6 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
       // Then
       expect(actual).toEqual(createSuccess(undefined));
       expect(api.isDone()).toEqual(true);
-      expect(trap.value()).toEqual(uneEntrepriseMember());
     });
     it('résout une erreur quand le service est indisponible', async () => {
       // Given
