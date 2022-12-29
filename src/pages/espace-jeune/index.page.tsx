@@ -3,16 +3,17 @@ import { GetStaticPropsResult } from 'next';
 import React, { useCallback, useMemo } from 'react';
 
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { ArticleCard } from '~/client/components/ui/Card/ArticleCard';
+import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
+import { CarteActualite } from '~/server/cms/domain/actualite';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { dependencies } from '~/server/start';
 
-import { ArticleCard } from '../../client/components/ui/Card/ArticleCard';
-import { LightHero } from '../../client/components/ui/Hero/LightHero';
-import SeeMore from '../../client/components/ui/SeeMore/SeeMore';
-import { HeadTag } from '../../client/components/utils/HeaderTag';
-import { CarteActualite } from '../../server/cms/domain/actualite';
 import styles from './espace-jeune.module.scss';
 
 interface EspaceJeunePageProps {
@@ -36,11 +37,16 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
   }, []);
 
   return (
-    <main>
+    <main id={'contenu'}>
       <HeadTag title="Espace jeune | 1jeune1solution"/>
+      <h1 className={styles.title}>Actualités et services jeune</h1>
       <section className={classNames(styles.section, styles.actualitesSection)} data-testid='actualites' >
-        <LightHero primaryText={'Actualités : retrouvez une sélection'} secondaryText={'des dernières actualités relatives aux jeunes'} />
-        <div className={styles.cartesActualitesList}>
+        <LightHero
+          className={styles.sectionTitle}
+          titleAs={'h2'}
+          primaryText={'Actualités : retrouvez une sélection'}
+          secondaryText={'des dernières actualités relatives aux jeunes'} />
+        <Container className={styles.cartesActualitesList}>
           {visibleCartesActualitesList.map((carte, index) =>
             <ArticleCard className={styles.carteActualite} 
               key={index} 
@@ -52,9 +58,9 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
               <p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
             </ArticleCard>,
           )}
-        </div>
+        </Container>
         <SeeMore>
-          <div className={styles.cartesActualitesList}>
+          <Container className={styles.cartesActualitesList}>
             {seeMoreCartesActualitesList.map((carte, index) =>
               <ArticleCard className={styles.carteActualite}
                 key={index}
@@ -66,11 +72,14 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
                 <p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
               </ArticleCard>,
             )}
-          </div>
+          </Container>
         </SeeMore>
       </section>
       <section id='espace-jeune' className={classNames(styles.section, styles.mesuresJeunesSection)}>
-        <LightHero primaryText={'Services jeunes, retrouvez les services conçus pour vous :'} secondaryText={'entrée dans la vie professionnelle, orientation, formation, accompagnement'} />
+        <LightHero
+          titleAs={'h2'}
+          primaryText={'Services jeunes, retrouvez les services conçus pour vous :'}
+          secondaryText={'entrée dans la vie professionnelle, orientation, formation, accompagnement'} />
         <EspaceJeuneComponent espaceJeune={ espaceJeune } />
       </section>
     </main>

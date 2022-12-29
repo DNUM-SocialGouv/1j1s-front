@@ -24,14 +24,14 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
 
       <section className={classNames(styles.section, styles.sectionOrienterFormer)}>
         <h2 id="formation" className={styles.sectionHeader}>
-            S&apos;orienter et se former
+            S‘orienter et se former
         </h2>
         {EspaceJeuneFlippingCardList(orienterFormer, MAX_CARTE_PER_ROW)}
       </section>
 
       <section className={classNames(styles.section, styles.sectionParcoursAccompagnement)}>
         <h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
-            Parcours d&apos;accompagnement
+            Parcours d‘accompagnement
         </h2>
         {EspaceJeuneFlippingCardList(accompagnement, MAX_CARTE_PER_ROW)}
       </section>

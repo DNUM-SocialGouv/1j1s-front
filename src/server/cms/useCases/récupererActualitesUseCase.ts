@@ -1,8 +1,8 @@
-import { Either } from '../../errors/either';
-import { CarteActualite } from '../domain/actualite';
-import { CmsRepository } from '../domain/cms.repository';
+import { CarteActualite } from '~/server/cms/domain/actualite';
+import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { Either } from '~/server/errors/either';
 
-export class RéCupererActualitesUseCase {
+export class RécupererActualitesUseCase {
   constructor(private cmsRepository: CmsRepository) {}
 
   async handle(): Promise<Either<CarteActualite[]>> {
