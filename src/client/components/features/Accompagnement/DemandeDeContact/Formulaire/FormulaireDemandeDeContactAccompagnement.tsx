@@ -22,11 +22,11 @@ import {
 interface FormulaireDemandeDeContactAccompagnementProps {
   contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
 
-  onSubmit(): void;
+  onSuccess(): void;
 }
 
 export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildren<FormulaireDemandeDeContactAccompagnementProps>) {
-  const { contactÉtablissementAccompagnement, onSubmit } = props;
+  const { contactÉtablissementAccompagnement, onSuccess } = props;
   const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
 
   async function envoyerFormulaire(event: FormEvent<HTMLFormElement>) {
@@ -36,7 +36,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
     const demandeDeContactAccompagnement = mapDemandeDeContactAccompagnement(data, contactÉtablissementAccompagnement);
     const result = await établissementAccompagnementService.envoyerDemandeContact(demandeDeContactAccompagnement);
     if (isSuccess(result)) {
-      onSubmit();
+      onSuccess();
     }
   }
 

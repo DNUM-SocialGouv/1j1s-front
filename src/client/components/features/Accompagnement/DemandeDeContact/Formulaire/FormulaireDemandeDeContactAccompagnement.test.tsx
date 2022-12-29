@@ -45,7 +45,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
       <DependenciesProvider localisationService={localisationService} établissementAccompagnementService={établissementAccompagnementService}>
         <FormulaireDemandeDeContactAccompagnement
           contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-          onSubmit={onSubmit}
+          onSuccess={onSubmit}
         />
       </DependenciesProvider>,
     );

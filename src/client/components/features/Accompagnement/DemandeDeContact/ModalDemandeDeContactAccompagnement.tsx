@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   FormulaireDemandeDeContactAccompagnement,
@@ -22,10 +22,6 @@ interface ModalDemandeDeContactAccompagnementProps {
 export function ModalDemandeDeContactAccompagnement(props: ModalDemandeDeContactAccompagnementProps) {
   const { contactÉtablissementAccompagnement, isOpen, setIsOpen } = props;
   const [isSuccess, setIsSuccess] = useState(false);
-  
-  const onSubmit = useCallback(() => {
-    setIsSuccess(true);
-  }, []);
 
   return (
     <ModalComponent
@@ -46,7 +42,7 @@ export function ModalDemandeDeContactAccompagnement(props: ModalDemandeDeContact
             <small className={styles.modalSubTitle}>Tous les champs sont obligatoires sauf mention contraire</small>
             <FormulaireDemandeDeContactAccompagnement
               contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-              onSubmit={onSubmit}
+              onSuccess={() => setIsSuccess(true)}
             />
           </>
         ) : (
