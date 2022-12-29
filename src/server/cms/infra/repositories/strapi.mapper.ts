@@ -5,7 +5,8 @@ import { Image } from '~/server/cms/domain/image';
 import {
   ActualiteAttributesResponse,
   ArticleAttributesResponse,
-  ArticleSimpleAttributesResponse, CarteActualiteResponse,
+  ArticleSimpleAttributesResponse,
+  CarteActualiteResponse,
   CarteEspaceJeuneResponse,
   CarteMesuresEmployeursResponse,
   EspaceJeuneAttributesResponse,

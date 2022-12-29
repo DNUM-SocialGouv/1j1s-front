@@ -20,6 +20,10 @@
   min-height: 50px;
   min-width: 50px;
   position: relative;
+
+  & img {
+    object-fit: cover;
+  }
 }
 
 .cardTitle {

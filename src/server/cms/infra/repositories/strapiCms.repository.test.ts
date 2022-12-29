@@ -25,7 +25,7 @@ describe('strapi cms repository', () => {
 
   describe('getActualites', () => {
     describe('Si les actualités sont trouvées', () => {
-      it('récupères les actualités', async () => {
+      it('récupère les actualités', async () => {
         httpClientService = anHttpClientServiceWithAuthentification();
         strapiCmsRepository = new StrapiCmsRepository(httpClientService);
 

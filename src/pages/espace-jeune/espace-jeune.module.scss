@@ -1,8 +1,17 @@
 @import "@styles/utilities";
 
+.title {
+  height: 0;
+  overflow: hidden;
+}
+
 .section {
   padding-inline: 1.5rem;
   padding-bottom: 3rem;
+}
+
+.sectionTitle {
+  margin-bottom: 2rem;
 }
 
 .mesuresJeunesSection {
@@ -14,12 +23,7 @@
   gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-inline: auto;
   margin-bottom: 2rem;
-
-  @include media(medium) {
-    max-width: 78rem;
-  }
 }
 
 .carteActualite {
