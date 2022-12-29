@@ -1,0 +1,9 @@
+@import "@styles/utilities";
+
+.horaireHeure {
+  margin-left: 0.5ch;
+}
+
+.horaireJour {
+  @extend %bold;
+}

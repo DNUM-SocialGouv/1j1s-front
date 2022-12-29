@@ -27,7 +27,7 @@ export class TipimailDemandeDeContactRepository implements DemandeDeContactAccom
         await this.httpClient.post('messages/send', tipimailDemandeDeContactRequest);
       } else {
         // eslint-disable-next-line no-console
-        console.debug('Mailer désactivé, email non envoyé', JSON.stringify(tipimailDemandeDeContactRequest));
+        console.log('Mailer désactivé, email non envoyé', JSON.stringify(tipimailDemandeDeContactRequest));
       }
       return createSuccess(undefined);
     } catch (e) {
@@ -41,9 +41,6 @@ export class TipimailDemandeDeContactRepository implements DemandeDeContactAccom
       if (axios.isAxiosError(e)) {
         if (e.response?.status === 400) {
           return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-        }
-        if (e.response?.status === 401) {
-          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
         }
       }
       return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);

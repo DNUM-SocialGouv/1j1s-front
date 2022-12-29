@@ -111,7 +111,7 @@ describe('DemandeDeContactMailRepository', () => {
         // given
         const httpClient = anHttpClientService();
         jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailDemandeDeContactRequest()));
-        const debug = jest.spyOn(console, 'debug').mockImplementation(() => undefined);
+        const debug = jest.spyOn(console, 'log').mockImplementation(() => undefined);
         const repository = new TipimailDemandeDeContactRepository(httpClient, false);
         const expected = createSuccess(undefined);
         const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();

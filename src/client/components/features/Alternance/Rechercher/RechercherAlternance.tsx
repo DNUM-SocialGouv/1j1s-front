@@ -15,6 +15,7 @@ import {
 import {
   RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -24,8 +25,6 @@ import { OffreService } from '~/client/services/offre/offre.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
-
-import { RésultatRechercherSolution } from '../../../layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
@@ -76,6 +75,14 @@ export function RechercherAlternance() {
     return messageRésultatRechercheSplit.join(' ');
   }, [nombreRésultats, offreQuery.motCle]);
 
+  const étiquettesRecherche = useMemo(() => {
+    if (offreQuery.libelleLocalisation) {
+      return <TagList list={[offreQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/>;
+    } else {
+      return undefined;
+    }
+  }, [offreQuery.libelleLocalisation]);
+
   return (
     <>
       <HeadTag
@@ -86,8 +93,7 @@ export function RechercherAlternance() {
         <RechercherSolutionLayout
           bannière={<BannièreAlternance/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={offreQuery.libelleLocalisation ?
-            <TagList list={[offreQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/> : null}
+          étiquettesRecherche={étiquettesRecherche}
           formulaireRecherche={<FormulaireRechercheAlternance/>}
           isLoading={isLoading}
           messageRésultatRecherche={messageRésultatRecherche}

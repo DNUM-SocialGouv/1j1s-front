@@ -11,7 +11,7 @@ export class ÉtablissementAccompagnementService {
   }
 
   async rechercher(queryParams: AccompagnementQueryParams): Promise<Either<ÉtablissementAccompagnement[]>> {
-    return this.httpClientService.get<ÉtablissementAccompagnement[]>(`etablissements-accompagnement?${stringify(JSON.parse(JSON.stringify(queryParams)))}`);
+    return this.httpClientService.get<ÉtablissementAccompagnement[]>(`etablissements-accompagnement?${stringify(<Record<string, string | undefined>>queryParams)}`);
   }
 
   async envoyerDemandeContact(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Promise<Either<void>> {

@@ -74,6 +74,14 @@ export function RechercherJobÉtudiant() {
     return messageRésultatRechercheSplit.join(' ');
   }, [nombreRésultats, offreEmploiQuery.motCle]);
 
+  const étiquettesRecherche = useMemo(() => {
+    if (offreEmploiQuery.libelleLocalisation) {
+      return <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/>;
+    } else {
+      return undefined;
+    }
+  }, [offreEmploiQuery.libelleLocalisation]);
+
   return (
     <>
       <HeadTag
@@ -84,8 +92,7 @@ export function RechercherJobÉtudiant() {
         <RechercherSolutionLayout
           bannière={<BannièreJobÉtudiant/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={offreEmploiQuery.libelleLocalisation ?
-            <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/> : null}
+          étiquettesRecherche={étiquettesRecherche}
           formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
           isLoading={isLoading}
           messageRésultatRecherche={messageRésultatRecherche}

@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import {
-  displayHeures,
-} from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement';
+  HorairesRésultatRechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement';
 import styles
-  from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement.module.scss';
+  from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
+import { useAccompagnementLogo } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonAsLink } from '~/client/components/ui/ButtonAsLink/ButtonAsLink';
 import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -26,19 +27,7 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
   } = props;
 
   const isMissionLocale = établissement.type === TypeÉtablissement.MISSION_LOCALE;
-
-  const logoÉtablissement = useMemo(() => {
-    switch (établissement.type) {
-      case 'cij':
-        return '/images/logos/info-jeunes.svg';
-      case 'mission_locale':
-        return '/images/logos/union-mission-locale.svg';
-      case 'pole_emploi':
-        return '/images/logos/pole-emploi.svg';
-      default:
-        return '';
-    }
-  }, [établissement.type]);
+  const logoÉtablissement = useAccompagnementLogo(établissement.type);
 
   return (
     <CardComponent layout={'vertical'} className={styles.card}>
@@ -70,7 +59,7 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
         <ol className={styles.listeHoraire}>
           {établissement.horaires?.map((horaire) => (
             <li key={horaire.jour} className={styles.horaireElement}>
-              <span className={styles.horaireJour}>{horaire.jour}</span>&nbsp;: {displayHeures(horaire.heures)}
+              <HorairesRésultatRechercherAccompagnement horaire={horaire} />
             </li>
           ))}
         </ol>

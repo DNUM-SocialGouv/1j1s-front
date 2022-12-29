@@ -92,26 +92,32 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
     it('envoie une demande de contact', async () => {
       renderComponent();
 
-      await userEvent.type(screen.getByLabelText('Adresse e-mail (facultatif)'), demandeDeContactAccompagnement.email);
-      await userEvent.type(screen.getByLabelText('Nom'), demandeDeContactAccompagnement.nom);
-      await userEvent.type(screen.getByLabelText('Prénom'), demandeDeContactAccompagnement.prénom);
-      await userEvent.type(screen.getByLabelText('Téléphone'), demandeDeContactAccompagnement.téléphone);
-      await userEvent.type(screen.getByLabelText('Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)'), demandeDeContactAccompagnement.commentaire);
-      const button = screen.getByRole('button', { name: 'Age' });
-      await userEvent.click(button);
-      const listbox = screen.getByRole('listbox');
-      const input = within(listbox).getByRole('radio', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
-      await userEvent.click(input);
-      const inputCommune = screen.getByTestId('InputCommune');
-      await userEvent.type(inputCommune, 'Paris');
-      const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-      const résultatCommuneList = within(résultatsCommune).getAllByRole('option');
-      await userEvent.click(résultatCommuneList[0]);
-
-      const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' });
-      await userEvent.click(submitButton);
+      await envoyerDemandeContact();
 
       expect(établissementAccompagnementService.envoyerDemandeContact).toHaveBeenCalledWith(demandeDeContactAccompagnement);
     });
   });
 });
+
+async function envoyerDemandeContact() {
+  const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
+
+  await userEvent.type(screen.getByLabelText('Adresse e-mail (facultatif)'), demandeDeContactAccompagnement.email);
+  await userEvent.type(screen.getByLabelText('Nom'), demandeDeContactAccompagnement.nom);
+  await userEvent.type(screen.getByLabelText('Prénom'), demandeDeContactAccompagnement.prénom);
+  await userEvent.type(screen.getByLabelText('Téléphone'), demandeDeContactAccompagnement.téléphone);
+  await userEvent.type(screen.getByLabelText('Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)'), demandeDeContactAccompagnement.commentaire);
+  const button = screen.getByRole('button', { name: 'Age' });
+  await userEvent.click(button);
+  const listbox = screen.getByRole('listbox');
+  const input = within(listbox).getByRole('radio', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
+  await userEvent.click(input);
+  const inputCommune = screen.getByTestId('InputCommune');
+  await userEvent.type(inputCommune, 'Paris');
+  const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+  const résultatCommuneList = within(résultatsCommune).getAllByRole('option');
+  await userEvent.click(résultatCommuneList[0]);
+
+  const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' });
+  await userEvent.click(submitButton);
+}

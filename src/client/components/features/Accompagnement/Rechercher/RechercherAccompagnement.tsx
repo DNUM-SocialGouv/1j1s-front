@@ -5,7 +5,7 @@ import {
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
 import {
   RésultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement';
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
 import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
@@ -88,6 +88,14 @@ export function RechercherAccompagnement() {
     return messageRésultatRechercheSplit.join(' ');
   }, [accompagnementQuery.typeAccompagnement, établissementAccompagnementList.length]);
 
+  const étiquettesRecherche = useMemo(() => {
+    if (accompagnementQuery.libelleCommune) {
+      return <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche"/>;
+    } else {
+      return undefined;
+    }
+  }, [accompagnementQuery.libelleCommune]);
+
   return (
     <>
       <HeadTag
@@ -98,8 +106,7 @@ export function RechercherAccompagnement() {
         <RechercherSolutionLayout
           bannière={<BannièreAccompagnement/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={accompagnementQuery.libelleCommune ?
-            <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche"/> : null}
+          étiquettesRecherche={étiquettesRecherche}
           formulaireRecherche={<FormulaireRechercheAccompagnement/>}
           isLoading={isLoading}
           messageRésultatRecherche={messageRésultatRecherche}

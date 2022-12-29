@@ -10,10 +10,10 @@ import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 interface RechercherSolutionLayoutProps {
-  bannière: React.ReactNode
+  bannière: React.ReactElement
   erreurRecherche?: ErreurMétier
-  étiquettesRecherche: React.ReactNode
-  formulaireRecherche: React.ReactNode
+  étiquettesRecherche?: React.ReactElement
+  formulaireRecherche: React.ReactElement
   isLoading: boolean
   messageRésultatRecherche: string
   nombreSolutions: number
