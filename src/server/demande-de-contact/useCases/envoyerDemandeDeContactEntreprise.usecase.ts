@@ -7,19 +7,10 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { DemandeDeContactEntreprise } from '../domain/demandeDeContact';
 import { DemandeDeContactRepository } from '../domain/demandeDeContact.repository';
 
-type EnvoyerDemandeDeContactEntreprise = Partial<{
-    prénom: string
-    nom: string
-    email: string
-    téléphone: string
-    sujet: string
-    message: string
-}>
-
 export class EnvoyerDemandeDeContactEntrepriseUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
 
-  async handle(command: EnvoyerDemandeDeContactEntreprise): Promise<Either<void>> {
+  async handle(command: Partial<DemandeDeContactEntreprise>): Promise<Either<void>> {
     try {
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = Joi.attempt(command, DemandeDeContactEntrepriseValidator);
       return this.demandeDeContactRepository.saveEntreprise(demandeDeContactEntreprise);
@@ -41,7 +32,7 @@ const DemandeDeContactEntrepriseValidator = Joi.object({
 function validatePhone (input: string): string {
   const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false  });
   if (!isValid) {
-    throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
+    throw Error('Le numéro de téléphone n‘est pas un numéro français valide');
   }
   return phoneNumber;
 }

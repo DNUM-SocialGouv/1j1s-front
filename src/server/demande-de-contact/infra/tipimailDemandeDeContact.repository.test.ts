@@ -65,7 +65,7 @@ describe('DemandeDeContactMailRepository', () => {
       });
 
       describe('lorsque l‘api retourne une erreur 401', () => {
-        it('renvoie une erreur demande incorrecte', async () => {
+        it('renvoie une erreur service indisponible', async () => {
           // given
           const httpClient = anHttpClientService();
           jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
@@ -107,7 +107,7 @@ describe('DemandeDeContactMailRepository', () => {
     });
 
     describe('quand le mailer est inactif', () => {
-      it('N‘envoie pas le mail', async () => {
+      it('n‘envoie pas le mail', async () => {
         // given
         const httpClient = anHttpClientService();
         jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailDemandeDeContactRequest()));

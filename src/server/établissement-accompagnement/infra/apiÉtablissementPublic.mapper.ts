@@ -15,15 +15,18 @@ const JOURS_DE_LA_SEMAINE_INDEX: { [key: string]: number } = Object.assign({}, .
 }));
 
 export function mapÉtablissementAccompagnement(résultatRechercheÉtablissementPublic: RésultatRechercheÉtablissementPublicResponse): ÉtablissementAccompagnement[] {
-  return résultatRechercheÉtablissementPublic.features.map((feature) => ({
-    adresse: mapAdresse(feature.properties.adresses),
-    email: feature.properties.email,
-    horaires: feature.properties.horaires && mapHoraire(feature.properties.horaires),
-    id: feature.properties.id,
-    nom: feature.properties.nom,
-    telephone: feature.properties.telephone,
-    type: <TypeÉtablissement>feature.properties.pivotLocal,
-  }));
+  return résultatRechercheÉtablissementPublic.features.map((feature) => {
+    const { adresses, email, horaires, id, nom, pivotLocal, telephone } = feature.properties;
+    return {
+      adresse: mapAdresse(adresses),
+      email,
+      horaires: horaires && mapHoraire(horaires),
+      id,
+      nom,
+      telephone,
+      type: <TypeÉtablissement>pivotLocal,
+    };
+  });
 }
 
 function mapAdresse(adresseList: RésultatRechercheÉtablissementPublicResponse.Feature.Properties.Adresse[]): string | undefined {

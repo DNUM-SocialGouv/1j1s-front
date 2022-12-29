@@ -1,10 +1,10 @@
 export interface ÉtablissementAccompagnement {
-  nom: string;
-  adresse?: string;
+  nom: string
+  adresse?: string
   id: string
-  telephone: string;
-  email?: string;
-  horaires: ÉtablissementAccompagnement.Horaire[];
+  telephone: string
+  email?: string
+  horaires: ÉtablissementAccompagnement.Horaire[]
   type: TypeÉtablissement
 }
 
@@ -12,14 +12,14 @@ export type ContactÉtablissementAccompagnement = Required<Pick<ÉtablissementAc
 
 export namespace ÉtablissementAccompagnement {
   export interface Horaire {
-    jour: string;
-    heures: Horaire.Heure[];
+    jour: string
+    heures: Horaire.Heure[]
   }
 
   export namespace Horaire {
     export interface Heure {
-      début: string;
-      fin: string;
+      début: string
+      fin: string
     }
   }
 }

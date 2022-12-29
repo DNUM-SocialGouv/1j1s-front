@@ -45,9 +45,9 @@ export interface DemandeDeContactPOE extends DemandeDeContact {
 
 export type Age = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30;
 
-export function parseAge(a: number): Age {
-  if (a >= 16 && a <= 30 && Math.floor(a) === a) {
-    return a as Age;
+export function parseAge(age: number): Age {
+  if (age >= 16 && age <= 30 && Math.floor(age) === age) {
+    return age as Age;
   }
-  throw Error(`${a} n'est un âge valide`);
+  throw Error(`${age} n‘est pas un âge valide`);
 }

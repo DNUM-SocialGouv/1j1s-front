@@ -7,7 +7,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('LesEntreprisesSEngagentService', () => {
   describe('l’envoie du formulaire c’est bien passé', () => {
-    it('revoie un Success', async () => {
+    it('renvoie un Success', async () => {
       const httpClientService = anHttpClientService();
       jest.spyOn(httpClientService, 'post').mockResolvedValue(createSuccess(undefined));
       const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
@@ -44,7 +44,7 @@ describe('LesEntreprisesSEngagentService', () => {
   });
 
   describe('l’envoie du formulaire tombe en erreur', () => {
-    it('revoie une Failure', async () => {
+    it('renvoie une Failure', async () => {
       const httpClientService = anHttpClientService();
       jest.spyOn(httpClientService, 'post').mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
       const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);

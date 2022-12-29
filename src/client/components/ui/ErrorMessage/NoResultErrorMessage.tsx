@@ -1,6 +1,6 @@
 import { ErrorMessageComponent } from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent';
 
-export const NoResultErrorMessage = () => {
+export function NoResultErrorMessage() {
   return (
     <ErrorMessageComponent
       title="0 résultat"
