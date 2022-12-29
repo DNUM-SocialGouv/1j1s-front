@@ -16,7 +16,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage --collectCoverageFrom=src/**/*.{js,jsx,ts,tsx} --coverageReporters=text --coverageReporters=lcov --coverageReporters=html && open coverage/index.html",
     "e2e:open": "cypress open",
-    "e2e": "cypress run",
+    "e2e": "cypress run --headed",
     "tw": "jest --watch",
     "prepare": "husky install",
     "analyze": "ANALYZE=true next build",

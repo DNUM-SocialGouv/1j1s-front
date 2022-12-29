@@ -1,0 +1,101 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+# DEVNOTE 1 : on ne peut pas run de deamon (-d) sur les githubs actions du coup à coup de nohup on peut démarrer plusieurs tâches en parralèle
+# DEVNOTE 2 : il faudra maintenir à jour les repositories secrets sur GitHub > Settings > Secrets > Actions
+
+name: Run e2e test for PR on main
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - name: Create env file
+        run: |
+        # next a forcément besoin d'un fichier .env pour tourner du coup, on copie colle toutes les variables du serveur dedans
+        # pas très propre, mais ça évite de les faire une par une à la mano
+          printenv > .env
+        env:
+          API_ADRESSE_BASE_URL: ${{ secrets.API_ADRESSE_BASE_URL }}
+          API_ENGAGEMENT_API_KEY_TOKEN: ${{ secrets.API_ENGAGEMENT_API_KEY_TOKEN }}
+          API_ENGAGEMENT_BASE_URL: ${{ secrets.API_ENGAGEMENT_BASE_URL }}
+          API_ETABLISSEMENTS_PUBLICS: ${{ secrets.API_ETABLISSEMENTS_PUBLICS }}
+          API_GEO_BASE_URL: ${{ secrets.API_GEO_BASE_URL }}
+          API_LES_ENTREPRISES_SENGAGENT_URL: ${{ secrets.API_LES_ENTREPRISES_SENGAGENT_URL }}
+          API_POLE_EMPLOI_OFFRES_URL: ${{ secrets.API_POLE_EMPLOI_OFFRES_URL }}
+          API_POLE_EMPLOI_REFERENTIEL_URL: ${{ secrets.API_POLE_EMPLOI_REFERENTIEL_URL }}
+          BUCKET_S3_URL: ${{ secrets.BUCKET_S3_URL }}
+          IS_REVIEW_APP: ${{ secrets.IS_REVIEW_APP }}
+          NEXT_PUBLIC_LOGEMENT_FEATURE: ${{ secrets.NEXT_PUBLIC_LOGEMENT_FEATURE }}
+          NEXT_PUBLIC_RECHERCHE_ACCOMPAGNEMENT_FEATURE: ${{ secrets.NEXT_PUBLIC_RECHERCHE_ACCOMPAGNEMENT_FEATURE }}
+          NEXT_PUBLIC_RECHERCHE_EVENEMENT_FEATURE: ${{ secrets.NEXT_PUBLIC_RECHERCHE_EVENEMENT_FEATURE }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+          NEXT_PUBLIC_SENTRY_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_SENTRY_ENVIRONMENT }}
+          NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: ${{ secrets.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE }}
+          NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: ${{ secrets.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST }}
+          NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL: ${{ secrets.NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL }}
+          NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ${{ secrets.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY }}
+          NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ${{ secrets.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL }}
+          NEXT_TELEMETRY_DISABLED: ${{ secrets.NEXT_TELEMETRY_DISABLED }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          POLE_EMPLOI_CONNECT_CLIENT_ID: ${{ secrets.POLE_EMPLOI_CONNECT_CLIENT_ID }}
+          POLE_EMPLOI_CONNECT_CLIENT_SECRET: ${{ secrets.POLE_EMPLOI_CONNECT_CLIENT_SECRET }}
+          POLE_EMPLOI_CONNECT_SCOPE: ${{ secrets.POLE_EMPLOI_CONNECT_SCOPE }}
+          POLE_EMPLOI_CONNECT_URL: ${{ secrets.POLE_EMPLOI_CONNECT_URL }}
+          REDIS_DB: ${{ secrets.REDIS_DB }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          REDIS_USERNAME: ${{ secrets.REDIS_USERNAME }}
+          SCALINGO_REDIS_URL: ${{ secrets.SCALINGO_REDIS_URL }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SENTRY_ENVIRONMENT: ${{ secrets.SENTRY_ENVIRONMENT }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_TRACES_SAMPLE_RATE: ${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}
+          SENTRY_URL: ${{ secrets.SENTRY_URL }}
+          SENTRY_USER_AGENT_BLACKLIST: ${{ secrets.SENTRY_USER_AGENT_BLACKLIST }}
+          STRAPI_AUTH_PROD: ${{ secrets.STRAPI_AUTH_PROD }}
+          STRAPI_AUTH: ${{ secrets.STRAPI_AUTH }}
+          STRAPI_BASE_URL_PROD: ${{ secrets.STRAPI_BASE_URL_PROD }}
+          STRAPI_BASE_URL: ${{ secrets.STRAPI_BASE_URL }}
+          STRAPI_MEDIA_URL: ${{ secrets.STRAPI_MEDIA_URL }}
+          STRAPI_TOKEN_API: ${{ secrets.STRAPI_TOKEN_API }}
+          STRAPI_URL_API_PROD: ${{ secrets.STRAPI_URL_API_PROD }}
+          STRAPI_URL_API: ${{ secrets.STRAPI_URL_API }}
+      - name: Start redis
+        run: |
+          nohup docker-compose up </dev/null &>/dev/null &
+      - name: Sleep for 5 seconds
+        run: sleep 5s
+        shell: bash
+      - name: Start dev
+        run: |
+          nohup npm run dev </dev/null &>/dev/null &
+      - name: Sleep for 5 seconds
+        run: sleep 5s
+        shell: bash
+      - name: Run test e2e and kill start
+        run: |
+          npm run e2e
+          pkill -9 node

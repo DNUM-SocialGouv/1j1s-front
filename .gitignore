@@ -40,3 +40,5 @@ yarn-error.log*
 
 # cypress
 /cypress/videos
+.gitsecret/keys/random_seed
+!*.secret

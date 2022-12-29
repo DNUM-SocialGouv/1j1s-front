@@ -16,7 +16,7 @@ const releaseName = () => {
 };
 const userAgentBlacklist = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
-Sentry.init({
+process.env.NODE_ENV === 'production' && Sentry.init({
   beforeSend(event) {
     if(!SEND_DATA) {
       return null;
