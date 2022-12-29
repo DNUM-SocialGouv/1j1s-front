@@ -27,6 +27,8 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   const [error, setError] = useState<string | null>(null);
   const rangeBoxRef = useRef<HTMLDivElement>(null);
   const labelledBy = useRef(uuidv4());
+  const inputMinRef = useRef(uuidv4());
+  const inputMaxRef = useRef(uuidv4());
   const BUTTON_LABEL = 'Appliquer';
 
   const closeRangeBoxOnClickOutside = useCallback((event: MouseEvent) => {
@@ -80,11 +82,11 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   };
 
   const renderRangeBox = () => (
-    <div className={styles.rangeBox}>
-      <label className={styles.label} htmlFor={'inputMin'}>Minimum</label>
+    <fieldset className={styles.rangeBox}>
+      <label className={styles.label} htmlFor={inputMinRef.current}>Minimum</label>
       <span className={styles.customRangeInputWrapper}>
         <input
-          id={'inputMin'}
+          id={inputMinRef.current}
           type="number"
           min={min}
           max={max}
@@ -96,23 +98,22 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
           {unite}
         </span>
       </span>
-      <label className={styles.label}>Maximum</label>
+      <label className={styles.label} htmlFor={inputMaxRef.current}>Maximum</label>
       <span className={classNames(styles.customRangeInputWrapper, styles.customRangeInputWrapperLastInput)}>
         <input
+          id={inputMaxRef.current}
           type="number"
-          min={min}
+          min={min}compon
           max={max}
           value={maxValue}
           onChange={onMaxInputChange}
           onFocus={() => setError(null)}
         />
-        <span>
-          {unite}
-        </span>
+        <span>{unite}</span>
         { error && <p className={styles.error}>{error}</p>}
       </span>
       <ButtonComponent className={styles.submitButton} type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
-    </div>
+    </fieldset>
   );
 
   return (

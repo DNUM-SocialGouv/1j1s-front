@@ -72,9 +72,10 @@ function realMockUseInstantSearch(_props: UseInstantSearchProps): unknown {
     refresh: jest.fn(),
     status: jest.fn(),
     use: jest.fn(),
-  }
+  };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function realMockUseRange(_props: UseRangeProps): RangeRenderState {
   return {
     canRefine: true,

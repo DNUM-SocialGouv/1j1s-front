@@ -61,7 +61,8 @@ export function mockUseInstantSearch(override: Partial<unknown>) {
     refresh: jest.fn(),
     status: jest.fn(),
     use: jest.fn(),
-  }
+    ...override,
+  };
 }
 
 export function mockUseRangeInput(override: Partial<RangeRenderState>) {
