@@ -6,7 +6,6 @@ import { RécupererActualitesUseCase } from '~/server/cms/useCases/récupererAct
 import { RécupérerEspaceJeuneUseCase } from '~/server/cms/useCases/récupérerEspaceJeuneUseCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
-import { HttpClientService } from '~/server/services/http/httpClientService';
 
 export interface CmsDependencies {
   consulterArticle: ConsulterArticleUseCase
@@ -20,18 +19,17 @@ export interface CmsDependencies {
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
 
-export const cmsDependenciesContainer = (httpClientService: HttpClientService, configurationService: ConfigurationService): CmsDependencies => {
-  const repository = new StrapiCmsRepository(httpClientService);
+export function cmsDependenciesContainer(cmsRepository: StrapiCmsRepository, configurationService: ConfigurationService): CmsDependencies {
   const { IS_REVIEW_APP } = configurationService.getConfiguration();
   const duréeDeValiditéEnSecondes = IS_REVIEW_APP ? 20 : UN_JOUR_EN_SECONDES;
 
   return {
-    consulterArticle: new ConsulterArticleUseCase(repository),
-    consulterFicheMetier: new ConsulterFicheMetierUseCase(repository),
-    consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(repository),
+    consulterArticle: new ConsulterArticleUseCase(cmsRepository),
+    consulterFicheMetier: new ConsulterFicheMetierUseCase(cmsRepository),
+    consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
     duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
-    récupererActualites: new RécupererActualitesUseCase(repository),
-    récupérerEspaceJeune: new RécupérerEspaceJeuneUseCase(repository),
-    récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(repository),
+    récupererActualites: new RécupererActualitesUseCase(cmsRepository),
+    récupérerEspaceJeune: new RécupérerEspaceJeuneUseCase(cmsRepository),
+    récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
   };
-};
+}

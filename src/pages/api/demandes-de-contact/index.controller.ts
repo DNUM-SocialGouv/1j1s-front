@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { DemandeDeContactType } from '~/server/demande-de-contact/domain/DemandeDeContact';
+import { DemandeDeContactType } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';

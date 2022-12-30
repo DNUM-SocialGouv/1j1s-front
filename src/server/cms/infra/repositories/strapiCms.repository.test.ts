@@ -16,11 +16,14 @@ import { HttpClientService } from '~/server/services/http/httpClientService';
 import {
   anAxiosError,
   anAxiosResponse,
+  anHttpClientService,
   anHttpClientServiceWithAuthentification,
 } from '~/server/services/http/httpClientService.fixture';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 describe('strapi cms repository', () => {
   let httpClientService: HttpClientService;
+  let authenticatedHttpClientService: HttpClientServiceWithAuthentification;
   let strapiCmsRepository: StrapiCmsRepository;
 
   describe('getActualites', () => {
@@ -41,9 +44,10 @@ describe('strapi cms repository', () => {
 
   describe('getArticleBySlug', () => {
     describe('Si un article est trouvé', () => {
-      it('récupère l\'article selon le slug', async () => {
-        httpClientService = anHttpClientServiceWithAuthentification();
-        strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+      it('récupère l‘article selon le slug', async () => {
+        httpClientService = anHttpClientService();
+        authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+        strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anArticleAxiosResponse());
         const expectedArticle = anArticle();
@@ -63,12 +67,12 @@ describe('strapi cms repository', () => {
 
     beforeEach(() => {
       httpClientService = anHttpClientServiceWithAuthentification();
-      strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+      strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
     });
     afterEach(() => {
       jest.resetAllMocks();
     });
-    it('appelle l\'endpoint avec les bons paramètres', async () => {
+    it('appelle l‘endpoint avec les bons paramètres', async () => {
       jest.spyOn(httpClientService, 'get');
 
       await strapiCmsRepository.getFicheMetierByNom(nomMetier);
@@ -84,7 +88,7 @@ describe('strapi cms repository', () => {
         expect(result.result).toEqual(expectedFicheMetier);
       });
     });
-    describe('Si aucune fiche métier n\'est trouvée', () => {
+    describe('Si aucune fiche métier n‘est trouvée', () => {
       it('retourne une erreur', async () => {
         jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
 
@@ -98,7 +102,7 @@ describe('strapi cms repository', () => {
   describe('getMentionObligatoire', () => {
     it('retourne le mention obligatoire a consulter', async () => {
       httpClientService = anHttpClientServiceWithAuthentification();
-      strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+      strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
 
       jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
         data: {
@@ -123,7 +127,7 @@ describe('strapi cms repository', () => {
     describe('Si les cartes mesures jeunes sont trouvés', () => {
       it('récupère les cartes jeunes', async () => {
         httpClientService = anHttpClientServiceWithAuthentification();
-        strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+        strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anEspaceJeuneResponse()));
         const expectedMesuesJeunes = anEspaceJeune();
@@ -139,7 +143,7 @@ describe('strapi cms repository', () => {
     describe('quand les cartes sont trouvées', () => {
       it('récupère les cartes jeunes', async () => {
         httpClientService = anHttpClientServiceWithAuthentification();
-        strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+        strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
 
         jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(mesuresEmployeursResponse()));
         const expectedMesuresEmployeurs = desMesuresEmployeurs();

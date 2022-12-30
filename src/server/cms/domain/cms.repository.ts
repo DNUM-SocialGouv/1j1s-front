@@ -10,8 +10,14 @@ import { MesuresEmployeurs } from './mesuresEmployeurs';
 export interface CmsRepository {
   getActualites(): Promise<Either<CarteActualite[]>>
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
+
   getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
+
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
-  getEspaceJeune() : Promise<Either<EspaceJeune>>
-  getMesuresEmployeurs() : Promise<Either<MesuresEmployeurs>>
+
+  getEspaceJeune(): Promise<Either<EspaceJeune>>
+
+  getMesuresEmployeurs(): Promise<Either<MesuresEmployeurs>>
+
+  save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
 }

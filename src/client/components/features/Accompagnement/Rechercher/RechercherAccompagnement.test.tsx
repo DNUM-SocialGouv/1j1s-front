@@ -11,8 +11,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-  aÉtablissementMissionLocaleService,
-  anÉtablissementAccompagnementService } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
+  anÉtablissementAccompagnementService,
+  anÉtablissementMissionLocaleService,
+} from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -107,8 +108,8 @@ describe('RechercherAccompagnement', () => {
       });
     });
 
-    describe('quand on filtre par localisation et type d\'accompagnement', () => {
-      it('retourne des établissements liés à la localisation et type d\'accompagnement', async () => {
+    describe('quand on filtre par localisation et type d‘accompagnement', () => {
+      it('retourne des établissements liés à la localisation et type d‘accompagnement', async () => {
         const établissementAccompagnementService = anÉtablissementAccompagnementService();
         const localisationServiceMock = aLocalisationService();
 
@@ -160,8 +161,8 @@ describe('RechercherAccompagnement', () => {
       });
     });
   });
-  describe('quand la localisation ou le type d\'accompagnement est manquant', () => {
-    it('n\'effectue pas la recherche', async () => {
+  describe('quand la localisation ou le type d‘accompagnement est manquant', () => {
+    it('n‘effectue pas la recherche', async () => {
       const établissementAccompagnementService = anÉtablissementAccompagnementService();
       const localisationServiceMock = aLocalisationService();
 
@@ -186,7 +187,7 @@ describe('RechercherAccompagnement', () => {
 
   describe('quand le type d‘accompagnement est Mission Locale', () => {
     it('affiche le bouton "Je souhaite être rappelé"', async () => {
-      const établissementAccompagnementService = aÉtablissementMissionLocaleService();
+      const établissementAccompagnementService = anÉtablissementMissionLocaleService();
       const localisationServiceMock = aLocalisationService();
 
       mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'mission_locale' } });

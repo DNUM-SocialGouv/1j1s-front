@@ -1,11 +1,11 @@
 import { ErrorMessageComponent } from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent';
 
-export const NoResultErrorMessage = () => {
+export function NoResultErrorMessage() {
   return (
     <ErrorMessageComponent
       title="0 résultat"
       explanationText="Malheureusement, aucune offre ne correspond à votre recherche !"
-      solutionText="Vérifiez l&apos;orthographe, essayez d&apos;autres mots-clés ou élargissez votre zone géographique de recherche." />
+      solutionText="Vérifiez l‘orthographe, essayez d‘autres mots-clés ou élargissez votre zone géographique de recherche." />
   );
 };
 

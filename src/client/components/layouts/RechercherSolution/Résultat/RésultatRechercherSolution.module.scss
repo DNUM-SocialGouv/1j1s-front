@@ -41,7 +41,7 @@
 }
 
 .callToAction {
-  @extend %linkWithRightIcon;
+  color: $color-primary;
 }
 
 @include media(medium) {

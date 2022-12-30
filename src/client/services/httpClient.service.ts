@@ -36,25 +36,38 @@ export class HttpClientService {
     config?: AxiosRequestConfig,
   ): Promise<Either<Response>> {
     try {
-      const response = await this.client.get(resource, config);
-      return createSuccess(response.data as Response);
+      const response = await this.client.get<Response>(resource, config);
+      return createSuccess(response.data);
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        if(e.response?.status.toString().startsWith('50')) {
-          return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-        }
-        if(e.response?.status === 400) {
-          return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-        }
-        if(e.response?.status === 404) {
-          return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
-        }
-      }
-      return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+      return this.handleError(e);
     }
   }
 
-  async post<Body>(endpoint: string, body: Body) {
-    return this.client.post(endpoint, body);
+  async post<Body, Response = undefined>(
+    resource: string,
+    body: Body,
+    config?: AxiosRequestConfig,
+  ): Promise<Either<Response>> {
+    try {
+      const response = await this.client.post<Response>(resource, body, config);
+      return createSuccess(response.data);
+    } catch (e) {
+      return this.handleError(e);
+    }
+  }
+
+  private handleError(e: unknown) {
+    if (axios.isAxiosError(e)) {
+      if(e.response?.status.toString().startsWith('50')) {
+        return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+      }
+      if(e.response?.status === 400) {
+        return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+      }
+      if(e.response?.status === 404) {
+        return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+      }
+    }
+    return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
   }
 }

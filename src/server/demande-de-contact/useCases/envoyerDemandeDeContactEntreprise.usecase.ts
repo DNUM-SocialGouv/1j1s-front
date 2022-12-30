@@ -1,28 +1,18 @@
 import Joi from 'joi';
 import phone from 'phone';
 
+import { DemandeDeContactEntreprise } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { DemandeDeContactEntreprise } from '../domain/DemandeDeContact';
-import { DemandeDeContactRepository } from '../domain/DemandeDeContact.repository';
-
-type EnvoyerDemandeDeContactEntreprise = Partial<{
-    prénom: string
-    nom: string
-    email: string
-    téléphone: string
-    sujet: string
-    message: string
-}>
 
 export class EnvoyerDemandeDeContactEntrepriseUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
 
-  async handle(command: EnvoyerDemandeDeContactEntreprise): Promise<Either<void>> {
+  async handle(command: Partial<DemandeDeContactEntreprise>): Promise<Either<void>> {
     try {
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = Joi.attempt(command, DemandeDeContactEntrepriseValidator);
-      return this.demandeDeContactRepository.saveEntreprise(demandeDeContactEntreprise);
+      return this.demandeDeContactRepository.envoyer(demandeDeContactEntreprise);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }
@@ -41,7 +31,7 @@ const DemandeDeContactEntrepriseValidator = Joi.object({
 function validatePhone (input: string): string {
   const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false  });
   if (!isValid) {
-    throw Error('Le numéro de téléphone n\'est pas un numéro français valide');
+    throw Error('Le numéro de téléphone n‘est pas un numéro français valide');
   }
   return phoneNumber;
 }

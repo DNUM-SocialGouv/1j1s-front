@@ -1,87 +1,43 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import {
-  LienSolutionAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/RechercherAccompagnement';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
-import {
-  RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
-import { Skeleton } from '../../ui/Loader/Skeleton/Skeleton';
-
-export interface LienSolution {
-  id: string
-  lienOffre: string
-  intituléOffre: string
-  logoEntreprise: string
-  nomEntreprise?: string
-  étiquetteOffreList: string[]
-}
-
-interface RechercherSolutionLayoutProps<T> {
-  bannière: React.ReactNode
+interface RechercherSolutionLayoutProps {
+  bannière: React.ReactElement
   erreurRecherche?: ErreurMétier
-  étiquettesRecherche: React.ReactNode
-  formulaireRecherche: React.ReactNode
+  étiquettesRecherche?: React.ReactElement
+  formulaireRecherche: React.ReactElement
   isLoading: boolean
-  listeSolution: T[]
-	ariaLabelListeSolution?: string
   messageRésultatRecherche: string
   nombreSolutions: number
   paginationOffset?: number
   maxPage?: number
-  mapToLienSolution(data: T): LienSolution | LienSolutionAccompagnement
-  displaySolution?(lienSolution: LienSolution | LienSolutionAccompagnement): React.ReactNode
+  listeSolutionElement: React.ReactElement
 }
 
-function defaultDisplaySolution(lienSolution: LienSolution): React.ReactNode {
-  return (
-    <li key={lienSolution.id}>
-      <RésultatRechercherSolution
-        lienOffre={lienSolution.lienOffre}
-        intituléOffre={lienSolution.intituléOffre}
-        logoEntreprise={lienSolution.logoEntreprise}
-        nomEntreprise={lienSolution.nomEntreprise}
-        étiquetteOffreList={lienSolution.étiquetteOffreList}
-      />
-    </li>
-  );
-}
-
-export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps<T>) {
+export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
   const {
     bannière,
     erreurRecherche,
     étiquettesRecherche,
     formulaireRecherche,
-    listeSolution,
-	  ariaLabelListeSolution,
     messageRésultatRecherche,
-    mapToLienSolution,
     nombreSolutions,
     paginationOffset,
     maxPage,
     isLoading,
-    displaySolution = defaultDisplaySolution,
+    listeSolutionElement,
   } = props;
 
   const router = useRouter();
   const hasRouterQuery = Object.keys(router.query).length > 0;
-
-  const displaySolutionList = useCallback((displaySolution: (lienSolution: LienSolution | LienSolutionAccompagnement) => React.ReactNode) => (
-    <ul aria-label={ariaLabelListeSolution}>
-      {
-        listeSolution.map(mapToLienSolution).map((lienSolution: LienSolution | LienSolutionAccompagnement) => displaySolution(lienSolution))
-      }
-    </ul>
-  ), [ariaLabelListeSolution, listeSolution, mapToLienSolution]);
 
   return (
     <>
@@ -93,16 +49,15 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
           </Container>
         </div>
 
-
         {hasRouterQuery &&
           <>
-            {erreurRecherche || listeSolution.length === 0 && !isLoading
+            {erreurRecherche || nombreSolutions === 0 && !isLoading
               ? <ErrorComponent errorType={erreurRecherche}/>
               : <>
                 <div className={'separator'}>
                   <Container className={styles.informationRésultat}>
                     {étiquettesRecherche}
-                    <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+                    <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
                       <h2>{messageRésultatRecherche}</h2>
                     </Skeleton>
                   </Container>
@@ -110,17 +65,17 @@ export function RechercherSolutionLayout<T>(props: RechercherSolutionLayoutProps
 
                 <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
                   <Container>
-                    <Skeleton type='card' isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                      {displaySolutionList(displaySolution)}
+                    <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+                      {listeSolutionElement}
                     </Skeleton>
                     {paginationOffset && nombreSolutions > paginationOffset &&
-                    <div className={styles.pagination}>
-                      <Pagination
-                        numberOfResult={nombreSolutions}
-                        numberOfResultPerPage={paginationOffset}
-                        maxPage={maxPage}
-                      />
-                    </div>
+                      <div className={styles.pagination}>
+                        <Pagination
+                          numberOfResult={nombreSolutions}
+                          numberOfResultPerPage={paginationOffset}
+                          maxPage={maxPage}
+                        />
+                      </div>
                     }
                   </Container>
                 </div>

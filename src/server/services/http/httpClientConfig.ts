@@ -8,9 +8,7 @@ import { StrapiLoginTokenAgent } from './StrapiLoginTokenAgent';
 export interface HttpClientConfig {
   apiName: string
   apiUrl: string
-  apiKey?: string
-  overrideInterceptor?: boolean
-  label?: string
+  apiHeaders?: Record<string, string>
 }
 
 export interface TokenAgent {
@@ -22,17 +20,15 @@ export interface HttpClientWithAuthentificationConfig extends HttpClientConfig {
 
 const getApiEngagementConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: configurationService.getConfiguration().API_ENGAGEMENT_API_KEY_TOKEN,
+    apiHeaders: { apiKey: configurationService.getConfiguration().API_ENGAGEMENT_API_KEY_TOKEN },
     apiName: 'API_ENGAGEMENT',
     apiUrl: configurationService.getConfiguration().API_ENGAGEMENT_BASE_URL,
-    overrideInterceptor: false,
   });
 };
 
 const getAuthApiStrapiConfig = (configurationService: ConfigurationService): HttpClientWithAuthentificationConfig => {
   const [ login, password ] = configurationService.getConfiguration().STRAPI_AUTH.split(':');
   return ({
-    apiKey: undefined,
     apiName: 'STRAPI_URL_API',
     apiUrl: configurationService.getConfiguration().STRAPI_URL_API,
     tokenAgent: new StrapiLoginTokenAgent({
@@ -45,46 +41,47 @@ const getAuthApiStrapiConfig = (configurationService: ConfigurationService): Htt
 
 const getApiStrapiConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'STRAPI_URL_API',
     apiUrl: configurationService.getConfiguration().STRAPI_URL_API,
-    overrideInterceptor: false,
   });
 };
 
 const getApiGeoGouvConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_GEO_GOUV',
     apiUrl: configurationService.getConfiguration().API_GEO_BASE_URL,
-    overrideInterceptor: false,
   });
 };
 
 const getApiLEEConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_LES_ENTREPRISES_SENGAGENT',
     apiUrl: configurationService.getConfiguration().API_LES_ENTREPRISES_SENGAGENT_URL,
-    overrideInterceptor: false,
   });
 };
 
 const getApiAdresseConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_ADRESSE_BASE_URL',
     apiUrl: configurationService.getConfiguration().API_ADRESSE_BASE_URL,
-    overrideInterceptor: false,
   });
 };
 
 const getApiÉtablissementsPublicsConfig = (configurationService: ConfigurationService): HttpClientConfig => {
   return ({
-    apiKey: undefined,
     apiName: 'API_ETABLISSEMENTS_PUBLICS',
     apiUrl: configurationService.getConfiguration().API_ETABLISSEMENTS_PUBLICS,
-    overrideInterceptor: false,
+  });
+};
+
+const getApiTipimailConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+  return ({
+    apiHeaders: { 'Content-Type': 'application/json',
+      'X-Tipimail-ApiKey': configurationService.getConfiguration().TIPIMAIL_API_KEY,
+      'X-Tipimail-ApiUser': configurationService.getConfiguration().TIPIMAIL_API_USER,
+    },
+    apiName: 'API_TIPIMAIL',
+    apiUrl: configurationService.getConfiguration().TIPIMAIL_API_BASE_URL,
   });
 };
 
@@ -120,6 +117,7 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
+    mailClientService: new HttpClientService(getApiTipimailConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),

@@ -4,13 +4,12 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 describe('LesEntreprisesSEngagentService', () => {
   describe('l’envoie du formulaire c’est bien passé', () => {
-    it('revoie un Success', async () => {
+    it('renvoie un Success', async () => {
       const httpClientService = anHttpClientService();
-      jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(undefined));
+      jest.spyOn(httpClientService, 'post').mockResolvedValue(createSuccess(undefined));
       const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 
       const result = await lesEntreprisesSEngagentServiceService.envoyerFormulaireEngagement({
@@ -45,9 +44,9 @@ describe('LesEntreprisesSEngagentService', () => {
   });
 
   describe('l’envoie du formulaire tombe en erreur', () => {
-    it('revoie une Failure', async () => {
+    it('renvoie une Failure', async () => {
       const httpClientService = anHttpClientService();
-      jest.spyOn(httpClientService, 'post').mockRejectedValue(new Error('Error'));
+      jest.spyOn(httpClientService, 'post').mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
       const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 
       const result = await lesEntreprisesSEngagentServiceService.envoyerFormulaireEngagement({

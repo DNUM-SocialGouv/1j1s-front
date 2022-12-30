@@ -1,0 +1,161 @@
+@import "@styles/utilities";
+
+.card {
+  padding: 1rem;
+
+  @include media(large) {
+    align-items: center;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 0 0;
+  }
+}
+
+.content {
+  display: flex;
+  align-self: stretch;
+  gap: 1.5rem;
+}
+
+.logo {
+  width: 6.8rem;
+
+  &Alignment {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+  }
+}
+
+.logo, .logoAlignment {
+  height: 6.8rem;
+}
+
+.mainContent {
+  align-self: center;
+
+  @include media(large) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+.title {
+  margin-bottom: 0.5rem;
+  @extend %text-medium;
+}
+
+.address {
+  @extend %text-regular;
+}
+
+.tags {
+  list-style-type: none;
+  margin-top: auto;
+}
+
+.contactMailÉtablissement {
+  color: $color-primary;
+  margin-top: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+
+  @include media(large) {
+    align-self: flex-start;
+  }
+}
+
+.contactFormulaireÉtablissement {
+  margin-top: 1.25rem;
+  font-weight: bold;
+  align-self: center;
+  font-size: 1rem;
+
+  @include media(large) {
+    align-self: flex-start;
+  }
+}
+
+.buttonIcon {
+  vertical-align: sub;
+  margin-left: 0.5rem;
+}
+
+.details {
+  width: 15rem;
+  align-self: center;
+
+  @include media(large) {
+    margin-left: auto;
+    width: 17rem;
+    align-self: flex-start;
+  }
+
+  .summary {
+    @extend %text-regular;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+    padding: 0.5rem 0 0 0;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: $color-primary;
+    cursor: pointer;
+    list-style: none;
+    width: 16rem;
+
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-repeat: no-repeat;
+      background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23566BB1' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
+      vertical-align: top;
+      margin-left: 0.5rem;
+    }
+
+    @include media(large) {
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    &:hover {
+      color: $color-primary-on-hover;
+      list-style: none;
+
+      &:after {
+        background-image: url("data:image/svg+xml;charset=utf8,<svg width='24' height='25' viewBox='0 0 24 25' fill='%23735BF2' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12 13.5797L16.95 8.62971L18.364 10.0437L12 16.4077L5.63599 10.0437L7.04999 8.62971L12 13.5797Z' /></svg>");
+      }
+    }
+  }
+
+  &[open] .summary:after {
+    transform: rotate(-180deg);
+  }
+}
+
+.horaireBackground {
+  width: 16.7rem;
+  display: flex;
+  align-self: center;
+
+  @include media(large) {
+    width: calc(100% - 1rem);
+  }
+}
+
+.listeHoraire {
+  list-style: none;
+  line-height: 1.15rem;
+  margin-block: 0.25rem;
+  margin-left: 1rem;
+  width: 12rem;
+  @extend %text-small;
+
+  @include media(large) {
+    margin-left: 0;
+    width: auto;
+  }
+}

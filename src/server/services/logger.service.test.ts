@@ -4,7 +4,7 @@ import { LoggerService } from '~/server/services/logger.service';
 
 jest.mock('@sentry/nextjs');
 
-const SentryMock = jest.mocked(Sentry, true);
+const SentryMock = jest.mocked(Sentry);
 const SentryScopeMock = {
   setTag: jest.fn(),
 } as unknown as Sentry.Scope;

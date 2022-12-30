@@ -6,6 +6,7 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
+import { MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 import {
   mapActualites,
   mapArticle,
@@ -22,16 +23,18 @@ import {
   StrapiCollectionTypeResponse,
   StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
-import { handleGetFailureError } from '~/server/cms/infra/repositories/strapiCmsError';
+import { handleFailureError } from '~/server/cms/infra/repositories/strapiCmsError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 import { HttpClientService } from '~/server/services/http/httpClientService';
-
-import { MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 export class StrapiCmsRepository implements CmsRepository {
-  constructor(private httpClientService: HttpClientService) {}
+  constructor(
+    private httpClientService: HttpClientService,
+    private authenticatedHttpClientService: HttpClientServiceWithAuthentification,
+  ) {}
 
   async getActualites(): Promise<Either<CarteActualite[]>> {
     const query = {
@@ -99,7 +102,16 @@ export class StrapiCmsRepository implements CmsRepository {
       const { data }: AxiosResponse = await this.httpClientService.get(endpoint);
       return createSuccess(mapper(data));
     } catch (e) {
-      return handleGetFailureError(e, content);
+      return handleFailureError(e, content);
+    }
+  }
+
+  async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {
+    try {
+      const { data } = await this.authenticatedHttpClientService.post<{ data: Body }, Response>(resource, { data: body });
+      return createSuccess(data);
+    } catch (e) {
+      return handleFailureError(e, resource);
     }
   }
 }

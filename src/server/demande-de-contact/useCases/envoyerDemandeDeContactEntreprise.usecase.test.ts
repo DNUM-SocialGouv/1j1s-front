@@ -1,4 +1,5 @@
-import { DemandeDeContactEntreprise } from '~/server/demande-de-contact/domain/DemandeDeContact';
+import { DemandeDeContactEntreprise } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { EnvoyerDemandeDeContactEntrepriseUseCase } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -13,16 +14,15 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
       sujet: 'rrr',
       téléphone: '0678954322',
     };
+    
+    const demandeDeContactRepository = {
+      envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
+    } as unknown as DemandeDeContactRepository;
 
     describe('quand la command ne contient aucun champ', () => {
       it('résout une DEMANDE_INCORRECTE', async () => {
         // Given
-        const repository = {
-          saveCEJ: jest.fn(),
-          saveEntreprise: jest.fn(),
-          savePOE: jest.fn(),
-        };
-        const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
+        const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactRepository);
 
         // When
         const result = await envoyerDemanderDeContactEntrepriseUseCase.handle({});
@@ -34,12 +34,7 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
 
     it('appelle le repository', async () => {
       // Given
-      const repository = {
-        saveCEJ: jest.fn(),
-        saveEntreprise: jest.fn(() => Promise.resolve(createSuccess(undefined))),
-        savePOE: jest.fn(),
-      };
-      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
+      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactRepository);
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = {
         email: 'toto@msn.fr',
         message: 'rhrh',
@@ -51,18 +46,13 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
       // When
       const result = await envoyerDemanderDeContactEntrepriseUseCase.handle(command);
       // Then
-      expect(repository.saveEntreprise).toHaveBeenCalledWith(demandeDeContactEntreprise);
+      expect(demandeDeContactRepository.envoyer).toHaveBeenCalledWith(demandeDeContactEntreprise);
       expect(result).toEqual(createSuccess(undefined));
     });
 
     it('appelle le repository même avec un téléphone fixe', async () => {
       // Given
-      const repository = {
-        saveCEJ: jest.fn(),
-        saveEntreprise: jest.fn(() => Promise.resolve(createSuccess(undefined))),
-        savePOE: jest.fn(),
-      };
-      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
+      const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactRepository);
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = {
         email: 'toto@msn.fr',
         message: 'rhrh',
@@ -74,7 +64,7 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
       // When
       const result = await envoyerDemanderDeContactEntrepriseUseCase.handle({ ...command, téléphone: '0123456789' });
       // Then
-      expect(repository.saveEntreprise).toHaveBeenCalledWith(demandeDeContactEntreprise);
+      expect(demandeDeContactRepository.envoyer).toHaveBeenCalledWith(demandeDeContactEntreprise);
       expect(result).toEqual(createSuccess(undefined));
     });
 
@@ -87,12 +77,7 @@ describe('EnvoyerDemanderDeContact pour la partie Entreprise', () => {
       describe(`mais avec ${JSON.stringify(invalid)}`, () => {
         it('résout une Failure', async () => {
           // Given
-          const repository = {
-            saveCEJ: jest.fn(),
-            saveEntreprise: jest.fn(() => Promise.resolve(createSuccess(undefined))),
-            savePOE: jest.fn(),
-          };
-          const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(repository);
+          const envoyerDemanderDeContactEntrepriseUseCase = new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactRepository);
           const commandeInvalide = { ...command, ...invalid };
           // When
           const result = await envoyerDemanderDeContactEntrepriseUseCase.handle(commandeInvalide);

@@ -9,32 +9,32 @@ export namespace RésultatRechercheÉtablissementPublicResponse {
 
   export namespace Feature {
     export interface Properties {
-      id: string,
-      nom: string,
-      adresses: Properties.Adresse[],
-      horaires: Properties.Horaire[],
-      email?: string,
-      telephone: string,
-      pivotLocal?: string
+      id: string
+      nom: string
+      adresses: Properties.Adresse[]
+      horaires: Properties.Horaire[]
+      email?: string
+      telephone: string
+      pivotLocal: string
     }
 
     export namespace Properties {
       export interface Adresse {
-        type: string,
+        type: string
         lignes: string[]
-        codePostal: string,
+        codePostal: string
         commune: string
       }
 
       export interface Horaire {
-        du: string,
-        au: string,
+        du: string
+        au: string
         heures: Horaire.Heure[]
       }
 
       export namespace Horaire {
         export interface Heure {
-          de: string,
+          de: string
           a: string
         }
       }

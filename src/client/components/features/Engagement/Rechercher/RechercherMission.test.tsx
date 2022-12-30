@@ -25,8 +25,8 @@ describe('RechercherMission', () => {
     jest.resetAllMocks();
   });
 
-  describe('quand aucune recherche n\'est lancée', () => {
-    it('affiche un formulaire de recherche, sans résultat ou message d\'erreur', () => {
+  describe('quand aucune recherche n‘est lancée', () => {
+    it('affiche un formulaire de recherche, sans résultat ou message d‘erreur', () => {
       const missionEngagementServiceMock = aMissionEngagementService();
       const localisationServiceMock = aLocalisationService();
 
@@ -53,7 +53,7 @@ describe('RechercherMission', () => {
 
   describe('quand on recherche un service civique', () => {
     describe('quand on recherche par domaine', () => {
-      it('appelle l\'api service civique avec le domaine séléctionné', async () => {
+      it('appelle l‘api service civique avec le domaine séléctionné', async () => {
         const missionEngagementServiceMock = aMissionEngagementService();
         const localisationServiceMock = aLocalisationService();
 
@@ -70,7 +70,7 @@ describe('RechercherMission', () => {
       });
     });
 
-    describe('quand la recherche n\'a qu\'un seul résultat', () => {
+    describe('quand la recherche n‘a qu‘un seul résultat', () => {
       it('affiche le nombre de résultat au singulier', async () => {
         const missionEngagementServiceMock = aSingleResultMissionEngagementService();
         const localisationServiceMock = aLocalisationService();
@@ -87,7 +87,7 @@ describe('RechercherMission', () => {
     });
 
     describe('quand on recherche par distance', () => {
-      it('appelle l\'api service civique avec la distance sélectionnée', async () => {
+      it('appelle l‘api service civique avec la distance sélectionnée', async () => {
         const missionEngagementServiceMock = aMissionEngagementService();
         const localisationServiceMock = aLocalisationService();
 
@@ -116,7 +116,7 @@ describe('RechercherMission', () => {
 
   describe('quand on recherche un bénévolat', () => {
     describe('quand on recherche par domaine', () => {
-      it('appelle l\'api bénévolat avec le domaine sélectionné', async () => {
+      it('appelle l‘api bénévolat avec le domaine sélectionné', async () => {
         const missionEngagementServiceMock = aMissionEngagementService();
         const localisationServiceMock = aLocalisationService();
 
@@ -133,7 +133,7 @@ describe('RechercherMission', () => {
       });
     });
 
-    describe('quand la recherche n\'a qu\'un seul résultat', () => {
+    describe('quand la recherche n‘a qu‘un seul résultat', () => {
       it('affiche le nombre de résultat au singulier', async () => {
         const missionEngagementServiceMock = aSingleResultMissionEngagementService();
         const localisationServiceMock = aLocalisationService();
@@ -150,7 +150,7 @@ describe('RechercherMission', () => {
     });
 
     describe('quand on recherche par distance', () => {
-      it('appelle l\'api bénévolat avec la distance sélectionnée', async () => {
+      it('appelle l‘api bénévolat avec la distance sélectionnée', async () => {
         const missionEngagementServiceMock = aMissionEngagementService();
         const localisationServiceMock = aLocalisationService();
 

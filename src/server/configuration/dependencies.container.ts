@@ -4,7 +4,22 @@ import {
 import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
 import { RechercherAlternanceUseCase } from '~/server/alternances/useCases/rechercherAlternance.useCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
-import { StrapiDemandeDeContactRepository } from '~/server/demande-de-contact/infra/strapiDemandeDeContact.repository';
+import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
+import {
+  DemandeDeContactAccompagnementRepository,
+} from '~/server/demande-de-contact/infra/repositories/accompagnement/demandeDeContactAccompagnement.repository';
+import {
+  DemandeDeContactCEJRepository,
+} from '~/server/demande-de-contact/infra/repositories/cej/demandeDeContactCEJ.repository';
+import {
+  DemandeDeContactEntrepriseRepository,
+} from '~/server/demande-de-contact/infra/repositories/entreprise/demandeDeContactEntreprise.repository';
+import {
+  DemandeDeContactPOERepository,
+} from '~/server/demande-de-contact/infra/repositories/poe/demandeDeContactPOE.repository';
+import {
+  EnvoyerDemandeDeContactAccompagnementUseCase,
+} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactAccompagnement.usecase';
 import {
   EnvoyerDemandeDeContactCEJUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
@@ -12,7 +27,7 @@ import {
   EnvoyerDemandeDeContactEntrepriseUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
 import {
-  EnvoyerDemandeDeContactPOEUsecase,
+  EnvoyerDemandeDeContactPOEUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactPOE.usecase';
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import { ConsulterOffreEmploiUseCase } from '~/server/emplois/useCases/consulterOffreEmploi.useCase';
@@ -20,6 +35,7 @@ import { RechercherOffreEmploiUseCase } from '~/server/emplois/useCases/recherch
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import { ConsulterMissionEngagementUseCase } from '~/server/engagement/useCases/consulterMissionEngagement.useCase';
 import { RechercherMissionEngagementUseCase } from '~/server/engagement/useCases/rechercherMissionEngagement.useCase';
+import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import {
   StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
@@ -36,6 +52,9 @@ import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repos
 import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 import {
+  TipimailRepository,
+} from '~/server/mail/infra/repositories/tipimail.repository';
+import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
 import {
@@ -46,8 +65,6 @@ import { MockedCacheService } from '~/server/services/cache/cacheService.fixture
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
-
-import { ApiRejoindreLaMobilisationRepository } from '../entreprises/infra/apiRejoindreLaMobilisation.repository';
 
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
@@ -89,7 +106,8 @@ export interface LocalisationDependencies {
 export interface DemandeDeContactDependencies {
   envoyerDemandeDeContactCEJUseCase: EnvoyerDemandeDeContactCEJUseCase
   envoyerDemandeDeContactEntrepriseUseCase: EnvoyerDemandeDeContactEntrepriseUseCase
-  envoyerDemandeDeContactPOEUsecase: EnvoyerDemandeDeContactPOEUsecase
+  envoyerDemandeDeContactPOEUseCase: EnvoyerDemandeDeContactPOEUseCase
+  envoyerDemandeDeContactAccompagnementUseCase: EnvoyerDemandeDeContactAccompagnementUseCase
 }
 
 export interface EntrepriseDependencies {
@@ -119,9 +137,11 @@ export const dependenciesContainer = (): Dependencies => {
     adresseClientService,
     geoGouvClientService,
     établissementAccompagnementClientService,
+    mailClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
-  const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
+  const cmsRepository = new StrapiCmsRepository(strapiClientService, strapiAuthClientService);
+  const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
   const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);
   const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
@@ -156,11 +176,21 @@ export const dependenciesContainer = (): Dependencies => {
     rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository),
   };
 
-  const strapiDemandeDeContactRepository = new StrapiDemandeDeContactRepository(strapiAuthClientService);
+  const mailRepository = new TipimailRepository(
+    mailClientService,
+    serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
+    serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,
+  );
+  const demandeDeContactAccompagnementRepository = new DemandeDeContactAccompagnementRepository(mailRepository);
+  const demandeDeContactCEJRepository = new DemandeDeContactCEJRepository(cmsRepository);
+  const demandeDeContactEntrepriseRepository = new DemandeDeContactEntrepriseRepository(cmsRepository);
+  const demandeDeContactPOERepository = new DemandeDeContactPOERepository(cmsRepository);
+
   const demandeDeContactDependencies: DemandeDeContactDependencies = {
-    envoyerDemandeDeContactCEJUseCase: new EnvoyerDemandeDeContactCEJUseCase(strapiDemandeDeContactRepository),
-    envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemandeDeContactEntrepriseUseCase(strapiDemandeDeContactRepository),
-    envoyerDemandeDeContactPOEUsecase: new EnvoyerDemandeDeContactPOEUsecase(strapiDemandeDeContactRepository),
+    envoyerDemandeDeContactAccompagnementUseCase: new EnvoyerDemandeDeContactAccompagnementUseCase(demandeDeContactAccompagnementRepository),
+    envoyerDemandeDeContactCEJUseCase: new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactCEJRepository),
+    envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactEntrepriseRepository),
+    envoyerDemandeDeContactPOEUseCase: new EnvoyerDemandeDeContactPOEUseCase(demandeDeContactPOERepository),
   };
 
   const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentClientService);
@@ -169,9 +199,9 @@ export const dependenciesContainer = (): Dependencies => {
     lesEntreprisesSEngagentUseCase: new LesEntreprisesSEngagentUseCase(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository),
   };
 
-  const apiGouvRepository = new ApiÉtablissementPublicRepository(établissementAccompagnementClientService);
+  const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementAccompagnementClientService);
   const établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies = {
-    rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiGouvRepository),
+    rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiÉtablissementPublicRepository),
   };
 
   return {
@@ -183,6 +213,6 @@ export const dependenciesContainer = (): Dependencies => {
     offreAlternanceDependencies,
     offreEmploiDependencies,
     offreJobÉtudiantDependencies,
-    établissementAccompagnementDependencies: établissementAccompagnementDependencies,
+    établissementAccompagnementDependencies,
   };
 };

@@ -18,7 +18,7 @@ describe('RésultatRechercherSolution', () => {
     mockUseRouter({});
   });
 
-  it('affiche une carte emploi avec un résumé de l\'offre', () => {
+  it('affiche une carte emploi avec un résumé de l‘offre', () => {
     const offreEmploi = aBarmanOffre();
     const defaultLogo = '/images/logos/pole-emploi.svg';
 
@@ -32,7 +32,7 @@ describe('RésultatRechercherSolution', () => {
       />,
     );
 
-    const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l\'offre' });
+    const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
     const lienVersOffreEmploi = screen.getByRole('link');
     const intituléOffreEmploi = screen.getByRole('heading', { level: 3 });
 

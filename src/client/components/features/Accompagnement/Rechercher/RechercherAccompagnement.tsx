@@ -5,11 +5,14 @@ import {
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
 import {
   RésultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/RésultatRechercherAccompagnement';
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
 import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
 import { PoleEmploiCard } from '~/client/components/features/Partner/PoleEmploiCard';
+import {
+  ListeRésultatsRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
@@ -22,19 +25,10 @@ import {
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
-
-export interface LienSolutionAccompagnement {
-  id: string
-  lienOffre?: string
-  intituléOffre: string
-  logoEntreprise: string
-  nomEntreprise?: string
-  étiquetteOffreList: (string | undefined)[]
-  horaires?: ÉtablissementAccompagnement.Horaire[]
-  typeAccompagnement: string | undefined
-}
+import {
+  ÉtablissementAccompagnement,
+  TypeÉtablissement,
+} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 
 export function RechercherAccompagnement() {
   const accompagnementQuery = useAccompagnementQuery();
@@ -65,8 +59,7 @@ export function RechercherAccompagnement() {
           }
           setIsLoading(false);
         });
-    }
-    else {
+    } else {
       setErreurRecherche(ErreurMétier.DEMANDE_INCORRECTE);
     }
     // eslint-disable-next-line
@@ -95,21 +88,13 @@ export function RechercherAccompagnement() {
     return messageRésultatRechercheSplit.join(' ');
   }, [accompagnementQuery.typeAccompagnement, établissementAccompagnementList.length]);
 
-  const displayAccompagnement = useCallback(function (lienAccompagnement: LienSolutionAccompagnement): React.ReactNode {
-    return (
-      <li key={lienAccompagnement.id}>
-        <RésultatRechercherAccompagnement
-          lienOffre={lienAccompagnement.lienOffre}
-          intituléOffre={lienAccompagnement.intituléOffre}
-          logoEntreprise={lienAccompagnement.logoEntreprise}
-          nomEntreprise={lienAccompagnement.nomEntreprise}
-          étiquetteOffreList={lienAccompagnement.étiquetteOffreList}
-          horaires={lienAccompagnement.horaires}
-          typeAccompagnement={lienAccompagnement.typeAccompagnement}
-        />
-      </li>
-    );
-  }, []);
+  const étiquettesRecherche = useMemo(() => {
+    if (accompagnementQuery.libelleCommune) {
+      return <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche"/>;
+    } else {
+      return undefined;
+    }
+  }, [accompagnementQuery.libelleCommune]);
 
   return (
     <>
@@ -121,15 +106,12 @@ export function RechercherAccompagnement() {
         <RechercherSolutionLayout
           bannière={<BannièreAccompagnement/>}
           erreurRecherche={erreurRecherche}
-          étiquettesRecherche={accompagnementQuery.libelleCommune ? <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche"/> : null}
+          étiquettesRecherche={étiquettesRecherche}
           formulaireRecherche={<FormulaireRechercheAccompagnement/>}
           isLoading={isLoading}
-          listeSolution={établissementAccompagnementList}
           messageRésultatRecherche={messageRésultatRecherche}
           nombreSolutions={établissementAccompagnementList.length}
-          mapToLienSolution={mapAccompagnementToLienSolution}
-          ariaLabelListeSolution={'Établissements d‘accompagnement'}
-          displaySolution={displayAccompagnement}
+          listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList}/>}
         />
         <EnTeteSection heading="Découvrez d’autres services faits pour vous"/>
         {PartnerCardList([
@@ -142,31 +124,32 @@ export function RechercherAccompagnement() {
   );
 }
 
-function mapAccompagnementToLienSolution(établissementAccompagnement: ÉtablissementAccompagnement): LienSolutionAccompagnement {
-  return {
-    horaires: établissementAccompagnement.horaires,
-    id: établissementAccompagnement.id,
-    intituléOffre: établissementAccompagnement.nom,
-    lienOffre: établissementAccompagnement.email ? `mailto:${établissementAccompagnement.email}` : undefined,
-    logoEntreprise: getLogoEntreprise(établissementAccompagnement.typeAccompagnement),
-    nomEntreprise: établissementAccompagnement.adresse,
-    typeAccompagnement: établissementAccompagnement.typeAccompagnement,
-    étiquetteOffreList: [établissementAccompagnement.telephone, établissementAccompagnement.email],
-  };
-}
-
-function getLogoEntreprise(typeAccompagnement?: string) {
-  switch (typeAccompagnement) {
-    case 'cij': return '/images/logos/info-jeunes.svg';
-    case 'mission_locale': return '/images/logos/union-mission-locale.svg';
-    case 'pole_emploi': return '/images/logos/pole-emploi.svg';
-  }
-  return '';
-}
-
 function BannièreAccompagnement() {
   return (
-    <LightHero primaryText="Je recherche un accompagnement proche de chez moi," secondaryText="je veux être aidé dans mes démarches et mon parcours" />
+    <LightHero
+      primaryText="Je recherche un accompagnement proche de chez moi,"
+      secondaryText="je veux être aidé dans mes démarches et mon parcours"
+    />
+  );
+}
+
+interface ListeRésultatProps {
+  résultatList: ÉtablissementAccompagnement[]
+}
+
+function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProps) {
+  if (!résultatList.length) {
+    return null;
+  }
+
+  return (
+    <ListeRésultatsRechercherSolution aria-label="Établissements d‘accompagnement">
+      {résultatList.map((établissementAccompagnement: ÉtablissementAccompagnement) => (
+        <li key={établissementAccompagnement.id}>
+          <RésultatRechercherAccompagnement établissement={établissementAccompagnement}/>
+        </li>
+      ))}
+    </ListeRésultatsRechercherSolution>
   );
 }
 
