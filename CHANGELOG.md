@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.32.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.31.0...v2.32.0) (2022-12-30)
+
+
+### Features
+
+* **logement:** champ intervalle prix et surface ([9bfeda2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9bfeda21fc6f2392db4ed21585d96cd1906d741e))
+
 ## [2.31.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.30.1...v2.31.0) (2022-12-30)
 
 
