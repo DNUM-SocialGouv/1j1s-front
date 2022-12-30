@@ -2,7 +2,7 @@
 
 .customRangeInputWrapper {
   display: inline-flex;
-  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 
   & input {
     height: 2rem;
@@ -15,14 +15,6 @@
     background-color: $color-primary;
     color: $color-on-primary;
   }
-  &LastInput {
-    position: relative;
-    padding-bottom: 2rem;
-  }
-}
-
-.submitButton {
-  margin-top: .5rem;
 }
 
 .selectContainer {
@@ -60,13 +52,4 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-}
-
-.error {
-  height: 2rem;
-  position: absolute;
-  bottom: 0rem;
-  color: $color-error;
-  @extend %text-small;
-  line-height: 1.2;
 }

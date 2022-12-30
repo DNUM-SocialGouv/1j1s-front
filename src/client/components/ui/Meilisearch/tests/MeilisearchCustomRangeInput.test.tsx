@@ -78,101 +78,58 @@ describe('MeilisearchCustomRangeInput', ()=> {
   });
 
   describe('quand on renseigne les champs minimum et maximum', () => {
-    describe('quand la valeur min est inférieur à la valeur max', () => {
-      it('appelle la fonction refine avec les valeurs renseignées', async () => {
-        const user = userEvent.setup();
-        renderMeilisearchCustomRangeInputComponent();
-        const meilisearchCustomRangeInputComponent = screen.getByRole('button');
+    it('appelle la fonction refine avec les valeurs renseignées', async () => {
+      const user = userEvent.setup();
+      renderMeilisearchCustomRangeInputComponent();
+      const meilisearchCustomRangeInputComponent = screen.getByRole('button');
 
-        await user.click(meilisearchCustomRangeInputComponent);
+      await user.click(meilisearchCustomRangeInputComponent);
 
-        const inputMin = screen.getByLabelText('Minimum');
-        await user.type(inputMin, '12');
-        const inputMax = screen.getByLabelText('Maximum');
-        await user.type(inputMax, '50');
+      const inputMin = screen.getByLabelText('Minimum');
+      await user.type(inputMin, '12');
+      const inputMax = screen.getByLabelText('Maximum');
+      await user.type(inputMax, '50');
 
-        const groupInputs = screen.getByRole('group');
-        const submitButton = within(groupInputs).getByRole('button');
-        await user.click(submitButton);
+      const groupInputs = screen.getByRole('group');
+      const submitButton = within(groupInputs).getByRole('button');
+      await user.click(submitButton);
 
-        expect(refineMock).toHaveBeenCalledTimes(1);
-        expect(refineMock).toHaveBeenCalledWith([12, 50]);
-      });
-
-      it('affiche dans le placeholder la bonne saisie', async () => {
-        const user = userEvent.setup();
-        renderMeilisearchCustomRangeInputComponent();
-        const meilisearchCustomRangeInputComponent = screen.getByRole('button');
-
-        await user.click(meilisearchCustomRangeInputComponent);
-
-        const inputMin = screen.getByLabelText('Minimum');
-        await user.type(inputMin, '12');
-        const inputMax = screen.getByLabelText('Maximum');
-        await user.type(inputMax, '50');
-
-        expect(meilisearchCustomRangeInputComponent).toHaveTextContent('De 12 test-unité à 50 test-unité');
-      });
-
-      it("ferme l'affichage des champs au click sur le bouton Appliquer", async () => {
-        const user = userEvent.setup();
-        renderMeilisearchCustomRangeInputComponent();
-        const meilisearchCustomRangeInputComponent = screen.getByRole('button');
-
-        await user.click(meilisearchCustomRangeInputComponent);
-
-        const inputMin = screen.getByLabelText('Minimum');
-        await user.type(inputMin, '12');
-        const inputMax = screen.getByLabelText('Maximum');
-        await user.type(inputMax, '50');
-
-        const groupInputs = screen.getByRole('group');
-        const submitButton = within(groupInputs).getByRole('button');
-        await user.click(submitButton);
-
-        expect(groupInputs).not.toBeInTheDocument();
-      });
+      expect(refineMock).toHaveBeenCalledTimes(1);
+      expect(refineMock).toHaveBeenCalledWith([12, 50]);
     });
 
-    describe('quand la valeur min est supérieur à la valeur max', () => {
-      it('appelle la fonction refine avec les valeurs reset et affiche une erreur', async () => {
-        const user = userEvent.setup();
-        renderMeilisearchCustomRangeInputComponent();
-        const meilisearchCustomRangeInputComponent = screen.getByRole('button');
+    it('affiche dans le placeholder la bonne saisie', async () => {
+      const user = userEvent.setup();
+      renderMeilisearchCustomRangeInputComponent();
+      const meilisearchCustomRangeInputComponent = screen.getByRole('button');
 
-        await user.click(meilisearchCustomRangeInputComponent);
+      await user.click(meilisearchCustomRangeInputComponent);
 
-        const inputMin = screen.getByLabelText('Minimum');
-        await user.type(inputMin, '50');
-        const inputMax = screen.getByLabelText('Maximum');
-        await user.type(inputMax, '12');
+      const inputMin = screen.getByLabelText('Minimum');
+      await user.type(inputMin, '12');
+      const inputMax = screen.getByLabelText('Maximum');
+      await user.type(inputMax, '50');
 
-        const groupInputs = screen.getByRole('group');
-        const submitButton = within(groupInputs).getByRole('button');
-        await user.click(submitButton);
+      expect(meilisearchCustomRangeInputComponent).toHaveTextContent('De 12 test-unité à 50 test-unité');
+    });
 
-        expect(refineMock).toHaveBeenCalledWith([undefined, undefined]);
-        expect(groupInputs).toHaveTextContent('la valeur minimum ne peut être supérieur à la valeur maximum');
-      });
+    it("ferme l'affichage des champs au click sur le bouton Appliquer", async () => {
+      const user = userEvent.setup();
+      renderMeilisearchCustomRangeInputComponent();
+      const meilisearchCustomRangeInputComponent = screen.getByRole('button');
 
-      it("ne ferme pas l'affichage des champs au click sur le bouton Appliquer", async () => {
-        const user = userEvent.setup();
-        renderMeilisearchCustomRangeInputComponent();
-        const meilisearchCustomRangeInputComponent = screen.getByRole('button');
+      await user.click(meilisearchCustomRangeInputComponent);
 
-        await user.click(meilisearchCustomRangeInputComponent);
+      const inputMin = screen.getByLabelText('Minimum');
+      await user.type(inputMin, '12');
+      const inputMax = screen.getByLabelText('Maximum');
+      await user.type(inputMax, '50');
 
-        const inputMin = screen.getByLabelText('Minimum');
-        await user.type(inputMin, '50');
-        const inputMax = screen.getByLabelText('Maximum');
-        await user.type(inputMax, '12');
+      const groupInputs = screen.getByRole('group');
+      const submitButton = within(groupInputs).getByRole('button');
+      await user.click(submitButton);
 
-        const groupInputs = screen.getByRole('group');
-        const submitButton = within(groupInputs).getByRole('button');
-        await user.click(submitButton);
-
-        expect(groupInputs).toBeInTheDocument();
-      });
+      expect(groupInputs).not.toBeInTheDocument();
     });
   });
 

@@ -13,6 +13,8 @@ interface MeilisearchCustomRangeInputProps extends CommonProps  {
     label: string
     placeholder: string
     unite: string
+    min: number
+    max: number
 }
 
 export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCustomRangeInputProps) {
@@ -24,7 +26,6 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   type EmptyInput = '';
   const [minValue, setMinValue] = useState<number | EmptyInput>('');
   const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
-  const [error, setError] = useState<string | null>(null);
   const rangeBoxRef = useRef<HTMLDivElement>(null);
   const labelledBy = useRef(uuidv4());
   const inputMinRef = useRef(uuidv4());
@@ -64,10 +65,6 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   }, []);
 
   function refineRange() {
-    if (minValue && maxValue && (minValue > maxValue))  {
-      setError('la valeur minimum ne peut être supérieur à la valeur maximum');
-      return refine([undefined, undefined]);
-    }
     const from = minValue || undefined;
     const to = maxValue || undefined;
     refine([from, to]);
@@ -77,7 +74,7 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   const displayPlaceholder = () => {
     if (minValue && !maxValue) return `A partir de ${minValue} ${unite}`;
     if (!minValue && maxValue) return `Jusqu‘à ${maxValue} ${unite}`;
-    if (minValue && maxValue && (minValue < maxValue)) return `De ${minValue} ${unite} à ${maxValue} ${unite}`;
+    if (minValue && maxValue ) return `De ${minValue} ${unite} à ${maxValue} ${unite}`;
     return placeholder;
   };
 
@@ -92,27 +89,22 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
           max={max}
           value={minValue}
           onChange={onMinInputChange}
-          onFocus={() => setError(null)}
         />
-        <span >
-          {unite}
-        </span>
+        <span>{unite}</span>
       </span>
       <label className={styles.label} htmlFor={inputMaxRef.current}>Maximum</label>
-      <span className={classNames(styles.customRangeInputWrapper, styles.customRangeInputWrapperLastInput)}>
+      <span className={classNames(styles.customRangeInputWrapper)}>
         <input
           id={inputMaxRef.current}
           type="number"
-          min={min}compon
+          min={min}
           max={max}
           value={maxValue}
           onChange={onMaxInputChange}
-          onFocus={() => setError(null)}
         />
         <span>{unite}</span>
-        { error && <p className={styles.error}>{error}</p>}
       </span>
-      <ButtonComponent className={styles.submitButton} type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
+      <ButtonComponent type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
     </fieldset>
   );
 

@@ -7,6 +7,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { MeilisearchCustomRangeInput } from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInput';
+import { MeilisearchCustomRangeInputForModal } from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInputForModal';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomRefinementListForModal } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementListForModal';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
@@ -98,6 +99,22 @@ export function FormulaireRechercheAnnonceLogement() {
 				  attribute="typeBien"
 				  label="Type de bien"
 				  sortBy={['name:asc']}
+		        />
+			  </FilterAccordion>
+		      <FilterAccordion title="Prix">
+		        <MeilisearchCustomRangeInputForModal
+		          attribute="prix"
+		          unite="€"
+		          min={PRIX_MINIMUM}
+		          max={PRIX_MAXIMUM}
+		        />
+		      </FilterAccordion>
+			  <FilterAccordion title="Surface">
+		        <MeilisearchCustomRangeInputForModal
+		          attribute="surface"
+		          unite="m²"
+		          min={SURFACE_MINIMUM}
+		          max={SURFACE_MAXIMUM}
 		        />
 			  </FilterAccordion>
 		    </ModalComponent.Content>

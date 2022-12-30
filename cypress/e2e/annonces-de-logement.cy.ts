@@ -25,12 +25,12 @@ describe('Parcours logement', () => {
 	  });
     });
 
-    describe('quand on fait une recherche par vile', () => {
+    describe('quand on fait une recherche par ville', () => {
 	  it("filtre le nombre d'annonces", () => {
         cy.intercept({ pathname: '/indexes/annonce-de-logement/search' }, logementNonFiltreeResponse);
         cy.intercept({ pathname: '/indexes/annonce-de-logement/search' }, logementFiltreeResponse);
 
-        cy.get('input').type('par');
+        cy.get('input[name="ville"]').type('par');
 
         cy.get('ol > li').should('have.length', 2);
 	  });
