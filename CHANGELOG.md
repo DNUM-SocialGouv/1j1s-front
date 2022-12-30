@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.33.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.33.0...v2.33.1) (2022-12-30)
+
+
+### Bug Fixes
+
+* **accueil:** background carte en mobile ([#667](https://github.com/DNUM-SocialGouv/1j1s-front/issues/667)) ([9e66276](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9e662769bff3b0d936450ab56d9d9a4cf37c69f8))
+
 ## [2.33.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.32.0...v2.33.0) (2022-12-30)
 
 
