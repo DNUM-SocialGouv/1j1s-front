@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.31.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.30.1...v2.31.0) (2022-12-30)
+
+
+### Features
+
+* **actualites:** récupération et affichage actualites dans la page mesures jeunes ([2c4c32b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2c4c32ba89f3c93c2f404511a692fa2f753c76e8))
+* **actualites:** retours de PR ([038ea0a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/038ea0a7c22707ff294b54217fd0026e98dcb3ce))
+
 ## [2.30.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.30.0...v2.30.1) (2022-12-29)
 
 
