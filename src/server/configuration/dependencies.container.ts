@@ -52,8 +52,8 @@ import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repos
 import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 import {
-  MailRepository,
-} from '~/server/mail/infra/repositories/mail.repository';
+  TipimailRepository,
+} from '~/server/mail/infra/repositories/tipimail.repository';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
@@ -176,7 +176,7 @@ export const dependenciesContainer = (): Dependencies => {
     rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository),
   };
 
-  const mailRepository = new MailRepository(
+  const mailRepository = new TipimailRepository(
     mailClientService,
     serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
     serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,

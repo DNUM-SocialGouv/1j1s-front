@@ -1,15 +1,9 @@
 export interface Mail {
   to: Mail.Contact[];
   msg: Mail.Message;
-  headers: Mail.Headers;
 }
 
 export namespace Mail {
-  export type Headers = {
-    'X-TM-DOMAIN': string;
-    'X-TM-TAGS': string[];
-  }
-
   export interface Contact {
     address: string;
     personalName: string;

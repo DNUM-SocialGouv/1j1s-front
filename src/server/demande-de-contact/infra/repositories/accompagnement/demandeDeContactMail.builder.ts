@@ -3,10 +3,6 @@ import { Mail } from '~/server/mail/domain/mail';
 
 export function buildDemandeDeContactMail(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Mail {
   return {
-    headers: {
-      'X-TM-DOMAIN': '1jeune1solution.gouv.fr',
-      'X-TM-TAGS': ['accompagnement', demandeDeContactAccompagnement.établissement.type],
-    },
     msg: {
       from: {
         address: 'contact-1j1s@sg.social.gouv.fr',

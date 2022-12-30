@@ -7,13 +7,13 @@ import {
 } from '~/pages/api/etablissements-accompagnement/contact/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { Mail } from '~/server/mail/domain/mail';
-import { aMail } from '~/server/mail/domain/mail.fixture';
+import { aTipimailRequest } from '~/server/mail/infra/repositories/tipimail.fixture';
 
 describe('envoyer une demande de contact', () => {
   describe('lorsque le body est valide', () => {
     it('retourne un status 200', async () => {
       let tipimailDemandeDeContact: Mail;
-      const expectedBody = aMail();
+      const expectedBody = aTipimailRequest();
       nock('https://api.tipimail.com/v1')
         .post('/messages/send', (body) => { tipimailDemandeDeContact = body; return true; })
         .reply(200);

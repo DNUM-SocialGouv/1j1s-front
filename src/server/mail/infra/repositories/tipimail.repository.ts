@@ -4,27 +4,28 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { Mail } from '~/server/mail/domain/mail';
-import { replaceToAddress } from '~/server/mail/infra/repositories/mail.mapper';
+import { MailRepository } from '~/server/mail/domain/mail.repository';
+import { mapTipimailRequest } from '~/server/mail/infra/repositories/tipimail.mapper';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { LoggerService } from '~/server/services/logger.service';
 
 const SOURCE = 'API Tipimail';
 
-export class MailRepository {
+export class TipimailRepository implements MailRepository {
   constructor(
     private httpClient: HttpClientService,
     private mailerServiceActive: boolean,
     private mailerServiceRedirectTo?: string,
   ) {}
 
-  async send(mail: Mail): Promise<Either<void>> {
+  async send(mail: Mail, context: string[]): Promise<Either<void>> {
+    const tipimailRequest = mapTipimailRequest(mail, context, this.mailerServiceRedirectTo);
     try {
       if (this.mailerServiceActive) {
-        const mailWithRedirection = replaceToAddress(mail, this.mailerServiceRedirectTo);
-        await this.httpClient.post('messages/send', mailWithRedirection);
+        await this.httpClient.post('messages/send', tipimailRequest);
       } else {
         // eslint-disable-next-line no-console
-        console.log('Mailer désactivé, email non envoyé', JSON.stringify(mail));
+        console.log('Mailer désactivé, email non envoyé', JSON.stringify(tipimailRequest));
       }
       return createSuccess(undefined);
     } catch (e) {
