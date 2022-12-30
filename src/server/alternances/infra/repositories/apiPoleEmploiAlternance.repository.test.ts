@@ -39,7 +39,27 @@ describe('ApiPoleEmploiAlternanceRepository', () => {
 		cacheService = new MockedCacheService();
 		httpClientServiceWithAuthentification = anHttpClientServiceWithAuthentification();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
-		apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService);
+		apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, true);
+	});
+
+	describe('quand la feature est désactivée', () => {
+		apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, false);
+		describe('getOffreEmploi', () => {
+			it('renvoie une erreur SERVICE_INDISPONIBLE', async () => {
+				const { errorType } = await apiPoleEmploiAlternanceRepository.get(aBarmanOffre().id) as Failure;
+
+				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+			});
+		});
+		describe('search', () => {
+			it('renvoie une erreur SERVICE_INDISPONIBLE', async () => {
+				const offreEmploiFiltre = anOffreEmploiFiltre();
+
+				const { errorType } = await apiPoleEmploiAlternanceRepository.search(offreEmploiFiltre) as Failure;
+
+				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+			});
+		});
 	});
 
 	describe('getOffreEmploi', () => {
