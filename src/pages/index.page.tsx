@@ -14,12 +14,12 @@ const SeeMore = dynamic(() => import(/* webpackChunkName: 'seeMore' */ '~/client
 export default function Accueil() {
 	return (
 		<>
-			<HeadTag title="Toutes les solutions pour l‘avenir des jeunes | 1jeune1solution" />
-			<Hero image="/images/portraits-verticaux.webp">
-				<p><b>À chacun sa solution.</b></p>
-				<p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
-			</Hero>
+			<HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
 			<main id="contenu">
+				<Hero image="/images/portraits-verticaux.webp">
+					<p><b>À chacun sa solution.</b></p>
+					<p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
+				</Hero>
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
 						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />
