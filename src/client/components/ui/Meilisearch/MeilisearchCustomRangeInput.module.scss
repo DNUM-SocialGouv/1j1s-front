@@ -1,0 +1,55 @@
+@import "@styles/utilities";
+
+.customRangeInputWrapper {
+  display: inline-flex;
+  margin-bottom: 1.5rem;
+
+  & input {
+    height: 2rem;
+    width: 100%;
+  }
+  & > span {
+    height: 2rem;
+    padding: 4px 16px;
+    display: flex;
+    background-color: $color-primary;
+    color: $color-on-primary;
+  }
+}
+
+.selectContainer {
+  position: relative;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.button {
+  @extend %text-small;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  color: $color-mention-grey;
+  padding: 6px 6px 6px 12px;
+  border: 1px solid $color-on-background;
+  border-radius: 20px;
+  height: 2.5rem;
+}
+
+.rangeBox {
+  z-index: 2;
+  position: absolute;
+  padding: .75rem 2rem;
+  width: 100%;
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  background-color: $color-background;
+  margin: 4px 0 0 0;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,4 +1,5 @@
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
+import { RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRange';
 // eslint-disable-next-line import/named
 import { RefinementListRenderState } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
@@ -6,6 +7,7 @@ import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/conne
 // eslint-disable-next-line import/named
 import {
   UseInstantSearchProps,
+  UseRangeProps,
   UseRefinementListProps,
   UseSearchBoxProps,
 } from 'react-instantsearch-hooks-web';
@@ -73,9 +75,28 @@ function realMockUseInstantSearch(_props: UseInstantSearchProps): unknown {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function realMockUseRange(_props: UseRangeProps): RangeRenderState {
+  return {
+    canRefine: true,
+    format: {
+      from: jest.fn(),
+      to: jest.fn(),
+    },
+    range: {
+      max: 0,
+      min: 0,
+    },
+    refine: jest.fn(),
+    sendEvent: jest.fn(),
+    start: [0, 1],
+  };
+}
+
 module.exports = {
   useInstantSearch: realMockUseInstantSearch,
   usePagination: realMockUsePagination,
+  useRange: realMockUseRange,
   useRefinementList: realMockUseRefinementList,
   useSearchBox: realMockUseSearchBox,
 };

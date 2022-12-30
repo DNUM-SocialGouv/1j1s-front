@@ -55,6 +55,20 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 	  const buttonTypeOffre = screen.getByRole('button', { name: 'Type de bien' });
 	  expect(buttonTypeOffre).toBeInTheDocument();
     });
+
+    it('affiche le champ prix dans le formulaire', () => {
+	  render(<FormulaireRechercheAnnonceLogement/>);
+
+	  const buttonPrix = screen.getByRole('button', { name: 'Prix' });
+	  expect(buttonPrix).toBeInTheDocument();
+    });
+
+    it('affiche le champ surface dans le formulaire', () => {
+	  render(<FormulaireRechercheAnnonceLogement/>);
+
+	  const buttonSurface = screen.getByRole('button', { name: 'Surface (m²)' });
+	  expect(buttonSurface).toBeInTheDocument();
+    });
   });
 
   describe('en Mobile', () => {
@@ -104,6 +118,20 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 
     });
 
+    it('n‘affiche pas le champ prix dans le formulaire', () => {
+	  render(<FormulaireRechercheAnnonceLogement/>);
+
+	  const buttonPrix = screen.queryByRole('button', { name: 'Prix' });
+	  expect(buttonPrix).not.toBeInTheDocument();
+    });
+
+    it('n‘affiche pas le champ surface dans le formulaire', () => {
+	  render(<FormulaireRechercheAnnonceLogement/>);
+
+	  const buttonSurface = screen.queryByRole('button', { name: 'Surface (m²)' });
+	  expect(buttonSurface).not.toBeInTheDocument();
+    });
+
     describe('quand l‘utilisateur ouvre les filtres de recherche', () => {
 	  it('affiche la modale', async () => {
         const user = userEvent.setup();
@@ -145,6 +173,36 @@ describe('FormulaireRechercheAnnonceLogement', () => {
         const secondItem = accordeonItems[1];
 
         expect(secondItem).toHaveTextContent('Type de bien');
+	  });
+
+	  it('affiche le champ prix', async () => {
+        const user = userEvent.setup();
+
+        render(<FormulaireRechercheAnnonceLogement/>);
+
+        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+        await user.click(buttonFiltre);
+
+        const modalComponent = screen.getByRole('dialog');
+        const accordeonItems = within(modalComponent).getAllByRole('group');
+        const thirdItem = accordeonItems[2];
+
+        expect(thirdItem).toHaveTextContent('Prix');
+	  });
+
+	  it('affiche le champ surface', async () => {
+        const user = userEvent.setup();
+
+        render(<FormulaireRechercheAnnonceLogement/>);
+
+        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+        await user.click(buttonFiltre);
+
+        const modalComponent = screen.getByRole('dialog');
+        const accordeonItems = within(modalComponent).getAllByRole('group');
+        const fourthItem = accordeonItems[4]; // skip 3 because of fieldset which is also a group role
+
+        expect(fourthItem).toHaveTextContent('Surface');
 	  });
     });
   });

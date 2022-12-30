@@ -1,8 +1,7 @@
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
+import { RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRange';
 import {
-  // eslint-disable-next-line import/named
   RefinementListItem,
-  // eslint-disable-next-line import/named
   RefinementListRenderState,
 } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 
@@ -62,6 +61,20 @@ export function mockUseInstantSearch(override: Partial<unknown>) {
     refresh: jest.fn(),
     status: jest.fn(),
     use: jest.fn(),
+    ...override,
+  };
+}
+
+export function mockUseRangeInput(override: Partial<RangeRenderState>) {
+  return {
+    canRefine: true,
+    range: {
+      max: 200,
+      min: 0,
+    },
+    refine: jest.fn(),
+    sendEvent: jest.fn(),
+    start: [0, 2000],
     ...override,
   };
 }

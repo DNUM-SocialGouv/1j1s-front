@@ -3,21 +3,16 @@
  */
 import '@testing-library/jest-dom';
 
-import {
-  render,
-  screen,
-  within,
-} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
+import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import {
   generateRefinementListItem,
   mockUseRefinementList,
 } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
-
-import { MeilisearchCustomRefinementList } from '../MeilisearchCustomRefinementList';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'useRefinementList');
