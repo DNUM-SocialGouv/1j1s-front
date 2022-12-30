@@ -9,15 +9,15 @@ interface EmbeddedNavItemProps {
   isActive: boolean
 }
 export function EmbeddedNavItem ({ label, onClick, isActive }: EmbeddedNavItemProps) {
-  return (
-    <li className={styles.embeddedNavItem} aria-current={isActive}>
-      <button
-        className={styles.embeddedNavItemButton}
-        onClick={onClick}
-      >
-        <span>{label}</span>
-        <Icon name="angle-right" />
-      </button>
-    </li>
-  );
+	return (
+		<li className={styles.embeddedNavItem} aria-current={isActive}>
+			<button
+				className={styles.embeddedNavItemButton}
+				onClick={onClick}
+			>
+				<span>{label}</span>
+				<Icon name="angle-right" />
+			</button>
+		</li>
+	);
 }

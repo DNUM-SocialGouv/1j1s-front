@@ -6,46 +6,46 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 import {
-  anOrderedÉtablissementAccompagnementList,
+	anOrderedÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
 import {
-  aRésultatRechercheÉtablissementPublicResponse,
+	aRésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
 import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 describe('rechercher un établissement d‘accompagnement', () => {
-  describe('lorsque la recherche est valide', () => {
-    it('retourne la liste des établissements d‘accompagnement', async () => {
-      nock('https://etablissements-publics.api.gouv.fr/v3')
-        .get('/communes/46100/cij')
-        .reply(200, aRésultatRechercheÉtablissementPublicResponse());
+	describe('lorsque la recherche est valide', () => {
+		it('retourne la liste des établissements d‘accompagnement', async () => {
+			nock('https://etablissements-publics.api.gouv.fr/v3')
+				.get('/communes/46100/cij')
+				.reply(200, aRésultatRechercheÉtablissementPublicResponse());
 
-      await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
-        handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
-        test: async ({ fetch }) => {
-          const res = await fetch({ method: 'GET' });
-          const json = await res.json();
-          expect(json).toEqual(anOrderedÉtablissementAccompagnementList());
-        },
-        url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
-      });
-    });
-  });
-  describe('lorsque la recherche echoue', () => {
-    it('retourne une erreur Demande Incorrecte', async () => {
-      nock('https://etablissements-publics.api.gouv.fr/v3')
-        .get('/communes/46100/cij')
-        .reply(404, anAxiosError({ response: anAxiosResponse({}, 401) }));
+			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
+				handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
+				test: async ({ fetch }) => {
+					const res = await fetch({ method: 'GET' });
+					const json = await res.json();
+					expect(json).toEqual(anOrderedÉtablissementAccompagnementList());
+				},
+				url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
+			});
+		});
+	});
+	describe('lorsque la recherche echoue', () => {
+		it('retourne une erreur Demande Incorrecte', async () => {
+			nock('https://etablissements-publics.api.gouv.fr/v3')
+				.get('/communes/46100/cij')
+				.reply(404, anAxiosError({ response: anAxiosResponse({}, 401) }));
 
-      await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
-        handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
-        test: async ({ fetch }) => {
-          const res = await fetch({ method: 'GET' });
-          const json = await res.json();
-          expect(json).toEqual({ error: ErreurMétier.DEMANDE_INCORRECTE });
-        },
-        url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
-      });
-    });
-  });
+			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
+				handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
+				test: async ({ fetch }) => {
+					const res = await fetch({ method: 'GET' });
+					const json = await res.json();
+					expect(json).toEqual({ error: ErreurMétier.DEMANDE_INCORRECTE });
+				},
+				url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
+			});
+		});
+	});
 });

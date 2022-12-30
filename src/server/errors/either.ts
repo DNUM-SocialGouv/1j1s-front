@@ -5,11 +5,11 @@ export type Failure = { instance: 'failure', errorType: ErreurMétier };
 export type Success<T> = { instance: 'success', result: T };
 
 export function isSuccess<T> (e: Either<T>): e is Success<T> {
-  return e.instance === 'success';
+	return e.instance === 'success';
 }
 
 export function isFailure<T> (e: Either<T>): e is Failure {
-  return e.instance === 'failure';
+	return e.instance === 'failure';
 }
 
 

@@ -13,38 +13,38 @@ interface ErrorLayoutProps {
   children: React.ReactNode
 }
 export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
-  const { isSmallScreen } = useBreakpoint();
-  const { children } = props;
+	const { isSmallScreen } = useBreakpoint();
+	const { children } = props;
 
 
-  return (
-    <Container className={styles.container}>
+	return (
+		<Container className={styles.container}>
 	  <div>
-        {children}
-        <div className={styles.buttonWrapper}>
-		  <Link href="/" appearance="asPrimaryButton">Retourner à l&apos;accueil</Link>
-        </div>
+				{children}
+				<div className={styles.buttonWrapper}>
+		  <Link href="/" appearance="asPrimaryButton">Retourner à l‘accueil</Link>
+				</div>
 	  </div>
 
 	  {!isSmallScreen &&
       <div className={styles.errorLogo}>
-        <Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205' aria-hidden="true" />
+      	<Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205' aria-hidden="true" />
       </div>
 	  }
   	</Container>
-  );
+	);
 }
 
 function ErrorTitle({ children, className, id, titleAs }: { titleAs: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-  return React.createElement(titleAs, { className: classNames(styles.title, className), id }, children );
+	return React.createElement(titleAs, { className: classNames(styles.title, className), id }, children );
 }
 
 function ErrorSubTitle({ children, className }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={classNames('bold', styles.subtitle, className)}>{children}</p>;
+	return <p className={classNames('bold', styles.subtitle, className)}>{children}</p>;
 }
 
 function ErrorContent({ children, className }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={className}>{children}</p>;
+	return <p className={className}>{children}</p>;
 }
 
 ErrorLayout.Title = ErrorTitle;

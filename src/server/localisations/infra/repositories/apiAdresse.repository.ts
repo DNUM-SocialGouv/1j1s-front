@@ -2,7 +2,7 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
-  LocalisationAvecCoordonnéesRepository,
+	LocalisationAvecCoordonnéesRepository,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiAdresseError';
@@ -10,19 +10,19 @@ import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repo
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
-  constructor(
+	constructor(
     private readonly httpClientService: HttpClientService,
-  ) {
-  }
+	) {
+	}
 
-  async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
-    try {
-      const response = await this.httpClientService.get<ApiAdresseResponse>(
-        `search/?q=${adresseRecherchée}&type=municipality&limit=21`,
-      );
-      return createSuccess(mapRésultatsRechercheCommune(response.data));
-    } catch (e) {
-      return handleGetFailureError(e, 'adresse');
-    }
-  }
+	async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
+		try {
+			const response = await this.httpClientService.get<ApiAdresseResponse>(
+				`search/?q=${adresseRecherchée}&type=municipality&limit=21`,
+			);
+			return createSuccess(mapRésultatsRechercheCommune(response.data));
+		} catch (e) {
+			return handleGetFailureError(e, 'adresse');
+		}
+	}
 }

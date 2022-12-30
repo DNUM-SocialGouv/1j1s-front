@@ -56,58 +56,58 @@ interface IconProps extends CommonProps {
 
 export function Icon({ name, className, ...rest }: IconProps) {
 
-  const getIcon = useMemo(() => {
-    switch (name) {
-      case 'angle-down':
-        return <AngleDownIcon className={className} aria-hidden={true} {...rest} />;
-      case 'angle-left':
-        return <AngleLeftIcon className={className} aria-hidden={true} {...rest} />;
-      case 'angle-left-from-line':
-        return <AngleLeftFromLineIcon className={className} aria-hidden={true} {...rest} />;
-      case 'angle-right':
-        return <AngleRightIcon className={className} aria-hidden={true} {...rest} />;
-      case 'angle-right-from-line':
-        return <AngleRightFromLineIcon className={className} aria-hidden={true} {...rest} />;
-      case 'angle-up':
-        return <AngleUpIcon className={className} aria-hidden={true} {...rest} />;
-      case 'arrow-right':
-        return <ArrowRightIcon className={className} aria-hidden={true} {...rest} />;
-      case 'book':
-        return <BookIcon className={className} aria-hidden={true} {...rest} />;
-      case 'brief-case':
-        return <BriefCaseIcon className={className} aria-hidden={true} {...rest} />;
-      case 'burger-menu':
-        return <BurgerMenuIcon className={className} aria-hidden={true} {...rest} />;
-      case 'burger-menu-left':
-        return <BurgerMenuLeftIcon className={className} aria-hidden={true} {...rest} />;
-      case 'close':
-        return <CloseIcon className={className} aria-hidden={true} {...rest} />;
-      case 'compass':
-        return <CompassIcon className={className} aria-hidden={true} {...rest} />;
-      case 'error':
-        return <ErrorIcon className={className} aria-hidden={true} {...rest} />;
-      case 'external-redirection':
-        return <ExternalRedirectionIcon className={className} aria-hidden={true} {...rest} />;
-      case 'filter':
-        return <FilterIcon className={className} aria-hidden={true} {...rest} />;
-      case 'home':
-        return <HomeIcon className={className} aria-hidden={true} {...rest} />;
-      case 'information':
-        return <InformationIcon className={className} aria-hidden={true} {...rest} />;
-      case 'magnifying-glass':
-        return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest}/>;
-      case 'map-pin':
-        return <MapPinIcon className={className} aria-hidden={true} {...rest} />;
-      case 'menu':
-        return <MenuIcon className={className} aria-hidden={true} {...rest} />;
-      case 'mail':
-        return <MailIcon className={className} aria-hidden={true} {...rest} />;
-      case 'trophy':
-        return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
-      default:
-        return null;
-    }
-  }, [name, className, rest]);
+	const getIcon = useMemo(() => {
+		switch (name) {
+			case 'angle-down':
+				return <AngleDownIcon className={className} aria-hidden={true} {...rest} />;
+			case 'angle-left':
+				return <AngleLeftIcon className={className} aria-hidden={true} {...rest} />;
+			case 'angle-left-from-line':
+				return <AngleLeftFromLineIcon className={className} aria-hidden={true} {...rest} />;
+			case 'angle-right':
+				return <AngleRightIcon className={className} aria-hidden={true} {...rest} />;
+			case 'angle-right-from-line':
+				return <AngleRightFromLineIcon className={className} aria-hidden={true} {...rest} />;
+			case 'angle-up':
+				return <AngleUpIcon className={className} aria-hidden={true} {...rest} />;
+			case 'arrow-right':
+				return <ArrowRightIcon className={className} aria-hidden={true} {...rest} />;
+			case 'book':
+				return <BookIcon className={className} aria-hidden={true} {...rest} />;
+			case 'brief-case':
+				return <BriefCaseIcon className={className} aria-hidden={true} {...rest} />;
+			case 'burger-menu':
+				return <BurgerMenuIcon className={className} aria-hidden={true} {...rest} />;
+			case 'burger-menu-left':
+				return <BurgerMenuLeftIcon className={className} aria-hidden={true} {...rest} />;
+			case 'close':
+				return <CloseIcon className={className} aria-hidden={true} {...rest} />;
+			case 'compass':
+				return <CompassIcon className={className} aria-hidden={true} {...rest} />;
+			case 'error':
+				return <ErrorIcon className={className} aria-hidden={true} {...rest} />;
+			case 'external-redirection':
+				return <ExternalRedirectionIcon className={className} aria-hidden={true} {...rest} />;
+			case 'filter':
+				return <FilterIcon className={className} aria-hidden={true} {...rest} />;
+			case 'home':
+				return <HomeIcon className={className} aria-hidden={true} {...rest} />;
+			case 'information':
+				return <InformationIcon className={className} aria-hidden={true} {...rest} />;
+			case 'magnifying-glass':
+				return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest}/>;
+			case 'map-pin':
+				return <MapPinIcon className={className} aria-hidden={true} {...rest} />;
+			case 'menu':
+				return <MenuIcon className={className} aria-hidden={true} {...rest} />;
+			case 'mail':
+				return <MailIcon className={className} aria-hidden={true} {...rest} />;
+			case 'trophy':
+				return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
+			default:
+				return null;
+		}
+	}, [name, className, rest]);
 
-  return ( getIcon );
+	return ( getIcon );
 }

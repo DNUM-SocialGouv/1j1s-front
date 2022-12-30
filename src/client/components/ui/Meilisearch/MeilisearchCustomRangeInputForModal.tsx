@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, {
-  useCallback,
-  useRef,
-  useState,
+	useCallback,
+	useRef,
+	useState,
 } from 'react';
 import { useRange, UseRangeProps } from 'react-instantsearch-hooks-web';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,10 +17,10 @@ interface MeilisearchCustomRangeInputForModalProps extends CommonProps  {
 }
 
 export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & MeilisearchCustomRangeInputForModalProps) {
-  const {
-    refine,
-  } = useRange(props);
-  const { unite, min, max } = props;
+	const {
+		refine,
+	} = useRange(props);
+	const { unite, min, max } = props;
   type EmptyInput = '';
   const [minValue, setMinValue] = useState<number | EmptyInput>('');
   const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
@@ -28,26 +28,26 @@ export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & Meili
   const inputMaxRef = useRef(uuidv4());
 
   const onMaxInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setMaxValue(value === '' ? value : Number(value));
+  	const value = event.target.value;
+  	setMaxValue(value === '' ? value : Number(value));
   }, []);
 
   const onMinInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setMinValue(value === '' ? value : Number(value));
+  	const value = event.target.value;
+  	setMinValue(value === '' ? value : Number(value));
   }, []);
 
   const refineRange = useCallback(() => {
-    const from = minValue || undefined;
-    const to = maxValue || undefined;
-    refine([from, to]);
+  	const from = minValue || undefined;
+  	const to = maxValue || undefined;
+  	refine([from, to]);
   },[minValue, maxValue, refine]);
 
   return (
-    <fieldset className={styles.rangeBox}>
+  	<fieldset className={styles.rangeBox}>
 	  <label className={styles.label} htmlFor={inputMinRef.current}>Minimum</label>
 	  <span className={styles.customRangeInputWrapper}>
-        <input
+  			<input
 		  id={inputMinRef.current}
 		  type="number"
 		  min={min}
@@ -55,12 +55,12 @@ export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & Meili
 		  value={minValue}
 		  onChange={onMinInputChange}
 		  onBlur={refineRange}
-        />
-        <span>{unite}</span>
-      </span>
+  			/>
+  			<span>{unite}</span>
+  		</span>
 	  <label className={styles.label} htmlFor={inputMaxRef.current}>Maximum</label>
 	  <span className={classNames(styles.customRangeInputWrapper)}>
-        <input
+  			<input
 		  id={inputMaxRef.current}
 		  type="number"
 		  min={min}
@@ -68,10 +68,10 @@ export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & Meili
 		  value={maxValue}
 		  onChange={onMaxInputChange}
 		  onBlur={refineRange}
-        />
-        <span>{unite}</span>
-      </span>
-    </fieldset>
+  			/>
+  			<span>{unite}</span>
+  		</span>
+  	</fieldset>
   );
 }
 

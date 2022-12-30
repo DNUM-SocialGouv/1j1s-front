@@ -28,51 +28,51 @@ export type Dependencies = {
 }
 
 class DependencyInitException extends Error {
-  constructor(dependencyName: string, reason: string) {
-    super(`Cannot init ${dependencyName} dependency, reason: ${reason}`);
-  }
+	constructor(dependencyName: string, reason: string) {
+		super(`Cannot init ${dependencyName} dependency, reason: ${reason}`);
+	}
 }
 
 export default function dependenciesContainer(sessionId: string): Dependencies {
-  const loggerService = new LoggerService(sessionId);
-  const httpClientService =  new HttpClientService(sessionId, loggerService);
-  const offreService = new OffreService(httpClientService);
-  const localisationService = new LocalisationService(httpClientService);
-  const missionEngagementService = new MissionEngagementService(httpClientService);
-  const demandeDeContactService = new DemandeDeContactService(httpClientService);
-  const ficheMetierService = new FicheMetierService(httpClientService);
-  const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
-  const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
-  const analyticsService = process.env.NODE_ENV === 'production' ? new AnalyticsProdService() : new AnalyticsDevService();
+	const loggerService = new LoggerService(sessionId);
+	const httpClientService =  new HttpClientService(sessionId, loggerService);
+	const offreService = new OffreService(httpClientService);
+	const localisationService = new LocalisationService(httpClientService);
+	const missionEngagementService = new MissionEngagementService(httpClientService);
+	const demandeDeContactService = new DemandeDeContactService(httpClientService);
+	const ficheMetierService = new FicheMetierService(httpClientService);
+	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
+	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
+	const analyticsService = process.env.NODE_ENV === 'production' ? new AnalyticsProdService() : new AnalyticsDevService();
 
-  const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
-  const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
+	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
+	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
 
-  if (!meiliSearchApiKey || !meiliSearchBaseUrl) {
-    throw new DependencyInitException(
-      'rechercheClientService',
-      'NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL or NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY environment variable is missing',
-    );
-  }
+	if (!meiliSearchApiKey || !meiliSearchBaseUrl) {
+		throw new DependencyInitException(
+			'rechercheClientService',
+			'NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL or NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY environment variable is missing',
+		);
+	}
 
-  const rechercheClientService = instantMeiliSearch(
-    meiliSearchBaseUrl,
-    meiliSearchApiKey,
-    {
-      keepZeroFacets: true,
-      primaryKey: 'slug',
-    },
-  );
+	const rechercheClientService = instantMeiliSearch(
+		meiliSearchBaseUrl,
+		meiliSearchApiKey,
+		{
+			keepZeroFacets: true,
+			primaryKey: 'slug',
+		},
+	);
 
-  return {
-    analyticsService,
-    demandeDeContactService,
-    ficheMetierService,
-    lesEntreprisesSEngagentService,
-    localisationService,
-    missionEngagementService,
-    offreService,
-    rechercheClientService,
-    établissementAccompagnementService,
-  };
+	return {
+		analyticsService,
+		demandeDeContactService,
+		ficheMetierService,
+		lesEntreprisesSEngagentService,
+		localisationService,
+		missionEngagementService,
+		offreService,
+		rechercheClientService,
+		établissementAccompagnementService,
+	};
 }

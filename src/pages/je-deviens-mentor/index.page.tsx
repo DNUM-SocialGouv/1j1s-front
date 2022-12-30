@@ -5,7 +5,7 @@ import JeDeviensMentor from '~/client/components/features/JeDeviensMentor/JeDevi
 
 
 export default function JeDeviensMentorPage() {
-  return (
-    <JeDeviensMentor />
-  );
+	return (
+		<JeDeviensMentor />
+	);
 }

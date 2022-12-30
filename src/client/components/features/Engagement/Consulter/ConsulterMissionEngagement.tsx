@@ -12,38 +12,38 @@ interface ConsulterMissionEngagementProps {
 }
 
 export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissionEngagementProps) {
-  const descriptionMissionEngagement = useSanitize(missionEngagement.description);
-  const localisationMissionEngagement = useSanitize(missionEngagement.localisation);
+	const descriptionMissionEngagement = useSanitize(missionEngagement.description);
+	const localisationMissionEngagement = useSanitize(missionEngagement.localisation);
 
-  return (
-    <ConsulterOffreLayout>
-      <header className={commonStyles.titre}>
-        <h1>{missionEngagement.titre}</h1>
-        {missionEngagement.nomEntreprise && <h2>{missionEngagement.nomEntreprise}</h2>}
-        <TagList list={missionEngagement.étiquetteList} aria-label="Caractéristiques de la mission" />
-        <div className={commonStyles.buttonAsLinkWrapper}>
-          <div className={commonStyles.buttonAsLink}>
-            {missionEngagement.url && <Link href={missionEngagement.url} appearance="asPrimaryButton">Postuler</Link>}
-          </div>
-        </div>
-      </header>
-      <section className={commonStyles.contenu}>
-        {missionEngagement.localisation &&
+	return (
+		<ConsulterOffreLayout>
+			<header className={commonStyles.titre}>
+				<h1>{missionEngagement.titre}</h1>
+				{missionEngagement.nomEntreprise && <h2>{missionEngagement.nomEntreprise}</h2>}
+				<TagList list={missionEngagement.étiquetteList} aria-label="Caractéristiques de la mission" />
+				<div className={commonStyles.buttonAsLinkWrapper}>
+					<div className={commonStyles.buttonAsLink}>
+						{missionEngagement.url && <Link href={missionEngagement.url} appearance="asPrimaryButton">Postuler</Link>}
+					</div>
+				</div>
+			</header>
+			<section className={commonStyles.contenu}>
+				{missionEngagement.localisation &&
           <div className={commonStyles.contenuAdaptatif}>
-            <h3>Où ? </h3><p dangerouslySetInnerHTML={{ __html: localisationMissionEngagement }}/>
+          	<h3>Où ? </h3><p dangerouslySetInnerHTML={{ __html: localisationMissionEngagement }}/>
           </div>
-        }
-        {missionEngagement.description &&
+				}
+				{missionEngagement.description &&
           <div className={commonStyles.contenuAdaptatif}>
-            <h3>Quoi ? </h3><p dangerouslySetInnerHTML={{ __html: descriptionMissionEngagement }}/>
+          	<h3>Quoi ? </h3><p dangerouslySetInnerHTML={{ __html: descriptionMissionEngagement }}/>
           </div>
-        }
-        {missionEngagement.débutContrat &&
+				}
+				{missionEngagement.débutContrat &&
           <div className={commonStyles.contenuAdaptatif}>
-            <h3>Quand ? </h3><p>À partir du {missionEngagement.débutContrat} {missionEngagement.duréeContrat ? `(${missionEngagement.duréeContrat} Mois)`: ''}</p>
+          	<h3>Quand ? </h3><p>À partir du {missionEngagement.débutContrat} {missionEngagement.duréeContrat ? `(${missionEngagement.duréeContrat} Mois)`: ''}</p>
           </div>
-        }
-      </section>
-    </ConsulterOffreLayout>
-  );
+				}
+			</section>
+		</ConsulterOffreLayout>
+	);
 }

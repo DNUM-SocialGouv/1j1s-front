@@ -16,28 +16,28 @@ export interface MesuresEmployeursProps {
 }
 
 export function MesuresEmployeursComponent({ mesuresEmployeurs }: MesuresEmployeursProps) {
-  const { dispositifs } = mesuresEmployeurs;
-  const { isLargeScreen } = useBreakpoint();
-  const isMobile = !isLargeScreen;
-  return (
-    <>
-      <HeadTag
-        title="Mesures Employeurs | 1jeune1solution"
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
-      />
-      <main id="contenu" className={classNames({ [styles.mobile]: isMobile })}>
-        <Bannière/>
-        <section className={styles.dispositifs}>
-          <h2 id="dispositifs">
+	const { dispositifs } = mesuresEmployeurs;
+	const { isLargeScreen } = useBreakpoint();
+	const isMobile = !isLargeScreen;
+	return (
+		<>
+			<HeadTag
+				title="Mesures Employeurs | 1jeune1solution"
+				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
+			/>
+			<main id="contenu" className={classNames({ [styles.mobile]: isMobile })}>
+				<Bannière/>
+				<section className={styles.dispositifs}>
+					<h2 id="dispositifs">
             Découvrir les dispositifs pour vous aider à recruter
-          </h2>
-          <ul className={styles.cartes}>
-            {dispositifs.map((carte) => (<li key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile}/></li>))}
-          </ul>
-        </section>
-      </main>
-    </>
-  );
+					</h2>
+					<ul className={styles.cartes}>
+						{dispositifs.map((carte) => (<li key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile}/></li>))}
+					</ul>
+				</section>
+			</main>
+		</>
+	);
 }
 
 interface CarteMesureEmployeurProps {
@@ -46,20 +46,20 @@ interface CarteMesureEmployeurProps {
 }
 
 function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
-  const titre = useSanitize(carte.titre);
-  const bannière = carte.bannière?.url || '';
-  const link = carte.link;
-  const extrait = useSanitize(carte.extraitContenu);
-  const pourQui = carte.pourQui || '';
+	const titre = useSanitize(carte.titre);
+	const bannière = carte.bannière?.url || '';
+	const link = carte.link;
+	const extrait = useSanitize(carte.extraitContenu);
+	const pourQui = carte.pourQui || '';
 
 
-  return <FlippingCard
-    imageUrl={bannière}
-    link={link}
-    title={titre}
-    flippingCardContent={pourQui}
-    data-testid="carteMesuresEmployeurs"
-  >
-    <Marked markdown={extrait} />
-  </FlippingCard>;
+	return <FlippingCard
+		imageUrl={bannière}
+		link={link}
+		title={titre}
+		flippingCardContent={pourQui}
+		data-testid="carteMesuresEmployeurs"
+	>
+		<Marked markdown={extrait} />
+	</FlippingCard>;
 }

@@ -17,31 +17,31 @@ interface LinkCardProps {
 
 export function LinkCard({ children, imageUrl, link, linkLabel, title, titleAs }: React.PropsWithChildren<LinkCardProps>)  {
 
-  function LinkCardTitle({ children, className }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-    return React.createElement(titleAs || 'h3', { className: className }, children);
-  }
+	function LinkCardTitle({ children, className }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
+		return React.createElement(titleAs || 'h3', { className: className }, children);
+	}
 
-  return (
-    <Link href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
-      <article className={styles.cardArticle}>
-        <div className={styles.cardImageWrapper}>
-          <Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
-        </div>
+	return (
+		<Link href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
+			<article className={styles.cardArticle}>
+				<div className={styles.cardImageWrapper}>
+					<Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+				</div>
 
-        <div className={styles.cardContent}>
-          <div className={styles.cardContentHeader}>
-            <LinkCardTitle className={styles.cardTitle}>{title}</LinkCardTitle>
-            <span className={styles.cardAction}>
-              <span className="sr-only">{linkLabel}</span>
-              <Icon name='angle-right' aria-hidden="true"/>
-            </span>
-          </div>
+				<div className={styles.cardContent}>
+					<div className={styles.cardContentHeader}>
+						<LinkCardTitle className={styles.cardTitle}>{title}</LinkCardTitle>
+						<span className={styles.cardAction}>
+							<span className="sr-only">{linkLabel}</span>
+							<Icon name='angle-right' aria-hidden="true"/>
+						</span>
+					</div>
 
-          <div className={styles.cardDescription}>{children}</div>
-        </div>
-      </article>
-    </Link>
-  );
+					<div className={styles.cardDescription}>{children}</div>
+				</div>
+			</article>
+		</Link>
+	);
 };
 
 

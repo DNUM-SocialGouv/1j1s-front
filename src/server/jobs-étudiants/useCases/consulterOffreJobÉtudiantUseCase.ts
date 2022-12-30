@@ -3,10 +3,10 @@ import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 
 export class ConsulterOffreJobÉtudiantUseCase {
-  constructor(private offreRepository: OffreRepository) {
-  }
+	constructor(private offreRepository: OffreRepository) {
+	}
 
-  async handle(id: OffreId): Promise<Either<Offre>> {
-    return this.offreRepository.get(id);
-  }
+	async handle(id: OffreId): Promise<Either<Offre>> {
+		return this.offreRepository.get(id);
+	}
 }

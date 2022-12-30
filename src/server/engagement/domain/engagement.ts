@@ -40,83 +40,83 @@ export namespace MissionEngagement {
 }
 
 export const bénévolatDomaineList: MissionEngagement.Domaine[] = [
-  {
-    libellé: 'Culture et loisirs',
-    valeur: 'culture-loisirs',
-  },
-  {
-    libellé: 'Éducation',
-    valeur: 'education',
-  },
-  {
-    libellé: 'Environnement',
-    valeur: 'environnement',
-  },
-  {
-    libellé: 'Mémoire et citoyenneté',
-    valeur: 'mémoire et citoyenneté',
-  },
-  {
-    libellé: 'Prévention et protection',
-    valeur: 'prevention-protection',
-  },
-  {
-    libellé: 'Santé',
-    valeur: 'sante',
-  },
-  {
-    libellé: 'Solidarité et insertion',
-    valeur: 'solidarite-insertion',
-  },
-  {
-    libellé: 'Sport',
-    valeur: 'sport',
-  },
-  {
-    libellé: 'Vivre ensemble',
-    valeur: 'vivre-ensemble',
-  },
-  {
-    libellé: 'Autre',
-    valeur: 'autre',
-  },
+	{
+		libellé: 'Culture et loisirs',
+		valeur: 'culture-loisirs',
+	},
+	{
+		libellé: 'Éducation',
+		valeur: 'education',
+	},
+	{
+		libellé: 'Environnement',
+		valeur: 'environnement',
+	},
+	{
+		libellé: 'Mémoire et citoyenneté',
+		valeur: 'mémoire et citoyenneté',
+	},
+	{
+		libellé: 'Prévention et protection',
+		valeur: 'prevention-protection',
+	},
+	{
+		libellé: 'Santé',
+		valeur: 'sante',
+	},
+	{
+		libellé: 'Solidarité et insertion',
+		valeur: 'solidarite-insertion',
+	},
+	{
+		libellé: 'Sport',
+		valeur: 'sport',
+	},
+	{
+		libellé: 'Vivre ensemble',
+		valeur: 'vivre-ensemble',
+	},
+	{
+		libellé: 'Autre',
+		valeur: 'autre',
+	},
 ];
 
 export const serviceCiviqueDomaineList: MissionEngagement.Domaine[]  = [
-  {
-    libellé: 'Culture et Loisirs',
-    valeur: 'culture-loisirs',
-  },
-  {
-    libellé: 'Éducation',
-    valeur: 'education',
-  },
-  {
-    libellé: 'Environnement',
-    valeur: 'environnement',
-  },
-  {
-    libellé: 'Humanitaire',
-    valeur: 'humanitaire',
-  },
-  {
-    libellé: 'Santé',
-    valeur: 'sante',
-  },
-  {
-    libellé: 'Solidarité et insertion',
-    valeur: 'solidarite-insertion',
-  },
-  {
-    libellé: 'Sport',
-    valeur: 'sport',
-  },
-  {
-    libellé: 'Vivre ensemble',
-    valeur: 'vivre-ensemble',
-  },
-  {
-    libellé: 'Autre',
-    valeur: 'autre',
-  },
+	{
+		libellé: 'Culture et Loisirs',
+		valeur: 'culture-loisirs',
+	},
+	{
+		libellé: 'Éducation',
+		valeur: 'education',
+	},
+	{
+		libellé: 'Environnement',
+		valeur: 'environnement',
+	},
+	{
+		libellé: 'Humanitaire',
+		valeur: 'humanitaire',
+	},
+	{
+		libellé: 'Santé',
+		valeur: 'sante',
+	},
+	{
+		libellé: 'Solidarité et insertion',
+		valeur: 'solidarite-insertion',
+	},
+	{
+		libellé: 'Sport',
+		valeur: 'sport',
+	},
+	{
+		libellé: 'Vivre ensemble',
+		valeur: 'vivre-ensemble',
+	},
+	{
+		libellé: 'Autre',
+		valeur: 'autre',
+	},
 ];

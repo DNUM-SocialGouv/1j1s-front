@@ -17,73 +17,73 @@ interface NavItemWithSubItemsProps {
 }
 
 export function NavItemWithSubItems({ className, onClick, item: root, path }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
-  const optionsRef = useRef<HTMLLIElement>(null);
-  const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
-  const [previousEmbeddedItems, setPreviousEmbeddedItems] = useState<NavigationItemWithChildren[]>([]);
-  const label = currentItem.label;
-  const subItems = currentItem.children;
-  const isRoot = root.label === currentItem.label;
-  const { isLargeScreen } = useBreakpoint();
+	const optionsRef = useRef<HTMLLIElement>(null);
+	const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
+	const [previousEmbeddedItems, setPreviousEmbeddedItems] = useState<NavigationItemWithChildren[]>([]);
+	const label = currentItem.label;
+	const subItems = currentItem.children;
+	const isRoot = root.label === currentItem.label;
+	const { isLargeScreen } = useBreakpoint();
 
-  const isActive = useMemo(() => {
-    return isItemActive(root, path);
-  }, [path, root]);
-  const [isExpanded, setIsExpanded] = useState(isActive && !isLargeScreen);
+	const isActive = useMemo(() => {
+		return isItemActive(root, path);
+	}, [path, root]);
+	const [isExpanded, setIsExpanded] = useState(isActive && !isLargeScreen);
 
-  const reset = useCallback(() => {
-    setIsExpanded(false);
-    setCurrentItem(root);
-    setPreviousEmbeddedItems([]);
-  }, [setIsExpanded, setCurrentItem, root]);
+	const reset = useCallback(() => {
+		setIsExpanded(false);
+		setCurrentItem(root);
+		setPreviousEmbeddedItems([]);
+	}, [setIsExpanded, setCurrentItem, root]);
 
-  const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-    if (!optionsRef.current?.contains(event.target as Node)) {
-      reset();
-    }
-  }, [reset]);
+	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
+		if (!optionsRef.current?.contains(event.target as Node)) {
+			reset();
+		}
+	}, [reset]);
 
-  const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
-    if (event.key === KeyBoard.ESCAPE) {
-      reset();
-    }
-  }, [reset]);
+	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
+		if (event.key === KeyBoard.ESCAPE) {
+			reset();
+		}
+	}, [reset]);
 
-  function selectEmbeddedNavItem(item: NavigationItemWithChildren) {
-    setPreviousEmbeddedItems([currentItem, ...previousEmbeddedItems]);
-    setCurrentItem(item);
-  }
+	function selectEmbeddedNavItem(item: NavigationItemWithChildren) {
+		setPreviousEmbeddedItems([currentItem, ...previousEmbeddedItems]);
+		setCurrentItem(item);
+	}
 
-  function popEmbeddedItem() {
-    const [next, ...parents] = previousEmbeddedItems;
-    setCurrentItem(next || root);
-    setPreviousEmbeddedItems(parents);
-  }
+	function popEmbeddedItem() {
+		const [next, ...parents] = previousEmbeddedItems;
+		setCurrentItem(next || root);
+		setPreviousEmbeddedItems(parents);
+	}
 
-  function onItemSelected() {
-    reset();
-    if (onClick) {
-      onClick();
-    }
-  }
+	function onItemSelected() {
+		reset();
+		if (onClick) {
+			onClick();
+		}
+	}
 
-  useEffect(function setEventListenerOnMount() {
-    document.addEventListener('mousedown', closeOptionsOnClickOutside);
-    document.addEventListener('keyup', closeMenuOnEscape);
+	useEffect(function setEventListenerOnMount() {
+		document.addEventListener('mousedown', closeOptionsOnClickOutside);
+		document.addEventListener('keyup', closeMenuOnEscape);
 
-    return () => {
-      document.removeEventListener('mousedown', closeOptionsOnClickOutside);
-      document.removeEventListener('keyup', closeMenuOnEscape);
-    };
-  }, [closeMenuOnEscape, closeOptionsOnClickOutside]);
+		return () => {
+			document.removeEventListener('mousedown', closeOptionsOnClickOutside);
+			document.removeEventListener('keyup', closeMenuOnEscape);
+		};
+	}, [closeMenuOnEscape, closeOptionsOnClickOutside]);
 
-  useEffect(() => {
-    for (const item of root.children) {
-      if (!isNavigationItem(item) && isItemActive(item, path)) {
-        selectEmbeddedNavItem(item);
-        break;
-      }
-    }
-    /* eslint-disable */
+	useEffect(() => {
+		for (const item of root.children) {
+			if (!isNavigationItem(item) && isItemActive(item, path)) {
+				selectEmbeddedNavItem(item);
+				break;
+			}
+		}
+		/* eslint-disable */
   }, [path, root]);
 
   const subNav = subItems.map((item, index) => {

@@ -7,32 +7,32 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { REFERRER } from '~/client/hooks/useReferrer';
 
 export function ButtonRetour({ className }: React.HTMLProps<HTMLButtonElement>) {
-  const router = useRouter();
+	const router = useRouter();
 
-  const referrer = useMemo( () => {
-    return sessionStorage.getItem(REFERRER);
-  }, []);
+	const referrer = useMemo( () => {
+		return sessionStorage.getItem(REFERRER);
+	}, []);
 
-  useEffect(() => {
-    return () => {
-      sessionStorage.removeItem(REFERRER);
-    };
-  }, []);
+	useEffect(() => {
+		return () => {
+			sessionStorage.removeItem(REFERRER);
+		};
+	}, []);
 
-  if (referrer === null) return null;
+	if (referrer === null) return null;
 
-  return (
-    <div className={className}>
-      <Container>
-        <ButtonComponent
-          appearance="secondary"
-          aria-label={`Retour vers la page ${referrer}`}
-          icon={<Icon name="angle-left" />}
-          iconPosition="left"
-          label="Retour"
-          onClick={() => router.back()}
-        />
-      </Container>
-    </div>
-  );
+	return (
+		<div className={className}>
+			<Container>
+				<ButtonComponent
+					appearance="secondary"
+					aria-label={`Retour vers la page ${referrer}`}
+					icon={<Icon name="angle-left" />}
+					iconPosition="left"
+					label="Retour"
+					onClick={() => router.back()}
+				/>
+			</Container>
+		</div>
+	);
 }

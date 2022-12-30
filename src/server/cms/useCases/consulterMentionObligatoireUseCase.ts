@@ -4,9 +4,9 @@ import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { Either } from '~/server/errors/either';
 
 export class ConsulterMentionObligatoireUseCase {
-  constructor(private cmsRepository: CmsRepository) {}
+	constructor(private cmsRepository: CmsRepository) {}
 
-  async handle(pageFooter: MentionsObligatoires): Promise<Either<Article>> {
-    return this.cmsRepository.getMentionObligatoire(pageFooter);
-  }
+	async handle(pageFooter: MentionsObligatoires): Promise<Either<Article>> {
+		return this.cmsRepository.getMentionObligatoire(pageFooter);
+	}
 }

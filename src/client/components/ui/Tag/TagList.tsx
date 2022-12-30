@@ -10,19 +10,19 @@ interface TagListProps extends CommonProps {
 }
 
 export function TagList({ className, list, ...rest }: TagListProps) {
-  const _classNames = classNames(styles.tagList, className);
+	const _classNames = classNames(styles.tagList, className);
 
-  return (
-    <ul className={_classNames} {...rest}>
-      {
-        list
-          .filter((tag) => !!tag)
-          .map((tag) => (
-            <li key={tag}>
-              <Tag>{tag}</Tag>
-            </li>
-          ))
-      }
-    </ul>
-  );
+	return (
+		<ul className={_classNames} {...rest}>
+			{
+				list
+					.filter((tag) => !!tag)
+					.map((tag) => (
+						<li key={tag}>
+							<Tag>{tag}</Tag>
+						</li>
+					))
+			}
+		</ul>
+	);
 }

@@ -3,13 +3,13 @@ import { buildDemandeDeContactMail } from '~/server/demande-de-contact/infra/rep
 import { aMail } from '~/server/mail/domain/mail.fixture';
 
 describe('DemandeDeContactMailBuilder', () => {
-  describe('buildDemandeDeContactMail', () => {
-    it('construit l’email à envoyer', () => {
-      const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
+	describe('buildDemandeDeContactMail', () => {
+		it('construit l’email à envoyer', () => {
+			const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
 
-      const result = buildDemandeDeContactMail(demandeDeContactAccompagnement);
+			const result = buildDemandeDeContactMail(demandeDeContactAccompagnement);
 
-      expect(result).toEqual(aMail());
-    });
-  });
+			expect(result).toEqual(aMail());
+		});
+	});
 });

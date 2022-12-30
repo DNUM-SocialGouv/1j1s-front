@@ -16,17 +16,17 @@ Rejoignez la mobilisation !
 `;
 
 export default function RejoignezMobilisation() {
-  return <div className={styles.content}>
-    <Container className={styles.container} >
-      <div className={styles.lesEntreprisesSEngagent}>
-        <Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="65" height="65" aria-hidden="true"/>
-        <span>Les entreprises s&apos;engagent</span>
-      </div>
-      <Marked markdown={contenuHeader}/>
-      <div className={styles.linkAsButtonWrapper}>
-        <Link href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la mobilisation</Link>
-        <Link href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">Découvrir les entreprises engagées</Link>
-      </div>
-    </Container>
-  </div>;
+	return <div className={styles.content}>
+		<Container className={styles.container} >
+			<div className={styles.lesEntreprisesSEngagent}>
+				<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="65" height="65" aria-hidden="true"/>
+				<span>Les entreprises s‘engagent</span>
+			</div>
+			<Marked markdown={contenuHeader}/>
+			<div className={styles.linkAsButtonWrapper}>
+				<Link href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la mobilisation</Link>
+				<Link href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">Découvrir les entreprises engagées</Link>
+			</div>
+		</Container>
+	</div>;
 }

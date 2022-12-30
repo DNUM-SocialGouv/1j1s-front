@@ -3,10 +3,10 @@ import { EngagementRepository } from '~/server/engagement/domain/engagement.repo
 import { Either } from '~/server/errors/either';
 
 export class ConsulterMissionEngagementUseCase {
-  constructor(private missionRepository: EngagementRepository) {
-  }
+	constructor(private missionRepository: EngagementRepository) {
+	}
 
-  async handle(id: MissionId): Promise<Either<Mission>> {
-    return await this.missionRepository.getMissionEngagement(id);
-  }
+	async handle(id: MissionId): Promise<Either<Mission>> {
+		return await this.missionRepository.getMissionEngagement(id);
+	}
 }

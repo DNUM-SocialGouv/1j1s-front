@@ -3,9 +3,9 @@ import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Either } from '~/server/errors/either';
 
 export class ConsulterArticleUseCase {
-  constructor(private cmsRepository: CmsRepository) {}
+	constructor(private cmsRepository: CmsRepository) {}
 	
-  async handle(slug: ArticleSlug): Promise<Either<Article>> {
-    return this.cmsRepository.getArticleBySlug(slug);
-  }
+	async handle(slug: ArticleSlug): Promise<Either<Article>> {
+		return this.cmsRepository.getArticleBySlug(slug);
+	}
 }

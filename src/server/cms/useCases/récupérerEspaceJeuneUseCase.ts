@@ -3,9 +3,9 @@ import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Either } from '~/server/errors/either';
 
 export class RécupérerEspaceJeuneUseCase {
-  constructor(private cmsRepository: CmsRepository) {}
+	constructor(private cmsRepository: CmsRepository) {}
 
-  async handle(): Promise<Either<EspaceJeune>> {
-    return this.cmsRepository.getEspaceJeune();
-  }
+	async handle(): Promise<Either<EspaceJeune>> {
+		return this.cmsRepository.getEspaceJeune();
+	}
 }

@@ -3,9 +3,9 @@ import { ÉtablissementAccompagnement } from '~/server/établissement-accompagne
 import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 
 export class RechercherÉtablissementAccompagnementUseCase {
-  constructor(private apiÉtablissementPublicRepository: ApiÉtablissementPublicRepository) {}
+	constructor(private apiÉtablissementPublicRepository: ApiÉtablissementPublicRepository) {}
 
-  async handle({ commune, typeAccompagnement }: { commune: string, typeAccompagnement: string }): Promise<Either<ÉtablissementAccompagnement[]>> {
-    return this.apiÉtablissementPublicRepository.search({ commune, typeAccompagnement });
-  }
+	async handle({ commune, typeAccompagnement }: { commune: string, typeAccompagnement: string }): Promise<Either<ÉtablissementAccompagnement[]>> {
+		return this.apiÉtablissementPublicRepository.search({ commune, typeAccompagnement });
+	}
 }

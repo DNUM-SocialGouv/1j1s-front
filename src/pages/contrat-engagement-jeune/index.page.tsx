@@ -13,25 +13,25 @@ import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/R
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function ContratEngagementJeune() {
-  return (
-    <>
-      <HeadTag
-        title="Contrat Engagement Jeune"
-        description="Plus de 400 000 offres d'emplois et d'alternances sélectionnées pour vous"
-      />
-      <main id="contenu">
-        <Bannière/>
-        <QuEstCeQueCEst/>
-        <Actions/>
-        <PourquoiCEstFaitPourMoi/>
-        <QuEstCeQueJyGagne/>
-        <Allocations/>
-        <TémoignageKévin id="témoignage-kévin"/>
-        <TémoignageLatifa id="témoignage-latifa"/>
-        <Accompagnement/>
-        <Rappel/>
-        <Application/>
-      </main>
-    </>
-  );
+	return (
+		<>
+			<HeadTag
+				title="Contrat Engagement Jeune"
+				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
+			/>
+			<main id="contenu">
+				<Bannière/>
+				<QuEstCeQueCEst/>
+				<Actions/>
+				<PourquoiCEstFaitPourMoi/>
+				<QuEstCeQueJyGagne/>
+				<Allocations/>
+				<TémoignageKévin id="témoignage-kévin"/>
+				<TémoignageLatifa id="témoignage-latifa"/>
+				<Accompagnement/>
+				<Rappel/>
+				<Application/>
+			</main>
+		</>
+	);
 }

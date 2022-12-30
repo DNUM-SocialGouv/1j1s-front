@@ -1,5 +1,5 @@
 import React, {
-  useState,
+	useState,
 } from 'react';
 
 import styles from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement.module.scss';
@@ -15,56 +15,56 @@ import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function FormulaireRechercheAnnonceLogement() {
-  const { isSmallScreen } = useBreakpoint();
-  const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
-  const PRIX_MINIMUM = 0;
-  const PRIX_MAXIMUM = 3000;
-  const SURFACE_MINIMUM = 0;
-  const SURFACE_MAXIMUM = 500;
-  return (
-    <form
+	const { isSmallScreen } = useBreakpoint();
+	const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
+	const PRIX_MINIMUM = 0;
+	const PRIX_MAXIMUM = 3000;
+	const SURFACE_MINIMUM = 0;
+	const SURFACE_MAXIMUM = 500;
+	return (
+		<form
 	  className={styles.RechercherLogementForm}
 	  role="search"
 	  onSubmit={(event) => event.preventDefault()}>
 	  <MeilisearchCustomSearchBox
-        className={styles.inputVille}
-        label="Rechercher par ville"
-        name="ville"
-        placeholder="Exemples: Paris, Toulouse"
+				className={styles.inputVille}
+				label="Rechercher par ville"
+				name="ville"
+				placeholder="Exemples: Paris, Toulouse"
 	  />
 	  { !isSmallScreen && (
-        <>
+				<>
 		  <MeilisearchCustomRefinementList
-            className={styles.inputType}
-            attribute="type"
-            label="Type d'offre"
-            sortBy={['name:asc']}
+						className={styles.inputType}
+						attribute="type"
+						label="Type d‘offre"
+						sortBy={['name:asc']}
 		  />
 		  <MeilisearchCustomRefinementList
-            className={styles.inputTypeBien}
-            attribute="typeBien"
-            label="Type de bien"
-            sortBy={['name:asc']}
+						className={styles.inputTypeBien}
+						attribute="typeBien"
+						label="Type de bien"
+						sortBy={['name:asc']}
 		  />
 		  <MeilisearchCustomRangeInput
-            className={styles.inputSurface}
-            attribute="surface"
-            label="Surface (m²)"
-            placeholder="Indiquez une surface"
-            unite="m²"
-            min={SURFACE_MINIMUM}
-            max={SURFACE_MAXIMUM}
+						className={styles.inputSurface}
+						attribute="surface"
+						label="Surface (m²)"
+						placeholder="Indiquez une surface"
+						unite="m²"
+						min={SURFACE_MINIMUM}
+						max={SURFACE_MAXIMUM}
 		  />
 		  <MeilisearchCustomRangeInput
-            className={styles.inputPrix}
-            attribute="prix"
-            label="Prix"
-            placeholder="Indiquez une fourchette de prix"
-            unite="€"
-            min={PRIX_MINIMUM}
-            max={PRIX_MAXIMUM}
+						className={styles.inputPrix}
+						attribute="prix"
+						label="Prix"
+						placeholder="Indiquez une fourchette de prix"
+						unite="€"
+						min={PRIX_MINIMUM}
+						max={PRIX_MAXIMUM}
 		  />
-        </>
+				</>
 	  )}
 	  {isSmallScreen &&
 		<div>
@@ -87,10 +87,10 @@ export function FormulaireRechercheAnnonceLogement() {
 			  <span id="dialog_label">Filtrer ma recherche</span>
 		    </ModalComponent.Title>
 		    <ModalComponent.Content className={styles.filtresAvancésModalContenu}>
-			  <FilterAccordion title="Type d'offre" open>
+			  <FilterAccordion title="Type d‘offre" open>
 		        <MeilisearchCustomRefinementListForModal
 				  attribute="type"
-				  label="Type d'offre"
+				  label="Type d‘offre"
 				  sortBy={['name:asc']}
 		        />
 			  </FilterAccordion>
@@ -131,6 +131,6 @@ export function FormulaireRechercheAnnonceLogement() {
 		  </ModalComponent>
 		</div>
 	  }
-    </form>
-  );
+		</form>
+	);
 }

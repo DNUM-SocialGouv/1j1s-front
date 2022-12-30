@@ -4,23 +4,23 @@ import { HttpClientServiceWithAuthentification } from '~/server/services/http/ht
 
 export class ApiPoleEmploiRéférentielRepository {
 
-  constructor(
+	constructor(
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private cacheService: CacheService,
-  ) {}
+	) {}
 
-  private CACHE_KEY = 'REFERENTIEL_COMMUNE';
+	private CACHE_KEY = 'REFERENTIEL_COMMUNE';
 
-  async findCodeInseeInRéférentielCommune(code: string): Promise<string> {
-    const responseInCache = await this.cacheService.get<RésultatsRéférentielCommunesResponse[]>(this.CACHE_KEY);
-    if(responseInCache) {
-      return mapCodeInsee(responseInCache, code);
-    } else {
-      const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[]>('/communes');
-      this.cacheService.set(this.CACHE_KEY, response.data, 24);
-      return mapCodeInsee(response.data, code);
-    }
-  };
+	async findCodeInseeInRéférentielCommune(code: string): Promise<string> {
+		const responseInCache = await this.cacheService.get<RésultatsRéférentielCommunesResponse[]>(this.CACHE_KEY);
+		if(responseInCache) {
+			return mapCodeInsee(responseInCache, code);
+		} else {
+			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[]>('/communes');
+			this.cacheService.set(this.CACHE_KEY, response.data, 24);
+			return mapCodeInsee(response.data, code);
+		}
+	};
 }
 
 export interface RésultatsRéférentielCommunesResponse {

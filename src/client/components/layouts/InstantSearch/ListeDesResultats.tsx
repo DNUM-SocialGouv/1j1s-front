@@ -15,24 +15,24 @@ interface ListeDesResultatsProps {
 
 // eslint-disable-next-line react/display-name
 export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesResultatsProps>((props: ListeDesResultatsProps, outerRef) => {
-  const { resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
-  const ref = useSynchronizedRef(outerRef);
+	const { resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
+	const ref = useSynchronizedRef(outerRef);
 
-  return (
-    <section className={styles.listeDesResultatsWrapper} ref={ref}>
+	return (
+		<section className={styles.listeDesResultatsWrapper} ref={ref}>
 	  <Container className={{ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow }}>
-        <Skeleton
-          type='card'
-          isLoading={isLoading}
-          repeat={skeletonRepeat}
-          className={{ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow } }
-        >
-          <>
-            { resultats }
-            { pagination }
-          </>
-        </Skeleton>
+				<Skeleton
+					type='card'
+					isLoading={isLoading}
+					repeat={skeletonRepeat}
+					className={{ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow } }
+				>
+					<>
+						{ resultats }
+						{ pagination }
+					</>
+				</Skeleton>
 	  </Container>
-    </section>
-  );
+		</section>
+	);
 });

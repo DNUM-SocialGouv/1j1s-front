@@ -18,33 +18,33 @@ interface HeroWithButtonLinkProps {
 }
 
 export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
-  const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonLabelSecondary, buttonHref, buttonHrefSecondary, imgSrc, additionalInformation } = props;
+	const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonLabelSecondary, buttonHref, buttonHrefSecondary, imgSrc, additionalInformation } = props;
 
-  const { isLargeScreen } = useBreakpoint();
+	const { isLargeScreen } = useBreakpoint();
 
-  return (
-    <div className={styles.heading}>
-      <div className={styles.headingContainerWrapper}>
-        <div className={styles.headingContainer}>
-          <h1 className={styles.headingContainer__Title}>
-            <span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
-            {titleSecondaryText && <span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>}
-          </h1>
-          <p className={styles.headingContainer__TextContent}>
-            {content}
-          </p>
-          <div className={styles.linkAsButtonContainer}>
-            <Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</Link><br />
-            {(buttonLabelSecondary && buttonHrefSecondary) && <Link className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</Link>}
-          </div>
-          {additionalInformation}
-        </div>
-      </div>
-      {isLargeScreen &&
+	return (
+		<div className={styles.heading}>
+			<div className={styles.headingContainerWrapper}>
+				<div className={styles.headingContainer}>
+					<h1 className={styles.headingContainer__Title}>
+						<span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
+						{titleSecondaryText && <span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>}
+					</h1>
+					<p className={styles.headingContainer__TextContent}>
+						{content}
+					</p>
+					<div className={styles.linkAsButtonContainer}>
+						<Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</Link><br />
+						{(buttonLabelSecondary && buttonHrefSecondary) && <Link className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</Link>}
+					</div>
+					{additionalInformation}
+				</div>
+			</div>
+			{isLargeScreen &&
         <div className={styles.imageWrapper}>
-          <Image src={imgSrc} alt="" layout="fill" objectFit="cover" objectPosition="right"/>
+        	<Image src={imgSrc} alt="" layout="fill" objectFit="cover" objectPosition="right"/>
         </div>
-      }
-    </div>
-  );
+			}
+		</div>
+	);
 }

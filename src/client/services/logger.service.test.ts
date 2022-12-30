@@ -6,57 +6,57 @@ jest.mock('@sentry/nextjs');
 
 const SentryMock = jest.mocked(Sentry, true);
 const SentryScopeMock = {
-  setTag: jest.fn(),
+	setTag: jest.fn(),
 } as unknown as Sentry.Scope;
 SentryMock.configureScope.mockImplementation((callback) => {
-  callback(SentryScopeMock);
+	callback(SentryScopeMock);
 });
 
 describe('LoggerService', () => {
-  const sessionId = 'ma-session-id';
+	const sessionId = 'ma-session-id';
 
-  describe('error', () => {
-    it('appelle le logger error avec les bons paramètres', () => {
-      const loggerService = new LoggerService(sessionId);
-      const message = 'mon erreur message';
-      loggerService.error(message);
+	describe('error', () => {
+		it('appelle le logger error avec les bons paramètres', () => {
+			const loggerService = new LoggerService(sessionId);
+			const message = 'mon erreur message';
+			loggerService.error(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
-    });
-  });
+			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
+		});
+	});
 
-  describe('info', () => {
-    it('appelle le logger info avec les bons paramètres', () => {
-      const loggerService = new LoggerService(sessionId);
-      const message = 'mon info message';
-      loggerService.info(message);
+	describe('info', () => {
+		it('appelle le logger info avec les bons paramètres', () => {
+			const loggerService = new LoggerService(sessionId);
+			const message = 'mon info message';
+			loggerService.info(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
-    });
-  });
+			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
+		});
+	});
 
-  describe('warn', () => {
-    it('appelle le logger warn avec les bons paramètres', () => {
-      const loggerService = new LoggerService(sessionId);
-      const message = 'mon warn message';
-      loggerService.warn(message);
+	describe('warn', () => {
+		it('appelle le logger warn avec les bons paramètres', () => {
+			const loggerService = new LoggerService(sessionId);
+			const message = 'mon warn message';
+			loggerService.warn(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
-    });
-  });
+			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
+		});
+	});
 
-  describe('setTransactionId', () => {
-    const transactionId = 'ma-transaction-id';
+	describe('setTransactionId', () => {
+		const transactionId = 'ma-transaction-id';
 
-    it('appelle setTag avec le transactionId', () => {
-      const loggerService = new LoggerService(sessionId);
+		it('appelle setTag avec le transactionId', () => {
+			const loggerService = new LoggerService(sessionId);
 
-      loggerService.setTransactionId(transactionId);
+			loggerService.setTransactionId(transactionId);
 
-      expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
-        'transaction_id',
-        transactionId,
-      );
-    });
-  });
+			expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
+				'transaction_id',
+				transactionId,
+			);
+		});
+	});
 });

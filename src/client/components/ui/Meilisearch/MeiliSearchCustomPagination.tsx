@@ -12,45 +12,45 @@ interface MeiliSearchCustomPaginationProps extends CommonProps {
 }
 
 export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationProps & UsePaginationProps) {
-  const { numberOfResultPerPage, onPageChange, className } = props;
-  const {
-    currentRefinement,
-    nbHits,
-    isFirstPage,
-    isLastPage,
-    refine,
-    createURL,
-  } = usePagination(props);
-  const numberOfResult = nbHits;
+	const { numberOfResultPerPage, onPageChange, className } = props;
+	const {
+		currentRefinement,
+		nbHits,
+		isFirstPage,
+		isLastPage,
+		refine,
+		createURL,
+	} = usePagination(props);
+	const numberOfResult = nbHits;
 
-  const numberOfPageList = useMemo(() => {
-    if (nbHits > 0) {
-      return [...Array(Math.ceil(nbHits / numberOfResultPerPage) - 1)].map((value, index) => index);
-    }
-    return [];
-  }, [nbHits, numberOfResultPerPage]);
-  const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
+	const numberOfPageList = useMemo(() => {
+		if (nbHits > 0) {
+			return [...Array(Math.ceil(nbHits / numberOfResultPerPage) - 1)].map((value, index) => index);
+		}
+		return [];
+	}, [nbHits, numberOfResultPerPage]);
+	const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
 
 
-  const onPageClick = (pageNumber: number) => {
-    refine(pageNumber);
-    onPageChange();
-  };
+	const onPageClick = (pageNumber: number) => {
+		refine(pageNumber);
+		onPageChange();
+	};
 
-  return (
-    <div className={classNames(className)}>
-      <CommonPagination
-        currentPage={currentRefinement}
-        onPageClick={onPageClick}
-        isLastPage={isLastPage}
-        numberOfPageList={numberOfPageList}
-        lastPage={lastPage}
-        isFirstPage={isFirstPage}
-        createURL={createURL}
-      />
-    </div>
-  );
+	return (
+		<div className={classNames(className)}>
+			<CommonPagination
+				currentPage={currentRefinement}
+				onPageClick={onPageClick}
+				isLastPage={isLastPage}
+				numberOfPageList={numberOfPageList}
+				lastPage={lastPage}
+				isFirstPage={isFirstPage}
+				createURL={createURL}
+			/>
+		</div>
+	);
 }
 
 

@@ -12,20 +12,20 @@ interface ConsulterArticleProps {
 }
 
 export function ConsulterArticle({ article }: ConsulterArticleProps) {
-  const titre = useSanitize(article.titre);
-  const bannièreUrl = useSanitize(article.bannière?.url);
-  const bannièreAlt = useSanitize(article.bannière?.alt);
-  const contenu = article.contenu ;
+	const titre = useSanitize(article.titre);
+	const bannièreUrl = useSanitize(article.bannière?.url);
+	const bannièreAlt = useSanitize(article.bannière?.alt);
+	const contenu = article.contenu ;
 
-  return (
-    <>
-      <main className={classNames('fr-container', styles.consulterArticle)}>
-        <ButtonRetour className={styles.consulterArticleButtonRetour}/>
-        <h1 className={styles.titre}>{titre}</h1>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        {bannièreUrl && <img src={bannièreUrl} alt={bannièreAlt} decoding="async" loading="lazy" />}
-        <Marked markdown={contenu} className={classNames(styles.contenu, MarkedStyles.normalize)} />
-      </main>
-    </>
-  );
+	return (
+		<>
+			<main className={classNames('fr-container', styles.consulterArticle)}>
+				<ButtonRetour className={styles.consulterArticleButtonRetour}/>
+				<h1 className={styles.titre}>{titre}</h1>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				{bannièreUrl && <img src={bannièreUrl} alt={bannièreAlt} decoding="async" loading="lazy" />}
+				<Marked markdown={contenu} className={classNames(styles.contenu, MarkedStyles.normalize)} />
+			</main>
+		</>
+	);
 }

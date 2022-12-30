@@ -14,25 +14,25 @@ interface HeroComponentProps extends CommonProps {
 }
 
 export function HeroComponent({ titlePrimaryText, titleSecondaryText, imgSrc, className, children }: React.PropsWithChildren<HeroComponentProps>) {
-  const { isLargeScreen } = useBreakpoint();
+	const { isLargeScreen } = useBreakpoint();
 
-  return (
-    <div className={classNames(styles.heading, className)}>
-      <div className={styles.headingContainerWrapper}>
-        <div className={styles.headingContainer}>
-          <h1 className={styles.headingContainer__Title}>
-            <span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
-            <br />
-            <span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>
-          </h1>
-          {children}
-        </div>
-      </div>
-      {isLargeScreen &&
+	return (
+		<div className={classNames(styles.heading, className)}>
+			<div className={styles.headingContainerWrapper}>
+				<div className={styles.headingContainer}>
+					<h1 className={styles.headingContainer__Title}>
+						<span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
+						<br />
+						<span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>
+					</h1>
+					{children}
+				</div>
+			</div>
+			{isLargeScreen &&
         <div className={styles.imageWrapper}>
-          <Image src={imgSrc} alt="" layout="fill" objectFit="cover" objectPosition="right"/>
+        	<Image src={imgSrc} alt="" layout="fill" objectFit="cover" objectPosition="right"/>
         </div>
-      }
-    </div>
-  );
+			}
+		</div>
+	);
 }

@@ -16,35 +16,35 @@ const HITS_PER_PAGE = 15;
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherFicheMetierPage() {
-  useReferrer();
+	useReferrer();
 
-  return (
-    <>
-      <HeadTag
-        title={'Rechercher un métier | 1jeune1solution'}
-        description="Trouver le métier qui vous correspond"
-      />
-      <InstantSearchLayout
-        meilisearchIndex={MEILISEARCH_INDEX}
-        nombreDeResultatParPage={HITS_PER_PAGE}
-        titre="Trouvez le métier"
-        sousTitre="qui vous correspond"
-        isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
-        formulaireDeRecherche={<FormulaireRechercheFicheMetier />}
-        messageResultatRechercheLabelSingulier="fiche métier"
-        messageResultatRechercheLabelPluriel="fiches métier"
-        nombreDeSkeleton={2}
-        ariaLabelListeDesResultats="fiches métier"
-        resultatDeRecherche={RésultatRechercherMétier}
-        hasTagList
-        isAffichageListeDeResultatsDesktopDirectionRow
-      />
-      <EnTeteSection heading="Découvrez des services faits pour vous" />
-      <div className={classNames(styles.additionalSection, 'background-white-lilac')}>
-        <Container className={styles.partnerCardContainer}>
-          <MétierDuSoinPartner />
-        </Container>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<HeadTag
+				title={'Rechercher un métier | 1jeune1solution'}
+				description="Trouver le métier qui vous correspond"
+			/>
+			<InstantSearchLayout
+				meilisearchIndex={MEILISEARCH_INDEX}
+				nombreDeResultatParPage={HITS_PER_PAGE}
+				titre="Trouvez le métier"
+				sousTitre="qui vous correspond"
+				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
+				formulaireDeRecherche={<FormulaireRechercheFicheMetier />}
+				messageResultatRechercheLabelSingulier="fiche métier"
+				messageResultatRechercheLabelPluriel="fiches métier"
+				nombreDeSkeleton={2}
+				ariaLabelListeDesResultats="fiches métier"
+				resultatDeRecherche={RésultatRechercherMétier}
+				hasTagList
+				isAffichageListeDeResultatsDesktopDirectionRow
+			/>
+			<EnTeteSection heading="Découvrez des services faits pour vous" />
+			<div className={classNames(styles.additionalSection, 'background-white-lilac')}>
+				<Container className={styles.partnerCardContainer}>
+					<MétierDuSoinPartner />
+				</Container>
+			</div>
+		</>
+	);
 }

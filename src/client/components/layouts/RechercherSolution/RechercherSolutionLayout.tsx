@@ -23,67 +23,67 @@ interface RechercherSolutionLayoutProps {
 }
 
 export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
-  const {
-    bannière,
-    erreurRecherche,
-    étiquettesRecherche,
-    formulaireRecherche,
-    messageRésultatRecherche,
-    nombreSolutions,
-    paginationOffset,
-    maxPage,
-    isLoading,
-    listeSolutionElement,
-  } = props;
+	const {
+		bannière,
+		erreurRecherche,
+		étiquettesRecherche,
+		formulaireRecherche,
+		messageRésultatRecherche,
+		nombreSolutions,
+		paginationOffset,
+		maxPage,
+		isLoading,
+		listeSolutionElement,
+	} = props;
 
-  const router = useRouter();
-  const hasRouterQuery = Object.keys(router.query).length > 0;
+	const router = useRouter();
+	const hasRouterQuery = Object.keys(router.query).length > 0;
 
-  return (
-    <>
-      {bannière}
-      <div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
-        <div className={'separator'}>
-          <Container className={styles.rechercheSolutionFormWrapper}>
-            {formulaireRecherche}
-          </Container>
-        </div>
+	return (
+		<>
+			{bannière}
+			<div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
+				<div className={'separator'}>
+					<Container className={styles.rechercheSolutionFormWrapper}>
+						{formulaireRecherche}
+					</Container>
+				</div>
 
-        {hasRouterQuery &&
+				{hasRouterQuery &&
           <>
-            {erreurRecherche || nombreSolutions === 0 && !isLoading
-              ? <ErrorComponent errorType={erreurRecherche}/>
-              : <>
-                <div className={'separator'}>
-                  <Container className={styles.informationRésultat}>
-                    {étiquettesRecherche}
-                    <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-                      <h2>{messageRésultatRecherche}</h2>
-                    </Skeleton>
-                  </Container>
-                </div>
+          	{erreurRecherche || nombreSolutions === 0 && !isLoading
+          		? <ErrorComponent errorType={erreurRecherche}/>
+          		: <>
+          			<div className={'separator'}>
+          				<Container className={styles.informationRésultat}>
+          					{étiquettesRecherche}
+          					<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
+          						<h2>{messageRésultatRecherche}</h2>
+          					</Skeleton>
+          				</Container>
+          			</div>
 
-                <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-                  <Container>
-                    <Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-                      {listeSolutionElement}
-                    </Skeleton>
-                    {paginationOffset && nombreSolutions > paginationOffset &&
+          			<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+          				<Container>
+          					<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+          						{listeSolutionElement}
+          					</Skeleton>
+          					{paginationOffset && nombreSolutions > paginationOffset &&
                       <div className={styles.pagination}>
-                        <Pagination
-                          numberOfResult={nombreSolutions}
-                          numberOfResultPerPage={paginationOffset}
-                          maxPage={maxPage}
-                        />
+                      	<Pagination
+                      		numberOfResult={nombreSolutions}
+                      		numberOfResultPerPage={paginationOffset}
+                      		maxPage={maxPage}
+                      	/>
                       </div>
-                    }
-                  </Container>
-                </div>
-              </>
-            }
+          					}
+          				</Container>
+          			</div>
+          		</>
+          	}
           </>
-        }
-      </div>
-    </>
-  );
+				}
+			</div>
+		</>
+	);
 }

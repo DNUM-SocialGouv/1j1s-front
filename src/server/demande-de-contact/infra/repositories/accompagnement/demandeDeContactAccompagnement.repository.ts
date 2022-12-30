@@ -6,13 +6,13 @@ import { MailRepository } from '~/server/mail/domain/mail.repository';
 import { buildDemandeDeContactMail } from './demandeDeContactMail.builder';
 
 export class DemandeDeContactAccompagnementRepository implements DemandeDeContactRepository {
-  constructor(private mailRepository: MailRepository) {
-  }
+	constructor(private mailRepository: MailRepository) {
+	}
   
-  envoyer(demandeDeContact: DemandeDeContactAccompagnement): Promise<Either<void>> {
-    const mail = buildDemandeDeContactMail(demandeDeContact);
-    const context = ['accompagnement', 'mission_locale'];
+	envoyer(demandeDeContact: DemandeDeContactAccompagnement): Promise<Either<void>> {
+		const mail = buildDemandeDeContactMail(demandeDeContact);
+		const context = ['accompagnement', 'mission_locale'];
 
-    return this.mailRepository.send(mail, context);
-  }
+		return this.mailRepository.send(mail, context);
+	}
 }

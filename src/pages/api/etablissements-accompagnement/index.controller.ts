@@ -9,20 +9,20 @@ import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const querySchema = Joi.object({
-  codeCommune: Joi.string().alphanum().max(5),
-  libelleCommune: Joi.string().max(100),
-  typeAccompagnement: Joi.string().valid('cij','mission_locale','pole_emploi').required(),
+	codeCommune: Joi.string().alphanum().max(5),
+	libelleCommune: Joi.string().max(100),
+	typeAccompagnement: Joi.string().valid('cij','mission_locale','pole_emploi').required(),
 });
 
 export async function rechercherÉtablissementAccompagnementHandler(
-  req: NextApiRequest,
-  res: NextApiResponse<ÉtablissementAccompagnement[] | ErrorHttpResponse>) {
-  const { query } = req;
-  const résultatsRechercheÉtablissementAccompagnement = await dependencies
-    .établissementAccompagnementDependencies
-    .rechercherÉtablissementAccompagnementUseCase
-    .handle({ commune: String(query.codeCommune), typeAccompagnement: String(query.typeAccompagnement) });
-  return handleResponse(résultatsRechercheÉtablissementAccompagnement, res);
+	req: NextApiRequest,
+	res: NextApiResponse<ÉtablissementAccompagnement[] | ErrorHttpResponse>) {
+	const { query } = req;
+	const résultatsRechercheÉtablissementAccompagnement = await dependencies
+		.établissementAccompagnementDependencies
+		.rechercherÉtablissementAccompagnementUseCase
+		.handle({ commune: String(query.codeCommune), typeAccompagnement: String(query.typeAccompagnement) });
+	return handleResponse(résultatsRechercheÉtablissementAccompagnement, res);
 }
 
 export default monitoringHandler(validate({ query: querySchema }, rechercherÉtablissementAccompagnementHandler));

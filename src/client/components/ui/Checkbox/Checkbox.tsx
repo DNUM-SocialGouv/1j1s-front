@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, {
-  useEffect,
-  useRef,
+	useEffect,
+	useRef,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -13,20 +13,20 @@ interface CheckboxProps extends React.InputHTMLAttributes<unknown> {
 }
 
 export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
-  const checkboxId = useRef(id || uuidv4());
+	const checkboxId = useRef(id || uuidv4());
 
-  useEffect(() => {
-    checkboxId.current = id || uuidv4();
-  }, [id]);
+	useEffect(() => {
+		checkboxId.current = id || uuidv4();
+	}, [id]);
 
-  return (
-    <div className={classNames(styles.checkbox, className)}>
-      <input
-        type="checkbox"
-        {...rest}
-        id={checkboxId.current}
-      />
-      <label className={styles.label} htmlFor={checkboxId.current}>{label}</label>
-    </div>
-  );
+	return (
+		<div className={classNames(styles.checkbox, className)}>
+			<input
+				type="checkbox"
+				{...rest}
+				id={checkboxId.current}
+			/>
+			<label className={styles.label} htmlFor={checkboxId.current}>{label}</label>
+		</div>
+	);
 }

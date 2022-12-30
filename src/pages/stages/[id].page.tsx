@@ -11,19 +11,19 @@ import indexServices from '~/client/services/index.service';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 
 export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {
-  const router = useRouter();
+	const router = useRouter();
 
-  useEffect(()=>{
-    window.addEventListener('popstate', () => router.reload() );
-    return () => window.removeEventListener('popstate', () => router.reload());
-  }, [router]);
+	useEffect(()=>{
+		window.addEventListener('popstate', () => router.reload() );
+		return () => window.removeEventListener('popstate', () => router.reload());
+	}, [router]);
 
-  return (
-    <>
-      <HeadTag title={`${offreDeStage.titre} | 1jeune1solution`} />
-      <ConsulterOffreDeStage offreDeStage={offreDeStage}/>
-    </>
-  );
+	return (
+		<>
+			<HeadTag title={`${offreDeStage.titre} | 1jeune1solution`} />
+			<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+		</>
+	);
 }
 
 interface StageContext extends ParsedUrlQuery {
@@ -35,23 +35,23 @@ interface ConsulterStagePageProps {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<StageContext>): Promise<GetServerSidePropsResult<ConsulterStagePageProps>> {
-  if (!context.params) {
-    throw new PageContextParamsException();
-  }
-  const { id: slug } = context.params;
+	if (!context.params) {
+		throw new PageContextParamsException();
+	}
+	const { id: slug } = context.params;
 
-  try {
-    const offreDeStage = await indexServices.offreDeStage.get(slug);;
-    return {
-      props: {
-        offreDeStage,
-      },
-    };
-  } catch (e) {
-    const error: AxiosError | Error = e as AxiosError | Error;
-    if (error instanceof AxiosError && error.response?.status === 404) {
-      return { notFound: true };
-    }
-    throw e;
-  }
+	try {
+		const offreDeStage = await indexServices.offreDeStage.get(slug);;
+		return {
+			props: {
+				offreDeStage,
+			},
+		};
+	} catch (e) {
+		const error: AxiosError | Error = e as AxiosError | Error;
+		if (error instanceof AxiosError && error.response?.status === 404) {
+			return { notFound: true };
+		}
+		throw e;
+	}
 }

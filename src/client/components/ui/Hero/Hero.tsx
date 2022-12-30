@@ -12,18 +12,18 @@ interface HeroProps extends CommonProps {
 }
 
 export function Hero({ children, image, ariaHidden, className, ...rest }: React.PropsWithChildren<HeroProps>) {
-  const { isLargeScreen } = useBreakpoint();
+	const { isLargeScreen } = useBreakpoint();
 
-  return (
-    <div className={classNames(className, styles.hero)} {...rest}>
-      <h1 className={styles.heroTitle}>
-        {children}
-      </h1>
-      {image && isLargeScreen && (
-        <div className={styles.heroIllustration}>
-          <Image src={image} alt="" layout="fill" objectFit="cover" objectPosition="top left" aria-hidden={ariaHidden}/>
-        </div>
-      )}
-    </div>
-  );
+	return (
+		<div className={classNames(className, styles.hero)} {...rest}>
+			<h1 className={styles.heroTitle}>
+				{children}
+			</h1>
+			{image && isLargeScreen && (
+				<div className={styles.heroIllustration}>
+					<Image src={image} alt="" layout="fill" objectFit="cover" objectPosition="top left" aria-hidden={ariaHidden}/>
+				</div>
+			)}
+		</div>
+	);
 }

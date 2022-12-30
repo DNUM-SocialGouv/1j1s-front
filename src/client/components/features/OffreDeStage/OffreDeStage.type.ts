@@ -17,7 +17,7 @@ export enum Domaines {
   CONSEIL = 'conseil',
   DESIGN = 'design / UX / UI',
   INFORMATIQUE = 'développement informatique',
-  DIRECTION = 'direction d\'entreprise',
+  DIRECTION = 'direction d‘entreprise',
   ENERGIE = 'énergie / matériaux / mécanique / électronique',
   ENSEIGNEMENT = 'enseignement',
   ENVIRONNEMENT = 'environnement',

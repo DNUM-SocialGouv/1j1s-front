@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, {
-  useEffect,
-  useState,
+	useEffect,
+	useState,
 } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -13,46 +13,46 @@ import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemW
 import { NavEmployeurs } from './NavEmployeurs';
 
 export function HeaderNavDesktop() {
-  const {
-    accueil,
-    accompagnementNav,
-    employeurNav,
-    engagementNav,
-    offresNav,
-    orientationNav,
-    logementsNav,
-  } = navigationItemList;
-  const router = useRouter();
-  const [path, setPath] = useState(() => router.pathname || '');
+	const {
+		accueil,
+		accompagnementNav,
+		employeurNav,
+		engagementNav,
+		offresNav,
+		orientationNav,
+		logementsNav,
+	} = navigationItemList;
+	const router = useRouter();
+	const [path, setPath] = useState(() => router.pathname || '');
 
-  const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
+	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
 
-  useEffect(() => {
-    if (path !== router.pathname){
-      setPath(router.pathname);
-    }
-  }, [path, setPath, router]);
+	useEffect(() => {
+		if (path !== router.pathname){
+			setPath(router.pathname);
+		}
+	}, [path, setPath, router]);
 
-  return (
-    <div className={styles.headerNavigation}>
-      <Container>
-        <nav id="header-navigation"
-          className={styles.headerNavigationList}
-          role="navigation"
-          aria-label="Menu principal">
-          <ul className={styles.headerNavigationListLeft}>
-            <NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
-            <NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} />
-            <NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} />
-            <NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}/>
-            <NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
-            { displayAnnoncesLogement && <NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} />}
-          </ul>
-          <ul className={styles.headerNavigationListRight}>
-            <NavEmployeurs item={employeurNav} path={path}/>
-          </ul>
-        </nav>
-      </Container>
-    </div>
-  );
+	return (
+		<div className={styles.headerNavigation}>
+			<Container>
+				<nav id="header-navigation"
+					className={styles.headerNavigationList}
+					role="navigation"
+					aria-label="Menu principal">
+					<ul className={styles.headerNavigationListLeft}>
+						<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
+						<NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} />
+						<NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} />
+						<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}/>
+						<NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
+						{ displayAnnoncesLogement && <NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} />}
+					</ul>
+					<ul className={styles.headerNavigationListRight}>
+						<NavEmployeurs item={employeurNav} path={path}/>
+					</ul>
+				</nav>
+			</Container>
+		</div>
+	);
 }

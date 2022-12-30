@@ -4,10 +4,10 @@ import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 
 export class RechercherOffreJobÉtudiantUseCase {
-  constructor(private offreRepository: OffreRepository) {
-  }
+	constructor(private offreRepository: OffreRepository) {
+	}
 
-  async handle(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    return this.offreRepository.search(jobÉtudiantFiltre);
-  }
+	async handle(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		return this.offreRepository.search(jobÉtudiantFiltre);
+	}
 }

@@ -21,30 +21,30 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const sessionId = useSessionId();
+	const sessionId = useSessionId();
   
-  const getLayout = Component.getLayout ?? defaultLayout;
-  return (
-    <>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0"
-        />
-        <meta name="description" content="Toutes les solutions pour l'avenir des jeunes"/>
-      </Head>
-      {
-        sessionId && (
-          <DependenciesProvider {...dependenciesContainer(sessionId)}>
-            {getLayout(<Component {...pageProps} />)}
-          </DependenciesProvider>
-        )
-      }
-    </>
-  );
+	const getLayout = Component.getLayout ?? defaultLayout;
+	return (
+		<>
+			<Head>
+				<meta
+					name="viewport"
+					content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover, minimum-scale=1.0"
+				/>
+				<meta name="description" content="Toutes les solutions pour l‘avenir des jeunes"/>
+			</Head>
+			{
+				sessionId && (
+					<DependenciesProvider {...dependenciesContainer(sessionId)}>
+						{getLayout(<Component {...pageProps} />)}
+					</DependenciesProvider>
+				)
+			}
+		</>
+	);
 }
 function defaultLayout(page: ReactElement) {
-  return (
-    <Layout>{page}</Layout>
-  );
+	return (
+		<Layout>{page}</Layout>
+	);
 }

@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 import {
-  render,
-  screen,
-  within,
+	render,
+	screen,
+	within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -12,198 +12,198 @@ import { FormulaireRechercheAnnonceLogement } from '~/client/components/features
 import { mockLargeScreen,mockSmallScreen } from '~/client/components/window.mock';
 
 describe('FormulaireRechercheAnnonceLogement', () => {
-  describe('en Desktop', () => {
-    beforeEach(() => {
+	describe('en Desktop', () => {
+		beforeEach(() => {
 	  mockLargeScreen();
-    });
+		});
 
-    afterEach(() => {
+		afterEach(() => {
 	  jest.resetAllMocks();
-    });
+		});
 
-    it('affiche un formulaire', () => {
+		it('affiche un formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const form = screen.getByRole('search');
 	  expect(form).toBeInTheDocument();
-    });
+		});
 
-    it('n‘affiche pas de bouton pour filtrer la recherche', () => {
+		it('n‘affiche pas de bouton pour filtrer la recherche', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonFiltre = screen.queryByRole('button', { name: 'Filtrer ma recherche' });
 	  expect(buttonFiltre).not.toBeInTheDocument();
-    });
+		});
 
-    it('affiche le champ ville dans le formulaire', () => {
+		it('affiche le champ ville dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const inputVille = screen.getByRole('textbox', { name: 'Rechercher par ville' });
 	  expect(inputVille).toBeInTheDocument();
-    });
+		});
 
-    it('affiche le champ type d‘offre dans le formulaire', () => {
+		it('affiche le champ type d‘offre dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
-	  const buttonTypeOffre = screen.getByRole('button', { name: "Type d'offre" });
+	  const buttonTypeOffre = screen.getByRole('button', { name: 'Type d‘offre' });
 	  expect(buttonTypeOffre).toBeInTheDocument();
-    });
+		});
 
-    it('affiche le champ type de bien dans le formulaire', () => {
+		it('affiche le champ type de bien dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonTypeOffre = screen.getByRole('button', { name: 'Type de bien' });
 	  expect(buttonTypeOffre).toBeInTheDocument();
-    });
+		});
 
-    it('affiche le champ prix dans le formulaire', () => {
+		it('affiche le champ prix dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonPrix = screen.getByRole('button', { name: 'Prix' });
 	  expect(buttonPrix).toBeInTheDocument();
-    });
+		});
 
-    it('affiche le champ surface dans le formulaire', () => {
+		it('affiche le champ surface dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonSurface = screen.getByRole('button', { name: 'Surface (m²)' });
 	  expect(buttonSurface).toBeInTheDocument();
-    });
-  });
+		});
+	});
 
-  describe('en Mobile', () => {
-    beforeEach(() => {
+	describe('en Mobile', () => {
+		beforeEach(() => {
 	  mockSmallScreen();
-    });
+		});
 
-    afterEach(() => {
+		afterEach(() => {
 	  jest.resetAllMocks();
-    });
+		});
 
-    it('affiche un formulaire', () => {
+		it('affiche un formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const form = screen.getByRole('search');
 	  expect(form).toBeInTheDocument();
-    });
+		});
 
-    it('affiche le champ ville dans le formulaire', () => {
+		it('affiche le champ ville dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const inputVille = screen.getByRole('textbox', { name: 'Rechercher par ville' });
 	  expect(inputVille).toBeInTheDocument();
 	  expect(inputVille).toBeVisible();
-    });
+		});
 
-    it('affiche un bouton pour filtrer la recherche', () => {
+		it('affiche un bouton pour filtrer la recherche', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 	  expect(buttonFiltre).toBeInTheDocument();
-    });
+		});
 
-    it('n‘affiche pas le champ type d‘offre dans le formulaire', () => {
+		it('n‘affiche pas le champ type d‘offre dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
-	  const buttonTypeOffre = screen.queryByRole('button', { name: "Type d'offre" });
+	  const buttonTypeOffre = screen.queryByRole('button', { name: 'Type d‘offre' });
 	  expect(buttonTypeOffre).not.toBeInTheDocument();
 
-    });
+		});
 
-    it('n‘affiche pas le champ type de bien dans le formulaire', () => {
+		it('n‘affiche pas le champ type de bien dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonTypeBien = screen.queryByRole('button', { name: 'Type de bien' });
 	  expect(buttonTypeBien).not.toBeInTheDocument();
 
-    });
+		});
 
-    it('n‘affiche pas le champ prix dans le formulaire', () => {
+		it('n‘affiche pas le champ prix dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonPrix = screen.queryByRole('button', { name: 'Prix' });
 	  expect(buttonPrix).not.toBeInTheDocument();
-    });
+		});
 
-    it('n‘affiche pas le champ surface dans le formulaire', () => {
+		it('n‘affiche pas le champ surface dans le formulaire', () => {
 	  render(<FormulaireRechercheAnnonceLogement/>);
 
 	  const buttonSurface = screen.queryByRole('button', { name: 'Surface (m²)' });
 	  expect(buttonSurface).not.toBeInTheDocument();
-    });
+		});
 
-    describe('quand l‘utilisateur ouvre les filtres de recherche', () => {
+		describe('quand l‘utilisateur ouvre les filtres de recherche', () => {
 	  it('affiche la modale', async () => {
-        const user = userEvent.setup();
+				const user = userEvent.setup();
 
-        render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement/>);
 
-        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-        await user.click(buttonFiltre);
+				const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+				await user.click(buttonFiltre);
 
-        const modalComponent = screen.getByRole('dialog');
-        expect(modalComponent).toHaveClass('show');
+				const modalComponent = screen.getByRole('dialog');
+				expect(modalComponent).toHaveClass('show');
 	  });
 
 	  it('affiche le champ type d‘offre', async () => {
-        const user = userEvent.setup();
+				const user = userEvent.setup();
 
-        render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement/>);
 
-        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-        await user.click(buttonFiltre);
+				const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+				await user.click(buttonFiltre);
 
-        const modalComponent = screen.getByRole('dialog');
-        const accordeonItems = within(modalComponent).getAllByRole('group');
-        const firstItem = accordeonItems[0];
+				const modalComponent = screen.getByRole('dialog');
+				const accordeonItems = within(modalComponent).getAllByRole('group');
+				const firstItem = accordeonItems[0];
 
-        expect(firstItem).toHaveTextContent("Type d'offre");
+				expect(firstItem).toHaveTextContent('Type d‘offre');
 	  });
 
 	  it('affiche le champ type de bien', async () => {
-        const user = userEvent.setup();
+				const user = userEvent.setup();
 
-        render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement/>);
 
-        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-        await user.click(buttonFiltre);
+				const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+				await user.click(buttonFiltre);
 
-        const modalComponent = screen.getByRole('dialog');
-        const accordeonItems = within(modalComponent).getAllByRole('group');
-        const secondItem = accordeonItems[1];
+				const modalComponent = screen.getByRole('dialog');
+				const accordeonItems = within(modalComponent).getAllByRole('group');
+				const secondItem = accordeonItems[1];
 
-        expect(secondItem).toHaveTextContent('Type de bien');
+				expect(secondItem).toHaveTextContent('Type de bien');
 	  });
 
 	  it('affiche le champ prix', async () => {
-        const user = userEvent.setup();
+				const user = userEvent.setup();
 
-        render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement/>);
 
-        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-        await user.click(buttonFiltre);
+				const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+				await user.click(buttonFiltre);
 
-        const modalComponent = screen.getByRole('dialog');
-        const accordeonItems = within(modalComponent).getAllByRole('group');
-        const thirdItem = accordeonItems[2];
+				const modalComponent = screen.getByRole('dialog');
+				const accordeonItems = within(modalComponent).getAllByRole('group');
+				const thirdItem = accordeonItems[2];
 
-        expect(thirdItem).toHaveTextContent('Prix');
+				expect(thirdItem).toHaveTextContent('Prix');
 	  });
 
 	  it('affiche le champ surface', async () => {
-        const user = userEvent.setup();
+				const user = userEvent.setup();
 
-        render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement/>);
 
-        const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-        await user.click(buttonFiltre);
+				const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+				await user.click(buttonFiltre);
 
-        const modalComponent = screen.getByRole('dialog');
-        const accordeonItems = within(modalComponent).getAllByRole('group');
-        const fourthItem = accordeonItems[4]; // skip 3 because of fieldset which is also a group role
+				const modalComponent = screen.getByRole('dialog');
+				const accordeonItems = within(modalComponent).getAllByRole('group');
+				const fourthItem = accordeonItems[4]; // skip 3 because of fieldset which is also a group role
 
-        expect(fourthItem).toHaveTextContent('Surface');
+				expect(fourthItem).toHaveTextContent('Surface');
 	  });
-    });
-  });
+		});
+	});
 });

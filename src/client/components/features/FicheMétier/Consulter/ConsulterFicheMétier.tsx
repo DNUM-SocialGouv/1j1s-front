@@ -8,33 +8,33 @@ import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import styles from './ConsulterFicheMétier.module.scss';
 
 export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMétier }) {
-  const {
-    accesMetier,
-    accrocheMetier,
-    centresInteret,
-    competences,
-    conditionTravail,
-    natureTravail,
-    niveauAccesMin,
-    nomMetier,
-    secteursActivite,
-    statuts,
-    vieProfessionnelle,
-  } = ficheMetier;
+	const {
+		accesMetier,
+		accrocheMetier,
+		centresInteret,
+		competences,
+		conditionTravail,
+		natureTravail,
+		niveauAccesMin,
+		nomMetier,
+		secteursActivite,
+		statuts,
+		vieProfessionnelle,
+	} = ficheMetier;
 
-  const capitalizeFirstLetter = (sentence: string) => `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}` || '';
+	const capitalizeFirstLetter = (sentence: string) => `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}` || '';
 
-  const displayedNomMetier = useMemo(() => capitalizeFirstLetter(nomMetier), [nomMetier]);
-  const displayedNiveauAccesMin = useMemo(() =>
-    niveauAccesMin.map((niveau) => niveau.libelle).join(', '), [niveauAccesMin]);
-  const displayedStatuts = useMemo(() =>
-    statuts.map((statut) => statut.libelle).join(', '), [statuts]);
-  const displayedCentresInteret = useMemo(() =>
-    centresInteret.map((centre) => centre.libelle), [centresInteret]);
+	const displayedNomMetier = useMemo(() => capitalizeFirstLetter(nomMetier), [nomMetier]);
+	const displayedNiveauAccesMin = useMemo(() =>
+		niveauAccesMin.map((niveau) => niveau.libelle).join(', '), [niveauAccesMin]);
+	const displayedStatuts = useMemo(() =>
+		statuts.map((statut) => statut.libelle).join(', '), [statuts]);
+	const displayedCentresInteret = useMemo(() =>
+		centresInteret.map((centre) => centre.libelle), [centresInteret]);
 	
-  return (
-    <>
-      <section className={styles.section}>
+	return (
+		<>
+			<section className={styles.section}>
 			 <h1 className={styles.mainTitle}>{displayedNomMetier}</h1>
 			 <div className={classNames(styles.abstractSection, styles.sectionContent)}>
 				 {secteursActivite.length > 0 && <div className={styles.fieldDomaine}>
@@ -48,7 +48,7 @@ export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMéti
 					 {accrocheMetier && <div className={styles.fieldContent} dangerouslySetInnerHTML={{ __html: accrocheMetier }} />}
 				 </div>}
 				 {niveauAccesMin.length > 0 && <div className={styles.fieldNiveauAccès}>
-					 <span className={styles.fieldLabel}>Niveau d&apos;accès minimum :</span>
+					 <span className={styles.fieldLabel}>Niveau d‘accès minimum :</span>
 					 {niveauAccesMin && <div className={styles.fieldContent}>{displayedNiveauAccesMin}</div>}
 				 </div>}
 				 {statuts.length > 0 && <div className={styles.fieldStatutsPro}>
@@ -56,20 +56,20 @@ export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMéti
 					 {statuts && <div className={styles.fieldContent}>{displayedStatuts}</div>}
 				 </div>}
 			 </div>
-      </section>
-      {natureTravail && <FoldingSection innerHtmlContent={natureTravail} title="Nature du travail" isOpen={true} />}
-      {competences && <FoldingSection innerHtmlContent={competences} title="Compétences requises" />}
-      {conditionTravail && <FoldingSection innerHtmlContent={conditionTravail} title="Lieu d'exercice et status" />}
-      {vieProfessionnelle && <FoldingSection innerHtmlContent={vieProfessionnelle} title="Carrière et salaire" />}
-      {accesMetier && <FoldingSection innerHtmlContent={accesMetier} title="Accès au métier" />}
-      {centresInteret && centresInteret.length > 0 &&
+			</section>
+			{natureTravail && <FoldingSection innerHtmlContent={natureTravail} title="Nature du travail" isOpen={true} />}
+			{competences && <FoldingSection innerHtmlContent={competences} title="Compétences requises" />}
+			{conditionTravail && <FoldingSection innerHtmlContent={conditionTravail} title="Lieu d‘exercice et status" />}
+			{vieProfessionnelle && <FoldingSection innerHtmlContent={vieProfessionnelle} title="Carrière et salaire" />}
+			{accesMetier && <FoldingSection innerHtmlContent={accesMetier} title="Accès au métier" />}
+			{centresInteret && centresInteret.length > 0 &&
 			<section className={styles.section}>
-			  <h2 className={styles.lastSectionTitle}>Centres d&apos;intérêt</h2>
+			  <h2 className={styles.lastSectionTitle}>Centres d‘intérêt</h2>
 			  <div className={styles.sectionContent}>
 			    <TagList list={displayedCentresInteret} />
 			  </div>
 			</section>
-      }
-    </>
-  );
+			}
+		</>
+	);
 }

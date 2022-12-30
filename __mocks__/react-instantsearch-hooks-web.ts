@@ -6,10 +6,10 @@ import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/
 import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 // eslint-disable-next-line import/named
 import {
-  UseInstantSearchProps,
-  UseRangeProps,
-  UseRefinementListProps,
-  UseSearchBoxProps,
+	UseInstantSearchProps,
+	UseRangeProps,
+	UseRefinementListProps,
+	UseSearchBoxProps,
 } from 'react-instantsearch-hooks-web';
 /*
 * UsePagination associé à un getter sur la librairie.
@@ -25,78 +25,78 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function realMockUsePagination(_props: UsePaginationProps): PaginationRenderState {
-  return {
-    canRefine: true,
-    createURL: jest.fn(),
-    currentRefinement: 1,
-    isFirstPage: false,
-    isLastPage: false,
-    nbHits: 12,
-    nbPages: 1,
-    pages: [0, 1, 2, 3],
-    refine: jest.fn(),
-  };
+	return {
+		canRefine: true,
+		createURL: jest.fn(),
+		currentRefinement: 1,
+		isFirstPage: false,
+		isLastPage: false,
+		nbHits: 12,
+		nbPages: 1,
+		pages: [0, 1, 2, 3],
+		refine: jest.fn(),
+	};
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function realMockUseRefinementList(_props: UseRefinementListProps): RefinementListRenderState {
-  return {
-    canRefine: true,
-    canToggleShowMore: true,
-    createURL: jest.fn(),
-    hasExhaustiveItems: true,
-    isFromSearch: true,
-    isShowingMore: true,
-    items: [],
-    refine: jest.fn(),
-    searchForItems: jest.fn(),
-    sendEvent: jest.fn(),
-    toggleShowMore: jest.fn(),
-  };
+	return {
+		canRefine: true,
+		canToggleShowMore: true,
+		createURL: jest.fn(),
+		hasExhaustiveItems: true,
+		isFromSearch: true,
+		isShowingMore: true,
+		items: [],
+		refine: jest.fn(),
+		searchForItems: jest.fn(),
+		sendEvent: jest.fn(),
+		toggleShowMore: jest.fn(),
+	};
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
-  return {
-    clear: jest.fn(),
-    isSearchStalled: false,
-    query: 'ma-query',
-    refine: jest.fn(),
-  };
+	return {
+		clear: jest.fn(),
+		isSearchStalled: false,
+		query: 'ma-query',
+		refine: jest.fn(),
+	};
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function realMockUseInstantSearch(_props: UseInstantSearchProps): unknown {
-  return {
-    error: jest.fn(),
-    refresh: jest.fn(),
-    status: jest.fn(),
-    use: jest.fn(),
-  };
+	return {
+		error: jest.fn(),
+		refresh: jest.fn(),
+		status: jest.fn(),
+		use: jest.fn(),
+	};
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function realMockUseRange(_props: UseRangeProps): RangeRenderState {
-  return {
-    canRefine: true,
-    format: {
-      from: jest.fn(),
-      to: jest.fn(),
-    },
-    range: {
-      max: 0,
-      min: 0,
-    },
-    refine: jest.fn(),
-    sendEvent: jest.fn(),
-    start: [0, 1],
-  };
+	return {
+		canRefine: true,
+		format: {
+			from: jest.fn(),
+			to: jest.fn(),
+		},
+		range: {
+			max: 0,
+			min: 0,
+		},
+		refine: jest.fn(),
+		sendEvent: jest.fn(),
+		start: [0, 1],
+	};
 }
 
 module.exports = {
-  useInstantSearch: realMockUseInstantSearch,
-  usePagination: realMockUsePagination,
-  useRange: realMockUseRange,
-  useRefinementList: realMockUseRefinementList,
-  useSearchBox: realMockUseSearchBox,
+	useInstantSearch: realMockUseInstantSearch,
+	usePagination: realMockUsePagination,
+	useRange: realMockUseRange,
+	useRefinementList: realMockUseRefinementList,
+	useSearchBox: realMockUseSearchBox,
 };

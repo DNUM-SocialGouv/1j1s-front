@@ -3,9 +3,9 @@ import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/doma
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 
 export class EnvoyerDemandeDeContactAccompagnementUseCase {
-  constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
+	constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
 
-  async handle(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Promise<Either<void>> {
-    return this.demandeDeContactRepository.envoyer(demandeDeContactAccompagnement);
-  }
+	async handle(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Promise<Either<void>> {
+		return this.demandeDeContactRepository.envoyer(demandeDeContactAccompagnement);
+	}
 }
