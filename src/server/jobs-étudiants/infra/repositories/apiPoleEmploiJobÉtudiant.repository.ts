@@ -29,6 +29,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
+		private isFeatureEnabled: boolean,
 	) {}
 
 	paramètreParDéfaut = 'dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
@@ -36,6 +37,9 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 	private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
 
 	async get(id: OffreId): Promise<Either<Offre>> {
+		if (!this.isFeatureEnabled) {
+			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		}
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
 			if(response.status === 204) {
@@ -48,6 +52,9 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 	}
 
 	async search(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		if (!this.isFeatureEnabled) {
+			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		}
 		if (isOffreÉchantillonFiltre(jobÉtudiantFiltre)) return this.getÉchantillonJobÉtudiant(jobÉtudiantFiltre);
 		return this.getOffreJobÉtudiantRecherche(jobÉtudiantFiltre);
 	}
