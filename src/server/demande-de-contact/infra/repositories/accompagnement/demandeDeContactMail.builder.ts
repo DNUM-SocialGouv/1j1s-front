@@ -1,10 +1,7 @@
 import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
-import { TipimailDemandeDeContactRequest } from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.request';
+import { Mail } from '~/server/mail/domain/mail';
 
-export function buildDemandeDeContactApiTipimail(
-  demandeDeContactAccompagnement: DemandeDeContactAccompagnement,
-  redirectTo?: string,
-): TipimailDemandeDeContactRequest {
+export function buildDemandeDeContactMail(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Mail {
   return {
     headers: {
       'X-TM-DOMAIN': '1jeune1solution.gouv.fr',
@@ -31,7 +28,7 @@ export function buildDemandeDeContactApiTipimail(
     },
     to: [
       {
-        address: redirectTo || demandeDeContactAccompagnement.établissement.email,
+        address: demandeDeContactAccompagnement.établissement.email,
         personalName: demandeDeContactAccompagnement.établissement.nom,
       },
     ],

@@ -1,6 +1,6 @@
-import { TipimailDemandeDeContactRequest } from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.request';
+import { Mail } from '~/server/mail/domain/mail';
 
-export function aTipimailDemandeDeContactRequest(): TipimailDemandeDeContactRequest {
+export function aMail(): Mail {
   return {
     headers: {
       'X-TM-DOMAIN': '1jeune1solution.gouv.fr',
@@ -27,7 +27,7 @@ export function aTipimailDemandeDeContactRequest(): TipimailDemandeDeContactRequ
   };
 }
 
-export function aTipimailDemandeDeContactWithRedirectionRequest(): TipimailDemandeDeContactRequest {
+export function aMailWithRedirection(): Mail {
   return {
     headers: {
       'X-TM-DOMAIN': '1jeune1solution.gouv.fr',

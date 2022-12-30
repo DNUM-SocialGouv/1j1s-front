@@ -30,7 +30,7 @@ export class EnvoyerDemandeDeContactPOEUseCase {
   async handle(command: EnvoyerDemandeDeContactPOE): Promise<Either<void>> {
     try {
       const demandeDeContactPOE: DemandeDeContactPOE = Joi.attempt(command, DemandeDeContactPOEValidator);
-      return this.demandeDeContactRepository.savePOE(demandeDeContactPOE);
+      return this.demandeDeContactRepository.envoyer(demandeDeContactPOE);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }

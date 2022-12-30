@@ -1,10 +1,10 @@
-export interface TipimailDemandeDeContactRequest {
-  to: TipimailDemandeDeContactRequest.Contact[];
-  msg: TipimailDemandeDeContactRequest.Message;
-  headers: TipimailDemandeDeContactRequest.Headers;
+export interface Mail {
+  to: Mail.Contact[];
+  msg: Mail.Message;
+  headers: Mail.Headers;
 }
 
-export namespace TipimailDemandeDeContactRequest {
+export namespace Mail {
   export type Headers = {
     'X-TM-DOMAIN': string;
     'X-TM-TAGS': string[];

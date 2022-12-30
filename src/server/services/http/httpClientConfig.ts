@@ -117,11 +117,11 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
     engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
     geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
     lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
+    mailClientService: new HttpClientService(getApiTipimailConfig(configurationService)),
     poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
     poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
     strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
     strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
-    tipimailClientService: new HttpClientService(getApiTipimailConfig(configurationService)),
     établissementAccompagnementClientService: new HttpClientService(getApiÉtablissementsPublicsConfig(configurationService)),
   };
 }

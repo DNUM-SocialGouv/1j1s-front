@@ -1,11 +1,10 @@
 import Joi from 'joi';
 import phone from 'phone';
 
+import { DemandeDeContactEntreprise } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-
-import { DemandeDeContactEntreprise } from '../domain/demandeDeContact';
-import { DemandeDeContactRepository } from '../domain/demandeDeContact.repository';
 
 export class EnvoyerDemandeDeContactEntrepriseUseCase {
   constructor(private demandeDeContactRepository: DemandeDeContactRepository) {}
@@ -13,7 +12,7 @@ export class EnvoyerDemandeDeContactEntrepriseUseCase {
   async handle(command: Partial<DemandeDeContactEntreprise>): Promise<Either<void>> {
     try {
       const demandeDeContactEntreprise: DemandeDeContactEntreprise = Joi.attempt(command, DemandeDeContactEntrepriseValidator);
-      return this.demandeDeContactRepository.saveEntreprise(demandeDeContactEntreprise);
+      return this.demandeDeContactRepository.envoyer(demandeDeContactEntreprise);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }

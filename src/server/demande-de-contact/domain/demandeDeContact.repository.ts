@@ -1,11 +1,9 @@
 import { Either } from '~/server/errors/either';
 
-import { DemandeDeContactCEJ, DemandeDeContactEntreprise, DemandeDeContactPOE } from './demandeDeContact';
+import {
+  DemandeDeContact,
+} from './demandeDeContact';
 
 export interface DemandeDeContactRepository {
-  saveCEJ(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>>;
-
-  saveEntreprise(demandeDeContactEntreprise: DemandeDeContactEntreprise): Promise<Either<void>>;
-
-  savePOE(contactPOE: DemandeDeContactPOE, annotation?: string): Promise<Either<void>>;
+  envoyer(demandeDeContact: DemandeDeContact): Promise<Either<void>>;
 }

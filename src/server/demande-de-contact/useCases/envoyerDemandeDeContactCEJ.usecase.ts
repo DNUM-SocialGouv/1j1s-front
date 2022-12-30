@@ -13,7 +13,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
   async handle(command: Partial<DemandeDeContactCEJ>): Promise<Either<void>> {
     try {
       const demandeDeContactCEJ: DemandeDeContactCEJ = Joi.attempt(command, DemandeDeContactCEJValidator);
-      return this.demandeDeContactRepository.saveCEJ(demandeDeContactCEJ);
+      return this.demandeDeContactRepository.envoyer(demandeDeContactCEJ);
     } catch (e) {
       return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
     }

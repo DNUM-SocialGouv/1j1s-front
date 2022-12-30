@@ -4,10 +4,19 @@ import {
 import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
 import { RechercherAlternanceUseCase } from '~/server/alternances/useCases/rechercherAlternance.useCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
-import { StrapiDemandeDeContactRepository } from '~/server/demande-de-contact/infra/strapiDemandeDeContact.repository';
+import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import {
-  TipimailDemandeDeContactRepository,
-} from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.repository';
+  DemandeDeContactAccompagnementRepository,
+} from '~/server/demande-de-contact/infra/repositories/accompagnement/demandeDeContactAccompagnement.repository';
+import {
+  DemandeDeContactCEJRepository,
+} from '~/server/demande-de-contact/infra/repositories/cej/demandeDeContactCEJ.repository';
+import {
+  DemandeDeContactEntrepriseRepository,
+} from '~/server/demande-de-contact/infra/repositories/entreprise/demandeDeContactEntreprise.repository';
+import {
+  DemandeDeContactPOERepository,
+} from '~/server/demande-de-contact/infra/repositories/poe/demandeDeContactPOE.repository';
 import {
   EnvoyerDemandeDeContactAccompagnementUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactAccompagnement.usecase';
@@ -42,6 +51,9 @@ import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
+import {
+  MailRepository,
+} from '~/server/mail/infra/repositories/mail.repository';
 import {
   ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
@@ -94,7 +106,7 @@ export interface LocalisationDependencies {
 export interface DemandeDeContactDependencies {
   envoyerDemandeDeContactCEJUseCase: EnvoyerDemandeDeContactCEJUseCase
   envoyerDemandeDeContactEntrepriseUseCase: EnvoyerDemandeDeContactEntrepriseUseCase
-  envoyerDemandeDeContactPOEUsecase: EnvoyerDemandeDeContactPOEUseCase
+  envoyerDemandeDeContactPOEUseCase: EnvoyerDemandeDeContactPOEUseCase
   envoyerDemandeDeContactAccompagnementUseCase: EnvoyerDemandeDeContactAccompagnementUseCase
 }
 
@@ -125,10 +137,11 @@ export const dependenciesContainer = (): Dependencies => {
     adresseClientService,
     geoGouvClientService,
     établissementAccompagnementClientService,
-    tipimailClientService,
+    mailClientService,
   } = buildHttpClientConfigList(serverConfigurationService);
 
-  const cmsDependencies = cmsDependenciesContainer(strapiClientService, serverConfigurationService);
+  const cmsRepository = new StrapiCmsRepository(strapiClientService, strapiAuthClientService);
+  const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
   const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);
   const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
@@ -163,17 +176,21 @@ export const dependenciesContainer = (): Dependencies => {
     rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository),
   };
 
-  const strapiDemandeDeContactRepository = new StrapiDemandeDeContactRepository(strapiAuthClientService);
-  const tipimailDemandeDeContactRepository = new TipimailDemandeDeContactRepository(
-    tipimailClientService,
+  const mailRepository = new MailRepository(
+    mailClientService,
     serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
     serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,
   );
+  const demandeDeContactAccompagnementRepository = new DemandeDeContactAccompagnementRepository(mailRepository);
+  const demandeDeContactCEJRepository = new DemandeDeContactCEJRepository(cmsRepository);
+  const demandeDeContactEntrepriseRepository = new DemandeDeContactEntrepriseRepository(cmsRepository);
+  const demandeDeContactPOERepository = new DemandeDeContactPOERepository(cmsRepository);
+
   const demandeDeContactDependencies: DemandeDeContactDependencies = {
-    envoyerDemandeDeContactAccompagnementUseCase: new EnvoyerDemandeDeContactAccompagnementUseCase(tipimailDemandeDeContactRepository),
-    envoyerDemandeDeContactCEJUseCase: new EnvoyerDemandeDeContactCEJUseCase(strapiDemandeDeContactRepository),
-    envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemandeDeContactEntrepriseUseCase(strapiDemandeDeContactRepository),
-    envoyerDemandeDeContactPOEUsecase: new EnvoyerDemandeDeContactPOEUseCase(strapiDemandeDeContactRepository),
+    envoyerDemandeDeContactAccompagnementUseCase: new EnvoyerDemandeDeContactAccompagnementUseCase(demandeDeContactAccompagnementRepository),
+    envoyerDemandeDeContactCEJUseCase: new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactCEJRepository),
+    envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactEntrepriseRepository),
+    envoyerDemandeDeContactPOEUseCase: new EnvoyerDemandeDeContactPOEUseCase(demandeDeContactPOERepository),
   };
 
   const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentClientService);

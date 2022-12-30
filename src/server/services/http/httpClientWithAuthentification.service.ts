@@ -23,12 +23,12 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
     return await this.makeRequestWithRetry<Response>(makeRequest);
   }
 
-  async post<Body>(
+  async post<Body, Response>(
     endpoint: string,
     body: Body,
-  ) {
+  ): Promise<AxiosResponse<Response>> {
     const makeRequest = () => super.post(endpoint, body);
-    return this.makeRequestWithRetry(makeRequest);
+    return this.makeRequestWithRetry<Response>(makeRequest);
   }
 
   private async makeRequestWithRetry<Response> (makeRequest: () => Promise<AxiosResponse<Response>>): Promise<AxiosResponse<Response>> {

@@ -5,15 +5,15 @@ import {
   demandeContactAccompagnementBodySchema,
   envoyerDemandeContactAccompagnementHandler,
 } from '~/pages/api/etablissements-accompagnement/contact/index.controller';
-import { aTipimailDemandeDeContactRequest } from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.fixture';
-import { TipimailDemandeDeContactRequest } from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.request';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { Mail } from '~/server/mail/domain/mail';
+import { aMail } from '~/server/mail/domain/mail.fixture';
 
 describe('envoyer une demande de contact', () => {
   describe('lorsque le body est valide', () => {
     it('retourne un status 200', async () => {
-      let tipimailDemandeDeContact: TipimailDemandeDeContactRequest;
-      const expectedBody = aTipimailDemandeDeContactRequest();
+      let tipimailDemandeDeContact: Mail;
+      const expectedBody = aMail();
       nock('https://api.tipimail.com/v1')
         .post('/messages/send', (body) => { tipimailDemandeDeContact = body; return true; })
         .reply(200);

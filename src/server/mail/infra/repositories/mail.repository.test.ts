@@ -1,22 +1,21 @@
 import * as Sentry from '@sentry/nextjs';
 
-import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
-import {
-  aTipimailDemandeDeContactRequest,
-  aTipimailDemandeDeContactWithRedirectionRequest,
-} from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.fixture';
-import {
-  TipimailDemandeDeContactRepository,
-} from '~/server/demande-de-contact/infra/tipimailDemandeDeContact.repository';
 import { createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import {
+  aMail,
+  aMailWithRedirection,
+} from '~/server/mail/domain/mail.fixture';
+import {
+  MailRepository,
+} from '~/server/mail/infra/repositories/mail.repository';
 import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
 
 jest.mock('@sentry/nextjs');
 
 const SentryMock = jest.mocked(Sentry);
 
-describe('DemandeDeContactMailRepository', () => {
+describe('MailRepository', () => {
   afterEach(() => {
     SentryMock.captureMessage.mockReset();
   });
@@ -28,16 +27,15 @@ describe('DemandeDeContactMailRepository', () => {
           // given
           const httpClient = anHttpClientService();
           jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
-          const repository = new TipimailDemandeDeContactRepository(httpClient, true);
+          const repository = new MailRepository(httpClient, true);
           const expected = createSuccess(undefined);
-          const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-          const tipimailDemandeDeContactRequest = aTipimailDemandeDeContactRequest();
+          const mail = aMail();
 
           // when
-          const result = await repository.send(demandeDeContactAccompagnement);
+          const result = await repository.send(mail);
 
           // then
-          expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailDemandeDeContactRequest);
+          expect(httpClient.post).toHaveBeenCalledWith('messages/send', mail);
           expect(SentryMock.captureMessage).not.toHaveBeenCalled();
           expect(result).toEqual(expected);
         });
@@ -51,15 +49,14 @@ describe('DemandeDeContactMailRepository', () => {
             response: anAxiosResponse({}, 400),
           }));
 
-          const repository = new TipimailDemandeDeContactRepository(httpClient, true);
-          const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-          const tipimailDemandeDeContactRequest = aTipimailDemandeDeContactRequest();
+          const repository = new MailRepository(httpClient, true);
+          const mail = aMail();
 
           // when
-          const result = await repository.send(demandeDeContactAccompagnement);
+          const result = await repository.send(mail);
 
           // then
-          expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailDemandeDeContactRequest);
+          expect(httpClient.post).toHaveBeenCalledWith('messages/send', mail);
           expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
         });
       });
@@ -72,15 +69,14 @@ describe('DemandeDeContactMailRepository', () => {
             response: anAxiosResponse({}, 401),
           }));
 
-          const repository = new TipimailDemandeDeContactRepository(httpClient, true);
-          const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-          const tipimailDemandeDeContactRequest = aTipimailDemandeDeContactRequest();
+          const repository = new MailRepository(httpClient, true);
+          const mail = aMail();
 
           // when
-          const result = await repository.send(demandeDeContactAccompagnement);
+          const result = await repository.send(mail);
 
           // then
-          expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailDemandeDeContactRequest);
+          expect(httpClient.post).toHaveBeenCalledWith('messages/send', mail);
           expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
         });
       });
@@ -92,15 +88,14 @@ describe('DemandeDeContactMailRepository', () => {
           jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
             response: anAxiosResponse({}, 500),
           }));
-          const repository = new TipimailDemandeDeContactRepository(httpClient, true);
-          const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-          const tipimailDemandeDeContactRequest = aTipimailDemandeDeContactRequest();
+          const repository = new MailRepository(httpClient, true);
+          const mail = aMail();
 
           // when
-          const result = await repository.send(demandeDeContactAccompagnement);
+          const result = await repository.send(mail);
 
           // then
-          expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailDemandeDeContactRequest);
+          expect(httpClient.post).toHaveBeenCalledWith('messages/send', mail);
           expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
         });
       });
@@ -110,14 +105,14 @@ describe('DemandeDeContactMailRepository', () => {
       it('n‘envoie pas le mail', async () => {
         // given
         const httpClient = anHttpClientService();
-        jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailDemandeDeContactRequest()));
+        jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aMail()));
         const debug = jest.spyOn(console, 'log').mockImplementation(() => undefined);
-        const repository = new TipimailDemandeDeContactRepository(httpClient, false);
+        const repository = new MailRepository(httpClient, false);
         const expected = createSuccess(undefined);
-        const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
+        const mail = aMail();
 
         // when
-        const result = await repository.send(demandeDeContactAccompagnement);
+        const result = await repository.send(mail);
 
         // then
         expect(httpClient.post).not.toHaveBeenCalled();
@@ -131,14 +126,13 @@ describe('DemandeDeContactMailRepository', () => {
         const httpClient = anHttpClientService();
         const redirectTo = 'redirect@email.com';
         jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
-        const repository = new TipimailDemandeDeContactRepository(httpClient, true, redirectTo);
+        const repository = new MailRepository(httpClient, true, redirectTo);
         const expected = createSuccess(undefined);
-        const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-        const tipimailDemandeDeContactRequest = aTipimailDemandeDeContactWithRedirectionRequest();
+        const mail = aMailWithRedirection();
 
-        const result = await repository.send(demandeDeContactAccompagnement);
+        const result = await repository.send(mail);
 
-        expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailDemandeDeContactRequest);
+        expect(httpClient.post).toHaveBeenCalledWith('messages/send', mail);
         expect(SentryMock.captureMessage).not.toHaveBeenCalled();
         expect(result).toEqual(expected);
       });
