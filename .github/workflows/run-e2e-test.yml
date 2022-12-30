@@ -4,6 +4,9 @@
 # DEVNOTE 1 : on ne peut pas run de deamon (-d) sur les githubs actions du coup à coup de nohup on peut démarrer plusieurs tâches en parralèle
 # DEVNOTE 2 : il faudra maintenir à jour les repositories secrets sur GitHub > Settings > Secrets > Actions
 
+# next a forcément besoin d'un fichier .env pour tourner du coup, on copie colle toutes les variables du serveur dedans
+# pas très propre, mais ça évite de les faire une par une à la mano
+
 name: Run e2e test for PR on main
 
 on:
@@ -31,8 +34,6 @@ jobs:
       - run: npm ci
       - name: Create env file
         run: |
-        # next a forcément besoin d'un fichier .env pour tourner du coup, on copie colle toutes les variables du serveur dedans
-        # pas très propre, mais ça évite de les faire une par une à la mano
           printenv > .env
         env:
           API_ADRESSE_BASE_URL: ${{ secrets.API_ADRESSE_BASE_URL }}
