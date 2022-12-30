@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.33.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.32.0...v2.33.0) (2022-12-30)
+
+
+### Features
+
+* **accompagnement:** demande de contact ([417a035](https://github.com/DNUM-SocialGouv/1j1s-front/commit/417a0350bd24757f1efa40fcf7c6830c6df04866))
+
 ## [2.32.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.31.0...v2.32.0) (2022-12-30)
 
 
