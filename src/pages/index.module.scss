@@ -4,6 +4,10 @@
     padding-bottom: 1.5rem;
 }
 
+.cardListElement > a {
+    display: inline-block;
+}
+
 .cardList {
     display: flex;
     justify-content: center;
