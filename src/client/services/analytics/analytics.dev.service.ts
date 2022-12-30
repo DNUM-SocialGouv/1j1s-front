@@ -13,21 +13,21 @@ declare global {
 }
 
 export class AnalyticsDevService implements AnalyticsService {
-  constructor() {
-    window.tags = [];
-  }
+	constructor() {
+		window.tags = [];
+	}
 
-  sendPage(name: string) {
-    window.tags.push({
-      event: 'page',
-      name,
-    });
-  }
+	sendPage(name: string) {
+		window.tags.push({
+			event: 'page',
+			name,
+		});
+	}
 
-  sendClick(action: string) {
-    window.tags.push({
-      event: 'click',
-      name: action,
-    });
-  }
+	sendClick(action: string) {
+		window.tags.push({
+			event: 'click',
+			name: action,
+		});
+	}
 }

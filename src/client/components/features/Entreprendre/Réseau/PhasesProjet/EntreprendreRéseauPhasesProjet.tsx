@@ -11,28 +11,28 @@ interface EntreprendreRéseauPhasesProjetProps extends CommonProps {
 }
 
 export function EntreprendreRéseauPhasesProjet({ className, phases, ...rest }: EntreprendreRéseauPhasesProjetProps) {
-  const _classNames = classNames(styles.phaseList, className);
+	const _classNames = classNames(styles.phaseList, className);
 
-  return (
-    <ol className={_classNames} aria-label="Phases d'accompagnement" {...rest}>
-      <li className={styles.phaseListItem}>
-        <Tag className={classNames({ [styles.strike]: !phases.anteCréation })}>
+	return (
+		<ol className={_classNames} aria-label="Phases d‘accompagnement" {...rest}>
+			<li className={styles.phaseListItem}>
+				<Tag className={classNames({ [styles.strike]: !phases.anteCréation })}>
           Phase ante-création
-          {!phases.anteCréation && <span className="sr-only"> non disponible</span>}
-        </Tag>
-      </li>
-      <li className={styles.phaseListItem}>
-        <Tag className={classNames({ [styles.strike]: !phases.test })}>
+					{!phases.anteCréation && <span className="sr-only"> non disponible</span>}
+				</Tag>
+			</li>
+			<li className={styles.phaseListItem}>
+				<Tag className={classNames({ [styles.strike]: !phases.test })}>
           Phase test
-          {!phases.test && <span className="sr-only"> non disponible</span>}
-        </Tag>
-      </li>
-      <li className={styles.phaseListItem}>
-        <Tag className={classNames({ [styles.strike]: !phases.postCréation })}>
+					{!phases.test && <span className="sr-only"> non disponible</span>}
+				</Tag>
+			</li>
+			<li className={styles.phaseListItem}>
+				<Tag className={classNames({ [styles.strike]: !phases.postCréation })}>
           Phase post-création
-          {!phases.postCréation && <span className="sr-only"> non disponible</span>}
-        </Tag>
-      </li>
-    </ol>
-  );
+					{!phases.postCréation && <span className="sr-only"> non disponible</span>}
+				</Tag>
+			</li>
+		</ol>
+	);
 }

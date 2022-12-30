@@ -20,16 +20,16 @@ export interface CmsDependencies {
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
 
 export function cmsDependenciesContainer(cmsRepository: StrapiCmsRepository, configurationService: ConfigurationService): CmsDependencies {
-  const { IS_REVIEW_APP } = configurationService.getConfiguration();
-  const duréeDeValiditéEnSecondes = IS_REVIEW_APP ? 20 : UN_JOUR_EN_SECONDES;
+	const { IS_REVIEW_APP } = configurationService.getConfiguration();
+	const duréeDeValiditéEnSecondes = IS_REVIEW_APP ? 20 : UN_JOUR_EN_SECONDES;
 
-  return {
-    consulterArticle: new ConsulterArticleUseCase(cmsRepository),
-    consulterFicheMetier: new ConsulterFicheMetierUseCase(cmsRepository),
-    consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
-    duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
-    récupererActualites: new RécupererActualitesUseCase(cmsRepository),
-    récupérerEspaceJeune: new RécupérerEspaceJeuneUseCase(cmsRepository),
-    récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
-  };
+	return {
+		consulterArticle: new ConsulterArticleUseCase(cmsRepository),
+		consulterFicheMetier: new ConsulterFicheMetierUseCase(cmsRepository),
+		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
+		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
+		récupererActualites: new RécupererActualitesUseCase(cmsRepository),
+		récupérerEspaceJeune: new RécupérerEspaceJeuneUseCase(cmsRepository),
+		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
+	};
 }

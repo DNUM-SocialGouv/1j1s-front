@@ -21,36 +21,36 @@ interface AutocomplétionCommuneProps {
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
 
 export default function InputAutocomplétionCommune(props: AutocomplétionCommuneProps) {
-  const { onSuggestionSelected, valeurInitiale, ...rest } = props;
-  const localisationService = useDependency<LocalisationService>('localisationService');
+	const { onSuggestionSelected, valeurInitiale, ...rest } = props;
+	const localisationService = useDependency<LocalisationService>('localisationService');
 
-  const suggestionsAdresse = useCallback(async (préfixe: string) => {
-    if (préfixe.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) {
-      const response = await localisationService.rechercherCommune(préfixe);
-      if (isSuccess(response)) {
-        return response.result.résultats;
-      } else {
-        return [];
-      }
-    } else {
-      return [];
-    }
-  }, [localisationService]);
+	const suggestionsAdresse = useCallback(async (préfixe: string) => {
+		if (préfixe.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) {
+			const response = await localisationService.rechercherCommune(préfixe);
+			if (isSuccess(response)) {
+				return response.result.résultats;
+			} else {
+				return [];
+			}
+		} else {
+			return [];
+		}
+	}, [localisationService]);
 
-  function afficherSuggestion(suggestion: Commune) {
-    return suggestion.libelle;
-  }
+	function afficherSuggestion(suggestion: Commune) {
+		return suggestion.libelle;
+	}
 
-  function valeurSuggestion(suggestion: Commune) {
-    return suggestion.libelle;
-  }
+	function valeurSuggestion(suggestion: Commune) {
+		return suggestion.libelle;
+	}
 
-  return <InputAutocomplétion
-    suggérer={suggestionsAdresse}
-    afficher={afficherSuggestion}
-    valeur={valeurSuggestion}
-    onSuggestionSelected={onSuggestionSelected}
-    valeurInitiale={valeurInitiale?.libelle}
-    {...rest}
-  />;
+	return <InputAutocomplétion
+		suggérer={suggestionsAdresse}
+		afficher={afficherSuggestion}
+		valeur={valeurSuggestion}
+		onSuggestionSelected={onSuggestionSelected}
+		valeurInitiale={valeurInitiale?.libelle}
+		{...rest}
+	/>;
 }

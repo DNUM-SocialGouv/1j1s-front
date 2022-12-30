@@ -6,18 +6,18 @@ import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudian
 import useReferrer from '~/client/hooks/useReferrer';
 
 export default function RechercherJobÉtudiantPage() {
-  const router = useRouter();
+	const router = useRouter();
 
-  useReferrer();
+	useReferrer();
   
-  useEffect(() => {
-    if (router.isReady) {
-      const queryString = stringify(router.query);
-      if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
-    }
-  }, [router]);
+	useEffect(() => {
+		if (router.isReady) {
+			const queryString = stringify(router.query);
+			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
+		}
+	}, [router]);
 
-  if (Object.keys(router.query).length) return <RechercherJobÉtudiant />;
-  return null;
+	if (Object.keys(router.query).length) return <RechercherJobÉtudiant />;
+	return null;
 
 }

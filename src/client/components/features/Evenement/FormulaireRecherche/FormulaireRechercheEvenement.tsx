@@ -7,17 +7,17 @@ import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/M
 const LIMIT_MAX_FACETS = 10000;
 
 export function FormulaireRechercheEvenement() {
-  return (
-    <form className={styles.rechercherEvenementForm} onSubmit={(event) => event.preventDefault()}>
+	return (
+		<form className={styles.rechercherEvenementForm} onSubmit={(event) => event.preventDefault()}>
 	  <MeilisearchCustomSearchBox
-        label="Mot-clé, métier, accompagnement…"
-        name="motCle"
-        placeholder="Exemples: gendarmerie, cuisinier, mentorat"
+				label="Mot-clé, métier, accompagnement…"
+				name="motCle"
+				placeholder="Exemples: gendarmerie, cuisinier, mentorat"
 	  />
 	  <MeilisearchInputRefinement
-        attribute="lieuEvenement"
-        limit={LIMIT_MAX_FACETS}
+				attribute="lieuEvenement"
+				limit={LIMIT_MAX_FACETS}
 	  />
-    </form>
-  );
+		</form>
+	);
 }

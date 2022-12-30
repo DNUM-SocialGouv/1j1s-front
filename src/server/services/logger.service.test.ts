@@ -6,37 +6,37 @@ jest.mock('@sentry/nextjs');
 
 const SentryMock = jest.mocked(Sentry);
 const SentryScopeMock = {
-  setTag: jest.fn(),
+	setTag: jest.fn(),
 } as unknown as Sentry.Scope;
 SentryMock.configureScope.mockImplementation((callback) => {
-  callback(SentryScopeMock);
+	callback(SentryScopeMock);
 });
 
 describe('LoggerService', () => {
-  describe('error', () => {
-    it('appelle le logger error avec les bons paramètres', () => {
-      const message = 'mon erreur message';
-      LoggerService.error(message);
+	describe('error', () => {
+		it('appelle le logger error avec les bons paramètres', () => {
+			const message = 'mon erreur message';
+			LoggerService.error(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
-    });
-  });
+			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
+		});
+	});
 
-  describe('info', () => {
-    it('appelle le logger info avec les bons paramètres', () => {
-      const message = 'mon info message';
-      LoggerService.info(message);
+	describe('info', () => {
+		it('appelle le logger info avec les bons paramètres', () => {
+			const message = 'mon info message';
+			LoggerService.info(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
-    });
-  });
+			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
+		});
+	});
 
-  describe('warn', () => {
-    it('appelle le logger warn avec les bons paramètres', () => {
-      const message = 'mon warn message';
-      LoggerService.warn(message);
+	describe('warn', () => {
+		it('appelle le logger warn avec les bons paramètres', () => {
+			const message = 'mon warn message';
+			LoggerService.warn(message);
 
-      expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
-    });
-  });
+			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
+		});
+	});
 });

@@ -12,29 +12,29 @@ interface MessageResultatRechercheProps {
 }
 
 export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
-  const { labelSingulier, labelPluriel, isLoading, numberOfResult } = props;
+	const { labelSingulier, labelPluriel, isLoading, numberOfResult } = props;
 
-  function AfficherMessageRésultats() {
-    return <>
-      {numberOfResult === 1 &&
+	function AfficherMessageRésultats() {
+		return <>
+			{numberOfResult === 1 &&
             <h2 className={styles.stats}>
-              <span className={styles.nombreRésultats}>{numberOfResult}</span>
-              {' ' + labelSingulier}
+            	<span className={styles.nombreRésultats}>{numberOfResult}</span>
+            	{' ' + labelSingulier}
             </h2>}
-      {numberOfResult > 1 &&
+			{numberOfResult > 1 &&
             <h2 className={styles.stats}>
-              <span className={styles.nombreRésultats}>{numberOfResult}</span>
-              {' ' + labelPluriel}
+            	<span className={styles.nombreRésultats}>{numberOfResult}</span>
+            	{' ' + labelPluriel}
             </h2>}
-      {(numberOfResult === 0) &&
+			{(numberOfResult === 0) &&
             <ErrorComponent/>
-      }
-    </>;
-  }
+			}
+		</>;
+	}
 
-  return (
-    <Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
-      <AfficherMessageRésultats/>
-    </Skeleton>
-  );
+	return (
+		<Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+			<AfficherMessageRésultats/>
+		</Skeleton>
+	);
 }

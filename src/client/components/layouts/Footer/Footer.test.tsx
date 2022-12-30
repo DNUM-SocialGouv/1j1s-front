@@ -8,11 +8,11 @@ import { render, screen } from '@testing-library/react';
 import Footer from '~/client/components/layouts/Footer/Footer';
 
 describe('Footer', () => {
-  it('renders Footer component', () => {
-    render(<Footer />);
+	it('renders Footer component', () => {
+		render(<Footer />);
 
-    const footer = screen.getByRole('contentinfo');
+		const footer = screen.getByRole('contentinfo');
 
-    expect(footer).toBeInTheDocument();
-  });
+		expect(footer).toBeInTheDocument();
+	});
 });

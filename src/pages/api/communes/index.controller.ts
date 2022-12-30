@@ -8,8 +8,8 @@ import { handleResponse } from '~/server/utils/handleResponse.util';
 
 
 export async function rechercherCommuneHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheCommune | ErrorHttpResponse>) {
-  const résultatRechercheCommunes = await dependencies.localisationDependencies.rechercherCommune.handle(String(req.query.q));
-  return handleResponse(résultatRechercheCommunes, res);
+	const résultatRechercheCommunes = await dependencies.localisationDependencies.rechercherCommune.handle(String(req.query.q));
+	return handleResponse(résultatRechercheCommunes, res);
 }
 
 export default monitoringHandler(rechercherCommuneHandler);

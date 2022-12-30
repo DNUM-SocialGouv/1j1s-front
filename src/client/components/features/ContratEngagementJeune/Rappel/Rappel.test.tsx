@@ -13,50 +13,50 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { createSuccess } from '~/server/errors/either';
 
 describe('<Rappel />', () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  function renderComponent() {
-    const onSuccess = jest.fn();
-    const anDemandeDeContactService = (): DemandeDeContactService => ({
-      envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
-      envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
-    } as unknown as DemandeDeContactService);
-    const demandeDeContactServiceMock = anDemandeDeContactService();
-    const localisationService = aLocalisationService({
-      communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
-      départementList: [],
-      régionList: [],
-    });
+	function renderComponent() {
+		const onSuccess = jest.fn();
+		const anDemandeDeContactService = (): DemandeDeContactService => ({
+			envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
+			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		} as unknown as DemandeDeContactService);
+		const demandeDeContactServiceMock = anDemandeDeContactService();
+		const localisationService = aLocalisationService({
+			communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
+			départementList: [],
+			régionList: [],
+		});
 
-    render(
-      <DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
-        <Rappel/>
-      </DependenciesProvider>,
-    );
-    return { demandeDeContactServiceMock, onSuccess };
-  }
+		render(
+			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
+				<Rappel/>
+			</DependenciesProvider>,
+		);
+		return { demandeDeContactServiceMock, onSuccess };
+	}
 
-  it('le composant s\'affiche correctement', () => {
-    // Given
-    // When
-    renderComponent();
-    // Then
-    expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
-  });
-  describe('Lorsqu\'on clique sur le bouton je souhaite être contacté(e)', () => {
-    const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
-    it('affiche un formulaire de rappel', async () => {
-      // Given
-      renderComponent();
-      // When
-      await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
-      // Then
-      for (const label of labels) {
-        expect(screen.getByText(label)).toBeInTheDocument();
-      }
-      expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
-    });
-  });
+	it('le composant s‘affiche correctement', () => {
+		// Given
+		// When
+		renderComponent();
+		// Then
+		expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
+	});
+	describe('Lorsqu‘on clique sur le bouton je souhaite être contacté(e)', () => {
+		const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
+		it('affiche un formulaire de rappel', async () => {
+			// Given
+			renderComponent();
+			// When
+			await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
+			// Then
+			for (const label of labels) {
+				expect(screen.getByText(label)).toBeInTheDocument();
+			}
+			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
+		});
+	});
 });

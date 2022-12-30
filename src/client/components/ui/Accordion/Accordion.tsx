@@ -11,24 +11,24 @@ interface AccordionProps extends CommonProps {
 }
 
 export function Accordion(props: React.PropsWithChildren<AccordionProps>) {
-  const {
-    children,
-    className,
-    open,
-    summary,
-    summaryAs,
-    ...rest
-  } = props;
+	const {
+		children,
+		className,
+		open,
+		summary,
+		summaryAs,
+		...rest
+	} = props;
 
-  const Summary = React.useCallback(({ ...rest }) => {
-    const content = React.createElement(summaryAs || React.Fragment, {}, summary);
-    return React.createElement('summary', { ...rest }, content);
-  }, [summary, summaryAs]);
+	const Summary = React.useCallback(({ ...rest }) => {
+		const content = React.createElement(summaryAs || React.Fragment, {}, summary);
+		return React.createElement('summary', { ...rest }, content);
+	}, [summary, summaryAs]);
 
-  return (
-    <details className={classNames(styles.details, className)} open={open ?? false} { ...rest}>
-      <Summary className={styles.summary} />
-      {children}
-    </details>
-  );
+	return (
+		<details className={classNames(styles.details, className)} open={open ?? false} { ...rest}>
+			<Summary className={styles.summary} />
+			{children}
+		</details>
+	);
 }

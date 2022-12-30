@@ -7,10 +7,10 @@ interface HeadTagProps {
 }
 
 export function HeadTag({ title, description }: HeadTagProps) {
-  return (
-    <Head>
-      <title>{title}</title>
-      {description && <meta name="description" content={description} />}
-    </Head>
-  );
+	return (
+		<Head>
+			<title>{title}</title>
+			{description && <meta name="description" content={description} />}
+		</Head>
+	);
 }

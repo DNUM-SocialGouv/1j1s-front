@@ -11,14 +11,14 @@ interface TextIconProps extends CommonProps {
 }
 
 export function TextIcon({ children, icon, className, iconPosition = 'right' }: React.PropsWithChildren<TextIconProps>) {
-  const _classNames = classNames(styles.textIcon, iconPosition === 'right' ? styles.spaceForRightIcon : styles.spaceForLeftIcon, className);
+	const _classNames = classNames(styles.textIcon, iconPosition === 'right' ? styles.spaceForRightIcon : styles.spaceForLeftIcon, className);
 
-  return (
-    <span className={_classNames}>
-      {
-        iconPosition === 'left' ? <><Icon name={icon} /> {children}</> : <>{children} <Icon name={icon} /></>
-      }
-    </span>
-  );
+	return (
+		<span className={_classNames}>
+			{
+				iconPosition === 'left' ? <><Icon name={icon} /> {children}</> : <>{children} <Icon name={icon} /></>
+			}
+		</span>
+	);
 };
 

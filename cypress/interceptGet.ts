@@ -9,13 +9,13 @@ export type InterceptParameters = {
 }
 
 export function interceptGet(
-  { path, alias, actionBeforeWaitTheCall, response, statusCode } : InterceptParameters,
+	{ path, alias, actionBeforeWaitTheCall, response, statusCode } : InterceptParameters,
 ) {
-  if(statusCode) {
-    cy.intercept({ method: 'GET' , path }, { body: response, statusCode }).as(alias);
-  } else {
-    cy.intercept({ method: 'GET' , path }, response).as(alias);
-  }
-  actionBeforeWaitTheCall && actionBeforeWaitTheCall();
-  cy.wait(`@${alias}`).its('response.statusCode').should('eq', statusCode ? statusCode : 200);
+	if(statusCode) {
+		cy.intercept({ method: 'GET' , path }, { body: response, statusCode }).as(alias);
+	} else {
+		cy.intercept({ method: 'GET' , path }, response).as(alias);
+	}
+	actionBeforeWaitTheCall && actionBeforeWaitTheCall();
+	cy.wait(`@${alias}`).its('response.statusCode').should('eq', statusCode ? statusCode : 200);
 }

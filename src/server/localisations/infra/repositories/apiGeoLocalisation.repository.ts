@@ -2,48 +2,48 @@ import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
-  ApiDecoupageAdministratifResponse,
+	ApiDecoupageAdministratifResponse,
 } from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
 import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
 import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiLocalisationError';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
-  constructor(
+	constructor(
     private readonly httpClientService: HttpClientService,
-  ) {
-  }
+	) {
+	}
 
-  async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {
-    return await this.request(`communes?nom=${communeRecherchée}`);
-  }
+	async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {
+		return await this.request(`communes?nom=${communeRecherchée}`);
+	}
 
-  async getCommuneListByCodePostal(codePostalRecherchée: string): Promise<Either<Localisation[]>> {
-    return await this.request(`communes?codePostal=${codePostalRecherchée}`);
-  }
+	async getCommuneListByCodePostal(codePostalRecherchée: string): Promise<Either<Localisation[]>> {
+		return await this.request(`communes?codePostal=${codePostalRecherchée}`);
+	}
 
-  async getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-    return await this.request(`departements/${numéroDépartementRecherché}/communes`);
-  }
+	async getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
+		return await this.request(`departements/${numéroDépartementRecherché}/communes`);
+	}
 
-  async getDépartementListByNom(départementRecherché: string): Promise<Either<Localisation[]>> {
-    return await this.request(`departements?nom=${départementRecherché}`);
-  }
+	async getDépartementListByNom(départementRecherché: string): Promise<Either<Localisation[]>> {
+		return await this.request(`departements?nom=${départementRecherché}`);
+	}
 
-  async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-    return await this.request(`departements?code=${numéroDépartementRecherché}`);
-  }
+	async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
+		return await this.request(`departements?code=${numéroDépartementRecherché}`);
+	}
 
-  async getRégionListByNom(régionRecherchée: string): Promise<Either<Localisation[]>> {
-    return await this.request(`regions?nom=${régionRecherchée}`);
-  }
+	async getRégionListByNom(régionRecherchée: string): Promise<Either<Localisation[]>> {
+		return await this.request(`regions?nom=${régionRecherchée}`);
+	}
 
-  private async request(endpoint: string): Promise<Either<Localisation[]>> {
-    try {
-      const response = await this.httpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
-      return createSuccess(mapLocalisationList(response.data));
-    } catch (e) {
-      return handleGetFailureError(e, 'localisation');
-    }
-  }
+	private async request(endpoint: string): Promise<Either<Localisation[]>> {
+		try {
+			const response = await this.httpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
+			return createSuccess(mapLocalisationList(response.data));
+		} catch (e) {
+			return handleGetFailureError(e, 'localisation');
+		}
+	}
 }

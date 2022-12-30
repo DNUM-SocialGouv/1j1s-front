@@ -10,22 +10,22 @@ interface RadioProps extends React.InputHTMLAttributes<unknown>{
 }
 
 export function Radio({ id, label, className, ...rest } : RadioProps) {
-  const radioButtonId = useRef(id || uuid4());
+	const radioButtonId = useRef(id || uuid4());
 
-  useEffect(() => {
-    radioButtonId.current = id || uuid4();
-  }, [id]);
+	useEffect(() => {
+		radioButtonId.current = id || uuid4();
+	}, [id]);
 
-  return (
-    <div className={classNames(styles.radioButton, className)}>
-      <input
-        type="radio"
-        {...rest}
-        id={radioButtonId.current}
-      />
-      <label className={styles.label} htmlFor={radioButtonId.current}>
-        {label}
-      </label>
-    </div>
-  );
+	return (
+		<div className={classNames(styles.radioButton, className)}>
+			<input
+				type="radio"
+				{...rest}
+				id={radioButtonId.current}
+			/>
+			<label className={styles.label} htmlFor={radioButtonId.current}>
+				{label}
+			</label>
+		</div>
+	);
 }

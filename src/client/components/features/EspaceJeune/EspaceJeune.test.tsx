@@ -11,28 +11,28 @@ import { anEspaceJeune } from '~/server/cms/domain/espaceJeune.fixture';
 const espaceJeune = anEspaceJeune();
 
 describe('EspaceJeune', () => {
-  beforeEach(() => {
-    mockSmallScreen();
-  });
+	beforeEach(() => {
+		mockSmallScreen();
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it("affiche les sections de l'espace jeune", () => {
-    render(<EspaceJeuneComponent espaceJeune={espaceJeune}/>);
-    const vieProfessionnelle = screen.getByText('Entrée dans la vie professionnelle');
-    const orienterFormer = screen.getByText('S‘orienter et se former');
-    const parcoursAccompagnement = screen.getByText('Parcours d‘accompagnement');
-    const aidesFinancières = screen.getByText('Aides financières');
-    [vieProfessionnelle, orienterFormer, parcoursAccompagnement, aidesFinancières].map((section) => {
-      expect(section).toBeInTheDocument();
-    });
-  });
+	it('affiche les sections de l‘espace jeune', () => {
+		render(<EspaceJeuneComponent espaceJeune={espaceJeune}/>);
+		const vieProfessionnelle = screen.getByText('Entrée dans la vie professionnelle');
+		const orienterFormer = screen.getByText('S‘orienter et se former');
+		const parcoursAccompagnement = screen.getByText('Parcours d‘accompagnement');
+		const aidesFinancières = screen.getByText('Aides financières');
+		[vieProfessionnelle, orienterFormer, parcoursAccompagnement, aidesFinancières].map((section) => {
+			expect(section).toBeInTheDocument();
+		});
+	});
 
-  it('affiches les cartes espaceJeune', () => {
-    render(<EspaceJeuneComponent espaceJeune={espaceJeune} />);
-    const cartes = screen.getAllByTestId('carteEspaceJeune');
-    expect(cartes.length).toEqual(16);
-  });
+	it('affiches les cartes espaceJeune', () => {
+		render(<EspaceJeuneComponent espaceJeune={espaceJeune} />);
+		const cartes = screen.getAllByTestId('carteEspaceJeune');
+		expect(cartes.length).toEqual(16);
+	});
 });

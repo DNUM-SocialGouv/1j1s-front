@@ -6,11 +6,11 @@ import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export async function enregistrerContactPOEHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
-  if (req.method !== 'POST') {
-    return res.status(406).end();
-  }
-  const response = await dependencies.demandeDeContactDependencies.envoyerDemandeDeContactPOEUsecase.handle(req.body);
-  return handleResponse(response, res);
+	if (req.method !== 'POST') {
+		return res.status(406).end();
+	}
+	const response = await dependencies.demandeDeContactDependencies.envoyerDemandeDeContactPOEUsecase.handle(req.body);
+	return handleResponse(response, res);
 }
 
 export default monitoringHandler(enregistrerContactPOEHandler);

@@ -15,21 +15,21 @@ const contenu = `
   `;
 
 export default function QuEstCeQueJyGagne() {
-  const { isSmallScreen, isMediumScreen } = useBreakpoint();
-  const displayAccordion = isSmallScreen || isMediumScreen;
+	const { isSmallScreen, isMediumScreen } = useBreakpoint();
+	const displayAccordion = isSmallScreen || isMediumScreen;
 
-  const markdown = <div className={styles.contenu}><Marked markdown={contenu}/></div>;
+	const markdown = <div className={styles.contenu}><Marked markdown={contenu}/></div>;
 
-  return (
-    <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.titre}>
-          <h2>Mais en vrai, qu&apos;est-ce que j&apos;y gagne à long terme ?</h2>
-          {!displayAccordion && <strong>Le contrat d&apos;Engagement Jeune, c&apos;est tout bénéf&apos; pour moi !</strong>}
-        </div>
-        {!displayAccordion && markdown}
-        {displayAccordion && <SeeMore> {markdown}</SeeMore>}
-      </div>
-    </section>
-  );
+	return (
+		<section className={styles.section}>
+			<div className={styles.container}>
+				<div className={styles.titre}>
+					<h2>Mais en vrai, qu‘est-ce que j‘y gagne à long terme ?</h2>
+					{!displayAccordion && <strong>Le contrat d‘Engagement Jeune, c‘est tout bénéf‘ pour moi !</strong>}
+				</div>
+				{!displayAccordion && markdown}
+				{displayAccordion && <SeeMore> {markdown}</SeeMore>}
+			</div>
+		</section>
+	);
 }

@@ -17,34 +17,34 @@ export interface RésultatRechercherSolutionProps {
 }
 
 export function RésultatRechercherSolution(props: RésultatRechercherSolutionProps) {
-  const { lienOffre, intituléOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
-  const { isSmallScreen } = useBreakpoint();
+	const { lienOffre, intituléOffre, logoEntreprise, nomEntreprise, étiquetteOffreList } = props;
+	const { isSmallScreen } = useBreakpoint();
 
-  const cardDescription = () => {
-    return (
-      <section className={styles.cardDescription}>
-        {étiquetteOffreList.length > 0 && <TagList list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre" />}
-        <TextIcon icon="angle-right" className={styles.callToAction}>En savoir plus</TextIcon>
-      </section>
-    );
-  };
+	const cardDescription = () => {
+		return (
+			<section className={styles.cardDescription}>
+				{étiquetteOffreList.length > 0 && <TagList list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre" />}
+				<TextIcon icon="angle-right" className={styles.callToAction}>En savoir plus</TextIcon>
+			</section>
+		);
+	};
 
-  return (
-    <Link href={lienOffre} className={classNames(styles.card, 'underline-none')} prefetch={false} data-testid="RésultatRechercherSolution">
-      <div className={styles.cardHeader}>
-        <div className={styles.cardImageWrapper}>
-          <Image alt="" src={logoEntreprise} layout="fill" aria-hidden="true"/>
-        </div>
-        <div className={styles.offreLead}>
-          <header>
-            <h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>
-            <div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
-          </header>
-          { !isSmallScreen && cardDescription()}
+	return (
+		<Link href={lienOffre} className={classNames(styles.card, 'underline-none')} prefetch={false} data-testid="RésultatRechercherSolution">
+			<div className={styles.cardHeader}>
+				<div className={styles.cardImageWrapper}>
+					<Image alt="" src={logoEntreprise} layout="fill" aria-hidden="true"/>
+				</div>
+				<div className={styles.offreLead}>
+					<header>
+						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>
+						<div className={styles.offreLeadSubTitle}>{nomEntreprise && nomEntreprise}</div>
+					</header>
+					{ !isSmallScreen && cardDescription()}
           
-        </div>
-      </div>
-      { isSmallScreen && cardDescription()}
-    </Link>
-  );
+				</div>
+			</div>
+			{ isSmallScreen && cardDescription()}
+		</Link>
+	);
 }

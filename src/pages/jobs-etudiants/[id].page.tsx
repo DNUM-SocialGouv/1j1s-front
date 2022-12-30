@@ -13,14 +13,14 @@ interface ConsulterJobÉtudiantPageProps {
 }
 
 export default function ConsulterJobÉtudiantPage({ jobÉtudiant }: ConsulterJobÉtudiantPageProps) {
-  if (!jobÉtudiant) return null;
+	if (!jobÉtudiant) return null;
 
-  return (
-    <>
-      <HeadTag title={`${jobÉtudiant.intitulé} | 1jeune1solution`} />
-      <ConsulterOffreEmploi offreEmploi={jobÉtudiant} />
-    </>
-  );
+	return (
+		<>
+			<HeadTag title={`${jobÉtudiant.intitulé} | 1jeune1solution`} />
+			<ConsulterOffreEmploi offreEmploi={jobÉtudiant} />
+		</>
+	);
 }
 
 interface EmploiContext extends ParsedUrlQuery {
@@ -28,19 +28,19 @@ interface EmploiContext extends ParsedUrlQuery {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<EmploiContext>): Promise<GetServerSidePropsResult<ConsulterJobÉtudiantPageProps>> {
-  if (!context.params) {
-    throw new PageContextParamsException();
-  }
-  const { id } = context.params;
-  const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
+	if (!context.params) {
+		throw new PageContextParamsException();
+	}
+	const { id } = context.params;
+	const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
 
-  if (offreEmploi.instance === 'failure') {
-    return { notFound: true };
-  }
+	if (offreEmploi.instance === 'failure') {
+		return { notFound: true };
+	}
 
-  return {
-    props: {
-      jobÉtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
-    },
-  };
+	return {
+		props: {
+			jobÉtudiant: JSON.parse(JSON.stringify(offreEmploi.result)),
+		},
+	};
 }

@@ -19,7 +19,7 @@
   ],
   "rules": {
     "prettier/prettier": "off",
-    "indent": [2, 2, { "SwitchCase": 1 }],
+    "indent": ["error", "tab", { "SwitchCase": 1 }],
     "semi": "error",
     "comma-dangle": ["error", "always-multiline"],
     "quotes": ["error", "single", { "avoidEscape": true }],

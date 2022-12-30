@@ -12,7 +12,7 @@ const STAGE_CONTENT_MANAGER_BASE_URL = process.env.NEXT_PUBLIC_STAGE_CONTENT_MAN
 const secondStrapiInstance = axios.create({ baseURL: STAGE_CONTENT_MANAGER_BASE_URL+'/api' });
 
 const indexServices: IndexServices = {
-  offreDeStage: new OffreDeStageHttpService(secondStrapiInstance),
+	offreDeStage: new OffreDeStageHttpService(secondStrapiInstance),
 };
 
 export default indexServices;

@@ -10,12 +10,12 @@ interface EntreprendreOutilADispositionProps {
 }
 
 export function EntreprendreOutilADisposition({ link, linkLabel, description }: EntreprendreOutilADispositionProps) {
-  return (
-    <div className={styles.entreprendreOutilADisposition}>
-      <p>{description}</p>
-      <Link appearance="asPrimaryButton" href={link}>
-        {linkLabel}
-      </Link>
-    </div>
-  );
+	return (
+		<div className={styles.entreprendreOutilADisposition}>
+			<p>{description}</p>
+			<Link appearance="asPrimaryButton" href={link}>
+				{linkLabel}
+			</Link>
+		</div>
+	);
 }

@@ -7,36 +7,36 @@ import React from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Application/Application.module.scss';
 
 export default function Application() {
-  return (
-    <div className={styles.application}>
-      <div className={styles.applicationContainer}>
+	return (
+		<div className={styles.application}>
+			<div className={styles.applicationContainer}>
 
-        <Image priority src={logoImage} alt={'Contrat d\'engagement jeune'} aria-hidden="true"/>
+				<Image priority src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true"/>
 
-        <div className={styles.applicationDescription}>
-          L&apos;appli qui vous permet d&apos;échanger plus facilement avec votre conseiller et de réaliser vos recherches d&apos;emploi,
-          d&apos;immersion, d&apos;alternance et de service civique.
-        </div>
+				<div className={styles.applicationDescription}>
+          L‘appli qui vous permet d‘échanger plus facilement avec votre conseiller et de réaliser vos recherches d‘emploi,
+          d‘immersion, d‘alternance et de service civique.
+				</div>
 
-        <div className={styles.applicationLogoContainer}>
-          <div className={styles.applicationLogo}>
-            <Image priority src={logoGoogle} alt={''} aria-hidden="true"/>
-            <a href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
-              className={'underline-none'}>
+				<div className={styles.applicationLogoContainer}>
+					<div className={styles.applicationLogo}>
+						<Image priority src={logoGoogle} alt={''} aria-hidden="true"/>
+						<a href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
+							className={'underline-none'}>
               Télécharger sur <br/>
-              <span className={styles.applicationLogoStore}>Google Play</span>
-            </a>
-          </div>
-          <div className={styles.applicationLogo}>
-            <Image priority src={logoApple} alt={''} aria-hidden="true"/>
-            <a href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
-              className={'underline-none'}>
+							<span className={styles.applicationLogoStore}>Google Play</span>
+						</a>
+					</div>
+					<div className={styles.applicationLogo}>
+						<Image priority src={logoApple} alt={''} aria-hidden="true"/>
+						<a href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
+							className={'underline-none'}>
               Télécharger sur <br/>
-              <span className={styles.applicationLogoStore}>APP Store</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+							<span className={styles.applicationLogoStore}>APP Store</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

@@ -16,18 +16,18 @@ interface ArticleCardProps {
 }
 
 export function ArticleCard({ className, children, icon, imageSrc, link, linkLabel = 'Lire l‘article', titleLabel }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-  const iconComponent = useRef(icon ? icon : <Icon name={'arrow-right'}/>);
+	const iconComponent = useRef(icon ? icon : <Icon name={'arrow-right'}/>);
 
-  return (
-    <Link href={link} className={'underline-none'}>
-      <CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'}>
-        <CardComponent.Image className={styles.imageWrapper} src={imageSrc} ariaHidden/>
-        <CardComponent.Content className={styles.content}>
-          <CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
-          {children}
-          <CardComponent.FakeLink className={styles.cta} appearance={'tertiary'} icon={iconComponent.current} label={linkLabel} />
-        </CardComponent.Content>
-      </CardComponent>
-    </Link>
-  );
+	return (
+		<Link href={link} className={'underline-none'}>
+			<CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'}>
+				<CardComponent.Image className={styles.imageWrapper} src={imageSrc} ariaHidden/>
+				<CardComponent.Content className={styles.content}>
+					<CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
+					{children}
+					<CardComponent.FakeLink className={styles.cta} appearance={'tertiary'} icon={iconComponent.current} label={linkLabel} />
+				</CardComponent.Content>
+			</CardComponent>
+		</Link>
+	);
 }

@@ -10,10 +10,10 @@ interface FilterAccordionProps extends CommonProps {
 }
 
 export function FilterAccordion({ children, title, open, className, ...rest } : React.PropsWithChildren<FilterAccordionProps>) {
-  return (
-    <details className={classNames(styles.details, className)} {...rest} open={open || false}>
-      <summary>{title}</summary>
-      <div className={styles.detailsContent}>{children}</div>
-    </details>
-  );
+	return (
+		<details className={classNames(styles.details, className)} {...rest} open={open || false}>
+			<summary>{title}</summary>
+			<div className={styles.detailsContent}>{children}</div>
+		</details>
+	);
 }

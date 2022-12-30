@@ -8,30 +8,30 @@ import { ConsulterMissionEngagement } from '~/client/components/features/Engagem
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import {
-  anAmbassadeurDuDonDeVêtementMission,
+	anAmbassadeurDuDonDeVêtementMission,
 } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('ConsulterMission', () => {
-  beforeEach(() => {
-    mockSmallScreen();
-    mockUseRouter({});
-  });
+	beforeEach(() => {
+		mockSmallScreen();
+		mockUseRouter({});
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  describe('quand on consulte une mission', () => {
-    it('affiche l\'offre de mission', async () => {
-      const offreMission = anAmbassadeurDuDonDeVêtementMission();
+	describe('quand on consulte une mission', () => {
+		it('affiche l‘offre de mission', async () => {
+			const offreMission = anAmbassadeurDuDonDeVêtementMission();
 
-      render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
+			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 
-      const nomAssociation = screen.getByText('Ebs le relais val de seine');
-      const tagList = screen.getByRole('list', { name: 'Caractéristiques de la mission' });
+			const nomAssociation = screen.getByText('Ebs le relais val de seine');
+			const tagList = screen.getByRole('list', { name: 'Caractéristiques de la mission' });
 
-      expect(nomAssociation).toBeInTheDocument();
-      expect(within(tagList).queryAllByRole('listitem')).toHaveLength(2);
-    });
-  });
+			expect(nomAssociation).toBeInTheDocument();
+			expect(within(tagList).queryAllByRole('listitem')).toHaveLength(2);
+		});
+	});
 });

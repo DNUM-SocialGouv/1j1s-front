@@ -17,23 +17,23 @@ Je perçois une allocation pouvant aller jusqu’à 500 euros par mois en foncti
 `;
 
 export default function Allocations() {
-  const { isSmallScreen, isMediumScreen } = useBreakpoint();
-  const displayAccordion = isSmallScreen || isMediumScreen;
-  return (
-    <section className={ styles.allocations }>
-      <div className={ styles.allocationsContainer }>
-        <aside className= { styles.allocationsIllustration }>
-          <Image src={ illustration } objectFit='cover' alt='' />
-        </aside>
-        <article className={ styles.allocationsArticle }>
-          <h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l&apos;allocation ?</h2>
-          {!displayAccordion && <Marked markdown={ contenu }/>}
-          {displayAccordion && (
-            <SeeMore>
-              <Marked markdown={ contenu }/>
-            </SeeMore>)}
-        </article>
-      </div>
-    </section>
-  );
+	const { isSmallScreen, isMediumScreen } = useBreakpoint();
+	const displayAccordion = isSmallScreen || isMediumScreen;
+	return (
+		<section className={ styles.allocations }>
+			<div className={ styles.allocationsContainer }>
+				<aside className= { styles.allocationsIllustration }>
+					<Image src={ illustration } objectFit='cover' alt='' />
+				</aside>
+				<article className={ styles.allocationsArticle }>
+					<h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l‘allocation ?</h2>
+					{!displayAccordion && <Marked markdown={ contenu }/>}
+					{displayAccordion && (
+						<SeeMore>
+							<Marked markdown={ contenu }/>
+						</SeeMore>)}
+				</article>
+			</div>
+		</section>
+	);
 }

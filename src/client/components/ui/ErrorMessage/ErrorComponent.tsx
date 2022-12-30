@@ -10,13 +10,13 @@ interface ErrorProps {
 }
 
 export const ErrorComponent = (props: ErrorProps) => {
-  const { errorType } = props;
-  return (
-    <>
-      {!errorType && <NoResultErrorMessage />}
-      {errorType === ErreurMétier.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage />}
-      {errorType === ErreurMétier.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage  />}
-      {errorType === ErreurMétier.CONTENU_INDISPONIBLE && <NoResultErrorMessage />}
-    </>
-  );
+	const { errorType } = props;
+	return (
+		<>
+			{!errorType && <NoResultErrorMessage />}
+			{errorType === ErreurMétier.SERVICE_INDISPONIBLE && <UnavailableServiceErrorMessage />}
+			{errorType === ErreurMétier.DEMANDE_INCORRECTE && <IncorrectRequestErrorMessage  />}
+			{errorType === ErreurMétier.CONTENU_INDISPONIBLE && <NoResultErrorMessage />}
+		</>
+	);
 };

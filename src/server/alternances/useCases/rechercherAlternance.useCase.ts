@@ -3,9 +3,9 @@ import { OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/of
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 
 export class RechercherAlternanceUseCase {
-  constructor(private offreRepository: OffreRepository) {}
+	constructor(private offreRepository: OffreRepository) {}
 
-  async handle(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-    return this.offreRepository.search(offreFiltre);
-  }
+	async handle(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		return this.offreRepository.search(offreFiltre);
+	}
 }

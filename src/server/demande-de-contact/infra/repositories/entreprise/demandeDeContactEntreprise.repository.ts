@@ -4,17 +4,17 @@ import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/d
 import { Either } from '~/server/errors/either';
 
 export class DemandeDeContactEntrepriseRepository implements DemandeDeContactRepository {
-  constructor(private cmsRepository: CmsRepository) {
-  }
+	constructor(private cmsRepository: CmsRepository) {
+	}
 
-  async envoyer(demandeDeContactEntreprise: DemandeDeContactEntreprise): Promise<Either<void>> {
-    return this.cmsRepository.save('contact-entreprises', {
-      email: demandeDeContactEntreprise.email,
-      message: demandeDeContactEntreprise.message,
-      nom: demandeDeContactEntreprise.nom,
-      prenom: demandeDeContactEntreprise.prénom,
-      sujet: demandeDeContactEntreprise.sujet,
-      telephone: demandeDeContactEntreprise.téléphone,
-    });
-  }
+	async envoyer(demandeDeContactEntreprise: DemandeDeContactEntreprise): Promise<Either<void>> {
+		return this.cmsRepository.save('contact-entreprises', {
+			email: demandeDeContactEntreprise.email,
+			message: demandeDeContactEntreprise.message,
+			nom: demandeDeContactEntreprise.nom,
+			prenom: demandeDeContactEntreprise.prénom,
+			sujet: demandeDeContactEntreprise.sujet,
+			telephone: demandeDeContactEntreprise.téléphone,
+		});
+	}
 }

@@ -11,64 +11,64 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 
 describe('Étiquettes filtre mission', () => {
 
-  beforeEach(() => {
-    mockSmallScreen();
-  });
+	beforeEach(() => {
+		mockSmallScreen();
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  describe('quand une recherche est lancée', () => {
-    it('retourne une liste d\'étiquettes', async () => {
+	describe('quand une recherche est lancée', () => {
+		it('retourne une liste d‘étiquettes', async () => {
 
-      mockUseRouter({
-        query: {
-          ouvertsAuxMineurs: 'true',
-          page: '1',
-        },
-      });
-      render(<ÉtiquettesFiltreMission/>);
+			mockUseRouter({
+				query: {
+					ouvertsAuxMineurs: 'true',
+					page: '1',
+				},
+			});
+			render(<ÉtiquettesFiltreMission/>);
 
-      const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-      expect(filtresRecherche).toBeInTheDocument();
-    });
-  });
+			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+			expect(filtresRecherche).toBeInTheDocument();
+		});
+	});
 
-  describe('quand une recherche est lancée avec le filtre domaine', () => {
-    it('retourne une liste d\'étiquettes contenant le libellé',  async () => {
+	describe('quand une recherche est lancée avec le filtre domaine', () => {
+		it('retourne une liste d‘étiquettes contenant le libellé',  async () => {
 
-      mockUseRouter({
-        query: {
-          codeCommune: '75',
-          libelleCommune: 'Paris',
-        },
-      });
-      render(<ÉtiquettesFiltreMission/>);
+			mockUseRouter({
+				query: {
+					codeCommune: '75',
+					libelleCommune: 'Paris',
+				},
+			});
+			render(<ÉtiquettesFiltreMission/>);
 
-      const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-      const localisation = within(filtresRecherche).getByText('Paris');
-      expect(filtresRecherche).toBeInTheDocument();
-      expect(localisation).toBeInTheDocument();
-    });
-  });
+			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+			const localisation = within(filtresRecherche).getByText('Paris');
+			expect(filtresRecherche).toBeInTheDocument();
+			expect(localisation).toBeInTheDocument();
+		});
+	});
 
-  describe('quand une recherche est lancée avec le filtre ouverts aux mineurs', () => {
-    it('retourne une liste d\'étiquettes contenant un tag ouverts aux mineurs',  async () => {
+	describe('quand une recherche est lancée avec le filtre ouverts aux mineurs', () => {
+		it('retourne une liste d‘étiquettes contenant un tag ouverts aux mineurs',  async () => {
 
-      mockUseRouter({
-        query: {
-          codeCommune: '75',
-          libelleCommune: 'Paris',
-          ouvertsAuxMineurs: 'true',
-        },
-      });
-      render(<ÉtiquettesFiltreMission/>);
+			mockUseRouter({
+				query: {
+					codeCommune: '75',
+					libelleCommune: 'Paris',
+					ouvertsAuxMineurs: 'true',
+				},
+			});
+			render(<ÉtiquettesFiltreMission/>);
 
-      const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-      const ouvertsAuxMineurs = within(filtresRecherche).getByText('Dès 16 ans');
-      expect(filtresRecherche).toBeInTheDocument();
-      expect(ouvertsAuxMineurs).toBeInTheDocument();
-    });
-  });
+			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+			const ouvertsAuxMineurs = within(filtresRecherche).getByText('Dès 16 ans');
+			expect(filtresRecherche).toBeInTheDocument();
+			expect(ouvertsAuxMineurs).toBeInTheDocument();
+		});
+	});
 });

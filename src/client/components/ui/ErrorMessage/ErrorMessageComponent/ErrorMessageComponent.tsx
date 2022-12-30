@@ -7,12 +7,12 @@ interface ErrorMessageProps {
 }
 
 export const ErrorMessageComponent = (props: ErrorMessageProps) => {
-  const { explanationText, solutionText, title } = props;
-  return (
-    <p className={styles.errorMessage}>
-      <strong className={styles.errorMessageTitle}>{title}</strong>
-      <span className="bold">{explanationText}</span>
-      {solutionText && <span>{solutionText}</span>}
-    </p>
-  );
+	const { explanationText, solutionText, title } = props;
+	return (
+		<p className={styles.errorMessage}>
+			<strong className={styles.errorMessageTitle}>{title}</strong>
+			<span className="bold">{explanationText}</span>
+			{solutionText && <span>{solutionText}</span>}
+		</p>
+	);
 };

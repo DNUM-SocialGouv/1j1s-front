@@ -3,10 +3,10 @@ import { FormulaireEngagement } from '~/pages/les-entreprises-s-engagent/inscrip
 import { Either } from '~/server/errors/either';
 
 export class LesEntreprisesSEngagentService {
-  constructor(private httpClientService: HttpClientService) {
-  }
+	constructor(private httpClientService: HttpClientService) {
+	}
 
-  async envoyerFormulaireEngagement(formulaire: FormulaireEngagement): Promise<Either<void>> {
-    return this.httpClientService.post('entreprises', formulaire);
-  }
+	async envoyerFormulaireEngagement(formulaire: FormulaireEngagement): Promise<Either<void>> {
+		return this.httpClientService.post('entreprises', formulaire);
+	}
 }

@@ -13,14 +13,14 @@ interface ConsulterArticlePageProps {
 }
 
 export default function ConsulterArticlePage({ article }: ConsulterArticlePageProps) {
-  if (!article) return null;
+	if (!article) return null;
 
-  return (
-    <>
-      <HeadTag title={`${article.titre} | 1jeune1solution`} />
-      <ConsulterArticle article={article} />
-    </>
-  );
+	return (
+		<>
+			<HeadTag title={`${article.titre} | 1jeune1solution`} />
+			<ConsulterArticle article={article} />
+		</>
+	);
 }
 
 interface ArticleContext extends ParsedUrlQuery {
@@ -28,29 +28,29 @@ interface ArticleContext extends ParsedUrlQuery {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<ArticleContext>): Promise<GetStaticPropsResult<ConsulterArticlePageProps>> {
-  if (!context.params) {
-    throw new PageContextParamsException();
-  }
+	if (!context.params) {
+		throw new PageContextParamsException();
+	}
 
-  const { id } = context.params;
-  const response = await dependencies.cmsDependencies.consulterArticle.handle(id);
+	const { id } = context.params;
+	const response = await dependencies.cmsDependencies.consulterArticle.handle(id);
 
-  if (response.instance === 'failure') {
-    return { notFound: true, revalidate: 1 };
-  }
+	if (response.instance === 'failure') {
+		return { notFound: true, revalidate: 1 };
+	}
 
-  return {
-    props: {
-      article: JSON.parse(JSON.stringify(response.result)),
-    },
-    revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
-  };
+	return {
+		props: {
+			article: JSON.parse(JSON.stringify(response.result)),
+		},
+		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
+	};
 
 }
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-  return {
-    fallback: true,
-    paths: [],
-  };
+	return {
+		fallback: true,
+		paths: [],
+	};
 }

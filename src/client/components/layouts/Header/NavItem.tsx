@@ -11,11 +11,11 @@ interface NavItemProps {
 }
 
 export function NavItem({ className, label, link, isActive, onClick }: NavItemProps & React.HTMLAttributes<HTMLLIElement>) {
-  return (
-    <li className={className} onClick={onClick}>
-      <Link href={link} prefetch={false}>
-        <span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
-      </Link>
-    </li>
-  );
+	return (
+		<li className={className} onClick={onClick}>
+			<Link href={link} prefetch={false}>
+				<span className={styles.navItemLabel} aria-current={isActive}>{label}</span>
+			</Link>
+		</li>
+	);
 }

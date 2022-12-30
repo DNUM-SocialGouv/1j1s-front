@@ -9,16 +9,16 @@ interface ConsulterOffreLayoutProps {
 }
 
 export function ConsulterOffreLayout(props: React.PropsWithChildren<ConsulterOffreLayoutProps>) {
-  const { children } = props;
+	const { children } = props;
 
-  return (
-    <main id="contenu" className={styles.container}>
-      <ButtonRetour className={styles.layoutButton}/>
-      <Container>
-        <article className={styles.layout}>
-          {children}
-        </article>
-      </Container>
-    </main>
-  );
+	return (
+		<main id="contenu" className={styles.container}>
+			<ButtonRetour className={styles.layoutButton}/>
+			<Container>
+				<article className={styles.layout}>
+					{children}
+				</article>
+			</Container>
+		</main>
+	);
 }

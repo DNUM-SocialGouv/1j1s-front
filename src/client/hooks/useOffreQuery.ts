@@ -15,31 +15,31 @@ interface OffreQueryParams {
 }
 
 export function useOffreQuery(): OffreQueryParams {
-  const [offreQueryParams, setOffreQueryParams] = useState<OffreQueryParams>({
-    codeLocalisation: undefined,
-    experienceExigence: undefined,
-    grandDomaine: undefined,
-    libelleLocalisation: undefined,
-    motCle: undefined,
-    tempsDeTravail: undefined,
-    typeDeContrats: undefined,
-    typeLocalisation: undefined,
-  });
+	const [offreQueryParams, setOffreQueryParams] = useState<OffreQueryParams>({
+		codeLocalisation: undefined,
+		experienceExigence: undefined,
+		grandDomaine: undefined,
+		libelleLocalisation: undefined,
+		motCle: undefined,
+		tempsDeTravail: undefined,
+		typeDeContrats: undefined,
+		typeLocalisation: undefined,
+	});
 
-  const { query } = useRouter();
+	const { query } = useRouter();
 
-  useEffect(() => {
-    setOffreQueryParams({
-      codeLocalisation: getSingleQueryParam(query.codeLocalisation),
-      experienceExigence: getSingleQueryParam(query.experienceExigence),
-      grandDomaine: getSingleQueryParam(query.grandDomaine),
-      libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
-      motCle: getSingleQueryParam(query.motCle),
-      tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
-      typeDeContrats: getSingleQueryParam(query.typeDeContrats),
-      typeLocalisation: getSingleQueryParam(query.typeLocalisation),
-    });
-  }, [query]);
+	useEffect(() => {
+		setOffreQueryParams({
+			codeLocalisation: getSingleQueryParam(query.codeLocalisation),
+			experienceExigence: getSingleQueryParam(query.experienceExigence),
+			grandDomaine: getSingleQueryParam(query.grandDomaine),
+			libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
+			motCle: getSingleQueryParam(query.motCle),
+			tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
+			typeDeContrats: getSingleQueryParam(query.typeDeContrats),
+			typeLocalisation: getSingleQueryParam(query.typeLocalisation),
+		});
+	}, [query]);
 
-  return offreQueryParams;
+	return offreQueryParams;
 }

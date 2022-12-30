@@ -1,7 +1,7 @@
 import { Either } from '~/server/errors/either';
 
 import {
-  DemandeDeContact,
+	DemandeDeContact,
 } from './demandeDeContact';
 
 export interface DemandeDeContactRepository {

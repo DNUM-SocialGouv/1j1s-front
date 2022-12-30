@@ -4,10 +4,10 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 import {
-  mapÉtablissementAccompagnement,
+	mapÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
 import {
-  RésultatRechercheÉtablissementPublicResponse,
+	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { LoggerService } from '~/server/services/logger.service';
@@ -18,22 +18,22 @@ interface SearchÉtablissementPublic {
 }
 
 export class ApiÉtablissementPublicRepository {
-  constructor(private httpClient: HttpClientService) {
-  }
+	constructor(private httpClient: HttpClientService) {
+	}
 
-  async search(params: SearchÉtablissementPublic): Promise<Either<ÉtablissementAccompagnement[]>> {
-    const { commune, typeAccompagnement } = params;
-    try {
-      const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);
-      return createSuccess(mapÉtablissementAccompagnement(data));
-    } catch (e) {
-      LoggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');
-      if (axios.isAxiosError(e)) {
-        if (e.response?.status === 404) {
-          return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-        }
-      }
-      return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-    }
-  }
+	async search(params: SearchÉtablissementPublic): Promise<Either<ÉtablissementAccompagnement[]>> {
+		const { commune, typeAccompagnement } = params;
+		try {
+			const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);
+			return createSuccess(mapÉtablissementAccompagnement(data));
+		} catch (e) {
+			LoggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');
+			if (axios.isAxiosError(e)) {
+				if (e.response?.status === 404) {
+					return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+				}
+			}
+			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		}
+	}
 }

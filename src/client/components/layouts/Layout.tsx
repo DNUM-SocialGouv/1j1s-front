@@ -11,22 +11,22 @@ const Footer = dynamic(() => import(/* webpackChunkName: 'footer' */ '~/client/c
 const SkipLink = dynamic(() => import(/* webpackChunkName: 'header' */ '~/client/components/ui/SkipLink/SkipLink'), { ssr: false });
 
 export function Layout({ children }: React.PropsWithChildren) {
-  const router = useRouter();
-  const analyticsService = useDependency<AnalyticsService>('analyticsService');
-  const surface = useRef<HTMLDivElement>(null);
+	const router = useRouter();
+	const analyticsService = useDependency<AnalyticsService>('analyticsService');
+	const surface = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    analyticsService.sendPage(router.pathname);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.pathname]);
+	useEffect(() => {
+		analyticsService.sendPage(router.pathname);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [router.pathname]);
 
-  return (
-    <div ref={ surface }>
-      <SkipLink/>
-      <Header/>
-      {children}
-      <Footer/>
-      <Bouée surface={ surface } />
-    </div>
-  );
+	return (
+		<div ref={ surface }>
+			<SkipLink/>
+			<Header/>
+			{children}
+			<Footer/>
+			<Bouée surface={ surface } />
+		</div>
+	);
 }

@@ -3,10 +3,10 @@ import { RésultatsRechercheCommune } from '~/server/localisations/domain/locali
 import { LocalisationAvecCoordonnéesRepository } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
 
 export class RechercherCommuneUseCase {
-  constructor(private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {
-  }
+	constructor(private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {
+	}
 
-  async handle(recherche: string): Promise<Either<RésultatsRechercheCommune>> {
-    return await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
-  }
+	async handle(recherche: string): Promise<Either<RésultatsRechercheCommune>> {
+		return await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
+	}
 }

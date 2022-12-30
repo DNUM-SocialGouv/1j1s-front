@@ -10,31 +10,31 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { aCartesMesuresEmployeursList } from '~/server/cms/domain/mesuresEmployeurs.fixture';
 
 const mesuresEmployeurs = {
-  dispositifs: aCartesMesuresEmployeursList(),
+	dispositifs: aCartesMesuresEmployeursList(),
 };
 
 describe('MesuresEmployeurs', () => {
-  beforeEach(() => {
-    mockSmallScreen();
-  });
-  beforeEach(() => {
-    mockUseRouter({});
-  });
+	beforeEach(() => {
+		mockSmallScreen();
+	});
+	beforeEach(() => {
+		mockUseRouter({});
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it('affiche les sections des mesures employeurs', () => {
-    render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs}/>);
-    const dispositifs = screen.getByText('Découvrir les dispositifs pour vous aider à recruter');
-    expect(dispositifs).toBeInTheDocument();
-  });
+	it('affiche les sections des mesures employeurs', () => {
+		render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs}/>);
+		const dispositifs = screen.getByText('Découvrir les dispositifs pour vous aider à recruter');
+		expect(dispositifs).toBeInTheDocument();
+	});
 
-  it('affiches les cartes dispositifs employeurs', () => {
-    render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
-    const cartes = screen.getAllByTestId('carteMesuresEmployeurs');
-    expect(cartes.length).toEqual(4);
-  });
+	it('affiches les cartes dispositifs employeurs', () => {
+		render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
+		const cartes = screen.getAllByTestId('carteMesuresEmployeurs');
+		expect(cartes.length).toEqual(4);
+	});
 });
 

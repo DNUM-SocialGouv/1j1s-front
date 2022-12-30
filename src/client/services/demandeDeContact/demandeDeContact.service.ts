@@ -23,18 +23,18 @@ export interface FormulaireDemandeDeContactEntreprise {
 
 export class DemandeDeContactService {
 
-  constructor(private readonly httpClientService: HttpClientService) {
-  }
+	constructor(private readonly httpClientService: HttpClientService) {
+	}
 
-  async envoyerPourLeCEJ(formulaire: FormulaireDemandeDeContactCEJ): Promise<Either<undefined>> {
-    return this.httpClientService.post('demandes-de-contact', { ...formulaire, type: 'CEJ' });
-  };
+	async envoyerPourLeCEJ(formulaire: FormulaireDemandeDeContactCEJ): Promise<Either<undefined>> {
+		return this.httpClientService.post('demandes-de-contact', { ...formulaire, type: 'CEJ' });
+	};
 
-  async envoyerPourLesEntreprisesSEngagent(formulaire: FormulaireDemandeDeContactEntreprise): Promise<Either<undefined>> {
-    return this.httpClientService.post('demandes-de-contact', { ...formulaire, type: 'LesEntreprisesSEngagent' });
-  };
+	async envoyerPourLesEntreprisesSEngagent(formulaire: FormulaireDemandeDeContactEntreprise): Promise<Either<undefined>> {
+		return this.httpClientService.post('demandes-de-contact', { ...formulaire, type: 'LesEntreprisesSEngagent' });
+	};
 
-  async envoyerPourLePOE(formulaire: FormulairesPoleEmploi): Promise<Either<void>> {
-    return this.httpClientService.post('contacts-poe', formulaire);
-  }
+	async envoyerPourLePOE(formulaire: FormulairesPoleEmploi): Promise<Either<void>> {
+		return this.httpClientService.post('contacts-poe', formulaire);
+	}
 }

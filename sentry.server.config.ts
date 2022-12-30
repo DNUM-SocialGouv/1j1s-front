@@ -9,35 +9,35 @@ const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT
 const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 
 const releaseName = () => {
-  if(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
-    return 'reviewApp';
-  }
-  return `${process.env.npm_package_name}@${process.env.npm_package_version}`;
+	if(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
+		return 'reviewApp';
+	}
+	return `${process.env.npm_package_name}@${process.env.npm_package_version}`;
 };
 const userAgentBlacklist = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
 process.env.NODE_ENV === 'production' && Sentry.init({
-  beforeSend(event) {
-    if(!SEND_DATA) {
-      return null;
-    }
-    if (!event.request?.headers) {
-      return event;
-    }
-    const userAgent: string | undefined = event.request.headers['user-agent'];
-    const userAgentDuBot = userAgentBlacklist?.find((botUserAgent) => userAgent?.includes(botUserAgent));
-    if (userAgentDuBot !== undefined) {
-      return null; // Don't send this event to Sentry
-    }
-    return event;
-  },
-  debug: DEBUG_DATA,
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  enabled: true,
-  environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || DEFAULT_SENTRY_ENVIRONMENT,
-  initialScope: {
-    level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
-  },
-  release: releaseName(),
-  tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
+	beforeSend(event) {
+		if(!SEND_DATA) {
+			return null;
+		}
+		if (!event.request?.headers) {
+			return event;
+		}
+		const userAgent: string | undefined = event.request.headers['user-agent'];
+		const userAgentDuBot = userAgentBlacklist?.find((botUserAgent) => userAgent?.includes(botUserAgent));
+		if (userAgentDuBot !== undefined) {
+			return null; // Don't send this event to Sentry
+		}
+		return event;
+	},
+	debug: DEBUG_DATA,
+	dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+	enabled: true,
+	environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || DEFAULT_SENTRY_ENVIRONMENT,
+	initialScope: {
+		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
+	},
+	release: releaseName(),
+	tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
 });

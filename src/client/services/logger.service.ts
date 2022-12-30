@@ -1,34 +1,34 @@
 import * as Sentry from '@sentry/nextjs';
 
 export class LoggerService {
-  constructor(sessionId: string) {
-    Sentry.configureScope((scope: Sentry.Scope) => {
-      scope.setTag('session_id', sessionId);
-    });
-  }
+	constructor(sessionId: string) {
+		Sentry.configureScope((scope: Sentry.Scope) => {
+			scope.setTag('session_id', sessionId);
+		});
+	}
 
-  private static log(
-    message: string,
-    level: Sentry.SeverityLevel,
-  ) {
-    Sentry.captureMessage(message, level);
-  }
+	private static log(
+		message: string,
+		level: Sentry.SeverityLevel,
+	) {
+		Sentry.captureMessage(message, level);
+	}
 
-  info(message: string) {
-    LoggerService.log(message, 'info');
-  }
+	info(message: string) {
+		LoggerService.log(message, 'info');
+	}
 
-  warn(message: string) {
-    LoggerService.log(message, 'warning');
-  }
+	warn(message: string) {
+		LoggerService.log(message, 'warning');
+	}
 
-  error(message: string) {
-    LoggerService.log(message, 'error');
-  }
+	error(message: string) {
+		LoggerService.log(message, 'error');
+	}
 
-  setTransactionId(transactionId: string): void {
-    Sentry.configureScope((scope) => {
-      scope.setTag('transaction_id', transactionId);
-    });
-  }
+	setTransactionId(transactionId: string): void {
+		Sentry.configureScope((scope) => {
+			scope.setTag('transaction_id', transactionId);
+		});
+	}
 }

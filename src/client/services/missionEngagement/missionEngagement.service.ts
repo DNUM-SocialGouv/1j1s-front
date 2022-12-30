@@ -3,9 +3,9 @@ import { RésultatsRechercheMission } from '~/server/engagement/domain/engagemen
 import { Either } from '~/server/errors/either';
 
 export class MissionEngagementService {
-  constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: HttpClientService) {}
 
-  async rechercherMission(queryString: string, category: string): Promise<Either<RésultatsRechercheMission>> {
-    return await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
-  }
+	async rechercherMission(queryString: string, category: string): Promise<Either<RésultatsRechercheMission>> {
+		return await this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
+	}
 }

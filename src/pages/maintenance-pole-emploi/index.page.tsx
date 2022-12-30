@@ -6,14 +6,14 @@ import { LayoutMaintenance } from '~/client/components/layouts/LayoutMaintenance
 import type { NextPageWithLayout } from '~/pages/_app.page';
 
 const Page: NextPageWithLayout = () => {
-  return (
-    <MaintenancePoleEmploi />
-  );
+	return (
+		<MaintenancePoleEmploi />
+	);
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <LayoutMaintenance>{page}</LayoutMaintenance>
-  );
+	return (
+		<LayoutMaintenance>{page}</LayoutMaintenance>
+	);
 };
 export default Page;

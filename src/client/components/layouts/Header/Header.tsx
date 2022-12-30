@@ -6,14 +6,14 @@ import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDe
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function Header() {
-  const { isLargeScreen } = useBreakpoint();
+	const { isLargeScreen } = useBreakpoint();
 
-  return (
-    <header
-      className={styles.header}
-      role="banner">
-      <HeaderBody />
-      { isLargeScreen && <HeaderNavDesktop />}
-    </header>
-  );
+	return (
+		<header
+			className={styles.header}
+			role="banner">
+			<HeaderBody />
+			{ isLargeScreen && <HeaderNavDesktop />}
+		</header>
+	);
 }

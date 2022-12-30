@@ -10,21 +10,21 @@ export interface AccompagnementQueryParams {
 }
 
 export function useAccompagnementQuery(): AccompagnementQueryParams {
-  const [accompagnementQueryParams, setAccompagnementQueryParams] = useState<AccompagnementQueryParams>({
-    codeCommune: undefined,
-    libelleCommune: undefined,
-    typeAccompagnement: undefined,
-  });
+	const [accompagnementQueryParams, setAccompagnementQueryParams] = useState<AccompagnementQueryParams>({
+		codeCommune: undefined,
+		libelleCommune: undefined,
+		typeAccompagnement: undefined,
+	});
 
-  const { query } = useRouter();
+	const { query } = useRouter();
 
-  useEffect(() => {
-    setAccompagnementQueryParams({
-      codeCommune: getSingleQueryParam(query.codeCommune),
-      libelleCommune: getSingleQueryParam(query.libelleCommune),
-      typeAccompagnement: getSingleQueryParam(query.typeAccompagnement),
-    });
-  }, [query]);
+	useEffect(() => {
+		setAccompagnementQueryParams({
+			codeCommune: getSingleQueryParam(query.codeCommune),
+			libelleCommune: getSingleQueryParam(query.libelleCommune),
+			typeAccompagnement: getSingleQueryParam(query.typeAccompagnement),
+		});
+	}, [query]);
 
-  return accompagnementQueryParams;
+	return accompagnementQueryParams;
 }

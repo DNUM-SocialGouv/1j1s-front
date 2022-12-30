@@ -15,16 +15,16 @@ Quels avantages à rejoindre la mobilisation pour les jeunes ?
 `;
 
 export default function AvantagesMobilisation() {
-  return (
-    <section className={ styles.section }>
-      <div className={ styles.container }>
-        <aside className= { styles.illustration }>
-          <Image src={ illustration } objectFit='cover' layout='fill' alt='' aria-hidden="true" />
-        </aside>
-        <article className={ styles.article }>
-          <Marked markdown={ contenu }/>
-        </article>
-      </div>
-    </section>
-  );
+	return (
+		<section className={ styles.section }>
+			<div className={ styles.container }>
+				<aside className= { styles.illustration }>
+					<Image src={ illustration } objectFit='cover' layout='fill' alt='' aria-hidden="true" />
+				</aside>
+				<article className={ styles.article }>
+					<Marked markdown={ contenu }/>
+				</article>
+			</div>
+		</section>
+	);
 }

@@ -1,9 +1,9 @@
 import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export function strapiImageFixture(override?: Strapi.ImageAttributes): Strapi.Image {
-  return {
+	return {
 	  data: {
-      attributes: {
+			attributes: {
 			  alternativeText: 'text',
 			  caption: 'string',
 			  createdAt: 'string',
@@ -20,24 +20,24 @@ export function strapiImageFixture(override?: Strapi.ImageAttributes): Strapi.Im
 			  updatedAt: 'string',
 			  url: 'https://animage.jpg',
 			  width: 100,
-        ...override,
-      },
+				...override,
+			},
 	  },
-  };
+	};
 }
 
 function strapiImageFormatListFixture(): Strapi.ImageFormatList {
-  return {
-    large: {
-      ext: 'string',
-      hash: 'string',
-      height: 100,
-      mime: 'string',
-      name: 'string',
-      path: 'string',
-      size: 100,
-      url: 'string',
-      width: 100,
-    },
-  };
+	return {
+		large: {
+			ext: 'string',
+			hash: 'string',
+			height: 100,
+			mime: 'string',
+			name: 'string',
+			path: 'string',
+			size: 100,
+			url: 'string',
+			width: 100,
+		},
+	};
 }

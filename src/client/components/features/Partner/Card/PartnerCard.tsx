@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, {
-  useMemo,
+	useMemo,
 } from 'react';
 
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
@@ -23,56 +23,56 @@ interface PartnerCardProps {
 
 export function PartnerCardList(list: PartnerCardProps[], title?: string){
 
-  return(
-    <div className={styles.partnerListWrapper}>
-      {title && <h2 className={styles.partnerListTitle}>{title}</h2>}
-      <ul className={styles.partnerList} aria-label="Liste des partenaires">
-        {list.map((partnerCardProps, index) => {
-          return (
-            <li key={index}>
-              {PartnerCard(partnerCardProps)}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+	return(
+		<div className={styles.partnerListWrapper}>
+			{title && <h2 className={styles.partnerListTitle}>{title}</h2>}
+			<ul className={styles.partnerList} aria-label="Liste des partenaires">
+				{list.map((partnerCardProps, index) => {
+					return (
+						<li key={index}>
+							{PartnerCard(partnerCardProps)}
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+	);
 }
 
 export function PartnerCard({ description, className, headline, headlineColor, logo, link, linkLabel, title }: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-  const isInternalLink = useIsInternalLink(link);
-  const { isLargeScreen } = useBreakpoint();
-  useReferrer();
+	const isInternalLink = useIsInternalLink(link);
+	const { isLargeScreen } = useBreakpoint();
+	useReferrer();
 
-  const appearanceLinkBold = useMemo(() => {
-    switch (headlineColor) {
-      case 'pink': return styles.bonneBoiteColor;
-      case 'red': return styles.onisepColor;
-      case 'blue': return styles.serviceCiviqueColor;
-      default: return styles.link;
-    }
-  }, [headlineColor]);
+	const appearanceLinkBold = useMemo(() => {
+		switch (headlineColor) {
+			case 'pink': return styles.bonneBoiteColor;
+			case 'red': return styles.onisepColor;
+			case 'blue': return styles.serviceCiviqueColor;
+			default: return styles.link;
+		}
+	}, [headlineColor]);
 
-  const icon = useMemo(function () {
-    return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
-  }, [isInternalLink]);
+	const icon = useMemo(function () {
+		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
+	}, [isInternalLink]);
 
 
-  return (
-    <Link href={link} className={classNames(styles.card, className, 'underline-none')}>
-      <CardComponent layout={ isLargeScreen ? 'horizontal' : 'vertical' }>
-        <CardComponent.Image className={styles.cardLogo} src={logo} ariaHidden/>
-        <CardComponent.Content className={styles.cardBody}>
-          <CardComponent.Title titleAs={'h3'} className={styles.cardBody__Title}>{title}</CardComponent.Title>
-          <p>
-            {headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
-            {description}
-          </p>
-          <span className={styles.cardAction}>
-            <CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
-          </span>
-        </CardComponent.Content>
-      </CardComponent>
-    </Link>
-  );
+	return (
+		<Link href={link} className={classNames(styles.card, className, 'underline-none')}>
+			<CardComponent layout={ isLargeScreen ? 'horizontal' : 'vertical' }>
+				<CardComponent.Image className={styles.cardLogo} src={logo} ariaHidden/>
+				<CardComponent.Content className={styles.cardBody}>
+					<CardComponent.Title titleAs={'h3'} className={styles.cardBody__Title}>{title}</CardComponent.Title>
+					<p>
+						{headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
+						{description}
+					</p>
+					<span className={styles.cardAction}>
+						<CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
+					</span>
+				</CardComponent.Content>
+			</CardComponent>
+		</Link>
+	);
 }

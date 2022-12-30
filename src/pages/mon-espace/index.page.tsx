@@ -5,16 +5,16 @@ import { Objectifs } from '~/client/components/features/LesEntreprisesSEngagent/
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function MesuresEmployeurs() {
-  return (
-    <>
-      <HeadTag
-        title="Mon espace employeur | 1jeune1solution"
-        description="Accéder à mon espace employeur"
-      />
-      <main id="contenu">
-        <MonEspaceEntreprise/>
-        <Objectifs />
-      </main>
-    </>
-  );
+	return (
+		<>
+			<HeadTag
+				title="Mon espace employeur | 1jeune1solution"
+				description="Accéder à mon espace employeur"
+			/>
+			<main id="contenu">
+				<MonEspaceEntreprise/>
+				<Objectifs />
+			</main>
+		</>
+	);
 }

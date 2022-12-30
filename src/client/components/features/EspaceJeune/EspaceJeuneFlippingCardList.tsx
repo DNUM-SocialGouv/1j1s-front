@@ -10,53 +10,53 @@ import { CarteEspaceJeune } from '~/server/cms/domain/espaceJeune';
 
 export function EspaceJeuneFlippingCardList(cardList: CarteEspaceJeune[], MAX_CARTE_PER_ROW: number) {
 
-  function CarteEspaceJeune(carte: CarteEspaceJeune, index: number) {
-    const titre = useSanitize(carte.titre);
-    const bannière = carte.bannière?.url || '';
-    const link = carte.link;
-    const extrait = useSanitize(carte.extraitContenu);
-    const concerné = carte.concerné || '';
+	function CarteEspaceJeune(carte: CarteEspaceJeune, index: number) {
+		const titre = useSanitize(carte.titre);
+		const bannière = carte.bannière?.url || '';
+		const link = carte.link;
+		const extrait = useSanitize(carte.extraitContenu);
+		const concerné = carte.concerné || '';
 
-    return <FlippingCard
-      key={index}
-      imageUrl={bannière}
-      link={link}
-      title={titre}
-      flippingCardContent={concerné}
-      data-testid="carteEspaceJeune"
-    >
-      <Marked markdown={extrait} />
-    </FlippingCard>;
-  }
+		return <FlippingCard
+			key={index}
+			imageUrl={bannière}
+			link={link}
+			title={titre}
+			flippingCardContent={concerné}
+			data-testid="carteEspaceJeune"
+		>
+			<Marked markdown={extrait} />
+		</FlippingCard>;
+	}
 
-  function displayCartes(cardList: CarteEspaceJeune[]) {
-    return cardList.map((carte, index) => {
-      return (
-        <li key={index}>
-          {CarteEspaceJeune(carte, index)}
-        </li>
-      );
-    });
-  }
+	function displayCartes(cardList: CarteEspaceJeune[]) {
+		return cardList.map((carte, index) => {
+			return (
+				<li key={index}>
+					{CarteEspaceJeune(carte, index)}
+				</li>
+			);
+		});
+	}
 
-  function displaySectionCartes(cardList: CarteEspaceJeune[]) {
-    return <>
-      <ul className={classNames(styles.cardList, styles.cardListPadding)}>
-        {displayCartes(cardList.slice(0, MAX_CARTE_PER_ROW))}
-      </ul>
-      {cardList.length > MAX_CARTE_PER_ROW &&
+	function displaySectionCartes(cardList: CarteEspaceJeune[]) {
+		return <>
+			<ul className={classNames(styles.cardList, styles.cardListPadding)}>
+				{displayCartes(cardList.slice(0, MAX_CARTE_PER_ROW))}
+			</ul>
+			{cardList.length > MAX_CARTE_PER_ROW &&
       <SeeMore>
-        <ul className={classNames(styles.cardList, styles.cardListPadding)}>
-          {displayCartes(cardList.slice(MAX_CARTE_PER_ROW))}
-        </ul>
+      	<ul className={classNames(styles.cardList, styles.cardListPadding)}>
+      		{displayCartes(cardList.slice(MAX_CARTE_PER_ROW))}
+      	</ul>
       </SeeMore>
-      }
-    </>;
-  }
+			}
+		</>;
+	}
 
-  return (
-    <> {displaySectionCartes(cardList)} </>
-  );
+	return (
+		<> {displaySectionCartes(cardList)} </>
+	);
 
 
 }

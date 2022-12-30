@@ -11,62 +11,62 @@ import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutoco
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-  aLocalisationService,
+	aLocalisationService,
 } from '~/client/services/localisation/localisationService.fixture';
 
 describe('InputAutocomplétionCommune', function () {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
 
-  it('doit afficher une proposition de commune quand on tape une recherche', async function () {
-    // Given
-    const localisationService = aLocalisationService();
+	it('doit afficher une proposition de commune quand on tape une recherche', async function () {
+		// Given
+		const localisationService = aLocalisationService();
 
-    const labelText = 'Ma super autocomplétion';
-    const texteRecherché = 'Par';
+		const labelText = 'Ma super autocomplétion';
+		const texteRecherché = 'Par';
 
-    render(<DependenciesProvider localisationService={localisationService}>
-      <InputAutocomplétionCommune label={labelText} debounce={1}/>
-    </DependenciesProvider>);
-    const inputAutocomplétion = screen.getByRole('textbox');
+		render(<DependenciesProvider localisationService={localisationService}>
+			<InputAutocomplétionCommune label={labelText} debounce={1}/>
+		</DependenciesProvider>);
+		const inputAutocomplétion = screen.getByRole('textbox');
 
-    // When
-    await userEvent.type(inputAutocomplétion, texteRecherché);
+		// When
+		await userEvent.type(inputAutocomplétion, texteRecherché);
 
-    // Then
-    await waitFor(() => {
-      expect(screen.getByText('Paris 15e Arrondissement')).toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(localisationService.rechercherCommune).toHaveBeenCalled();
-    });
-  });
+		// Then
+		await waitFor(() => {
+			expect(screen.getByText('Paris 15e Arrondissement')).toBeInTheDocument();
+		});
+		await waitFor(() => {
+			expect(localisationService.rechercherCommune).toHaveBeenCalled();
+		});
+	});
 
-  describe('quand l‘input a moins de 3 caractères' , () => {
-    it('ne lance pas la recherche', async () => {
-      // GIVEN
-      const localisationService = aLocalisationService();
+	describe('quand l‘input a moins de 3 caractères' , () => {
+		it('ne lance pas la recherche', async () => {
+			// GIVEN
+			const localisationService = aLocalisationService();
 
-      const labelText = 'Ma super autocomplétion';
-      const texteRecherché = 'Ba';
+			const labelText = 'Ma super autocomplétion';
+			const texteRecherché = 'Ba';
 
-      mockUseRouter({});
-      render(
-        <DependenciesProvider localisationService={localisationService}>
-          <InputAutocomplétionCommune label={labelText} debounce={1}/>
-        </DependenciesProvider>,
-      );
-      const inputAutocomplétion = screen.getByRole('textbox');
+			mockUseRouter({});
+			render(
+				<DependenciesProvider localisationService={localisationService}>
+					<InputAutocomplétionCommune label={labelText} debounce={1}/>
+				</DependenciesProvider>,
+			);
+			const inputAutocomplétion = screen.getByRole('textbox');
 
-      // WHEN
-      await userEvent.type(inputAutocomplétion, texteRecherché);
+			// WHEN
+			await userEvent.type(inputAutocomplétion, texteRecherché);
 
-      // THEN
-      await waitFor(() => {
-        expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
-      });
-    });
-  });
+			// THEN
+			await waitFor(() => {
+				expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
+			});
+		});
+	});
 });

@@ -13,11 +13,11 @@ interface FoldingSectionProps extends CommonProps {
 }
 
 export function FoldingSection({ className, innerHtmlContent, isOpen = false, title }: FoldingSectionProps) {
-  return (
-    <section className={classNames(className, styles.section)}>
-      <Accordion open={isOpen} summary={title} summaryAs="h2">
-        <div className={styles.foldingSectionContent} dangerouslySetInnerHTML={{ __html: innerHtmlContent }} />
-      </Accordion>
-    </section>
-  );
+	return (
+		<section className={classNames(className, styles.section)}>
+			<Accordion open={isOpen} summary={title} summaryAs="h2">
+				<div className={styles.foldingSectionContent} dangerouslySetInnerHTML={{ __html: innerHtmlContent }} />
+			</Accordion>
+		</section>
+	);
 }

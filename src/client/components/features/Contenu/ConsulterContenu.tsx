@@ -10,14 +10,14 @@ export interface ConsulterContenuProps {
 }
 
 export function ConsulterContenu({ titre, contenu }: ConsulterContenuProps) {
-  return (
-    <main id="contenu">
-      <Container>
-        <article className={styles.article}>
-          <HeadTag title={`${titre} | 1jeune1solution`}></HeadTag>
-          <Marked markdown={contenu} className={markedStyles.normalize}/>
-        </article>
-      </Container>
-    </main>
-  );
+	return (
+		<main id="contenu">
+			<Container>
+				<article className={styles.article}>
+					<HeadTag title={`${titre} | 1jeune1solution`}></HeadTag>
+					<Marked markdown={contenu} className={markedStyles.normalize}/>
+				</article>
+			</Container>
+		</main>
+	);
 }

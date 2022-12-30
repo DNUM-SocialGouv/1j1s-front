@@ -50,34 +50,34 @@ export namespace Offre {
   }
 
   export const CONTRAT_CDD: TypeDeContrat = {
-    libelléCourt: 'CDD',
-    libelléLong: 'Contrat à durée déterminé',
-    valeur: 'CDD',
+  	libelléCourt: 'CDD',
+  	libelléLong: 'Contrat à durée déterminé',
+  	valeur: 'CDD',
   };
 
   export const CONTRAT_CDI: TypeDeContrat = {
-    libelléCourt: 'CDI',
-    libelléLong: 'Contrat à durée indéterminé',
-    valeur: 'CDI',
+  	libelléCourt: 'CDI',
+  	libelléLong: 'Contrat à durée indéterminé',
+  	valeur: 'CDI',
   };
 
   export const CONTRAT_INTÉRIMAIRE: TypeDeContrat = {
-    libelléCourt: 'Intérim',
-    libelléLong: 'Mission intérimaire',
-    valeur: 'MIS',
+  	libelléCourt: 'Intérim',
+  	libelléLong: 'Mission intérimaire',
+  	valeur: 'MIS',
   };
 
   export const CONTRAT_SAISONNIER: TypeDeContrat = {
-    libelléCourt: 'Saisonnier',
-    libelléLong: 'Contrat travail saisonnier',
-    valeur: 'SAI',
+  	libelléCourt: 'Saisonnier',
+  	libelléLong: 'Contrat travail saisonnier',
+  	valeur: 'SAI',
   };
 
   export const TYPE_DE_CONTRAT_LIST: TypeDeContrat[] = [
-    Offre.CONTRAT_CDD,
-    Offre.CONTRAT_CDI,
-    Offre.CONTRAT_INTÉRIMAIRE,
-    Offre.CONTRAT_SAISONNIER,
+  	Offre.CONTRAT_CDD,
+  	Offre.CONTRAT_CDI,
+  	Offre.CONTRAT_INTÉRIMAIRE,
+  	Offre.CONTRAT_SAISONNIER,
   ];
 
 
@@ -89,24 +89,24 @@ export namespace Offre {
   }
 
   export const TEMPS_PLEIN : TempsDeTravail =  {
-    libellé: 'Temps plein',
-    valeur: 'tempsPlein',
+  	libellé: 'Temps plein',
+  	valeur: 'tempsPlein',
   };
 
   export const TEMPS_PARTIEL : TempsDeTravail =  {
-    libellé: 'Temps partiel',
-    valeur: 'tempsPartiel',
+  	libellé: 'Temps partiel',
+  	valeur: 'tempsPartiel',
   };
 
   export const TEMPS_INDIFFERENT : TempsDeTravail =  {
-    libellé: 'Indifférent',
-    valeur: 'indifférent',
+  	libellé: 'Indifférent',
+  	valeur: 'indifférent',
   };
 
   export const TEMPS_DE_TRAVAIL_LIST: TempsDeTravail[] = [
-    Offre.TEMPS_PLEIN,
-    Offre.TEMPS_PARTIEL,
-    Offre.TEMPS_INDIFFERENT,
+  	Offre.TEMPS_PLEIN,
+  	Offre.TEMPS_PARTIEL,
+  	Offre.TEMPS_INDIFFERENT,
   ];
 
   type expérience = 'D' | 'S' | 'E'
@@ -117,24 +117,24 @@ export namespace Offre {
   }
 
   export const EXPÉRIENCE_DEBUTANT: ExpérienceAttendu = {
-    libellé: 'Moins de 1 an',
-    valeur: 'D',
+  	libellé: 'Moins de 1 an',
+  	valeur: 'D',
   };
 
   export const EXPÉRIENCE_EXIGÉE: ExpérienceAttendu = {
-    libellé: 'Plus de 3 ans',
-    valeur: 'E',
+  	libellé: 'Plus de 3 ans',
+  	valeur: 'E',
   };
 
   export const EXPÉRIENCE_SOUHAITÉ: ExpérienceAttendu = {
-    libellé: 'De 1 à 3 ans',
-    valeur: 'S',
+  	libellé: 'De 1 à 3 ans',
+  	valeur: 'S',
   };
 
   export const EXPÉRIENCE: ExpérienceAttendu[] = [
-    Offre.EXPÉRIENCE_DEBUTANT,
-    Offre.EXPÉRIENCE_SOUHAITÉ,
-    Offre.EXPÉRIENCE_EXIGÉE,
+  	Offre.EXPÉRIENCE_DEBUTANT,
+  	Offre.EXPÉRIENCE_SOUHAITÉ,
+  	Offre.EXPÉRIENCE_EXIGÉE,
   ];
 
   export interface CheckboxFiltre {
@@ -194,7 +194,7 @@ const MAX_RESULT_ALLOWED = 1000;
 export const MAX_PAGE_ALLOWED = Math.floor(MAX_RESULT_ALLOWED / NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE);
 
 export function isOffreÉchantillonFiltre(offreFiltre: OffreFiltre) {
-  const { page, ...rest } = offreFiltre;
-  const emploiFiltreSanitized = Object.values(rest);
-  return page === 1 && emploiFiltreSanitized.every((value) => value === undefined);
+	const { page, ...rest } = offreFiltre;
+	const emploiFiltreSanitized = Object.values(rest);
+	return page === 1 && emploiFiltreSanitized.every((value) => value === undefined);
 }

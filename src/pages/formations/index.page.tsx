@@ -9,36 +9,36 @@ import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLi
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function FormationPage() {
-  return (
-    <>
-      <HeadTag title="Rechercher une formation | 1jeune1solution"/>
-      <main id="contenu">
-        <HeroWithButtonLink
-          titlePrimaryText="Trouvez la formation pour réaliser "
-          titleSecondaryText="votre projet professionnel"
-          content={heroFormationContent()}
-          buttonHref="https://reseau.intercariforef.org/"
-          buttonLabel="Je trouve ma formation"
-          imgSrc="/images/formations-initiales.webp"
-        />
-        {PartnerCardList([
-          MonCompteFormationPartner().props,
-          ParcourSupPartner().props,
-          OnisepPartnerCard().props,
-          MétierDuSoinPartner().props,
-        ],
-        'Je découvre les dispositifs pour m’accompagner dans ma formation')}
-      </main>
-    </>
-  );
+	return (
+		<>
+			<HeadTag title="Rechercher une formation | 1jeune1solution"/>
+			<main id="contenu">
+				<HeroWithButtonLink
+					titlePrimaryText="Trouvez la formation pour réaliser "
+					titleSecondaryText="votre projet professionnel"
+					content={heroFormationContent()}
+					buttonHref="https://reseau.intercariforef.org/"
+					buttonLabel="Je trouve ma formation"
+					imgSrc="/images/formations-initiales.webp"
+				/>
+				{PartnerCardList([
+					MonCompteFormationPartner().props,
+					ParcourSupPartner().props,
+					OnisepPartnerCard().props,
+					MétierDuSoinPartner().props,
+				],
+				'Je découvre les dispositifs pour m’accompagner dans ma formation')}
+			</main>
+		</>
+	);
 };
 
 function heroFormationContent() {
-  return(
-    <>
-      <span>Vous recherchez une formation qualifiante pour préparer au mieux votre entrée, votre maintien ou votre retour sur le marché du travail ? Grâce au moteur de recherche Carif Oref,</span>
-      <b> trouvez la formation qu’il vous faut en fonction de sa localisation, du type de métier auquel vous souhaitez être préparé, du niveau de qualification souhaité et bien plus encore !</b>
-    </>
-  );
+	return(
+		<>
+			<span>Vous recherchez une formation qualifiante pour préparer au mieux votre entrée, votre maintien ou votre retour sur le marché du travail ? Grâce au moteur de recherche Carif Oref,</span>
+			<b> trouvez la formation qu’il vous faut en fonction de sa localisation, du type de métier auquel vous souhaitez être préparé, du niveau de qualification souhaité et bien plus encore !</b>
+		</>
+	);
 };
 

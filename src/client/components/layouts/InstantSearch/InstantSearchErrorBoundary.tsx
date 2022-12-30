@@ -8,10 +8,10 @@ interface ErrorBoundaryProps {
 }
 
 export const InstantSearchErrorBoundary = (props: React.PropsWithChildren<ErrorBoundaryProps>) => {
-  const { error } = useInstantSearch({ catchError: true });
-  const { children } = props;
+	const { error } = useInstantSearch({ catchError: true });
+	const { children } = props;
 
-  if (error) return <ErrorUnavailableService />;
+	if (error) return <ErrorUnavailableService />;
 
-  return <>{ children }</>;
+	return <>{ children }</>;
 };

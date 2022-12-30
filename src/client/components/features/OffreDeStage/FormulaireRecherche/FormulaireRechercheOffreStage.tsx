@@ -10,28 +10,28 @@ const LIMIT_MAX_DOMAINS = 100;
 const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
 
 export function FormulaireRechercheOffreStage() {
-  return (
-    <form className={styles.RechercherStageForm} onSubmit={(event) => event.preventDefault()}>
+	return (
+		<form className={styles.RechercherStageForm} onSubmit={(event) => event.preventDefault()}>
 	  <MeilisearchCustomSearchBox
-        label="Métiers, mots clés, …"
-        name="motCle"
-        placeholder="Métiers, mots clés, …"
+				label="Métiers, mots clés, …"
+				name="motCle"
+				placeholder="Métiers, mots clés, …"
 	  />
 	  <MeilisearchInputRefinement
-        attribute="localisationFiltree"
-        limit={LIMIT_MAX_FACETS}
+				attribute="localisationFiltree"
+				limit={LIMIT_MAX_FACETS}
 	  />
 	  <MeilisearchCustomRefinementList
-        attribute="domaines"
-        limit={LIMIT_MAX_DOMAINS}
-        label="Domaines"
-        sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+				attribute="domaines"
+				limit={LIMIT_MAX_DOMAINS}
+				label="Domaines"
+				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
 	  />
 	  <MeilisearchCustomRefinementList
-        attribute="dureeCategorisee"
-        label="Durée de stage"
-        sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+				attribute="dureeCategorisee"
+				label="Durée de stage"
+				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
 	  />
-    </form>
-  );
+		</form>
+	);
 }
