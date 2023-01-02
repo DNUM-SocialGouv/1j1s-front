@@ -19,10 +19,6 @@
   flex-grow: 0.3;
 }
 
-.buttonRechercher > button {
-  width: 100%;
-}
-
 .rechercherAccompagnementHint {
   padding-top: 1rem;
   @extend %text-small;
@@ -42,6 +38,6 @@
   }
 
   .buttonRechercher {
-    margin-top: 28px;
+    margin-top: 1.75rem;
   }
 }

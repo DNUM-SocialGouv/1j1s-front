@@ -79,7 +79,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		// Given
 		renderComponent();
 		// When
-		await userEvent.click(screen.getByLabelText('Age'));
+		await userEvent.click(screen.getByText('Age'));
 		await userEvent.click(screen.getByLabelText('Nom'));
 		// When
 		const input = await screen.findByTestId('Select-InputHidden');

@@ -85,6 +85,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 				code=""
 				placeholder="Exemple: Paris, Béziers..."
 				showRadius={false}
+				htmlLabel="rechercherCommuneFormulaire"
 			/>
 			<TextArea
 				id="commentaire"

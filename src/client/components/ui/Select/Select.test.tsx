@@ -150,7 +150,7 @@ describe('Select', () => {
 						,
 					);
 					// When
-					await userEvent.click(screen.getByLabelText('Mon Select'));
+					await userEvent.click(screen.getByText('Mon Select'));
 					await userEvent.click(screen.getByText('escape'));
 
 					// Then
