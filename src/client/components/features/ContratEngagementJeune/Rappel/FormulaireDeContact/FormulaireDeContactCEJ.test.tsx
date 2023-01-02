@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/FormulaireDeContact/FormulaireDeContactCEJ';
+import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/Rappel/FormulaireDeContact/FormulaireDeContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
