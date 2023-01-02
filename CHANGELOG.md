@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.34.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.34.0...v2.34.1) (2023-01-02)
+
+
+### Bug Fixes
+
+* **multiple:** variable env feature flipping api emploi ([34c801d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/34c801d55ce3d9e68ecc4e4a0e0f6669a639ed78))
+
 ## [2.34.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.33.2...v2.34.0) (2023-01-02)
 
 
