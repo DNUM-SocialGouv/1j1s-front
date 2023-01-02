@@ -143,7 +143,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const cmsRepository = new StrapiCmsRepository(strapiClientService, strapiAuthClientService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
-	const isApiEmploiFeatureEnabled = Boolean(serverConfigurationService.getConfiguration().API_POLE_EMPLOI_FEATURE);
+	const isApiEmploiFeatureEnabled = Boolean(serverConfigurationService.getConfiguration().API_POLE_EMPLOI_FEATURE === '1');
 
 	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);
 	const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
