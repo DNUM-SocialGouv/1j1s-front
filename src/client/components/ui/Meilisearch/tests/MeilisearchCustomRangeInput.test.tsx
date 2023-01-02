@@ -56,12 +56,17 @@ describe('MeilisearchCustomRangeInput', ()=> {
 		await user.click(button);
 		const inputMin = screen.getByLabelText('Minimum');
 		const inputMax = screen.getByLabelText('Maximum');
+		const uniteMin = screen.getAllByLabelText('unité')[0];
+		const uniteMax = screen.getAllByLabelText('unité')[1];
 
 		expect(inputMin).toBeInTheDocument();
 		expect(inputMin).toHaveAttribute('type','number');
 
 		expect(inputMax).toBeInTheDocument();
 		expect(inputMax).toHaveAttribute('type','number');
+
+		expect(uniteMin).toBeInTheDocument();
+		expect(uniteMax).toBeInTheDocument();
 	});
 
 	it('contient un bouton Appliquer', async () => {
