@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.33.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.33.1...v2.33.2) (2023-01-02)
+
+
+### Bug Fixes
+
+* **a11y:** retour audit accessibilité ([767dfa5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/767dfa5191dffffef15aec2a5cee905e7e18a9f8))
+
 ## [2.33.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.33.0...v2.33.1) (2022-12-30)
 
 
