@@ -1,0 +1,76 @@
+@import "@styles/_utilities";
+
+.formulaire {
+  padding: 0 2rem;
+  margin-top: 2rem;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+  @include media(medium) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  input {
+    background-color: $color-on-primary;
+    border-radius: 30px;
+    box-shadow: none;
+  }
+
+  label {
+    margin-top: 1rem;
+  }
+
+  .radioButton {
+    border-radius: 0;
+  }
+
+  button {
+    margin-top: 8px;
+    font-size: small;
+  }
+
+  input[type=radio] + label {
+    padding-left: 0 !important;
+    margin-top: 0;
+    &::before {
+      display: none !important;
+    }
+  }
+
+  &Button {
+    width: auto;
+    justify-self: center;
+    margin-bottom: 1rem;
+    @include media(medium) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
+
+  &Décharge {
+    background-color: $color-cadre-formulaire;
+    border-radius: 30px;
+    margin-bottom: 1rem;
+    @include media(medium) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    p {
+      font-size: 0.7rem;
+      padding: 1rem;
+    }
+  }
+}
+
+@include media(large){
+  .formulaire {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1rem;
+    padding-bottom: 0;
+
+    label {
+      margin-top: 0;
+    }
+  }
+}
