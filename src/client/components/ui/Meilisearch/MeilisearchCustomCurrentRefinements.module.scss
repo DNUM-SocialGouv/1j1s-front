@@ -1,0 +1,29 @@
+@import "@styles/utilities";
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style-type: none;
+}
+
+.tag {
+  @extend %text-small;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background-color: $color-tag;
+  border-radius: calc((2px * 2 + 1.25rem) / 2);
+  > span {
+    margin-right: 0.5rem;
+  }
+  > button {
+    display: contents;
+  }
+
+  @include media(large) {
+    padding: 4px 12px;
+    border-radius: calc((4px * 2 + 1.5rem) / 2);
+  }
+}

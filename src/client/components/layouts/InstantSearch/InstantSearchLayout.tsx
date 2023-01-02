@@ -1,5 +1,4 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
-import { CurrentRefinementsConnectorParamsItem } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
 import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventForHits';
 import {
 	BaseHit,
@@ -7,15 +6,12 @@ import {
 } from 'instantsearch.js/es/types/results';
 import React, {
 	JSXElementConstructor,
-	useCallback,
 	useEffect,
 	useRef,
 	useState,
 } from 'react';
 import {
 	Configure,
-	CurrentRefinements,
-	CurrentRefinementsProps,
 	Hits,
 	InstantSearch,
 	useInstantSearch,
@@ -26,7 +22,6 @@ import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantS
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
-import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
 import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
@@ -52,7 +47,7 @@ interface InstantSearchLayoutProps extends AfficherResultatDeRechercheProps {
   sousTitre: string
   isMeilisearchQueryParamsRoutingEnabled: boolean
   formulaireDeRecherche: React.ReactElement
-  hasTagList: boolean
+  tagList: React.ReactElement
 }
 
 export function InstantSearchLayout(props: InstantSearchLayoutProps) {
@@ -63,7 +58,7 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
 		sousTitre,
 		isMeilisearchQueryParamsRoutingEnabled,
 		formulaireDeRecherche,
-		hasTagList,
+		tagList,
 		messageResultatRechercheLabelSingulier,
 		messageResultatRechercheLabelPluriel,
 		nombreDeSkeleton,
@@ -74,19 +69,6 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
 
 	const searchClient = useDependency<SearchClient>('rechercheClientService');
 
-	const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
-		return items
-			.map((item) => ({
-				...item,
-				refinements: item.refinements
-					.map((refinement) => ({
-						...refinement,
-						label: getCapitalizedItems(refinement.label),
-					})),
-			}));
-	}, []);
-
-	const currentRefinementsStyle = { category: styles.TagCategoryElement, item: styles.TagItem, label: 'display-none', noRefinementList: 'display-none', noRefinementRoot: 'display-none' };
 	const listeDesResultatsRef = useRef(null);
 
 	const scrollToTopOfListeDesResultats = () => {
@@ -117,14 +99,9 @@ export function InstantSearchLayout(props: InstantSearchLayoutProps) {
 								{ formulaireDeRecherche }
 							</Container>
 						</section>
-						{ hasTagList &&
-            <Container className={styles.TagListWrapper}>
-            	<CurrentRefinements
-            		transformItems={transformItems}
-            		classNames={currentRefinementsStyle}
-            	/>
-            </Container>
-						}
+						<Container className={styles.TagListWrapper}>
+							{tagList}
+						</Container>
 						<AfficherResultatDeRecherche
 							messageResultatRechercheLabelSingulier={messageResultatRechercheLabelSingulier}
 							messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}

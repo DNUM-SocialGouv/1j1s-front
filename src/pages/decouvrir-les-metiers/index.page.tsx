@@ -7,6 +7,8 @@ import { MétierDuSoinPartner } from '~/client/components/features/Partner/Méti
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import MeilisearchCustomCurrentRefinements
+	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 import styles from '~/pages/decouvrir-les-metiers/decouvrir-les-metiers.module.scss';
@@ -36,7 +38,7 @@ export default function RechercherFicheMetierPage() {
 				nombreDeSkeleton={2}
 				ariaLabelListeDesResultats="fiches métier"
 				resultatDeRecherche={RésultatRechercherMétier}
-				hasTagList
+				tagList={<MeilisearchCustomCurrentRefinements />}
 				isAffichageListeDeResultatsDesktopDirectionRow
 			/>
 			<EnTeteSection heading="Découvrez des services faits pour vous" />

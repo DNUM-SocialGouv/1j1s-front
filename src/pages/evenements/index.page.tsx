@@ -4,6 +4,8 @@ import { FormulaireRechercheEvenement } from '~/client/components/features/Evene
 import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/RésultatRechercherEvenement';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
+import MeilisearchCustomCurrentRefinements
+	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 const HITS_PER_PAGE = 15;
@@ -49,7 +51,7 @@ export default function PageEvenements() {
 					nombreDeSkeleton={2}
 					ariaLabelListeDesResultats="Evènements"
 					resultatDeRecherche={RésultatRechercherEvenement}
-					hasTagList
+					tagList={<MeilisearchCustomCurrentRefinements />}
 					isAffichageListeDeResultatsDesktopDirectionRow
 				/>
 			</>

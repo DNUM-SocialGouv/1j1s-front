@@ -28,7 +28,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 					<dt>Surface</dt>
 					<dd>{annonce.surfaceAAfficher}</dd>
 					<dt>Prix</dt>
-					<dd>{annonce.prix} €<sup>CC</sup></dd>
+					<dd>{annonce.prix} {annonce.devise}<sup>CC</sup></dd>
 				</dl>
 			</CardComponent.Content>
 

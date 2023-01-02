@@ -14,6 +14,7 @@ import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/
 const uneAnnonceDeLogement: AnnonceDeLogementIndexee = {
 	dateDeDisponibilite: '2023-01-01',
 	dateDeMiseAJour: '2022-12-04',
+	devise: '€',
 	localisationAAfficher: 'Paris',
 	prix: 1200,
 	prixHT: 1000,
