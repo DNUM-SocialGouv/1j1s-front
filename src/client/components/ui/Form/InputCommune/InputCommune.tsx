@@ -21,6 +21,7 @@ interface InputCommuneProps {
   longitude?: string
   showRadius?: boolean
   required?: boolean
+	htmlLabel?: string
 }
 
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
@@ -35,7 +36,7 @@ function isInputEmptyWhileUserClickedOnSearchButton(e: MouseEvent, libelléCommu
       && libelléCommune === '';
 }
 
-export const InputCommune = ({ className, code, distance, id, libellé, latitude, longitude, required = false, showRadius = true }: InputCommuneProps & React.HTMLAttributes<HTMLDivElement>) => {
+export const InputCommune = ({ className, code, distance, id, libellé, latitude, longitude, required = false, showRadius = true, htmlLabel = 'rechercherCommune' }: InputCommuneProps & React.HTMLAttributes<HTMLDivElement>) => {
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [suggestionIndex, setSuggestionIndex] = useState(1);
@@ -222,7 +223,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 	return (
 		<>
 			<div className={classNames(styles.wrapper, className)}>
-				<label htmlFor="rechercherCommune" id={id || LOCALISATION_LABEL_ID} className={styles.label}>
+				<label htmlFor={htmlLabel} id={id || LOCALISATION_LABEL_ID} className={styles.label}>
           Localisation
 				</label>
 				<div ref={autocompleteRef}>
@@ -236,13 +237,13 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 					>
 						<input
 							type="text"
-							id="rechercherCommune"
+							id={htmlLabel}
 							name="libelleCommune"
 							data-testid="InputCommune"
 							autoComplete="off"
 							aria-autocomplete="list"
 							aria-controls={LOCALISATION_SUGGESTIONS_ID}
-							aria-activedescendant="rechercherCommune"
+							aria-activedescendant={htmlLabel}
 							placeholder={'Exemple: Paris, Béziers...'}
 							className={classNames(styles.formControlInput, required && invalid && styles.formControlInputError)}
 							value={libelléCommune}

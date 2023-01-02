@@ -3,12 +3,12 @@
 
 
 .formulaire {
-  padding: 0 2rem;
+  padding: 0 1rem;
   margin-top: 2rem;
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: repeat(1, 1fr);
   @include media(medium) {
+    display: grid;
+    grid-column-gap: 1rem;
+    padding: 0 2rem;
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -25,10 +25,15 @@
   }
 
   &ValidateButton {
-    width: auto;
+    width: 100%;
     justify-self: center;
     margin-bottom: 1rem;
+    margin-top: 2rem;
+    padding-inline: 1rem;
+    white-space: normal;
     @include media(medium) {
+      width: 26rem;
+      padding-inline: 1.5rem;
       grid-column-start: 1;
       grid-column-end: 3;
     }

@@ -181,7 +181,7 @@ export function Select({ className, id, optionList, value, placeholder, name, la
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<label htmlFor={id} className={styles.selectLabel} id={labelledBy.current}>{label}</label>
+			<label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>{label}</label>
 			<div ref={optionsRef} className={styles.container}>
 				<button
 					type="button"
@@ -195,6 +195,7 @@ export function Select({ className, id, optionList, value, placeholder, name, la
 					<input
 						className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
 						id={selectId.current}
+						tabIndex={-1}
 						name={name}
 						value={selectedValue}
 						aria-hidden={true}
