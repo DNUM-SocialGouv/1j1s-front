@@ -220,7 +220,7 @@ export default function LesEntreprisesSEngagentInscription() {
         		)}
         		<p className={styles.footer}>
               Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification,
-        			<ButtonAsLink onClick={() => setIsContactezNousOpen(true)}>contactez-nous</ButtonAsLink>
+        			<ButtonAsLink className={styles.contactLink} onClick={() => setIsContactezNousOpen(true)}>contactez-nous</ButtonAsLink>
         		</p>
         	</div>
         	{

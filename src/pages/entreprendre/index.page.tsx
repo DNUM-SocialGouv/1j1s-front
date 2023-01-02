@@ -20,28 +20,27 @@ export default function Entreprendre() {
 	return (
 		<>
 			<HeadTag title="Les solutions pour créer une entreprise | 1jeune1solution"/>
-			<HeroComponent
-				titlePrimaryText={<span className={styles.heroTitle}><b>Découvrez les solutions qui s’offrent à vous</b>, pour créer votre entreprise…</span>}
-				titleSecondaryText={<>…quel que soit le stade de votre projet de création !</>}
-				imgSrc="/images/entrepreneurs.webp"
-			>
-				<ol className={styles.phases}>
-					<li className={styles.phasesCard}>
-						<b>Ante-création</b>
-						<span>Etudier le marché et construire le business plan</span>
-					</li>
-					<li className={styles.phasesCard}>
-						<b>Test</b>
-						<span>Tester son idée au contact du marché</span>
-					</li>
-					<li className={styles.phasesCard}>
-						<b>Post-création</b>
-						<span>Accompagnement dans les premières années suivant la création</span>
-					</li>
-				</ol>
-			</HeroComponent>
-
-			<main id="contenu" className={styles.main}>
+			<main id="contenu">
+				<HeroComponent
+					titlePrimaryText={<span><b>Découvrez les solutions qui s’offrent à vous</b>, pour créer votre entreprise…</span>}
+					titleSecondaryText={<>…quel que soit le stade de votre projet de création !</>}
+					imgSrc="/images/entrepreneurs.webp"
+				>
+					<ol className={styles.phases} aria-label="stades projet de création">
+						<li className={styles.phasesCard}>
+							<b>Ante-création</b>
+							<span>Etudier le marché et construire le business plan</span>
+						</li>
+						<li className={styles.phasesCard}>
+							<b>Test</b>
+							<span>Tester son idée au contact du marché</span>
+						</li>
+						<li className={styles.phasesCard}>
+							<b>Post-création</b>
+							<span>Accompagnement dans les premières années suivant la création</span>
+						</li>
+					</ol>
+				</HeroComponent>
 				<div className={styles.réseaux}>
 					<Container>
 						<h2 className={styles.réseauxHeader}>
