@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.34.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.33.2...v2.34.0) (2023-01-02)
+
+
+### Features
+
+* **multiple:** feature flipping api pole emploi ([7687ee3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7687ee333bc28770e79673af067e8e29fba7422d))
+
 ## [2.33.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.33.1...v2.33.2) (2023-01-02)
 
 
