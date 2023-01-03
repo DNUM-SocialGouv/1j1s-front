@@ -12,12 +12,12 @@ describe('DemandeDeContactService', () => {
 			const demandeContactService = new DemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,
-				codePostal: '95000',
+				codeCommune: '95000',
 				email: 'toto@msn.fr',
 				nom: 'Mc Totface',
+				nomCommune: 'Cergy',
 				prénom: 'Toto',
 				téléphone: '0678954322',
-				ville: 'Cergy',
 			};
 
 			// When
@@ -35,12 +35,12 @@ describe('DemandeDeContactService', () => {
 			const demandeContactService = new DemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,
-				codePostal: '95000',
+				codeCommune: '95000',
 				email: 'toto@msn.fr',
 				nom: 'Mc Totface',
+				nomCommune: 'Cergy',
 				prénom: 'Toto',
 				téléphone: '0678954',
-				ville: 'Cergy',
 			};
 
 			// When

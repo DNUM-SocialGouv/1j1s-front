@@ -47,13 +47,13 @@ describe('enregistrerDemandeDeContactHandler', () => {
 						const res = await fetch({
 							body: JSON.stringify({
 								age: 18,
-								codePostal: '95000',
+								codeCommune: '95000',
 								email: 'toto@msn.fr',
 								nom: 'Mc Totface',
+								nomCommune: 'Cergy',
 								prénom: 'Toto',
 								type: 'CEJ',
 								téléphone: '0678954322',
-								ville: 'Cergy',
 							}),
 							headers: {
 								'content-type': 'application/json',

@@ -1,15 +1,15 @@
 import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
-import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
-import InputAutocomplétionCommune from '../../../../ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
-import { InputText } from '../../../../ui/Form/InputText/InputText';
 import { SpinnerIcon } from '../../../../ui/Icon/spinner.icon';
-import { Select } from '../../../../ui/Select/Select';
 import { DéchargeRGPD } from '../../../LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import styles from './FormulaireDeContactCEJ.module.scss';
 
@@ -21,8 +21,6 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 	const [inputAge, setInputAge] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
-	const [inputVille, setInputVille] = useState('');
-	const [inputCodePostal, setInputCodePostal] = useState('');
 
 	async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -31,12 +29,13 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 		setIsLoading(true);
 		const response = await demandeDeContactService.envoyerPourLeCEJ({
 			age: Number(data.get('age')),
-			codePostal: inputCodePostal,
+			codeCommune: String(data.get('codeCommune')),
 			email: String(data.get('mail')),
 			nom: String(data.get('lastname')),
+			nomCommune: String(data.get('libelleCommune')),
 			prénom: String(data.get('firstname')),
 			téléphone: String(data.get('phone')),
-			ville: inputVille,
+
 		});
 		setIsLoading(false);
 
@@ -90,16 +89,13 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				onChange={setInputAge}
 				value={inputAge}
 			/>
-			<InputAutocomplétionCommune
+			<InputCommune
 				required
 				id="autocomplete-commune"
-				label="Ville"
-				name="ville"
+				libellé=""
+				code=""
 				placeholder="Exemple: Paris, Béziers..."
-				onSuggestionSelected={(event, suggestion) => {
-					setInputCodePostal(suggestion.codePostal);
-					setInputVille(suggestion.ville);
-				}}
+				showRadius={false}
 			/>
 			{isLoading
 				? (<ButtonComponent disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)

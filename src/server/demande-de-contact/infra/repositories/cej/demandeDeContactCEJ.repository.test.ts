@@ -10,12 +10,12 @@ describe('DemandeDeContactCEJRepository', () => {
 	describe('envoyer', () => {
 		const demandeDeContactCEJ: DemandeDeContactCEJ = {
 			age: 18,
-			codePostal: '75001',
+			codeCommune: '75001',
 			email: 'test@test.com',
 			nom: 'Test',
+			nomCommune: 'Paris',
 			prénom: 'TEST',
 			téléphone: '0123456789',
-			ville: 'Paris',
 		};
 
 		it('envoie la demande au CMS', async () => {

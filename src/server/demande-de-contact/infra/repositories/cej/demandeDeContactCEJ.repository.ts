@@ -10,12 +10,12 @@ export class DemandeDeContactCEJRepository implements DemandeDeContactRepository
 	async envoyer(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {
 		return this.cmsRepository.save('contact-cejs', {
 			age: demandeDeContactCEJ.age,
-			code_postal: demandeDeContactCEJ.codePostal,
+			code_postal: demandeDeContactCEJ.codeCommune,
 			email: demandeDeContactCEJ.email,
 			nom: demandeDeContactCEJ.nom,
 			prenom: demandeDeContactCEJ.prénom,
 			telephone: demandeDeContactCEJ.téléphone,
-			ville: demandeDeContactCEJ.ville,
+			ville: demandeDeContactCEJ.nomCommune,
 		});
 	}
 }

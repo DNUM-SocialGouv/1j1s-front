@@ -203,6 +203,6 @@ function expectFormulaireDeContact() {
 	expect(screen.getByText('Adresse email')).toBeInTheDocument();
 	expect(screen.getByText('Age')).toBeInTheDocument();
 	expect(screen.getByText('Téléphone')).toBeInTheDocument();
-	expect(screen.getByText('Ville')).toBeInTheDocument();
+	expect(screen.getByText('Localisation')).toBeInTheDocument();
 	expect(screen.getByText('Envoyer la demande')).toBeInTheDocument();
 }

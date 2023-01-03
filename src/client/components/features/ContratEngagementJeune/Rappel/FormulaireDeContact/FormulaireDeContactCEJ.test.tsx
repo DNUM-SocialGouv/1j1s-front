@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/Rappel/FormulaireDeContact/FormulaireDeContactCEJ';
@@ -14,7 +14,7 @@ import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);
 describe('<FormulaireDeContactCEJ />', () => {
-	const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
+	const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Localisation'];
 
 	function renderComponent() {
 		const onSuccess = jest.fn();
@@ -45,7 +45,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 		expect(screen.getByText('Adresse email')).toBeInTheDocument();
 		expect(screen.getByText('Téléphone')).toBeInTheDocument();
 		expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
-		expect(screen.getByText('Ville')).toBeInTheDocument();
+		expect(screen.getByText('Localisation')).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
 	});
 
@@ -85,18 +85,17 @@ describe('<FormulaireDeContactCEJ />', () => {
 					nom: 'Mc Totface',
 					prénom: 'Toto',
 					téléphone: '0123456789',
-					ville: 'Paris',
 				});
 
 				// Then
 				expect(demandeDeContactServiceMock.envoyerPourLeCEJ).toHaveBeenCalledWith({
 					age: 19,
-					codePostal: '75015',
+					codeCommune: '75056',
 					email: 'toto@msn.fr',
 					nom: 'Mc Totface',
+					nomCommune: 'Paris',
 					prénom: 'Toto',
 					téléphone: '0123456789',
-					ville: 'Paris 15e Arrondissement',
 				});
 			});
 			it('appelle la propriété onSuccess', async () => {
@@ -110,29 +109,10 @@ describe('<FormulaireDeContactCEJ />', () => {
 					nom: 'Mc Totface',
 					prénom: 'Toto',
 					téléphone: '0123456789',
-					ville: 'Pontoise',
 				});
 
 				// Then
 				expect(onSuccess).toHaveBeenCalled();
-			});
-			it('Affiche un message de confirmation et {children}', async () => {
-				// Given
-				renderComponent();
-
-				// When
-				await remplirFormulaireDeContact({
-					age: '19 ans',
-					email: 'toto@msn.fr',
-					nom: 'Mc Totface',
-					prénom: 'Toto',
-					téléphone: '0123456789',
-					ville: 'Paris',
-				});
-
-				// Then
-				expect(screen.getByText('Votre demande a bien été transmise !')).toBeInTheDocument();
-				expect(screen.getByText('Revenir')).toBeInTheDocument();
 			});
 		});
 	});
@@ -165,17 +145,19 @@ describe('<FormulaireDeContactCEJ />', () => {
 });
 
 /* eslint-disable jest/no-export */
-type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
+type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' , string>
 
-export async function remplirFormulaireDeContact(data: ContactInputs, user = userEvent.setup(), submit = true) {
+async function remplirFormulaireDeContact(data: ContactInputs, user = userEvent.setup(), submit = true) {
 	await user.type(screen.getByText('Prénom'), data.prénom);
 	await user.type(screen.getByText('Nom'), data.nom);
 	await user.type(screen.getByText('Téléphone'), data.téléphone);
 	await user.type(screen.getByText('Adresse email'), data.email);
 
-	await userEvent.type(screen.getByText('Ville'), data.ville);
-	// eslint-disable-next-line testing-library/no-wait-for-side-effects
-	await waitFor(() => userEvent.click(screen.getByText('Paris 15e Arrondissement')));
+	const inputCommune = screen.getByTestId('InputCommune');
+	await userEvent.type(inputCommune, 'Paris');
+	const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+	const résultatCommuneList = within(résultatsCommune).getAllByRole('option');
+	await userEvent.click(résultatCommuneList[0]);
 
 	await user.click(screen.getByText('Age'));
 	await user.click(screen.getByText(data.age));

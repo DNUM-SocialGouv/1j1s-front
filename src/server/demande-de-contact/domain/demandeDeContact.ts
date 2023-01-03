@@ -18,8 +18,8 @@ export interface DemandeDeContactEntreprise extends DemandeDeContact {
 }
 
 export interface DemandeDeContactCEJ extends DemandeDeContact {
-  ville: string
-  codePostal: string
+  nomCommune: string
+  codeCommune: string
   age: Age
 }
 

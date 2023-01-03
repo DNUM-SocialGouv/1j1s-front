@@ -8,12 +8,12 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 	describe('.handle(command)', () => {
 		const command = {
 			age: 18,
-			codePostal: '95000',
+			codeCommune: '95000',
 			email: 'toto@msn.fr',
 			nom: 'Mc Totface',
+			nomCommune: 'Cergy',
 			prénom: 'Toto',
 			téléphone: '0678954322',
-			ville: 'Cergy',
 		};
     
 		const demandeDeContactRepository = {
@@ -38,12 +38,12 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 			const usecase = new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactRepository);
 			const demandeDeContactCEJ: DemandeDeContactCEJ = {
 				age: 18,
-				codePostal: '95000',
+				codeCommune: '95000',
 				email: 'toto@msn.fr',
 				nom: 'Mc Totface',
+				nomCommune: 'Cergy',
 				prénom: 'Toto',
 				téléphone: '+33678954322',
-				ville: 'Cergy',
 			};
 			// When
 			const result = await usecase.handle(command);
@@ -56,12 +56,12 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 			const usecase = new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactRepository);
 			const demandeDeContactCEJ: DemandeDeContactCEJ = {
 				age: 18,
-				codePostal: '95000',
+				codeCommune: '95000',
 				email: 'toto@msn.fr',
 				nom: 'Mc Totface',
+				nomCommune: 'Cergy',
 				prénom: 'Toto',
 				téléphone: '+33123456789',
-				ville: 'Cergy',
 			};
 			// When
 			const result = await usecase.handle({ ...command, téléphone: '0123456789' });

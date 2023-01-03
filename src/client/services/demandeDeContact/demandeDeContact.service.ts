@@ -8,8 +8,8 @@ export interface FormulaireDemandeDeContactCEJ {
   nom: string
   prénom: string
   téléphone: string
-  ville: string
-  codePostal: string
+  nomCommune: string
+  codeCommune: string
 }
 
 export interface FormulaireDemandeDeContactEntreprise {

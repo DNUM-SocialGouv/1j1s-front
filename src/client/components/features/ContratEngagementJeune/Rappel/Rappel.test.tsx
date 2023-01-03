@@ -46,7 +46,7 @@ describe('<Rappel />', () => {
 		expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
 	});
 	describe('Lorsqu‘on clique sur le bouton je souhaite être contacté(e)', () => {
-		const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
+		const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Localisation'];
 		it('affiche un formulaire de rappel', async () => {
 			// Given
 			renderComponent();
