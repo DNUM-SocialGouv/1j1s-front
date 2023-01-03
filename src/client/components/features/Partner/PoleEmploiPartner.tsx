@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PartnerCard } from './Card/PartnerCard';
 
-export function PoleEmploiCard() {
+export function PoleEmploiPartner() {
 	return (
 		<PartnerCard
 			title="Pôle Emploi propose un accompagnement intensif pour les jeunes de 16 à 30 ans"

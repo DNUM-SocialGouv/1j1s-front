@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 
-export function OnisepPartnerCard() {
+export function OnisepPartner() {
 	return (
 		<PartnerCard
 			description="Trouvez un métier qui vous correspond parmi plus de 700 fiches."

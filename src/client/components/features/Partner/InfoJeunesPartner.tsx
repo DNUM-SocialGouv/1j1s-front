@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PartnerCard } from './Card/PartnerCard';
 
-export function InfoJeunesCard() {
+export function InfoJeunesPartner() {
 	return (
 		<PartnerCard
 			title="Info Jeunes, le réseau d’accueil et d’information des jeunes en France au service d’une ambition : explorer les possibles !"

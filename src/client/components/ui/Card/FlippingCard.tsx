@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Image from 'next/legacy/image';
 import React, {
+	useCallback,
 	useEffect,
 	useMemo,
 	useRef,
@@ -28,6 +29,7 @@ export const FlippingCard = ({ children, imageUrl, link, title, titleAs, flippin
 	const [isCardFlipped, setIsCardFlipped] = useState(false);
 	const [isAnimationOn, setIsAnimationOn] = useState(false);
 	const hasFlipCardContent = !!flippingCardContent.length;
+	const flipButton = useRef<HTMLButtonElement>(null);
 
 
 	useEffect(function setFocusOnFlip() {
@@ -55,18 +57,19 @@ export const FlippingCard = ({ children, imageUrl, link, title, titleAs, flippin
 		return React.createElement(titleAs || 'h3', { className: className }, children);
 	};
 
-	const flipCard = (reverse = false) => {
+	const flipCard = useCallback((reverse = false) => {
 		setIsAnimationOn(!isAnimationOn);
 		if(reverse) {
 			setTimeout(() => {
 				setIsCardFlipped(!isCardFlipped);
-				const flipButton = document.getElementById('flipButton');
-				if (flipButton) flipButton.focus();
+				if (flipButton.current) {
+					flipButton.current.focus();
+				}
 			}, 500);
 		} else {
 			setIsCardFlipped(!isCardFlipped);
 		}
-	};
+	}, [isAnimationOn, flipButton, isCardFlipped]);
 
 	return (
 		<div className={classNames(styles.cardWrapper, { [styles.animate]: isAnimationOn })} {...rest}>
@@ -81,7 +84,7 @@ export const FlippingCard = ({ children, imageUrl, link, title, titleAs, flippin
 				</div>
 
 				<div className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
-					{hasFlipCardContent && <button id='flipButton' onClick={() => flipCard()}>Qui est concerné ?</button>}
+					{hasFlipCardContent && <button ref={flipButton} onClick={() => flipCard()}>Qui est concerné ?</button>}
 					{linkAsButton}
 				</div>
 			</div>

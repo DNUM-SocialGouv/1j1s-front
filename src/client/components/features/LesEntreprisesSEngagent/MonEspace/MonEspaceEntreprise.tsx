@@ -20,7 +20,12 @@ export default function MonEspaceEntreprise() {
 					</div>
 				</div>
 				<div className={styles.containerBoutons}>
-					<Link className={styles.monEspaceConnexion} href="https://www.lesentreprises-sengagent.gouv.fr/login" appearance="asPrimaryButton">Je me connecte à mon espace</Link>
+					<Link
+						className={styles.monEspaceConnexion}
+						href="https://www.lesentreprises-sengagent.gouv.fr/login"
+						appearance="asPrimaryButton">
+						Je me connecte à mon espace
+					</Link>
 					<Link className={styles.monEspaceInscription} href="/les-entreprises-s-engagent">
 						<Icon name='information'/>
             Je ne suis pas encore inscrit, je rejoins la mobilisation

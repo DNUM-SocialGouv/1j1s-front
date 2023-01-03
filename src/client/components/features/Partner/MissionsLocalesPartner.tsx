@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PartnerCard } from './Card/PartnerCard';
 
-export function MissionsLocalesCard() {
+export function MissionsLocalesPartner() {
 	return (
 		<PartnerCard
 			title="Les missions locales proposent un suivi personnalisé pour tous les jeunes jusqu’à 25 ans"

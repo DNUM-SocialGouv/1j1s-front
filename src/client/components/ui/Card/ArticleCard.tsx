@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import React, { useRef } from 'react';
 
@@ -20,8 +19,8 @@ export function ArticleCard({ className, children, icon, imageSrc, link, linkLab
 
 	return (
 		<Link href={link} className={'underline-none'}>
-			<CardComponent className={classNames(className, styles.articleCard)} layout={'vertical'}>
-				<CardComponent.Image className={styles.imageWrapper} src={imageSrc} ariaHidden/>
+			<CardComponent className={className} layout={'vertical'}>
+				<CardComponent.Image className={styles.illustration} src={imageSrc} aria-hidden/>
 				<CardComponent.Content className={styles.content}>
 					<CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
 					{children}

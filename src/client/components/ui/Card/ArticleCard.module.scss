@@ -1,7 +1,11 @@
 @import "@styles/utilities";
 
-.imageWrapper {
+.illustration {
   height: 180px;
+
+  img {
+    object-fit: cover;
+  }
 }
 
 .content {

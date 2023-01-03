@@ -7,7 +7,7 @@ import {
 } from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
-import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
+import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
 	ListeRésultatsRechercherSolution,
@@ -101,11 +101,11 @@ export function RechercherJobÉtudiant() {
 					maxPage={MAX_PAGE}
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
 				/>
-				{PartnerCardList([
-					LaBonneBoitePartner().props,
-					OnisepPartnerCard().props,
-					ServiceCiviquePartner().props,
-				])}
+				<PartnerCardList>
+					<LaBonneBoitePartner />
+					<OnisepPartner />
+					<ServiceCiviquePartner />
+				</PartnerCardList>
 			</main>
 		</>
 	);

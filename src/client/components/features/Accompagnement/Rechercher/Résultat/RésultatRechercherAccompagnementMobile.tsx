@@ -32,7 +32,7 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 	return (
 		<CardComponent layout={'vertical'} className={styles.card}>
 			<CardComponent.Content className={styles.content}>
-				<CardComponent.Image className={styles.logo} src={logoÉtablissement} ariaHidden/>
+				<CardComponent.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
 				<div className={styles.mainContent}>
 					<CardComponent.Title className={styles.title} titleAs={'h3'}>
 						{établissement.nom}

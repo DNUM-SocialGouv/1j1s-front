@@ -7,7 +7,7 @@ import {
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
-import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
+import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
 	ListeRésultatsRechercherSolution,
@@ -102,11 +102,11 @@ export function RechercherAlternance() {
 					maxPage={MAX_PAGE}
 					listeSolutionElement={<ListeOffreAlternance résultatList={alternanceList}/>}
 				/>
-				{PartnerCardList([
-					LaBonneBoitePartner().props,
-					OnisepPartnerCard().props,
-					ServiceCiviquePartner().props,
-				])}
+				<PartnerCardList>
+					<LaBonneBoitePartner />
+					<OnisepPartner />
+					<ServiceCiviquePartner />
+				</PartnerCardList>
 			</main>
 		</>
 	);

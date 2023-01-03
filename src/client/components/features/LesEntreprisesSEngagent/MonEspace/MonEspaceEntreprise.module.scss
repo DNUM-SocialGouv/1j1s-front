@@ -27,7 +27,6 @@
   }
 
   &Connexion {
-    display: block;
     margin-bottom: 1.5rem;
   }
 
@@ -56,9 +55,10 @@
       margin: auto;
 
       &Boutons {
+        display: flex;
+        flex-direction: column;
         max-width: 28rem;
         margin: 40px auto auto;
-        flex-direction: column;
       }
 
       &Info {
@@ -87,10 +87,6 @@
       line-height: 2rem;
       font-size: 1rem;
       margin-bottom: 4rem;
-    }
-
-    &Connexion {
-      display: block;
     }
 
     &Inscription {
