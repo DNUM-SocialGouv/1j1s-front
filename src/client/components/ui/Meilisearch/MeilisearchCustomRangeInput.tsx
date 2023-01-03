@@ -20,7 +20,9 @@ interface MeilisearchCustomRangeInputProps extends CommonProps  {
 export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCustomRangeInputProps) {
 	const {
 		refine,
+		start,
 	} = useRange(props);
+
 	const { label, placeholder, unite, min, max, className } = props;
 	const [isRangeBoxOpen, setIsRangeBoxOpen] = useState(false);
   type EmptyInput = '';
@@ -31,6 +33,14 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   const inputMinRef = useRef(uuidv4());
   const inputMaxRef = useRef(uuidv4());
   const BUTTON_LABEL = 'Appliquer';
+
+  useEffect(function updateMinValue() {
+  	if (start[0] === -Infinity) setMinValue('');
+  }, [start]);
+
+  useEffect(function updateMaxValue() {
+  	if (start[1] === Infinity) setMaxValue('');
+  }, [start]);
 
   const closeRangeBoxOnClickOutside = useCallback((event: MouseEvent) => {
   	if (!(rangeBoxRef.current)?.contains(event.target as Node)) {
