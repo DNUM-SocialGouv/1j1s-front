@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.34.1...v2.35.0) (2023-01-03)
+
+
+### Features
+
+* **actualites:** n'affiche pas la section actualités si aucune actualité n'est récupérée du CMS ([ce378c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ce378c6b993c7809a3b513e6260144c61a60c9e8))
+
 ## [2.34.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.34.0...v2.34.1) (2023-01-02)
 
 
