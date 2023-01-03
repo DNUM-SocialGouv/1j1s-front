@@ -40,28 +40,15 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 		<main id={'contenu'}>
 			<HeadTag title="Espace jeune | 1jeune1solution"/>
 			<h1 className={styles.title}>Actualités et services jeune</h1>
-			<section className={classNames(styles.section, styles.actualitesSection)} data-testid='actualites' >
-				<LightHero
-					className={styles.sectionTitle}
-					titleAs={'h2'}
-					primaryText={'Actualités : retrouvez une sélection'}
-					secondaryText={'des dernières actualités relatives aux jeunes'} />
-				<Container className={styles.cartesActualitesList}>
-					{visibleCartesActualitesList.map((carte, index) =>
-						<ArticleCard className={styles.carteActualite} 
-							key={index} 
-							imageSrc={carte.bannière && carte.bannière.url || ''}
-							titleLabel={carte.titre}
-							link={carte.link} 
-							linkLabel={getCarteActualiteLinkLabel(carte)} 
-							icon={getCarteActualiteLinkIcon(carte)}>
-							<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-						</ArticleCard>,
-					)}
-				</Container>
-				<SeeMore>
+			{cartesActualites.length > 0 &&
+				<section className={classNames(styles.section, styles.actualitesSection)} data-testid='actualites' >
+					<LightHero
+						className={styles.sectionTitle}
+						titleAs={'h2'}
+						primaryText={'Actualités : retrouvez une sélection'}
+						secondaryText={'des dernières actualités relatives aux jeunes'} />
 					<Container className={styles.cartesActualitesList}>
-						{seeMoreCartesActualitesList.map((carte, index) =>
+						{visibleCartesActualitesList.map((carte, index) =>
 							<ArticleCard className={styles.carteActualite}
 								key={index}
 								imageSrc={carte.bannière && carte.bannière.url || ''}
@@ -73,8 +60,23 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 							</ArticleCard>,
 						)}
 					</Container>
-				</SeeMore>
-			</section>
+					<SeeMore>
+						<Container className={styles.cartesActualitesList}>
+							{seeMoreCartesActualitesList.map((carte, index) =>
+								<ArticleCard className={styles.carteActualite}
+									key={index}
+									imageSrc={carte.bannière && carte.bannière.url || ''}
+									titleLabel={carte.titre}
+									link={carte.link}
+									linkLabel={getCarteActualiteLinkLabel(carte)}
+									icon={getCarteActualiteLinkIcon(carte)}>
+									<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
+								</ArticleCard>,
+							)}
+						</Container>
+					</SeeMore>
+				</section>
+			}
 			<section id='espace-jeune' className={classNames(styles.section, styles.mesuresJeunesSection)}>
 				<LightHero
 					titleAs={'h2'}
