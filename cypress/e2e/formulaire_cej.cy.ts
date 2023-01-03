@@ -10,9 +10,6 @@
  * il faut utiliser le { force : true } parce que cypress ne peut pas remplir des champs pas visible
  */
 
-import { interceptGet } from '../interceptGet';
-import { interceptPost } from '../interceptPost';
-
 describe('Parcours formulaire cej', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
@@ -34,50 +31,17 @@ describe('Parcours formulaire cej', () => {
 			cy.get('input[type="tel"]').type('0688552233');
 			cy.get('button').contains('Sélectionnez votre choix').click();
 			cy.get('ul[role="listbox"]').first().click();
-
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => cy.get('input[name="ville"]').type('paris', { force: true }),
-					alias: 'recherche-communes',
-					path: '/api/communes*',
-					response: JSON.stringify({ résultats: [
-						{
-							code: '75056',
-							codePostal: '75006',
-							coordonnées: {
-								latitude: 48.859,
-								longitude: 2.347,
-							},
-							libelle: 'Paris',
-							ville: 'Paris',
-						},
-					] } ),
-				},
-			);
+			cy.get('input[name="libelleCommune"]').last().type('par');
 			cy.get('ul[role="listbox"]').first().click();
 
-			interceptPost(
-				{
-					actionBeforeWaitTheCall: () => cy.get('button').contains('Envoyer la demande').click(),
-					alias: 'submit-form',
-					path: '/api/demandes-de-contact',
-					response: JSON.stringify({
-						statusCode: 201,
-					}),
-					responseBodyToCheck: {
-						age: 18,
-						codePostal: '75006',
-						email: 'jean.dupont@mail.com',
-						nom: 'dupont',
-						prénom: 'jean',
-						type: 'CEJ',
-						téléphone: '0688552233',
-						ville: 'Paris',
-					},
-				},
-			);
+			cy.intercept({ method: 'POST', pathname: '/api/demandes-de-contact' }, { statusCode: 201 });
+			cy.get('button').contains('Envoyer la demande').click();
 
-			cy.contains('Votre demande a bien été transmise !').should('be.visible');
+			cy.get('h1')
+				.contains('Votre demande a bien été transmise !').should('exist')
+				.next().click();
+
+			cy.get('dialog').should('not.exist');
 		});
 	});
 });
