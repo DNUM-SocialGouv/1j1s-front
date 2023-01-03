@@ -47,7 +47,6 @@
       .linkAsButtonWrapper {
         margin-top: 1rem;
         a {
-          display: block;
           width: 100%;
         }
       }
@@ -73,12 +72,12 @@
         > div {
           width: 50%;
         }
-        div:first-child {
+        & > div:first-child {
           margin-bottom: 0;
           border-right: 1px solid $color-separator;
           padding-right: 2.5rem;
         }
-        div:last-child {
+        & > div:last-child {
           padding-left: 2.5rem;
         }
       }
@@ -99,7 +98,6 @@
           margin-top: 2rem;
           display: flex;
           a {
-            display: block;
             margin: auto;
             width: initial;
           }

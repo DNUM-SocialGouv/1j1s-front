@@ -13,14 +13,6 @@
     background-color: $color-background-white-lilac;
   }
 
-  &Title {
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 3.5rem 1rem 1.5rem;
-    color: $color-primary;
-    @extend %bold;
-  }
-
   @include media(xlarge) {
     margin: auto;
     padding-inline: 0;
@@ -31,10 +23,12 @@
   display: block;
 
   &Logo {
+    align-self: center;
+    justify-self: center;
     align-items: center;
     justify-content: center;
     height: 4.5rem;
-    margin: 3.5rem 2rem 2rem 2rem;
+    margin: 1.25rem;
   }
 
   &Action {

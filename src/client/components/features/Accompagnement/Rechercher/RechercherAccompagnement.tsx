@@ -7,9 +7,9 @@ import {
 	RésultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { InfoJeunesCard } from '~/client/components/features/Partner/InfoJeunesCard';
-import { MissionsLocalesCard } from '~/client/components/features/Partner/MissionsLocalesCard';
-import { PoleEmploiCard } from '~/client/components/features/Partner/PoleEmploiCard';
+import { InfoJeunesPartner } from '~/client/components/features/Partner/InfoJeunesPartner';
+import { MissionsLocalesPartner } from '~/client/components/features/Partner/MissionsLocalesPartner';
+import { PoleEmploiPartner } from '~/client/components/features/Partner/PoleEmploiPartner';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -114,11 +114,11 @@ export function RechercherAccompagnement() {
 					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList}/>}
 				/>
 				<EnTeteSection heading="Découvrez d’autres services faits pour vous"/>
-				{PartnerCardList([
-					MissionsLocalesCard().props,
-					InfoJeunesCard().props,
-					PoleEmploiCard().props,
-				])}
+				<PartnerCardList>
+					<MissionsLocalesPartner />
+					<InfoJeunesPartner />
+					<PoleEmploiPartner />
+				</PartnerCardList>
 			</main>
 		</>
 	);

@@ -33,7 +33,7 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 		<>
 			<CardComponent layout={'vertical'} className={styles.card}>
 				<CardComponent.Content className={styles.content}>
-					<CardComponent.Image className={styles.logo} src={logoÉtablissement} ariaHidden/>
+					<CardComponent.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
 					<div className={styles.mainContent}>
 						<div className={styles.logoAlignment}>
 							<CardComponent.Title className={styles.title} titleAs={'h3'}>

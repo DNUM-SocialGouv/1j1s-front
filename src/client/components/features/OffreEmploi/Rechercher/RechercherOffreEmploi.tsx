@@ -10,7 +10,7 @@ import {
 } from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
-import { OnisepPartnerCard } from '~/client/components/features/Partner/OnisepPartnerCard';
+import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
 import {
 	ListeRésultatsRechercherSolution,
@@ -96,11 +96,11 @@ export function RechercherOffreEmploi() {
 					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
 				/>
 				<EnTeteSection heading="Découvrez des services faits pour vous"/>
-				{PartnerCardList([
-					LaBonneBoitePartner().props,
-					OnisepPartnerCard().props,
-					ServiceCiviquePartner().props,
-				])}
+				<PartnerCardList>
+					<LaBonneBoitePartner />
+					<OnisepPartner />
+					<ServiceCiviquePartner />
+				</PartnerCardList>
 			</main>
 		</>
 	);

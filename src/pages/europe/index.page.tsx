@@ -65,10 +65,7 @@ export default function EuropePage() {
 					{ linkList.map((link: LinkType) => (
 						<li key={link.title}>
 							<Link href={link.url} className={classNames('underline-none')}>
-								<TextIcon
-									text={link.title}
-									icon={<Icon name="external-redirection"/>}
-								/>
+								<TextIcon icon="external-redirection">{link.title}</TextIcon>
 							</Link>
 						</li>
 					))}

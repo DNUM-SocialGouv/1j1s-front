@@ -344,7 +344,7 @@ export default function JeRecruteAfprPoeiInscription() {
         						/>
         						<InputArea
         							className={styles.textArea}
-        							label="Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugieriez utiles"
+        							label="Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles"
         							name="commentaires"
         							placeholder="Saisissez votre texte ici"
         							value={formulaireÉtape3.commentaire}

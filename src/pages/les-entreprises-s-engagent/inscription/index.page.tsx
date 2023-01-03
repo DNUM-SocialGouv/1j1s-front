@@ -169,6 +169,17 @@ export default function LesEntreprisesSEngagentInscription() {
         							})}
         						/>
         						<InputText
+        							label="Indiquez votre fonction au sein de l’entreprise"
+        							name="job"
+        							placeholder="Exemple : RH, Chargé de communications"
+        							value={formulaireÉtape2.travail}
+        							required
+        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+        								...formulaireÉtape2,
+        								travail: event.currentTarget.value,
+        							})}
+        						/>
+        						<InputText
         							label="Indiquez votre adresse e-mail de contact"
         							type="email"
         							name="email"
@@ -179,17 +190,6 @@ export default function LesEntreprisesSEngagentInscription() {
         							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
         								...formulaireÉtape2,
         								email: event.currentTarget.value,
-        							})}
-        						/>
-        						<InputText
-        							label="Indiquez votre fonction au sein de l’entreprise"
-        							name="job"
-        							placeholder="Exemple : RH, Chargé de communications"
-        							value={formulaireÉtape2.travail}
-        							required
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-        								...formulaireÉtape2,
-        								travail: event.currentTarget.value,
         							})}
         						/>
         						<InputText

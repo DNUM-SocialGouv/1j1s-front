@@ -2,9 +2,10 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React, { useMemo } from 'react';
 
-import { HtmlHeadingTag } from '../../../props';
-import { ButtonComponent } from '../../Button/ButtonComponent';
-import { Link } from '../../Link/Link';
+import { HtmlHeadingTag } from '~/client/components/props';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Link } from '~/client/components/ui/Link/Link';
+
 import styles from './CardComponent.module.scss';
 
 interface CardComponentProps {
@@ -55,10 +56,10 @@ function CardLink({ appearance = 'default', className, href, label }: { appearan
 	return <Link className={className} appearance={appearance} href={href}>{label}</Link>;
 }
 
-function CardImage({ className, src, ariaHidden }: { src: string, ariaHidden?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
+function CardImage({ className, src, ...rest }: { src: string, ariaHidden?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
 	return (
-		<div className={classNames(styles.cardImageWrapper, className)}>
-			<Image src={src} alt={''} fill={true} aria-hidden={ariaHidden} />
+		<div className={classNames(styles.cardImageWrapper, className)} {...rest}>
+			<Image src={src} alt={''} fill={true} />
 		</div>
 	);
 }

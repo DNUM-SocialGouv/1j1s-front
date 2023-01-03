@@ -1,13 +1,16 @@
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { isNavigationItem, NavigationItem, navigationItemList, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
+import {
+	isNavigationItem,
+	NavigationItem,
+	navigationItemList,
+	NavigationItemWithChildren,
+} from '~/client/components/layouts/Header/NavigationStructure';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-
-import { Icon } from '../../client/components/ui/Icon/Icon';
-import styles from './PlanDuSite.module.scss';
+import styles from '~/pages/plan-du-site/PlanDuSite.module.scss';
 
 export default function PlanDuSite() {
 
@@ -16,13 +19,13 @@ export default function PlanDuSite() {
 	function displayNavigationTree(item: NavigationItem | NavigationItemWithChildren) {
 		if (isNavigationItem(item)) {
 			return (
-				<li key={item.link}><Link href={ item.link }>{item.label}</Link></li>
+				<li key={item.link}><Link href={item.link}>{item.label}</Link></li>
 			);
 		} else {
 			return (
 				<li key={item.label}>
-					<span>{item.label}</span>
-					<ul>
+					<span id="sectionPlanDuSite">{item.label}</span>
+					<ul aria-labelledby="sectionPlanDuSite">
 						{item.children.map((sub) => displayNavigationTree(sub))}
 					</ul>
 				</li>
@@ -32,13 +35,11 @@ export default function PlanDuSite() {
 
 	return (
 		<>
-			<HeadTag title="Plan du site | 1jeune1solution" description="Plan du site-"/>
+			<HeadTag title="Plan du site | 1jeune1solution" description="Plan du site"/>
 			<Container className={styles.planDuSiteContainer}>
 				<main id="contenu">
-
-					<h1 className={styles.planDuSiteTitre}>Plan du site</h1>
-
-					<ul>
+					<h1 id="planDuSite" className={styles.planDuSiteTitre}>Plan du site</h1>
+					<ul aria-labelledby="planDuSite">
 						<li>
 							<Link href={navigationItemList.accueil.link}>{navigationItemList.accueil.label}</Link>
 						</li>
@@ -48,17 +49,17 @@ export default function PlanDuSite() {
 						{displayNavigationTree(navigationItemList.accompagnementNav)}
 						{displayNavigationTree(navigationItemList.engagementNav)}
 						{displayNavigationTree(navigationItemList.employeurNav)}
-            
-						<li><Link href="/cgu" >Conditions Générales d’utilisation</Link></li>
-						<li><Link href="/accessibilite" >Accessibilité : Partiellement conforme</Link></li>
-						<li><Link href="/mentions-legales" >Mentions légales</Link></li>
-						<li><Link href="/confidentialite" >Politique de confidentialité</Link></li>
-						<li><Link href={`mailto:${MAIL_TO}`}><TextIcon text="Nous contacter" icon={<Icon name={'external-redirection'} />}/></Link></li>
-					</ul>
 
+						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
+						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>
+						<li><Link href="/mentions-legales">Mentions légales</Link></li>
+						<li><Link href="/confidentialite">Politique de confidentialité</Link></li>
+						<li><Link href={`mailto:${MAIL_TO}`}>
+							<TextIcon icon="external-redirection">Nous contacter</TextIcon>
+						</Link></li>
+					</ul>
 				</main>
 			</Container>
 		</>
-
 	);
 }
