@@ -10,10 +10,14 @@
  * il faut utiliser le { force : true } parce que cypress ne peut pas remplir des champs pas visible
  */
 
+import communeList from '../fixture/communes/communeList.fixture.json';
+
 describe('Parcours formulaire cej', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 		cy.visit('/contrat-engagement-jeune');
+
+		cy.intercept({ pathname: '/api/communes' }, { body: communeList, statusCode: 200 });
 	});
 
 	context('quand l’utilisateur correctement remplie le formulaire', () => {
