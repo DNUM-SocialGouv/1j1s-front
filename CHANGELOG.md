@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.1...v2.35.2) (2023-01-04)
+
+
+### Bug Fixes
+
+* **accompagnement:** retour ux / po (873) ([b21c82f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b21c82f0d233a0bb11446b37a3d7eb9432f2e886))
+
 ## [2.35.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.0...v2.35.1) (2023-01-04)
 
 
