@@ -1,7 +1,7 @@
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Erreur } from '~/server/errors/erreur.types';
 
 export type Either<T> = Success<T> | Failure;
-export type Failure = { instance: 'failure', errorType: ErreurMétier };
+export type Failure = { instance: 'failure', errorType: Erreur };
 export type Success<T> = { instance: 'success', result: T };
 
 export function isSuccess<T> (e: Either<T>): e is Success<T> {
@@ -15,5 +15,5 @@ export function isFailure<T> (e: Either<T>): e is Failure {
 
 
 
-export const createFailure = (errorType: ErreurMétier): Failure => ({ errorType, instance: 'failure' });
+export const createFailure = (errorType: Erreur): Failure => ({ errorType, instance: 'failure' });
 export const createSuccess = <T>(result: T): Success<T> => ({ instance: 'success', result });

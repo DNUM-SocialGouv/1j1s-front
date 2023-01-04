@@ -24,6 +24,7 @@ import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
 	ÉtablissementAccompagnement,
@@ -36,7 +37,7 @@ export function RechercherAccompagnement() {
 
 	const [établissementAccompagnementList, setÉtablissementAccompagnementList] = useState<ÉtablissementAccompagnement[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
+	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [title, setTitle] = useState<string | undefined>();
 
 	const isEachQueryParamPresent = useCallback(() => {

@@ -2,6 +2,7 @@ import { NextApiResponse } from 'next';
 
 import { Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 export function handleResponse<R>(résultats: Either<R>, res: NextApiResponse<R | ErrorHttpResponse>) {
@@ -16,6 +17,8 @@ export function handleResponse<R>(résultats: Either<R>, res: NextApiResponse<R 
 					return res.status(400).json({ error: résultats.errorType });
 				case ErreurMétier.CONTENU_INDISPONIBLE:
 					return res.status(404).json({ error: résultats.errorType });
+				case ErreurTechnique.TOO_MANY_REQUESTS:
+					return res.status(429).json({ error: résultats.errorType });
 			}
 	}
 }
