@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { validate } from '~/pages/api/middleware/validate.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
 	MAX_PAGE_ALLOWED,
@@ -22,6 +23,8 @@ export const alternancesQuerySchema = Joi.object({
 });
 
 export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
+	if (await applyRateLimit(req, res)) return;
+
 	const résultatsRechercheAlternance = await dependencies.offreAlternanceDependencies.rechercherOffreAlternance.handle(alternanceFiltreMapper(req));
 	return handleResponse(résultatsRechercheAlternance, res);
 }

@@ -1,5 +1,5 @@
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Erreur } from '~/server/errors/erreur.types';
 
 export interface ErrorHttpResponse {
-  error: ErreurMétier
+  error: Erreur
 }

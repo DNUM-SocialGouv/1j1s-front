@@ -39,7 +39,7 @@ describe('rechercher une alternance', () => {
 				const json = await res.json();
 				expect(json).toEqual(aRésultatsRechercheOffre());
 			},
-			url: '/emplois?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
+			url: '/alternances?motCle=boulanger&codeLocalisation=75101&typeLocalisation=COMMUNE&page=1',
 		});
 	});
 

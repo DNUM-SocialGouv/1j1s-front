@@ -27,7 +27,7 @@ import {
 	NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
 	serviceCiviqueDomaineList,
 } from '~/server/engagement/domain/engagement';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherMissionProps {
   category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
@@ -46,7 +46,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 	}, [category]);
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [erreurRecherche, setErreurRecherche] = useState<ErreurMétier | undefined>(undefined);
+	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
 	useEffect(() => {

@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { validate } from '~/pages/api/middleware/validate.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { mailRateLimitMiddleware } from '~/server/middlewares/rateLimit/mail/mailRateLimit';
+import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
@@ -23,6 +25,8 @@ export const demandeContactAccompagnementBodySchema = Joi.object({
 });
 
 export async function envoyerDemandeContactAccompagnementHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
+	if (await applyRateLimit(req, res, mailRateLimitMiddleware)) return;
+
 	const responseEnvoyerEmail = await dependencies
 		.demandeDeContactDependencies
 		.envoyerDemandeDeContactAccompagnementUseCase

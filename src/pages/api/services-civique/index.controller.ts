@@ -8,6 +8,7 @@ import {
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
@@ -24,6 +25,8 @@ const querySchema = Joi.object({
 });
 
 export async function rechercherMissionHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheMission | ErrorHttpResponse>) {
+	if (await applyRateLimit(req, res)) return;
+
 	const résultatRechercherMission = await dependencies.engagementDependencies.rechercherMissionEngagement.handle(missionRequestMapper(req));
 	return handleResponse(résultatRechercherMission, res);
 }

@@ -7,11 +7,11 @@ import styles from '~/client/components/layouts/RechercherSolution/RechercherSol
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherSolutionLayoutProps {
   bannière: React.ReactElement
-  erreurRecherche?: ErreurMétier
+  erreurRecherche?: Erreur
   étiquettesRecherche?: React.ReactElement
   formulaireRecherche: React.ReactElement
   isLoading: boolean
