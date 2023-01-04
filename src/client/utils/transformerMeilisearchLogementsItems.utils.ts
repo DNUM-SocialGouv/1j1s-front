@@ -17,14 +17,14 @@ const itemSpecificAttributes = ['prix', 'surface'];
 
 export const transformerMeilisearchLogementsItems = (items: CurrentRefinementsConnectorParamsItem[]): CurrentRefinementsConnectorParamsItem[] => {
 	return items.map((item) => {
-		if (isNumeric(item.attribute)) {
+		if (isItemWithSpecificAttribute(item.attribute)) {
 			return { ...item, refinements: getRefinements(item) };
 		}
 		return item;
 	}).filter((item) => item.refinements.length > 0);
 };
 
-function isNumeric(attribute: string): boolean {
+function isItemWithSpecificAttribute(attribute: string): boolean {
 	return itemSpecificAttributes.includes(attribute);
 }
 

@@ -16,12 +16,12 @@ export default function MeilisearchCustomCurrentRefinements(props: UseCurrentRef
 	if (isItemListEmpty) return null;
 
 	return (
-		<ul className={styles.tagList}>
+		<ul aria-label="liste des filtres appliqués" className={styles.tagList}>
 			{items.map((item) => {
 				return item.refinements.map((refinement, index) => (
 					<li key={index} className={styles.tag}>
 						<span>{getCapitalizedItems(refinement.label)}</span>
-						<button onClick={() => refine(refinement)}>
+						<button aria-label="supprimer le filtre" type="button" onClick={() => refine(refinement)}>
 							<Icon name="close" />
 						</button>
 					</li>
