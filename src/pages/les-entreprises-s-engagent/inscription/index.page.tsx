@@ -1,5 +1,5 @@
 import Image from 'next/legacy/image';
-import React, { ChangeEvent, Dispatch, FormEvent, useCallback, useMemo, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import FormulaireDeContactEntreprise
@@ -27,25 +27,25 @@ import { Commune } from '~/server/localisations/domain/localisationAvecCoordonn�
 export type FormulaireEngagement = FormulaireÉtape1Props & FormulaireÉtape2Props;
 
 interface FormulaireÉtape1Props {
-  nomSociété: string;
-  codePostal: string;
-  ville: string;
-  siret: string;
-  secteur: string;
-  taille: string;
+	nomSociété: string
+	codePostal: string
+	ville: string
+	siret: string
+	secteur: string
+	taille: string
 }
 
 interface FormulaireÉtape2Props {
-  prénom: string;
-  nom: string;
-  email: string;
-  travail: string;
-  téléphone: string;
+	prénom: string
+	nom: string
+	email: string
+	travail: string
+	téléphone: string
 }
 
 enum Etape {
-  ETAPE_1 = 'Etape 1 sur 2',
-  ETAPE_2 = 'Etape 2 sur 2'
+	ETAPE_1 = 'Etape 1 sur 2',
+	ETAPE_2 = 'Etape 2 sur 2'
 }
 
 export const TITLE_ÉTAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 1 sur 2 | 1jeune1solution';
@@ -60,6 +60,8 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
 	const [isContactezNousOpen, setIsContactezNousOpen] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
+	const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
+	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 
 	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
 		codePostal: '',
@@ -128,11 +130,95 @@ export default function LesEntreprisesSEngagentInscription() {
         		<div className={styles.etape}>{étape}</div>
         		<div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
         		{isPremièreÉtape && (
-        			<PremièreÉtapeInscription
-        				onSubmit={goToÉtape2}
-        				formData={formulaireÉtape1}
-        				dispatchFormData={setFormulaireÉtape1}
-        			/>
+        			<>
+        				<Link
+        					appearance="asBackButton"
+        					className={styles.boutonRetour}
+        					href="/les-entreprises-s-engagent"
+        				>
+									Retour
+        				</Link>
+        				<form className={styles.formulaire} onSubmit={goToÉtape2}>
+        					<div className={styles.bodyFormulaire}>
+        						<InputText
+        							label="Indiquez le nom de l’entreprise"
+        							name="companyName"
+        							placeholder="Exemple : Crédit Agricole, SNCF…"
+        							value={formulaireÉtape1.nomSociété}
+        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+        								...formulaireÉtape1,
+        								nomSociété: event.currentTarget.value,
+        							})}
+        							required
+        						/>
+        						<InputAutocomplétionCommune
+        							required
+        							id="autocomplete-commune"
+        							label="Indiquez la ville du siège social de l’entreprise"
+        							name="companyPostalCode"
+        							placeholder="Exemple: Paris, Béziers..."
+        							valeurInitiale={autocomplétionCommuneValeur}
+        							onSuggestionSelected={(event, suggestion) => {
+        								setAutocomplétionCommuneValeur(suggestion);
+        								setFormulaireÉtape1({
+        									...formulaireÉtape1,
+        									codePostal: suggestion.codePostal,
+        									ville: suggestion.ville,
+        								});
+        							}}
+        						/>
+        						<InputText
+        							label="Indiquez votre numéro de SIRET"
+        							name="companySiret"
+        							placeholder="Exemple : 12345678901112"
+        							value={formulaireÉtape1.siret}
+        							required
+        							pattern={'^[0-9]{14}$'}
+        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+        								...formulaireÉtape1,
+        								siret: event.currentTarget.value,
+        							})}
+        						/>
+        						<InputAutocomplétionSecteurActivité
+        							required
+        							id="autocomplete-secteur-activité"
+        							label="Indiquez le secteur d’activité de l’entreprise"
+        							name="companySector"
+        							placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
+        							valeurInitiale={secteurActivitéValeur}
+        							onSuggestionSelected={(event, suggestion) => {
+        								setSecteurActivitéValeur(suggestion);
+        								setFormulaireÉtape1({
+        									...formulaireÉtape1,
+        									secteur: suggestion.valeur,
+        								});
+        							}}
+        						/>
+        						<Select
+        							required
+        							label="Indiquez la taille de l’entreprise"
+        							name="companySize"
+        							placeholder="Exemple : 250 à 499 salariés"
+        							optionList={taillesEntreprises}
+        							onChange={(value: string) => setFormulaireÉtape1({
+        								...formulaireÉtape1,
+        								taille: value,
+        							})}
+        							value={formulaireÉtape1.taille}
+        						/>
+        					</div>
+
+        					<div className={styles.validationEtape1}>
+        						<ButtonComponent
+        							icon={<Icon name="angle-right"/>}
+        							iconPosition="right"
+        							label="Suivant"
+        							type="submit"
+        						/>
+        						<DéchargeRGPD/>
+        					</div>
+        				</form>
+        			</>
         		)}
         		{isDeuxièmeÉtape && (
         			<>
@@ -220,7 +306,8 @@ export default function LesEntreprisesSEngagentInscription() {
         		)}
         		<p className={styles.footer}>
               Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification,
-        			<ButtonAsLink className={styles.contactLink} onClick={() => setIsContactezNousOpen(true)}>contactez-nous</ButtonAsLink>
+        			<ButtonAsLink className={styles.contactLink}
+        				onClick={() => setIsContactezNousOpen(true)}>contactez-nous</ButtonAsLink>
         		</p>
         	</div>
         	{
@@ -235,108 +322,3 @@ export default function LesEntreprisesSEngagentInscription() {
 		</main>
 	);
 }
-
-interface PremièreÉtapeInscriptionProps {
-  dispatchFormData: Dispatch<FormulaireÉtape1Props>
-  formData: FormulaireÉtape1Props
-
-  onSubmit(event: FormEvent<HTMLFormElement>): void
-}
-
-function PremièreÉtapeInscription({ onSubmit, formData, dispatchFormData }: PremièreÉtapeInscriptionProps) {
-	const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
-	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
-
-	return (
-		<>
-			<Link
-				appearance="asBackButton"
-				className={styles.boutonRetour}
-				href="/les-entreprises-s-engagent"
-			>
-        Retour
-			</Link>
-			<form className={styles.formulaire} onSubmit={onSubmit}>
-				<div className={styles.bodyFormulaire}>
-					<InputText
-						label="Indiquez le nom de l’entreprise"
-						name="companyName"
-						placeholder="Exemple : Crédit Agricole, SNCF…"
-						value={formData.nomSociété}
-						onChange={(event: ChangeEvent<HTMLInputElement>) => dispatchFormData({
-							...formData,
-							nomSociété: event.currentTarget.value,
-						})}
-						required
-					/>
-					<InputAutocomplétionCommune
-						required
-						id="autocomplete-commune"
-						label="Indiquez la ville du siège social de l’entreprise"
-						name="companyPostalCode"
-						placeholder="Exemple: Paris, Béziers..."
-						valeurInitiale={autocomplétionCommuneValeur}
-						onSuggestionSelected={(event, suggestion) => {
-							setAutocomplétionCommuneValeur(suggestion);
-							dispatchFormData({
-								...formData,
-								codePostal: suggestion.codePostal,
-								ville: suggestion.ville,
-							});
-						}}
-					/>
-					<InputText
-						label="Indiquez votre numéro de SIRET"
-						name="companySiret"
-						placeholder="Exemple : 12345678901112"
-						value={formData.siret}
-						required
-						pattern={'^[0-9]{14}$'}
-						onChange={(event: ChangeEvent<HTMLInputElement>) => dispatchFormData({
-							...formData,
-							siret: event.currentTarget.value,
-						})}
-					/>
-					<InputAutocomplétionSecteurActivité
-						required
-						id="autocomplete-secteur-activité"
-						label="Indiquez le secteur d’activité de l’entreprise"
-						name="companySector"
-						placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
-						valeurInitiale={secteurActivitéValeur}
-						onSuggestionSelected={(event, suggestion) => {
-							setSecteurActivitéValeur(suggestion);
-							dispatchFormData({
-								...formData,
-								secteur: suggestion.valeur,
-							});
-						}}
-					/>
-					<Select
-						required
-						label="Indiquez la taille de l’entreprise"
-						name="companySize"
-						placeholder="Exemple : 250 à 499 salariés"
-						optionList={taillesEntreprises}
-						onChange={(value: string) => dispatchFormData({
-							...formData,
-							taille: value,
-						})}
-						value={formData.taille}
-					/>
-				</div>
-
-				<div className={styles.validationEtape1}>
-					<ButtonComponent
-						icon={<Icon name="angle-right"/>}
-						iconPosition="right"
-						label="Suivant"
-						type="submit"
-					/>
-					<DéchargeRGPD/>
-				</div>
-			</form>
-		</>
-	);
-}
-

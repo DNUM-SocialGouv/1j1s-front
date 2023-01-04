@@ -43,14 +43,14 @@ describe('Inscription', () => {
 	beforeEach(() => {
 		cy.visit('/les-entreprises-s-engagent/inscription');
 	});
-	describe('quand l’utilisateur arrivent sur la page', () => {
-		it('il voit afficher la première étape de formulaire', () => {
+	describe('quand l’utilisateur arrive sur la page', () => {
+		it('voit afficher la première étape de formulaire', () => {
 			cy.contains('Etape 1 sur 2').should('exist');
 			cy.title().should('eq', TITLE_ETAPE_1);
 		});
 	});
-	describe('quand l’utilisateur clique sur Suivant et qu’il a rempli tous les champs', () => {
-		it('il passe à l’étape 2', () => {
+	describe('quand l‘utilisateur clique sur Suivant et qu’il a rempli tous les champs', () => {
+		it('passe à l’étape 2', () => {
 			remplirFormulaireEtape1();
 			cy.get('button[type="submit"]').click();
 			cy.contains('Etape 2 sur 2').should('exist');
@@ -58,11 +58,15 @@ describe('Inscription', () => {
 		});
 	});
 	describe('puis passe à l’étape 2 et qu’il clique sur Retour', () => {
-		it('il repasse à l’étape 1', () => {
+		it('repasse à l’étape 1 avec les champs toujours remplis', () => {
 			remplirFormulaireEtape1();
 			cy.get('button[type="submit"]').click();
 			cy.contains('Retour').click();
 			cy.contains('Etape 1 sur 2').should('exist');
+			cy.get('input[name="companyName"]').should('have.value', 'Octo');
+			cy.get('input[name="companySiret"]').should('have.value', '41816609600069');
+			cy.get('input[name="companySector"]').should('have.value', 'Santé humaine et action sociale');
+			cy.contains('20 à 49 salariés').should('exist');
 			cy.title().should('eq', TITLE_ETAPE_1);
 		});
 	});
