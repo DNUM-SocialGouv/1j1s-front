@@ -20,7 +20,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
 	}
 }
 
-const DemandeDeContactCEJValidator = Joi.object({
+export const DemandeDeContactCEJValidator = Joi.object({
 	age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(parseAge).required(),
 	codeCommune: Joi.string().alphanum().length(5).required(),
 	email: Joi.string().email().required(),

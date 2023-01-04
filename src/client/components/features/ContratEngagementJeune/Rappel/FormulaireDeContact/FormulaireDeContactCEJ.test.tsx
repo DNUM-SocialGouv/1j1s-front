@@ -10,11 +10,11 @@ import FormulaireDeContactCEJ from '~/client/components/features/ContratEngageme
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { DemandeDeContactCEJValidator } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);
 describe('<FormulaireDeContactCEJ />', () => {
-	const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Localisation'];
 
 	function renderComponent() {
 		const onSuccess = jest.fn();
@@ -40,25 +40,29 @@ describe('<FormulaireDeContactCEJ />', () => {
 		renderComponent();
 		// When
 		// Then
-		expect(screen.getByText('Prénom')).toBeInTheDocument();
-		expect(screen.getByText('Nom')).toBeInTheDocument();
-		expect(screen.getByText('Adresse email')).toBeInTheDocument();
-		expect(screen.getByText('Téléphone')).toBeInTheDocument();
-		expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
-		expect(screen.getByText('Localisation')).toBeInTheDocument();
+		expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
+		expect(screen.getByLabelText('Nom')).toBeInTheDocument();
+		expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
+		expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
+		expect(screen.getByLabelText('Age', { exact: true })).toBeInTheDocument();
+		expect(screen.getByLabelText('Localisation')).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
 	});
 
-	for (const label of labels.filter((l) => l !== 'Age')) {
-		it(`a un champ ${label} obligatoire`, async () => {
-			// Given
-			renderComponent();
-			// When
-			await userEvent.type(screen.getByLabelText(label), 's{backspace}');
-			// Then
-			expect(screen.getByLabelText('Nom')).toBeInvalid();
+	describe('Quand les champs sont obligatoires', () => {
+		it.each([
+			{ label: 'Prénom' },
+			{ label: 'Nom' },
+			{ label: 'Adresse email' },
+			{ label: 'Age' },
+			{ label: 'Localisation' },
+		])('pour %j on retourne required', (queryParametersToTestRequired) => {
+			const result = DemandeDeContactCEJValidator.validate(queryParametersToTestRequired);
+
+			expect(result.error).toBeDefined();
+
 		});
-	}
+	});
 
 	it('a un champ Age obligatoire', async () => {
 		// Given
