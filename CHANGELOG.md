@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.2...v2.35.3) (2023-01-04)
+
+
+### Bug Fixes
+
+* **engagement:** sauvegarder taille et localisation inscription entreprise ([dde3bce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dde3bce2600b0715de543afa442399a006ffdf46))
+
 ## [2.35.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.1...v2.35.2) (2023-01-04)
 
 
