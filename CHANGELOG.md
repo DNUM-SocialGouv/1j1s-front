@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.35.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.0...v2.35.1) (2023-01-04)
+
+
+### Bug Fixes
+
+* **style:** taille images et pictos ([e672122](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e672122ce1796469f459fe21a43ff55fa7663731))
+
 ## [2.35.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.34.1...v2.35.0) (2023-01-03)
 
 
