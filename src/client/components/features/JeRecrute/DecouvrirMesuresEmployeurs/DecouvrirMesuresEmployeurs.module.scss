@@ -12,9 +12,14 @@
       height: 30rem;
     }
     &Text {
-      > a {
-        display: block;
+      display: flex;
+      flex-direction: column;
+
+      @include media(medium) {
+        align-self: center;
+        align-items: center;
       }
+
       &Titre {
         color: $color-primary;
         font-size: 1.5rem;
@@ -37,16 +42,15 @@
     &Container {
       display: flex;
       max-width: 60rem;
+
       &Text {
-        > a {
-          display: initial;
-          align-self: flex-start;
-        }
         margin-left: 4rem;
-        display: flex;
-        flex-direction: column;
         align-self: center;
         align-items: center;
+
+        > a {
+          align-self: flex-start;
+        }
       }
 
       &Illustration {
