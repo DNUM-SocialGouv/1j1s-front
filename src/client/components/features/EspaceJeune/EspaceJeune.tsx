@@ -4,7 +4,7 @@ import { EspaceJeuneFlippingCardList } from '~/client/components/features/Espace
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 
 interface EspaceJeuneProps {
-  espaceJeune : EspaceJeune
+  espaceJeune: EspaceJeune
 }
 
 export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
@@ -13,9 +13,5 @@ export function EspaceJeuneComponent({ espaceJeune }: EspaceJeuneProps) {
 	const cardList: CarteEspaceJeune[] = [...accompagnement, ...orienterFormer, ...vieProfessionnelle ]
 		.sort((a, b) => a.titre.localeCompare(b.titre));
 
-	return (
-		<>
-			<EspaceJeuneFlippingCardList cardList={cardList} maxCardPerRow={MAX_CARTE_PER_ROW} />
-		</>
-	);
+	return <EspaceJeuneFlippingCardList cardList={cardList} maxCardPerRow={MAX_CARTE_PER_ROW} />;
 }
