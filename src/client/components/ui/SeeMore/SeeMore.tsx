@@ -16,7 +16,8 @@ interface SeeMoreProps extends CommonProps {
 }
 
 export default function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalButtonClassName, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
-	const ref = useRef<HTMLButtonElement>(null);
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const divRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const ariaId = uuidv4();
 
@@ -26,36 +27,32 @@ export default function SeeMore({ children, overridedClosedLabel, overridedOpene
 
 	function toggle(newValueOpen: boolean) {
 		if (isOpen === newValueOpen) return;
+		if (!newValueOpen && divRef.current) {
+			const divPosition = divRef.current.getBoundingClientRect();
+			window.scrollBy({ behavior: 'smooth', top: -divPosition.height });
+		}
 		setIsOpen(newValueOpen);
-		ref.current?.setAttribute('aria-expanded', `${isOpen}`);
+		buttonRef.current?.setAttribute('aria-expanded', `${isOpen}`);
 	}
 
 	const buttonLabel: string = useMemo(() => {
-		if(!isOpen) {
-			if(overridedClosedLabel) {
-				return overridedClosedLabel;
-			} else {
-				return 'Voir plus';
-			}
-		} else {
-			if(overridedOpenedLabel) {
-				return overridedOpenedLabel;
-			} else {
-				return 'Voir moins';
-			}
+		if (isOpen) {
+			return overridedOpenedLabel || 'Voir moins';
 		}
+		return overridedClosedLabel || 'Voir plus';
 	}, [overridedClosedLabel, overridedOpenedLabel, isOpen]);
 
 	return (
 		<>
 			<div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen }, className)}
+	      ref={divRef}
 				id={`section-${ariaId}`}
 				role="region"
 				aria-labelledby={`seeMore-${ariaId}`}>
 				{children}
 			</div>
 			<button className={classNames(styles.seeMoreButton, additionalButtonClassName, !isOpen && additionalClosedButtonClassName)}
-				ref={ref}
+				ref={buttonRef}
 				onClick={toggleSeeMore}
 				type="button" 
 				aria-expanded={isOpen}

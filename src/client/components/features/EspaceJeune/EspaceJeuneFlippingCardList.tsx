@@ -41,24 +41,18 @@ export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListPr
 		);
 	}
 
-	function displaySectionCartes(cardList: CarteEspaceJeune[]) {
-		return <>
+	return (
+		<>
 			<ul className={classNames(styles.cardList, styles.cardListPadding)}>
 				{displayCartes(cardList.slice(0, maxCardPerRow))}
 			</ul>
 			{cardList.length > maxCardPerRow &&
-      <SeeMore overridedOpenedLabel={'Voir moins de services'} overridedClosedLabel={'Voir plus de services'}>
-      	<ul className={classNames(styles.cardList, styles.cardListPadding)}>
-      		{displayCartes(cardList.slice(maxCardPerRow))}
-      	</ul>
-      </SeeMore>
+        <SeeMore overridedOpenedLabel={'Voir moins de services'} overridedClosedLabel={'Voir plus de services'}>
+        	<ul className={classNames(styles.cardList, styles.cardListPadding)}>
+        		{displayCartes(cardList.slice(maxCardPerRow))}
+        	</ul>
+        </SeeMore>
 			}
-		</>;
-	}
-
-	return (
-		<> {displaySectionCartes(cardList)} </>
+		</>
 	);
-
-
 }
