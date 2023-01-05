@@ -46,7 +46,7 @@
     "uuid": "~9.0.0"
   },
   "devDependencies": {
-    "@socialgouv/eslint-config-recommended": "~1.130.0",
+    "@socialgouv/eslint-config-recommended": "~1.131.0",
     "@testing-library/jest-dom": "~5.16.5",
     "@testing-library/react": "~13.4.0",
     "@testing-library/user-event": "~14.4.3",
