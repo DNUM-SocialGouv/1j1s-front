@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 
-import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
-import { CheckIcon } from '../../../../ui/Icon/check.icon';
-import { ModalComponent } from '../../../../ui/Modal/ModalComponent';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
+
 import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
 import styles
 	from './ModalDemandeDeContactCEJ.module.scss';

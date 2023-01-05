@@ -1,16 +1,16 @@
 import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
+import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
-import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
-import InputAutocomplétionCommune from '../../../../ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
-import { InputText } from '../../../../ui/Form/InputText/InputText';
-import { SpinnerIcon } from '../../../../ui/Icon/spinner.icon';
-import { Select } from '../../../../ui/Select/Select';
-import { DéchargeRGPD } from '../../../LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import styles from './FormulaireDeContactCEJ.module.scss';
 
 interface FormulaireDeContactCEJProps {

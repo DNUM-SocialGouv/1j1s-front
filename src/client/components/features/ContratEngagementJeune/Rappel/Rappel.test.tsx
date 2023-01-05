@@ -12,6 +12,7 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact/dema
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { createSuccess } from '~/server/errors/either';
 
+
 describe('<Rappel />', () => {
 	afterEach(() => {
 		jest.resetAllMocks();
@@ -46,16 +47,19 @@ describe('<Rappel />', () => {
 		expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
 	});
 	describe('Lorsqu‘on clique sur le bouton je souhaite être contacté(e)', () => {
-		const labels = ['Prénom', 'Nom', 'Adresse email', 'Téléphone', 'Age', 'Ville'];
 		it('affiche un formulaire de rappel', async () => {
 			// Given
 			renderComponent();
 			// When
 			await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
 			// Then
-			for (const label of labels) {
-				expect(screen.getByText(label)).toBeInTheDocument();
-			}
+			expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
+			expect(screen.getByLabelText('Nom')).toBeInTheDocument();
+			expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
+			expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
+			expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
+			expect(screen.getByLabelText('Ville')).toBeInTheDocument();
+
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
 		});
 	});
