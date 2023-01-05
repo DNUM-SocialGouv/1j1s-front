@@ -6,10 +6,14 @@
 
   &Container {
     @extend %max-container;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
     padding: 0 1.5rem;
-    place-items: center;
+
+    @include media(medium) {
+      align-items: center;
+    }
 
     &Titre {
       color: $color-primary;
