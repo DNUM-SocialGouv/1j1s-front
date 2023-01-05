@@ -125,17 +125,6 @@ function mapCartesMesuresEmployeursList(carteMesuresEmployeursList: CarteMesures
 	});
 }
 
-export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
-	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
-
-	return {
-		accompagnement: mapCartesEspaceJeuneList(accompagnement),
-		aidesFinancières: mapCartesEspaceJeuneList(aidesFinancieres),
-		orienterFormer: mapCartesEspaceJeuneList(orienterFormer),
-		vieProfessionnelle: mapCartesEspaceJeuneList(vieProfessionnelle),
-	};
-}
-
 export function mapActualites(response: StrapiSingleTypeResponse<ActualiteAttributesResponse>): CarteActualite[] {
 	return mapCarteActualiteList(response.data.attributes.listeActualites);
 }
@@ -163,13 +152,25 @@ function getExtraitContenu(contenu: string, size = 120): string {
 	return `${brief} …`;
 }
 
-function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneResponse[]): CarteEspaceJeune[] {
+export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
+	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
+
+	return {
+		accompagnement: mapCartesEspaceJeuneList(accompagnement, 'Accompagnement'),
+		aidesFinancières: mapCartesEspaceJeuneList(aidesFinancieres, 'Aides financières'),
+		orienterFormer: mapCartesEspaceJeuneList(orienterFormer, 'Orientation et formation'),
+		vieProfessionnelle: mapCartesEspaceJeuneList(vieProfessionnelle, 'Entrée dans la vie professionnelle'),
+	};
+}
+
+function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneResponse[], categorie: string): CarteEspaceJeune[] {
 	return cartesEspaceJeuneList.map<CarteEspaceJeune>((carteEspaceJeune) => {
 		const { banniere, contenu, titre, url, pourQui } = carteEspaceJeune;
 		const article = mapArticleRelation(carteEspaceJeune.article);
 		return {
 			article: article ?? null,
 			bannière: mapImage(banniere),
+			categorie: categorie,
 			concerné: pourQui,
 			contenu,
 			extraitContenu: getExtraitContenu(contenu, 110),

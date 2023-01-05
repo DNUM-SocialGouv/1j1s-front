@@ -19,17 +19,26 @@ interface CardProps {
   imageUrl: string
   link: string
   title: string
+	category?: string
   titleAs?: HtmlHeadingTag
   flippingCardContent: string
 }
 
-export const FlippingCard = ({ children, imageUrl, link, title, titleAs, flippingCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
+export const FlippingCard = ({ children, category, imageUrl, link, title, titleAs, flippingCardContent, ...rest }: React.PropsWithChildren<CardProps>) => {
 	const cardFlipRef = useRef<HTMLDivElement>(null);
 	const isInternalLink = useIsInternalLink(link);
 	const [isCardFlipped, setIsCardFlipped] = useState(false);
 	const [isAnimationOn, setIsAnimationOn] = useState(false);
 	const hasFlipCardContent = !!flippingCardContent.length;
 	const flipButton = useRef<HTMLButtonElement>(null);
+
+	const categoryClass = useMemo(() => {
+		switch (category) {
+			case 'Accompagnement': return styles.cardCategoryAccompagnement;
+			case 'Orientation et formation': return styles.cardCategoryOrienterFormer;
+			case 'Entrée dans la vie professionnelle': return styles.cardCategoryVieProfessionnelle;
+		}
+	}, [category]);
 
 
 	useEffect(function setFocusOnFlip() {
@@ -78,23 +87,25 @@ export const FlippingCard = ({ children, imageUrl, link, title, titleAs, flippin
 					<Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
 				</div>
 
+				{category && <div className={classNames(styles.cardCategory, categoryClass)}>{category}</div>}
+
 				<div className={styles.cardContent}>
 					<CardTitle className={styles.cardContentTitle}>{title}</CardTitle>
 					{children}
 				</div>
 
 				<div className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
-					{hasFlipCardContent && <button ref={flipButton} onClick={() => flipCard()}>Qui est concerné ?</button>}
+					{hasFlipCardContent && <button className={styles.cardActionWrapperButton} ref={flipButton} onClick={() => flipCard()}>Qui est concerné ?</button>}
 					{linkAsButton}
 				</div>
 			</div>
-			{ isCardFlipped && <div ref={cardFlipRef} className={classNames(styles.card, styles.cardFlipBack)}>
+			{isCardFlipped && <div ref={cardFlipRef} className={classNames(styles.card, styles.cardFlipBack)}>
 				<button onClick={() => flipCard(true)} className={styles.cardFlipBackAction}>
 					<span className="sr-only">masquer la section qui est concerné</span>
 					<Icon name='angle-left' aria-hidden="true"/>
 				</button>
 				<div className={styles.cardFlipBackTitle}>Qui est concerné ?</div>
-				<div className={styles.cardFlipBackContent}><Marked markdown={flippingCardContent} /></div>
+				<div className={styles.cardFlipBackContent}><Marked markdown={flippingCardContent}/></div>
 			</div>}
 		</div>
 	);

@@ -3,51 +3,53 @@ import React from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
 import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
-import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import useSanitize from '~/client/hooks/useSanitize';
 import { CarteEspaceJeune } from '~/server/cms/domain/espaceJeune';
 
-export function EspaceJeuneFlippingCardList(cardList: CarteEspaceJeune[], MAX_CARTE_PER_ROW: number) {
+interface EspaceJeuneFlippingCardListProps {
+	cardList: CarteEspaceJeune[]
+	maxCardPerRow: number
+}
 
-	function CarteEspaceJeune(carte: CarteEspaceJeune, index: number) {
+export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListProps) {
+	const { cardList, maxCardPerRow } = props;
+
+	function CarteEspaceJeune({ carte, index }: { carte: CarteEspaceJeune, index: number }) {
 		const titre = useSanitize(carte.titre);
+		const categorie = carte.categorie;
 		const bannière = carte.bannière?.url || '';
 		const link = carte.link;
-		const extrait = useSanitize(carte.extraitContenu);
 		const concerné = carte.concerné || '';
 
 		return <FlippingCard
+			category={categorie}
 			key={index}
 			imageUrl={bannière}
 			link={link}
 			title={titre}
 			flippingCardContent={concerné}
 			data-testid="carteEspaceJeune"
-		>
-			<Marked markdown={extrait} />
-		</FlippingCard>;
+		/>;
 	}
 
 	function displayCartes(cardList: CarteEspaceJeune[]) {
-		return cardList.map((carte, index) => {
-			return (
-				<li key={index}>
-					{CarteEspaceJeune(carte, index)}
-				</li>
-			);
-		});
+		return cardList.map((carte, index) => 
+			<li key={index}>
+				<CarteEspaceJeune carte={carte} index={index}/>
+			</li>,
+		);
 	}
 
 	function displaySectionCartes(cardList: CarteEspaceJeune[]) {
 		return <>
 			<ul className={classNames(styles.cardList, styles.cardListPadding)}>
-				{displayCartes(cardList.slice(0, MAX_CARTE_PER_ROW))}
+				{displayCartes(cardList.slice(0, maxCardPerRow))}
 			</ul>
-			{cardList.length > MAX_CARTE_PER_ROW &&
-      <SeeMore>
+			{cardList.length > maxCardPerRow &&
+      <SeeMore overridedOpenedLabel={'Voir moins de services'} overridedClosedLabel={'Voir plus de services'}>
       	<ul className={classNames(styles.cardList, styles.cardListPadding)}>
-      		{displayCartes(cardList.slice(MAX_CARTE_PER_ROW))}
+      		{displayCartes(cardList.slice(maxCardPerRow))}
       	</ul>
       </SeeMore>
 			}

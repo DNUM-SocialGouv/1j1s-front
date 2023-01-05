@@ -3,6 +3,7 @@
 .animate {
   --rotate-y: 180deg;
 }
+
 .cardWrapper {
   height: 100%;
   position: relative;
@@ -19,11 +20,30 @@
   background-color: $color-on-primary;
   max-height: calc(250px + 8.75rem);
   overflow: hidden;
+  border: 1px solid $deep-neutral-grey;
 
   &ImageWrapper {
     position: relative;
     flex: 0 0 150px;
-    overflow: hidden;
+  }
+
+  &Category {
+    margin-inline: 1.5rem;
+    color: $white;
+    padding-inline: 0.25rem;
+    width: fit-content;
+    @extend %text-small;
+    @extend %bold;
+
+    &Accompagnement {
+      background-color: $cerro-green;
+    }
+    &OrienterFormer {
+      background-color: $auricula-purple;
+    }
+    &VieProfessionnelle {
+      background-color: $dark-vinaceous;
+    }
   }
 
   &Flip {
@@ -40,6 +60,7 @@
     transform: rotateY(180deg) translateZ(1px);
     color: $color-on-primary;
     padding: 1rem;
+
     &Action {
       background-color: $color-on-primary;
       border-radius: 50%;
@@ -50,6 +71,7 @@
       width: 2rem;
       height: 2rem;
     }
+
     &Title {
       font-size: 1rem;
       font-weight: bold;
@@ -57,6 +79,7 @@
       line-height: 1.2;
       margin: 1.5rem 0;
     }
+
     &Content {
       display: flex;
       align-items: center;
@@ -67,7 +90,6 @@
   }
 
   &Content {
-    min-height: 8.75rem;
     padding: 1rem 1.5rem 0;
     overflow: auto;
 
@@ -77,25 +99,33 @@
       line-height: 1.2;
       margin-bottom: 0.75rem;
     }
+
     > *:not(:first-child) {
       font-size: 0.75rem;
     }
-
   }
 
   &ActionWrapper {
     display: flex;
     padding: 1rem 1.5rem;
+
     &SpaceBetween {
       justify-content: space-between;
     }
+
     &FlexEnd {
       justify-content: flex-end;
     }
-    button {
+
+    &Button {
       text-decoration: underline;
+      text-underline-offset: 3px;
       color: $color-primary;
       font-size: 0.875rem;
+
+      &:hover {
+        color: $color-primary-on-hover;
+      }
     }
   }
 
@@ -115,6 +145,7 @@
 @include media(medium) {
   .card {
     max-height: calc(17.5rem + 8.75rem);
+
     &ImageWrapper {
       flex: 0 0 180px;
     }
@@ -126,10 +157,12 @@
     }
 
     &Content {
-      min-height: 170px;
+      height: 5.5rem;
+
       &Title {
         font-size: 1.25rem;
       }
+
       > *:not(:first-child) {
         font-size: 1rem;
       }
