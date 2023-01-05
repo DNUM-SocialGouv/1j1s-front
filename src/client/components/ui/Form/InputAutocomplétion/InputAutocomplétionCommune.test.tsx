@@ -37,7 +37,7 @@ describe('InputAutocomplétionCommune', function () {
 
 		// Then
 		await waitFor(() => {
-			expect(screen.getByText('Paris 15e Arrondissement')).toBeInTheDocument();
+			expect(screen.getByText('Paris 15e Arrondissement (75015)')).toBeInTheDocument();
 		});
 		await waitFor(() => {
 			expect(localisationService.rechercherCommune).toHaveBeenCalled();

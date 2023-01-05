@@ -115,11 +115,10 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 function mapDemandeDeContactAccompagnement(formData: FormData, contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement): DemandeDeContactAccompagnement {
 	return {
 		age: Number(formData.get('age')) as Age,
-		codeCommune: String(formData.get('codeCommune')),
 		commentaire: String(formData.get('commentaire')),
+		commune: String(formData.get('libelleCommune')),
 		email: String(formData.get('mail')),
 		nom: String(formData.get('lastname')),
-		nomCommune: String(formData.get('libelleCommune')),
 		prénom: String(formData.get('firstname')),
 		téléphone: String(formData.get('phone')),
 		établissement: contactÉtablissementAccompagnement,

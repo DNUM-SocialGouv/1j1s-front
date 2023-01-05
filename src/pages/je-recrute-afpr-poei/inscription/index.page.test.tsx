@@ -241,7 +241,7 @@ async function remplirFormulaireEtape1() {
 	const inputVille = screen.getByText('Indiquez la ville du siège social de l’entreprise');
 	await user.type(inputVille, 'Paris');
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
-	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement')));
+	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 }
 
 async function remplirFormulaireEtape2() {

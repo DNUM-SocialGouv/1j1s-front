@@ -30,7 +30,7 @@ function remplirFormulaireEtape1() {
 						latitude: 48.859,
 						longitude: 2.347,
 					},
-					libelle: 'Paris',
+					libelle: 'Paris (75006)',
 					ville: 'Paris',
 				},
 			] } ),

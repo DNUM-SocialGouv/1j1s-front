@@ -24,8 +24,7 @@ export interface DemandeDeContactCEJ extends DemandeDeContact {
 }
 
 export interface DemandeDeContactAccompagnement extends DemandeDeContact {
-  nomCommune: string
-  codeCommune: string
+  commune: string
   age: Age
   commentaire: string
   établissement: ContactÉtablissementAccompagnement

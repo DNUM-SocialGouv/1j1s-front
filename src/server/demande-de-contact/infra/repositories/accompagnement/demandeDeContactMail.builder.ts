@@ -19,7 +19,7 @@ export function buildDemandeDeContactMail(demandeDeContactAccompagnement: Demand
     • Adresse email : ${demandeDeContactAccompagnement.email}
     • Téléphone : ${demandeDeContactAccompagnement.téléphone}
     • Age : ${demandeDeContactAccompagnement.age}
-    • Ville : ${demandeDeContactAccompagnement.nomCommune} (${demandeDeContactAccompagnement.codeCommune}) 
+    • Ville : ${demandeDeContactAccompagnement.commune}
     • Commentaire : ${demandeDeContactAccompagnement.commentaire || 'Aucun commentaire'}`,
 		},
 		to: [

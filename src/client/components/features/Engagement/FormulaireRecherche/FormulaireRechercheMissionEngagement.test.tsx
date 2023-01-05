@@ -99,7 +99,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			fireEvent.submit(rechercherMissionButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris+%2875006%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });
 		});
 	});
 });

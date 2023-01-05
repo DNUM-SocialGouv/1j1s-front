@@ -24,11 +24,10 @@ describe('envoyer une demande de contact', () => {
 					const res = await fetch({
 						body: JSON.stringify({
 							age: '23',
-							codeCommune: '75056',
 							commentaire: 'Merci de me recontacter',
+							commune: 'Paris (75006)',
 							email: 'john.doe@email.com',
 							nom: 'Doe',
-							nomCommune: 'Paris',
 							prénom: 'John',
 							téléphone: '0606060606',
 							établissement: {
@@ -55,11 +54,10 @@ describe('envoyer une demande de contact', () => {
 		it('retourne un status 400', async () => {
 			const body = {
 				age: '23',
-				codeCommune: '75056',
 				commentaire: 'Merci de me recontacter',
+				commune: 'Paris (75006)',
 				email: 'john.doe@email.com',
 				nom: 'Doe',
-				nomCommune: 'Paris',
 				prénom: 'John',
 				téléphone: '0606060606',
 				établissement: {
