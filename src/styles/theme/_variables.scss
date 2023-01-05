@@ -1,37 +1,65 @@
 /* ***************
- * Colors
+ * Color palette
  * ***************/
-$color-primary: #566BB1;
-$color-primary-on-hover: #735BF2;
-$color-on-primary: #FFFFFF;
-$color-secondary: #18753C;
-$color-on-secondary: #FFFFFF;
-$color-background-white-lilac: #F6F7FB;
-$color-background-white-titan: #ECECFF;
-$color-background: #FFFFFF;
-$color-on-background: #161616;
-$color-surface: #FFFFFF;
-$color-on-surface: #161616;
-$color-tertiary: #B34000;
-$color-error: #CE0500;
+$blue-navy: #000091;
+$diva-blue: #566BB1;
+$smalt-blue: #53918C;
+$cornflower-blue: #735BF2;
+$deepslate-blue: #455A64;
+$auricula-purple: #6E445A;
+$tapestry: #A558A0;
+$dark-vinaceous: #A66465;
+$coral: #E4794A;
+$brazil-red: #B34000;
+$scarlet-red: #CE0500;
+$cerro-green: #61803E;
+$duck-green: #18753C;
+$white: #FFFFFF;
+$white-lilac: #F6F7FB;
+$white-titan: #ECECFF;
+$light-neutral-grey: #EEEEEE;
+$neutral-grey: #929292;
+$deep-neutral-grey: #666666;
+$black: #161616;
+
+/* ***************
+ * Semantic colors
+ * ***************/
+$color-primary: $diva-blue;
+$color-primary-on-hover: $cornflower-blue;
+$color-on-primary: $white;
+$color-secondary: $duck-green;
+$color-on-secondary: $white;
+$color-background-white-lilac: $white-lilac;
+$color-background-white-titan: $white-titan;
+$color-background: $white;
+$color-on-background: $black;
+$color-surface: $white;
+$color-on-surface: $black;
 $color-cej-background : #EA711B;
-$color-mention-grey: #666666;
-$color-disabled: #e5e5e5;
-$color-on-disabled: #696969;
-$color-blue-navy: #000091;
+$color-tertiary: $brazil-red;
+
+$color-error: $scarlet-red;
+$color-mention-grey: $deep-neutral-grey;
+$color-disabled: $light-neutral-grey;
+$color-on-disabled: $deep-neutral-grey;
+
+$color-blue-navy: $blue-navy;
 $color-lighten-blue-navy: lighten($color-blue-navy, 67%);
-$color-tapestry: #A558A0;
+$color-tapestry: $tapestry;
 $color-lighten-tapestry: lighten($color-tapestry, 45%);
-$color-smalt-blue: #53918C;
+$color-smalt-blue: $smalt-blue;
 $color-lighten-smalt-blue: lighten($color-smalt-blue, 48%);
-$color-coral: #FF934F;
+$color-coral: $coral;
 $color-lighten-coral: lighten($color-coral, 31%);
-$color-separator: #E5E5E5;
-$color-form-field: #f6f6f6;
+
+$color-separator: $light-neutral-grey;
+$color-form-field: $white-lilac;
 $color-mine-shaft: #3A3A3A;
-$color-skeleton: #E9EEEE;
-$color-cadre-formulaire: #EEF0F7;
-$color-tag: #EEEEEE;
+$color-skeleton: $light-neutral-grey;
+$color-cadre-formulaire: $white-lilac;
+$color-tag: $light-neutral-grey;
+
 /* ***************
  * Shadows
  * ***************/

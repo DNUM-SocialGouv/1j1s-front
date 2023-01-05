@@ -77,12 +77,13 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 					</SeeMore>
 				</section>
 			}
-			<section id='espace-jeune' className={classNames(styles.section, styles.mesuresJeunesSection)}>
+			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
 				<LightHero
+					className={styles.sectionTitle}
 					titleAs={'h2'}
 					primaryText={'Services jeunes, retrouvez les services conçus pour vous :'}
 					secondaryText={'entrée dans la vie professionnelle, orientation, formation, accompagnement'} />
-				<EspaceJeuneComponent espaceJeune={ espaceJeune } />
+				<EspaceJeuneComponent espaceJeune={espaceJeune} />
 			</section>
 		</main>
 	);

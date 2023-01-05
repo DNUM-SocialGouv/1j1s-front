@@ -10,6 +10,7 @@ export interface EspaceJeune {
 
 export interface CarteEspaceJeune {
   titre: string
+  categorie?: string
   contenu: string
   bannière: Image | undefined
   url: string

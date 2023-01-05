@@ -19,6 +19,7 @@ export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEs
 			alt: 'text',
 			url: 'https://animage.jpg',
 		},
+		categorie: 'Catégorie',
 		concerné: 'pour les 12 à 18mois',
 		contenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
 		extraitContenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s …',
@@ -29,21 +30,21 @@ export function aCarteEspaceJeune(override?: Partial<CarteEspaceJeune>): CarteEs
 	};
 }
 
-export function aCarteEspaceJeuneList(): CarteEspaceJeune[] {
+export function aCarteEspaceJeuneList(categorie?: string): CarteEspaceJeune[] {
 	return [
-		aCarteEspaceJeune(),
-		aCarteEspaceJeune({ article: null, link: 'Une belle url de carte' }),
-		aCarteEspaceJeune(),
-		aCarteEspaceJeune(),
+		aCarteEspaceJeune({ categorie }),
+		aCarteEspaceJeune({ article: null, categorie, link: 'Une belle url de carte' }),
+		aCarteEspaceJeune({ categorie }),
+		aCarteEspaceJeune({ categorie }),
 	];
 }
 
 export function anEspaceJeune(): EspaceJeune {
 	return {
-		accompagnement: aCarteEspaceJeuneList(),
-		aidesFinancières:  aCarteEspaceJeuneList(),
-		orienterFormer:  aCarteEspaceJeuneList(),
-		vieProfessionnelle:  aCarteEspaceJeuneList(),
+		accompagnement: aCarteEspaceJeuneList('Accompagnement'),
+		aidesFinancières:  aCarteEspaceJeuneList('Aides financières'),
+		orienterFormer:  aCarteEspaceJeuneList('Orientation et formation'),
+		vieProfessionnelle:  aCarteEspaceJeuneList('Entrée dans la vie professionnelle'),
 	};
 }
 
