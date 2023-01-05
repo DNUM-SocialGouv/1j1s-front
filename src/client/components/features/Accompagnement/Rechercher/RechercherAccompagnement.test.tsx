@@ -64,7 +64,7 @@ describe('RechercherAccompagnement', () => {
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createSuccess([]));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'cij' } });
+				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -89,7 +89,7 @@ describe('RechercherAccompagnement', () => {
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris' } });
+				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -113,7 +113,7 @@ describe('RechercherAccompagnement', () => {
 				const établissementAccompagnementService = anÉtablissementAccompagnementService();
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'cij' } });
+				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -190,7 +190,7 @@ describe('RechercherAccompagnement', () => {
 			const établissementAccompagnementService = anÉtablissementMissionLocaleService();
 			const localisationServiceMock = aLocalisationService();
 
-			mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris', typeAccompagnement: 'mission_locale' } });
+			mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)', typeAccompagnement: 'mission_locale' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}

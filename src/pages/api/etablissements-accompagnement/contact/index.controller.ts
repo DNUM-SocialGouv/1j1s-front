@@ -9,11 +9,10 @@ import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const demandeContactAccompagnementBodySchema = Joi.object({
 	age: Joi.number().min(16).max(30).required(),
-	codeCommune: Joi.string().alphanum().length(5).required(),
 	commentaire: Joi.string().allow(''),
+	commune: Joi.string().required(),
 	email: Joi.string().email().allow(''),
 	nom: Joi.string().required(),
-	nomCommune: Joi.string().required(),
 	prénom: Joi.string().required(),
 	téléphone: Joi.string().required(),
 	établissement: Joi.object({

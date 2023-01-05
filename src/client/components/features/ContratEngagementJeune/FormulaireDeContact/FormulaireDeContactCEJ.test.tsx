@@ -175,7 +175,7 @@ export async function remplirFormulaireDeContact(data: ContactInputs, user = use
 
 	await userEvent.type(screen.getByText('Ville'), data.ville);
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
-	await waitFor(() => userEvent.click(screen.getByText('Paris 15e Arrondissement')));
+	await waitFor(() => userEvent.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 
 	await user.click(screen.getByText('Age'));
 	await user.click(screen.getByText(data.age));

@@ -4,11 +4,10 @@ import { TypeÉtablissement } from '~/server/établissement-accompagnement/domai
 export function aDemandeDeContactAccompagnement(): DemandeDeContactAccompagnement {
 	return {
 		age: 23,
-		codeCommune: '75056',
 		commentaire: 'Merci de me recontacter',
+		commune: 'Paris (75006)',
 		email: 'john.doe@email.com',
 		nom: 'Doe',
-		nomCommune: 'Paris',
 		prénom: 'John',
 		téléphone: '0606060606',
 		établissement: {

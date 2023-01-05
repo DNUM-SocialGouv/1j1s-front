@@ -98,7 +98,7 @@ describe('InputCommune', () => {
 			fireEvent.click(résultatCommuneList[0]);
 
 			// THEN
-			expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris');
+			expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris (75006)');
 			expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
 			expect(screen.getByDisplayValue('48.859')).toBeInTheDocument();
 			expect(screen.getByDisplayValue('2.347')).toBeInTheDocument();
