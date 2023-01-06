@@ -6,11 +6,11 @@ import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 describe('enregistrerContactPOEHandler', () => {
 	describe('quand la méthode n‘est pas un POST', () => {
-		it('retourne une erreur 406', async () => {
+		it.each(['GET', 'PUT', 'DELETE'])('retourne une erreur 406', async (method: string) => {
 			await testApiHandler<void | ErrorHttpResponse>({
 				handler: (req, res) => enregistrerContactPOEHandler(req, res),
 				test: async ({ fetch }) => {
-					const res = await fetch({ method: 'GET' });
+					const res = await fetch({ method });
 					expect(res.status).toEqual(406);
 				},
 				url: '/contacts-poe',
