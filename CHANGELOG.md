@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.36.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.5...v2.36.0) (2023-01-06)
+
+
+### Features
+
+* **espace-jeune:** retours de PR ([75d3805](https://github.com/DNUM-SocialGouv/1j1s-front/commit/75d3805fb9570f5b455c85c6c4a0a6660a70e1f1))
+* **mesures-jeunes:** modification layout cartes mesures jeunes + ajout catégorie ([98a799c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/98a799c1da460ddf26857538034d8e39a52f9f8c))
+
 ## [2.35.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.4...v2.35.5) (2023-01-06)
 
 
