@@ -1,7 +1,6 @@
 import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import {
-	DemandeDeContactCEJValidator,
 	EnvoyerDemandeDeContactCEJUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -74,7 +73,6 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 			expect(result).toEqual(createSuccess(undefined));
 		});
 
-
 		describe('Quand les champs ne respectent pas le schema de validation', () => {
 			it.each([
 				{ email: 'toto chez msn' },
@@ -82,10 +80,11 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 				{ age: 35 },
 				{ téléphone: 'RTYHFYUIJN' },
 				{ téléphone: '555-2341-111' },
-			])('pour %j on retourne une erreur', (queryParametersToTestInError) => {
-				const result = DemandeDeContactCEJValidator.validate(queryParametersToTestInError);
+			])('pour %j on retourne une erreur', async (queryParametersToTestInError) => {
+				const usecase = new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactRepository);
+				const result = await usecase.handle({ ...command, ...queryParametersToTestInError } as unknown as DemandeDeContactCEJ);
 
-				expect(result.error).toBeDefined();
+				expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 			});
 		});
 	});
