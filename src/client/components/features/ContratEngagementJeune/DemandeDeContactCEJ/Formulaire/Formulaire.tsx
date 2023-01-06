@@ -11,7 +11,7 @@ import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 
-import styles from './FormulaireDeContactCEJ.module.scss';
+import styles from './Formulaire.module.scss';
 
 interface FormulaireDeContactCEJProps {
   onSuccess?: () => void;

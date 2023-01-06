@@ -6,10 +6,10 @@ import Actions from '~/client/components/features/ContratEngagementJeune/Actions
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
 import Application from '~/client/components/features/ContratEngagementJeune/Application/Application';
 import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
+import Rappel from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Rappel';
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
 import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
-import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function ContratEngagementJeune() {

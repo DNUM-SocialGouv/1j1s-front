@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Rappel from '~/client/components/features/ContratEngagementJeune/Rappel/Rappel';
+import Rappel from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Rappel';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
