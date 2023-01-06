@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.35.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.4...v2.35.5) (2023-01-06)
+
+
+### Bug Fixes
+
+* **accompagnement:** libellé nom commune dans le mail ([eedf5c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/eedf5c8831cf121fdcb4e449dd97e4dde92666d6))
+* **employeur:** alignement et espacement lien ([8135022](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8135022267368c968e0a7fe68e03c1d60c0bc3f6))
+* **employeur:** envoi formulaire contact poe ([a6f331a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a6f331ae8b238b3b3b198d1c07c5e83a2aabcbfe))
+
 ## [2.35.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.3...v2.35.4) (2023-01-05)
 
 
