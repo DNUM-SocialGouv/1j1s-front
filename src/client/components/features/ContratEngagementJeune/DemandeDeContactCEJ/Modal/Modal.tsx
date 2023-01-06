@@ -1,20 +1,20 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 
+import FormulaireDeContactCEJ
+	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
-import FormulaireDeContactCEJ from '../FormulaireDeContact/FormulaireDeContactCEJ';
-import styles
-	from './ModalDemandeDeContactCEJ.module.scss';
+import styles from './Modal.module.scss';
 
 interface ModalDemandeDeContactCEJProps {
   isOpen: boolean
   setIsOpen: (value: boolean) => void
 }
 
-export function ModalDemandeDeContactCEJ(props: ModalDemandeDeContactCEJProps) {
+export function Modal(props: ModalDemandeDeContactCEJProps) {
 	const { isOpen, setIsOpen } = props;
 	const [isSuccess, setIsSuccess] = useState(false);
 

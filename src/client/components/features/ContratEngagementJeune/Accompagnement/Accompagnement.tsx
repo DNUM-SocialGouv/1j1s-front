@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
@@ -12,12 +13,14 @@ import Démarrage from '~/client/components/features/ContratEngagementJeune/Acco
 import Handicap from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/Handicap';
 import PasDAccompagnement
 	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/PasDAccompagnement';
+import FormulaireDeContactCEJ
+	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
-import FormulaireDeContactCEJ from '../Rappel/FormulaireDeContact/FormulaireDeContactCEJ';
 
 export type Formulaires = 'Démarrage' | 'PasDAccompagnement' | 'BesoinAide' | 'BesoinAide26ans' | 'AutresBesoins' | 'Handicap' | 'AutresBesoins26ans' ;
 
@@ -84,22 +87,43 @@ export default function Accompagnement() {
 					</ModalComponent>
 				</article>
 			</div>
+
 			<ModalComponent
 				isOpen={isMissionLocaleModalOpen}
 				close={() => setIsMissionLocaleModalOpen(false)}
-				className={styles.accompagnementMission}
 				aria-labelledby={ !isSuccess ? 'dialog_label' : 'dialog_label_success'}
 			>
-				{ !isSuccess && <ModalComponent.Title className={styles.accompagnementMission__Title} id="dialog_label">
-          Vous pouvez bénéficier d‘un accompagnement répondant à vos besoins auprès de votre Mission Locale
-				</ModalComponent.Title> }
-				<ModalComponent.Content className={!isSuccess ? styles.accompagnementMission__Content : styles.accompagnementMission__ContentSuccess}>
-					{ !isSuccess && <small>(Tous les champs sont obligatoires)</small> }
-					<FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-						<ButtonComponent label="Fermer" onClick={() => setIsMissionLocaleModalOpen(false)} title="Revenir à la page" />
-					</FormulaireDeContactCEJ>
+				{!isSuccess &&
+					<ModalComponent.Title className={styles.accompagnementModalTitle} id="dialog_label">
+						Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale
+					</ModalComponent.Title>
+				}
+				<ModalComponent.Content
+					className={classNames({ [styles.rappelContent]: !isSuccess, [styles.rappelContentSuccess]: isSuccess })}
+				>
+					{!isSuccess ? (
+						<>
+							<small className={styles.accompagnementModalSubTitle}>(Tous les champs sont obligatoires)</small>
+							<FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
+								<ButtonComponent label='Fermer' onClick={ () => setIsMissionLocaleModalOpen(false)} title="Fermer, Revenir à la page" />
+							</FormulaireDeContactCEJ>
+						</>
+					) : (
+						<div className={styles.success}>
+							<CheckIcon circled={true} animate className={styles.successIcon}/>
+							<h1 id="dialog_label_success" className={styles.successMessage}>Votre demande a bien été transmise !</h1>
+							<ButtonComponent
+								type="button"
+								label="Fermer"
+								onClick={() => setIsMissionLocaleModalOpen(false)}
+								title="Fermer, Revenir à la page"
+							/>
+						</div>
+					)}
 				</ModalComponent.Content>
 			</ModalComponent>
+
+
 			<ModalComponent isOpen={isDispositifsReferencesModalOpen} close={() => setIsDispositifsReferencesModalOpen(false)} className={styles.accompagnementDispositifs}>
 				<ModalComponent.Content className={styles.accompagnementDispositifs__Content}>
 					<div>

@@ -81,41 +81,37 @@
     }
   }
 
-  &Mission {
-    &__Title {
-      font-size: 1.4rem !important;
-      text-align: center;
-      @extend %bold;
-      color: $color-on-background;
-      line-height: 2rem;
+  &ModalTitle {
+    @extend %bold;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  &ModalSubTitle {
+    display:block;
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: $color-primary;
+    text-align: center;
+  }
+
+  .success {
+    text-align: center;
+
+    &Message {
+      margin: 1rem 0;
+      color: $color-primary;
     }
 
-    &__Content {
-      padding: 0 2rem;
-      small {
-        display: block;
-        @extend %bold;
-        font-size: 18px;
-        margin-top: 1rem;
-        color: $color-primary;
-        text-align: center;
-      }
-      form {
-        margin-top: 1rem;
-      }
-      &Success {
-        display: flex;
-        min-height: 60vh;
-        > div {
-          margin: auto;
-        }
-      }
-    }
-    &BoutonSuccess {
-      text-align: center;
-      font-size: larger;
+    &Icon {
+      margin: auto;
+      width: 8rem;
+      height: 8rem;
+      color: $color-secondary;
     }
   }
+
 
   &Dispositifs {
     &__Title {
@@ -225,15 +221,6 @@
         width: 40%;
         height: 35vh;
         margin: auto;
-      }
-    }
-
-    &Mission {
-      &__Title {
-        padding: 7rem 7rem 1rem 7rem;
-      }
-      &__Content {
-        padding: 0 7rem 7rem 7rem;
       }
     }
 

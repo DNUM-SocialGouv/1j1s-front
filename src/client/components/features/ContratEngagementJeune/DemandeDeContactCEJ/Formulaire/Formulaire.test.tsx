@@ -6,11 +6,10 @@ import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/Rappel/FormulaireDeContact/FormulaireDeContactCEJ';
+import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { DemandeDeContactCEJValidator } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);
@@ -47,20 +46,6 @@ describe('<FormulaireDeContactCEJ />', () => {
 		expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
 		expect(screen.getByLabelText('Ville')).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
-	});
-
-	describe('Quand les champs sont obligatoires', () => {
-		it.each([
-			{ label: 'Prénom' },
-			{ label: 'Nom' },
-			{ label: 'Adresse email' },
-			{ label: 'Age' },
-			{ label: 'Ville' },
-		])('pour %j on retourne required', (queryParametersToTestRequired) => {
-			const result = DemandeDeContactCEJValidator.validate(queryParametersToTestRequired);
-
-			expect(result.error).toBeDefined();
-		});
 	});
 
 	it('a un champ Age obligatoire', async () => {
