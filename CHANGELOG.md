@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.38.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.0...v2.38.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* **cej:** ajustement message confirmation envoie ([925309d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/925309d53088f9d2455372e72dc16033a4cdb983))
+* **cej:** refacto formulaire ([cb3b8dc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cb3b8dc43bc912bb7ce186a1ccd7d4ea0c718495))
+* **cej:** refacto tests ([992bd1d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/992bd1d39880e34399edb7ac418179fd341d86f4))
+* **cej:** review ([3bfc6c0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3bfc6c08194fea430d5d9b0bb3674c6997b09804))
+* **cej:** review et refacto form mission locale ([6ccf85c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6ccf85cf31f86b8380af03279c2b3e87658626fe))
+
 ## [2.38.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.37.0...v2.38.0) (2023-01-09)
 
 
