@@ -1,3 +1,8 @@
+import {
+	CurrentRefinementsConnectorParamsItem,
+	CurrentRefinementsConnectorParamsRefinement,
+	CurrentRefinementsRenderState,
+} from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
 import { RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRange';
 import {
@@ -75,6 +80,48 @@ export function mockUseRangeInput(override: Partial<RangeRenderState>) {
 		refine: jest.fn(),
 		sendEvent: jest.fn(),
 		start: [0, 2000],
+		...override,
+	};
+}
+
+export const aDisjunctiveImmeubleItemRefinement = (): CurrentRefinementsConnectorParamsRefinement => {
+	return {
+		attribute: 'typeBien',
+		label: 'immeuble',
+		type: 'disjunctive',
+		value: 'immeuble',
+	};
+};
+
+export const aDisjunctiveAppartementItemRefinement = (): CurrentRefinementsConnectorParamsRefinement => {
+	return {
+		attribute: 'typeBien',
+		label: 'appartement',
+		type: 'disjunctive',
+		value: 'appartement',
+	};
+};
+
+export const aTypeBienItem = (override?: Partial<CurrentRefinementsConnectorParamsItem>): CurrentRefinementsConnectorParamsItem => {
+	return {
+		attribute: 'typeBien',
+		indexName: 'nom-index',
+		label: 'typeBien',
+		refine: jest.fn(),
+		refinements: [
+		  aDisjunctiveImmeubleItemRefinement(),
+		  aDisjunctiveAppartementItemRefinement(),
+		],
+	  	...override,
+	};
+};
+
+export function mockUseCurrentRefinements(override: Partial<CurrentRefinementsRenderState>) {
+	return {
+		canRefine: true,
+		createURL: jest.fn(),
+		items: [aTypeBienItem()],
+		refine: jest.fn,
 		...override,
 	};
 }

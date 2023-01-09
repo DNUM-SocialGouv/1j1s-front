@@ -3,6 +3,8 @@ import React from 'react';
 import { FormulaireRechercheOffreStage } from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage';
 import { OffreDeStage } from '~/client/components/features/OffreDeStage/OffreDeStage';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
+import MeilisearchCustomCurrentRefinements
+	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 
@@ -30,7 +32,7 @@ export default function RechercherOffreStagePage() {
 				nombreDeSkeleton={2}
 				ariaLabelListeDesResultats="Offres de stage"
 				resultatDeRecherche={OffreDeStage}
-				hasTagList
+				tagList={<MeilisearchCustomCurrentRefinements />}
 				isAffichageListeDeResultatsDesktopDirectionRow
 			/>
 		</>

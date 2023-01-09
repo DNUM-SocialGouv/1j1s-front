@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, {
 	useCallback,
+	useEffect,
 	useRef,
 	useState,
 } from 'react';
@@ -19,6 +20,7 @@ interface MeilisearchCustomRangeInputForModalProps extends CommonProps  {
 export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & MeilisearchCustomRangeInputForModalProps) {
 	const {
 		refine,
+		start,
 	} = useRange(props);
 	const { unite, min, max } = props;
   type EmptyInput = '';
@@ -26,6 +28,14 @@ export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & Meili
   const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
   const inputMinRef = useRef(uuidv4());
   const inputMaxRef = useRef(uuidv4());
+
+  useEffect(function updateMinValue() {
+  	if (start[0] === -Infinity) setMinValue('');
+  }, [start]);
+
+  useEffect(function updateMaxValue() {
+  	if (start[1] === Infinity) setMaxValue('');
+  }, [start]);
 
   const onMaxInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
   	const value = event.target.value;

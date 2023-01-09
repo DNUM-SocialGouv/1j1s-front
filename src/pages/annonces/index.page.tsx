@@ -1,9 +1,16 @@
-import React from 'react';
+import { CurrentRefinementsConnectorParamsItem } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
+import React, { useCallback } from 'react';
+import {
+	CurrentRefinementsProps,
+} from 'react-instantsearch-hooks-web';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
 import { FormulaireRechercheAnnonceLogement } from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
+import MeilisearchCustomCurrentRefinements
+	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 import NotFound from '~/pages/404.page';
 
 const MEILISEARCH_INDEX = 'annonce-de-logement';
@@ -12,6 +19,10 @@ const ANNONCE_PAR_PAGE = 9 ;
 
 export default function AnnoncesPage() {
 	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
+
+	const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
+		return transformerMeilisearchLogementsItems(items);
+	}, []);
 
 	if (!displayAnnoncesLogement) return <NotFound/>;
 	return (
@@ -32,7 +43,7 @@ export default function AnnoncesPage() {
 				nombreDeSkeleton={3}
 				ariaLabelListeDesResultats="Annonces de logement"
 				resultatDeRecherche={AnnonceDeLogement}
-				hasTagList={false}
+				tagList={<MeilisearchCustomCurrentRefinements transformItems={transformItems} />}
 				isAffichageListeDeResultatsDesktopDirectionRow={false}
 			/>
 		</>

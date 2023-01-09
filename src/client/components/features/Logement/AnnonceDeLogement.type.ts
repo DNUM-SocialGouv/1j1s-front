@@ -10,4 +10,5 @@ export interface AnnonceDeLogementIndexee  {
   url: string
   dateDeMiseAJour: string
   localisationAAfficher: string
+  devise: string
 }

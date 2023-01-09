@@ -141,40 +141,37 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 	}
 
 	return (
-		<>
-			<div className={styles.formInput}>
-				<label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>Localisation</label>
-				<div ref={autocompleteRef}>
-					<div
-						id="header-search"
-						role="combobox"
-						aria-expanded={suggestionsActive}
-						aria-controls={LOCALISATION_SUGGESTIONS_ID}
-						aria-owns={LOCALISATION_SUGGESTIONS_ID}
-						aria-haspopup="listbox"
-					>
-						<input
-							type="text"
-							id="rechercherLocalisation"
-							name="inputLocalisation"
-							autoComplete="off"
-							aria-autocomplete="list"
-							aria-controls={LOCALISATION_SUGGESTIONS_ID}
-							aria-activedescendant="rechercherLocalisation"
-							placeholder={'Exemple : Toulouse, Paris...'}
-							className={styles.formControlInput}
-							value={localisation}
-							onChange={(event) => {
-								setLocalisation(event.target.value);
-								rechercherLocalisation(event);
-							}}
-							onKeyDown={handleKeyDown}
-							onClick={() => setSuggestionsActive(!!localisation)}
-						/>
-					</div>
-					{suggestionsActive && <SuggestionsLocalisationList/>}
-				</div>
+		<div className={styles.formInput}>
+			<label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>Localisation</label>
+			<div
+				ref={autocompleteRef}
+				id="header-search"
+				role="combobox"
+				aria-expanded={suggestionsActive}
+				aria-controls={LOCALISATION_SUGGESTIONS_ID}
+				aria-owns={LOCALISATION_SUGGESTIONS_ID}
+				aria-haspopup="listbox"
+			>
+				<input
+					type="text"
+					id="rechercherLocalisation"
+					name="inputLocalisation"
+					autoComplete="off"
+					aria-autocomplete="list"
+					aria-controls={LOCALISATION_SUGGESTIONS_ID}
+					aria-activedescendant="rechercherLocalisation"
+					placeholder={'Exemple : Toulouse, Paris...'}
+					className={styles.formControlInput}
+					value={localisation}
+					onChange={(event) => {
+						setLocalisation(event.target.value);
+						rechercherLocalisation(event);
+					}}
+					onKeyDown={handleKeyDown}
+					onClick={() => setSuggestionsActive(!!localisation)}
+				/>
 			</div>
-		</>
+			{suggestionsActive && <SuggestionsLocalisationList/>}
+		</div>
 	);
 }

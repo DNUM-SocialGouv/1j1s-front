@@ -19,13 +19,17 @@ import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/M
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
+export const PRIX_MINIMUM = 0;
+export const PRIX_MAXIMUM = 3000;
+export const SURFACE_MINIMUM = 0;
+export const SURFACE_MAXIMUM = 500;
+export const DEVISE = '€';
+export const UNITE_SURFACE = 'm²';
+
 export function FormulaireRechercheAnnonceLogement() {
 	const { isSmallScreen } = useBreakpoint();
 	const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
-	const PRIX_MINIMUM = 0;
-	const PRIX_MAXIMUM = 3000;
-	const SURFACE_MINIMUM = 0;
-	const SURFACE_MAXIMUM = 500;
+
 	return (
 		<form
 			className={styles.RechercherLogementForm}
@@ -56,7 +60,7 @@ export function FormulaireRechercheAnnonceLogement() {
 						attribute="surface"
 						label="Surface (m²)"
 						placeholder="Indiquez une surface"
-						unite="m²"
+						unite={UNITE_SURFACE}
 						min={SURFACE_MINIMUM}
 						max={SURFACE_MAXIMUM}
 					/>
@@ -65,7 +69,7 @@ export function FormulaireRechercheAnnonceLogement() {
 						attribute="prix"
 						label="Prix"
 						placeholder="Indiquez une fourchette de prix"
-						unite="€"
+						unite={DEVISE}
 						min={PRIX_MINIMUM}
 						max={PRIX_MAXIMUM}
 					/>

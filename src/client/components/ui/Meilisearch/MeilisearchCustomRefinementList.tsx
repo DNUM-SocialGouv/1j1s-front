@@ -101,7 +101,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
 	return (
 		<div className={classNames(className)}>
-			<label className={styles.selectLabel} id={labelledBy.current}>{label}</label>
+			<span id={labelledBy.current}>{label}</span>
 			<div ref={optionsRef} className={styles.selectContainer}>
 				<button
 					type="button"
