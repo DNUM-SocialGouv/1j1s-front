@@ -61,6 +61,7 @@ export default function AidesLogement() {
 								<li>
 									<ArticleCard
 										imageSrc='/images/articles/documents.svg'
+										imageFit={'contain'}
 										link='/articles/comment-constituer-un-dossier-locatif'
 										titleLabel='Comment constituer un dossier locatif ?' >
 										<p className={styles.articleCardDescription}>Constituer son dossier locatif peut sembler compliqué,
@@ -71,6 +72,7 @@ export default function AidesLogement() {
 								<li>
 									<ArticleCard
 										imageSrc='/images/articles/consultative-sales.svg'
+										imageFit={'contain'}
 										link='/articles/les-garants-a-quoi-ca-sert-et-vers-qui-me-tourner'
 										titleLabel='Les garants : à quoi ça sert et vers qui me tourner ?'>
 										<p className={styles.articleCardDescription}>Vous préparez votre dossier locatif et vous vous
@@ -81,6 +83,7 @@ export default function AidesLogement() {
 								<li>
 									<ArticleCard
 										imageSrc='/images/articles/product-quality.svg'
+										imageFit={'contain'}
 										link='/articles/quelles-sont-les-aides-pour-financer-un-logement'
 										titleLabel='Quelles sont les aides pour payer un logement ?' >
 										<p className={styles.articleCardDescription}>Il existe plusieurs dispositifs pour vous aider à

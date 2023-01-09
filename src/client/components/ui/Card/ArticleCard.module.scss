@@ -3,8 +3,10 @@
 .illustration {
   height: 180px;
 
-  img {
-    object-fit: cover;
+  &ScaleDown {
+    img {
+      object-fit: scale-down;
+    }
   }
 }
 

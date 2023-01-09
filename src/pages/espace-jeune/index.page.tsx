@@ -52,6 +52,7 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 							<ArticleCard className={styles.carteActualite}
 								key={index}
 								imageSrc={carte.bannière && carte.bannière.url || ''}
+							  imageFit={'cover'}
 								titleLabel={carte.titre}
 								link={carte.link}
 								linkLabel={getCarteActualiteLinkLabel(carte)}

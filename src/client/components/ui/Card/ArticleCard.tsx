@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import React, { useRef } from 'react';
 
@@ -9,18 +10,20 @@ import styles from './ArticleCard.module.scss';
 interface ArticleCardProps {
   icon?: React.ReactNode
   imageSrc: string
+	imageFit?: 'scale-down' | 'contain'
   titleLabel: string
   link: string
   linkLabel?: string
 }
 
-export function ArticleCard({ className, children, icon, imageSrc, link, linkLabel = 'Lire l‘article', titleLabel }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function ArticleCard({ className, children, icon, imageSrc, imageFit = 'scale-down', link, linkLabel = 'Lire l‘article', titleLabel }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const iconComponent = useRef(icon ? icon : <Icon name={'arrow-right'}/>);
+	const imageClassName = classNames(styles.illustration, imageFit === 'scale-down' && styles.illustrationScaleDown);
 
 	return (
 		<Link href={link} className={'underline-none'}>
 			<CardComponent className={className} layout={'vertical'}>
-				<CardComponent.Image className={styles.illustration} src={imageSrc} aria-hidden/>
+				<CardComponent.Image className={imageClassName} src={imageSrc} aria-hidden/>
 				<CardComponent.Content className={styles.content}>
 					<CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
 					{children}
