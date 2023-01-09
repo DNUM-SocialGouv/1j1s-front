@@ -7,6 +7,7 @@ import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
+import { Carousel } from '../client/components/ui/Carousel/Carousel';
 import { Icon } from '../client/components/ui/Icon/Icon';
 
 const SeeMore = dynamic(() => import(/* webpackChunkName: 'seeMore' */ '~/client/components/ui/SeeMore/SeeMore'), { ssr: false });
@@ -20,6 +21,9 @@ export default function Accueil() {
 					<p><b>À chacun sa solution.</b></p>
 					<p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
 				</Hero>
+				<section className={styles.todelete}>
+					<Carousel imageUrlList={['/images/emploi.webp', '/images/stage.webp', '/images/alternance.webp', '/images/jobs-étudiant.webp']} titreDeLAnnonce="Logement avec vue sur le parking"/>
+				</section>
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
 						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />

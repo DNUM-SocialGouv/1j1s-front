@@ -111,5 +111,5 @@ module.exports = {
 	usePagination: realMockUsePagination,
 	useRange: realMockUseRange,
 	useRefinementList: realMockUseRefinementList,
-  	useSearchBox: realMockUseSearchBox,
+	useSearchBox: realMockUseSearchBox,
 };
