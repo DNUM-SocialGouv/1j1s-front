@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.37.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.36.0...v2.37.0) (2023-01-09)
+
+
+### Features
+
+* **multiple:** custom component meilisearch current refinement ([b02ffb3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b02ffb3883d75bf2cd53e05900aadaa71bb83357))
+
 ## [2.36.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.35.5...v2.36.0) (2023-01-06)
 
 
