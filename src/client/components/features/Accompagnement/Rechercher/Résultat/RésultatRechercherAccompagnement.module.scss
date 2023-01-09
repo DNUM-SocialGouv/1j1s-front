@@ -44,6 +44,9 @@
 .title {
   margin-bottom: 0.5rem;
   @extend %text-medium;
+  @include media(large) {
+    width: 44rem;
+  }
 }
 
 .address {
@@ -88,7 +91,7 @@
 
   @include media(large) {
     margin-left: auto;
-    width: 17rem;
+    width: 25rem;
     align-self: flex-start;
   }
 
