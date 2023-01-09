@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.38.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.37.0...v2.38.0) (2023-01-09)
+
+
+### Features
+
+* **multiple:** ajout de rate limit sur /emplois /alternances /job-etudiants ([8a9c802](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8a9c80215d00085f9bd486426fa5aba20dcb3e8c))
+
 ## [2.37.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.36.0...v2.37.0) (2023-01-09)
 
 
