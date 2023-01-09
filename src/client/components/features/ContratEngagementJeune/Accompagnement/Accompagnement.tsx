@@ -109,9 +109,9 @@ export default function Accompagnement() {
 							</FormulaireDeContactCEJ>
 						</>
 					) : (
-						<div className={styles.success}>
-							<CheckIcon circled={true} animate className={styles.successIcon}/>
-							<h1 id="dialog_label_success" className={styles.successMessage}>Votre demande a bien été transmise !</h1>
+						<div className={styles.accompagnementSuccess}>
+							<CheckIcon circled={true} animate className={styles.accompagnementSuccessIcon}/>
+							<h1 id="dialog_label_success" className={styles.accompagnementSuccessMessage}>Votre demande a bien été transmise !</h1>
 							<ButtonComponent
 								type="button"
 								label="Fermer"
