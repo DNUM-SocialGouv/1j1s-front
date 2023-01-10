@@ -3,7 +3,7 @@ import Image from 'next/legacy/image';
 import React from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
-import styles from '~/client/components/ui/Card/LinkCard.module.scss';
+import styles from '~/client/components/ui/Card/Link/LinkCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 

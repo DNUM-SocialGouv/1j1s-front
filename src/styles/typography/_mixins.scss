@@ -10,3 +10,11 @@
     font-display: #{$font-display};
   }
 }
+
+@mixin line-clamp($lines, $lineHeight: 1.5) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  min-height: calc(#{$lines} * #{$lineHeight} * 1em);
+  overflow: hidden;
+}

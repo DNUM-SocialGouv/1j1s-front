@@ -6,13 +6,13 @@ import { HtmlHeadingTag } from '~/client/components/props';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Link } from '~/client/components/ui/Link/Link';
 
-import styles from './CardComponent.module.scss';
+import styles from './Card.module.scss';
 
-interface CardComponentProps {
+interface CardProps {
   layout: 'horizontal' | 'vertical'
 }
 
-export function CardComponent({ children, className, layout }: CardComponentProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function Card({ children, className, layout }: CardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const layoutClass = useMemo(() => {
 		switch (layout) {
 			case 'horizontal': return styles.cardComponentHorizontal;
@@ -68,10 +68,10 @@ function CardTitle({ children, className, id, titleAs }: { titleAs: HtmlHeadingT
 	return React.createElement(titleAs, { className: classNames(styles.cardTitle, className), id }, children );
 }
 
-CardComponent.Button = CardButton;
-CardComponent.Content = CardContent;
-CardComponent.FakeLink = CardFakeLink;
-CardComponent.Image = CardImage;
-CardComponent.Link = CardLink;
-CardComponent.Title = CardTitle;
+Card.Button = CardButton;
+Card.Content = CardContent;
+Card.FakeLink = CardFakeLink;
+Card.Image = CardImage;
+Card.Link = CardLink;
+Card.Title = CardTitle;
 

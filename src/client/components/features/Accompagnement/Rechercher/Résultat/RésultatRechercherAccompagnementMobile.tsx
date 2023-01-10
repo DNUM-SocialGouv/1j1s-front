@@ -7,7 +7,7 @@ import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
 import { useAccompagnementLogo } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonAsLink } from '~/client/components/ui/ButtonAsLink/ButtonAsLink';
-import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
@@ -30,16 +30,16 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 	const logoÉtablissement = useAccompagnementLogo(établissement.type);
 
 	return (
-		<CardComponent layout={'vertical'} className={styles.card}>
-			<CardComponent.Content className={styles.content}>
-				<CardComponent.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
+		<Card layout={'vertical'} className={styles.card}>
+			<Card.Content className={styles.content}>
+				<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
 				<div className={styles.mainContent}>
-					<CardComponent.Title className={styles.title} titleAs={'h3'}>
+					<Card.Title className={styles.title} titleAs={'h3'}>
 						{établissement.nom}
-					</CardComponent.Title>
+					</Card.Title>
 					{établissement.adresse && <span className={styles.address}>{établissement.adresse}</span>}
 				</div>
-			</CardComponent.Content>
+			</Card.Content>
 			<TagList list={[établissement.telephone, établissement.email]} className={styles.tags}/>
 			{
 				établissement.email && !isMissionLocale &&
@@ -64,6 +64,6 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 					))}
 				</ol>
 			</details>
-		</CardComponent>
+		</Card>
 	);
 }

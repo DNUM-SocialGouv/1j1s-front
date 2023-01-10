@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
-import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
+import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import useSanitize from '~/client/hooks/useSanitize';
 import { CarteEspaceJeune } from '~/server/cms/domain/espaceJeune';

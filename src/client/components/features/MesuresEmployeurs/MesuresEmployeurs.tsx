@@ -3,13 +3,11 @@ import React from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
-import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
+import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
-
-import Marked from '../../ui/Marked/Marked';
-import { HeadTag } from '../../utils/HeaderTag';
 
 export interface MesuresEmployeursProps {
   mesuresEmployeurs: MesuresEmployeurs;
@@ -49,9 +47,7 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 	const titre = useSanitize(carte.titre);
 	const bannière = carte.bannière?.url || '';
 	const link = carte.link;
-	const extrait = useSanitize(carte.extraitContenu);
 	const pourQui = carte.pourQui || '';
-
 
 	return <FlippingCard
 		imageUrl={bannière}
@@ -59,7 +55,5 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 		title={titre}
 		flippingCardContent={pourQui}
 		data-testid="carteMesuresEmployeurs"
-	>
-		<Marked markdown={extrait} />
-	</FlippingCard>;
+	/>;
 }

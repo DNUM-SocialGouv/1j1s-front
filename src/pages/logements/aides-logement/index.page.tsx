@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ArticleCard } from '~/client/components/ui/Card/ArticleCard';
+import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';

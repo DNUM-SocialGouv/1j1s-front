@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import styles
 	from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier.module.scss';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useSanitize from '~/client/hooks/useSanitize';
 import {
@@ -23,13 +23,13 @@ export function RésultatRechercherMétier(props: HitProps<Partial<FicheMétierH
 
 	return (
 		<Link href={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`} className={'underline-none'}>
-			<CardComponent className={styles.resultatCard} layout={'horizontal'}>
-				<CardComponent.Content className={styles.content}>
-					<CardComponent.Title className={styles.title} titleAs={'h3'}>{nomMetier}</CardComponent.Title>
+			<Card className={styles.resultatCard} layout={'horizontal'}>
+				<Card.Content className={styles.content}>
+					<Card.Title className={styles.title} titleAs={'h3'}>{nomMetier}</Card.Title>
 					<div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }}/>
-					<CardComponent.FakeLink appearance={'tertiary'} className={styles.link} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
-				</CardComponent.Content>
-			</CardComponent>
+					<Card.FakeLink appearance={'tertiary'} className={styles.link} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
+				</Card.Content>
+			</Card>
 		</Link>
 	);
 }

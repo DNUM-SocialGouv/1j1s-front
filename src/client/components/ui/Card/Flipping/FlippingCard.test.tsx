@@ -9,7 +9,7 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { FlippingCard } from '~/client/components/ui/Card/FlippingCard';
+import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('<FlippingCard>', () => {

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { LinkCard } from '~/client/components/ui/Card/LinkCard';
+import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
 import { Hero } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';

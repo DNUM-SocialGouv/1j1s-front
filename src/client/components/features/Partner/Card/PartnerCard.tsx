@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
-import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -63,19 +63,19 @@ export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 
 	return (
 		<Link href={link} className={classNames(styles.card, className, 'underline-none')}>
-			<CardComponent layout={isLargeScreen ? 'horizontal' : 'vertical'}>
-				<CardComponent.Image className={styles.cardLogo} src={logo} aria-hidden/>
-				<CardComponent.Content className={styles.cardBody}>
-					<CardComponent.Title titleAs={'h3'} className={styles.cardBody__Title}>{title}</CardComponent.Title>
+			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'}>
+				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
+				<Card.Content className={styles.cardBody}>
+					<Card.Title titleAs={'h3'} className={styles.cardBody__Title}>{title}</Card.Title>
 					<p>
 						{headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
 						{description}
 					</p>
 					<span className={styles.cardAction}>
-						<CardComponent.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
+						<Card.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
 					</span>
-				</CardComponent.Content>
-			</CardComponent>
+				</Card.Content>
+			</Card>
 		</Link>
 	);
 }

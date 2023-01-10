@@ -4,7 +4,7 @@ import React from 'react';
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
 import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
@@ -13,16 +13,16 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
 	return (
-		<CardComponent layout="vertical">
-			<CardComponent.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>
+		<Card layout="vertical">
+			<Card.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>
 
-			<CardComponent.Content className={styles.CardContenu}>
+			<Card.Content className={styles.CardContenu}>
 				<span className={styles.CardContenuEnTete}>
 					<div className={styles.CardContenuEnTeteType}>{annonce.type}</div>
 					<div className={styles.CardContenuEnTeteDate}>postée le {dateDeLAnnonce}</div>
 				</span>
 
-				<CardComponent.Title titleAs="h3">{annonce.titre}</CardComponent.Title>
+				<Card.Title titleAs="h3">{annonce.titre}</Card.Title>
 
 				<dl className={styles.CardDescription}>
 					<dt>Surface</dt>
@@ -30,7 +30,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 					<dt>Prix</dt>
 					<dd>{annonce.prix} {annonce.devise}<sup>CC</sup></dd>
 				</dl>
-			</CardComponent.Content>
+			</Card.Content>
 
 			<span className={styles.CardFooter}>
 				<TextIcon icon="map-pin" iconPosition="left">{annonce.localisationAAfficher}</TextIcon>
@@ -39,6 +39,6 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 					<TextIcon icon="external-redirection">Lire l‘annonce</TextIcon>
 				</Link>
 			</span>
-		</CardComponent>
+		</Card>
 	);
 };
