@@ -6,6 +6,11 @@
   img {
     object-fit: cover;
   }
+  &Contain {
+    img {
+      object-fit: contain;
+    }
+  }
 }
 
 .content {
