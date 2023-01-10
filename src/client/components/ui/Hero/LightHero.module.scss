@@ -1,10 +1,11 @@
 @import "@styles/utilities";
 
-.heroTitle {
+.hero {
   text-align: center;
   padding: 3rem 1rem 2rem 1rem;
   line-height: 2rem;
   @extend %text-xLarge;
+  @extend %max-container;
 
   @include media(large) {
     line-height: 2.5rem;

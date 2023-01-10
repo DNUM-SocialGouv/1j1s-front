@@ -5,7 +5,9 @@ import React, { useCallback, useMemo } from 'react';
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { LightHero,
+	LightHeroPrimaryText, LightHeroSecondaryText,
+} from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -38,15 +40,16 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 
 	return (
 		<main id={'contenu'}>
-			<HeadTag title="Espace jeune | 1jeune1solution"/>
+			<HeadTag title="Actualités et services jeunes | 1jeune1solution"/>
 			<h1 className={styles.title}>Actualités et services jeune</h1>
 			{cartesActualites.length > 0 &&
 				<section className={classNames(styles.section, styles.actualitesSection)} data-testid='actualites' >
-					<LightHero
-						className={styles.sectionTitle}
-						titleAs={'h2'}
-						primaryText={'Actualités : retrouvez une sélection'}
-						secondaryText={'des dernières actualités relatives aux jeunes'} />
+					<LightHero>
+						<h2>
+							<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
+							<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
+						</h2>
+					</LightHero>
 					<Container className={styles.cartesActualitesList}>
 						{visibleCartesActualitesList.map((carte, index) =>
 							<ArticleCard className={styles.carteActualite}
@@ -78,11 +81,12 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 				</section>
 			}
 			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
-				<LightHero
-					className={styles.sectionTitle}
-					titleAs={'h2'}
-					primaryText={'Services jeunes, retrouvez les services conçus pour vous :'}
-					secondaryText={'entrée dans la vie professionnelle, orientation, formation, accompagnement'} />
+				<LightHero>
+					<h2>
+						<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
+						<LightHeroSecondaryText>entrée dans la vie professionnelle, orientation, formation, accompagnement</LightHeroSecondaryText>
+					</h2>
+				</LightHero>
 				<EspaceJeuneComponent espaceJeune={espaceJeune} />
 			</section>
 		</main>

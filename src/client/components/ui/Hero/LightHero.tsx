@@ -1,34 +1,24 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-import { Container } from '~/client/components/layouts/Container/Container';
 import {
 	CommonProps,
-	HtmlHeadingTag,
 } from '~/client/components/props';
 
 import styles from './LightHero.module.scss';
 
-interface LightHeroProps extends CommonProps{
-	primaryText: string
-	secondaryText?: string
-  titleAs?: HtmlHeadingTag
+export function LightHero({ children, className }: PropsWithChildren<CommonProps>) {
+	return (
+		<div className={classNames(styles.hero, className)}>
+			{children}
+		</div>
+	);
 }
 
-export function LightHero({ primaryText, secondaryText, titleAs, className }: LightHeroProps) {
+export function LightHeroPrimaryText({ children, className }: PropsWithChildren<CommonProps>) {
+	return <div className={classNames(styles.heroPrimaryText, className)}>{children}</div>;
+}
 
-	function Title() {
-		return React.createElement(titleAs || 'h1', { className: classNames(styles.heroTitle, className ) },
-			<>
-				<span className={styles.heroTitlePrimaryText}>{primaryText}</span>
-				{secondaryText && <span className={styles.heroTitleSecondaryText}>{secondaryText}</span>}
-			</>,
-		);
-	}
-
-	return (
-		<Container>
-			<Title/>
-		</Container>
-	);
-} 
+export function LightHeroSecondaryText({ children, className }: PropsWithChildren<CommonProps>) {
+	return <div className={classNames(styles.heroSecondaryText, className)}>{children}</div>;
+}

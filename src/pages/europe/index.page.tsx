@@ -4,7 +4,11 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link as LinkType } from '~/client/components/props';
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import {
+	LightHero,
+	LightHeroPrimaryText,
+	LightHeroSecondaryText,
+} from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
@@ -37,9 +41,12 @@ export default function EuropePage() {
 	const sectionExperienceEurope = () => (
 		<div className={'background-white-lilac'} >
 			<Container className={styles.sectionExperienceEurope}>
-				<LightHero
-					primaryText="Je cherche une expérience"
-					secondaryText="en Europe"/>
+				<LightHero>
+					<h1>
+						<LightHeroPrimaryText>Je cherche une expérience</LightHeroPrimaryText>
+						<LightHeroSecondaryText>en Europe</LightHeroSecondaryText>
+					</h1>
+				</LightHero>
 				<p>
           Trouvez des offres d’emploi, de stage et des volontariats internationaux au sein de pays Européens ainsi que des aides financières afin de partir à la découverte de nouvelles opportunités et de nouveaux pays !
 				</p>
@@ -76,12 +83,12 @@ export default function EuropePage() {
 
 	const sectionDispositif = () => (
 		<div className={'background-white-lilac'}>
-			<LightHero
-				primaryText={'Je découvre les dispositifs pour '}
-				secondaryText={'m’accompagner dans mon projet'}
-				titleAs={'h2'}
-				className={styles.sectionDispositif__Title}
-			/>
+			<LightHero>
+				<h2>
+					<LightHeroPrimaryText>Je découvre les dispositifs pour</LightHeroPrimaryText>
+					<LightHeroSecondaryText>m’accompagner dans mon projet</LightHeroSecondaryText>
+				</h2>
+			</LightHero>
 			<Container className={styles.sectionDispositif}>
 				<div className={styles.sectionDispositif__CardWrapper}>
 					<article className={styles.sectionDispositif__Card}>

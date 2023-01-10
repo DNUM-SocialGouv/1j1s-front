@@ -20,7 +20,11 @@ import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import {
+	LightHero,
+	LightHeroPrimaryText,
+	LightHeroSecondaryText,
+} from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
@@ -134,6 +138,11 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 
 function BannièreOffreEmploi() {
 	return (
-		<LightHero primaryText="Des milliers d‘offres d‘emplois" secondaryText="sélectionnées pour vous par Pôle Emploi"/>
+		<LightHero>
+			<h1>
+				<LightHeroPrimaryText>Des milliers d‘offres d‘emplois</LightHeroPrimaryText>
+				<LightHeroSecondaryText>sélectionnées pour vous par Pôle Emploi</LightHeroSecondaryText>
+			</h1>
+		</LightHero>
 	);
 }

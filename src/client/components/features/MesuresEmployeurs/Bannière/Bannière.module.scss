@@ -1,27 +1,8 @@
 @import "@styles/utilities";
 
 .bannière {
-  background-color: $color-on-primary;
-  color: $color-primary;
-  h1 {
-    font-size: 2rem;
-    line-height: 1.4;
-    margin: 0.5rem;
-    > span:not(:first-child) {
-      color: $color-secondary;
-    }
-  }
+  max-width: 50rem;
 }
-
-@include media(large) {
-  .bannière {
-    h1 {
-      margin: 4rem 8rem 4rem 0;
-    }
-  }
-}
-
-
 
 
 

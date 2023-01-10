@@ -1,19 +1,23 @@
 @import "@styles/utilities";
 
 .hero {
-  @extend %background-primary;
+  background: $color-primary;
+  color: $color-on-primary;
 
   @include media(large) {
     display: grid;
     grid-template-columns: calc((100% - #{$breakpoint-xl}) / 2) minmax(min-content, 1fr) minmax(0, calc((100% - #{$breakpoint-xl}) / 2 + (.33 * #{$breakpoint-xl})));
   }
 
-  &Title {
+  &PrimaryText {
     @extend %headline;
-    grid-column-start: 2;
-    padding: 2rem 1rem;
     font-weight: initial;
     color: inherit;
+  }
+
+  &TextWrapper {
+    grid-column-start: 2;
+    padding: 2rem 1rem;
 
     @include media(medium) {
       padding-block: 3rem;
@@ -24,8 +28,18 @@
     }
   }
 
+  &SecondaryText {
+    @extend %headline;
+    font-weight: initial;
+    color: inherit;
+  }
+
   &Illustration {
     position: relative;
+    img {
+      object-fit: cover;
+      object-position: top left;
+    }
   }
 }
 

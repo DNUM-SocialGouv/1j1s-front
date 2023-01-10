@@ -15,7 +15,11 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import {
+	LightHero,
+	LightHeroPrimaryText,
+	LightHeroSecondaryText,
+} from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -127,10 +131,14 @@ export function RechercherAccompagnement() {
 
 function BannièreAccompagnement() {
 	return (
-		<LightHero
-			primaryText="Je recherche un accompagnement proche de chez moi,"
-			secondaryText="je veux être aidé dans mes démarches et mon parcours"
-		/>
+		<LightHero>
+			<h1>
+				<LightHeroPrimaryText>
+					Je recherche un accompagnement proche de chez moi,
+				</LightHeroPrimaryText>
+			</h1>
+			<LightHeroSecondaryText>je veux être aidé dans mes démarches et mon parcours</LightHeroSecondaryText>
+		</LightHero>
 	);
 }
 

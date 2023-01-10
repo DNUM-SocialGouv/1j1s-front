@@ -44,7 +44,7 @@ const accompagnementNav: NavigationItemWithChildren = {
 		{ label: 'Je crée mon CV personnalisé', link: '/creer-mon-cv' },
 		{ label: 'Entreprendre', link: '/entreprendre' },
 		{ label: 'Accompagnement', link: '/accompagnement' },
-		{ label: 'Les mesures jeunes', link: '/espace-jeune' },
+		{ label: 'Actualités et services jeunes', link: '/espace-jeune' },
 	],
 	label: 'Aides et accompagnement',
 };

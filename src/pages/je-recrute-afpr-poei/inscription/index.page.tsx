@@ -9,7 +9,7 @@ import InputAutocomplétionSecteurActivité, {
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { Hero,HeroPrimaryText, HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -127,12 +127,14 @@ export default function JeRecruteAfprPoeiInscription() {
 			/>
 			{!isFormSuccessfullySent &&
         <>
-        	<Hero>
-        		<p><b>Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche</b></p>
-        		<p className={styles.heroSubtitle}>
-              Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement
-        		</p>
-        	</Hero>
+	        <Hero>
+		        <HeroPrimaryText>
+			        <b>Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche</b>
+        		</HeroPrimaryText>
+		        <HeroSecondaryText className={styles.heroSubtitle}>
+			        Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement
+        		</HeroSecondaryText>
+	        </Hero>
 
         	<div className={styles.content}>
         		<Container className={styles.container}>

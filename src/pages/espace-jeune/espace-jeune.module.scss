@@ -24,6 +24,10 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 2rem;
+
+  @include media(medium) {
+    padding-top: 2rem;
+  }
 }
 
 .carteActualite {
