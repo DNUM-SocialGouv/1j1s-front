@@ -73,10 +73,12 @@
     }
 
     &Title {
+      $lineHeight: 1.2;
+      @include line-clamp(2, $lineHeight);
       font-size: 1rem;
       font-weight: bold;
       text-align: center;
-      line-height: 1.2;
+      line-height: $lineHeight;
       margin: 1.5rem 0;
     }
 
@@ -89,25 +91,22 @@
     }
   }
 
-  &Content {
-    padding: 1rem 1rem 0;
-    overflow: auto;
+  &Body {
+    padding: 1rem;
 
     &Title {
+      $lineHeight: 1.2;
+      @include line-clamp(3, $lineHeight);
       font-size: 1rem;
       font-weight: bold;
-      line-height: 1.2;
+      line-height: $lineHeight;
       margin-bottom: 0.75rem;
-    }
-
-    > *:not(:first-child) {
-      font-size: 0.75rem;
     }
   }
 
   &ActionWrapper {
     display: flex;
-    padding: 1rem;
+    margin-top: 1rem;
 
     &SpaceBetween {
       justify-content: space-between;
@@ -157,17 +156,11 @@
     }
 
     &Content {
-      height: 5.5rem;
-
       &Title {
         font-size: 1.25rem;
-      }
-
-      > *:not(:first-child) {
-        font-size: 1rem;
+        min-height: calc(3 * 1.2 * 1.25rem);
       }
     }
-
   }
 }
 

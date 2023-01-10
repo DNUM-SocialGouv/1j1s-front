@@ -4,7 +4,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ArticleCard } from '~/client/components/ui/Card/ArticleCard';
+import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';

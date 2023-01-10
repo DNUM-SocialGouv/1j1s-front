@@ -21,8 +21,9 @@
 }
 
 .title {
-  margin-bottom: 0.5rem;
   @extend %text-medium;
+  @include line-clamp(2);
+  margin-bottom: 0.5rem;
 }
 
 .cta {

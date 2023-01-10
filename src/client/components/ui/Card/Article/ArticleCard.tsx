@@ -2,10 +2,9 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import React, { useRef } from 'react';
 
+import styles from '~/client/components/ui/Card/Article/ArticleCard.module.scss';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-
-import { CardComponent } from './AbstractCard/CardComponent';
-import styles from './ArticleCard.module.scss';
 
 interface ArticleCardProps {
   icon?: React.ReactNode
@@ -22,14 +21,14 @@ export function ArticleCard({ className, children, icon, imageSrc, imageFit = 'c
 
 	return (
 		<Link href={link} className={'underline-none'}>
-			<CardComponent className={className} layout={'vertical'}>
-				<CardComponent.Image className={imageClassName} src={imageSrc} aria-hidden/>
-				<CardComponent.Content className={styles.content}>
-					<CardComponent.Title className={styles.title} titleAs={'h3'}>{titleLabel}</CardComponent.Title>
+			<Card className={className} layout={'vertical'}>
+				<Card.Image className={imageClassName} src={imageSrc} aria-hidden/>
+				<Card.Content className={styles.content}>
+					<Card.Title className={styles.title} titleAs={'h3'}>{titleLabel}</Card.Title>
 					{children}
-					<CardComponent.FakeLink className={styles.cta} appearance={'tertiary'} icon={iconComponent.current} label={linkLabel} />
-				</CardComponent.Content>
-			</CardComponent>
+					<Card.FakeLink className={styles.cta} appearance={'tertiary'} icon={iconComponent.current} label={linkLabel} />
+				</Card.Content>
+			</Card>
 		</Link>
 	);
 }
