@@ -45,6 +45,7 @@ jobs:
           API_POLE_EMPLOI_OFFRES_URL: ${{ secrets.API_POLE_EMPLOI_OFFRES_URL }}
           API_POLE_EMPLOI_REFERENTIEL_URL: ${{ secrets.API_POLE_EMPLOI_REFERENTIEL_URL }}
           BUCKET_S3_URL: ${{ secrets.BUCKET_S3_URL }}
+          IMMO_JEUNE_IMAGE_URL: ${{ secrets.IMMO_JEUNE_IMAGE_URL }}
           IS_REVIEW_APP: ${{ secrets.IS_REVIEW_APP }}
           NEXT_PUBLIC_LOGEMENT_FEATURE: ${{ secrets.NEXT_PUBLIC_LOGEMENT_FEATURE }}
           NEXT_PUBLIC_RECHERCHE_ACCOMPAGNEMENT_FEATURE: ${{ secrets.NEXT_PUBLIC_RECHERCHE_ACCOMPAGNEMENT_FEATURE }}
@@ -84,6 +85,7 @@ jobs:
           STRAPI_TOKEN_API: ${{ secrets.STRAPI_TOKEN_API }}
           STRAPI_URL_API_PROD: ${{ secrets.STRAPI_URL_API_PROD }}
           STRAPI_URL_API: ${{ secrets.STRAPI_URL_API }}
+          STUDAPART_IMAGE_URL: ${{ secrets.STUDAPART_IMAGE_URL }}
       - name: Start redis
         run: |
           nohup docker-compose up </dev/null &>/dev/null &

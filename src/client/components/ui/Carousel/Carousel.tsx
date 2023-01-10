@@ -17,7 +17,7 @@ interface Image {
 }
 
 interface CarouselProps extends CommonProps {
-	imageList: [Image]
+	imageList: Array<Image>
 	imageListLabel: string
 }
 
@@ -72,7 +72,6 @@ export const Carousel = (props: CarouselProps) => {
 			<Controls
 				goToPreviousSlide={goToPreviousSlide}
 				goToNextSlide={goToNextSlide}
-				isInTransition={isInTransition}
 			/>
 
 			<Indicators
@@ -99,9 +98,9 @@ interface SlideProps {
 	numberOfImages: number
 	image: Image
 	isInTransition: boolean
-	setIsInTransition: (boolean) => void
-	direction: string
-	setDirection: (string) => void
+	setIsInTransition: (isInTransition: boolean) => void
+	direction: string | null
+	setDirection: (direction: 'next' | 'previous' | null) => void
 }
 
 const Slide = (props: SlideProps) => {
@@ -182,7 +181,7 @@ const Controls = (props: ControlsProps) => {
 
 interface  IndicatorsProps {
 	goToSelectedSlide: (index: number) => void
-	imageList: [Image]
+	imageList: Array<Image>
 	numberOfImages: number
 	currentSlideIndex:number
 }
