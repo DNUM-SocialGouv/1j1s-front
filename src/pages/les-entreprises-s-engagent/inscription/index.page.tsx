@@ -318,7 +318,9 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 
 			{isFormSuccessfullySent &&
-        <div className={styles.success}>Félicitations, votre formulaire a bien été envoyé !</div>}
+        <div className={styles.success}>
+	        <h1>Félicitations, votre formulaire a bien été envoyé !</h1>
+        </div>}
 		</main>
 	);
 }

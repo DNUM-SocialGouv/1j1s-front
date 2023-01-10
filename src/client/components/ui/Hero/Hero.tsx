@@ -1,29 +1,48 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
-import React from 'react';
+import Image from 'next/image';
+import React, { PropsWithChildren } from 'react';
 
 import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-interface HeroProps extends CommonProps {
-  image?: string
-  ariaHidden?: boolean
+interface HeroIllustrationProps extends CommonProps {
+	image: string
 }
 
-export function Hero({ children, image, ariaHidden, className, ...rest }: React.PropsWithChildren<HeroProps>) {
-	const { isLargeScreen } = useBreakpoint();
-
-	return (
-		<div className={classNames(className, styles.hero)} {...rest}>
-			<h1 className={styles.heroTitle}>
-				{children}
-			</h1>
-			{image && isLargeScreen && (
-				<div className={styles.heroIllustration}>
-					<Image src={image} alt="" layout="fill" objectFit="cover" objectPosition="top left" aria-hidden={ariaHidden}/>
-				</div>
-			)}
+export function Hero({ children, className, ...rest }: PropsWithChildren<CommonProps>) {
+	return <div className={classNames(styles.hero, className)} {...rest}>
+		<div className={styles.heroTextWrapper}>
+			{ children }
 		</div>
-	);
+	</div>;
+}
+
+export function HeroWithIllustration({ children, className, image, ...rest }: PropsWithChildren<HeroIllustrationProps>) {
+	const { isLargeScreen } = useBreakpoint();
+	if (isLargeScreen) {
+		return (
+			<div className={classNames(styles.hero, className)} {...rest}>
+				<div className={styles.heroTextWrapper}>
+					{children}
+				</div>
+				<div className={styles.heroIllustration}>
+					<Image src={image} alt="" fill={true}/>
+				</div>
+			</div>
+		);
+	}
+	return Hero({ children, className, ...rest });
+}
+
+export function HeroPrimaryText({ children, className, ...rest }: React.PropsWithChildren<CommonProps>) {
+	return <div className={classNames(styles.heroPrimaryText, className)} {...rest}>
+		{children}
+	</div>;
+}
+
+export function HeroSecondaryText({ children, className, ...rest }: PropsWithChildren<CommonProps>) {
+	return <p className={classNames(styles.heroSecondaryText, className)} {...rest}>
+		{children}
+	</p>;
 }

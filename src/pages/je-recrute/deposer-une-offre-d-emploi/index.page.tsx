@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { Hero,HeroPrimaryText, HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 import styles from './index.module.scss';
@@ -13,9 +13,13 @@ export default function DéposerUneOffreDEmploi() {
 	return (
 		<main id="contenu">
 			<HeadTag title="Déposer une offre d‘emploi ou d‘alternance | 1jeune1solution"/>
-			<Hero className={styles.hero}>
-				<p><b>Déposez votre offre d‘emploi ou d‘alternance sur 1jeune1solution</b></p>
-				<p className={styles.heroSubtitle}>En partenariat avec Pôle Emploi</p>
+			<Hero>
+				<HeroPrimaryText>
+					<b>Déposez votre offre d‘emploi ou d‘alternance sur 1jeune1solution</b>
+				</HeroPrimaryText>
+				<HeroSecondaryText className={styles.heroSubtitle}>
+					En partenariat avec Pôle Emploi
+				</HeroSecondaryText>
 			</Hero>
 			<Container className={styles.section}>
 				<iframe

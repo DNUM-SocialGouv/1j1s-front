@@ -9,7 +9,7 @@ import {
 	RechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/RechercherAccompagnement';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Hero } from '~/client/components/ui/Hero/Hero';
+import { Hero,HeroPrimaryText, HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
 import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
@@ -93,10 +93,14 @@ export default function Accompagnement() {
 				description="Trouver un accompagnement"
 			/>
 			<Hero>
-				<h2 className={styles.accompagnementHero}>
-					<div><b>Je recherche un accompagnement proche de chez moi,</b> je veux être aidé dans mes démarches et mon parcours</div>
-					<div>Retrouvez les missions locales, les structures infos jeunes et les agences Pôle Emploi les plus proches de chez vous.</div>
+				<h2>
+					<HeroPrimaryText>
+						<b>Je recherche un accompagnement proche de chez moi,</b> je veux être aidé dans mes démarches et mon parcours
+					</HeroPrimaryText>
 				</h2>
+				<HeroSecondaryText>
+					Retrouvez les missions locales, les structures infos jeunes et les agences Pôle Emploi les plus proches de chez vous.
+				</HeroSecondaryText>
 			</Hero>
 			<main id="contenu">
 				{

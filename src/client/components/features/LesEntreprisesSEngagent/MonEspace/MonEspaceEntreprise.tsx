@@ -11,7 +11,7 @@ export default function MonEspaceEntreprise() {
 	return (
 		<section className={styles.monEspace}>
 			<Container className={styles.container}>
-				<h2 className={styles.monEspaceTitre}>Les entreprises s‘engagent auprès de la jeunesse !</h2>
+				<h1 className={styles.monEspaceTitre}>Les entreprises s‘engagent auprès de la jeunesse !</h1>
 				<div className={styles.monEspaceAccroche}>J‘accède à mon espace entreprise</div>
 				<div className={styles.monEspaceDescription}>
 					<strong>Vous avez déjà rejoint la mobilisation &quot;Les entreprises s‘engagent&quot; pour les jeunes ?</strong>
