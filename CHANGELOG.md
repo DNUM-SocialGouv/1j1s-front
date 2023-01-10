@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.38.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.3...v2.38.4) (2023-01-10)
+
+
+### Bug Fixes
+
+* **accompagnement:** ajustements design ([6cb7432](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6cb743223b466762ad6486e11ae96074c5d4d492))
+* **accompagnement:** review design ([7f79dc2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7f79dc2fd28c92874a52cfe5f5775344123311cb))
+
 ## [2.38.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.2...v2.38.3) (2023-01-10)
 
 
