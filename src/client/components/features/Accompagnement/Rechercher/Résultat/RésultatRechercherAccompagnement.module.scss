@@ -40,13 +40,9 @@
   }
 }
 
-
 .title {
   margin-bottom: 0.5rem;
   @extend %text-medium;
-  @include media(large) {
-    width: 44rem;
-  }
 }
 
 .address {
@@ -91,7 +87,8 @@
 
   @include media(large) {
     margin-left: auto;
-    width: 25rem;
+    width: auto;
+    padding-right: 1.5rem;
     align-self: flex-start;
   }
 
@@ -145,7 +142,7 @@
   align-self: center;
 
   @include media(large) {
-    width: calc(100% - 1rem);
+    width: calc(100% + 3rem);
   }
 }
 
