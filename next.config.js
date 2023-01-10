@@ -178,7 +178,7 @@ const moduleExports = {
 	},
 	headers,
 	images: {
-		domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL],
+		domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL, 'www.immojeune.com', 'www.studapart.com'],
 	},
 	pageExtensions: ['page.tsx','controller.ts'],
 	poweredByHeader: false,

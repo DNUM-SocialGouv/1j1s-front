@@ -2,9 +2,14 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
-import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import {
+	AnnonceDeLogementIndexee,
+	Image
+} from '~/client/components/features/Logement/AnnonceDeLogement.type';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
+import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
+import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
@@ -13,8 +18,8 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
 	return (
-		<Card layout="vertical">
-			<Card.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>
+		<CardComponent layout="vertical">
+			<CardImage imageListUrl={annonce.imagesUrl} />
 
 			<Card.Content className={styles.CardContenu}>
 				<span className={styles.CardContenuEnTete}>
@@ -40,5 +45,27 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 				</Link>
 			</span>
 		</Card>
+	);
+};
+
+const CardImage = (props: { imageListUrl: [Image]} ) => {
+	const { imageListUrl } = props;
+
+	if (imageListUrl.length === 0) return <CardComponent.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>;
+	if (imageListUrl.length === 1) return <CardComponent.Image src={imageListUrl[0].value} className={styles.CardImageWrapper}/>;
+	return <CardAnnonceCarousel imageListUrl={imageListUrl} />;
+};
+
+const CardAnnonceCarousel = (props: { imageListUrl: [string]} ) => {
+	const { imageListUrl } = props;
+	const formattedList = imageListUrl.map((url) => ({ alt: '', src: url }));
+
+	return (
+		<Carousel
+			imageList={formattedList}
+			imageListLabel="liste des photos du logement"
+			className={styles.CardImageWrapper}
+			aria-hidden
+		/>
 	);
 };

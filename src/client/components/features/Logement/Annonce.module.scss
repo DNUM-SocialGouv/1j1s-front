@@ -2,10 +2,10 @@
 
 .Card {
   &ImageWrapper {
-    height: 150px;
+    height: 180px;
     img {
       object-fit: cover;
-      object-position: center top;
+      object-position: center;
     }
   }
 
