@@ -13,16 +13,16 @@ import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 
 const imageList = [
 	{
+		alt: '',
 		src: '/image1.jpg',
-		alt: '',
 	},
 	{
+		alt: '',
 		src: '/image2.jpg',
-		alt: '',
 	},
 	{
-		src: '/image3.jpg',
 		alt: '',
+		src: '/image3.jpg',
 	},
 ];
 

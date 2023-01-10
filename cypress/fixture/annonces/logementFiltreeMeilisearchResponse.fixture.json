@@ -13,6 +13,7 @@
       "slug": "appartement-a-louer-external-1",
       "surfaceAAfficher": "de 70 à 72m²",
       "dateDeMiseAJour": "2022-12-04",
+      "imagesUrl": ["/image-0.jpg", "/image-1.jpg","/image-2.jpg"],
       "localisationAAfficher": "75020 - Paris",
       "_formatted": {
         "titre": "Appartement à louer",
@@ -43,6 +44,7 @@
       "slug": "chambre-a-louer-external-2",
       "surfaceAAfficher": "70m²",
       "dateDeMiseAJour": "2022-12-04",
+      "imagesUrl": ["/image-0.jpg", "/image-1.jpg","/image-2.jpg"],
       "localisationAAfficher": "75020 - Paris",
       "_formatted": {
         "titre": "Chambre à louer",

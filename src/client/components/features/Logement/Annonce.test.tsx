@@ -16,6 +16,7 @@ const uneAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): Ann
 		dateDeDisponibilite: '2023-01-01',
 		dateDeMiseAJour: '2022-12-04',
 		devise: '€',
+		imagesUrl: ['/image-0.jpg', '/image-1.jpg','/image-2.jpg'],
 		localisationAAfficher: 'Paris',
 		prix: 1200,
 		prixHT: 1000,
@@ -24,13 +25,8 @@ const uneAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): Ann
 		titre: 'Appartement à louer',
 		type: 'appartement',
 		url: 'https://www.immo.com',
-		imagesUrl: [
-			{ id: '0', value: '/image-0.jpg'},
-			{ id: '1', value: '/image-1.jpg'},
-			{ id: '2', value: '/image-2.jpg'},
-		],
 		...override,
-	}
+	};
 };
 
 const mockDate = jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue('12/4/2022');
@@ -42,28 +38,27 @@ describe('Annonce Component', () => {
 
 	describe('quand il n‘y a as d‘image', () => {
 		it('contient une image par défaut', async () => {
-			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: []})}/>);
+			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: [] })}/>);
 			const image = screen.getByRole('img') as HTMLImageElement;
 			expect(image.src).toContain('%2Fimages%2Fdefaut-logement.webp'); // %2F => /
 		});
-	})
+	});
 
 	describe("quand il n'y a qu‘une image", () => {
 		it('contient l‘image', async () => {
-			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: [{ id: '0', value: '/image-0.jpg'}]})}/>);
+			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}/>);
 			const image = screen.getByRole('img') as HTMLImageElement;
 			expect(image.src).toContain('image-0.jpg');
 		});
-	})
+	});
 
-	describe("quand il y a plusieurs images", () => {
-		it('contient un carousel d‘image', async () => {
+	describe('quand il y a plusieurs images', () => {
+		it('contient un carousel d‘images', async () => {
 			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
-			const imageList = screen.getAllByRole('img') as HTMLImageElement;
-			console.log(imageList)
-			expect(imageList[0].value).toContain('image-0.jpg');
+			const listDeSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
+			expect(listDeSlides).toBeInTheDocument();
 		});
-	})
+	});
 
 
 	it('contient le type de logement', async () => {

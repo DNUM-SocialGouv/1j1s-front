@@ -2,10 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
-import {
-	AnnonceDeLogementIndexee,
-	Image
-} from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
 import { CardComponent } from '~/client/components/ui/Card/AbstractCard/CardComponent';
@@ -52,11 +49,11 @@ const CardImage = (props: { imageListUrl: [Image]} ) => {
 	const { imageListUrl } = props;
 
 	if (imageListUrl.length === 0) return <CardComponent.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>;
-	if (imageListUrl.length === 1) return <CardComponent.Image src={imageListUrl[0].value} className={styles.CardImageWrapper}/>;
+	if (imageListUrl.length === 1) return <CardComponent.Image src={imageListUrl[0]} className={styles.CardImageWrapper}/>;
 	return <CardAnnonceCarousel imageListUrl={imageListUrl} />;
 };
 
-const CardAnnonceCarousel = (props: { imageListUrl: [string]} ) => {
+const CardAnnonceCarousel = (props: { imageListUrl: [Image]} ) => {
 	const { imageListUrl } = props;
 	const formattedList = imageListUrl.map((url) => ({ alt: '', src: url }));
 

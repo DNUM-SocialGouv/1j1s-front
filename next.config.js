@@ -25,7 +25,8 @@ const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 const BUCKET_S3_URL = process.env.BUCKET_S3_URL;
 const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.sfo.meilisearch.io/indexes/fiche-metier/search *.sfo.meilisearch.io/indexes/offre-de-stage/search *.sfo.meilisearch.io/indexes/evenement/search *.sfo.meilisearch.io/indexes/annonce-de-logement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
 const ANALYTICS_SOURCES = '*.xiti.com *.googletagmanager.com *.googleadservices.com *.google.com';
-
+const IMMO_JEUNE_IMAGE_URL = process.env.IMMO_JEUNE_IMAGE_URL;
+const STUDAPART_IMAGE_URL = process.env.STUDAPART_IMAGE_URL;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
   script-src 'self' ${ANALYTICS_SOURCES};
@@ -178,7 +179,7 @@ const moduleExports = {
 	},
 	headers,
 	images: {
-		domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL, 'www.immojeune.com', 'www.studapart.com'],
+		domains: [CMS_HOST, API_POLE_EMPLOI_HOST, BUCKET_S3_URL, STRAPI_MEDIA_URL, IMMO_JEUNE_IMAGE_URL, STUDAPART_IMAGE_URL],
 	},
 	pageExtensions: ['page.tsx','controller.ts'],
 	poweredByHeader: false,
