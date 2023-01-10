@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.38.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.1...v2.38.2) (2023-01-10)
+
+
+### Bug Fixes
+
+* **espace jeune:** marges cartes article ([999c2d0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/999c2d0d9782035b6bfa9605f147a79c2293300f))
+* **multiple:** image déformées articleCard ([770a36a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/770a36a1ab130e9d604430d17127dd3cd6b22871))
+
 ## [2.38.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.0...v2.38.1) (2023-01-09)
 
 
