@@ -13,7 +13,7 @@ interface TextAreaProps extends CommonProps{
 export function TextArea({ id, placeholder, label, name, className }: TextAreaProps) {
 	return (
 		<div className={classNames(styles.textArea, className)}>
-			<label className={styles.textAreaLabel} htmlFor={id}>{label}</label>
+			<label htmlFor={id}>{label}</label>
 			<textarea
 				id={id}
 				className={styles.textAreaField}

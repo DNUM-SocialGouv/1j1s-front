@@ -28,7 +28,7 @@
   }
 
   &Category {
-    margin-inline: 1.5rem;
+    margin-inline: 1rem;
     color: $white;
     padding-inline: 0.25rem;
     width: fit-content;
@@ -90,7 +90,7 @@
   }
 
   &Content {
-    padding: 1rem 1.5rem 0;
+    padding: 1rem 1rem 0;
     overflow: auto;
 
     &Title {
@@ -107,7 +107,7 @@
 
   &ActionWrapper {
     display: flex;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
 
     &SpaceBetween {
       justify-content: space-between;

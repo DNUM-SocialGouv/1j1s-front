@@ -71,8 +71,8 @@ Liste des contextes de **pages** autorisées (non exhaustive):
 - mentorat
 - entreprendre
 - accompagnement
-- espace jeune  
-- engagement 
+- espace jeune
+- engagement
 - employeur
   
 Exemple d'utilisation avec sous-contexte :
