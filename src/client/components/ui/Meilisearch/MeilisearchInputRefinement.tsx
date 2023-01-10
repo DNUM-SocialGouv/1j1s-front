@@ -1,12 +1,6 @@
 // eslint-disable-next-line import/named
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
-import React, {
-	ChangeEvent,
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 
@@ -130,11 +124,11 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 						</li>
 					))}
 				{listeDeLocalisations(items, localisation).length === 0 &&
-                <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
-                    Aucune proposition ne correspond à votre saisie.
-                    Vérifiez que votre saisie correspond bien à un lieu.
-                    Exemple : Paris, ...
-                </li>
+	                <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
+	                    Aucune proposition ne correspond à votre saisie.
+	                    Vérifiez que votre saisie correspond bien à un lieu.
+	                    Exemple : Paris, ...
+	                </li>
 				}
 			</ul>
 		);
@@ -143,35 +137,36 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 	return (
 		<div className={styles.formInput}>
 			<label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>Localisation</label>
-			<div
-				ref={autocompleteRef}
-				id="header-search"
-				role="combobox"
-				aria-expanded={suggestionsActive}
-				aria-controls={LOCALISATION_SUGGESTIONS_ID}
-				aria-owns={LOCALISATION_SUGGESTIONS_ID}
-				aria-haspopup="listbox"
-			>
-				<input
-					type="text"
-					id="rechercherLocalisation"
-					name="inputLocalisation"
-					autoComplete="off"
-					aria-autocomplete="list"
+			<div ref={autocompleteRef}>
+				<div
+					id="header-search"
+					role="combobox"
+					aria-expanded={suggestionsActive}
 					aria-controls={LOCALISATION_SUGGESTIONS_ID}
-					aria-activedescendant="rechercherLocalisation"
-					placeholder={'Exemple : Toulouse, Paris...'}
-					className={styles.formControlInput}
-					value={localisation}
-					onChange={(event) => {
-						setLocalisation(event.target.value);
-						rechercherLocalisation(event);
-					}}
-					onKeyDown={handleKeyDown}
-					onClick={() => setSuggestionsActive(!!localisation)}
-				/>
+					aria-owns={LOCALISATION_SUGGESTIONS_ID}
+					aria-haspopup="listbox"
+				>
+					<input
+						type="text"
+						id="rechercherLocalisation"
+						name="inputLocalisation"
+						autoComplete="off"
+						aria-autocomplete="list"
+						aria-controls={LOCALISATION_SUGGESTIONS_ID}
+						aria-activedescendant="rechercherLocalisation"
+						placeholder={'Exemple : Toulouse, Paris...'}
+						className={styles.formControlInput}
+						value={localisation}
+						onChange={(event) => {
+							setLocalisation(event.target.value);
+							rechercherLocalisation(event);
+						}}
+						onKeyDown={handleKeyDown}
+						onClick={() => setSuggestionsActive(!!localisation)}
+					/>
+				</div>
+				{suggestionsActive && <SuggestionsLocalisationList/>}
 			</div>
-			{suggestionsActive && <SuggestionsLocalisationList/>}
 		</div>
 	);
 }
