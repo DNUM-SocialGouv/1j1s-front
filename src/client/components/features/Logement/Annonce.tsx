@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
 import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
@@ -56,10 +56,11 @@ const CardImage = (props: { imageListUrl: Array<string>} ) => {
 const CardAnnonceCarousel = (props: { imageListUrl: Array<string>} ) => {
 	const { imageListUrl } = props;
 	const formattedList = imageListUrl.map((url) => ({ alt: '', src: url }));
+	const firstFourthImages = useMemo(() => formattedList.slice(0, 4), [formattedList]);
 
 	return (
 		<Carousel
-			imageList={formattedList}
+			imageList={firstFourthImages}
 			imageListLabel="liste des photos du logement"
 			className={styles.CardImageWrapper}
 			aria-hidden
