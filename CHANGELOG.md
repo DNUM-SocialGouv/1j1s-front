@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.38.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.2...v2.38.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* **multiple:** correction sélection localisation ([61631e4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/61631e4e71ec7dba9fd2f5271b142d61e9677790))
+
 ## [2.38.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.1...v2.38.2) (2023-01-10)
 
 
