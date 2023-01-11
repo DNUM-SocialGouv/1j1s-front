@@ -62,7 +62,7 @@ function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
 	return {
 		clear: jest.fn(),
 		isSearchStalled: false,
-		query: 'ma-query',
+		query: '',
 		refine: jest.fn(),
 	};
 }
