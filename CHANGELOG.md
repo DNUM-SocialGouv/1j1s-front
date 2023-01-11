@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.38.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.6...v2.38.7) (2023-01-11)
+
+
+### Bug Fixes
+
+* **middleware:** ip non fonctionnel avec proxy scalingo ([459cff5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/459cff541cbcf6697b9d251288b140b02d4f16bb))
+
 ## [2.38.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.5...v2.38.6) (2023-01-11)
 
 
