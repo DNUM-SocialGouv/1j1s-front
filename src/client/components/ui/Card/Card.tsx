@@ -64,8 +64,8 @@ function CardImage({ className, src, alt='', sizes='100vw', ...rest }: { src: st
 	);
 }
 
-function CardTitle({ children, className, id, titleAs }: { titleAs: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-	return React.createElement(titleAs, { className: classNames(styles.cardTitle, className), id }, children );
+function CardTitle({ children, className, id, titleAs }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
+	return React.createElement(titleAs || 'h3', { className: classNames(styles.cardTitle, className), id }, children );
 }
 
 Card.Button = CardButton;

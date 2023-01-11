@@ -16,6 +16,7 @@ import {
 	RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -25,8 +26,6 @@ import { OffreService } from '~/client/services/offre/offre.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
-
-import { EnTeteSection } from '../../../ui/EnTeteSection/EnTeteSection';
 
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';

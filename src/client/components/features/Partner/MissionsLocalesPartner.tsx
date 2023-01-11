@@ -10,6 +10,7 @@ export function MissionsLocalesPartner() {
 			logo="/images/logos/union-mission-locale.svg"
 			link="/articles/mission-locale"
 			linkLabel="En savoir plus"
+			titleAs="h3"
 		/>
 	);
 }
