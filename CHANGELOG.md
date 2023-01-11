@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.38.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.5...v2.38.6) (2023-01-11)
+
+
+### Bug Fixes
+
+* **multiple:** ajout query dans custom searchbox ([c1104f8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1104f880deb08a9e91f3c4ad0f0fb9fa443301c))
+
 ## [2.38.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.4...v2.38.5) (2023-01-10)
 
 
