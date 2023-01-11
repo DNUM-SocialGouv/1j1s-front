@@ -10,6 +10,7 @@ export function InfoJeunesPartner() {
 			logo="/images/logos/info-jeunes.svg"
 			link="/articles/info-jeunes"
 			linkLabel="En savoir plus"
+			titleAs="h3"
 		/>
 	);
 }

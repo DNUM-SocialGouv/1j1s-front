@@ -11,6 +11,7 @@ export function SimulationAlternancePartner() {
 			title="Vous êtes alternant ?"
 			headline="Simulez en quelques clics"
 			description="et moins de 3 minutes le montant de la rémunération à laquelle vous aurez droit en fonction de votre formation et de votre contrat. "
+			titleAs="h3"
 		/>
 	);
 }

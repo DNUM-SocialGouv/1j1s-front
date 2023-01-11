@@ -5,6 +5,7 @@ import React, {
 
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
 import { Card } from '~/client/components/ui/Card/Card';
+import { HtmlHeadingTag } from '~/client/components/props';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -35,6 +36,7 @@ interface PartnerCardProps {
 	link: string
 	linkLabel: string
 	title?: string
+	titleAs?: HtmlHeadingTag
 }
 
 export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
@@ -66,7 +68,7 @@ export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'}>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
 				<Card.Content className={styles.cardBody}>
-					<Card.Title titleAs={'h3'} className={styles.cardBody__Title}>{title}</Card.Title>
+					<Card.Title className={styles.cardBody__Title}>{title}</Card.Title>
 					<p>
 						{headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
 						{description}

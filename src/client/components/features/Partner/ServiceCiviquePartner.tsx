@@ -12,6 +12,7 @@ export function ServiceCiviquePartner() {
 			headline="Avec ou sans diplôme, engagez-vous dans des missions d‘intérêt général en France ou à l‘étranger."
 			headlineColor="blue"
 			description="Indemnisé 601€/mois, il vous permettra d‘acquérir ou de développer vos compétences dans de nombreux domaines. Ouvert aux 16-25 ans (30 ans pour les jeunes en situation de handicap)."
+			titleAs="h3"
 		/>
 	);
 }
