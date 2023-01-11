@@ -62,7 +62,7 @@ function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
 	return {
 		clear: jest.fn(),
 		isSearchStalled: false,
-		query: 'ma-query',
+		query: '',
 		refine: jest.fn(),
 	};
 }
@@ -111,5 +111,5 @@ module.exports = {
 	usePagination: realMockUsePagination,
 	useRange: realMockUseRange,
 	useRefinementList: realMockUseRefinementList,
-	useSearchBox: realMockUseSearchBox,
+  	useSearchBox: realMockUseSearchBox,
 };

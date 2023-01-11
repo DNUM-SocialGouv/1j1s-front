@@ -33,12 +33,12 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
 		resetTitle,
 		className,
 	} = props;
-	const { refine, clear } = useSearchBox(props);
+	const { refine, clear, query } = useSearchBox(props);
 	const uuid = uuidv4();
 	const inputRef = useRef(id || uuid);
 
 	const DEFAULT_RESET_TITLE = 'Vider le champ de recherche';
-	const [value, setValue] = useState('');
+	const [value, setValue] = useState(query);
 
 	const updateValue = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
@@ -67,7 +67,7 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
 					onChange={updateValue}
 				/>
 				{
-					value && <button type="reset" title={resetTitle || DEFAULT_RESET_TITLE} onClick={() => resetValue()}>
+					!!value && <button type="reset" title={resetTitle || DEFAULT_RESET_TITLE} onClick={() => resetValue()}>
 						<Icon name="close" />
 					</button>
 				}
