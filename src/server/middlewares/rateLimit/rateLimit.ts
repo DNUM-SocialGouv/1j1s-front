@@ -1,13 +1,20 @@
 import rateLimit from 'express-rate-limit';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { createFailure } from '../../errors/either';
-import { ErreurTechnique } from '../../errors/erreurTechnique.types';
-import { SentryException } from '../../exceptions/sentryException';
-import { LoggerService } from '../../services/logger.service';
-import { handleResponse } from '../../utils/handleResponse.util';
+import { createFailure } from '~/server/errors/either';
+import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
+import { SentryException } from '~/server/exceptions/sentryException';
+import { LoggerService } from '~/server/services/logger.service';
+import { handleResponse } from '~/server/utils/handleResponse.util';
 
-export const getIP = (request: NextApiRequest) => request.socket.remoteAddress || '';
+const SCALINGO_FORWARD_IP_HEADER = 'x-forwarded-for';
+
+export const getIP = (request: NextApiRequest): string => {
+	if (request.headers[SCALINGO_FORWARD_IP_HEADER] !== undefined) {
+		return request.headers['x-forwarded-for']?.toString();
+	}
+	return request.socket.remoteAddress || '';
+};
 
 export function onErrorHandler(request: NextApiRequest, response: NextApiResponse) {
 	handleResponse(createFailure(ErreurTechnique.TOO_MANY_REQUESTS), response);
@@ -25,7 +32,7 @@ const rateLimitMiddleware = rateLimit({
 	windowMs: Number(process.env.RATE_LIMIT_PERIOD_IN_SECONDS) * 1000,
 });
 
-export async function applyRateLimit(request: NextApiRequest, response: NextApiResponse, middleware = rateLimitMiddleware) {
+export async function applyRateLimit(request: NextApiRequest, response: NextApiResponse, middleware = rateLimitMiddleware): Promise<boolean> {
 	await new Promise((resolve, reject) => {
 		middleware(request, response, (result: unknown) => {
 			if (result instanceof Error) {
