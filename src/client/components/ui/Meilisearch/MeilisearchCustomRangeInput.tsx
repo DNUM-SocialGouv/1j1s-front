@@ -100,7 +100,7 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   				value={minValue}
   				onChange={onMinInputChange}
   			/>
-  			<span aria-label="unité">{unite}</span>
+  			<span>{unite}</span>
   		</span>
   		<label className={styles.label} htmlFor={inputMaxRef.current}>Maximum</label>
   		<span className={classNames(styles.customRangeInputWrapper)}>
@@ -112,7 +112,7 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   				value={maxValue}
   				onChange={onMaxInputChange}
   			/>
-  			<span aria-label="unité">{unite}</span>
+  			<span>{unite}</span>
   		</span>
   		<ButtonComponent type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
   	</fieldset>
