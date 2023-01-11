@@ -16,6 +16,7 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -101,6 +102,7 @@ export function RechercherJobÉtudiant() {
 					maxPage={MAX_PAGE}
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
 				/>
+				<EnTeteSection heading="Découvrez des services faits pour vous" />
 				<PartnerCardList>
 					<LaBonneBoitePartner />
 					<OnisepPartner />
