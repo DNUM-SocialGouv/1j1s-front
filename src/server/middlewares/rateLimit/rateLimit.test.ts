@@ -1,13 +1,47 @@
+import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { rechercherOffreEmploiHandler } from '~/pages/api/emplois/index.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { getIP } from '~/server/middlewares/rateLimit/rateLimit';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import {
 	aRésultatRechercheOffreEmploiAxiosResponse, aRésultatRéférentielCommuneResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
+
+const SCALINGO_FORWARD_IP_HEADER = 'x-forwarded-for';
+
+describe('getIP', () => {
+	describe('Quand on reçoit une requête avec un header de forward ip', () => {
+		it('retourne l‘ip du client', () => {
+			// GIVEN
+			const ip = 'test-ip';
+			const request: NextApiRequest = { headers: {} } as NextApiRequest;
+			request.headers[SCALINGO_FORWARD_IP_HEADER] = ip;
+
+			// WHEN
+			const result = getIP(request);
+
+			// THEN
+			expect(result).toEqual(ip);
+		});
+	});
+	describe('Quand on reçoit une requête sans header de forward ip', () => {
+		it('retourne l‘ip du client', () => {
+			// GIVEN
+			const ip = 'test-ip';
+			const request: NextApiRequest = { headers: {}, socket: { remoteAddress: ip } } as NextApiRequest;
+
+			// WHEN
+			const result = getIP(request);
+
+			// THEN
+			expect(result).toEqual(ip);
+		});
+	});
+});
 
 describe('rechercher une offre d‘emploi', () => {
 	describe('Quand l‘utilisateur envoie trop de requêtes', () => {
