@@ -26,6 +26,8 @@ import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRech
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
 
+import { EnTeteSection } from '../../../ui/EnTeteSection/EnTeteSection';
+
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
@@ -102,6 +104,7 @@ export function RechercherAlternance() {
 					maxPage={MAX_PAGE}
 					listeSolutionElement={<ListeOffreAlternance résultatList={alternanceList}/>}
 				/>
+				<EnTeteSection heading="Découvrez des services faits pour vous" />
 				<PartnerCardList>
 					<LaBonneBoitePartner />
 					<OnisepPartner />
