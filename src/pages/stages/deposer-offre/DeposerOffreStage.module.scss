@@ -1,22 +1,16 @@
 @import "@styles/utilities";
 
-.hero {
-  background-color: $white-lilac;
-  color: $color-primary;
-  display: flex;
-  flex-direction: column;
+.section {
+  background-color: $color-background-white-lilac;
+}
 
-  h1 {
-    @extend %bold;
-    font-size: 1.5rem;
-    text-align: left;
-    @include media(medium) {
-      text-align: center;
-      font-size: 2rem;
-    }
-    > span:not(:first-child) {
-      font-weight: normal;
-      color: $color-secondary;
-    }
+.hero {
+  text-align: left;
+  padding-top: 2rem;
+  @include media(large) {
+    padding: 4rem 1rem 4rem 1rem;
+    display: flex;
+    gap: 0.5rem;
+    place-content: center;
   }
 }
