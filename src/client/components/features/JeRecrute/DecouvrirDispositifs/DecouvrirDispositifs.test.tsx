@@ -4,27 +4,17 @@
 import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
-
-import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import React from 'react';
 
 import { DécouvrirDispositifs } from './DecouvrirDispositifs';
 
 describe('DecouvrirDispositifs', () => {
-
-	function renderComponent () {
-		render(
-			<DependenciesProvider>
-				<DécouvrirDispositifs />
-			</DependenciesProvider>,
-		);
-	}
-
 	describe('quand on clique sur Déposer une offre d‘emploi ou d‘alternance', () => {
-		it('ça te renvoie vers le formulaire du dépot de stage', () => {
+		it('renvoie vers le formulaire du dépot de stage', () => {
 			// Given
 			const deposerOffreEmploiAlternance = 'Déposer une offre d‘emploi ou d‘alternance';
 
-			renderComponent();
+			render(<DécouvrirDispositifs />);
 
 			// Then
 			const link = screen.getByRole('link', { name: deposerOffreEmploiAlternance });
@@ -34,11 +24,11 @@ describe('DecouvrirDispositifs', () => {
 	});
 
 	describe('quand on clique sur Déposer une offre de stage', () => {
-		it('ça te renvoie vers le formulaire du dépot de stage', () => {
+		it('renvoie vers le formulaire du dépot de stage', () => {
 			// Given
 			const deposerOffreStage = 'Déposer une offre de stage';
 
-			renderComponent();
+			render(<DécouvrirDispositifs />);
 
 			// Then
 			const link = screen.getByRole('link', { name: deposerOffreStage });
