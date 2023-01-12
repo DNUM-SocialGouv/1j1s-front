@@ -13,7 +13,7 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 import NotFound from '~/pages/404.page';
 
-const MEILISEARCH_INDEX = 'annonce-de-logement';
+export const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
 

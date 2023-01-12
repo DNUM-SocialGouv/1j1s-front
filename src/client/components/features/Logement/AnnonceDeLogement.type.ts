@@ -6,9 +6,12 @@ export interface AnnonceDeLogementIndexee  {
   prixHT?: number
   surfaceAAfficher: string
   type: string
+  typeBien: string
   url: string
   dateDeMiseAJour: string
   localisationAAfficher: string
   devise: string
   imagesUrl: Array<string>
 }
+
+export type AnnonceDeLogementAttributesFromCMS = AnnonceDeLogementIndexee
