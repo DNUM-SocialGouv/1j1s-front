@@ -15,9 +15,9 @@ export default function DeposerOffreStagePage() {
 				title={'Dépôt d’offre de stage - Etape 1 sur 3 : Votre entreprise | 1jeune1solution '}
 			/>
 			<main id="contenu">
-				<section className={styles.section}>
+				<div className={styles.section}>
 					<LightHero className={styles.hero} primaryText={'Déposez votre offre de stage'} secondaryText={'sur 1jeune1solution'} />
-				</section>
+				</div>
 			</main>
 		</>
 	);
