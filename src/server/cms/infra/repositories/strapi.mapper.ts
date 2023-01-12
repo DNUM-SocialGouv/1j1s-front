@@ -1,3 +1,12 @@
+import {
+	AnnonceDeLogement,
+	AnnonceDeLogementAttributesFromCMS,
+	AnnonceDeLogementResponse,
+} from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import {
+	OffreDeStageAttributesFromCMS,
+	OffreDeStageInternalService,
+} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { CarteActualite } from '~/server/cms/domain/actualite';
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
@@ -191,4 +200,54 @@ export function mapImage(bannière: StrapiImage | undefined): Image | undefined 
 	} else {
 		return undefined;
 	}
+}
+
+export function mapOffreStage(offreStageResponse: OffreDeStageInternalService): OffreDeStageAttributesFromCMS {
+	const { data } = offreStageResponse;
+	return data.attributes;
+}
+
+const getLocalisation = (localisation: AnnonceDeLogementAttributesFromCMS.Localisation): AnnonceDeLogement.Localisation => {
+	return {
+		adresse: localisation.adresse || undefined,
+		codePostal: localisation.codePostal || undefined,
+		département: localisation.département || undefined,
+		pays: localisation.pays || undefined,
+		région: localisation.région || undefined,
+		ville: localisation.ville || undefined,
+	};
+};
+
+const getInformationsGénérales = (response: AnnonceDeLogementAttributesFromCMS): AnnonceDeLogement.InformationsGénérales => {
+	return {
+		charge: response.charge || undefined,
+		dateDeDisponibilité: response.dateDeDisponibilite,
+		garantie: response.garantie || undefined,
+		localisation: getLocalisation(response.localisation),
+		meublé: response.meuble,
+		nombresDePièces: response.nombresDePieces,
+		prix: response.prix,
+		prixHT: response.prixHT || undefined,
+		surface: response.surface,
+		surfaceMax: response.surfaceMax || undefined,
+		étage: response.etage || undefined,
+	};
+};
+
+const getEnTête = (response: AnnonceDeLogementAttributesFromCMS): AnnonceDeLogement.EnTête => {
+	return {
+		dateDeMiseAJour: response.dateDeMiseAJour,
+		titre: response.titre,
+		type: response.type,
+		typeBien: response.typeBien,
+	};
+};
+
+export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse): AnnonceDeLogement {
+	const response = annonceLogementResponse.data.attributes;
+	return {
+		description: response.description,
+		enTête: getEnTête(response),
+		informationsGénérales: getInformationsGénérales(response),
+	};
 }

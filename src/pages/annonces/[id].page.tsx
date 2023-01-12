@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import {
 	GetServerSidePropsContext,
 	GetServerSidePropsResult,
@@ -7,21 +6,21 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { AnnonceDeLogementAttributesFromCMS } from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
-import indexServices from '~/client/services/index.service';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { dependencies } from '~/server/start';
 
 export default function ConsulterAnnonceLogementPage({ annonceDeLogement }: ConsulterAnnonceLogementPageProps) {
 	return (
 		<>
 			<HeadTag title={`${annonceDeLogement.titre} | 1jeune1solution`} />
-			<span>{annonceDeLogement.type} - {annonceDeLogement.typeBien}</span>
-			<h1>{annonceDeLogement.titre}</h1>
+			<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
 		</>
 	);
 }
 
-interface StageContext extends ParsedUrlQuery {
+interface LogementContext extends ParsedUrlQuery {
 	id: string;
 }
 
@@ -29,24 +28,20 @@ interface ConsulterAnnonceLogementPageProps {
 	annonceDeLogement: AnnonceDeLogementAttributesFromCMS;
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext<StageContext>): Promise<GetServerSidePropsResult<ConsulterAnnonceLogementPageProps>> {
+export async function getServerSideProps(context: GetServerSidePropsContext<LogementContext>): Promise<GetServerSidePropsResult<ConsulterAnnonceLogementPageProps>> {
 	if (!context.params) {
 		throw new PageContextParamsException();
 	}
 	const { id: slug } = context.params;
 
-	try {
-		const annonceDeLogement = await indexServices.annonceDeLogement.get(slug);;
-		return {
-			props: {
-				annonceDeLogement,
-			},
-		};
-	} catch (e) {
-		const error: AxiosError | Error = e as AxiosError | Error;
-		if (error instanceof AxiosError && error.response?.status === 404) {
-			return { notFound: true };
-		}
-		throw e;
+	const annonceDeLogement = await dependencies.cmsIndexDependencies.consulterAnnonceLogement.handle(`${slug}`);
+	if (annonceDeLogement.instance === 'failure') {
+		return { notFound: true };
 	}
+
+	return {
+		props: {
+			annonceDeLogement: JSON.parse(JSON.stringify(annonceDeLogement.result)),
+		},
+	};
 }

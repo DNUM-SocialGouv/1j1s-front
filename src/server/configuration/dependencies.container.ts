@@ -5,6 +5,9 @@ import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/c
 import { RechercherAlternanceUseCase } from '~/server/alternances/useCases/rechercherAlternance.useCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
+import { StrapiIndexCmsRepository } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
+import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulterAnnonceLogement.useCase';
+import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
 import {
 	DemandeDeContactAccompagnementRepository,
 } from '~/server/demande-de-contact/infra/repositories/accompagnement/demandeDeContactAccompagnement.repository';
@@ -69,6 +72,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
+	cmsIndexDependencies: CmsIndexDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies
@@ -77,6 +81,11 @@ export type Dependencies = {
   offreAlternanceDependencies: OffresAlternanceDependencies
   établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
 };
+
+export interface CmsIndexDependencies {
+	consulterOffreStage: ConsulterOffreStageUseCase
+	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
+}
 
 export interface OffresEmploiDependencies {
   consulterOffreEmploi: ConsulterOffreEmploiUseCase
@@ -134,6 +143,7 @@ export const dependenciesContainer = (): Dependencies => {
 		poleEmploiReferentielsClientService,
 		strapiAuthClientService,
 		strapiClientService,
+		strapiIndexClientService,
 		adresseClientService,
 		geoGouvClientService,
 		établissementAccompagnementClientService,
@@ -142,6 +152,12 @@ export const dependenciesContainer = (): Dependencies => {
 
 	const cmsRepository = new StrapiCmsRepository(strapiClientService, strapiAuthClientService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
+
+	const cmsIndexRepository = new StrapiIndexCmsRepository(strapiIndexClientService);
+	const cmsIndexDependencies = {
+		consulterAnnonceLogement: new ConsulterAnnonceLogementUseCase(cmsIndexRepository),
+		consulterOffreStage: new ConsulterOffreStageUseCase(cmsIndexRepository),
+	};
 
 	const isApiEmploiFeatureEnabled = Boolean(serverConfigurationService.getConfiguration().API_POLE_EMPLOI_FEATURE === '1');
 
@@ -208,6 +224,7 @@ export const dependenciesContainer = (): Dependencies => {
 
 	return {
 		cmsDependencies,
+		cmsIndexDependencies,
 		demandeDeContactDependencies,
 		engagementDependencies,
 		entrepriseDependencies,

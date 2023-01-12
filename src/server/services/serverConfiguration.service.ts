@@ -15,6 +15,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', ''),
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
+			NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
 			POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
@@ -77,7 +78,8 @@ export interface EnvironmentVariables {
   readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
   readonly IS_REVIEW_APP: string
   readonly MAILER_SERVICE_ACTIVE: string
-  readonly MAILER_SERVICE_REDIRECT_TO: string
+	readonly MAILER_SERVICE_REDIRECT_TO: string
+	readonly NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
   readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
