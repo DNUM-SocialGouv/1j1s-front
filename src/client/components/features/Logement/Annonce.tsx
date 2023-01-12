@@ -47,9 +47,11 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 
 const CardImage = (props: { imageListUrl: Array<string>} ) => {
 	const { imageListUrl } = props;
+	const hasNoImage = imageListUrl.length === 0;
+	const hasOnlyOneImage = imageListUrl.length === 1;
 
-	if (imageListUrl.length === 0) return <CardComponent.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>;
-	if (imageListUrl.length === 1) return <CardComponent.Image src={imageListUrl[0]} className={styles.CardImageWrapper}/>;
+	if (hasNoImage) return <CardComponent.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>;
+	if (hasOnlyOneImage) return <CardComponent.Image src={imageListUrl[0]} className={styles.CardImageWrapper}/>;
 	return <CardAnnonceCarousel imageListUrl={imageListUrl} />;
 };
 

@@ -36,10 +36,10 @@ describe('Annonce Component', () => {
 		mockDate.mockRestore();
 	});
 
-	describe('quand il n‘y a as d‘image', () => {
+	describe('quand il n‘y a pas d‘image', () => {
 		it('contient une image par défaut', async () => {
 			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: [] })}/>);
-			const image = screen.getByRole('img') as HTMLImageElement;
+			const image = screen.getByRole('img');
 			expect(image.src).toContain('%2Fimages%2Fdefaut-logement.webp'); // %2F => /
 		});
 	});
@@ -47,7 +47,7 @@ describe('Annonce Component', () => {
 	describe("quand il n'y a qu‘une image", () => {
 		it('contient l‘image', async () => {
 			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}/>);
-			const image = screen.getByRole('img') as HTMLImageElement;
+			const image = screen.getByRole('img');
 			expect(image.src).toContain('image-0.jpg');
 		});
 	});
@@ -55,8 +55,8 @@ describe('Annonce Component', () => {
 	describe('quand il y a plusieurs images', () => {
 		it('contient un carousel d‘images', async () => {
 			await render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
-			const listDeSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
-			expect(listDeSlides).toBeInTheDocument();
+			const listDesSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
+			expect(listDesSlides).toBeInTheDocument();
 		});
 	});
 
@@ -70,8 +70,8 @@ describe('Annonce Component', () => {
 
 	it('contient la date de mise à jours', async () => {
 		await render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
-		const dateDePoste = 'postée le 12/4/2022';
-		const date = screen.getByText(dateDePoste);
+		const dateDePublication = 'postée le 12/4/2022';
+		const date = screen.getByText(dateDePublication);
 		expect(date).toBeInTheDocument();
 	});
 

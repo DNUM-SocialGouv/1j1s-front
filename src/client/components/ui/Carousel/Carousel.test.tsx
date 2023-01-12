@@ -27,7 +27,7 @@ const imageList = [
 ];
 
 describe('Carousel', () => {
-	it("retourne une liste d'images avec seule la première image visible et courante",  () => {
+	it("retourne une liste d'images avec seulement la première image visible et courante",  () => {
 		render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
 
 		const listDeSlides = screen.getByRole('list', { name: 'liste des photos' });
@@ -72,7 +72,7 @@ describe('Carousel', () => {
 	});
 
 	describe('Live Region', () => {
-		it('contient une live region avec un aria live à polite et un aria atomic à true', () => {
+		it('contient une live region avec des attributs accessibles', () => {
 			render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
 
 			const liveRegion = screen.getByText('Image 1 sur 3');

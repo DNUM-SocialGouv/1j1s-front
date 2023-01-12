@@ -1,0 +1,22 @@
+@import "@styles/utilities";
+
+.controls {
+  z-index: 10;
+  background-color: $color-surface;
+  color: $color-primary;
+  width: 1.50rem;
+  height: 1.50rem;
+  border-radius: 50%;
+  position: absolute;
+  padding: 0;
+  top: calc(50% - 20px/2);
+  > svg {
+    height: 1.50rem;
+  }
+  &Previous {
+    left: 0.5rem;
+  }
+  &Next {
+    right: 0.5rem;
+  }
+}

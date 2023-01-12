@@ -1,17 +1,18 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import {
 	useCallback,
-	useMemo,
 	useState,
 } from 'react';
 
 import { CommonProps } from '~/client/components/props';
-import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Controls } from '~/client/components/ui/Carousel/Controls';
+import { Indicators } from '~/client/components/ui/Carousel/Indicators';
+import { LiveRegion } from '~/client/components/ui/Carousel/LiveRegion';
+import { Slide } from '~/client/components/ui/Carousel/Slide';
 
 import styles from './Carousel.module.scss';
 
-interface Image {
+export interface Image {
 	src: string
 	alt: string
 }
@@ -94,132 +95,3 @@ export const Carousel = (props: CarouselProps) => {
 	);
 };
 
-interface SlideProps {
-	index: number
-	currentSlideIndex: number
-	isLastSlide: boolean
-	isFirstSlide: boolean
-	numberOfImages: number
-	image: Image
-	isInTransition: boolean
-	setIsInTransition: (isInTransition: boolean) => void
-	direction: string | null
-	setDirection: (direction: 'next' | 'previous' | null) => void
-	isAnimated: boolean
-}
-
-const Slide = (props: SlideProps) => {
-	const {
-		index,
-		currentSlideIndex,
-		isLastSlide,
-		isFirstSlide,
-		numberOfImages,
-		image,
-		isInTransition,
-		setIsInTransition,
-		direction,
-		setDirection,
-		isAnimated,
-	} = props;
-
-	const isCurrentSlide = useMemo(() => index === currentSlideIndex, [index, currentSlideIndex]);
-	const isNextSlide = useMemo(() => ((isLastSlide && index === 0) || (index === (currentSlideIndex + 1))), [isLastSlide, index, currentSlideIndex]);
-	const isPreviousSlide = useMemo(() =>((isFirstSlide && (index + 1 === numberOfImages)) || (index === (currentSlideIndex - 1))), [isFirstSlide, index, numberOfImages, currentSlideIndex]);
-
-	return (
-		<li
-			key={index}
-			aria-current={index === currentSlideIndex}
-			aria-hidden={index !== currentSlideIndex}
-			aria-roledescription="slide"
-			onTransitionEnd={() => {
-				setIsInTransition(false);
-				setDirection(null);
-			}}
-			className={classNames(
-				styles.slide,
-				{ [styles.next]: isNextSlide },
-				{ [styles.prev]: isPreviousSlide },
-				{ [styles.current]: isCurrentSlide },
-				{ [styles.nextInTransition]: isNextSlide && direction === 'next' && isInTransition },
-				{ [styles.prevInTransition]: isPreviousSlide && direction === 'previous' && isInTransition },
-				{ [styles.transition]: isAnimated },
-			)}
-		>
-			<Image src={image.src} alt={image.alt} fill sizes="180px" />
-		</li>
-	);
-};
-
-interface ControlsProps {
-	goToPreviousSlide: () => void
-	goToNextSlide: () => void
-}
-
-const Controls = (props: ControlsProps) => {
-	const { goToPreviousSlide, goToNextSlide } = props;
-
-	return (
-		<ul aria-label="contrôles">
-			<li>
-				<button
-					type="button"
-					title="image précédente"
-					onClick={() => goToPreviousSlide()}
-					className={classNames(styles.controls, styles.controlsPrevious)}
-				>
-					<Icon name="angle-left"/>
-				</button>
-			</li>
-			<li>
-				<button
-					type="button"
-					title="image suivante"
-					onClick={() => goToNextSlide()}
-					className={classNames(styles.controls, styles.controlsNext)}
-				>
-					<Icon name="angle-right"/>
-				</button>
-			</li>
-		</ul>
-	);
-};
-
-interface  IndicatorsProps {
-	goToSelectedSlide: (index: number) => void
-	imageList: Array<Image>
-	numberOfImages: number
-	currentSlideIndex:number
-}
-
-const Indicators = (props: IndicatorsProps) => {
-	const { goToSelectedSlide, imageList, numberOfImages, currentSlideIndex } = props;
-
-	return (
-		<ul aria-label="indicateurs" className={styles.indicators}>
-			{ imageList.map((image, index) => (
-				<li key={index}>
-					<button
-						type="button"
-						title={`Afficher l‘image ${index + 1} sur ${numberOfImages}`}
-						onClick={() => goToSelectedSlide(index)}
-						className={classNames(styles.indicator, { [styles.indicatorActive]: index === currentSlideIndex })}>
-						{ index === currentSlideIndex && <span className="sr-only">(current slide)</span>}
-						<span className="sr-only">{image.alt}</span>
-					</button>
-				</li>
-			))}
-		</ul>
-	);
-};
-
-const LiveRegion = (props: { currentSlideIndex: number, numberOfImages: number}) => {
-	const { currentSlideIndex, numberOfImages } = props;
-
-	return (
-		<div aria-live="polite" aria-atomic={true} className="sr-only">
-			Image {currentSlideIndex + 1} sur {numberOfImages}
-		</div>
-	);
-};
