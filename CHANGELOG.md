@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.39.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.7...v2.39.0) (2023-01-12)
+
+
+### Features
+
+* **stages:** design titre ([77de850](https://github.com/DNUM-SocialGouv/1j1s-front/commit/77de8507cde01c0846681d203a8bb205f56f4922))
+* **stages:** mise en place feature flipping ([ed8ab4e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ed8ab4e9bdf1a87951680a5c3bbe03e5cbcc617f))
+* **stages:** review ([1625c79](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1625c794b1eb826241bd3ae61e47beacd1661d1a))
+* **stages:** test et design ([21b9d9e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/21b9d9e337780da4697fc67b137ffda2373c0518))
+
+
+### Bug Fixes
+
+* **a11y:** design titre desktop et mobile ([99db17f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/99db17ff7785afdff39a08542f8530649636c317))
+
 ## [2.38.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.6...v2.38.7) (2023-01-11)
 
 
