@@ -10,7 +10,6 @@ export function PoleEmploiPartner() {
 			logo="/images/logos/pole-emploi.svg"
 			link="/articles/pole-emploi"
 			linkLabel="En savoir plus"
-			titleAs="h3"
 		/>
 	);
 }
