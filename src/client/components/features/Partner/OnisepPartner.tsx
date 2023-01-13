@@ -12,7 +12,6 @@ export function OnisepPartner() {
 			link="/decouvrir-les-metiers"
 			logo="/images/logos/onisep.svg"
 			title="Besoin d‘informations sur les métiers ?"
-			titleAs="h3"
 		/>
 	);
 }

@@ -40,7 +40,7 @@ interface PartnerCardProps {
 }
 
 export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-	const { description, className, headline, headlineColor, logo, link, linkLabel, title } = props;
+	const { description, className, headline, headlineColor, logo, link, linkLabel, title, titleAs } = props;
 	const isInternalLink = useIsInternalLink(link);
 	const { isLargeScreen } = useBreakpoint();
 	useReferrer();
@@ -68,7 +68,7 @@ export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'}>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
 				<Card.Content className={styles.cardBody}>
-					<Card.Title className={styles.cardBody__Title}>{title}</Card.Title>
+					<Card.Title titleAs={titleAs} className={styles.cardBody__Title}>{title}</Card.Title>
 					<p>
 						{headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
 						{description}

@@ -10,7 +10,6 @@ export function ParcourSupPartner() {
 			link="https://www.parcoursup.fr/"
 			description="Si vous êtes lycéen(ne) en réorientation, rendez-vous sur Parcoursup, la plateforme nationale de préinscription en première année de l’enseignement supérieur, pour candidater à la formation initiale de votre choix"
 			title="La plateforme de pré-inscription en première année de l’enseignement supérieur"
-			titleAs="h3"
 		/>
 	);
 }
