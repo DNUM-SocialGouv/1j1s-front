@@ -40,7 +40,7 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 								{établissement.nom}
 							</Card.Title>
 							{établissement.adresse && <span className={styles.address}>{établissement.adresse}</span>}
-							<TagList list={[établissement.telephone, établissement.email]} className={styles.tags}/>
+							<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']} className={styles.tags}/>
 						</div>
 						{
 							établissement.email && !isMissionLocale &&

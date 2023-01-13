@@ -40,7 +40,7 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 					{établissement.adresse && <span className={styles.address}>{établissement.adresse}</span>}
 				</div>
 			</Card.Content>
-			<TagList list={[établissement.telephone, établissement.email]} className={styles.tags}/>
+			<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']} className={styles.tags}/>
 			{
 				établissement.email && !isMissionLocale &&
         <a href={établissement.email} className={styles.contactFormulaireÉtablissement}>
