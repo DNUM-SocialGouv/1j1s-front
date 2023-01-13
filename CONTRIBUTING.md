@@ -31,7 +31,7 @@ useEffect(function myFunction() {
 
 ### Fichiers et dossiers
 * composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.css`
-* tout le reste : camelCase, `httpClient.service.ts`, `offre-emploi.ts`, `offreEmploi.repository.ts`
+* tout le reste : camelCase, `httpClient.service.ts`, `offreEmploi.ts`, `offreEmploi.repository.ts`
 
 ## Commits
 Nous suivons [conventional commits](https://conventionalcommits.org/)
