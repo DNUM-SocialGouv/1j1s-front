@@ -17,31 +17,54 @@
     text-align: center;
   }
 
-  &Logo {
+  &Telecharger {
     display: grid;
-    grid-template-columns: 3fr 6fr;
-    background: $color-on-background;
-    color: $color-on-primary;
-    text-align: left;
-    line-height: 1rem;
-    font-size: 0.625rem;
-    font-weight: 400;
-    border-radius: 8px;
-    padding: 8px 10px;
+    grid-template-columns: repeat(2, minmax(min-content, 12.5rem));
+    justify-content: center;
+    gap: 0.5rem;
     margin-top: 20px;
 
-    [href] {
-      box-shadow: none;
+    @include media(large) {
+      gap: 0.75rem;
     }
 
-    &Container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-    }
+    &Lien {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: $color-on-background;
+      color: $color-on-primary;
+      text-align: left;
+      line-height: 1rem;
+      font-size: 0.625rem;
+      font-weight: 400;
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-decoration: none;
 
-    &Store {
-      font-weight: 500;
+      @include media(large) {
+        font-size: 0.875rem;
+      }
+
+      &Logo {
+        position: relative;
+        flex: 0 0 35px;
+        align-self: stretch;
+
+        @include media(large) {
+          flex-basis: 50px;
+        }
+      }
+
+      &Store {
+        font-weight: 500;
+        white-space: nowrap;
+
+        @include media(large) {
+          font-size: 1.25rem;
+          line-height: 2rem;
+        }
+      }
     }
   }
 }
@@ -58,21 +81,6 @@
 
     &Description {
       line-height: 1.5rem;
-    }
-
-    &Logo {
-      font-size: 0.875rem;
-      width: 12.5rem;
-
-      &Container {
-        gap: 0.75rem;
-        justify-items: center;
-      }
-
-      &Store {
-        font-size: 1.25rem;
-        line-height: 2rem;
-      }
     }
   }
 }
