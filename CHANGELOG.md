@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.39.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.39.0...v2.39.1) (2023-01-15)
+
+
+### Bug Fixes
+
+* **ui:** remove description from flipping card, then adjust title height ([0e92739](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0e927398f4ecb59d19f0a53e052952f990b02ca6))
+
 ## [2.39.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.38.7...v2.39.0) (2023-01-12)
 
 
