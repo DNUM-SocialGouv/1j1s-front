@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import logoImage from 'public/images/CEJ/logo.svg';
 import logoApple from 'public/images/logos/apple.svg';
 import logoGoogle from 'public/images/logos/google-play.svg';
@@ -18,23 +18,31 @@ export default function Application() {
           d‘immersion, d‘alternance et de service civique.
 				</div>
 
-				<div className={styles.applicationLogoContainer}>
-					<div className={styles.applicationLogo}>
-						<Image priority src={logoGoogle} alt={''} aria-hidden="true"/>
-						<a href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
-							className={'underline-none'}>
-              Télécharger sur <br/>
-							<span className={styles.applicationLogoStore}>Google Play</span>
-						</a>
-					</div>
-					<div className={styles.applicationLogo}>
-						<Image priority src={logoApple} alt={''} aria-hidden="true"/>
-						<a href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
-							className={'underline-none'}>
-              Télécharger sur <br/>
-							<span className={styles.applicationLogoStore}>APP Store</span>
-						</a>
-					</div>
+				<div className={styles.applicationTelecharger}>
+					<a
+						href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
+						className={styles.applicationTelechargerLien}
+					>
+						<div className={styles.applicationTelechargerLienLogo} aria-hidden="true">
+							<Image src={logoGoogle} alt={''} fill/>
+						</div>
+						<div>
+              Télécharger sur<br/>
+							<span className={styles.applicationTelechargerLienStore}>Google Play</span>
+						</div>
+					</a>
+					<a
+						href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
+						className={styles.applicationTelechargerLien}
+					>
+						<div className={styles.applicationTelechargerLienLogo} aria-hidden="true">
+							<Image src={logoApple} alt={''} fill/>
+						</div>
+						<div>
+              Télécharger sur<br/>
+							<span className={styles.applicationTelechargerLienStore}>APP Store</span>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>

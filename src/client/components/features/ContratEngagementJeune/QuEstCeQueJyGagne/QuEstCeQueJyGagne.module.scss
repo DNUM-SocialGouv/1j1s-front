@@ -9,7 +9,7 @@
   max-width: $breakpoint-xl;
 
   button {
-   display: contents;
+    display: contents;
   }
 }
 
@@ -18,13 +18,11 @@
 
   > h2 {
     @extend %bold;
-    color: $color-primary;
-    font-size: 1.5rem;
-    line-height: 2rem;
+    @extend %headline;
     margin-bottom: 1rem;
   }
 
-  strong {
+  b {
     @extend %text-large;
     font-size: 1rem;
   }
@@ -36,11 +34,12 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
 }
-.contenu ul > li > strong {
+
+.contenu ul > li > b {
   color: $color-primary;
 }
 
-.contenu, .contenu strong {
+.contenu, .contenu b {
   @extend %text-regular;
 }
 
@@ -55,11 +54,6 @@
     margin: 0 auto;
     align-items: start;
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .titre > h2 {
-    font-size: 1.5rem;
-
   }
 
   .contenu {

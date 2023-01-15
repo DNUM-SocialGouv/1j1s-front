@@ -1,35 +1,58 @@
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Actions/Actions.module.scss';
-import Marked from '~/client/components/ui/Marked/Marked';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-
-const contenu = `
-Accueilli au sein de Pôle emploi ou de ma Mission Locale, en fonction de mon profil, de mes compétences et de mes envies, je pourrai avoir accès à :
-
-+ **Des points réguliers en tête-à-tête avec mon conseiller** qui me suit tout au long de mon parcours et jusqu‘à ce que j‘accède à un emploi durable
-+ **Des ateliers collectifs avec d‘autres jeunes** pour partager nos expériences
-+ **Des stages et immersions en entreprise** pour découvrir différents métiers
-+ **Toutes les solutions du plan 1 jeune, 1 solution :** formations qualifiantes, service civique, prépa apprentissage, école de la 2ème chance (E2C), Epide, etc.
-+ **Une appli pour suivre l‘évolution de mon parcours** et tenir mes engagements
-`;
 
 export default function Actions() {
 	const { isSmallScreen, isMediumScreen } = useBreakpoint();
 	const displayAccordion = isSmallScreen || isMediumScreen;
 	return (
-		<section className={ styles.actions }>
-			<div className={ styles.actionsContainer }>
-				<article className= { styles.actionsArticle }>
-					<h2 className= { styles.actionsArticle__Title }>Concrètement qu‘est-ce qu‘on fait en Contrat d’Engagement Jeune ?</h2>
-				</article>
-				<article className= { styles.actionsArticle__Content }>{!displayAccordion && <Marked markdown={ contenu }/>}
+		<section className={styles.actions}>
+			<article className={styles.actionsContainer}>
+				<div className={styles.actionsArticle}>
+					<h2 className={styles.actionsArticle__Title}>
+						Concrètement qu‘est-ce qu‘on fait en Contrat d’Engagement Jeune ?
+					</h2>
+				</div>
+				<div className={styles.actionsArticle__Content}>
+					{!displayAccordion && <ListeActions/>}
 					{displayAccordion && (
 						<SeeMore>
-							<Marked markdown={ contenu }/>
-						</SeeMore>)}</article>
-			</div>
+							<ListeActions/>
+						</SeeMore>)}
+				</div>
+			</article>
 		</section>
+	);
+}
+
+function ListeActions() {
+	return (
+		<div>
+			<p>
+				Accueilli au sein de Pôle emploi ou de ma Mission Locale, en fonction de mon profil, de mes compétences et de
+				mes envies, je pourrai avoir accès à :
+			</p>
+			<ul>
+				<li>
+					<b>Des points réguliers en tête-à-tête avec mon conseiller</b> qui me suit tout au long de mon parcours et
+					jusqu‘à ce que j‘accède à un emploi durable
+				</li>
+				<li>
+					<b>Des ateliers collectifs avec d‘autres jeunes</b> pour partager nos expériences
+				</li>
+				<li>
+					<b>Des stages et immersions en entreprise</b> pour découvrir différents métiers
+				</li>
+				<li>
+					<b>Toutes les solutions du plan 1 jeune, 1 solution :</b> formations qualifiantes, service civique, prépa
+					apprentissage, école de la 2ème chance (E2C), Epide, etc.
+				</li>
+				<li>
+					<b>Une appli pour suivre l‘évolution de mon parcours</b> et tenir mes engagements
+				</li>
+			</ul>
+		</div>
 	);
 }

@@ -1,17 +1,19 @@
 @import "@styles/utilities";
 
 .section {
-   padding: 3rem 0;
-   background: $color-background-white-lilac;
+  padding: 3rem 0;
+  background: $color-background-white-lilac;
 }
 
 .container {
-    display: grid;
-    gap: 3rem;
-    margin: 0 auto;
-    max-width: 78rem;
-    padding: 0 1.5rem;
-    place-items: center;
+  display: grid;
+  place-items: start;
+  gap: 3rem;
+  padding: 0 1.5rem;
+
+  @include media(large) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .illustration {
@@ -20,14 +22,14 @@
   border-radius: 40px;
   overflow: hidden;
   height: 20rem;
+
+  img {
+    object-fit: cover;
+  }
 }
 
 .article p {
   margin-bottom: 1rem;
-}
-
-.article p:last-child {
-  margin-bottom: 0;
 }
 
 .article h2 {
@@ -40,31 +42,22 @@
   list-style-type: initial;
   padding-left: 1rem;
   margin-bottom: 1rem;
+
+  b {
+    color: $color-primary;
+  }
 }
+
 .article ul li::marker {
   color: $color-primary;
 }
 
-.article em {
-  font-style: normal;
-  font-weight: bold;
-}
-
-.article strong {
-  font-weight: bold;
-  color: $color-primary;
-}
-
 @include media(large) {
-  .container{
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-  }
-
   .illustration {
     height: inherit;
   }
+
   .section {
     padding: 5rem 0;
- }
+  }
 }
