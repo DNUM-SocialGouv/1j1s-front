@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.39.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.39.1...v2.39.2) (2023-01-15)
+
+
+### Bug Fixes
+
+* **accompagnement:** cacher email de contact sur missions locales ([303aa31](https://github.com/DNUM-SocialGouv/1j1s-front/commit/303aa31fb4886a7861e6923f22537ff3f31e5230))
+
 ## [2.39.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.39.0...v2.39.1) (2023-01-15)
 
 
