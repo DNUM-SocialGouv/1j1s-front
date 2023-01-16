@@ -1,0 +1,44 @@
+@import "@styles/utilities";
+
+.annonceEntête {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+          "date"
+          "type"
+          "titre";
+}
+
+.annonceEntête .type {
+  grid-area: type;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  color: $color-mine-shaft;
+  text-transform: uppercase;
+}
+.annonceEntête .date {
+  grid-area: date;
+  color: $color-mine-shaft;
+  font-size: .75rem;
+  line-height: 1rem;
+}
+.annonceEntête h1 {
+  grid-area: titre;
+  @extend %bold, %headline;
+  margin: 0 0 1rem;
+  color: $color-on-background;
+}
+
+@include media(medium) {
+  .annonceEntête {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+          "type date"
+          "titre titre";
+  }
+  .annonceEntête .type,
+  .annonceEntête .date {
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+}

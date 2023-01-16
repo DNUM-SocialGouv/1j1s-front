@@ -1,16 +1,25 @@
 import React from 'react';
 
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
-
-
+import { Container } from '~/client/components/layouts/Container/Container';
+import {
+	AnnonceDeLogement,
+} from '../AnnonceDeLogement.type';
+// import { DescriptionDuLogement } from './DescriptionDuLogement';
+import { EnTête } from './EnTête';
+// import { InformationsGénérales } from './InformationsGénérales';
 
 interface ConsulterAnnonceDeLogementProps {
 	annonceDeLogement: AnnonceDeLogement
 }
 
 export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogementProps) {
-
 	return (
-		<h1>{annonceDeLogement.titre}</h1>
+		<main id="contenu">
+			<Container>
+				<EnTête annonce={annonceDeLogement} />
+				{/*<InformationsGénérales annonce={annonceDeLogement} />*/}
+				{/*<DescriptionDuLogement description={annonceDeLogement.description} />*/}
+			</Container>
+		</main>
 	);
 }
