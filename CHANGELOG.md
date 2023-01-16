@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.40.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.39.2...v2.40.0) (2023-01-16)
+
+
+### Features
+
+* **ui:** composant carrousel ([d803724](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d80372478c6fdb822744d64d3bd10a1d082acbc2))
+
 ## [2.39.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.39.1...v2.39.2) (2023-01-15)
 
 
