@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
 import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
+import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
@@ -14,7 +15,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 
 	return (
 		<Card layout="vertical">
-			<Card.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>
+			<CardImage imageSrcList={annonce.imagesUrl} />
 
 			<Card.Content className={styles.CardContenu}>
 				<span className={styles.CardContenuEnTete}>
@@ -40,5 +41,32 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 				</Link>
 			</span>
 		</Card>
+	);
+};
+
+type ImageSrcListProps = Array<string>
+
+const CardImage = (props: { imageSrcList: ImageSrcListProps} ) => {
+	const { imageSrcList } = props;
+	const hasNoImage = imageSrcList.length === 0;
+	const hasOnlyOneImage = imageSrcList.length === 1;
+
+	if (hasNoImage) return <Card.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>;
+	if (hasOnlyOneImage) return <Card.Image src={imageSrcList[0]} className={styles.CardImageWrapper}/>;
+	return <CardAnnonceCarousel imageSrcList={imageSrcList} />;
+};
+
+const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps} ) => {
+	const { imageSrcList } = props;
+	const formattedList = imageSrcList.map((url) => ({ alt: '', src: url }));
+	const firstFourthImages = useMemo(() => formattedList.slice(0, 4), [formattedList]);
+
+	return (
+		<Carousel
+			imageList={firstFourthImages}
+			imageListLabel="liste des photos du logement"
+			className={styles.CardImageWrapper}
+			aria-hidden
+		/>
 	);
 };

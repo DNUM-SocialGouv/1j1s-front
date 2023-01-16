@@ -1,4 +1,3 @@
-
 export interface AnnonceDeLogementIndexee  {
   titre: string
   slug: string
@@ -11,4 +10,5 @@ export interface AnnonceDeLogementIndexee  {
   dateDeMiseAJour: string
   localisationAAfficher: string
   devise: string
+  imagesUrl: Array<string>
 }
