@@ -6,7 +6,8 @@
   gap: 0.5rem;
   position: absolute;
   bottom: 10px;
-  left: 40%; // TODO OLIV: à modifier
+  left: 50%;
+  transform: translate(-50%, 0);
 
   .indicator {
     background-color: $color-surface;

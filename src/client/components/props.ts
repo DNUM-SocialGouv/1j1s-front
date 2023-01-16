@@ -8,3 +8,8 @@ export interface Link {
   title: string
   url: string
 }
+
+export interface Image {
+  src: string
+  alt: string
+}

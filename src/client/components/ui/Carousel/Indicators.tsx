@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 
-import { Image } from '~/client/components/ui/Carousel/Carousel';
+import { Image } from '~/client/components/props';
 import styles from '~/client/components/ui/Carousel/Indicators.module.scss';
 
-interface  IndicatorsProps {
+interface IndicatorsProps {
 	goToSelectedSlide: (index: number) => void
 	imageList: Array<Image>
 	numberOfImages: number
-	currentSlideIndex:number
+	currentSlideIndex: number
 }
 
 export const Indicators = (props: IndicatorsProps) => {
@@ -16,7 +16,7 @@ export const Indicators = (props: IndicatorsProps) => {
 	return (
 		<ul aria-label="indicateurs" className={styles.indicators}>
 			{imageList.map((image, index) => (
-				<li key={index}>
+				<li key={index} aria-current={index === currentSlideIndex}>
 					<button
 						type="button"
 						title={`Afficher l‘image ${index + 1} sur ${numberOfImages}`}

@@ -4,7 +4,10 @@ import {
 	useState,
 } from 'react';
 
-import { CommonProps } from '~/client/components/props';
+import {
+	CommonProps,
+	Image,
+} from '~/client/components/props';
 import { Controls } from '~/client/components/ui/Carousel/Controls';
 import { Indicators } from '~/client/components/ui/Carousel/Indicators';
 import { LiveRegion } from '~/client/components/ui/Carousel/LiveRegion';
@@ -12,15 +15,12 @@ import { Slide } from '~/client/components/ui/Carousel/Slide';
 
 import styles from './Carousel.module.scss';
 
-export interface Image {
-	src: string
-	alt: string
-}
-
 interface CarouselProps extends CommonProps {
 	imageList: Array<Image>
 	imageListLabel: string
 }
+
+export type Direction = 'next' | 'previous' | null;
 
 export const Carousel = (props: CarouselProps) => {
 	const { imageList, imageListLabel, className, ...rest } = props;
@@ -29,7 +29,7 @@ export const Carousel = (props: CarouselProps) => {
 
 	const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 	const [isInTransition, setIsInTransition] = useState(false);
-	const [direction, setDirection] = useState<null | 'previous' | 'next'>(null);
+	const [direction, setDirection] = useState<Direction>(null);
 	const [isAnimated, setIsAnimated] = useState(true);
 	const isLastSlide = (currentSlideIndex + 1) === numberOfImages;
 	const isFirstSlide = currentSlideIndex === 0;
@@ -54,7 +54,7 @@ export const Carousel = (props: CarouselProps) => {
 	},[]);
 
 	return (
-		<div aria-roledescription="carousel" className={_classNames} {...rest}>
+		<div aria-roledescription="carousel" role="group" className={_classNames} {...rest}>
 			<ul aria-label={imageListLabel}>
 				{ imageList.map((image, index) => (
 					<Slide

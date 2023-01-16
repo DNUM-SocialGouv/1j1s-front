@@ -2,8 +2,10 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { useMemo } from 'react';
 
-import { Image as ImageProps } from '~/client/components/ui/Carousel/Carousel';
+import { Image as ImageProps } from '~/client/components/props';
+import { Direction } from '~/client/components/ui/Carousel/Carousel';
 import styles from '~/client/components/ui/Carousel/Slide.module.scss';
+
 
 interface SlideProps {
 	index: number
@@ -15,7 +17,7 @@ interface SlideProps {
 	isInTransition: boolean
 	setIsInTransition: (isInTransition: boolean) => void
 	direction: string | null
-	setDirection: (direction: 'next' | 'previous' | null) => void
+	setDirection: (direction: Direction) => void
 	isAnimated: boolean
 }
 
@@ -34,21 +36,15 @@ export const Slide = (props: SlideProps) => {
 		isAnimated,
 	} = props;
 
-	const isIndexTheNextSlide = useMemo(() => (index === (currentSlideIndex + 1)), [index, currentSlideIndex]);
-	const isIndexThePreviousSlide = useMemo(() => (index === (currentSlideIndex - 1)), [index, currentSlideIndex]);
-
-	const isNextSlideFirstOfImageList = useMemo(() => (isLastSlide && index === 0), [isLastSlide, index]);
-	const isPreviousSlideLastOfImageList = useMemo(() => (isFirstSlide && (index + 1 === numberOfImages)), [isFirstSlide, index, numberOfImages]);
-
 	const isCurrentSlide = useMemo(() => index === currentSlideIndex, [index, currentSlideIndex]);
-	const isNextSlide = useMemo(() => (isNextSlideFirstOfImageList || isIndexTheNextSlide), [isNextSlideFirstOfImageList, isIndexTheNextSlide]);
-	const isPreviousSlide = useMemo(() => (isPreviousSlideLastOfImageList || isIndexThePreviousSlide), [isPreviousSlideLastOfImageList, isIndexThePreviousSlide]);
+	const isNextSlide = useMemo(() => (isLastSlide && index === 0 || index === (currentSlideIndex + 1)), [isLastSlide, index, currentSlideIndex]);
+	const isPreviousSlide = useMemo(() => (isFirstSlide && (index + 1 === numberOfImages) || index === (currentSlideIndex - 1)), [isFirstSlide, index, numberOfImages, currentSlideIndex]);
 
 	return (
 		<li
 			key={index}
-			aria-current={index === currentSlideIndex}
-			aria-hidden={index !== currentSlideIndex}
+			aria-current={isCurrentSlide}
+			aria-hidden={!isCurrentSlide}
 			aria-roledescription="slide"
 			onTransitionEnd={() => {
 				setIsInTransition(false);

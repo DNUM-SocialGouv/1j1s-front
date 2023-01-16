@@ -9,7 +9,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import styles from './Card.module.scss';
 
 interface CardProps {
-  layout: 'horizontal' | 'vertical'
+	layout: 'horizontal' | 'vertical'
 }
 
 export function Card({ children, className, layout }: CardProps & React.HTMLAttributes<HTMLLinkElement>) {
@@ -56,10 +56,10 @@ function CardLink({ appearance = 'default', className, href, label }: { appearan
 	return <Link className={className} appearance={appearance} href={href}>{label}</Link>;
 }
 
-function CardImage({ className, src, alt, sizes, ...rest }: { src: string, alt?: string, sizes?: string, ariaHidden?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
+function CardImage({ className, src, alt='', sizes='100vw', ...rest }: { src: string, alt?: string, sizes?: string, ariaHidden?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div className={classNames(styles.cardImageWrapper, className)} {...rest}>
-			<Image src={src} alt={alt || ' '} fill sizes={sizes || '180px'} />
+			<Image src={src} alt={alt} fill={true} sizes={sizes}/>
 		</div>
 	);
 }
@@ -74,4 +74,3 @@ Card.FakeLink = CardFakeLink;
 Card.Image = CardImage;
 Card.Link = CardLink;
 Card.Title = CardTitle;
-

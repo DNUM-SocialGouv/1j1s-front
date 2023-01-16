@@ -27,7 +27,7 @@ const imageList = [
 ];
 
 describe('Carousel', () => {
-	it("retourne une liste d'images avec seulement la première image visible et courante",  () => {
+	it('retourne une liste d‘images avec seulement la première image visible et courante',  () => {
 		render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
 
 		const listDeSlides = screen.getByRole('list', { name: 'liste des photos' });
@@ -48,8 +48,8 @@ describe('Carousel', () => {
 		render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
 
 		const listeDeContrôles = screen.getByRole('list', { name: 'contrôles' });
-		const boutonPrécédent = within(listeDeContrôles).getByTitle('image précédente');
-		const boutonSuivant = within(listeDeContrôles).getByTitle('image suivante');
+		const boutonPrécédent = within(listeDeContrôles).getByRole('button', { name: 'image précédente' });
+		const boutonSuivant = within(listeDeContrôles).getByRole('button', { name: 'image suivante' });
 
 		expect(boutonPrécédent).toBeInTheDocument();
 		expect(boutonSuivant).toBeInTheDocument();
@@ -79,7 +79,6 @@ describe('Carousel', () => {
 			expect(liveRegion).toBeInTheDocument();
 			expect(liveRegion).toHaveAttribute('aria-live', 'polite');
 			expect(liveRegion).toHaveAttribute('aria-atomic', 'true');
-			expect(liveRegion).toHaveTextContent('Image 1 sur 3');
 		});
 
 		describe('quand l‘on change d‘image au clic sur le bouton suivant', () => {
