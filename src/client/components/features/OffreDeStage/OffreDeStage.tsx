@@ -3,11 +3,11 @@ import React from 'react';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
-
 import {
 	Domaines,
 	OffreDeStageIndexée,
-} from './OffreDeStage.type';
+} from '~/server/cms/domain/offreDeStage.type';
+
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 

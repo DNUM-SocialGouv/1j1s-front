@@ -8,23 +8,27 @@ import {
 } from '@testing-library/react';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
-import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.type';
 
 
-const uneAnnonceDeLogement: AnnonceDeLogementIndexee = {
-	dateDeDisponibilite: '2023-01-01',
-	dateDeMiseAJour: '2022-12-04',
-	devise: '€',
-	localisationAAfficher: 'Paris',
-	prix: 1200,
-	prixHT: 1000,
-	slug: 'un-slug-appart-a-louer',
-	imagesUrl: ['/image-0.jpg', '/image-1.jpg','/image-2.jpg'],
-	surfaceAAfficher: 'de 70 à 71m2',
-	titre: 'Appartement à louer',
-	type: 'appartement',
-	typeBien: 'T1',
-	url: 'https://www.immo.com',
+
+const uneAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): AnnonceDeLogementIndexee => {
+	return {
+		dateDeDisponibilite: '2023-01-01',
+		dateDeMiseAJour: '2022-12-04',
+		devise: '€',
+		imagesUrl: ['/image-0.jpg', '/image-1.jpg','/image-2.jpg'],
+		localisationAAfficher: 'Paris',
+		prix: 1200,
+		prixHT: 1000,
+		slug: 'un-slug-appart-a-louer',
+		surfaceAAfficher: 'de 70 à 71m2',
+		titre: 'Appartement à louer',
+		type: 'appartement',
+		typeBien: 'T1',
+		url: 'https://www.immo.com',
+		...override,
+	};
 };
 
 const mockDate = jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue('12/4/2022');
@@ -99,7 +103,6 @@ describe('Annonce Component', () => {
 
 	it('contient le lien externe de l‘annonce', async () => {
 		await render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
-		const urlExterne = 'https://www.immo.com';
 		const url = screen.getByRole('link');
 		expect(url).toBeInTheDocument();
 		expect(url).toHaveAttribute('href', '/annonces/un-slug-appart-a-louer');

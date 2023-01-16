@@ -1,16 +1,15 @@
+import { CarteActualite } from '~/server/cms/domain/actualite';
 import {
 	AnnonceDeLogement,
-	AnnonceDeLogementAttributesFromCMS,
 	AnnonceDeLogementResponse,
-} from '~/client/components/features/Logement/AnnonceDeLogement.type';
-import {
-	OffreDeStageAttributesFromCMS,
-	OffreDeStageInternalService,
-} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
-import { CarteActualite } from '~/server/cms/domain/actualite';
+} from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
+import {
+	OffreDeStage,
+	OffreDeStageResponse,
+} from '~/server/cms/domain/offreDeStage.type';
 import {
 	ActualiteAttributesResponse,
 	ArticleAttributesResponse,
@@ -202,52 +201,40 @@ export function mapImage(bannière: StrapiImage | undefined): Image | undefined 
 	}
 }
 
-export function mapOffreStage(offreStageResponse: OffreDeStageInternalService): OffreDeStageAttributesFromCMS {
-	const { data } = offreStageResponse;
-	return data.attributes;
+export function mapOffreStage(offreStageResponse: OffreDeStageResponse): OffreDeStage {
+	return offreStageResponse;
 }
 
-const getLocalisation = (localisation: AnnonceDeLogementAttributesFromCMS.Localisation): AnnonceDeLogement.Localisation => {
+const getLocalisation = (localisation: AnnonceDeLogementResponse.Localisation): AnnonceDeLogement.Localisation => {
 	return {
-		adresse: localisation.adresse || undefined,
-		codePostal: localisation.codePostal || undefined,
-		département: localisation.département || undefined,
-		pays: localisation.pays || undefined,
-		région: localisation.région || undefined,
-		ville: localisation.ville || undefined,
+		adresse: localisation.adresse,
+		codePostal: localisation.codePostal,
+		département: localisation.département,
+		pays: localisation.pays,
+		région: localisation.région,
+		ville: localisation.ville,
 	};
 };
 
-const getInformationsGénérales = (response: AnnonceDeLogementAttributesFromCMS): AnnonceDeLogement.InformationsGénérales => {
-	return {
-		charge: response.charge || undefined,
-		dateDeDisponibilité: response.dateDeDisponibilite,
-		garantie: response.garantie || undefined,
-		localisation: getLocalisation(response.localisation),
-		meublé: response.meuble,
-		nombresDePièces: response.nombresDePieces,
-		prix: response.prix,
-		prixHT: response.prixHT || undefined,
-		surface: response.surface,
-		surfaceMax: response.surfaceMax || undefined,
-		étage: response.etage || undefined,
-	};
-};
+export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse ): AnnonceDeLogement {
+	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
 
-const getEnTête = (response: AnnonceDeLogementAttributesFromCMS): AnnonceDeLogement.EnTête => {
 	return {
-		dateDeMiseAJour: response.dateDeMiseAJour,
-		titre: response.titre,
-		type: response.type,
-		typeBien: response.typeBien,
-	};
-};
-
-export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse): AnnonceDeLogement {
-	const response = annonceLogementResponse.data.attributes;
-	return {
-		description: response.description,
-		enTête: getEnTête(response),
-		informationsGénérales: getInformationsGénérales(response),
+		charge: annonceLogementResponse.charge,
+		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
+		dateDeMiseAJour,
+		description: annonceLogementResponse.description,
+		garantie: annonceLogementResponse.garantie,
+		localisation: getLocalisation(annonceLogementResponse.localisation),
+		meublé: annonceLogementResponse.meuble,
+		nombresDePièces: annonceLogementResponse.nombresDePieces,
+		prix: annonceLogementResponse.prix,
+		prixHT: annonceLogementResponse.prixHT,
+		surface: annonceLogementResponse.surface,
+		surfaceMax: annonceLogementResponse.surfaceMax,
+		titre: annonceLogementResponse.titre,
+		type: annonceLogementResponse.type,
+		typeBien: annonceLogementResponse.typeBien,
+		étage: annonceLogementResponse.etage,
 	};
 }

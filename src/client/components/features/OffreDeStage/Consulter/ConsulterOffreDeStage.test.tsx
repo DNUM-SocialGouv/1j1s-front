@@ -5,11 +5,11 @@
 import { render, screen } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
-import { OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
 describe('ConsulterOffreDeStage', () => {
-	const offreDeStage: OffreDeStageDétail = {
+	const offreDeStage: OffreDeStage = {
 		createdAt: '',
 		dateDeDebut: '2022-09-01',
 		description: 'stage en graphisme description',

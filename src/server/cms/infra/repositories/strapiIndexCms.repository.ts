@@ -3,12 +3,12 @@ import { AxiosResponse } from 'axios';
 import {
 	AnnonceDeLogement,
 	AnnonceDeLogementResponse,
-} from '~/client/components/features/Logement/AnnonceDeLogement.type';
-import {
-	OffreDeStageAttributesFromCMS,
-	OffreDeStageInternalService,
-} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+} from '~/server/cms/domain/annonceDeLogement.type';
 import { CmsIndexRepository } from '~/server/cms/domain/cmsIndex.repository';
+import {
+	OffreDeStage,
+	OffreDeStageResponse,
+} from '~/server/cms/domain/offreDeStage.type';
 import {
 	mapAnnonceLogement,
 	mapOffreStage,
@@ -22,21 +22,20 @@ export class StrapiIndexCmsRepository implements CmsIndexRepository {
 		private httpClientService: HttpClientService,
 	) {}
 
-	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStageAttributesFromCMS>> {
-		return this.getResource<OffreDeStageInternalService, OffreDeStageAttributesFromCMS>(`slugify/slugs/offre-de-stage/${slug}?populate=deep`, mapOffreStage, 'offre stage');
+	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
+		return this.getResource<OffreDeStageResponse, OffreDeStage>(`slugify/slugs/${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}/${slug}?populate=deep`, mapOffreStage, 'offre stage');
 	}
 
 	async getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>> {
-		return this.getResource<AnnonceDeLogementResponse, AnnonceDeLogement>(`slugify/slugs/annonce-de-logement/${slug}?populate=deep`, mapAnnonceLogement, 'annonce logement');
+		return this.getResource<AnnonceDeLogementResponse, AnnonceDeLogement>(`slugify/slugs/${process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT}/${slug}?populate=deep`, mapAnnonceLogement, 'annonce logement');
 	}
 
 	async getResource<ApiResponseType, ResponseType>(endpoint: string, mapper: (data: ApiResponseType) => ResponseType, content: string): Promise<Either<ResponseType>> {
 		try {
 			const { data }: AxiosResponse = await this.httpClientService.get(endpoint);
-			return createSuccess(mapper(data));
+			return createSuccess(mapper(data.data.attributes));
 		} catch (e) {
 			return handleFailureError(e, content);
 		}
 	}
-
 }

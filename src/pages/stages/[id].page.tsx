@@ -4,13 +4,14 @@ import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect } from 'react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
-import { OffreDeStageAttributesFromCMS } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
+import { OffreDeStage } from '../../server/cms/domain/offreDeStage.type';
+
 interface ConsulterStagePageProps {
-	offreDeStage: OffreDeStageAttributesFromCMS;
+	offreDeStage: OffreDeStage;
 }
 
 export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {

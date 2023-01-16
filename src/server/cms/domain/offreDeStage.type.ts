@@ -56,7 +56,7 @@ type LocalisationStageIndexée = {
   }
 }
 
-enum SourceDesDonnées {
+export enum SourceDesDonnées {
   INTERNE = 'interne',
   WELCOME_TO_THE_JUNGLE = 'welcome to the jungle',
   JOBIJOBA = 'jobijoba',
@@ -96,7 +96,7 @@ interface DomaineStageCMS extends CmsComponent {
   nom: Domaines
 }
 
-export type OffreDeStageAttributesFromCMS = {
+export interface OffreDeStageResponse {
   titre: string
   id: string
   slug: string
@@ -121,14 +121,27 @@ export type OffreDeStageAttributesFromCMS = {
   teletravailPossible?: boolean
 }
 
-export type OffreDeStageDataFromCMS = {
-  id: number
-  attributes: OffreDeStageAttributesFromCMS
+export interface OffreDeStage {
+  titre: string
+  id: string
+  slug: string
+  dateDeDebut: string
+  createdAt: string
+  publishedAt: string
+  updatedAt: string
+  description: string
+  urlDeCandidature?: string
+  sourceCreatedAt: string
+  sourceUpdatedAt: string
+  sourcePublishedAt: string
+  identifiantSource?: string
+  domaines?: Array<DomaineStageCMS>
+  duree?: string
+  dureeEnJour?: number
+  dureeEnJourMax?: number
+  localisation?: LocalisationStageIndexée
+  employeur?: EmployeurStageCMS
+  remunerationBase?: number
+  source?: SourceDesDonnées
+  teletravailPossible?: boolean
 }
-
-// sera privé pour le service et sera parsé (notament pour les dates et le sanitize, mais on l'utilise en attendant)
-export type OffreDeStageInternalService = {
-  data: OffreDeStageDataFromCMS
-}
-
-export type OffreDeStageDétail = OffreDeStageAttributesFromCMS

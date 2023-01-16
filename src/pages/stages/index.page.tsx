@@ -9,7 +9,7 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 
 const HITS_PER_PAGE = 15;
-const MEILISEARCH_INDEX = 'offre-de-stage:dateDeDebut:desc';
+const MEILISEARCH_INDEX = `${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}:dateDeDebut:desc`;
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherOffreStagePage() {

@@ -17,8 +17,8 @@ export interface StrapiImage {
 }
 
 export interface StrapiImageAttributes {
-    alternativeText?: string,
-    url: string,
+    alternativeText?: string
+    url: string
 }
 
 export interface ActualiteAttributesResponse {

@@ -5,9 +5,9 @@ import {
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import { AnnonceDeLogementAttributesFromCMS } from '~/client/components/features/Logement/AnnonceDeLogement.type';
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -25,7 +25,7 @@ interface LogementContext extends ParsedUrlQuery {
 }
 
 interface ConsulterAnnonceLogementPageProps {
-	annonceDeLogement: AnnonceDeLogementAttributesFromCMS;
+	annonceDeLogement: AnnonceDeLogement;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<LogementContext>): Promise<GetServerSidePropsResult<ConsulterAnnonceLogementPageProps>> {

@@ -1,12 +1,8 @@
-import {
-	AnnonceDeLogement,
-} from '~/client/components/features/Logement/AnnonceDeLogement.type';
-import {
-	OffreDeStageAttributesFromCMS,
-} from '~/client/components/features/OffreDeStage/OffreDeStage.type';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
 
 export interface CmsIndexRepository {
-	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStageAttributesFromCMS>>
+	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>
 	getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
 }

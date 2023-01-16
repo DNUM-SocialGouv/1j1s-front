@@ -48,8 +48,8 @@ const getApiStrapiConfig = (configurationService: ConfigurationService): HttpCli
 
 const getApiStrapiIndexConfig = (configurationService: ConfigurationService): HttpClientConfig => {
 	return ({
-		apiName: 'NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL',
-		apiUrl: configurationService.getConfiguration().NEXT_PUBLIC_STAGE_CONTENT_MANAGER_BASE_URL + '/api',
+		apiName: 'STAGE_CONTENT_MANAGER_BASE_URL',
+		apiUrl: configurationService.getConfiguration().STAGE_CONTENT_MANAGER_BASE_URL + '/api',
 	});
 };
 

@@ -1,6 +1,4 @@
-import {
-	AnnonceDeLogement,
-} from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { CmsIndexRepository } from '~/server/cms/domain/cmsIndex.repository';
 import { Either } from '~/server/errors/either';
 
