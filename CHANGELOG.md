@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.40.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.40.0...v2.40.1) (2023-01-16)
+
+
+### Bug Fixes
+
+* **a11y:** ajout séparateur et titre des cartes contenus ([0b37e23](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0b37e2354ca896e3ad2bfef8901806241564a929))
+* **a11y:** ajout titleAs dans les PartnerCard ([9f403e9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9f403e9117f7335e8f0ddd7fd5335d0be5a50855))
+* **a11y:** linter ([afdc1a5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/afdc1a57af3161fae723727ee6728e8f40f15dcb))
+* **a11y:** refacto card component title ([ed3462a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ed3462af7c2b3d1e44d6197e3305e52a9ebea337))
+
 ## [2.40.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.39.2...v2.40.0) (2023-01-16)
 
 
