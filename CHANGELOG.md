@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.40.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.40.1...v2.40.2) (2023-01-16)
+
+
+### Bug Fixes
+
+* **a11y:** suppression id en double ([722ba77](https://github.com/DNUM-SocialGouv/1j1s-front/commit/722ba77f811e0e99ff4799605a01df106904d265))
+
 ## [2.40.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.40.0...v2.40.1) (2023-01-16)
 
 
