@@ -4,8 +4,8 @@ import React, {
 } from 'react';
 
 import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
-import { Card } from '~/client/components/ui/Card/Card';
 import { HtmlHeadingTag } from '~/client/components/props';
+import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
