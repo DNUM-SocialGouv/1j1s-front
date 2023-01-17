@@ -5,7 +5,7 @@
 }
 
 .cardListElement > a {
-    display: inline-block;
+    display: block;
 }
 
 .cardList {
@@ -70,6 +70,10 @@
     &FormationsOrientation, &EngagementBénévolat {
         padding-bottom: 2rem;
     }
+}
+
+.seeMoreButton {
+    width: 100%;
 }
 
 

@@ -4,10 +4,6 @@
   @extend %background-surface;
   padding: 2rem 0;
 
-  button {
-    display: contents;
-  }
-
   &Container {
     gap: 5rem;
     margin: 0 auto;
@@ -28,7 +24,7 @@
     &__Title {
       color: $color-primary;
       font-size: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: .5rem;
     }
 
     &__Content {

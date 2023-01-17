@@ -1,22 +1,19 @@
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne.module.scss';
-import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
+import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 
 export default function QuEstCeQueJyGagne() {
-	const { isSmallScreen, isMediumScreen } = useBreakpoint();
-	const displayAccordion = isSmallScreen || isMediumScreen;
-
 	return (
 		<section className={styles.section}>
 			<div className={styles.container}>
 				<div className={styles.titre}>
 					<h2>Mais en vrai, qu‘est-ce que j‘y gagne à long terme ?</h2>
-					{!displayAccordion && <strong>Le contrat d‘Engagement Jeune, c‘est tout bénéf‘ pour moi !</strong>}
+					<div className={styles.sousTitre}>Le contrat d‘Engagement Jeune, c‘est tout bénéf‘ pour moi !</div>
 				</div>
-				{!displayAccordion && <GainsCEJ />}
-				{displayAccordion && <SeeMore><GainsCEJ /></SeeMore>}
+				<SeeMoreMobileOnly>
+					<GainsCEJ />
+				</SeeMoreMobileOnly>
 			</div>
 		</section>
 	);

@@ -4,8 +4,7 @@ import portraitLatifa from 'public/images/CEJ/vignette-latifa.jpg';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages.module.scss';
-import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
+import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 
 export function Témoignages() {
 	return (
@@ -95,20 +94,14 @@ function TémoignageLatifa() {
 }
 
 function Programme({ children }: React.PropsWithChildren) {
-	const { isSmallScreen, isMediumScreen } = useBreakpoint();
-
 	const programme = React.createElement('div', { className: styles.programme }, children);
 
-	if (isSmallScreen || isMediumScreen) {
-		return (
-			<SeeMore
-				overridedClosedLabel="Découvrez son programme et ce que le CEJ lui apporte"
-				additionalButtonClassName={styles.buttonAccordeon}
-			>
-				{programme}
-			</SeeMore>
-		);
-	} else {
-		return programme;
-	}
+	return (
+		<SeeMoreMobileOnly
+			seeMoreLabel="Découvrez son programme et ce que le CEJ lui apporte"
+			className={styles.programmeSeeMore}
+		>
+			{programme}
+		</SeeMoreMobileOnly>
+	);
 }
