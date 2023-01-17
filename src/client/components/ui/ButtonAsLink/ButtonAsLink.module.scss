@@ -3,6 +3,7 @@
 .buttonAsLink {
   appearance: none;
   color: $color-primary;
+  outline-offset: 4px;
 
   &:hover {
     color: $color-primary-on-hover;

@@ -3,6 +3,7 @@
 .button {
   border-radius: 50px;
   white-space: nowrap;
+  outline-offset: 4px;
 
   &Label {
     line-height: 1.6rem;

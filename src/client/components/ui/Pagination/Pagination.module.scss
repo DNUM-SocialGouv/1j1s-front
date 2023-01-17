@@ -13,6 +13,10 @@
       display: inline-flex;
       justify-content: center;
       vertical-align: middle;
+
+      &[aria-current=true] {
+        outline-offset: 4px;
+      }
     }
   }
 
