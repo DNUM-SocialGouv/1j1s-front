@@ -38,6 +38,10 @@
   }
 }
 
+.seeMoreButton {
+  width: 100%;
+}
+
 
 @include media(medium) {
   .cardListPaddingSeeMore {

@@ -25,7 +25,7 @@
     &__Title {
       color: $color-on-primary;
       font-size: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: .5rem;
     }
 
     .conditionAllocation {
@@ -42,10 +42,6 @@
 
     ul, strong, button {
       color: $color-on-primary;
-    }
-
-    button {
-      display: contents;
     }
   }
 }

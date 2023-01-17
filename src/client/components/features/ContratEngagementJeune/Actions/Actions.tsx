@@ -1,12 +1,9 @@
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Actions/Actions.module.scss';
-import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
+import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 
 export default function Actions() {
-	const { isSmallScreen, isMediumScreen } = useBreakpoint();
-	const displayAccordion = isSmallScreen || isMediumScreen;
 	return (
 		<section className={styles.actions}>
 			<article className={styles.actionsContainer}>
@@ -16,11 +13,9 @@ export default function Actions() {
 					</h2>
 				</div>
 				<div className={styles.actionsArticle__Content}>
-					{!displayAccordion && <ListeActions/>}
-					{displayAccordion && (
-						<SeeMore>
-							<ListeActions/>
-						</SeeMore>)}
+					<SeeMoreMobileOnly>
+						<ListeActions/>
+					</SeeMoreMobileOnly>
 				</div>
 			</article>
 		</section>

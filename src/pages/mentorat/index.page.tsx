@@ -4,14 +4,14 @@ import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Mentorat.module.scss';
 
 export default function MentoratPage() {
-	const { isSmallScreen, isMediumScreen, isLargeScreen } = useBreakpoint();
+	const { isLargeScreen } = useBreakpoint();
 
 	return (
 		<>
@@ -22,33 +22,38 @@ export default function MentoratPage() {
 			<main id="contenu">
 				<div className={styles.heading}>
 					<div className={styles.headingContainer}>
-						<h1 className={styles.headingContainer__Title}>1 jeune 1 mentor, être accompagné par un mentor pour réussir</h1>
+						<h1 className={styles.headingContainer__Title}>
+							1 jeune 1 mentor, être accompagné par un mentor pour réussir
+						</h1>
 						<p className={styles.headingContainer__TextContentOrange}>
-              Faites la rencontre qui change tout !
+							Faites la rencontre qui change tout !
 						</p>
 						<div className={styles.headingContainer__TextContentWrapper}>
 							<div className={styles.headingContainer__TextContent}>
-								<span>
+								<div>
 									<p>
-                  Vous avez moins de 30 ans ?
+										Vous avez moins de 30 ans ?
 									</p>
 									<p>
-                  Rencontrez le mentor qui vous correspond et bénéficiez de son accompagnement régulier et de ses conseils pour atteindre vos objectifs : améliorer vos résultats scolaires, définir votre orientation, trouver vos premières expériences professionnelles…
+										Rencontrez le mentor qui vous correspond et bénéficiez de son accompagnement régulier et de ses
+										conseils pour atteindre vos objectifs : améliorer vos résultats scolaires, définir votre
+										orientation, trouver vos premières expériences professionnelles…
 									</p>
-								</span>
+								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<Link href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">Je trouve mon mentor</Link>
+									<Link href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
+										Je trouve mon mentor
+									</Link>
 								</div>
 							</div>
 							<div className={styles.headingContainer__TextContent}>
-								<span>
+								<div>
+									<p>Vous voulez devenir mentor ?</p>
 									<p>
-                  Vous voulez devenir mentor ?
+										Embarquez dans une aventure humaine hors du commun, pour partager votre expérience, favoriser
+										l‘égalité des chances et continuer à apprendre en accompagnant un jeune
 									</p>
-									<p>
-                  Embarquez dans une aventure humaine hors du commun, pour partager votre expérience, favoriser l‘égalité des chances et continuer à apprendre en accompagnant un jeune
-									</p>
-								</span>
+								</div>
 								<div className={styles.linkAsButtonWrapper}>
 									<Link href="/je-deviens-mentor" appearance="asPrimaryButton">Je deviens mentor</Link>
 								</div>
@@ -61,7 +66,11 @@ export default function MentoratPage() {
 					<article className={styles.QuestCeQueMentoratWrapper}>
 						<div className={styles.QuestCeQueMentoratContent}>
 							<h1>Qu’est-ce que le mentorat ?</h1>
-							<p>Le mentorat, c’est l’accompagnement individuel bénévole d’un jeune par un mentor, qui peut aussi bien être lycéen qu’étudiant, actif ou retraité. Le “binôme” que forment le mentor et le jeune se rencontre plusieurs fois par mois (pendant au moins 6 mois) pour répondre aux objectifs du mentoré selon son âge et ses besoins. Le binôme est encadré par une structure, le plus souvent une association, qui offre un cadre sécurisé pour chacun.</p>
+							<p>Le mentorat, c’est l’accompagnement individuel bénévole d’un jeune par un mentor, qui peut aussi bien
+								être lycéen qu’étudiant, actif ou retraité. Le “binôme” que forment le mentor et le jeune se rencontre
+								plusieurs fois par mois (pendant au moins 6 mois) pour répondre aux objectifs du mentoré selon son âge
+								et ses besoins. Le binôme est encadré par une structure, le plus souvent une association, qui offre un
+								cadre sécurisé pour chacun.</p>
 						</div>
 					</article>
 				</div>
@@ -72,24 +81,21 @@ export default function MentoratPage() {
 							<span className={styles.RaisonParticipationMentoratContent__Title}>
 								<h1>Pourquoi participer à l’aventure du mentorat ?</h1>
 							</span>
-
-							{ (isSmallScreen || isMediumScreen)
-								? (
-									<SeeMore
-										overridedClosedLabel="Lire plus"
-										additionalClosedButtonClassName={ styles.buttonAccordeonClosed }
-										additionalButtonClassName={ styles.buttonAccordeon }
-									>
-										<RaisonParticipationsMentorat/>
-									</SeeMore>
-								)
-								: (<RaisonParticipationsMentorat/>) }
+							<SeeMoreMobileOnly>
+								<RaisonParticipationsMentorat/>
+							</SeeMoreMobileOnly>
 						</div>
-						{ isLargeScreen && (
+						{isLargeScreen && (
 							<div className={styles.imageWrapper}>
-								<Image src="/illustrations/aventure-du-mentorat.svg" alt="" layout="fill" objectFit="contain" aria-hidden="true"/>
+								<Image
+									src="/illustrations/aventure-du-mentorat.svg"
+									alt=""
+									layout="fill"
+									objectFit="contain"
+									aria-hidden="true"
+								/>
 							</div>
-						) }
+						)}
 					</article>
 				</div>
 			</main>
@@ -103,21 +109,21 @@ function RaisonParticipationsMentorat() {
 			<ul aria-label="Raisons de participation au Mentorat">
 				<li className={styles.RaisonParticipationMentoratElement}>
 					<div className={styles.RaisonParticipationMentoratElement__Title}>
-						<Icon name='arrow-right'/>
+						<Icon name="arrow-right"/>
 						<p>J’ai des difficultés à l’école</p>
 					</div>
 					<p>Votre mentor pourra vous aider à organiser votre travail et à améliorer vos résultats scolaires</p>
 				</li>
 				<li className={styles.RaisonParticipationMentoratElement}>
 					<div className={styles.RaisonParticipationMentoratElement__Title}>
-						<Icon name='arrow-right'/>
+						<Icon name="arrow-right"/>
 						<p>Je ne sais pas quelle orientation choisir</p>
 					</div>
 					<p>Votre mentor pourra vous conseiller et vous guider</p>
 				</li>
 				<li className={styles.RaisonParticipationMentoratElement}>
 					<div className={styles.RaisonParticipationMentoratElement__Title}>
-						<Icon name='arrow-right'/>
+						<Icon name="arrow-right"/>
 						<p>Je cherche un stage, une alternance, un premier emploi</p>
 					</div>
 					<p>Votre mentor pourra vous aider et vous ouvrir son réseau professionnel</p>

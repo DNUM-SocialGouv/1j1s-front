@@ -1,65 +1,61 @@
 import classNames from 'classnames';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CommonProps } from '~/client/components/props';
-import styles from '~/client/components/ui/SeeMore/SeeMoreComponent.module.scss';
+import styles from '~/client/components/ui/SeeMore/SeeMore.module.scss';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
-import { Icon } from '../Icon/Icon';
+const SEE_MORE_LABEL_DEFAULT = 'Voir plus';
+const SEE_LESS_LABEL_DEFAULT = 'Voir moins';
 
-
-interface SeeMoreProps extends CommonProps {
-  overridedClosedLabel?: string
-  overridedOpenedLabel?: string
-  additionalClosedButtonClassName?: string
-  additionalButtonClassName?: string
+export interface SeeMoreProps extends CommonProps {
+  seeMoreLabel?: string
+  seeLessLabel?: string
 }
 
-export default function SeeMore({ children, overridedClosedLabel, overridedOpenedLabel, additionalButtonClassName, additionalClosedButtonClassName, className } : React.PropsWithChildren<SeeMoreProps>) {
+export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
+	const {
+		children,
+		seeMoreLabel = SEE_MORE_LABEL_DEFAULT,
+		seeLessLabel = SEE_LESS_LABEL_DEFAULT,
+		className,
+	} = props;
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const divRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
-	const ariaId = uuidv4();
+	const ariaId = useRef(uuidv4());
 
-	function toggleSeeMore() {
-		toggle(!isOpen);
-	}
-
-	function toggle(newValueOpen: boolean) {
-		if (isOpen === newValueOpen) return;
-		if (!newValueOpen && divRef.current) {
+	const toggle = useCallback(() => {
+		if (isOpen && divRef.current) {
 			const divPosition = divRef.current.getBoundingClientRect();
 			window.scrollBy({ behavior: 'smooth', top: -divPosition.height });
 		}
-		setIsOpen(newValueOpen);
+		setIsOpen(!isOpen);
 		buttonRef.current?.setAttribute('aria-expanded', `${isOpen}`);
-	}
+	}, [isOpen]);
 
-	const buttonLabel: string = useMemo(() => {
-		if (isOpen) {
-			return overridedOpenedLabel || 'Voir moins';
-		}
-		return overridedClosedLabel || 'Voir plus';
-	}, [overridedClosedLabel, overridedOpenedLabel, isOpen]);
+	const buttonLabel = useMemo(() => {
+		return isOpen ? seeLessLabel : seeMoreLabel;
+	}, [seeMoreLabel, seeLessLabel, isOpen]);
 
 	return (
 		<>
-			<div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen }, className)}
+			<div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
 	      ref={divRef}
-				id={`section-${ariaId}`}
+				id={`section-${ariaId.current}`}
 				role="region"
-				aria-labelledby={`seeMore-${ariaId}`}>
+				aria-labelledby={`seeMore-${ariaId.current}`}>
 				{children}
 			</div>
-			<button className={classNames(styles.seeMoreButton, additionalButtonClassName, !isOpen && additionalClosedButtonClassName)}
+			<button className={classNames(styles.seeMoreButton, className)}
 				ref={buttonRef}
-				onClick={toggleSeeMore}
+				onClick={toggle}
 				type="button" 
 				aria-expanded={isOpen}
-				aria-controls={`section-${ariaId}`} 
-				id={`seeMore-${ariaId}`}>
-				<span className={styles.seeMoreButtonLabel}> {buttonLabel} </span>
-				<Icon name={isOpen ? 'angle-up' :'angle-down'}/>
+				aria-controls={`section-${ariaId.current}`}
+				id={`seeMore-${ariaId.current}`}>
+				<TextIcon className={styles.seeMoreButtonLabel} icon={isOpen ? 'angle-up' :'angle-down'}>{buttonLabel}</TextIcon>
 			</button>
 		</>
 	);

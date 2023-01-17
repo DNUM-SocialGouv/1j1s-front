@@ -62,7 +62,7 @@ export default function Accueil() {
 						</li>
 					</ul>
 
-					<SeeMore>
+					<SeeMore className={styles.seeMoreButton}>
 						<ul className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
 							<li className={styles.cardListElement}>
 								<LinkCard
@@ -166,7 +166,7 @@ export default function Accueil() {
 						</li>
 					</ul>
 
-					<SeeMore>
+					<SeeMore className={styles.seeMoreButton}>
 						<ul className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
 							<li className={styles.cardListElement}>
 								<LinkCard

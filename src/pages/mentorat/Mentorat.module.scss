@@ -13,12 +13,14 @@
       color: $color-primary;
       margin-bottom: 1.25rem;
     }
+
     &__TextContentWrapper {
       div:first-child {
         margin-bottom: 2rem;
       }
 
     }
+
     &__TextContent {
       margin-bottom: 0.75rem;
 
@@ -46,6 +48,7 @@
 
       .linkAsButtonWrapper {
         margin-top: 1rem;
+
         a {
           width: 100%;
         }
@@ -67,28 +70,35 @@
         margin-bottom: 1rem;
         text-align: center;
       }
+
       &__TextContentWrapper {
         display: flex;
+
         > div {
           width: 50%;
         }
+
         & > div:first-child {
           margin-bottom: 0;
           border-right: 1px solid $color-separator;
           padding-right: 2.5rem;
         }
+
         & > div:last-child {
           padding-left: 2.5rem;
         }
       }
+
       &__TextContent {
         margin-bottom: 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
         p:first-child {
           text-align: center;
         }
+
         &Orange {
           text-align: center;
           margin-bottom: 5rem;
@@ -97,6 +107,7 @@
         .linkAsButtonWrapper {
           margin-top: 2rem;
           display: flex;
+
           a {
             margin: auto;
             width: initial;
@@ -116,29 +127,35 @@
 .imageWrapper {
   display: none;
 }
+
 .QuestCeQueMentorat {
   &Wrapper {
     padding: 5rem 1.5rem;
     color: $color-on-primary;
     @extend %max-container;
   }
+
   &Content {
     h1 {
       font-size: 1.25rem;
       margin-bottom: 1.25rem;
     }
+
     p {
       font-size: 1rem;
       margin-bottom: 1.25rem;
     }
+
     .linkAsButtonWrapper {
       display: flex;
       flex-direction: column;
       margin: auto;
       max-width: 35rem;
+
       & > * + * {
         margin-top: 1rem;
       }
+
       a {
         width: 100%;
       }
@@ -150,38 +167,37 @@
   &Wrapper {
     padding: 5rem 1.5rem;
     @extend %max-container;
+
     h1 {
       font-size: 1.25rem;
       color: $color-primary;
       margin-bottom: 1.25rem;
     }
-    .buttonAccordeon {
-      padding-left: 0;
-      color: $color-primary;
-      margin: auto;
-      &Closed {
-        margin: 0;
-      }
-    }
+
     .RaisonParticipationMentoratContainer {
       padding-bottom: 1.25rem;
+
       .RaisonParticipationMentoratElement {
         &:not(:last-child) {
-        margin-bottom: 1.25rem;
+          margin-bottom: 1.25rem;
         }
+
         &__Title {
           display: flex;
           align-items: center;
+
           p {
             @extend %text-regular;
             @extend %bold;
             margin: inherit;
           }
+
           svg {
             margin-right: 12px;
             flex-shrink: 0;
           }
         }
+
         > p {
           padding-left: 2.25rem;
           @extend %text-regular;
@@ -207,10 +223,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
       h1 {
         font-size: 1.5rem;
         margin-bottom: 2.5rem;
       }
+
       p {
         font-size: 1.25rem;
         margin-bottom: 0;
@@ -221,6 +239,7 @@
   .RaisonParticipationMentorat {
     &Wrapper {
       display: flex;
+
       .imageWrapper {
         display: initial;
         min-width: 490px;
@@ -229,28 +248,35 @@
         max-height: 372px;
         margin-left: 4rem;
       }
+
       .RaisonParticipationMentoratContainer {
         padding-bottom: 0;
+
         .RaisonParticipationMentoratElement {
           &:not(:last-child) {
             margin-bottom: 1.25rem;
           }
+
           &__Title {
             display: flex;
             align-items: center;
+
             p {
               font-size: 1.25rem;
               @extend %bold;
               margin: initial;
             }
+
             svg {
               margin-right: 0.75rem;
               flex-shrink: 0;
             }
           }
+
           &__Title:not(:last-child) {
             margin-bottom: 0.75rem;
           }
+
           > p {
             font-size: 1.25rem;
             padding-left: 0;
@@ -258,9 +284,11 @@
         }
       }
     }
+
     &Content {
       display: flex;
       flex-direction: column;
+
       &__Title {
         h1 {
           font-size: 1.5rem;
@@ -268,6 +296,7 @@
         }
       }
     }
+
     &Container {
       padding-bottom: 0;
     }

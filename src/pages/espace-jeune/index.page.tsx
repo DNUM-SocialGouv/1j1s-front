@@ -6,7 +6,8 @@ import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/E
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero,
-	LightHeroPrimaryText, LightHeroSecondaryText,
+	LightHeroPrimaryText,
+	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
@@ -63,7 +64,7 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 							</ArticleCard>,
 						)}
 					</Container>
-					<SeeMore>
+					<SeeMore className={styles.seeMoreButton}>
 						<Container className={styles.cartesActualitesList}>
 							{seeMoreCartesActualitesList.map((carte, index) =>
 								<ArticleCard className={styles.carteActualite}

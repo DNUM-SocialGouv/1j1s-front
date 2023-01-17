@@ -3,12 +3,9 @@ import illustration from 'public/images/CEJ/benefit-from-it.png';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations.module.scss';
-import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
+import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 
 export default function Allocations() {
-	const { isSmallScreen, isMediumScreen } = useBreakpoint();
-	const displayAccordion = isSmallScreen || isMediumScreen;
 	return (
 		<section className={ styles.allocations }>
 			<div className={ styles.allocationsContainer }>
@@ -17,11 +14,9 @@ export default function Allocations() {
 				</aside>
 				<article className={ styles.allocationsArticle }>
 					<h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l‘allocation ?</h2>
-					{!displayAccordion && <ConditionsAllocation/>}
-					{displayAccordion && (
-						<SeeMore>
-							<ConditionsAllocation/>
-						</SeeMore>)}
+					<SeeMoreMobileOnly>
+						<ConditionsAllocation/>
+					</SeeMoreMobileOnly>
 				</article>
 			</div>
 		</section>

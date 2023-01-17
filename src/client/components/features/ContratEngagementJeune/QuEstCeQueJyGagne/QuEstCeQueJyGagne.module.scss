@@ -7,25 +7,22 @@
 
 .container {
   max-width: $breakpoint-xl;
-
-  button {
-    display: contents;
-  }
 }
 
 .titre {
-  margin-bottom: 2rem;
+  margin-bottom: .5rem;
 
   > h2 {
     @extend %bold;
     @extend %headline;
     margin-bottom: 1rem;
   }
+}
 
-  b {
-    @extend %text-large;
-    font-size: 1rem;
-  }
+.sousTitre {
+  @extend %text-large;
+  display: none;
+  font-weight: 700;
 }
 
 .contenu ul {
@@ -58,5 +55,9 @@
 
   .contenu {
     padding-right: 3rem;
+  }
+
+  .sousTitre {
+    display: initial;
   }
 }
