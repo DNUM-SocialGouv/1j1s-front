@@ -40,36 +40,55 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 01.02.2020/i);
 	});
-	it('affiche la description du logement', async () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
-		annonceDeLogement.description = "C'est un super logement !";
+	describe('description du logement', () => {
+		it('affiche la description du logement', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.description = "C'est un super logement !";
 
-		await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-		const titreSection = screen.getByRole('heading', {
-			level: 2,
-			name: /Description du logement/i,
+			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const titreSection = screen.getByRole('heading', {
+				level: 2,
+				name: /Description du logement/i,
+			});
+			const description = screen.getByText(/C'est un super logement !/i);
+
+			expect(titreSection).toBeVisible();
+			expect(description).toBeVisible();
 		});
-		const description = screen.getByText(/C'est un super logement !/i);
+		it('crop la description au delà de 650 symboles', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.description = `
+				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
+				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
+				calme et douillet. Il comprend une penderie et de nombreux rangements ouverts, un coin douche à l’italienne avec
+				lave mains, un wc sanibroyeur, un coin cuisine avec micro-ondes, frigidaire, plaques de cuisson, un bar et un
+				coin séjour/nuit avec TV.Le prix comprend toutes les charges y compris l'électricité, l’eau, internet, la TV, etc.
+				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
+				et sa fin sera donc masquée par défaut.
+			`;
 
-		expect(titreSection).toBeVisible();
-		expect(description).toBeVisible();
-	});
-	it('crop la description au delà de 650 symboles', async () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
-		annonceDeLogement.description = `
-			A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
-			dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
-			calme et douillet. Il comprend une penderie et de nombreux rangements ouverts, un coin douche à l’italienne avec
-			lave mains, un wc sanibroyeur, un coin cuisine avec micro-ondes, frigidaire, plaques de cuisson, un bar et un
-			coin séjour/nuit avec TV.Le prix comprend toutes les charges y compris l'électricité, l’eau, internet, la TV, etc.
-			Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
-			et sa fin sera donc masquée par défaut.
-		`;
+			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const description = screen.getByText(/A 11 minutes à pied/i);
 
-		await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-		const description = screen.getByText(/A 11 minutes à pied/i);
+			expect(description).not.toHaveTextContent(/sa fin sera donc masquée par défaut./i);
+			expect(description).toHaveTextContent(' [...]');
+		});
+		it('affiche un bouton pour lire la suite lorsque la description est longue', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.description = `
+				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
+				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
+				calme et douillet. Il comprend une penderie et de nombreux rangements ouverts, un coin douche à l’italienne avec
+				lave mains, un wc sanibroyeur, un coin cuisine avec micro-ondes, frigidaire, plaques de cuisson, un bar et un
+				coin séjour/nuit avec TV.Le prix comprend toutes les charges y compris l'électricité, l’eau, internet, la TV, etc.
+				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
+				et sa fin sera donc masquée par défaut.
+			`;
 
-		expect(description).not.toHaveTextContent(/sa fin sera donc masquée par défaut./i);
-		expect(description).toHaveTextContent(' [...]');
+			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const bouton = screen.getByRole('button', { name: /Lire la suite/i });
+
+			expect(bouton).toBeVisible();
+		});
 	});
 });
