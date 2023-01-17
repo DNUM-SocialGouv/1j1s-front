@@ -23,11 +23,11 @@ export class StrapiIndexCmsRepository implements CmsIndexRepository {
 	) {}
 
 	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
-		return this.getResource<OffreDeStageResponse, OffreDeStage>(`slugify/slugs/${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}/${slug}?populate=deep`, mapOffreStage, 'offre stage');
+		return this.getResource<OffreDeStageResponse, OffreDeStage>(`slugify/slugs/${process.env.STRAPI_OFFRE_DE_STAGE_ENDPOINT}/${slug}?populate=deep`, mapOffreStage, 'offre stage');
 	}
 
 	async getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>> {
-		return this.getResource<AnnonceDeLogementResponse, AnnonceDeLogement>(`slugify/slugs/${process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT}/${slug}?populate=deep`, mapAnnonceLogement, 'annonce logement');
+		return this.getResource<AnnonceDeLogementResponse, AnnonceDeLogement>(`slugify/slugs/${process.env.STRAPI_ANNONCE_DE_LOGEMENT_ENDPOINT}/${slug}?populate=deep`, mapAnnonceLogement, 'annonce logement');
 	}
 
 	async getResource<ApiResponseType, ResponseType>(endpoint: string, mapper: (data: ApiResponseType) => ResponseType, content: string): Promise<Either<ResponseType>> {

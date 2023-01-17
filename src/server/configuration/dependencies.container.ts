@@ -72,7 +72,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
-	cmsIndexDependencies: CmsIndexDependencies;
+  cmsIndexDependencies: CmsIndexDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies

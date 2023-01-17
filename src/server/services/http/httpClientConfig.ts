@@ -49,7 +49,7 @@ const getApiStrapiConfig = (configurationService: ConfigurationService): HttpCli
 const getApiStrapiIndexConfig = (configurationService: ConfigurationService): HttpClientConfig => {
 	return ({
 		apiName: 'STAGE_CONTENT_MANAGER_BASE_URL',
-		apiUrl: configurationService.getConfiguration().STAGE_CONTENT_MANAGER_BASE_URL + '/api',
+		apiUrl: configurationService.getConfiguration().STAGE_CONTENT_MANAGER_BASE_URL,
 	});
 };
 

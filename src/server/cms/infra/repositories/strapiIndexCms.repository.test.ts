@@ -31,7 +31,7 @@ describe('strapi index cms repository', () => {
 			it('récupère l‘annonce de logement selon le slug', async () => {
 				httpClientService = anHttpClientService();
 				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService);
-				(httpClientService.get as jest.Mock).mockResolvedValue({ data: { attributes: uneAnnonceDeLogementResponse() } });
+				(httpClientService.get as jest.Mock).mockResolvedValue({ data: { data: { attributes: uneAnnonceDeLogementResponse() } } });
 				const slug = uneAnnonceDeLogementResponse().slug;
 
 				const { result } = await strapiIndexCmsRepository.getAnnonceDeLogementBySlug(slug) as Success<AnnonceDeLogement>;
@@ -58,7 +58,7 @@ describe('strapi index cms repository', () => {
 			it('récupère l‘offre de stage selon le slug', async () => {
 				httpClientService = anHttpClientService();
 				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService);
-				(httpClientService.get as jest.Mock).mockResolvedValue({ data: { attributes: uneOffreDeStageResponse() } });
+				(httpClientService.get as jest.Mock).mockResolvedValue({ data: { data: { attributes: uneOffreDeStageResponse() } } });
 				const slug = uneOffreDeStageResponse().slug;
 
 				const { result } = await strapiIndexCmsRepository.getOffreDeStageBySlug(slug) as Success<OffreDeStage>;

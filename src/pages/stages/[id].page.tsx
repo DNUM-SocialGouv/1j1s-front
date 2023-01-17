@@ -5,10 +5,9 @@ import React, { useEffect } from 'react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
-
-import { OffreDeStage } from '../../server/cms/domain/offreDeStage.type';
 
 interface ConsulterStagePageProps {
 	offreDeStage: OffreDeStage;

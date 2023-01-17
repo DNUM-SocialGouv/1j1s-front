@@ -20,7 +20,7 @@ function getHostName(uri) {
 }
 
 function getImagesRemotePattern() {
-	const logementUrlList = process.env.LOGEMENT_IMAGE_LIST_URL.split(',');
+	const logementUrlList = process.env.LOGEMENT_IMAGE_URL_LIST.split(',');
 	return logementUrlList.map((url) => {
 		return {
 			hostname: url,

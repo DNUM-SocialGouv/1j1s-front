@@ -79,7 +79,7 @@ export interface EnvironmentVariables {
   readonly IS_REVIEW_APP: string
   readonly MAILER_SERVICE_ACTIVE: string
 	readonly MAILER_SERVICE_REDIRECT_TO: string
-  readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
+	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
   readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
   readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
