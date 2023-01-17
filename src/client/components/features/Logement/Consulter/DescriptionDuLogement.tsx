@@ -7,10 +7,17 @@ import styles from './ConsulterAnnonce.module.scss';
 const MAX_DESCRIPTION_LENGTH = 650;
 const DESCRIPTION_LENGTH_THRESHOLD = 450;
 
-function BoutonEtendre({ onClick }: { onClick: () => void }) {
+interface BoutonEtendreProps {
+	onClick: () => void;
+	estÉtendu: boolean;
+}
+
+function BoutonEtendre({ onClick, estÉtendu }: BoutonEtendreProps) {
 	return (
 		<button className={styles.readMore} onClick={onClick}>
-			<TextIcon icon="angle-down">Lire la suite</TextIcon>
+			{ estÉtendu
+				? <TextIcon icon="angle-up">Afficher moins</TextIcon>
+				: <TextIcon icon="angle-down">Lire la suite</TextIcon> }
 		</button>
 	);
 }
@@ -30,7 +37,11 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 		<section className={styles.card}>
 			<h2>Description du Logement</h2>
 			<p>{description}</p>
-			{longueDescription && <BoutonEtendre onClick={() => setDescritionÉtendue(!descriptionÉtendue)}/>}
+			{longueDescription && (
+				<BoutonEtendre
+					onClick={() => setDescritionÉtendue(!descriptionÉtendue)}
+					estÉtendu={descriptionÉtendue} />
+			)}
 		</section>
 	);
 };
