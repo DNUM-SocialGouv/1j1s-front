@@ -37,7 +37,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 				<TextIcon icon="map-pin" iconPosition="left">{annonce.localisationAAfficher}</TextIcon>
 				<Link href={`/annonces/${annonce.slug}`} key={annonce.slug}
 					className={classNames('underline-none', styles.CardFooterCallToAction)} prefetch={false}>
-					<TextIcon icon="external-redirection">Lire l‘annonce</TextIcon>
+					<TextIcon icon="arrow-right">Lire l‘annonce</TextIcon>
 				</Link>
 			</span>
 		</Card>
