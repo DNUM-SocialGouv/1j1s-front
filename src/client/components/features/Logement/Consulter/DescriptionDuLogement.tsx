@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
@@ -17,16 +17,17 @@ type DescriptionDuLogementProps = {
 }
 
 export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
+	const [ descriptionÉtendue, setDescritionÉtendue ] = useState(false);
 	const longueDescription = children.length > 650;
 	let description = children;
-	if (longueDescription) {
+	if (longueDescription && !descriptionÉtendue) {
 		description = description.slice(0, 644) + ' [...]';
 	}
 	return (
 		<section className={styles.card}>
 			<h2>Description du Logement</h2>
 			<p>{description}</p>
-			{longueDescription && <BoutonEtendre onClick={() => alert('déplier')}/>}
+			{longueDescription && <BoutonEtendre onClick={() => setDescritionÉtendue(!descriptionÉtendue)}/>}
 		</section>
 	);
 };
