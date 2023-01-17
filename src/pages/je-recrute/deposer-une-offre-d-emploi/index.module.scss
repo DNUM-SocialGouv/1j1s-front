@@ -1,5 +1,9 @@
 @import "@styles/utilities";
 
+.heroTitle {
+  @extend %bold;
+}
+
 .heroSubtitle {
   @extend %text-large;
   margin-top: 1em;

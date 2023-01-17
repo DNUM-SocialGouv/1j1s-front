@@ -128,9 +128,11 @@ export default function JeRecruteAfprPoeiInscription() {
 			{!isFormSuccessfullySent &&
         <>
 	        <Hero>
-		        <HeroPrimaryText>
-			        <b>Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche</b>
-        		</HeroPrimaryText>
+		        <h1>
+			        <HeroPrimaryText className={styles.heroTitle}>
+				        Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche
+	            </HeroPrimaryText>
+		        </h1>
 		        <HeroSecondaryText className={styles.heroSubtitle}>
 			        Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement
         		</HeroSecondaryText>

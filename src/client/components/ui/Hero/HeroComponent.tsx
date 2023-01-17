@@ -20,11 +20,10 @@ export function HeroComponent({ titlePrimaryText, titleSecondaryText, imgSrc, cl
 		<div className={classNames(styles.heading, className)}>
 			<div className={styles.headingContainerWrapper}>
 				<div className={styles.headingContainer}>
-					<h1 className={styles.headingContainer__Title}>
-						<span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
-						<br />
+					<div className={styles.headingContainer__Title}>
+						<h1 className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</h1>
 						<span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>
-					</h1>
+					</div>
 					{children}
 				</div>
 			</div>
