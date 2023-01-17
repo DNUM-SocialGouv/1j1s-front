@@ -1,3 +1,4 @@
+import { Image as ImageProps } from '~/client/components/props';
 import { CarteActualite } from '~/server/cms/domain/actualite';
 import {
 	AnnonceDeLogement,
@@ -216,6 +217,16 @@ const getLocalisation = (localisation: AnnonceDeLogementResponse.Localisation): 
 	};
 };
 
+const formatImageUrlList = (imagesUrl: Array<{ value: string }> | undefined): Array<ImageProps> | [] => {
+	if (!imagesUrl) return [];
+	return imagesUrl.map((url) => {
+		return {
+			alt: '',
+			src: url.value,
+		};
+	});
+};
+
 export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse ): AnnonceDeLogement {
 	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
 
@@ -226,6 +237,7 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		description: annonceLogementResponse.description,
 		devise: annonceLogementResponse.devise,
 		garantie: annonceLogementResponse.garantie,
+		imageUrlList: formatImageUrlList(annonceLogementResponse.imagesUrl),
 		localisation: getLocalisation(annonceLogementResponse.localisation),
 		meublé: annonceLogementResponse.meuble,
 		nombreDePièces: annonceLogementResponse.nombreDePieces,

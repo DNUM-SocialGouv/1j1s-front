@@ -18,12 +18,14 @@ import styles from './Carousel.module.scss';
 interface CarouselProps extends CommonProps {
 	imageList: Array<Image>
 	imageListLabel: string
+	hideIndicators?: boolean
+	imageSizes: { width: number, height: number }
 }
 
 export type Direction = 'next' | 'previous' | null;
 
 export const Carousel = (props: CarouselProps) => {
-	const { imageList, imageListLabel, className, ...rest } = props;
+	const { imageList, imageListLabel, imageSizes, hideIndicators=false, className, ...rest } = props;
 	const _classNames = classNames(className, styles.carousel);
 	const numberOfImages = imageList.length;
 
@@ -70,6 +72,7 @@ export const Carousel = (props: CarouselProps) => {
 						direction={direction}
 						setDirection={setDirection}
 						isAnimated={isAnimated}
+						imageSizes={imageSizes}
 					/>
 				))}
 			</ul>
@@ -79,12 +82,14 @@ export const Carousel = (props: CarouselProps) => {
 				goToNextSlide={goToNextSlide}
 			/>
 
-			<Indicators
+			{ !hideIndicators && <Indicators
 				goToSelectedSlide={goToSelectedSlide}
 				imageList={imageList}
 				currentSlideIndex={currentSlideIndex}
 				numberOfImages={numberOfImages}
 			/>
+			}
+
 
 			<LiveRegion
 				currentSlideIndex={currentSlideIndex}

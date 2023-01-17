@@ -28,7 +28,7 @@ const imageList = [
 
 describe('Carousel', () => {
 	it('retourne une liste d‘images avec seulement la première image visible et courante',  () => {
-		render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 		const listDeSlides = screen.getByRole('list', { name: 'liste des photos' });
 		expect(listDeSlides).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('Carousel', () => {
 	});
 
 	it('retourne deux boutons de contrôle', () => {
-		render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 		const listeDeContrôles = screen.getByRole('list', { name: 'contrôles' });
 		const boutonPrécédent = within(listeDeContrôles).getByRole('button', { name: 'image précédente' });
@@ -57,14 +57,14 @@ describe('Carousel', () => {
 
 	describe('Liste des indicateurs', () => {
 		it('contient une liste de boutons indicateurs', () => {
-			render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 			const listeDIndicateurs = screen.getByRole('list', { name: 'indicateurs' });
 			expect(listeDIndicateurs).toBeInTheDocument();
 		});
 
 		it('retourne une liste de boutons indicateurs', () => {
-			render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 			const listeDIndicateurs = screen.getByRole('list', { name: 'indicateurs' });
 			expect(listeDIndicateurs).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('Carousel', () => {
 
 	describe('Live Region', () => {
 		it('contient une live region avec des attributs accessibles', () => {
-			render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 			const liveRegion = screen.getByText('Image 1 sur 3');
 			expect(liveRegion).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe('Carousel', () => {
 		describe('quand l‘on change d‘image au clic sur le bouton suivant', () => {
 			it('contient l‘information sur l‘image courante', async () => {
 				const user = userEvent.setup();
-				render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+				render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 				const liveRegion = screen.getByText('Image 1 sur 3');
 				expect(liveRegion).toBeInTheDocument();
@@ -101,7 +101,7 @@ describe('Carousel', () => {
 		describe('quand l‘on change d‘image au clic sur le bouton précédent', () => {
 			it('contient l‘information sur l‘image courante', async () => {
 				const user = userEvent.setup();
-				render(<Carousel imageList={imageList} imageListLabel="liste des photos" />);
+				render(<Carousel imageList={imageList} imageListLabel="liste des photos" imageSizes={{ height: 200, width: 400 }} />);
 
 				const liveRegion = screen.getByText('Image 1 sur 3');
 				expect(liveRegion).toBeInTheDocument();

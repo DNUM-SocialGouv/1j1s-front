@@ -166,3 +166,45 @@
     }
   }
 }
+
+.carouselWrapper {
+  @include media(medium) {
+    background-color: $white-lilac;
+    border-bottom: 1px solid $color-primary;
+    border-top: 1px solid $color-primary;
+  }
+}
+
+.carousel {
+  display: flex;
+  margin: auto;
+  height: 15rem;
+  width: 100%;
+  max-width: 25rem;
+  @include media(medium) {
+    max-width: $breakpoint-xl;
+    height: 25rem;
+
+    > ul > li > img {
+      display: flex;
+      margin: auto;
+    }
+
+      button {
+        box-sizing: content-box;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 1px solid $color-primary;
+        > svg {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+      }
+
+  }
+
+  img {
+    object-fit: cover;
+    object-position: center;
+  }
+}

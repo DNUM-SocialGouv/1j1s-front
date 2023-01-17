@@ -19,6 +19,7 @@ interface SlideProps {
 	direction: string | null
 	setDirection: (direction: Direction) => void
 	isAnimated: boolean
+	imageSizes: { width: number, height: number }
 }
 
 export const Slide = (props: SlideProps) => {
@@ -34,6 +35,7 @@ export const Slide = (props: SlideProps) => {
 		direction,
 		setDirection,
 		isAnimated,
+		imageSizes,
 	} = props;
 
 	const isCurrentSlide = useMemo(() => index === currentSlideIndex, [index, currentSlideIndex]);
@@ -60,7 +62,7 @@ export const Slide = (props: SlideProps) => {
 				{ [styles.transition]: isAnimated },
 			)}
 		>
-			<Image src={image.src} alt={image.alt} fill sizes="180px"/>
+			<Image src={image.src} alt={image.alt} width={imageSizes.width} height={imageSizes.height} />
 		</li>
 	);
 };
