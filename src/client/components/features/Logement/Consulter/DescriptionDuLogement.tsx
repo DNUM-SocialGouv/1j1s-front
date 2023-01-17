@@ -1,5 +1,5 @@
 type DescriptionDuLogementProps = {
-	description: string,
+	description: string
 }
 
 export const DescriptionDuLogement = ({ description }: DescriptionDuLogementProps) => {
