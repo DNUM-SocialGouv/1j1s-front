@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.42.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.41.0...v2.42.0) (2023-01-17)
+
+
+### Features
+
+* **logement/details:** Ajoute l'affichage du titre ([7c291f4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c291f4d8ca7b5d0eaa3e835810ae62673e96260))
+
 ## [2.41.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.40.2...v2.41.0) (2023-01-17)
 
 
