@@ -10,17 +10,29 @@ interface ConsulterAnnonceDeLogementProps {
 	annonceDeLogement: AnnonceDeLogement
 }
 
+function AnnonceEntête({ children }: { children: React.ReactNode }) {
+	return (
+		<header className={styles.annonceEntête}>
+			{children}
+		</header>
+	);
+}
+
+function TypeBien({ children }: { children: React.ReactNode }) {
+	return <span className={styles.type}>{children}</span>;
+}
+
 export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogementProps) {
 	const { dateDeMiseAJour, type, typeBien, titre } = annonceDeLogement;
 	return (
-		<main id="contenu">
-			<Container>
-				<header className={styles.annonceEntête}>
+		<Container>
+			<main id="contenu">
+				<AnnonceEntête>
 					<h1>{titre}</h1>
-					<DateMiseÀJour date={new Date(dateDeMiseAJour)} />
-					<span className={styles.type}>{type} - {typeBien}</span>
-				</header>
-			</Container>
-		</main>
+					<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
+					<TypeBien>{type} - {typeBien}</TypeBien>
+				</AnnonceEntête>
+			</main>
+		</Container>
 	);
 }
