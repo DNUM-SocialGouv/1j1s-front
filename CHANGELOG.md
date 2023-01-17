@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.41.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.40.2...v2.41.0) (2023-01-17)
+
+
+### Features
+
+* **logement:** branchement cms pour détail logement ([210daee](https://github.com/DNUM-SocialGouv/1j1s-front/commit/210daeeece094a6f039f49d600d0b506e9dcd7b9))
+
 ## [2.40.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.40.1...v2.40.2) (2023-01-16)
 
 
