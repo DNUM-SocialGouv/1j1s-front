@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -9,19 +9,29 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from './Entreprise.module.scss';
 
 export default function Entreprise() {
+
+	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const form: HTMLFormElement = event.currentTarget;
+		const data = new FormData(form);
+		const formulaireOffreStageEtape1 = FormulaireOffreStageEtape1(data);
+		const stockage = JSON.stringify(formulaireOffreStageEtape1);
+		localStorage.setItem('formulaireEtape1',stockage);
+	}
+
 	return (
 		<>
 			<div className={styles.content}>
 				<Container className={styles.container}>
 					<div className={styles.etape}>Etape 1 sur 3 : Votre entreprise</div>
-					<form className={styles.formulaire}>
+					<form className={styles.formulaire} onSubmit={handleFormSubmit}>
 						<div className={styles.champsObligatoires}>
 							<p>Les champs suivants sont obligatoires</p>
 						</div>
 						<div className={styles.bodyFormulaire}>
 							<InputText
 								label="Indiquez le nom de l’entreprise ou de l’employeur"
-								name="companyName"
+								name="nom"
 								placeholder="Exemple : Crédit Agricole, SNCF…"
 								required
 							/>
@@ -34,10 +44,10 @@ export default function Entreprise() {
 							/>
 							<InputArea
 								className={styles.textArea}
-								id="commentaire"
+								id="description"
 								label="Rédigez une courte description de l’entreprise (200 caractères maximum)"
 								placeholder="Indiquez des informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
-								name="commentaire"
+								name="description"
 								required
 								maxLength={200}
 							/>
@@ -73,3 +83,13 @@ export default function Entreprise() {
 		</>
 	);
 };
+
+function FormulaireOffreStageEtape1(formData: FormData) {
+	return {
+		description: String(formData.get('description')),
+		email: String(formData.get('email')),
+		logo: String(formData.get('logo')),
+		nom: String(formData.get('nom')),
+		site: String(formData.get('site')),
+	};
+}

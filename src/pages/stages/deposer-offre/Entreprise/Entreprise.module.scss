@@ -8,61 +8,6 @@
   max-width: 78em;
 }
 
-.formulaire {
-  .bodyFormulaire {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-  .label {
-    @extend %bold;
-    margin-top: 1.5rem;
-  }
-
-  .textArea {
-    margin-top: 1rem;
-
-    > textarea {
-      min-height: 15rem;
-      background-color: $color-on-primary;
-      padding-top: 1rem;
-    }
-  }
-
-  .buttonFormulaire {
-    margin-top: 1.5rem;
-  }
-
-  > button[type=submit] {
-    margin-top: 1.25rem;
-    width: 100%;
-  }
-
-  .validation {
-    margin-top: 1.5rem;
-
-    p {
-      width: 100%;
-      font-size: 0.7rem;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  }
-  .champsObligatoires, .champsFacultatifs {
-    color: $color-primary;
-    margin-top: 1.25rem;
-
-    > p:first-child {
-      @extend %text-large;
-      margin-bottom: 2rem;
-    }
-
-    > p:last-child {
-      @extend %text-medium;
-    }
-  }
-}
-
 .etape {
   background-color: $color-primary;
   color: white;
@@ -71,26 +16,41 @@
   padding: 4px;
 }
 
-.success {
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.formulaire {
 
-  p:first-child {
+  .champsObligatoires, .champsFacultatifs {
+    @extend %text-large;
     color: $color-primary;
-    @extend %bold;
-    @extend %text-xLarge;
+    margin-block: 1.25rem;
   }
 
-  p:last-child {
-    color: $color-on-surface;
-    @extend %bold;
-    @extend %text-medium;
+  .bodyFormulaire {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 
-  a {
-    width: 100%;
+  .textArea {
+    margin-top: 1rem;
+
+    > textarea {
+      min-height: 7.5rem;
+      background-color: $color-on-primary;
+      padding-top: 1rem;
+    }
+  }
+
+  .validation {
+    margin-bottom: 1.5rem;
+
+    > button {
+      width: 100%;
+    }
+
+    p {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 }
 
@@ -98,7 +58,7 @@
 
   .content {
     background-color: $color-background;
-    padding: 0 8rem 4rem;
+    padding: 0 8rem 2rem;
   }
 
   .container {
@@ -120,37 +80,28 @@
       flex-direction: column;
       place-items: center;
       text-align: left;
+      margin-block: 1.5rem;
 
       > button {
         width: 50%;
       }
-
-      p {
-        width: 50%;
-        font-size: 0.7rem;
-      }
     }
-  }
-  .success {
-    width: 50%;
-    margin: auto;
   }
 }
 
 @include media(xlarge) {
   .formulaire {
-    padding: 0 8rem 2rem;
+    padding: 0 8rem 0;
 
     .bodyFormulaire {
       flex-direction: row;
       justify-content: space-between;
 
-      > div {
-        width: 48%;
-      }
-
       .textArea {
         width: 100%;
+        > textarea {
+          min-height: 15rem;
+        }
       }
     }
   }

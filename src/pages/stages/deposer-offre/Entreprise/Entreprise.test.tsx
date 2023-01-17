@@ -22,6 +22,21 @@ describe('<Entreprise />', () => {
 			expect(screen.getByLabelText('Indiquez le lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
+
+		it('il voit afficher des champs facultatifs', async () => {
+			const labelLogo = 'Partagez le logo de l’entreprise - lien/URL';
+			const labelSite = 'Indiquez le lien du site de l’entreprise - lien/URL';
+			// Given
+			render(<Entreprise />);
+
+			//When
+			await userEvent.type(screen.getByLabelText(labelLogo), 's{backspace}');
+			await userEvent.type(screen.getByLabelText(labelSite), 's{backspace}');
+
+			// Then
+			expect(screen.getByLabelText(labelLogo)).toBeValid();
+			expect(screen.getByLabelText(labelSite)).toBeValid();
+		});
 	});
 
 	describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli l’étape 1', () => {
@@ -31,7 +46,7 @@ describe('<Entreprise />', () => {
 			const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise ou de l’employeur' });
 			await userEvent.type(inputNomSociété, 'Crédit Agricole');
 
-			await directionNouvelleEtape();
+			await BoutonSuivant();
 
 			expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise ou de l’employeur' })).toBeValid();
 			expect(screen.getByRole('textbox', { name: 'Indiquez une adresse mail de contact' })).toBeInvalid();
@@ -39,7 +54,7 @@ describe('<Entreprise />', () => {
 	});
 });
 
-async function directionNouvelleEtape() {
+async function BoutonSuivant() {
 	const button = screen.getByRole('button', { name: 'Suivant' });
 	await userEvent.click(button);
 }
