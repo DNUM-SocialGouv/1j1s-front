@@ -4,6 +4,9 @@ import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 import styles from './ConsulterAnnonce.module.scss';
 
+const MAX_DESCRIPTION_LENGTH = 650;
+const DESCRIPTION_LENGTH_THRESHOLD = 450;
+
 function BoutonEtendre({ onClick }: { onClick: () => void }) {
 	return (
 		<button className={styles.readMore} onClick={onClick}>
@@ -18,10 +21,10 @@ type DescriptionDuLogementProps = {
 
 export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
 	const [ descriptionÉtendue, setDescritionÉtendue ] = useState(false);
-	const longueDescription = children.length > 650;
+	const longueDescription = children.length > MAX_DESCRIPTION_LENGTH;
 	let description = children;
 	if (longueDescription && !descriptionÉtendue) {
-		description = description.slice(0, 644) + ' [...]';
+		description = description.slice(0, DESCRIPTION_LENGTH_THRESHOLD) + ' [...]';
 	}
 	return (
 		<section className={styles.card}>
