@@ -21,7 +21,7 @@ export default function Accueil() {
 			<HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
 			<main id="contenu">
 				<HeroWithIllustration image="/images/portraits-verticaux.webp">
-					<HeroPrimaryText><b>À chacun sa solution.</b></HeroPrimaryText>
+					<h1><HeroPrimaryText className={styles.heroTitle}>À chacun sa solution.</HeroPrimaryText></h1>
 					<HeroSecondaryText>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</HeroSecondaryText>
 				</HeroWithIllustration>
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>

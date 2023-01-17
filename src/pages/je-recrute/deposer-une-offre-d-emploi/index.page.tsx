@@ -14,9 +14,7 @@ export default function DéposerUneOffreDEmploi() {
 		<main id="contenu">
 			<HeadTag title="Déposer une offre d‘emploi ou d‘alternance | 1jeune1solution"/>
 			<Hero>
-				<HeroPrimaryText>
-					<b>Déposez votre offre d‘emploi ou d‘alternance sur 1jeune1solution</b>
-				</HeroPrimaryText>
+				<h1><HeroPrimaryText className={styles.heroTitle}>Déposez votre offre d‘emploi ou d‘alternance sur 1jeune1solution</HeroPrimaryText></h1>
 				<HeroSecondaryText className={styles.heroSubtitle}>
 					En partenariat avec Pôle Emploi
 				</HeroSecondaryText>

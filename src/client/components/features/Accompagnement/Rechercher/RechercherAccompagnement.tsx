@@ -134,7 +134,7 @@ function BannièreAccompagnement() {
 		<LightHero>
 			<h1>
 				<LightHeroPrimaryText>
-					Je recherche un accompagnement proche de chez moi,
+					Je recherche un accompagnement proche de chez moi
 				</LightHeroPrimaryText>
 			</h1>
 			<LightHeroSecondaryText>je veux être aidé dans mes démarches et mon parcours</LightHeroSecondaryText>
