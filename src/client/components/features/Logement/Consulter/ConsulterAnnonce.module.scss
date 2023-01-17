@@ -1,6 +1,6 @@
 @import "@styles/utilities";
 
-.annonceEntête {
+.annonce .entête {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -10,37 +10,59 @@
   padding: 1rem;
 }
 
-.annonceEntête .type {
+.annonce .entête .type {
   grid-area: type;
   font-size: .875rem;
   line-height: 1.25rem;
   color: $color-mine-shaft;
   text-transform: uppercase;
 }
-.annonceEntête .date {
+.annonce .entête .date {
   grid-area: date;
   color: $color-mine-shaft;
   font-size: .75rem;
   line-height: 1rem;
 }
-.annonceEntête h1 {
+.annonce .entête h1 {
   grid-area: titre;
   @extend %bold, %headline;
   margin: 0 0 1rem;
   color: $color-on-background;
 }
 
+.annonce h2 {
+  color: $color-primary;
+  @extend %subheading;
+}
+
+.annonce .card {
+  border: 1px solid $color-primary;
+  padding: 1rem;
+}
+.annonce .card h2 {
+  margin-bottom: 1.25rem;
+}
+
 @include media(medium) {
-  .annonceEntête {
+  .annonce .entête {
     grid-template-columns: 1fr auto;
     grid-template-areas:
           "type date"
           "titre titre";
     padding: 0;
   }
-  .annonceEntête .type,
-  .annonceEntête .date {
+  .annonce .entête .type,
+  .annonce .entête .date {
     font-size: 1.25rem;
     line-height: 2rem;
+  }
+
+  .annonce .card {
+    border: 1px solid $neutral-grey;
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+  }
+  .annonce .card h2 {
+    margin-bottom: 2.5rem;
   }
 }

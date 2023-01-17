@@ -1,12 +1,16 @@
+import React from 'react';
+
+import styles from './ConsulterAnnonce.module.scss';
+
 type DescriptionDuLogementProps = {
-	description: string
+	children: React.ReactNode,
 }
 
-export const DescriptionDuLogement = ({ description }: DescriptionDuLogementProps) => {
+export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
 	return (
-		<section>
+		<section className={styles.card}>
 			<h2>Description du Logement</h2>
-			<p>{description}</p>
+			<p>{children}</p>
 		</section>
 	);
 };

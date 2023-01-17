@@ -40,4 +40,18 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 01.02.2020/i);
 	});
+	it('affiche la description du logement', async () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+		annonceDeLogement.description = "C'est un super logement !";
+
+		await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		const titreSection = screen.getByRole('heading', {
+			level: 2,
+			name: /Description du logement/i,
+		});
+		const description = screen.getByText(/C'est un super logement !/i);
+
+		expect(titreSection).toBeVisible();
+		expect(description).toBeVisible();
+	});
 });
