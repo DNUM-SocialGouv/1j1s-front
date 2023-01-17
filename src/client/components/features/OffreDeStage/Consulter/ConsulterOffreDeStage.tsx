@@ -3,13 +3,16 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
-import { Domaines, OffreDeStageDétail } from '~/client/components/features/OffreDeStage/OffreDeStage.type';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import {
+	Domaines,
+	OffreDeStage,
+} from '~/server/cms/domain/offreDeStage.type';
 
 interface ConsulterOffreDeStageProps {
-	offreDeStage: OffreDeStageDétail
+	offreDeStage: OffreDeStage
 }
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {

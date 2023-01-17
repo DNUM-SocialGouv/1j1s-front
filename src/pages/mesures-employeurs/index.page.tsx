@@ -21,7 +21,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresEmpl
 
 	return {
 		props: {
-			mesuresEmployeurs: response.result,
+			mesuresEmployeurs: JSON.parse(JSON.stringify(response.result)),
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};

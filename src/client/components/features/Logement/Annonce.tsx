@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
-import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.type';
 
 export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) => {
 	const annonce  = props.hit;
@@ -35,7 +35,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 
 			<span className={styles.CardFooter}>
 				<TextIcon icon="map-pin" iconPosition="left">{annonce.localisationAAfficher}</TextIcon>
-				<Link href={annonce.url} key={annonce.slug}
+				<Link href={`/annonces/${annonce.slug}`} key={annonce.slug}
 					className={classNames('underline-none', styles.CardFooterCallToAction)} prefetch={false}>
 					<TextIcon icon="external-redirection">Lire l‘annonce</TextIcon>
 				</Link>

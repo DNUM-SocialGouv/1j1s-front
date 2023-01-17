@@ -26,6 +26,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			REDIS_PASSWORD: ServerConfigurationService.getOrThrowError('REDIS_PASSWORD'),
 			REDIS_PORT: Number(ServerConfigurationService.getOrThrowError('REDIS_PORT')),
 			REDIS_USERNAME: ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
+			STAGE_CONTENT_MANAGER_BASE_URL: ServerConfigurationService.getOrThrowError('STAGE_CONTENT_MANAGER_BASE_URL'),
 			STRAPI_AUTH: ServerConfigurationService.matchOrThrowError('STRAPI_AUTH', /^(.+):(.+)$/),
 			STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
 			TIPIMAIL_API_BASE_URL: ServerConfigurationService.getOrThrowError('TIPIMAIL_API_BASE_URL'),
@@ -77,8 +78,8 @@ export interface EnvironmentVariables {
   readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
   readonly IS_REVIEW_APP: string
   readonly MAILER_SERVICE_ACTIVE: string
-  readonly MAILER_SERVICE_REDIRECT_TO: string
-  readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
+	readonly MAILER_SERVICE_REDIRECT_TO: string
+	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
   readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
   readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
@@ -89,6 +90,7 @@ export interface EnvironmentVariables {
   readonly REDIS_PASSWORD: string
   readonly REDIS_PORT: number
   readonly REDIS_USERNAME: string
+	readonly STAGE_CONTENT_MANAGER_BASE_URL: string
   readonly STRAPI_AUTH: string
   readonly STRAPI_URL_API: string
   readonly TIPIMAIL_API_BASE_URL: string

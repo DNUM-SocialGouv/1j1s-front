@@ -13,7 +13,6 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 import NotFound from '~/pages/404.page';
 
-const MEILISEARCH_INDEX = 'annonce-de-logement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
 
@@ -32,7 +31,7 @@ export default function AnnoncesPage() {
 				description="Logement étudiant et location jeune actif partout en France"
 			/>
 			<InstantSearchLayout
-				meilisearchIndex={MEILISEARCH_INDEX}
+				meilisearchIndex={process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT}
 				nombreDeResultatParPage={ANNONCE_PAR_PAGE}
 				titre="Logement étudiant et location jeune actif partout en France"
 				sousTitre="Faites votre recherche parmi plus de 300 000 offres de logements étudiants"

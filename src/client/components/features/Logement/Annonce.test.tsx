@@ -8,7 +8,8 @@ import {
 } from '@testing-library/react';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
-import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogement.type';
+import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.type';
+
 
 
 const uneAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): AnnonceDeLogementIndexee => {
@@ -24,6 +25,7 @@ const uneAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): Ann
 		surfaceAAfficher: 'de 70 à 71m2',
 		titre: 'Appartement à louer',
 		type: 'appartement',
+		typeBien: 'T1',
 		url: 'https://www.immo.com',
 		...override,
 	};
@@ -101,10 +103,8 @@ describe('Annonce Component', () => {
 
 	it('contient le lien externe de l‘annonce', async () => {
 		await render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
-		const urlExterne = 'https://www.immo.com';
 		const url = screen.getByRole('link');
 		expect(url).toBeInTheDocument();
-		expect(url).toHaveAttribute('href', urlExterne);
-		expect(url).toHaveAttribute('target', '_blank');
+		expect(url).toHaveAttribute('href', '/annonces/un-slug-appart-a-louer');
 	});
 });

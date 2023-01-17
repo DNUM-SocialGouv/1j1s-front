@@ -1,7 +1,15 @@
 import { CarteActualite } from '~/server/cms/domain/actualite';
+import {
+	AnnonceDeLogement,
+	AnnonceDeLogementResponse,
+} from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
+import {
+	OffreDeStage,
+	OffreDeStageResponse,
+} from '~/server/cms/domain/offreDeStage.type';
 import {
 	ActualiteAttributesResponse,
 	ArticleAttributesResponse,
@@ -191,4 +199,42 @@ export function mapImage(bannière: StrapiImage | undefined): Image | undefined 
 	} else {
 		return undefined;
 	}
+}
+
+export function mapOffreStage(offreStageResponse: OffreDeStageResponse): OffreDeStage {
+	return offreStageResponse;
+}
+
+const getLocalisation = (localisation: AnnonceDeLogementResponse.Localisation): AnnonceDeLogement.Localisation => {
+	return {
+		adresse: localisation.adresse,
+		codePostal: localisation.codePostal,
+		département: localisation.département,
+		pays: localisation.pays,
+		région: localisation.région,
+		ville: localisation.ville,
+	};
+};
+
+export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse ): AnnonceDeLogement {
+	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
+
+	return {
+		charge: annonceLogementResponse.charge,
+		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
+		dateDeMiseAJour,
+		description: annonceLogementResponse.description,
+		garantie: annonceLogementResponse.garantie,
+		localisation: getLocalisation(annonceLogementResponse.localisation),
+		meublé: annonceLogementResponse.meuble,
+		nombresDePièces: annonceLogementResponse.nombresDePieces,
+		prix: annonceLogementResponse.prix,
+		prixHT: annonceLogementResponse.prixHT,
+		surface: annonceLogementResponse.surface,
+		surfaceMax: annonceLogementResponse.surfaceMax,
+		titre: annonceLogementResponse.titre,
+		type: annonceLogementResponse.type,
+		typeBien: annonceLogementResponse.typeBien,
+		étage: annonceLogementResponse.etage,
+	};
 }
