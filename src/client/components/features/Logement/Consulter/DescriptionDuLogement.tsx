@@ -26,7 +26,7 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 		<section className={styles.card}>
 			<h2>Description du Logement</h2>
 			<p>{description}</p>
-			<BoutonEtendre onClick={() => alert('déplier')} />
+			{longueDescription && <BoutonEtendre onClick={() => alert('déplier')}/>}
 		</section>
 	);
 };

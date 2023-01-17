@@ -90,5 +90,14 @@ describe('<ConsulterAnnonce />', () => {
 
 			expect(bouton).toBeVisible();
 		});
+		it('masque le bouton pour lire la suite lorsque la description est courte', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.description = "C'est un super logement !";
+
+			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const bouton = screen.queryByRole('button', { name: /Lire la suite/i });
+
+			expect(bouton).not.toBeInTheDocument();
+		});
 	});
 });
