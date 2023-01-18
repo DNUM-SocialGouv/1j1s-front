@@ -8,13 +8,18 @@ const MAX_DESCRIPTION_LENGTH = 650;
 const DESCRIPTION_LENGTH_THRESHOLD = 450;
 
 interface BoutonEtendreProps {
-	onClick: () => void;
-	estÉtendu: boolean;
+	onClick: () => void
+	estÉtendu: boolean
+	'aria-controls': string
 }
 
-function BoutonEtendre({ onClick, estÉtendu }: BoutonEtendreProps) {
+function BoutonEtendre({ onClick, estÉtendu, 'aria-controls': ariaControls }: BoutonEtendreProps) {
 	return (
-		<button className={styles.readMore} onClick={onClick}>
+		<button
+			className={styles.readMore}
+			onClick={onClick}
+			aria-expanded={estÉtendu}
+			aria-controls={ariaControls}>
 			{ estÉtendu
 				? <TextIcon icon="angle-up">Afficher moins</TextIcon>
 				: <TextIcon icon="angle-down">Lire la suite</TextIcon> }
@@ -41,11 +46,12 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 	return (
 		<section className={styles.card}>
 			<h2>Description du Logement</h2>
-			<p>{description}</p>
+			<p id="description-annonce">{description}</p>
 			{longueDescription && (
 				<BoutonEtendre
 					onClick={() => setDescritionÉtendue(!descriptionÉtendue)}
-					estÉtendu={descriptionÉtendue} />
+					estÉtendu={descriptionÉtendue}
+					aria-controls="description-annonce" />
 			)}
 		</section>
 	);
