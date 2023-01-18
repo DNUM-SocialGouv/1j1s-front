@@ -8,6 +8,7 @@ import styles
 import { useAccompagnementLogo } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonAsLink } from '~/client/components/ui/ButtonAsLink/ButtonAsLink';
 import { Card } from '~/client/components/ui/Card/Card';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import {
@@ -51,7 +52,8 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 						{
 							établissement.email && isMissionLocale &&
               <ButtonAsLink className={styles.contactFormulaireÉtablissement} onClick={onContactClick}>
-                Je souhaite être rappelé
+                Je souhaite être contacté(e)
+              	<Icon name="mail" className={styles.buttonIcon} />
               </ButtonAsLink>
 						}
 					</div>

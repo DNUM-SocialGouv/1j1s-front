@@ -6,9 +6,9 @@ import {
 import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
 import { useAccompagnementLogo } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
-import { ButtonAsLink } from '~/client/components/ui/ButtonAsLink/ButtonAsLink';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
-import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
 	ÉtablissementAccompagnement,
@@ -43,16 +43,11 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 			<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']} className={styles.tags}/>
 			{
 				établissement.email && !isMissionLocale &&
-        <a href={établissement.email} className={styles.contactFormulaireÉtablissement}>
-          Contacter l‘agence
-        	<Icon name="mail" className={styles.buttonIcon} />
-        </a>
+				<Link className={styles.contactFormulaireÉtablissement} href={établissement.email} appearance={'asPrimaryButton'}>Contacter l‘agence</Link>
 			}
 			{
 				établissement.email && isMissionLocale &&
-        <ButtonAsLink className={styles.contactFormulaireÉtablissement} onClick={onContactClick}>
-          Je souhaite être rappelé
-        </ButtonAsLink>
+        <ButtonComponent label={'Je souhaite être contacté(e)'} className={styles.contactFormulaireÉtablissement} onClick={onContactClick} />
 			}
 			<details className={styles.details}>
 				<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
