@@ -134,7 +134,7 @@ describe('<DescriptionDuLogement />', () => {
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
 		const contenu = screen.getByText(/A 11 minutes à pied/i);
 		expect(bouton).toHaveAttribute('aria-expanded', 'false');
-		expect(bouton).toHaveAttribute('aria-controls', description.id);
+		expect(bouton).toHaveAttribute('aria-controls', contenu.id);
 	});
 	it('passe l\'attribut aria-expanded à true quand la description est étendue', async () => {
 		const description = `

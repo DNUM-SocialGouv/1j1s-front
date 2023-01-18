@@ -3,7 +3,6 @@
  */
 
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
