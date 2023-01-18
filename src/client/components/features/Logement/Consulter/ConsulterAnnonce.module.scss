@@ -25,14 +25,17 @@
 }
 .annonce .entête h1 {
   grid-area: titre;
-  @extend %bold, %headline;
+  @extend %bold;
   margin: 0 0 1rem;
   color: $color-on-background;
+  font-size: 1.25rem;
+  line-height: 2rem;
 }
 
 .annonce h2 {
   color: $color-primary;
-  @extend %subheading;
+  font-size: 1.25rem;
+  line-height: 2rem;
 }
 
 .annonce .card {
@@ -58,10 +61,17 @@
           "titre titre";
     padding: 0;
   }
+  .annonce .entête h1 {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
   .annonce .entête .type,
   .annonce .entête .date {
     font-size: 1.25rem;
     line-height: 2rem;
+  }
+  .annonce h2 {
+    font-size: 1.5rem;
   }
 
   .annonce .card {
