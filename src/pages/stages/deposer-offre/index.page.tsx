@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LightHero } from '~/client/components/ui/Hero/LightHero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 
@@ -17,7 +17,16 @@ export default function DeposerOffreStagePage() {
 			/>
 			<main id="contenu">
 				<div className={styles.section}>
-					<LightHero className={styles.hero} primaryText={'Déposez votre offre de stage'} secondaryText={'sur 1jeune1solution'} />
+					<LightHero>
+						<h1>
+							<LightHeroPrimaryText>
+								Déposez votre offre de stage
+							</LightHeroPrimaryText>
+							<LightHeroSecondaryText>
+								sur 1jeune1solution
+							</LightHeroSecondaryText>
+						</h1>
+					</LightHero>
 				</div>
 				<Entreprise/>
 			</main>
