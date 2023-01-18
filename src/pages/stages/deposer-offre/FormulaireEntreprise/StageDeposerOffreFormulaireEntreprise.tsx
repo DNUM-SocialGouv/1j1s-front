@@ -35,6 +35,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					/>
 					<InputText
 						label="Indiquez une adresse mail de contact"
+						pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
 						type="email"
 						name="email"
 						placeholder="Exemple : contactRH@exemple.com"
@@ -43,12 +44,12 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					<InputArea
 						className={styles.textareaWrapper}
 						id="description"
-						label="Rédigez une courte description de l’entreprise (200 caractères maximum)"
+						label="Rédigez une courte description de l’entreprise (500 caractères maximum)"
 						placeholder="Indiquez des informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
 						name="description"
 						required
 						rows={10}
-						maxLength={200}
+						maxLength={500}
 					/>
 				</div>
 				<div className={styles.champsFacultatifs}>
