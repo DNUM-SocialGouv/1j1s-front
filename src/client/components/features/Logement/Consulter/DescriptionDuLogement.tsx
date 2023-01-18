@@ -26,12 +26,17 @@ type DescriptionDuLogementProps = {
 	children: string,
 }
 
+function cropDescription(description: string) {
+	const premièreEspaceAprèsThreshold = description.indexOf(' ', DESCRIPTION_LENGTH_THRESHOLD);
+	return description.slice(0, premièreEspaceAprèsThreshold);
+}
+
 export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
 	const [ descriptionÉtendue, setDescritionÉtendue ] = useState(false);
 	const longueDescription = children.length > MAX_DESCRIPTION_LENGTH;
 	let description = children;
 	if (longueDescription && !descriptionÉtendue) {
-		description = description.slice(0, DESCRIPTION_LENGTH_THRESHOLD) + ' [...]';
+		description = cropDescription(description) + ' [...]';
 	}
 	return (
 		<section className={styles.card}>

@@ -56,14 +56,14 @@ describe('<ConsulterAnnonce />', () => {
 			expect(titreSection).toBeVisible();
 			expect(description).toBeVisible();
 		});
-		it('crop la description au delà de 650 symboles', async () => {
+		it('crop la description à 450 symboles si elle dépasse les 650 symboles', async () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
 			annonceDeLogement.description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
 				calme et douillet. Il comprend une penderie et de nombreux rangements ouverts, un coin douche à l’italienne avec
 				lave mains, un wc sanibroyeur, un coin cuisine avec micro-ondes, frigidaire, plaques de cuisson, un bar et un
-				coin séjour/nuit avec TV.Le prix comprend toutes les charges y compris l'électricité, l’eau, internet, la TV, etc.
+				coin| Ceci devrait être masqué | séjour/nuit avec TV.Le prix comprend toutes les charges y compris l'électricité, l’eau, internet, la TV, etc.
 				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
 				et sa fin sera donc masquée par défaut.
 			`;
@@ -71,8 +71,27 @@ describe('<ConsulterAnnonce />', () => {
 			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const description = screen.getByText(/A 11 minutes à pied/i);
 
-			expect(description).not.toHaveTextContent(/sa fin sera donc masquée par défaut./i);
+			expect(description).not.toHaveTextContent(/\| Ceci devrait être masqué \|/i);
 			expect(description).toHaveTextContent(' [...]');
+		});
+		it('crop la description à la fin d\'un mot', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.description = `
+				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
+				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
+				calme et douillet. Il comprend une penderie et de nombreux rangements ouverts, un coin douche à l’italienne avec
+				lave mains, un wc sanibroyeur, un coin cuisine avec micro-ondes, frigidaire,
+				ceciestunmottrèslongquicontientle450ièmesymbolemaisquineserapascoupéaumilieu mais cette partie oui.
+				séjour/nuit avec TV.Le prix comprend toutes les charges y compris l'électricité, l’eau, internet, la TV, etc.
+				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
+				et sa fin sera donc masquée par défaut.
+			`;
+
+			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const description = screen.getByText(/A 11 minutes à pied/i);
+
+			expect(description).toHaveTextContent(/ceciestunmottrèslongquicontientle450ièmesymbolemaisquineserapascoupéaumilieu/i);
+			expect(description).not.toHaveTextContent('mais cette partie oui');
 		});
 		it('affiche un bouton pour lire la suite lorsque la description est longue', async () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
