@@ -37,7 +37,7 @@ describe('<DescriptionDuLogement />', () => {
 		const contenu = screen.getByText(/A 11 minutes à pied/i);
 
 		expect(contenu).not.toHaveTextContent(/\| Ceci devrait être masqué \|/i);
-		expect(contenu).toHaveTextContent(' [...]');
+		expect(contenu).toHaveTextContent(' …');
 	});
 	it('crop la description à la fin d\'un mot', async () => {
 		const description = `
@@ -82,6 +82,7 @@ describe('<DescriptionDuLogement />', () => {
 		expect(bouton).not.toBeInTheDocument();
 	});
 	it('affiche le reste de la description lorsqu\'on clique sur le bouton "Lire la suite"', async () => {
+		await userEvent.setup();
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -101,6 +102,7 @@ describe('<DescriptionDuLogement />', () => {
 		expect(contenu).not.toHaveTextContent(' [...]');
 	});
 	it('change le texte du bouton quand la description est dépliée', async () => {
+		await userEvent.setup();
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -137,6 +139,7 @@ describe('<DescriptionDuLogement />', () => {
 		expect(bouton).toHaveAttribute('aria-controls', contenu.id);
 	});
 	it('passe l\'attribut aria-expanded à true quand la description est étendue', async () => {
+		await userEvent.setup();
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,

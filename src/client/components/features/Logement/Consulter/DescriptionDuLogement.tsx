@@ -28,7 +28,7 @@ function BoutonEtendre({ onClick, estÉtendu, 'aria-controls': ariaControls }: B
 }
 
 type DescriptionDuLogementProps = {
-	children: string,
+	children: string
 }
 
 function cropDescription(description: string) {
@@ -37,11 +37,11 @@ function cropDescription(description: string) {
 }
 
 export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
-	const [ descriptionÉtendue, setDescritionÉtendue ] = useState(false);
+	const [ descriptionÉtendue, setDescriptionÉtendue ] = useState(false);
 	const longueDescription = children.length > MAX_DESCRIPTION_LENGTH;
 	let description = children;
 	if (longueDescription && !descriptionÉtendue) {
-		description = cropDescription(description) + ' [...]';
+		description = cropDescription(description) + ' …';
 	}
 	return (
 		<section className={styles.card}>
@@ -49,7 +49,7 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 			<p id="description-annonce">{description}</p>
 			{longueDescription && (
 				<BoutonEtendre
-					onClick={() => setDescritionÉtendue(!descriptionÉtendue)}
+					onClick={() => setDescriptionÉtendue(!descriptionÉtendue)}
 					estÉtendu={descriptionÉtendue}
 					aria-controls="description-annonce" />
 			)}

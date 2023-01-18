@@ -39,7 +39,9 @@
 }
 
 .annonce .card {
-  border: 1px solid $color-primary;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: $color-primary;
   padding: 1rem;
 }
 .annonce .card h2 {
