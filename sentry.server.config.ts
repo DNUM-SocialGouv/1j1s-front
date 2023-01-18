@@ -4,16 +4,19 @@ import { SeverityLevel } from '@sentry/nextjs';
 const DEFAULT_SENTRY_ENVIRONMENT = 'local';
 const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['integration', 'production', 'review_app'];
 const SENTRY_ENVIRONMENTS_ENABLE_DEBUG = ['local', 'review_app'];
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { name, version } = require('./package.json');
 
 const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 
-const releaseName = () => {
-	if(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
-		return 'reviewApp';
+const releaseName = (environnement = process.env) => {
+	if(environnement.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
+		return `${name}-ssr@review-app${version}+`;
 	}
-	return `${process.env.npm_package_name}@${process.env.npm_package_version}`;
+	return `${name}-ssr@${version}`;
 };
+
 const userAgentBlacklist = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
 process.env.NODE_ENV === 'production' && Sentry.init({
@@ -39,5 +42,6 @@ process.env.NODE_ENV === 'production' && Sentry.init({
 		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
 	},
 	release: releaseName(),
+	sendClientReports: SEND_DATA,
 	tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
 });
