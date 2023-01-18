@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.44.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.44.0...v2.44.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* **multiple:** accessibilité refacto hero retours po ([7820440](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7820440f8138dc9a11e762e54cc8b5dff1c8d62d))
+
 ## [2.44.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.43.0...v2.44.0) (2023-01-18)
 
 
