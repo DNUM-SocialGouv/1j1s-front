@@ -20,6 +20,7 @@ interface TextInputProps extends React.InputHTMLAttributes<unknown> {
   label?: string
   necessity?: 'optional' | 'required'
   validation?: (value: InputValue) => string | null | undefined;
+  rows?: number
 }
 
 // eslint-disable-next-line react/display-name
@@ -33,6 +34,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement | null, TextInputP
 		onChange,
 		value: outerValue,
 		validation,
+		rows,
 		...rest
 	} = props;
 	const ref = useSynchronizedRef(outerRef);
@@ -90,6 +92,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement | null, TextInputP
 				onChange={onInputChange}
 				onBlur={() => setTouched(true) }
 				value={valueState}
+				rows={rows}
 			/>
 			{(error) && (
 				<p className={classNames(styles.textInputHint, styles.textInputHintError)} id={errorId.current}>

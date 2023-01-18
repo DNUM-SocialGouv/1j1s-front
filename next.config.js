@@ -167,19 +167,14 @@ async function redirects() {
 			source: '/entreprises/immersion',
 		},
 		{
-			destination: '/je-recrute/deposer-une-offre-d-emploi',
-			permanent: true,
-			source: '/emplois/deposer-offre',
-		},
-		{
-			destination: '/je-recrute',
-			permanent: true,
-			source: '/stages/deposer-offre',
-		},
-		{
 			destination: '/les-entreprises-s-engagent',
 			permanent: true,
 			source: '/entreprises/:nom*',
+		},
+		{
+			destination: '/emplois/deposer-offre',
+			permanent: true,
+			source: '/je-recrute/deposer-une-offre-d-emploi',
 		},
 	];
 }
