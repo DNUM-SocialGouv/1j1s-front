@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.43.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.42.1...v2.43.0) (2023-01-18)
+
+
+### Features
+
+* **checkbox:** ajout gestion focus sur composant checkbox ([24eed56](https://github.com/DNUM-SocialGouv/1j1s-front/commit/24eed566ed6abe544f25b468717f2e5d94630d21))
+* **focus-clavier:** ajout d'un offset du focus visuel sur les boutons et liens pour une meilleure visibilité ([07971fa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/07971fae8fa0702640b652b6cbb91a233845ac17))
+
 ## [2.42.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.42.0...v2.42.1) (2023-01-17)
 
 
