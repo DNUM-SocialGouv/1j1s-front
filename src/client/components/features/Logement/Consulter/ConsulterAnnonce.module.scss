@@ -43,8 +43,11 @@
   margin-bottom: 1.25rem;
 }
 
-.annonce .card .read-more {
+.annonce .card .readMore {
   font-size: 1rem;
+  color: $color-primary;
+  width: 100%;
+  margin-top: 1.25rem;
 }
 
 @include media(medium) {
@@ -68,5 +71,8 @@
   }
   .annonce .card h2 {
     margin-bottom: 2.5rem;
+  }
+  .annonce .card .readMore {
+    width: fit-content;
   }
 }
