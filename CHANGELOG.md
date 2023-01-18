@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.44.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.43.0...v2.44.0) (2023-01-18)
+
+
+### Features
+
+* **accompagnement:** suppression feature flipping ([6f7f086](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f7f0863bdf585f4223ca8ac7be4555050368ebb))
+
 ## [2.43.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.42.1...v2.43.0) (2023-01-18)
 
 
