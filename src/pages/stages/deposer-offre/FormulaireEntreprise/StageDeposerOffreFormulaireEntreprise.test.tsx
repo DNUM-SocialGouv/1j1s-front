@@ -6,12 +6,12 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Entreprise from '~/pages/stages/deposer-offre/Entreprise/Entreprise';
+import Entreprise from '~/pages/stages/deposer-offre/FormulaireEntreprise/StageDeposerOffreFormulaireEntreprise';
 
 describe('<Entreprise />', () => {
 
 	describe('quand l’utilisateur arrive sur la page Entreprise', () => {
-		it('il voit afficher la première étape de formulaire', () => {
+		it('affiche la première étape de formulaire', () => {
 			render(<Entreprise />);
 
 			expect(screen.getByText('Etape 1 sur 3 : Votre entreprise')).toBeInTheDocument();

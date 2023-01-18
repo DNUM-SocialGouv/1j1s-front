@@ -1,16 +1,11 @@
 @import "@styles/_utilities";
 
-.content {
-  padding: 1rem;
-}
-
 .container {
-  max-width: 78em;
+  padding: 0 1rem;
 }
 
 .etape {
-  background-color: $color-primary;
-  color: white;
+ @extend %background-primary;
   max-width: 17rem;
   text-align: center;
   padding: 4px;
@@ -28,14 +23,18 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+
+    input {
+      background-color: $color-surface;
+    }
   }
 
-  .textArea {
+  .textareaWrapper {
     margin-top: 1rem;
 
     > textarea {
-      min-height: 7.5rem;
-      background-color: $color-on-primary;
+      height: auto;
+      background-color: $color-surface;
       padding-top: 1rem;
     }
   }
@@ -56,13 +55,8 @@
 
 @include media(large) {
 
-  .content {
-    background-color: $color-background;
-    padding: 0 8rem 2rem;
-  }
-
   .container {
-    max-width: 92em;
+    padding: 0 0 1rem;
   }
 
   .etape {
@@ -70,7 +64,6 @@
   }
 
   .formulaire {
-    background-color: $color-background;
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;
@@ -79,7 +72,6 @@
       display: flex;
       flex-direction: column;
       place-items: center;
-      text-align: left;
       margin-block: 1.5rem;
 
       > button {
@@ -91,17 +83,18 @@
 
 @include media(xlarge) {
   .formulaire {
-    padding: 0 8rem 0;
+    padding: 0 8rem 2rem;
 
     .bodyFormulaire {
       flex-direction: row;
       justify-content: space-between;
 
-      .textArea {
+      > div {
+        width: 48%;
+      }
+
+      .textareaWrapper {
         width: 100%;
-        > textarea {
-          min-height: 15rem;
-        }
       }
     }
   }

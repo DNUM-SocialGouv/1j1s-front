@@ -5,7 +5,7 @@
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
-import DéposerUneOffreDEmploi from '~/pages/je-recrute/deposer-une-offre-d-emploi/index.page';
+import DéposerUneOffreDEmploi from '~/pages/emplois/deposer-offre/index.page';
 
 describe('Je recrute / Déposer une offre d‘emploi', () => {
 	beforeEach(() => {

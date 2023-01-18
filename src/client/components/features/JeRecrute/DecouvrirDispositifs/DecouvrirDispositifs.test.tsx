@@ -19,7 +19,7 @@ describe('DecouvrirDispositifs', () => {
 			// Then
 			const link = screen.getByRole('link', { name: deposerOffreEmploiAlternance });
 			expect(link).toBeInTheDocument();
-			expect(link).toHaveAttribute('href', expect.stringContaining('/je-recrute/deposer-une-offre-d-emploi'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('/emplois/deposer-offre'));
 		});
 	});
 
