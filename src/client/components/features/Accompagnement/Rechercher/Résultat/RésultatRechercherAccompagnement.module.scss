@@ -13,11 +13,14 @@
 .content {
   display: flex;
   align-self: stretch;
-  gap: 1.5rem;
+  gap: 2rem;
+  min-height: 10rem;
+  align-items: stretch;
 }
 
 .logo {
   width: 6.8rem;
+  align-self: center;
 
   &Alignment {
     width: 100%;
@@ -32,8 +35,6 @@
 }
 
 .mainContent {
-  align-self: center;
-
   @include media(large) {
     display: flex;
     flex-direction: column;
@@ -51,7 +52,10 @@
 
 .tags {
   list-style-type: none;
-  margin-top: auto;
+
+  @include media(large) {
+    margin-block: 1rem;
+  }
 }
 
 .contactMailÉtablissement {
@@ -150,8 +154,8 @@
   list-style: none;
   line-height: 1.15rem;
   margin-block: 0.25rem;
-  margin-left: 1rem;
-  width: 12rem;
+  margin-inline: auto;
+  width: 16rem;
   @extend %text-small;
 
   @include media(large) {

@@ -52,7 +52,7 @@ describe('Parcours Accompagnement', () => {
 
 				cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 1);
 
-				cy.get('button').contains('Je souhaite être rappelé').click();
+				cy.get('button').contains('Je souhaite être contacté(e)').click();
 
 				cy.get('input[name=firstname]').type('John', { force: true });
 				cy.get('input[name=lastname]').type('Doe', { force: true });

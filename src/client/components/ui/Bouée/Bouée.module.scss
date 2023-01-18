@@ -15,7 +15,7 @@
   right: $gutter;
   bottom: $gutter;
   box-shadow: 10px 10px 20px rgb(0 0 0 / 10%);
-
+  outline-offset: 4px;
   transition: 400ms ease-in-out;
 
   &.disabled {

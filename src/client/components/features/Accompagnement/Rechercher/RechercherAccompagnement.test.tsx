@@ -205,7 +205,7 @@ describe('RechercherAccompagnement', () => {
 
 			// THEN
 			expect(résultatRechercheÉtablissementAccompagnementButton).toBeVisible();
-			expect(résultatRechercheÉtablissementAccompagnementButton.textContent).toEqual('Je souhaite être rappelé');
+			expect(résultatRechercheÉtablissementAccompagnementButton.textContent).toEqual('Je souhaite être contacté(e)');
 		});
 	});
 });
