@@ -17,7 +17,7 @@ describe('<Entreprise />', () => {
 			expect(screen.getByText('Etape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez le nom de l’entreprise ou de l’employeur')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez une adresse mail de contact')).toBeInTheDocument();
-			expect(screen.getByLabelText('Rédigez une courte description de l’entreprise (200 caractères maximum)')).toBeInTheDocument();
+			expect(screen.getByLabelText('Rédigez une courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
 			expect(screen.getByLabelText('Partagez le logo de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez le lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
