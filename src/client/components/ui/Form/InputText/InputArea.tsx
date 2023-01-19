@@ -15,11 +15,11 @@ import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 type InputValue = string | ReadonlyArray<string> | number | undefined;
 
-interface TextInputProps extends React.InputHTMLAttributes<unknown> {
+interface TextInputProps extends React.TextareaHTMLAttributes<unknown> {
   hint?: string
   label?: string
   necessity?: 'optional' | 'required'
-  validation?: (value: InputValue) => string | null | undefined;
+  validation?: (value: InputValue) => string | null | undefined
   rows?: number
 }
 
@@ -91,9 +91,10 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement | null, TextInputP
 				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
 				onChange={onInputChange}
 				onBlur={() => setTouched(true) }
-				value={valueState}
 				rows={rows}
-			/>
+				value={valueState}
+			>
+			</textarea>
 			{(error) && (
 				<p className={classNames(styles.textInputHint, styles.textInputHintError)} id={errorId.current}>
 					{error}

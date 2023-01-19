@@ -1,4 +1,4 @@
-@import "@styles/_utilities";
+@import "@styles/utilities";
 
 .container {
   padding: 0 1rem;
@@ -9,6 +9,10 @@
   max-width: 17rem;
   text-align: center;
   padding: 4px;
+}
+
+.boutonRetour {
+
 }
 
 .formulaire {
@@ -27,6 +31,58 @@
     input {
       background-color: $color-surface;
     }
+
+    .inputRenumerationWrapper {
+      padding-bottom: 2rem;
+      & > div {
+        & > span {
+          @extend %text-small;
+        }
+        & > input {
+          @extend %text-small;
+          font-family: Marianne;
+        }
+      }
+    }
+
+    .inputRenumerationWrapper {
+      & > label {
+        margin-bottom: 0.5rem;
+      }
+
+      & > div {
+        margin-top: 0.5rem;
+        display: flex;
+        height: 2.5rem;
+
+        & > input {
+          align-items: center;
+          padding: 0.375rem 0.375rem 0.375rem 0.75rem;
+          border: 1px solid $color-on-background;
+          width: 100%;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+        }
+
+        & > span {
+          padding: 0.375rem 2rem 0 2rem;
+          display: flex;
+          background-color: $color-primary;
+          color: $color-on-primary;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+      }
+    }
+
+    .inputTeletravail {
+      display: flex;
+      padding-bottom: 2rem;
+
+      &Radio {
+        margin-right: 1.5rem;
+      }
+    }
   }
 
   .textareaWrapper {
@@ -42,13 +98,8 @@
   .validation {
     margin-bottom: 1.5rem;
 
-    > button {
+    &Link {
       width: 100%;
-    }
-
-    p {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
     }
   }
 }
@@ -63,6 +114,11 @@
     margin-left: 8rem;
   }
 
+  .boutonRetour {
+    margin-top: 1rem;
+    margin-left: 8rem;
+  }
+
   .formulaire {
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
@@ -74,7 +130,7 @@
       place-items: center;
       margin-block: 1.5rem;
 
-      > button {
+      &Link {
         width: 50%;
       }
     }
@@ -91,6 +147,14 @@
 
       > div {
         width: 48%;
+      }
+
+      .inputNomOffre {
+        width: 100%;
+      }
+
+      .inputLienCandidature {
+        width: 100%;
       }
 
       .textareaWrapper {
