@@ -13,6 +13,8 @@ import { isSuccess } from '~/server/errors/either';
 
 import styles from './Formulaire.module.scss';
 
+const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+
 interface FormulaireDeContactCEJProps {
   onSuccess?: () => void;
 }
@@ -68,8 +70,8 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				required
 			/>
 			<InputText
-				type="email"
 				label="Adresse email"
+				pattern={EMAIL_REGEX}
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"
 				required

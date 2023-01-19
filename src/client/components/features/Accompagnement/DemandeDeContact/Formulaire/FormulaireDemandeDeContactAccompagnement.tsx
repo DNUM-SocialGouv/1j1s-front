@@ -19,6 +19,8 @@ import {
 	ContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 
+const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+
 interface FormulaireDemandeDeContactAccompagnementProps {
   contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
 
@@ -39,7 +41,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 			onSuccess();
 		}
 	}
-
+	
 	return (
 		<form
 			className={styles.formulaire}
@@ -59,7 +61,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 				required
 			/>
 			<InputText
-				type="email"
+				pattern={EMAIL_REGEX}
 				label="Adresse e-mail (facultatif)"
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"

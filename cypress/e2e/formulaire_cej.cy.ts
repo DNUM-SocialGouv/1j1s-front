@@ -30,7 +30,7 @@ describe('Parcours formulaire cej', () => {
 
 			cy.get('input[name="firstname"]').type('jean', { force: true });
 			cy.get('input[name="lastname"]').type('dupont', { force: true });
-			cy.get('input[type="email"]').type('jean.dupont@mail.com');
+			cy.get('input[name="mail"]').type('jean.dupont@mail.com');
 			cy.get('input[type="tel"]').type('0688552233');
 			cy.get('button').contains('Sélectionnez votre choix').click();
 			cy.get('ul[role="listbox"]').first().click();

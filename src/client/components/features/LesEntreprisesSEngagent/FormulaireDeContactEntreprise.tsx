@@ -13,6 +13,9 @@ import { isSuccess } from '~/server/errors/either';
 
 import styles from './FormulaireDeContactEntreprise.module.scss';
 
+const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+
+
 export interface FormulaireDeContactProps {
   isOpen: boolean
   close: (...args: unknown[]) => unknown
@@ -45,7 +48,7 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
 			alert('Erreur dans l‘envoi du formulaire :' + response.errorType);
 		}
 	}
-
+	
 	return (
 		<ModalComponent
 			closeLabel=''
@@ -80,7 +83,7 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
 									required
 								/>
 								<InputText
-									type="email"
+									pattern={EMAIL_REGEX}
 									label="Adresse email"
 									name="email"
 									placeholder="Exemple : mail@exemple.com"
