@@ -17,6 +17,6 @@ export default function RechercherAlternancePage() {
 		}
 	}, [router]);
 
-	if (Object.keys(router.query).length) return <RechercherAlternance />;
+	if (Object.keys(router.query).length) return <RechercherAlternance/>;
 	return null;
 }

@@ -22,6 +22,10 @@
 .card {
   display: block;
 
+  &Container {
+    width: 100%;
+  }
+
   &Logo {
     align-self: center;
     justify-self: center;
@@ -30,6 +34,10 @@
     height: 4.5rem;
     margin: 1.25rem;
     width: 100%;
+
+    img {
+      object-fit: contain;
+    }
   }
 
   &Action {
@@ -53,19 +61,29 @@
     }
   }
 
+  .bonneAlternanceColor {
+    @extend %bold;
+    color: #a558a0;
+  }
+
   .bonneBoiteColor {
     @extend %bold;
-    color: #C7297E;
+    color: #c7297e;
   }
 
   .onisepColor {
     @extend %bold;
-    color: #C52E25;
+    color: #c52e25;
+  }
+
+  .passColor {
+    @extend %bold;
+    color: #524795;
   }
 
   .serviceCiviqueColor {
     @extend %bold;
-    color: #107CC0;
+    color: #107cc0;
   }
 
   &Headline:after {

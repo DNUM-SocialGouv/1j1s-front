@@ -6,16 +6,22 @@ import {
 	FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
+import { LaBonneAlternancePartner } from '~/client/components/features/Partner/LaBonneAlternancePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
-import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
+import { PassPartner } from '~/client/components/features/Partner/PassPartner';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
 	RechercherSolutionLayout,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import {
+	RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import {
+	ArticleCard,
+	ArticleCardList,
+} from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import {
 	LightHero,
@@ -107,11 +113,26 @@ export function RechercherAlternance() {
 					maxPage={MAX_PAGE}
 					listeSolutionElement={<ListeOffreAlternance résultatList={alternanceList}/>}
 				/>
-				<EnTeteSection heading="Découvrez des services faits pour vous" />
+				<EnTeteSection heading="Consultez nos articles"/>
+				<ArticleCardList>
+					<ArticleCard
+						vertical={false}
+						imageSrc="/images/articles/aide-exceptionnelle-apprentissage.svg"
+						imageFit="cover"
+						link="/articles/l-aide-exceptionnelle-pour-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
+						titleLabel="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
+					>
+						<p>
+							Découvrez un argument supplémentaire à avancer pour vous faire
+							embaucher
+						</p>
+					</ArticleCard>
+				</ArticleCardList>
+				<EnTeteSection heading="Découvrez des services faits pour vous"/>
 				<PartnerCardList>
-					<LaBonneBoitePartner />
-					<OnisepPartner />
-					<ServiceCiviquePartner />
+					<LaBonneAlternancePartner/>
+					<PassPartner/>
+					<OnisepPartner/>
 				</PartnerCardList>
 			</main>
 		</>
@@ -119,7 +140,7 @@ export function RechercherAlternance() {
 }
 
 interface ListeRésultatProps {
-  résultatList: Offre[]
+	résultatList: Offre[]
 }
 
 function ListeOffreAlternance({ résultatList }: ListeRésultatProps) {
