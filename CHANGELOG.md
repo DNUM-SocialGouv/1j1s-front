@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.45.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.44.1...v2.45.0) (2023-01-19)
+
+
+### Features
+
+* **logement/details:** Affichage de la description du logement ([402063c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/402063c1f4380b708c4734c320855bce8d5f7e58))
+
 ## [2.44.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.44.0...v2.44.1) (2023-01-18)
 
 
