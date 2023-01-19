@@ -13,8 +13,10 @@ import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { BurgerMenuIcon } from '~/client/components/ui/Icon/burger-menu.icon';
 import { BurgerMenuLeftIcon } from '~/client/components/ui/Icon/burger-menu-left.icon';
 import { CloseIcon } from '~/client/components/ui/Icon/close.icon';
+import { CommunityIcon } from '~/client/components/ui/Icon/community.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { ErrorIcon } from '~/client/components/ui/Icon/error.icon';
+import { EuroIcon } from '~/client/components/ui/Icon/euro.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { HomeIcon } from '~/client/components/ui/Icon/home.icon';
@@ -23,6 +25,8 @@ import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glas
 import { MailIcon } from '~/client/components/ui/Icon/mail.icon';
 import { MapPinIcon } from '~/client/components/ui/Icon/map-pin.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
+import { RoadmapIcon } from '~/client/components/ui/Icon/roadmap.icon';
+import { SuitcaseIcon } from '~/client/components/ui/Icon/suitcase.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 
 export type IconName =
@@ -49,6 +53,10 @@ export type IconName =
   | 'map-pin'
   | 'menu'
   | 'trophy'
+  | 'euro'
+  | 'community'
+  | 'roadmap'
+  | 'suitcase'
 
 interface IconProps extends CommonProps {
   name: IconName
@@ -104,6 +112,14 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <MailIcon className={className} aria-hidden={true} {...rest} />;
 			case 'trophy':
 				return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
+			case 'euro':
+				return <EuroIcon className={className} aria-hidden={true} {...rest} />;
+			case 'community':
+				return <CommunityIcon className={className} aria-hidden={true} {...rest} />;
+			case 'roadmap':
+				return <RoadmapIcon className={className} aria-hidden={true} {...rest} />;
+			case 'suitcase':
+				return <SuitcaseIcon className={className} aria-hidden={true} {...rest} />;
 			default:
 				return null;
 		}
