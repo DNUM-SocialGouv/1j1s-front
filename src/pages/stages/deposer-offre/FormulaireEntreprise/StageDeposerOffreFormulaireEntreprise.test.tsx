@@ -20,7 +20,7 @@ describe('<Entreprise />', () => {
 			expect(screen.getByLabelText('Rédigez une courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
 			expect(screen.getByLabelText('Partagez le logo de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez le lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
+			expect(screen.getByText('Suivant')).toBeInTheDocument();
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
@@ -55,6 +55,6 @@ describe('<Entreprise />', () => {
 });
 
 async function BoutonSuivant() {
-	const button = screen.getByRole('button', { name: 'Suivant' });
+	const button = screen.getByText('Suivant');
 	await userEvent.click(button);
 }
