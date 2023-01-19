@@ -40,4 +40,15 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 01.02.2020/i);
 	});
+	describe('description du logement', () => {
+		it('affiche la description du logement', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.description = "C'est un super logement !";
+
+			await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const description = screen.getByText(/C'est un super logement !/i);
+
+			expect(description).toBeVisible();
+		});
+	});
 });
