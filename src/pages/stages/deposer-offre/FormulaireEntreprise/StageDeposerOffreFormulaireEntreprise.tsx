@@ -8,6 +8,9 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './StageDeposerOffreFormulaireEntreprise.module.scss';
 
+const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+
+
 export default function StageDeposerOffreFormulaireEntreprise() {
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
@@ -18,7 +21,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 		const stockage = JSON.stringify(formulaireOffreStageEtape1);
 		localStorage.setItem('formulaireEtape1',stockage);
 	}
-
+	
 	return (
 		<Container className={styles.container}>
 			<div className={styles.etape}>Etape 1 sur 3 : Votre entreprise</div>
@@ -35,8 +38,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					/>
 					<InputText
 						label="Indiquez une adresse mail de contact"
-						pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
-						type="email"
+						pattern={EMAIL_REGEX}
 						name="email"
 						placeholder="Exemple : contactRH@exemple.com"
 						required

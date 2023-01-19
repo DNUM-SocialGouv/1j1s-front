@@ -24,6 +24,9 @@ import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
+const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+
+
 export type FormulaireEngagement = FormulaireÉtape1Props & FormulaireÉtape2Props;
 
 interface FormulaireÉtape1Props {
@@ -111,6 +114,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 		}
 	}, [isPremièreÉtapeValid, isDeuxièmeÉtapeValid, formulaireÉtape1, formulaireÉtape2, lesEntreprisesSEngagentService]);
+
 
 	return (
 		<main id="contenu">
@@ -267,7 +271,7 @@ export default function LesEntreprisesSEngagentInscription() {
         						/>
         						<InputText
         							label="Indiquez votre adresse e-mail de contact"
-        							type="email"
+        							pattern={EMAIL_REGEX}
         							name="email"
         							placeholder="Exemple : mail@exemple.com"
         							hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."

@@ -22,6 +22,8 @@ import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
+const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+
 export type FormulairesPoleEmploi = FormulaireÉtape1Props & FormulaireÉtape2Props & FormulaireÉtape3Props;
 
 interface FormulaireÉtape1Props {
@@ -118,7 +120,7 @@ export default function JeRecruteAfprPoeiInscription() {
 			}
 		}
 	}, [isPremièreÉtapeValid, isDeuxièmeÉtapeValid, formulaireÉtape1, formulaireÉtape2, formulaireÉtape3, demandeDeContactService]);
-
+	
 	return (
 		<main id="contenu">
 			<HeadTag
@@ -286,7 +288,7 @@ export default function JeRecruteAfprPoeiInscription() {
         						/>
         						<InputText
         							label="Indiquez une adresse e-mail"
-        							type="email"
+        							pattern={EMAIL_REGEX}
         							name="email"
         							placeholder="Exemple : david.dupont@exemple.fr"
         							required
