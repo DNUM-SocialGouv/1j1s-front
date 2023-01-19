@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.45.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.45.0...v2.45.1) (2023-01-19)
+
+
+### Bug Fixes
+
+* **monitoring:** sentry versionning ([90b5a67](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90b5a67f72068d4b04c0bf5d644a9c872ddf7b15))
+
 ## [2.45.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.44.1...v2.45.0) (2023-01-19)
 
 
