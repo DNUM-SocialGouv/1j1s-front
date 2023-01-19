@@ -76,7 +76,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 	};
 
 	const refineAndResetValue = (value: string) => {
-		refine(value);
+		if (value) refine(value);
 		setLocalisation('');
 		setSuggestionsActive(false);
 	};
@@ -124,11 +124,11 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 						</li>
 					))}
 				{listeDeLocalisations(items, localisation).length === 0 &&
-	                <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
-	                    Aucune proposition ne correspond à votre saisie.
-	                    Vérifiez que votre saisie correspond bien à un lieu.
-	                    Exemple : Paris, ...
-	                </li>
+					<li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
+							Aucune proposition ne correspond à votre saisie.
+							Vérifiez que votre saisie correspond bien à un lieu.
+							Exemple : Paris, ...
+					</li>
 				}
 			</ul>
 		);
