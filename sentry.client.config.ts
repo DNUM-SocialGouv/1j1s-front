@@ -7,16 +7,18 @@ const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['integration', 'production', 'revi
 const SENTRY_ENVIRONMENTS_ENABLE_DEBUG = ['local', 'review_app'];
 const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { name, version } = require('./package.json');
 
 
 const releaseName = (environnement = process.env) => {
 	if(environnement.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
-		return 'reviewApp';
+		return `${name}-csr@review-app${version}+`;
 	}
-	return `${environnement.npm_package_name}@${environnement.npm_package_version}`;
+	return `${name}-csr@${version}`;
 };
 
-process.env.NODE_ENV === 'production' && Sentry.init({
+Sentry.init({
 	beforeSend(event) {
 		if(!SEND_DATA) {
 			return null;
@@ -39,5 +41,6 @@ process.env.NODE_ENV === 'production' && Sentry.init({
 		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
 	},
 	release: releaseName(),
+	sendClientReports: SEND_DATA,
 	tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
 });

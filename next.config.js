@@ -3,6 +3,9 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { name, version } = require('./package.json');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require('@sentry/nextjs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -11,7 +14,9 @@ const { URL } = require('url');
 const SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP = ['integration', 'production'];
 const NODE_ENV_ENABLE_SOURCEMAP = 'production';
 
-const shouldUploadSourceMap = (env = process.env.NODE_ENV , sentryEnv = process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT) => SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP.includes(sentryEnv) && env === NODE_ENV_ENABLE_SOURCEMAP;
+const shouldUploadSourceMap = (env = process.env.NODE_ENV , sentryEnv = process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT) =>
+	SENTRY_ENVIRONMENTS_ENABLE_SOURCE_MAP.includes(sentryEnv)
+	&& env === NODE_ENV_ENABLE_SOURCEMAP;
 const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
 
 
@@ -179,11 +184,21 @@ async function redirects() {
 	];
 }
 
+
+const sentryModuleExports = {
+	disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
+	disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
+	hideSourceMaps: true,
+	silent: true,
+};
+
 const moduleExports = {
 	compress: true,
+	// NEXT_PUBLIC is not required here (as mentioned in next's documentation)
+	// However we used it for code unity.
 	env: {
-		npm_package_name: process.env.npm_package_name,
-		npm_package_version: process.env.npm_package_version,
+		NEXT_PUBLIC_APPLICATION_NAME: name,
+		NEXT_PUBLIC_APPLICATION_VERSION: version,
 	},
 	headers,
 	images: {
@@ -199,6 +214,7 @@ const moduleExports = {
 	poweredByHeader: false,
 	reactStrictMode: true,
 	redirects,
+	sentry: sentryModuleExports,
 	webpack(config, { isServer }) {
 		if (!isServer) {
 			config.optimization.mergeDuplicateChunks = true;
@@ -217,13 +233,6 @@ const moduleExports = {
 	},
 };
 
-const sentryModuleExports = {
-	disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
-	disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
-	hideSourceMaps: true,
-	silent: true,
-};
-
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = process.env.NODE_ENV === 'production' ? withSentryConfig(moduleExports, sentryModuleExports) : moduleExports;
+module.exports = (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'integration') ? withSentryConfig(moduleExports, sentryModuleExports) : moduleExports;
