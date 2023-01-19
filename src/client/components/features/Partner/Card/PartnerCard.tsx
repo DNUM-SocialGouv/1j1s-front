@@ -29,9 +29,7 @@ export function PartnerCardList({ children }: React.PropsWithChildren) {
 }
 
 interface PartnerCardProps {
-	description: string
-	headline?: string
-	headlineColor?: 'default' | 'pink' | 'red' | 'blue'
+	children: React.ReactNode
 	logo: string
 	link: string
 	linkLabel: string
@@ -40,23 +38,10 @@ interface PartnerCardProps {
 }
 
 export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-	const { description, className, headline, headlineColor, logo, link, linkLabel, title, titleAs } = props;
+	const { className, logo, link, linkLabel, title, titleAs, children } = props;
 	const isInternalLink = useIsInternalLink(link);
 	const { isLargeScreen } = useBreakpoint();
 	useReferrer();
-
-	const appearanceLinkBold = useMemo(() => {
-		switch (headlineColor) {
-			case 'pink':
-				return styles.bonneBoiteColor;
-			case 'red':
-				return styles.onisepColor;
-			case 'blue':
-				return styles.serviceCiviqueColor;
-			default:
-				return styles.link;
-		}
-	}, [headlineColor]);
 
 	const icon = useMemo(function () {
 		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'}/>;
@@ -65,14 +50,11 @@ export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 
 	return (
 		<Link href={link} className={classNames(styles.card, className, 'underline-none')}>
-			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'}>
+			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'} className={styles.cardContainer}>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
 				<Card.Content className={styles.cardBody}>
 					<Card.Title titleAs={titleAs} className={styles.cardBody__Title}>{title}</Card.Title>
-					<p>
-						{headline && <strong className={classNames(styles.cardHeadline, appearanceLinkBold)}>{headline}</strong>}
-						{description}
-					</p>
+					<p>{children}</p>
 					<span className={styles.cardAction}>
 						<Card.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
 					</span>

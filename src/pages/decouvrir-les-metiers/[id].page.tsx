@@ -23,8 +23,8 @@ interface ConsulterFicheMetierPageProps {
 export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
 	const router = useRouter();
 
-	useEffect(()=>{
-		window.addEventListener('popstate', () => router.reload() );
+	useEffect(() => {
+		window.addEventListener('popstate', () => router.reload());
 		return () => window.removeEventListener('popstate', () => router.reload());
 	}, [router]);
 
@@ -32,21 +32,31 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 
 	return (
 		<>
-			<HeadTag title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`} />
+			<HeadTag
+				title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`}/>
 			<main id="contenu">
 				<Container className={styles.container}>
-					<ButtonRetour className={styles.backButton} />
-					<ConsulterFicheMétier ficheMetier={ficheMetier} />
+					<ButtonRetour className={styles.backButton}/>
+					<ConsulterFicheMétier ficheMetier={ficheMetier}/>
 				</Container>
 				<div className={'background-white-lilac'}>
-					<EnTeteSection heading="Informations fournies par ONISEP" />
+					<EnTeteSection heading="Informations fournies par ONISEP"/>
 					<Container className={styles.container}>
 						<PartnerCard
 							logo="/images/logos/onisep.svg"
 							link="https://www.onisep.fr/"
-							description="L'Onisep est un établissement public, sous tutelle du ministère de l‘Education nationale, de la Jeunesse et des Sports, et du ministère de l‘Enseignement supérieur, de la Recherche et de l‘Innovation. Il a pour mission d‘informer sur les secteurs professionnels, les métiers et les formations via ses productions numériques, imprimées, et ses services. Il accompagne les familles et les équipes éducatives en leur fournissant des ressources, des outils et dispositifs permettant de construire un parcours de formation et un projet professionnel tout au long de la vie."
 							linkLabel="Aller sur le site de l’ONISEP"
-						/>
+						>
+							L’Onisep est un établissement public, sous tutelle du ministère de
+							l’Education nationale, de la Jeunesse et des Sports, et du
+							ministère de l’Enseignement supérieur, de la Recherche et de
+							l’Innovation. Il a pour mission d’informer sur les secteurs
+							professionnels, les métiers et les formations via ses productions
+							numériques, imprimées, et ses services. Il accompagne les familles
+							et les équipes éducatives en leur fournissant des ressources, des
+							outils et dispositifs permettant de construire un parcours de
+							formation et un projet professionnel tout au long de la vie.
+						</PartnerCard>
 						<div className={styles.partnerInfo}>
 							<Icon name="information" className={styles.partnerInfoIcon}/>
 							<span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>
@@ -73,7 +83,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };
 	}
-	
+
 	return {
 		props: {
 			ficheMetier: JSON.parse(JSON.stringify(response.result)),

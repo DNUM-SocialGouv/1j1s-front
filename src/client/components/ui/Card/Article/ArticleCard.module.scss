@@ -1,11 +1,52 @@
 @import "@styles/utilities";
 
+.articleList {
+  @extend %max-container;
+  padding: 1rem;
+  list-style: none;
+
+  & > li {
+    padding-block: 1rem;
+  }
+
+  &Wrapper {
+    background-color: $color-background-white-lilac;
+  }
+
+  @include media(xlarge) {
+    margin: auto;
+    padding-inline: 0;
+  }
+}
+
+.notOnlyVertical {
+  .illustration {
+    height: 7rem;
+    @include media(large) {
+      width: 20rem;
+      height: 10rem;
+    }
+  }
+
+  .title {
+    @include line-clamp(0);
+  }
+
+  .cta {
+    text-align: end;
+    @include media(large) {
+      margin-top: auto;
+    }
+  }
+}
+
 .illustration {
   height: 180px;
 
   img {
     object-fit: cover;
   }
+
   &Contain {
     img {
       object-fit: contain;
@@ -14,9 +55,10 @@
 }
 
 .content {
-  padding-block: 1rem;
+  padding-block: 1.25rem;
   padding-inline: 1.5rem;
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 

@@ -3,8 +3,9 @@ import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/
 
 export function anOffreService(): OffreService {
 	return {
-		rechercherJobÉtudiant: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffre() }),
-		rechercherOffreEmploi: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatsRechercheOffre() }),
+		rechercherAlternance: jest.fn().mockResolvedValue({ instance: 'success', result: aRésultatsRechercheOffre() }),
+		rechercherJobÉtudiant: jest.fn().mockResolvedValue({ instance: 'success', result: aRésultatsRechercheOffre() }),
+		rechercherOffreEmploi: jest.fn().mockResolvedValue({ instance: 'success', result: aRésultatsRechercheOffre() }),
 	} as unknown as OffreService;
 }
 

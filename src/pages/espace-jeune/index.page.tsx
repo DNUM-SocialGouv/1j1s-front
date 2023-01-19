@@ -5,10 +5,7 @@ import React, { useCallback, useMemo } from 'react';
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
-import { LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
@@ -20,8 +17,8 @@ import { dependencies } from '~/server/start';
 import styles from './espace-jeune.module.scss';
 
 interface EspaceJeunePageProps {
-  cartesActualites: CarteActualite[]
-  espaceJeune: EspaceJeune
+	cartesActualites: CarteActualite[]
+	espaceJeune: EspaceJeune
 }
 
 const MAX_VISIBLE_ACTUALITES_LENGTH = 6;
@@ -36,7 +33,7 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 		if (!article) return 'En savoir plus';
 	}, []);
 	const getCarteActualiteLinkIcon = useCallback(({ article }: CarteActualite): React.ReactNode | undefined => {
-		if (!article) return <Icon name={'external-redirection'} />;
+		if (!article) return <Icon name={'external-redirection'}/>;
 	}, []);
 
 	return (
@@ -44,51 +41,52 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 			<HeadTag title="Actualités et services jeunes | 1jeune1solution"/>
 			<h1 className={styles.title}>Actualités et services jeune</h1>
 			{cartesActualites.length > 0 &&
-				<section className={classNames(styles.section, styles.actualitesSection)} data-testid='actualites' >
-					<LightHero>
-						<h2>
-							<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
-							<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
-						</h2>
-					</LightHero>
-					<Container className={styles.cartesActualitesList}>
-						{visibleCartesActualitesList.map((carte, index) =>
-							<ArticleCard className={styles.carteActualite}
-								key={index}
-								imageSrc={carte.bannière && carte.bannière.url || ''}
-								titleLabel={carte.titre}
-								link={carte.link}
-								linkLabel={getCarteActualiteLinkLabel(carte)}
-								icon={getCarteActualiteLinkIcon(carte)}>
-								<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-							</ArticleCard>,
-						)}
-					</Container>
-					<SeeMore className={styles.seeMoreButton}>
-						<Container className={styles.cartesActualitesList}>
-							{seeMoreCartesActualitesList.map((carte, index) =>
-								<ArticleCard className={styles.carteActualite}
-									key={index}
-									imageSrc={carte.bannière && carte.bannière.url || ''}
-									titleLabel={carte.titre}
-									link={carte.link}
-									linkLabel={getCarteActualiteLinkLabel(carte)}
-									icon={getCarteActualiteLinkIcon(carte)}>
-									<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-								</ArticleCard>,
-							)}
-						</Container>
-					</SeeMore>
-				</section>
+          <section className={classNames(styles.section, styles.actualitesSection)} data-testid="actualites">
+          	<LightHero>
+          		<h2>
+          			<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
+          			<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
+          		</h2>
+          	</LightHero>
+          	<Container className={styles.cartesActualitesList}>
+          		{visibleCartesActualitesList.map((carte, index) =>
+          			<ArticleCard className={styles.carteActualite}
+															 key={index}
+															 imageSrc={carte.bannière && carte.bannière.url || ''}
+															 titleLabel={carte.titre}
+															 link={carte.link}
+															 linkLabel={getCarteActualiteLinkLabel(carte)}
+															 icon={getCarteActualiteLinkIcon(carte)}>
+          				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
+          			</ArticleCard>,
+          		)}
+          	</Container>
+          	<SeeMore className={styles.seeMoreButton}>
+          		<Container className={styles.cartesActualitesList}>
+          			{seeMoreCartesActualitesList.map((carte, index) =>
+          				<ArticleCard className={styles.carteActualite}
+																	 key={index}
+																	 imageSrc={carte.bannière && carte.bannière.url || ''}
+																	 titleLabel={carte.titre}
+																	 link={carte.link}
+																	 linkLabel={getCarteActualiteLinkLabel(carte)}
+																	 icon={getCarteActualiteLinkIcon(carte)}>
+          					<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
+          				</ArticleCard>,
+          			)}
+          		</Container>
+          	</SeeMore>
+          </section>
 			}
 			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
 				<LightHero>
 					<h2>
 						<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
-						<LightHeroSecondaryText>entrée dans la vie professionnelle, orientation, formation, accompagnement</LightHeroSecondaryText>
+						<LightHeroSecondaryText>entrée dans la vie professionnelle, orientation, formation,
+							accompagnement</LightHeroSecondaryText>
 					</h2>
 				</LightHero>
-				<EspaceJeuneComponent espaceJeune={espaceJeune} />
+				<EspaceJeuneComponent espaceJeune={espaceJeune}/>
 			</section>
 		</main>
 	);

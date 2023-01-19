@@ -44,8 +44,8 @@ export default function Entreprendre() {
 				<div className={styles.réseaux}>
 					<Container>
 						<h2 className={styles.réseauxHeader}>
-              Découvrez les différents réseaux d’accompagnement suivant votre besoin et le stade d’avancement de votre
-              projet
+						Découvrez les différents réseaux d’accompagnement suivant votre besoin et le stade d’avancement de votre
+						projet
 						</h2>
 
 						<div className={styles.réseauxContent}>
@@ -94,15 +94,20 @@ export default function Entreprendre() {
 				<div className={styles.marseille}>
 					<Container>
 						<h2 className={styles.marseilleHeader}>Découvrez l’ensemble des opportunités offertes par l’éco-système
-              marseillais</h2>
+				marseillais</h2>
 
 						<PartnerCard
 							link="https://entreprendreamarseille.fr/prendre-un-rendez-vous/"
 							linkLabel="J’expose mon projet en rendez-vous"
 							logo="/images/entreprendre/région-sud.png"
 							title="Vous avez moins de 30 ans, habitez Marseille et souhaitez créer votre entreprise ?"
-							description="Dans le cadre de l’initiative “Marseille en grand” lancée par le Président de la République le 2 septembre 2021, l’Etat et la région Sud se mobilisent pour soutenir la création d’entreprises à Marseille notamment avec l’ouverture des Carrefours de l’entreprenariat."
-						/>
+						>
+              Dans le cadre de l’initiative “Marseille en grand” lancée par le
+              Président de la République le 2 septembre 2021, l’Etat et la
+              région Sud se mobilisent pour soutenir la création d’entreprises à
+              Marseille notamment avec l’ouverture des Carrefours de
+              l’entreprenariat.
+						</PartnerCard>
 					</Container>
 				</div>
 			</main>
