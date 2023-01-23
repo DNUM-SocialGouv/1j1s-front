@@ -20,6 +20,14 @@ describe('<InformationsGénérales />', () => {
 			const abbreviation = screen.getByText(/CC/i);
 			expect(abbreviation).toHaveAttribute('title', 'Charges Comprises');
 		});
+		it('affiche la bonne devise dans le prix', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.devise = '$';
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const prixRow = screen.getByRole('row', { name: /Prix/i });
+			expect(prixRow).toHaveTextContent(/\$/i);
+		});
 		it('affiche les charges', async () => {
 			const annonce = uneAnnonceDeLogement();
 			annonce.charge = 500;
@@ -35,6 +43,14 @@ describe('<InformationsGénérales />', () => {
 
 			const chargesRow = screen.queryByRole('row', { name: /Charges/i });
 			expect(chargesRow).not.toBeInTheDocument();
+		});
+		it('affiche la bonne devise dans les charges', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.devise = '$';
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const chargesRow = screen.getByRole('row', { name: /Charges/i });
+			expect(chargesRow).toHaveTextContent(/\$/i);
 		});
 	});
 });

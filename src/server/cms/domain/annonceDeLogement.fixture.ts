@@ -35,6 +35,7 @@ export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
 		dateDeDisponibilité: '11/11/11',
 		dateDeMiseAJour: '1/1/2022',
 		description: 'appart à saisir',
+		devise: '€',
 		garantie: 50,
 		localisation: { ville: 'paris' },
 		meublé: true,

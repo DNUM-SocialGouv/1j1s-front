@@ -77,4 +77,5 @@ export interface AnnonceDeLogement {
   meublé: boolean
   localisation: AnnonceDeLogement.Localisation
   description: string
+  devise: string
 }

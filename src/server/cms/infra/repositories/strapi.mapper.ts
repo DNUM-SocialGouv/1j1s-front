@@ -224,6 +224,7 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
 		dateDeMiseAJour,
 		description: annonceLogementResponse.description,
+		devise: annonceLogementResponse.devise,
 		garantie: annonceLogementResponse.garantie,
 		localisation: getLocalisation(annonceLogementResponse.localisation),
 		meublé: annonceLogementResponse.meuble,
