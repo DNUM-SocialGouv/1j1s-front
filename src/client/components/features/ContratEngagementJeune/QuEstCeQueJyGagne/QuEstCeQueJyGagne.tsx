@@ -11,7 +11,7 @@ export default function QuEstCeQueJyGagne() {
 					<h2>Mais en vrai, qu‘est-ce que j‘y gagne à long terme ?</h2>
 					<div className={styles.sousTitre}>Le contrat d‘Engagement Jeune, c‘est tout bénéf‘ pour moi !</div>
 				</div>
-				<SeeMoreMobileOnly>
+				<SeeMoreMobileOnly seeLessAriaLabel={'Voir moins de gains liés au contrat engagement jeune'} seeMoreAriaLabel={'Voir plus de gains liés au contrat engagement jeune'}>
 					<GainsCEJ />
 				</SeeMoreMobileOnly>
 			</div>

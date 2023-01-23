@@ -61,7 +61,7 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
           			</ArticleCard>,
           		)}
           	</Container>
-          	<SeeMore className={styles.seeMoreButton}>
+          	<SeeMore className={styles.seeMoreButton} seeLessAriaLabel={'Voir moins de résultats sur les actualités'} seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}>
           		<Container className={styles.cartesActualitesList}>
           			{seeMoreCartesActualitesList.map((carte, index) =>
           				<ArticleCard className={styles.carteActualite}

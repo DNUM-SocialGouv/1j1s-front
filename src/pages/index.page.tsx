@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
@@ -12,8 +11,7 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
 import { Icon } from '../client/components/ui/Icon/Icon';
-
-const SeeMore = dynamic(() => import(/* webpackChunkName: 'seeMore' */ '~/client/components/ui/SeeMore/SeeMore'), { ssr: false });
+import SeeMore from '../client/components/ui/SeeMore/SeeMore';
 
 export default function Accueil() {
 	return (
@@ -62,7 +60,7 @@ export default function Accueil() {
 						</li>
 					</ul>
 
-					<SeeMore className={styles.seeMoreButton}>
+					<SeeMore className={styles.seeMoreButton} seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'} seeMoreAriaLabel={'Voir plus de résultats sur les offres d‘emplois'}>
 						<ul className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
 							<li className={styles.cardListElement}>
 								<LinkCard
@@ -166,7 +164,7 @@ export default function Accueil() {
 						</li>
 					</ul>
 
-					<SeeMore className={styles.seeMoreButton}>
+					<SeeMore className={styles.seeMoreButton} seeMoreAriaLabel={'Voir plus de résultats sur les formations et orientation'} seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'}>
 						<ul className={classNames(styles.cardList, styles.cardListPaddingSeeMore)}>
 							<li className={styles.cardListElement}>
 								<LinkCard
