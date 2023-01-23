@@ -53,4 +53,14 @@ describe('<InformationsGénérales />', () => {
 			expect(chargesRow).toHaveTextContent(/\$/i);
 		});
 	});
+	describe('Informations du logement', () => {
+		it('affiche la surface', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.surface = 50;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const surfaceRow = screen.getByRole('row', { name: /Surface/i });
+			expect(surfaceRow).toHaveTextContent(/50m2/i);
+		});
+	});
 });

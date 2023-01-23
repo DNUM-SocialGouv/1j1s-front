@@ -130,8 +130,9 @@
   display: inline;
   margin-left: 0.75rem;
 }
-.annonce abbr[title="Charges Comprises"] {
+.annonce abbr[title="Charges Comprises"],
+.annonce sup {
   text-decoration: none;
   vertical-align: super;
-  font-size: 0.5em;
+  font-size: 0.6em;
 }
