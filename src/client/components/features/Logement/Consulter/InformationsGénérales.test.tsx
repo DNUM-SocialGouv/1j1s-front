@@ -104,5 +104,37 @@ describe('<InformationsGénérales />', () => {
 			const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
 			expect(piècesRow).toHaveTextContent(/2/i);
 		});
+		it("affiche l'étage", async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.étage = 2;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const étageRow = screen.getByRole('row', { name: /Étage/i });
+			expect(étageRow).toHaveTextContent(/2ème/i);
+		});
+		it('affiche "Rez-de-chaussée" quand l\'étage est 0', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.étage = 0;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const étageRow = screen.getByRole('row', { name: /Étage/i });
+			expect(étageRow).toHaveTextContent(/Rez-de-chaussée/i);
+		});
+		it('affiche "1er" quand l\'étage est 1', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.étage = 1;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const étageRow = screen.getByRole('row', { name: /Étage/i });
+			expect(étageRow).toHaveTextContent(/1er/i);
+		});
+		it("masque la ligne quand pas d'étage", async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.étage = undefined;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const étageRow = screen.queryByRole('row', { name: /Étage/i });
+			expect(étageRow).not.toBeInTheDocument();
+		});
 	});
 });
