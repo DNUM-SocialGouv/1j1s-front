@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.46.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.45.1...v2.46.0) (2023-01-19)
+
+
+### Features
+
+* **carte-accompagnement:** améliorations graphiques mineures ([3e14905](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3e14905088403df8fd3d9d68c9894bd112fbeab0))
+* **stages:** formulaire stockage localStorage ([8e5d8ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8e5d8ae5fb22a4315f466beb6dd9ff349208fe41))
+* **stages:** mise en place de la première étape du formulaire ([983d8c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/983d8c8e970b1fcfb721f604e38f5acaec70bf26))
+* **stages:** regex et augmentation nombre de cractère ([c73036c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c73036c9e4e581c9168646ba4482ee284f8f9264))
+* **stages:** regle de regex email ([86d73dd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/86d73dd729de844ff2a7fec9103505057986d843))
+* **stages:** review design ([2969307](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2969307a5703c9e1fde98816e5ba5cd83c7580c2))
+
+
+### Bug Fixes
+
+* **stage:** maj Hero page depot de stage ([c2c6c6a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c2c6c6aa20e05517be0d729dbffa473ede628de6))
+
 ## [2.45.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.45.0...v2.45.1) (2023-01-19)
 
 
