@@ -88,3 +88,36 @@
     width: fit-content;
   }
 }
+
+
+
+
+
+
+.annonce table {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2.75rem;
+  align-items: center;
+  margin: 1.25rem;
+}
+.annonce caption {
+  display: contents;
+  color: $color-primary;
+}
+.annonce table tbody {
+  & > tr { display: block; }
+  & > tr:not(:last-child) { margin-bottom: .75rem; }
+  @include media(medium) { column-count: 2; }
+}
+.annonce th {
+  display: inline;
+  font-weight: bold;
+}
+.annonce th::after {
+  content: " :";
+}
+.annonce td {
+  display: inline;
+  margin-left: 0.75rem;
+}
