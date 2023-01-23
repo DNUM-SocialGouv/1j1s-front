@@ -27,4 +27,12 @@ describe('<InformationsGénérales />', () => {
 		const chargesRow = screen.getByRole('row', { name: /Charges/i });
 		expect(chargesRow).toHaveTextContent(/500€/i);
 	});
+	it('masque la ligne quand pas de charges', async () => {
+		const annonce = uneAnnonceDeLogement();
+		annonce.charge = undefined;
+		render(<InformationsGénérales annonce={annonce} />);
+
+		const chargesRow = screen.queryByRole('row', { name: /Charges/i });
+		expect(chargesRow).not.toBeInTheDocument();
+	});
 });
