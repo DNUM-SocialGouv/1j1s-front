@@ -81,10 +81,20 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la surface', async () => {
 			const annonce = uneAnnonceDeLogement();
 			annonce.surface = 50;
+			annonce.surfaceMax = undefined;
 			render(<InformationsGénérales annonce={annonce} />);
 
 			const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 			expect(surfaceRow).toHaveTextContent(/50m2/i);
+		});
+		it('affiche la fourchette de surface quand les deux propriétés sont présentes', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.surface = 50;
+			annonce.surfaceMax = 100;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const surfaceRow = screen.getByRole('row', { name: /Surface/i });
+			expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
 		});
 	});
 });
