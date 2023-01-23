@@ -96,5 +96,13 @@ describe('<InformationsGénérales />', () => {
 			const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 			expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
 		});
+		it('affiche le nombre de pièces', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.nombresDePièces = 2;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
+			expect(piècesRow).toHaveTextContent(/2/i);
+		});
 	});
 });
