@@ -144,5 +144,21 @@ describe('<InformationsGénérales />', () => {
 			const typeBienRow = screen.getByRole('row', { name: /Type de bien/i });
 			expect(typeBienRow).toHaveTextContent(/Appartement/i);
 		});
+		it('affiche "Non" si le logement n\'est pas meublé', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.meublé = false;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
+			expect(meubléRow).toHaveTextContent(/Non/i);
+		});
+		it('affiche "Oui" si le logement est meublé', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.meublé = true;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
+			expect(meubléRow).toHaveTextContent(/Oui/i);
+		});
 	});
 });
