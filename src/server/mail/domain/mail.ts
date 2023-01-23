@@ -11,7 +11,7 @@ export namespace Mail {
 
   export interface Message {
     from: Contact;
-    replyTo: Contact;
+    replyTo?: Contact;
     subject: string;
     text: string;
   }

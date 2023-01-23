@@ -1,26 +1,25 @@
 import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { Mail } from '~/server/mail/domain/mail';
 
+const AUCUN_EMAIL = 'non renseigné';
+const AUCUN_COMMENTAIRE = 'aucun commentaire';
+
 export function buildDemandeDeContactMail(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Mail {
-	return {
+	const mail: Mail = {
 		msg: {
 			from: {
 				address: 'contact-1j1s@sg.social.gouv.fr',
 				personalName: '1jeune1solution',
 			},
-			replyTo: {
-				address: demandeDeContactAccompagnement.email,
-				personalName: `${demandeDeContactAccompagnement.prénom} ${demandeDeContactAccompagnement.nom}`,
-			},
 			subject: 'Demande de contact 1jeune1solution',
 			text: `Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :
     • Prénom : ${demandeDeContactAccompagnement.prénom} 
     • Nom : ${demandeDeContactAccompagnement.nom} 
-    • Adresse email : ${demandeDeContactAccompagnement.email}
+    • Adresse email : ${demandeDeContactAccompagnement.email || AUCUN_EMAIL}
     • Téléphone : ${demandeDeContactAccompagnement.téléphone}
     • Age : ${demandeDeContactAccompagnement.age}
     • Ville : ${demandeDeContactAccompagnement.commune}
-    • Commentaire : ${demandeDeContactAccompagnement.commentaire || 'Aucun commentaire'}`,
+    • Commentaire : ${demandeDeContactAccompagnement.commentaire || AUCUN_COMMENTAIRE}`,
 		},
 		to: [
 			{
@@ -29,4 +28,13 @@ export function buildDemandeDeContactMail(demandeDeContactAccompagnement: Demand
 			},
 		],
 	};
+
+	if (demandeDeContactAccompagnement.email) {
+		mail.msg.replyTo = {
+			address: demandeDeContactAccompagnement.email,
+			personalName: `${demandeDeContactAccompagnement.prénom} ${demandeDeContactAccompagnement.nom}`,
+		};
+	}
+
+	return mail;
 }
