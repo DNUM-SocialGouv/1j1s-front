@@ -52,6 +52,30 @@ describe('<InformationsGénérales />', () => {
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
 			expect(chargesRow).toHaveTextContent(/\$/i);
 		});
+		it('affiche la caution', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.garantie = 500;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const cautionRow = screen.getByRole('row', { name: /Caution/i });
+			expect(cautionRow).toHaveTextContent(/500€/i);
+		});
+		it('masque la ligne quand pas de caution', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.garantie = undefined;
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const cautionRow = screen.queryByRole('row', { name: /Caution/i });
+			expect(cautionRow).not.toBeInTheDocument();
+		});
+		it('affiche la bonne devise dans la caution', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.devise = '$';
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const cautionRow = screen.getByRole('row', { name: /Caution/i });
+			expect(cautionRow).toHaveTextContent(/\$/i);
+		});
 	});
 	describe('Informations du logement', () => {
 		it('affiche la surface', async () => {
