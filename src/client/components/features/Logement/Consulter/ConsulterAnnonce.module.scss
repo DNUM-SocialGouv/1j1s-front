@@ -46,6 +46,11 @@
   border-style: solid;
   border-color: $color-primary;
   background-color: $color-background-white-lilac;
+  @include media(medium) {
+    border: 1px solid $neutral-grey;
+    border-radius: 1.25rem;
+    background-color: $color-background;
+  }
 }
 .annonce .card h2 {
   margin-bottom: 1.25rem;
