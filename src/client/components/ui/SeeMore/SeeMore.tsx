@@ -12,6 +12,8 @@ const SEE_LESS_LABEL_DEFAULT = 'Voir moins';
 export interface SeeMoreProps extends CommonProps {
   seeMoreLabel?: string
   seeLessLabel?: string
+	seeMoreAriaLabel: string
+	seeLessAriaLabel: string
 }
 
 export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
@@ -19,6 +21,8 @@ export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 		children,
 		seeMoreLabel = SEE_MORE_LABEL_DEFAULT,
 		seeLessLabel = SEE_LESS_LABEL_DEFAULT,
+		seeMoreAriaLabel,
+		seeLessAriaLabel,
 		className,
 	} = props;
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -39,6 +43,10 @@ export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 		return isOpen ? seeLessLabel : seeMoreLabel;
 	}, [seeMoreLabel, seeLessLabel, isOpen]);
 
+	const buttonAriaLabel = useMemo(() => {
+		return isOpen ? seeLessAriaLabel : seeMoreAriaLabel;
+	}, [isOpen, seeLessAriaLabel, seeMoreAriaLabel]);
+
 	return (
 		<>
 			<div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
@@ -54,6 +62,7 @@ export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 				type="button" 
 				aria-expanded={isOpen}
 				aria-controls={`section-${ariaId.current}`}
+				aria-label={buttonAriaLabel}
 				id={`seeMore-${ariaId.current}`}>
 				<TextIcon className={styles.seeMoreButtonLabel} icon={isOpen ? 'angle-up' :'angle-down'}>{buttonLabel}</TextIcon>
 			</button>

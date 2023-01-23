@@ -23,7 +23,7 @@ export function Pourquoi() {
             />
 					}
 					<h2>Pourquoi participer à l’aventure du mentorat en tant qu’employeur ?</h2>
-					<SeeMoreMobileOnly>
+					<SeeMoreMobileOnly seeLessAriaLabel={'Voir plus de raisons de devenir mentor en tant qu‘employeur'} seeMoreAriaLabel={'Voir moins de raisons de devenir mentor en tant qu‘employeur'}>
 						<ListeEmployeur/>
 					</SeeMoreMobileOnly>
 				</section>
@@ -39,7 +39,7 @@ export function Pourquoi() {
             />
 					}
 					<h2>Vous êtes citoyen : vous pouvez devenir mentor !</h2>
-					<SeeMoreMobileOnly>
+					<SeeMoreMobileOnly seeLessAriaLabel={'Voir plus de raisons de devenir mentor en tant que citoyen'} seeMoreAriaLabel={'Voir moins de raisons de devenir mentor en tant que citoyen'}>
 						<ListeCitoyen/>
 					</SeeMoreMobileOnly>
 				</section>

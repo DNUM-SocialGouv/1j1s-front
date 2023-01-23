@@ -47,7 +47,11 @@ export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListPr
 				{displayCartes(cardList.slice(0, maxCardPerRow))}
 			</ul>
 			{cardList.length > maxCardPerRow &&
-        <SeeMore seeLessLabel="Voir moins de services" seeMoreLabel="Voir plus de services" className={styles.seeMoreButton}>
+        <SeeMore className={styles.seeMoreButton}
+        	seeLessLabel="Voir moins de services" 
+        	seeMoreLabel="Voir plus de services" 
+        	seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'} 
+        	seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}>
         	<ul className={classNames(styles.cardList, styles.cardListPadding)}>
         		{displayCartes(cardList.slice(maxCardPerRow))}
         	</ul>
