@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
@@ -31,7 +30,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 	const { dateDeMiseAJour, type, typeBien, titre, description, imageUrlList } = annonceDeLogement;
 	return (
 		<main id="contenu">
-			<ConsulterAnnonceCarousel imageUrlList={imageUrlList} />
+			<AnnonceCarousel imageUrlList={imageUrlList} />
 			<Container className={styles.annonce}>
 				<AnnonceEntête>
 					<h1>{titre}</h1>
@@ -45,14 +44,9 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 	);
 }
 
-const ConsulterAnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | []}) => {
-	const hasNoImage = imageUrlList.length === 0;
-	const hasOnlyOneImage = imageUrlList.length === 1;
+const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | []}) => {
 	const MAX_IMAGE_WIDTH = 720;
 	const MAX_IMAGE_HEIGHT = 400;
-
-	if (hasNoImage) return null;
-	if (hasOnlyOneImage) return <Image src={imageUrlList[0].src} alt={imageUrlList[0].alt} width={MAX_IMAGE_WIDTH} height={MAX_IMAGE_HEIGHT} />;
 
 	return <div className={styles.carouselWrapper}>
 		<Carousel

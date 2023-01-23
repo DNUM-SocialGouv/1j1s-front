@@ -1,12 +1,13 @@
 import classNames from 'classnames';
-import {
+import Image from 'next/image';
+import React, {
 	useCallback,
 	useState,
 } from 'react';
 
 import {
 	CommonProps,
-	Image,
+	Image as ImageProps,
 } from '~/client/components/props';
 import { Controls } from '~/client/components/ui/Carousel/Controls';
 import { Indicators } from '~/client/components/ui/Carousel/Indicators';
@@ -16,7 +17,7 @@ import { Slide } from '~/client/components/ui/Carousel/Slide';
 import styles from './Carousel.module.scss';
 
 interface CarouselProps extends CommonProps {
-	imageList: Array<Image>
+	imageList: Array<ImageProps>
 	imageListLabel: string
 	hideIndicators?: boolean
 	imagesSize: { width: number, height: number }
@@ -54,6 +55,11 @@ export const Carousel = (props: CarouselProps) => {
 		setIsAnimated(false);
 		setCurrentSlideIndex(index);
 	},[]);
+
+
+	if (numberOfImages === 0) return null;
+
+	if (numberOfImages === 1) return <Image src={imageList[0].src} alt={imageList[0].alt} width={imagesSize.width} height={imagesSize.height} />;
 
 	return (
 		<div aria-roledescription="carousel" role="group" className={_classNames} {...rest}>

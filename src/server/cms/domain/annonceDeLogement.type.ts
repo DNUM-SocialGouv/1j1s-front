@@ -81,5 +81,5 @@ export interface AnnonceDeLogement {
   localisation: AnnonceDeLogement.Localisation
   description: string
   devise: string
-  imageUrlList: Array<Image> | []
+  imageUrlList: Array<Image>
 }
