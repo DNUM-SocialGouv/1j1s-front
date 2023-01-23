@@ -59,8 +59,8 @@ const CardImage = (props: { imageSrcList: ImageSrcListProps} ) => {
 const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps} ) => {
 	const { imageSrcList } = props;
 	const formattedList = imageSrcList.map((url) => ({ alt: '', src: url }));
-	const AVERAGE_IMAGE_WIDTH = 360;
-	const AVERAGE_IMAGE_HEIGHT = 180;
+	const MAX_IMAGE_WIDTH = 360;
+	const MAX_IMAGE_HEIGHT = 180;
 	const firstFourthImages = useMemo(() => formattedList.slice(0, 4), [formattedList]);
 
 	return (
@@ -69,7 +69,7 @@ const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps} ) => {
 			imageListLabel="liste des photos du logement"
 			className={styles.CardImageWrapper}
 			aria-hidden
-			imageSizes={{ height: AVERAGE_IMAGE_HEIGHT, width: AVERAGE_IMAGE_WIDTH }}
+			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
 		/>
 	);
 };

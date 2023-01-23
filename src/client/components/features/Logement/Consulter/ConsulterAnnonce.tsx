@@ -48,11 +48,11 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 const ConsulterAnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | []}) => {
 	const hasNoImage = imageUrlList.length === 0;
 	const hasOnlyOneImage = imageUrlList.length === 1;
-	const AVERAGE_IMAGE_WIDTH = 720;
-	const AVERAGE_IMAGE_HEIGHT = 400;
+	const MAX_IMAGE_WIDTH = 720;
+	const MAX_IMAGE_HEIGHT = 400;
 
 	if (hasNoImage) return null;
-	if (hasOnlyOneImage) return <Image src={imageUrlList[0].src} alt={imageUrlList[0].alt} width={AVERAGE_IMAGE_WIDTH} height={AVERAGE_IMAGE_HEIGHT} />;
+	if (hasOnlyOneImage) return <Image src={imageUrlList[0].src} alt={imageUrlList[0].alt} width={MAX_IMAGE_WIDTH} height={MAX_IMAGE_HEIGHT} />;
 
 	return <div className={styles.carouselWrapper}>
 		<Carousel
@@ -61,7 +61,7 @@ const ConsulterAnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageP
 			className={styles.carousel}
 			aria-hidden
 			hideIndicators
-			imageSizes={{ height: AVERAGE_IMAGE_HEIGHT, width: AVERAGE_IMAGE_WIDTH }}
+			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
 		/>
 	</div>;
 };

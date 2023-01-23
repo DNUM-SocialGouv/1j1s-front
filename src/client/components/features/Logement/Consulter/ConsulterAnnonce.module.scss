@@ -188,23 +188,19 @@
     > ul > li > img {
       display: flex;
       margin: auto;
+      object-fit: cover;
+      object-position: center;
     }
 
-      button {
-        box-sizing: content-box;
+    button {
+      box-sizing: content-box;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid $color-primary;
+      > svg {
         width: 2.5rem;
         height: 2.5rem;
-        border: 1px solid $color-primary;
-        > svg {
-          width: 2.5rem;
-          height: 2.5rem;
-        }
       }
-
-  }
-
-  img {
-    object-fit: cover;
-    object-position: center;
+    }
   }
 }

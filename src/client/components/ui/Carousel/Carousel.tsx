@@ -19,13 +19,13 @@ interface CarouselProps extends CommonProps {
 	imageList: Array<Image>
 	imageListLabel: string
 	hideIndicators?: boolean
-	imageSizes: { width: number, height: number }
+	imagesSize: { width: number, height: number }
 }
 
 export type Direction = 'next' | 'previous' | null;
 
 export const Carousel = (props: CarouselProps) => {
-	const { imageList, imageListLabel, imageSizes, hideIndicators=false, className, ...rest } = props;
+	const { imageList, imageListLabel, imagesSize, hideIndicators=false, className, ...rest } = props;
 	const _classNames = classNames(className, styles.carousel);
 	const numberOfImages = imageList.length;
 
@@ -72,7 +72,7 @@ export const Carousel = (props: CarouselProps) => {
 						direction={direction}
 						setDirection={setDirection}
 						isAnimated={isAnimated}
-						imageSizes={imageSizes}
+						imagesSize={imagesSize}
 					/>
 				))}
 			</ul>

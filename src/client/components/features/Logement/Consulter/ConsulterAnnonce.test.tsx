@@ -40,6 +40,40 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 01.02.2020/i);
 	});
+	describe('carousel', () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+		describe('quand il n‘y a pas d‘image a afficher', () => {
+			it('n‘affiche pas le carousel', async () => {
+				annonceDeLogement.imageUrlList = [];
+				await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
+				expect(listDeSlides).not.toBeInTheDocument();
+			});
+		});
+
+		describe('quand il y a une seule image a afficher', () => {
+			it('n‘affiche pas le carousel, juste une image', async () => {
+				annonceDeLogement.imageUrlList = [{ alt:'', src:'/une-seule-image.webp' }];
+				await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+
+				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
+				expect(listDeSlides).not.toBeInTheDocument();
+
+				const image = screen.getByRole('img');
+				expect(image.src).toContain('une-seule-image.webp');
+			});
+		});
+
+		describe('quand il y a plusieurs images a afficher', () => {
+			it('affiche le carousel', async () => {
+				annonceDeLogement.imageUrlList = [{ alt:'', src:'/une-première-image.webp' }, { alt:'', src:'/une-deuxième-image.webp' }];
+				await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+
+				const listDesSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
+				expect(listDesSlides).toBeInTheDocument();
+			});
+		});
+	});
 	describe('description du logement', () => {
 		it('affiche la description du logement', async () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
