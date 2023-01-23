@@ -5,7 +5,7 @@ import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 
 import styles from './DeposerOffreStage.module.scss';
-import Entreprise from './FormulaireEntreprise/StageDeposerOffreFormulaireEntreprise';
+import Entreprise from './Formulaire/StageDeposerOffreFormulaireEntreprise';
 
 export default function DeposerOffreStagePage() {
 	useReferrer();

@@ -1,15 +1,11 @@
 import React from 'react';
 
-import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '../../../../client/components/ui/Hero/LightHero';
-import { HeadTag } from '../../../../client/components/utils/HeaderTag';
-import useReferrer from '../../../../client/hooks/useReferrer';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { HeadTag } from '~/client/components/utils/HeaderTag';
+import useReferrer from '~/client/hooks/useReferrer';
+
 import styles from '../DeposerOffreStage.module.scss';
-import StageDeposerOffreFormulaireEntrepriseEtape2
-	from '../FormulaireEntreprise/StageDeposerOffreFormulaireEntrepriseEtape2';
+import OffreStage from '../Formulaire/StageDeposerOffreFormulaireStage';
 
 export default function DeposerOffreStageEtape2Page() {
 	useReferrer();
@@ -32,7 +28,7 @@ export default function DeposerOffreStageEtape2Page() {
 						</h1>
 					</LightHero>
 				</div>
-				<StageDeposerOffreFormulaireEntrepriseEtape2/>
+				<OffreStage/>
 			</main>
 		</>
 	);
