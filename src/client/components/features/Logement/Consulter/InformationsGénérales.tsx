@@ -23,8 +23,14 @@ export function InformationsGénérales({
 		typeBien,
 		meublé,
 		localisation,
+		dateDeDisponibilité,
 	},
 }: InformationsGénéralesProps) {
+	const dateDispoFormattée = new Date(dateDeDisponibilité).toLocaleDateString('fr-FR', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+	});
 	return (
 		<section className={styles.card} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
@@ -104,7 +110,7 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le 3 janvier 2024</td>
+						<td>le {dateDispoFormattée}</td>
 					</tr>
 				</tbody>
 			</table>

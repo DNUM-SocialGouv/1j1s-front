@@ -162,7 +162,7 @@ describe('<InformationsGénérales />', () => {
 		});
 	});
 	describe('Localisation', () => {
-		it('affiche la localisation formattée quand elle est présente', async () => {
+		it('affiche la localisation formattée', async () => {
 			const annonce = uneAnnonceDeLogement();
 			annonce.localisation = {
 				adresse: "15 rue de l'impasse",
@@ -173,6 +173,16 @@ describe('<InformationsGénérales />', () => {
 
 			const localisationRow = screen.getByRole('row', { name: /Localisation/i });
 			expect(localisationRow).toHaveTextContent(/15 rue de l'impasse, Paris \(75001\)/i);
+		});
+	});
+	describe('Disponibilité', () => {
+		it('affiche la date de disponibilité', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
+			expect(disponibilitéRow).toHaveTextContent(/le 01\/02\/2022/i);
 		});
 	});
 });
