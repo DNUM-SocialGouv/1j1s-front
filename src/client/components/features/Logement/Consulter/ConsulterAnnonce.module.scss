@@ -39,10 +39,13 @@
 }
 
 .annonce .card {
+  padding: 1rem;
+}
+.annonce .card:nth-child(2n) {
   border-width: 1px 0;
   border-style: solid;
   border-color: $color-primary;
-  padding: 1rem;
+  background-color: $color-background-white-lilac;
 }
 .annonce .card h2 {
   margin-bottom: 1.25rem;
