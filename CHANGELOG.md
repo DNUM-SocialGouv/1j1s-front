@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.2...v2.47.3) (2023-01-23)
+
+
+### Bug Fixes
+
+* **a11y:** ajout d'un aria label obligatoire sur le composant SeeMore ([5b5c838](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5b5c838484c48acdbf7f7f0a42612a33add7bf16))
+
 ## [2.47.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.1...v2.47.2) (2023-01-23)
 
 
