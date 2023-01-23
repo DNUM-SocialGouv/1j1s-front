@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.0...v2.47.1) (2023-01-23)
+
+
+### Bug Fixes
+
+* **accompagnement:** demande de contact sans adresse email ([6528ae8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6528ae8819e2fc6557017fa2b2dae6c31ccef1d2))
+
 ## [2.47.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.46.0...v2.47.0) (2023-01-23)
 
 
