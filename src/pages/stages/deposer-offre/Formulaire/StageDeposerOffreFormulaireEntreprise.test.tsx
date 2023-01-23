@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Entreprise from '~/pages/stages/deposer-offre/FormulaireEntreprise/StageDeposerOffreFormulaireEntreprise';
+import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
 describe('<Entreprise />', () => {
 
@@ -57,4 +57,5 @@ describe('<Entreprise />', () => {
 async function BoutonSuivant() {
 	const button = screen.getByText('Suivant');
 	await userEvent.click(button);
+	expect(button).toHaveAttribute('href', '/stages/deposer-offre/votre-offre-de-stage');
 }
