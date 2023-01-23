@@ -44,8 +44,8 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 		description = cropDescription(description) + ' …';
 	}
 	return (
-		<section className={styles.card}>
-			<h2>Description du Logement</h2>
+		<section className={styles.card} aria-labelledby="description-annonce-title">
+			<h2 id="description-annonce-title">Description du Logement</h2>
 			<p id="description-annonce">{description}</p>
 			{longueDescription && (
 				<BoutonEtendre
