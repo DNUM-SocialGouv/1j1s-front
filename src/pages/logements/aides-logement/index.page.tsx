@@ -49,9 +49,10 @@ export default function AidesLogement() {
 								</li>
 								<li className={styles.partnerCard}>
 									<PartnerCard
+										logo="/images/logos/mutualite-sociale-agricole.svg"
 										link="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
 										linkLabel="Découvrir les aides au logement de la MSA"
-										title="Vous dépendez du régume agricole ? Demandez vos aides à la MSA !"
+										title="Vous dépendez du régime agricole ? Demandez vos aides à la MSA !"
 									>
 										La MSA signifie Mutualité Sociale Agricole, c’est le régime
 										de protection sociale obligatoire pour toute personne du
