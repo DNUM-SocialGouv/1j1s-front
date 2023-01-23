@@ -1,0 +1,46 @@
+@import "@styles/utilities";
+
+.energy .tag {
+  --color-a: #008000;
+  --text-color-a: white;
+  --color-b: #66CC33;
+  --color-c: #CFDE24;
+  --color-d: #FFFF00;
+  --color-e: #FFCC00;
+  --color-f: #FF9900;
+  --color-g: #FF0000;
+  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+  padding-top: 5px;
+  padding-left: 10px;
+  width: 200px;
+  height: 38px;
+  font-weight: bold;
+  background-color: var(--color, initial);
+  color: var(--text-color, black);
+}
+
+.energy {
+  display: grid;
+  row-gap: 20px;
+
+  @include media(large) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.energy figcaption{
+  color: $color-primary;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  margin-bottom: 0.75rem;
+
+  @include media(medium) {
+    font-size: 1.5rem;
+  }
+}
+
+.energy p {
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  max-width: 300px;
+}
