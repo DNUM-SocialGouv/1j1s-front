@@ -29,7 +29,7 @@ export interface AnnonceDeLogementResponse {
   titre: string
   slug: string
   dateDeDisponibilite: string
-  nombresDePieces: number
+  nombreDePieces: number
   surface: number
   surfaceMax?: number
   etage?: number
@@ -67,7 +67,7 @@ export interface AnnonceDeLogement {
   dateDeMiseAJour: string
   surface: number
   surfaceMax?: number
-  nombresDePièces: number
+  nombreDePièces: number
   étage?: number
   prix: number
   prixHT?: number

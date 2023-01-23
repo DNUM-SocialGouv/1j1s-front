@@ -228,7 +228,7 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		garantie: annonceLogementResponse.garantie,
 		localisation: getLocalisation(annonceLogementResponse.localisation),
 		meublé: annonceLogementResponse.meuble,
-		nombresDePièces: annonceLogementResponse.nombresDePieces,
+		nombreDePièces: annonceLogementResponse.nombreDePieces,
 		prix: annonceLogementResponse.prix,
 		prixHT: annonceLogementResponse.prixHT,
 		surface: annonceLogementResponse.surface,

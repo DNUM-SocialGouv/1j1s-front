@@ -98,7 +98,7 @@ describe('<InformationsGénérales />', () => {
 		});
 		it('affiche le nombre de pièces', async () => {
 			const annonce = uneAnnonceDeLogement();
-			annonce.nombresDePièces = 2;
+			annonce.nombreDePièces = 2;
 			render(<InformationsGénérales annonce={annonce} />);
 
 			const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });

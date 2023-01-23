@@ -9,7 +9,7 @@ interface InformationsGénéralesProps {
 	annonce: AnnonceDeLogement;
 }
 
-export function InformationsGénérales({ annonce: { prix, charge, devise, surface, surfaceMax, garantie, nombresDePièces } }: InformationsGénéralesProps) {
+export function InformationsGénérales({ annonce: { prix, charge, devise, surface, surfaceMax, garantie, nombreDePièces } }: InformationsGénéralesProps) {
 	return (
 		<section className={styles.card} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
@@ -49,7 +49,7 @@ export function InformationsGénérales({ annonce: { prix, charge, devise, surfa
 					</tr>
 					<tr>
 						<th scope="row">Nombre de pièces</th>
-						<td>{nombresDePièces}</td>
+						<td>{nombreDePièces}</td>
 					</tr>
 					<tr>
 						<th scope="row">Étage</th>
