@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.5...v2.47.6) (2023-01-23)
+
+
+### Bug Fixes
+
+* **espace jeune:** ne pas afficher voir plus si moins de 7 cartes d'actualités ([faad9d9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/faad9d9fb2bba77f4c265249320afef4e0becf2a))
+
 ## [2.47.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.4...v2.47.5) (2023-01-23)
 
 
