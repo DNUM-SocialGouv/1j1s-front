@@ -61,21 +61,21 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
           			</ArticleCard>,
           		)}
           	</Container>
-          	<SeeMore className={styles.seeMoreButton} seeLessAriaLabel={'Voir moins de résultats sur les actualités'} seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}>
+          	{seeMoreCartesActualitesList.length > 0 && <SeeMore className={styles.seeMoreButton} seeLessAriaLabel={'Voir moins de résultats sur les actualités'} seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}>
           		<Container className={styles.cartesActualitesList}>
           			{seeMoreCartesActualitesList.map((carte, index) =>
           				<ArticleCard className={styles.carteActualite}
-																	 key={index}
-																	 imageSrc={carte.bannière && carte.bannière.url || ''}
-																	 titleLabel={carte.titre}
-																	 link={carte.link}
-																	 linkLabel={getCarteActualiteLinkLabel(carte)}
-																	 icon={getCarteActualiteLinkIcon(carte)}>
+																 key={index}
+																 imageSrc={carte.bannière && carte.bannière.url || ''}
+																 titleLabel={carte.titre}
+																 link={carte.link}
+																 linkLabel={getCarteActualiteLinkLabel(carte)}
+																 icon={getCarteActualiteLinkIcon(carte)}>
           					<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
           				</ArticleCard>,
           			)}
           		</Container>
-          	</SeeMore>
+          	</SeeMore>}
           </section>
 			}
 			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
