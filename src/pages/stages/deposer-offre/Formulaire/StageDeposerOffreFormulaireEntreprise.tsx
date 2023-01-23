@@ -5,7 +5,7 @@ import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Link } from '~/client/components/ui/Link/Link';
 
-import styles from './StageDeposerOffreFormulaireEntreprise.module.scss';
+import styles from './StageDeposerOffreFormulaire.module.scss';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 const FORM_NAME = 'formulaireEtape1';
@@ -99,10 +99,6 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 				</div>
 				<div className={styles.validation}>
 					<Link
-						// icon={<Icon name="angle-right"/>}
-						// iconPosition="right"
-						// label="Suivant"
-						// type="submit"
 						appearance={'asPrimaryButton'}
 						href="/stages/deposer-offre/votre-offre-de-stage"
 						className={styles.validationLink}

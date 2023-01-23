@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -9,9 +9,12 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 
-import styles from './StageDeposerOffreFormulaireEntreprise.module.scss';
+import styles from './StageDeposerOffreFormulaire.module.scss';
 import { domaineStage } from './StageDomaines';
 
+const email_regex = '([a-zA-Z0-9!#$%&@\'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&\'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)';
+const url_regex =  '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
+const EMAIL_OR_URL_REGEX = `^${email_regex}|${url_regex}$`;
 const DUREEMOIS = 30;
 const UNITE = '€';
 
@@ -24,7 +27,7 @@ const dureeStageList: Option[] = [
 	{ libellé: '6 mois', valeur: (6 * DUREEMOIS).toString() },
 ];
 
-export default function StageDeposerOffreFormulaireEntrepriseEtape2() {
+export default function StageDeposerOffreFormulaireStage() {
 	const formRef = useRef<HTMLFormElement>(null);
 	const inputTeletravailRef = useRef<HTMLDivElement>(null);
 
@@ -60,6 +63,11 @@ export default function StageDeposerOffreFormulaireEntrepriseEtape2() {
 		}
 	}, []);
 
+	const onInputChangeRemuneration = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		setInputRemunerationStage(value);
+	}, []);
+
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
@@ -71,7 +79,7 @@ export default function StageDeposerOffreFormulaireEntrepriseEtape2() {
 	
 	return (
 		<Container className={styles.container}>
-			<div className={styles.etape}>Etape 2 sur 3 : Votre entreprise</div>
+			<div className={styles.etape}>Etape 2 sur 3 : Votre offre de stage</div>
 			<Link
 				href="/stages/deposer-offre"
 				appearance="asBackButton"
@@ -93,6 +101,7 @@ export default function StageDeposerOffreFormulaireEntrepriseEtape2() {
 						className={styles.inputNomOffre}
 					/>
 					<InputText
+						pattern={EMAIL_OR_URL_REGEX}
 						label="Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
 						name="lienCandidature"
 						value={inputLienCandidature}
@@ -143,11 +152,12 @@ export default function StageDeposerOffreFormulaireEntrepriseEtape2() {
 						<div>
 							<input
 								id="remunerationStage"
-								name="remunerationStage"
-								value={inputRemunerationStage}
 								type="number"
+								name="remunerationStage"
 								placeholder="Exemple : 560"
 								min={0}
+								value={inputRemunerationStage}
+								onChange={onInputChangeRemuneration}
 							/>
 							<span>{UNITE}</span>
 						</div>
@@ -166,6 +176,7 @@ export default function StageDeposerOffreFormulaireEntrepriseEtape2() {
 						iconPosition="right"
 						label="Suivant"
 						type="submit"
+						className={styles.validationLink}
 					/>
 				</div>
 			</form>
