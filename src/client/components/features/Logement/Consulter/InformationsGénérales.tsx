@@ -41,13 +41,13 @@ export function InformationsGénérales({
 						<th scope="row">Prix</th>
 						<td>{prix}{devise}<abbr title="Charges Comprises">CC</abbr>/mois</td>
 					</tr>
-					{garantie && (
+					{garantie != null && (
 						<tr>
 							<th scope="row">Caution</th>
 							<td>{garantie}{devise}</td>
 						</tr>
 					)}
-					{charge && (
+					{charge != null && (
 						<tr>
 							<th scope="row">Charges</th>
 							<td>{charge}{devise}</td>
@@ -64,7 +64,7 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Surface</th>
-						{surfaceMax
+						{surfaceMax != null
 							? <td>{surface} à {surfaceMax} m<sup>2</sup></td>
 							: <td>{surface}m<sup>2</sup></td>}
 					</tr>
