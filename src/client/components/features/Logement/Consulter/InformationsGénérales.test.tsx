@@ -161,4 +161,18 @@ describe('<InformationsGénérales />', () => {
 			expect(meubléRow).toHaveTextContent(/Oui/i);
 		});
 	});
+	describe('Localisation', () => {
+		it('affiche la localisation formattée quand elle est présente', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.localisation = {
+				adresse: "15 rue de l'impasse",
+				codePostal: '75001',
+				ville: 'Paris',
+			};
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const localisationRow = screen.getByRole('row', { name: /Localisation/i });
+			expect(localisationRow).toHaveTextContent(/15 rue de l'impasse, Paris \(75001\)/i);
+		});
+	});
 });

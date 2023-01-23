@@ -1,5 +1,6 @@
 import React from 'react';
 
+import formatLocalisation from '~/client/utils/formatLocalisation.util';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
 import { Icon } from '../../../ui/Icon/Icon';
@@ -21,6 +22,7 @@ export function InformationsGénérales({
 		étage,
 		typeBien,
 		meublé,
+		localisation,
 	},
 }: InformationsGénéralesProps) {
 	return (
@@ -93,7 +95,7 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Localisation</th>
-						<td>4 rue de l’exemple, Paris (75012)</td>
+						<td>{formatLocalisation(localisation)}</td>
 					</tr>
 				</tbody>
 			</table>
