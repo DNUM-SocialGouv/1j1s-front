@@ -20,20 +20,20 @@ export function InformationsGénérales({ annonce: { prix, charge } }: Informati
 						<th scope="row">Prix</th>
 						<td>{prix}€<abbr title="Charges Comprises">CC</abbr>/mois</td>
 					</tr>
-					<tr>
-						<th scope="row">Caution</th>
-						<td>500$</td>
-					</tr>
+					{/*<tr>*/}
+					{/*	<th scope="row">Caution</th>*/}
+					{/*	<td>500$</td>*/}
+					{/*</tr>*/}
 					{charge && (
 						<tr>
 							<th scope="row">Charges</th>
 							<td>{charge}€</td>
 						</tr>
 					)}
-					<tr>
-						<th scope="row">Frais d&apos;agence</th>
-						<td>500$</td>
-					</tr>
+					{/*<tr>*/}
+					{/*	<th scope="row">Frais d&apos;agence</th>*/}
+					{/*	<td>500$</td>*/}
+					{/*</tr>*/}
 				</tbody>
 			</table>
 			<table>

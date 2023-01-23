@@ -19,7 +19,7 @@ export namespace AnnonceDeLogementResponse {
     ville?: string
     adresse?: string
     département?: string
-    codePostal?: number // TODO voir si doit être string si lettre dans code postal
+    codePostal?: string
     région?: string
     pays?: string
   }
@@ -54,7 +54,7 @@ export namespace AnnonceDeLogement {
     ville?: string
     adresse?: string
     département?: string
-    codePostal?: number // TODO voir si doit être string si lettre dans code postal
+    codePostal?: string
     région?: string
     pays?: string
   }
