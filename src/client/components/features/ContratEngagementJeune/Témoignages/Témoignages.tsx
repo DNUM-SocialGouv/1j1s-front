@@ -65,7 +65,7 @@ function TémoignageLatifa() {
 				</div>
 				<div className={styles.bio}>
 					<h3>Latifa, 22 ans</h3>
-					<p>Diplômée d‘un CAP gestion, sans emploi et sans aucune financière, elle pourra bénéficier du Contrat
+					<p>Diplômée d‘un CAP gestion, sans emploi et sans aucune ressource financière, elle pourra bénéficier du Contrat
 						d‘Engagement Jeune.</p>
 				</div>
 				<Programme>

@@ -6,6 +6,7 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { KeyBoard } from '~/client/components/keyboard.fixture';
 import {
 	generateRefinementListItem,
 	mockUseRefinementList,
@@ -23,7 +24,7 @@ describe('MeilisearchInputRefinement', () => {
 		render(<MeilisearchInputRefinement attribute={'test'}/>);
 		expect(screen.getByRole('textbox')).toBeInTheDocument();
 	});
-	describe('Avec une liste de 3 localisations', () => {
+	describe('Avec une liste de 4 localisations', () => {
 		beforeEach(() => {
 			// GIVEN
 			refineMock = jest.fn();
@@ -31,7 +32,9 @@ describe('MeilisearchInputRefinement', () => {
 				items: [
 					generateRefinementListItem({ value: 'Paris' }),
 					generateRefinementListItem({ value: 'Marseille' }),
-					generateRefinementListItem({ value: 'PACA' })]
+					generateRefinementListItem({ value: 'PACA' }),
+					generateRefinementListItem({ value: 'Le Vésinet' })]
+
 				,
 				refine: refineMock,
 			}));
@@ -56,6 +59,7 @@ describe('MeilisearchInputRefinement', () => {
 				});
 			});
 		});
+
 		describe('Quand l’utilisateur tape "Nantes"', () => {
 			it('affiche un message qu’il n’y a pas de résultat', async () => {
 				render(<MeilisearchInputRefinement attribute={'test'}/>);
@@ -63,6 +67,27 @@ describe('MeilisearchInputRefinement', () => {
 				const inputLocalisation = screen.getByRole('textbox');
 				await user.type(inputLocalisation, 'Nantes');
 				expect(await screen.findByTestId('LocalisationNoResultMessage')).toBeInTheDocument();
+			});
+		});
+
+		describe('Quand l’utilisateur tape un espace dans le champs localisation', () => {
+			it('affiche une liste de 1 élément avec "Le Vésinet"', async () => {
+				render(<MeilisearchInputRefinement attribute={'test'}/>);
+				const user = userEvent.setup();
+				const inputLocalisation = screen.getByRole('textbox');
+				await user.type(inputLocalisation, ' ');
+				expect(await screen.findAllByRole('option')).toHaveLength(1);
+			});
+			describe('Quand l’utilisateur tape deux espaces et appuie sur Enter', () => {
+				it('n‘appelle pas la méthode refine', async () => {
+					render(<MeilisearchInputRefinement attribute={'test'}/>);
+					const user = userEvent.setup();
+					const inputLocalisation = screen.getByRole('textbox');
+					await user.type(inputLocalisation, ' ');
+					await user.type(inputLocalisation, ' ');
+					await user.keyboard(KeyBoard.ENTER);
+					expect(refineMock).not.toHaveBeenCalled();
+				});
 			});
 		});
 	});
