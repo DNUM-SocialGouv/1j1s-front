@@ -14,16 +14,16 @@ describe('<ConsulterAnnonce />', () => {
 		const routerReload = jest.fn();
 		mockUseRouter({ reload: routerReload });
 	});
-	it('affiche le le bouton retour vers la liste des annonces', async () => {
+	it('affiche le le bouton retour vers la liste des annonces',  () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
-		await render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page annonces' });
 		expect(boutonRetour).toBeInTheDocument();
 
 	});
-	it("affiche le titre de l'annonce", async () => {
+	it("affiche le titre de l'annonce",  () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
@@ -72,13 +72,13 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand il y a une seule image a afficher', () => {
 			it('n‘affiche pas le carousel, juste une image', () => {
-				annonceDeLogement.imageUrlList = [{ alt:'', src:'/une-seule-image.webp' }];
+				annonceDeLogement.imageUrlList = [{ alt:'une seule image', src:'/une-seule-image.webp' }];
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 
 				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
 				expect(listDeSlides).not.toBeInTheDocument();
 
-				const image = screen.getByRole('img');
+				const image = screen.getByRole('img', { name: 'une seule image' });
 				expect(image).toHaveAttribute('src', expect.stringMatching(/une-seule-image.webp/));
 			});
 		});
@@ -102,6 +102,64 @@ describe('<ConsulterAnnonce />', () => {
 			const description = screen.getByText(/C'est un super logement !/i);
 
 			expect(description).toBeVisible();
+		});
+	});
+	describe('bilan énergétique du logement', ()=>{
+		it('affiche la consommation énergétique du logement',  () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.consommationEnergetique = 'A';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const consommationEnergetique = screen.getByRole('img', { name: /A/i });
+
+			expect(consommationEnergetique).toBeVisible();
+		});
+		it('affiche le libellé de la consommation énergétique du logement',  () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.consommationEnergetique = 'A';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const tag = screen.getByRole('img', { name: /A/i });
+			const description = screen.getByText(/Logement très économe en énergie./i);
+
+			expect(tag).toHaveAttribute('aria-describedby', description.id);
+		});
+		it('affiche la couleur de la consommation énergétique du logement',  () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.consommationEnergetique = 'A';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const tag = screen.getByRole('img', { name: /A/i });
+
+			expect(tag).toHaveAttribute('style', '--color: var(--color-a); --text-color: var(--text-color-a);');
+		});
+		it('affiche l’émission de gaz du logement',  ()=>{
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const emissionDeGaz = screen.getByRole('img', { name: /G/i });
+
+			expect(emissionDeGaz).toBeVisible();
+		});
+		it('affiche le libellé de l’émission de gaz du logement',  () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const tag = screen.getByRole('img', { name: /G/i });
+			const description = screen.getByText(/Logement énormément polluant./i);
+
+			expect(tag).toHaveAttribute('aria-describedby', description.id);
+		});
+		it('affiche la couleur de l’émission de gaz du logement',  () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const tag = screen.getByRole('img', { name: /G/i });
+
+			expect(tag).toHaveAttribute('style', '--color: var(--color-g); --text-color: var(--text-color-g);');
 		});
 	});
 });

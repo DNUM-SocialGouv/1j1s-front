@@ -6,6 +6,10 @@ import {
 const uneDate = () => new Date('2022-01-01T00:00:00.000Z');
 export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
 	return {
+		bilanEnergetique: {
+			consommationEnergetique: 'A',
+			emissionDeGaz: 'B',
+		},
 		charge: 100,
 		dateDeDisponibilite: '11/11/11',
 		description: 'appart à saisir',
@@ -31,6 +35,10 @@ export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
 
 export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
 	return {
+		bilanEnergetique: {
+			consommationEnergetique: 'A',
+			emissionDeGaz: 'B',
+		},
 		charge: 100,
 		dateDeDisponibilité: '11/11/11',
 		dateDeMiseAJour: '1/1/2022',
