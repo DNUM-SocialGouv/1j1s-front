@@ -19,4 +19,12 @@ describe('<InformationsGénérales />', () => {
 		const abbreviation = screen.getByText(/CC/i);
 		expect(abbreviation).toHaveAttribute('title', 'Charges Comprises');
 	});
+	it('affiche les charges', async () => {
+		const annonce = uneAnnonceDeLogement();
+		annonce.charge = 500;
+		render(<InformationsGénérales annonce={annonce} />);
+
+		const chargesRow = screen.getByRole('row', { name: /Charges/i });
+		expect(chargesRow).toHaveTextContent(/500€/i);
+	});
 });
