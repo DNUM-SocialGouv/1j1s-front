@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.1...v2.47.2) (2023-01-23)
+
+
+### Bug Fixes
+
+* **multiple:** input toggle refinement ([d0092d3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d0092d3b1843cee0859691f08d71cc9c22b6b097))
+
 ## [2.47.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.0...v2.47.1) (2023-01-23)
 
 
