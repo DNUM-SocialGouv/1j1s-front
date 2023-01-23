@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.4...v2.47.5) (2023-01-23)
+
+
+### Bug Fixes
+
+* **aides:** image et wording carte partenaire ([7f7e4ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7f7e4ff296c4aefbfdf0f4b31365f06b210e8066))
+
 ## [2.47.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.3...v2.47.4) (2023-01-23)
 
 
