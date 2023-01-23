@@ -1,9 +1,15 @@
 import React from 'react';
 
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+
 import { Icon } from '../../../ui/Icon/Icon';
 import styles from './ConsulterAnnonce.module.scss';
 
-export function InformationGénérales() {
+interface InformationsGénéralesProps {
+	annonce: AnnonceDeLogement;
+}
+
+export function InformationsGénérales({ annonce: { prix } }: InformationsGénéralesProps) {
 	return (
 		<section className={styles.card} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
@@ -12,7 +18,7 @@ export function InformationGénérales() {
 				<tbody>
 					<tr>
 						<th scope="row">Prix</th>
-						<td>500$/mois</td>
+						<td>{prix}€<abbr title="Charges Comprises">CC</abbr>/mois</td>
 					</tr>
 					<tr>
 						<th scope="row">Caution</th>

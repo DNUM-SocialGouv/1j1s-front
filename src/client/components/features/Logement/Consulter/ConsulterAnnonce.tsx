@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
-import { InformationGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
+import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
@@ -34,7 +34,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 					<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
 					<TypeBien>{type} - {typeBien}</TypeBien>
 				</AnnonceEntête>
-				<InformationGénérales />
+				<InformationsGénérales annonce={annonceDeLogement} />
 				<DescriptionDuLogement>{description}</DescriptionDuLogement>
 			</main>
 		</Container>

@@ -122,11 +122,16 @@
 .annonce th {
   display: inline;
   font-weight: bold;
-}
-.annonce th::after {
-  content: " :";
+  &::after {
+    content: " :";
+  }
 }
 .annonce td {
   display: inline;
   margin-left: 0.75rem;
+}
+.annonce abbr[title="Charges Comprises"] {
+  text-decoration: none;
+  vertical-align: super;
+  font-size: 0.5em;
 }
