@@ -136,5 +136,13 @@ describe('<InformationsGénérales />', () => {
 			const étageRow = screen.queryByRole('row', { name: /Étage/i });
 			expect(étageRow).not.toBeInTheDocument();
 		});
+		it('affiche le type de bien', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.typeBien = 'Appartement';
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const typeBienRow = screen.getByRole('row', { name: /Type de bien/i });
+			expect(typeBienRow).toHaveTextContent(/Appartement/i);
+		});
 	});
 });
