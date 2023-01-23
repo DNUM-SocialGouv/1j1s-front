@@ -119,7 +119,7 @@ export function RechercherAlternance() {
 						vertical={false}
 						imageSrc="/images/articles/aide-exceptionnelle-apprentissage.svg"
 						imageFit="cover"
-						link="/articles/l-aide-exceptionnelle-pour-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
+						link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
 						titleLabel="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
 					>
 						<p>
