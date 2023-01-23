@@ -227,10 +227,18 @@ const formatImageUrlList = (imagesUrl: Array<{ value: string }> | undefined): Ar
 	});
 };
 
+const getBilanEnergetique = (bilanEnergetique: AnnonceDeLogementResponse.BilanEnergetique): AnnonceDeLogement.BilanEnergetique => {
+	return {
+		consommationEnergetique: bilanEnergetique.consommationEnergetique,
+		emissionDeGaz: bilanEnergetique.emissionDeGaz,
+	};
+};
+
 export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse ): AnnonceDeLogement {
 	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
 
 	return {
+		bilanEnergetique: getBilanEnergetique(annonceLogementResponse.bilanEnergetique),
 		charge: annonceLogementResponse.charge,
 		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
 		dateDeMiseAJour,
