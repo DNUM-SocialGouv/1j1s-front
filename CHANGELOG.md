@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.46.0...v2.47.0) (2023-01-23)
+
+
+### Features
+
+* **alternance:** ajout cartes de redirection ([8faca66](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8faca669be35990a23575e1ee57772048ede5831))
+
 ## [2.46.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.45.1...v2.46.0) (2023-01-19)
 
 
