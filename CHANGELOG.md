@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.47.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.3...v2.47.4) (2023-01-23)
+
+
+### Bug Fixes
+
+* **alternance:** lien article cassé ([3b68c6e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3b68c6e7ac41ec1e7743862235d2de4ab48ce170))
+
 ## [2.47.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.2...v2.47.3) (2023-01-23)
 
 
