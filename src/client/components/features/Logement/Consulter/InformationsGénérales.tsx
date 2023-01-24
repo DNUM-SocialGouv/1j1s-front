@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
@@ -32,7 +33,7 @@ export function InformationsGénérales({
 		year: 'numeric',
 	});
 	return (
-		<section className={styles.card} aria-labelledby="informations-annonce-title">
+		<section className={classNames(styles.card, styles.informationsGenerales)} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
 			<table>
 				<caption><Icon name='euro' aria-hidden={false} aria-label="Prix"/></caption>

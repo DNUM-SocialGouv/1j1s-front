@@ -1,138 +1,168 @@
 @import "@styles/utilities";
 
-.annonce .entête {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
+.annonce {
+  & .entête {
+    padding: 1rem;
+    margin: 0 0 1rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
           "date"
           "type"
           "titre";
-  padding: 1rem;
-}
 
-.annonce .entête .type {
-  grid-area: type;
-  font-size: .875rem;
-  line-height: 1.25rem;
-  color: $color-mine-shaft;
-  text-transform: uppercase;
-}
-.annonce .entête .date {
-  grid-area: date;
-  color: $color-mine-shaft;
-  font-size: .75rem;
-  line-height: 1rem;
-}
-.annonce .entête h1 {
-  grid-area: titre;
-  @extend %bold;
-  margin: 0 0 1rem;
-  color: $color-on-background;
-  font-size: 1.25rem;
-  line-height: 2rem;
-}
+    & .type {
+      grid-area: type;
+    }
 
-.annonce h2 {
-  color: $color-primary;
-  font-size: 1.25rem;
-  line-height: 2rem;
-}
+    & .date {
+      grid-area: date;
+    }
 
-.annonce .card {
-  padding: 1rem;
-}
-.annonce .card:nth-child(2n) {
-  border-width: 1px 0;
-  border-style: solid;
-  border-color: $color-primary;
-  background-color: $color-background-white-lilac;
-  @include media(medium) {
-    border: 1px solid $neutral-grey;
-    border-radius: 1.25rem;
-    background-color: $color-background;
-  }
-}
-.annonce .card h2 {
-  margin-bottom: 1.25rem;
-}
+    & h1 {
+      grid-area: titre;
+    }
 
-.annonce .card .readMore {
-  font-size: 1rem;
-  color: $color-primary;
-  width: 100%;
-  margin-top: 1.25rem;
-}
-
-@include media(medium) {
-  .annonce .entête {
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
+    @include media(medium) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
           "type date"
           "titre titre";
-    padding: 0;
+      padding: 0;
+    }
   }
-  .annonce .entête h1 {
-    font-size: 2rem;
-    line-height: 3rem;
-  }
-  .annonce .entête .type,
-  .annonce .entête .date {
+
+  & h1 {
+    @extend %bold;
+    color: $color-on-background;
     font-size: 1.25rem;
     line-height: 2rem;
+    @include media(medium) {
+      font-size: 2rem;
+      line-height: 3rem;
+    }
   }
-  .annonce h2 {
-    font-size: 1.5rem;
+
+  & h2 {
+    color: $color-primary;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    @include media(medium) {
+      font-size: 1.5rem;
+    }
   }
 
-  .annonce .card {
-    border: 1px solid $neutral-grey;
-    border-radius: 1.25rem;
-    padding: 2.5rem;
-    margin: 2.5rem;
+  & .type {
+    grid-area: type;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: $color-mine-shaft;
+    text-transform: uppercase;
+    @include media(medium) {
+      font-size: 1.25rem;
+      line-height: 2rem;
+    }
   }
-  .annonce .card h2 {
-    margin-bottom: 2.5rem;
+
+  & .date {
+    color: $color-mine-shaft;
+    font-size: .75rem;
+    line-height: 1rem;
+    @include media(medium) {
+      font-size: 1.25rem;
+      line-height: 2rem;
+    }
   }
-  .annonce .card .readMore {
-    width: fit-content;
+
+  & .card {
+    padding: 1rem;
+
+    & h2 {
+      margin-bottom: 1.25rem;
+    }
+
+    & button.readMore {
+      font-size: 1rem;
+      color: $color-primary;
+      width: 100%;
+      margin-top: 1.25rem;
+    }
+
+    &:nth-child(2n) {
+      border-width: 1px 0;
+      border-style: solid;
+      border-color: $color-primary;
+      background-color: $color-background-white-lilac;
+      @include media(medium) {
+        border: 1px solid $neutral-grey;
+        border-radius: 1.25rem;
+        background-color: $color-background;
+      }
+    }
+
+    @include media(medium) {
+      border: 1px solid $neutral-grey;
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      margin: 2.5rem;
+      & h2 {
+        margin-bottom: 2.5rem;
+      }
+      & button.readMore {
+        width: fit-content;
+      }
+    }
   }
-}
 
 
+  & .informationsGenerales {
+    & table {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.75rem;
+      align-items: center;
+      margin: 1.25rem;
 
+      & caption {
+        display: contents;
+        color: $color-primary;
+      }
 
+      & table tbody {
+        & > tr {
+          display: block;
+        }
 
+        & > tr:not(:last-child) {
+          margin-bottom: .75rem;
+        }
 
-.annonce table {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2.75rem;
-  align-items: center;
-  margin: 1.25rem;
-}
-.annonce caption {
-  display: contents;
-  color: $color-primary;
-}
-.annonce table tbody {
-  & > tr { display: block; }
-  & > tr:not(:last-child) { margin-bottom: .75rem; }
-  @include media(medium) { column-count: 2; }
-}
-.annonce th {
-  display: inline;
-  font-weight: bold;
-  &::after {
-    content: " :";
+        @include media(medium) {
+          column-count: 2;
+        }
+      }
+
+      & th {
+        display: inline;
+        font-weight: bold;
+
+        &::after {
+          content: " :";
+        }
+      }
+
+      & td {
+        display: inline;
+        margin-left: 0.75rem;
+      }
+    }
+
+    & abbr[title="Charges Comprises"],
+    & sup {
+      text-decoration: none;
+      vertical-align: super;
+      font-size: 0.6em;
+    }
   }
-}
-.annonce td {
-  display: inline;
-  margin-left: 0.75rem;
-}
-.annonce abbr[title="Charges Comprises"],
-.annonce sup {
-  text-decoration: none;
-  vertical-align: super;
-  font-size: 0.6em;
 }
