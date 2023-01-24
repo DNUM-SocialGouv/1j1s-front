@@ -19,7 +19,7 @@ export namespace AnnonceDeLogementResponse {
     ville?: string
     adresse?: string
     département?: string
-    codePostal?: number // TODO voir si doit être string si lettre dans code postal
+    codePostal?: string
     région?: string
     pays?: string
   }
@@ -29,7 +29,7 @@ export interface AnnonceDeLogementResponse {
   titre: string
   slug: string
   dateDeDisponibilite: string
-  nombresDePieces: number
+  nombreDePieces: number
   surface: number
   surfaceMax?: number
   etage?: number
@@ -54,7 +54,7 @@ export namespace AnnonceDeLogement {
     ville?: string
     adresse?: string
     département?: string
-    codePostal?: number // TODO voir si doit être string si lettre dans code postal
+    codePostal?: string
     région?: string
     pays?: string
   }
@@ -67,7 +67,7 @@ export interface AnnonceDeLogement {
   dateDeMiseAJour: string
   surface: number
   surfaceMax?: number
-  nombresDePièces: number
+  nombreDePièces: number
   étage?: number
   prix: number
   prixHT?: number
@@ -77,4 +77,5 @@ export interface AnnonceDeLogement {
   meublé: boolean
   localisation: AnnonceDeLogement.Localisation
   description: string
+  devise: string
 }
