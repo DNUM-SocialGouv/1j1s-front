@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -30,6 +31,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 	const { dateDeMiseAJour, type, typeBien, titre, description, imageUrlList } = annonceDeLogement;
 	return (
 		<main id="contenu">
+			<ButtonRetour/>
 			<AnnonceCarousel imageUrlList={imageUrlList} />
 			<Container className={styles.annonce}>
 				<AnnonceEntête>

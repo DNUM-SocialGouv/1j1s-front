@@ -7,11 +7,13 @@ import React from 'react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { usePopstate } from '~/client/hooks/usePopstate';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 export default function ConsulterAnnonceLogementPage({ annonceDeLogement }: ConsulterAnnonceLogementPageProps) {
+	usePopstate();
 	return (
 		<>
 			<HeadTag title={`${annonceDeLogement.titre} | 1jeune1solution`} />

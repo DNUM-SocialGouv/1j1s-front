@@ -5,17 +5,18 @@ import { ParsedUrlQuery } from 'querystring';
 const useRouter = jest.spyOn(require('next/router'), 'useRouter');
 
 interface MockUseRouter {
-  route?: string
-  pathname?: string
-  query?: ParsedUrlQuery
-  asPath?: string
-  prefetch?: jest.Mock
-  push?: jest.Mock
-  replace?: jest.Mock
-  back?: jest.Mock
+	route?: string
+	pathname?: string
+	query?: ParsedUrlQuery
+	asPath?: string
+	prefetch?: jest.Mock
+	push?: jest.Mock
+	replace?: jest.Mock
+	reload?: jest.Mock
+	back?: jest.Mock
 }
 
-export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), replace = jest.fn(), back = jest.fn() }: MockUseRouter) {
+export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), reload = jest.fn(), replace = jest.fn(), back = jest.fn() }: MockUseRouter) {
 	useRouter.mockImplementation(() => ({
 		asPath,
 		back,
@@ -23,6 +24,7 @@ export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = 
 		prefetch,
 		push,
 		query,
+		reload,
 		replace,
 		route,
 	} as unknown as NextRouter));
