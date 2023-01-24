@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.49.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.48.0...v2.49.0) (2023-01-24)
+
+
+### Features
+
+* **logement/details:** ajout  des images ([5c9fb7e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5c9fb7e5271491146c0024ff19348f5f35f1f775))
+
 ## [2.48.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.6...v2.48.0) (2023-01-24)
 
 
