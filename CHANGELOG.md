@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.48.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.6...v2.48.0) (2023-01-24)
+
+
+### Features
+
+* **logement/details:** Affichage information générales ([13fc01f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/13fc01f558c68187490e8b8c677572b1cdd5c204))
+
 ## [2.47.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.47.5...v2.47.6) (2023-01-23)
 
 
