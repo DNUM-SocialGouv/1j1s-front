@@ -8,7 +8,6 @@ import { Link } from '~/client/components/ui/Link/Link';
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
-const FORM_NAME = 'formulaireEtape1';
 
 export default function StageDeposerOffreFormulaireEntreprise() {
 	const formRef = useRef<HTMLFormElement>(null);
@@ -21,8 +20,8 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 
 	useEffect(() => {
 		if (window) {
-			if (localStorage.getItem(FORM_NAME) !== null) {
-				const storedForm = JSON.parse(localStorage.getItem(FORM_NAME) || '');
+			if (localStorage.getItem('formulaireEtape1') !== null) {
+				const storedForm = JSON.parse(localStorage.getItem('formulaireEtape1') || '');
 				if (formRef.current) {
 					setInputNom(storedForm.nom);
 					setInputEmail(storedForm.email);
@@ -40,7 +39,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 		const data = new FormData(form);
 		const formulaireOffreStageEtape1 = FormulaireOffreStageEtape1(data);
 		const stockage = JSON.stringify(formulaireOffreStageEtape1);
-		localStorage.setItem(FORM_NAME,stockage);
+		localStorage.setItem('formulaireEtape1',stockage);
 	}
 	
 	return (
