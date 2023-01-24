@@ -42,8 +42,10 @@ export type IconName =
   | 'burger-menu'
   | 'burger-menu-left'
   | 'close'
-  | 'compass'
+	| 'community'
+	| 'compass'
   | 'error'
+  | 'euro'
   | 'external-redirection'
   | 'filter'
   | 'home'
@@ -52,11 +54,9 @@ export type IconName =
   | 'mail'
   | 'map-pin'
   | 'menu'
-  | 'trophy'
-  | 'euro'
-  | 'community'
-  | 'roadmap'
+	| 'roadmap'
   | 'suitcase'
+  | 'trophy'
 
 interface IconProps extends CommonProps {
   name: IconName
