@@ -1,14 +1,22 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
-import { Icon } from '../../../ui/Icon/Icon';
 import styles from './ConsulterAnnonce.module.scss';
 
 interface InformationsGénéralesProps {
 	annonce: AnnonceDeLogement;
+}
+
+function formatterÉtage(étage: number) {
+	return (
+		étage === 0 && 'Rez-de-chaussée'
+		|| étage === 1 && '1er'
+		|| `${étage}ème`
+	);
 }
 
 export function InformationsGénérales({
@@ -27,7 +35,7 @@ export function InformationsGénérales({
 		dateDeDisponibilité,
 	},
 }: InformationsGénéralesProps) {
-	const dateDispoFormattée = new Date(dateDeDisponibilité).toLocaleDateString('fr-FR', {
+	const dateDeDisponibilitéFormattée = new Date(dateDeDisponibilité).toLocaleDateString('fr-FR', {
 		day: '2-digit',
 		month: '2-digit',
 		year: 'numeric',
@@ -54,10 +62,6 @@ export function InformationsGénérales({
 							<td>{charge}{devise}</td>
 						</tr>
 					)}
-					{/*<tr>*/}
-					{/*	<th scope="row">Frais d&apos;agence</th>*/}
-					{/*	<td>500$</td>*/}
-					{/*</tr>*/}
 				</tbody>
 			</table>
 			<table>
@@ -77,9 +81,7 @@ export function InformationsGénérales({
 						<tr>
 							<th scope="row">Étage</th>
 							<td>
-								{étage === 0 && 'Rez-de-chaussée'
-								|| étage === 1 && '1er'
-								|| `${étage}ème`}
+								{formatterÉtage(étage)}
 							</td>
 						</tr>
 					)}
@@ -91,10 +93,6 @@ export function InformationsGénérales({
 						<th scope="row">Meublé</th>
 						<td>{meublé ? 'Oui' : 'Non'}</td>
 					</tr>
-					{/*<tr>*/}
-					{/*	<th scope="row">Ascenceur</th>*/}
-					{/*	<td>Oui</td>*/}
-					{/*</tr>*/}
 				</tbody>
 			</table>
 			<table>
@@ -111,7 +109,7 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le {dateDispoFormattée}</td>
+						<td>le {dateDeDisponibilitéFormattée}</td>
 					</tr>
 				</tbody>
 			</table>

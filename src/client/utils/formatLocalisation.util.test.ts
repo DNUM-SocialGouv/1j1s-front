@@ -28,7 +28,7 @@ describe('Localisation formatting', () => {
 
 		expect(résultat).toEqual('15 rue de l\'impasse, Paris');
 	});
-	it("n'affiche que le code postal si que le code postal n'est présente", async () => {
+	it("n'affiche que le code postal si que le code postal n'est présent", async () => {
 		const localisation: Localisation = {
 			codePostal: '75001',
 		};
