@@ -9,10 +9,10 @@ import React from 'react';
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
 
 describe('<DescriptionDuLogement />', () => {
-	it('affiche la description du logement', async () => {
+	it('affiche la description du logement', () => {
 		const description = "C'est un super logement !";
 
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 		const titreSection = screen.getByRole('heading', {
 			level: 2,
 			name: /Description du logement/i,
@@ -22,7 +22,7 @@ describe('<DescriptionDuLogement />', () => {
 		expect(titreSection).toBeVisible();
 		expect(contenu).toBeVisible();
 	});
-	it('crop la description à 450 symboles si elle dépasse les 650 symboles', async () => {
+	it('crop la description à 450 symboles si elle dépasse les 650 symboles', () => {
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -33,13 +33,13 @@ describe('<DescriptionDuLogement />', () => {
 				et sa fin sera donc masquée par défaut.
 			`;
 
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 		const contenu = screen.getByText(/A 11 minutes à pied/i);
 
 		expect(contenu).not.toHaveTextContent(/\| Ceci devrait être masqué \|/i);
 		expect(contenu).toHaveTextContent(' …');
 	});
-	it('crop la description à la fin d\'un mot', async () => {
+	it('crop la description à la fin d\'un mot', () => {
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -51,13 +51,13 @@ describe('<DescriptionDuLogement />', () => {
 				et sa fin sera donc masquée par défaut.
 			`;
 
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 		const contenu = screen.getByText(/A 11 minutes à pied/i);
 
 		expect(contenu).toHaveTextContent(/ceciestunmottrèslongquicontientle450ièmesymbolemaisquineserapascoupéaumilieu/i);
 		expect(contenu).not.toHaveTextContent('mais cette partie oui');
 	});
-	it('affiche un bouton pour lire la suite lorsque la description est longue', async () => {
+	it('affiche un bouton pour lire la suite lorsque la description est longue', () => {
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -68,15 +68,15 @@ describe('<DescriptionDuLogement />', () => {
 				et sa fin sera donc masquée par défaut.
 			`;
 
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
 
 		expect(bouton).toBeVisible();
 	});
-	it('masque le bouton pour lire la suite lorsque la description est courte', async () => {
+	it('masque le bouton pour lire la suite lorsque la description est courte', () => {
 		const description = "C'est un super logement !";
 
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 		const bouton = screen.queryByRole('button', { name: /Lire la suite/i });
 
 		expect(bouton).not.toBeInTheDocument();
@@ -92,7 +92,7 @@ describe('<DescriptionDuLogement />', () => {
 				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
 				et sa fin sera donc masquée par défaut mais affichée quand on étend la description.
 			`;
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
 		await userEvent.click(bouton);
@@ -112,7 +112,7 @@ describe('<DescriptionDuLogement />', () => {
 				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
 				et sa fin sera donc masquée par défaut mais affichée quand on étend la description.
 			`;
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
 		await userEvent.click(bouton);
@@ -131,7 +131,7 @@ describe('<DescriptionDuLogement />', () => {
 				et sa fin sera donc masquée par défaut mais affichée quand on étend la description.
 			`;
 
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
 		const contenu = screen.getByText(/A 11 minutes à pied/i);
@@ -149,7 +149,7 @@ describe('<DescriptionDuLogement />', () => {
 				Les fêtes et le bruit sont interdits dans ce logement de haut standing. Cette description est beaucoup trop longue
 				et sa fin sera donc masquée par défaut mais affichée quand on étend la description.
 			`;
-		await render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
+		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
 		await userEvent.click(bouton);
