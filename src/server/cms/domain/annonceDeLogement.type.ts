@@ -1,3 +1,5 @@
+import { Image } from '~/client/components/props';
+
 export interface AnnonceDeLogementIndexee  {
   titre: string
   slug: string
@@ -46,6 +48,7 @@ export interface AnnonceDeLogementResponse {
   devise: string
   description: string
   localisation: AnnonceDeLogementResponse.Localisation
+  imagesUrl?: Array<{ value: string }>
 }
 
 
@@ -78,4 +81,5 @@ export interface AnnonceDeLogement {
   localisation: AnnonceDeLogement.Localisation
   description: string
   devise: string
+  imageUrlList: Array<Image>
 }

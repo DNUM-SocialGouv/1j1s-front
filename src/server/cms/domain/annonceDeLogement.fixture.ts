@@ -37,6 +37,7 @@ export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
 		description: 'appart à saisir',
 		devise: '€',
 		garantie: 50,
+		imageUrlList: [],
 		localisation: { ville: 'paris' },
 		meublé: true,
 		nombreDePièces: 1,

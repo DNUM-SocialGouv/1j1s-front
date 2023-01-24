@@ -20,7 +20,10 @@
     gap: 1.5rem;
     flex-direction: column;
     flex-wrap: wrap;
-    margin: auto;
+    > li {
+      width: 22.5rem;
+      margin: auto;
+    }
   }
 }
 
@@ -29,9 +32,6 @@
     & ol {
       gap: 2rem 4rem;
       flex-direction: row;
-      > li {
-        width: 22.5rem;
-      }
     }
   }
 
