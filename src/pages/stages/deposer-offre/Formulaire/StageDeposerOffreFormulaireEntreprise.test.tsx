@@ -6,9 +6,13 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
 describe('<Entreprise />', () => {
+	beforeEach(() => {
+		mockUseRouter({});
+	});
 
 	describe('quand l’utilisateur arrive sur la page Entreprise', () => {
 		it('affiche la première étape de formulaire', () => {
@@ -57,5 +61,4 @@ describe('<Entreprise />', () => {
 async function BoutonSuivant() {
 	const button = screen.getByText('Suivant');
 	await userEvent.click(button);
-	expect(button).toHaveAttribute('href', '/stages/deposer-offre/votre-offre-de-stage');
 }

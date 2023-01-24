@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { Link } from '~/client/components/ui/Link/Link';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
@@ -17,6 +19,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 	const [inputDescription, setInputDescription] = useState('');
 	const [inputLogo, setInputLogo] = useState('');
 	const [inputSite, setInputSite] = useState('');
+	const router = useRouter();
 
 	useEffect(() => {
 		if (window) {
@@ -40,6 +43,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 		const formulaireOffreStageEtape1 = FormulaireOffreStageEtape1(data);
 		const stockage = JSON.stringify(formulaireOffreStageEtape1);
 		localStorage.setItem('formulaireEtape1',stockage);
+		return router.push('/stages/deposer-offre/votre-offre-de-stage');
 	}
 	
 	return (
@@ -97,13 +101,13 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					/>
 				</div>
 				<div className={styles.validation}>
-					<Link
-						appearance={'asPrimaryButton'}
-						href="/stages/deposer-offre/votre-offre-de-stage"
+					<ButtonComponent
+						icon={<Icon name="angle-right"/>}
+						iconPosition="right"
+						label="Suivant"
+						type="submit"
 						className={styles.validationLink}
-					>
-						Suivant
-					</Link>
+					/>
 				</div>
 			</form>
 		</Container>
