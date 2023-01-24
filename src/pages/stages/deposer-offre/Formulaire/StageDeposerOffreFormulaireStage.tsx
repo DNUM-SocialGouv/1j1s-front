@@ -53,10 +53,10 @@ export default function StageDeposerOffreFormulaireStage() {
 					setInputDomaineStage(storedForm.domaineStage);
 					setInputRemunerationStage(storedForm.remunerationStage);
 
-					if (storedForm['teletravail'] === String(true)) {
+					if (storedForm['teletravailOui'] === String(true)) {
 						inputTeletravailRef.current?.children[0].children[0].setAttribute('checked', String(true));
-					} else if (storedForm['teletravail'] === String(false)) {
-						inputTeletravailRef.current?.children[1].children[0].setAttribute('checked', String(true));
+					} else if (storedForm['teletravailNon'] === String(false)) {
+						inputTeletravailRef.current?.children[1].children[0].setAttribute('checked', String(false));
 					}
 				}
 			}
