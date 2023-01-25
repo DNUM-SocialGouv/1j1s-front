@@ -93,8 +93,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement | null, TextInputP
 				onBlur={() => setTouched(true) }
 				rows={rows}
 				value={valueState}
-			>
-			</textarea>
+			/>
 			{(error) && (
 				<p className={classNames(styles.textInputHint, styles.textInputHintError)} id={errorId.current}>
 					{error}

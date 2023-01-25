@@ -8,6 +8,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
+import useLocalStorage from '~/client/hooks/useLocalStorage';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 import { domaineStage } from './StageDomaines';
@@ -39,29 +40,30 @@ export default function StageDeposerOffreFormulaireStage() {
 	const [inputDomaineStage, setInputDomaineStage] = useState('');
 	const [inputRemunerationStage, setInputRemunerationStage] = useState('');
 
+	const [value, setValue] = useLocalStorage('formulaireEtape2');
 
 	useEffect(() => {
-		if (window) {
-			if (localStorage.getItem('formulaireEtape2') !== null) {
-				const storedForm = JSON.parse(localStorage.getItem('formulaireEtape2') || '');
-				if (formRef.current) {
-					setInputNomOffre(storedForm.nomOffre);
-					setInputLienCandidature(storedForm.lienCandidature);
-					setInputDescriptionOffre(storedForm.descriptionOffre);
-					setInputDateDebut(storedForm.dateDebut);
-					setInputDureeStage(storedForm.dureeStage);
-					setInputDomaineStage(storedForm.domaineStage);
-					setInputRemunerationStage(storedForm.remunerationStage);
+		if (value !== null) {
+			const storedForm = JSON.parse(value);
+			if (formRef.current) {
+				setInputNomOffre(storedForm.nomOffre);
+				setInputLienCandidature(storedForm.lienCandidature);
+				setInputDescriptionOffre(storedForm.descriptionOffre);
+				setInputDateDebut(storedForm.dateDebut);
+				setInputDureeStage(storedForm.dureeStage);
+				setInputDomaineStage(storedForm.domaineStage);
+				setInputRemunerationStage(storedForm.remunerationStage);
 
-					if (storedForm['teletravailOui'] === String(true)) {
-						inputTeletravailRef.current?.children[0].children[0].setAttribute('checked', String(true));
-					} else if (storedForm['teletravailNon'] === String(false)) {
-						inputTeletravailRef.current?.children[1].children[0].setAttribute('checked', String(false));
-					}
+				if (storedForm['teletravailOui'] === String(true)) {
+					inputTeletravailRef.current?.children[0].children[0].setAttribute('checked', String(true));
+				} else if (storedForm['teletravailNon'] === String(false)) {
+					inputTeletravailRef.current?.children[1].children[0].setAttribute('checked', String(false));
 				}
 			}
 		}
-	}, []);
+		const today = new Date().toISOString().split('T')[0];
+		document.getElementsByName('dateDebut')[0].setAttribute('min', today);
+	}, [value]);
 
 	const onInputChangeRemuneration = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
@@ -72,9 +74,8 @@ export default function StageDeposerOffreFormulaireStage() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const formulaireOffreStageEtape2 = FormulaireOffreStageEtape2(data);
-		const stockage = JSON.stringify(formulaireOffreStageEtape2);
-		localStorage.setItem('formulaireEtape2',stockage);
+		const formulaireOffreStageEtape1 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
+		setValue(formulaireOffreStageEtape1);
 	}
 	
 	return (
@@ -112,7 +113,7 @@ export default function StageDeposerOffreFormulaireStage() {
 					<InputArea
 						className={styles.textareaWrapper}
 						id="descriptionOffre"
-						label="Rédigez une description de l’offre de stage"
+						label="Rédigez une description de l’offre de stage (200 caractères minimum)"
 						placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
 						name="descriptionOffre"
 						value={inputDescriptionOffre}
@@ -148,8 +149,8 @@ export default function StageDeposerOffreFormulaireStage() {
 						optionList={domaineStage}
 					/>
 					<div className={styles.inputRenumerationWrapper}>
-						<label htmlFor="remunerationStage">Rémunération</label>
-						<div>
+						<label className={styles.labelRemunueration} htmlFor="remunerationStage">Rémunération</label>
+						<div className={styles.contenuRemunueration}>
 							<input
 								id="remunerationStage"
 								type="number"
@@ -158,16 +159,19 @@ export default function StageDeposerOffreFormulaireStage() {
 								min={0}
 								value={inputRemunerationStage}
 								onChange={onInputChangeRemuneration}
+								className={styles.inputRemunueration}
 							/>
-							<span>{UNITE}</span>
+							<span className={styles.uniteRemunueration}>{UNITE}</span>
 						</div>
 					</div>
 					<div>
-						<label htmlFor="teletravailId">Télétravail possible</label>
-						<div id="teletravailId" ref={inputTeletravailRef} className={styles.inputTeletravail}>
-							<Radio name="teletravail" value="true" label="Oui" className={styles.inputTeletravailRadio}/>
-							<Radio name="teletravail" value="false" label="Non"/>
-						</div>
+						<fieldset className={styles.contenuTeletravail}>
+							<legend>Télétravail possible</legend>
+							<div ref={inputTeletravailRef} className={styles.inputTeletravail}>
+								<Radio name="teletravail" value="true" label="Oui"/>
+								<Radio name="teletravail" value="false" label="Non"/>
+							</div>
+						</fieldset>
 					</div>
 				</div>
 				<div className={styles.validation}>
@@ -184,7 +188,7 @@ export default function StageDeposerOffreFormulaireStage() {
 	);
 }
 
-function FormulaireOffreStageEtape2(formData: FormData) {
+function parseFormulaireOffreStageEtape2(formData: FormData) {
 	return {
 		dateDebut: String(formData.get('dateDebut')),
 		descriptionOffre: String(formData.get('descriptionOffre')),

@@ -11,7 +11,7 @@ import Stage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreForm
 describe('<Stage />', () => {
 
 	describe('quand l’utilisateur arrive sur la page Stage', () => {
-		it('il peut cliquer sur le bouton Retour pour retourner vers l`étape 1' , async () => {
+		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 1' , async () => {
 			render(<Stage />);
 
 			const retourLink = screen.getByRole('link', { name: 'Retour à l’étape précédente' });
@@ -25,13 +25,13 @@ describe('<Stage />', () => {
 			expect(screen.getByText('Etape 2 sur 3 : Votre offre de stage')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez le nom de l’offre de stage')).toBeInTheDocument();
 			expect(screen.getByLabelText('Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature')).toBeInTheDocument();
-			expect(screen.getByLabelText('Rédigez une description de l’offre de stage')).toBeInTheDocument();
+			expect(screen.getByLabelText('Rédigez une description de l’offre de stage (200 caractères minimum)')).toBeInTheDocument();
 			expect(screen.getByLabelText('Date de début du stage')).toBeInTheDocument();
 			expect(screen.getByText('Indiquez la durée du stage')).toBeInTheDocument();
 			expect(screen.getByText('Domaine de l’offre de stage')).toBeInTheDocument();
 			expect(screen.getByLabelText('Rémunération')).toBeInTheDocument();
 			expect(screen.getByText('Télétravail possible')).toBeInTheDocument();
-			expect(screen.getByText('Suivant')).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
@@ -76,12 +76,12 @@ describe('<Stage />', () => {
 
 			expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’offre de stage' })).toBeValid();
 			expect(screen.getByRole('textbox', { name: 'Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Rédigez une description de l’offre de stage' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Rédigez une description de l’offre de stage (200 caractères minimum)' })).toBeInvalid();
 		});
 	});
 });
 
 async function BoutonSuivant() {
-	const button = screen.getByText('Suivant');
+	const button = screen.getByRole('button', { name: 'Suivant' });
 	await userEvent.click(button);
 }
