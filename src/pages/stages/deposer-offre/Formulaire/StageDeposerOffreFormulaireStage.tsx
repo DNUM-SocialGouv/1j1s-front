@@ -86,6 +86,7 @@ export default function StageDeposerOffreFormulaireStage() {
 		const data = new FormData(form);
 		const formulaireOffreStageEtape2 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
 		setValueEtape2(formulaireOffreStageEtape2);
+		return router.push('/stages/deposer-offre/localisation-stage');
 	}
 	
 	return (
