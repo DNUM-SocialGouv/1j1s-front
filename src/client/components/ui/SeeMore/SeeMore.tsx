@@ -51,9 +51,7 @@ export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 		<>
 			<div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
 	      ref={divRef}
-				id={`section-${ariaId.current}`}
-				role="region"
-				aria-labelledby={`seeMore-${ariaId.current}`}>
+				id={`section-${ariaId.current}`}>
 				{children}
 			</div>
 			<button className={classNames(styles.seeMoreButton, className)}
@@ -62,8 +60,7 @@ export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 				type="button" 
 				aria-expanded={isOpen}
 				aria-controls={`section-${ariaId.current}`}
-				aria-label={buttonAriaLabel}
-				id={`seeMore-${ariaId.current}`}>
+				aria-label={buttonAriaLabel}>
 				<TextIcon className={styles.seeMoreButtonLabel} icon={isOpen ? 'angle-up' :'angle-down'}>{buttonLabel}</TextIcon>
 			</button>
 		</>

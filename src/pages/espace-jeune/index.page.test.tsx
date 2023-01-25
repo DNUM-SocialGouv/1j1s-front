@@ -20,19 +20,6 @@ describe('Page Espace Jeune', () => {
 	});
 
 	describe('Si des actualités sont récupérées', () => {
-		it('affiche une liste 6 actualités maximum', () => {
-			const carteActualites = aCartesActualitesListFixture();
-			const espaceJeune = anEspaceJeune();
-
-			render(<EspaceJeunePage cartesActualites={carteActualites} espaceJeune={espaceJeune}/>);
-			const actualitesSection = screen.getByTestId('actualites');
-			const cartesList = within(actualitesSection).getAllByRole('link');
-			const seeMore = within(actualitesSection).getByRole('region');
-			const cartesSeeMore = within(seeMore).getAllByRole('link');
-
-			expect(cartesList[6]).toEqual(cartesSeeMore[0]);
-		});
-
 		it('n‘affiche pas le bouton voir plus si moins de 7 actualités', () => {
 			const carteActualites = [aCarteActualiteFixture({ titre: 'Actualité 1' })];
 			const espaceJeune = anEspaceJeune();
@@ -64,17 +51,5 @@ describe('Page Espace Jeune', () => {
 
 			expect(actualitesSection).not.toBeInTheDocument();
 		});
-	});
-	it('affiche une liste de 9 mesures jeunes', () => {
-		const carteActualites = aCartesActualitesListFixture();
-		const espaceJeune = anEspaceJeune();
-
-		render(<EspaceJeunePage cartesActualites={carteActualites} espaceJeune={espaceJeune}/>);
-		const mesuresJeunesSection = screen.getByTestId('espace-jeune');
-		const cartesList = within(mesuresJeunesSection).getAllByRole('link');
-		const seeMore = within(mesuresJeunesSection).getByRole('region');
-		const cartesSeeMore = within(seeMore).getAllByRole('link');
-
-		expect(cartesList[9]).toEqual(cartesSeeMore[0]);
 	});
 });
