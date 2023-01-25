@@ -31,7 +31,6 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
 		return <li key={page}>
 			<a
 				href={createURL ? createURL(page) : '#'}
-				role="link"
 				className={'underline-none'}
 				aria-current={currentPage === page}
 				onClick={(event) => {
@@ -145,12 +144,15 @@ export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPa
 		<>
 			{
 				numberOfPageList.length >= 1
-        && <ul key='Pagination' className={styles.pagination} aria-label="pagination">
-        	{ displayPrevious() }
-        	{ displayIntermediatePages() }
-        	{ displayEllipsis() }
-        	{ displayNext() }
-        </ul>
+        &&
+        <nav role="navigation" aria-label="pagination">
+        	<ul key='Pagination' className={styles.pagination}>
+	          { displayPrevious() }
+	          { displayIntermediatePages() }
+	          { displayEllipsis() }
+	          { displayNext() }
+	        </ul>
+        </nav>
 			}
 		</>
 	);
