@@ -6,6 +6,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import useLocalStorage from '~/client/hooks/useLocalStorage';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
@@ -21,10 +22,12 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 	const [inputSite, setInputSite] = useState('');
 	const router = useRouter();
 
+	const [value, setValue] = useLocalStorage('formulaireEtape1');
+
 	useEffect(() => {
 		if (window) {
-			if (localStorage.getItem('formulaireEtape1') !== null) {
-				const storedForm = JSON.parse(localStorage.getItem('formulaireEtape1') || '');
+			if (value !== null) {
+				const storedForm = JSON.parse(value);
 				if (formRef.current) {
 					setInputNom(storedForm.nom);
 					setInputEmail(storedForm.email);
@@ -34,15 +37,14 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 				}
 			}
 		}
-	}, []);
+	}, [value]);
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const formulaireOffreStageEtape1 = FormulaireOffreStageEtape1(data);
-		const stockage = JSON.stringify(formulaireOffreStageEtape1);
-		localStorage.setItem('formulaireEtape1',stockage);
+		const formulaireOffreStageEtape1 = JSON.stringify(parseFormulaireOffreStageEtape1(data));
+		setValue(formulaireOffreStageEtape1);
 		return router.push('/stages/deposer-offre/votre-offre-de-stage');
 	}
 	
@@ -114,7 +116,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 	);
 };
 
-function FormulaireOffreStageEtape1(formData: FormData) {
+function parseFormulaireOffreStageEtape1(formData: FormData) {
 	return {
 		description: String(formData.get('description')),
 		email: String(formData.get('email')),

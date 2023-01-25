@@ -3,9 +3,9 @@ import React from 'react';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
+import OffreStage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireStage';
 
-import styles from '../DeposerOffreStage.module.scss';
-import OffreStage from '../Formulaire/StageDeposerOffreFormulaireStage';
+import styles from './DeposerOffreStageEtape2.module.scss';
 
 export default function DeposerOffreStageEtape2Page() {
 	useReferrer();
