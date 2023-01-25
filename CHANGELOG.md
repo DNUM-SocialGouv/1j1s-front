@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.49.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.2...v2.49.3) (2023-01-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ioredis to ~5.3.0 ([7a5d453](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7a5d4534af434af5a5d0d462a16a9cabcf9aec78))
+* **deps:** update dependency redis to ~4.6.0 ([5c53874](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5c53874b59f9904833d312ea7b941f6653af9fcd))
+
 ## [2.49.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.1...v2.49.2) (2023-01-25)
 
 
