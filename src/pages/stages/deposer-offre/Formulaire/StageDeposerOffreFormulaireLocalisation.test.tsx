@@ -6,11 +6,19 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Localisation from '~/pages/stages/deposer-offre/FormulaireLocalisation/StageDeposerOffreFormulaireLocalisation';
+import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
 
 describe('<Localisation />', () => {
 
 	describe('quand l’utilisateur arrive sur la page Localisation', () => {
+		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 2' , async () => {
+			render(<Localisation />);
+
+			const retourLink = screen.getByRole('link', { name: 'Retour à l’étape précédente' });
+
+			expect(retourLink).toHaveAttribute('href', '/stages/deposer-offre/votre-offre-de-stage');
+		});
+
 		it('affiche la troisième étape de formulaire', () => {
 			render(<Localisation />);
 
