@@ -129,7 +129,7 @@ describe('ListeDesResultats Component', () => {
 				const skeletonList = screen.queryByLabelText('...En cours de chargement');
 				expect(skeletonList).not.toBeInTheDocument();
 
-				const pagination = screen.queryByLabelText('pagination');
+				const pagination = screen.queryByRole('navigation', { name: 'pagination' });
 				expect(pagination).not.toBeInTheDocument();
 	  });
 		});
@@ -152,7 +152,7 @@ describe('ListeDesResultats Component', () => {
 				const skeletonList = screen.queryByLabelText('...En cours de chargement');
 				expect(skeletonList).not.toBeInTheDocument();
 
-				const pagination = screen.getByLabelText('pagination');
+				const pagination = screen.getByRole('navigation', { name: 'pagination' });
 				expect(pagination).toBeInTheDocument();
 	  });
 		});
