@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.49.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.1...v2.49.2) (2023-01-25)
+
+
+### Bug Fixes
+
+* **pagination:** modifications mineures d'accessibilité sur la pagination ([7dfca62](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7dfca621d82abd43548a9216fe9d0ba29d3131e4))
+
 ## [2.49.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.0...v2.49.1) (2023-01-25)
 
 
