@@ -81,7 +81,11 @@ export default function MentoratPage() {
 							<span className={styles.RaisonParticipationMentoratContent__Title}>
 								<h1>Pourquoi participer à l’aventure du mentorat ?</h1>
 							</span>
-							<SeeMoreMobileOnly seeLessAriaLabel={'Voir moins de raisons de participer au mentorat'} seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat\''}>
+							<SeeMoreMobileOnly
+							  numberOfVisibleItems={0}
+								itemList={[<RaisonParticipationsMentorat key={0}/>]}
+								seeLessAriaLabel={'Voir moins de raisons de participer au mentorat'}
+								seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat'}>
 								<RaisonParticipationsMentorat/>
 							</SeeMoreMobileOnly>
 						</div>

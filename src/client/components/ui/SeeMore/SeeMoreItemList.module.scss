@@ -16,5 +16,9 @@
   gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+
+  @include media(medium) {
+    margin-bottom: 2rem;
+  }
 }

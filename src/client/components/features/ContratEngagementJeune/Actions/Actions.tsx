@@ -13,8 +13,12 @@ export default function Actions() {
 					</h2>
 				</div>
 				<div className={styles.actionsArticle__Content}>
-					<SeeMoreMobileOnly seeLessAriaLabel={'Voir moins d‘actions'} seeMoreAriaLabel={'Voir plus d‘actions'}>
-						<ListeActions/>
+					<SeeMoreMobileOnly
+						itemList={[<ListeActions key={0}/>]}
+						numberOfVisibleItems={0}
+						seeLessAriaLabel={'Voir moins d‘actions'}
+						seeMoreAriaLabel={'Voir plus d‘actions'}>
+						<ListeActions />
 					</SeeMoreMobileOnly>
 				</div>
 			</article>
