@@ -1,0 +1,3 @@
+#!/bin/bash
+
+npx git-notify merge "${GIT_PARAMS}"
