@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.51.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.50.0...v2.51.0) (2023-01-26)
+
+
+### Features
+
+* **stages:** code review ([4d73215](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4d732152a32b7280401eaa00db402628dd70eaf0))
+* **stages:** correction ([4df5bf1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4df5bf1f87e3a087b337828e7508a757f8944c25))
+* **stages:** localStorage ([8677c68](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8677c689291af8cedb14e317c8f69d31459007fa))
+* **stages:** regex et tests, étape 2 du formulaire ([cb69bf2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cb69bf2c396eb2f3f286adb730a631b574df281b))
+* **stages:** router, localStorage pour radio button ([68f300d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/68f300daac0030eeaac07cfffdc998478d9eb913))
+* **stages:** useSessionStorage ([6725c17](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6725c17f2174271058061b7803d85fce5a414cfc))
+
 ## [2.50.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.4...v2.50.0) (2023-01-26)
 
 
