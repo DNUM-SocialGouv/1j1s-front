@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.50.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.4...v2.50.0) (2023-01-26)
+
+
+### Features
+
+* **logement:** ajout bouton retour ([b17c8f8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b17c8f8c9078b024a2791102473ddd8d5a60ba7f))
+
 ## [2.49.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.3...v2.49.4) (2023-01-26)
 
 
