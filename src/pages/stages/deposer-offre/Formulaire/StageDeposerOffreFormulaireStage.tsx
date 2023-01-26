@@ -53,7 +53,7 @@ export default function StageDeposerOffreFormulaireStage() {
 		if (!valueEtape1){
 			router.push('/stages/deposer-offre');
 		}
-	}, [valueEtape1]);
+	}, [router, valueEtape1]);
 
 	useEffect(() => {
 		if (valueEtape2 !== null) {
