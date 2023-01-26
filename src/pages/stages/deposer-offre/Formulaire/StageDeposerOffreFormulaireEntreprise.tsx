@@ -52,9 +52,9 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 		<Container className={styles.container}>
 			<div className={styles.etape}>Etape 1 sur 3 : Votre entreprise</div>
 			<form className={styles.formulaire} ref={formRef} onSubmit={handleFormSubmit}>
-				<div className={styles.champsObligatoires}>
-					<p>Les champs suivants sont obligatoires</p>
-				</div>
+				<p className={styles.champsObligatoires}>
+					Les champs suivants sont obligatoires
+				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Indiquez le nom de l’entreprise ou de l’employeur"
@@ -83,9 +83,9 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						maxLength={500}
 					/>
 				</div>
-				<div className={styles.champsFacultatifs}>
-					<p>Les champs suivants sont facultatifs mais recommandés</p>
-				</div>
+				<p className={styles.champsFacultatifs}>
+					Les champs suivants sont facultatifs mais recommandés
+				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Partagez le logo de l’entreprise - lien/URL"
