@@ -60,6 +60,7 @@ export default function SeeMoreItemList(props: React.PropsWithChildren<SeeMorePr
 	const buttonAriaLabel = useMemo(() => isOpen ? seeLessAriaLabel : seeMoreAriaLabel,
 		[isOpen, seeLessAriaLabel, seeMoreAriaLabel]);
 
+	if (!itemList || itemList.length <= 0) return null;
 	return (
 		<>
 			<div

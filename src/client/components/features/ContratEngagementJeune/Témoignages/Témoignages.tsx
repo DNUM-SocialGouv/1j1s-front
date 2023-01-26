@@ -98,8 +98,10 @@ function Programme({ children }: React.PropsWithChildren) {
 
 	return (
 		<SeeMoreMobileOnly
-			seeMoreLabel="Découvrez son programme et ce que le CEJ lui apporte"
 			className={styles.programmeSeeMore}
+			numberOfVisibleItems={0}
+			itemList={[programme]}
+			seeMoreLabel="Découvrez son programme et ce que le CEJ lui apporte"
 			seeLessAriaLabel={'Voir moins de témoignages'}
 			seeMoreAriaLabel={'Voir plus de témoignages'}>
 			{programme}

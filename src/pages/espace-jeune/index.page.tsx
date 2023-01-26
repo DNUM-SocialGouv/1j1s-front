@@ -58,15 +58,14 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 						<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
 					</h2>
 				</LightHero>
-				{articleCardList && articleCardList.length > 0 &&
-          <Container className={styles.cartesActualitesList}>
-          	<SeeMoreItemList className={styles.seeMoreButton}
-          		seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
-          		seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
-          		numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-          		itemList={articleCardList} />
-          </Container>
-				}
+				<Container className={styles.cartesActualitesList}>
+					<SeeMoreItemList className={styles.seeMoreButton}
+						seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
+						seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
+						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
+						itemList={articleCardList} />
+				</Container>
+				
 			</section>
 			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
 				<LightHero>
