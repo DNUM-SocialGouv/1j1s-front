@@ -8,8 +8,11 @@ import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 const SEE_MORE_LABEL_DEFAULT = 'Voir plus';
 const SEE_LESS_LABEL_DEFAULT = 'Voir moins';
+const NUMBER_OF_VISIBLE_ITEMS_DEFAULT = 3;
 
 export interface SeeMoreProps extends CommonProps {
+	itemList: React.ReactNode[]
+	numberOfVisibleItems: number
   seeMoreLabel?: string
   seeLessLabel?: string
 	seeMoreAriaLabel: string
@@ -18,17 +21,30 @@ export interface SeeMoreProps extends CommonProps {
 
 export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 	const {
-		children,
+		itemList,
+		numberOfVisibleItems = NUMBER_OF_VISIBLE_ITEMS_DEFAULT,
 		seeMoreLabel = SEE_MORE_LABEL_DEFAULT,
 		seeLessLabel = SEE_LESS_LABEL_DEFAULT,
 		seeMoreAriaLabel,
 		seeLessAriaLabel,
 		className,
 	} = props;
+	const ariaId = useRef(uuidv4());
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const divRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
-	const ariaId = useRef(uuidv4());
+
+	const completeItemList = useMemo(() => itemList, [itemList]);
+
+	const visibleItemList = useMemo(() => {
+		return itemList?.slice(0, numberOfVisibleItems);
+	}, [itemList, numberOfVisibleItems]);
+
+
+	const itemListToDisplay = useMemo(() => {
+		if (isOpen) return completeItemList;
+		return visibleItemList;
+	}, [isOpen, completeItemList, visibleItemList]);
 
 	const toggle = useCallback(() => {
 		if (isOpen && divRef.current) {
@@ -39,30 +55,33 @@ export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
 		buttonRef.current?.setAttribute('aria-expanded', `${isOpen}`);
 	}, [isOpen]);
 
-	const buttonLabel = useMemo(() => {
-		return isOpen ? seeLessLabel : seeMoreLabel;
-	}, [seeMoreLabel, seeLessLabel, isOpen]);
-
-	const buttonAriaLabel = useMemo(() => {
-		return isOpen ? seeLessAriaLabel : seeMoreAriaLabel;
-	}, [isOpen, seeLessAriaLabel, seeMoreAriaLabel]);
+	const buttonLabel = useMemo(() => isOpen ? seeLessLabel : seeMoreLabel,
+		[seeMoreLabel, seeLessLabel, isOpen]);
+	const buttonAriaLabel = useMemo(() => isOpen ? seeLessAriaLabel : seeMoreAriaLabel,
+		[isOpen, seeLessAriaLabel, seeMoreAriaLabel]);
 
 	return (
 		<>
-			<div className={classNames({ [styles.open]: isOpen, [styles.closed]: !isOpen })}
+			<div
 	      ref={divRef}
 				id={`section-${ariaId.current}`}>
-				{children}
+				<ul className={styles.itemList}>
+					{itemListToDisplay?.map((element, index) =>
+						<li key={index}>{element}</li>,
+					)}
+				</ul>
 			</div>
-			<button className={classNames(styles.seeMoreButton, className)}
-				ref={buttonRef}
-				onClick={toggle}
-				type="button" 
-				aria-expanded={isOpen}
-				aria-controls={`section-${ariaId.current}`}
-				aria-label={buttonAriaLabel}>
-				<TextIcon className={styles.seeMoreButtonLabel} icon={isOpen ? 'angle-up' :'angle-down'}>{buttonLabel}</TextIcon>
-			</button>
+			{itemList.length > numberOfVisibleItems &&
+				<button className={classNames(styles.seeMoreButton, className)}
+					ref={buttonRef}
+					onClick={toggle}
+					type="button"
+					aria-expanded={isOpen}
+					aria-controls={`section-${ariaId.current}`}
+					aria-label={buttonAriaLabel}>
+					<TextIcon className={styles.seeMoreButtonLabel} icon={isOpen ? 'angle-up' : 'angle-down'}>{buttonLabel}</TextIcon>
+				</button>
+			}
 		</>
 	);
 }
