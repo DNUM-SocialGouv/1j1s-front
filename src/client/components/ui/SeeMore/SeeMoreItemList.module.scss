@@ -3,6 +3,8 @@
 .seeMoreButton {
   font-size: 1rem;
   padding-block: 1rem;
+  display: block;
+  margin: auto;
 
   @include media(large) {
     padding-block: 1.5rem;

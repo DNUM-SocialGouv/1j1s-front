@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/EspaceJeune/EspaceJeune.module.scss';
+import { Container } from '~/client/components/layouts/Container/Container';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
-import SeeMore from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { CarteEspaceJeune } from '~/server/cms/domain/espaceJeune';
 
@@ -32,30 +32,25 @@ export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListPr
 			data-testid="carteEspaceJeune"
 		/>;
 	}
-
-	function displayCartes(cardList: CarteEspaceJeune[]) {
-		return cardList.map((carte, index) => 
-			<li key={index}>
-				<CarteEspaceJeune carte={carte} index={index}/>
-			</li>,
-		);
-	}
+	
+	const cardListToDisplay = useMemo(() =>
+		cardList.map((carte, index) =>
+			<CarteEspaceJeune carte={carte} index={index} key={index} />,
+		), [cardList]);
 
 	return (
 		<>
-			<ul className={classNames(styles.cardList, styles.cardListPadding)}>
-				{displayCartes(cardList.slice(0, maxCardPerRow))}
-			</ul>
-			{cardList.length > maxCardPerRow &&
-        <SeeMore className={styles.seeMoreButton}
-        	seeLessLabel="Voir moins de services" 
-        	seeMoreLabel="Voir plus de services" 
-        	seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'} 
-        	seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}>
-        	<ul className={classNames(styles.cardList, styles.cardListPadding)}>
-        		{displayCartes(cardList.slice(maxCardPerRow))}
-        	</ul>
-        </SeeMore>
+
+			{cardListToDisplay && cardListToDisplay.length > 0 &&
+				<Container>
+	        <SeeMoreItemList className={styles.seeMoreButton}
+						seeLessLabel="Voir moins de services"
+						seeMoreLabel="Voir plus de services"
+						seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
+						seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}
+						numberOfVisibleItems={maxCardPerRow}
+						itemList={cardListToDisplay} />
+				</Container>
 			}
 		</>
 	);
