@@ -7,26 +7,28 @@ import styles from '~/client/components/ui/Form/Input.module.scss';
 import theme from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion.module.scss';
 
 interface AutocomplétionProps<T> {
-  suggérer(préfixe: string): Promise<T[]>;
+	suggérer(préfixe: string): Promise<T[]> | T[];
 
-  afficher(suggestion: T): string | ReactElement;
+	afficher(suggestion: T): string | ReactElement;
 
-  valeur(suggestion: T): string;
+	valeur(suggestion: T): string;
 
-  onChange?(event: SyntheticEvent, newValue: string): void;
+	onChange?(event: SyntheticEvent, newValue: string): void;
 
-  onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
+	onSuggestionSelected?(event: SyntheticEvent, suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string): void;
 
-  shouldRenderSuggestions?(préfixe: string, reason: string): boolean;
+	shouldRenderSuggestions?(préfixe: string, reason: string): boolean;
 
-  id?: string;
-  valeurInitiale?: string;
-  label?: string;
-  debounce?: number;
-  name?: string;
-  placeholder?: string;
-  required?: boolean;
-  className?: string;
+	id?: string;
+	valeurInitiale?: string;
+	label?: string;
+	debounce?: number;
+	name?: string;
+	placeholder?: string;
+	required?: boolean;
+	className?: string;
+	focusInputOnSuggestionClick?: boolean;
+	highlightFirstSuggestion?: boolean;
 }
 
 export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) {
@@ -72,8 +74,14 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 		if (!valeurSélectionnée) setValeurInput('');
 	}
 
-	function onSuggestionSelected(event: SyntheticEvent, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }:
-    { suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string }) {
+	function onSuggestionSelected(event: SyntheticEvent, {
+		suggestion,
+		suggestionValue,
+		suggestionIndex,
+		sectionIndex,
+		method,
+	}:
+		{ suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string }) {
 		setValeurSélectionnée(suggestion);
 		onSuggestionSelectedCallback?.(event, suggestion, suggestionValue, suggestionIndex, sectionIndex, method);
 	}
@@ -95,10 +103,12 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 		...rest,
 	};
 
-	return <>
+	return (
 		<div className={styles.wrapper}>
 			{label && <label htmlFor={id} className={styles.label}>{label}</label>}
 			<Autosuggest
+				focusInputOnSuggestionClick
+				highlightFirstSuggestion
 				theme={theme}
 				inputProps={inputProps}
 				suggestions={suggestions}
@@ -111,5 +121,5 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 			/>
 			{inputVide && <p className={styles.formControlInputHint}>Veuillez renseigner ce champ.</p>}
 		</div>
-	</>;
+	);
 }

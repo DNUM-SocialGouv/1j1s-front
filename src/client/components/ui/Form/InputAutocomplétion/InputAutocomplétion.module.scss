@@ -14,7 +14,7 @@
   list-style-type: none;
   margin: 0;
   padding-left: 0;
-  overflow: scroll;
+  overflow: auto;
   max-height: 15rem;
 }
 
@@ -24,7 +24,7 @@
   cursor: pointer;
 }
 
-.suggestion:hover, .suggestion[aria-selected=tsrue] {
+.suggestion:hover, .suggestionHighlighted {
   background-color: rgba(3, 15, 143, .05);
 }
 
