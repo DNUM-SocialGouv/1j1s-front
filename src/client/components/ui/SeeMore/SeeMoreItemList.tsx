@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CommonProps } from '~/client/components/props';
-import styles from '~/client/components/ui/SeeMore/SeeMore.module.scss';
+import styles from '~/client/components/ui/SeeMore/SeeMoreItemList.module.scss';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 const SEE_MORE_LABEL_DEFAULT = 'Voir plus';
@@ -19,7 +19,7 @@ export interface SeeMoreProps extends CommonProps {
 	seeLessAriaLabel: string
 }
 
-export default function SeeMore(props: React.PropsWithChildren<SeeMoreProps>) {
+export default function SeeMoreItemList(props: React.PropsWithChildren<SeeMoreProps>) {
 	const {
 		itemList,
 		numberOfVisibleItems = NUMBER_OF_VISIBLE_ITEMS_DEFAULT,

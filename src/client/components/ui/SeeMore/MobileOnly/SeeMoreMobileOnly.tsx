@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SeeMore, { SeeMoreProps } from '~/client/components/ui/SeeMore/SeeMore';
+import SeeMoreItemList, { SeeMoreProps } from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export default function SeeMoreMobileOnly(props: React.PropsWithChildren<SeeMoreProps>) {
@@ -9,9 +9,9 @@ export default function SeeMoreMobileOnly(props: React.PropsWithChildren<SeeMore
 
 	if (isSmallScreen || isMediumScreen) {
 		return (
-			<SeeMore seeLessLabel={seeLessLabel} seeMoreLabel={seeMoreLabel} {...rest}>
+			<SeeMoreItemList seeLessLabel={seeLessLabel} seeMoreLabel={seeMoreLabel} {...rest}>
 				{children}
-			</SeeMore>
+			</SeeMoreItemList>
 		);
 	} else {
 		return <>{children}</>;
