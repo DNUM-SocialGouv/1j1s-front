@@ -1,0 +1,8 @@
+#!/bin/bash
+
+regle='^[build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test](.{1,20})!?: .+'
+GIT_FILE_COMMIT=${1}
+if ! [[ "$(head -n 1 "${GIT_FILE_COMMIT}")" =~ ${regle} ]]; then
+	echo >&2 Ne respecte pas la norme Conventionnal Commit : https://www.conventionalcommits.org/en/v1.0.0/
+	exit 1;
+fi
