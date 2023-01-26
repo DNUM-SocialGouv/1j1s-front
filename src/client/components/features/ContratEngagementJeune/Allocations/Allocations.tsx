@@ -14,7 +14,11 @@ export default function Allocations() {
 				</aside>
 				<article className={ styles.allocationsArticle }>
 					<h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l‘allocation ?</h2>
-					<SeeMoreMobileOnly seeLessAriaLabel={'Voir moins de conditions pour bénéficier de l‘allocation'} seeMoreAriaLabel={'Voir plus de conditions pour bénéficier de l‘allocation'}>
+					<SeeMoreMobileOnly
+						numberOfVisibleItems={0}
+						itemList={[<ConditionsAllocation key={0}/>]}
+						seeLessAriaLabel={'Voir moins de conditions pour bénéficier de l‘allocation'}
+						seeMoreAriaLabel={'Voir plus de conditions pour bénéficier de l‘allocation'}>
 						<ConditionsAllocation/>
 					</SeeMoreMobileOnly>
 				</article>

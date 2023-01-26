@@ -40,18 +40,16 @@ export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListPr
 
 	return (
 		<>
-
-			{cardListToDisplay && cardListToDisplay.length > 0 &&
-				<Container>
-	        <SeeMoreItemList className={styles.seeMoreButton}
-						seeLessLabel="Voir moins de services"
-						seeMoreLabel="Voir plus de services"
-						seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
-						seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}
-						numberOfVisibleItems={maxCardPerRow}
-						itemList={cardListToDisplay} />
-				</Container>
-			}
+			<Container>
+				<SeeMoreItemList className={styles.seeMoreButton}
+					seeLessLabel="Voir moins de services"
+					seeMoreLabel="Voir plus de services"
+					seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
+					seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}
+					numberOfVisibleItems={maxCardPerRow}
+					itemList={cardListToDisplay} />
+			</Container>
+			
 		</>
 	);
 }
