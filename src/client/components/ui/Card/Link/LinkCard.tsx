@@ -15,7 +15,7 @@ interface LinkCardProps {
   titleAs?: HtmlHeadingTag
 }
 
-export function LinkCard({ children, imageUrl, link, linkLabel, title, titleAs }: React.PropsWithChildren<LinkCardProps>)  {
+export function LinkCard({ children, className, imageUrl, link, linkLabel, title, titleAs }: React.PropsWithChildren<LinkCardProps>)  {
 
 	function LinkCardTitle({ children, className }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
 		return React.createElement(titleAs || 'h3', { className: className }, children);
@@ -23,7 +23,7 @@ export function LinkCard({ children, imageUrl, link, linkLabel, title, titleAs }
 
 	return (
 		<Link href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
-			<article className={styles.cardArticle}>
+			<article className={classNames(styles.cardArticle, className)}>
 				<div className={styles.cardImageWrapper}>
 					<Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
 				</div>

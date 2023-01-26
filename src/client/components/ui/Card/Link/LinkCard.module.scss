@@ -1,14 +1,10 @@
 @import "@styles/utilities";
 
 .card {
-    border-radius: 20px;
-    box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
-    background-color: $color-on-primary;
-    &:after {
-        content: inherit !important;
-        font: inherit !important;
-    }
     &Article {
+        border-radius: 20px;
+        box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
+        background-color: $color-on-primary;
         position: relative;
         border-radius: 20px;
         display: flex;
