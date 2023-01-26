@@ -48,7 +48,6 @@ export default function StageDeposerOffreFormulaireStage() {
 
 	const [valueEtape2, setValueEtape2] = useSessionStorage('formulaireEtape2');
 
-
 	useEffect(() => {
 		if (!valueEtape1){
 			router.push('/stages/deposer-offre');
