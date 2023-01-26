@@ -7,7 +7,7 @@ const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['integration', 'production', 'revi
 const SENTRY_ENVIRONMENTS_ENABLE_DEBUG = ['local', 'review_app'];
 const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
-const RELEASE_NAME_SUFFIX = 'client';
+const RELEASE_NAME_SUFFIX = 'edge';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { name, version } = require('./package.json');
 
@@ -18,7 +18,7 @@ const releaseName = (environnement = process.env) => {
 	return `${name}@${version}-${RELEASE_NAME_SUFFIX}`;
 };
 
-Sentry.init({
+process.env.NODE_ENV === 'production' && Sentry.init({
 	beforeSend(event) {
 		if(!SEND_DATA) {
 			return null;

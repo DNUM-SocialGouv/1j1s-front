@@ -2,22 +2,21 @@ import * as Sentry from '@sentry/nextjs';
 import { SeverityLevel } from '@sentry/nextjs';
 
 const DEFAULT_SENTRY_ENVIRONMENT = 'local';
+const USER_AGENT_BLACKLIST = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
 const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['integration', 'production', 'review_app'];
 const SENTRY_ENVIRONMENTS_ENABLE_DEBUG = ['local', 'review_app'];
+const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
+const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
+const RELEASE_NAME_SUFFIX = 'server';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { name, version } = require('./package.json');
 
-const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
-const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
-
 const releaseName = (environnement = process.env) => {
 	if(environnement.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
-		return `${name}-ssr@review-app${version}+`;
+		return `${name}@review+${version}-${RELEASE_NAME_SUFFIX}`;
 	}
-	return `${name}-ssr@${version}`;
+	return `${name}@${version}-${RELEASE_NAME_SUFFIX}`;
 };
-
-const userAgentBlacklist = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
 
 process.env.NODE_ENV === 'production' && Sentry.init({
 	beforeSend(event) {
@@ -28,7 +27,7 @@ process.env.NODE_ENV === 'production' && Sentry.init({
 			return event;
 		}
 		const userAgent: string | undefined = event.request.headers['user-agent'];
-		const userAgentDuBot = userAgentBlacklist?.find((botUserAgent) => userAgent?.includes(botUserAgent));
+		const userAgentDuBot = USER_AGENT_BLACKLIST?.find((botUserAgent) => userAgent?.includes(botUserAgent));
 		if (userAgentDuBot !== undefined) {
 			return null; // Don't send this event to Sentry
 		}
