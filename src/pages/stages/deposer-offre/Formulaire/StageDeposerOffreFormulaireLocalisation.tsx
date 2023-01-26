@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -6,10 +7,12 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
+import useSessionStorage from '~/client/hooks/useSessionStorage';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
 export default function StageDeposerOffreFormulaireLocalisation() {
+	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const [inputPays, setInputPays] = useState('');
@@ -19,12 +22,22 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	const [inputRegion, setInputRegion] = useState('');
 	const [inputDepartement, setInputDepartement] = useState('');
 
-	const [value, setValue] = useLocalStorage('formulaireEtape3');
+	const [valueEtape1] = useLocalStorage('formulaireEtape1');
+
+	const [valueEtape2] = useSessionStorage('formulaireEtape2');
+
+	const [valueEtape3, setValueEtape3] = useLocalStorage('formulaireEtape3');
+
+	useEffect(() => {
+		if (!valueEtape1 && !valueEtape2){
+			router.push('/stages/deposer-offre');
+		}
+	}, [router, valueEtape1, valueEtape2]);
 
 	useEffect(() => {
 		if (window) {
-			if (value !== null) {
-				const storedForm = JSON.parse(value);
+			if (valueEtape3 !== null) {
+				const storedForm = JSON.parse(valueEtape3);
 				if (formRef.current) {
 					setInputPays(storedForm.pays);
 					setInputVille(storedForm.ville);
@@ -35,14 +48,14 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 				}
 			}
 		}
-	}, [value]);
+	}, [valueEtape3]);
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const formulaireOffreStageEtape3 = JSON.stringify(parseFormulaireOffreStageEtape3(data));
-		setValue(formulaireOffreStageEtape3);
+		setValueEtape3(formulaireOffreStageEtape3);
 	}
 
 	return (
@@ -56,9 +69,9 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 				Retour à l’étape précédente
 			</Link>
 			<form className={styles.formulaire} onSubmit={handleFormSubmit} ref={formRef}>
-				<div className={styles.champsObligatoires}>
-					<p>Les champs suivants sont obligatoires</p>
-				</div>
+				<p className={styles.champsObligatoires}>
+					Les champs suivants sont obligatoires
+				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Pays"
@@ -89,9 +102,9 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 						value={inputCodePostal}
 					/>
 				</div>
-				<div className={styles.champsFacultatifs}>
-					<p>Les champs suivants sont facultatifs mais recommandés</p>
-				</div>
+				<p className={styles.champsFacultatifs}>
+					Les champs suivants sont facultatifs mais recommandés
+				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Région"
