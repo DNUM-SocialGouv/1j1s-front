@@ -1,10 +1,10 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { usePopstate } from '~/client/hooks/usePopstate';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
@@ -14,12 +14,7 @@ interface ConsulterStagePageProps {
 }
 
 export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {
-	const router = useRouter();
-
-	useEffect(()=>{
-		window.addEventListener('popstate', () => router.reload() );
-		return () => window.removeEventListener('popstate', () => router.reload());
-	}, [router]);
+	usePopstate();
 
 	return (
 		<>

@@ -1,7 +1,6 @@
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
@@ -10,6 +9,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { usePopstate } from '~/client/hooks/usePopstate';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { dependencies } from '~/server/start';
@@ -21,12 +21,7 @@ interface ConsulterFicheMetierPageProps {
 }
 
 export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
-	const router = useRouter();
-
-	useEffect(() => {
-		window.addEventListener('popstate', () => router.reload());
-		return () => window.removeEventListener('popstate', () => router.reload());
-	}, [router]);
+	usePopstate();
 
 	if (!ficheMetier) return null;
 
