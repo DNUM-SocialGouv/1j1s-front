@@ -193,13 +193,13 @@ describe('<InformationsGénérales />', () => {
 			const annonce = uneAnnonceDeLogement();
 			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
 			render(
-				<LocaleProvider value="fr-FR">
+				<LocaleProvider value="en-US">
 					<InformationsGénérales annonce={annonce}/>
 				</LocaleProvider>,
 			);
 
 			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
-			expect(disponibilitéRow).toHaveTextContent(/le 1 février 2022/i);
+			expect(disponibilitéRow).toHaveTextContent(/le February 1, 2022/i);
 		});
 	});
 });

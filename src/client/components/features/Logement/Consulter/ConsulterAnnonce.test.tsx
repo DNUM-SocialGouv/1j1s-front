@@ -69,6 +69,19 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 1 février 2020/i);
 	});
+	it('affiche la date de mise à jour au bon format dépendamment de la locale', () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
+
+		render(
+			<LocaleProvider value={'en-US'}>
+				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
+			</LocaleProvider>);
+		const date = screen.getByText(/Annonce mise à jour le/i);
+
+		expect(date).toBeVisible();
+		expect(date).toHaveTextContent(/Annonce mise à jour le February 1, 2020/i);
+	});
 
 	describe('carousel', () => {
 		let annonceDeLogement = uneAnnonceDeLogement();
