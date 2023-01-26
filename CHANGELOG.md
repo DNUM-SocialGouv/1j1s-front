@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.49.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.3...v2.49.4) (2023-01-26)
+
+
+### Bug Fixes
+
+* **accordeon:** suppression role + aria-labelledby inutiles sur le composant SeeMore ([3bb0244](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3bb02440145f1b2c19a3633d59c82d4611b9dd0d))
+
 ## [2.49.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.49.2...v2.49.3) (2023-01-25)
 
 
