@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
+import { LocaleProvider } from '~/client/context/locale.context';
 import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 
 describe('<InformationsGénérales />', () => {
@@ -179,10 +180,26 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la date de disponibilité', async () => {
 			const annonce = uneAnnonceDeLogement();
 			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
-			render(<InformationsGénérales annonce={annonce} />);
+			render(
+				<LocaleProvider value="fr-FR">
+					<InformationsGénérales annonce={annonce}/>
+				</LocaleProvider>,
+			);
 
 			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
-			expect(disponibilitéRow).toHaveTextContent(/le 01\/02\/2022/i);
+			expect(disponibilitéRow).toHaveTextContent(/le 1 février 2022/i);
+		});
+		it('affiche la date de disponibilité dépendamment de la locale', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
+			render(
+				<LocaleProvider value="fr-FR">
+					<InformationsGénérales annonce={annonce}/>
+				</LocaleProvider>,
+			);
+
+			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
+			expect(disponibilitéRow).toHaveTextContent(/le 1 février 2022/i);
 		});
 	});
 });
