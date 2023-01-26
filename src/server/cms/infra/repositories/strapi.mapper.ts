@@ -251,11 +251,13 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		nombreDePièces: annonceLogementResponse.nombreDePieces,
 		prix: annonceLogementResponse.prix,
 		prixHT: annonceLogementResponse.prixHT,
+		source: annonceLogementResponse.source,
 		surface: annonceLogementResponse.surface,
 		surfaceMax: annonceLogementResponse.surfaceMax,
 		titre: annonceLogementResponse.titre,
 		type: annonceLogementResponse.type,
 		typeBien: annonceLogementResponse.typeBien,
+		urlDeCandidature: annonceLogementResponse.url,
 		étage: annonceLogementResponse.etage,
 	};
 }

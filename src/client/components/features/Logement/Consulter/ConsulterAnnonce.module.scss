@@ -9,21 +9,52 @@
   grid-template-columns: 1fr;
   grid-template-areas:
       "boutonRetour"
+      "source"
       "carousel"
-      "entête";
+      "entête"
+      "annonceBody"
+      "lienDeCandidatureMobile";
+
 
   @include media(medium) {
     grid-template-areas:
       "boutonRetour"
       "entête"
-      "carousel";
+      "carousel"
+      "annonceBody";
   }
 }
 
 .boutonRetour {
-  grid-area: boutonRetour;
   padding-left: 1rem;
   margin: 1rem 0;
+}
+
+.source {
+  grid-area: source;
+  @extend %bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+  gap: 0.5rem;
+
+  @include media(medium) {
+    flex-direction: column;
+  }
+}
+
+.lienDeCandidatureMobile {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  grid-area: lienDeCandidatureMobile;
+  background-color: $color-surface;
+  padding: 0.5rem;
+
+  a {
+    width: 100%;
+  }
 }
 .entête {
   width: 100%;
@@ -125,7 +156,35 @@
         width: fit-content;
       }
     }
+    &Candidater {
+      position: sticky;
+      top: 2rem;
+      grid-area: candidater;
+      height: fit-content;
+      border: 1px solid $neutral-grey;
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      margin: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.5rem;
+    }
   }
+
+  .annonceBody {
+    grid-area: annonceBody;
+    @include media(medium) {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+      "informationsGenerales candidater"
+      "descriptionDuLogement candidater";
+    }
+  }
+
+.descriptionDuLogement {
+  grid-area: descriptionDuLogement;
+}
 
 .informationsGenerales {
   grid-area: informationsGenerales;

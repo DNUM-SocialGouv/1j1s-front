@@ -6,10 +6,12 @@ import { render, screen } from '@testing-library/react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
+		mockSmallScreen();
 		sessionStorage.setItem('referrer', 'annonces');
 		const routerReload = jest.fn();
 		mockUseRouter({ reload: routerReload });
