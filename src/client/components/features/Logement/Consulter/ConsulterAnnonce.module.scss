@@ -1,39 +1,71 @@
 @import "@styles/utilities";
 
-.annonce {
-  & .entête {
-    padding: 1rem;
-    margin: 0 0 1rem;
+.displayContents {
+  display: contents;
+}
 
-    display: grid;
-    grid-template-columns: 1fr;
+.gridLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "boutonRetour"
+      "carousel"
+      "entête";
+
+  @include media(medium) {
     grid-template-areas:
-          "date"
-          "type"
-          "titre";
+      "boutonRetour"
+      "entête"
+      "carousel";
+  }
+}
 
-    & .type {
-      grid-area: type;
-    }
-
-    & .date {
-      grid-area: date;
-    }
-
-    & h1 {
-      grid-area: titre;
-    }
-
-    @include media(medium) {
-      grid-template-columns: 1fr auto;
-      grid-template-areas:
+.boutonRetour {
+  grid-area: boutonRetour;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+.entête {
+  width: 100%;
+  padding: 1rem;
+  grid-area: entête;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+        "date"
+        "type"
+        "titre";
+  @include media(medium) {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
           "type date"
           "titre titre";
-      padding: 0;
+  }
+  & .type {
+    grid-area: type;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: $color-mine-shaft;
+    text-transform: uppercase;
+    @include media(medium) {
+      font-size: 1.25rem;
+      line-height: 2rem;
+    }
+  }
+
+  & .date {
+    grid-area: date;
+    color: $color-mine-shaft;
+    font-size: .75rem;
+    line-height: 1rem;
+    @include media(medium) {
+      font-size: 1.25rem;
+      line-height: 2rem;
     }
   }
 
   & h1 {
+    grid-area: titre;
     @extend %bold;
     color: $color-on-background;
     font-size: 1.25rem;
@@ -53,29 +85,9 @@
     }
   }
 
-  & .type {
-    grid-area: type;
-    font-size: .875rem;
-    line-height: 1.25rem;
-    color: $color-mine-shaft;
-    text-transform: uppercase;
-    @include media(medium) {
-      font-size: 1.25rem;
-      line-height: 2rem;
-    }
-  }
+}
 
-  & .date {
-    color: $color-mine-shaft;
-    font-size: .75rem;
-    line-height: 1rem;
-    @include media(medium) {
-      font-size: 1.25rem;
-      line-height: 2rem;
-    }
-  }
-
-  & .card {
+  .card {
     padding: 1rem;
 
     & h2 {
@@ -115,59 +127,59 @@
     }
   }
 
+.informationsGenerales {
+  grid-area: informationsGenerales;
+  & table {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2.75rem;
+    align-items: center;
+    margin: 1.25rem;
 
-  & .informationsGenerales {
-    & table {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 2.75rem;
-      align-items: center;
-      margin: 1.25rem;
+    & caption {
+      display: contents;
+      color: $color-primary;
+    }
 
-      & caption {
-        display: contents;
-        color: $color-primary;
+    & tbody {
+      & > tr {
+        display: block;
       }
 
-      & tbody {
-        & > tr {
-          display: block;
-        }
-
-        & > tr:not(:last-child) {
-          margin-bottom: .75rem;
-        }
-
-        @include media(medium) {
-          column-count: 2;
-        }
+      & > tr:not(:last-child) {
+        margin-bottom: .75rem;
       }
 
-      & th {
-        display: inline;
-        font-weight: bold;
-
-        &::after {
-          content: " :";
-        }
-      }
-
-      & td {
-        display: inline;
-        margin-left: 0.75rem;
+      @include media(medium) {
+        column-count: 2;
       }
     }
 
-    & abbr[title="Charges Comprises"],
-    & sup {
-      text-decoration: none;
-      vertical-align: super;
-      font-size: 0.6em;
+    & th {
+      display: inline;
+      font-weight: bold;
+
+      &::after {
+        content: " :";
+      }
     }
+
+    & td {
+      display: inline;
+      margin-left: 0.75rem;
+    }
+  }
+
+  & abbr[title="Charges Comprises"],
+  & sup {
+    text-decoration: none;
+    vertical-align: super;
+    font-size: 0.6em;
   }
 }
 
 .carouselWrapper {
+  grid-area: carousel;
   @include media(medium) {
     background-color: $white-lilac;
     border-bottom: 1px solid $color-primary;

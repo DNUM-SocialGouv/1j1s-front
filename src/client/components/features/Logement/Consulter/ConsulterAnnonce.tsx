@@ -17,9 +17,11 @@ interface ConsulterAnnonceDeLogementProps {
 
 function AnnonceEntête({ children }: { children: React.ReactNode }) {
 	return (
-		<header className={styles.entête}>
-			{children}
-		</header>
+		<Container className={styles.entête}>
+			<header className={styles.displayContents}>
+				{children}
+			</header>
+		</Container>
 	);
 }
 
@@ -30,16 +32,16 @@ function TypeBien({ children }: { children: React.ReactNode }) {
 export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogementProps) {
 	const { dateDeMiseAJour, type, typeBien, titre, description, imageUrlList } = annonceDeLogement;
 	return (
-		<main id="contenu">
-			<ButtonRetour/>
+		<main id="contenu" className={styles.gridLayout}>
+			<ButtonRetour className={styles.boutonRetour}/>
 			<AnnonceCarousel imageUrlList={imageUrlList} />
-			<Container className={styles.annonce}>
-				<AnnonceEntête>
-					<h1>{titre}</h1>
-					<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
-					<TypeBien>{type} - {typeBien}</TypeBien>
-				</AnnonceEntête>
-				<InformationsGénérales annonce={annonceDeLogement} />
+			<AnnonceEntête>
+				<h1>{titre}</h1>
+				<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
+				<TypeBien>{type} - {typeBien}</TypeBien>
+			</AnnonceEntête>
+			<Container>
+				<InformationsGénérales annonce={annonceDeLogement}/>
 				<DescriptionDuLogement>{description}</DescriptionDuLogement>
 			</Container>
 		</main>
