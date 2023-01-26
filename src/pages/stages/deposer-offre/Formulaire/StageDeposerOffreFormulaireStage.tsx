@@ -1,4 +1,5 @@
-import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -9,6 +10,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
+import useSessionStorage from '~/client/hooks/useSessionStorage';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 import { domaineStage } from './StageDomaines';
@@ -29,6 +31,7 @@ const dureeStageList: Option[] = [
 ];
 
 export default function StageDeposerOffreFormulaireStage() {
+	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 	const inputTeletravailRef = useRef<HTMLDivElement>(null);
 
@@ -39,12 +42,22 @@ export default function StageDeposerOffreFormulaireStage() {
 	const [inputDureeStage, setInputDureeStage] = useState('');
 	const [inputDomaineStage, setInputDomaineStage] = useState('');
 	const [inputRemunerationStage, setInputRemunerationStage] = useState('');
+	const [inputTeletravailStage, setInputTeletravailStage] = useState('');
 
-	const [value, setValue] = useLocalStorage('formulaireEtape2');
+	const [valueEtape1] = useLocalStorage('formulaireEtape1');
+
+	const [valueEtape2, setValueEtape2] = useSessionStorage('formulaireEtape2');
+
 
 	useEffect(() => {
-		if (value !== null) {
-			const storedForm = JSON.parse(value);
+		if (!valueEtape1){
+			router.push('/stages/deposer-offre');
+		}
+	}, [valueEtape1]);
+
+	useEffect(() => {
+		if (valueEtape2 !== null) {
+			const storedForm = JSON.parse(valueEtape2);
 			if (formRef.current) {
 				setInputNomOffre(storedForm.nomOffre);
 				setInputLienCandidature(storedForm.lienCandidature);
@@ -53,17 +66,14 @@ export default function StageDeposerOffreFormulaireStage() {
 				setInputDureeStage(storedForm.dureeStage);
 				setInputDomaineStage(storedForm.domaineStage);
 				setInputRemunerationStage(storedForm.remunerationStage);
-
-				if (storedForm['teletravailOui'] === String(true)) {
-					inputTeletravailRef.current?.children[0].children[0].setAttribute('checked', String(true));
-				} else if (storedForm['teletravailNon'] === String(false)) {
-					inputTeletravailRef.current?.children[1].children[0].setAttribute('checked', String(false));
-				}
+				setInputTeletravailStage(storedForm.teletravail);
 			}
 		}
-		const today = new Date().toISOString().split('T')[0];
-		document.getElementsByName('dateDebut')[0].setAttribute('min', today);
-	}, [value]);
+	}, [valueEtape2]);
+
+	const disableBeforeToday: string = useMemo(() => {
+		return new Date().toISOString().split('T')[0];
+	}, []);
 
 	const onInputChangeRemuneration = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
@@ -74,8 +84,8 @@ export default function StageDeposerOffreFormulaireStage() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const formulaireOffreStageEtape1 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
-		setValue(formulaireOffreStageEtape1);
+		const formulaireOffreStageEtape2 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
+		setValueEtape2(formulaireOffreStageEtape2);
 	}
 	
 	return (
@@ -89,9 +99,9 @@ export default function StageDeposerOffreFormulaireStage() {
 				Retour à l’étape précédente
 			</Link>
 			<form className={styles.formulaire} onSubmit={handleFormSubmit} ref={formRef}>
-				<div className={styles.champsObligatoires}>
-					<p>Les champs suivants sont obligatoires</p>
-				</div>
+				<p className={styles.champsObligatoires}>
+					Les champs suivants sont obligatoires
+				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Indiquez le nom de l’offre de stage"
@@ -127,6 +137,7 @@ export default function StageDeposerOffreFormulaireStage() {
 						name="dateDebut"
 						value={inputDateDebut}
 						required
+						min={disableBeforeToday}
 					/>
 					<Select
 						label="Indiquez la durée du stage"
@@ -137,9 +148,9 @@ export default function StageDeposerOffreFormulaireStage() {
 						required
 					/>
 				</div>
-				<div className={styles.champsFacultatifs}>
-					<p>Les champs suivants sont facultatifs mais recommandés</p>
-				</div>
+				<p className={styles.champsFacultatifs}>
+					Les champs suivants sont facultatifs mais recommandés
+				</p>
 				<div className={styles.bodyFormulaire}>
 					<Select
 						label="Domaine de l’offre de stage"
@@ -168,8 +179,8 @@ export default function StageDeposerOffreFormulaireStage() {
 						<fieldset className={styles.contenuTeletravail}>
 							<legend>Télétravail possible</legend>
 							<div ref={inputTeletravailRef} className={styles.inputTeletravail}>
-								<Radio name="teletravail" value="true" label="Oui"/>
-								<Radio name="teletravail" value="false" label="Non"/>
+								<Radio name="teletravail" value="true" label="Oui" checked={inputTeletravailStage === 'true'} onChange={ () => setInputTeletravailStage('true')}/>
+								<Radio name="teletravail" value="false" label="Non" checked={inputTeletravailStage === 'false'} onChange={ () => setInputTeletravailStage('false')}/>
 							</div>
 						</fieldset>
 					</div>
@@ -197,7 +208,6 @@ function parseFormulaireOffreStageEtape2(formData: FormData) {
 		lienCandidature: String(formData.get('lienCandidature')),
 		nomOffre: String(formData.get('nomOffre')),
 		remunerationStage: String(formData.get('remunerationStage')),
-		teletravailNon: String(formData.get('teletravail')),
-		teletravailOui: String(formData.get('teletravail')),
+		teletravail: String(formData.get('teletravail')),
 	};
 }

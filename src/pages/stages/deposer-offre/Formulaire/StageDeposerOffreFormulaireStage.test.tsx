@@ -6,9 +6,13 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import Stage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireStage';
 
 describe('<Stage />', () => {
+	beforeEach(() => {
+		mockUseRouter({});
+	});
 
 	describe('quand l’utilisateur arrive sur la page Stage', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 1' , async () => {
