@@ -30,6 +30,8 @@ export namespace AnnonceDeLogementResponse {
         consommationEnergetique?: CategorieEnergetique,
         emissionDeGaz?: CategorieEnergetique
     }
+
+    export type Source = 'immojeune' | 'studapart'
 }
 
 export interface AnnonceDeLogementResponse {
@@ -55,6 +57,7 @@ export interface AnnonceDeLogementResponse {
     localisation: AnnonceDeLogementResponse.Localisation
     bilanEnergetique: AnnonceDeLogementResponse.BilanEnergetique
     imagesUrl?: Array<{ value: string }>
+    source: AnnonceDeLogementResponse.Source
 }
 
 export namespace AnnonceDeLogement {
@@ -71,28 +74,32 @@ export namespace AnnonceDeLogement {
         consommationEnergetique?: CategorieEnergetique,
         emissionDeGaz?: CategorieEnergetique
     }
+
+    export type Source = 'immojeune' | 'studapart'
 }
 
 export type CategorieEnergetique = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
 
 export interface AnnonceDeLogement {
-    titre: string
-    type: string
-    typeBien: string
-    dateDeMiseAJour: string
-    surface: number
-    surfaceMax?: number
-    nombreDePièces: number
-    étage?: number
-    prix: number
-    prixHT?: number
-    charge?: number
-    garantie?: number
-    dateDeDisponibilité: string
-    meublé: boolean
-    localisation: AnnonceDeLogement.Localisation
-    description: string
-    devise: string
-    imageUrlList: Array<Image>
-    bilanEnergetique: AnnonceDeLogement.BilanEnergetique
+  titre: string
+  type: string
+  typeBien: string
+  dateDeMiseAJour: string
+  surface: number
+  surfaceMax?: number
+  nombreDePièces: number
+  étage?: number
+  prix: number
+  prixHT?: number
+  charge?: number
+  garantie?: number
+  dateDeDisponibilité: string
+  meublé: boolean
+  localisation: AnnonceDeLogement.Localisation
+  description: string
+  devise: string
+  imageUrlList: Array<Image>
+  source: AnnonceDeLogement.Source
+  urlDeCandidature: string
+  bilanEnergetique: AnnonceDeLogement.BilanEnergetique
 }

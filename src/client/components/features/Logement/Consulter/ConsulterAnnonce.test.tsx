@@ -2,19 +2,26 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import {
+	render,
+	screen,
+} from '@testing-library/react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
+		mockSmallScreen();
 		sessionStorage.setItem('referrer', 'annonces');
 		const routerReload = jest.fn();
 		mockUseRouter({ reload: routerReload });
 	});
-	it('affiche le le bouton retour vers la liste des annonces',  () => {
+
+	it('affiche le le bouton retour vers la liste des annonces', () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
@@ -23,7 +30,8 @@ describe('<ConsulterAnnonce />', () => {
 		expect(boutonRetour).toBeInTheDocument();
 
 	});
-	it("affiche le titre de l'annonce",  () => {
+
+	it("affiche le titre de l'annonce", () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
@@ -35,6 +43,7 @@ describe('<ConsulterAnnonce />', () => {
 		expect(titre).toBeVisible();
 		expect(titre).toHaveTextContent('Super T3 dans le centre de Paris');
 	});
+
 	it('affiche le type de logement', () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.type = 'Location';
@@ -45,6 +54,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		expect(type).toBeVisible();
 	});
+
 	it('affiche la date de mise à jour au bon format', () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
@@ -55,6 +65,7 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 01.02.2020/i);
 	});
+
 	describe('carousel', () => {
 		let annonceDeLogement = uneAnnonceDeLogement();
 		beforeEach(() => {
@@ -93,6 +104,7 @@ describe('<ConsulterAnnonce />', () => {
 			});
 		});
 	});
+
 	describe('description du logement', () => {
 		it('affiche la description du logement', () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
@@ -104,6 +116,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(description).toBeVisible();
 		});
 	});
+
 	describe('bilan énergétique du logement', ()=>{
 		it('affiche la consommation énergétique du logement',  () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
@@ -160,6 +173,56 @@ describe('<ConsulterAnnonce />', () => {
 			const tag = screen.getByRole('img', { name: /G/i });
 
 			expect(tag).toHaveAttribute('style', '--color: var(--color-g); --text-color: var(--text-color-g);');
+		});
+	});
+
+	describe('source', () => {
+		describe('quand la source est immojeune', () => {
+			it('retourne le logo immojeune',  () => {
+				const annonceDeLogement = uneAnnonceDeLogement();
+				annonceDeLogement.source = 'immojeune' as AnnonceDeLogement.Source;
+				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				const diffuseur = screen.getByText('Ce bien est diffusé par');
+				expect(diffuseur).toBeInTheDocument();
+
+				const logoDiffuseur = screen.getByRole('img', { name: 'immojeune' });
+				expect(logoDiffuseur).toBeInTheDocument();
+			});
+		});
+
+		describe('quand la source est studapart', () => {
+			it('retourne le logo studapart',  () => {
+				const annonceDeLogement = uneAnnonceDeLogement();
+				annonceDeLogement.source = 'studapart' as AnnonceDeLogement.Source;
+				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				const diffuseur = screen.getByText('Ce bien est diffusé par');
+				expect(diffuseur).toBeInTheDocument();
+
+				const logoDiffuseur = screen.getByRole('img', { name: 'studapart' });
+				expect(logoDiffuseur).toBeInTheDocument();
+			});
+		});
+
+		describe('quand la source est inconnu', () => {
+			it('retourne rien', () => {
+				const annonceDeLogement = uneAnnonceDeLogement();
+				annonceDeLogement.source = 'seLoger' as AnnonceDeLogement.Source;
+				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				const diffuseur = screen.queryByText('Ce bien est diffusé par');
+				expect(diffuseur).not.toBeInTheDocument();
+				expect(diffuseur).toBeNull();
+
+			});
+		});
+	});
+
+	describe('call to action Voir l‘annonce', () => {
+		it('affiche un lien externe Voir l‘annonce', () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			const lienExterneCandidater = screen.getByRole('link', { name: 'Voir l‘annonce' });
+			expect(lienExterneCandidater).toBeInTheDocument();
+			expect(lienExterneCandidater).toHaveAttribute('href', 'lien-immo-jeune.com');
 		});
 	});
 });

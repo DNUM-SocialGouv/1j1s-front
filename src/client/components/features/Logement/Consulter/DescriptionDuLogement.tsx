@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
@@ -44,7 +45,7 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 		description = cropDescription(description) + ' …';
 	}
 	return (
-		<section className={styles.card} aria-labelledby="description-annonce-title">
+		<section className={ classNames(styles.card, styles.descriptionDuLogement)} aria-labelledby="description-annonce-title">
 			<h2 id="description-annonce-title">Description du Logement</h2>
 			<p id="description-annonce">{description}</p>
 			{longueDescription && (
