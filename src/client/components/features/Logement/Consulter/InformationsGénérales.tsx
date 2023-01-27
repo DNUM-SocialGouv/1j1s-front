@@ -107,7 +107,7 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le <time dateTime={dateDeDisponibilité.toISOString()}>
+						<td>le <time dateTime={dateDeDisponibilité.toISOString()} lang={locale}>
 							{dateDeDisponibilité.toLocaleDateString(locale, { dateStyle: 'long' })}
 						</time></td>
 					</tr>

@@ -7,5 +7,6 @@ const Context = React.createContext<ContextType | undefined>(undefined);
 export const LocaleProvider = Context.Provider;
 
 export function useLocale() {
-	return useContext(Context);
+	const locale = useContext(Context);
+	return locale ?? navigator.language;
 }

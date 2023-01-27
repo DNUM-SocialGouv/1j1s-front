@@ -9,7 +9,7 @@ export function DateMiseÀJour(props: { date: Date }) {
 	const { date } = props;
 	return (
 		<span className={styles.date}>
-			Annonce mise à jour le <time dateTime={date.toISOString()}>
+			Annonce mise à jour le <time dateTime={date.toISOString()} lang={locale}>
 				{date.toLocaleDateString(locale, { dateStyle: 'long' })}
 			</time>
 		</span>

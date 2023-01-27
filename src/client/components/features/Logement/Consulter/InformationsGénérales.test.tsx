@@ -201,5 +201,17 @@ describe('<InformationsGénérales />', () => {
 			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
 			expect(disponibilitéRow).toHaveTextContent(/le February 1, 2022/i);
 		});
+		it("ajoute l'attribut lang à la date", async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
+			render(
+				<LocaleProvider value="fr-FR">
+					<InformationsGénérales annonce={annonce}/>
+				</LocaleProvider>,
+			);
+
+			const date = screen.getByText(/1 février 2022/i);
+			expect(date).toHaveAttribute('lang', 'fr-FR');
+		});
 	});
 });
