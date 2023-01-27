@@ -60,6 +60,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 		const data = new FormData(form);
 		const formulaireOffreStageEtape3 = JSON.stringify(mapFormulaireOffreStageEtape3(data));
 		setValueEtape3(formulaireOffreStageEtape3);
+		return router.push('/stages/deposer-offre/confirmation-envoi');
 	}
 
 	return (
