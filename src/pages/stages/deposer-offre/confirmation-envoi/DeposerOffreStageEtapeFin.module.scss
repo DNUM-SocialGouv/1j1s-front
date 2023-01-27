@@ -1,0 +1,7 @@
+@import "@styles/utilities";
+
+.hero {
+  @include media(small) {
+    padding-bottom: 1.5rem;
+  }
+}

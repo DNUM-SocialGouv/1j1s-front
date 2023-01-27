@@ -3,6 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
+import { beforeEach } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -13,7 +14,6 @@ describe('<Stage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
 	});
-
 	describe('quand l’utilisateur arrive sur la page Stage', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 1' , async () => {
 			render(<Stage />);
