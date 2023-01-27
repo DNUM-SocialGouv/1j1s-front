@@ -93,14 +93,14 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 };
 
 const AnnonceSource = ({ source }: { source: AnnonceDeLogement.Source }) => {
-	const distributeur = useMemo(() => {
+	const diffuseur = useMemo(() => {
 		switch (source) {
-			case 'immojeune': return <span className={styles.source}>Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immo jeune" width="95" height="44"/></span>;
+			case 'immojeune': return <span className={styles.source}>Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/></span>;
 			case 'studapart': return <span className={styles.source}>Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/></span>;
 			default: return null;
 		}
 	}, [source]);
-	return distributeur;
+	return diffuseur;
 };
 
 const CandidaterDesktop = ({ source, urlDeCandidature }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) => {
