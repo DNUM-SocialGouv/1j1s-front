@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.55.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.54.0...v2.55.0) (2023-01-27)
+
+
+### Features
+
+* **logement/details:** ajout bouton candidater ([9691995](https://github.com/DNUM-SocialGouv/1j1s-front/commit/96919957785a22e8ae39fd83b93f9eb7ca9b8ae8))
+
 ## [2.54.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.53.0...v2.54.0) (2023-01-27)
 
 
