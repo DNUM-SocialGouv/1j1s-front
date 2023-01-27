@@ -33,10 +33,11 @@ export function InformationsGénérales({
 		typeBien,
 		meublé,
 		localisation,
-		dateDeDisponibilité,
+		dateDeDisponibilité: dateDeDisponibilitéString,
 	},
 }: InformationsGénéralesProps) {
 	const locale = useLocale();
+	const dateDeDisponibilité = new Date(dateDeDisponibilitéString);
 	return (
 		<section className={classNames(styles.card, styles.informationsGenerales)} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
@@ -106,7 +107,9 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le {new Date(dateDeDisponibilité).toLocaleDateString(locale, { dateStyle: 'long' })}</td>
+						<td>le <time dateTime={dateDeDisponibilité.toISOString()}>
+							{dateDeDisponibilité.toLocaleDateString(locale, { dateStyle: 'long' })}
+						</time></td>
 					</tr>
 				</tbody>
 			</table>
