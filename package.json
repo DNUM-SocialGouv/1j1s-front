@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "2.52.0",
+  "version": "2.53.0",
   "private": true,
   "scripts": {
     "prepare": "./setup.sh",

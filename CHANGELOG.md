@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.53.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.52.0...v2.53.0) (2023-01-27)
+
+
+### Features
+
+* **stages:** ajout d'un formulaire d'autocomplétion de pays ([5b8c80c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5b8c80c64930961834143dbeeda97aa074ca657c))
+
 ## [2.52.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.51.1...v2.52.0) (2023-01-27)
 
 
