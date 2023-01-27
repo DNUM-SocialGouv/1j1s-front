@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.54.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.53.0...v2.54.0) (2023-01-27)
+
+
+### Features
+
+* **logement:** ajout du bilan énergétique sur le détail d'une annonce ([3e6bcd9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3e6bcd970624612f54b44f9c5ad7a7058fbb7308))
+
 ## [2.53.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.52.0...v2.53.0) (2023-01-27)
 
 
