@@ -1,0 +1,36 @@
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "identifiantSource": "1091498",
+      "titre": "T1 17 à 26 m² à partir de 391€ par mois",
+      "description": "› Kitchenette équipée (évier, plaques électriques, réfrigérateur, four à micro-ondes), table de cuisine, rangements, chaise. Kit vaisselle. › Salle de bain (baignoire ou douche), meuble vasque, miroir avec bandeau lumineux, WC. › Pièce à vivre avec lit, table et lampe de chevet, bureau, fauteuil, placard avec penderie et étagère. › Prise de téléphone / TV, compteur électrique individuel. › Internet wifi gratuit dans la salle de travail. › Accès possible à internet dans les appartements.",
+      "url": "https://www.immojeune.com/residence-etudiante/angers-49/residence-cap-etudes-belle-beille_1827.html?lot=1091498&utm_source=partner&utm_medium=display&utm_campaign=wizbii",
+      "source": "immojeune",
+      "typeBien": "t1",
+      "type": "résidence",
+      "surface": 17,
+      "surfaceMax": 0,
+      "nombreDePieces": 1,
+      "etage": 5,
+      "dateDeDisponibilite": "2023-01-09",
+      "meuble": true,
+      "sourceCreatedAt": "2016-07-01T13:20:31.000Z",
+      "sourceUpdatedAt": "2023-01-05T13:31:01.000Z",
+      "prixHT": 480,
+      "prix": 480,
+      "devise": "€",
+      "charge": 0,
+      "garantie": 400,
+      "slug": "t1-17-a-26-m-a-partir-de-391-par-mois-1091498",
+      "createdAt": "2023-01-09T15:40:36.437Z",
+      "updatedAt": "2023-01-09T15:40:36.437Z",
+      "publishedAt": "2023-01-09T15:40:36.348Z",
+      "bilanEnergetique": ["Object"],
+      "localisation": ["Object"],
+      "imagesUrl": ["Array"],
+      "servicesInclus": ["Array"],
+      "servicesOptionnels": []
+    }
+  }
+}
