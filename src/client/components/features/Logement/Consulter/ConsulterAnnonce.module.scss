@@ -106,16 +106,6 @@
       line-height: 3rem;
     }
   }
-
-  & h2 {
-    color: $color-primary;
-    font-size: 1.25rem;
-    line-height: 2rem;
-    @include media(medium) {
-      font-size: 1.5rem;
-    }
-  }
-
 }
 
   .card {
@@ -123,6 +113,12 @@
 
     & h2 {
       margin-bottom: 1.25rem;
+      color: $color-primary;
+      font-size: 1.25rem;
+      line-height: 2rem;
+      @include media(medium) {
+        font-size: 1.5rem;
+      }
     }
 
     & button.readMore {
@@ -132,7 +128,7 @@
       margin-top: 1.25rem;
     }
 
-    &:nth-child(2n) {
+    &:nth-child(2n + 1) {
       border-width: 1px 0;
       border-style: solid;
       border-color: $color-primary;

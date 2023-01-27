@@ -59,7 +59,6 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 						emissionDeGaz={bilanEnergetique.emissionDeGaz}
 					/>
 				</div>
-
 				{ !isSmallScreen && <CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature}/>}
 			</Container>
 			{isSmallScreen &&
