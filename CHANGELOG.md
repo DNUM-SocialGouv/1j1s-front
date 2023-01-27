@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.52.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.51.1...v2.52.0) (2023-01-27)
+
+
+### Features
+
+* **accordeon:** evolution d'implémentation du composant accordeon ([3098ab7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3098ab7eb8bb61f158c9dd4e2d00d70ba5af11d0))
+* **accordeon:** refacto du composant SeeMore version mobile et des pages qui l'utilisent ([9090512](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90905123f2f2940a96d0b98dc27de1d5baf0cb50))
+* **accordeon:** renomage SeeMore -&gt; SeeMoreItemList + refacto des pages utilisant le composant ([8950c9a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8950c9ae69780856f76a6df1a51c0d3dcc94dc4c))
+
 ## [2.51.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.51.0...v2.51.1) (2023-01-27)
 
 
