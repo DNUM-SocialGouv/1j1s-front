@@ -39,15 +39,15 @@ describe('Carousel', () => {
 	describe('quand il n‘y a qu‘une image', () => {
 		it('retourne une image et non le carousel',  () => {
 			render(<Carousel imageList={[{
-				alt: '',
+				alt: 'une seule image',
 				src: '/une-seule-image.webp',
 			}]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
 
 			const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
 			expect(listDeSlides).not.toBeInTheDocument();
 
-			const image = screen.getByRole('img');
-			expect(image.src).toContain('une-seule-image.webp');
+			const image = screen.getByRole('img', { name: 'une seule image' });
+			expect(image).toHaveAttribute('src', expect.stringMatching(/une-seule-image.webp/));
 		});
 	});
 

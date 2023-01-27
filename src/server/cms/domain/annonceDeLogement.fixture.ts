@@ -22,6 +22,7 @@ export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
 		prix: 1000,
 		prixHT: 980,
 		slug: 'logement-slug',
+		source: 'immojeune',
 		sourceCreatedAt: uneDate(),
 		sourceUpdatedAt: uneDate(),
 		surface: 10,
@@ -51,11 +52,13 @@ export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
 		nombreDePièces: 1,
 		prix: 1000,
 		prixHT: 980,
+		source: 'immojeune',
 		surface: 10,
 		surfaceMax: 12,
 		titre: 'mon titre',
 		type: 'Location',
 		typeBien: 'Appartement',
+		urlDeCandidature: 'lien-immo-jeune.com',
 		étage: 1,
 	};
 };
