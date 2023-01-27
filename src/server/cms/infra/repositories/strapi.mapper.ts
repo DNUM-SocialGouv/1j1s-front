@@ -251,6 +251,8 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		nombreDePièces: annonceLogementResponse.nombreDePieces,
 		prix: annonceLogementResponse.prix,
 		prixHT: annonceLogementResponse.prixHT,
+		servicesInclus: annonceLogementResponse.servicesInclus,
+		servicesOptionnels: annonceLogementResponse.servicesOptionnels,
 		source: annonceLogementResponse.source,
 		surface: annonceLogementResponse.surface,
 		surfaceMax: annonceLogementResponse.surfaceMax,
