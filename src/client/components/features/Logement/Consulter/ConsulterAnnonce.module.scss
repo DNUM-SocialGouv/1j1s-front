@@ -280,4 +280,15 @@
   li:first-letter {
     text-transform: uppercase;
   }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    @include media(medium) {
+      gap: 1.25rem;
+    }
+  }
+  ul {
+    column-count: 2;
+  }
 }
