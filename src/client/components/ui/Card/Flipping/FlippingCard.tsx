@@ -22,10 +22,11 @@ interface FlippingCardProps {
 	category?: string
 	titleAs?: HtmlHeadingTag
 	flippingCardContent: string
+	className?: string
 }
 
 export function FlippingCard(props: FlippingCardProps) {
-	const { category, imageUrl, link, title, titleAs, flippingCardContent, ...rest } = props;
+	const { category, imageUrl, link, title, titleAs, flippingCardContent, className, ...rest } = props;
 	const cardFlipRef = useRef<HTMLDivElement>(null);
 	const isInternalLink = useIsInternalLink(link);
 	const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -80,7 +81,7 @@ export function FlippingCard(props: FlippingCardProps) {
 	}, [isAnimationOn, flipButton, isCardFlipped]);
 
 	return (
-		<div className={classNames(styles.cardWrapper, { [styles.animate]: isAnimationOn })} {...rest}>
+		<div className={classNames(styles.cardWrapper, { [styles.animate]: isAnimationOn }, className)} {...rest}>
 			<div className={classNames(styles.card, styles.cardFlip)}>
 				<div className={styles.cardImageWrapper}>
 					<Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
