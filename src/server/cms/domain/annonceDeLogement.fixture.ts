@@ -22,12 +22,12 @@ export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			AnnonceDeLogementResponse.ServiceInclus.INTERNET,
-			AnnonceDeLogementResponse.ServiceInclus.VACUUM,
+			{ nom: AnnonceDeLogementResponse.ServiceInclus.INTERNET },
+			{ nom: AnnonceDeLogementResponse.ServiceInclus.ASPIRATEUR },
 		],
 		servicesOptionnels: [
-			AnnonceDeLogementResponse.ServiceOptionnel.TV,
-			AnnonceDeLogementResponse.ServiceOptionnel.BIKE_STORAGE,
+			{ nom: AnnonceDeLogementResponse.ServiceOptionnel.TV },
+			{ nom: AnnonceDeLogementResponse.ServiceOptionnel.LOCAL_A_VELO },
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',
@@ -62,11 +62,11 @@ export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
 		prixHT: 980,
 		servicesInclus: [
 			AnnonceDeLogement.ServiceInclus.INTERNET,
-			AnnonceDeLogement.ServiceInclus.VACUUM,
+			AnnonceDeLogement.ServiceInclus.ASPIRATEUR,
 		],
 		servicesOptionnels: [
 			AnnonceDeLogement.ServiceOptionnel.TV,
-			AnnonceDeLogement.ServiceOptionnel.BIKE_STORAGE,
+			AnnonceDeLogement.ServiceOptionnel.LOCAL_A_VELO,
 		],
 		source: 'immojeune',
 		surface: 10,
