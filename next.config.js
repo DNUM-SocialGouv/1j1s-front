@@ -6,13 +6,13 @@ const { URL } = require('url');
 
 const IS_ONLINE_CONFIG_ENVIRONNEMENT = ['integration', 'production'];
 const NODE_ENV_ENABLE_SOURCEMAP = 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const shouldUploadSourceMap = (env = process.env) =>
 	IS_ONLINE_CONFIG_ENVIRONNEMENT.includes(env.NEXT_PUBLIC_SENTRY_ENVIRONMENT)
 	&& env.NODE_ENV === NODE_ENV_ENABLE_SOURCEMAP;
 
 const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
-
 
 function getHostName(uri) {
 	return new URL(uri).hostname;
@@ -78,17 +78,14 @@ const moduleExports = {
 	},
 };
 
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'integration') {
-	module.exports = withSentryConfig(
+module.exports = isProduction
+	? withSentryConfig(
 		{
 			...moduleExports,
 			headers: async () => SECURITY_MODE_HEADERS,
 			sentry: sentryModuleExports,
-		}, sentryModuleExports);
-}
-else {
-	module.exports = {
+		}, sentryModuleExports)
+	: {
 		...moduleExports,
 		headers: async () => LOCAL_MODE_HEADERS,
 	};
-}
