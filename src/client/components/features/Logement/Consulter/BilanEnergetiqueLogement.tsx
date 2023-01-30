@@ -7,23 +7,23 @@ import { CategorieEnergetique } from '~/server/cms/domain/annonceDeLogement.type
 
 
 const CONSOMMATION_ENERGETIQUE: Record<CategorieEnergetique, string> = {
-	A: 'Logement très économe en énergie. Excellente performance énergétique (consommation <= 50 kWh/m²/an)',
-	B: 'Logement économe en énergie. Très bonne performance énergétique (consommation de 51 à 90 kWh/m²/an)',
-	C: 'Logement assez économe en énergie. Bonne performance énergétique (consommation de 91 à 150 kWh/m²/an)',
-	D: 'Logement assez énergivore en énergie. Assez bonne performance énergétique (consommation de 151 à 230 kWh/m²/an)',
-	E: 'Logement énergivore en énergie. Performance énergétique moyenne (consommation de 231 à 330 kWh/m²/an)',
-	F: 'Logement très énergivore en énergie. Mauvaise performance énergétique (consommation de 331 à 450 kWh/m²/an)',
-	G: 'Logement énormément énergivore en énergie. Très mauvaise performance énergétique (consommation >=451 kWh/m²/an)',
+	A: 'Excellente performance énergétique (consommation < 50 kWh/m²/an)',
+	B: 'Très bonne performance énergétique (consommation de 51 à 90 kWh/m²/an)',
+	C: 'Bonne performance énergétique (consommation de 91 à 150 kWh/m²/an)',
+	D: 'Assez bonne performance énergétique (consommation de 151 à 230 kWh/m²/an)',
+	E: 'Performance énergétique moyenne (consommation de 231 à 330 kWh/m²/an)',
+	F: 'Mauvaise performance énergétique (consommation de 331 à 450 kWh/m²/an)',
+	G: 'Très mauvaise performance énergétique (consommation >=451 kWh/m²/an)',
 };
 
 const EMISSION_DE_GAZ: Record<CategorieEnergetique, string> = {
-	A: 'Logement très peu polluant. Avec une émission de gaz <= 5 kg/m2/an',
-	B: 'Logement peu polluant. Avec une émission de gaz de 6 à 10 kg/m2/an',
-	C: 'Logement assez peu polluant. Avec une émission de gaz de 11 à 20 kg/m2/an ',
-	D: 'Logement assez polluant. Avec une émission de gaz de 21 à 35 kg/m2/an',
-	E: 'Logement polluant. Avec une émission de gaz de 36 à 55 kg/m2/an',
-	F: 'Logement très polluant. Avec une émission de gaz de 56 à 80 kg/m2/an',
-	G: 'Logement énormément polluant. Avec une émission de gaz > 80 kg/m2/an',
+	A: 'Très peu d’émission de gaz à effet de serre (émission de gaz <= 5 kg/m2/an)',
+	B: 'Peu d’émission de gaz à effet de serre (émission de gaz de 6 à 10 kg/m2/an)',
+	C: 'Émission de gaz à effet de serre correcte (émission de gaz de 11 à 20 kg/m2/an) ',
+	D: 'Émission de gaz à effet de serre notable (émission de gaz de 21 à 35 kg/m2/an)',
+	E: 'Émission assez importante de gaz à effet de serre (émission de gaz de 36 à 55 kg/m2/an)',
+	F: 'Importante émission de gaz à effet de serre (émission de gaz de 56 à 80 kg/m2/an)',
+	G: 'Très importante émission de gaz à effet de serre (émission de gaz > 80 kg/m2/an)',
 };
 
 interface BilanEnergetiqueLogementProps {
@@ -48,7 +48,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 			</p>
 		</figure>
 		<figure>
-			<figcaption>Emissions de gaz à effet de serre</figcaption>
+			<figcaption>Émissions de gaz à effet de serre</figcaption>
 			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby="emission-de-gaz"
 				 className={styles.tag}
 				 style={{
