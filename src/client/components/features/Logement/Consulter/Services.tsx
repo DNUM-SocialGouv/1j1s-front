@@ -7,7 +7,7 @@ import ServiceInclus = AnnonceDeLogement.ServiceInclus;
 
 interface ServicesProps {
 	inclus: Array<AnnonceDeLogement.ServiceInclus>;
-	optionels: Array<AnnonceDeLogement.ServiceOptionnel>;
+	optionnels: Array<AnnonceDeLogement.ServiceOptionnel>;
 }
 
 // const ServiceElements: Record<
@@ -27,11 +27,16 @@ interface ServicesProps {
 // 	[ServiceInclus.WASHING_MACHINE]: 'Machine à laver',
 // };
 
-export function Services({ inclus }: ServicesProps) {
+export function Services({ inclus, optionnels }: ServicesProps) {
 	return (
 		<section className={classNames(styles.card, styles.services)} aria-label="Services">
 			<ul>
 				{inclus.map((service) => (
+					<li key={service}>{service}</li>
+				))}
+			</ul>
+			<ul>
+				{optionnels.map((service) => (
 					<li key={service}>{service}</li>
 				))}
 			</ul>
