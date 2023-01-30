@@ -42,6 +42,15 @@ const Icônes: Record<
 	[ServiceInclus.SECHE_LINGE]: 'error',
 	[ServiceInclus.TERRACE]: 'error',
 	[ServiceInclus.TV]: 'TV',
+	[ServiceOptionnel.ASPIRATEUR]: 'vacuum',
+	[ServiceOptionnel.FER_A_REPASSER]: 'iron',
+	[ServiceOptionnel.INTERNET]: 'wifi',
+	[ServiceOptionnel.LOCAL_A_VELO]: 'bike',
+	[ServiceOptionnel.MACHINE_A_LAVER]: 'washing-machine',
+	[ServiceOptionnel.MICRO_ONDE]: 'microwave',
+	[ServiceOptionnel.NECESSAIRE_DE_NETTOYAGE]: 'clean-hands',
+	[ServiceOptionnel.SALLE_DE_SPORT]: 'sport',
+	[ServiceOptionnel.TV]: 'TV',
 };
 
 export function Services({ inclus, optionnels }: ServicesProps) {
@@ -51,11 +60,12 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 			<ul>
 				{inclus.map((service) => (
 					service !== ServiceInclus.NON_RENSEIGNE && <li key={service}>
-						<Icon name={Icônes[service]} />
+						<Icon name={Icônes[service]}/>
 						{service}
 					</li>
 				))}
 			</ul>
+			{inclus.length === 0 && <p>Aucun service inclus</p>}
 			<h2>Équipements et services optionnels</h2>
 			<ul>
 				{optionnels.map((service) => (
@@ -65,6 +75,7 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 					</li>
 				))}
 			</ul>
+			{optionnels.length === 0 && <p>Aucun service optionnel</p>}
 		</section>
 	);
 }

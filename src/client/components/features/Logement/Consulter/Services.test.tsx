@@ -76,4 +76,13 @@ describe('<Services />', () => {
 
 		expect(items).toHaveLength(0);
 	});
+	it('affiche un message si aucun service inclus ou optionnel', async () => {
+		render(<Services inclus={[]} optionnels={[]} />);
+
+		const messagesServicesInclus = screen.getByText(/Aucun service inclus/i);
+		const messagesServicesOptionnels = screen.getByText(/Aucun service optionnel/i);
+
+		expect(messagesServicesInclus).toBeVisible();
+		expect(messagesServicesOptionnels).toBeVisible();
+	});
 });
