@@ -133,7 +133,7 @@ describe('<ConsulterAnnonce />', () => {
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const tag = screen.getByRole('img', { name: /A/i });
-			const description = screen.getByText(/Logement très économe en énergie./i);
+			const description = screen.getByText(/Excellente performance énergétique/i);
 
 			expect(tag).toHaveAttribute('aria-describedby', description.id);
 		});
@@ -161,7 +161,7 @@ describe('<ConsulterAnnonce />', () => {
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const tag = screen.getByRole('img', { name: /G/i });
-			const description = screen.getByText(/Logement énormément polluant./i);
+			const description = screen.getByText(/Très importante émission de gaz à effet de serre/i);
 
 			expect(tag).toHaveAttribute('aria-describedby', description.id);
 		});
