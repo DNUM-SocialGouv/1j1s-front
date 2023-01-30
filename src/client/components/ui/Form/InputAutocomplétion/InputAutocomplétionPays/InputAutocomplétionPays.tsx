@@ -1,4 +1,5 @@
-import React, { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { uuid4 } from '@sentry/utils';
+import React, { SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
 import { Pays, paysList } from '~/client/domain/pays';
@@ -15,8 +16,13 @@ interface PaysPros {
 const DEBOUNCE_TIMEOUT = 1;
 
 export default function InputAutocomplétionPays(props: PaysPros) {
-	const { codePays, name, ...rest } = props;
+	const { codePays, name, id, ...rest } = props;
 	const [selectedPays, setSelectedPays] = useState<Pays | undefined>(undefined);
+	const inputId = useRef(id || uuid4());
+
+	useEffect(() => {
+		inputId.current = id || uuid4();
+	}, [id]);
 
 	const libelléPaysInitial = useMemo(() => {
 		if (codePays) {
@@ -58,9 +64,10 @@ export default function InputAutocomplétionPays(props: PaysPros) {
 				valeur={getSuggestionLibellé}
 				onSuggestionSelected={onPaysChange}
 				valeurInitiale={libelléPaysInitial}
+				id={inputId.current}
 				{...rest}
 			/>
-			<input name={name} type="hidden" value={selectedPays?.code || ''}/>
+			<input name={name} id={inputId.current} type="hidden" value={selectedPays?.code || ''}/>
 		</>
 	);
 };

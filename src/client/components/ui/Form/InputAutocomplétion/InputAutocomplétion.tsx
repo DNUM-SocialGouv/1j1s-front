@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import React, { ReactElement, SyntheticEvent, useMemo, useState } from 'react';
+import React, { ReactElement, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 
 import styles from '~/client/components/ui/Form/Input.module.scss';
@@ -50,6 +50,12 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 	const [valeurInput, setValeurInput] = useState(valeurInitiale || '');
 	const [suggestions, setSuggestions] = useState<T[]>([]);
 	const [valeurSélectionnée, setValeurSélectionnée] = useState<T>();
+
+	useEffect(() => {
+		if (valeurInitiale) {
+			setValeurInput(valeurInitiale);
+		}
+	}, [valeurInitiale]);
 
 	const recalculerSuggestions = useMemo(() => {
 		return debounce(async ({ value }: { value: string }) => setSuggestions(await suggérer(value)), debounceTimeout);
