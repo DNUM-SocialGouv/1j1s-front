@@ -113,6 +113,9 @@
 
     & h2 {
       margin-bottom: 1.25rem;
+      &:not(:first-child) {
+        margin-top: 2.5rem;
+      }
       color: $color-primary;
       font-size: 1.25rem;
       line-height: 2rem;
@@ -301,6 +304,9 @@
     gap: 1.25rem;
     @include media(medium) {
       gap: 1.875rem;
+    }
+    &:empty {
+      display: none;
     }
   }
 }
