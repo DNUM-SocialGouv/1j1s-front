@@ -277,9 +277,6 @@
 }
 
 .services {
-  li:first-letter {
-    text-transform: uppercase;
-  }
   li {
     display: flex;
     align-items: center;
@@ -287,8 +284,23 @@
     @include media(medium) {
       gap: 1.25rem;
     }
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+
+    &:not(:first-child) {
+      margin-top: 1.25rem;
+      @include media(medium) {
+        margin-top: 1.875rem;
+      }
+    }
   }
   ul {
     column-count: 2;
+    gap: 1.25rem;
+    @include media(medium) {
+      gap: 1.875rem;
+    }
   }
 }
