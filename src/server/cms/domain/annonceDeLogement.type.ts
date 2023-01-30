@@ -32,30 +32,42 @@ export namespace AnnonceDeLogementResponse {
   }
 
   export enum ServiceInclus {
-    BIKE_STORAGE = 'bikeStorage',
-    CLEANING_TOOLS = 'cleaningTools',
-    FITNESS_ROOM = 'fitnessRoom',
+    ASCENSEUR = 'ascenseur',
+    ASPIRATEUR = 'aspirateur',
+    CAVE = 'cave',
+    FER_A_REPASSER = 'fer à repasser',
+    FIBRE_OPTIQUE = 'fibre optique',
+    FOUR = 'four',
+    GARAGE = 'garage',
+    GARDIEN_RESIDENCE = 'gardien résidentiel',
     INTERNET = 'internet',
-    IRON = 'iron',
-    MICROWAVE = 'microwave',
+    LAVE_LINGE = 'machine à laver',
+    LAVE_VAISSELLE = 'lave vaisselle',
+    LOCAL_A_VELO = 'local à vélo',
+    MICRO_ONDE = 'micro-onde',
+    NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
     PARKING = 'parking',
-    PRIVATE_BATHROOM = 'privateBathroom',
-    TV = 'tv',
-    VACUUM = 'vacuum',
-    WASHING_MACHINE = 'washingMachine',
+    PISCINE = 'piscine',
+    REFRIGERATEUR = 'réfrigérateur',
+    SALLE_DE_BAIN_PRIVATIVE = 'salle de bain privative',
+    SALLE_DE_SPORT = 'salle de sport',
+    SECHE_LINGE = 'sèche linge',
+    TERRACE = 'terrace',
+    TV = 'télévision',
+    NON_RENSEIGNE = 'non renseigné',
   }
 
   export enum ServiceOptionnel {
-    BIKE_STORAGE = 'bikeStorage',
-    CLEANING_TOOLS = 'cleaningTools',
-    FITNESS_ROOM = 'fitnessRoom',
-    DEFAULT = 'default',
+    ASPIRATEUR = 'aspirateur',
+    FER_A_REPASSER = 'fer à repasser',
     INTERNET = 'internet',
-    IRON = 'iron',
-    MICROWAVE = 'microwave',
-    TV = 'tv',
-    VACUUM = 'vacuum',
-    WASHING_MACHINE = 'washingMachine',
+    LOCAL_A_VELO = 'local à vélo',
+    MACHINE_A_LAVER = 'machine à laver',
+    MICRO_ONDE = 'micro-onde',
+    NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
+    SALLE_DE_SPORT = 'salle de sport',
+    TV = 'télévision',
+    NON_RENSEIGNE = 'non renseigné',
   }
 
   export type Source = 'immojeune' | 'studapart'
@@ -85,8 +97,8 @@ export interface AnnonceDeLogementResponse {
   bilanEnergetique: AnnonceDeLogementResponse.BilanEnergetique
   imagesUrl?: Array<{ value: string }>
   source: AnnonceDeLogementResponse.Source
-  servicesInclus: Array<AnnonceDeLogementResponse.ServiceInclus>
-  servicesOptionnels: Array<AnnonceDeLogementResponse.ServiceOptionnel>
+  servicesInclus: Array<{ nom: AnnonceDeLogementResponse.ServiceInclus }>
+  servicesOptionnels: Array<{ nom: AnnonceDeLogementResponse.ServiceOptionnel }>
 }
 
 export namespace AnnonceDeLogement {
@@ -105,30 +117,42 @@ export namespace AnnonceDeLogement {
   }
 
   export enum ServiceInclus {
-    BIKE_STORAGE = 'bikeStorage',
-    CLEANING_TOOLS = 'cleaningTools',
-    FITNESS_ROOM = 'fitnessRoom',
+    ASCENSEUR = 'ascenseur',
+    ASPIRATEUR = 'aspirateur',
+    CAVE = 'cave',
+    FER_A_REPASSER = 'fer à repasser',
+    FIBRE_OPTIQUE = 'fibre optique',
+    FOUR = 'four',
+    GARAGE = 'garage',
+    GARDIEN_RESIDENCE = 'gardien résidentiel',
     INTERNET = 'internet',
-    IRON = 'iron',
-    MICROWAVE = 'microwave',
+    LAVE_LINGE = 'machine à laver',
+    LAVE_VAISSELLE = 'lave vaisselle',
+    LOCAL_A_VELO = 'local à vélo',
+    MICRO_ONDE = 'micro-onde',
+    NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
     PARKING = 'parking',
-    PRIVATE_BATHROOM = 'privateBathroom',
-    TV = 'tv',
-    VACUUM = 'vacuum',
-    WASHING_MACHINE = 'washingMachine',
+    PISCINE = 'piscine',
+    REFRIGERATEUR = 'réfrigérateur',
+    SALLE_DE_BAIN_PRIVATIVE = 'salle de bain privative',
+    SALLE_DE_SPORT = 'salle de sport',
+    SECHE_LINGE = 'sèche linge',
+    TERRACE = 'terrace',
+    TV = 'télévision',
+    NON_RENSEIGNE = 'non renseigné',
   }
 
   export enum ServiceOptionnel {
-    BIKE_STORAGE = 'bikeStorage',
-    CLEANING_TOOLS = 'cleaningTools',
-    FITNESS_ROOM = 'fitnessRoom',
-    DEFAULT = 'default',
+    ASPIRATEUR = 'aspirateur',
+    FER_A_REPASSER = 'fer à repasser',
     INTERNET = 'internet',
-    IRON = 'iron',
-    MICROWAVE = 'microwave',
-    TV = 'tv',
-    VACUUM = 'vacuum',
-    WASHING_MACHINE = 'washingMachine',
+    LOCAL_A_VELO = 'local à vélo',
+    MACHINE_A_LAVER = 'machine à laver',
+    MICRO_ONDE = 'micro-onde',
+    NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
+    SALLE_DE_SPORT = 'salle de sport',
+    TV = 'télévision',
+    NON_RENSEIGNE = 'non renseigné',
   }
 
   export type Source = 'immojeune' | 'studapart'
