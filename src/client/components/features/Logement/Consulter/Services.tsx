@@ -5,6 +5,7 @@ import styles from '~/client/components/features/Logement/Consulter/ConsulterAnn
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import ServiceInclus = AnnonceDeLogement.ServiceInclus;
 import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
+import ServiceOptionnel = AnnonceDeLogement.ServiceOptionnel;
 
 interface ServicesProps {
 	inclus: Array<AnnonceDeLogement.ServiceInclus>;
@@ -12,7 +13,7 @@ interface ServicesProps {
 }
 
 const Icônes: Record<
-	ServiceInclus,
+	Exclude<ServiceInclus, ServiceInclus.NON_RENSEIGNE>,
 	IconName
 > = {
 	[ServiceInclus.ASCENSEUR]: 'bike',
@@ -37,7 +38,6 @@ const Icônes: Record<
 	[ServiceInclus.SECHE_LINGE]: 'error',
 	[ServiceInclus.TERRACE]: 'error',
 	[ServiceInclus.TV]: 'TV',
-	[ServiceInclus.NON_RENSEIGNE]: 'error',
 };
 
 export function Services({ inclus, optionnels }: ServicesProps) {
@@ -46,7 +46,7 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 			<h2>Équipements et services inclus</h2>
 			<ul>
 				{inclus.map((service) => (
-					<li key={service}>
+					service !== ServiceInclus.NON_RENSEIGNE && <li key={service}>
 						<Icon name={Icônes[service]} />
 						{service}
 					</li>
@@ -55,7 +55,7 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 			<h2>Équipements et services optionnels</h2>
 			<ul>
 				{optionnels.map((service) => (
-					<li key={service}>
+					service !== ServiceOptionnel.NON_RENSEIGNE && <li key={service}>
 						<Icon name={Icônes[service]} />
 						{service}
 					</li>

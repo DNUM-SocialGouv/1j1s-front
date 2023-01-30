@@ -63,4 +63,17 @@ describe('<Services />', () => {
 
 		expect(heading).toBeVisible();
 	});
+	it('n\'affiche pas le service "Non renseigné"', async () => {
+		const servicesOptionnels = [
+			ServiceOptionnel.NON_RENSEIGNE,
+		];
+		const servicesInclus = [
+			ServiceInclus.NON_RENSEIGNE,
+		];
+		render(<Services inclus={servicesInclus} optionnels={servicesOptionnels} />);
+
+		const items = screen.queryAllByRole('listitem');
+
+		expect(items).toHaveLength(0);
+	});
 });
