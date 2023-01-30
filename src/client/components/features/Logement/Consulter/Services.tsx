@@ -12,8 +12,12 @@ interface ServicesProps {
 	optionnels: Array<AnnonceDeLogement.ServiceOptionnel>;
 }
 
+type ServicesAffichables =
+	| Exclude<ServiceInclus, ServiceInclus.NON_RENSEIGNE>
+	| Exclude<ServiceOptionnel, ServiceOptionnel.NON_RENSEIGNE>
+
 const Icônes: Record<
-	Exclude<ServiceInclus, ServiceInclus.NON_RENSEIGNE>,
+	ServicesAffichables,
 	IconName
 > = {
 	[ServiceInclus.ASCENSEUR]: 'bike',
