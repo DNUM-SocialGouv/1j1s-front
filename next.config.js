@@ -209,7 +209,6 @@ const moduleExports = {
 	poweredByHeader: false,
 	reactStrictMode: true,
 	redirects,
-	sentry: sentryModuleExports,
 	webpack(config, { isServer }) {
 		if (!isServer) {
 			config.optimization.mergeDuplicateChunks = true;
@@ -227,7 +226,9 @@ const moduleExports = {
 		return config;
 	},
 };
-
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'integration') {
+	moduleExports.sentry = sentryModuleExports;
+}
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
 module.exports = (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'integration') ? withSentryConfig(moduleExports, sentryModuleExports) : moduleExports;
