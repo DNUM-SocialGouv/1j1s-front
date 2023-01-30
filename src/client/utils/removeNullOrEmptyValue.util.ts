@@ -1,9 +1,12 @@
-export function removeNullOrEmptyValue(obj: Record<string, unknown>) {
+export function removeNullOrEmptyValue<T>(obj: T): Partial<T> {
 	const result: Record<string, unknown> = {};
-	Object.entries(obj).forEach(([key, value]) => {
-		if(!(value === '' || value === null)){
+	Object.entries(obj as Record<string, unknown>).forEach(([key, value]) => {
+		if (value !== null && typeof value === 'object') {
+			result[key] = removeNullOrEmptyValue(value);
+		}
+		else if (!(value === '' || value === null)) {
 			result[key] = value;
 		}
 	});
-	return result;
+	return result as Partial<T>;
 }

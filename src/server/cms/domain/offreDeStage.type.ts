@@ -168,17 +168,14 @@ export interface OffreDeStage {
 }
 
 export interface OffreDeStageDepot {
-	identifiantSource: string
-	publishedAt: null
-	titre: string
-	dateDeDebut: string
-	description: string
-	urlDeCandidature: string
-	domaines: DomaineStageDepot[] | null
-	dureeEnJour: number | null
-	localisation: LocalisationDepotStageIndexée
+	dateDeDebut: string,
+	description: string,
+	domaine: Domaines,
+	duree: string,
 	employeur: EmployeurDepotStage,
-	remunerationBase: number | null
-	source?: SourceDesDonnées
-	teletravailPossible: boolean | null
+	localisation: LocalisationDepotStageIndexée,
+	remunerationBase: number,
+	teletravailPossible: boolean | null,
+	titre: string,
+	urlDeCandidature: string
 }

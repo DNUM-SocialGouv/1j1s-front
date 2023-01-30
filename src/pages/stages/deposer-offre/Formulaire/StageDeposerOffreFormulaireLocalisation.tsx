@@ -11,16 +11,19 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
-import {
-	OffreDeStageFormulaire,
-	OffreDeStageFormulaireNotFormatted,
-	StageService,
-} from '~/client/services/stage/stage.service';
+import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import {
 	LABEL_FORMULAIRE_1,
-	LABEL_FORMULAIRE_2, LABEL_FORMULAIRE_3,
+	LABEL_FORMULAIRE_2,
+	LABEL_FORMULAIRE_3,
 } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
+import {
+	EmployeurDepotStage,
+	LocalisationDepotStageIndexée,
+	OffreDeStageDepot,
+} from '~/server/cms/domain/offreDeStage.type';
+import { isSuccess } from '~/server/errors/either';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
@@ -36,6 +39,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	const [inputCodePostal, setInputCodePostal] = useState('');
 	const [inputRegion, setInputRegion] = useState('');
 	const [inputDepartement, setInputDepartement] = useState('');
+	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
 	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
 
@@ -63,42 +67,55 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 		}
 	}, [valueEtape3]);
 
-	function formatFormulaire(formData: OffreDeStageFormulaireNotFormatted): OffreDeStageFormulaire {
-		const formattedData = removeNullOrEmptyValue(formData) as unknown as OffreDeStageFormulaire;
-		if (formData.teletravail === 'true' || formData.teletravail === 'false') {
-			formattedData.teletravail = formData.teletravail === 'true';
-		}
-		if (!formattedData.lienCandidature.startsWith('http')) {
-			formattedData.lienCandidature = 'mailto:' + formattedData.lienCandidature;
-		}
-		return formattedData;
-	}
+	function retrieveForm(formulaireOffreStageEtape1: string, formulaireOffreStageEtape2: string, formulaireOffreStageEtape3: string) {
+		const etape1Data = JSON.parse(formulaireOffreStageEtape1);
+		const etape2Data = JSON.parse(formulaireOffreStageEtape2);
+		const etape3Data = JSON.parse(formulaireOffreStageEtape3);
 
-	async function retrieveForm(formulaireOffreStageEtape1: string, formulaireOffreStageEtape2: string, formulaireOffreStageEtape3: string) {
-		// Transformer en object
-		const formData = {
-			...JSON.parse(formulaireOffreStageEtape1),
-			...JSON.parse(formulaireOffreStageEtape2),
-			...JSON.parse(formulaireOffreStageEtape3),
+		const formData: OffreDeStageDepot = {
+			dateDeDebut: etape2Data.dateDebut,
+			description: etape2Data.descriptionOffre,
+			domaine: etape2Data.domaineStage,
+			duree: etape2Data.dureeStage,
+			employeur: {
+				description: etape1Data.descriptionEmployeur,
+				email: etape1Data.emailEmployeur,
+				logoUrl: etape1Data.logoEmployeur || null,
+				nom: etape1Data.nomEmployeur,
+				siteUrl: etape1Data.siteEmployeur || null,
+			} as EmployeurDepotStage,
+			localisation: {
+				adresse: etape3Data.adresse,
+				codePostal: etape3Data.codePostal,
+				departement: etape3Data.departement || null,
+				pays: etape3Data.pays,
+				region: etape3Data.region || null,
+				ville: etape3Data.ville,
+			} as LocalisationDepotStageIndexée,
+			remunerationBase: etape2Data.remunerationStage ?? null,
+			teletravailPossible: etape2Data.teletravail ? etape2Data.teletravail === 'true' : null,
+			titre: etape2Data.nomOffre,
+			urlDeCandidature: etape2Data.lienCandidature.startsWith('http') ? etape2Data.lienCandidature : 'mailto:' + etape2Data.lienCandidature,
 		};
-		const formattedData = formatFormulaire(formData);
-		// Envoyer dans strapi
-		const result = await stageService.enregistrerOffreDeStage(formattedData);
-		if (result.instance === 'success') {
-			// passer à la page suivante
-		}
+		return removeNullOrEmptyValue<OffreDeStageDepot>(formData);
 	}
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+		setSubmitButtonDisabled(true);
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const formulaireOffreStageEtape3 = JSON.stringify(mapFormulaireOffreStageEtape3(data));
 		setValueEtape3(formulaireOffreStageEtape3);
 		if (valueEtape1 !== null && valueEtape2 !== null) {
-			await retrieveForm(valueEtape1, valueEtape2, formulaireOffreStageEtape3);
+			const formattedData = retrieveForm(valueEtape1, valueEtape2, formulaireOffreStageEtape3);
+			const result = await stageService.enregistrerOffreDeStage(formattedData);
+			if (isSuccess(result)) {
+				return router.push('/stages/deposer-offre/confirmation-envoi');
+			}
+			setSubmitButtonDisabled(false);
 		}
-		return router.push('/stages/deposer-offre/confirmation-envoi');
+
 	}
 
 	return (
@@ -169,6 +186,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 						label="Envoyer ma demande de dépôt d’offre"
 						type="submit"
 						className={styles.validationLink}
+						disabled={submitButtonDisabled}
 					/>
 				</div>
 			</form>

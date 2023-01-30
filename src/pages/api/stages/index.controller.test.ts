@@ -1,11 +1,11 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { anOffreDeStageFormulaire } from '~/client/services/stage/stageService.fixture';
+import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { enregistrerOffreDeStageHandler  } from '~/pages/api/stages/index.controller';
-import { anOffreDeStageDepot } from '~/server/cms/domain/offreDeStage.fixture';
-import { OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { anOffreDeStageDepotStrapi } from '~/server/cms/domain/offreDeStage.fixture';
+import { OffreDeStageDepotStrapi } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -16,7 +16,7 @@ describe('enregistrer une offre de stage', () => {
 
 	describe('lorsque le body est valide', () => {
 		it('retourne 200', async () => {
-			let strapiReceivedBody: {data: OffreDeStageDepot};
+			let strapiReceivedBody: {data: OffreDeStageDepotStrapi};
 			const strapiAuth = nock('http://localhost:1337/api')
 				.post('/offre-de-stage')
 				.once()
@@ -36,15 +36,15 @@ describe('enregistrer une offre de stage', () => {
 				handler: (req, res) => enregistrerOffreDeStageHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
-						body: JSON.stringify(anOffreDeStageFormulaire()),
+						body: JSON.stringify(anOffreDeStageDepot()),
 						headers: {
 							'content-type': 'application/json',
 						},
 						method: 'POST',
 					});
 					expect(res.status).toEqual(200);
-					const strapiReceivedBodyData: OffreDeStageDepot = strapiReceivedBody.data;
-					expect(strapiReceivedBodyData).toEqual(anOffreDeStageDepot());
+					const strapiReceivedBodyData: OffreDeStageDepotStrapi = strapiReceivedBody.data;
+					expect(strapiReceivedBodyData).toEqual(anOffreDeStageDepotStrapi());
 					strapiAuth.done();
 					strapiApi.done();
 				},

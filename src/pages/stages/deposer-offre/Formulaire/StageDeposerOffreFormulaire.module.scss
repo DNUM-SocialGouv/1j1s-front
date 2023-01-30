@@ -31,7 +31,6 @@
 .formulaire {
 
   .champsObligatoires, .champsFacultatifs {
-    @extend %text-large;
     color: $color-primary;
     margin-block: 1.25rem;
   }
@@ -146,7 +145,6 @@
   .formulaire {
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
-    margin-top: 1.5rem;
 
     .validation {
       display: flex;

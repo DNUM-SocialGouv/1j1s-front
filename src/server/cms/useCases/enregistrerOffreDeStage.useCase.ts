@@ -1,6 +1,7 @@
+import { CmsIndexRepository } from '~/server/cms/domain/cmsIndex.repository';
+import { OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
+
 import { Either } from '../../errors/either';
-import { CmsIndexRepository } from '../domain/cmsIndex.repository';
-import { OffreDeStageDepot } from '../domain/offreDeStage.type';
 
 export class enregistrerOffreDeStageUseCase {
 	constructor(private cmsIndexRepository: CmsIndexRepository) {}

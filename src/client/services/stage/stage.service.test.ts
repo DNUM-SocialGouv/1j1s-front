@@ -4,7 +4,7 @@
 
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { StageService } from '~/client/services/stage/stage.service';
-import { anOffreDeStageFormulaire } from '~/client/services/stage/stageService.fixture';
+import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 describe('stageService', () => {
@@ -13,7 +13,7 @@ describe('stageService', () => {
 			// GIVEN
 			const httpClient = anHttpClientService();
 			jest.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
-			const offreToSubmit = anOffreDeStageFormulaire();
+			const offreToSubmit = anOffreDeStageDepot();
 			const stageService = new StageService(httpClient);
 
 			// WHEN

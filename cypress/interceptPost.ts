@@ -6,7 +6,7 @@ export type InterceptParameters = {
     actionBeforeWaitTheCall?: () => void,
     query?: { [key: string]: string},
     response?: string,
-    responseBodyToCheck: { [key: string]: string | number },
+    responseBodyToCheck: { [key: string]: unknown },
 }
 
 export function interceptPost(

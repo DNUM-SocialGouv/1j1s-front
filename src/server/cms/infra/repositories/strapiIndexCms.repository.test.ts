@@ -1,7 +1,8 @@
+import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { uneAnnonceDeLogement, uneAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import {
-	anOffreDeStageDepot,
+	anOffreDeStageDepotStrapi,
 	uneOffreDeStage,
 	uneOffreDeStageResponse,
 } from '~/server/cms/domain/offreDeStage.fixture';
@@ -17,6 +18,8 @@ import {
 	anHttpClientServiceWithAuthentification,
 } from '~/server/services/http/httpClientService.fixture';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+
+jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
 describe('strapi index cms repository', () => {
 	let httpClientService: HttpClientService;
@@ -73,19 +76,21 @@ describe('strapi index cms repository', () => {
 		describe('Si un stage est fourni', () => {
 			it('il est enregistré dans le cms', async () => {
 				// Given
+
 				const httpClientService = anHttpClientService();
 				const authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 				const strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService, authenticatedHttpClientService);
 
 				const offreDeStageDepot = anOffreDeStageDepot();
+				const offreDeStageDepotStrapi = anOffreDeStageDepotStrapi();
 
 				// When
-				jest.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse(anOffreDeStageDepot()));
+				jest.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse(anOffreDeStageDepotStrapi()));
 				const result = await strapiIndexCmsRepository.saveOffreDeStage(offreDeStageDepot);
 
 				// Then
-				expect(result).toEqual(createSuccess(anOffreDeStageDepot()));
-				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offre-de-stage', { data: offreDeStageDepot });
+				expect(result).toEqual(createSuccess(anOffreDeStageDepotStrapi()));
+				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offre-de-stage', { data: offreDeStageDepotStrapi });
 			});
 		});
 	});
