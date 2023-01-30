@@ -8,8 +8,15 @@ import InputAutocomplétionPays
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
+import {
+	OffreDeStageFormulaire,
+	OffreDeStageFormulaireNotFormatted,
+	StageService,
+} from '~/client/services/stage/stage.service';
+import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import {
 	LABEL_FORMULAIRE_1,
 	LABEL_FORMULAIRE_2, LABEL_FORMULAIRE_3,
@@ -19,6 +26,8 @@ import styles from './StageDeposerOffreFormulaire.module.scss';
 
 export default function StageDeposerOffreFormulaireLocalisation() {
 	const router = useRouter();
+	const stageService = useDependency<StageService>('stageService');
+
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const [inputPays, setInputPays] = useState('');
@@ -47,19 +56,48 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 				setInputPays(storedForm.pays);
 				setInputVille(storedForm.ville);
 				setInputAdresse(storedForm.adresse);
-				setInputCodePostal(storedForm.code_postal);
+				setInputCodePostal(storedForm.codePostal);
 				setInputRegion(storedForm.region);
 				setInputDepartement(storedForm.departement);
 			}
 		}
 	}, [valueEtape3]);
 
-	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+	function formatFormulaire(formData: OffreDeStageFormulaireNotFormatted): OffreDeStageFormulaire {
+		const formattedData = removeNullOrEmptyValue(formData) as unknown as OffreDeStageFormulaire;
+		if (formData.teletravail === 'true' || formData.teletravail === 'false') {
+			formattedData.teletravail = formData.teletravail === 'true';
+		}
+		if (!formattedData.lienCandidature.startsWith('http')) {
+			formattedData.lienCandidature = 'mailto:' + formattedData.lienCandidature;
+		}
+		return formattedData;
+	}
+
+	async function retrieveForm(formulaireOffreStageEtape1: string, formulaireOffreStageEtape2: string, formulaireOffreStageEtape3: string) {
+		// Transformer en object
+		const formData = {
+			...JSON.parse(formulaireOffreStageEtape1),
+			...JSON.parse(formulaireOffreStageEtape2),
+			...JSON.parse(formulaireOffreStageEtape3),
+		};
+		const formattedData = formatFormulaire(formData);
+		// Envoyer dans strapi
+		const result = await stageService.enregistrerOffreDeStage(formattedData);
+		if (result.instance === 'success') {
+			// passer à la page suivante
+		}
+	}
+
+	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const formulaireOffreStageEtape3 = JSON.stringify(mapFormulaireOffreStageEtape3(data));
 		setValueEtape3(formulaireOffreStageEtape3);
+		if (valueEtape1 !== null && valueEtape2 !== null) {
+			await retrieveForm(valueEtape1, valueEtape2, formulaireOffreStageEtape3);
+		}
 		return router.push('/stages/deposer-offre/confirmation-envoi');
 	}
 
@@ -101,7 +139,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					/>
 					<InputText
 						label="Code postal"
-						name="code_postal"
+						name="codePostal"
 						placeholder="Exemple : 75007"
 						required
 						value={inputCodePostal}
@@ -140,11 +178,11 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 
 function mapFormulaireOffreStageEtape3(formData: FormData) {
 	return {
-		adresse: String(formData.get('adresse')),
-		code_postal: String(formData.get('code_postal')),
-		departement: String(formData.get('departement')),
-		pays: String(formData.get('pays')),
-		region: String(formData.get('region')),
-		ville: String(formData.get('ville')),
+		adresse: formData.get('adresse'),
+		codePostal: formData.get('codePostal'),
+		departement: formData.get('departement'),
+		pays: formData.get('pays'),
+		region: formData.get('region'),
+		ville: formData.get('ville'),
 	};
 }

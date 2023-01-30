@@ -8,19 +8,28 @@ import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLocalStorage } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { StageService } from '~/client/services/stage/stage.service';
+import { aStageService } from '~/client/services/stage/stageService.fixture';
 import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
 import {
 	aFormulaireDepotDeStageLocalisationLocalStorage,
 } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation.fixture';
 
 describe('<Localisation />', () => {
+	let stageService: StageService;
 	beforeEach(() => {
+		stageService = aStageService();
 		mockUseRouter({});
 	});
 
 	describe('quand l’utilisateur arrive sur la page Localisation', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 2' , async () => {
-			render(<Localisation />);
+			render(
+				<DependenciesProvider stageService={stageService}>
+					<Localisation />
+				</DependenciesProvider>,
+			);
 
 			const retourLink = screen.getByRole('link', { name: 'Retour à l’étape précédente' });
 
@@ -28,7 +37,11 @@ describe('<Localisation />', () => {
 		});
 
 		it('affiche la troisième étape de formulaire', () => {
-			render(<Localisation />);
+			render(
+				<DependenciesProvider stageService={stageService}>
+					<Localisation />
+				</DependenciesProvider>,
+			);
 
 			expect(screen.getByText('Etape 3 sur 3 : Localisation du stage')).toBeInTheDocument();
 			expect(screen.getByLabelText('Pays')).toBeInTheDocument();
@@ -44,7 +57,11 @@ describe('<Localisation />', () => {
 			const labelRegion = 'Région';
 			const labelDepartement = 'Département';
 			// Given
-			render(<Localisation />);
+			render(
+				<DependenciesProvider stageService={stageService}>
+					<Localisation />
+				</DependenciesProvider>,
+			);
 
 			//When
 			await userEvent.type(screen.getByLabelText(labelRegion), 's{backspace}');
@@ -57,7 +74,11 @@ describe('<Localisation />', () => {
 		it('sauvegarde les données remplies dans le localStorage', async () => {
 			mockLocalStorage();
 
-			render(<Localisation/>);
+			render(
+				<DependenciesProvider stageService={stageService}>
+					<Localisation/>
+				</DependenciesProvider>,
+			);
 
 			await remplirFormulaireLocalisation();
 
@@ -68,14 +89,18 @@ describe('<Localisation />', () => {
 			mockLocalStorage();
 			setLocalStorage();
 			it('utilise localStorage pour restaurer les valeurs', async () => {
-				render(<Localisation/>);
+				render(
+					<DependenciesProvider stageService={stageService}>
+						<Localisation/>
+					</DependenciesProvider>,
+				);
 
 				expect(screen.getByRole('textbox', { name: 'Adresse' })).toHaveValue('France');
 				expect(screen.getByRole('textbox', { name: 'Pays' })).toHaveValue('France');
 				expect(screen.getByRole('textbox', { name: 'Ville' })).toHaveValue('Paris');
-				expect(screen.getByRole('textbox', { name: 'Code postal' })).toHaveAttribute('value', '75000');
-				expect(screen.getByRole('textbox', { name: 'Région' })).toHaveAttribute('value', 'Ile-de-France');
-				expect(screen.getByRole('textbox', { name: 'Département' })).toHaveAttribute('value', 'Paris');
+				expect(screen.getByRole('textbox', { name: 'Code postal' })).toHaveValue('75000');
+				expect(screen.getByRole('textbox', { name: 'Région' })).toHaveValue('Ile-de-France');
+				expect(screen.getByRole('textbox', { name: 'Département' })).toHaveValue('Paris');
 			});
 		});
 	});

@@ -1,28 +1,26 @@
-import {
-	uneAnnonceDeLogement,
-	uneAnnonceDeLogementResponse,
-} from '~/server/cms/domain/annonceDeLogement.fixture';
+import { uneAnnonceDeLogement, uneAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import {
+	anOffreDeStageDepot,
 	uneOffreDeStage,
 	uneOffreDeStageResponse,
 } from '~/server/cms/domain/offreDeStage.fixture';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { StrapiIndexCmsRepository } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
-import {
-	Failure,
-	Success,
-} from '~/server/errors/either';
+import { createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import {
 	anAxiosError,
 	anAxiosResponse,
 	anHttpClientService,
+	anHttpClientServiceWithAuthentification,
 } from '~/server/services/http/httpClientService.fixture';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 describe('strapi index cms repository', () => {
 	let httpClientService: HttpClientService;
+	let authenticatedHttpClientService: HttpClientServiceWithAuthentification;
 	let strapiIndexCmsRepository: StrapiIndexCmsRepository;
 
 
@@ -30,7 +28,8 @@ describe('strapi index cms repository', () => {
 		describe('Si un logement est trouvé', () => {
 			it('récupère l‘annonce de logement selon le slug', async () => {
 				httpClientService = anHttpClientService();
-				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService);
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService, authenticatedHttpClientService);
 				(httpClientService.get as jest.Mock).mockResolvedValue({ data: { data: { attributes: uneAnnonceDeLogementResponse() } } });
 				const slug = uneAnnonceDeLogementResponse().slug;
 
@@ -43,7 +42,8 @@ describe('strapi index cms repository', () => {
 		describe('Si le logement n‘est pas trouvé', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = anHttpClientService();
-				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService);
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService, authenticatedHttpClientService);
 				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
 				const slug = 'bad-slug';
 
@@ -57,7 +57,8 @@ describe('strapi index cms repository', () => {
 		describe('Si un stage est trouvé', () => {
 			it('récupère l‘offre de stage selon le slug', async () => {
 				httpClientService = anHttpClientService();
-				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService);
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService, authenticatedHttpClientService);
 				(httpClientService.get as jest.Mock).mockResolvedValue({ data: { data: { attributes: uneOffreDeStageResponse() } } });
 				const slug = uneOffreDeStageResponse().slug;
 
@@ -68,4 +69,24 @@ describe('strapi index cms repository', () => {
 		});
 	});
 
+	describe('saveOffreDeStage', () => {
+		describe('Si un stage est fourni', () => {
+			it('il est enregistré dans le cms', async () => {
+				// Given
+				const httpClientService = anHttpClientService();
+				const authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				const strapiIndexCmsRepository = new StrapiIndexCmsRepository(httpClientService, authenticatedHttpClientService);
+
+				const offreDeStageDepot = anOffreDeStageDepot();
+
+				// When
+				jest.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse(anOffreDeStageDepot()));
+				const result = await strapiIndexCmsRepository.saveOffreDeStage(offreDeStageDepot);
+
+				// Then
+				expect(result).toEqual(createSuccess(anOffreDeStageDepot()));
+				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offre-de-stage', { data: offreDeStageDepot });
+			});
+		});
+	});
 });

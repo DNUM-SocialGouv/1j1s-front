@@ -205,13 +205,13 @@ export default function StageDeposerOffreFormulaireStage() {
 
 function parseFormulaireOffreStageEtape2(formData: FormData) {
 	return {
-		dateDebut: String(formData.get('dateDebut')),
-		descriptionOffre: String(formData.get('descriptionOffre')),
-		domaineStage: String(formData.get('domaineStage')),
-		dureeStage: String(formData.get('dureeStage')),
-		lienCandidature: String(formData.get('lienCandidature')),
-		nomOffre: String(formData.get('nomOffre')),
-		remunerationStage: String(formData.get('remunerationStage')),
-		teletravail: String(formData.get('teletravail')),
+		dateDebut: formData.get('dateDebut'),
+		descriptionOffre: formData.get('descriptionOffre'),
+		domaineStage: formData.get('domaineStage'),
+		dureeStage: formData.get('dureeStage'),
+		lienCandidature: formData.get('lienCandidature'),
+		nomOffre: formData.get('nomOffre'),
+		remunerationStage: formData.get('remunerationStage'),
+		teletravail: formData.get('teletravail'),
 	};
 }

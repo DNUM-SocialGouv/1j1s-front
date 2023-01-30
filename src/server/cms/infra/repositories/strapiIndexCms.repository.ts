@@ -6,7 +6,7 @@ import {
 } from '~/server/cms/domain/annonceDeLogement.type';
 import { CmsIndexRepository } from '~/server/cms/domain/cmsIndex.repository';
 import {
-	OffreDeStage,
+	OffreDeStage, OffreDeStageDepot,
 	OffreDeStageResponse,
 } from '~/server/cms/domain/offreDeStage.type';
 import {
@@ -16,10 +16,12 @@ import {
 import { handleFailureError } from '~/server/cms/infra/repositories/strapiCmsError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { HttpClientService } from '~/server/services/http/httpClientService';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 export class StrapiIndexCmsRepository implements CmsIndexRepository {
 	constructor(
 		private httpClientService: HttpClientService,
+		private authenticatedHttpClientService: HttpClientServiceWithAuthentification,
 	) {}
 
 	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
@@ -36,6 +38,19 @@ export class StrapiIndexCmsRepository implements CmsIndexRepository {
 			return createSuccess(mapper(data.data.attributes));
 		} catch (e) {
 			return handleFailureError(e, content);
+		}
+	}
+
+	async saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>> {
+		return this.save<OffreDeStageDepot, void>(`${process.env.STRAPI_OFFRE_DE_STAGE_ENDPOINT}`, offre);
+	}
+
+	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {
+		try {
+			const { data } = await this.authenticatedHttpClientService.post<{ data: Body }, Response>(resource, { data: body });
+			return createSuccess(data);
+		} catch (e) {
+			return handleFailureError(e, resource);
 		}
 	}
 }

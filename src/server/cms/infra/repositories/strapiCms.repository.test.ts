@@ -30,7 +30,7 @@ describe('strapi cms repository', () => {
 		describe('Si les actualités sont trouvées', () => {
 			it('récupère les actualités', async () => {
 				httpClientService = anHttpClientServiceWithAuthentification();
-				strapiCmsRepository = new StrapiCmsRepository(httpClientService);
+				strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anActualiteFixture()));
 				const expectedCartesActualite = [aCarteActualiteFixture({ titre: 'Actualité 1' })];
