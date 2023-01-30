@@ -29,11 +29,11 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 			if (value !== null) {
 				const storedForm = JSON.parse(value);
 				if (formRef.current) {
-					setInputNom(storedForm.nom);
-					setInputEmail(storedForm.email);
-					setInputDescription(storedForm.description);
-					setInputLogo(storedForm.logo);
-					setInputSite(storedForm.site);
+					setInputNom(storedForm.nomEmployeur);
+					setInputEmail(storedForm.emailEmployeur);
+					setInputDescription(storedForm.descriptionEmployeur);
+					setInputLogo(storedForm.logoEmployeur);
+					setInputSite(storedForm.siteEmployeur);
 				}
 			}
 		}
@@ -58,7 +58,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Indiquez le nom de l’entreprise ou de l’employeur"
-						name="nom"
+						name="nomEmployeur"
 						value={inputNom}
 						placeholder="Exemple : Crédit Agricole, SNCF…"
 						required
@@ -66,7 +66,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					<InputText
 						label="Indiquez une adresse mail de contact"
 						pattern={EMAIL_REGEX}
-						name="email"
+						name="emailEmployeur"
 						value={inputEmail}
 						placeholder="Exemple : contactRH@exemple.com"
 						required
@@ -76,7 +76,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						id="description"
 						label="Rédigez une courte description de l’entreprise (500 caractères maximum)"
 						placeholder="Indiquez des informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
-						name="description"
+						name="descriptionEmployeur"
 						value={inputDescription}
 						required
 						rows={10}
@@ -90,14 +90,14 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					<InputText
 						label="Partagez le logo de l’entreprise - lien/URL"
 						type="url"
-						name="logo"
+						name="logoEmployeur"
 						value={inputLogo}
 						placeholder="Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3..."
 					/>
 					<InputText
 						label="Indiquez le lien du site de l’entreprise - lien/URL"
 						type="url"
-						name="site"
+						name="siteEmployeur"
 						value={inputSite}
 						placeholder="Exemple : https://1jeune1solution.gouv.fr"
 					/>
@@ -118,10 +118,10 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 
 function parseFormulaireOffreStageEtape1(formData: FormData) {
 	return {
-		description: String(formData.get('description')),
-		email: String(formData.get('email')),
-		logo: String(formData.get('logo')),
-		nom: String(formData.get('nom')),
-		site: String(formData.get('site')),
+		descriptionEmployeur: String(formData.get('descriptionEmployeur')),
+		emailEmployeur: String(formData.get('emailEmployeur')),
+		logoEmployeur: String(formData.get('logoEmployeur')),
+		nomEmployeur: String(formData.get('nomEmployeur')),
+		siteEmployeur: String(formData.get('Employeur')),
 	};
 }

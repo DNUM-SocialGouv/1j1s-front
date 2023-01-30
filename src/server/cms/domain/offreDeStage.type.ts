@@ -44,7 +44,7 @@ export enum Domaines {
   NON_RENSEIGNE = 'non renseigné' // obligatoire en unitaire et n/a par défaut
 }
 
-type LocalisationStageIndexée = {
+export type LocalisationStageIndexée = {
   ville?: string
   departement?: string
   codePostal?: string
@@ -64,6 +64,7 @@ export enum SourceDesDonnées {
   JOBTEASER = 'jobteaser',
   STAGEFR_COMPRESSE = 'stagefr-compresse',
   STAGEFR_DECOMPRESSE = 'stagefr-decompresse',
+  DEPOT_STAGE = 'depot-stage',
 }
 
 export type OffreDeStageIndexée = {
@@ -85,14 +86,21 @@ export type OffreDeStageIndexée = {
   teletravailPossible?: boolean
 };
 
-interface EmployeurStageCMS extends CmsComponent {
+export interface EmployeurStageCMS extends CmsComponent {
   nom: string
   description: string
   logoUrl: string
   siteUrl: string
 }
 
-interface DomaineStageCMS extends CmsComponent {
+export interface EmployeurStage {
+  nom: string
+  description: string
+  logoUrl: string
+  siteUrl: string
+}
+
+export interface DomaineStageCMS extends CmsComponent {
   nom: Domaines
 }
 
@@ -141,6 +149,21 @@ export interface OffreDeStage {
   dureeEnJourMax?: number
   localisation?: LocalisationStageIndexée
   employeur?: EmployeurStageCMS
+  remunerationBase?: number
+  source?: SourceDesDonnées
+  teletravailPossible?: boolean
+}
+
+export interface OffreDeStageDepot {
+  titre: string
+  dateDeDebut: string
+  description: string
+  urlDeCandidature?: string
+  domaine: Domaines
+  duree?: string
+  dureeEnJour?: number
+  localisation?: LocalisationStageIndexée
+  employeur?: EmployeurStage
   remunerationBase?: number
   source?: SourceDesDonnées
   teletravailPossible?: boolean

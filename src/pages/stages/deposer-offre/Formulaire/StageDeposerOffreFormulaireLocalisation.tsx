@@ -29,7 +29,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					setInputPays(storedForm.pays);
 					setInputVille(storedForm.ville);
 					setInputAdresse(storedForm.adresse);
-					setInputCodePostal(storedForm.code_postal);
+					setInputCodePostal(storedForm.codePostal);
 					setInputRegion(storedForm.region);
 					setInputDepartement(storedForm.departement);
 				}
@@ -83,7 +83,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					/>
 					<InputText
 						label="Code postal"
-						name="code_postal"
+						name="codePostal"
 						placeholder="Exemple : 75007"
 						required
 						value={inputCodePostal}
@@ -123,7 +123,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 function parseFormulaireOffreStageEtape3(formData: FormData) {
 	return {
 		adresse: String(formData.get('adresse')),
-		code_postal: String(formData.get('code_postal')),
+		codePostal: String(formData.get('codePostal')),
 		departement: String(formData.get('departement')),
 		pays: String(formData.get('pays')),
 		region: String(formData.get('region')),
