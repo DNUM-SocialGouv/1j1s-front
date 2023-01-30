@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.55.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.55.0...v2.55.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* **style:** fix mineur style page espace jeune ([3c786ec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3c786ec5fc8d2dc543ce5df1dc109ce335089dfa))
+
 ## [2.55.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.54.0...v2.55.0) (2023-01-27)
 
 
