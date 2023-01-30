@@ -23,6 +23,7 @@ export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListPr
 		const concerné = carte.concerné || '';
 
 		return <FlippingCard
+			className={styles.card}
 			category={categorie}
 			key={index}
 			imageUrl={bannière}
@@ -41,7 +42,7 @@ export function EspaceJeuneFlippingCardList(props: EspaceJeuneFlippingCardListPr
 	return (
 		<>
 			<Container>
-				<SeeMoreItemList className={styles.seeMoreButton}
+				<SeeMoreItemList
 					seeLessLabel="Voir moins de services"
 					seeMoreLabel="Voir plus de services"
 					seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
