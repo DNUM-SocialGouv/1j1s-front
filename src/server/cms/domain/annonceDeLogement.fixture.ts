@@ -21,6 +21,14 @@ export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
 		nombreDePieces: 1,
 		prix: 1000,
 		prixHT: 980,
+		servicesInclus: [
+			AnnonceDeLogementResponse.ServiceInclus.INTERNET,
+			AnnonceDeLogementResponse.ServiceInclus.VACUUM,
+		],
+		servicesOptionnels: [
+			AnnonceDeLogementResponse.ServiceOptionnel.TV,
+			AnnonceDeLogementResponse.ServiceOptionnel.BIKE_STORAGE,
+		],
 		slug: 'logement-slug',
 		source: 'immojeune',
 		sourceCreatedAt: uneDate(),
@@ -52,6 +60,14 @@ export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
 		nombreDePièces: 1,
 		prix: 1000,
 		prixHT: 980,
+		servicesInclus: [
+			AnnonceDeLogement.ServiceInclus.INTERNET,
+			AnnonceDeLogement.ServiceInclus.VACUUM,
+		],
+		servicesOptionnels: [
+			AnnonceDeLogement.ServiceOptionnel.TV,
+			AnnonceDeLogement.ServiceOptionnel.BIKE_STORAGE,
+		],
 		source: 'immojeune',
 		surface: 10,
 		surfaceMax: 12,
