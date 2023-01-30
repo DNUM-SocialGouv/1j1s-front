@@ -35,4 +35,26 @@ describe('<Services />', () => {
 		expect(TV).toBeVisible();
 		expect(Internet).toBeVisible();
 	});
+	it('affiche le titre des services inclus', async () => {
+		const servicesInclus = [
+			ServiceInclus.TV,
+			ServiceInclus.INTERNET,
+		];
+		render(<Services inclus={servicesInclus} optionnels={[]} />);
+
+		const heading = screen.getByRole('heading', { level: 2, name: /Équipements et services inclus/i });
+
+		expect(heading).toBeVisible();
+	});
+	it('affiche le titre des services optionnels', async () => {
+		const servicesOptionnels = [
+			ServiceOptionnel.TV,
+			ServiceOptionnel.INTERNET,
+		];
+		render(<Services inclus={[]} optionnels={servicesOptionnels} />);
+
+		const heading = screen.getByRole('heading', { level: 2, name: /Équipements et services optionnels/i });
+
+		expect(heading).toBeVisible();
+	});
 });

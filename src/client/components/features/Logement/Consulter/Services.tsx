@@ -30,11 +30,13 @@ interface ServicesProps {
 export function Services({ inclus, optionnels }: ServicesProps) {
 	return (
 		<section className={classNames(styles.card, styles.services)} aria-label="Services">
+			<h2>Équipements et services inclus</h2>
 			<ul>
 				{inclus.map((service) => (
 					<li key={service}>{service}</li>
 				))}
 			</ul>
+			<h2>Équipements et services optionnels</h2>
 			<ul>
 				{optionnels.map((service) => (
 					<li key={service}>{service}</li>
