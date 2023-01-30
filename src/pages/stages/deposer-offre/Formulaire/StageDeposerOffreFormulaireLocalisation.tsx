@@ -3,6 +3,8 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import InputAutocomplétionPays
+	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -29,7 +31,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	const [valueEtape3, setValueEtape3] = useLocalStorage('formulaireEtape3');
 
 	useEffect(() => {
-		if (!valueEtape1 && !valueEtape2){
+		if (!valueEtape1 || !valueEtape2){
 			router.push('/stages/deposer-offre');
 		}
 	}, [router, valueEtape1, valueEtape2]);
@@ -73,12 +75,12 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					Les champs suivants sont obligatoires
 				</p>
 				<div className={styles.bodyFormulaire}>
-					<InputText
+					<InputAutocomplétionPays
+						codePays={inputPays}
 						label="Pays"
 						name="pays"
 						placeholder="Exemple : France"
 						required
-						value={inputPays}
 					/>
 					<InputText
 						label="Ville"

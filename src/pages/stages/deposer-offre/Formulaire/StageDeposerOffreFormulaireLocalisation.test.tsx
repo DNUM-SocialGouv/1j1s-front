@@ -57,7 +57,8 @@ describe('<Localisation />', () => {
 			render(<Localisation />);
 
 			const inputPays = screen.getByRole('textbox', { name: 'Pays' });
-			await userEvent.type(inputPays, 'France');
+			await userEvent.type(inputPays, 'france');
+			await userEvent.click(screen.getByRole('option'));
 
 			await BoutonEnvoyer();
 

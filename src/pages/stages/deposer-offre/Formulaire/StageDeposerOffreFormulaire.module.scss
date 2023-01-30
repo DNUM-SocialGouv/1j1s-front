@@ -78,7 +78,8 @@
           margin-right: 1.5rem;
 
           &:focus + label::before {
-            outline: 1px solid $color-primary;
+            outline: 2px solid $color-primary;
+            outline-offset: 2px;
           }
         }
       }
