@@ -275,3 +275,9 @@
     }
   }
 }
+
+.services {
+  li:first-letter {
+    text-transform: uppercase;
+  }
+}
