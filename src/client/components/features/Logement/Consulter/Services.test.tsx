@@ -11,6 +11,12 @@ import ServiceInclus = AnnonceDeLogement.ServiceInclus;
 import ServiceOptionnel = AnnonceDeLogement.ServiceOptionnel;
 
 describe('<Services />', () => {
+	it('affiche une section', async () => {
+		render(<Services inclus={[]} optionnels={[]} />);
+
+		const section = screen.getByRole('region', { name: /Équipements et services/i });
+		expect(section).toBeVisible();
+	});
 	it('affiche les services inclus', async () => {
 		const servicesInclus = [
 			ServiceInclus.TV,

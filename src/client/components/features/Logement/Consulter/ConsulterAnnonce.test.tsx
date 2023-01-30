@@ -136,17 +136,22 @@ describe('<ConsulterAnnonce />', () => {
 			});
 		});
 	});
+	it('affiche la description du logement', () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+		annonceDeLogement.description = "C'est un super logement !";
 
-	describe('description du logement', () => {
-		it('affiche la description du logement', () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
-			annonceDeLogement.description = "C'est un super logement !";
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
+		const description = screen.getByText(/C'est un super logement !/i);
 
-			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
-			const description = screen.getByText(/C'est un super logement !/i);
+		expect(description).toBeVisible();
+	});
+	it('affiche les informations générales', () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
 
-			expect(description).toBeVisible();
-		});
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		const section = screen.getByRole('region', { name: /Informations Générales/i });
+
+		expect(section).toBeVisible();
 	});
 
 	describe('bilan énergétique du logement', ()=>{
@@ -256,5 +261,13 @@ describe('<ConsulterAnnonce />', () => {
 			expect(lienExterneCandidater).toBeInTheDocument();
 			expect(lienExterneCandidater).toHaveAttribute('href', 'lien-immo-jeune.com');
 		});
+	});
+	it('affiche les services', () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		const section = screen.getByRole('region', { name: /Équipements et services/i });
+
+		expect(section).toBeVisible();
 	});
 });

@@ -8,6 +8,7 @@ import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRe
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
+import { Services } from '~/client/components/features/Logement/Consulter/Services';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
@@ -54,6 +55,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 				<div>
 					<InformationsGénérales annonce={annonceDeLogement}/>
 					<DescriptionDuLogement>{description}</DescriptionDuLogement>
+					<Services inclus={annonceDeLogement.servicesInclus} optionnels={annonceDeLogement.servicesOptionnels}/>
 					<BilanEnergetiqueLogement
 						consommationEnergetique={bilanEnergetique.consommationEnergetique}
 						emissionDeGaz={bilanEnergetique.emissionDeGaz}
