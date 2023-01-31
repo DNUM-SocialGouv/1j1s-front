@@ -36,7 +36,7 @@ describe('<Services />', () => {
 		];
 		render(<Services inclus={[]} optionnels={servicesOptionnels} />);
 
-		const [ _, listeServicesOptionnels ] = screen.getAllByRole('list');
+		const [ , listeServicesOptionnels ] = screen.getAllByRole('list');
 		const [ TV, Internet ] = within(listeServicesOptionnels).getAllByRole('listitem');
 		expect(TV).toBeVisible();
 		expect(Internet).toBeVisible();
