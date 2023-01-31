@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.56.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.56.0...v2.56.1) (2023-01-31)
+
+
+### Bug Fixes
+
+* **1183:** Applique les retours PO ([d8d899b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d8d899b0de7c6ad65a2f1253385e4d8e79e6a642))
+
 ## [2.56.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.55.2...v2.56.0) (2023-01-31)
 
 
