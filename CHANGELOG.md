@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.55.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.55.1...v2.55.2) (2023-01-31)
+
+
+### Bug Fixes
+
+* **logement:** retour contraste et wording DPE ([1b944d7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1b944d76d162826ff424b5e2eaf2397ab31961fb))
+
 ## [2.55.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.55.0...v2.55.1) (2023-01-30)
 
 
