@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.56.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.55.2...v2.56.0) (2023-01-31)
+
+
+### Features
+
+* **logement/details:** Formatte les dates ([85530c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/85530c802b729fdc04517ccccc7315ab1b567cf2))
+
 ## [2.55.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.55.1...v2.55.2) (2023-01-31)
 
 
