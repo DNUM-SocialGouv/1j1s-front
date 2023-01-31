@@ -12,6 +12,11 @@ import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOf
 describe('<Localisation />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+		Object.defineProperty(window, 'localStorage', {
+			value: {
+				getItem: jest.fn(() =>  null),
+			},
+		});
 	});
 
 	describe('quand l’utilisateur arrive sur la page Localisation', () => {
@@ -36,7 +41,7 @@ describe('<Localisation />', () => {
 			expect(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' })).toBeInTheDocument();
 		});
 
-		it('il voit afficher des champs facultatifs', async () => {
+		it('il voit affiché des champs facultatifs', async () => {
 			const labelRegion = 'Région';
 			const labelDepartement = 'Département';
 			// Given
@@ -49,6 +54,13 @@ describe('<Localisation />', () => {
 			// Then
 			expect(screen.getByLabelText(labelRegion)).toBeValid();
 			expect(screen.getByLabelText(labelDepartement)).toBeValid();
+		});
+		it('utilise localStorage', async () => {
+			render(<Localisation/>);
+
+			await remplirFormulaireLocalisation();
+
+			expect(window.localStorage.getItem).toHaveBeenCalled();
 		});
 	});
 
@@ -71,4 +83,19 @@ describe('<Localisation />', () => {
 async function BoutonEnvoyer() {
 	const button = screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' });
 	await userEvent.click(button);
+}
+
+async function remplirFormulaireLocalisation() {
+	const inputPays = screen.getByRole('textbox', { name: 'Pays' });
+	const inputVille = screen.getByRole('textbox', { name: 'Ville' });
+	const inputAdresse = screen.getByRole('textbox', { name: 'Adresse' });
+	const inputCodePostal = screen.getByRole('textbox', { name: 'Code postal' });
+	const inputRégion = screen.getByRole('textbox', { name: 'Région' });
+	const inputDépartement = screen.getByRole('textbox', { name: 'Département' });
+	await userEvent.type(inputPays, 'France');
+	await userEvent.type(inputVille, 'Paris');
+	await userEvent.type(inputAdresse, '34 avenue de l’Opéra');
+	await userEvent.type(inputCodePostal, '75000');
+	await userEvent.type(inputRégion, 'Ile-de-France');
+	await userEvent.type(inputDépartement, 'Paris');
 }

@@ -37,17 +37,15 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	}, [router, valueEtape1, valueEtape2]);
 
 	useEffect(() => {
-		if (window) {
-			if (valueEtape3 !== null) {
-				const storedForm = JSON.parse(valueEtape3);
-				if (formRef.current) {
-					setInputPays(storedForm.pays);
-					setInputVille(storedForm.ville);
-					setInputAdresse(storedForm.adresse);
-					setInputCodePostal(storedForm.code_postal);
-					setInputRegion(storedForm.region);
-					setInputDepartement(storedForm.departement);
-				}
+		if (window && valueEtape3 !== null) {
+			const storedForm = JSON.parse(valueEtape3);
+			if (formRef.current) {
+				setInputPays(storedForm.pays);
+				setInputVille(storedForm.ville);
+				setInputAdresse(storedForm.adresse);
+				setInputCodePostal(storedForm.code_postal);
+				setInputRegion(storedForm.region);
+				setInputDepartement(storedForm.departement);
 			}
 		}
 	}, [valueEtape3]);
