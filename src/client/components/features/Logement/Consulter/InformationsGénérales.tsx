@@ -46,18 +46,18 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Prix</th>
-						<td>{prix}{devise}<abbr title="Charges Comprises">CC</abbr>/mois</td>
+						<td>{prix} {devise}<abbr title="Charges Comprises">CC</abbr>/mois</td>
 					</tr>
 					{garantie != null && (
 						<tr>
 							<th scope="row">Caution</th>
-							<td>{garantie}{devise}</td>
+							<td>{garantie} {devise}</td>
 						</tr>
 					)}
 					{charge != null && (
 						<tr>
 							<th scope="row">Charges</th>
-							<td>{charge}{devise}</td>
+							<td>{charge} {devise}</td>
 						</tr>
 					)}
 				</tbody>
