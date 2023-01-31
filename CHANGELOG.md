@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.57.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.56.1...v2.57.0) (2023-01-31)
+
+
+### Features
+
+* **logement/details:** equipements et services ([cd6ae21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cd6ae21318e50cabb15c76a58e26e9ff30caf414))
+
 ## [2.56.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.56.0...v2.56.1) (2023-01-31)
 
 
