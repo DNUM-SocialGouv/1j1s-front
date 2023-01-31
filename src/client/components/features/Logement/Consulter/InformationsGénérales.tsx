@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useLocale } from '~/client/context/locale.context';
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
@@ -32,14 +33,11 @@ export function InformationsGénérales({
 		typeBien,
 		meublé,
 		localisation,
-		dateDeDisponibilité,
+		dateDeDisponibilité: dateDeDisponibilitéString,
 	},
 }: InformationsGénéralesProps) {
-	const dateDeDisponibilitéFormattée = new Date(dateDeDisponibilité).toLocaleDateString('fr-FR', {
-		day: '2-digit',
-		month: '2-digit',
-		year: 'numeric',
-	});
+	const locale = useLocale();
+	const dateDeDisponibilité = new Date(dateDeDisponibilitéString);
 	return (
 		<section className={classNames(styles.card, styles.informationsGenerales)} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
@@ -109,7 +107,9 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le {dateDeDisponibilitéFormattée}</td>
+						<td>le <time dateTime={dateDeDisponibilité.toISOString()} lang={locale}>
+							{dateDeDisponibilité.toLocaleDateString(locale, { dateStyle: 'long' })}
+						</time></td>
 					</tr>
 				</tbody>
 			</table>

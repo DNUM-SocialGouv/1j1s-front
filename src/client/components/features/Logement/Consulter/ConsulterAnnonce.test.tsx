@@ -9,6 +9,7 @@ import {
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { LocaleProvider } from '~/client/context/locale.context';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
@@ -35,7 +36,7 @@ describe('<ConsulterAnnonce />', () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
-		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 		const titre = screen.getByRole('heading', {
 			level: 1,
 		});
@@ -49,7 +50,7 @@ describe('<ConsulterAnnonce />', () => {
 		annonceDeLogement.type = 'Location';
 		annonceDeLogement.typeBien = 'Appartement';
 
-		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 		const type = screen.getByText(/Location - Appartement/i);
 
 		expect(type).toBeVisible();
@@ -59,11 +60,39 @@ describe('<ConsulterAnnonce />', () => {
 		const annonceDeLogement = uneAnnonceDeLogement();
 		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
 
-		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+		render(
+			<LocaleProvider value={'fr-FR'}>
+				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
+			</LocaleProvider>);
 		const date = screen.getByText(/Annonce mise à jour le/i);
 
 		expect(date).toBeVisible();
-		expect(date).toHaveTextContent(/Annonce mise à jour le 01.02.2020/i);
+		expect(date).toHaveTextContent(/Annonce mise à jour le 1 février 2020/i);
+	});
+	it('affiche la date de mise à jour au bon format dépendamment de la locale', () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
+
+		render(
+			<LocaleProvider value={'en-US'}>
+				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
+			</LocaleProvider>);
+		const date = screen.getByText(/Annonce mise à jour le/i);
+
+		expect(date).toBeVisible();
+		expect(date).toHaveTextContent(/Annonce mise à jour le February 1, 2020/i);
+	});
+	it("ajoute l'attribut lang à la date", () => {
+		const annonceDeLogement = uneAnnonceDeLogement();
+		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
+
+		render(
+			<LocaleProvider value={'fr-FR'}>
+				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
+			</LocaleProvider>);
+		const date = screen.getByText(/1 février 2020/i);
+
+		expect(date).toHaveAttribute('lang', 'fr-FR');
 	});
 
 	describe('carousel', () => {
@@ -73,9 +102,9 @@ describe('<ConsulterAnnonce />', () => {
 		});
 
 		describe('quand il n‘y a pas d‘image a afficher', () => {
-			it('n‘affiche pas le carousel',() => {
+			it('n‘affiche pas le carousel', () => {
 				annonceDeLogement.imageUrlList = [];
-				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
 				expect(listDeSlides).not.toBeInTheDocument();
 			});
@@ -83,8 +112,8 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand il y a une seule image a afficher', () => {
 			it('n‘affiche pas le carousel, juste une image', () => {
-				annonceDeLogement.imageUrlList = [{ alt:'une seule image', src:'/une-seule-image.webp' }];
-				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				annonceDeLogement.imageUrlList = [{ alt: 'une seule image', src: '/une-seule-image.webp' }];
+				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 
 				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
 				expect(listDeSlides).not.toBeInTheDocument();
@@ -96,8 +125,11 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand il y a plusieurs images a afficher', () => {
 			it('affiche le carousel', () => {
-				annonceDeLogement.imageUrlList = [{ alt:'', src:'/une-première-image.webp' }, { alt:'', src:'/une-deuxième-image.webp' }];
-				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+				annonceDeLogement.imageUrlList = [{ alt: '', src: '/une-première-image.webp' }, {
+					alt: '',
+					src: '/une-deuxième-image.webp',
+				}];
+				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 
 				const listDesSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
 				expect(listDesSlides).toBeInTheDocument();
@@ -110,7 +142,7 @@ describe('<ConsulterAnnonce />', () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
 			annonceDeLogement.description = "C'est un super logement !";
 
-			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 			const description = screen.getByText(/C'est un super logement !/i);
 
 			expect(description).toBeVisible();
