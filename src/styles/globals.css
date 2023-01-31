@@ -9,3 +9,7 @@ button {
   font-family: inherit;
   margin: 0;
 }
+
+abbr[title] {
+  cursor: help;
+}
