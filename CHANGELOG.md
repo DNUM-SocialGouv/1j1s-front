@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.58.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.57.0...v2.58.0) (2023-01-31)
+
+
+### Features
+
+* **ui:** ajustement carte logement ([f1525b3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f1525b3eeba5a0bc4df1561fb5a59cd389c9aee3))
+
 ## [2.57.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.56.1...v2.57.0) (2023-01-31)
 
 
