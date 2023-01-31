@@ -30,6 +30,28 @@ export function mockLargeScreen() {
 		writable: true,
 	});
 }
+export function mockLocalStorage() {
+	const localStorageMock = (function() {
+		let store: Record<string, unknown> = {};
+		return {
+			clear: function() {
+				store = {};
+			},
+			getItem: function(key: string) {
+				return store[key] || null;
+			},
+			removeItem: function(key: string) {
+				delete store[key];
+			},
+			/* eslint-disable  @typescript-eslint/no-explicit-any */
+			setItem: function(key: string, value: any) {
+				store[key] = value.toString();
+			},
+		};
+	})();
+	Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+}
+
 
 export function mockScrollBy() {
 	Object.defineProperty(window, 'scrollBy', {

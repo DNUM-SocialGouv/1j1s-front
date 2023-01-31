@@ -11,6 +11,10 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
+import {
+	LABEL_FORMULAIRE_1,
+	LABEL_FORMULAIRE_2,
+} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 import { domaineStage } from './StageDomaines';
@@ -44,9 +48,9 @@ export default function StageDeposerOffreFormulaireStage() {
 	const [inputRemunerationStage, setInputRemunerationStage] = useState('');
 	const [inputTeletravailStage, setInputTeletravailStage] = useState('');
 
-	const [valueEtape1] = useLocalStorage('formulaireEtape1');
+	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
 
-	const [valueEtape2, setValueEtape2] = useSessionStorage('formulaireEtape2');
+	const [valueEtape2, setValueEtape2] = useSessionStorage(LABEL_FORMULAIRE_2);
 
 	useEffect(() => {
 		if (!valueEtape1){
@@ -85,7 +89,7 @@ export default function StageDeposerOffreFormulaireStage() {
 		const data = new FormData(form);
 		const formulaireOffreStageEtape2 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
 		setValueEtape2(formulaireOffreStageEtape2);
-		return router.push('/stages/deposer-offre/localisation-stage');
+		return router.push('/stages/deposer-offre/localisation');
 	}
 	
 	return (

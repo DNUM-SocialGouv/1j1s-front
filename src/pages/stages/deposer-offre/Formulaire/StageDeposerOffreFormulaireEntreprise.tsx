@@ -12,6 +12,10 @@ import styles from './StageDeposerOffreFormulaire.module.scss';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 
+export const LABEL_FORMULAIRE_1 = 'formulaireEtape1';
+export const LABEL_FORMULAIRE_2 = 'formulaireEtape2';
+export const LABEL_FORMULAIRE_3 = 'formulaireEtape3';
+
 export default function StageDeposerOffreFormulaireEntreprise() {
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -22,7 +26,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 	const [inputSite, setInputSite] = useState('');
 	const router = useRouter();
 
-	const [value, setValue] = useLocalStorage('formulaireEtape1');
+	const [value, setValue] = useLocalStorage(LABEL_FORMULAIRE_1);
 
 	useEffect(() => {
 		if (window) {
