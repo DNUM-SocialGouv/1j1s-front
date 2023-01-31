@@ -17,7 +17,7 @@ describe('<InformationsGénérales />', () => {
 			render(<InformationsGénérales annonce={annonce} />);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
-			expect(prixRow).toHaveTextContent(/500€CC\/mois/i);
+			expect(prixRow).toHaveTextContent(/500 €CC\/mois/i);
 			const abbreviation = screen.getByText(/CC/i);
 			expect(abbreviation).toHaveAttribute('title', 'Charges Comprises');
 		});
@@ -35,7 +35,7 @@ describe('<InformationsGénérales />', () => {
 			render(<InformationsGénérales annonce={annonce} />);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
-			expect(chargesRow).toHaveTextContent(/500€/i);
+			expect(chargesRow).toHaveTextContent(/500 €/i);
 		});
 		it('masque la ligne quand pas de charges', async () => {
 			const annonce = uneAnnonceDeLogement();
@@ -59,7 +59,7 @@ describe('<InformationsGénérales />', () => {
 			render(<InformationsGénérales annonce={annonce} />);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
-			expect(cautionRow).toHaveTextContent(/500€/i);
+			expect(cautionRow).toHaveTextContent(/500 €/i);
 		});
 		it('masque la ligne quand pas de caution', async () => {
 			const annonce = uneAnnonceDeLogement();
@@ -174,6 +174,18 @@ describe('<InformationsGénérales />', () => {
 
 			const localisationRow = screen.getByRole('row', { name: /Localisation/i });
 			expect(localisationRow).toHaveTextContent(/15 rue de l'impasse, Paris \(75001\)/i);
+		});
+		it('masque la localisation quand aucune information affichable', async () => {
+			const annonce = uneAnnonceDeLogement();
+			annonce.localisation = {
+				adresse: undefined,
+				codePostal: undefined,
+				ville: undefined,
+			};
+			render(<InformationsGénérales annonce={annonce} />);
+
+			const localisationRow = screen.queryByRole('row', { name: /Localisation/i });
+			expect(localisationRow).not.toBeInTheDocument();
 		});
 	});
 	describe('Disponibilité', () => {

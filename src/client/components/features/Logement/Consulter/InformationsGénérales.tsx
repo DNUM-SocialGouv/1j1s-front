@@ -38,6 +38,7 @@ export function InformationsGénérales({
 }: InformationsGénéralesProps) {
 	const locale = useLocale();
 	const dateDeDisponibilité = new Date(dateDeDisponibilitéString);
+	const localisationAffichable = formatLocalisation(localisation);
 	return (
 		<section className={classNames(styles.card, styles.informationsGenerales)} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
@@ -93,15 +94,15 @@ export function InformationsGénérales({
 					</tr>
 				</tbody>
 			</table>
-			<table className={styles.localisation}>
+			{localisationAffichable && <table className={styles.localisation}>
 				<caption><Icon name='roadmap' aria-hidden={false} aria-label="Localisation"/></caption>
 				<tbody>
 					<tr>
 						<th scope="row">Localisation</th>
-						<td>{formatLocalisation(localisation)}</td>
+						<td>{localisationAffichable}</td>
 					</tr>
 				</tbody>
-			</table>
+			</table>}
 			<table className={styles.disponibilite}>
 				<caption><Icon name='suitcase' aria-hidden={false} aria-label="Disponibilité"/></caption>
 				<tbody>
