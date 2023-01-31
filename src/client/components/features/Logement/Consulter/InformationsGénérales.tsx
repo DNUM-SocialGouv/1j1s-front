@@ -93,7 +93,7 @@ export function InformationsGénérales({
 					</tr>
 				</tbody>
 			</table>
-			<table>
+			<table className={styles.localisation}>
 				<caption><Icon name='roadmap' aria-hidden={false} aria-label="Localisation"/></caption>
 				<tbody>
 					<tr>
@@ -102,7 +102,7 @@ export function InformationsGénérales({
 					</tr>
 				</tbody>
 			</table>
-			<table>
+			<table className={styles.disponibilite}>
 				<caption><Icon name='suitcase' aria-hidden={false} aria-label="Disponibilité"/></caption>
 				<tbody>
 					<tr>

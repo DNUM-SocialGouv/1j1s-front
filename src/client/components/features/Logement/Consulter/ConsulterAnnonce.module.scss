@@ -184,6 +184,10 @@
 
 .informationsGenerales {
   grid-area: informationsGenerales;
+  & table.localisation tbody,
+  & table.disponibilite tbody {
+    column-count: 1;
+  }
   & table {
     display: grid;
     grid-template-columns: auto 1fr;
