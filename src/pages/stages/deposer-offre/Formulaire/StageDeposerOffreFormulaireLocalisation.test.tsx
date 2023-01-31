@@ -16,6 +16,11 @@ import {
 describe('<Localisation />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+		Object.defineProperty(window, 'localStorage', {
+			value: {
+				getItem: jest.fn(() =>  null),
+			},
+		});
 	});
 
 	describe('quand l’utilisateur arrive sur la page Localisation', () => {
