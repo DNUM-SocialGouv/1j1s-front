@@ -1,6 +1,9 @@
+import { uneAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { AnnonceDeLogement, AnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.type';
 import { anArticle, anArticleResponse } from '~/server/cms/domain/article.fixture';
 import { anEspaceJeune,anEspaceJeuneResponse } from '~/server/cms/domain/espaceJeune.fixture';
 import {
+	mapAnnonceLogement,
 	mapArticle,
 	mapEspaceJeune,
 	mapImage,
@@ -99,6 +102,23 @@ describe('strapi mapper', () => {
 
 				expect(result).toEqual(undefined);
 			});
+		});
+	});
+
+	describe('mapAnnonceLogement', () => {
+		it('flatten les services', async () => {
+			const annonceResponse = uneAnnonceDeLogementResponse();
+			annonceResponse.servicesInclus = [
+				{ nom: AnnonceDeLogementResponse.ServiceInclus.INTERNET },
+			];
+			annonceResponse.servicesOptionnels = [
+				{ nom: AnnonceDeLogementResponse.ServiceOptionnel.TV },
+			];
+
+			const annonce = mapAnnonceLogement(annonceResponse);
+
+			expect(annonce.servicesInclus).toEqual([AnnonceDeLogement.ServiceInclus.INTERNET]);
+			expect(annonce.servicesOptionnels).toEqual([AnnonceDeLogement.ServiceInclus.TV]);
 		});
 	});
 });
