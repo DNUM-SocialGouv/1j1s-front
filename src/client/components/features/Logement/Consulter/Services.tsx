@@ -54,6 +54,8 @@ const Icônes: Record<
 };
 
 export function Services({ inclus, optionnels }: ServicesProps) {
+	const hasServiceInclus = inclus.length === 0;
+	const hasServiceOptionnels = optionnels.length === 0;
 	return (
 		<section className={classNames(styles.card, styles.services)} aria-label="Équipements et services">
 			<h2>Équipements et services inclus</h2>
@@ -65,7 +67,7 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 					</li>
 				))}
 			</ul>
-			{inclus.length === 0 && <p>Aucun service inclus</p>}
+			{hasServiceInclus && <p>Aucun service inclus</p>}
 			<h2>Équipements et services optionnels</h2>
 			<ul>
 				{optionnels.map((service) => (
@@ -75,7 +77,7 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 					</li>
 				))}
 			</ul>
-			{optionnels.length === 0 && <p>Aucun service optionnel</p>}
+			{hasServiceOptionnels && <p>Aucun service optionnel</p>}
 		</section>
 	);
 }
