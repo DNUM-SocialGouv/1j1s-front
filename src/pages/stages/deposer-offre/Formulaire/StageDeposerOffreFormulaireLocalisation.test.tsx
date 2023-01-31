@@ -71,7 +71,7 @@ describe('<Localisation />', () => {
 			expect(screen.getByLabelText(labelRegion)).toBeValid();
 			expect(screen.getByLabelText(labelDepartement)).toBeValid();
 		});
-		it('sauvegarde les données remplies dans le localStorage', async () => {
+		it('sauvegarde les données rempli dans le localStorage', async () => {
 			mockLocalStorage();
 
 			render(
