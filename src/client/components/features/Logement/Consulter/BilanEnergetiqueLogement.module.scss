@@ -1,6 +1,14 @@
 @import "@styles/utilities";
 
 .energy .tag {
+  display: inline-flex;
+  min-width: 12.5rem;
+  min-height: 2.5rem;
+  @extend %bold;
+  padding-top: calc(2.5rem/2 - 0.75rem);
+  padding-left: 0.75rem;
+  background-color: var(--color, initial);
+  color: var(--text-color, black);
   --color-a: #008000;
   --text-color-a: #FFFFFF;
   --text-color-g: #FFFFFF;
@@ -11,25 +19,18 @@
   --color-f: #FF9900;
   --color-g: #FF0000;
   clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
-  padding-top: 5px;
-  padding-left: 10px;
-  width: 200px;
-  height: 38px;
-  font-weight: bold;
-  background-color: var(--color, initial);
-  color: var(--text-color, black);
 }
 
 .energy {
   display: grid;
-  row-gap: 20px;
+  gap: 2rem;
 
   @include media(large) {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.energy figcaption{
+.energy figcaption {
   color: $color-primary;
   font-size: 1.25rem;
   line-height: 2rem;
@@ -43,5 +44,5 @@
 .energy p {
   padding-top: 0.75rem;
   font-size: 0.875rem;
-  max-width: 300px;
+  max-width: 18.5rem;
 }

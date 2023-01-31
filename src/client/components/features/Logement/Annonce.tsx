@@ -9,8 +9,11 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.type';
 
+const TYPE_DE_LOGEMENT_INTERGENERATIONNEL = 'habitation intergénérationnelle';
+
 export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) => {
 	const annonce  = props.hit;
+	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL? 'intergénérationnel' : annonce.type;
 	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
 	return (
@@ -19,7 +22,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 
 			<Card.Content className={styles.CardContenu}>
 				<span className={styles.CardContenuEnTete}>
-					<div className={styles.CardContenuEnTeteType}>{annonce.type}</div>
+					<div className={styles.CardContenuEnTeteType}>{typeDeLogement}</div>
 					<div className={styles.CardContenuEnTeteDate}>postée le {dateDeLAnnonce}</div>
 				</span>
 
@@ -34,7 +37,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 			</Card.Content>
 
 			<span className={styles.CardFooter}>
-				<TextIcon icon="map-pin" iconPosition="left">{annonce.localisationAAfficher}</TextIcon>
+				<TextIcon icon="map-pin" iconPosition="left" className={styles.localisation}><span>{annonce.localisationAAfficher}</span></TextIcon>
 				<Link href={`/annonces/${annonce.slug}`} key={annonce.slug}
 					className={classNames('underline-none', styles.CardFooterCallToAction)} prefetch={false}>
 					<TextIcon icon="arrow-right">Lire l‘annonce</TextIcon>

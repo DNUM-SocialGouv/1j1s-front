@@ -63,11 +63,23 @@ describe('Annonce Component', () => {
 	});
 
 
-	it('contient le type de logement', () => {
-		render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
-		const appartement = 'appartement';
-		const type = screen.getByText(appartement);
-		expect(type).toBeInTheDocument();
+	describe('type de logement', () => {
+		describe('quand le type de logement est habitation intergénérationnelle', () => {
+			it('contient le type de logement intérgénérationnel', () => {
+				render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}/>);
+				const type = screen.getByText(/intergénérationnel/i);
+				expect(type).toBeVisible();
+			});
+		});
+
+		describe('quand le type de logement est autre', () => {
+			it('contient le type de logement', () => {
+				render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
+				const appartement = 'appartement';
+				const type = screen.getByText(appartement);
+				expect(type).toBeInTheDocument();
+			});
+		});
 	});
 
 	it('contient la date de mise à jours', () => {

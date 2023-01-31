@@ -63,10 +63,21 @@
     padding: 0 0.75rem 1rem 0.75rem;
     @extend %text-small;
 
+    .localisation {
+      $lineHeight: 1.5;
+      line-height: $lineHeight;
+      span {
+        @include line-clamp(1, $lineHeight);
+      }
+    }
+
     &CallToAction {
       color: $color-primary;
       :hover {
         text-decoration: underline;
+      }
+      > span {
+        white-space: nowrap;
       }
     }
   }

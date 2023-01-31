@@ -79,23 +79,41 @@ describe('<InformationsGénérales />', () => {
 		});
 	});
 	describe('Informations du logement', () => {
-		it('affiche la surface', async () => {
-			const annonce = uneAnnonceDeLogement();
-			annonce.surface = 50;
-			annonce.surfaceMax = undefined;
-			render(<InformationsGénérales annonce={annonce} />);
+		describe('concernant la surface', () => {
+			describe('quand la surfaceMax est renseignée', () => {
+				it('affiche la fourchette de surface', () => {
+					const annonce = uneAnnonceDeLogement();
+					annonce.surface = 50;
+					annonce.surfaceMax = 100;
+					render(<InformationsGénérales annonce={annonce} />);
 
-			const surfaceRow = screen.getByRole('row', { name: /Surface/i });
-			expect(surfaceRow).toHaveTextContent(/50m2/i);
-		});
-		it('affiche la fourchette de surface quand les deux propriétés sont présentes', async () => {
-			const annonce = uneAnnonceDeLogement();
-			annonce.surface = 50;
-			annonce.surfaceMax = 100;
-			render(<InformationsGénérales annonce={annonce} />);
+					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
+					expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
+				});
+			});
+			describe('quand la surfaceMax vaut zéro', () => {
+				it('affiche la surface', async () => {
+					const annonce = uneAnnonceDeLogement();
+					annonce.surface = 50;
+					annonce.surfaceMax = 0;
+					render(<InformationsGénérales annonce={annonce} />);
 
-			const surfaceRow = screen.getByRole('row', { name: /Surface/i });
-			expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
+					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
+					expect(surfaceRow).toHaveTextContent(/50m2/i);
+				});
+			});
+			describe('quand la surfaceMax vaut undefined', () => {
+				it('affiche la surface', async () => {
+					const annonce = uneAnnonceDeLogement();
+					annonce.surface = 50;
+					annonce.surfaceMax = undefined;
+					render(<InformationsGénérales annonce={annonce} />);
+
+					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
+					expect(surfaceRow).toHaveTextContent(/50m2/i);
+				});
+			});
+
 		});
 		it('affiche le nombre de pièces', async () => {
 			const annonce = uneAnnonceDeLogement();
