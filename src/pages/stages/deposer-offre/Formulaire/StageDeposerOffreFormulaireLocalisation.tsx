@@ -10,6 +10,10 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
+import {
+	LABEL_FORMULAIRE_1,
+	LABEL_FORMULAIRE_2, LABEL_FORMULAIRE_3,
+} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
@@ -24,14 +28,14 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	const [inputRegion, setInputRegion] = useState('');
 	const [inputDepartement, setInputDepartement] = useState('');
 
-	const [valueEtape1] = useLocalStorage('formulaireEtape1');
+	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
 
-	const [valueEtape2] = useSessionStorage('formulaireEtape2');
+	const [valueEtape2] = useSessionStorage(LABEL_FORMULAIRE_2);
 
-	const [valueEtape3, setValueEtape3] = useLocalStorage('formulaireEtape3');
+	const [valueEtape3, setValueEtape3] = useLocalStorage(LABEL_FORMULAIRE_3);
 
 	useEffect(() => {
-		if (!valueEtape1 || !valueEtape2){
+		if (!valueEtape1 || !valueEtape2) {
 			router.push('/stages/deposer-offre');
 		}
 	}, [router, valueEtape1, valueEtape2]);
@@ -54,7 +58,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const formulaireOffreStageEtape3 = JSON.stringify(parseFormulaireOffreStageEtape3(data));
+		const formulaireOffreStageEtape3 = JSON.stringify(mapFormulaireOffreStageEtape3(data));
 		setValueEtape3(formulaireOffreStageEtape3);
 	}
 
@@ -133,7 +137,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	);
 };
 
-function parseFormulaireOffreStageEtape3(formData: FormData) {
+function mapFormulaireOffreStageEtape3(formData: FormData) {
 	return {
 		adresse: String(formData.get('adresse')),
 		code_postal: String(formData.get('code_postal')),

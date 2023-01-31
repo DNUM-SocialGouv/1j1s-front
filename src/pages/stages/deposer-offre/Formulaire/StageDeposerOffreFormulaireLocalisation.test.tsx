@@ -7,16 +7,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockLocalStorage } from '~/client/components/window.mock';
 import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
+import {
+	aFormulaireDepotDeStageLocalisationLocalStorage,
+} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation.fixture';
 
 describe('<Localisation />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
-		Object.defineProperty(window, 'localStorage', {
-			value: {
-				getItem: jest.fn(() =>  null),
-			},
-		});
 	});
 
 	describe('quand l’utilisateur arrive sur la page Localisation', () => {
@@ -55,27 +54,29 @@ describe('<Localisation />', () => {
 			expect(screen.getByLabelText(labelRegion)).toBeValid();
 			expect(screen.getByLabelText(labelDepartement)).toBeValid();
 		});
-		it('utilise localStorage', async () => {
+		it('sauvegarde les données remplies dans le localStorage', async () => {
+			mockLocalStorage();
+
 			render(<Localisation/>);
 
 			await remplirFormulaireLocalisation();
 
-			expect(window.localStorage.getItem).toHaveBeenCalled();
-		});
-	});
-
-	describe('quand l’utilisateur clique sur Envoyer ma demande de dépôt d’offre mais n’a pas rempli l’étape 3', () => {
-		it('il voit des messages d’erreur', async () => {
-			render(<Localisation />);
-
-			const inputPays = screen.getByRole('textbox', { name: 'Pays' });
-			await userEvent.type(inputPays, 'france');
-			await userEvent.click(screen.getByRole('option'));
-
 			await BoutonEnvoyer();
+			expect(window.localStorage.getItem('formulaireEtape3')).toEqual(JSON.stringify(aFormulaireDepotDeStageLocalisationLocalStorage()));
+		});
+		describe('et qu’il avait déjà rempli le formulaire', () =>{
+			mockLocalStorage();
+			setLocalStorage();
+			it('utilise localStorage pour restaurer les valeurs', async () => {
+				render(<Localisation/>);
 
-			expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeInvalid();
+				expect(screen.getByRole('textbox', { name: 'Adresse' })).toHaveValue('France');
+				expect(screen.getByRole('textbox', { name: 'Pays' })).toHaveValue('France');
+				expect(screen.getByRole('textbox', { name: 'Ville' })).toHaveValue('Paris');
+				expect(screen.getByRole('textbox', { name: 'Code postal' })).toHaveAttribute('value', '75000');
+				expect(screen.getByRole('textbox', { name: 'Région' })).toHaveAttribute('value', 'Ile-de-France');
+				expect(screen.getByRole('textbox', { name: 'Département' })).toHaveAttribute('value', 'Paris');
+			});
 		});
 	});
 });
@@ -98,4 +99,10 @@ async function remplirFormulaireLocalisation() {
 	await userEvent.type(inputCodePostal, '75000');
 	await userEvent.type(inputRégion, 'Ile-de-France');
 	await userEvent.type(inputDépartement, 'Paris');
+}
+
+function setLocalStorage() {
+	window.localStorage.setItem('formulaireEtape3', JSON.stringify(aFormulaireDepotDeStageLocalisationLocalStorage()));
+	window.localStorage.setItem('formulaireEtape1', 'not-null');
+	window.localStorage.setItem('formulaireEtape2', 'not-null');
 }
