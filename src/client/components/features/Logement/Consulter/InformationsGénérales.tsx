@@ -68,7 +68,7 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Surface</th>
-						{surfaceMax != null
+						{(surfaceMax != null && surfaceMax != 0)
 							? <td>{surface} à {surfaceMax} m<sup>2</sup></td>
 							: <td>{surface}m<sup>2</sup></td>}
 					</tr>

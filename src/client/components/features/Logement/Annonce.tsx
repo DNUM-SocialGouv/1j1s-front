@@ -13,7 +13,7 @@ const TYPE_DE_LOGEMENT_INTERGENERATIONNEL = 'habitation intergénérationnelle';
 
 export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) => {
 	const annonce  = props.hit;
-	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL? 'intérgénérationnel' : annonce.type;
+	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL? 'intergénérationnel' : annonce.type;
 	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
 	return (
@@ -37,7 +37,7 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 			</Card.Content>
 
 			<span className={styles.CardFooter}>
-				<TextIcon icon="map-pin" iconPosition="left" className={styles.localisation}>{annonce.localisationAAfficher}</TextIcon>
+				<TextIcon icon="map-pin" iconPosition="left" className={styles.localisation}><span>{annonce.localisationAAfficher}</span></TextIcon>
 				<Link href={`/annonces/${annonce.slug}`} key={annonce.slug}
 					className={classNames('underline-none', styles.CardFooterCallToAction)} prefetch={false}>
 					<TextIcon icon="arrow-right">Lire l‘annonce</TextIcon>

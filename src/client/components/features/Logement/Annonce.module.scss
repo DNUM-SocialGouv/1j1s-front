@@ -64,16 +64,20 @@
     @extend %text-small;
 
     .localisation {
-      $lineHeight: 1;
-      //@include line-clamp(1, $lineHeight);
+      $lineHeight: 1.5;
       line-height: $lineHeight;
+      span {
+        @include line-clamp(1, $lineHeight);
+      }
     }
 
     &CallToAction {
-      min-width: fit-content;
       color: $color-primary;
       :hover {
         text-decoration: underline;
+      }
+      > span {
+        white-space: nowrap;
       }
     }
   }

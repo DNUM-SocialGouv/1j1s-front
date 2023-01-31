@@ -242,6 +242,10 @@
 
 .carouselWrapper {
   grid-area: carousel;
+  > img {
+    display: flex;
+    margin: auto;
+  }
   @include media(medium) {
     background-color: $white-lilac;
     border-bottom: 1px solid $color-primary;

@@ -36,7 +36,7 @@ export default function AnnoncesPage() {
 				meilisearchIndex={process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT}
 				nombreDeResultatParPage={ANNONCE_PAR_PAGE}
 				titre="Logement étudiant et location jeune actif partout en France"
-				sousTitre="Faites votre recherche parmi plus de 300 000 offres de logements étudiants"
+				sousTitre="Faites votre recherche parmi plus de 3 000 offres de logements étudiants"
 				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
 				formulaireDeRecherche={<FormulaireRechercheAnnonceLogement />}
 				messageResultatRechercheLabelSingulier="annonce pour étudiants"

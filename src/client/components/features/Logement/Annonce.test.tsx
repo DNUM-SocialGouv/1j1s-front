@@ -67,11 +67,11 @@ describe('Annonce Component', () => {
 		describe('quand le type de logement est habitation intergénérationnelle', () => {
 			it('contient le type de logement intérgénérationnel', () => {
 				render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}/>);
-				const intérgénérationnel = 'intérgénérationnel';
-				const type = screen.getByText(intérgénérationnel);
-				expect(type).toBeInTheDocument();
+				const type = screen.getByText(/intergénérationnel/i);
+				expect(type).toBeVisible();
 			});
 		});
+
 		describe('quand le type de logement est autre', () => {
 			it('contient le type de logement', () => {
 				render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
