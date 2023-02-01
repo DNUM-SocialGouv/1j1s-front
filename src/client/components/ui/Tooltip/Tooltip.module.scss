@@ -1,0 +1,45 @@
+@import "@styles/utilities";
+
+.tooltipContainer {
+  display: inline-flex;
+  padding-left: 0.25rem;
+}
+
+.tooltipContainer:hover {
+  .tooltip {
+    visibility: visible;
+  }
+}
+
+.tooltipContainer span:focus {
+  .tooltip {
+    visibility: visible;
+  }
+}
+
+.icon {
+  color: $color-primary;
+  width: 1.25rem;
+}
+
+.tooltip {
+  visibility: hidden;
+  font-size: 0.75rem;
+  z-index: 15;
+  position: absolute;
+  padding: 8px 16px;
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  background-color: $color-background;
+  overflow-y: auto;
+  max-width: 700px;
+
+  @include media(small){
+    width: 100%;
+  }
+}
+
+.button {
+  display: block;
+  padding-left: 0px;
+}

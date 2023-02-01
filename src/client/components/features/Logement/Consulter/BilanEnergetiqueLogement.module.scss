@@ -35,6 +35,7 @@
   font-size: 1.25rem;
   line-height: 2rem;
   margin-bottom: 0.75rem;
+  display: inline-flex;
 
   @include media(medium) {
     font-size: 1.5rem;
