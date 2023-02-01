@@ -72,7 +72,7 @@
     "next-test-api-route-handler": "~3.1.6",
     "nock": "~13.3.0",
     "node-mocks-http": "~1.12.1",
-    "sass": "~1.57.0",
+    "sass": "~1.58.0",
     "ts-node": "~10.9.1",
     "typescript": "~4.9.3"
   },
