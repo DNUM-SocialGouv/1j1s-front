@@ -48,6 +48,14 @@
       "extends": ["plugin:testing-library/react"]
     },
     {
+      "files": [
+        "next.config.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
       "files": ["*.cy.ts"],
       "rules": {
         "jest/expect-expect": "off"
