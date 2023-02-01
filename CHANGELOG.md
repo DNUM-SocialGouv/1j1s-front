@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.58.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.1...v2.58.2) (2023-02-01)
+
+
+### Bug Fixes
+
+* **config:** mis a jour next config ([d05b599](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d05b599da3c491afd07330b390b202d686b0cc48))
+
 ## [2.58.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.0...v2.58.1) (2023-02-01)
 
 
