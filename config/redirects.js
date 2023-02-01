@@ -94,5 +94,10 @@ const ALL_MODE_REDIRECT = [
 		permanent: true,
 		source: '/je-recrute/deposer-une-offre-d-emploi',
 	},
+	{
+		destination: '/je-recrute',
+		permanent: true,
+		source: '/stages/deposer-offre',
+	},
 ];
 module.exports = { ALL_MODE_REDIRECT };
