@@ -11,7 +11,7 @@ import {
 	aRésultatRechercheOffreEmploiAxiosResponse, aRésultatRéférentielCommuneResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
 
-const SCALINGO_FORWARD_IP_HEADER = 'x-forwarded-for';
+const CLIENT_IP_HEADER_KEY = 'x-forwarded-for';
 
 describe('getIP', () => {
 	describe('Quand on reçoit une requête avec un header de forward ip', () => {
@@ -19,7 +19,7 @@ describe('getIP', () => {
 			// GIVEN
 			const ip = 'test-ip';
 			const request: NextApiRequest = { headers: {} } as NextApiRequest;
-			request.headers[SCALINGO_FORWARD_IP_HEADER] = ip;
+			request.headers[CLIENT_IP_HEADER_KEY] = ip;
 
 			// WHEN
 			const result = getIP(request);
