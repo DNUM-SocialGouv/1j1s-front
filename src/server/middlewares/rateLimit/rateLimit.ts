@@ -7,11 +7,13 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { LoggerService } from '~/server/services/logger.service';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
-const SCALINGO_FORWARD_IP_HEADER = 'x-forwarded-for';
+const CLIENT_IP_DEFAULT_HEADER_KEY = 'x-forwarded-for';
+const CLIENT_IP_HEADER_KEY = process.env.RATE_LIMIT_CLIENT_IP_HEADER_KEY || CLIENT_IP_DEFAULT_HEADER_KEY;
 
 export const getIP = (request: NextApiRequest): string => {
-	if (request.headers[SCALINGO_FORWARD_IP_HEADER] !== undefined) {
-		return request.headers['x-forwarded-for']?.toString();
+	const clientIp = request.headers[CLIENT_IP_HEADER_KEY];
+	if (clientIp) {
+		return clientIp.toString();
 	}
 	return request.socket.remoteAddress || '';
 };
