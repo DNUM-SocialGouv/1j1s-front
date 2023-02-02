@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.58.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.2...v2.58.3) (2023-02-02)
+
+
+### Bug Fixes
+
+* **stage:** fix redirection deposer-offre vers je-recrute ([a35690a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a35690a7e1e6a43c416d99ed9bc29ec8cfd7fb8a))
+
 ## [2.58.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.1...v2.58.2) (2023-02-01)
 
 
