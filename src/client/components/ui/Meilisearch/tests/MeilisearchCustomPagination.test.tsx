@@ -20,7 +20,7 @@ let createUrlMock: CreateURL<number>;
 let refineMock:  jest.Mock<number>;
 
 const REVENIR_A_LA_PREMIERE_PAGE = 'Revenir à la première page';
-const REVENIR_A_LA_PAGE_PRECENDENTE = 'Revenir à la page précédente';
+const REVENIR_A_LA_PAGE_PRECEDENTE = 'Revenir à la page précédente';
 const ALLER_A_LA_PAGE_SUIVANTE = 'Aller à la page suivante';
 const ALLER_A_LA_DERNIERE_PAGE = 'Aller à la dernière page';
 
@@ -32,7 +32,7 @@ describe('MeilisearchCustomPagination', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('sur grand écran', () => {
@@ -50,7 +50,7 @@ describe('MeilisearchCustomPagination', () => {
 					);
 					// THEN
 					expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
-					expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('true');
+					expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECEDENTE }).getAttribute('aria-disabled')).toBe('true');
 					expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('false');
 					expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
 				});
@@ -69,7 +69,7 @@ describe('MeilisearchCustomPagination', () => {
 					);
 					// THEN
 					expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
-					expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('false');
+					expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECEDENTE }).getAttribute('aria-disabled')).toBe('false');
 					expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('false');
 					expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
 				});
@@ -129,7 +129,7 @@ describe('MeilisearchCustomPagination', () => {
 					);
 					// THEN
 					expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('false');
-					expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE }).getAttribute('aria-disabled')).toBe('false');
+					expect(screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECEDENTE }).getAttribute('aria-disabled')).toBe('false');
 					expect(screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE }).getAttribute('aria-disabled')).toBe('true');
 					expect(screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
 				});
@@ -178,7 +178,8 @@ describe('MeilisearchCustomPagination', () => {
 					<MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
 				);
 				// THEN
-				expect(screen.getByRole('list').childNodes.length).toEqual(8);
+				const pagination = screen.getByRole('list');
+				expect(pagination.childNodes.length).toEqual(8);
 				expect(screen.getAllByRole('listitem').length).toEqual(8);
 			});
 
@@ -244,7 +245,7 @@ describe('MeilisearchCustomPagination', () => {
 				render(
 					<MeiliSearchCustomPagination numberOfResultPerPage={15} onPageChange={mockFunctionScrollToTopOfListeDesResultats} />,
 				);
-				const lien = screen.getByRole('link', { current: false, name: REVENIR_A_LA_PAGE_PRECENDENTE });
+				const lien = screen.getByRole('link', { current: false, name: REVENIR_A_LA_PAGE_PRECEDENTE });
 				// WHEN
 				await user.click(lien);
 				// THEN

@@ -18,7 +18,7 @@ describe('Étiquettes filtre emploi', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand une recherche est lancée', () => {

@@ -22,7 +22,7 @@ describe('MesuresEmployeurs', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	it('affiche les sections des mesures employeurs', () => {

@@ -18,7 +18,7 @@ import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisati
 
 describe('InputLocalisation', () => {
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand aucun résultat n‘est trouvé', () => {

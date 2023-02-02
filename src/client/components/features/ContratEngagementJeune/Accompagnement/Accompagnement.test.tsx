@@ -20,7 +20,7 @@ describe('<Accompagnement />', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	function renderComponent () {

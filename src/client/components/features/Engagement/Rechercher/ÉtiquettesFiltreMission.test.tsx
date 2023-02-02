@@ -16,7 +16,7 @@ describe('Étiquettes filtre mission', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand une recherche est lancée', () => {
