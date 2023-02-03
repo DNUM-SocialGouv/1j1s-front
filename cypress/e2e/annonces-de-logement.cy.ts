@@ -7,7 +7,7 @@ import logementNonFiltreeResponse from '../fixture/annonces/logementNonfiltreeMe
 describe('Parcours logement', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
-		cy.visit('/annonces');
+		cy.visit('/logements/annonces');
 	});
 
 	context('quand on arrive sur la page des annonces de logement', () => {

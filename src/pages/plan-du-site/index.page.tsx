@@ -48,6 +48,7 @@ export default function PlanDuSite() {
 						{displayNavigationTree(navigationItemList.orientationNav)}
 						{displayNavigationTree(navigationItemList.accompagnementNav)}
 						{displayNavigationTree(navigationItemList.engagementNav)}
+						{displayNavigationTree(navigationItemList.logementsNav)}
 						{displayNavigationTree(navigationItemList.employeurNav)}
 
 						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
