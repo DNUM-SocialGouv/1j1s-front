@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.58.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.4...v2.58.5) (2023-02-03)
+
+
+### Bug Fixes
+
+* **middleware:** header d’obtention de l’ip client avec le passage a cloud flare ([828f07c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/828f07c1e691c5ab717eba57659e322538a0998d))
+
 ## [2.58.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.3...v2.58.4) (2023-02-03)
 
 
