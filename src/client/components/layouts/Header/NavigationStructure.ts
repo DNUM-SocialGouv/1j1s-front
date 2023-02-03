@@ -77,7 +77,7 @@ const employeurNav: NavigationItemWithChildren = {
 
 const logementsNav: NavigationItemWithChildren = {
 	children: [
-		{ label: 'Annonces', link: '/annonces' },
+		{ label: 'Annonces', link: '/logements/annonces' },
 	],
 	label: 'Logement',
 };
