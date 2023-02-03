@@ -21,6 +21,7 @@ import { CommunityIcon } from '~/client/components/ui/Icon/community.icon';
 import { CompassIcon } from '~/client/components/ui/Icon/compass.icon';
 import { ErrorIcon } from '~/client/components/ui/Icon/error.icon';
 import { EuroIcon } from '~/client/components/ui/Icon/euro.icon';
+import { ExitIcon } from '~/client/components/ui/Icon/exit.icon';
 import { ExternalRedirectionIcon } from '~/client/components/ui/Icon/external-redirection.icon';
 import { FilterIcon } from '~/client/components/ui/Icon/filter.icon';
 import { HomeIcon } from '~/client/components/ui/Icon/home.icon';
@@ -33,14 +34,17 @@ import { MapPinIcon } from '~/client/components/ui/Icon/map-pin.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { MicrowaveIcon } from '~/client/components/ui/Icon/microwave.icon';
 import { PhoneIcon } from '~/client/components/ui/Icon/phone.icon';
+import { PlantIcon } from '~/client/components/ui/Icon/plant.icon';
 import { RestaurantIcon } from '~/client/components/ui/Icon/restaurant.icon';
 import { RoadmapIcon } from '~/client/components/ui/Icon/roadmap.icon';
 import { SportIcon } from '~/client/components/ui/Icon/sport.icon';
 import { SuitcaseIcon } from '~/client/components/ui/Icon/suitcase.icon';
+import { SwimmingIcon } from '~/client/components/ui/Icon/swimming.icon';
 import { TableIcon } from '~/client/components/ui/Icon/table.icon';
 import { TemperatureIcon } from '~/client/components/ui/Icon/temperature.icon';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { TVIcon } from '~/client/components/ui/Icon/tv.icon';
+import { UserIcon } from '~/client/components/ui/Icon/user.icon';
 import { VacuumIcon } from '~/client/components/ui/Icon/vacuum.icon';
 import { WashingMachineIcon } from '~/client/components/ui/Icon/washing-machine.icon';
 import { WifiIcon } from '~/client/components/ui/Icon/wifi.icon';
@@ -66,6 +70,7 @@ export type IconName =
 	| 'compass'
   | 'error'
   | 'euro'
+  | 'exit'
   | 'external-redirection'
   | 'filter'
   | 'home'
@@ -78,14 +83,17 @@ export type IconName =
   | 'menu'
   | 'microwave'
   | 'phone'
+  | 'plant'
   | 'restaurant'
 	| 'roadmap'
 	| 'sport'
   | 'suitcase'
+  | 'swimming'
   | 'table'
   | 'temperature'
   | 'trophy'
   | 'TV'
+  | 'user'
   | 'vacuum'
   | 'washing-machine'
   | 'wifi'
@@ -138,6 +146,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <ErrorIcon className={className} aria-hidden={true} {...rest} />;
 			case 'euro':
 				return <EuroIcon className={className} aria-hidden={true} {...rest} />;
+			case 'exit':
+				return <ExitIcon className={className} aria-hidden={true} {...rest} />;
 			case 'external-redirection':
 				return <ExternalRedirectionIcon className={className} aria-hidden={true} {...rest} />;
 			case 'filter':
@@ -162,6 +172,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <MailIcon className={className} aria-hidden={true} {...rest} />;
 			case 'phone':
 				return <PhoneIcon className={className} aria-hidden={true} {...rest} />;
+			case 'plant':
+				return <PlantIcon className={className} aria-hidden={true} {...rest} />;
 			case 'restaurant':
 				return <RestaurantIcon className={className} aria-hidden={true} {...rest} />;
 			case 'roadmap':
@@ -170,6 +182,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <SportIcon className={className} aria-hidden={true} {...rest} />;
 			case 'suitcase':
 				return <SuitcaseIcon className={className} aria-hidden={true} {...rest} />;
+			case 'swimming':
+				return <SwimmingIcon className={className} aria-hidden={true} {...rest} />;
 			case 'table':
 				return <TableIcon className={className} aria-hidden={true} {...rest} />;
 			case 'temperature':
@@ -178,6 +192,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
 			case 'TV':
 				return <TVIcon className={className} aria-hidden={true} {...rest} />;
+			case 'user':
+				return <UserIcon className={className} aria-hidden={true} {...rest} />;
 			case 'vacuum':
 				return <VacuumIcon className={className} aria-hidden={true} {...rest} />;
 			case 'washing-machine':
