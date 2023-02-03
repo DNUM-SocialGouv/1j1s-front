@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.59.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.5...v2.59.0) (2023-02-03)
+
+
+### Features
+
+* **logement/details:** Ajoute les icônes manquantes ([adc7ae4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/adc7ae457e0ced4657b2d010013fbe14de0dab5a))
+
 ## [2.58.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.4...v2.58.5) (2023-02-03)
 
 
