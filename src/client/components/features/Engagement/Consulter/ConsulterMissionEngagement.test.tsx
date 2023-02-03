@@ -18,7 +18,7 @@ describe('ConsulterMission', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand on consulte une mission', () => {

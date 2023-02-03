@@ -17,7 +17,7 @@ import {
 
 describe('InputCommune', () => {
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand aucun résultat n‘est trouvé', () => {

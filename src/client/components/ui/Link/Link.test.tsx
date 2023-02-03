@@ -9,7 +9,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 
 describe('Link', () => {
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand le lien est un lien externe', () => {

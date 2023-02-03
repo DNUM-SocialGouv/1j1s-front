@@ -23,7 +23,7 @@ describe('RechercherJobÉtudiant', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand le composant est affiché sans recherche', () => {

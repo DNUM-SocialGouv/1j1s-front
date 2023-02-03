@@ -70,7 +70,7 @@ describe('strapi cms repository', () => {
 			strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
 		});
 		afterEach(() => {
-			jest.resetAllMocks();
+			jest.clearAllMocks();
 		});
 		it('appelle l‘endpoint avec les bons paramètres', async () => {
 			jest.spyOn(httpClientService, 'get');

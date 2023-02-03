@@ -13,7 +13,7 @@ describe('MentoratPage', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	it('possède un h1', () => {

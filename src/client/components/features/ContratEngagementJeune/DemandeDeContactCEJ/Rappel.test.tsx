@@ -15,7 +15,7 @@ import { createSuccess } from '~/server/errors/either';
 
 describe('<Rappel />', () => {
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	function renderComponent() {

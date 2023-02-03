@@ -15,7 +15,7 @@ describe('Page Espace Jeune', () => {
 		mockUseRouter({});
 	});
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('Si des actualités sont récupérées', () => {

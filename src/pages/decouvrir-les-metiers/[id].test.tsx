@@ -14,7 +14,7 @@ describe('Page consulter fiche métier', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('Lorsque l‘utilisateur arrive sur la page', () => {

@@ -24,7 +24,7 @@ describe('RechercherAccompagnement', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('quand aucune recherche n‘est lancée', () => {

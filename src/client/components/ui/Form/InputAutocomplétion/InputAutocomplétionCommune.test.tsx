@@ -16,7 +16,7 @@ import {
 
 describe('InputAutocomplétionCommune', function () {
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 

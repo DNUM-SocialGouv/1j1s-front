@@ -21,7 +21,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		});
 
 		afterEach(() => {
-			jest.resetAllMocks();
+			jest.clearAllMocks();
 		});
 
 		it('affiche un formulaire', () => {
@@ -80,7 +80,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		});
 
 		afterEach(() => {
-			jest.resetAllMocks();
+			jest.clearAllMocks();
 		});
 
 		it('affiche un formulaire', () => {

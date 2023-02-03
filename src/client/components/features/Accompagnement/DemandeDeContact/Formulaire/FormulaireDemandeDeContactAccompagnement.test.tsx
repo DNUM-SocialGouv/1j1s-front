@@ -37,7 +37,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		onSubmit = jest.fn();
 	});
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	function renderComponent() {
