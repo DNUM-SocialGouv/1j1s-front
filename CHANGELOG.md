@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.60.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.59.0...v2.60.0) (2023-02-03)
+
+
+### Features
+
+* **logement:** update le path des annonces de logement ([857e7ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/857e7ae3d5dce243588d44dc81bfd4a85114766a))
+
 ## [2.59.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.58.5...v2.59.0) (2023-02-03)
 
 
