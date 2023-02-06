@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.63.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.62.0...v2.63.0) (2023-02-06)
+
+
+### Features
+
+* **stage:** depot de stage page formulaire envoyé ([58b1a38](https://github.com/DNUM-SocialGouv/1j1s-front/commit/58b1a38c0ad55d123f337fded9c7b7db03b217ca))
+
 ## [2.62.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.61.1...v2.62.0) (2023-02-06)
 
 
