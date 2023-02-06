@@ -1,18 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { withMethods } from '~/pages/api/middlewares/methods/methods.middleware';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { DemandeDeContactType } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
-	if (req.method !== 'POST') {
-		return res.status(406).end();
-	}
-
 	const { type } = req.body;
 	const command = req.body;
 	delete command.type;
@@ -36,4 +33,4 @@ export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, re
 	return handleResponse(response, res);
 }
 
-export default monitoringHandler(enregistrerDemandeDeContactHandler);
+export default withMonitoring(withMethods(['POST'], enregistrerDemandeDeContactHandler));

@@ -2,10 +2,10 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { rechercherMissionHandler } from '~/pages/api/services-civique/index.controller';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 import { aSearchMissionEngagementResponse } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 describe('rechercher une mission du service civique', () => {

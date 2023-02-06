@@ -1,9 +1,9 @@
 import { NextApiResponse } from 'next';
 
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 
 export function handleResponse<R>(résultats: Either<R>, res: NextApiResponse<R | ErrorHttpResponse>) {
 	switch (résultats.instance) {

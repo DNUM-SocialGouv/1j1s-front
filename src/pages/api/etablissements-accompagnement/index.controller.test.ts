@@ -2,8 +2,8 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { rechercherÉtablissementAccompagnementHandler } from '~/pages/api/etablissements-accompagnement/index.controller';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
 import {
 	anOrderedÉtablissementAccompagnementList,

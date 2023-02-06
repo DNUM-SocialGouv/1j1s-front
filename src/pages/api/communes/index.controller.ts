@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 
 export async function rechercherCommuneHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheCommune | ErrorHttpResponse>) {
@@ -12,4 +12,4 @@ export async function rechercherCommuneHandler(req: NextApiRequest, res: NextApi
 	return handleResponse(résultatRechercheCommunes, res);
 }
 
-export default monitoringHandler(rechercherCommuneHandler);
+export default withMonitoring(rechercherCommuneHandler);

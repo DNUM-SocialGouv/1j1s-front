@@ -1,12 +1,12 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate.controller';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const querySchema = Joi.object({
 	codeCommune: Joi.string().alphanum().max(5),
@@ -25,4 +25,4 @@ export async function rechercherÉtablissementAccompagnementHandler(
 	return handleResponse(résultatsRechercheÉtablissementAccompagnement, res);
 }
 
-export default monitoringHandler(validate({ query: querySchema }, rechercherÉtablissementAccompagnementHandler));
+export default withMonitoring(withValidation({ query: querySchema }, rechercherÉtablissementAccompagnementHandler));

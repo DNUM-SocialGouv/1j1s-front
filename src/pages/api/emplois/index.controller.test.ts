@@ -7,7 +7,7 @@ import {
 	emploisQuerySchema,
 	rechercherOffreEmploiHandler,
 } from '~/pages/api/emplois/index.controller';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import {

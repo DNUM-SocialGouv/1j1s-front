@@ -1,8 +1,8 @@
 import { NextApiResponse } from 'next';
 
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 interface FakeRésultat {
   data: string

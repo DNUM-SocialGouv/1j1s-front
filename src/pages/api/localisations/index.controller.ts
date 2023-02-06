@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
@@ -9,7 +10,6 @@ import {
 	LocalisationApiResponse,
 	RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
 export async function rechercherLocalisationHandler(req: NextApiRequest, res: NextApiResponse<RechercheLocalisationApiResponse | ErrorHttpResponse>) {
@@ -55,7 +55,7 @@ export function mapApiResponse(localisationList: RechercheLocalisation): Recherc
 	const régionListApiResponse: LocalisationApiResponse[] = régionList.slice(0,20).map(mapLocalisation);
 	return { communeList: communeListApiResponse, départementList: départementListApiResponse, régionList: régionListApiResponse };
 }
-export default monitoringHandler(rechercherLocalisationHandler);
+export default withMonitoring(rechercherLocalisationHandler);
 
 export function rechercheLocalisationRequestMapper(request: NextApiRequest): string {
 	const { query } = request;

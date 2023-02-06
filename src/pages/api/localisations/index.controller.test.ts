@@ -2,8 +2,8 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { mapApiResponse, rechercherLocalisationHandler } from '~/pages/api/localisations/index.controller';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { aLongList } from '~/server/localisations/domain/localisation.fixture';
 import {
 	RechercheLocalisationApiResponse,

@@ -1,16 +1,16 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate.controller';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import {
 	MissionEngagementFiltre,
 	NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 const querySchema = Joi.object({
 	codeCommune: Joi.number().optional(),
@@ -28,7 +28,7 @@ export async function rechercherMissionHandler(req: NextApiRequest, res: NextApi
 	return handleResponse(résultatRechercherMission, res);
 }
 
-export default monitoringHandler(validate({ query: querySchema }, rechercherMissionHandler));
+export default withMonitoring(withValidation({ query: querySchema }, rechercherMissionHandler));
 
 function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre {
 	const { query } = request;
