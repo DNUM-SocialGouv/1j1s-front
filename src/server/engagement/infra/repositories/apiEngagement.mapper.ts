@@ -3,14 +3,10 @@ import {
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import {
-	MissionEngagementResponse, RésultatsMissionEngagementResponse,
+	MissionEngagementResponse,
+	RésultatsMissionEngagementResponse,
 	RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import {
-	mapDateDébutContrat,
-	mapDateDébutContratEtiquette,
-	mapDateDébutContratLong,
-} from '~/server/utils/mapDateDébutContrat.mapper.utils';
 
 export function mapRésultatsRechercheMission(response: RésultatsRechercheMissionEngagementResponse): RésultatsRechercheMission {
 	return {
@@ -21,6 +17,24 @@ export function mapRésultatsRechercheMission(response: RésultatsRechercheMissi
 
 const accessibleAuxMineurs = 'Dès 16 ans';
 const estAccessibleAuxMineurs = 'yes';
+
+function mapDateDébutContrat(débutContrat: string | undefined): string | undefined {
+	if (!débutContrat) return undefined;
+	const date = new Date(débutContrat);
+	return date.toLocaleDateString('fr-FR');
+}
+
+function mapDateDébutContratLong(débutContrat: string | undefined): string | undefined {
+	if (!débutContrat) return undefined;
+	const date = new Date(débutContrat);
+	return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function mapDateDébutContratEtiquette(débutContrat: string | undefined): string | undefined {
+	if (!débutContrat) return undefined;
+	const date = new Date(débutContrat);
+	return `Dès le ${date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+}
 
 export function mapMission(mission: RésultatsMissionEngagementResponse): Mission {
 	const { data } = mission;

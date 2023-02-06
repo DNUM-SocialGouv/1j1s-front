@@ -1,11 +1,13 @@
 import Joi from 'joi';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate.controller';
-import { transformQueryToArray } from '~/pages/api/validate.utils';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
+import { queryToArray } from '~/pages/api/utils/queryToArray.util';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
 	DomaineCode,
 	MAX_PAGE_ALLOWED,
@@ -13,8 +15,6 @@ import {
 } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
-import { queryToArray } from '~/server/utils/queryToArray.utils';
 
 export const jobsEtudiantsQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
@@ -30,7 +30,7 @@ export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: Ne
 	return handleResponse(résultatsRechercheJobÉtudiant, res);
 }
 
-export default monitoringHandler(validate({ query: jobsEtudiantsQuerySchema }, rechercherJobÉtudiantHandler));
+export default withMonitoring(withValidation({ query: jobsEtudiantsQuerySchema }, rechercherJobÉtudiantHandler));
 
 export function jobÉtudiantFiltreMapper(request: NextApiRequest): JobÉtudiantFiltre {
 	const { query } = request;

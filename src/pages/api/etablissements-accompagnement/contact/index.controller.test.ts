@@ -5,7 +5,7 @@ import {
 	demandeContactAccompagnementBodySchema,
 	envoyerDemandeContactAccompagnementHandler,
 } from '~/pages/api/etablissements-accompagnement/contact/index.controller';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Mail } from '~/server/mail/domain/mail';
 import { aTipimailRequest } from '~/server/mail/infra/repositories/tipimail.fixture';
 

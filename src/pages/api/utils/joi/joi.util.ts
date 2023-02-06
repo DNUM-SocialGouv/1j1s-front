@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { queryToArray } from '~/server/utils/queryToArray.utils';
+import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 
 export const transformQueryToArray = Joi.extend((joi) => {
 	return {

@@ -1,16 +1,16 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate.controller';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import {
 	ContactÉtablissementAccompagnement,
 	TypeÉtablissement,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const demandeContactAccompagnementBodySchema = Joi.object({
 	age: Joi.number().min(16).max(30).required(),
@@ -37,7 +37,7 @@ export async function envoyerDemandeContactAccompagnementHandler(req: NextApiReq
 	return handleResponse(responseEnvoyerEmail, res);
 }
 
-export default monitoringHandler(validate({ body: demandeContactAccompagnementBodySchema }, envoyerDemandeContactAccompagnementHandler));
+export default withMonitoring(withValidation({ body: demandeContactAccompagnementBodySchema }, envoyerDemandeContactAccompagnementHandler));
 
 function mapDemandeContactAccompagnement(body: Record<string, unknown>): DemandeDeContactAccompagnement {
 	return {
