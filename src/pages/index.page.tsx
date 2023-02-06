@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
 import {
 	HeroPrimaryText,
 	HeroSecondaryText,
 	HeroWithIllustration,
 } from '~/client/components/ui/Hero/Hero';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/index.module.scss';
 
 import { Container } from '../client/components/layouts/Container/Container';

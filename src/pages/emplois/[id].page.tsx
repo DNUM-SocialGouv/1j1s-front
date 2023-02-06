@@ -3,7 +3,8 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { HeadTag } from '~/client/components/head/HeaderTag';
+import { MetaNoIndex } from '~/client/components/head/MetaNoIndex.head';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { dependencies } from '~/server/start';
@@ -18,6 +19,7 @@ export default function ConsulterOffreEmploiPage({ offreEmploi }: ConsulterOffre
 	return (
 		<>
 			<HeadTag title={`${offreEmploi.intitulé} | 1jeune1solution`} />
+			<MetaNoIndex />
 			<ConsulterOffreEmploi offreEmploi={offreEmploi} />
 		</>
 	);

@@ -3,7 +3,7 @@ import AidesExceptionnelles
 import DecouvrirMesuresEmployeurs
 	from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
 
-import { HeadTag } from '../../utils/HeaderTag';
+import { HeadTag } from '../../head/HeaderTag';
 import { DécouvrirDispositifs } from './DecouvrirDispositifs/DecouvrirDispositifs';
 
 export function JeRecrute () {

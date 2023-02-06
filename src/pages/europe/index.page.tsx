@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/legacy/image';
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link as LinkType } from '~/client/components/props';
 import {
@@ -12,7 +13,6 @@ import {
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import styles from '~/pages/europe/europe.module.scss';
 

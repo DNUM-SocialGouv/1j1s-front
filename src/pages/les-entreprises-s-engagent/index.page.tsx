@@ -2,7 +2,7 @@ import React from 'react';
 
 import AvantagesMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation';
 import RejoignezMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 
 
 export default function LesEntreprisesSEngagent() {

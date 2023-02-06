@@ -2,15 +2,15 @@ import React from 'react';
 
 import { FormulaireRechercheOffreStage } from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage';
 import { OffreDeStage } from '~/client/components/features/OffreDeStage/OffreDeStage';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = `${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}:dateDeDebut:desc`;
-const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
+const MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherOffreStagePage() {
 	useReferrer();
@@ -25,7 +25,7 @@ export default function RechercherOffreStagePage() {
 				nombreDeResultatParPage={HITS_PER_PAGE}
 				titre="Des milliers d‘offres de stages"
 				sousTitre="sélectionnées pour vous"
-				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
+				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED}
 				formulaireDeRecherche={<FormulaireRechercheOffreStage />}
 				messageResultatRechercheLabelSingulier="offre de stage"
 				messageResultatRechercheLabelPluriel="offres de stage"

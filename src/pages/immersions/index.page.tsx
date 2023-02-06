@@ -5,7 +5,7 @@ import {
 } from '~/client/components/features/Immersions/ReferencesEntreprises/RéférencerEntreprises';
 import AidesExceptionnelles
 	from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 
 export default function Immersions() {
 	return (
