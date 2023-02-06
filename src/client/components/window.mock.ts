@@ -30,3 +30,9 @@ export function mockLargeScreen() {
 		writable: true,
 	});
 }
+
+export function mockScrollBy() {
+	Object.defineProperty(window, 'scrollBy', {
+		value: jest.fn(),
+	});
+}

@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
+import { mockScrollBy } from '~/client/components/window.mock';
 
 const itemList = [
 	React.createElement('h1'),
@@ -14,6 +15,10 @@ const itemList = [
 ];
 
 describe('SeeMore component', () => {
+	beforeEach(() => {
+		mockScrollBy();
+	});
+
 	describe('Lorsque le nombre d‘élements à afficher est supérieur à la taille totale des éléments', () => {
 		it('n‘affiche pas de bouton pour déplier l‘accordéon', () => {
 			render(<SeeMoreItemList itemList={itemList} numberOfVisibleItems={4} seeMoreAriaLabel={''} seeLessAriaLabel={''} />);
