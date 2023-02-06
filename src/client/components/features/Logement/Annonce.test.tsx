@@ -117,6 +117,6 @@ describe('Annonce Component', () => {
 		render(<AnnonceDeLogement hit={uneAnnonceDeLogement()}/>);
 		const url = screen.getByRole('link');
 		expect(url).toBeInTheDocument();
-		expect(url).toHaveAttribute('href', '/annonces/un-slug-appart-a-louer');
+		expect(url).toHaveAttribute('href', '/logements/annonces/un-slug-appart-a-louer');
 	});
 });
