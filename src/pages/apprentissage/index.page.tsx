@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 
 import { RechercherAlternance } from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
 import useReferrer from '~/client/hooks/useReferrer';
+import { RechercherAlternanceLBA } from '~/client/components/features/Alternance/Rechercher/RechercherAlternanceLBA';
 
 export default function RechercherAlternancePage() {
 	const router = useRouter();
@@ -17,6 +18,9 @@ export default function RechercherAlternancePage() {
 		}
 	}, [router]);
 
-	if (Object.keys(router.query).length) return <RechercherAlternance/>;
+	if (Object.keys(router.query).length) {
+		if (process.env.NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE === '1') return <RechercherAlternanceLBA/>;
+		else return <RechercherAlternance/>;
+	}
 	return null;
 }
