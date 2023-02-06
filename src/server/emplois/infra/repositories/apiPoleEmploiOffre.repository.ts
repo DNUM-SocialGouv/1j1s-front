@@ -29,7 +29,6 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
-		private isFeatureEnabled: boolean,
 	) {}
 
 	paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI';
@@ -37,9 +36,6 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	private ECHANTILLON_OFFRE_EMPLOI_KEY = 'ECHANTILLON_OFFRE_EMPLOI_KEY';
 
 	async get(id: OffreId): Promise<Either<Offre>> {
-		if (!this.isFeatureEnabled) {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-		}
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
 			if(response.status === 204) {
@@ -52,9 +48,6 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	}
 
 	async search(emploiFiltre: EmploiFiltre): Promise<Either<RésultatsRechercheOffre>> {
-		if (!this.isFeatureEnabled) {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-		}
 		if (isOffreÉchantillonFiltre(emploiFiltre)) return this.getÉchantillonOffreEmploi(emploiFiltre);
 		return this.getOffreEmploiRecherche(emploiFiltre);
 	}
