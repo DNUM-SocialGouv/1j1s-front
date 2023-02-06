@@ -69,8 +69,8 @@ export function InformationsGénérales({
 					<tr>
 						<th scope="row">Surface</th>
 						{(surfaceMax != null && surfaceMax != 0)
-							? <td>{surface} à {surfaceMax} m<sup>2</sup></td>
-							: <td>{surface}m<sup>2</sup></td>}
+							? <td>{surface} à {surfaceMax} <abbr title="mètre carré">m<sup>2</sup></abbr></td>
+							: <td>{surface}<abbr title="mètre carré">m<sup>2</sup></abbr></td>}
 					</tr>
 					<tr>
 						<th scope="row">Nombre de pièces</th>
