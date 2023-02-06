@@ -1,26 +1,12 @@
 @import "@styles/utilities";
 
-.section {
-  @extend %background-surface;
-  padding: 3rem 0;
-}
 
 .container {
   display: grid;
-  gap: 3rem;
-  margin: 0 auto;
-  max-width: 78rem;
   padding: 0 1.5rem;
   place-items: center;
 }
 
-.illustration {
-  position: relative;
-  place-self: stretch;
-  border-radius: 40px;
-  overflow: hidden;
-  height: 200px;
-}
 
 .article li {
   margin-top: 2rem;
@@ -37,18 +23,10 @@
   margin-left: 1rem;
 }
 
-@include media(large){
-  .container{
+@include media(large) {
+  .container {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
     gap: 5rem;
-  }
-  .section {
-    padding: 5rem 0;
-  }
-  .illustration {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    height: 300px;
   }
 }

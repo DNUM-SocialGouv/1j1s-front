@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
@@ -42,7 +42,7 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 			</div>
 			{isLargeScreen &&
         <div className={styles.imageWrapper}>
-        	<Image src={imgSrc} alt="" layout="fill" objectFit="cover" objectPosition="right"/>
+        	<Image src={imgSrc} alt="" fill sizes="{(min-width:992px) 50vw}" priority />
         </div>
 			}
 		</div>

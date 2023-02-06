@@ -1,8 +1,9 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import illustration from 'public/illustrations/rejoindre-la-mobilisation.svg';
 import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation.module.scss';
+import { Container } from '~/client/components/layouts/Container/Container';
 import Marked from '~/client/components/ui/Marked/Marked';
 
 const contenu = `
@@ -16,15 +17,11 @@ Quels avantages à rejoindre la mobilisation pour les jeunes ?
 
 export default function AvantagesMobilisation() {
 	return (
-		<section className={ styles.section }>
-			<div className={ styles.container }>
-				<aside className= { styles.illustration }>
-					<Image src={ illustration } objectFit='cover' layout='fill' alt='' aria-hidden="true" />
-				</aside>
-				<article className={ styles.article }>
-					<Marked markdown={ contenu }/>
-				</article>
-			</div>
-		</section>
+		<Container className={ styles.container }>
+			<Image src={ illustration } width={448} height={300} alt='' aria-hidden />
+			<article className={ styles.article }>
+				<Marked markdown={ contenu }/>
+			</article>
+		</Container>
 	);
 }

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import { CommonProps } from '~/client/components/props';
@@ -29,7 +29,7 @@ export function HeroComponent({ titlePrimaryText, titleSecondaryText, imgSrc, cl
 			</div>
 			{isLargeScreen &&
         <div className={styles.imageWrapper}>
-        	<Image src={imgSrc} alt="" layout="fill" objectFit="cover" objectPosition="right"/>
+        	<Image src={imgSrc} alt="" fill sizes="{(min-width:992px) 50vw}" priority />
         </div>
 			}
 		</div>

@@ -124,10 +124,6 @@
   }
 }
 
-.imageWrapper {
-  display: none;
-}
-
 .QuestCeQueMentorat {
   &Wrapper {
     padding: 5rem 1.5rem;
@@ -212,12 +208,6 @@
     display: flex;
   }
 
-  .imageWrapper {
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-  }
-
   .QuestCeQueMentorat {
     &Content {
       display: flex;
@@ -239,16 +229,6 @@
   .RaisonParticipationMentorat {
     &Wrapper {
       display: flex;
-
-      .imageWrapper {
-        display: initial;
-        min-width: 490px;
-        max-width: 490px;
-        min-height: 372px;
-        max-height: 372px;
-        margin-left: 4rem;
-      }
-
       .RaisonParticipationMentoratContainer {
         padding-bottom: 0;
 

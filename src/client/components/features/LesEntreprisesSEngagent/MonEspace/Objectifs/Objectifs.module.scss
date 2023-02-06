@@ -1,13 +1,13 @@
 @import "@styles/_utilities";
 
 .objectifs {
-  padding: 2rem 1rem 2rem 1rem;
 
   &Container {
-    &Illustration {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    > img {
+      margin: auto;
     }
 
     &Text {
@@ -38,7 +38,7 @@
         content: counter(item);
         background: $color-primary;
         border-radius: 100%;
-        color: white;
+        color: $color-on-primary;
         width: 1.5rem;
         height: 1.5rem;
         text-align: center;
@@ -51,9 +51,8 @@
 
 @include media(large) {
   .objectifs {
-    padding: 4rem 1rem 4rem 1rem;
-
     &Container {
+      padding: 4rem 1rem 4rem 1rem;
       max-width: 50%;
 
       &Text {

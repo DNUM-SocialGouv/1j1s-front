@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import { CommonProps, HtmlHeadingTag } from '~/client/components/props';
@@ -25,7 +25,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 		<Link href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
 			<article className={classNames(styles.cardArticle, className)}>
 				<div className={styles.cardImageWrapper}>
-					<Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
+					<Image src={imageUrl} alt="" width={328} height={180} aria-hidden style={{ height: 180, width: 328 }}/>
 				</div>
 
 				<div className={styles.cardContent}>

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -28,7 +28,7 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 
 	  {!isSmallScreen &&
       <div className={styles.errorLogo}>
-      	<Image src={'/images/logos/technical-error.svg'} alt="" width='185' height='205' aria-hidden="true" />
+      	<Image src='/images/logos/technical-error.svg' alt="" width={185} height={205} aria-hidden style={{ height: 185 }}/>
       </div>
 	  }
   	</Container>

@@ -36,18 +36,10 @@
   gap: 1rem;
 }
 
-.linkAsButtonMentorat {
-  background-color: white;
-  color: $color-primary;
-  border: 1px solid $color-primary;
-  box-shadow: none !important; // TODO a retirer à cause du dsfr
-}
-
 @include media(large) {
   .content {
     padding: 2rem 1rem 4rem 1rem;
-
-
+    
     .container {
       max-width: 45rem;
       margin: auto;

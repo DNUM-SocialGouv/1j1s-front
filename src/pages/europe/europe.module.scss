@@ -101,6 +101,8 @@
   &NiveauAnglais {
     padding: 2.5rem 2rem;
     color: $color-on-primary;
+    display: flex;
+    flex-direction: column;
     &__Content {
       h2 {
         font-size: 1.25rem;
@@ -116,14 +118,10 @@
         margin-bottom: 1.25rem;
       }
     }
-
-    .logoWrapper {
-      position: relative;
-      margin: 0 auto 1.25rem;
-      overflow: hidden;
-      width: 132px;
-      height: 100px;
+    > img {
+      margin: auto;
     }
+
 
   }
 }
@@ -133,7 +131,6 @@
   a {
     margin: auto;
   }
-
 }
 
 .buttonOnDarkBackground {
@@ -232,16 +229,23 @@
   .section {
     &Liens {
       .imageWrapper {
-        position: relative;
         overflow: hidden;
         border-radius: 20px;
         display: initial;
         width: 560px;
+        height: 160px;
         margin-right: 2rem;
+
+        img {
+          width: 560px;
+          height: 160px;
+          object-fit: cover;
+        }
       }
     }
     &NiveauAnglais {
       padding: 0;
+      flex-direction: row;
       &__ImageWrapper {
         display: flex;
         align-items: center;
@@ -253,12 +257,6 @@
         padding: 5rem 0 5rem 2rem;
         width: 64%;
         background-color: $color-primary;
-      }
-      display: flex;
-      .logoWrapper {
-        margin-right: 5rem;
-        width: 210px;
-        height: 150px;
       }
     }
   }

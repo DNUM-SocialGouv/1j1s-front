@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -65,7 +65,7 @@ export default function EuropePage() {
 			<Container className={styles.sectionLiens}>
 				{ isLargeScreen && (
 					<div className={styles.imageWrapper}>
-						<Image src="/images/europe.webp" alt="" layout="fill" objectFit="cover" objectPosition="center"/>
+						<Image src="/images/europe.webp" alt="" width={560} height={160} style={{ height: 160, width: 560 }}/>
 					</div>
 				) }
 				<ul>
@@ -205,15 +205,11 @@ export default function EuropePage() {
 				{ isLargeScreen
 					? (
 						<div className={styles.sectionNiveauAnglais__ImageWrapper}>
-							<div className={styles.logoWrapper}>
-								<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top" aria-hidden="true"/>
-							</div>
+							<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" width={210} height={150} aria-hidden style={{ height: 150 }} />
 						</div>
 					)
 					: (
-						<div className={styles.logoWrapper}>
-							<Image src={'/images/logos/wall-street-english.svg'} alt="" layout="fill" objectFit="cover" objectPosition="top" aria-hidden="true"/>
-						</div>
+						<Image src={'/images/logos/wall-street-english.svg'} alt="" width={132} height={100} aria-hidden style={{ height: 100 }} />
 					)
 				}
 

@@ -1,13 +1,12 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau.module.scss';
 import { EntreprendreRéseauPhasesProjet } from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-
-import { Icon } from '../../../ui/Icon/Icon';
 
 interface Entreprise {
   logo: string
@@ -38,12 +37,7 @@ function EntreprendreRéseau(props: EntreprendreRéseauProps) {
 			{
 				isSmallScreen && <>
 					<header className={styles.cardHeader}>
-						<div className={styles.cardImageContainer}>
-							<div className={styles.cardImageWrapper}>
-								<Image alt="" src={entreprise.logo} layout="fill" objectFit="contain"/>
-							</div>
-						</div>
-
+						<Image alt="" src={entreprise.logo} width={56} height={56} />
 						<div className={styles.infoEntreprise}>
 							<div className={styles.infoEntrepriseTitle}>{entreprise.nom}</div>
 							{ entreprise.tagline && <div className={styles.infoEntrepriseSubTitle}>{entreprise.tagline}</div> }
@@ -59,11 +53,7 @@ function EntreprendreRéseau(props: EntreprendreRéseauProps) {
 			{
 				!isSmallScreen && <>
 					<header className={styles.cardHeader}>
-						<div className={styles.cardImageContainer}>
-							<div className={styles.cardImageWrapper}>
-								<Image alt="" src={entreprise.logo} layout="fill" objectFit="contain" />
-							</div>
-						</div>
+						<Image alt="" src={entreprise.logo} width={120} height={120}  />
 					</header>
 					<section className={styles.cardDescription}>
 						<div className={styles.infoEntreprise}>

@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
@@ -126,7 +126,7 @@ export default function LesEntreprisesSEngagentInscription() {
         <>
         	<div className={styles.header}>
         		<div className={styles.logo}>
-        			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width="144" height="80" aria-hidden="true"/>
+        			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={144} height={80} aria-hidden />
         		</div>
         		<h1 className={styles.titre}>REJOIGNEZ &ldquo;LES ENTREPRISES S‘ENGAGENT&rdquo;</h1>
         	</div>

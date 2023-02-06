@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import bannièreImage from 'public/images/cej.webp';
 import React from 'react';
 
@@ -22,16 +22,14 @@ export default function Bannière () {
 				</span>
 			</div>
 			{isLargeScreen && (
-				<div className={styles.bannièreImage}>
-					<Image
-						priority
-						src={bannièreImage}
-						alt={ accroche }
-						layout="fill"
-						objectFit="contain"
-						objectPosition="right"
-					/>
-				</div>
+				<Image
+					priority
+					src={bannièreImage}
+					alt={ accroche }
+					width={800}
+					height={400}
+					style={{ height: 'auto', width: 800 }}
+				/>
 			)}
 		</div>
 	);

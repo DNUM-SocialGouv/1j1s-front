@@ -5,11 +5,8 @@
   background: $color-background-white-lilac;
 
   &Container {
-    &Illustration {
+    img {
       display: none;
-      position: relative;
-      width: 30rem;
-      height: 30rem;
     }
     &Text {
       display: flex;
@@ -53,9 +50,8 @@
         }
       }
 
-      &Illustration {
+      img {
         display: block;
-        flex-shrink: 0;
       }
     }
   }
