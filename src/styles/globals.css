@@ -12,4 +12,5 @@ button {
 
 abbr[title] {
   cursor: help;
+  text-decoration: none;
 }
