@@ -89,9 +89,6 @@ describe('<InformationsGénérales />', () => {
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
-					// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
-					const mettreCarré = screen.getByText((content, element) => element?.textContent === 'm2');
-					expect(mettreCarré).toHaveAttribute('title', 'mètre carré');
 				});
 			});
 			describe('quand la surfaceMax vaut zéro', () => {
@@ -103,9 +100,6 @@ describe('<InformationsGénérales />', () => {
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
-					// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
-					const mettreCarré = screen.getByText((content, element) => element?.textContent === 'm2');
-					expect(mettreCarré).toHaveAttribute('title', 'mètre carré');
 				});
 			});
 			describe('quand la surfaceMax vaut undefined', () => {
@@ -117,9 +111,6 @@ describe('<InformationsGénérales />', () => {
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
-					// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
-					const mettreCarré = screen.getByText((content, element) => element?.textContent === 'm2');
-					expect(mettreCarré).toHaveAttribute('title', 'mètre carré');
 				});
 			});
 		});

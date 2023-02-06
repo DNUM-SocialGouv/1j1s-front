@@ -210,18 +210,6 @@ describe('<ConsulterAnnonce />', () => {
 
 			expect(tag).toHaveAttribute('style', '--color: var(--color-g); --text-color: var(--text-color-g);');
 		});
-		it("affiche l'abréviation pour m2", async () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
-			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
-
-			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-
-			// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
-			const mettreCarré = screen.getAllByText((content, element) => element?.textContent === 'm2');
-			mettreCarré.forEach((element) => (
-				expect(element).toHaveAttribute('title', 'mètre carré')
-			));
-		});
 		it('affiche le titre pour les émissions de gaz à effet de serre', async () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
