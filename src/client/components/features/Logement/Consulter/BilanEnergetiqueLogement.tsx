@@ -55,7 +55,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 			)}
 		</figure>
 		<figure>
-			<figcaption>Émissions de gaz à effet de serre</figcaption>
+			<figcaption>Émissions de <abbr title="Gaz à Effet de Serre">GES</abbr></figcaption>
 			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby="emission-de-gaz"
 				 className={styles.tag}
 				 style={{

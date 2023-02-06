@@ -198,9 +198,8 @@ describe('<ConsulterAnnonce />', () => {
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const tag = screen.getByRole('img', { name: /G/i });
-			const description = screen.getByText(/Très importante émission de gaz à effet de serre/i);
 
-			expect(tag).toHaveAttribute('aria-describedby', description.id);
+			expect(tag).toHaveDescription(/Très importante émission de gaz à effet de serre/i);
 		});
 		it('affiche la couleur de l’émission de gaz du logement',  () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
@@ -211,17 +210,29 @@ describe('<ConsulterAnnonce />', () => {
 
 			expect(tag).toHaveAttribute('style', '--color: var(--color-g); --text-color: var(--text-color-g);');
 		});
-		it("affiche l'abbréviation pour m2", async () => {
+		it("affiche l'abréviation pour m2", async () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 
-			// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs tags
+			// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
 			const mettreCarré = screen.getAllByText((content, element) => element?.textContent === 'm2');
 			mettreCarré.forEach((element) => (
 				expect(element).toHaveAttribute('title', 'mètre carré')
 			));
+		});
+		it('affiche le titre pour les émissions de gaz à effet de serre', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+
+			// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
+			const titre = screen.getByText((content, element) => element?.textContent === 'Émissions de GES');
+			expect(titre).toBeVisible();
+			const abréviation = screen.getByText('GES');
+			expect(abréviation).toHaveAttribute('title', 'Gaz à Effet de Serre');
 		});
 	});
 
