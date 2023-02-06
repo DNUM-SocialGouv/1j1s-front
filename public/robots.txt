@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+User-agent: *
+Disallow: /apprentissage/
+Disallow: /benevolat/
+Disallow: /emplois/
+Disallow: /jobs-etudiants/
+Disallow: /logements/annonces/
+Disallow: /service-civique/
+Disallow: /stages/
