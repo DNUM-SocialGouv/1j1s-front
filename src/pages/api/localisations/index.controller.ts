@@ -9,13 +9,10 @@ import {
 	LocalisationApiResponse,
 	RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
-import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 
 export async function rechercherLocalisationHandler(req: NextApiRequest, res: NextApiResponse<RechercheLocalisationApiResponse | ErrorHttpResponse>) {
-	if (await applyRateLimit(req, res)) return;
-
 	const résultatsRechercheLocalisation = await dependencies.localisationDependencies.listeLocalisation
 		.handle(rechercheLocalisationRequestMapper(req));
 	switch (résultatsRechercheLocalisation.instance) {

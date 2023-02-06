@@ -4,15 +4,11 @@ import { DemandeDeContactType } from '~/server/demande-de-contact/domain/demande
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { mailRateLimitMiddleware } from '~/server/middlewares/rateLimit/mail/mailRateLimit';
-import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
-	if (await applyRateLimit(req, res, mailRateLimitMiddleware)) return;
-
 	if (req.method !== 'POST') {
 		return res.status(406).end();
 	}
