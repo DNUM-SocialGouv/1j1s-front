@@ -2,7 +2,9 @@
 
 .Card {
   &ImageWrapper {
+    width: 360px;
     height: 180px;
+    overflow: hidden;
     img {
       object-fit: cover;
       object-position: center;
