@@ -5,30 +5,30 @@ import styles from '~/client/components/features/Logement/Consulter/BilanEnerget
 import cardStyles from '~/client/components/features/Logement/Consulter/ConsulterAnnonce.module.scss';
 import { CategorieEnergetique } from '~/server/cms/domain/annonceDeLogement.type';
 
-const LESS_OR_EQUAL = '\u{02A7D}';
-const MORE_OR_EQUAL = '\u{02A7E}';
-const LESS_THAN = '\u{0003C}';
-const MORE_THAN = '\u{0003E}';
-const METTRE_CARRÉ = <abbr title="mètre carré">m<sup>2</sup></abbr>;
+const LessOrEqual = () => <>{'\u{02A7D}'}</>;
+const MoreOrEqual = () => <>{'\u{02A7E}'}</>;
+const LessThan = () => <>{'\u{0003C}'}</>;
+const MoreThan = () => <>{'\u{0003E}'}</>;
+const MettreCarré = () => <abbr title="mètre carré">m<sup>2</sup></abbr>;
 
 const CONSOMMATION_ENERGETIQUE: Record<CategorieEnergetique, React.ReactNode> = {
-	A: <>Excellente performance énergétique (consommation {LESS_THAN} 50 kWh/{METTRE_CARRÉ}/an)</>,
-	B: <>Très bonne performance énergétique (consommation de 51 à 90 kWh/{METTRE_CARRÉ}/an)</>,
-	C: <>Bonne performance énergétique (consommation de 91 à 150 kWh/{METTRE_CARRÉ}/an)</>,
-	D: <>Assez bonne performance énergétique (consommation de 151 à 230 kWh/{METTRE_CARRÉ}/an)</>,
-	E: <>Performance énergétique moyenne (consommation de 231 à 330 kWh/{METTRE_CARRÉ}/an)</>,
-	F: <>Mauvaise performance énergétique (consommation de 331 à 450 kWh/{METTRE_CARRÉ}/an)</>,
-	G: <>Très mauvaise performance énergétique (consommation {MORE_OR_EQUAL} 451 kWh/{METTRE_CARRÉ}/an)</>,
+	A: <>Excellente performance énergétique (consommation <LessThan /> 50 kWh/<MettreCarré />/an)</>,
+	B: <>Très bonne performance énergétique (consommation de 51 à 90 kWh/<MettreCarré />/an)</>,
+	C: <>Bonne performance énergétique (consommation de 91 à 150 kWh/<MettreCarré />/an)</>,
+	D: <>Assez bonne performance énergétique (consommation de 151 à 230 kWh/<MettreCarré />/an)</>,
+	E: <>Performance énergétique moyenne (consommation de 231 à 330 kWh/<MettreCarré />/an)</>,
+	F: <>Mauvaise performance énergétique (consommation de 331 à 450 kWh/<MettreCarré />/an)</>,
+	G: <>Très mauvaise performance énergétique (consommation <MoreOrEqual /> 451 kWh/<MettreCarré />/an)</>,
 };
 
 const EMISSION_DE_GAZ: Record<CategorieEnergetique, React.ReactNode> = {
-	A: <>Très peu d’émission de gaz à effet de serre (émission de gaz {LESS_OR_EQUAL} 5 kg/{METTRE_CARRÉ}/an)</>,
-	B: <>Peu d’émission de gaz à effet de serre (émission de gaz de 6 à 10 kg/{METTRE_CARRÉ}/an)</>,
-	C: <>Émission de gaz à effet de serre correcte (émission de gaz de 11 à 20 kg/{METTRE_CARRÉ}/an) </>,
-	D: <>Émission de gaz à effet de serre notable (émission de gaz de 21 à 35 kg/{METTRE_CARRÉ}/an)</>,
-	E: <>Émission assez importante de gaz à effet de serre (émission de gaz de 36 à 55 kg/{METTRE_CARRÉ}/an)</>,
-	F: <>Importante émission de gaz à effet de serre (émission de gaz de 56 à 80 kg/{METTRE_CARRÉ}/an)</>,
-	G: <>Très importante émission de gaz à effet de serre (émission de gaz {MORE_THAN} 80 kg/{METTRE_CARRÉ}/an)</>,
+	A: <>Très peu d’émission de gaz à effet de serre (émission de gaz <LessOrEqual /> 5 kg/<MettreCarré />/an)</>,
+	B: <>Peu d’émission de gaz à effet de serre (émission de gaz de 6 à 10 kg/<MettreCarré />/an)</>,
+	C: <>Émission de gaz à effet de serre correcte (émission de gaz de 11 à 20 kg/<MettreCarré />/an) </>,
+	D: <>Émission de gaz à effet de serre notable (émission de gaz de 21 à 35 kg/<MettreCarré />/an)</>,
+	E: <>Émission assez importante de gaz à effet de serre (émission de gaz de 36 à 55 kg/<MettreCarré />/an)</>,
+	F: <>Importante émission de gaz à effet de serre (émission de gaz de 56 à 80 kg/<MettreCarré />/an)</>,
+	G: <>Très importante émission de gaz à effet de serre (émission de gaz <MoreThan /> 80 kg/<MettreCarré />/an)</>,
 };
 
 interface BilanEnergetiqueLogementProps {
