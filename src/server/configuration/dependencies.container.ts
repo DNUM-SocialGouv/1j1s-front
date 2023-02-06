@@ -191,7 +191,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
 	const localisationDependencies: LocalisationDependencies = {
 		listeLocalisation: new RechercherLocalisationUseCase(apiGeoLocalisationRepository, apiAdresseRepository),
-		rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository),
+		rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository, serverConfigurationService),
 	};
 
 	const mailRepository = new TipimailRepository(

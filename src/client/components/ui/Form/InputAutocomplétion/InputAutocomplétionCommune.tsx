@@ -18,14 +18,14 @@ interface AutocomplétionCommuneProps {
   required?: boolean;
 }
 
-const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
+const MINIMUM_QUERY_LENGTH = process.env.API_ADRESSE_MINIMUM_QUERY_LENGTH ?? 0;
 
 export default function InputAutocomplétionCommune(props: AutocomplétionCommuneProps) {
 	const { onSuggestionSelected, valeurInitiale, ...rest } = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const suggestionsAdresse = useCallback(async (préfixe: string) => {
-		if (préfixe.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) {
+		if (préfixe.length >= MINIMUM_QUERY_LENGTH) {
 			const response = await localisationService.rechercherCommune(préfixe);
 			if (isSuccess(response)) {
 				return response.result.résultats;
