@@ -1,5 +1,9 @@
 @import "@styles/utilities";
 
+.energy abbr[title] {
+  text-decoration: none;
+}
+
 .energy .tag {
   display: inline-flex;
   min-width: 12.5rem;
@@ -45,8 +49,4 @@
   padding-top: 0.75rem;
   font-size: 0.875rem;
   max-width: 18.5rem;
-
-  & abbr[title] {
-    text-decoration: none;
-  }
 }
