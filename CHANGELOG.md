@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.61.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.61.0...v2.61.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* **logement:** Fix le lien dans les cards de logement ([01d21f3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/01d21f381092ceb75afdd9afa6e5a4c41a6a1397))
+
 ## [2.61.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.60.0...v2.61.0) (2023-02-06)
 
 
