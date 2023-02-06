@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.62.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.61.1...v2.62.0) (2023-02-06)
+
+
+### Features
+
+* **stages:** ajout de l'autocomplétion des pays dans le formulaire de dépot de stage ([385eb8c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/385eb8cc447b9f847a7cdffd7ec9fb55af196fe6))
+* **stages:** Mise en place du formulaire étape 3 ([bbc59b0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bbc59b01e807dc53370ef7fa63788be391b0ad6f))
+* **stages:** mise en place du mockLocalStorage ([47b8928](https://github.com/DNUM-SocialGouv/1j1s-front/commit/47b8928c34b52af9911e9cf0e6c774e037f19807))
+* **stages:** review ([c88e55c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c88e55cf2ddf812bab0e0b541da296dcbc65aac8))
+* **stages:** router ([dec48b9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dec48b9bd5ab6abf39de42eadb4d2b204a43e15e))
+* **stages:** uselocalstorage, relie étape 2 à 3, affichage formulaire ([d691772](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d6917724ca635211f892fcc489b1617e79b3dfaa))
+
 ## [2.61.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.61.0...v2.61.1) (2023-02-06)
 
 
