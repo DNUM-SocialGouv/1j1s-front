@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.61.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.60.0...v2.61.0) (2023-02-06)
+
+
+### Features
+
+* **multiple:** remove rate limit ([2e11046](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2e110468162e00225fb319bee62dfe221c404b61))
+
 ## [2.60.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.59.0...v2.60.0) (2023-02-03)
 
 
