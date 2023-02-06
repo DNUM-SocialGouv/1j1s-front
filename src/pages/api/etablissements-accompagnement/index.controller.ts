@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { validate } from '~/pages/api/middleware/validate.controller';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
@@ -18,8 +17,6 @@ export const querySchema = Joi.object({
 export async function rechercherÉtablissementAccompagnementHandler(
 	req: NextApiRequest,
 	res: NextApiResponse<ÉtablissementAccompagnement[] | ErrorHttpResponse>) {
-	if (await applyRateLimit(req, res)) return;
-
 	const { query } = req;
 	const résultatsRechercheÉtablissementAccompagnement = await dependencies
 		.établissementAccompagnementDependencies

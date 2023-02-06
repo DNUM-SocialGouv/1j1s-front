@@ -8,8 +8,6 @@ import {
 	ContactÉtablissementAccompagnement,
 	TypeÉtablissement,
 } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { mailRateLimitMiddleware } from '~/server/middlewares/rateLimit/mail/mailRateLimit';
-import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
@@ -30,8 +28,6 @@ export const demandeContactAccompagnementBodySchema = Joi.object({
 });
 
 export async function envoyerDemandeContactAccompagnementHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
-	if (await applyRateLimit(req, res, mailRateLimitMiddleware)) return;
-
 	const demandeDeContactAccompagnement = mapDemandeContactAccompagnement(req.body);
 
 	const responseEnvoyerEmail = await dependencies

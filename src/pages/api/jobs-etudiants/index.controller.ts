@@ -5,7 +5,6 @@ import { validate } from '~/pages/api/middleware/validate.controller';
 import { transformQueryToArray } from '~/pages/api/validate.utils';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
 import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
-import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
 import {
 	DomaineCode,
@@ -27,8 +26,6 @@ export const jobsEtudiantsQuerySchema = Joi.object({
 });
 
 export async function rechercherJobÉtudiantHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
-	if (await applyRateLimit(req, res)) return;
-
 	const résultatsRechercheJobÉtudiant = await dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle(jobÉtudiantFiltreMapper(req));
 	return handleResponse(résultatsRechercheJobÉtudiant, res);
 }

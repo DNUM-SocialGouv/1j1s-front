@@ -1,23 +1,13 @@
 import Joi from 'joi';
-import type {
-	NextApiRequest,
-	NextApiResponse,
-} from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { validate } from '~/pages/api/middleware/validate.controller';
 import { transformQueryToArray } from '~/pages/api/validate.utils';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { applyRateLimit } from '~/server/middlewares/rateLimit/rateLimit';
 import { monitoringHandler } from '~/server/monitoringHandler.middleware';
-import {
-	DomaineCode,
-	MAX_PAGE_ALLOWED,
-	RésultatsRechercheOffre,
-} from '~/server/offres/domain/offre';
-import {
-	mapLocalisation,
-} from '~/server/offres/infra/controller/offreFiltre.mapper';
+import { DomaineCode, MAX_PAGE_ALLOWED, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 import { handleResponse } from '~/server/utils/handleResponse.util';
 import { queryToArray } from '~/server/utils/queryToArray.utils';
@@ -38,8 +28,6 @@ export const emploisQuerySchema = Joi.object({
 export async function rechercherOffreEmploiHandler(
 	req: NextApiRequest,
 	res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
-	if (await applyRateLimit(req, res)) return;
-
 	const params = emploiFiltreMapper(req);
 	const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle(params);
 	return handleResponse(résultatsRechercheOffreEmploi, res);
