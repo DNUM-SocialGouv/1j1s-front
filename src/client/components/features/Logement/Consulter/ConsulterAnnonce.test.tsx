@@ -199,7 +199,7 @@ describe('<ConsulterAnnonce />', () => {
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const tag = screen.getByRole('img', { name: /G/i });
 
-			expect(tag).toHaveDescription(/Très importante émission de gaz à effet de serre/i);
+			expect(tag).toHaveAccessibleDescription(/Très importante émission de gaz à effet de serre/i);
 		});
 		it('affiche la couleur de l’émission de gaz du logement',  () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
