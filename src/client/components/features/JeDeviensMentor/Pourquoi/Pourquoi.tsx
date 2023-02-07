@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/Pourquoi/Pourquoi.module.scss';
@@ -16,10 +16,8 @@ export function Pourquoi() {
             <Image
             	src="/illustrations/mentorat-employeur.svg"
             	alt=""
-            	layout="fixed"
             	width={500}
             	height={300}
-            	aria-hidden="true"
             />
 					}
 					<h2>Pourquoi participer à l’aventure du mentorat en tant qu’employeur ?</h2>
@@ -32,10 +30,8 @@ export function Pourquoi() {
             <Image
             	src="/illustrations/mentorat-citoyen.svg"
             	alt=""
-            	layout="fixed"
             	width={500}
             	height={300}
-            	aria-hidden="true"
             />
 					}
 					<h2>Vous êtes citoyen : vous pouvez devenir mentor !</h2>

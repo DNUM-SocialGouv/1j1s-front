@@ -6,14 +6,12 @@
   margin: 0 auto;
 
   &Container {
+    padding: 12rem 1.5rem;
     display: grid;
     place-items: center;
 
     &Illustration {
       display: none;
-      position: relative;
-      width: 30rem;
-      height: 30rem;
     }
 
     &Text {
@@ -33,8 +31,10 @@
 
 @include media(large) {
   .section {
-    padding: 7rem 1.5rem;
+    padding: 3rem 1.5rem;
     &Container {
+      padding: 3rem 1.5rem;
+      max-width: 47rem;
       &Illustration {
         display: block;
       }

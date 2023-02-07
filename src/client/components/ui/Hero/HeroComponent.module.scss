@@ -63,6 +63,9 @@
       right: 0;
       height: 100%;
       width: 50%;
+      img {
+        object-fit: cover;
+      }
     }
   }
 }

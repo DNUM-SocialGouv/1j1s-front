@@ -22,9 +22,10 @@
   overflow: hidden;
   border: 1px solid $deep-neutral-grey;
 
-  &ImageWrapper {
-    position: relative;
-    flex: 0 0 150px;
+  > img {
+    object-fit: cover;
+    width: 400px;
+    height: 180px;
   }
 
   &Category {

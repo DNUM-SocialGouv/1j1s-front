@@ -20,6 +20,11 @@
         max-height: 150px;
         flex: 0 1 200px;
         overflow: hidden;
+
+        img {
+            height: 180px;
+            width: 328px;
+        }
     }
     &Content {
         min-height: 10.75rem;

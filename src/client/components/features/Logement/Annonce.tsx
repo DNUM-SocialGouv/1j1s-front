@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import Image from 'next/image';
 import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
@@ -54,8 +55,14 @@ const CardImage = (props: { imageSrcList: ImageSrcListProps} ) => {
 	const hasNoImage = imageSrcList.length === 0;
 	const hasOnlyOneImage = imageSrcList.length === 1;
 
-	if (hasNoImage) return <Card.Image src={'/images/defaut-logement.webp'} className={styles.CardImageWrapper}/>;
-	if (hasOnlyOneImage) return <Card.Image src={imageSrcList[0]} className={styles.CardImageWrapper}/>;
+	if (hasNoImage) return <div className={styles.CardImageWrapper}>
+		<Image src={'/images/defaut-logement.webp'} alt="" width={360} height={180} />
+	</div>;
+
+	if (hasOnlyOneImage) return <div className={styles.CardImageWrapper}>
+		<Image src={imageSrcList[0]} alt="" width={360} height={180} />
+	</div>;
+
 	return <CardAnnonceCarousel imageSrcList={imageSrcList} />;
 };
 

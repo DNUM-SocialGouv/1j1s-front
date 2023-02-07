@@ -19,12 +19,6 @@ export default function MesAidesPage() {
 					/>
 
 				</div>
-
-				{/* next section is hidden until cookies are set
-        <MesAidesVideos/>
-        */}
-
-
 			</main>
 		</>
 	);

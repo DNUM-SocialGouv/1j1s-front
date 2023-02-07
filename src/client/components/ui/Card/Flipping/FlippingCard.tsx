@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React, {
 	useCallback,
 	useEffect,
@@ -83,10 +83,7 @@ export function FlippingCard(props: FlippingCardProps) {
 	return (
 		<div className={classNames(styles.cardWrapper, { [styles.animate]: isAnimationOn }, className)} {...rest}>
 			<div className={classNames(styles.card, styles.cardFlip)}>
-				<div className={styles.cardImageWrapper}>
-					<Image src={imageUrl} alt="" layout="fill" objectFit="cover" objectPosition="top"/>
-				</div>
-
+				<Image src={imageUrl} alt="" width={360} height={180} />
 				{category && <div className={classNames(styles.cardCategory, categoryClass)}>{category}</div>}
 
 				<div className={styles.cardBody}>

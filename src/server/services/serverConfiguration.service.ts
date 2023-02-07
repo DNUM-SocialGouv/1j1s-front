@@ -9,7 +9,6 @@ export class ServerConfigurationService implements ConfigurationService {
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
 			API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
 			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
-			API_POLE_EMPLOI_FEATURE: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_FEATURE'),
 			API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
 			API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
 			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', ''),
@@ -73,7 +72,6 @@ export interface EnvironmentVariables {
   readonly API_ETABLISSEMENTS_PUBLICS: string
   readonly API_GEO_BASE_URL: string
   readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
-	readonly API_POLE_EMPLOI_FEATURE: string
   readonly API_POLE_EMPLOI_OFFRES_URL: string
   readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
   readonly IS_REVIEW_APP: string

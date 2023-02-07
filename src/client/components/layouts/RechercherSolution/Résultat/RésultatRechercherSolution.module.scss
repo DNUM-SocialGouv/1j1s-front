@@ -11,15 +11,13 @@
     display: flex;
     padding: 1.5rem;
     border-bottom: 4px solid $color-primary;
+
+    > img {
+      width: 56px;
+      height: 56px;
+    }
   }
 
-  &ImageWrapper {
-    position: relative;
-    min-height: 56px;
-    max-height: 56px;
-    min-width: 56px;
-    max-width: 56px;
-  }
   &Description {
     display: flex;
     flex-direction: column;
@@ -55,13 +53,11 @@
       border-bottom: none;
       margin-bottom: 0;
       padding: 0;
-    }
 
-    &ImageWrapper {
-      min-height: 120px;
-      max-height: 120px;
-      min-width: 120px;
-      max-width: 120px;
+      > img {
+        width: 120px;
+        height: 120px;
+      }
     }
 
     .offreLead {

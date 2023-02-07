@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
@@ -32,9 +32,7 @@ export function RésultatRechercherSolution(props: RésultatRechercherSolutionPr
 	return (
 		<Link href={lienOffre} className={classNames(styles.card, 'underline-none')} prefetch={false} data-testid="RésultatRechercherSolution">
 			<div className={styles.cardHeader}>
-				<div className={styles.cardImageWrapper}>
-					<Image alt="" src={logoEntreprise} layout="fill" aria-hidden="true"/>
-				</div>
+				<Image alt="" src={logoEntreprise} width={120} height={120} />
 				<div className={styles.offreLead}>
 					<header>
 						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>

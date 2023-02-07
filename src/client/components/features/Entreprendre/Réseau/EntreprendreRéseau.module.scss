@@ -13,22 +13,9 @@
     border-bottom: 4px solid $color-primary;
     height: 5.5rem;
     align-items: center;
-  }
-
-  &ImageContainer {
-    width: 3.5rem;
-  }
-
-  &ImageWrapper {
-    position: relative;
-    max-width: 3.5rem;
-    width: 3.5rem;
-    max-height: 3.5rem;
-    height: 3.5rem;
-
-    * > img {
-      width: 100%;
-      height: 100%;
+    img {
+      width: 56px;
+      height: auto;
     }
   }
 
@@ -94,6 +81,10 @@
       margin-bottom: 0;
       padding: 0;
       width: 20%;
+      img {
+        width: 120px;
+        height: auto;
+      }
     }
 
     &ImageContainer {

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -89,17 +89,14 @@ export default function MentoratPage() {
 								<RaisonParticipationsMentorat/>
 							</SeeMoreMobileOnly>
 						</div>
-						{isLargeScreen && (
-							<div className={styles.imageWrapper}>
+						{isLargeScreen &&
 								<Image
 									src="/illustrations/aventure-du-mentorat.svg"
 									alt=""
-									layout="fill"
-									objectFit="contain"
-									aria-hidden="true"
+									width={490}
+									height={370}
 								/>
-							</div>
-						)}
+						}
 					</article>
 				</div>
 			</main>
