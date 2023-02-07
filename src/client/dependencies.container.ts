@@ -13,18 +13,20 @@ import { LocalisationService } from '~/client/services/localisation/localisation
 import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
+import { StageService } from '~/client/services/stage/stage.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
-  localisationService: LocalisationService
-  ficheMetierService: FicheMetierService
-  missionEngagementService: MissionEngagementService
-  offreService: OffreService
-  rechercheClientService: SearchClient
-  demandeDeContactService: DemandeDeContactService
-  lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
-  établissementAccompagnementService: ÉtablissementAccompagnementService
-  analyticsService: AnalyticsService
+	analyticsService: AnalyticsService
+	demandeDeContactService: DemandeDeContactService
+	ficheMetierService: FicheMetierService
+	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
+	localisationService: LocalisationService
+	missionEngagementService: MissionEngagementService
+	offreService: OffreService
+	rechercheClientService: SearchClient
+	stageService: StageService
+	établissementAccompagnementService: ÉtablissementAccompagnementService
 }
 
 class DependencyInitException extends Error {
@@ -43,6 +45,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const ficheMetierService = new FicheMetierService(httpClientService);
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
+	const stageService = new StageService(httpClientService);
 	const analyticsService = process.env.NODE_ENV === 'production' ? new AnalyticsProdService() : new AnalyticsDevService();
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
@@ -73,6 +76,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		missionEngagementService,
 		offreService,
 		rechercheClientService,
+		stageService,
 		établissementAccompagnementService,
 	};
 }

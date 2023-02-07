@@ -8,6 +8,7 @@ import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.r
 import { StrapiIndexCmsRepository } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
 import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulterAnnonceLogement.useCase';
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
+import { enregistrerOffreDeStageUseCase } from '~/server/cms/useCases/enregistrerOffreDeStage.useCase';
 import {
 	DemandeDeContactAccompagnementRepository,
 } from '~/server/demande-de-contact/infra/repositories/accompagnement/demandeDeContactAccompagnement.repository';
@@ -85,6 +86,7 @@ export type Dependencies = {
 export interface CmsIndexDependencies {
 	consulterOffreStage: ConsulterOffreStageUseCase
 	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
+	enregistrerOffreDeStage: enregistrerOffreDeStageUseCase
 }
 
 export interface OffresEmploiDependencies {
@@ -153,10 +155,11 @@ export const dependenciesContainer = (): Dependencies => {
 	const cmsRepository = new StrapiCmsRepository(strapiClientService, strapiAuthClientService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
-	const cmsIndexRepository = new StrapiIndexCmsRepository(strapiIndexClientService);
+	const cmsIndexRepository = new StrapiIndexCmsRepository(strapiIndexClientService, strapiAuthClientService);
 	const cmsIndexDependencies = {
 		consulterAnnonceLogement: new ConsulterAnnonceLogementUseCase(cmsIndexRepository),
 		consulterOffreStage: new ConsulterOffreStageUseCase(cmsIndexRepository),
+		enregistrerOffreDeStage: new enregistrerOffreDeStageUseCase(cmsIndexRepository),
 	};
 
 	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);

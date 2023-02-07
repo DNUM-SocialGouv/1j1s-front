@@ -8,17 +8,29 @@ import InputAutocomplétionPays
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
+import { StageService } from '~/client/services/stage/stage.service';
+import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import {
 	LABEL_FORMULAIRE_1,
-	LABEL_FORMULAIRE_2, LABEL_FORMULAIRE_3,
+	LABEL_FORMULAIRE_2,
+	LABEL_FORMULAIRE_3,
 } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
+import {
+	EmployeurDepotStage,
+	LocalisationDepotStageIndexée,
+	OffreDeStageDepot,
+} from '~/server/cms/domain/offreDeStage.type';
+import { isSuccess } from '~/server/errors/either';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
 export default function StageDeposerOffreFormulaireLocalisation() {
 	const router = useRouter();
+	const stageService = useDependency<StageService>('stageService');
+
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const [inputPays, setInputPays] = useState('');
@@ -27,6 +39,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	const [inputCodePostal, setInputCodePostal] = useState('');
 	const [inputRegion, setInputRegion] = useState('');
 	const [inputDepartement, setInputDepartement] = useState('');
+	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
 	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
 
@@ -47,20 +60,62 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 				setInputPays(storedForm.pays);
 				setInputVille(storedForm.ville);
 				setInputAdresse(storedForm.adresse);
-				setInputCodePostal(storedForm.code_postal);
+				setInputCodePostal(storedForm.codePostal);
 				setInputRegion(storedForm.region);
 				setInputDepartement(storedForm.departement);
 			}
 		}
 	}, [valueEtape3]);
 
-	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+	function retrieveForm(formulaireOffreStageEtape1: string, formulaireOffreStageEtape2: string, formulaireOffreStageEtape3: string) {
+		const etape1Data = JSON.parse(formulaireOffreStageEtape1);
+		const etape2Data = JSON.parse(formulaireOffreStageEtape2);
+		const etape3Data = JSON.parse(formulaireOffreStageEtape3);
+
+		const formData: OffreDeStageDepot = {
+			dateDeDebut: etape2Data.dateDebut,
+			description: etape2Data.descriptionOffre,
+			domaine: etape2Data.domaineStage,
+			duree: etape2Data.dureeStage,
+			employeur: {
+				description: etape1Data.descriptionEmployeur,
+				email: etape1Data.emailEmployeur,
+				logoUrl: etape1Data.logoEmployeur || null,
+				nom: etape1Data.nomEmployeur,
+				siteUrl: etape1Data.siteEmployeur || null,
+			} as EmployeurDepotStage,
+			localisation: {
+				adresse: etape3Data.adresse,
+				codePostal: etape3Data.codePostal,
+				departement: etape3Data.departement || null,
+				pays: etape3Data.pays,
+				region: etape3Data.region || null,
+				ville: etape3Data.ville,
+			} as LocalisationDepotStageIndexée,
+			remunerationBase: etape2Data.remunerationStage ?? null,
+			teletravailPossible: etape2Data.teletravail ? etape2Data.teletravail === 'true' : null,
+			titre: etape2Data.nomOffre,
+			urlDeCandidature: etape2Data.lienCandidature.startsWith('http') ? etape2Data.lienCandidature : 'mailto:' + etape2Data.lienCandidature,
+		};
+		return removeNullOrEmptyValue<OffreDeStageDepot>(formData);
+	}
+
+	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+		setSubmitButtonDisabled(true);
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const formulaireOffreStageEtape3 = JSON.stringify(mapFormulaireOffreStageEtape3(data));
 		setValueEtape3(formulaireOffreStageEtape3);
-		return router.push('/stages/deposer-offre/confirmation-envoi');
+		if (valueEtape1 !== null && valueEtape2 !== null) {
+			const formattedData = retrieveForm(valueEtape1, valueEtape2, formulaireOffreStageEtape3);
+			const result = await stageService.enregistrerOffreDeStage(formattedData);
+			if (isSuccess(result)) {
+				return router.push('/stages/deposer-offre/confirmation-envoi');
+			}
+			setSubmitButtonDisabled(false);
+		}
+
 	}
 
 	return (
@@ -101,7 +156,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					/>
 					<InputText
 						label="Code postal"
-						name="code_postal"
+						name="codePostal"
 						placeholder="Exemple : 75007"
 						required
 						value={inputCodePostal}
@@ -131,6 +186,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 						label="Envoyer ma demande de dépôt d’offre"
 						type="submit"
 						className={styles.validationLink}
+						disabled={submitButtonDisabled}
 					/>
 				</div>
 			</form>
@@ -140,11 +196,11 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 
 function mapFormulaireOffreStageEtape3(formData: FormData) {
 	return {
-		adresse: String(formData.get('adresse')),
-		code_postal: String(formData.get('code_postal')),
-		departement: String(formData.get('departement')),
-		pays: String(formData.get('pays')),
-		region: String(formData.get('region')),
-		ville: String(formData.get('ville')),
+		adresse: formData.get('adresse'),
+		codePostal: formData.get('codePostal'),
+		departement: formData.get('departement'),
+		pays: formData.get('pays'),
+		region: formData.get('region'),
+		ville: formData.get('ville'),
 	};
 }

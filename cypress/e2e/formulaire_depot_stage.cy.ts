@@ -1,7 +1,11 @@
 /// <reference types="cypress" />
 import {
-	aFormulaireÉtape1StoredValue, aFormulaireÉtape2StoredValue, aFormulaireÉtape3StoredValue,
+	aFormulaireEnvoyéPostedValue,
+	aFormulaireÉtape1StoredValue,
+	aFormulaireÉtape2StoredValue,
+	aFormulaireÉtape3StoredValue,
 } from '../../src/pages/stages/deposer-offre/Formulaire/StageDeposerOffre.fixture';
+import { interceptPost } from '../interceptPost';
 
 const FORMULAIRE_ETAPE_1_LABEL = 'formulaireEtape1';
 const FORMULAIRE_ETAPE_2_LABEL = 'formulaireEtape2';
@@ -20,9 +24,9 @@ describe('Dépôt de Stage', () => {
 		});
 		describe('et qu‘il remplit le formulaire', () => {
 			it('le redirige vers l’étape 2', () => {
-				cy.get('input[name="nom"]').type(aFormulaireÉtape1StoredValue().nom);
-				cy.get('input[name="email"]').type(aFormulaireÉtape1StoredValue().email);
-				cy.get('textarea[name="description"]').type(aFormulaireÉtape1StoredValue().description);
+				cy.get('input[name="nomEmployeur"]').type(aFormulaireÉtape1StoredValue().nomEmployeur);
+				cy.get('input[name="emailEmployeur"]').type(aFormulaireÉtape1StoredValue().emailEmployeur);
+				cy.get('textarea[name="descriptionEmployeur"]').type(aFormulaireÉtape1StoredValue().descriptionEmployeur);
 
 				cy.get('button[type="submit"]').click();
 				cy.url().should('include', '/stages/deposer-offre/votre-offre-de-stage');
@@ -62,8 +66,8 @@ describe('Dépôt de Stage', () => {
 	describe('quand l’utilisateur arrive sur la page de l’étape 3', () => {
 		describe('et qu‘il remplit le formulaire', () => {
 			it('redirige vers la page de confirmation d’envoi', () => {
-				window.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, String(aFormulaireÉtape1StoredValue()));
-				window.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, String(aFormulaireÉtape2StoredValue()));
+				window.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireÉtape1StoredValue()));
+				window.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireÉtape2StoredValue()));
 
 				cy.visit('/stages/deposer-offre/localisation');
 
@@ -71,15 +75,24 @@ describe('Dépôt de Stage', () => {
 				cy.get('[role="option"]').click();
 				cy.get('input[name="ville"]').type(aFormulaireÉtape3StoredValue().ville);
 				cy.get('input[name="adresse"]').type(aFormulaireÉtape3StoredValue().adresse);
-				cy.get('input[name="code_postal"').type(aFormulaireÉtape3StoredValue().code_postal);
+				cy.get('input[name="codePostal"').type(aFormulaireÉtape3StoredValue().codePostal);
 
-				cy.get('button[type="submit"]').click();
+				interceptPost({
+					actionBeforeWaitTheCall:() => cy.get('button[type="submit"]').click(),
+					alias: 'submit-form',
+					path: '/api/stages',
+					response: JSON.stringify({
+						statusCode: 200,
+					}),
+					responseBodyToCheck: aFormulaireEnvoyéPostedValue(),
+				});
+
 				cy.url().should('include', '/stages/deposer-offre/confirmation-envoi');
 			});
 		});
 		describe('et qu’il n’a pas rempli l’étape 1', () => {
 			it('redirige vers l’étape 1', () => {
-				window.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, String(aFormulaireÉtape1StoredValue()));
+				window.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireÉtape1StoredValue()));
 
 				cy.visit('/stages/deposer-offre/localisation');
 
@@ -90,7 +103,7 @@ describe('Dépôt de Stage', () => {
 
 		describe('et qu’il n’a pas rempli l’étape 2', () => {
 			it('redirige vers l’étape 1', () => {
-				window.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, String(aFormulaireÉtape2StoredValue()));
+				window.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireÉtape2StoredValue()));
 
 				cy.visit('/stages/deposer-offre/localisation');
 
@@ -105,7 +118,7 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/confirmation-envoi');
 
-				window.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, String(aFormulaireÉtape1StoredValue()));
+				window.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireÉtape1StoredValue()));
 
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
@@ -115,7 +128,7 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/confirmation-envoi');
 
-				window.localStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, String(aFormulaireÉtape2StoredValue()));
+				window.localStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireÉtape2StoredValue()));
 
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
@@ -125,7 +138,7 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/confirmation-envoi');
 
-				window.localStorage.setItem(FORMULAIRE_ETAPE_3_LABEL, String(aFormulaireÉtape3StoredValue()));
+				window.localStorage.setItem(FORMULAIRE_ETAPE_3_LABEL, JSON.stringify(aFormulaireÉtape3StoredValue()));
 
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');

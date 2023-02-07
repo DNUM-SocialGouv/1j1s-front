@@ -64,7 +64,7 @@ export default function InputAutocomplétionPays(props: PaysPros) {
 				valeur={getSuggestionLibellé}
 				onSuggestionSelected={onPaysChange}
 				valeurInitiale={libelléPaysInitial}
-				id={inputId.current}
+				id={'autocompletion' + inputId.current}
 				{...rest}
 			/>
 			<input name={name} id={inputId.current} type="hidden" value={selectedPays?.code || ''}/>
