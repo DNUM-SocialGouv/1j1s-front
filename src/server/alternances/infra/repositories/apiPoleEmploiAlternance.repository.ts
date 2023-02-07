@@ -41,7 +41,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 	async get(id: OffreId): Promise<Either<Offre>> {
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
-			if(response.status === 204) {
+			if (response.status === 204) {
 				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 			}
 			return createSuccess(mapOffre(response.data));
@@ -57,12 +57,12 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 
 	private async getOffreAlternanceRecherche(offreFiltre: OffreFiltre) {
 		const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(offreFiltre);
-		if(paramètresRecherche) {
+		if (paramètresRecherche) {
 			try {
 				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
 					`/search?${paramètresRecherche}&${this.paramètreParDéfaut}`,
 				);
-				if(response.status === 204) {
+				if (response.status === 204) {
 					return createSuccess({ nombreRésultats: 0, résultats: [] });
 				}
 				return createSuccess(mapRésultatsRechercheOffre(response.data));

@@ -8,6 +8,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
 			API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
+			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
 			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
 			API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
 			API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
@@ -16,6 +17,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
+			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
 			POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
@@ -73,7 +75,8 @@ export interface EnvironmentVariables {
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string
   readonly API_ENGAGEMENT_BASE_URL: string
   readonly API_ETABLISSEMENTS_PUBLICS: string
-  readonly API_GEO_BASE_URL: string
+	readonly API_GEO_BASE_URL: string
+	readonly API_LA_BONNE_ALTERNANCE_URL: string
   readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
   readonly API_POLE_EMPLOI_OFFRES_URL: string
   readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
@@ -81,6 +84,7 @@ export interface EnvironmentVariables {
   readonly IS_REVIEW_APP: string
   readonly MAILER_SERVICE_ACTIVE: string
 	readonly MAILER_SERVICE_REDIRECT_TO: string
+	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
   readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
   readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
