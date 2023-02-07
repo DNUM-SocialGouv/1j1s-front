@@ -196,6 +196,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const apiAlternanceRepository = useLaBonneAlternanceAPI
 		? new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService)
 		: new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
+
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
 		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiAlternanceRepository),
 		rechercherOffreAlternance: new RechercherAlternanceUseCase(apiAlternanceRepository),
