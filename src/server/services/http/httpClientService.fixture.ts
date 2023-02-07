@@ -41,7 +41,7 @@ export function anAxiosResponse<T>(
 	};
 }
 
-export function anAxiosError(override: Partial<AxiosError>): AxiosError {
+export function anAxiosError(override?: Partial<AxiosError>): AxiosError {
 	return {
 		config: {},
 		isAxiosError: true,

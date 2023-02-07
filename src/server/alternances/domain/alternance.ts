@@ -2,7 +2,7 @@
 
 export namespace AlternanceApiResponse {
 	export interface Job {
-		contractType?: Array<string>
+		contractType?: string
 	}
 	export interface Place {
 		city?: string
@@ -28,5 +28,5 @@ export interface Alternance {
 	nomEntreprise?: string
 	localisation?: string
 	niveauRequis?: string
-	typeDeContrat: Array<string>
+	typeDeContrat?: string
 }

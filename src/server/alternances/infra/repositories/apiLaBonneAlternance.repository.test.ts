@@ -1,38 +1,50 @@
+import { MetierAlternance } from '~/server/alternances/domain/métier';
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import { anAlternanceFiltre } from '~/server/offres/domain/offre.fixture';
-import {
-	anAxiosResponse,
-	anHttpClientService
-} from '~/server/services/http/httpClientService.fixture';
 import {
 	aListeDeMetierLaBonneAlternance,
-	aMetierLaBonneAlternanceApiResponse
-} from '~/server/alternances/infra/repositories/laBonneAlternance.fixture'
+	aMetierLaBonneAlternanceApiResponse,
+} from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import { Failure, Success } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
+import { anAlternanceFiltre } from '~/server/offres/domain/offre.fixture';
+import {
+	anAxiosError,
+	anAxiosResponse,
+	anHttpClientService,
+} from '~/server/services/http/httpClientService.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('getMetier', () => {
 		describe('Quand l‘api renvoit un résultat', () => {
-			it("retourne un tableau de métier", async () => {
+			it('retourne un tableau de métier', async () => {
 				const httpClientService = anHttpClientService();
-				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()))
-				const expected = aListeDeMetierLaBonneAlternance()
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()));
+				const expected = aListeDeMetierLaBonneAlternance();
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 				const response = await repository.getMetier('tran');
 
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
 				expect(response.instance).toEqual('success');
-				if (response.instance !== 'failure') {
-					expect(response.result!).toEqual(expected);
-				}
-
-			})
+				expect((response as Success<Array<MetierAlternance>>).result).toEqual(expected);
+			});
 		});
 
-		describe('Quand l‘api renvoit une erreur', () => {
+		describe('Quand l‘api renvoie une erreur', () => {
+			it("retourne une instance d'erreur", async () => {
+				const httpClientService = anHttpClientService();
+				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: '429' }));
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
+				const response = await repository.getMetier('tran');
+
+				expect(httpClientService.get).toHaveBeenCalledTimes(1);
+				expect(response.instance).toEqual('failure');
+				expect((response as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
 		});
 	});
 	describe('search', () => {
