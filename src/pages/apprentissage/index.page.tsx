@@ -3,11 +3,12 @@ import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
 import { RechercherAlternance } from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
+import { RechercherAlternancePoleEmploi } from '~/client/components/features/Alternance/Rechercher/RechercherAlternancePoleEmploi';
 import useReferrer from '~/client/hooks/useReferrer';
-import { RechercherAlternanceLBA } from '~/client/components/features/Alternance/Rechercher/RechercherAlternanceLBA';
 
 export default function RechercherAlternancePage() {
 	const router = useRouter();
+	const displayRechercherAlternanceLBA = process.env.NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE === '1';
 
 	useReferrer();
 
@@ -18,9 +19,10 @@ export default function RechercherAlternancePage() {
 		}
 	}, [router]);
 
+	if (displayRechercherAlternanceLBA) return  <RechercherAlternance/>;
+
 	if (Object.keys(router.query).length) {
-		if (process.env.NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE === '1') return <RechercherAlternanceLBA/>;
-		else return <RechercherAlternance/>;
+		return <RechercherAlternancePoleEmploi/>;
 	}
 	return null;
 }
