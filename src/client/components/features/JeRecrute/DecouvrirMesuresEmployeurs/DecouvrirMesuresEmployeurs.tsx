@@ -9,7 +9,7 @@ export default function DecouvrirMesuresEmployeurs() {
 	return (
 		<section className={ styles.section }>
 			<Container className={ styles.sectionContainer }>
-				<Image src="/icons/decouverteMesuresEmployeurs.svg" width={480} height={480} alt='' aria-hidden />
+				<Image src="/icons/decouverteMesuresEmployeurs.svg" width={480} height={480} alt='' />
 				<span className={ styles.sectionContainerText }>
 					<h2 className={styles.sectionContainerTextTitre}>Découvrez les mesures du plan 1jeune1solution pour vous aider
 						<span className={styles.sectionContainerTextTitreAccroche}> à recruter plus facilement</span>

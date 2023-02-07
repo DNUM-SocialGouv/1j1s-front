@@ -56,11 +56,11 @@ const CardImage = (props: { imageSrcList: ImageSrcListProps} ) => {
 	const hasOnlyOneImage = imageSrcList.length === 1;
 
 	if (hasNoImage) return <div className={styles.CardImageWrapper}>
-		<Image src={'/images/defaut-logement.webp'} alt="" width={360} height={180} style={{ height: 180, width: 360 }} />
+		<Image src={'/images/defaut-logement.webp'} alt="" width={360} height={180} />
 	</div>;
 
 	if (hasOnlyOneImage) return <div className={styles.CardImageWrapper}>
-		<Image src={imageSrcList[0]} alt="" width={360} height={180} style={{ height: 180, width: 360 }}/>
+		<Image src={imageSrcList[0]} alt="" width={360} height={180} />
 	</div>;
 
 	return <CardAnnonceCarousel imageSrcList={imageSrcList} />;

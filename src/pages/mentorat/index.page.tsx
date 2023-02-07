@@ -95,8 +95,6 @@ export default function MentoratPage() {
 									alt=""
 									width={490}
 									height={370}
-									style={{ height: 370, width:490 }}
-									aria-hidden
 								/>
 						}
 					</article>

@@ -28,7 +28,6 @@ export default function Bannière () {
 					alt={ accroche }
 					width={800}
 					height={400}
-					style={{ height: 'auto', width: 800 }}
 				/>
 			)}
 		</div>

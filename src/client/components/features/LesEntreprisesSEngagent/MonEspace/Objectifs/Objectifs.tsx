@@ -7,7 +7,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 export function Objectifs () {
 	return (
 		<Container className={styles.objectifsContainer}>
-			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={65} height={65} aria-hidden style={{ height: 65 }} />
+			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={65} height={65} />
 			<div className={styles.objectifsContainerText}>
 				<p>La communauté « Les entreprises s’engagent » a été lancée par le Président de la République en juillet 2018 dans l’objectif de renforcer et de pérenniser le lien entre l’Etat et l’Entreprise en faveur de l’emploi de tous les publics</p>
 				<ol>

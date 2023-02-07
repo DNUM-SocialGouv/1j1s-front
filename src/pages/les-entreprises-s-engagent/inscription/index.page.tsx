@@ -126,7 +126,7 @@ export default function LesEntreprisesSEngagentInscription() {
         <>
         	<div className={styles.header}>
         		<div className={styles.logo}>
-        			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={144} height={80} aria-hidden />
+        			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={144} height={80} />
         		</div>
         		<h1 className={styles.titre}>REJOIGNEZ &ldquo;LES ENTREPRISES S‘ENGAGENT&rdquo;</h1>
         	</div>

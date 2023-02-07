@@ -32,7 +32,6 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
     private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
-		private isFeatureEnabled: boolean,
 	) {}
   
 	paramètreParDéfaut = 'natureContrat=E2,FS';
@@ -40,9 +39,6 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 	private ECHANTILLON_OFFRE_ALTERNANCE_KEY = 'ECHANTILLON_OFFRE_ALTERNANCE_KEY';
 
 	async get(id: OffreId): Promise<Either<Offre>> {
-		if (!this.isFeatureEnabled) {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-		}
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
 			if(response.status === 204) {
@@ -55,9 +51,6 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 	}
 
 	async search(offreFiltre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-		if (!this.isFeatureEnabled) {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-		}
 		if (isOffreÉchantillonFiltre(offreFiltre)) return this.getÉchantillonOffreAlternance(offreFiltre);
 		return this.getOffreAlternanceRecherche(offreFiltre);
 	}

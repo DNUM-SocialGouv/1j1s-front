@@ -10,7 +10,7 @@ export default function MaintenancePoleEmploi() {
 	return (
 		<Container className={ styles.sectionContainer }>
 			<aside className= { styles.sectionContainerIllustration }>
-				<Image src="/illustrations/maintenance.svg" width={480} height={480} alt='' aria-hidden />
+				<Image src="/illustrations/maintenance.svg" width={480} height={480} alt='' />
 			</aside>
 			<article className={ styles.sectionContainerText}>
 				<h1 className={styles.sectionContainerTextTitre}>Le formulaire pour déposer une offre d‘emploi est actuellement en maintenance. Merci de réessayer plus tard.</h1>

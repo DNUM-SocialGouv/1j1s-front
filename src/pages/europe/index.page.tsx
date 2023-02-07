@@ -65,7 +65,7 @@ export default function EuropePage() {
 			<Container className={styles.sectionLiens}>
 				{ isLargeScreen && (
 					<div className={styles.imageWrapper}>
-						<Image src="/images/europe.webp" alt="" width={560} height={160} style={{ height: 160, width: 560 }}/>
+						<Image src="/images/europe.webp" alt="" width={560} height={160} />
 					</div>
 				) }
 				<ul>
@@ -205,11 +205,11 @@ export default function EuropePage() {
 				{ isLargeScreen
 					? (
 						<div className={styles.sectionNiveauAnglais__ImageWrapper}>
-							<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" width={210} height={150} aria-hidden style={{ height: 150 }} />
+							<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" width={210} height={150} />
 						</div>
 					)
 					: (
-						<Image src={'/images/logos/wall-street-english.svg'} alt="" width={132} height={100} aria-hidden style={{ height: 100 }} />
+						<Image src={'/images/logos/wall-street-english.svg'} alt="" width={132} height={100} />
 					)
 				}
 

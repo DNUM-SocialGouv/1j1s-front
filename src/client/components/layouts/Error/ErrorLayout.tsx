@@ -28,7 +28,7 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 
 	  {!isSmallScreen &&
       <div className={styles.errorLogo}>
-      	<Image src='/images/logos/technical-error.svg' alt="" width={185} height={205} aria-hidden style={{ height: 185 }}/>
+      	<Image src='/images/logos/technical-error.svg' alt="" width={185} height={205} />
       </div>
 	  }
   	</Container>

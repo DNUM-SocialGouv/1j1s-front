@@ -32,7 +32,7 @@ export function RésultatRechercherSolution(props: RésultatRechercherSolutionPr
 	return (
 		<Link href={lienOffre} className={classNames(styles.card, 'underline-none')} prefetch={false} data-testid="RésultatRechercherSolution">
 			<div className={styles.cardHeader}>
-				<Image alt="" src={logoEntreprise} width={120} height={120} aria-hidden />
+				<Image alt="" src={logoEntreprise} width={120} height={120} />
 				<div className={styles.offreLead}>
 					<header>
 						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>

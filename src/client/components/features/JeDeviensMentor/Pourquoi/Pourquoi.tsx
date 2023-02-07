@@ -18,8 +18,6 @@ export function Pourquoi() {
             	alt=""
             	width={500}
             	height={300}
-            	style={{ height: 300, width: 500 }}
-            	aria-hidden="true"
             />
 					}
 					<h2>Pourquoi participer à l’aventure du mentorat en tant qu’employeur ?</h2>
@@ -34,8 +32,6 @@ export function Pourquoi() {
             	alt=""
             	width={500}
             	height={300}
-            	style={{ height: 300, width: 500 }}
-            	aria-hidden="true"
             />
 					}
 					<h2>Vous êtes citoyen : vous pouvez devenir mentor !</h2>

@@ -18,7 +18,7 @@ Quels avantages à rejoindre la mobilisation pour les jeunes ?
 export default function AvantagesMobilisation() {
 	return (
 		<Container className={ styles.container }>
-			<Image src={ illustration } width={448} height={300} alt='' aria-hidden />
+			<Image src={ illustration } width={448} height={300} alt='' />
 			<article className={ styles.article }>
 				<Marked markdown={ contenu }/>
 			</article>

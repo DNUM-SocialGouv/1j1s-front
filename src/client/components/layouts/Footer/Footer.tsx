@@ -49,11 +49,11 @@ export default function Footer() {
 								<span>l‘insertion</span>
 							</div>
 							<div className={styles.footerDevise}>
-								<Image src="/images/logos/devise.svg" alt="Liberté Égalité Fraternité" width={52} height={37} style={{ height: 37 }} />
+								<Image src="/images/logos/devise.svg" alt="Liberté Égalité Fraternité" width={52} height={37} />
 							</div>
 						</div>
 						<div className={styles.footerLogoFranceRelance}>
-							<Image src="/images/logos/france-relance.svg" alt="Logo France relance" width={65} height={65} style={{ height: 65 }} />
+							<Image src="/images/logos/france-relance.svg" alt="Logo France relance" width={65} height={65} />
 						</div>
 					</div>
 					<div className={styles.footerMessageWrapper}>
