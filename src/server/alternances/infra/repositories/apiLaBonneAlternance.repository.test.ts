@@ -72,5 +72,17 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=D1406,D1407/));
 		});
 
+		it('fait l’appelle avec la query sources à matcha', () => {
+
+			const httpClientService = anHttpClientService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+
+			// When
+			repository.search(anAlternanceFiltre());
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
+		});
+
 	});
 });
