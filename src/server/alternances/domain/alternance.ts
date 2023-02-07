@@ -1,3 +1,4 @@
+import Joi from 'joi';
 
 
 export namespace AlternanceApiResponse {
