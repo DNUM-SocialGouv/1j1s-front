@@ -70,6 +70,9 @@ import { MockedCacheService } from '~/server/services/cache/cacheService.fixture
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
+import {
+	ApiLaBonneAlternanceRepository
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 export type Dependencies = {
@@ -152,6 +155,7 @@ export const dependenciesContainer = (): Dependencies => {
 
 	const {
 		engagementClientService,
+		laBonneAlternanceClientService,
 		lesEntreprisesSEngagentClientService,
 		poleEmploiOffresClientService,
 		poleEmploiReferentielsClientService,
@@ -188,10 +192,13 @@ export const dependenciesContainer = (): Dependencies => {
 		rechercherOffreJobÉtudiant: new RechercherOffreJobÉtudiantUseCase(apiPoleEmploiJobÉtudiantOffreRepository),
 	};
 
-	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
+	const useLaBonneAlternanceAPI = serverConfigurationService.getConfiguration().NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE;
+	const apiAlternanceRepository = useLaBonneAlternanceAPI
+		? new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService)
+		: new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
-		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
-		rechercherOffreAlternance: new RechercherAlternanceUseCase(apiPoleEmploiAlternanceRepository),
+		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiAlternanceRepository),
+		rechercherOffreAlternance: new RechercherAlternanceUseCase(apiAlternanceRepository),
 	};
 
 	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
@@ -234,7 +241,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies = {
 		rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiÉtablissementPublicRepository),
 	};
-	
+
 	const robotsDependencies: RobotsDependencies = {
 		générerRobotsUseCase: new GénérerRobotsUseCase(serverConfigurationService.getConfiguration().ENVIRONMENT),
 	};

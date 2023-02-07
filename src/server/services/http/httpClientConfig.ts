@@ -118,11 +118,19 @@ const getApiPoleEmploiReferentielsConfig = (configurationService: ConfigurationS
 	});
 };
 
+const getLaBonneAlternanceConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+	return ({
+		apiName: 'API_LA_BONNE_ALTERNANCE',
+		apiUrl: configurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_URL,
+	});
+};
+
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
 	return {
 		adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
 		engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
 		geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
+		laBonneAlternanceClientService: new HttpClientService(getLaBonneAlternanceConfig(configurationService)),
 		lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
 		mailClientService: new HttpClientService(getApiTipimailConfig(configurationService)),
 		poleEmploiOffresClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiOffresConfig(configurationService)),
