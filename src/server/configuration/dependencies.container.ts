@@ -1,8 +1,11 @@
 import {
+	ApiLaBonneAlternanceRepository,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
+import {
 	ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
 import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
-import { RechercherAlternanceUseCase } from '~/server/alternances/useCases/rechercherAlternance.useCase';
+import { RechercherAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import { StrapiIndexCmsRepository } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
@@ -70,9 +73,6 @@ import { MockedCacheService } from '~/server/services/cache/cacheService.fixture
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
-import {
-	ApiLaBonneAlternanceRepository
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 export type Dependencies = {
@@ -108,7 +108,7 @@ export interface OffresJobÉtudiantDependencies {
 
 export interface OffresAlternanceDependencies {
   consulterOffreAlternance: ConsulterOffreAlternanceUseCase
-  rechercherOffreAlternance: RechercherAlternanceUseCase
+  rechercherOffreAlternance: RechercherAlternancePoleEmploiUseCase
 }
 
 export interface EngagementDependencies {
@@ -199,7 +199,7 @@ export const dependenciesContainer = (): Dependencies => {
 
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
 		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiAlternanceRepository),
-		rechercherOffreAlternance: new RechercherAlternanceUseCase(apiAlternanceRepository),
+		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiAlternanceRepository),
 	};
 
 	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
