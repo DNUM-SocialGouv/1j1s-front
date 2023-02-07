@@ -12,8 +12,14 @@ import {
 	MetierLaBonneAlternanceApiResponse
 } from '~/server/alternances/domain/métier'
 import { handleSearchFailureError } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError'
+import {
+	Alternance,
+	AlternanceListApiResponse
+} from '~/server/alternances/domain/alternance'
+import { mapAlternance } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper'
 
 const caller = '1jeune1solution';
+const sources = 'matcha';
 
 export interface AlternanceFilter {
 	romes: string
@@ -35,14 +41,13 @@ export class ApiLaBonneAlternanceRepository implements LaBonneAlternanceReposito
 		}
 	}
 
-	// FIXME
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	get(id: OffreId): Promise<Either<Offre>> {
-		return Promise.resolve(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-	}
 
-	search(filtre: AlternanceFilter): Promise<Either<RésultatsRechercheOffre>> {
-		this.httpClientService.get(`/jobs?caller=${caller}&romes=${filtre.romes}`);
-		return Promise.resolve(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+	async search(filtre: AlternanceFilter): Promise<Either<Array<Alternance>>> {
+		try {
+			const response = await this.httpClientService.get<AlternanceListApiResponse>(`/jobs?caller=${caller}&romes=${filtre.romes}&sources=${sources}`);
+			return createSuccess(mapAlternance(response.data))
+			return Promise.resolve(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+		}
+
 	}
 }
