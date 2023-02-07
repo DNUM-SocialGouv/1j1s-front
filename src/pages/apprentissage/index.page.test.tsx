@@ -18,26 +18,66 @@ describe('Page rechercher une alternance', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
-	it('affiche une liste de un partenaire', async () => {
-		const offreServiceMock = anOffreService();
-		const localisationServiceMock = aLocalisationService();
-		mockUseRouter({ query: { page: '1' } });
-		render(
-			<DependenciesProvider
-				localisationService={localisationServiceMock}
-				offreService={offreServiceMock}
-			>
-				<RechercherAlternancePage/>
-			</DependenciesProvider>,
-		);
-		const listePartenaires = await screen.findByRole('list', {
-			name: 'Liste des partenaires',
+
+	describe('quand le feature flip n‘est pas actif', () => {
+		beforeEach(() => {
+			process.env = {
+				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '0',
+			};
 		});
-		expect(listePartenaires).toBeInTheDocument();
-		const partenaires = within(listePartenaires).getAllByRole('listitem');
-		expect(partenaires.length).toBe(3);
-		expect(within(partenaires[0]).getByText(partenaireLaBonneAlternanceTitle)).toBeInTheDocument();
-		expect(within(partenaires[1]).getByText(partenairePassTitle)).toBeInTheDocument();
-		expect(within(partenaires[2]).getByText(partenaireOnisepTitle)).toBeInTheDocument();
+
+		it('affiche le titre contenant Pôle Emploi et une liste de un partenaire', async () => {
+			const offreServiceMock = anOffreService();
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({ query: { page: '1' } });
+			render(
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+					offreService={offreServiceMock}
+				>
+					<RechercherAlternancePage/>
+				</DependenciesProvider>,
+			);
+
+			const titre = screen.getByRole('heading', { level: 1 });
+			expect(titre).toHaveTextContent('sélectionnés pour vous par Pôle Emploi');
+
+			const listePartenaires = await screen.findByRole('list', {
+				name: 'Liste des partenaires',
+			});
+			expect(listePartenaires).toBeInTheDocument();
+			const partenaires = within(listePartenaires).getAllByRole('listitem');
+			expect(partenaires.length).toBe(3);
+			expect(within(partenaires[0]).getByText(partenaireLaBonneAlternanceTitle)).toBeInTheDocument();
+			expect(within(partenaires[1]).getByText(partenairePassTitle)).toBeInTheDocument();
+			expect(within(partenaires[2]).getByText(partenaireOnisepTitle)).toBeInTheDocument();
+		});
 	});
+
+	describe('quand le feature flip est actif', () => {
+		beforeEach(() => {
+			process.env = {
+				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '1',
+			};
+		});
+
+		it('affiche le titre propre à la Bonne Alternance', async () => {
+			const offreServiceMock = anOffreService();
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({ query: { page: '1' } });
+			render(
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+					offreService={offreServiceMock}
+				>
+					<RechercherAlternancePage/>
+				</DependenciesProvider>,
+			);
+
+			const titre = screen.getByRole('heading', { level: 1 });
+			expect(titre).toHaveTextContent('Avec La Bonne Alternance');
+
+		});
+	});
+
 });
