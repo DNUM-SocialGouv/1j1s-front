@@ -15,6 +15,6 @@ export class OffreService {
 	}
 
 	async rechercherAlternance(query: string): Promise<Either<RésultatsRechercheOffre>> {
-		return this.httpClientService.get<RésultatsRechercheOffre>(`alternances?${query}`);
+		return this.httpClientService.get<RésultatsRechercheOffre>(`alternances-pole-emploi?${query}`);
 	}
 }
