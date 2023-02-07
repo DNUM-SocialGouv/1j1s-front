@@ -5,6 +5,7 @@ export interface StrapiSingleTypeResponse<T> {
 }
 
 export interface StrapiCollectionTypeResponse<T> {
+    meta?: any;
     data: DataResponse<T>[]
 }
 

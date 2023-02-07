@@ -130,7 +130,7 @@ export interface ÉtablissementAccompagnementDependencies {
 export const dependenciesContainer = (): Dependencies => {
 	const serverConfigurationService = new ServerConfigurationService();
 	let cacheService: CacheService;
-	if(process.env.NODE_ENV === 'test') {
+	if(process.env.NODE_ENV === 'test' || 1 === 1) {
 		cacheService = new MockedCacheService();
 	} else {
 		cacheService  = new RedisCacheService(serverConfigurationService);

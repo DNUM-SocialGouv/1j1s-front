@@ -42,6 +42,7 @@ const sentryModuleExports = {
 };
 
 const moduleExports = {
+	// staticPageGenerationTimeout: 1000,
 	compress: true,
 	env: {
 		NEXT_PUBLIC_APPLICATION_NAME: name,

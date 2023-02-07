@@ -64,7 +64,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 }
 
 interface FicheMetierContext extends ParsedUrlQuery {
-	id: string
+	nomMetier: string
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<FicheMetierContext>): Promise<GetStaticPropsResult<ConsulterFicheMetierPageProps>> {
@@ -72,8 +72,8 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 		throw new PageContextParamsException();
 	}
 
-	const { id } = context.params;
-	const response = await dependencies.cmsDependencies.consulterFicheMetier.handle(id);
+	const { nomMetier } = context.params;
+	const response = await dependencies.cmsDependencies.consulterFicheMetier.handle(nomMetier);
 
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };
@@ -81,15 +81,28 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 
 	return {
 		props: {
-			ficheMetier: JSON.parse(JSON.stringify(response.result)),
+		   ficheMetier: JSON.parse(JSON.stringify(response.result)),
 		},
-		revalidate: 86400,
+		revalidate: 86400, // enlever ?
 	};
 }
 
+
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+	const listeNomMétierFicheMétier = await dependencies.cmsDependencies.listerNomMétierFicheMétierUseCase.handle();
+
+	if (listeNomMétierFicheMétier.instance === 'failure') {
+		return {
+			fallback: 'blocking',
+			paths: [],
+		};
+	}
+
+	const paths = listeNomMétierFicheMétier.result.map((nomMetier) => ({
+		params: { nomMetier: nomMetier },
+	}));
 	return {
 		fallback: 'blocking',
-		paths: [],
+		paths,
 	};
 }

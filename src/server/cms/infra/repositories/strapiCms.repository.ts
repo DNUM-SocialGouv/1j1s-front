@@ -30,6 +30,7 @@ import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
+const MAX_PAGINATION = '255';
 export class StrapiCmsRepository implements CmsRepository {
 	constructor(
     private httpClientService: HttpClientService,
@@ -56,6 +57,33 @@ export class StrapiCmsRepository implements CmsRepository {
 		const filters = `[nom_metier][$eq]=${encodeURIComponent(nom)}&populate=%2A`;
 		const endpoint = `fiche-metiers?filters${filters}`;
 		return this.getResource<StrapiCollectionTypeResponse<FicheMétierHttp>, FicheMétier>(endpoint, mapFicheMetier, 'ficher métier');
+	}
+	/*
+	private recupererNomMetierDesFichesMetier = ( page=1 ) => {
+		const endpoint = 'fiche-metiers?pagination[pageSize]=10';
+		const mapNomMetier = (ficheMetierResponse: any) {
+			const ficheMetier = ficheMetierResponse.data[0].attributes;
+			return ficheMetier.reduce( (noms: Array<string>, ficheMetier:any) => ([...noms, ficheMetier.nom_metier]) ,[])
+		}
+		return this.getResource<StrapiCollectionTypeResponse<FicheMétierHttp>, FicheMétier>(endpoint, mapNomMetier, 'ficher métier');
+
+		//return this.getResource('fiche-metiers?fields[]=nom&pagination[page]=' + page + '&pagination[pageSize]=255 ', ((e) => e.data[0].attributes.nomMetier), 'nom fiche métier');
+	};
+	*/
+
+	private async listFicheMetierPourNomMetier(currentPage=1, accumulator: Array<{attributes: { nom_metier: string }}>= []): Promise<Array<{attributes: { nom_metier: string }}>> {
+		const response = await this.httpClientService.get<StrapiCollectionTypeResponse<FicheMétierHttp>>(`fiche-metiers/?fields[]=nom_metier&pagination[page]=${currentPage}&pagination[pageSize]=${MAX_PAGINATION}`);
+		const lastPage = response.data.meta.pagination.pageCount;
+		const ficheMétierHttpList: Array<{attributes: { nom_metier: string }}> = accumulator.concat(response.data.data);
+		if(currentPage >= lastPage) {
+			return ficheMétierHttpList;
+		}
+		return this.listFicheMetierPourNomMetier(currentPage + 1, ficheMétierHttpList);
+	}
+
+	async listFicheMetierNomMetier(): Promise<Either<Array<string>>> {
+		const ficheMétierHttpList = await this.listFicheMetierPourNomMetier();
+		return createSuccess(ficheMétierHttpList.map(({ attributes }) => attributes.nom_metier));
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
@@ -99,7 +127,7 @@ export class StrapiCmsRepository implements CmsRepository {
 
 	async getResource<ApiResponseType, ResponseType>(endpoint: string, mapper: (data: ApiResponseType) => ResponseType, content: string): Promise<Either<ResponseType>> {
 		try {
-			const { data }: AxiosResponse = await this.httpClientService.get(endpoint);
+			const { data }: AxiosResponse = await this.httpClientService.get<ResponseType>(endpoint);
 			return createSuccess(mapper(data));
 		} catch (e) {
 			return handleFailureError(e, content);
