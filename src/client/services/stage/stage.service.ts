@@ -29,7 +29,7 @@ export class StageService {
 
 	constructor(private httpClientService: HttpClientService) {}
 
-	async enregistrerOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>> {
+	async enregistrerOffreDeStage(offre: Partial<OffreDeStageDepot>): Promise<Either<void>> {
 		return this.httpClientService.post('stages', offre);
 	};
 }
