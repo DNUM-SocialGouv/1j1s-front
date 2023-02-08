@@ -8,7 +8,6 @@ import {
 } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 import { anAlternanceFiltre } from '~/server/offres/domain/offre.fixture';
 import {
 	anAxiosError,

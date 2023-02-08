@@ -1,9 +1,10 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validate } from '~/pages/api/middleware/validate.controller';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
-import { monitoringHandler } from '~/server/monitoringHandler.middleware';
+import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { handleResponse } from '~/pages/api/utils/response/response.util';
 import {
 	MAX_PAGE_ALLOWED,
 	OffreFiltre,
@@ -11,7 +12,6 @@ import {
 } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
-import { handleResponse } from '~/server/utils/handleResponse.util';
 
 export const alternancesQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
@@ -26,7 +26,7 @@ export async function rechercherAlternanceHandler(req: NextApiRequest, res: Next
 	return handleResponse(résultatsRechercheAlternance, res);
 }
 
-export default monitoringHandler(validate({ query: alternancesQuerySchema }, rechercherAlternanceHandler));
+export default withMonitoring(withValidation({ query: alternancesQuerySchema }, rechercherAlternanceHandler));
 
 export function alternanceFiltreMapper(request: NextApiRequest): OffreFiltre {
 	const { query } = request;

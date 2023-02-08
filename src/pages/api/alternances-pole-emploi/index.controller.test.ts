@@ -7,7 +7,7 @@ import {
 	alternancesQuerySchema,
 	rechercherAlternanceHandler,
 } from '~/pages/api/alternances-pole-emploi/index.controller';
-import { ErrorHttpResponse } from '~/server/errors/errorHttpResponse';
+import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import {
