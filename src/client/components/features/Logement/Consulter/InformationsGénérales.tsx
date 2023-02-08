@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
 import { useLocale } from '~/client/context/locale.context';
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
@@ -69,8 +70,8 @@ export function InformationsGénérales({
 					<tr>
 						<th scope="row">Surface</th>
 						{(surfaceMax != null && surfaceMax != 0)
-							? <td>{surface} à {surfaceMax} m<sup>2</sup></td>
-							: <td>{surface}m<sup>2</sup></td>}
+							? <td>{surface} à {surfaceMax} <SquareMeter /></td>
+							: <td>{surface}<SquareMeter /></td>}
 					</tr>
 					<tr>
 						<th scope="row">Nombre de pièces</th>

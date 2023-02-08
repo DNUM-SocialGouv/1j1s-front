@@ -113,7 +113,6 @@ describe('<InformationsGénérales />', () => {
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
 				});
 			});
-
 		});
 		it('affiche le nombre de pièces', async () => {
 			const annonce = uneAnnonceDeLogement();

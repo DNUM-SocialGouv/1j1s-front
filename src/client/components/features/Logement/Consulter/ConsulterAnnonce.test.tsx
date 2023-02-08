@@ -198,9 +198,8 @@ describe('<ConsulterAnnonce />', () => {
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const tag = screen.getByRole('img', { name: /G/i });
-			const description = screen.getByText(/Très importante émission de gaz à effet de serre/i);
 
-			expect(tag).toHaveAttribute('aria-describedby', description.id);
+			expect(tag).toHaveAccessibleDescription(/Très importante émission de gaz à effet de serre/i);
 		});
 		it('affiche la couleur de l’émission de gaz du logement',  () => {
 			const annonceDeLogement = uneAnnonceDeLogement();
@@ -210,6 +209,18 @@ describe('<ConsulterAnnonce />', () => {
 			const tag = screen.getByRole('img', { name: /G/i });
 
 			expect(tag).toHaveAttribute('style', '--color: var(--color-g); --text-color: var(--text-color-g);');
+		});
+		it('affiche le titre pour les émissions de gaz à effet de serre', async () => {
+			const annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
+
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
+
+			// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
+			const titre = screen.getByText((content, element) => element?.textContent === 'Émissions de GES');
+			expect(titre).toBeVisible();
+			const abréviation = screen.getByText('GES');
+			expect(abréviation).toHaveAttribute('title', 'Gaz à Effet de Serre');
 		});
 	});
 
