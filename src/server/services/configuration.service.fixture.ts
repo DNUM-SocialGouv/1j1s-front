@@ -17,7 +17,6 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			API_ETABLISSEMENTS_PUBLICS: '',
 			API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
 			API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',
-			API_POLE_EMPLOI_FEATURE: '',
 			API_POLE_EMPLOI_OFFRES_URL: 'https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres',
 			API_POLE_EMPLOI_REFERENTIEL_URL: 'https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel',
 			IS_REVIEW_APP: '',
