@@ -9,6 +9,9 @@ import {
 	RechercherAlternanceLaBonneAlternanceUseCase,
 } from '~/server/alternances/useCases/rechercherAlternanceLaBonneAlternance.useCase';
 import { RechercherAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
+import {
+	RécupererSuggestionsMetiersAlternanceUseCase,
+} from '~/server/alternances/useCases/récupererSuggestionsMetiersAlternanceUseCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import { StrapiIndexCmsRepository } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
@@ -117,6 +120,7 @@ export interface OffresAlternanceDependencies {
 
 export interface AlternanceDependencies {
 	rechercherAlternance: RechercherAlternanceLaBonneAlternanceUseCase
+	récupererSuggestionsMetiersAlternance: RécupererSuggestionsMetiersAlternanceUseCase
 }
 
 export interface EngagementDependencies {
@@ -203,7 +207,6 @@ export const dependenciesContainer = (): Dependencies => {
 	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
 	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService);
 
-
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
 		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
 		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
@@ -211,6 +214,7 @@ export const dependenciesContainer = (): Dependencies => {
 
 	const alternanceDependencies: AlternanceDependencies = {
 		rechercherOffreAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
+		récupererSuggestionsMetiersAlternance: new RécupererSuggestionsMetiersAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 
 	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
