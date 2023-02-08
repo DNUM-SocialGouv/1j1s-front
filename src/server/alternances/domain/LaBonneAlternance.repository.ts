@@ -1,10 +1,11 @@
-import { Alternance } from '~/server/alternances/domain/alternance';
+import {
+	Alternance,
+	AlternanceQuery,
+} from '~/server/alternances/domain/alternance';
 import { MetierAlternance } from '~/server/alternances/domain/métier';
-import { AlternanceFilter } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-
-import { Either } from '../../errors/either';
+import { Either } from '~/server/errors/either';
 
 export interface LaBonneAlternanceRepository {
 	getMetier(recherche: string): Promise<Either<Array<MetierAlternance>>>
-	search(filtre: AlternanceFilter): Promise<Either<Array<Alternance>>>
+	search(filtre: AlternanceQuery): Promise<Either<Array<Alternance>>>
 }

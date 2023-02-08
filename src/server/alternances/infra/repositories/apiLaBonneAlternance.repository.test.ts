@@ -8,12 +8,12 @@ import {
 } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anAlternanceFiltre } from '~/server/offres/domain/offre.fixture';
 import {
 	anAxiosError,
 	anAxiosResponse,
 	anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
+import { anAlternanceFQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture'
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('getMetier', () => {
@@ -54,7 +54,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 				// When
-				repository.search(anAlternanceFiltre());
+				repository.search(anAlternanceFQuery());
 
 				// Then
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
@@ -66,7 +66,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			repository.search(anAlternanceFiltre());
+			repository.search(anAlternanceFQuery());
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution/));
@@ -77,7 +77,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			repository.search(anAlternanceFiltre());
+			repository.search(anAlternanceFQuery());
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=D1406,D1407/));
@@ -89,7 +89,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			repository.search(anAlternanceFiltre());
+			repository.search(anAlternanceFQuery());
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));

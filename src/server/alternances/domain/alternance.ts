@@ -28,3 +28,7 @@ export interface Alternance {
 	niveauRequis?: string
 	typeDeContrat?: string
 }
+
+export interface AlternanceQuery {
+	codeRomes: Array<string>
+}

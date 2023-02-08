@@ -1,5 +1,6 @@
-import { Either } from '../../../server/errors/either';
-import { HttpClientService } from '../httpClient.service';
+import { HttpClientService } from '~/client/services/httpClient.service';
+import { Alternance } from '~/server/alternances/domain/alternance';
+import { Either } from '~/server/errors/either';
 
 export class AlternanceService {
 	constructor(private httpClientService: HttpClientService) {}
@@ -9,7 +10,7 @@ export class AlternanceService {
 		return this.httpClientService.get<Array<string>>(`alternances/metiers?${query}`);
 	}
 
-	async rechercherAlternance(query:string): Promise<Either<any>> {
-		return this.httpClientService.get<any>(`alternances?${query}`);
+	async rechercherAlternance(query:string): Promise<Either<Array<Alternance>>> {
+		return this.httpClientService.get<Array<Alternance>>(`alternances?${query}`);
 	}
 }

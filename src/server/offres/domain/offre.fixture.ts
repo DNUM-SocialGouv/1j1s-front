@@ -1,7 +1,10 @@
-import { AlternanceFilter } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
-import { Offre, OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import {
+	Offre,
+	OffreFiltre,
+	RésultatsRechercheOffre
+} from '~/server/offres/domain/offre';
 
 export function aRésultatsRechercheOffre(override?: Partial<RésultatsRechercheOffre>): RésultatsRechercheOffre {
 	return {
@@ -127,13 +130,6 @@ export function anOffreÉchantillonFiltre(): OffreFiltre {
 		page: 1,
 	};
 }
-
-export function anAlternanceFiltre(): AlternanceFilter {
-	return {
-		romes: 'D1406,D1407',
-	};
-}
-
 
 export function anOffreÉchantillonAvecLocalisationEtMotCléFiltre(override?: Partial<OffreFiltre>): OffreFiltre {
 	return {
