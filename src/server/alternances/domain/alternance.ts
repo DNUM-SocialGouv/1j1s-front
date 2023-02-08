@@ -1,6 +1,3 @@
-import Joi from 'joi';
-
-
 export namespace AlternanceApiResponse {
 	export interface Job {
 		contractType?: string

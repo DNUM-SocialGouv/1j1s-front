@@ -5,6 +5,9 @@ import {
 	ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
 import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
+import {
+	RechercherAlternanceLaBonneAlternanceUseCase,
+} from '~/server/alternances/useCases/rechercherAlternanceLaBonneAlternance.useCase';
 import { RechercherAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
@@ -76,6 +79,7 @@ import { ServerConfigurationService } from '~/server/services/serverConfiguratio
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 export type Dependencies = {
+	alternanceDependencies: AlternanceDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
   cmsIndexDependencies: CmsIndexDependencies;
@@ -109,6 +113,10 @@ export interface OffresJobÉtudiantDependencies {
 export interface OffresAlternanceDependencies {
   consulterOffreAlternance: ConsulterOffreAlternanceUseCase
   rechercherOffreAlternance: RechercherAlternancePoleEmploiUseCase
+}
+
+export interface AlternanceDependencies {
+	rechercherOffreAlternance: RechercherAlternanceLaBonneAlternanceUseCase
 }
 
 export interface EngagementDependencies {
@@ -192,14 +200,17 @@ export const dependenciesContainer = (): Dependencies => {
 		rechercherOffreJobÉtudiant: new RechercherOffreJobÉtudiantUseCase(apiPoleEmploiJobÉtudiantOffreRepository),
 	};
 
-	const useLaBonneAlternanceAPI = serverConfigurationService.getConfiguration().NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE;
-	const apiAlternanceRepository = useLaBonneAlternanceAPI
-		? new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService)
-		: new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
+	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
+	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService);
+
 
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
-		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiAlternanceRepository),
-		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiAlternanceRepository),
+		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
+		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
+	};
+
+	const alternanceDependencies: AlternanceDependencies = {
+		rechercherOffreAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 
 	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
@@ -252,6 +263,7 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	return {
+		alternanceDependencies,
 		cmsDependencies,
 		cmsIndexDependencies,
 		demandeDeContactDependencies,

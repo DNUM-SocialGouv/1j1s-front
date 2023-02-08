@@ -1,7 +1,7 @@
+import { AlternanceFilter } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { Offre, OffreFiltre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
-import { AlternanceFilter } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 
 export function aRésultatsRechercheOffre(override?: Partial<RésultatsRechercheOffre>): RésultatsRechercheOffre {
 	return {
