@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.64.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.64.0...v2.64.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* **stage:** variable env offre depot ([#882](https://github.com/DNUM-SocialGouv/1j1s-front/issues/882)) ([2086c58](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2086c58d4ed50c101ec383d8e27ee31b8016ed73))
+
 ## [2.64.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.63.1...v2.64.0) (2023-02-08)
 
 
