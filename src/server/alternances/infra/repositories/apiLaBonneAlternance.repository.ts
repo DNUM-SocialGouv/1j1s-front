@@ -1,6 +1,7 @@
 import {
 	Alternance,
 	AlternanceListApiResponse,
+	AlternanceQuery,
 } from '~/server/alternances/domain/alternance';
 import { LaBonneAlternanceRepository } from '~/server/alternances/domain/LaBonneAlternance.repository';
 import {
@@ -8,21 +9,13 @@ import {
 	MetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/domain/métier';
 import { mapAlternance } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import {
-	createFailure,
-	createSuccess,
-	Either,
-} from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { handleSearchFailureError } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 const caller = '1jeune1solution';
 const sources = 'matcha';
 
-export interface AlternanceFilter {
-	romes: string
-}
 
 export class ApiLaBonneAlternanceRepository implements LaBonneAlternanceRepository {
 	constructor(private httpClientService: HttpClientService) {}
@@ -41,13 +34,13 @@ export class ApiLaBonneAlternanceRepository implements LaBonneAlternanceReposito
 	}
 
 
-	async search(filtre: AlternanceFilter): Promise<Either<Array<Alternance>>> {
+	async search(filtre: AlternanceQuery): Promise<Either<Array<Alternance>>> {
+		const queryList = filtre.codeRomes.join(',');
 		try {
-			const response = await this.httpClientService.get<AlternanceListApiResponse>(`/jobs?caller=${caller}&romes=${filtre.romes}&sources=${sources}`);
+			const response = await this.httpClientService.get<AlternanceListApiResponse>(`/jobs?caller=${caller}&romes=${queryList}&sources=${sources}`);
 			return createSuccess(mapAlternance(response.data));
 		} catch (e) {
-			// do stuff
+			return handleSearchFailureError(e, 'la bonne alternance recherche');
 		}
-		return Promise.resolve(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 	}
 }

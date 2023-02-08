@@ -116,7 +116,7 @@ export interface OffresAlternanceDependencies {
 }
 
 export interface AlternanceDependencies {
-	rechercherOffreAlternance: RechercherAlternanceLaBonneAlternanceUseCase
+	rechercherAlternance: RechercherAlternanceLaBonneAlternanceUseCase
 }
 
 export interface EngagementDependencies {
