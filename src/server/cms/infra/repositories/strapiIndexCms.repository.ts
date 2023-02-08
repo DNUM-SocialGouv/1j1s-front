@@ -59,7 +59,7 @@ export class StrapiIndexCmsRepository implements CmsIndexRepository {
 
 	async saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>> {
 		const offreStrapi = mapEnregistrerOffreDeStage(offre);
-		return this.save<OffreDeStageDepotStrapi, void>(`${process.env.STRAPI_OFFRE_DE_STAGE_ENDPOINT}`, offreStrapi);
+		return this.save<OffreDeStageDepotStrapi, void>(`${process.env.STRAPI_OFFRE_DE_STAGE_DEPOT_ENDPOINT}`, offreStrapi);
 	}
 
 	private async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {

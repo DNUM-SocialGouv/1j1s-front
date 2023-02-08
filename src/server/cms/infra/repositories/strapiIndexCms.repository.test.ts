@@ -90,7 +90,7 @@ describe('strapi index cms repository', () => {
 
 				// Then
 				expect(result).toEqual(createSuccess(anOffreDeStageDepotStrapi()));
-				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offre-de-stage', { data: offreDeStageDepotStrapi });
+				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offres-de-stage', { data: offreDeStageDepotStrapi });
 			});
 		});
 	});

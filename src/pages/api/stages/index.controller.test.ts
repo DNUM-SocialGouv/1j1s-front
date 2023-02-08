@@ -18,14 +18,14 @@ describe('enregistrer une offre de stage', () => {
 		it('retourne 200', async () => {
 			let strapiReceivedBody: {data: OffreDeStageDepotStrapi};
 			const strapiAuth = nock('http://localhost:1337/api')
-				.post('/offre-de-stage')
+				.post('/offres-de-stage')
 				.once()
 				.reply(401, 'unauthorized')
 				.post('/auth/local', { identifier, password })
 				.once()
 				.reply(200, { jwt });
 			const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
-				.post('/offre-de-stage', (body) => {
+				.post('/offres-de-stage', (body) => {
 					strapiReceivedBody = body;
 					return true;
 				})
