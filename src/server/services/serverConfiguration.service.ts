@@ -4,6 +4,7 @@ export class ServerConfigurationService implements ConfigurationService {
 	getConfiguration(): EnvironmentVariables {
 		return {
 			API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
+			API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
 			API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
@@ -67,6 +68,7 @@ class EnvironmentVariablesException extends Error {
 
 export interface EnvironmentVariables {
   readonly API_ADRESSE_BASE_URL: string
+  readonly API_ADRESSE_MINIMUM_QUERY_LENGTH: number
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string
   readonly API_ENGAGEMENT_BASE_URL: string
   readonly API_ETABLISSEMENTS_PUBLICS: string
