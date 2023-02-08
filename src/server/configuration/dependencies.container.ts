@@ -213,7 +213,7 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const alternanceDependencies: AlternanceDependencies = {
-		rechercherOffreAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
+		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 		récupererSuggestionsMetiersAlternance: new RécupererSuggestionsMetiersAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 
