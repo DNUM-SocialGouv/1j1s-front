@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.64.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.63.1...v2.64.0) (2023-02-08)
+
+
+### Features
+
+* **alternance:** ajout de test ([0eee76c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0eee76c694d4fd1799b566d872862764cf2a17a6))
+* **alternance:** feature flip LBA ([76b0cb5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/76b0cb5b08e26e26efeda20188dbf23c591ac021))
+* **stage:** enregistrement dans strapi de l'offre de stage ([a374a1b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a374a1b13507c1931c33abc5de8435190feb79d4))
+
+
+### Bug Fixes
+
+* **logement/details:** Amelioration affichage consommation ([297da20](https://github.com/DNUM-SocialGouv/1j1s-front/commit/297da20ada75a765500d50d5e6912ce2c49c4f76))
+* **multiple:** Ajoute un check à l'appel d'API localisation ([03258f6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/03258f67dde4e6636be98350b481a115b92a3372))
+* **stage:** mise à jour typage ([6ed50b0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6ed50b032f073e5103a9e74a1b8234316554b1f0))
+
 ## [2.63.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.63.0...v2.63.1) (2023-02-07)
 
 
