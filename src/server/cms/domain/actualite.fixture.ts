@@ -46,6 +46,7 @@ export const anActualiteFixture = (): StrapiSingleTypeResponse<ActualiteAttribut
 								slug: 'mon-article',
 								titre: 'Mon article',
 							},
+							id: 123,
 						},
 					},
 					banniere: strapiImageFixture(),
@@ -55,5 +56,6 @@ export const anActualiteFixture = (): StrapiSingleTypeResponse<ActualiteAttribut
 				},
 			],
 		},
+		id: 234,
 	},
 });

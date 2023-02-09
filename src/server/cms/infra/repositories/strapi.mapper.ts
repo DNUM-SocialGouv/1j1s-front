@@ -21,7 +21,6 @@ import {
 	EspaceJeuneAttributesResponse,
 	MesuresEmployeursAttributesResponse,
 	StrapiCollectionTypeResponse,
-	StrapiImage,
 	StrapiSingleTypeResponse,
 } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure } from '~/server/errors/either';
@@ -35,6 +34,7 @@ import {
 	FicheMétierHttpNestedField,
 	FicheMétierHttpNestedFieldStatut,
 } from '~/server/fiche-metier/domain/ficheMetierHttp';
+import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 import { CarteMesuresEmployeurs, MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
 
@@ -190,7 +190,7 @@ function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneRespons
 	});
 }
 
-export function mapImage(bannière: StrapiImage | undefined): Image | undefined {
+export function mapImage(bannière: Strapi.Image | undefined): Image | undefined {
 	if(bannière?.data) {
 		const { alternativeText, url } = bannière.data.attributes;
 		return {

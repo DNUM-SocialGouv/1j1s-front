@@ -1,76 +1,78 @@
 import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
 
 export interface StrapiSingleTypeResponse<T> {
-    data: DataResponse<T>
+	data: DataResponse<T>
 }
 
 export interface StrapiCollectionTypeResponse<T> {
-    data: DataResponse<T>[]
+	data: DataResponse<T>[]
+	meta: {
+		pagination: StrapiCollectionPagination
+	}
 }
 
-interface DataResponse<T> {
-    attributes: T
+interface StrapiCollectionPagination {
+	page: number
+	pageSize: number
+	pageCount: number
+	total: number
 }
 
-export interface StrapiImage {
-    data: DataResponse<StrapiImageAttributes> | null
-}
-
-export interface StrapiImageAttributes {
-    alternativeText?: string
-    url: string
+export interface DataResponse<T> {
+	attributes: T
+	id: number
 }
 
 export interface ActualiteAttributesResponse {
-    listeActualites: CarteActualiteResponse[]
+	listeActualites: CarteActualiteResponse[]
 }
 
 export interface CarteActualiteResponse {
-    titre: string
-    contenu: string
-    url: string
-    banniere: Strapi.Image
-    article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
+	titre: string
+	contenu: string
+	url: string
+	banniere: Strapi.Image
+	article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
 }
 
 export interface ArticleSimpleAttributesResponse {
-    slug: string
-    titre: string
-    contenu: string
+	slug: string
+	titre: string
+	contenu: string
 }
 
 export interface ArticleAttributesResponse {
-    titre: string
-    banniere?: StrapiImage
-    slug: string
-    contenu: string
+	titre: string
+	banniere?: Strapi.Image
+	slug: string
+	contenu: string
 }
 
 export interface EspaceJeuneAttributesResponse {
-    vieProfessionnelle: CarteEspaceJeuneResponse[]
-    orienterFormer: CarteEspaceJeuneResponse[]
-    accompagnement: CarteEspaceJeuneResponse[]
-    aidesFinancieres: CarteEspaceJeuneResponse[]
+	vieProfessionnelle: CarteEspaceJeuneResponse[]
+	orienterFormer: CarteEspaceJeuneResponse[]
+	accompagnement: CarteEspaceJeuneResponse[]
+	aidesFinancieres: CarteEspaceJeuneResponse[]
 }
 
 export interface CarteEspaceJeuneResponse {
-    titre: string
-    contenu: string
-    url: string
-    banniere: Strapi.Image
-    article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
-    pourQui: string
+	titre: string
+	contenu: string
+	url: string
+	banniere: Strapi.Image
+	article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
+	pourQui: string
 }
 
 export interface MesuresEmployeursAttributesResponse {
-    dispositifs: CarteMesuresEmployeursResponse[]
+	dispositifs: CarteMesuresEmployeursResponse[]
 }
 
 export interface CarteMesuresEmployeursResponse {
-    titre: string
-    contenu: string
-    url: string
-    banniere: Strapi.Image
-    article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
-    pourQui : string
+	titre: string
+	contenu: string
+	url: string
+	banniere: Strapi.Image
+	article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>
+	pourQui: string
 }

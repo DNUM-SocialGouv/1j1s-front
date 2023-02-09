@@ -7,6 +7,11 @@ import { anEspaceJeune, anEspaceJeuneResponse } from '~/server/cms/domain/espace
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 import { desMesuresEmployeurs, mesuresEmployeursResponse } from '~/server/cms/domain/mesuresEmployeurs.fixture';
+import {
+	aStrapiArticleSlugList,
+	aStrapiFicheMetierNomMetierList,
+	aStrapiPage2FicheMetierNomMetierList,
+} from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -20,6 +25,7 @@ import {
 	anHttpClientServiceWithAuthentification,
 } from '~/server/services/http/httpClientService.fixture';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { aFicheMetierNomMetierList, anArticlePathList } from '~/server/sitemap/domain/sitemap.fixture';
 
 describe('strapi cms repository', () => {
 	let httpClientService: HttpClientService;
@@ -96,6 +102,39 @@ describe('strapi cms repository', () => {
 
 				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 			});
+		});
+	});
+
+	describe('listAllFicheMetierNomMetier', () => {
+		it('liste tous les noms métier des fiches metier', async () => {
+			httpClientService = anHttpClientService();
+			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
+			jest.spyOn(httpClientService, 'get')
+				.mockResolvedValueOnce(anAxiosResponse(aStrapiFicheMetierNomMetierList()))
+				.mockResolvedValueOnce(anAxiosResponse(aStrapiPage2FicheMetierNomMetierList()));
+			const expected = aFicheMetierNomMetierList();
+
+			const { result } = await strapiCmsRepository.listAllFicheMetierNomMetier() as Success<Array<string>>;
+
+			expect(result).toEqual(expected);
+			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=2');
+		});
+	});
+
+	describe('listAllArticleSlug', () => {
+		it('liste tous les identifiants d’article publiés', async () => {
+			httpClientService = anHttpClientService();
+			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			strapiCmsRepository = new StrapiCmsRepository(httpClientService, authenticatedHttpClientService);
+			jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
+			const expected = anArticlePathList();
+
+			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
+
+			expect(result).toEqual(expected);
+			expect(httpClientService.get).toHaveBeenCalledWith('articles/?fields[]=slug&pagination[pageSize]=100');
 		});
 	});
 

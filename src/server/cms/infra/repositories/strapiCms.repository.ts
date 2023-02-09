@@ -17,7 +17,7 @@ import {
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import {
 	ArticleAttributesResponse,
-	ArticleSimpleAttributesResponse,
+	ArticleSimpleAttributesResponse, DataResponse,
 	EspaceJeuneAttributesResponse,
 	MesuresEmployeursAttributesResponse,
 	StrapiCollectionTypeResponse,
@@ -29,6 +29,8 @@ import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+
+const MAX_PAGINATION_SIZE = '100';
 
 export class StrapiCmsRepository implements CmsRepository {
 	constructor(
@@ -56,6 +58,14 @@ export class StrapiCmsRepository implements CmsRepository {
 		const filters = `[nom_metier][$eq]=${encodeURIComponent(nom)}&populate=%2A`;
 		const endpoint = `fiche-metiers?filters${filters}`;
 		return this.getResource<StrapiCollectionTypeResponse<FicheMétierHttp>, FicheMétier>(endpoint, mapFicheMetier, 'ficher métier');
+	}
+
+	async listAllFicheMetierNomMetier(): Promise<Either<Array<string>>> {
+		return this.listAllCollectionField<FicheMétierHttp, 'nom_metier'>('fiche-metiers', 'nom_metier');
+	}
+
+	async listAllArticleSlug(): Promise<Either<Array<string>>> {
+		return this.listAllCollectionField<ArticleAttributesResponse, 'slug'>('articles', 'slug');
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
@@ -99,7 +109,7 @@ export class StrapiCmsRepository implements CmsRepository {
 
 	async getResource<ApiResponseType, ResponseType>(endpoint: string, mapper: (data: ApiResponseType) => ResponseType, content: string): Promise<Either<ResponseType>> {
 		try {
-			const { data }: AxiosResponse = await this.httpClientService.get(endpoint);
+			const { data }: AxiosResponse = await this.httpClientService.get<ResponseType>(endpoint);
 			return createSuccess(mapper(data));
 		} catch (e) {
 			return handleFailureError(e, content);
@@ -110,6 +120,33 @@ export class StrapiCmsRepository implements CmsRepository {
 		try {
 			const { data } = await this.authenticatedHttpClientService.post<{ data: Body }, Response>(resource, { data: body });
 			return createSuccess(data);
+		} catch (e) {
+			return handleFailureError(e, resource);
+		}
+	}
+
+	private mapDataResponseField<CollectionType, Field extends keyof CollectionType>(dataReponseList: Array<DataResponse<CollectionType>>, field: Field): Array<CollectionType[Field]> {
+		return dataReponseList.map(({ attributes }) => attributes[field]);
+	}
+
+	private async listAllCollectionField<CollectionType, Field extends keyof CollectionType>(resource: string, field: Field): Promise<Either<Array<CollectionType[Field]>>> {
+		try {
+			const endpoint = `${resource}/?fields[]=${String(field)}&pagination[pageSize]=${MAX_PAGINATION_SIZE}`;
+			const { data } = await this.httpClientService.get<StrapiCollectionTypeResponse<CollectionType>>(endpoint);
+			const { page, pageCount } = data.meta.pagination;
+			const dataResponseList = data.data;
+
+			if (page < pageCount) {
+				const promiseList = [];
+				for(let currentPage = 2; currentPage <= pageCount; currentPage++) {
+					const endpointWithPage = `${endpoint}&pagination[page]=${currentPage}`;
+					promiseList.push(this.httpClientService.get<StrapiCollectionTypeResponse<CollectionType>>(endpointWithPage));
+				}
+				const resultList = await Promise.all(promiseList);
+				dataResponseList.push(...resultList.flatMap((result) => result.data.data));
+			}
+
+			return createSuccess(this.mapDataResponseField(dataResponseList, field));
 		} catch (e) {
 			return handleFailureError(e, resource);
 		}

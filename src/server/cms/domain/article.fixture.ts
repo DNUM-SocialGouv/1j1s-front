@@ -31,8 +31,17 @@ export function anArticleResponse(override?: Partial<StrapiCollectionTypeRespons
 	        slug: 'mon-article',
 	        titre: 'Mon article',
 				},
+				id: 123,
 			},
 		],
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 1,
+				total: 1,
+			},
+		},
 		...override,
 	};
 }

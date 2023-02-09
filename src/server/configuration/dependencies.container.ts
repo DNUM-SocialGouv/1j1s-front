@@ -69,6 +69,7 @@ import { MockedCacheService } from '~/server/services/cache/cacheService.fixture
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
+import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 export type Dependencies = {
   offreEmploiDependencies: OffresEmploiDependencies;
@@ -80,6 +81,7 @@ export type Dependencies = {
   entrepriseDependencies: EntrepriseDependencies
   offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
   offreAlternanceDependencies: OffresAlternanceDependencies
+	sitemapDependencies: SitemapDependencies
   établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
 };
 
@@ -127,6 +129,10 @@ export interface EntrepriseDependencies {
 
 export interface ÉtablissementAccompagnementDependencies {
   rechercherÉtablissementAccompagnementUseCase: RechercherÉtablissementAccompagnementUseCase
+}
+
+export interface SitemapDependencies {
+	générerSitemapUseCase: GénérerSitemapUseCase
 }
 
 export const dependenciesContainer = (): Dependencies => {
@@ -223,6 +229,10 @@ export const dependenciesContainer = (): Dependencies => {
 		rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiÉtablissementPublicRepository),
 	};
 
+	const sitemapDependencies: SitemapDependencies = {
+		générerSitemapUseCase: new GénérerSitemapUseCase(cmsRepository),
+	};
+
 	return {
 		cmsDependencies,
 		cmsIndexDependencies,
@@ -233,6 +243,7 @@ export const dependenciesContainer = (): Dependencies => {
 		offreAlternanceDependencies,
 		offreEmploiDependencies,
 		offreJobÉtudiantDependencies,
+		sitemapDependencies,
 		établissementAccompagnementDependencies,
 	};
 };

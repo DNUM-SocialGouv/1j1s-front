@@ -113,6 +113,7 @@ export function mesuresEmployeursResponse(): StrapiSingleTypeResponse<MesuresEmp
 			attributes: {
 				dispositifs: [aCarteMesuresEmployeursResponse()],
 			},
+			id: 567,
 		},
 	};
 }

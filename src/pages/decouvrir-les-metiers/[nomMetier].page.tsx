@@ -5,11 +5,12 @@ import React from 'react';
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { usePopstate } from '~/client/hooks/usePopstate';
+import { isFailure } from '~/server/errors/either';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { dependencies } from '~/server/start';
@@ -64,7 +65,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 }
 
 interface FicheMetierContext extends ParsedUrlQuery {
-	id: string
+	nomMetier: string
 }
 
 export async function getStaticProps(context: GetStaticPropsContext<FicheMetierContext>): Promise<GetStaticPropsResult<ConsulterFicheMetierPageProps>> {
@@ -72,8 +73,8 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 		throw new PageContextParamsException();
 	}
 
-	const { id } = context.params;
-	const response = await dependencies.cmsDependencies.consulterFicheMetier.handle(id);
+	const { nomMetier } = context.params;
+	const response = await dependencies.cmsDependencies.consulterFicheMetier.handle(nomMetier);
 
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };
@@ -81,15 +82,28 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 
 	return {
 		props: {
-			ficheMetier: JSON.parse(JSON.stringify(response.result)),
+		   ficheMetier: JSON.parse(JSON.stringify(response.result)),
 		},
 		revalidate: 86400,
 	};
 }
 
+
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+	const NomMétierFicheMétierList = await dependencies.cmsDependencies.listerNomMétierFicheMétier.handle();
+
+	if (isFailure(NomMétierFicheMétierList)) {
+		return {
+			fallback: 'blocking',
+			paths: [],
+		};
+	}
+
+	const paths = NomMétierFicheMétierList.result.map((nomMetier) => ({
+		params: { nomMetier: nomMetier },
+	}));
 	return {
 		fallback: 'blocking',
-		paths: [],
+		paths,
 	};
 }
