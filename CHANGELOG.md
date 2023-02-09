@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.67.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.66.0...v2.67.0) (2023-02-09)
+
+
+### Features
+
+* **logement:** ajout page maintenance feature flip ([40e1aee](https://github.com/DNUM-SocialGouv/1j1s-front/commit/40e1aee50aed3203da37cac24f166dcd21b17612))
+
 ## [2.66.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.65.0...v2.66.0) (2023-02-09)
 
 
