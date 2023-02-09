@@ -20,7 +20,7 @@ interface InputLocalisationProps {
 	timeout?: number,
 }
 
-const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = Number(process.env.NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH) - 1;
+const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = Number(process.env.NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH);
 
 export const InputLocalisation = (props: InputLocalisationProps) => {
 	const { code, libellé, type, timeout = 300 } = props;
@@ -98,7 +98,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
 	const rechercherLocalisation = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
-		if (value.length <= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) return;
+		if (value.length < MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) return;
 		const response = await localisationService.rechercherLocalisation(value);
 		if (response && isSuccess(response)) {
 			setLocalisationList(response.result);
@@ -216,7 +216,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 					currentHoverIndex++;
 					return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
 				})}
-				{isSuggestionListEmpty() && libelléLocalisation.length > MINIMUM_CHARACTER_NUMBER_FOR_SEARCH &&
+				{isSuggestionListEmpty() && libelléLocalisation.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH &&
           <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.
