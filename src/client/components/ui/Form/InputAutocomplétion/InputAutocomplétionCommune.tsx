@@ -18,7 +18,7 @@ interface AutocomplétionCommuneProps {
   required?: boolean;
 }
 
-const MINIMUM_QUERY_LENGTH = process.env.API_ADRESSE_MINIMUM_QUERY_LENGTH ?? 0;
+const MINIMUM_QUERY_LENGTH = process.env.NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH ?? 0;
 
 export default function InputAutocomplétionCommune(props: AutocomplétionCommuneProps) {
 	const { onSuggestionSelected, valeurInitiale, ...rest } = props;
