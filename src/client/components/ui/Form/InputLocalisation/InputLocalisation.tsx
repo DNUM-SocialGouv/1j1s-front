@@ -17,12 +17,13 @@ interface InputLocalisationProps {
   code: string
   libellé: string
   type: string
+	timeout?: number,
 }
 
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 2;
 
 export const InputLocalisation = (props: InputLocalisationProps) => {
-	const { code, libellé, type } = props;
+	const { code, libellé, type, timeout = 300 } = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [suggestionIndex, setSuggestionIndex] = useState(1);
@@ -97,6 +98,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
 	const rechercherLocalisation = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
+		if (value.length <= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) return;
 		const response = await localisationService.rechercherLocalisation(value);
 		if (response && isSuccess(response)) {
 			setLocalisationList(response.result);
@@ -110,7 +112,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 	}, [localisationService]);
 
 	const handleChange = useMemo(() => {
-		return debounce(rechercherLocalisation, 300);
+		return debounce(rechercherLocalisation, timeout);
 	}, [rechercherLocalisation]);
 
 	useEffect(() => {
