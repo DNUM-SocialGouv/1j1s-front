@@ -118,7 +118,7 @@ describe('strapi cms repository', () => {
 			const { result } = await strapiCmsRepository.listAllFicheMetierNomMetier() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=1');
 			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=2');
 		});
 	});
@@ -134,7 +134,7 @@ describe('strapi cms repository', () => {
 			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('articles/?fields[]=slug&pagination[pageSize]=100');
+			expect(httpClientService.get).toHaveBeenCalledWith('articles/?fields[]=slug&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 
