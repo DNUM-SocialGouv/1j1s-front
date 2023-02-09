@@ -2,7 +2,7 @@ import React from 'react';
 
 import AidesExceptionnelles
 	from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 
 import { PourQui } from './PourQui/PourQui';
 import { Pourquoi } from './Pourquoi/Pourquoi';

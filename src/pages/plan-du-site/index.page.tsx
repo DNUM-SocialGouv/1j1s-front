@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
 	isNavigationItem,
@@ -9,7 +10,6 @@ import {
 } from '~/client/components/layouts/Header/NavigationStructure';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/plan-du-site/PlanDuSite.module.scss';
 
 export default function PlanDuSite() {

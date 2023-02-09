@@ -6,11 +6,11 @@ import {
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
 import { FormulaireRechercheAnnonceLogement } from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 

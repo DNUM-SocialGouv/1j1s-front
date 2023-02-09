@@ -4,6 +4,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'r
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import FormulaireDeContactEntreprise
 	from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ButtonAsLink } from '~/client/components/ui/ButtonAsLink/ButtonAsLink';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
@@ -14,7 +15,6 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
 	LesEntreprisesSEngagentService,

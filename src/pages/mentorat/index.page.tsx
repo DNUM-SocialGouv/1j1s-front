@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Mentorat.module.scss';

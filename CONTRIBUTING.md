@@ -74,6 +74,8 @@ Liste des contextes de **pages** autorisées (non exhaustive):
 - espace jeune
 - engagement
 - employeur
+- sitemap
+- robots
   
 Exemple d'utilisation avec sous-contexte :
 

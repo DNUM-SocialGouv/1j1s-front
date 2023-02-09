@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { HeadTag } from '~/client/components/head/HeaderTag';
+import {
+	LightHero,
+	LightHeroPrimaryText,
+	LightHeroSecondaryText,
+} from '~/client/components/ui/Hero/LightHero';
 import useReferrer from '~/client/hooks/useReferrer';
 import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
 

@@ -9,10 +9,10 @@ import {
 	RéseauFinancementList,
 } from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { HeroComponent } from '~/client/components/ui/Hero/HeroComponent';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 import styles from './entreprendre.module.scss';
 

@@ -4,12 +4,12 @@ import React from 'react';
 import { FormulaireRechercheFicheMetier } from '~/client/components/features/FicheMétier/FormulaireRecherche/FormulaireRechercheFicheMetier';
 import { RésultatRechercherMétier } from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier';
 import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 import styles from '~/pages/decouvrir-les-metiers/decouvrir-les-metiers.module.scss';
 
