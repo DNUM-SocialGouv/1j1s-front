@@ -13,7 +13,7 @@ import {
 import { dependencies } from '~/server/start';
 
 export const alternancesQuerySchema = Joi.object({
-	codeRomes: Joi.string().required,
+	codeRomes: Joi.string(),
 });
 
 export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<Array<Alternance> | ErrorHttpResponse>) {
