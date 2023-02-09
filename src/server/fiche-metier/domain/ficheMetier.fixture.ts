@@ -104,6 +104,7 @@ export function aStrapiFicheMetier(override?: Partial<FicheMétierHttp>): Partia
 				vie_professionnelle: 'string',
 				...override,
 			},
+			id: 678,
 		}],
 	};
 }

@@ -14,5 +14,7 @@ export interface CmsRepository {
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
   getEspaceJeune(): Promise<Either<EspaceJeune>>
   getMesuresEmployeurs(): Promise<Either<MesuresEmployeurs>>
+  listAllFicheMetierNomMetier(): Promise<Either<Array<string>>>
+  listAllArticleSlug(): Promise<Either<Array<string>>>
   save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
 }

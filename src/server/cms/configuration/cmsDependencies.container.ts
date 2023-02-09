@@ -2,6 +2,7 @@ import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.r
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
 import { ConsulterFicheMetierUseCase } from '~/server/cms/useCases/consulterFicheMetier.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoireUseCase';
+import { ListerNomMétierFicheMétierUseCase } from '~/server/cms/useCases/listerNomMétierFicheMétier.useCase';
 import { RécupererActualitesUseCase } from '~/server/cms/useCases/récupererActualitesUseCase';
 import { RécupérerEspaceJeuneUseCase } from '~/server/cms/useCases/récupérerEspaceJeuneUseCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
@@ -12,6 +13,7 @@ export interface CmsDependencies {
   consulterFicheMetier: ConsulterFicheMetierUseCase
   consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
   duréeDeValiditéEnSecondes: () => number
+	listerNomMétierFicheMétier: ListerNomMétierFicheMétierUseCase
   récupererActualites: RécupererActualitesUseCase
   récupérerEspaceJeune: RécupérerEspaceJeuneUseCase
   récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
@@ -28,6 +30,7 @@ export function cmsDependenciesContainer(cmsRepository: StrapiCmsRepository, con
 		consulterFicheMetier: new ConsulterFicheMetierUseCase(cmsRepository),
 		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
+		listerNomMétierFicheMétier: new ListerNomMétierFicheMétierUseCase(cmsRepository),
 		récupererActualites: new RécupererActualitesUseCase(cmsRepository),
 		récupérerEspaceJeune: new RécupérerEspaceJeuneUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),

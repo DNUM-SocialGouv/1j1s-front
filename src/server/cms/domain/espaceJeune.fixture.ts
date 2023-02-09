@@ -56,6 +56,7 @@ export function aStrapiArticleResponse(): StrapiSingleTypeResponse<ArticleSimple
 				slug: 'slug-titre',
 				titre: 'Titre',
 			},
+			id: 345,
 		},
 	};
 }
@@ -101,6 +102,7 @@ export function anEspaceJeuneResponse(override?: Partial<StrapiSingleTypeRespons
 					aCarteEspaceJeuneResponse(),
 				],
 			},
+			id: 456,
 		},
 		...override,
 	};
