@@ -1,14 +1,19 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
+import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { AnalyticsService } from '~/client/services/analytics/analytics';
 import { AnalyticsDevService } from '~/client/services/analytics/analytics.dev.service';
 import { AnalyticsProdService } from '~/client/services/analytics/analytics.prod.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
-import { ÉtablissementAccompagnementService } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+import {
+	ÉtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { LesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
+import {
+	LesEntreprisesSEngagentService,
+} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
@@ -17,6 +22,7 @@ import { StageService } from '~/client/services/stage/stage.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
+	alternanceService: AlternanceService
 	analyticsService: AnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	ficheMetierService: FicheMetierService
@@ -37,7 +43,8 @@ class DependencyInitException extends Error {
 
 export default function dependenciesContainer(sessionId: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
-	const httpClientService =  new HttpClientService(sessionId, loggerService);
+	const httpClientService = new HttpClientService(sessionId, loggerService);
+	const alternanceService = new AlternanceService(httpClientService);
 	const offreService = new OffreService(httpClientService);
 	const localisationService = new LocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
@@ -68,6 +75,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	);
 
 	return {
+		alternanceService,
 		analyticsService,
 		demandeDeContactService,
 		ficheMetierService,

@@ -1,4 +1,4 @@
-import { AlternanceQuery } from '~/server/alternances/domain/alternance'
+import { AlternanceQuery } from '~/server/alternances/domain/alternance';
 
 export function anAlternanceFQuery(): AlternanceQuery {
 	return {
