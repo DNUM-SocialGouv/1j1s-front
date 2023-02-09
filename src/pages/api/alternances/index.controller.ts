@@ -3,15 +3,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { dependencies } from '~/server/start';
-
 import {
 	Alternance,
 	AlternanceQuery,
-} from '../../../server/alternances/domain/alternance';
-import { queryToArray } from '../utils/queryToArray.util';
+} from '~/server/alternances/domain/alternance';
+import { dependencies } from '~/server/start';
 
 export const alternancesQuerySchema = Joi.object({
 	codeRomes: Joi.string().required,
