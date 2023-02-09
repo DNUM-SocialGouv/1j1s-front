@@ -22,7 +22,7 @@ describe('MesAidesPage', () => {
 		expect(heading).toHaveTextContent('Je découvre les aides auxquelles j’ai droit en moins de 5 minutes');
 	});
 
-	it('permet de rediriger l‘utilisateur vers le smilateur d‘aide', () => {
+	it('permet de rediriger l‘utilisateur vers le simulateur d‘aide', () => {
 		render(
 			<MesAidesPage />,
 		);

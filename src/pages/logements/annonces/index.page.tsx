@@ -6,13 +6,13 @@ import {
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
 import { FormulaireRechercheAnnonceLogement } from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement';
+import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
-import NotFound from '~/pages/404.page';
 
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
@@ -25,7 +25,7 @@ export default function AnnoncesPage() {
 		return transformerMeilisearchLogementsItems(items);
 	}, []);
 
-	if (!displayAnnoncesLogement) return <NotFound/>;
+	if (!displayAnnoncesLogement) return <ErrorUnavailableService/>;
 	return (
 		<>
 			<HeadTag
