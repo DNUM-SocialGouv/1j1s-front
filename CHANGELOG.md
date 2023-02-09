@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.67.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.67.0...v2.67.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* **multiple:** Minimum query length localisation ([b5f3f65](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b5f3f65a1122cdd5a483f7d6c59ed6e8e71cbe89))
+
 ## [2.67.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.66.0...v2.67.0) (2023-02-09)
 
 
