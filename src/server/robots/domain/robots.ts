@@ -1,4 +1,4 @@
-User-agent: *
+export const CRAWLER_PRODUCTION_MODE = `User-agent: *
 Allow: /
 
 User-agent: *
@@ -8,4 +8,7 @@ Disallow: /emplois/
 Disallow: /jobs-etudiants/
 Disallow: /logements/annonces/
 Disallow: /service-civique/
-Disallow: /stages/
+Disallow: /stages/`;
+
+export const CRAWLER_NOT_PRODUCTION_MODE = `User-agent: *
+Disallow: /`;

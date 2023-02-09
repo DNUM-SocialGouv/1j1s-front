@@ -64,6 +64,7 @@ import {
 import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
+import { GénérerRobotsUseCase } from '~/server/robots/useCases/générerRobots.useCase';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
@@ -77,12 +78,13 @@ export type Dependencies = {
   cmsIndexDependencies: CmsIndexDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationDependencies;
-  demandeDeContactDependencies: DemandeDeContactDependencies
-  entrepriseDependencies: EntrepriseDependencies
+  demandeDeContactDependencies: DemandeDeContactDependencies;
+  entrepriseDependencies: EntrepriseDependencies;
   offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
-  offreAlternanceDependencies: OffresAlternanceDependencies
-	sitemapDependencies: SitemapDependencies
-  établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies
+  offreAlternanceDependencies: OffresAlternanceDependencies;
+	robotsDependencies: RobotsDependencies;
+	sitemapDependencies: SitemapDependencies;
+  établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
 };
 
 export interface CmsIndexDependencies {
@@ -129,6 +131,10 @@ export interface EntrepriseDependencies {
 
 export interface ÉtablissementAccompagnementDependencies {
   rechercherÉtablissementAccompagnementUseCase: RechercherÉtablissementAccompagnementUseCase
+}
+
+export interface RobotsDependencies {
+	générerRobotsUseCase: GénérerRobotsUseCase
 }
 
 export interface SitemapDependencies {
@@ -228,6 +234,10 @@ export const dependenciesContainer = (): Dependencies => {
 	const établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies = {
 		rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiÉtablissementPublicRepository),
 	};
+	
+	const robotsDependencies: RobotsDependencies = {
+		générerRobotsUseCase: new GénérerRobotsUseCase(serverConfigurationService.getConfiguration().ENVIRONMENT),
+	};
 
 	const sitemapDependencies: SitemapDependencies = {
 		générerSitemapUseCase: new GénérerSitemapUseCase(cmsRepository),
@@ -243,6 +253,7 @@ export const dependenciesContainer = (): Dependencies => {
 		offreAlternanceDependencies,
 		offreEmploiDependencies,
 		offreJobÉtudiantDependencies,
+		robotsDependencies,
 		sitemapDependencies,
 		établissementAccompagnementDependencies,
 	};
