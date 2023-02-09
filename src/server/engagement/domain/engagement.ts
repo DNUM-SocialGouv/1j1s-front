@@ -17,7 +17,6 @@ export interface Mission {
   titre: string
   nomEntreprise?: string
   étiquetteList: string[]
-  logo?: string
   url?: string
   localisation?: string
   débutContrat?: string
