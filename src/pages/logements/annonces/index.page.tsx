@@ -12,20 +12,17 @@ import MeilisearchCustomCurrentRefinements
 import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
-import NotFound from '~/pages/404.page';
 
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
 
 export default function AnnoncesPage() {
-	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
 
 	useReferrer();
 	const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
 		return transformerMeilisearchLogementsItems(items);
 	}, []);
 
-	if (!displayAnnoncesLogement) return <NotFound/>;
 	return (
 		<>
 			<HeadTag
