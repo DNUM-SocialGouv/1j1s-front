@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 
 export default function MesAidesPage() {
 
 	return (
 		<>
-			<HeadTag title="Mes aides financières | 1jeune1solution" />
+			<Head
+				title="Mes aides financières | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				<div className={'background-white-lilac'}>
 					<HeroWithButtonLink

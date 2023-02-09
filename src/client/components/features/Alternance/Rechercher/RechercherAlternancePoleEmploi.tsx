@@ -9,7 +9,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { LaBonneAlternancePartner } from '~/client/components/features/Partner/LaBonneAlternancePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { PassPartner } from '~/client/components/features/Partner/PassPartner';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -96,9 +96,10 @@ export function RechercherAlternancePoleEmploi() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={title}
 				description="Des milliers d’alternances sélectionnées pour vous"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout

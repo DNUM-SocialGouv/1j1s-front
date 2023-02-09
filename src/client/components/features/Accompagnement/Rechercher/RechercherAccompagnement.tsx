@@ -10,7 +10,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { InfoJeunesPartner } from '~/client/components/features/Partner/InfoJeunesPartner';
 import { MissionsLocalesPartner } from '~/client/components/features/Partner/MissionsLocalesPartner';
 import { PoleEmploiPartner } from '~/client/components/features/Partner/PoleEmploiPartner';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -103,9 +103,10 @@ export function RechercherAccompagnement() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={title || 'Trouver un accompagnement | 1jeune1solution'}
 				description="Trouver un accompagnement"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout

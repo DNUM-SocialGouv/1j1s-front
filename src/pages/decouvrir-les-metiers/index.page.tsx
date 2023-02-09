@@ -4,7 +4,7 @@ import React from 'react';
 import { FormulaireRechercheFicheMetier } from '~/client/components/features/FicheMétier/FormulaireRecherche/FormulaireRechercheFicheMetier';
 import { RésultatRechercherMétier } from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier';
 import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
@@ -22,9 +22,10 @@ export default function RechercherFicheMetierPage() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={'Rechercher un métier | 1jeune1solution'}
 				description="Trouver le métier qui vous correspond"
+				robots="index,follow"
 			/>
 			<InstantSearchLayout
 				meilisearchIndex={MEILISEARCH_INDEX}

@@ -3,8 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
-import { HeadTag } from '~/client/components/head/HeaderTag';
-import { MetaNoIndex } from '~/client/components/head/MetaNoIndex.head';
+import { Head } from '~/client/components/head/Head';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -19,8 +18,10 @@ export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStag
 
 	return (
 		<>
-			<HeadTag title={`${offreDeStage.titre} | 1jeune1solution`} />
-			<MetaNoIndex />
+			<Head
+				title={`${offreDeStage.titre} | 1jeune1solution`}
+				robots="noindex"
+			/>
 			<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
 		</>
 	);

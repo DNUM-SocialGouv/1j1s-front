@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
@@ -15,9 +15,10 @@ export default function MentoratPage() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title="Mentorat | 1jeune1solution"
 				description="Se rendre utile tout en préparant son avenir grâce aux missions de service civique"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<div className={styles.heading}>

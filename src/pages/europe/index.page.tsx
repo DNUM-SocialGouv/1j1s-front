@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link as LinkType } from '~/client/components/props';
 import {
@@ -232,7 +232,10 @@ export default function EuropePage() {
 
 	return (
 		<>
-			<HeadTag title={'Trouver un emploi ou un volontariat en Europe  | 1jeune1solution'} />
+			<Head
+				title={'Trouver un emploi ou un volontariat en Europe  | 1jeune1solution'}
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				{sectionExperienceEurope()}
 				{sectionLiens()}

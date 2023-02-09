@@ -9,7 +9,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -89,9 +89,10 @@ export function RechercherJobÉtudiant() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={title}
 				description="Des milliers de jobs étudiants sélectionnés pour vous"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout

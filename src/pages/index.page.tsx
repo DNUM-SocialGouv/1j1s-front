@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
 import {
 	HeroPrimaryText,
@@ -188,7 +188,10 @@ export default function Accueil() {
 
 	return (
 		<>
-			<HeadTag title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution" />
+			<Head
+				title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				<HeroWithIllustration image="/images/portraits-verticaux.webp">
 					<h1><HeroPrimaryText className={styles.heroTitle}>À chacun sa solution.</HeroPrimaryText></h1>

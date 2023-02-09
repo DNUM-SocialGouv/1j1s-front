@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 
 export function RechercherAlternance() {
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={'Rechercher une alternance | 1jeune1solution'}
 				description="Des milliers d’alternances sélectionnées pour vous"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<LightHero>

@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
-import { MetaNoIndex } from '~/client/components/head/MetaNoIndex.head';
+import { Head } from '~/client/components/head/Head';
 import ErrorNotFound from '~/client/components/layouts/Error/ErrorNotFound';
 
 export default function NotFound() {
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={'Page indisponible | 1jeune1solution'}
+				robots="noindex"
 			/>
-			<MetaNoIndex />
 			<main id="contenu">
 				<ErrorNotFound />
 			</main>

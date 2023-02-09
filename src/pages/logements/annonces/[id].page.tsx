@@ -6,8 +6,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
-import { HeadTag } from '~/client/components/head/HeaderTag';
-import { MetaNoIndex } from '~/client/components/head/MetaNoIndex.head';
+import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
@@ -23,8 +22,10 @@ export default function ConsulterAnnonceLogementPage({ annonceDeLogement }: Cons
 
 	return (
 		<>
-			<HeadTag title={`${annonceDeLogement.titre} | 1jeune1solution`} />
-			<MetaNoIndex />
+			<Head
+				title={`${annonceDeLogement.titre} | 1jeune1solution`}
+				robots="noindex"
+			/>
 			<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
 		</>
 	);

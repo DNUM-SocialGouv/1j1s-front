@@ -3,7 +3,7 @@ import React from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -19,9 +19,10 @@ export function MesuresEmployeursComponent({ mesuresEmployeurs }: MesuresEmploye
 	const isMobile = !isLargeScreen;
 	return (
 		<>
-			<HeadTag
+			<Head
 				title="Mesures Employeurs | 1jeune1solution"
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
+				robots="index,follow"
 			/>
 			<main id="contenu" className={classNames({ [styles.mobile]: isMobile })}>
 				<Bannière/>

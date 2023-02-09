@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import useReferrer from '~/client/hooks/useReferrer';
 import OffreStage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireStage';
@@ -12,8 +12,9 @@ export default function DeposerOffreStageEtape2Page() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={'Dépôt d’offre de stage - Etape 2 sur 3 : Votre offre de stage | 1jeune1solution'}
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<div className={styles.section}>

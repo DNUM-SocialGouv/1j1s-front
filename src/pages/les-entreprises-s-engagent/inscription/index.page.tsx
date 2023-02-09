@@ -4,7 +4,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'r
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import FormulaireDeContactEntreprise
 	from '~/client/components/features/LesEntreprisesSEngagent/FormulaireDeContactEntreprise';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ButtonAsLink } from '~/client/components/ui/ButtonAsLink/ButtonAsLink';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
@@ -118,9 +118,11 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	return (
 		<main id="contenu">
-			<HeadTag
+			<Head
 				title={title}
-				description="Formulaire d’inscription pour rejoindre la mobilisation “Les Entreprises s’Engagent”"/>
+				description="Formulaire d’inscription pour rejoindre la mobilisation “Les Entreprises s’Engagent”"
+				robots="index,follow"
+			/>
 			{
 				!isFormSuccessfullySent &&
         <>
