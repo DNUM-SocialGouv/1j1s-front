@@ -1,8 +1,8 @@
 import styles from '~/client/components/features/Contenu/ConsulterContenu.module.scss';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import Marked from '~/client/components/ui/Marked/Marked';
 import markedStyles from '~/client/components/ui/Marked/Marked.module.scss';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export interface ConsulterContenuProps {
   titre: string

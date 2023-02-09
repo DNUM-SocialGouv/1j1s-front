@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export function RechercherAlternance() {
 	return (

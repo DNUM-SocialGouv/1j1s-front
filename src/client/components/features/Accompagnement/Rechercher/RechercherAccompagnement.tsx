@@ -10,6 +10,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { InfoJeunesPartner } from '~/client/components/features/Partner/InfoJeunesPartner';
 import { MissionsLocalesPartner } from '~/client/components/features/Partner/MissionsLocalesPartner';
 import { PoleEmploiPartner } from '~/client/components/features/Partner/PoleEmploiPartner';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -21,7 +22,6 @@ import {
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import {

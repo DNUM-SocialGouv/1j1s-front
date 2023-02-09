@@ -6,6 +6,7 @@ import {
 	FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -18,7 +19,6 @@ import {
 	LightHeroPrimaryText,
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';

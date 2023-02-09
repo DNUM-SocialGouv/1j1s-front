@@ -2,11 +2,11 @@ import React from 'react';
 
 import { FormulaireRechercheEvenement } from '~/client/components/features/Evenement/FormulaireRecherche/FormulaireRechercheEvenement';
 import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/RésultatRechercherEvenement';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'evenement:dateDebut:asc';

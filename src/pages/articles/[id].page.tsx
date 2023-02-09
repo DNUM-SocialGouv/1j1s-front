@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';

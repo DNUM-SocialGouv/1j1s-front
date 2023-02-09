@@ -3,12 +3,12 @@ import { GetStaticPropsResult } from 'next';
 import React, { useCallback, useMemo } from 'react';
 
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import useReferrer from '~/client/hooks/useReferrer';
 import { CarteActualite } from '~/server/cms/domain/actualite';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';

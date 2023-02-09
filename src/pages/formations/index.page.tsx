@@ -5,8 +5,8 @@ import { MétierDuSoinPartner } from '~/client/components/features/Partner/Méti
 import { MonCompteFormationPartner } from '~/client/components/features/Partner/MonCompteFormationPartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourSupPartner';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import styles from '~/pages/formations/index.module.scss';
 
 export default function FormationPage() {

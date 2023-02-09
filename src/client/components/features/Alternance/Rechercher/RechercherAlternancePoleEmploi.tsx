@@ -9,6 +9,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { LaBonneAlternancePartner } from '~/client/components/features/Partner/LaBonneAlternancePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { PassPartner } from '~/client/components/features/Partner/PassPartner';
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -29,7 +30,6 @@ import {
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { OffreService } from '~/client/services/offre/offre.service';

@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Hero,HeroPrimaryText, HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 import styles from './index.module.scss';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { HeadTag } from '~/client/components/head/HeaderTag';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
-import { HeadTag } from '~/client/components/utils/HeaderTag';
 
 export default function FormationPage() {
 	return (
