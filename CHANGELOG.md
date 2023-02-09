@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.66.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.65.0...v2.66.0) (2023-02-09)
+
+
+### Features
+
+* **engagement:** suppression logo mission engagement ([b4ec7a7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b4ec7a7735e76c47b90dfdace10c50adbab930c0))
+
 ## [2.65.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.64.1...v2.65.0) (2023-02-09)
 
 
