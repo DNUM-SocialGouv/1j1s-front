@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import {
 	LightHero,
 	LightHeroPrimaryText,
@@ -16,8 +16,9 @@ export default function DeposerOffreStageEtape3Page() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={'Dépôt d’offre de stage - Etape 3 sur 3 : Localisation du stage | 1jeune1solution'}
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<div className={styles.section}>

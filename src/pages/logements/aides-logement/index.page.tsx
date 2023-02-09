@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
@@ -15,7 +15,10 @@ export default function AidesLogement() {
 
 	return (
 		<>
-			<HeadTag title="Les aides au logement | 1jeune1solution"/>
+			<Head
+				title="Les aides au logement | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				<HeroWithButtonLink
 					titlePrimaryText="Je découvre les aides pour payer mon logement "

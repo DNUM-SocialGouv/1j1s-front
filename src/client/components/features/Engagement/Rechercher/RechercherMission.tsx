@@ -6,7 +6,7 @@ import {
 	FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -94,9 +94,10 @@ export function RechercherMission(props: RechercherMissionProps) {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={title || `Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
 				description="Se rendre utile tout en préparant son avenir grâce aux missions de service civique"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout

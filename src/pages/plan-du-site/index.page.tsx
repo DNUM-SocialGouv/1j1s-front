@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
 	isNavigationItem,
@@ -35,7 +35,10 @@ export default function PlanDuSite() {
 
 	return (
 		<>
-			<HeadTag title="Plan du site | 1jeune1solution" description="Plan du site"/>
+			<Head
+				title="Plan du site | 1jeune1solution" description="Plan du site"
+				robots="index,follow"
+			/>
 			<Container className={styles.planDuSiteContainer}>
 				<main id="contenu">
 					<h1 id="planDuSite" className={styles.planDuSiteTitre}>Plan du site</h1>

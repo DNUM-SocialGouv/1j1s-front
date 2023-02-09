@@ -5,7 +5,7 @@ import React from 'react';
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -28,8 +28,10 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 
 	return (
 		<>
-			<HeadTag
-				title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`}/>
+			<Head
+				title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`}
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				<Container className={styles.container}>
 					<ButtonRetour className={styles.backButton}/>

@@ -10,14 +10,15 @@ import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagem
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
 import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
 import { Témoignages } from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 
 export default function ContratEngagementJeune() {
 	return (
 		<>
-			<HeadTag
+			<Head
 				title="Contrat Engagement Jeune"
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<Bannière/>

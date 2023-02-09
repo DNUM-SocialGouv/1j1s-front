@@ -9,7 +9,7 @@ import {
 	RéseauFinancementList,
 } from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { HeroComponent } from '~/client/components/ui/Hero/HeroComponent';
@@ -19,7 +19,10 @@ import styles from './entreprendre.module.scss';
 export default function Entreprendre() {
 	return (
 		<>
-			<HeadTag title="Les solutions pour créer une entreprise | 1jeune1solution"/>
+			<Head
+				title="Les solutions pour créer une entreprise | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				<HeroComponent
 					titlePrimaryText={<span><b>Découvrez les solutions qui s’offrent à vous</b>, pour créer votre entreprise…</span>}

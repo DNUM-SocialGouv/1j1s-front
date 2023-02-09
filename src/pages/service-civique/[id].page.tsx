@@ -5,8 +5,7 @@ import React from 'react';
 import {
 	ConsulterMissionEngagement,
 } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
-import { HeadTag } from '~/client/components/head/HeaderTag';
-import { MetaNoIndex } from '~/client/components/head/MetaNoIndex.head';
+import { Head } from '~/client/components/head/Head';
 import { Mission, MissionId } from '~/server/engagement/domain/engagement';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
@@ -20,8 +19,10 @@ export default function ConsulterMissionEngagementPage({ missionEngagement }: Co
 
 	return (
 		<>
-			<HeadTag title={`${missionEngagement.titre} | 1jeune1solution`} />
-			<MetaNoIndex />
+			<Head
+				title={`${missionEngagement.titre} | 1jeune1solution`}
+				robots="noindex"
+			/>
 			<ConsulterMissionEngagement missionEngagement={ missionEngagement } />
 		</>
 	);

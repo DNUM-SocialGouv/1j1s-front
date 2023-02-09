@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/LightHero';
 import StageDeposerOffreFormulaireEnvoye from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEnvoye';
 
@@ -9,8 +9,9 @@ import styles from './DeposerOffreStageEtapeFin.module.scss';
 export default function DeposerOffreStageEnvoyePage() {
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={'Dépôt d’offre de stage - Formulaire envoyé | 1jeune1solution'}
+				robots="index,follow"
 			/>
 			<LightHero className={styles.hero}>
 				<h1>

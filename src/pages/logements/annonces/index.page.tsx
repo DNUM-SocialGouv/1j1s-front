@@ -6,7 +6,7 @@ import {
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
 import { FormulaireRechercheAnnonceLogement } from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
@@ -28,9 +28,10 @@ export default function AnnoncesPage() {
 	if (!displayAnnoncesLogement) return <ErrorUnavailableService/>;
 	return (
 		<>
-			<HeadTag
+			<Head
 				title="Rechercher un logement | 1jeune1solution"
 				description="Logement étudiant et location jeune actif partout en France"
+				robots="index,follow"
 			/>
 			<InstantSearchLayout
 				meilisearchIndex={process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT}

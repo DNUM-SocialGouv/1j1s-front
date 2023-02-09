@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormulaireRechercheEvenement } from '~/client/components/features/Evenement/FormulaireRecherche/FormulaireRechercheEvenement';
 import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/RésultatRechercherEvenement';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import MeilisearchCustomCurrentRefinements
@@ -19,7 +19,10 @@ export default function PageEvenements() {
 		<>
 			{
 				!displayRechercheEvenement && <>
-					<HeadTag title={'Trouver un évènement Emploi | 1jeune1solution'}/>
+					<Head
+						title={'Trouver un évènement Emploi | 1jeune1solution'}
+						robots="index,follow"
+					/>
 					<main id='contenu'>
 						<HeroWithButtonLink
 							titlePrimaryText="Des centaines d‘événements de recrutement "
@@ -36,9 +39,11 @@ export default function PageEvenements() {
 				</>
 			}
 			{displayRechercheEvenement && <>
-				<HeadTag
+				<Head
 					title={'Rechercher un évènement | 1jeune1solution'}
-					description="Des centaines d‘évènements de recrutement pour tous les jeunes, partout en France"/>
+					description="Des centaines d‘évènements de recrutement pour tous les jeunes, partout en France"
+					robots="index,follow"
+				/>
 				<InstantSearchLayout
 					meilisearchIndex={MEILISEARCH_INDEX}
 					nombreDeResultatParPage={HITS_PER_PAGE}

@@ -8,7 +8,6 @@ export default function Document() {
 			<Head>
 				<meta charSet="utf-8"/>
 				<meta name="author" content="1jeune1solution"/>
-				<meta name="robots" content="index,follow"/>
 				<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png" />

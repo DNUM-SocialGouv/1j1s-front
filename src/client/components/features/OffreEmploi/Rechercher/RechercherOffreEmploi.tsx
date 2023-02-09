@@ -12,7 +12,7 @@ import { PartnerCardList } from '~/client/components/features/Partner/Card/Partn
 import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -82,9 +82,10 @@ export function RechercherOffreEmploi() {
 
 	return (
 		<>
-			<HeadTag
+			<Head
 				title={title}
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout

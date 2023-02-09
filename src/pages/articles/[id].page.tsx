@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
@@ -17,7 +17,10 @@ export default function ConsulterArticlePage({ article }: ConsulterArticlePagePr
 
 	return (
 		<>
-			<HeadTag title={`${article.titre} | 1jeune1solution`} />
+			<Head
+				title={`${article.titre} | 1jeune1solution`}
+				robots="index,follow"
+			/>
 			<ConsulterArticle article={article} />
 		</>
 	);

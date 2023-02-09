@@ -2,15 +2,16 @@ import React from 'react';
 
 import AvantagesMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation';
 import RejoignezMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 
 
 export default function LesEntreprisesSEngagent() {
 	return (
 		<>
-			<HeadTag
+			<Head
 				title="Les entreprises s'engagent | 1jeune1solution"
 				description="Votre entreprise recrute ou porte une initiative pour les jeunes ?"
+				robots="index,follow"
 			/>
 			<main id="contenu">
 				<RejoignezMobilisation/>

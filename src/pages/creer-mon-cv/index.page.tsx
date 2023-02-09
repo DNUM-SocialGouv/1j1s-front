@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 
 export default function FormationPage() {
 	return (
 		<>
-			<HeadTag title="Créer mon CV personnalisé | 1jeune1solution"/>
+			<Head
+				title="Créer mon CV personnalisé | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<main id="contenu">
 				<HeroWithButtonLink
 					titlePrimaryText="Je crée un CV personnalisé qui valorise mes compétences "

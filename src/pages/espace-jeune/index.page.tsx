@@ -3,7 +3,7 @@ import { GetStaticPropsResult } from 'next';
 import React, { useCallback, useMemo } from 'react';
 
 import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
@@ -49,7 +49,10 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 
 	return (
 		<main id={'contenu'}>
-			<HeadTag title="Actualités et services jeunes | 1jeune1solution"/>
+			<Head
+				title="Actualités et services jeunes | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<h1 className={styles.title}>Actualités et services jeune</h1>
 			<section className={classNames(styles.section, styles.actualitesSection)} data-testid="actualites">
 				<LightHero>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeadTag } from '~/client/components/head/HeaderTag';
+import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
 	Hero,
@@ -16,7 +16,10 @@ const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbo
 export default function ImmersionReferenceMonEntreprisePage() {
 	return (
 		<main id="contenu">
-			<HeadTag title="je référence mon entreprise pour des immersions | 1jeune1solution"/>
+			<Head
+				title="je référence mon entreprise pour des immersions | 1jeune1solution"
+				robots="index,follow"
+			/>
 			<Hero>
 				<h1><HeroPrimaryText className={styles.heroTitle}>Je référence mon entreprise</HeroPrimaryText></h1>
 				<HeroSecondaryText className={styles.heroSubtitle}>
