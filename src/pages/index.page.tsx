@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { Container } from '~/client/components/layouts/Container/Container';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
