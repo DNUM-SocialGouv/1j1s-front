@@ -11,7 +11,7 @@ export class RechercherCommuneUseCase {
 	}
 
 	async handle(recherche: string): Promise<Either<RésultatsRechercheCommune>> {
-		const minimumQueryLength = this.configurationService.getConfiguration().API_ADRESSE_MINIMUM_QUERY_LENGTH;
+		const minimumQueryLength = this.configurationService.getConfiguration().NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH;
 		if (recherche.length < minimumQueryLength) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		}

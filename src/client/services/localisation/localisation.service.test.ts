@@ -135,6 +135,15 @@ describe('LocalisationService', () => {
 			expect(result).toEqual(createSuccess(expected));
 			expect(httpClientService.get).toHaveBeenCalledWith('localisations?recherche=Haut');
 		});
+
+		it('renvoie null quand la recherche contient moins de 3 caractères dont au moins 1 lettre', async () => {
+			const httpClientService = anHttpClientService();
+			const localisationService = new LocalisationService(httpClientService);
+
+			const result = await localisationService.rechercherLocalisation('1A');
+
+			expect(result).toEqual(null);
+		});
 	});
 
 	describe('rechercherCommune', () => {

@@ -4,7 +4,6 @@ export class ServerConfigurationService implements ConfigurationService {
 	getConfiguration(): EnvironmentVariables {
 		return {
 			API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
-			API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
 			API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
@@ -15,6 +14,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', ''),
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
+			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
 			POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
@@ -68,7 +68,7 @@ class EnvironmentVariablesException extends Error {
 
 export interface EnvironmentVariables {
   readonly API_ADRESSE_BASE_URL: string
-  readonly API_ADRESSE_MINIMUM_QUERY_LENGTH: number
+  readonly NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: number
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string
   readonly API_ENGAGEMENT_BASE_URL: string
   readonly API_ETABLISSEMENTS_PUBLICS: string

@@ -17,12 +17,13 @@ interface InputLocalisationProps {
   code: string
   libellé: string
   type: string
+	timeout?: number,
 }
 
-const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 2;
+const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = Number(process.env.NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH);
 
 export const InputLocalisation = (props: InputLocalisationProps) => {
-	const { code, libellé, type } = props;
+	const { code, libellé, type, timeout = 300 } = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [suggestionIndex, setSuggestionIndex] = useState(1);
@@ -96,7 +97,14 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 	}, [libellé, type, code, clearLocalisation]);
 
 	const rechercherLocalisation = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target;
+		const value = e.target.value.trim();
+		const isNumber = !Number.isNaN(Number(value));
+		const isDépartement = isNumber && value.length === 2;
+		const isCodePostal = isNumber && value.length === 5;
+		const queryTooShort = !isNumber && value.length < MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
+
+		if ((!isNumber && queryTooShort) || (isNumber && !isDépartement && !isCodePostal)) return;
+
 		const response = await localisationService.rechercherLocalisation(value);
 		if (response && isSuccess(response)) {
 			setLocalisationList(response.result);
@@ -110,8 +118,8 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 	}, [localisationService]);
 
 	const handleChange = useMemo(() => {
-		return debounce(rechercherLocalisation, 300);
-	}, [rechercherLocalisation]);
+		return debounce(rechercherLocalisation, timeout);
+	}, [rechercherLocalisation, timeout]);
 
 	useEffect(() => {
 		return () => {
@@ -214,7 +222,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 					currentHoverIndex++;
 					return SuggestionLocalisationListItem(suggestion, currentHoverIndex, TypeLocalisation.COMMUNE, index);
 				})}
-				{isSuggestionListEmpty() && libelléLocalisation.length > MINIMUM_CHARACTER_NUMBER_FOR_SEARCH &&
+				{isSuggestionListEmpty() && libelléLocalisation.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH &&
           <li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
             Aucune proposition ne correspond à votre saisie.
             Vérifiez que votre saisie correspond bien à un lieu.

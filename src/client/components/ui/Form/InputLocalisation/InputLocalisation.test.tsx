@@ -60,17 +60,18 @@ describe('InputLocalisation', () => {
 			const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
 
 			// WHEN
-			await user.type(inputLocalisation, 'Pa');
+			await user.type(inputLocalisation, 'Par');
 			let résultatsLocalisation = screen.queryByTestId('RésultatsLocalisation');
 
 			// THEN
+			// FIXME (GAFI 09-02-2023): Plutôt injecter le setTimeout
 			await waitFor(() => {
-				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
+				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
 			});
 			expect(résultatsLocalisation).not.toBeInTheDocument();
 
 			// WHEN
-			await user.type(inputLocalisation, 'ris');
+			await user.type(inputLocalisation, 'is');
 			résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
 			// THEN
@@ -103,5 +104,75 @@ describe('InputLocalisation', () => {
 			expect(screen.getByTestId('typeLocalisation')).toHaveValue('COMMUNE');
 			expect(screen.getByTestId('codeLocalisation')).toHaveValue('75001');
 		});
+	});
+
+	it("n'appelle pas le usecase pour moins de 3 lettres", async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, 'Pa');
+
+		expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
+		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalled();
+	});
+	it("n'appelle pas le usecase pour moins de 3 lettres finissant par un espace", async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, 'Pa ');
+
+		expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
+		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalled();
+	});
+	it('appelle le usecase pour un numéro de département', async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, '94');
+
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledTimes(1);
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('94');
+	});
+	it('appelle le usecase pour un code postal', async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, '94270');
+
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalled();
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenLastCalledWith('94270');
+	});
+	it("n'appelle pas le usecase pour un nombre qui n'est ni un code postal ni un département", async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, '9427');
+
+		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalledWith('9427');
 	});
 });

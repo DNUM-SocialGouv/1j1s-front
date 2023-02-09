@@ -18,15 +18,16 @@ interface AutocomplétionCommuneProps {
   required?: boolean;
 }
 
-const MINIMUM_QUERY_LENGTH = process.env.API_ADRESSE_MINIMUM_QUERY_LENGTH ?? 0;
+const MINIMUM_QUERY_LENGTH = Number(process.env.NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH);
 
 export default function InputAutocomplétionCommune(props: AutocomplétionCommuneProps) {
 	const { onSuggestionSelected, valeurInitiale, ...rest } = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
-	const suggestionsAdresse = useCallback(async (préfixe: string) => {
-		if (préfixe.length >= MINIMUM_QUERY_LENGTH) {
-			const response = await localisationService.rechercherCommune(préfixe);
+	const suggestionsAdresse = useCallback(async (value: string) => {
+		const trimmedValue = value.trim();
+		if (trimmedValue.length >= MINIMUM_QUERY_LENGTH) {
+			const response = await localisationService.rechercherCommune(trimmedValue);
 			if (isSuccess(response)) {
 				return response.result.résultats;
 			} else {

@@ -44,7 +44,7 @@ describe('InputAutocomplétionCommune', function () {
 		});
 	});
 
-	describe('quand l‘input a moins de 3 caractères' , () => {
+	describe('quand l‘input a moins de 3 lettres' , () => {
 		it('ne lance pas la recherche', async () => {
 			// GIVEN
 			const localisationService = aLocalisationService();
@@ -55,7 +55,7 @@ describe('InputAutocomplétionCommune', function () {
 			mockUseRouter({});
 			render(
 				<DependenciesProvider localisationService={localisationService}>
-					<InputAutocomplétionCommune label={labelText} debounce={1}/>
+					<InputAutocomplétionCommune label={labelText} debounce={0}/>
 				</DependenciesProvider>,
 			);
 			const inputAutocomplétion = screen.getByRole('textbox');
@@ -64,9 +64,30 @@ describe('InputAutocomplétionCommune', function () {
 			await userEvent.type(inputAutocomplétion, texteRecherché);
 
 			// THEN
-			await waitFor(() => {
-				expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
-			});
+			expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
+		});
+	});
+	describe('quand l‘input a moins de 3 lettres espaces finaux exclus' , () => {
+		it('ne lance pas la recherche', async () => {
+			// GIVEN
+			const localisationService = aLocalisationService();
+
+			const labelText = 'Ma super autocomplétion';
+			const texteRecherché = 'Ba ';
+
+			mockUseRouter({});
+			render(
+				<DependenciesProvider localisationService={localisationService}>
+					<InputAutocomplétionCommune label={labelText} debounce={0}/>
+				</DependenciesProvider>,
+			);
+			const inputAutocomplétion = screen.getByRole('textbox');
+
+			// WHEN
+			await userEvent.type(inputAutocomplétion, texteRecherché);
+
+			// THEN
+			expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
 		});
 	});
 });

@@ -7,22 +7,26 @@ import {
 
 export class LocalisationService {
 	constructor(private readonly httpClientService: HttpClientService ) {}
-	private MAX_CHAR_LENGTH = 5;
+	private DEPARTEMENT_LENGTH = 2;
+	private CODE_POSTAL_LENGTH = 5;
 	private REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS = new RegExp(/^[\da-zA-ZÀ-ÖØ-öø-ÿ-\\-\\ ]+$/);
 	private REGEX_ALL_DIGITS = new RegExp(/^\d*$/);
-	private FORBIDDEN_CHAR_LENGTH = [1, 4];
 
 	async rechercherLocalisation(recherche: string): Promise<Either<RechercheLocalisationApiResponse> | null> {
 		const localisationsLength = recherche.length;
-		if(localisationsLength === 1) {
+		const queryTooShort = localisationsLength < 3;
+		const containsInvalidSymbols = !this.REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS.test(recherche);
+		const allDigits = this.REGEX_ALL_DIGITS.test(recherche);
+		const isDepartement = allDigits && recherche.length === this.DEPARTEMENT_LENGTH;
+		const isCodePostal = allDigits && recherche.length === this.CODE_POSTAL_LENGTH;
+
+		// NOTE (GAFI 09-02-2023): Limite le nombre d'appels lorsqu'on sait que l'API Géo donnera une erreur
+		if(
+			containsInvalidSymbols
+			|| (allDigits && !isDepartement && !isCodePostal)
+			|| (!allDigits && queryTooShort)
+		)
 			return null;
-		}
-		if(!this.REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS.test(recherche)){
-			return null;
-		}
-		if(this.REGEX_ALL_DIGITS.test(recherche) && (this.FORBIDDEN_CHAR_LENGTH.includes(localisationsLength) || localisationsLength > this.MAX_CHAR_LENGTH)){
-			return null;
-		}
 
 		return this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
 	}

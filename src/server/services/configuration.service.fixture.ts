@@ -11,7 +11,6 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 	constructor(overrides?: Partial<EnvironmentVariables>) {
 		this.variables = {
 			API_ADRESSE_BASE_URL: 'https://api-adresse.data.gouv.fr/',
-			API_ADRESSE_MINIMUM_QUERY_LENGTH: 3,
 			API_ENGAGEMENT_API_KEY_TOKEN: 'API_ENGAGEMENT_API_KEY_TOKEN',
 			API_ENGAGEMENT_BASE_URL: 'https://api.api-engagement.beta.gouv.fr/v0/',
 			API_ETABLISSEMENTS_PUBLICS: '',
@@ -22,6 +21,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			IS_REVIEW_APP: '',
 			MAILER_SERVICE_ACTIVE: '',
 			MAILER_SERVICE_REDIRECT_TO: '',
+			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: 3,
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: 'notTheMasterKey',
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: 'http://localhost:7700',
 			POLE_EMPLOI_CONNECT_CLIENT_ID: 'POLE_EMPLOI_CONNECT_CLIENT_ID',
