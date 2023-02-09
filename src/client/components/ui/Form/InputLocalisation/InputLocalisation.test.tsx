@@ -134,4 +134,18 @@ describe('InputLocalisation', () => {
 		expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
 		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalled();
 	});
+	it('appelle le usecase pour un numéro de département', async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, '94');
+
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledTimes(1);
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('94');
+	});
 });

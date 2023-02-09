@@ -98,7 +98,8 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
 	const rechercherLocalisation = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value.trim();
-		if (value.length < MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) return;
+		const isDépartement = Number(value) && value.length === 2;
+		if (value.length < MINIMUM_CHARACTER_NUMBER_FOR_SEARCH && !isDépartement) return;
 		const response = await localisationService.rechercherLocalisation(value);
 		if (response && isSuccess(response)) {
 			setLocalisationList(response.result);
