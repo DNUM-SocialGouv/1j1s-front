@@ -2,7 +2,11 @@ import React from 'react';
 
 import { HeadTag } from '~/client/components/head/HeaderTag';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Hero,HeroPrimaryText, HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
+import {
+	Hero,
+	HeroPrimaryText,
+	HeroSecondaryText,
+} from '~/client/components/ui/Hero/Hero';
 
 import styles from './index.module.scss';
 
