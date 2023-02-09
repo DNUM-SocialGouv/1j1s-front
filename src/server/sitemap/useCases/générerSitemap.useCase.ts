@@ -16,7 +16,7 @@ export class GénérerSitemapUseCase {
 
 	async handle(baseUrl: string): Promise<string> {
 		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList));
-		// TODO: ajouter les stages
+		// TODO: ajouter les stages et les logements
 		const [ficheMetierNomMetierListResult, articleSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),
 			this.cmsRepository.listAllArticleSlug(),
@@ -43,7 +43,7 @@ export class GénérerSitemapUseCase {
 	private mapDynamicPathListResult(dynamicPathListResult: Either<Array<string>>, rootPath: string): Array<string> {
 		if(isSuccess(dynamicPathListResult)) {
 			return dynamicPathListResult.result
-				.map(this.escapeCharacters)
+				.map(this.escapeSpecialCharacters)
 				.map((path) => `/${rootPath}/${path}`);
 		} else {
 			return [];
@@ -59,9 +59,9 @@ export class GénérerSitemapUseCase {
 </urlset>`;
 	}
 
-	private escapeCharacters(unsafe: string): string {
-		return unsafe.replace(/[<>&'"/]/g, function (c) {
-			switch (c) {
+	private escapeSpecialCharacters(unsafeString: string): string {
+		return unsafeString.replace(/[<>&'"/]/g, function (character) {
+			switch (character) {
 				case '<':
 					return '&lt;';
 				case '>':

@@ -1,5 +1,6 @@
 const { LOCAL_MODE_HEADERS,SECURITY_MODE_HEADERS } = require('./config/headers');
 const { ALL_MODE_REDIRECT } = require('./config/redirects');
+const { ALL_MODE_REWRITE } = require('./config/rewrites');
 const { name, version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 const { URL } = require('url');
@@ -58,6 +59,7 @@ const moduleExports = {
 	poweredByHeader: false,
 	reactStrictMode: true,
 	redirects: async () => ALL_MODE_REDIRECT,
+	rewrites: async () => ALL_MODE_REWRITE,
 	webpack(config, { isServer }) {
 		if (!isServer) {
 			config.optimization.mergeDuplicateChunks = true;
