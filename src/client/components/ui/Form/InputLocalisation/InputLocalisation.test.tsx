@@ -106,7 +106,7 @@ describe('InputLocalisation', () => {
 		});
 	});
 
-	it("n'appelle pas le usecase pour moins de 3 caractères", async () => {
+	it("n'appelle pas le usecase pour moins de 3 lettres", async () => {
 		const localisationServiceMock = aLocalisationService();
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>
@@ -120,7 +120,7 @@ describe('InputLocalisation', () => {
 		expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
 		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalled();
 	});
-	it("n'appelle pas le usecase pour moins de 3 caractères finissant par un espace", async () => {
+	it("n'appelle pas le usecase pour moins de 3 lettres finissant par un espace", async () => {
 		const localisationServiceMock = aLocalisationService();
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>

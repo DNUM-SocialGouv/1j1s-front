@@ -113,7 +113,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 
 	const handleChange = useMemo(() => {
 		return debounce(rechercherLocalisation, timeout);
-	}, [rechercherLocalisation]);
+	}, [rechercherLocalisation, timeout]);
 
 	useEffect(() => {
 		return () => {
