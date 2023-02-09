@@ -20,7 +20,7 @@ interface InputLocalisationProps {
 	timeout?: number,
 }
 
-const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 2;
+const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = Number(process.env.NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH) - 1;
 
 export const InputLocalisation = (props: InputLocalisationProps) => {
 	const { code, libellé, type, timeout = 300 } = props;
