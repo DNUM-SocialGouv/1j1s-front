@@ -148,4 +148,31 @@ describe('InputLocalisation', () => {
 		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledTimes(1);
 		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('94');
 	});
+	it('appelle le usecase pour un code postal', async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, '94270');
+
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalled();
+		expect(localisationServiceMock.rechercherLocalisation).toHaveBeenLastCalledWith('94270');
+	});
+	it("n'appelle pas le usecase pour un nombre qui n'est ni un code postal ni un département", async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, '9427');
+
+		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalledWith('9427');
+	});
 });
