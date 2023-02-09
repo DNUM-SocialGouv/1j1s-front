@@ -20,13 +20,12 @@ export class LocalisationService {
 		const isDepartement = allDigits && recherche.length === this.DEPARTEMENT_LENGTH;
 		const isCodePostal = allDigits && recherche.length === this.CODE_POSTAL_LENGTH;
 
-		if(containsInvalidSymbols)
-			return null;
-		if(allDigits
-			&& !isDepartement
-			&& !isCodePostal)
-			return null;
-		if (!allDigits && queryTooShort)
+		// NOTE (GAFI 09-02-2023): Limite le nombre d'appels lorsqu'on sait que l'API Géo donnera une erreur
+		if(
+			containsInvalidSymbols
+			|| (allDigits && !isDepartement && !isCodePostal)
+			|| (!allDigits && queryTooShort)
+		)
 			return null;
 
 		return this.httpClientService.get<RechercheLocalisationApiResponse>(`localisations?recherche=${recherche}`);
