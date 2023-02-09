@@ -1,5 +1,5 @@
-import { Either } from '../../errors/either';
-import { CmsRepository } from '../domain/cms.repository';
+import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { Either } from '~/server/errors/either';
 
 export class ListerNomMétierFicheMétierUseCase {
 	constructor(private cmsRepository: CmsRepository) {}

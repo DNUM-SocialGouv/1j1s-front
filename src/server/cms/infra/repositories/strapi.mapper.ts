@@ -7,6 +7,7 @@ import {
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
+import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 import {
 	OffreDeStage,
 	OffreDeStageResponse,
@@ -35,8 +36,6 @@ import {
 	FicheMétierHttpNestedFieldStatut,
 } from '~/server/fiche-metier/domain/ficheMetierHttp';
 import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
-
-import { CarteMesuresEmployeurs, MesuresEmployeurs } from '../../domain/mesuresEmployeurs';
 
 export function mapMentionObligatoire(response: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article {
 	const { contenu, titre } = response.data.attributes;
