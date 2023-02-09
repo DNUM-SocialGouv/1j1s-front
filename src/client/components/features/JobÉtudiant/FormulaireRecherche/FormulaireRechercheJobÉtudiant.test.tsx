@@ -64,11 +64,11 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
 				// WHEN
-				await user.type(inputLocalisation, 'Pa');
+				await user.type(inputLocalisation, 'Par');
 				const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
 				// WHEN
-				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Pa');
+				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
 				const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
 
 				fireEvent.click(résultatLocalisationList[1]);
