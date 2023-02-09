@@ -120,4 +120,18 @@ describe('InputLocalisation', () => {
 		expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
 		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalled();
 	});
+	it("n'appelle pas le usecase pour moins de 3 caractères finissant par un espace", async () => {
+		const localisationServiceMock = aLocalisationService();
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<InputLocalisation code="" libellé="" type="COMMUNE" timeout={0} />
+			</DependenciesProvider>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await userEvent.type(input, 'Pa ');
+
+		expect(localisationServiceMock.rechercherCommune).not.toHaveBeenCalled();
+		expect(localisationServiceMock.rechercherLocalisation).not.toHaveBeenCalled();
+	});
 });
