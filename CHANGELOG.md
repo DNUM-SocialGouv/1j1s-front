@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.65.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.64.1...v2.65.0) (2023-02-09)
+
+
+### Features
+
+* **logement:** déplacement de la page mes aides aux logements ([1b7863c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1b7863c9ae313cd16497a98f6f96151bcd2af16a))
+
 ## [2.64.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.64.0...v2.64.1) (2023-02-08)
 
 
