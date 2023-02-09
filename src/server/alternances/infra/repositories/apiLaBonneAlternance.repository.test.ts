@@ -1,4 +1,5 @@
 import { MetierAlternance } from '~/server/alternances/domain/métier';
+import { anAlternanceFQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
@@ -13,7 +14,6 @@ import {
 	anAxiosResponse,
 	anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
-import { anAlternanceFQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture'
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('getMetier', () => {
