@@ -10,7 +10,7 @@ const ALL_MODE_REDIRECT = [
 		source: '/trouver-mon-metier',
 	},
 	{
-		destination: '/logements/aides-logement',
+		destination: '/logements/annonces',
 		permanent: true,
 		source: '/logements',
 	},
