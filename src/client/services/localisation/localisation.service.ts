@@ -7,20 +7,28 @@ import {
 
 export class LocalisationService {
 	constructor(private readonly httpClientService: HttpClientService ) {}
-	private MAX_CHAR_LENGTH = 5;
+	private DEPARTEMENT_LENGTH = 2;
+	private CODE_POSTAL_LENGTH = 5;
 	private REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS = new RegExp(/^[\da-zA-ZÀ-ÖØ-öø-ÿ-\\-\\ ]+$/);
 	private REGEX_ALL_DIGITS = new RegExp(/^\d*$/);
-	private FORBIDDEN_CHAR_LENGTH = [1, 4];
 
 	async rechercherLocalisation(recherche: string): Promise<Either<RechercheLocalisationApiResponse> | null> {
 		const localisationsLength = recherche.length;
-		if(localisationsLength === 1) {
+		const queryTooShort = localisationsLength === 1;
+		const containsInvalidSymbols = !this.REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS.test(recherche);
+		const allDigits = this.REGEX_ALL_DIGITS.test(recherche);
+		const isDepartement = allDigits && recherche.length === this.DEPARTEMENT_LENGTH;
+		const isCodePostal = allDigits && recherche.length === this.CODE_POSTAL_LENGTH;
+
+		if(queryTooShort) {
 			return null;
 		}
-		if(!this.REGEX_ALL_LETTRES_AVEC_ACCENTS_TIRET_ESPACE_AND_DIGITS.test(recherche)){
+		if(containsInvalidSymbols) {
 			return null;
 		}
-		if(this.REGEX_ALL_DIGITS.test(recherche) && (this.FORBIDDEN_CHAR_LENGTH.includes(localisationsLength) || localisationsLength > this.MAX_CHAR_LENGTH)){
+		if(allDigits
+			&& !isDepartement
+			&& !isCodePostal) {
 			return null;
 		}
 
