@@ -6,6 +6,7 @@ import { render, screen, within } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
@@ -64,13 +65,13 @@ describe('Page rechercher une alternance', () => {
 		});
 
 		it('affiche le titre propre à la Bonne Alternance', async () => {
-			const offreServiceMock = anOffreService();
+			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					offreService={offreServiceMock}
+					alternanceService={alternanceServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,

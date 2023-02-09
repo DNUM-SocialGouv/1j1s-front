@@ -13,9 +13,9 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	aAlternancService,
-	aAlternancServiceWithEmptyResultat,
-} from '~/client/services/alternance/alternanceService.fixture';
+	anAlternanceService,
+	anAlternanceServiceWithEmptyResultat,
+} from '~/client/services/alternance/alternance.service.fixture';
 
 describe('InputAutocomplétionMétier', () => {
 	afterEach(() => {
@@ -23,7 +23,7 @@ describe('InputAutocomplétionMétier', () => {
 	});
 	describe('quand la recherche le correspond a aucun métier', () => {
 		it('affiche un message vide et ne propose pas de métier', async () => {
-			const alternanceServiceMock = aAlternancServiceWithEmptyResultat();
+			const alternanceServiceMock = anAlternanceServiceWithEmptyResultat();
 			const user = userEvent.setup();
 			mockUseRouter({});
 
@@ -39,7 +39,7 @@ describe('InputAutocomplétionMétier', () => {
 	});
 	describe('quand la recherche correspond à des métiers', () => {
 		it('affiche les métiers possibles', async () => {
-			const alternanceServiceMock = aAlternancService();
+			const alternanceServiceMock = anAlternanceService();
 			const user = userEvent.setup();
 			mockUseRouter({});
 
@@ -56,7 +56,7 @@ describe('InputAutocomplétionMétier', () => {
 		});
 		describe('quand on séléctionne un métier', () => {
 			it('affiche le métier séléctionné', async () => {
-				const alternanceServiceMock = aAlternancService();
+				const alternanceServiceMock = anAlternanceService();
 				const user = userEvent.setup();
 				mockUseRouter({});
 

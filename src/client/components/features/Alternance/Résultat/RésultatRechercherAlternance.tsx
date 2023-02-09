@@ -4,9 +4,9 @@ import React from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
 import { Tag } from '~/client/components/ui/Tag/Tag';
-import { Alternance } from '~/server/alternances/domain/alternance';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
+import { Alternance } from '~/server/alternances/domain/alternance';
 
 export interface RésultatRechercherAlternanceProps {
 	alternance: Alternance
