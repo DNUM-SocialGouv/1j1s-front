@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.69.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.68.0...v2.69.0) (2023-02-10)
+
+
+### Features
+
+* **robots:** création robots.txt ([d0eb359](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d0eb35920d4e1cac8bff4a1109c54e060b900c32))
+* **robots:** génération robots.txt dynamique en fonction de l'environnement ([5c47807](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5c478078e1e71b36526d5c22f2c75388c6a59225))
+* **robots:** meta noindex et déplacement composant HeadTag ([89a8873](https://github.com/DNUM-SocialGouv/1j1s-front/commit/89a8873dcffe1a228b7df23de3c1e6cb68f0d878))
+* **sitemap:** génération sitemap et pages découvrir les métiers au build ([3a6bb48](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3a6bb486e38f99e710e7b990109f7c1ab2ae27b3))
+
 ## [2.68.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.67.2...v2.68.0) (2023-02-10)
 
 
