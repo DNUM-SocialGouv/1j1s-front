@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { CommonProps, HtmlHeadingTag } from '~/client/components/props';
+import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Accordion/Accordion.module.scss';
 
-interface AccordionProps extends CommonProps {
+interface AccordionProps extends React.ComponentPropsWithoutRef<'details'> {
   open?: boolean
   summary: string
   summaryAs?: HtmlHeadingTag

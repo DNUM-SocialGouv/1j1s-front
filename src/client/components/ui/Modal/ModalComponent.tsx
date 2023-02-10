@@ -8,17 +8,27 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Modal/ModalComponent.module.scss';
 
-interface ModalProps {
-  isOpen: boolean;
-  close: (...args: unknown[]) => unknown
-  closeLabel?: string;
-  closeTitle?: string;
-  keepModalMounted?: boolean
+interface ModalProps extends React.ComponentPropsWithoutRef<'dialog'> {
+	isOpen: boolean;
+	close: (...args: unknown[]) => unknown
+	closeLabel?: string;
+	closeTitle?: string;
+	keepModalMounted?: boolean
 }
 
 const MODAL_ANIMATION_TIME_IN_MS = 300;
 
-export function ModalComponent({ children, className, close, closeLabel = 'Fermer', closeTitle = 'Fermer la modale', keepModalMounted = false, isOpen, ...rest }: ModalProps & React.HTMLAttributes<HTMLDialogElement>) {
+export function ModalComponent(props: ModalProps) {
+	const {
+		children,
+		className,
+		close,
+		closeLabel = 'Fermer',
+		closeTitle = 'Fermer la modale',
+		keepModalMounted = false,
+		isOpen,
+		...rest
+	} = props;
 	const modalRef = useRef<HTMLDialogElement>(null);
 	const [lastFocusBeforeOpen, setLastFocusBeforeOpen] = useState<HTMLElement | null>(null);
 
@@ -100,9 +110,9 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
 					<div className={styles.modalBody}>
 						<div className={classNames(className, styles.modalClose)}>
 							<ButtonComponent
-								appearance='tertiary'
-								icon={<Icon name='close' />}
-								iconPosition='right'
+								appearance="tertiary"
+								icon={<Icon name="close"/>}
+								iconPosition="right"
 								label={closeLabel}
 								title={closeTitle}
 								onClick={() => close()}
@@ -117,16 +127,23 @@ export function ModalComponent({ children, className, close, closeLabel = 'Ferme
 	);
 }
 
-function ModalTitle({ titleAs = 'h1', children, className, id }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-	return React.createElement(titleAs, { className: classNames(className, styles.modalTitle), id }, children );
+function ModalTitle(props: { titleAs?: HtmlHeadingTag } & React.ComponentPropsWithoutRef<HtmlHeadingTag>) {
+	const {
+		titleAs = 'h1',
+		children,
+		className,
+		id,
+		...rest
+	} = props;
+	return React.createElement(titleAs, { className: classNames(className, styles.modalTitle), id, ...rest }, children);
 }
 
-function ModalContent({ children, className }: React.HTMLAttributes<HTMLDivElement>) {
-	return <div className={classNames(className, styles.modalContent)}>{children}</div>;
+function ModalContent({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
+	return <div className={classNames(className, styles.modalContent)} {...rest}>{children}</div>;
 }
 
-function ModalFooter({ children, className }: React.HTMLAttributes<HTMLDivElement>) {
-	return <footer className={classNames(className, styles.modalFooter)}>{children}</footer>;
+function ModalFooter({ children, className, ...rest }: React.ComponentPropsWithoutRef<'footer'>) {
+	return <footer className={classNames(className, styles.modalFooter)} {...rest}>{children}</footer>;
 }
 
 ModalComponent.Title = ModalTitle;

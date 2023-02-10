@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import { CommonProps, HtmlHeadingTag } from '~/client/components/props';
+import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/Link/LinkCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 
-interface LinkCardProps extends CommonProps {
+interface LinkCardProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
 	imageUrl: string
 	link: string
 	linkLabel?: string

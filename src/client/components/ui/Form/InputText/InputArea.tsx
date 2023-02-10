@@ -15,7 +15,7 @@ import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 type InputValue = string | ReadonlyArray<string> | number | undefined;
 
-interface TextInputProps extends React.TextareaHTMLAttributes<unknown> {
+interface TextInputProps extends React.ComponentPropsWithoutRef<'textarea'> {
   hint?: string
   label?: string
   necessity?: 'optional' | 'required'

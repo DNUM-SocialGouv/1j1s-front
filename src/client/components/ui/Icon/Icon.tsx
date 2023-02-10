@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
@@ -98,7 +97,7 @@ export type IconName =
   | 'washing-machine'
   | 'wifi'
 
-interface IconProps extends CommonProps {
+interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
   name: IconName
 }
 

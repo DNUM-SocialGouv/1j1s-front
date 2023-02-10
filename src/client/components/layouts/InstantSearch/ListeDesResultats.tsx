@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -6,11 +7,11 @@ import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 interface ListeDesResultatsProps {
-  resultats: React.ReactElement
-  isLoading: boolean
-  isAffichageListeDeResultatsDesktopDirectionRow: boolean
-  skeletonRepeat: number
-  pagination: React.ReactNode
+	resultats: React.ReactElement
+	isLoading: boolean
+	isAffichageListeDeResultatsDesktopDirectionRow: boolean
+	skeletonRepeat: number
+	pagination: React.ReactNode
 }
 
 // eslint-disable-next-line react/display-name
@@ -20,19 +21,20 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 
 	return (
 		<section className={styles.listeDesResultatsWrapper} ref={ref}>
-	  <Container className={{ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow }}>
+			<Container
+				className={classNames({ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
 				<Skeleton
-					type='card'
+					type="card"
 					isLoading={isLoading}
 					repeat={skeletonRepeat}
-					className={{ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow } }
+					className={classNames({ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow })}
 				>
 					<>
-						{ resultats }
-						{ pagination }
+						{resultats}
+						{pagination}
 					</>
 				</Skeleton>
-	  </Container>
+			</Container>
 		</section>
 	);
 });

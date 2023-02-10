@@ -5,7 +5,6 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-// eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,16 +13,16 @@ import {
 	handleKeyBoardInteraction,
 	setFocusToSelectButton,
 } from '~/client/components/keyboard/select.keyboard';
-import { CommonProps } from '~/client/components/props';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList.module.scss';
 
-interface MeilisearchCustomRefinementListProps extends CommonProps{
-  label: string
+interface MeilisearchCustomRefinementListProps extends React.ComponentPropsWithoutRef<'div'> {
+	label: string
 }
-export function MeilisearchCustomRefinementList(props: UseRefinementListProps & MeilisearchCustomRefinementListProps & React.HTMLAttributes<HTMLDivElement>) {
+
+export function MeilisearchCustomRefinementList(props: UseRefinementListProps & MeilisearchCustomRefinementListProps) {
 	const { refine, items } = useRefinementList(props);
 	const { label, className } = props;
 
@@ -112,7 +111,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 					onClick={() => setIsOptionsOpen(!isOptionsOpen)}
 				>
 					<span>{buttonLabel}</span>
-					<Icon name={isOptionsOpen ?'angle-up' : 'angle-down' } />
+					<Icon name={isOptionsOpen ? 'angle-up' : 'angle-down'}/>
 				</button>
 				{isOptionsOpen && renderOptionList()}
 			</div>

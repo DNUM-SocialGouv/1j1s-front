@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useMemo } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { ButtonComponent, ButtonComponentProps } from '~/client/components/ui/Button/ButtonComponent';
 import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from './Card.module.scss';
@@ -12,51 +12,84 @@ interface CardProps {
 	layout: 'horizontal' | 'vertical'
 }
 
-export function Card({ children, className, layout }: CardProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function Card({ children, className, layout, ...rest }: CardProps & React.ComponentPropsWithoutRef<'div'>) {
 	const layoutClass = useMemo(() => {
 		switch (layout) {
-			case 'horizontal': return styles.cardComponentHorizontal;
-			case 'vertical': return styles.cardComponentVertical;
+			case 'horizontal':
+				return styles.cardComponentHorizontal;
+			case 'vertical':
+				return styles.cardComponentVertical;
 		}
 	}, [layout]);
 
 	return (
-		<div className={classNames(styles.cardComponent, layoutClass, className)}>
+		<div className={classNames(styles.cardComponent, layoutClass, className)} {...rest}>
 			{children}
 		</div>
 	);
 }
 
-function CardContent({ children, className }: React.HTMLAttributes<HTMLDivElement>) {
-	return <div className={className}>{children}</div>;
+function CardContent({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
+	return <div className={className} {...rest}>{children}</div>;
 }
 
-function CardButton({ appearance = 'tertiary', className, icon, label }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
-	return <ButtonComponent className={className} appearance={appearance} label={label || ''} icon={icon} iconPosition={'right'} />;
+type CardCallToActionProps =
+	Required<Pick<ButtonComponentProps, 'appearance'>>
+	& Partial<Pick<ButtonComponentProps, 'label' | 'icon'>>
+
+function CardButton(props: CardCallToActionProps & React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
+	const { appearance = 'tertiary', className, icon, label, ...rest } = props;
+	return <ButtonComponent
+		className={className}
+		appearance={appearance}
+		label={label || ''}
+		icon={icon}
+		iconPosition={'right'} {...rest}
+	/>;
 }
 
-function CardFakeLink({ appearance = 'tertiary', className, icon, label }: { appearance: 'primary' | 'secondary' | 'tertiary', icon?: React.ReactNode, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
+function CardFakeLink(props: CardCallToActionProps & React.ComponentPropsWithoutRef<'span'>) {
+	const { appearance = 'tertiary', className, icon, label, ...rest } = props;
 	const appearanceClass = useMemo(() => {
 		switch (appearance) {
-			case 'primary': return styles.cardButtonPrimary;
-			case 'secondary': return styles.cardButtonSecondary;
-			case 'tertiary': return styles.cardButtonTertiary;
+			case 'primary':
+				return styles.cardButtonPrimary;
+			case 'secondary':
+				return styles.cardButtonSecondary;
+			case 'tertiary':
+				return styles.cardButtonTertiary;
 		}
 	}, [appearance]);
 
 	return (
-		<span className={classNames(className, appearanceClass, styles.cardButton)}>
+		<span className={classNames(className, appearanceClass, styles.cardButton)} {...rest}>
 			<span>{label}</span>
 			{icon}
 		</span>
 	);
 }
 
-function CardLink({ appearance = 'default', className, href, label }: { appearance?: 'default' | 'asPrimaryButton' | 'asSecondaryButton', icon?: React.ReactNode, href: string, label?: string } & React.HTMLAttributes<HTMLButtonElement>) {
-	return <Link className={className} appearance={appearance} href={href}>{label}</Link>;
+interface CardLinkProps {
+	appearance?: 'default' | 'asPrimaryButton' | 'asSecondaryButton'
+	icon?: React.ReactNode
+	href: string
+	label?: string
 }
 
-function CardImage({ className, src, alt='', sizes='100vw', ...rest }: { src: string, alt?: string, sizes?: string, ariaHidden?: boolean } & React.HTMLAttributes<HTMLDivElement>) {
+function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof Link>) {
+	const { appearance = 'default', className, href, label, ...rest } = props;
+	return <Link className={className} appearance={appearance} href={href} {...rest}>{label}</Link>;
+}
+
+interface CardImageProps {
+	src: string;
+	alt?: string;
+	sizes?: string;
+	ariaHidden?: boolean;
+}
+
+function CardImage(props: CardImageProps & React.ComponentPropsWithoutRef<'div'>) {
+	const { className, src, alt = '', sizes = '100vw', ...rest } = props;
 	return (
 		<div className={classNames(styles.cardImageWrapper, className)} {...rest}>
 			<Image src={src} alt={alt} fill={true} sizes={sizes}/>
@@ -64,8 +97,9 @@ function CardImage({ className, src, alt='', sizes='100vw', ...rest }: { src: st
 	);
 }
 
-function CardTitle({ children, className, id, titleAs }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-	return React.createElement(titleAs || 'h3', { className: classNames(styles.cardTitle, className), id }, children );
+function CardTitle(props: { titleAs?: HtmlHeadingTag } & React.ComponentPropsWithoutRef<HtmlHeadingTag>) {
+	const { children, className, titleAs, ...rest } = props;
+	return React.createElement(titleAs || 'h3', { className: classNames(styles.cardTitle, className), ...rest }, children);
 }
 
 Card.Button = CardButton;

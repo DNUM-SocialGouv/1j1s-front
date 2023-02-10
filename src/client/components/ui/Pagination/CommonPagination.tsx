@@ -18,7 +18,8 @@ export interface CommonPaginationProps {
   maxPage?: number
 }
 
-export function CommonPagination({ onPageClick, createURL, isFirstPage, isLastPage, numberOfPageList, lastPage, currentPage, maxPage }: CommonPaginationProps) {
+export function CommonPagination(props: CommonPaginationProps) {
+	const { onPageClick, createURL, isFirstPage, isLastPage, numberOfPageList, lastPage, currentPage, maxPage } = props;
 	const { isSmallScreen } = useBreakpoint();
 	const numberOfElementToDisplayAfterAndBeforeCurrentPage = isSmallScreen && NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE || NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE;
 

@@ -1,13 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import {
-	CommonProps,
-	HtmlHeadingTag,
-} from '~/client/components/props';
+import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/EnTeteSection/EnTeteSection.module.scss';
 
-interface EnTeteSectionProps extends CommonProps{
+interface EnTeteSectionProps extends React.ComponentPropsWithoutRef<'div'>{
   heading: string
   headingLevel?: HtmlHeadingTag
 }

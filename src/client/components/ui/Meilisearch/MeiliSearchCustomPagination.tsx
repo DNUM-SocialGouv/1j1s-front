@@ -3,10 +3,9 @@ import React, { useMemo } from 'react';
 import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 import { usePagination } from 'react-instantsearch-hooks-web';
 
-import { CommonProps } from '~/client/components/props';
 import { CommonPagination } from '~/client/components/ui/Pagination/CommonPagination';
 
-interface MeiliSearchCustomPaginationProps extends CommonProps {
+interface MeiliSearchCustomPaginationProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
   numberOfResultPerPage: number
   onPageChange: () => void
 }

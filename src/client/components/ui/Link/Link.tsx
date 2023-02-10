@@ -8,13 +8,13 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 type ButtonAppearance = 'default' | 'asPrimaryButton' | 'asSecondaryButton' | 'asBackButton';
 
-interface LinkProps extends React.AnchorHTMLAttributes<unknown> {
+interface LinkProps extends React.ComponentPropsWithoutRef<'a'> {
 	appearance?: ButtonAppearance
 	href: string
 	prefetch?: boolean
 }
 
-export function Link(props: LinkProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function Link(props: LinkProps) {
 	const {
 		appearance = 'default',
 		className,

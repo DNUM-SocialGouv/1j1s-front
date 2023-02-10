@@ -3,12 +3,16 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
-import { Link as LinkType } from '~/client/components/props';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
+interface FooterLink {
+	title: string
+	url: string
+}
+
 export default function Footer() {
-	const linkList: Array<LinkType> = [
+	const linkList: Array<FooterLink> = [
 		{
 			title: 'legifrance.gouv.fr',
 			url: 'https://www.legifrance.gouv.fr/',

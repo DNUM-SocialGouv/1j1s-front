@@ -31,7 +31,8 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
-export function Select({ className, id, optionList, value, placeholder, name, label, multiple, required, onChange }: SelectProps) {
+export function Select(props: SelectProps) {
+	const { className, id, optionList, value, placeholder, name, label, multiple, required, onChange } = props;
 	const errorMessageBy = useRef(uuidv4());
 	const optionsRef = useRef<HTMLDivElement>(null);
 	const labelledBy = useRef(uuidv4());
