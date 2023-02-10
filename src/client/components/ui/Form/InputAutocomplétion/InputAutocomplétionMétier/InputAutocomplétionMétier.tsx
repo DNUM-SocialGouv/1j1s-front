@@ -18,9 +18,10 @@ interface InputAutocomplétionMétierProps extends React.InputHTMLAttributes<unk
 }
 
 const ERROR_RETRIEVE_METIER = 'Une erreur est survenue lors de la récupération des métiers.';
+const HINT_INPUT_INVALID = 'Veuillez séléctionner un métier valide';
 
 export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
-	const { label, name, className, required, ...rest } = props;
+	const { label, name, className, required, onChange, onFocus, ...rest } = props;
 
 	const métierRecherchéService = useDependency<AlternanceService>('alternanceService');
 
@@ -32,17 +33,20 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const [inputHiddenSelectedCodeRomes, setInputHiddenSelectedCodeRomes] = useState<string[]>([]);
 	const [inputHiddenSelectedMétierLabel, setInputHiddenSelectedMétierLabel] = useState<string>('');
 	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
+	const [isFocus, setIsFocus] = useState<boolean>(false);
 	const [isTouched, setIsTouched] = useState<boolean>(false);
 
 	const inputId = useRef(uuidv4());
 	const errorId = useRef(uuidv4());
 
 	const autocompleteRef = useRef<HTMLDivElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const CONTROL_ID = 'autocomplete-CONTROL_ID';
 
 	const rechercherMétier = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
 		setIsValueValidSelected(false);
+		inputRef.current?.setCustomValidity(HINT_INPUT_INVALID);
 		e.preventDefault();
 		const { value } = e.target;
 		if (value.length > 1) {
@@ -64,27 +68,46 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const handleClick = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: MetierAlternance) => {
 		e.preventDefault();
 		setIsValueValidSelected(true);
+		inputRef.current?.setCustomValidity('');
 		setMétierRecherchéInput(selectedMétierRecherché.label);
 		setInputHiddenSelectedCodeRomes(selectedMétierRecherché.romes);
 		setInputHiddenSelectedMétierLabel(selectedMétierRecherché.label);
+		handleCloseSuggestion();
+	};
+
+	const handleFocusChange = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+		if (onFocus) {
+			onFocus(event);
+		}
+		setIsTouched(true);
+		setIsFocus(true);
+	}, [onFocus]);
+
+	const handleChange = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+		if (onChange) {
+			onChange(event);
+		}
+		setMétierRecherchéInput(event.target.value);
+		handleRechercherWithDebounce(event);
+	}, [onChange]);
+
+	const handleCloseSuggestion = useCallback(() => {
+		setIsFocus(false);
 		setSuggestionsActive(false);
 		setSuggestionsApi([]);
-	};
+	}, [isFocus]);
 
 	const closeSuggestionsOnClickOutside = useCallback((e: MouseEvent) => {
 		if (!(autocompleteRef.current)?.contains(e.target as Node)) {
-			setSuggestionsActive(false);
-			setSuggestionsApi([]);
+			handleCloseSuggestion();
 		}
-
-	}, []);
+	}, [handleCloseSuggestion]);
 
 	const closeSuggestionsOnKeyUp = useCallback((e: KeyboardEvent) => {
 		if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
-			setSuggestionsActive(false);
-			setSuggestionsApi([]);
+			handleCloseSuggestion();
 		}
-	}, []);
+	}, [handleCloseSuggestion]);
 
 	useEffect(() => {
 		document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
@@ -94,15 +117,15 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			document.removeEventListener('mousedown', closeSuggestionsOnClickOutside);
 			document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
 		};
-	}, [closeSuggestionsOnKeyUp, closeSuggestionsOnClickOutside]);
+	}, [closeSuggestionsOnKeyUp, closeSuggestionsOnClickOutside, suggestionsActive]);
 
-	const handleChange = useMemo(() => {
+	const handleRechercherWithDebounce = useMemo(() => {
 		return debounce(rechercherMétier, 300);
 	}, [rechercherMétier]);
 
 	useEffect(() => {
 		return () => {
-			handleChange.cancel();
+			handleRechercherWithDebounce.cancel();
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -120,6 +143,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			setSuggestionIndex(suggestionIndex + 1);
 		} else if (event.key === KeyBoard.ENTER && suggestionsActive) {
 			setIsValueValidSelected(true);
+			inputRef.current?.setCustomValidity('');
 			setMétierRecherchéInput(suggestionsApi[suggestionIndex].label);
 			setInputHiddenSelectedCodeRomes(suggestionsApi[suggestionIndex].romes);
 			setInputHiddenSelectedMétierLabel(suggestionsApi[suggestionIndex].label);
@@ -135,7 +159,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			) : (
 				<ul
 					className={styles.suggestionList}
-					role="CONTROL_ID"
+					role="listbox"
 					aria-labelledby={label}
 					id={CONTROL_ID}
 				>
@@ -143,7 +167,9 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 						<li
 							className={index === suggestionIndex ? styles.hover : ''}
 							key={index}
-							onClick={(event) => handleClick(event, suggestion)}
+							onClick={(event) => {
+								handleClick(event, suggestion);
+							}}
 							role="option"
 							aria-selected={suggestion.label === inputHiddenSelectedMétierLabel}
 						>
@@ -170,11 +196,11 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 					aria-expanded={suggestionsActive}
 					aria-controls={CONTROL_ID}
 					aria-owns={CONTROL_ID}
-
 					aria-haspopup="listbox"
 				>
 					<input
-						className={styles.formControlInput}
+						ref={inputRef}
+						className={classNames(styles.formControlInput, required && !isFocus && isTouched && !isValueValidSelected && styles.formControlInputError)}
 						type="text"
 						id={inputId.current}
 						name={name}
@@ -183,11 +209,10 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 						aria-controls={CONTROL_ID}
 						aria-activedescendant={inputId.current}
 						value={métierRecherchéInput}
-						onChange={(event) => {
-							setMétierRecherchéInput(event.target.value);
-							handleChange(event);
-						}}
-						onBlur={() => setIsTouched(true)}
+						onFocus={handleFocusChange}
+						onChange={
+							handleChange
+						}
 						onKeyDown={handleKeyDown}
 						required={required}
 						{...rest}
@@ -198,8 +223,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				{suggestionsActive && <Suggestions/>}
 			</div>
 			{errorFromApi && <p className={styles.textInputError} id={errorId.current}>{errorFromApi}</p>}
-			{required && isTouched && !isValueValidSelected &&
-		<p className={styles.textInputError} id={errorId.current}>rentre un vrai truc roh</p>}
+			{required && !isFocus && isTouched && !isValueValidSelected &&
+          <p className={styles.instructionMessageError} id={errorId.current}>rentre un vrai truc roh</p>}
 		</div>
 	);
 };
