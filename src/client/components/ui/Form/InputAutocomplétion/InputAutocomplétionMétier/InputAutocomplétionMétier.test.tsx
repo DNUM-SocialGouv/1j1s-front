@@ -7,6 +7,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard.fixture';
 import {
 	InputAutocomplétionMétier,
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
@@ -32,7 +33,8 @@ describe('InputAutocomplétionMétier', () => {
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
 			await waitFor(() => user.type(inputAutocomplétionMétier, 'dddddd'));
-			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulangerie, cuisine...');
+			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulangerie, ...');
+
 			expect(emptyResultText).toBeInTheDocument();
 			expect(screen.queryByRole('option')).not.toBeInTheDocument();
 		});
@@ -54,7 +56,7 @@ describe('InputAutocomplétionMétier', () => {
 			expect(screen.getByRole('option', { name: 'Transport ferroviaire' })).toBeInTheDocument();
 			expect(screen.getByRole('option', { name: 'Vente, transaction, gestion immobilière' })).toBeInTheDocument();
 		});
-		describe('quand on séléctionne un métier', () => {
+		describe('quand je click sur un métier', () => {
 			it('affiche le métier séléctionné', async () => {
 				const alternanceServiceMock = anAlternanceService();
 				const user = userEvent.setup();
@@ -72,7 +74,29 @@ describe('InputAutocomplétionMétier', () => {
 				await waitFor(() => user.click(screen.getByRole('option', { name: 'Transport aérien' })));
 
 				expect(inputAutocomplétionMétier).toHaveValue('Transport aérien');
-				expect(screen.getByRole('form')).toHaveFormValues({ métier_codeRomes: 'N2101,N2102,N2203,N2204' });
+				expect(screen.getByRole('form')).toHaveFormValues({ codeRomes: 'N2101,N2102,N2203,N2204' });
+			});
+		});
+		describe('quand je choisi un métier avec le clavier', () => {
+			it('affiche le métier séléctionné', async () => {
+				const alternanceServiceMock = anAlternanceService();
+				const user = userEvent.setup();
+				mockUseRouter({});
+
+				render(
+					<form role="form">
+						<DependenciesProvider alternanceService={alternanceServiceMock}>
+							<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
+						</DependenciesProvider>
+					</form>,
+				);
+				const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
+				await user.type(inputAutocomplétionMétier, 'boulang');
+				await screen.findByRole('option', { name: 'Vente, transaction, gestion immobilière' });
+				await user.keyboard(KeyBoard.ARROW_DOWN);
+				await user.keyboard(KeyBoard.ENTER);
+
+				await waitFor(() => expect(inputAutocomplétionMétier).toHaveValue('Transport aérien'));
 			});
 		});
 	});

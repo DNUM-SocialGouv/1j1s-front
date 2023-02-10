@@ -17,7 +17,7 @@ export default function RechercherAlternancePage() {
 			const queryString = stringify(router.query);
 			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
 		}
-	}, [router]);
+	}, [router, displayRechercherAlternanceLBA]);
 
 	if (displayRechercherAlternanceLBA) return  <RechercherAlternance/>;
 

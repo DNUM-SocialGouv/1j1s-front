@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
-import { Tag } from '~/client/components/ui/Tag/Tag';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { Alternance } from '~/server/alternances/domain/alternance';
