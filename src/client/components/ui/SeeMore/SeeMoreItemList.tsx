@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/SeeMore/SeeMoreItemList.module.scss';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
@@ -10,7 +9,7 @@ const SEE_MORE_LABEL_DEFAULT = 'Voir plus';
 const SEE_LESS_LABEL_DEFAULT = 'Voir moins';
 const NUMBER_OF_VISIBLE_ITEMS_DEFAULT = 3;
 
-export interface SeeMoreProps extends CommonProps {
+export interface SeeMoreProps extends React.ComponentPropsWithoutRef<'div'> {
 	itemList: React.ReactNode[]
 	numberOfVisibleItems: number
   seeMoreLabel?: string
@@ -19,7 +18,7 @@ export interface SeeMoreProps extends CommonProps {
 	seeLessAriaLabel: string
 }
 
-export default function SeeMoreItemList(props: React.PropsWithChildren<SeeMoreProps>) {
+export default function SeeMoreItemList(props: SeeMoreProps) {
 	const {
 		itemList,
 		numberOfVisibleItems = NUMBER_OF_VISIBLE_ITEMS_DEFAULT,
@@ -28,6 +27,7 @@ export default function SeeMoreItemList(props: React.PropsWithChildren<SeeMorePr
 		seeMoreAriaLabel,
 		seeLessAriaLabel,
 		className,
+		...rest
 	} = props;
 	const ariaId = useRef(uuidv4());
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -65,7 +65,9 @@ export default function SeeMoreItemList(props: React.PropsWithChildren<SeeMorePr
 		<>
 			<div
 	      ref={divRef}
-				id={`section-${ariaId.current}`}>
+				id={`section-${ariaId.current}`}
+				{...rest}
+			>
 				<ul className={styles.itemList}>
 					{itemListToDisplay?.map((element, index) =>
 						<li key={index}>{element}</li>,

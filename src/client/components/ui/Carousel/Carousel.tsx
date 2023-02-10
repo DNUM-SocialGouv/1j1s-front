@@ -5,10 +5,7 @@ import React, {
 	useState,
 } from 'react';
 
-import {
-	CommonProps,
-	Image as ImageProps,
-} from '~/client/components/props';
+import { Image as ImageProps } from '~/client/components/props';
 import { Controls } from '~/client/components/ui/Carousel/Controls';
 import { Indicators } from '~/client/components/ui/Carousel/Indicators';
 import { LiveRegion } from '~/client/components/ui/Carousel/LiveRegion';
@@ -16,7 +13,7 @@ import { Slide } from '~/client/components/ui/Carousel/Slide';
 
 import styles from './Carousel.module.scss';
 
-interface CarouselProps extends CommonProps {
+interface CarouselProps extends React.ComponentPropsWithoutRef<'div'> {
 	imageList: Array<ImageProps>
 	imageListLabel: string
 	hideIndicators?: boolean
@@ -25,8 +22,8 @@ interface CarouselProps extends CommonProps {
 
 export type Direction = 'next' | 'previous' | null;
 
-export const Carousel = (props: CarouselProps) => {
-	const { imageList, imageListLabel, imagesSize, hideIndicators=false, className, ...rest } = props;
+export function Carousel(props: CarouselProps) {
+	const { imageList, imageListLabel, imagesSize, hideIndicators = false, className, ...rest } = props;
 	const _classNames = classNames(className, styles.carousel);
 	const numberOfImages = imageList.length;
 
@@ -42,29 +39,38 @@ export const Carousel = (props: CarouselProps) => {
 		setCurrentSlideIndex(isFirstSlide ? numberOfImages - 1 : currentSlideIndex - 1);
 		setIsInTransition(true);
 		setDirection('next');
-	},[currentSlideIndex, isFirstSlide, numberOfImages]);
+	}, [currentSlideIndex, isFirstSlide, numberOfImages]);
 
 	const goToNextSlide = useCallback(() => {
 		setIsAnimated(true);
 		setCurrentSlideIndex(isLastSlide ? 0 : currentSlideIndex + 1);
 		setIsInTransition(true);
 		setDirection('previous');
-	},[currentSlideIndex, isLastSlide]);
+	}, [currentSlideIndex, isLastSlide]);
 
 	const goToSelectedSlide = useCallback((index: number) => {
 		setIsAnimated(false);
 		setCurrentSlideIndex(index);
-	},[]);
+	}, []);
 
 
 	if (numberOfImages === 0) return null;
 
-	if (numberOfImages === 1) return <Image src={imageList[0].src} alt={imageList[0].alt} width={imagesSize.width} height={imagesSize.height} />;
+	if (numberOfImages === 1) {
+		return (
+			<Image
+				src={imageList[0].src}
+				alt={imageList[0].alt}
+				width={imagesSize.width}
+				height={imagesSize.height}
+			/>
+		);
+	}
 
 	return (
 		<div aria-roledescription="carousel" role="group" className={_classNames} {...rest}>
 			<ul aria-label={imageListLabel}>
-				{ imageList.map((image, index) => (
+				{imageList.map((image, index) => (
 					<Slide
 						key={index}
 						index={index}
@@ -88,13 +94,14 @@ export const Carousel = (props: CarouselProps) => {
 				goToNextSlide={goToNextSlide}
 			/>
 
-			{ !hideIndicators && <Indicators
-				goToSelectedSlide={goToSelectedSlide}
-				imageList={imageList}
-				currentSlideIndex={currentSlideIndex}
-				numberOfImages={numberOfImages}
-			/>
-			}
+			{!hideIndicators && (
+				<Indicators
+					goToSelectedSlide={goToSelectedSlide}
+					imageList={imageList}
+					currentSlideIndex={currentSlideIndex}
+					numberOfImages={numberOfImages}
+				/>
+			)}
 
 
 			<LiveRegion
@@ -104,5 +111,5 @@ export const Carousel = (props: CarouselProps) => {
 
 		</div>
 	);
-};
+}
 

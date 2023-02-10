@@ -3,7 +3,7 @@ import React from 'react';
 import SeeMoreItemList, { SeeMoreProps } from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-export default function SeeMoreMobileOnly(props: React.PropsWithChildren<SeeMoreProps>) {
+export default function SeeMoreMobileOnly(props: SeeMoreProps) {
 	const { children, ...rest } = props;
 	const { isSmallScreen, isMediumScreen } = useBreakpoint();
 

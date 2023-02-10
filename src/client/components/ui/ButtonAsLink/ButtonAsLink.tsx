@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from '~/client/components/ui/ButtonAsLink/ButtonAsLink.module.scss';
 
-export function ButtonAsLink(props: React.PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>) {
+export function ButtonAsLink(props: React.ComponentPropsWithoutRef<'button'>) {
 	const { children, className, ...rest } = props;
 
 	return (

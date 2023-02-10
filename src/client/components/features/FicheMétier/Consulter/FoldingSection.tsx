@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 
 import styles from './ConsulterFicheMétier.module.scss';
 
-interface FoldingSectionProps extends CommonProps {
+interface FoldingSectionProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
 	innerHtmlContent: string
 	isOpen?: boolean
 	title: string

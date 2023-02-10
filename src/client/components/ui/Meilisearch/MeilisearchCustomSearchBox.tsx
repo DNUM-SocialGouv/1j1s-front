@@ -11,12 +11,11 @@ import {
 } from 'react-instantsearch-hooks-web';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CommonProps } from '~/client/components/props';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './MeilisearchCustomSearchBox.module.scss';
 
-interface MeilisearchCustomSearchBoxProps extends CommonProps {
+interface MeilisearchCustomSearchBoxProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
   id?: string
   label: string
   name: string
@@ -24,7 +23,7 @@ interface MeilisearchCustomSearchBoxProps extends CommonProps {
   resetTitle?: string
 }
 
-export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProps &  UseSearchBoxProps) => {
+export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProps & UseSearchBoxProps) => {
 	const {
 		label,
 		name,

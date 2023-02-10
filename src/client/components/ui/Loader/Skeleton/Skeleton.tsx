@@ -1,20 +1,19 @@
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/Loader/Skeleton/Skeleton.module.scss';
 
-interface SkeletonProps extends CommonProps {
-  type: SkeletonType,
-  repeat?: number,
-  isLoading: boolean,
-  children?: React.ReactElement,
+interface SkeletonProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
+  type: SkeletonType;
+  repeat?: number;
+  isLoading: boolean;
+  children?: React.ReactElement;
 }
 
 type SkeletonType = 'card' | 'tag' | 'line';
 
 
-export const Skeleton = (props: SkeletonProps) => {
+export function Skeleton(props: SkeletonProps) {
 	const { type, repeat = 1, isLoading, children = <></>, className } = props;
 
 	const card = useMemo(() =>

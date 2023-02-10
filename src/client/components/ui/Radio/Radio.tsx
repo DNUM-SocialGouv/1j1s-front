@@ -4,9 +4,8 @@ import React, { useEffect, useRef } from 'react';
 
 import styles from '~/client/components/ui/Radio/Radio.module.scss';
 
-interface RadioProps extends React.InputHTMLAttributes<unknown>{
-  id?: string
-  label: string
+interface RadioProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'type'> {
+  label: string;
 }
 
 export function Radio({ id, label, className, ...rest } : RadioProps) {

@@ -4,12 +4,11 @@ import { useRange, UseRangeProps } from 'react-instantsearch-hooks-web';
 import { v4 as uuidv4 } from 'uuid';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { CommonProps } from '~/client/components/props';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInput.module.scss';
 
-interface MeilisearchCustomRangeInputProps extends CommonProps  {
+interface MeilisearchCustomRangeInputProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
     label: string
     placeholder: string
     unite: string

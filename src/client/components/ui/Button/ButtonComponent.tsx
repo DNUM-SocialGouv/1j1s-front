@@ -3,14 +3,14 @@ import React, { useMemo } from 'react';
 
 import styles from './button-component.module.scss';
 
-interface ButtonComponentProps {
+export interface ButtonComponentProps extends React.ComponentPropsWithoutRef<'button'> {
 	appearance?: 'primary' | 'secondary' | 'tertiary'
 	icon?: React.ReactNode
 	iconPosition?: 'top' | 'left' | 'right'
 	label: string
 }
 
-export function ButtonComponent({ appearance = 'primary', className, icon, iconPosition, label, ...rest }: ButtonComponentProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function ButtonComponent({ appearance = 'primary', className, icon, iconPosition, label, ...rest }: ButtonComponentProps) {
 	const appearanceClass = useMemo(() => {
 		switch (appearance) {
 			case 'primary': return styles.buttonPrimary;

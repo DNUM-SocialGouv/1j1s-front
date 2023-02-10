@@ -1,13 +1,13 @@
 import classNames from 'classnames';
+import React from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/TextArea/TextArea.module.scss';
 
-interface TextAreaProps extends CommonProps{
-  id: string,
-  placeholder: string
-  label: string
-  name: string
+interface TextAreaProps extends React.ComponentPropsWithoutRef<'textarea'> {
+	id: string,
+	placeholder: string
+	label: string
+	name: string
 }
 
 export function TextArea({ id, placeholder, label, name, className }: TextAreaProps) {

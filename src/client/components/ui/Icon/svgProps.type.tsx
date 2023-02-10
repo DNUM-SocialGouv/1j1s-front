@@ -1,5 +1,5 @@
-import { CommonProps } from '~/client/components/props';
+import React from 'react';
 
-export interface SvgProps extends CommonProps {
+export interface SvgProps extends React.ComponentPropsWithoutRef<'svg'> {
   color?: string
 }

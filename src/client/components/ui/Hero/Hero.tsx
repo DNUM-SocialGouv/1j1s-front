@@ -1,16 +1,15 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-interface HeroIllustrationProps extends CommonProps {
+interface HeroIllustrationProps extends React.ComponentPropsWithoutRef<'div'> {
 	image: string
 }
 
-export function Hero({ children, className, ...rest }: PropsWithChildren<CommonProps>) {
+export function Hero({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
 	return <div className={classNames(styles.hero, className)} {...rest}>
 		<div className={styles.heroTextWrapper}>
 			{ children }
@@ -18,7 +17,7 @@ export function Hero({ children, className, ...rest }: PropsWithChildren<CommonP
 	</div>;
 }
 
-export function HeroWithIllustration({ children, className, image, ...rest }: PropsWithChildren<HeroIllustrationProps>) {
+export function HeroWithIllustration({ children, className, image, ...rest }: HeroIllustrationProps) {
 	const { isLargeScreen } = useBreakpoint();
 	if (isLargeScreen) {
 		return (
@@ -35,13 +34,13 @@ export function HeroWithIllustration({ children, className, image, ...rest }: Pr
 	return Hero({ children, className, ...rest });
 }
 
-export function HeroPrimaryText({ children, className, ...rest }: React.PropsWithChildren<CommonProps>) {
+export function HeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
 	return <div className={classNames(styles.heroPrimaryText, className)} {...rest}>
 		{children}
 	</div>;
 }
 
-export function HeroSecondaryText({ children, className, ...rest }: PropsWithChildren<CommonProps>) {
+export function HeroSecondaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'p'>) {
 	return <p className={classNames(styles.heroSecondaryText, className)} {...rest}>
 		{children}
 	</p>;

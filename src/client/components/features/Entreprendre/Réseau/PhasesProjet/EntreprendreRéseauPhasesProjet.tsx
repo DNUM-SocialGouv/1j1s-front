@@ -3,10 +3,9 @@ import React from 'react';
 
 import { Phases } from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau';
 import styles from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauStadesProjet.module.scss';
-import { CommonProps } from '~/client/components/props';
 import { Tag } from '~/client/components/ui/Tag/Tag';
 
-interface EntreprendreRéseauPhasesProjetProps extends CommonProps {
+interface EntreprendreRéseauPhasesProjetProps extends React.ComponentPropsWithoutRef<'ol'> {
   phases: Phases
 }
 

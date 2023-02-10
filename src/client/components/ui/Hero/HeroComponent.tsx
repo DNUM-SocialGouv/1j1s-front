@@ -2,18 +2,18 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import styles from '~/client/components/ui/Hero/HeroComponent.module.scss';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-interface HeroComponentProps extends CommonProps {
+interface HeroComponentProps extends Pick<React.HTMLAttributes<unknown>, 'className' | 'children'> {
   titlePrimaryText: React.ReactNode
   titleSecondaryText: React.ReactNode
   imgSrc: string
   additionalInformation?: React.ReactNode
 }
 
-export function HeroComponent({ titlePrimaryText, titleSecondaryText, imgSrc, className, children }: React.PropsWithChildren<HeroComponentProps>) {
+export function HeroComponent(props: HeroComponentProps) {
+	const { titlePrimaryText, titleSecondaryText, imgSrc, className, children } = props;
 	const { isLargeScreen } = useBreakpoint();
 
 	return (

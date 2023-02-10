@@ -1,24 +1,20 @@
 import classNames from 'classnames';
-import React, { PropsWithChildren } from 'react';
-
-import {
-	CommonProps,
-} from '~/client/components/props';
+import React from 'react';
 
 import styles from './LightHero.module.scss';
 
-export function LightHero({ children, className }: PropsWithChildren<CommonProps>) {
+export function LightHero({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
 	return (
-		<div className={classNames(styles.hero, className)}>
+		<div className={classNames(styles.hero, className)} {...rest}>
 			{children}
 		</div>
 	);
 }
 
-export function LightHeroPrimaryText({ children, className }: PropsWithChildren<CommonProps>) {
-	return <div className={classNames(styles.heroPrimaryText, className)}>{children}</div>;
+export function LightHeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
+	return <div className={classNames(styles.heroPrimaryText, className)} {...rest}>{children}</div>;
 }
 
-export function LightHeroSecondaryText({ children, className }: PropsWithChildren<CommonProps>) {
-	return <div className={classNames(styles.heroSecondaryText, className)}>{children}</div>;
+export function LightHeroSecondaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
+	return <div className={classNames(styles.heroSecondaryText, className)} {...rest}>{children}</div>;
 }

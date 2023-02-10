@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { CommonProps } from '~/client/components/props';
 import { Tag } from '~/client/components/ui/Tag/Tag';
 import styles from '~/client/components/ui/Tag/TagList.module.scss';
 
-interface TagListProps extends CommonProps {
+interface TagListProps extends React.ComponentPropsWithoutRef<'ul'> {
   list: Array<string | undefined>
 }
 
