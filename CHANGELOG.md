@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.68.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.67.2...v2.68.0) (2023-02-10)
+
+
+### Features
+
+* **multiple:** mise à niveau du composant Link vers celui de NextJS 13 ([2acfe65](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2acfe653e72bca9c79080a5090e5ecd3a11b9d59))
+
 ## [2.67.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.67.1...v2.67.2) (2023-02-09)
 
 
