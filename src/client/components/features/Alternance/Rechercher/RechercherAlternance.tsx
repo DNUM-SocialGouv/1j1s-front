@@ -1,7 +1,8 @@
+import { uuid4 } from '@sentry/utils';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import {
 	FormulaireRechercheAlternanceLBA,
@@ -25,7 +26,6 @@ const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
 export function RechercherAlternance() {
 	const router = useRouter();
-	const hasRouterQuery = Object.keys(router.query).length > 0;
 
 	const alternanceService = useDependency<AlternanceService>('alternanceService');
 
@@ -43,39 +43,38 @@ export function RechercherAlternance() {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
-			// alternanceService.rechercherAlternance(queryString)
-			// 	.then((response) => {
-			// 		if (response.instance === 'success') {
-			// 			setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
-			// 			setAlternanceList(response.result);
-			// 			setNombreRésultats(response.result.length);
-			// 		} else {
-			// 			setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-			// 			setErreurRecherche(response.errorType);
-			// 		}
-			// 		setIsLoading(false);
-			// 	});
+			alternanceService.rechercherAlternance(queryString)
+				.then((response) => {
+					if (response.instance === 'success') {
+						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
+						setAlternanceList(response.result);
+						setNombreRésultats(response.result.length);
+					} else {
+						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
+						setErreurRecherche(response.errorType);
+					}
+					setIsLoading(false);
+				});
 		}
-		setAlternanceList([
-			{
-				localisation: 'Localisation',
-				niveauRequis: 'Niveau demandé',
-				nomEntreprise: 'Nom de l’entreprise 1',
-				titre: 'Intitulé du poste en alternance 1',
-				typeDeContrat: 'Type de contrat',
-			}, {
-				titre: 'Intitulé du poste en alternance 2',
-			},
-		]);
-		setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}`));
-		setNombreRésultats(2);
-		setIsLoading(false);
 	}, [router.query, alternanceService]);
+
+	const messageRésultatRecherche: string = useMemo(() => {
+		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
+		if (nombreRésultats > 1) {
+			messageRésultatRechercheSplit.push('offres d’alternances');
+		} else {
+			messageRésultatRechercheSplit.push('offre d’alternance');
+		}
+		if (router.query.motCle) {
+			messageRésultatRechercheSplit.push(`pour ${router.query.motCle}`);
+		}
+		return messageRésultatRechercheSplit.join(' ');
+	}, [nombreRésultats, router.query.motCle]);
 
 	return (
 		<>
 			<Head
-				title={'Rechercher une alternance | 1jeune1solution'}
+				title={title}
 				description="Des milliers d’alternances sélectionnées pour vous"
 				robots="index,follow"
 			/>
@@ -99,7 +98,7 @@ export function RechercherAlternance() {
 								  <div className={'separator'}>
 									  <Container className={styles.informationRésultat}>
 										  <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-											  <h2>{'messageRésultatRecherche'}</h2>
+											  <h2>{messageRésultatRecherche}</h2>
 										  </Skeleton>
 									  </Container>
 								  </div>
@@ -109,10 +108,8 @@ export function RechercherAlternance() {
 					  					<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
 											  <ul>
 												  {alternanceList.map((alternance) => (
-					  								<li key={alternance.titre}>
-					  									<RésultatRechercherAlternance
-					  										alternance={alternance}
-					  									/>
+					  								<li key={uuid4()}>
+					  									<RésultatRechercherAlternance alternance={alternance}/>
 					  								</li>
 												  ))}
 											  </ul>

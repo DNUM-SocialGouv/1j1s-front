@@ -15,6 +15,8 @@ export class HttpClientService {
 		endpoint: string,
 		config?: AxiosRequestConfig,
 	): Promise<AxiosResponse<Response>> {
+		console.log(this.client.getUri())
+		console.log(endpoint)
 		return this.client.get<Response>(endpoint, config);
 	}
 

@@ -13,7 +13,7 @@ import {
 describe('recupérer les métiers correspondant à la recherche', () => {
 	it('retourne les métiers recherchés', async () => {
 		const recherche = 'boulang';
-		nock('https://labonnealternance-recette.beta.gouv.fr/api/v1/').get(
+		nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/v1/').get(
 			`/metiers?title=${recherche}`,
 		).reply(200, aMetierLaBonneAlternanceApiResponse());
 
