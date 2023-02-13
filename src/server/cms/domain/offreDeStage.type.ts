@@ -117,31 +117,6 @@ export interface DomaineStageDepot {
 	nom: Domaines
 }
 
-export interface OffreDeStageResponse {
-	titre: string
-	id: string
-	slug: string
-	dateDeDebut: string
-	createdAt: string
-	publishedAt: string
-	updatedAt: string
-	description: string
-	urlDeCandidature?: string
-	sourceCreatedAt: string
-	sourceUpdatedAt: string
-	sourcePublishedAt: string
-	identifiantSource?: string
-	domaines?: Array<DomaineStageCMS>
-	duree?: string
-	dureeEnJour?: number
-	dureeEnJourMax?: number
-	localisation?: LocalisationStageIndexée
-	employeur?: EmployeurStageCMS
-	remunerationBase?: number
-	source?: SourceDesDonnées
-	teletravailPossible?: boolean
-}
-
 export interface OffreDeStage {
 	titre: string
 	id: string

@@ -29,7 +29,6 @@ export class ServerConfigurationService implements ConfigurationService {
 			REDIS_PASSWORD: ServerConfigurationService.getOrThrowError('REDIS_PASSWORD'),
 			REDIS_PORT: Number(ServerConfigurationService.getOrThrowError('REDIS_PORT')),
 			REDIS_USERNAME: ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
-			STAGE_CONTENT_MANAGER_BASE_URL: ServerConfigurationService.getOrThrowError('STAGE_CONTENT_MANAGER_BASE_URL'),
 			STRAPI_AUTH: ServerConfigurationService.matchOrThrowError('STRAPI_AUTH', /^(.+):(.+)$/),
 			STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
 			TIPIMAIL_API_BASE_URL: ServerConfigurationService.getOrThrowError('TIPIMAIL_API_BASE_URL'),
@@ -96,7 +95,6 @@ export interface EnvironmentVariables {
   readonly REDIS_PASSWORD: string
   readonly REDIS_PORT: number
   readonly REDIS_USERNAME: string
-	readonly STAGE_CONTENT_MANAGER_BASE_URL: string
   readonly STRAPI_AUTH: string
   readonly STRAPI_URL_API: string
   readonly TIPIMAIL_API_BASE_URL: string

@@ -31,7 +31,7 @@ export function handleSearchFailureError(e: unknown, context: string) {
 		} else {
 			LoggerService.warnWithExtra(
 				new SentryException(
-					'[API Pole Emploi] impossible d’éffectuer une recherche',
+					'[API Pole Emploi] impossible d’effectuer une recherche',
 					{ context: `recherche ${context}`, source: 'API Pole Emploi' },
 					{ errorDetail: error.response?.data },
 				),
@@ -40,7 +40,7 @@ export function handleSearchFailureError(e: unknown, context: string) {
 		}
 	}
 	LoggerService.errorWithExtra(new SentryException(
-		'[API Pole Emploi] impossible d’éffectuer une recherche',
+		'[API Pole Emploi] impossible d’effectuer une recherche',
 		{ context: 'recherche offre emploi', source: 'API Pole Emploi' },
 		{ stacktrace: (<Error> e).stack },
 	));

@@ -1,26 +1,13 @@
-import { aStrapiArticleResponse } from '~/server/cms/domain/espaceJeune.fixture';
-import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
-import { strapiImageFixture } from '~/server/cms/infra/repositories/strapi.fixture';
+import { anArticle } from '~/server/cms/domain/article.fixture';
+import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 
-import {
-	CarteMesuresEmployeursResponse,
-	MesuresEmployeursAttributesResponse,
-	StrapiSingleTypeResponse,
-} from '../infra/repositories/strapi.response';
-
-export function desMesuresEmployeurs(): MesuresEmployeurs {
-	return {
-		dispositifs: [aCarteMesuresEmployeurs()],
-	};
+export function desMesuresEmployeurs(): CarteMesuresEmployeurs[] {
+	return [aCarteMesuresEmployeurs()];
 }
 
 export function aCarteMesuresEmployeurs(override?: Partial<CarteMesuresEmployeurs>): CarteMesuresEmployeurs {
 	return {
-		article: {
-			contenu: 'Contenu',
-			slug: 'slug-titre',
-			titre: 'Titre',
-		},
+		article: anArticle(),
 		bannière: {
 			alt: 'text',
 			url: 'https://animage.jpg',
@@ -105,27 +92,4 @@ export function aCartesMesuresEmployeursList(): CarteMesuresEmployeurs[] {
 		aTroisièmeCarteMesuresEmployeurs(),
 		aQuatrièmeCarteMesuresEmployeurs(),
 	];
-}
-
-export function mesuresEmployeursResponse(): StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse> {
-	return {
-		data: {
-			attributes: {
-				dispositifs: [aCarteMesuresEmployeursResponse()],
-			},
-			id: 567,
-		},
-	};
-}
-
-export function aCarteMesuresEmployeursResponse(override?: Partial<CarteMesuresEmployeursResponse>): CarteMesuresEmployeursResponse {
-	return {
-		article: aStrapiArticleResponse(),
-		banniere: strapiImageFixture(),
-		contenu: 'Un beau contenu de carte',
-		pourQui: 'Ceci est pour tous ceux à qui ça s‘adresse',
-		titre: 'Un titre de carte',
-		url: 'https://some.example.com/1',
-		...override,
-	};
 }

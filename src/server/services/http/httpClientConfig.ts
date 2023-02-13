@@ -46,13 +46,6 @@ const getApiStrapiConfig = (configurationService: ConfigurationService): HttpCli
 	});
 };
 
-const getApiStrapiIndexConfig = (configurationService: ConfigurationService): HttpClientConfig => {
-	return ({
-		apiName: 'STAGE_CONTENT_MANAGER_BASE_URL',
-		apiUrl: configurationService.getConfiguration().STAGE_CONTENT_MANAGER_BASE_URL,
-	});
-};
-
 const getApiGeoGouvConfig = (configurationService: ConfigurationService): HttpClientConfig => {
 	return ({
 		apiName: 'API_GEO_GOUV',
@@ -137,7 +130,6 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
 		poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
 		strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
 		strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
-		strapiIndexClientService: new HttpClientService(getApiStrapiIndexConfig(configurationService)),
 		établissementAccompagnementClientService: new HttpClientService(getApiÉtablissementsPublicsConfig(configurationService)),
 	};
 }

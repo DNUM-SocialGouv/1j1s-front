@@ -8,7 +8,11 @@ import { ConsulterArticle } from '~/client/components/features/Article/Consulter
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 
-const article = anArticle();
+const article = anArticle({
+	contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
+		'\n' +
+		'Lorem markdownum torumque sic latet',
+});
 
 describe('ConsulterArticle', () => {
 	beforeEach(() => {
@@ -17,7 +21,7 @@ describe('ConsulterArticle', () => {
 
 	it('affiche le titre de l‘article', () => {
 		render(<ConsulterArticle article={article} />);
-		const titre = screen.getByRole('heading', { level: 1, name: 'Mon article' });
+		const titre = screen.getByRole('heading', { level: 1, name: 'Titre' });
 		expect(titre).toBeInTheDocument();
 	});
 

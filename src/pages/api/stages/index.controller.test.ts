@@ -4,8 +4,8 @@ import nock from 'nock';
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { enregistrerOffreDeStageHandler  } from '~/pages/api/stages/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { anOffreDeStageDepotStrapi } from '~/server/cms/domain/offreDeStage.fixture';
-import { OffreDeStageDepotStrapi } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
+import { anOffreDeStageDepotStrapi } from '~/server/cms/infra/repositories/strapi.fixture';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -16,7 +16,7 @@ describe('enregistrer une offre de stage', () => {
 
 	describe('lorsque le body est valide', () => {
 		it('retourne 200', async () => {
-			let strapiReceivedBody: {data: OffreDeStageDepotStrapi};
+			let strapiReceivedBody: {data: Strapi.CollectionType.OffreStageDepot};
 			const strapiAuth = nock('http://localhost:1337/api')
 				.post('/offres-de-stage')
 				.once()
@@ -43,7 +43,7 @@ describe('enregistrer une offre de stage', () => {
 						method: 'POST',
 					});
 					expect(res.status).toEqual(200);
-					const strapiReceivedBodyData: OffreDeStageDepotStrapi = strapiReceivedBody.data;
+					const strapiReceivedBodyData: Strapi.CollectionType.OffreStageDepot = strapiReceivedBody.data;
 					expect(strapiReceivedBodyData).toEqual(anOffreDeStageDepotStrapi());
 					strapiAuth.done();
 					strapiApi.done();

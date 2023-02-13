@@ -24,7 +24,6 @@ export interface FicheMétier {
 }
 
 export interface FicheMetierNestedField {
-	id: number
 	idOnisep: string
 	libelle: string
 }

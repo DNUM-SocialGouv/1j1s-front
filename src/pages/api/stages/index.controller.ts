@@ -37,7 +37,7 @@ export const enregistrerOffreDeStageBodySchema = Joi.object({
 
 export async function enregistrerOffreDeStageHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
 	const responseEnregistrerOffreDeStage = await dependencies
-		.cmsIndexDependencies
+		.cmsDependencies
 		.enregistrerOffreDeStage
 		.handle(req.body);
 	return handleResponse(responseEnregistrerOffreDeStage, res);

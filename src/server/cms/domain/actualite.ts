@@ -2,7 +2,7 @@ import { Article } from './article';
 import { Image } from './image';
 
 export interface CarteActualite {
-	article: Article | null
+	article: Article | undefined
 	bannière: Image | undefined
 	extraitContenu: string
 	contenu: string

@@ -9,9 +9,9 @@ export interface MesuresEmployeurs {
 export interface CarteMesuresEmployeurs {
   titre: string
   contenu: string
-  bannière: Image | undefined
+  bannière?: Image
   url?: string
-  article: Article | null
+  article?: Article
   pourQui : string
   link: string
   extraitContenu: string

@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository.fixture';
+import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/demandeDeContact';
 import {
 	DemandeDeContactCEJRepository,

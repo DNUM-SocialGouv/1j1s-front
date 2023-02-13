@@ -8,16 +8,14 @@ import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/c
 import {
 	RechercherAlternanceLaBonneAlternanceUseCase,
 } from '~/server/alternances/useCases/rechercherAlternanceLaBonneAlternance.useCase';
-import { RechercherAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
+import {
+	RechercherAlternancePoleEmploiUseCase,
+} from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
 import {
 	RécupererSuggestionsMetiersAlternanceUseCase,
 } from '~/server/alternances/useCases/récupererSuggestionsMetiersAlternanceUseCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
-import { StrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository';
-import { StrapiIndexCmsRepository } from '~/server/cms/infra/repositories/strapiIndexCms.repository';
-import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulterAnnonceLogement.useCase';
-import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
-import { enregistrerOffreDeStageUseCase } from '~/server/cms/useCases/enregistrerOffreDeStage.useCase';
+import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import {
 	DemandeDeContactAccompagnementRepository,
 } from '~/server/demande-de-contact/infra/repositories/accompagnement/demandeDeContactAccompagnement.repository';
@@ -53,8 +51,12 @@ import {
 	StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
-import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
-import { RechercherÉtablissementAccompagnementUseCase } from '~/server/établissement-accompagnement/useCase/rechercherÉtablissementAccompagnement.useCase';
+import {
+	ApiÉtablissementPublicRepository,
+} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import {
+	RechercherÉtablissementAccompagnementUseCase,
+} from '~/server/établissement-accompagnement/useCase/rechercherÉtablissementAccompagnement.useCase';
 import {
 	ApiPoleEmploiJobÉtudiantRepository,
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
@@ -64,9 +66,7 @@ import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
-import {
-	TipimailRepository,
-} from '~/server/mail/infra/repositories/tipimail.repository';
+import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import {
 	ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
@@ -85,7 +85,6 @@ export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
-  cmsIndexDependencies: CmsIndexDependencies;
   engagementDependencies: EngagementDependencies;
   localisationDependencies: LocalisationDependencies;
   demandeDeContactDependencies: DemandeDeContactDependencies;
@@ -95,12 +94,6 @@ export type Dependencies = {
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
   établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
-};
-
-export interface CmsIndexDependencies {
-	consulterOffreStage: ConsulterOffreStageUseCase
-	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
-	enregistrerOffreDeStage: enregistrerOffreDeStageUseCase
 }
 
 export interface OffresEmploiDependencies {
@@ -173,22 +166,15 @@ export const dependenciesContainer = (): Dependencies => {
 		poleEmploiReferentielsClientService,
 		strapiAuthClientService,
 		strapiClientService,
-		strapiIndexClientService,
 		adresseClientService,
 		geoGouvClientService,
 		établissementAccompagnementClientService,
 		mailClientService,
 	} = buildHttpClientConfigList(serverConfigurationService);
 
-	const cmsRepository = new StrapiCmsRepository(strapiClientService, strapiAuthClientService);
+	const cmsRepository = new StrapiRepository(strapiClientService, strapiAuthClientService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
-	const cmsIndexRepository = new StrapiIndexCmsRepository(strapiIndexClientService, strapiAuthClientService);
-	const cmsIndexDependencies = {
-		consulterAnnonceLogement: new ConsulterAnnonceLogementUseCase(cmsIndexRepository),
-		consulterOffreStage: new ConsulterOffreStageUseCase(cmsIndexRepository),
-		enregistrerOffreDeStage: new enregistrerOffreDeStageUseCase(cmsIndexRepository),
-	};
 
 	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);
 	const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
@@ -269,7 +255,6 @@ export const dependenciesContainer = (): Dependencies => {
 	return {
 		alternanceDependencies,
 		cmsDependencies,
-		cmsIndexDependencies,
 		demandeDeContactDependencies,
 		engagementDependencies,
 		entrepriseDependencies,

@@ -9,10 +9,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { aCartesMesuresEmployeursList } from '~/server/cms/domain/mesuresEmployeurs.fixture';
 
-const mesuresEmployeurs = {
-	dispositifs: aCartesMesuresEmployeursList(),
-};
-
 describe('MesuresEmployeurs', () => {
 	beforeEach(() => {
 		mockSmallScreen();
@@ -26,13 +22,13 @@ describe('MesuresEmployeurs', () => {
 	});
 
 	it('affiche les sections des mesures employeurs', () => {
-		render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs}/>);
+		render(<MesuresEmployeursComponent mesureEmployeurList={aCartesMesuresEmployeursList()}/>);
 		const dispositifs = screen.getByText('Découvrir les dispositifs pour vous aider à recruter');
 		expect(dispositifs).toBeInTheDocument();
 	});
 
 	it('affiches les cartes dispositifs employeurs', () => {
-		render(<MesuresEmployeursComponent mesuresEmployeurs={mesuresEmployeurs} />);
+		render(<MesuresEmployeursComponent mesureEmployeurList={aCartesMesuresEmployeursList()}/>);
 		const cartes = screen.getAllByTestId('carteMesuresEmployeurs');
 		expect(cartes.length).toEqual(4);
 	});

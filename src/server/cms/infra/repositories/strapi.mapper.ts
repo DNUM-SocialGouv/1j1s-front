@@ -1,155 +1,107 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { Image as ImageProps } from '~/client/components/props';
 import { CarteActualite } from '~/server/cms/domain/actualite';
-import {
-	AnnonceDeLogement,
-	AnnonceDeLogementResponse,
-} from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
-import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
-import {
-	OffreDeStage,
-	OffreDeStageResponse,
-} from '~/server/cms/domain/offreDeStage.type';
-import {
-	ActualiteAttributesResponse,
-	ArticleAttributesResponse,
-	ArticleSimpleAttributesResponse,
-	CarteActualiteResponse,
-	CarteEspaceJeuneResponse,
-	CarteMesuresEmployeursResponse,
-	EspaceJeuneAttributesResponse,
-	MesuresEmployeursAttributesResponse,
-	StrapiCollectionTypeResponse,
-	StrapiSingleTypeResponse,
-} from '~/server/cms/infra/repositories/strapi.response';
-import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import {
-	FicheMétier,
-	FicheMetierNestedField,
-	FicheMetierNestedFieldStatut } from '~/server/fiche-metier/domain/ficheMetier';
-import {
-	FicheMétierHttp,
-	FicheMétierHttpNestedField,
-	FicheMétierHttpNestedFieldStatut,
-} from '~/server/fiche-metier/domain/ficheMetierHttp';
-import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
+import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
+import { OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
-export function mapMentionObligatoire(response: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article {
-	const { contenu, titre } = response.data.attributes;
+export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
 	return {
-		bannière: undefined,
-		contenu,
-		slug: undefined,
-		titre,
+		bannière: flatMapSingleImage(articleResponse.banniere),
+		contenu: articleResponse.contenu,
+		slug: articleResponse.slug,
+		titre: articleResponse.titre,
 	};
 }
 
-export function mapArticle(articleResponse: StrapiCollectionTypeResponse<ArticleAttributesResponse>): Article {
-	const { banniere, contenu, slug, titre } = articleResponse.data[0].attributes;
-
+export function mapFicheMetier(response: Strapi.CollectionType.FicheMétier): FicheMétier {
 	return {
-		bannière: mapImage(banniere),
-		contenu: contenu || '',
-		slug,
-		titre,
+		accesMetier: response.acces_metier,
+		accrocheMetier: response.accroche_metier,
+		centresInteret: response.centres_interet.map((centreInteret) => ({
+			idOnisep: centreInteret.identifiant,
+			libelle: capitalizeFirstLetter(centreInteret.libelle),
+		})),
+		competences: response.competences,
+		conditionTravail: response.condition_travail,
+		formationsMinRequise: response.formations_min_requise.map((formationMinRequise) => ({
+			idOnisep: formationMinRequise.identifiant,
+			libelle: capitalizeFirstLetter(formationMinRequise.libelle),
+		})),
+		id: response.id,
+		idOnisep: response.identifiant,
+		natureTravail: response.nature_travail,
+		niveauAccesMin: response.niveau_acces_min.map((niveauAccesMin) => ({
+			idOnisep: niveauAccesMin.identifiant,
+			libelle: capitalizeFirstLetter(niveauAccesMin.libelle),
+		})),
+		nomMetier: response.nom_metier,
+		secteursActivite: response.secteurs_activite.map((secteurActivite) => ({
+			idOnisep: secteurActivite.identifiant,
+			libelle: capitalizeFirstLetter(secteurActivite.libelle),
+		})),
+		statuts: response.statuts.map((statut) => ({
+			idIdeo: statut.id_ideo1,
+			idOnisep: statut.identifiant,
+			libelle: capitalizeFirstLetter(statut.libelle),
+		})),
+		vieProfessionnelle: response.vie_professionnelle,
 	};
 }
 
-export function mapFicheMetier(ficheMetierResponse: StrapiCollectionTypeResponse<FicheMétierHttp>): FicheMétier {
-	if (!ficheMetierResponse.data[0]){
-		throw createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+function capitalizeFirstLetter(sentence: string) {
+	return `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}`;
+}
+
+function flatMapSingleRelation<StrapiType, ReturnType>(relation: Strapi.SingleRelation<StrapiType> | undefined, mapper: (data: NonNullable<StrapiType>) => ReturnType): ReturnType | undefined {
+	if (!relation) {
+		return undefined;
 	}
-	const ficheMetier = ficheMetierResponse.data[0].attributes;
+	const strapiType = relation.data?.attributes;
+	if (!strapiType) {
+		return undefined;
+	}
+	return mapper(strapiType);
+}
 
+export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: Strapi.SingleType.LesMesuresEmployeurs): CarteMesuresEmployeurs[] {
+	return strapiLesMesuresEmployeurs.dispositifs.map(mapCartesMesuresEmployeursList);
+}
+
+function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: Strapi.SingleType.LesMesuresEmployeurs.Dispositif): CarteMesuresEmployeurs {
+	const article = flatMapSingleRelation(strapiLesMesuresEmployeursDispositif.article, mapArticle);
 	return {
-		accesMetier: ficheMetier.acces_metier,
-		accrocheMetier: ficheMetier.accroche_metier,
-		centresInteret: ficheMetier.centres_interet && mapFicheMetierNestedFieldList(ficheMetier.centres_interet),
-		competences: ficheMetier.competences,
-		conditionTravail: ficheMetier.condition_travail,
-		formationsMinRequise: ficheMetier.formations_min_requise && mapFicheMetierNestedFieldList(ficheMetier.formations_min_requise),
-		id: ficheMetier.id,
-		idOnisep: ficheMetier.identifiant,
-		natureTravail: ficheMetier.nature_travail,
-		niveauAccesMin: ficheMetier.niveau_acces_min && mapFicheMetierNestedFieldList(ficheMetier.niveau_acces_min),
-		nomMetier: ficheMetier.nom_metier,
-		secteursActivite: ficheMetier.secteurs_activite && mapFicheMetierNestedFieldList(ficheMetier.secteurs_activite),
-		statuts: ficheMetier.statuts && mapFicheMetierNestedFieldStatutList(ficheMetier.statuts),
-		vieProfessionnelle: ficheMetier.vie_professionnelle,
+		article,
+		bannière: flatMapSingleImage(strapiLesMesuresEmployeursDispositif.banniere),
+		contenu: strapiLesMesuresEmployeursDispositif.contenu,
+		extraitContenu: getExtraitContenu(strapiLesMesuresEmployeursDispositif.contenu, 110),
+		link: article ? `/articles/${article.slug}` : strapiLesMesuresEmployeursDispositif.url,
+		pourQui: strapiLesMesuresEmployeursDispositif.pourQui,
+		titre: strapiLesMesuresEmployeursDispositif.titre,
+		url: strapiLesMesuresEmployeursDispositif.url,
 	};
 }
 
-function mapFicheMetierNestedFieldStatutList(nestedFieldStatutList: FicheMétierHttpNestedFieldStatut[]): FicheMetierNestedFieldStatut[] {
-	return nestedFieldStatutList.map((field) => ({
-		...mapFicheMetierNestedField(field),
-		idIdeo: field.id_ideo1,
-	}));
+export function mapStrapiListeActualités(strapiListeActualités: Strapi.SingleType.ListeActualités): CarteActualite[] {
+	return strapiListeActualités.listeActualites.map(mapStrapiActualité);
 }
 
-function mapFicheMetierNestedFieldList(nestedFieldList: FicheMétierHttpNestedField[]): FicheMetierNestedField[] {
-	return nestedFieldList.map((field) => mapFicheMetierNestedField(field));
-}
-
-const capitalizeFirstLetter = (sentence: string) => `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}` || '';
-
-function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): FicheMetierNestedField {
+function mapStrapiActualité(strapiActualité: Strapi.SingleType.ListeActualités.Actualité): CarteActualite {
+	const article = flatMapSingleRelation(strapiActualité.article, mapArticle);
 	return {
-		id: nestedField.id,
-		idOnisep: nestedField.identifiant,
-		libelle: capitalizeFirstLetter(nestedField.libelle),
+		article,
+		bannière: flatMapSingleImage(strapiActualité.banniere),
+		contenu: strapiActualité.contenu,
+		extraitContenu: getExtraitContenu(strapiActualité.contenu, 110),
+		link: article ? `/articles/${article.slug}` : strapiActualité.url,
+		titre: strapiActualité.titre,
 	};
-}
-
-export function mapArticleRelation (article: StrapiSingleTypeResponse<ArticleSimpleAttributesResponse>): Article | undefined {
-	if (!article || !article.data ) { return undefined; }
-	return  article.data.attributes;
-}
-
-export function mapMesuresEmployeurs(response: StrapiSingleTypeResponse<MesuresEmployeursAttributesResponse>): MesuresEmployeurs {
-	const { dispositifs } = response.data.attributes;
-
-	return {
-		dispositifs: mapCartesMesuresEmployeursList(dispositifs),
-	};
-}
-
-function mapCartesMesuresEmployeursList(carteMesuresEmployeursList: CarteMesuresEmployeursResponse[]): CarteMesuresEmployeurs[] {
-	return carteMesuresEmployeursList.map<CarteMesuresEmployeurs>((carteMesuresEmployeurs) => {
-		const { banniere, contenu, titre, url, pourQui } = carteMesuresEmployeurs;
-		const article = mapArticleRelation(carteMesuresEmployeurs.article);
-		return {
-			article: article ?? null,
-			bannière: mapImage(banniere),
-			contenu,
-			extraitContenu: getExtraitContenu(contenu, 110),
-			link: article ? `/articles/${article.slug}` : url,
-			pourQui,
-			titre,
-			url,
-		};
-	});
-}
-
-export function mapActualites(response: StrapiSingleTypeResponse<ActualiteAttributesResponse>): CarteActualite[] {
-	return mapCarteActualiteList(response.data.attributes.listeActualites);
-}
-
-function mapCarteActualiteList(cartesActualiteList: CarteActualiteResponse[]): CarteActualite[] {
-	return cartesActualiteList.map((carteActualite) => {
-		const { banniere, contenu, titre, url } = carteActualite;
-		const article = mapArticleRelation(carteActualite.article);
-		return {
-			article: article ?? null,
-			bannière: mapImage(banniere),
-			contenu,
-			extraitContenu: getExtraitContenu(contenu, 110),
-			link: article ? `/articles/${article.slug}` : url,
-			titre,
-		};
-	});
 }
 
 function getExtraitContenu(contenu: string, size = 120): string {
@@ -160,8 +112,8 @@ function getExtraitContenu(contenu: string, size = 120): string {
 	return `${brief} …`;
 }
 
-export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAttributesResponse>): EspaceJeune {
-	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response.data.attributes;
+export function mapEspaceJeune(strapiMesureJeune: Strapi.SingleType.LesMesuresJeunes): EspaceJeune {
+	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = strapiMesureJeune;
 
 	return {
 		accompagnement: mapCartesEspaceJeuneList(accompagnement, 'Accompagnement'),
@@ -171,13 +123,13 @@ export function mapEspaceJeune(response: StrapiSingleTypeResponse<EspaceJeuneAtt
 	};
 }
 
-function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneResponse[], categorie: string): CarteEspaceJeune[] {
+function mapCartesEspaceJeuneList(cartesEspaceJeuneList: Strapi.SingleType.LesMesuresJeunes.MesureJeune[], categorie: string): CarteEspaceJeune[] {
 	return cartesEspaceJeuneList.map<CarteEspaceJeune>((carteEspaceJeune) => {
 		const { banniere, contenu, titre, url, pourQui } = carteEspaceJeune;
-		const article = mapArticleRelation(carteEspaceJeune.article);
+		const article = flatMapSingleRelation(carteEspaceJeune.article, mapArticle);
 		return {
-			article: article ?? null,
-			bannière: mapImage(banniere),
+			article,
+			bannière: flatMapSingleImage(banniere),
 			categorie: categorie,
 			concerné: pourQui,
 			contenu,
@@ -189,23 +141,21 @@ function mapCartesEspaceJeuneList(cartesEspaceJeuneList: CarteEspaceJeuneRespons
 	});
 }
 
-export function mapImage(bannière: Strapi.Image | undefined): Image | undefined {
-	if(bannière?.data) {
-		const { alternativeText, url } = bannière.data.attributes;
-		return {
-			alt: alternativeText || '',
-			url: url,
-		};
-	} else {
+function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | undefined): Image | undefined {
+	if (!response?.data) {
 		return undefined;
 	}
+	return {
+		alt: response.data.attributes.alternativeText || '',
+		url: response.data.attributes.url,
+	};
 }
 
-export function mapOffreStage(offreStageResponse: OffreDeStageResponse): OffreDeStage {
-	return offreStageResponse;
+export function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage {
+	return { ...response };
 }
 
-const getLocalisation = (localisation: AnnonceDeLogementResponse.Localisation): AnnonceDeLogement.Localisation => {
+function mapAnnonceDeLogementLocalisation(localisation: Strapi.CollectionType.AnnonceLogement.Localisation): AnnonceDeLogement.Localisation {
 	return {
 		adresse: localisation.adresse,
 		codePostal: localisation.codePostal,
@@ -216,7 +166,8 @@ const getLocalisation = (localisation: AnnonceDeLogementResponse.Localisation): 
 	};
 };
 
-const formatImageUrlList = (imagesUrl: Array<{ value: string }> | undefined): Array<ImageProps> | [] => {
+// TODO: utiliser Image en type de sortie, ImageProps est lié à un composant. Changer la propriété url de Image en src ?
+function formatImageUrlList(imagesUrl: Array<{ value: string }> | undefined): Array<ImageProps> | [] {
 	if (!imagesUrl) return [];
 	return imagesUrl.map((url) => {
 		return {
@@ -226,18 +177,18 @@ const formatImageUrlList = (imagesUrl: Array<{ value: string }> | undefined): Ar
 	});
 };
 
-const getBilanEnergetique = (bilanEnergetique: AnnonceDeLogementResponse.BilanEnergetique): AnnonceDeLogement.BilanEnergetique => {
+function mapAnnonceDeLogementBilanÉnergétique(bilanEnergetique: Strapi.CollectionType.AnnonceLogement.BilanEnergetique): AnnonceDeLogement.BilanEnergetique {
 	return {
 		consommationEnergetique: bilanEnergetique.consommationEnergetique,
 		emissionDeGaz: bilanEnergetique.emissionDeGaz,
 	};
 };
 
-export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementResponse ): AnnonceDeLogement {
+export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionType.AnnonceLogement): AnnonceDeLogement {
 	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
 
 	return {
-		bilanEnergetique: getBilanEnergetique(annonceLogementResponse.bilanEnergetique),
+		bilanEnergetique: mapAnnonceDeLogementBilanÉnergétique(annonceLogementResponse.bilanEnergetique),
 		charge: annonceLogementResponse.charge,
 		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
 		dateDeMiseAJour,
@@ -245,7 +196,7 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		devise: annonceLogementResponse.devise,
 		garantie: annonceLogementResponse.garantie,
 		imageUrlList: formatImageUrlList(annonceLogementResponse.imagesUrl),
-		localisation: getLocalisation(annonceLogementResponse.localisation),
+		localisation: mapAnnonceDeLogementLocalisation(annonceLogementResponse.localisation),
 		meublé: annonceLogementResponse.meuble,
 		nombreDePièces: annonceLogementResponse.nombreDePieces,
 		prix: annonceLogementResponse.prix,
@@ -262,3 +213,38 @@ export function mapAnnonceLogement(annonceLogementResponse: AnnonceDeLogementRes
 		étage: annonceLogementResponse.etage,
 	};
 }
+
+export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.CollectionType.OffreStageDepot {
+	return {
+		dateDeDebut: body.dateDeDebut,
+		description: body.description,
+		domaines: body.domaine ? [{
+			nom: body.domaine,
+		}] : [],
+		dureeEnJour: Number(body.duree),
+		employeur: {
+			description: body.employeur.description,
+			email: body.employeur.email,
+			logoUrl: body.employeur.logoUrl || null,
+			nom: body.employeur.nom,
+			siteUrl: body.employeur.siteUrl || null,
+		},
+		identifiantSource: uuidv4(),
+		localisation: {
+			adresse: body.localisation.adresse,
+			codePostal: body.localisation.codePostal,
+			departement: body.localisation.departement || null,
+			pays: body.localisation.pays,
+			region: body.localisation.region || null,
+			ville: body.localisation.ville,
+		},
+		//Ajoute l'offre en 'draft' dans le CMS
+		publishedAt: null,
+		remunerationBase: body.remunerationBase ?? null,
+		source: SourceDesDonnées.INTERNE,
+		teletravailPossible: body.teletravailPossible ?? null,
+		titre: body.titre,
+		urlDeCandidature: body.urlDeCandidature,
+	};
+}
+

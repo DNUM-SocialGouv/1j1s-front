@@ -1,133 +1,189 @@
-import {
-	ArticleAttributesResponse,
-	StrapiCollectionTypeResponse,
-} from '~/server/cms/infra/repositories/strapi.response';
-import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
-import { Strapi } from '~/server/services/cms/infra/repositories/responses/cmsResponse';
+import { AxiosResponse } from 'axios';
 
-export function strapiImageFixture(override?: Strapi.ImageAttributes): Strapi.Image {
+import { DomaineStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+
+export function aStrapiSingleRelation<T>(data: T): { [Key in keyof Strapi.SingleRelation<T>]: NonNullable<Strapi.SingleRelation<T>[Key]> } {
 	return {
 		data: {
-			attributes: {
-				alternativeText: 'text',
-				caption: 'string',
-				createdAt: 'string',
+			attributes: data,
+			id: 1,
+		},
+	};
+}
+
+export function aStrapiCollectionRelation<T>(data: T[]): Strapi.CollectionRelation<T> {
+	return {
+		data: data.map((attribute: T, index: number) => ({
+			attributes: attribute,
+			id: index + 1,
+		})),
+	};
+}
+
+export function aStrapiSingleType<T>(data: T): Strapi.SingleType<T> {
+	return {
+		...aStrapiSingleRelation<T>(data),
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 25,
+				total: 1,
+			},
+		},
+	};
+}
+
+export function aStrapiCollectionType<T>(data: T[]): Strapi.CollectionType<T> {
+	return {
+		...aStrapiCollectionRelation(data),
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 25,
+				total: 1,
+			},
+		},
+	};
+}
+
+export function aStrapiImage(override?: Strapi.Image): Strapi.Image {
+	return {
+		alternativeText: 'text',
+		caption: 'string',
+		createdAt: 'string',
+		ext: 'string',
+		formats: {
+			large: {
 				ext: 'string',
-				formats: strapiImageFormatListFixture(),
 				hash: 'string',
 				height: 100,
 				mime: 'string',
 				name: 'string',
-				previewUrl: 'string',
-				provider: 'string',
-				provider_metadata: 'string',
+				path: 'string',
 				size: 100,
-				updatedAt: 'string',
-				url: 'https://animage.jpg',
+				url: 'string',
 				width: 100,
-				...override,
 			},
 		},
+		hash: 'string',
+		height: 100,
+		mime: 'string',
+		name: 'string',
+		previewUrl: 'string',
+		provider: 'string',
+		provider_metadata: 'string',
+		size: 100,
+		updatedAt: 'string',
+		url: 'https://animage.jpg',
+		width: 100,
+		...override,
 	};
 }
 
-function strapiImageFormatListFixture(): Strapi.ImageFormatList {
+export function aStrapiArticle(): Strapi.CollectionType.Article {
 	return {
-		large: {
-			ext: 'string',
-			hash: 'string',
-			height: 100,
-			mime: 'string',
-			name: 'string',
-			path: 'string',
-			size: 100,
-			url: 'string',
-			width: 100,
-		},
+		banniere: aStrapiSingleRelation(aStrapiImage()),
+		contenu: 'Contenu',
+		slug: 'slug-titre',
+		titre: 'Titre',
 	};
 }
 
-export function aStrapiFicheMetierNomMetierList(): StrapiCollectionTypeResponse<Pick<FicheMétierHttp, 'nom_metier'>> {
+export function aStrapiLesMesuresEmployeurs(): Strapi.SingleType.LesMesuresEmployeurs {
 	return {
-		data: [
-			{
-				attributes: { nom_metier: 'ingénieur/e production en mécanique' },
-				id: 129,
-			},
-			{
-				attributes: { nom_metier: 'peintre en bâtiment' },
-				id: 2,
-			}, {
-				attributes: { nom_metier: 'développeur/euse rural/e humanitaire' },
-				id: 3,
-			}, {
-				attributes: { nom_metier: 'conseiller/ère en fusion-acquisition' },
-				id: 4,
-			}, {
-				attributes: { nom_metier: 'ingénieur/e en électronique numérique' },
-				id: 130,
-			}, {
-				attributes: { nom_metier: 'technicien/ne packaging' },
-				id: 254,
-			}, {
-				attributes: { nom_metier: 'microtechnicien/ne' },
-				id: 266,
-			}, {
-				attributes: { nom_metier: 'ingénieur/e en production et expérimentations végétales' },
-				id: 6,
-			}, {
-				attributes: { nom_metier: 'géologue modélisateur/trice' },
-				id: 8,
-			}, {
-				attributes: { nom_metier: "décorateur/trice d'intérieur" },
-				id: 134,
-			}, {
-				attributes: { nom_metier: 'conducteur/trice de travaux' },
-				id: 136,
-			}, {
-				attributes: { nom_metier: 'responsable de laboratoire de recherche' },
-				id: 12,
-			}, {
-				attributes: { nom_metier: 'comptable' },
-				id: 13,
-			}, {
-				attributes: { nom_metier: 'technicien/ne prototypiste en agroéquipement' },
-				id: 19,
-			}, {
-				attributes: { nom_metier: 'couvreur/euse' },
-				id: 139,
-			}, {
-				attributes: { nom_metier: 'conseiller/ère agricole' },
-				id: 141,
-			}, {
-				attributes: { nom_metier: 'médecin de secours en montagne' },
-				id: 15,
-			}, {
-				attributes: { nom_metier: 'responsable qualité en agroalimentaire' },
-				id: 17,
-			}, {
-				attributes: { nom_metier: 'conducteur/trice de travaux en entreprises de travaux agricoles' },
-				id: 18,
-			}, {
-				attributes: { nom_metier: 'technicien/ne en métrologie' },
-				id: 332,
-			}, {
-				attributes: { nom_metier: 'libraire' },
-				id: 145,
-			}, {
-				attributes: { nom_metier: 'agent/e immobilier/ère' },
-				id: 147,
-			}, {
-				attributes: { nom_metier: 'développeur/euse informatique' },
-				id: 21,
-			}, {
-				attributes: { nom_metier: 'administrateur/trice territorial/e' },
-				id: 23,
-			}, {
-				attributes: { nom_metier: 'ingénieur/e études et développement en logiciels de simulation' },
-				id: 24,
-			},
-		],
+		dispositifs: [{
+			article: aStrapiSingleRelation(aStrapiArticle()),
+			banniere: aStrapiSingleRelation(aStrapiImage()),
+			contenu: 'Un beau contenu de carte',
+			pourQui: 'Ceci est pour tous ceux à qui ça s‘adresse',
+			titre: 'Un titre de carte',
+			url: 'https://some.example.com/1',
+		}],
+	};
+}
+
+export function aStrapiFicheMetierNomMetierList(): Strapi.CollectionType<Pick<Strapi.CollectionType.FicheMétier, 'nom_metier'>> {
+	return {
+		data: [{
+			attributes: { nom_metier: 'ingénieur/e production en mécanique' },
+			id: 129,
+		}, {
+			attributes: { nom_metier: 'peintre en bâtiment' },
+			id: 2,
+		}, {
+			attributes: { nom_metier: 'développeur/euse rural/e humanitaire' },
+			id: 3,
+		}, {
+			attributes: { nom_metier: 'conseiller/ère en fusion-acquisition' },
+			id: 4,
+		}, {
+			attributes: { nom_metier: 'ingénieur/e en électronique numérique' },
+			id: 130,
+		}, {
+			attributes: { nom_metier: 'technicien/ne packaging' },
+			id: 254,
+		}, {
+			attributes: { nom_metier: 'microtechnicien/ne' },
+			id: 266,
+		}, {
+			attributes: { nom_metier: 'ingénieur/e en production et expérimentations végétales' },
+			id: 6,
+		}, {
+			attributes: { nom_metier: 'géologue modélisateur/trice' },
+			id: 8,
+		}, {
+			attributes: { nom_metier: "décorateur/trice d'intérieur" },
+			id: 134,
+		}, {
+			attributes: { nom_metier: 'conducteur/trice de travaux' },
+			id: 136,
+		}, {
+			attributes: { nom_metier: 'responsable de laboratoire de recherche' },
+			id: 12,
+		}, {
+			attributes: { nom_metier: 'comptable' },
+			id: 13,
+		}, {
+			attributes: { nom_metier: 'technicien/ne prototypiste en agroéquipement' },
+			id: 19,
+		}, {
+			attributes: { nom_metier: 'couvreur/euse' },
+			id: 139,
+		}, {
+			attributes: { nom_metier: 'conseiller/ère agricole' },
+			id: 141,
+		}, {
+			attributes: { nom_metier: 'médecin de secours en montagne' },
+			id: 15,
+		}, {
+			attributes: { nom_metier: 'responsable qualité en agroalimentaire' },
+			id: 17,
+		}, {
+			attributes: { nom_metier: 'conducteur/trice de travaux en entreprises de travaux agricoles' },
+			id: 18,
+		}, {
+			attributes: { nom_metier: 'technicien/ne en métrologie' },
+			id: 332,
+		}, {
+			attributes: { nom_metier: 'libraire' },
+			id: 145,
+		}, {
+			attributes: { nom_metier: 'agent/e immobilier/ère' },
+			id: 147,
+		}, {
+			attributes: { nom_metier: 'développeur/euse informatique' },
+			id: 21,
+		}, {
+			attributes: { nom_metier: 'administrateur/trice territorial/e' },
+			id: 23,
+		}, {
+			attributes: { nom_metier: 'ingénieur/e études et développement en logiciels de simulation' },
+			id: 24,
+		}],
 		meta: {
 			pagination:
 				{
@@ -140,7 +196,7 @@ export function aStrapiFicheMetierNomMetierList(): StrapiCollectionTypeResponse<
 	};
 }
 
-export function aStrapiPage2FicheMetierNomMetierList(): StrapiCollectionTypeResponse<Pick<FicheMétierHttp, 'nom_metier'>> {
+export function aStrapiPage2FicheMetierNomMetierList(): Strapi.CollectionType<Pick<Strapi.CollectionType.FicheMétier, 'nom_metier'>> {
 	return {
 		data: [
 			{
@@ -231,7 +287,7 @@ export function aStrapiPage2FicheMetierNomMetierList(): StrapiCollectionTypeResp
 	};
 }
 
-export function aStrapiArticleSlugList(): StrapiCollectionTypeResponse<Pick<ArticleAttributesResponse, 'slug'>> {
+export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.CollectionType.Article, 'slug'>> {
 	return {
 		data: [
 			{
@@ -318,3 +374,79 @@ export function aStrapiArticleSlugList(): StrapiCollectionTypeResponse<Pick<Arti
 		},
 	};
 }
+
+export const uneOffreDeStageResponse = (): Strapi.CollectionType.OffreStage => {
+	return {
+		createdAt: '2023-01-06T07:49:10.773Z',
+		dateDeDebut: '2024-09-01',
+		description: 'Poste ouvert aux personnes en situation de handicap',
+		domaines: undefined,
+		duree: '',
+		dureeEnJour: 720,
+		dureeEnJourMax: 800,
+		employeur: undefined,
+		id: 'anId',
+		identifiantSource: '036780b7-95ba-4711-bf26-471d1f95051c',
+		localisation: { pays: 'France' },
+		publishedAt: '2023-01-06T07:49:10.756Z',
+		remunerationBase: 1000,
+		slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
+		source: 'jobteaser' as SourceDesDonnées,
+		sourceCreatedAt: '',
+		sourcePublishedAt: '',
+		sourceUpdatedAt: '',
+		teletravailPossible: true,
+		titre: 'Alternance Audit - Tours ( H/F)',
+		updatedAt: '2023-01-06T07:49:10.773Z',
+		urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
+	};
+};
+
+export function anOffreDeStageDepotStrapi(): Strapi.CollectionType.OffreStageDepot {
+	return {
+		dateDeDebut: '2023-02-03',
+		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
+		domaines: [
+			{ nom: 'achats' },
+		] as DomaineStageDepot[],
+		dureeEnJour: 30,
+		employeur: {
+			description: 'description entreprise',
+			email: 'example@example.com',
+			logoUrl: 'https://fake-url.com',
+			nom: 'SNCF',
+			siteUrl: 'https://fake-url.com',
+		},
+		identifiantSource: '123456789',
+		localisation: {
+			adresse: 'Vieux port Marseille',
+			codePostal: '13000',
+			departement: 'Var',
+			pays: 'FR',
+			region: 'Provence-Alpes-Côte d\'Azure',
+			ville: 'Paris',
+		},
+		publishedAt: null,
+		remunerationBase: 560,
+		source: SourceDesDonnées.INTERNE,
+		teletravailPossible: true,
+		titre: 'Assistant conducteur train',
+		urlDeCandidature: 'mailto:admin@example.com',
+	};
+}
+
+export function anArticleAxiosResponse(): AxiosResponse<Strapi.CollectionType<Strapi.CollectionType.Article>> {
+	return anAxiosResponse<Strapi.CollectionType<Strapi.CollectionType.Article>>(aStrapiCollectionType([aStrapiArticle()]));
+}
+
+export function anActualiteFixture(): Strapi.SingleType<Strapi.SingleType.ListeActualités> {
+	return aStrapiSingleType({
+		listeActualites: [{
+			article: aStrapiSingleRelation(aStrapiArticle()),
+			banniere: aStrapiSingleRelation(aStrapiImage()),
+			contenu: 'Contenu',
+			titre: 'Actualité 1',
+			url: 'https://www.google.com',
+		}],
+	});
+};

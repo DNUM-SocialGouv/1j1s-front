@@ -6,6 +6,6 @@ export class RécupérerEspaceJeuneUseCase {
 	constructor(private cmsRepository: CmsRepository) {}
 
 	async handle(): Promise<Either<EspaceJeune>> {
-		return this.cmsRepository.getEspaceJeune();
+		return this.cmsRepository.getMesureJeune();
 	}
 }
