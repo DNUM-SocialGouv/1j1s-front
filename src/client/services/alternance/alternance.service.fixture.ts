@@ -1,5 +1,7 @@
-import { aRésultatRechercheAlternance } from '~/server/alternances/domain/alternance.fixture';
-import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import {
+	aListeDeMetierLaBonneAlternance,
+	aRésultatRechercheAlternance,
+} from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 import { AlternanceService } from './alternance.service';

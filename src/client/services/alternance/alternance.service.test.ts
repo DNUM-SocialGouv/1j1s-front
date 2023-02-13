@@ -1,6 +1,9 @@
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
-import { aRésultatRechercheAlternance } from '~/server/alternances/domain/alternance.fixture';
+import {
+	aListeDeMetierLaBonneAlternance,
+	aRésultatRechercheAlternance,
+} from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 describe('AlternanceService', () => {
@@ -15,6 +18,20 @@ describe('AlternanceService', () => {
 
 			expect(result).toEqual({ instance: 'success', result: aRésultatRechercheAlternance() });
 			expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeRomes=D123,D122');
+		});
+	});
+
+	describe('rechercherMétier', () => {
+		it('appelle la bonne alternance avec le métier recherché', async () => {
+			const httpClientService = anHttpClientService();
+			const alternanceService = new AlternanceService(httpClientService);
+			const métierQuery = 'boulang';
+
+			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
+			const result = await alternanceService.rechercherMétier(métierQuery);
+
+			expect(result).toEqual({ instance: 'success', result: aListeDeMetierLaBonneAlternance() });
+			expect(httpClientService.get).toHaveBeenCalledWith('alternances/metiers?motCle=boulang');
 		});
 	});
 });
