@@ -106,7 +106,7 @@ export function RechercherAlternance() {
 								  <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
 					  				<Container>
 					  					<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-											  <ul>
+											  <ul aria-label="Offres d’alternances">
 												  {alternanceList.map((alternance) => (
 					  								<li key={uuid4()}>
 					  									<RésultatRechercherAlternance alternance={alternance}/>

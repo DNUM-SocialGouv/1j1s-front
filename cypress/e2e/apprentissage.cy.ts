@@ -1,9 +1,13 @@
 /// <reference types="cypress" />
 
+import { aRésultatRechercherMultipleAlternance } from '../../src/server/alternances/domain/alternance.fixture';
+import {
+	aListeDeMetierLaBonneAlternance,
+} from '../../src/server/alternances/infra/repositories/laBonneAlternance.fixture';
 import { aBarmanOffre, aRésultatEchantillonOffre } from '../../src/server/offres/domain/offre.fixture';
 import { interceptGet } from '../interceptGet';
 
-describe('Parcours alternance', () => {
+describe.skip('Parcours alternance PE', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 		interceptGet({
@@ -64,5 +68,44 @@ context("quand les paramètres de l'url ne respectent pas le schema de validatio
 			statusCode: 400,
 		});
 		cy.contains('Erreur - Demande incorrecte').should('exist');
+	});
+});
+
+describe('Parcours alternance LBA', () => {
+	beforeEach(() => {
+		cy.viewport('iphone-x');
+	});
+
+	it('affiche 0 résultats par défaut', () => {
+		cy.visit('/apprentissage');
+		cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 0);
+	});
+
+	it('place le focus sur le premier input du formulaire de recherche', () => {
+		cy.visit('/apprentissage');
+		cy.focused().should('have.attr', 'name', 'libelle');
+	});
+
+	describe('Quand l’utilisateur effectue une recherche', () => {
+		it('filtre les résultats par mot clé', () => {
+			cy.visit('/apprentissage');
+
+			interceptGet({
+				actionBeforeWaitTheCall: () => cy.focused().type('boulang'),
+				alias: 'recherche-metiers',
+				path: '/api/alternances/*',
+				response: JSON.stringify(aListeDeMetierLaBonneAlternance()),
+			});
+			cy.focused().type('{enter}');
+
+			interceptGet({
+				actionBeforeWaitTheCall: () => cy.focused().type('{enter}'),
+				alias: 'recherche-alternances',
+				path: '/api/alternances*',
+				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
+			});
+
+			cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 4);
+		});
 	});
 });
