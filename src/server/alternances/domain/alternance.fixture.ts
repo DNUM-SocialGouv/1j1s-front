@@ -12,6 +12,33 @@ export const uneAlternance = (): Alternance => {
 	};
 };
 
+const uneAlternanceBoucher = (): Alternance => {
+	return {
+		niveauRequis : 'Cap, autres formations niveau (Infrabac)',
+		nomEntreprise : 'SARL HUGUE-DEBRIX',
+		titre: 'Boucher-charcutier / Bouchère-charcutière',
+		typeDeContrat : 'Apprentissage',
+	};
+};
+
+const uneAlternanceBoulanger = (): Alternance => {
+	return {
+		niveauRequis : 'Cap, autres formations niveau (Infrabac)',
+		nomEntreprise : 'MONSIEUR MICHEL',
+		titre: 'Ouvrier boulanger / Ouvrière boulangère',
+		typeDeContrat : 'Apprentissage',
+	};
+};
+
+const uneAlternanceBarista = (): Alternance => {
+	return {
+		niveauRequis : 'Indifférent',
+		nomEntreprise : 'A My B FORMATIONS',
+		titre: 'Barista',
+		typeDeContrat : 'Apprentissage',
+	};
+};
+
 export const aRésultatRechercheAlternance = (): Array<Alternance> => {
 	return [uneAlternance()];
 };
@@ -22,4 +49,8 @@ export const aListeDeMetierLaBonneAlternance = (): Array<MetierAlternance> => {
 		{ label: 'Transport aérien', romes: ['N2101', 'N2102', 'N2203', 'N2204'] },
 		{ label: 'Transport ferroviaire', romes: ['N4301', 'N4401', 'N4403'] },
 	];
+};
+
+export const aRésultatRechercherMultipleAlternance = (): Array<Alternance> => {
+	return [ uneAlternance(), uneAlternanceBoucher(), uneAlternanceBoulanger(), uneAlternanceBarista()];
 };
