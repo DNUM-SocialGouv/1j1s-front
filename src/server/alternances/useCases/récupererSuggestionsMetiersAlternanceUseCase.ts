@@ -1,4 +1,5 @@
-import { Either } from '../../errors/either';
+import { Either } from '~/server/errors/either';
+
 import { LaBonneAlternanceRepository } from '../domain/LaBonneAlternance.repository';
 import { MetierAlternance } from '../domain/métier';
 

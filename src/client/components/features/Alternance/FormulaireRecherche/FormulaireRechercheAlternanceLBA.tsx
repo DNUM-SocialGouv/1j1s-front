@@ -52,11 +52,6 @@ export function FormulaireRechercheAlternanceLBA() {
 							autoFocus
 							placeholder={'Exemples : informatique, boulanger...'}
 						/>
-						{/*<InputLocalisation*/}
-						{/*	libellé={'inputLibelleLocalisation'}*/}
-						{/*	code={'inputCodeLocalisation'}*/}
-						{/*	type={'inputTypeLocalisation'}*/}
-						{/*/>*/}
 					</div>
 				</div>
 				<div className={styles.buttonRechercher}>
