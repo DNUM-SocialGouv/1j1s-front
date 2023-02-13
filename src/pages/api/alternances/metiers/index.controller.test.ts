@@ -5,9 +5,9 @@ import { récupererSuggestionsMétiersAlternanceHandler } from '~/pages/api/alte
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { MetierAlternance } from '~/server/alternances/domain/métier';
 import {
-	aListeDeMetierLaBonneAlternance,
 	aMetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 
 
 describe('recupérer les métiers correspondant à la recherche', () => {

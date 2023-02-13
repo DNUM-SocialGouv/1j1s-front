@@ -1,8 +1,12 @@
 /// <reference types="cypress" />
 
-import { aRésultatRechercherMultipleAlternance } from '../../src/server/alternances/domain/alternance.fixture';
 import {
 	aListeDeMetierLaBonneAlternance,
+	aRésultatRechercherMultipleAlternance,
+} from '../../src/server/alternances/domain/alternance.fixture';
+import {
+	aListeLaBonneAlternanceApiResponse,
+	aMetierLaBonneAlternanceApiResponse,
 } from '../../src/server/alternances/infra/repositories/laBonneAlternance.fixture';
 import { aBarmanOffre, aRésultatEchantillonOffre } from '../../src/server/offres/domain/offre.fixture';
 import { interceptGet } from '../interceptGet';
@@ -96,6 +100,7 @@ describe('Parcours alternance LBA', () => {
 				path: '/api/alternances/*',
 				response: JSON.stringify(aListeDeMetierLaBonneAlternance()),
 			});
+			cy.focused().type('{enter}');
 			cy.focused().type('{enter}');
 
 			interceptGet({

@@ -4,7 +4,6 @@ import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
-	aListeDeMetierLaBonneAlternance,
 	aMetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
 import { Failure, Success } from '~/server/errors/either';
@@ -14,6 +13,7 @@ import {
 	anAxiosResponse,
 	anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
+import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('getMetier', () => {
