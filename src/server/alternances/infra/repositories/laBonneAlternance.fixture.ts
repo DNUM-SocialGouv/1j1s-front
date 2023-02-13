@@ -1,10 +1,9 @@
 import {
 	AlternanceListApiResponse,
 } from '~/server/alternances/domain/alternance';
-
 import {
 	MetierLaBonneAlternanceApiResponse,
-} from '../../domain/métier';
+} from '~/server/alternances/domain/métier';
 
 
 export const aMetierLaBonneAlternanceApiResponse = (): MetierLaBonneAlternanceApiResponse => {

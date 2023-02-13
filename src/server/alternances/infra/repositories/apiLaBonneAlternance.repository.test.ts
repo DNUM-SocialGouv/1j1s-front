@@ -1,3 +1,4 @@
+import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { MetierAlternance } from '~/server/alternances/domain/métier';
 import { anAlternanceFQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
@@ -13,7 +14,6 @@ import {
 	anAxiosResponse,
 	anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
-import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('getMetier', () => {

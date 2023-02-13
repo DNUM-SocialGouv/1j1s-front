@@ -3,11 +3,11 @@ import nock from 'nock';
 
 import { récupererSuggestionsMétiersAlternanceHandler } from '~/pages/api/alternances/metiers/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { MetierAlternance } from '~/server/alternances/domain/métier';
 import {
 	aMetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
-import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 
 
 describe('recupérer les métiers correspondant à la recherche', () => {
