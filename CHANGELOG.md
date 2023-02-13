@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.70.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.69.0...v2.70.0) (2023-02-13)
+
+
+### Features
+
+* **stage:** Description offre feature flip min length ([0f287c4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0f287c434d80bf1cae73d625b554b72d9db357f1))
+
 ## [2.69.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.68.0...v2.69.0) (2023-02-10)
 
 
