@@ -31,7 +31,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const [suggestionIndex, setSuggestionIndex] = useState(0);
 	const [suggestionsActive, setSuggestionsActive] = useState(false);
 	const [errorFromApi, setErrorFromApi] = useState('');
-	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé);
+	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé || '');
 	const [codeRomesInput, setcodeRomesInput] = useState<string[]>([]);
 	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
 	const [isFocus, setIsFocus] = useState<boolean>(false);
@@ -45,7 +45,6 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 
 	const CONTROL_ID = 'autocomplete-métier';
 
-	//todo à voir car erreur dans console
 	useEffect(() => {
 		if (libellé) {
 			setMétierRecherchéInput(libellé);
