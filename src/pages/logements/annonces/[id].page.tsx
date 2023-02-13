@@ -37,7 +37,6 @@ interface ConsulterAnnonceLogementPageProps {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<LogementContext>): Promise<GetServerSidePropsResult<ConsulterAnnonceLogementPageProps>> {
-	if (!displayAnnoncesLogement) return;
 
 	if (!context.params) {
 		throw new PageContextParamsException();
