@@ -13,12 +13,10 @@ import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
-const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
-
-export default function ConsulterAnnonceLogementPage({ annonceDeLogement }: ConsulterAnnonceLogementPageProps) {
+export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
 	usePopstate();
 
-	if (!displayAnnoncesLogement) return <ErrorUnavailableService/>;
+	if (!isFeatureActive) return <ErrorUnavailableService/>;
 
 	return (
 		<>
@@ -35,12 +33,21 @@ interface LogementContext extends ParsedUrlQuery {
 	id: string;
 }
 
-interface ConsulterAnnonceLogementPageProps {
+type ConsulterAnnonceLogementPageProps = {
 	annonceDeLogement: AnnonceDeLogement;
+	isFeatureActive: true
+} | {
+	annonceDeLogement?: never;
+	isFeatureActive: false
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<LogementContext>): Promise<GetServerSidePropsResult<ConsulterAnnonceLogementPageProps>> {
-	if (!displayAnnoncesLogement) return;
+	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
+	if (!displayAnnoncesLogement) return {
+		props: {
+			isFeatureActive: false,
+		},
+	};
 
 	if (!context.params) {
 		throw new PageContextParamsException();
@@ -55,6 +62,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Loge
 	return {
 		props: {
 			annonceDeLogement: JSON.parse(JSON.stringify(annonceDeLogement.result)),
+			isFeatureActive: true,
 		},
 	};
 }
