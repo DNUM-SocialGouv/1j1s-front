@@ -1,6 +1,5 @@
-import { StrapiCollectionTypeResponse } from '~/server/cms/infra/repositories/strapi.response';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { FicheMétierHttp } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
 export function aFicheMetier(override?: Partial<FicheMétier>) {
 	return {
@@ -8,7 +7,6 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 		accrocheMetier: 'string',
 		centresInteret: [
 			{
-				id: 1,
 				idOnisep: 'string',
 				libelle: 'String',
 			},
@@ -17,7 +15,6 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 		conditionTravail: 'string',
 		formationsMinRequise: [
 			{
-				id: 1,
 				idOnisep: 'string',
 				libelle: 'String',
 			},
@@ -27,7 +24,6 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 		natureTravail: 'string',
 		niveauAccesMin: [
 			{
-				id: 1,
 				idOnisep: 'string',
 				libelle: 'String',
 			},
@@ -35,14 +31,12 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 		nomMetier: 'string',
 		secteursActivite: [
 			{
-				id: 1,
 				idOnisep: 'string',
 				libelle: 'String',
 			},
 		],
 		statuts: [
 			{
-				id: 1,
 				idIdeo: 'string',
 				idOnisep: 'string',
 				libelle: 'String',
@@ -53,7 +47,7 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 	};
 }
 
-export function aStrapiFicheMetier(override?: Partial<FicheMétierHttp>): Partial<StrapiCollectionTypeResponse<FicheMétierHttp>> {
+export function aStrapiFicheMetier(override?: Partial<Strapi.CollectionType.FicheMétier>): Partial<Strapi.CollectionType<Strapi.CollectionType.FicheMétier>> {
 	return { 
 		data: [{
 			attributes: {
@@ -61,7 +55,6 @@ export function aStrapiFicheMetier(override?: Partial<FicheMétierHttp>): Partia
 				accroche_metier: 'string',
 				centres_interet: [
 					{
-						id: 1,
 						identifiant: 'string',
 						libelle: 'string',
 					},
@@ -70,7 +63,6 @@ export function aStrapiFicheMetier(override?: Partial<FicheMétierHttp>): Partia
 				condition_travail: 'string',
 				formations_min_requise: [
 					{
-						id: 1,
 						identifiant: 'string',
 						libelle: 'string',
 					},
@@ -80,7 +72,6 @@ export function aStrapiFicheMetier(override?: Partial<FicheMétierHttp>): Partia
 				nature_travail: 'string',
 				niveau_acces_min: [
 					{
-						id: 1,
 						identifiant: 'string',
 						libelle: 'string',
 					},
@@ -88,14 +79,12 @@ export function aStrapiFicheMetier(override?: Partial<FicheMétierHttp>): Partia
 				nom_metier: 'string',
 				secteurs_activite: [
 					{
-						id: 1,
 						identifiant: 'string',
 						libelle: 'string',
 					},
 				],
 				statuts: [
 					{
-						id: 1,
 						id_ideo1: 'string',
 						identifiant: 'string',
 						libelle: 'string',

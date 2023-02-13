@@ -37,7 +37,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Stag
 	}
 	const { id: slug } = context.params;
 
-	const offreDeStage = await dependencies.cmsIndexDependencies.consulterOffreStage.handle(slug);
+	const offreDeStage = await dependencies.cmsDependencies.consulterOffreStage.handle(slug);
 
 	if (offreDeStage.instance === 'failure') {
 		return { notFound: true };

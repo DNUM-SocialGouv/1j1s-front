@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapiCms.repository.fixture';
+import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { aFicheMetierNomMetierList, anArticlePathList, aSitemap } from '~/server/sitemap/domain/sitemap.fixture';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';

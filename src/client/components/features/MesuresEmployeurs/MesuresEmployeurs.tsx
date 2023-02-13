@@ -7,14 +7,13 @@ import { Head } from '~/client/components/head/Head';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
-import { CarteMesuresEmployeurs, MesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
+import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
 
 export interface MesuresEmployeursProps {
-  mesuresEmployeurs: MesuresEmployeurs;
+  mesureEmployeurList: CarteMesuresEmployeurs[];
 }
 
-export function MesuresEmployeursComponent({ mesuresEmployeurs }: MesuresEmployeursProps) {
-	const { dispositifs } = mesuresEmployeurs;
+export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmployeursProps) {
 	const { isLargeScreen } = useBreakpoint();
 	const isMobile = !isLargeScreen;
 	return (
@@ -30,8 +29,12 @@ export function MesuresEmployeursComponent({ mesuresEmployeurs }: MesuresEmploye
 					<h2 id="dispositifs">
             Découvrir les dispositifs pour vous aider à recruter
 					</h2>
-					<ul className={styles.cartes}>
-						{dispositifs.map((carte) => (<li key={carte.url}><CarteMesureEmployeur carte={carte} isMobile={isMobile}/></li>))}
+					<ul className={styles.cartes} aria-labelledby="dispositifs">
+						{mesureEmployeurList.map((carte) => (
+							<li key={carte.url}>
+								<CarteMesureEmployeur carte={carte} isMobile={isMobile}/>
+							</li>
+						))}
 					</ul>
 				</section>
 			</main>

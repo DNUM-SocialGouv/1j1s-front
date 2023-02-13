@@ -1,11 +1,11 @@
-import { CmsIndexRepository } from '~/server/cms/domain/cmsIndex.repository';
+import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
 
 export class ConsulterOffreStageUseCase {
-	constructor(private cmsIndexRepository: CmsIndexRepository) {}
+	constructor(private cmsRepository: CmsRepository) {}
 
 	async handle(slug: string): Promise<Either<OffreDeStage>> {
-		return this.cmsIndexRepository.getOffreDeStageBySlug(slug);
+		return this.cmsRepository.getOffreDeStageBySlug(slug);
 	}
 }

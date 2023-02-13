@@ -1,10 +1,10 @@
 import { createSuccess } from '~/server/errors/either';
 
-import { StrapiCmsRepository } from './strapiCms.repository';
+import { StrapiRepository } from './strapi.repository';
 
 export function aStrapiCmsRepository() {
 	return {
 		getResource: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		save: jest.fn().mockResolvedValue(createSuccess(undefined)),
-	} as unknown as StrapiCmsRepository;
+	} as unknown as StrapiRepository;
 }

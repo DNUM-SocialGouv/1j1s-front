@@ -1,9 +1,3 @@
-import { strapiImageFixture } from '~/server/cms/infra/repositories/strapi.fixture';
-import {
-	ActualiteAttributesResponse,
-	StrapiSingleTypeResponse,
-} from '~/server/cms/infra/repositories/strapi.response';
-
 import { CarteActualite } from './actualite';
 import { anArticle } from './article.fixture';
 
@@ -15,7 +9,7 @@ export const aCarteActualiteFixture = (override?: Partial<CarteActualite>) => ({
 	},
 	contenu: 'Contenu',
 	extraitContenu: 'Contenu',
-	link: '/articles/mon-article',
+	link: '/articles/slug-titre',
 	titre: 'Titre',
 	...override,
 });
@@ -32,30 +26,3 @@ export const aCartesActualitesListFixture = () => (
 	]
 );
 
-export const anActualiteFixture = (): StrapiSingleTypeResponse<ActualiteAttributesResponse> => ({
-	data: {
-		attributes: {
-			listeActualites: [
-				{
-					article: {
-						data: {
-							attributes: {
-								contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
-                  '\n' +
-                  'Lorem markdownum torumque sic latet',
-								slug: 'mon-article',
-								titre: 'Mon article',
-							},
-							id: 123,
-						},
-					},
-					banniere: strapiImageFixture(),
-					contenu: 'Contenu',
-					titre: 'Actualité 1',
-					url: 'https://www.google.com',
-				},
-			],
-		},
-		id: 234,
-	},
-});

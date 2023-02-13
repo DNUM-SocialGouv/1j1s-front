@@ -6,6 +6,6 @@ export class RécupererActualitesUseCase {
 	constructor(private cmsRepository: CmsRepository) {}
 
 	async handle(): Promise<Either<CarteActualite[]>> {
-		return this.cmsRepository.getActualites();
+		return this.cmsRepository.getActualitéList();
 	}
 }

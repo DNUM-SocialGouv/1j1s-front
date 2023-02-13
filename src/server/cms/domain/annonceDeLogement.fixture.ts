@@ -1,10 +1,8 @@
-import {
-	AnnonceDeLogement,
-	AnnonceDeLogementResponse,
-} from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 const uneDate = () => new Date('2022-01-01T00:00:00.000Z');
-export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
+export const uneAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLogement => {
 	return {
 		bilanEnergetique: {
 			consommationEnergetique: 'A',
@@ -22,12 +20,12 @@ export const uneAnnonceDeLogementResponse = (): AnnonceDeLogementResponse => {
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			{ nom: AnnonceDeLogementResponse.ServiceInclus.INTERNET },
-			{ nom: AnnonceDeLogementResponse.ServiceInclus.ASPIRATEUR },
+			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceInclus.INTERNET },
+			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceInclus.ASPIRATEUR },
 		],
 		servicesOptionnels: [
-			{ nom: AnnonceDeLogementResponse.ServiceOptionnel.TV },
-			{ nom: AnnonceDeLogementResponse.ServiceOptionnel.LOCAL_A_VELO },
+			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceOptionnel.TV },
+			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceOptionnel.LOCAL_A_VELO },
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',
