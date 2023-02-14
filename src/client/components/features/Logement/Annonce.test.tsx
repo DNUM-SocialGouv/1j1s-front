@@ -41,7 +41,7 @@ describe('Annonce Component', () => {
 	describe('quand il n‘y a pas d‘image', () => {
 		it('contient une image par défaut',() => {
 			render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: [] })}/>);
-			const image = screen.getByRole('img');
+			const image: HTMLImageElement = screen.getByRole('img');
 			expect(image.src).toContain('%2Fimages%2Fdefaut-logement.webp'); // %2F => /
 		});
 	});
@@ -49,7 +49,7 @@ describe('Annonce Component', () => {
 	describe("quand il n'y a qu‘une image", () => {
 		it('contient l‘image', () => {
 			render(<AnnonceDeLogement hit={uneAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}/>);
-			const image = screen.getByRole('img');
+			const image: HTMLImageElement = screen.getByRole('img');
 			expect(image.src).toContain('image-0.jpg');
 		});
 	});

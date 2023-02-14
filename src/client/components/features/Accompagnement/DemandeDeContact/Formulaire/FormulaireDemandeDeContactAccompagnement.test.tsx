@@ -102,11 +102,11 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 async function envoyerDemandeContact() {
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
 
-	await userEvent.type(screen.getByLabelText('Adresse e-mail (facultatif)'), demandeDeContactAccompagnement.email);
+	await userEvent.type(screen.getByLabelText('Adresse e-mail (facultatif)'), demandeDeContactAccompagnement.email || '');
 	await userEvent.type(screen.getByLabelText('Nom'), demandeDeContactAccompagnement.nom);
 	await userEvent.type(screen.getByLabelText('Prénom'), demandeDeContactAccompagnement.prénom);
 	await userEvent.type(screen.getByLabelText('Téléphone'), demandeDeContactAccompagnement.téléphone);
-	await userEvent.type(screen.getByLabelText('Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)'), demandeDeContactAccompagnement.commentaire);
+	await userEvent.type(screen.getByLabelText('Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)'), demandeDeContactAccompagnement.commentaire || '');
 	const button = screen.getByRole('button', { name: 'Age' });
 	await userEvent.click(button);
 	const listbox = screen.getByRole('listbox');

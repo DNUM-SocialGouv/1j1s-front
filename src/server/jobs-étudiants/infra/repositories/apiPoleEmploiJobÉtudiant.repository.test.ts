@@ -38,27 +38,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 		cacheService = new MockedCacheService();
 		httpClientServiceWithAuthentification = anHttpClientServiceWithAuthentification();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
-		apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, true);
-	});
-
-	describe('quand la feature est désactivée', () => {
-		apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, false);
-		describe('getOffreEmploi', () => {
-			it('renvoie une erreur SERVICE_INDISPONIBLE', async () => {
-				const { errorType } = await apiPoleEmploiJobÉtudiantRepository.get(aBarmanOffre().id) as Failure;
-
-				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-			});
-		});
-		describe('search', () => {
-			it('renvoie une erreur SERVICE_INDISPONIBLE', async () => {
-				const offreEmploiFiltre = anOffreEmploiFiltre();
-
-				const { errorType } = await apiPoleEmploiJobÉtudiantRepository.search(offreEmploiFiltre) as Failure;
-
-				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-			});
-		});
+		apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService);
 	});
 
 	describe('getOffreJobÉtudiant', () => {

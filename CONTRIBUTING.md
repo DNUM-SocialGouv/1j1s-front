@@ -30,7 +30,7 @@ useEffect(function myFunction() {
 ```
 
 ### Fichiers et dossiers
-* composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.css`
+* composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.scss`
 * tout le reste : camelCase, `httpClient.service.ts`, `offreEmploi.ts`, `offreEmploi.repository.ts`
 
 ## Commits

@@ -30,6 +30,7 @@ describe('strapi mapper', () => {
 							slug: 'mon-article-1',
 							titre: 'Mon article 1',
 						},
+						id: 123,
 					},
 					{
 						attributes: {
@@ -37,6 +38,7 @@ describe('strapi mapper', () => {
 							slug: 'mon-article-2',
 							titre: 'Mon article 2',
 						},
+						id: 1234,
 					}],
 				});
 				const expectedArticle = anArticle({ contenu: 'Contenu', slug: 'mon-article-1', titre: 'Mon article 1' });
@@ -55,6 +57,7 @@ describe('strapi mapper', () => {
 						slug: 'fake-titre',
 						titre: 'Fake titre',
 					},
+					id: 123,
 				},
 			});
 			expect(result).toEqual({

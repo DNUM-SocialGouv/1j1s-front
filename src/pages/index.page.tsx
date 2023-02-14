@@ -2,17 +2,16 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
+import { Container } from '~/client/components/layouts/Container/Container';
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
 import {
 	HeroPrimaryText,
 	HeroSecondaryText,
 	HeroWithIllustration,
 } from '~/client/components/ui/Hero/Hero';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import styles from '~/pages/index.module.scss';
-
-import { Container } from '../client/components/layouts/Container/Container';
-import { Icon } from '../client/components/ui/Icon/Icon';
-import SeeMoreItemList from '../client/components/ui/SeeMore/SeeMoreItemList';
 
 export default function Accueil() {
 	const nosOffresCardList = [
