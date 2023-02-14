@@ -138,5 +138,19 @@ describe('<InputArea />', () => {
 			
 			expect(message).toBeVisible();
 		});
+		it("met à jour le message d'erreur quand la valeur change", async () => {
+			render(<InputArea required defaultValue=""/>);
+
+			const input = screen.getByRole('textbox');
+			await userEvent.type(input, 'a');
+
+			let message = screen.queryByText('aaa');
+			expect(message).not.toBeInTheDocument();
+
+			await userEvent.clear(input);
+
+			message = screen.getByText('Constraints not satisfied');
+			expect(message).toBeVisible();
+		});
 	});
 });

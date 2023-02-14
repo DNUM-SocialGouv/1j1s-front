@@ -21,6 +21,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	hint,
 	id: idProps,
 	'aria-describedby': DescribedByProps,
+	onChange: onChangeProps,
 	...textareaProps
 }, refProps) {
 	const generatedId = useId();
@@ -33,6 +34,11 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 		const message = ref.current?.validationMessage;
 		setError(message);
 	}, [ref, setError]);
+	function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+		const newError = event.currentTarget.validationMessage;
+		setError(newError);
+		if (onChangeProps != null) onChangeProps(event);
+	}
 
 	const ariaDescribedby = hint
 		? `${DescribedByProps} ${hintId}`
@@ -41,7 +47,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	return (
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
-			<textarea id={id} aria-describedby={ariaDescribedby} {...textareaProps} ref={ref}/>
+			<textarea id={id} aria-describedby={ariaDescribedby} onChange={onChange} {...textareaProps} ref={ref}/>
 			{hint && <p className={classNames(styles.textInputHint)} id={hintId}>{hint}</p>}
 			<p>{error}</p>
 		</>
