@@ -4,7 +4,6 @@
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ref } from 'joi';
 
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 
@@ -30,5 +29,29 @@ describe('<InputArea />', () => {
 
 		expect(ref).toHaveBeenCalledTimes(1);
 		expect(ref).toHaveBeenCalledWith(expect.any(Element));
+	});
+
+	describe('<label />', () => {
+		it('affiche le label lorsque indiqué', () => {
+			render(<InputArea label={'Mon input'} />);
+
+			const label = screen.getByText('Mon input');
+			const input = screen.getByRole('textbox');
+
+			expect(label).toBeVisible();
+			expect(input).toHaveAccessibleName('Mon input');
+		});
+		it('génère un id unique pour chaque composant', () => {
+			render(
+				<>
+					<InputArea label={'Mon input 1'} />
+					<InputArea label={'Mon input 2'} />
+				</>,
+			);
+
+			const [input1, input2] = screen.getAllByRole('textbox');
+
+			expect(input1.id).not.toEqual(input2.id);
+		});
 	});
 });

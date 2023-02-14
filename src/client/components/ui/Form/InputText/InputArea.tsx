@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, {
 	useCallback,
-	useEffect,
+	useEffect, useId,
 	useLayoutEffect,
 	useRef,
 	useState,
@@ -11,10 +11,18 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
 import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
-type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'>;
+type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
+	label?: string;
+};
 
 export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
-	...textareaProps
+	label, ...textareaProps
 }, ref) {
-	return <textarea {...textareaProps} ref={ref}/>;
+	const generatedId = useId();
+	return (
+		<>
+			<label htmlFor={generatedId}>{label}</label>
+			<textarea id={generatedId} {...textareaProps} ref={ref}/>
+		</>
+	);
 });
