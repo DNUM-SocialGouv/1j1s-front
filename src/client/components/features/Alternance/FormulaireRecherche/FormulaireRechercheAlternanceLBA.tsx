@@ -9,6 +9,7 @@ import {
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
+import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheAlternanceLBA() {
 	const [inputLibelle, setInputLibelle] = useState<string>('');
@@ -24,13 +25,7 @@ export function FormulaireRechercheAlternanceLBA() {
 
 	async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const formData = new FormData(event.currentTarget);
-		const formEntries = Array.from(
-			formData,
-			([key, value]) => (
-				[key, typeof value === 'string' ? value : value.name]
-			),
-		).filter((element) => element[0] in queryParams && element[1] !== '' && element[1] !== 'false');
+		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
 		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { shallow: true });
 	}
 

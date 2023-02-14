@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 import {
-	aListeDeMetierLaBonneAlternance,
 	aRésultatRechercherMultipleAlternance,
 } from '../../src/server/alternances/domain/alternance.fixture';
 import { interceptGet } from '../interceptGet';
