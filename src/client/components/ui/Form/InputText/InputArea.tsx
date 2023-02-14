@@ -16,13 +16,14 @@ type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
 };
 
 export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
-	label, ...textareaProps
+	label, id: idProps, ...textareaProps
 }, ref) {
 	const generatedId = useId();
+	const id = idProps ?? generatedId;
 	return (
 		<>
-			<label htmlFor={generatedId}>{label}</label>
-			<textarea id={generatedId} {...textareaProps} ref={ref}/>
+			{label && <label htmlFor={id}>{label}</label>}
+			<textarea id={id} {...textareaProps} ref={ref}/>
 		</>
 	);
 });

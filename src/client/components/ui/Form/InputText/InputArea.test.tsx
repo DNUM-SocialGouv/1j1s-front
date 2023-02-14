@@ -15,20 +15,30 @@ describe('<InputArea />', () => {
 
 		expect(input).toBeVisible();
 	});
-	it('passe toutes les props au textarea sous-jacent', () => {
-		render(<InputArea disabled aria-label={'Mon input'} />);
 
-		const input = screen.getByRole('textbox');
+	describe('props natifs', () => {
+		it('passe toutes les props au textarea sous-jacent', () => {
+			render(<InputArea disabled aria-label={'Mon input'} />);
 
-		expect(input).toHaveAttribute('disabled');
-		expect(input).toHaveAttribute('aria-label', 'Mon input');
-	});
-	it('accepte une ref', () => {
-		const ref = jest.fn();
-		render(<InputArea ref={ref} />);
+			const input = screen.getByRole('textbox');
 
-		expect(ref).toHaveBeenCalledTimes(1);
-		expect(ref).toHaveBeenCalledWith(expect.any(Element));
+			expect(input).toHaveAttribute('disabled');
+			expect(input).toHaveAttribute('aria-label', 'Mon input');
+		});
+		it('accepte une ref', () => {
+			const ref = jest.fn();
+			render(<InputArea ref={ref} />);
+
+			expect(ref).toHaveBeenCalledTimes(1);
+			expect(ref).toHaveBeenCalledWith(expect.any(Element));
+		});
+		it("utilise l'id en props si présent", () => {
+			render(<InputArea id="mon-id" />);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).toHaveAttribute('id', 'mon-id');
+		});
 	});
 
 	describe('<label />', () => {
@@ -52,6 +62,13 @@ describe('<InputArea />', () => {
 			const [input1, input2] = screen.getAllByRole('textbox');
 
 			expect(input1.id).not.toEqual(input2.id);
+		});
+		it("utilise l'id en props si présent", () => {
+			render(<InputArea label="Mon input" id="mon-id" />);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).toHaveAccessibleName('Mon input');
 		});
 	});
 });
