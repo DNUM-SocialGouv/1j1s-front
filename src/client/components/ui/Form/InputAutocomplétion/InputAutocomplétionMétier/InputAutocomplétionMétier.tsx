@@ -162,7 +162,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	}, [closeSuggestionsOnKeyUp, closeSuggestionsOnClickOutside, suggestionsActive]);
 
 
-	const Suggestions = () => {
+	const suggestions = useMemo(() => {
 		return <ul
 			className={styles.suggestionList}
 			role="listbox"
@@ -170,9 +170,9 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			id={CONTROL_ID}
 		>
 			{suggestionsApi.length === 0 &&
-				<li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
-				  Exemple : boulanger, ...
-				</li>
+          <li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
+              Exemple : boulanger, ...
+          </li>
 			}
 			{suggestionsApi.map((suggestion, index) => (
 				<li
@@ -188,7 +188,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				</li>
 			))}
 		</ul>;
-	};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [suggestionsApi, label, suggestionIndex, métierRecherchéInput]);
 
 	return (
 		<div className={classNames(styles.wrapper, className)}>
@@ -226,11 +227,11 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 					/>
 					<input type="hidden" value={codeRomesInput} name={'codeRomes'}/>
 				</div>
-				{suggestionsActive && <Suggestions/>}
+				{suggestionsActive && suggestions}
 			</div>
 			{errorMessage && <p className={styles.instructionMessageError} id={errorId.current}>{errorMessage}</p>}
 			{required && !isFocus && isTouched && !isValueValidSelected &&
-				<p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
+          <p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
 			}
 		</div>
 	);
