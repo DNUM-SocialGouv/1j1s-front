@@ -46,6 +46,15 @@ describe('<InputArea />', () => {
 
 			expect(input).toHaveAttribute('aria-describedby', 'mon-id');
 		});
+		it('utilise onChange en props si présent', async () => {
+			const onChange = jest.fn();
+			render(<InputArea onChange={onChange}/>);
+
+			const input = screen.getByRole('textbox');
+			await userEvent.type(input, 'a');
+
+			expect(onChange).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	describe('<label />', () => {
