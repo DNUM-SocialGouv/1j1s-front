@@ -9,7 +9,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 	describe('.handle(command)', () => {
-		const command = {
+		const command: DemandeDeContactCEJ = {
 			age: 18,
 			codePostal: '95000',
 			email: 'toto@msn.fr',

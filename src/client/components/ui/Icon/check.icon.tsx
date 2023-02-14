@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
-import styles from './check.icon.module.css';
+import styles from './check.icon.module.scss';
 
 export function CheckIcon({ animate = false, circled= false, color = 'currentColor', className }: SvgProps & { circled?: boolean, animate?: boolean }) {
 	const svgStyles = [className];

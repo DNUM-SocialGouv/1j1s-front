@@ -67,7 +67,7 @@ describe('Carousel', () => {
 		expect(listDeSlidesItem[1]).toHaveAttribute('aria-current', 'false');
 		expect(listDeSlidesItem[2]).toHaveAttribute('aria-current', 'false');
 
-		const image = screen.getByRole('img');
+		const image: HTMLImageElement = screen.getByRole('img');
 		expect(image.width).toEqual(400);
 		expect(image.height).toEqual(200);
 	});
