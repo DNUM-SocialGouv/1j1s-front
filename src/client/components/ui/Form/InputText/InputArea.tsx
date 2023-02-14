@@ -22,10 +22,17 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	id: idProps,
 	'aria-describedby': DescribedByProps,
 	...textareaProps
-}, ref) {
+}, refProps) {
 	const generatedId = useId();
 	const id = idProps ?? generatedId;
 	const hintId = useId();
+
+	const ref = useSynchronizedRef(refProps);
+	const [error, setError] = useState<string | undefined>();
+	useLayoutEffect(function initilizeErrorState() {
+		const message = ref.current?.validationMessage;
+		setError(message);
+	}, [ref, setError]);
 
 	const ariaDescribedby = hint
 		? `${DescribedByProps} ${hintId}`
@@ -36,6 +43,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 			{label && <label htmlFor={id}>{label}</label>}
 			<textarea id={id} aria-describedby={ariaDescribedby} {...textareaProps} ref={ref}/>
 			{hint && <p className={classNames(styles.textInputHint)} id={hintId}>{hint}</p>}
+			<p>{error}</p>
 		</>
 	);
 });

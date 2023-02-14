@@ -129,4 +129,14 @@ describe('<InputArea />', () => {
 			expect(input).not.toHaveAttribute('aria-describedby');
 		});
 	});
+
+	describe('error', () => {
+		it("affiche un message d'erreur lorsque le champ est en erreur", () => {
+			render(<InputArea required defaultValue="" />);
+
+			const message = screen.getByText('Constraints not satisfied');
+			
+			expect(message).toBeVisible();
+		});
+	});
 });
