@@ -11,6 +11,7 @@ interface MeilisearchCustomRefinementListProps {
 export function MeilisearchCustomRefinementListForModal(props: UseRefinementListProps & MeilisearchCustomRefinementListProps) {
 	const { refine, items } = useRefinementList(props);
 
+	if (items.length === 0) return <p>Malheureusement ce champ de recherche ne peut pas être affiché pour le moment.</p>;
 	return (
 		<>
 			{items.map((item, index) => (

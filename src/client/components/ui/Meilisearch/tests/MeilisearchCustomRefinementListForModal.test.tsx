@@ -64,4 +64,20 @@ describe('MeilisearchCustomRefinementListForModal', () => {
 		});
 	});
 
+	describe('lorsque la liste des suggestions est vide', () => {
+		beforeEach(() => {
+			refineMock = jest.fn();
+			spyed
+				.mockImplementation(() => mockUseRefinementList({
+					items: [],
+					refine: refineMock,
+				}));
+		});
+		it('affiche un message informatif dans à la place de la liste de suggestions', async () => {
+			render(<MeilisearchCustomRefinementListForModal attribute='test' label='test'/>);
+			const messageInformatif = screen.getByText('Malheureusement ce champ de recherche ne peut pas être affiché pour le moment.');
+			expect(messageInformatif).toBeInTheDocument();
+		});
+	});
+
 });

@@ -33,10 +33,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 			// GIVEN
 			refineMock = jest.fn();
 			spyed.mockImplementation(() => mockUseRefinementList({
-				items: [
-					generateRefinementListItem({ label: 'exemple', value: 'exemple' }),
-				]
-				,
+				items: [ generateRefinementListItem({ label: 'exemple', value: 'exemple' }) ],
 				refine: refineMock,
 			}));
 		});
