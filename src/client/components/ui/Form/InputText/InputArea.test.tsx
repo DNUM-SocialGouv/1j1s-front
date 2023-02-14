@@ -168,5 +168,12 @@ describe('<InputArea />', () => {
 
 			expect(hint).not.toBeInTheDocument();
 		});
+		it("lie l'erreur avec le champ", () => {
+			render(<InputArea required defaultValue="" />);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).toHaveErrorMessage('Constraints not satisfied');
+		});
 	});
 });

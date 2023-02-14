@@ -44,6 +44,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	const generatedId = useId();
 	const id = idProps ?? generatedId;
 	const hintId = useId();
+	const errorId = useId();
 
 	const ref = useSynchronizedRef(refProps);
 	const { error, updateErrors } = useError(ref);
@@ -59,9 +60,9 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	return (
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
-			<textarea id={id} aria-describedby={ariaDescribedby} onChange={onChange} {...textareaProps} ref={ref}/>
+			<textarea id={id} aria-errormessage={errorId} aria-invalid={!!error} aria-describedby={ariaDescribedby} onChange={onChange} {...textareaProps} ref={ref}/>
 			{hint && !error && <p className={classNames(styles.textInputHint)} id={hintId}>{hint}</p>}
-			{error && <p className={classNames(styles.textInputHint, styles.textInputHintError)}>{error}</p>}
+			{error && <p id={errorId} className={classNames(styles.textInputHint, styles.textInputHintError)}>{error}</p>}
 		</>
 	);
 });
