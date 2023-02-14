@@ -16,6 +16,26 @@ type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
 	hint?: string;
 };
 
+
+function useError(ref: React.RefObject<{ validationMessage: string | undefined }>) {
+	const [error, setError] = useState<string | undefined>();
+
+	useLayoutEffect(function initilizeErrorState() {
+		const message = ref.current?.validationMessage;
+		setError(message);
+	}, [ref, setError]);
+
+	function updateErrors(event: React.ChangeEvent<HTMLTextAreaElement>) {
+		const newError = event.currentTarget.validationMessage;
+		setError(newError);
+	}
+
+	return {
+		error,
+		updateErrors,
+	};
+}
+
 export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
 	label,
 	hint,
@@ -29,14 +49,9 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	const hintId = useId();
 
 	const ref = useSynchronizedRef(refProps);
-	const [error, setError] = useState<string | undefined>();
-	useLayoutEffect(function initilizeErrorState() {
-		const message = ref.current?.validationMessage;
-		setError(message);
-	}, [ref, setError]);
+	const { error, updateErrors } = useError(ref);
 	function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-		const newError = event.currentTarget.validationMessage;
-		setError(newError);
+		updateErrors(event);
 		if (onChangeProps != null) onChangeProps(event);
 	}
 
