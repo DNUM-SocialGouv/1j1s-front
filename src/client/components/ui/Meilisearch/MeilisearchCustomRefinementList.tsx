@@ -57,12 +57,12 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 	}, [closeOptionsOnClickOutside, closeOptionsOnEscape]);
 
 	useEffect(function setFocusOnOpen() {
-		if (isOptionsOpen) {
+		if (isOptionsOpen && items.length > 0) {
 			const currentItem = optionsRef.current as HTMLDivElement;
 			const firstElement = currentItem.getElementsByTagName('li')[0];
 			firstElement.focus();
 		}
-	}, [isOptionsOpen]);
+	}, [isOptionsOpen, items.length]);
 
 	const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
 		const currentItem = event.target as HTMLElement;
@@ -78,7 +78,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
 	const renderOptionList = () => (
 		<ul ref={listBoxRef} role="listbox" aria-multiselectable className={styles.options}>
-			{items.map((item) => (
+			{items.length > 0 && items.map((item) => (
 				<li
 					tabIndex={-1}
 					role="option"
@@ -98,6 +98,8 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 		</ul>
 	);
 
+
+	if (items.length === 0) return null;
 	return (
 		<div className={classNames(className)}>
 			<span id={labelledBy.current}>{label}</span>
