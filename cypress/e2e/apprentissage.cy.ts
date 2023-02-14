@@ -32,10 +32,10 @@ describe('Parcours alternance LBA', () => {
 				path: '/api/alternances/metiers*',
 				response: JSON.stringify(aListeDeMetierLaBonneAlternance()),
 			});
-			cy.focused().type('{enter}');
+			cy.focused().type('{enter}', { force: true });
 
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.focused().type('{enter}'),
+				actionBeforeWaitTheCall: () => cy.focused().type('{enter}', { force: true }),
 				alias: 'recherche-alternances',
 				path: '/api/alternances?libelle*',
 				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
