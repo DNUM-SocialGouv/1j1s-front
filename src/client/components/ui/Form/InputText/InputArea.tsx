@@ -62,7 +62,7 @@ function Error({ id, children }: { id: string, children: React.ReactNode }) {
 
 function Label({ htmlFor, children }: { htmlFor: string, children: React.ReactNode }) {
 	if (!children) return null;
-	return <label htmlFor={htmlFor}>{children}</label>;
+	return <label className={styles.textInputLabel} htmlFor={htmlFor}>{children}</label>;
 }
 
 type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
@@ -79,6 +79,8 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	onChange: onChangeProps,
 	onBlur: onBlurProps,
 	validate,
+	// NOTE (GAFI 14-02-2023): Le className s'applique sur la div wrapper plutôt que sur le textarea lui-même
+	className,
 	...textareaProps
 }, refProps) {
 	const generatedId = useId();
@@ -103,19 +105,21 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 		: DescribedByProps;
 
 	return (
-		<>
+		<div className={classNames(styles.textInput, className)}>
 			<Label htmlFor={id}>{label}</Label>
 			<textarea
+				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
 				id={id}
 				aria-errormessage={errorId}
 				aria-invalid={!!error}
 				aria-describedby={ariaDescribedby}
 				onChange={onChange}
 				onBlur={onBlur}
+				data-touched={touched}
 				{...textareaProps}
 				ref={ref}/>
 			{touched && <Error id={errorId}>{error}</Error>}
 			{!error && <Hint id={hintId}>{hint}</Hint>}
-		</>
+		</div>
 	);
 });
