@@ -20,7 +20,7 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
 		config?: AxiosRequestConfig,
 	): Promise<AxiosResponse<Response>> {
 		const makeRequest = () => super.get<Response>(endpoint, config);
-		return await this.makeRequestWithRetry<Response>(makeRequest);
+		return this.makeRequestWithRetry<Response>(makeRequest);
 	}
 
 	async post<Body, Response>(
@@ -57,7 +57,7 @@ export class HttpClientServiceWithAuthentification extends HttpClientService {
 
 	async refreshToken(): Promise<void> {
 		if (this.isRefreshingToken) {
-			return await this.isRefreshingToken;
+			return this.isRefreshingToken;
 		}
 		return this.isRefreshingToken = this.tokenAgent.getToken()
 			.then((token) => {
