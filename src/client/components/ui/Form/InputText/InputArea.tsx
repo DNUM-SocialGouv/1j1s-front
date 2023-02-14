@@ -12,7 +12,7 @@ import styles from '~/client/components/ui/Form/InputText/InputText.module.scss'
 import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
-	label?: string;
+	label?: React.ReactNode;
 	hint?: string;
 };
 

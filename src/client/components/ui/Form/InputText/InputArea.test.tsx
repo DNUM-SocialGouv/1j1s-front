@@ -58,6 +58,18 @@ describe('<InputArea />', () => {
 			expect(label).toBeVisible();
 			expect(input).toHaveAccessibleName('Mon input');
 		});
+		it('accepte un ReactNode comme label', () => {
+			render(
+				<InputArea
+					label={<>Mon input <abbr title="(required)">*</abbr></>}
+				/>,
+			);
+
+			const label = screen.getByText('Mon input');
+
+			expect(label).toBeVisible();
+			expect(label).toHaveTextContent('Mon input *');
+		});
 		it('génère un id unique pour chaque composant', () => {
 			render(
 				<>
