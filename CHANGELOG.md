@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.70.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.1...v2.70.2) (2023-02-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dompurify to v3 ([e184af7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e184af716e9d09630e8f05d4d7e325b57ffbf961))
+
 ## [2.70.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.0...v2.70.1) (2023-02-13)
 
 
