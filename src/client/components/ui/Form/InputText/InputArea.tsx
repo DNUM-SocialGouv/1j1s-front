@@ -11,23 +11,35 @@ import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 type ValidationFunction = (value: string) => string | null | undefined;
 
+type ErrorRef = {
+	validationMessage: string | undefined,
+	setCustomValidity: (message: string) => void;
+	value: string;
+}
 function useError(
-	ref: React.RefObject<{ validationMessage: string | undefined }>,
+	ref: React.RefObject<ErrorRef>,
 	validate?: ValidationFunction,
 ) {
 	const [error, setError] = useState<string | undefined>();
 
+	function reportCustomValidation(element: ErrorRef) {
+		if (validate != null) {
+			const validationError = validate(element.value);
+			element.setCustomValidity(validationError ?? '');
+		}
+	}
+
 	useLayoutEffect(function initilizeErrorState() {
+		if (ref.current == null) return;
+
+		reportCustomValidation(ref.current);
 		const message = ref.current?.validationMessage;
 		setError(message);
 	}, [ref, setError]);
 
 	function updateErrors(event: React.ChangeEvent<HTMLTextAreaElement>) {
 		const element = event.currentTarget;
-		if (validate != null) {
-			const validationError = validate(element.value);
-			element.setCustomValidity(validationError ?? '');
-		}
+		reportCustomValidation(element);
 		const newError = element.validationMessage;
 		setError(newError);
 	}

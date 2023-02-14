@@ -211,5 +211,15 @@ describe('<InputArea />', () => {
 			await userEvent.type(input, 'Boom');
 			expect(input).toBeInvalid();
 		});
+		it("valide l'input contre la fonction de validation à l'initialisation", async () => {
+			function validate() {
+				return 'Error';
+			}
+
+			render(<InputArea validate={validate}/>);
+
+			const input = screen.getByRole('textbox');
+			expect(input).toBeInvalid();
+		});
 	});
 });
