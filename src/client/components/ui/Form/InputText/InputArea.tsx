@@ -54,18 +54,24 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	id: idProps,
 	'aria-describedby': DescribedByProps,
 	onChange: onChangeProps,
+	onBlur: onBlurProps,
 	...textareaProps
 }, refProps) {
 	const generatedId = useId();
 	const id = idProps ?? generatedId;
 	const hintId = useId();
 	const errorId = useId();
+	const [touched, setTouched] = useState(false);
 
 	const ref = useSynchronizedRef(refProps);
 	const { error, updateErrors } = useError(ref);
 	function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
 		updateErrors(event);
 		if (onChangeProps != null) onChangeProps(event);
+	}
+	function onBlur(event: React.FocusEvent<HTMLTextAreaElement>) {
+		setTouched(true);
+		if (onBlurProps != null) onBlurProps(event);
 	}
 
 	const ariaDescribedby = hint
@@ -81,9 +87,10 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 				aria-invalid={!!error}
 				aria-describedby={ariaDescribedby}
 				onChange={onChange}
+				onBlur={onBlur}
 				{...textareaProps}
 				ref={ref}/>
-			<Error id={errorId}>{error}</Error>
+			{touched && <Error id={errorId}>{error}</Error>}
 			{!error && <Hint id={hintId}>{hint}</Hint>}
 		</>
 	);

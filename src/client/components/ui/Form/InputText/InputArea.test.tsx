@@ -55,6 +55,16 @@ describe('<InputArea />', () => {
 
 			expect(onChange).toHaveBeenCalledTimes(1);
 		});
+		it('utilise onBlur en props si présent', async () => {
+			const onBlur = jest.fn();
+			render(<InputArea onBlur={onBlur}/>);
+
+			const input = screen.getByRole('textbox');
+			await userEvent.click(input);
+			await userEvent.tab();
+
+			expect(onBlur).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	describe('<label />', () => {
@@ -140,11 +150,17 @@ describe('<InputArea />', () => {
 	});
 
 	describe('error', () => {
-		it("affiche un message d'erreur lorsque le champ est en erreur", () => {
-			render(<InputArea required defaultValue="" />);
+		it("affiche un message d'erreur lorsque le champ est en erreur et que l'utilisateur l'a touché", async () => {
+			render(<InputArea required/>);
 
-			const message = screen.getByText('Constraints not satisfied');
-			
+			let message = screen.queryByText('Constraints not satisfied');
+			expect(message).not.toBeInTheDocument();
+
+			const input = screen.getByRole('textbox');
+			await userEvent.click(input);
+			await userEvent.tab();
+
+			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
 		});
 		it("met à jour le message d'erreur quand la valeur change", async () => {
@@ -157,6 +173,7 @@ describe('<InputArea />', () => {
 			expect(message).not.toBeInTheDocument();
 
 			await userEvent.clear(input);
+			await userEvent.tab();
 
 			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
@@ -168,10 +185,12 @@ describe('<InputArea />', () => {
 
 			expect(hint).not.toBeInTheDocument();
 		});
-		it("lie l'erreur avec le champ", () => {
-			render(<InputArea required defaultValue="" />);
+		it("lie l'erreur avec le champ", async () => {
+			render(<InputArea required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
+			await userEvent.click(input);
+			await userEvent.tab();
 
 			expect(input).toHaveErrorMessage('Constraints not satisfied');
 		});
