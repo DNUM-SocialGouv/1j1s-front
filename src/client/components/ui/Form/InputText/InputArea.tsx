@@ -21,11 +21,13 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 }, ref) {
 	const generatedId = useId();
 	const id = idProps ?? generatedId;
+	const hintId = useId();
+
 	return (
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
-			<textarea id={id} {...textareaProps} ref={ref}/>
-			<p>{hint}</p>
+			<textarea id={id} aria-describedby={hintId} {...textareaProps} ref={ref}/>
+			<p id={hintId}>{hint}</p>
 		</>
 	);
 });

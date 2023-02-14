@@ -80,5 +80,12 @@ describe('<InputArea />', () => {
 
 			expect(hint).toBeVisible();
 		});
+		it("décrit la textbox avec l'aide si présente", () => {
+			render(<InputArea hint="Ceci est une aide" />);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).toHaveAccessibleDescription('Ceci est une aide');
+		});
 	});
 });
