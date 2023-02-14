@@ -33,6 +33,21 @@ function useError(ref: React.RefObject<{ validationMessage: string | undefined }
 	};
 }
 
+function Hint({ id, children }: { id: string, children: React.ReactNode }) {
+	if (!children) return null;
+	return <p className={classNames(styles.textInputHint)} id={id}>{children}</p>;
+}
+
+function Error({ id, children }: { id: string, children: React.ReactNode }) {
+	if (!children) return null;
+	return <p id={id} className={classNames(styles.textInputHint, styles.textInputHintError)}>{children}</p>;
+}
+
+function Label({ htmlFor, children }: { htmlFor: string, children: React.ReactNode }) {
+	if (!children) return null;
+	return <label htmlFor={htmlFor}>{children}</label>;
+}
+
 export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
 	label,
 	hint,
@@ -59,10 +74,17 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 
 	return (
 		<>
-			{label && <label htmlFor={id}>{label}</label>}
-			<textarea id={id} aria-errormessage={errorId} aria-invalid={!!error} aria-describedby={ariaDescribedby} onChange={onChange} {...textareaProps} ref={ref}/>
-			{hint && !error && <p className={classNames(styles.textInputHint)} id={hintId}>{hint}</p>}
-			{error && <p id={errorId} className={classNames(styles.textInputHint, styles.textInputHintError)}>{error}</p>}
+			<Label htmlFor={id}>{label}</Label>
+			<textarea
+				id={id}
+				aria-errormessage={errorId}
+				aria-invalid={!!error}
+				aria-describedby={ariaDescribedby}
+				onChange={onChange}
+				{...textareaProps}
+				ref={ref}/>
+			<Error id={errorId}>{error}</Error>
+			{!error && <Hint id={hintId}>{hint}</Hint>}
 		</>
 	);
 });
