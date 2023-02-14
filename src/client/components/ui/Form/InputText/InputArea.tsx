@@ -60,7 +60,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
 			<textarea id={id} aria-describedby={ariaDescribedby} onChange={onChange} {...textareaProps} ref={ref}/>
-			{hint && <p className={classNames(styles.textInputHint)} id={hintId}>{hint}</p>}
+			{hint && !error && <p className={classNames(styles.textInputHint)} id={hintId}>{hint}</p>}
 			{error && <p className={classNames(styles.textInputHint, styles.textInputHintError)}>{error}</p>}
 		</>
 	);

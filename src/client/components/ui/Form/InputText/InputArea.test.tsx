@@ -161,5 +161,12 @@ describe('<InputArea />', () => {
 			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
 		});
+		it("masque l'aide à la saisie si un message d'erreur apparait", async () => {
+			render(<InputArea required defaultValue="" hint="Salut"/>);
+
+			const hint = screen.queryByText('Salut');
+
+			expect(hint).not.toBeInTheDocument();
+		});
 	});
 });
