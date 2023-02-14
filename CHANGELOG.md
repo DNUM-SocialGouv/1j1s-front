@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.70.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.3...v2.70.4) (2023-02-14)
+
+
+### Bug Fixes
+
+* **meilisearch:** ne plus afficher de liste de suggestion si pas d‘item ([ca92966](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ca929662af7cc16271034034a76f84dc51a6439c))
+
 ## [2.70.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.2...v2.70.3) (2023-02-14)
 
 
