@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 import {
-	aListeDeMetierLaBonneAlternance,
 	aRésultatRechercherMultipleAlternance,
 } from '../../src/server/alternances/domain/alternance.fixture';
 import { interceptGet } from '../interceptGet';
@@ -24,20 +23,10 @@ describe('Parcours alternance LBA', () => {
 
 	describe('Quand l’utilisateur effectue une recherche', () => {
 		it('filtre les résultats par mot clé', () => {
-			cy.visit('/apprentissage');
-
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.focused().type('boulang'),
+				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelle=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104'),
 				alias: 'recherche-metiers',
-				path: '/api/alternances/*',
-				response: JSON.stringify(aListeDeMetierLaBonneAlternance()),
-			});
-			cy.wait('@recherche-metiers').focused().type('{enter}');
-
-			interceptGet({
-				actionBeforeWaitTheCall: () => cy.focused().type('{enter}'),
-				alias: 'recherche-alternances',
-				path: '/api/alternances*',
+				path: '/api/alternances?libelle*',
 				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
 			});
 

@@ -1,7 +1,11 @@
 import {
 	Alternance,
-	AlternanceListApiResponse,
 } from '~/server/alternances/domain/alternance';
+import { MetierAlternance } from '~/server/alternances/domain/métier';
+import {
+	AlternanceListApiResponse,
+	MetierLaBonneAlternanceApiResponse,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 
 
 export const mapAlternance = (response: AlternanceListApiResponse): Array<Alternance> => {
@@ -13,5 +17,13 @@ export const mapAlternance = (response: AlternanceListApiResponse): Array<Altern
 		titre: alternance.title,
 		typeDeContrat: alternance.job.contractType,
 	}));
-
 };
+
+export const mapMétier = (response: MetierLaBonneAlternanceApiResponse): Array<MetierAlternance> => {
+	const resultats = response.labelsAndRomes;
+	return resultats.map((metier) => ({
+		label: metier.label,
+		romes: metier.romes,
+	}));
+};
+

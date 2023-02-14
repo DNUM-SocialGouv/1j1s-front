@@ -3,8 +3,8 @@ import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
-	FormulaireRechercheAlternance,
-} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+	FormulaireRechercheAlternancePE,
+} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternancePE';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { LaBonneAlternancePartner } from '~/client/components/features/Partner/LaBonneAlternancePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
@@ -106,7 +106,7 @@ export function RechercherAlternancePoleEmploi() {
 					bannière={<BannièreAlternance/>}
 					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={étiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheAlternance/>}
+					formulaireRecherche={<FormulaireRechercheAlternancePE/>}
 					isLoading={isLoading}
 					messageRésultatRecherche={messageRésultatRecherche}
 					nombreSolutions={nombreRésultats}

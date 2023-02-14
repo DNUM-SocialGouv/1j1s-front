@@ -33,7 +33,7 @@ describe('InputAutocomplétionMétier', () => {
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
 			await waitFor(() => user.type(inputAutocomplétionMétier, 'dddddd'));
-			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulangerie, ...');
+			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...');
 
 			expect(emptyResultText).toBeInTheDocument();
 			expect(screen.queryByRole('option')).not.toBeInTheDocument();

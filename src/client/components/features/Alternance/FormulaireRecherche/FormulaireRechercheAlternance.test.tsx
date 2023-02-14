@@ -6,8 +6,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
-	FormulaireRechercheAlternanceLBA,
-} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternanceLBA';
+	FormulaireRechercheAlternance,
+} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -28,7 +28,7 @@ describe('FormulaireRechercheAlternance', () => {
 			// When
 			render(
 				<DependenciesProvider alternanceService={alternanceService}>
-					<FormulaireRechercheAlternanceLBA/>
+					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
 			);
 

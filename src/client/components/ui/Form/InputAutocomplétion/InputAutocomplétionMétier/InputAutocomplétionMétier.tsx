@@ -10,7 +10,7 @@ import { AlternanceService } from '~/client/services/alternance/alternance.servi
 import { MetierAlternance } from '~/server/alternances/domain/métier';
 import { isSuccess } from '~/server/errors/either';
 
-interface InputAutocomplétionMétierProps extends React.InputHTMLAttributes<unknown> {
+interface InputAutocomplétionMétierProps extends React.ComponentPropsWithoutRef<'input'> {
 	label?: string;
 	required?: boolean;
 	className?: string;
@@ -30,7 +30,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const [suggestionsApi, setSuggestionsApi] = useState<MetierAlternance[]>([]);
 	const [suggestionIndex, setSuggestionIndex] = useState(0);
 	const [suggestionsActive, setSuggestionsActive] = useState(false);
-	const [errorFromApi, setErrorFromApi] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé || '');
 	const [codeRomesInput, setcodeRomesInput] = useState<string[]>([]);
 	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
@@ -64,11 +64,11 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			const response = await métierRecherchéService.rechercherMétier(value);
 			if (isSuccess(response)) {
 				setSuggestionsApi(response.result);
-				setErrorFromApi('');
+				setErrorMessage('');
 				setSuggestionIndex(0);
 				setSuggestionsActive(true);
 			} else {
-				setErrorFromApi(ERROR_RETRIEVE_METIER);
+				setErrorMessage(ERROR_RETRIEVE_METIER);
 				setSuggestionsActive(false);
 			}
 		} else {
@@ -162,7 +162,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	}, [closeSuggestionsOnKeyUp, closeSuggestionsOnClickOutside, suggestionsActive]);
 
 
-	const Suggestions = () => {
+	const suggestions = useMemo(() => {
 		return <ul
 			className={styles.suggestionList}
 			role="listbox"
@@ -170,9 +170,9 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			id={CONTROL_ID}
 		>
 			{suggestionsApi.length === 0 &&
-				<li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
-				  Exemple : boulangerie, ...
-				</li>
+          <li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
+              Exemple : boulanger, ...
+          </li>
 			}
 			{suggestionsApi.map((suggestion, index) => (
 				<li
@@ -188,7 +188,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				</li>
 			))}
 		</ul>;
-	};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [suggestionsApi, label, suggestionIndex, métierRecherchéInput]);
 
 	return (
 		<div className={classNames(styles.wrapper, className)}>
@@ -226,11 +227,11 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 					/>
 					<input type="hidden" value={codeRomesInput} name={'codeRomes'}/>
 				</div>
-				{suggestionsActive && <Suggestions/>}
+				{suggestionsActive && suggestions}
 			</div>
-			{errorFromApi && <p className={styles.instructionMessageError} id={errorId.current}>{errorFromApi}</p>}
+			{errorMessage && <p className={styles.instructionMessageError} id={errorId.current}>{errorMessage}</p>}
 			{required && !isFocus && isTouched && !isValueValidSelected &&
-		<p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
+          <p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
 			}
 		</div>
 	);

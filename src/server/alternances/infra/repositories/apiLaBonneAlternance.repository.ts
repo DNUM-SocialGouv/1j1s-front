@@ -1,33 +1,31 @@
 import {
 	Alternance,
-	AlternanceListApiResponse,
 	AlternanceQuery,
 } from '~/server/alternances/domain/alternance';
-import { LaBonneAlternanceRepository } from '~/server/alternances/domain/LaBonneAlternance.repository';
+import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
 	MetierAlternance,
-	MetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/domain/métier';
-import { mapAlternance } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import {
+	AlternanceListApiResponse,
+	MetierLaBonneAlternanceApiResponse,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import { mapAlternance, mapMétier } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
-import { handleSearchFailureError } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 const caller = '1jeune1solution';
 const sources = 'matcha';
 
 
-export class ApiLaBonneAlternanceRepository implements LaBonneAlternanceRepository {
+export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	constructor(private httpClientService: HttpClientService) {}
 
-	async getMetier(recherche: string): Promise<Either<Array<MetierAlternance>>> {
+	async getMetierList(recherche: string): Promise<Either<Array<MetierAlternance>>> {
 		try {
 			const response = await this.httpClientService.get<MetierLaBonneAlternanceApiResponse>(`/metiers?title=${recherche}`);
-			const mappedResponse = response.data.labelsAndRomes.map((metier) => ({
-				label: metier.label,
-				romes: metier.romes,
-			}));
-			return createSuccess(mappedResponse);
+			return createSuccess(mapMétier(response.data));
 		} catch (e) {
 			return handleSearchFailureError(e, 'la bonne alternance métier');
 		}

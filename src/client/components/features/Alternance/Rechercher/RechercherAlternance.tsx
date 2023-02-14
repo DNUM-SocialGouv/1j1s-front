@@ -5,8 +5,8 @@ import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
-	FormulaireRechercheAlternanceLBA,
-} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternanceLBA';
+	FormulaireRechercheAlternance,
+} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import {
 	RésultatRechercherAlternance,
 } from '~/client/components/features/Alternance/Résultat/RésultatRechercherAlternance';
@@ -62,8 +62,10 @@ export function RechercherAlternance() {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
 		if (nombreRésultats > 1) {
 			messageRésultatRechercheSplit.push('offres d’alternances');
-		} else {
+		} else if (nombreRésultats === 1) {
 			messageRésultatRechercheSplit.push('offre d’alternance');
+		} else {
+			return '';
 		}
 		if (router.query.motCle) {
 			messageRésultatRechercheSplit.push(`pour ${router.query.motCle}`);
@@ -88,37 +90,37 @@ export function RechercherAlternance() {
 				<div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
 					<div className={'separator'}>
 						<Container className={styles.rechercheSolutionFormWrapper}>
-							<FormulaireRechercheAlternanceLBA/>
+							<FormulaireRechercheAlternance/>
 						</Container>
 					</div>
-					  <>
-						  {erreurRecherche && !isLoading
-							  ? <ErrorComponent errorType={erreurRecherche}/>
-							  : <>
-								  <div className={'separator'}>
-									  <Container className={styles.informationRésultat}>
-										  <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-											  <h2>{messageRésultatRecherche}</h2>
-										  </Skeleton>
-									  </Container>
-								  </div>
+					<>
+						{erreurRecherche && !isLoading
+							? <ErrorComponent errorType={erreurRecherche}/>
+							: <>
+								<div className={'separator'}>
+									<Container className={styles.informationRésultat}>
+										<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
+											<h2>{messageRésultatRecherche}</h2>
+										</Skeleton>
+									</Container>
+								</div>
 
-								  <div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-					  				<Container>
-					  					<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-											  <ul aria-label="Offres d’alternances">
-												  {alternanceList.map((alternance) => (
-					  								<li key={uuid4()}>
-					  									<RésultatRechercherAlternance alternance={alternance}/>
-					  								</li>
-												  ))}
-											  </ul>
-					  					</Skeleton>
-					  				</Container>
-								  </div>
-							  </>
-						  }
-					  </>
+								<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+									<Container>
+										<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
+											<ul aria-label="Offres d’alternances">
+												{alternanceList.map((alternance) => (
+													<li key={uuid4()}>
+														<RésultatRechercherAlternance alternance={alternance}/>
+													</li>
+												))}
+											</ul>
+										</Skeleton>
+									</Container>
+								</div>
+							</>
+						}
+					</>
 				</div>
 			</main>
 		</>
