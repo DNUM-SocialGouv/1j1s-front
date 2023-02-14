@@ -27,6 +27,6 @@ export default withMonitoring(withValidation({ query: alternancesQuerySchema }, 
 export function alternanceFiltreMapper(request: NextApiRequest): AlternanceQuery {
 	const { query } = request;
 	return {
-		codeRomes: queryToArray(query.codeRomes),
+		codeRomes: query.codeRomes ? queryToArray(query.codeRomes) : [],
 	};
 }
