@@ -29,7 +29,7 @@ describe('Parcours alternance LBA', () => {
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.focused().type('boulang'),
 				alias: 'recherche-metiers',
-				path: '/api/alternances/*',
+				path: '/api/alternances/metiers*',
 				response: JSON.stringify(aListeDeMetierLaBonneAlternance()),
 			});
 			cy.wait('@recherche-metiers').focused().type('{enter}');
@@ -37,7 +37,7 @@ describe('Parcours alternance LBA', () => {
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.focused().type('{enter}'),
 				alias: 'recherche-alternances',
-				path: '/api/alternances*',
+				path: '/api/alternances?libelle*',
 				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
 			});
 
