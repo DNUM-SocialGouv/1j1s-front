@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, {
+	useCallback,
 	useId,
 	useLayoutEffect,
 	useState,
@@ -22,12 +23,12 @@ function useError(
 ) {
 	const [error, setError] = useState<string | undefined>();
 
-	function reportCustomValidation(element: ErrorRef) {
+	const reportCustomValidation = useCallback(function reportCustomValidation(element: ErrorRef) {
 		if (validate != null) {
 			const validationError = validate(element.value);
 			element.setCustomValidity(validationError ?? '');
 		}
-	}
+	}, [validate]);
 
 	useLayoutEffect(function initilizeErrorState() {
 		if (ref.current == null) return;
@@ -35,7 +36,7 @@ function useError(
 		reportCustomValidation(ref.current);
 		const message = ref.current?.validationMessage;
 		setError(message);
-	}, [ref, setError]);
+	}, [ref, setError, reportCustomValidation]);
 
 	function updateErrors(event: React.ChangeEvent<HTMLTextAreaElement>) {
 		const element = event.currentTarget;
