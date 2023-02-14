@@ -71,4 +71,14 @@ describe('<InputArea />', () => {
 			expect(input).toHaveAccessibleName('Mon input');
 		});
 	});
+
+	describe('hint', () => {
+		it('affiche une aide lorsque présente', () => {
+			render(<InputArea hint="Ceci est une aide" />);
+
+			const hint = screen.getByText('Ceci est une aide');
+
+			expect(hint).toBeVisible();
+		});
+	});
 });

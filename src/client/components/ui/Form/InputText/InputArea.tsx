@@ -13,10 +13,11 @@ import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
 	label?: string;
+	hint?: string;
 };
 
 export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
-	label, id: idProps, ...textareaProps
+	label, hint, id: idProps, ...textareaProps
 }, ref) {
 	const generatedId = useId();
 	const id = idProps ?? generatedId;
@@ -24,6 +25,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
 			<textarea id={id} {...textareaProps} ref={ref}/>
+			<p>{hint}</p>
 		</>
 	);
 });
