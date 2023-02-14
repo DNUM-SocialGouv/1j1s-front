@@ -358,7 +358,7 @@ export default function JeRecruteAfprPoeiInscription() {
         							label="Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles"
         							name="commentaires"
         							placeholder="Saisissez votre texte ici"
-        							value={formulaireÉtape3.commentaire}
+        							defaultValue={formulaireÉtape3.commentaire}
         							onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setFormulaireÉtape3({
         								...formulaireÉtape3,
         								commentaire: event.currentTarget.value,
