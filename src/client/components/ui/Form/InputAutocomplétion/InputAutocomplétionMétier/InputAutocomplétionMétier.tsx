@@ -10,7 +10,7 @@ import { AlternanceService } from '~/client/services/alternance/alternance.servi
 import { MetierAlternance } from '~/server/alternances/domain/métier';
 import { isSuccess } from '~/server/errors/either';
 
-interface InputAutocomplétionMétierProps extends React.InputHTMLAttributes<unknown> {
+interface InputAutocomplétionMétierProps extends React.ComponentPropsWithoutRef<'input'> {
 	label?: string;
 	required?: boolean;
 	className?: string;
@@ -30,7 +30,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const [suggestionsApi, setSuggestionsApi] = useState<MetierAlternance[]>([]);
 	const [suggestionIndex, setSuggestionIndex] = useState(0);
 	const [suggestionsActive, setSuggestionsActive] = useState(false);
-	const [errorFromApi, setErrorFromApi] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé || '');
 	const [codeRomesInput, setcodeRomesInput] = useState<string[]>([]);
 	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
@@ -64,11 +64,11 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			const response = await métierRecherchéService.rechercherMétier(value);
 			if (isSuccess(response)) {
 				setSuggestionsApi(response.result);
-				setErrorFromApi('');
+				setErrorMessage('');
 				setSuggestionIndex(0);
 				setSuggestionsActive(true);
 			} else {
-				setErrorFromApi(ERROR_RETRIEVE_METIER);
+				setErrorMessage(ERROR_RETRIEVE_METIER);
 				setSuggestionsActive(false);
 			}
 		} else {
@@ -171,7 +171,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 		>
 			{suggestionsApi.length === 0 &&
 				<li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
-				  Exemple : boulangerie, ...
+				  Exemple : boulanger, ...
 				</li>
 			}
 			{suggestionsApi.map((suggestion, index) => (
@@ -228,9 +228,9 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				</div>
 				{suggestionsActive && <Suggestions/>}
 			</div>
-			{errorFromApi && <p className={styles.instructionMessageError} id={errorId.current}>{errorFromApi}</p>}
+			{errorMessage && <p className={styles.instructionMessageError} id={errorId.current}>{errorMessage}</p>}
 			{required && !isFocus && isTouched && !isValueValidSelected &&
-		<p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
+				<p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
 			}
 		</div>
 	);

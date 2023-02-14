@@ -15,29 +15,31 @@ export function RésultatRechercherAlternance(props: RésultatRechercherAlternan
 	const { alternance } = props;
 	const étiquetteList = [alternance.localisation, alternance.typeDeContrat, alternance.niveauRequis];
 	const { isSmallScreen } = useBreakpoint();
-	const logo='/images/logos/la-bonne-alternance.svg';
+	const logo = '/images/logos/la-bonne-alternance.svg';
 
-	const cardDescription = () => {
-		return (
-			<section className={styles.cardDescription}>
-				{étiquetteList.length > 0 && <TagList list={étiquetteList} aria-label="Caractéristiques de l‘offre" />}
-			</section>
-		);
-	};
-	
 	return (
 		<div className={classNames(styles.card, 'underline-none')}>
 			<div className={styles.cardHeader}>
-				<Image alt="" src={logo} width={120} height={120} />
+				<Image alt="" src={logo} width={120} height={120}/>
 				<div className={styles.offreLead}>
 					<header>
 						<h3 className={styles.offreLeadTitle}>{alternance.titre}</h3>
 						<div className={styles.offreLeadSubTitle}>{alternance.nomEntreprise && alternance.nomEntreprise}</div>
 					</header>
-					{ !isSmallScreen && cardDescription()}
+					{!isSmallScreen && <CardDescription étiquetteList={étiquetteList}/>}
 				</div>
 			</div>
-			{ isSmallScreen && cardDescription()}
+			{isSmallScreen && <CardDescription étiquetteList={étiquetteList}/>}
 		</div>
+	);
+}
+
+
+function CardDescription(props: { étiquetteList: (string | undefined)[] }) {
+	const { étiquetteList } = props;
+	return (
+		<section className={styles.cardDescription}>
+			{étiquetteList.length > 0 && <TagList list={étiquetteList} aria-label="Caractéristiques de l‘offre"/>}
+		</section>
 	);
 }

@@ -1,73 +1,63 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import styles
-	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
+	from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import {
+	InputAutocomplétionMétier,
+} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { useOffreQuery } from '~/client/hooks/useOffreQuery';
+import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
-
 export function FormulaireRechercheAlternance() {
-	const rechercheAlternanceForm = useRef<HTMLFormElement>(null);
-
-	const [inputMotCle, setInputMotCle] = useState<string>('');
-	const [inputTypeLocalisation, setInputTypeLocalisation] = useState<string>('');
-	const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState<string>('');
-	const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
-
-	const queryParams = useOffreQuery();
+	const [inputLibelle, setInputLibelle] = useState<string>('');
+	const [inputCodeRomes, setInputCodeRomes] = useState<string>('');
 	const router = useRouter();
 
+	const queryParams = useAlternanceQuery();
+
 	useEffect(function initFormValues() {
-		setInputMotCle(queryParams.motCle || '');
-		setInputTypeLocalisation(queryParams.typeLocalisation || '');
-		setInputCodeLocalisation(queryParams.codeLocalisation || '');
-		setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
+		setInputLibelle(queryParams.libelle || '');
+		setInputCodeRomes(queryParams.codeRomes || '');
 	}, [queryParams]);
 
 	async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQuery(event.currentTarget, queryParams);
-		return router.push({ query }, undefined, { shallow: true });
+		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
+		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { shallow: true });
 	}
 
 	return (
-		<form
-			ref={rechercheAlternanceForm}
-			role="form"
-			className={styles.rechercheOffreForm}
-			onSubmit={updateRechercherAlternanceQueryParams}
-		>
-			<div className={styles.filtresRechercherOffre}>
-				<div className={styles.inputButtonWrapper}>
-					<InputText
-						label="Métier, mot-clé"
-						value={inputMotCle}
-						name="motCle"
-						autoFocus
-						placeholder="Exemple : serveur, tourisme..."
-						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-					/>
-					<InputLocalisation
-						libellé={inputLibelleLocalisation}
-						code={inputCodeLocalisation}
-						type={inputTypeLocalisation}
-					/>
-
+		<>
+			<p className={styles.champsObligatoires}>Tous les champs sont obligatoires</p>
+			<form
+				className={styles.rechercheOffreForm}
+				onSubmit={updateRechercherAlternanceQueryParams}
+			>
+				<div className={styles.filtresRechercherOffre}>
+					<div className={styles.inputButtonWrapper}>
+						<InputAutocomplétionMétier
+							name={'libelle'}
+							label={'Sélectionnez un métier, domaine'}
+							libellé={inputLibelle}
+							codeRomes={inputCodeRomes}
+							required
+							autoFocus
+							placeholder={'Exemples : informatique, boulanger...'}
+						/>
+					</div>
 				</div>
-			</div>
-			<div className={styles.buttonRechercher}>
-				<ButtonComponent
-					label='Rechercher'
-					icon={<Icon name="magnifying-glass" />}
-					iconPosition='right'
-					type='submit'
-				/>
-			</div>
-		</form>
+				<div className={styles.buttonRechercher}>
+					<ButtonComponent
+						label="Rechercher"
+						icon={<Icon name="magnifying-glass"/>}
+						iconPosition="right"
+						type="submit"
+					/>
+				</div>
+			</form>
+		</>
 	);
 }

@@ -1,6 +1,6 @@
 import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { MetierAlternance } from '~/server/alternances/domain/métier';
-import { anAlternanceFQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import { anAlternanceQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
@@ -16,7 +16,7 @@ import {
 } from '~/server/services/http/httpClientService.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
-	describe('getMetier', () => {
+	describe('getMetierList', () => {
 		describe('Quand l‘api renvoit un résultat', () => {
 			it('retourne un tableau de métier', async () => {
 				const httpClientService = anHttpClientService();
@@ -24,7 +24,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				const expected = aListeDeMetierLaBonneAlternance();
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
-				const response = await repository.getMetier('tran');
+				const response = await repository.getMetierList('tran');
 
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
 				expect(response.instance).toEqual('success');
@@ -38,7 +38,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: '429' }));
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
-				const response = await repository.getMetier('tran');
+				const response = await repository.getMetierList('tran');
 
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
 				expect(response.instance).toEqual('failure');
@@ -46,54 +46,31 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			});
 		});
 	});
+
 	describe('search', () => {
-		describe('quand on appelle l’api LaBonneAlternance', () => {
-			it('appelle l’api LaBonneAlternance', () => {
-				// Given
-				const httpClientService = anHttpClientService();
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
-
-				// When
-				repository.search(anAlternanceFQuery());
-
-				// Then
-				expect(httpClientService.get).toHaveBeenCalledTimes(1);
-				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
-			});
-		});
-		it('fait l’appelle avec le caller 1J1S', () => {
+		it('appelle l’api LaBonneAlternance', () => {
+			// Given
 			const httpClientService = anHttpClientService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			repository.search(anAlternanceFQuery());
+			repository.search(anAlternanceQuery());
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledTimes(1);
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
+		});
+		it('fait l’appel avec les bons paramètres', () => {
+			const httpClientService = anHttpClientService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+
+			// When
+			repository.search(anAlternanceQuery());
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution/));
-		});
-		it('fait l’appelle avec la query obligatoire romes', () => {
-
-			const httpClientService = anHttpClientService();
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
-
-			// When
-			repository.search(anAlternanceFQuery());
-
-			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=D1406,D1407/));
-		});
-
-		it('fait l’appelle avec la query sources à matcha', () => {
-
-			const httpClientService = anHttpClientService();
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
-
-			// When
-			repository.search(anAlternanceFQuery());
-
-			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
 		});
-
 	});
 });

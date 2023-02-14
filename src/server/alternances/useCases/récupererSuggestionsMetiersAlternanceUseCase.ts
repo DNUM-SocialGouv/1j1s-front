@@ -1,12 +1,11 @@
+import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
+import { MetierAlternance } from '~/server/alternances/domain/métier';
 import { Either } from '~/server/errors/either';
 
-import { LaBonneAlternanceRepository } from '../domain/LaBonneAlternance.repository';
-import { MetierAlternance } from '../domain/métier';
-
 export class RécupererSuggestionsMetiersAlternanceUseCase {
-	constructor(private laBonneAlternanceRepository: LaBonneAlternanceRepository) {}
+	constructor(private laBonneAlternanceRepository: AlternanceRepository) {}
 
 	async handle(recherche: string): Promise<Either<Array<MetierAlternance>>> {
-		return this.laBonneAlternanceRepository.getMetier(recherche);
+		return this.laBonneAlternanceRepository.getMetierList(recherche);
 	}
 }
