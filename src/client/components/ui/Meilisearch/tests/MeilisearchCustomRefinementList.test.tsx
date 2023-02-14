@@ -20,10 +20,22 @@ const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'useRefinemen
 let refineMock: jest.Mock<string>;
 
 describe('MeilisearchCustomRefinementList', () => {
-	it('monte le composant', async () => {
-		render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
-		const button = screen.getByRole('button');
-		expect(button).toBeInTheDocument();
+	describe('lorsque la liste des suggestions est vide', () => {
+		beforeEach(() => {
+			refineMock = jest.fn();
+			spyed
+				.mockImplementation(() => mockUseRefinementList({
+					items: [],
+					refine: refineMock,
+				}));
+		});
+		it('affiche un message informatif dans à la place de la liste de suggestions', async () => {
+			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+			const button = screen.queryByRole('button', { name: 'test' });
+
+			expect(button).not.toBeInTheDocument();
+
+		});
 	});
 
 	describe('Avec 3 objets de filtres possibles dont le premier a pour label "audit" et valeur "auditeur"', () => {
@@ -40,6 +52,12 @@ describe('MeilisearchCustomRefinementList', () => {
 				refine: refineMock,
 			}));
 		});
+		it('monte le composant', async () => {
+			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+			const button = screen.queryByRole('button', { name: 'test' });
+			expect(button).toBeInTheDocument();
+		});
+
 		it('affiche une liste de 3 éléments', async () => {
 			const user = userEvent.setup();
 			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
@@ -129,7 +147,7 @@ describe('MeilisearchCustomRefinementList Keyboard', () => {
 			const user = userEvent.setup();
 
 			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
-			const button = screen.getByRole('button');
+			const button = screen.getByRole('button', { name: 'test' });
 			button.focus();
 			await user.keyboard(KeyBoard.SPACE);
 			const optionList = await screen.findByRole('listbox');
