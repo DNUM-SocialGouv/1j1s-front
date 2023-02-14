@@ -7,6 +7,6 @@ export class ConsulterMissionEngagementUseCase {
 	}
 
 	async handle(id: MissionId): Promise<Either<Mission>> {
-		return await this.missionRepository.getMissionEngagement(id);
+		return this.missionRepository.getMissionEngagement(id);
 	}
 }

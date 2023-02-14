@@ -15,6 +15,6 @@ export class RechercherCommuneUseCase {
 		if (recherche.length < minimumQueryLength) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		}
-		return await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
+		return this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
 	}
 }

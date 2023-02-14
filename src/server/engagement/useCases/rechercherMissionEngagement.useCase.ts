@@ -10,6 +10,6 @@ export class RechercherMissionEngagementUseCase {
 	}
 
 	async handle(missionServiceCiviqueFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
-		return await this.engagementRepository.searchMissionEngagement(missionServiceCiviqueFiltre);
+		return this.engagementRepository.searchMissionEngagement(missionServiceCiviqueFiltre);
 	}
 }

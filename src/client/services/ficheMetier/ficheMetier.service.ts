@@ -6,6 +6,6 @@ export class FicheMetierService {
 	constructor(private httpClient: HttpClientService) {}
 	
 	async rechercherFichesMétier(query = ''): Promise<Either<FicheMétierResult>> {
-		return await this.httpClient.get<FicheMétierResult>(`fiche-metier?${query}`);
+		return this.httpClient.get<FicheMétierResult>(`fiche-metier?${query}`);
 	}
 }

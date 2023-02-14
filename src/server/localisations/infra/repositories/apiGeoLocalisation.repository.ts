@@ -15,27 +15,27 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
 	}
 
 	async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {
-		return await this.request(`communes?nom=${communeRecherchée}`);
+		return this.request(`communes?nom=${communeRecherchée}`);
 	}
 
 	async getCommuneListByCodePostal(codePostalRecherchée: string): Promise<Either<Localisation[]>> {
-		return await this.request(`communes?codePostal=${codePostalRecherchée}`);
+		return this.request(`communes?codePostal=${codePostalRecherchée}`);
 	}
 
 	async getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-		return await this.request(`departements/${numéroDépartementRecherché}/communes`);
+		return this.request(`departements/${numéroDépartementRecherché}/communes`);
 	}
 
 	async getDépartementListByNom(départementRecherché: string): Promise<Either<Localisation[]>> {
-		return await this.request(`departements?nom=${départementRecherché}`);
+		return this.request(`departements?nom=${départementRecherché}`);
 	}
 
 	async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-		return await this.request(`departements?code=${numéroDépartementRecherché}`);
+		return this.request(`departements?code=${numéroDépartementRecherché}`);
 	}
 
 	async getRégionListByNom(régionRecherchée: string): Promise<Either<Localisation[]>> {
-		return await this.request(`regions?nom=${régionRecherchée}`);
+		return this.request(`regions?nom=${régionRecherchée}`);
 	}
 
 	private async request(endpoint: string): Promise<Either<Localisation[]>> {
