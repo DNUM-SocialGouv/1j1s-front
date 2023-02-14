@@ -8,13 +8,13 @@ import React, {
 import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
 import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
-type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
-	label?: React.ReactNode;
-	hint?: string;
-};
 
+type ValidationFunction = (value: string) => string | null | undefined;
 
-function useError(ref: React.RefObject<{ validationMessage: string | undefined }>) {
+function useError(
+	ref: React.RefObject<{ validationMessage: string | undefined }>,
+	validate?: ValidationFunction,
+) {
 	const [error, setError] = useState<string | undefined>();
 
 	useLayoutEffect(function initilizeErrorState() {
@@ -23,7 +23,12 @@ function useError(ref: React.RefObject<{ validationMessage: string | undefined }
 	}, [ref, setError]);
 
 	function updateErrors(event: React.ChangeEvent<HTMLTextAreaElement>) {
-		const newError = event.currentTarget.validationMessage;
+		const element = event.currentTarget;
+		if (validate != null) {
+			const validationError = validate(element.value);
+			element.setCustomValidity(validationError ?? '');
+		}
+		const newError = element.validationMessage;
 		setError(newError);
 	}
 
@@ -48,6 +53,12 @@ function Label({ htmlFor, children }: { htmlFor: string, children: React.ReactNo
 	return <label htmlFor={htmlFor}>{children}</label>;
 }
 
+type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
+	label?: React.ReactNode;
+	hint?: string;
+	validate?: ValidationFunction;
+};
+
 export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
 	label,
 	hint,
@@ -55,6 +66,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	'aria-describedby': DescribedByProps,
 	onChange: onChangeProps,
 	onBlur: onBlurProps,
+	validate,
 	...textareaProps
 }, refProps) {
 	const generatedId = useId();
@@ -64,7 +76,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	const [touched, setTouched] = useState(false);
 
 	const ref = useSynchronizedRef(refProps);
-	const { error, updateErrors } = useError(ref);
+	const { error, updateErrors } = useError(ref, validate);
 	function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
 		updateErrors(event);
 		if (onChangeProps != null) onChangeProps(event);

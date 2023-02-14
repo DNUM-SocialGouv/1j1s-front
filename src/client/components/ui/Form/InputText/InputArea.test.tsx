@@ -195,4 +195,21 @@ describe('<InputArea />', () => {
 			expect(input).toHaveErrorMessage('Constraints not satisfied');
 		});
 	});
+
+	describe('validation', () => {
+		it("valide l'input contre la fonction de validation", async () => {
+			function validate(value: string): string | null | undefined {
+				if (value === 'Boom') return 'La valeur ne doit pas être "Boom"';
+				return null;
+			}
+
+			render(<InputArea validate={validate}/>);
+
+			const input = screen.getByRole('textbox');
+			expect(input).toBeValid();
+
+			await userEvent.type(input, 'Boom');
+			expect(input).toBeInvalid();
+		});
+	});
 });
