@@ -39,6 +39,13 @@ describe('<InputArea />', () => {
 
 			expect(input).toHaveAttribute('id', 'mon-id');
 		});
+		it("utilise l'aria-describedby en props si présent", () => {
+			render(<InputArea aria-describedby="mon-id" />);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).toHaveAttribute('aria-describedby', 'mon-id');
+		});
 	});
 
 	describe('<label />', () => {
@@ -86,6 +93,28 @@ describe('<InputArea />', () => {
 			const input = screen.getByRole('textbox');
 
 			expect(input).toHaveAccessibleDescription('Ceci est une aide');
+		});
+		it('accepte plusieurs descriptions', () => {
+			render(
+				<>
+					<p id="mon-id1">Ceci est une première description externe.</p>
+					<p id="mon-id2">Ceci est une seconde description externe.</p>
+					<InputArea aria-describedby="mon-id1 mon-id2" hint="Ceci est une aide" />
+				</>,
+			);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).toHaveAccessibleDescription(/Ceci est une première description externe/);
+			expect(input).toHaveAccessibleDescription(/Ceci est une seconde description externe/);
+			expect(input).toHaveAccessibleDescription(/Ceci est une aide/);
+		});
+		it("n'ajoute pas d'attribut si pas présent", () => {
+			render(<InputArea />);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).not.toHaveAttribute('aria-describedby');
 		});
 	});
 });
