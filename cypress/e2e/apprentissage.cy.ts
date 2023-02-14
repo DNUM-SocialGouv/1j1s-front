@@ -32,7 +32,9 @@ describe('Parcours alternance LBA', () => {
 				path: '/api/alternances/metiers*',
 				response: JSON.stringify(aListeDeMetierLaBonneAlternance()),
 			});
+			cy.wait(400);
 			cy.get('ul[role="listbox"] > li').first().click({ force: true });
+			cy.wait(400);
 
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.get('button[type="submit"]').click({ force: true }),
