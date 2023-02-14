@@ -1,10 +1,30 @@
 version: "3.9"
 services:
   redis:
-    container_name: "1js1-redis"
+    container_name: "1j1s-redis"
     restart: always
     image: "redis:alpine"
     # mettre le mot de passe dans les var envs : [https://docs.docker.com/compose/environment-variables/]
     command: "redis-server --bind redis --port 6379 --requirepass mypassword"
     ports:
       - "6379:6379"
+  meilisearch:
+    container_name: "1j1s-meilisearch"
+    image: "getmeili/meilisearch:v1.0.0"
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
+      - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
+      - MEILI_ENV=${MEILI_ENV:-development}
+      - MEILI_LOG_LEVEL=${MEILI_LOG_LEVEL:-trace}
+      - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
+    ports:
+      - ${MEILI_PORT:-7700}:7700
+    networks:
+      - meilisearch
+    volumes:
+      - ./tmp/data:/data.ms
+    restart: unless-stopped
+
+networks:
+  meilisearch:
+    driver: bridge
