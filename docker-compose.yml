@@ -10,7 +10,7 @@ services:
       - "6379:6379"
   meilisearch:
     container_name: "1j1s-meilisearch"
-    image: "getmeili/meilisearch:v1.0.0"
+    image: "getmeili/meilisearch:v1.0.1"
     environment:
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
       - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
