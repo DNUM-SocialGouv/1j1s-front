@@ -1,6 +1,5 @@
-
 import {
-	AlternanceListApiResponse,
+	AlternanceApiJobsResponse,
 	MetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 
@@ -15,7 +14,7 @@ export const aMetierLaBonneAlternanceApiResponse = (): MetierLaBonneAlternanceAp
 	};
 };
 
-export const aListeLaBonneAlternanceApiResponse = (): AlternanceListApiResponse=> {
+export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse => {
 	return {
 		matchas: {
 			results: [
@@ -23,6 +22,32 @@ export const aListeLaBonneAlternanceApiResponse = (): AlternanceListApiResponse=
 					company: { name: 'une entreprise' },
 					diplomaLevel: 'débutant',
 					job: { contractType: 'apprentissage' },
+					place: { city: 'paris' },
+					title: 'un titre',
+				},
+				{
+					company: {
+						name: 'SARL HUGUE-DEBRIX',
+					},
+					diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
+					job: { contractType: 'apprentissage' },
+					title: 'Boucher-charcutier / Bouchère-charcutière',
+				},
+				{
+					company: {
+						name: 'MONSIEUR MICHEL',
+					},
+					diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
+					job: { contractType: 'apprentissage' },
+					title: 'Ouvrier boulanger / Ouvrière boulangère',
+				},
+			],
+		},
+		peJobs: {
+			results: [
+				{
+					company: { name: 'une entreprise' },
+					job: { contractType: 'CDD' },
 					place: { city: 'paris' },
 					title: 'un titre',
 				},

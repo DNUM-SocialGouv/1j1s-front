@@ -2,45 +2,54 @@ import { MetierAlternance } from '~/server/alternances/domain/métier';
 
 import { Alternance } from './alternance';
 
-export const uneAlternance = (): Alternance => {
+export const anAlternanceMatcha = (): Alternance => {
 	return {
 		localisation: 'paris',
 		niveauRequis: 'débutant',
 		nomEntreprise: 'une entreprise',
+		source: Alternance.Source.MATCHA,
+		tags: ['paris', 'apprentissage', 'débutant'],
 		titre: 'un titre',
 		typeDeContrat: 'apprentissage',
 	};
 };
 
-const uneAlternanceBoucher = (): Alternance => {
+const anAlternanceMatchaBoucher = (): Alternance => {
 	return {
-		niveauRequis : 'Cap, autres formations niveau (Infrabac)',
-		nomEntreprise : 'SARL HUGUE-DEBRIX',
+		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
+		nomEntreprise: 'SARL HUGUE-DEBRIX',
+		source: Alternance.Source.MATCHA,
+		tags: ['apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Boucher-charcutier / Bouchère-charcutière',
-		typeDeContrat : 'Apprentissage',
+		typeDeContrat: 'apprentissage',
 	};
 };
 
-const uneAlternanceBoulanger = (): Alternance => {
+const anAlternanceMatchaBoulanger = (): Alternance => {
 	return {
-		niveauRequis : 'Cap, autres formations niveau (Infrabac)',
-		nomEntreprise : 'MONSIEUR MICHEL',
+		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
+		nomEntreprise: 'MONSIEUR MICHEL',
+		source: Alternance.Source.MATCHA,
+		tags: ['apprentissage',  'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Ouvrier boulanger / Ouvrière boulangère',
-		typeDeContrat : 'Apprentissage',
+		typeDeContrat: 'apprentissage',
 	};
 };
 
-const uneAlternanceBarista = (): Alternance => {
+export const anAlternancePEJobs = (): Alternance => {
 	return {
-		niveauRequis : 'Indifférent',
-		nomEntreprise : 'A My B FORMATIONS',
-		titre: 'Barista',
-		typeDeContrat : 'Apprentissage',
+		localisation: 'paris',
+		nomEntreprise: 'une entreprise',
+		source: Alternance.Source.POLE_EMPLOI,
+		tags: ['paris', 'Contrat d‘alternance', 'CDD'],
+		titre: 'un titre',
+		typeDeContrat: 'CDD',
 	};
 };
 
-export const aRésultatRechercheAlternance = (): Array<Alternance> => {
-	return [uneAlternance()];
+
+export const anAlternanceList = (): Array<Alternance> => {
+	return [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()];
 };
 
 export const aListeDeMetierLaBonneAlternance = (): Array<MetierAlternance> => {
@@ -51,6 +60,3 @@ export const aListeDeMetierLaBonneAlternance = (): Array<MetierAlternance> => {
 	];
 };
 
-export const aRésultatRechercherMultipleAlternance = (): Array<Alternance> => {
-	return [ uneAlternance(), uneAlternanceBoucher(), uneAlternanceBoulanger(), uneAlternanceBarista()];
-};

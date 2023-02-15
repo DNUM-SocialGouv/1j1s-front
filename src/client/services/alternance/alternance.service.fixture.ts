@@ -1,6 +1,6 @@
 import {
 	aListeDeMetierLaBonneAlternance,
-	aRésultatRechercheAlternance,
+	anAlternanceList,
 } from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
 
@@ -14,7 +14,7 @@ export function anAlternanceServiceWithEmptyResultat(): AlternanceService {
 
 export function anAlternanceService(): AlternanceService {
 	return {
-		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess(aRésultatRechercheAlternance())),
+		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess(anAlternanceList())),
 		rechercherMétier: jest.fn().mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance())),
 	} as unknown as AlternanceService;
 }
