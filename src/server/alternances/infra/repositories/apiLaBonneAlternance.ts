@@ -8,7 +8,7 @@ export interface MetierLaBonneAlternanceApiResponse {
 	labelsAndRomes: Array<MetierLaBonneAlternanceApiResponse.LabelAndRomes>
 }
 
-export namespace AlternanceApiResponse {
+export namespace AlternanceApiJobsResponse {
 	export interface Job {
 		contractType?: string
 	}
@@ -23,13 +23,21 @@ export namespace AlternanceApiResponse {
 
 	export interface Matcha {
 		title: string
-		company?: AlternanceApiResponse.Company
-		place?: AlternanceApiResponse.Place
+		company?: AlternanceApiJobsResponse.Company
+		place?: AlternanceApiJobsResponse.Place
 		diplomaLevel?: string
-		job: AlternanceApiResponse.Job
+		job: AlternanceApiJobsResponse.Job
+	}
+
+	export interface PEJobs {
+		title: string
+		company?: AlternanceApiJobsResponse.Company
+		place?: AlternanceApiJobsResponse.Place
+		job: AlternanceApiJobsResponse.Job
 	}
 }
 
-export interface AlternanceListApiResponse {
-	matchas: { results: Array<AlternanceApiResponse.Matcha> }
+export interface AlternanceApiJobsResponse {
+	matchas: { results: Array<AlternanceApiJobsResponse.Matcha> }
+	peJobs: { results: Array<AlternanceApiJobsResponse.PEJobs> }
 }

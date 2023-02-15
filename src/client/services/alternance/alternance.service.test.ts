@@ -2,7 +2,7 @@ import { AlternanceService } from '~/client/services/alternance/alternance.servi
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import {
 	aListeDeMetierLaBonneAlternance,
-	aRésultatRechercheAlternance,
+	anAlternanceList,
 } from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
 
@@ -13,10 +13,10 @@ describe('AlternanceService', () => {
 			const alternanceService = new AlternanceService(httpClientService);
 			const alternanceQuery = 'codeRomes=D123,D122';
 
-			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aRésultatRechercheAlternance()));
+			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(anAlternanceList()));
 			const result = await alternanceService.rechercherAlternance(alternanceQuery);
 
-			expect(result).toEqual({ instance: 'success', result: aRésultatRechercheAlternance() });
+			expect(result).toEqual({ instance: 'success', result: anAlternanceList() });
 			expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeRomes=D123,D122');
 		});
 	});
