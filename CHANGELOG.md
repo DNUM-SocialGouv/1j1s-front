@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.72.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.71.0...v2.72.0) (2023-02-15)
+
+
+### Features
+
+* **multiple:** mise à jour de liens externes ([3719528](https://github.com/DNUM-SocialGouv/1j1s-front/commit/37195286e7bc0ea5526c9775649c72b51ebe06de))
+
 ## [2.71.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.5...v2.71.0) (2023-02-15)
 
 
