@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.71.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.5...v2.71.0) (2023-02-15)
+
+
+### Features
+
+* **alternance:** ajout test controller ([a6882e5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a6882e51c5bcb4159f1bdc56c8ea0b5fa4fa850c))
+* **alternance:** rebase main ([37d4a21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/37d4a21a7704caf3d5bdabfff332a51fef98a08d))
+* **alternance:** rechercher offre matchas par metier ([e6c82de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e6c82decb8a0120c79318970309088196bd5a2d0))
+* **alternance:** retrait input dans page accueil ([1e73a85](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e73a85b0d53dfd38db672f7701c613ce665bab8))
+* **alternances:** ajout autocomplétion métier ([d8f9ae7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d8f9ae7407bc973613374e7e44b540903526a493))
+* **logement:** fix error build ([e5720e7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e5720e7750398912c41f0a6f96b7594b22bef2c3))
+
 ## [2.70.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.70.4...v2.70.5) (2023-02-15)
 
 
