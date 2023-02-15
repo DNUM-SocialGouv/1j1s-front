@@ -62,8 +62,10 @@ export function RechercherAlternance() {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
 		if (nombreRésultats > 1) {
 			messageRésultatRechercheSplit.push('offres d’alternances');
-		} else {
+		} else if (nombreRésultats === 1) {
 			messageRésultatRechercheSplit.push('offre d’alternance');
+		} else {
+			return '';
 		}
 		if (router.query.motCle) {
 			messageRésultatRechercheSplit.push(`pour ${router.query.motCle}`);
