@@ -32,14 +32,14 @@ describe('<InputArea />', () => {
 			expect(ref).toHaveBeenCalledTimes(1);
 			expect(ref).toHaveBeenCalledWith(expect.any(Element));
 		});
-		it("utilise l'id en props si présent", () => {
+		it('utilise l’id en props si présent', () => {
 			render(<InputArea id="mon-id" />);
 
 			const input = screen.getByRole('textbox');
 
 			expect(input).toHaveAttribute('id', 'mon-id');
 		});
-		it("utilise l'aria-describedby en props si présent", () => {
+		it('utilise l’aria-describedby en props si présent', () => {
 			render(<InputArea aria-describedby="mon-id" />);
 
 			const input = screen.getByRole('textbox');
@@ -101,7 +101,7 @@ describe('<InputArea />', () => {
 
 			expect(input1.id).not.toEqual(input2.id);
 		});
-		it("utilise l'id en props si présent", () => {
+		it('utilise l’id en props si présent', () => {
 			render(<InputArea label="Mon input" id="mon-id" />);
 
 			const input = screen.getByRole('textbox');
@@ -118,7 +118,7 @@ describe('<InputArea />', () => {
 
 			expect(hint).toBeVisible();
 		});
-		it("décrit la textbox avec l'aide si présente", () => {
+		it('décrit la textbox avec l’aide si présente', () => {
 			render(<InputArea hint="Ceci est une aide" />);
 
 			const input = screen.getByRole('textbox');
@@ -140,7 +140,7 @@ describe('<InputArea />', () => {
 			expect(input).toHaveAccessibleDescription(/Ceci est une seconde description externe/);
 			expect(input).toHaveAccessibleDescription(/Ceci est une aide/);
 		});
-		it("n'ajoute pas d'attribut si pas présent", () => {
+		it('n’ajoute pas d’attribut si pas présent', () => {
 			render(<InputArea />);
 
 			const input = screen.getByRole('textbox');
@@ -150,7 +150,7 @@ describe('<InputArea />', () => {
 	});
 
 	describe('error', () => {
-		it("affiche un message d'erreur lorsque le champ est en erreur et que l'utilisateur l'a touché", async () => {
+		it('affiche un message d’erreur lorsque le champ est en erreur et que l’utilisateur l’a touché', async () => {
 			render(<InputArea required/>);
 
 			let message = screen.queryByText('Constraints not satisfied');
@@ -163,7 +163,7 @@ describe('<InputArea />', () => {
 			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
 		});
-		it("met à jour le message d'erreur quand la valeur change", async () => {
+		it('met à jour le message d’erreur quand la valeur change', async () => {
 			render(<InputArea required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
@@ -178,14 +178,14 @@ describe('<InputArea />', () => {
 			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
 		});
-		it("masque l'aide à la saisie si un message d'erreur apparait", async () => {
+		it('masque l’aide à la saisie si un message d’erreur apparait', async () => {
 			render(<InputArea required defaultValue="" hint="Salut"/>);
 
 			const hint = screen.queryByText('Salut');
 
 			expect(hint).not.toBeInTheDocument();
 		});
-		it("lie l'erreur avec le champ", async () => {
+		it('lie l’erreur avec le champ', async () => {
 			render(<InputArea required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
@@ -197,7 +197,7 @@ describe('<InputArea />', () => {
 	});
 
 	describe('validation', () => {
-		it("valide l'input contre la fonction de validation", async () => {
+		it('valide l’input contre la fonction de validation', async () => {
 			function validate(value: string): string | null | undefined {
 				if (value === 'Boom') return 'La valeur ne doit pas être "Boom"';
 				return null;
@@ -211,7 +211,7 @@ describe('<InputArea />', () => {
 			await userEvent.type(input, 'Boom');
 			expect(input).toBeInvalid();
 		});
-		it("valide l'input contre la fonction de validation à l'initialisation", async () => {
+		it('valide l’input contre la fonction de validation à l’initialisation', async () => {
 			function validate() {
 				return 'Error';
 			}
