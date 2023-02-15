@@ -1,16 +1,16 @@
-const { LOCAL_MODE_HEADERS,SECURITY_MODE_HEADERS } = require('./config/headers');
+const { LOCAL_MODE_HEADERS, SECURITY_MODE_HEADERS } = require('./config/headers');
 const { ALL_MODE_REDIRECT } = require('./config/redirects');
 const { ALL_MODE_REWRITE } = require('./config/rewrites');
 const { name, version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 const { URL } = require('url');
 
-const IS_ONLINE_CONFIG_ENVIRONNEMENT = ['integration', 'production'];
+const IS_ONLINE_CONFIG_ENVIRONMENT = ['integration', 'production'];
 const NODE_ENV_ENABLE_SOURCEMAP = 'production';
-const isProduction = process.env.NODE_ENV === 'production';
+const isOnlineEnvironment = IS_ONLINE_CONFIG_ENVIRONMENT.includes(process.env.ENVIRONMENT);
 
 const shouldUploadSourceMap = (env = process.env) =>
-	IS_ONLINE_CONFIG_ENVIRONNEMENT.includes(env.NEXT_PUBLIC_SENTRY_ENVIRONMENT)
+	IS_ONLINE_CONFIG_ENVIRONMENT.includes(env.NEXT_PUBLIC_SENTRY_ENVIRONMENT)
 	&& env.NODE_ENV === NODE_ENV_ENABLE_SOURCEMAP;
 
 const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
@@ -78,7 +78,7 @@ const moduleExports = {
 	},
 };
 
-module.exports = isProduction
+module.exports = isOnlineEnvironment
 	? withSentryConfig(
 		{
 			...moduleExports,
