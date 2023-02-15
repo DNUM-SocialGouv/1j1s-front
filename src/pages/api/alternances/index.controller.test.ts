@@ -4,7 +4,7 @@ import nock from 'nock';
 import { rechercherAlternanceHandler } from '~/pages/api/alternances/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { anAlternanceList } from '~/server/alternances/domain/alternance.fixture';
+import { aRésultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
 import {
 	aLaBonneAlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
@@ -24,7 +24,7 @@ describe('rechercher alternance', () => {
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
-				expect(json).toEqual(anAlternanceList());
+				expect(json).toEqual(aRésultatRechercherMultipleAlternance());
 			},
 			url: '/alternances?codeRomes=D123,D122',
 		});

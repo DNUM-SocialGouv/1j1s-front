@@ -30,7 +30,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const [suggestionsApi, setSuggestionsApi] = useState<MetierAlternance[]>([]);
 	const [suggestionIndex, setSuggestionIndex] = useState(0);
 	const [suggestionsActive, setSuggestionsActive] = useState(false);
-	const [errorMessage, setErrorMessage] = useState('');
+	const [isRechercheIndisponible, setIsRechercheIndisponible] = useState<boolean>(false);
 	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé || '');
 	const [codeRomesInput, setcodeRomesInput] = useState<string[]>([]);
 	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
@@ -56,19 +56,18 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	}, [libellé, codeRomes]);
 
 	const retrieveMétiers = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-		setIsValueValidSelected(false);
-		inputRef.current?.setCustomValidity(HINT_INPUT_INVALID);
 		e.preventDefault();
 		const { value } = e.target;
 		if (value.length > 1) {
 			const response = await métierRecherchéService.rechercherMétier(value);
 			if (isSuccess(response)) {
 				setSuggestionsApi(response.result);
-				setErrorMessage('');
+				setIsRechercheIndisponible(false);
 				setSuggestionIndex(0);
 				setSuggestionsActive(true);
 			} else {
-				setErrorMessage(ERROR_RETRIEVE_METIER);
+				inputRef.current?.setCustomValidity(ERROR_RETRIEVE_METIER);
+				setIsRechercheIndisponible(true);
 				setSuggestionsActive(false);
 			}
 		} else {
@@ -108,6 +107,9 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 		if (onChange) {
 			onChange(event);
 		}
+		setIsRechercheIndisponible(false);
+		setIsValueValidSelected(false);
+		inputRef.current?.setCustomValidity(HINT_INPUT_INVALID);
 		setMétierRecherchéInput(event.target.value);
 		handleRechercherWithDebounce(event);
 	}, [onChange, handleRechercherWithDebounce]);
@@ -160,7 +162,6 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			document.removeEventListener('keyup', closeSuggestionsOnKeyUp);
 		};
 	}, [closeSuggestionsOnKeyUp, closeSuggestionsOnClickOutside, suggestionsActive]);
-
 
 	const suggestions = useMemo(() => {
 		return <ul
@@ -229,7 +230,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				</div>
 				{suggestionsActive && suggestions}
 			</div>
-			{errorMessage && <p className={styles.instructionMessageError} id={errorId.current}>{errorMessage}</p>}
+			{isRechercheIndisponible && <p className={styles.instructionMessageError} id={errorId.current}>{ERROR_RETRIEVE_METIER}</p>}
 			{required && !isFocus && isTouched && !isValueValidSelected &&
           <p className={styles.instructionMessageError} id={errorId.current}>{HINT_INPUT_INVALID}</p>
 			}

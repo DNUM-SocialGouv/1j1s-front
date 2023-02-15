@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
@@ -13,13 +13,19 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 
+jest.mock('lodash/debounce', () =>
+	jest.fn((fn) => {
+		fn.cancel = jest.fn();
+		return fn;
+	}));
+
 describe('FormulaireRechercheAlternance', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
 
 	describe('lorsqu‘on recherche par commune', () => {
-		it('filtre les résultats par localisation',  async() => {
+		it('filtre les résultats par localisation', async () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
@@ -34,14 +40,14 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByLabelText('Sélectionnez un métier, domaine');
-			await waitFor(() => user.type(inputMétiers, 'boulang'));
-			await waitFor(() => user.click(screen.getByRole('option', { name: 'Transport aérien' })));
+			await user.type(inputMétiers, 'boulang');
+			await user.click(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' }));
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
-			await waitFor(() => user.click(submitButton));
+			await user.click(submitButton);
 
 			// Then
-			expect(routerPush).toHaveBeenCalledWith({ query: 'libelle=Transport+a%C3%A9rien&codeRomes=N2101%2CN2102%2CN2203%2CN2204' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: 'libelle=Conduite+de+travaux%2C+direction+de+chantier&codeRomes=F1201%2CF1202%2CI1101' }, undefined, { shallow: true });
 		});
 	});
 });

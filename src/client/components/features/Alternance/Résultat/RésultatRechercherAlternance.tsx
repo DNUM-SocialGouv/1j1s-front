@@ -11,7 +11,6 @@ export interface RésultatRechercherAlternanceProps {
 	alternance: Alternance
 }
 
-
 export function RésultatRechercherAlternance(props: RésultatRechercherAlternanceProps) {
 	const { alternance } = props;
 	const { isSmallScreen } = useBreakpoint();

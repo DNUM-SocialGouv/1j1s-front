@@ -3,7 +3,7 @@ export interface Alternance {
 	nomEntreprise?: string
 	localisation?: string
 	niveauRequis?: string
-	typeDeContrat?: string
+	typeDeContrat: string[]
 	source: Alternance.Source
 	tags: string[]
 }
