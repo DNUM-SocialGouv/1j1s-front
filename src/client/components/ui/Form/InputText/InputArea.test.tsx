@@ -18,7 +18,7 @@ describe('<InputArea />', () => {
 
 	describe('props natifs', () => {
 		it('passe toutes les props au textarea sous-jacent', () => {
-			render(<InputArea disabled aria-label={'Mon input'} />);
+			render(<InputArea disabled aria-label='Mon input' />);
 
 			const input = screen.getByRole('textbox');
 
@@ -69,7 +69,7 @@ describe('<InputArea />', () => {
 
 	describe('<label />', () => {
 		it('affiche le label lorsque indiqué', () => {
-			render(<InputArea label={'Mon input'} />);
+			render(<InputArea label='Mon input' />);
 
 			const label = screen.getByText('Mon input');
 			const input = screen.getByRole('textbox');
@@ -92,8 +92,8 @@ describe('<InputArea />', () => {
 		it('génère un id unique pour chaque composant', () => {
 			render(
 				<>
-					<InputArea label={'Mon input 1'} />
-					<InputArea label={'Mon input 2'} />
+					<InputArea label='Mon input 1' />
+					<InputArea label='Mon input 2' />
 				</>,
 			);
 
