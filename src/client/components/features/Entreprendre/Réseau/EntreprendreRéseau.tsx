@@ -148,7 +148,7 @@ const RÉSEAU_ACCOMPAGNEMENT: EntreprendreRéseauProps[] = [{
 }, {
 	entreprise: {
 		description: 'Organisés un peu partout en France et à l‘initiative des Caisses régionales du Crédit Agricole, les Cafés de la Création sont des rencontres gratuites, conviviales et informelles, où les porteurs de projets peuvent venir poser toutes leurs questions à des experts en création d‘entreprise : avocats, conseillers professionnels, experts comptables, réseaux d‘accompagnement, Chambres professionnelles…',
-		lien: 'https://propulsebyca.fr/cafes-de-la-creation',
+		lien: 'https://propulsebyca.fr/evenements',
 		logo: '/images/entreprendre/cafes_de_la_creation.png',
 		nom: 'Les Cafés de la création by CA',
 	},

@@ -39,7 +39,7 @@ export default function AidesLogement() {
 								<li className={styles.partnerCard}>
 									<PartnerCard
 										logo="/images/logos/caisse-allocations-familiales.svg"
-										link="https://wwwd.caf.fr/wps/portal/caffr/aidesetservices/lesservicesenligne/estimervosdroits/lelogement#/preparation"
+										link="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
 										linkLabel="Tester mon éligibilité pour les aides au logement de la CAF"
 										title="Vous dépendez du régime général ? Demandez vos aides à la CAF !"
 									>
