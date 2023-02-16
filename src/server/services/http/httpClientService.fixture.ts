@@ -1,7 +1,7 @@
-import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from 'axios';
+import { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { HttpClientService } from './httpClientService';
-import { HttpClientServiceWithAuthentification } from './httpClientWithAuthentification.service';
+import { HttpClientService } from '~/server/services/http/httpClientService';
+import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 function anAxiosInstance(): AxiosInstance {
 	return {
@@ -30,12 +30,11 @@ function anAxiosInstance(): AxiosInstance {
 export function anAxiosResponse<T>(
 	data: T,
 	status?: number,
-	headers: AxiosResponseHeaders = {},
 ): AxiosResponse<T> {
 	return {
-		config: undefined as unknown as AxiosRequestConfig,
+		config: undefined as unknown as InternalAxiosRequestConfig,
 		data,
-		headers,
+		headers: {},
 		status: status || 200,
 		statusText: '',
 	};

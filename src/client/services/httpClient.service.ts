@@ -1,5 +1,5 @@
 import { uuid4 } from '@sentry/utils';
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 
 import { LoggerService } from '~/client/services/logger.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
@@ -18,10 +18,7 @@ export class HttpClientService {
 		});
 
 		this.client.interceptors.request.use(
-			(request: AxiosRequestConfig) => {
-				if (!request.headers) {
-					request.headers = {};
-				}
+			(request: InternalAxiosRequestConfig) => {
 				const transactionId = uuid4();
 				request.headers['x-transaction-id'] = transactionId;
 				this.logger.setTransactionId(transactionId);
