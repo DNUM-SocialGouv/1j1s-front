@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.72.0...v3.0.0) (2023-02-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cms:** réunification des repositories CMS
+
+### Code Refactoring
+
+* **cms:** réunification des repositories CMS ([711f2ef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/711f2ef9425d535f8a131942a89335f2a79a6d53))
+
 ## [2.72.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v2.71.0...v2.72.0) (2023-02-15)
 
 
