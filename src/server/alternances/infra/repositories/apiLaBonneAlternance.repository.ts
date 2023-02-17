@@ -1,4 +1,5 @@
 import { Alternance, AlternanceFiltre } from '~/server/alternances/domain/alternance';
+import { uneAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
 	AlternanceApiJobsResponse,
@@ -23,5 +24,10 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		} catch (e) {
 			return handleSearchFailureError(e, 'la bonne alternance recherche alternance');
 		}
+	}
+
+	get(id: string, rome: string): Promise<Either<Alternance>> {
+		return createSuccess(uneAlternance());
+		return this.httpClientService.get('/jobs');
 	}
 }

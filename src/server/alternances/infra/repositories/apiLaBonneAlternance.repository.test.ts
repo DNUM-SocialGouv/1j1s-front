@@ -39,4 +39,19 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
 		});
 	});
+
+	describe('get', () => {
+		it('renvoie une alternance', async () => {
+			// Given
+			const httpClientService = anHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse()));
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+
+			// When
+			const result = await repository.get('abc', 'I1234') as Success<Alternance>;
+
+			// Thenr
+			expect(result.result).toEqual(uneAlternance());
+		});
+	});
 });
