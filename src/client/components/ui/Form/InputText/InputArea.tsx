@@ -1,109 +1,126 @@
 import classNames from 'classnames';
 import React, {
 	useCallback,
-	useEffect,
+	useId,
 	useLayoutEffect,
-	useRef,
 	useState,
 } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
 import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
 
 
+type ValidationFunction = (value: string) => string | null | undefined;
 
-type InputValue = string | ReadonlyArray<string> | number | undefined;
+type ErrorRef = {
+	validationMessage: string | undefined,
+	setCustomValidity: (message: string) => void;
+	value: string;
+}
+function useError(
+	ref: React.RefObject<ErrorRef>,
+	validate?: ValidationFunction,
+) {
+	const [error, setError] = useState<string | undefined>();
 
-interface TextInputProps extends React.ComponentPropsWithoutRef<'textarea'> {
-  hint?: string
-  label?: string
-  necessity?: 'optional' | 'required'
-  validation?: (value: InputValue) => string | null | undefined
-  rows?: number
+	const reportCustomValidation = useCallback(function reportCustomValidation(element: ErrorRef) {
+		if (validate != null) {
+			const validationError = validate(element.value);
+			element.setCustomValidity(validationError ?? '');
+		}
+	}, [validate]);
+
+	useLayoutEffect(function initilizeErrorState() {
+		if (ref.current == null) return;
+
+		reportCustomValidation(ref.current);
+		const message = ref.current?.validationMessage;
+		setError(message);
+	}, [ref, setError, reportCustomValidation]);
+
+	function updateErrors(event: React.ChangeEvent<HTMLTextAreaElement>) {
+		const element = event.currentTarget;
+		reportCustomValidation(element);
+		const newError = element.validationMessage;
+		setError(newError);
+	}
+
+	return {
+		error,
+		updateErrors,
+	};
 }
 
-// eslint-disable-next-line react/display-name
-export const InputArea = React.forwardRef<HTMLTextAreaElement | null, TextInputProps>((props: TextInputProps, outerRef) => {
-	const {
-		className,
-		defaultValue,
-		hint,
-		label,
-		necessity,
-		onChange,
-		value: outerValue,
-		validation,
-		rows,
-		...rest
-	} = props;
-	const ref = useSynchronizedRef(outerRef);
-	const [valueState, setValueState] = useState<typeof defaultValue>(defaultValue ?? '');
-	const [error, setError] = useState('');
+function Hint({ id, children }: { id: string, children: React.ReactNode }) {
+	if (!children) return null;
+	return <p className={classNames(styles.textInputHint)} id={id}>{children}</p>;
+}
+
+function Error({ id, children }: { id: string, children: React.ReactNode }) {
+	if (!children) return null;
+	return <p id={id} className={classNames(styles.textInputHint, styles.textInputHintError)}>{children}</p>;
+}
+
+function Label({ htmlFor, children }: { htmlFor: string, children: React.ReactNode }) {
+	if (!children) return null;
+	return <label className={styles.textInputLabel} htmlFor={htmlFor}>{children}</label>;
+}
+
+type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
+	label?: React.ReactNode;
+	hint?: string;
+	validate?: ValidationFunction;
+};
+
+export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
+	label,
+	hint,
+	id: idProps,
+	'aria-describedby': describedByProps,
+	onChange: onChangeProps,
+	onBlur: onBlurProps,
+	validate,
+	// NOTE (GAFI 14-02-2023): Le className s'applique sur la div wrapper plutôt que sur le textarea lui-même
+	className,
+	...textareaProps
+}, refProps) {
+	const generatedId = useId();
+	const id = idProps ?? generatedId;
+	const hintId = useId();
+	const errorId = useId();
 	const [touched, setTouched] = useState(false);
 
-	useLayoutEffect(function validateInput() {
-		if (validation) {
-			const error = validation(valueState);
-			ref.current?.setCustomValidity(error ?? '');
-		}
-	}, [validation, valueState, ref]);
+	const ref = useSynchronizedRef(refProps);
+	const { error, updateErrors } = useError(ref, validate);
+	function onChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+		updateErrors(event);
+		if (onChangeProps != null) onChangeProps(event);
+	}
+	function onBlur(event: React.FocusEvent<HTMLTextAreaElement>) {
+		setTouched(true);
+		if (onBlurProps != null) onBlurProps(event);
+	}
 
-	useLayoutEffect(function checkInputValidity() {
-		if (ref.current && touched) {
-			const isValid = ref.current.checkValidity();
-			setError(!isValid ? ref.current.validationMessage : '');
-		}
-	}, [ref, touched, valueState]);
-
-	useEffect(function onValueChange() {
-		setValueState(outerValue || '');
-	}, [outerValue]);
-
-	const inputId = useRef(uuidv4());
-	const hintId = useRef(uuidv4());
-	const errorId = useRef(uuidv4());
-
-	const onInputChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		if (onChange) {
-			onChange(event);
-		}
-		setValueState(event.target.value);
-	}, [onChange]);
+	const ariaDescribedby = hint
+		? `${describedByProps} ${hintId}`
+		: describedByProps;
 
 	return (
 		<div className={classNames(styles.textInput, className)}>
-			{label && (
-				<label className={styles.textInputLabel} htmlFor={inputId.current}>
-					{label}
-					{necessity && (
-						<span className="text-small"> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
-					)}
-				</label>
-			)}
+			<Label htmlFor={id}>{label}</Label>
 			<textarea
-				ref={ref}
-				{...rest}
-				id={inputId.current}
-				aria-describedby={hint && hintId.current}
-				aria-invalid={!!error}
-				aria-errormessage={error && errorId.current}
 				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
-				onChange={onInputChange}
-				onBlur={() => setTouched(true) }
-				rows={rows}
-				value={valueState}
-			/>
-			{(error) && (
-				<p className={classNames(styles.textInputHint, styles.textInputHintError)} id={errorId.current}>
-					{error}
-				</p>
-			)}
-			{(!error && hint) && (
-				<p className={classNames(styles.textInputHint)} id={hintId.current}>
-					{hint}
-				</p>
-			)}
+				id={id}
+				aria-errormessage={errorId}
+				aria-invalid={!!error}
+				aria-describedby={ariaDescribedby}
+				onChange={onChange}
+				onBlur={onBlur}
+				data-touched={touched}
+				{...textareaProps}
+				ref={ref}/>
+			{touched && <Error id={errorId}>{error}</Error>}
+			{!error && <Hint id={hintId}>{hint}</Hint>}
 		</div>
 	);
 });

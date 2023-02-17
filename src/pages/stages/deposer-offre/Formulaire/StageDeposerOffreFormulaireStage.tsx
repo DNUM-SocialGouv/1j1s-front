@@ -132,7 +132,7 @@ export default function StageDeposerOffreFormulaireStage() {
 						label={`Rédigez une description de l’offre de stage${isDescriptionMinLengthActive ? ' (200 caractères minimum)' : ''}`}
 						placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
 						name="descriptionOffre"
-						value={inputDescriptionOffre}
+						defaultValue={inputDescriptionOffre}
 						required
 						rows={10}
 						minLength={isDescriptionMinLengthActive ? 200 : 0}

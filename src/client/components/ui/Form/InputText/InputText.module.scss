@@ -25,14 +25,11 @@
     background-color: $color-form-field;
     font-family: inherit;
 
-    &[aria-invalid=true] {
-      border: solid 2px $color-error;
-    }
-
     &:active, &:focus {
       border-color: $color-primary;
     }
 
+    &Touched[aria-invalid=true],
     &Touched:invalid {
       border: solid 2px $color-error;
     }

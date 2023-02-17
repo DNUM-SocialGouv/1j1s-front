@@ -81,7 +81,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						label="Rédigez une courte description de l’entreprise (500 caractères maximum)"
 						placeholder="Indiquez des informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
 						name="descriptionEmployeur"
-						value={inputDescription}
+						defaultValue={inputDescription}
 						required
 						rows={10}
 						maxLength={500}
