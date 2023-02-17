@@ -4,7 +4,7 @@ import {
 import {
 	ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
-import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
+import { ConsulterOffreAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/consulterOffreAlternancePoleEmploi.useCase';
 import {
 	RechercherAlternanceLaBonneAlternanceUseCase,
 } from '~/server/alternances/useCases/rechercherAlternanceLaBonneAlternance.useCase';
@@ -119,7 +119,7 @@ export interface OffresJobÉtudiantDependencies {
 }
 
 export interface OffresAlternanceDependencies {
-  consulterOffreAlternance: ConsulterOffreAlternanceUseCase
+  consulterOffreAlternance: ConsulterOffreAlternancePoleEmploiUseCase
   rechercherOffreAlternance: RechercherAlternancePoleEmploiUseCase
 }
 
@@ -219,7 +219,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService);
 
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
-		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
+		consulterOffreAlternance: new ConsulterOffreAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
 		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
 	};
 
