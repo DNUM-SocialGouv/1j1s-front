@@ -65,5 +65,18 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledTimes(1);
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
 		});
+		it('fait l’appel avec les bons paramètres', async () => {
+			const httpClientService = anHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse()));
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+
+			// When
+			await repository.get('abc', 'I1234');
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=I1234/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
+		});
 	});
 });
