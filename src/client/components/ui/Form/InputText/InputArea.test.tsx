@@ -33,10 +33,11 @@ describe('<InputArea />', () => {
 			expect(ref).toHaveBeenCalledWith(expect.any(Element));
 		});
 		it('utilise l’id en props si présent', () => {
-			render(<InputArea id="mon-id" />);
+			render(<InputArea label="Mon input" id="mon-id" />);
 
 			const input = screen.getByRole('textbox');
 
+			expect(input).toHaveAccessibleName('Mon input');
 			expect(input).toHaveAttribute('id', 'mon-id');
 		});
 		it('utilise l’aria-describedby en props si présent', () => {
@@ -100,13 +101,6 @@ describe('<InputArea />', () => {
 			const [input1, input2] = screen.getAllByRole('textbox');
 
 			expect(input1.id).not.toEqual(input2.id);
-		});
-		it('utilise l’id en props si présent', () => {
-			render(<InputArea label="Mon input" id="mon-id" />);
-
-			const input = screen.getByRole('textbox');
-
-			expect(input).toHaveAccessibleName('Mon input');
 		});
 	});
 
