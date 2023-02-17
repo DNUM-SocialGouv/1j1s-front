@@ -1,6 +1,6 @@
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
-import { CarteActualite } from '~/server/cms/domain/actualite';
-import { aCarteActualiteFixture } from '~/server/cms/domain/actualite.fixture';
+import { Actualite } from '~/server/cms/domain/actualite';
+import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { uneAnnonceDeLogement, uneAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
@@ -8,8 +8,8 @@ import { anArticle } from '~/server/cms/domain/article.fixture';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { anEspaceJeune, anEspaceJeuneResponse } from '~/server/cms/domain/espaceJeune.fixture';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
-import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
-import { desMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs.fixture';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
+import { desMesuresEmployeurs } from '~/server/cms/domain/mesureEmployeur.fixture';
 import { uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import {
@@ -52,10 +52,10 @@ describe('strapi cms repository', () => {
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anActualiteFixture()));
-				const expectedCartesActualite = [aCarteActualiteFixture({ titre: 'Actualité 1' })];
-				const result = await strapiCmsRepository.getActualitéList() as Success<CarteActualite[]>;
+				const expectedCartesActualite = [anActualite({ titre: 'Actualité 1' })];
+				const result = await strapiCmsRepository.getActualitéList() as Success<Actualite[]>;
 
-				expect(httpClientService.get).toHaveBeenCalledWith('actualite?populate[listeActualites][populate]=*');
+				expect(httpClientService.get).toHaveBeenCalledWith('actualite?populate=deep');
 				expect(result.result).toEqual(expectedCartesActualite);
 			});
 		});
@@ -171,7 +171,7 @@ describe('strapi cms repository', () => {
 				contenu: 'La présente politique de confidentialité définit et vous informe de la manière dont le Ministère du Travail utilise les données à caractère personnel en conformité à le Règlement t européen (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016 et la loi nᵒ 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés. \n\n[...]\n\n**Gestion des cookies**\n\n**<u>Cookie présent sur le Site</u>**\n| Type de cookie | Nom | Finalité | Durée de conservation |\n| - | - | - | - |\n| ... | Cookie chocolat blanc | Être mangé | Courte |\n| ... | Cookie myrtille | Être mangé, normal | Extrèmement courte |\n\n[...]\n\n<u>**Comment paramétrer les cookies ?**</u>\n\n[...]\n\nLors de votre utilisation du Site, il vous est possible de configurer vos préférences sur les cookies à tout moment en vous rendant sur l’onglet « Gestion des cookies » disponible en bas de la page d’accueil du Site. \n',
 				titre: 'Politique de confidentialité',
 			});
-			expect(httpClientService.get).toHaveBeenCalledWith('politique-de-confidentialite?populate=*');
+			expect(httpClientService.get).toHaveBeenCalledWith('politique-de-confidentialite?populate=deep');
 		});
 	});
 
@@ -186,7 +186,7 @@ describe('strapi cms repository', () => {
 				const result = await strapiCmsRepository.getMesureJeune() as Success<EspaceJeune>;
 
 				expect(result.result).toEqual(expectedMesuesJeunes);
-				expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate[accompagnement][populate]=*&populate[aidesFinancieres][populate]=*&populate[orienterFormer][populate]=*&populate[vieProfessionnelle][populate]=*');
+				expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate=deep');
 			});
 		});
 	});
@@ -199,10 +199,10 @@ describe('strapi cms repository', () => {
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
 				const expectedMesuresEmployeurs = desMesuresEmployeurs();
-				const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<CarteMesuresEmployeurs[]>;
+				const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<MesureEmployeur[]>;
 
 				expect(result.result).toEqual(expectedMesuresEmployeurs);
-				expect(httpClientService.get).toHaveBeenCalledWith('les-mesures-employeurs?populate[dispositifs][populate]=*');
+				expect(httpClientService.get).toHaveBeenCalledWith('les-mesures-employeurs?populate=deep');
 			});
 		});
 	});

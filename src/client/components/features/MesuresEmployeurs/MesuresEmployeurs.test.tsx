@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import { MesuresEmployeursComponent } from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { aCartesMesuresEmployeursList } from '~/server/cms/domain/mesuresEmployeurs.fixture';
+import { aCartesMesuresEmployeursList } from '~/server/cms/domain/mesureEmployeur.fixture';
 
 describe('MesuresEmployeurs', () => {
 	beforeEach(() => {

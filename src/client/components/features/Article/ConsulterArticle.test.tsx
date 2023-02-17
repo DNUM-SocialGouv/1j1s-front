@@ -10,7 +10,6 @@ import { anArticle } from '~/server/cms/domain/article.fixture';
 
 const article = anArticle({
 	contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +
-		'\n' +
 		'Lorem markdownum torumque sic latet',
 });
 
@@ -21,8 +20,8 @@ describe('ConsulterArticle', () => {
 
 	it('affiche le titre de l‘article', () => {
 		render(<ConsulterArticle article={article} />);
-		const titre = screen.getByRole('heading', { level: 1, name: 'Titre' });
-		expect(titre).toBeInTheDocument();
+		const titre = screen.getByRole('heading', { level: 1, name: article.titre });
+		expect(titre).toBeVisible();
 	});
 
 	it('affiche le contenu de l‘article', () => {

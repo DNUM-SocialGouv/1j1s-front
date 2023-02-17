@@ -1,4 +1,4 @@
-import { CarteActualite } from '~/server/cms/domain/actualite';
+import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
@@ -7,16 +7,16 @@ import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStag
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
-import { CarteMesuresEmployeurs } from './mesuresEmployeurs';
+import { MesureEmployeur } from './mesureEmployeur';
 
 export interface CmsRepository {
-  getActualitéList(): Promise<Either<CarteActualite[]>>
+  getActualitéList(): Promise<Either<Actualite[]>>
 	getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
   getMesureJeune(): Promise<Either<EspaceJeune>>
   getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
-  getMesuresEmployeurs(): Promise<Either<CarteMesuresEmployeurs[]>>
+  getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>>
 	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>
   listAllFicheMetierNomMetier(): Promise<Either<Array<string>>>
   listAllArticleSlug(): Promise<Either<Array<string>>>

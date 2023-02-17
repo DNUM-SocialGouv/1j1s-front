@@ -2,11 +2,7 @@ import { Image } from '~/server/cms/domain/image';
 
 import { Article } from './article';
 
-export interface MesuresEmployeurs {
-  dispositifs: CarteMesuresEmployeurs[]
-}
-
-export interface CarteMesuresEmployeurs {
+export interface MesureEmployeur {
   titre: string
   contenu: string
   bannière?: Image
