@@ -44,7 +44,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('renvoie une alternance', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse()));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
@@ -52,6 +51,19 @@ describe('ApiLaBonneAlternanceRepository', () => {
 
 			// Thenr
 			expect(result.result).toEqual(uneAlternance());
+		});
+		it('appelle l’api laBonneAlternance', async () => {
+			// Given
+			const httpClientService = anHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse()));
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+
+			// When
+			await repository.get('abc', 'I1234');
+
+			// Thenr
+			expect(httpClientService.get).toHaveBeenCalledTimes(1);
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
 		});
 	});
 });

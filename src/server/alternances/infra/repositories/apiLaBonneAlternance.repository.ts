@@ -27,7 +27,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	}
 
 	get(id: string, rome: string): Promise<Either<Alternance>> {
+		const apiResponse = this.httpClientService.get('/jobs');
 		return createSuccess(uneAlternance());
-		return this.httpClientService.get('/jobs');
 	}
 }
