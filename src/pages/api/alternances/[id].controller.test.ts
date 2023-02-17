@@ -4,8 +4,8 @@ import nock from 'nock';
 
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { uneAlternance } from '~/server/alternances/domain/alternance.fixture';
-import { aListeLaBonneAlternanceApiResponse } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import { anAlternanceMatcha } from '~/server/alternances/domain/alternance.fixture';
+import { aListeLaBonneAlternanceApiResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 
 import getAlternanceHandler from './[id].controller';
 
@@ -34,7 +34,7 @@ describe('rechercher alternance', () => {
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const body = await res.json();
-				expect(body).toEqual(uneAlternance());
+				expect(body).toEqual(anAlternanceMatcha());
 			},
 			url: `/alternances/${alternanceId}?rome=${rome}`,
 		});
@@ -70,7 +70,7 @@ describe('rechercher alternance', () => {
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const body = await res.json();
-				expect(body).toEqual(uneAlternance());
+				expect(body).toEqual(anAlternanceMatcha());
 			},
 			url: `/alternances/${alternanceId}?rome=${rome}`,
 		});
