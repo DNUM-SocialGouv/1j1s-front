@@ -1,4 +1,9 @@
-import { anAlternanceFiltre } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import { Alternance } from '~/server/alternances/domain/alternance';
+import {
+	aListeLaBonneAlternanceApiResponse,
+	aMatchaResponse,
+	anAlternanceFiltre,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
@@ -41,16 +46,34 @@ describe('ApiLaBonneAlternanceRepository', () => {
 	});
 
 	describe('get', () => {
-		it('renvoie une alternance', async () => {
+		it('renvoie la bonne alternance dans la liste renvoyée par l’api', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse([
+				aMatchaResponse({ id: 'def' }),
+				aMatchaResponse({ id: 'abc' }),
+			])));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
 			const result = await repository.get('abc', 'I1234') as Success<Alternance>;
 
-			// Thenr
-			expect(result.result).toEqual(uneAlternance());
+			// Then
+			expect(result.result.id).toEqual('abc');
+		});
+		it('renvoie une erreur CONTENU_INDISPONIBLE quand l’offre n’existe pas', async () => {
+			// Given
+			const httpClientService = anHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse([
+				aMatchaResponse({ id: 'def' }),
+			])));
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+
+			// When
+			const result = await repository.get('abc', 'I1234') as Failure;
+
+			// Then
+			expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 		});
 		it('appelle l’api laBonneAlternance', async () => {
 			// Given
@@ -61,7 +84,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// When
 			await repository.get('abc', 'I1234');
 
-			// Thenr
+			// Then
 			expect(httpClientService.get).toHaveBeenCalledTimes(1);
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
 		});

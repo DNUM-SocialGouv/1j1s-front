@@ -2,7 +2,7 @@ import { Alternance } from '~/server/alternances/domain/alternance';
 import {
 	AlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import { mapAlternance } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import { mapAlternanceListe } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 
 describe('mapAlternance', () => {
 	it('converti une response en liste d’alternance', () => {
@@ -25,7 +25,7 @@ describe('mapAlternance', () => {
 			},
 		};
 
-		const result = mapAlternance(input);
+		const result = mapAlternanceListe(input);
 
 		expect(result).toEqual([
 			{

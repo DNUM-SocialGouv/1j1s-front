@@ -2,6 +2,7 @@ import { Alternance } from './alternance';
 
 export const anAlternanceMatcha = (): Alternance => {
 	return {
+		id: 'id',
 		localisation: 'paris',
 		niveauRequis: 'débutant',
 		nomEntreprise: 'une entreprise',
@@ -14,6 +15,7 @@ export const anAlternanceMatcha = (): Alternance => {
 
 const anAlternanceMatchaBoucher = (): Alternance => {
 	return {
+		id: 'id-boucher',
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		nomEntreprise: 'SARL HUGUE-DEBRIX',
 		source: Alternance.Source.MATCHA,
@@ -25,6 +27,7 @@ const anAlternanceMatchaBoucher = (): Alternance => {
 
 const anAlternanceMatchaBoulanger = (): Alternance => {
 	return {
+		id: 'id-boulanger',
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		nomEntreprise: 'MONSIEUR MICHEL',
 		source: Alternance.Source.MATCHA,
@@ -36,6 +39,7 @@ const anAlternanceMatchaBoulanger = (): Alternance => {
 
 export const anAlternancePEJobs = (): Alternance => {
 	return {
+		id: 'alternance-pejob',
 		localisation: 'paris',
 		nomEntreprise: 'une entreprise',
 		source: Alternance.Source.POLE_EMPLOI,

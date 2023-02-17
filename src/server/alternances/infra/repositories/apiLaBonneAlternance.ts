@@ -26,6 +26,7 @@ export namespace AlternanceApiJobsResponse {
 	}
 
 	export interface Matcha {
+		id: string
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
@@ -34,6 +35,7 @@ export namespace AlternanceApiJobsResponse {
 	}
 
 	export interface PEJobs {
+		id: string
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
