@@ -44,11 +44,12 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 	const { consommationEnergetique, emissionDeGaz } = props;
 	return <section className={classNames(styles.energy, cardStyles.card)} aria-label="bilan énergétique du logement">
 		<figure>
-			<figcaption className={styles.figcaption}>Classe énergie</figcaption>
-			<Tooltip icon='information' ariaLabel='informations-supplementaires' ariaDescribedBy='informations-spplementaires'>
+			<figcaption>
+				Classe énergie
+			</figcaption>
+			<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>
 				{consommationTexte}
 			</Tooltip>
-
 			<div role="img" aria-label={consommationEnergetique ?? 'Non renseigné'}
 				aria-describedby="consommation-energetique"
 				className={styles.tag}
@@ -63,7 +64,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 		</figure>
 		<figure>
 			<figcaption>Émissions de <abbr title="Gaz à Effet de Serre">GES</abbr></figcaption>
-			<Tooltip icon='information'ariaLabel='informations-supplementaires' ariaDescribedBy='informations-spplementaires'>
+			<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>
 				{emissionTexte}
 			</Tooltip>
 			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby="emission-de-gaz"

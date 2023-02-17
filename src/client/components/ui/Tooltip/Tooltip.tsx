@@ -1,32 +1,33 @@
+import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Tooltip/Tooltip.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface TooltipProps {
-    icon: IconName,
-	ariaLabel: string,
+	icon: IconName
+	ariaLabel: string
 	ariaDescribedBy: string
 }
 
 export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 	const { children, icon, ariaLabel, ariaDescribedBy } = props;
-	const { isSmallScreen } = useBreakpoint();
-	const tooltipRef = useRef<HTMLDivElement>(null);
-	const [isClose, setIsClose] = useState(true);
+	const tooltipRef = useRef<HTMLButtonElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
+
+
 	const closeTooltipOnClickOutside = useCallback((event: MouseEvent) => {
 		if (!(tooltipRef.current)?.contains(event.target as Node)) {
-			setIsClose(true);
+			setIsOpen(false);
 		}
 	}, []);
 
 	const closeTooltipOnEscape = useCallback((event: KeyboardEvent) => {
-		if (event.key === KeyBoard.ESCAPE && !isClose) {
-			setIsClose(true);
+		if ((event.key === KeyBoard.ESCAPE || event.key === KeyBoard.ESC) && isOpen) {
+			setIsOpen(false);
 		}
-	}, [isClose]);
+	}, [isOpen]);
 
 	useEffect(function setEventListenerOnMount() {
 		document.addEventListener('mousedown', closeTooltipOnClickOutside);
@@ -37,28 +38,36 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 		};
 	}, [closeTooltipOnClickOutside, closeTooltipOnEscape]);
 
+	const closeTooltipOnBlur = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
+		if (!event.currentTarget.contains(event.relatedTarget)) {
+			setIsOpen(false);
+		}
+	}, []);
 
-	if (isSmallScreen) return (
-		<span ref={tooltipRef} className={styles.tooltipContainer}>
-			<button aria-label={ariaLabel} aria-describedby={ariaDescribedBy}
-				onClick={() => setIsClose(!isClose)}>
+	return (
+		<div
+			onMouseEnter={() => setIsOpen(true)}
+			onMouseLeave={() => setIsOpen(false)}
+			onFocus={() => setIsOpen(true)}
+			onBlur={closeTooltipOnBlur}
+			className={styles.position}
+		>
+			<button
+				ref={tooltipRef}
+				className={styles.tooltipContainer}
+				aria-label={ariaLabel}
+				aria-describedby={ariaDescribedBy}
+				aria-expanded={isOpen}
+				type="button"
+				onClick={() => setIsOpen(!isOpen)}>
 				<Icon name={icon} className={styles.icon}/>
 			</button>
-			{!isClose && <div className={styles.tooltip} role="tooltip" id={ariaDescribedBy}>
-				<button className={styles.button} aria-label='fermer' onClick={() => setIsClose(!isClose)}>
-					<Icon name="close" className={styles.close}/>
+			<div className={classNames(styles.tooltip)} role="tooltip" id={ariaDescribedBy} hidden={!isOpen}>
+				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(!isOpen)}>
+					<Icon name="close" />
 				</button>
 				{children}
-			</div>}
-		</span>
-	);
-
-	return <div ref={tooltipRef} className={styles.tooltipContainer}>
-		<span tabIndex={0} aria-describedby="informations-supplementaires">
-			<Icon name={icon} className={styles.icon}/>
-			<div className={styles.tooltip} role="tooltip" id="informations-supplementaires">
-				{children}
 			</div>
-		</span>
-	</div>;
+		</div>
+	);
 }

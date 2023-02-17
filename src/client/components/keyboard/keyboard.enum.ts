@@ -7,6 +7,7 @@ export const enum KeyBoard {
   ARROW_UP = 'ArrowUp',
   ENTER = 'Enter',
   ESCAPE = 'Escape',
+  ESC = 'Esc',
   BACKSPACE = 'Backspace',
   DELETE = 'Delete',
   SPACE = ' '

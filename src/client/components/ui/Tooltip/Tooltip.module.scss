@@ -1,20 +1,11 @@
 @import "@styles/utilities";
 
+.position {
+  display: inline;
+}
 .tooltipContainer {
   display: inline-flex;
   padding-left: 0.25rem;
-}
-
-.tooltipContainer:hover {
-  .tooltip {
-    visibility: visible;
-  }
-}
-
-.tooltipContainer span:focus {
-  .tooltip {
-    visibility: visible;
-  }
 }
 
 .icon {
@@ -23,23 +14,18 @@
 }
 
 .tooltip {
-  visibility: hidden;
   font-size: 0.75rem;
   z-index: 15;
   position: absolute;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border: 1px solid $color-separator;
   border-radius: 20px;
   background-color: $color-background;
   overflow-y: auto;
-  max-width: 700px;
-
-  @include media(small){
-    width: 100%;
-  }
+  max-width: 40rem;
 }
 
-.button {
+.buttonClose {
   display: block;
-  padding-left: 0px;
+  padding: 0;
 }
