@@ -10,14 +10,14 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useReferrer from '~/client/hooks/useReferrer';
-import { CarteActualite } from '~/server/cms/domain/actualite';
+import { Actualite } from '~/server/cms/domain/actualite';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { dependencies } from '~/server/start';
 
 import styles from './espace-jeune.module.scss';
 
 interface EspaceJeunePageProps {
-	cartesActualites: CarteActualite[]
+	cartesActualites: Actualite[]
 	espaceJeune: EspaceJeune
 }
 
@@ -26,10 +26,10 @@ const MAX_VISIBLE_ACTUALITES_LENGTH = 6;
 export default function EspaceJeunePage({ cartesActualites, espaceJeune }: EspaceJeunePageProps) {
 	useReferrer();
 
-	const getCarteActualiteLinkLabel = useCallback(({ article }: CarteActualite): string | undefined => {
+	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
 		if (!article) return 'En savoir plus';
 	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: CarteActualite): React.ReactNode | undefined => {
+	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualite): React.ReactNode | undefined => {
 		if (!article) return <Icon name={'external-redirection'}/>;
 	}, []);
 

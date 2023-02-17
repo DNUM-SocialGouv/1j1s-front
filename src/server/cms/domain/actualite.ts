@@ -1,9 +1,9 @@
 import { Article } from './article';
 import { Image } from './image';
 
-export interface CarteActualite {
-	article: Article | undefined
-	bannière: Image | undefined
+export interface Actualite {
+	article?: Article
+	bannière?: Image
 	extraitContenu: string
 	contenu: string
 	link: string

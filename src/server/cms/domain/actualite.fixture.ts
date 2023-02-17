@@ -1,28 +1,27 @@
-import { CarteActualite } from './actualite';
-import { anArticle } from './article.fixture';
+import { Actualite } from '~/server/cms/domain/actualite';
+import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anImage } from '~/server/cms/domain/image.fixture';
 
-export const aCarteActualiteFixture = (override?: Partial<CarteActualite>) => ({
-	article: anArticle(),
-	bannière: {
-		alt: 'text',
-		url: 'https://animage.jpg',
-	},
-	contenu: 'Contenu',
-	extraitContenu: 'Contenu',
-	link: '/articles/slug-titre',
-	titre: 'Titre',
-	...override,
-});
+export function anActualite(override?: Partial<Actualite>) {
+	return {
+		article: anArticle(),
+		bannière: anImage(),
+		contenu: 'Contenu',
+		extraitContenu: 'Contenu',
+		link: '/articles/aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
+		titre: 'Titre',
+		...override,
+	};
+}
 
-export const aCartesActualitesListFixture = () => (
-	[
-		aCarteActualiteFixture({ titre: 'Actualité 1' }),
-		aCarteActualiteFixture({ titre: 'Actualité 2' }),
-		aCarteActualiteFixture({ titre: 'Actualité 3' }),
-		aCarteActualiteFixture({ titre: 'Actualité 4' }),
-		aCarteActualiteFixture({ titre: 'Actualité 5' }),
-		aCarteActualiteFixture({ titre: 'Actualité 6' }),
-		aCarteActualiteFixture({ titre: 'Actualité 7' }),
-	]
-);
-
+export function anActualiteList() {
+	return [
+		anActualite({ titre: 'Actualité 1' }),
+		anActualite({ titre: 'Actualité 2' }),
+		anActualite({ titre: 'Actualité 3' }),
+		anActualite({ titre: 'Actualité 4' }),
+		anActualite({ titre: 'Actualité 5' }),
+		anActualite({ titre: 'Actualité 6' }),
+		anActualite({ titre: 'Actualité 7' }),
+	];
+}

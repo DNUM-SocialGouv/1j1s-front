@@ -1,12 +1,10 @@
-import qs from 'qs';
-
-import { CarteActualite } from '~/server/cms/domain/actualite';
+import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
-import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import {
 	mapAnnonceLogement,
@@ -75,14 +73,9 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	async getActualitéList(): Promise<Either<Array<CarteActualite>>> {
-		const query = {
-			populate: {
-				listeActualites: { populate: '*' },
-			},
-		};
-		const queryString = qs.stringify(query, { encode: false });
-		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<CarteActualite>>(RESOURCE_ACTUALITE, queryString, mapStrapiListeActualités);
+	async getActualitéList(): Promise<Either<Array<Actualite>>> {
+		const query = 'populate=deep';
+		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualite>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
 	}
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
@@ -106,7 +99,7 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
-		const query = 'populate=*';
+		const query = 'populate=deep';
 		return this.getSingleType<Strapi.CollectionType.Article, Article>(this.getResourceMentionObligatoire(type), query, mapArticle);
 	}
 
@@ -124,28 +117,13 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async getMesureJeune(): Promise<Either<EspaceJeune>> {
-		const query = {
-			populate: {
-				accompagnement: { populate: '*' },
-				aidesFinancieres: { populate: '*' },
-				orienterFormer: { populate: '*' },
-				vieProfessionnelle: { populate: '*' },
-			},
-		};
-		const queryString = qs.stringify(query, { encode: false });
-		return this.getSingleType<Strapi.SingleType.LesMesuresJeunes, EspaceJeune>(RESOURCE_MESURE_JEUNE, queryString, mapEspaceJeune);
+		const query = 'populate=deep';
+		return this.getSingleType<Strapi.SingleType.LesMesuresJeunes, EspaceJeune>(RESOURCE_MESURE_JEUNE, query, mapEspaceJeune);
 	}
 
-	async getMesuresEmployeurs(): Promise<Either<CarteMesuresEmployeurs[]>> {
-		const query = {
-			populate: {
-				dispositifs: {
-					populate: '*',
-				},
-			},
-		};
-		const queryString = qs.stringify(query, { encode: false });
-		return this.getSingleType<Strapi.SingleType.LesMesuresEmployeurs, CarteMesuresEmployeurs[]>(RESOURCE_MESURES_EMPLOYEURS, queryString, mapMesuresEmployeurs);
+	async getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>> {
+		const query = 'populate=deep';
+		return this.getSingleType<Strapi.SingleType.LesMesuresEmployeurs, MesureEmployeur[]>(RESOURCE_MESURES_EMPLOYEURS, query, mapMesuresEmployeurs);
 	}
 
 	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {

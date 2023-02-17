@@ -7,10 +7,10 @@ import { Head } from '~/client/components/head/Head';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
-import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 
 export interface MesuresEmployeursProps {
-  mesureEmployeurList: CarteMesuresEmployeurs[];
+  mesureEmployeurList: MesureEmployeur[];
 }
 
 export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmployeursProps) {
@@ -43,7 +43,7 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 }
 
 interface CarteMesureEmployeurProps {
-  carte: CarteMesuresEmployeurs;
+  carte: MesureEmployeur;
   isMobile: boolean;
 }
 

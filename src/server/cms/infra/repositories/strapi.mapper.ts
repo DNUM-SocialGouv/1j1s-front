@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Image as ImageProps } from '~/client/components/props';
-import { CarteActualite } from '~/server/cms/domain/actualite';
+import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
-import { CarteMesuresEmployeurs } from '~/server/cms/domain/mesuresEmployeurs';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
@@ -70,11 +70,11 @@ function flatMapSingleRelation<StrapiType, ReturnType>(relation: Strapi.SingleRe
 	return mapper(strapiType);
 }
 
-export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: Strapi.SingleType.LesMesuresEmployeurs): CarteMesuresEmployeurs[] {
+export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: Strapi.SingleType.LesMesuresEmployeurs): MesureEmployeur[] {
 	return strapiLesMesuresEmployeurs.dispositifs.map(mapCartesMesuresEmployeursList);
 }
 
-function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: Strapi.SingleType.LesMesuresEmployeurs.Dispositif): CarteMesuresEmployeurs {
+function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: Strapi.SingleType.LesMesuresEmployeurs.Dispositif): MesureEmployeur {
 	const article = flatMapSingleRelation(strapiLesMesuresEmployeursDispositif.article, mapArticle);
 	return {
 		article,
@@ -88,11 +88,11 @@ function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: St
 	};
 }
 
-export function mapStrapiListeActualités(strapiListeActualités: Strapi.SingleType.ListeActualités): CarteActualite[] {
+export function mapStrapiListeActualités(strapiListeActualités: Strapi.SingleType.ListeActualités): Actualite[] {
 	return strapiListeActualités.listeActualites.map(mapStrapiActualité);
 }
 
-function mapStrapiActualité(strapiActualité: Strapi.SingleType.ListeActualités.Actualité): CarteActualite {
+function mapStrapiActualité(strapiActualité: Strapi.SingleType.ListeActualités.Actualité): Actualite {
 	const article = flatMapSingleRelation(strapiActualité.article, mapArticle);
 	return {
 		article,
