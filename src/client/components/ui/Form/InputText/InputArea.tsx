@@ -76,7 +76,7 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	label,
 	hint,
 	id: idProps,
-	'aria-describedby': DescribedByProps,
+	'aria-describedby': describedByProps,
 	onChange: onChangeProps,
 	onBlur: onBlurProps,
 	validate,
@@ -102,8 +102,8 @@ export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fu
 	}
 
 	const ariaDescribedby = hint
-		? `${DescribedByProps} ${hintId}`
-		: DescribedByProps;
+		? `${describedByProps} ${hintId}`
+		: describedByProps;
 
 	return (
 		<div className={classNames(styles.textInput, className)}>
