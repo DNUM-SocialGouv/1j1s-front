@@ -68,38 +68,18 @@ describe('<Stage />', () => {
 			expect(radioNon).toBeChecked();
 		});
 
-		describe('quand la validation de la description est inactive', () => {
-			it('affiche le composant avec le bon label et la limite sur le textarea', () => {
-				// Given
-				const label = 'Rédigez une description de l’offre de stage';
-				const placeholder = 'Indiquez des informations sur le stage : les objectifs, les challenges, les missions...';
-				const minLengthValue = '0';
+		it('affiche le composant avec le bon label et la limite sur le textarea', () => {
+			// Given
+			const label = 'Rédigez une description de l’offre de stage (200 caractères minimum)';
+			const placeholder = 'Indiquez des informations sur le stage : les objectifs, les challenges, les missions...';
+			const minLengthValue = '200';
 
-				// When
-				process.env.NEXT_PUBLIC_DEPOT_STAGE_DESCRIPTION_MIN_LENGTH_ACTIVE = '0';
-				render(<Stage />);
+			// When
+			render(<Stage />);
 
-				// Then
-				expect(screen.getByText(label)).toBeInTheDocument();
-				expect(screen.getByPlaceholderText(placeholder)).toHaveAttribute('minLength', minLengthValue);
-			});
-		});
-
-		describe('quand la validation de la description est active', () => {
-			it('affiche le composant avec le bon label et la limite sur le textarea', () => {
-				// Given
-				const label = 'Rédigez une description de l’offre de stage (200 caractères minimum)';
-				const placeholder = 'Indiquez des informations sur le stage : les objectifs, les challenges, les missions...';
-				const minLengthValue = '200';
-
-				// When
-				process.env.NEXT_PUBLIC_DEPOT_STAGE_DESCRIPTION_MIN_LENGTH_ACTIVE = '1';
-				render(<Stage />);
-
-				// Then
-				expect(screen.getByText(label)).toBeInTheDocument();
-				expect(screen.getByPlaceholderText(placeholder)).toHaveAttribute('minLength', minLengthValue);
-			});
+			// Then
+			expect(screen.getByText(label)).toBeInTheDocument();
+			expect(screen.getByPlaceholderText(placeholder)).toHaveAttribute('minLength', minLengthValue);
 		});
 	});
 

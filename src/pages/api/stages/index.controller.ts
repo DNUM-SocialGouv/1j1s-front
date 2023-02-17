@@ -7,11 +7,10 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { dependencies } from '~/server/start';
 
-const isDescriptionMinLengthActive = process.env.NEXT_PUBLIC_DEPOT_STAGE_DESCRIPTION_MIN_LENGTH_ACTIVE === '1';
 
 export const enregistrerOffreDeStageBodySchema = Joi.object({
 	dateDeDebut: Joi.string().required(),
-	description: Joi.string().min(isDescriptionMinLengthActive ? 200 : 0).required(),
+	description: Joi.string().min(200).required(),
 	domaine: Joi.string(),
 	duree: Joi.string(),
 	employeur: Joi.object({
