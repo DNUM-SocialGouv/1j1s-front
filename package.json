@@ -30,7 +30,7 @@
     "classnames": "~2.3.1",
     "dompurify": "~3.0.0",
     "ioredis": "~5.3.0",
-    "joi": "~17.7.0",
+    "joi": "~17.8.0",
     "lodash.debounce": "~4.0.8",
     "marked": "~4.2.12",
     "next": "~13.1.6",
