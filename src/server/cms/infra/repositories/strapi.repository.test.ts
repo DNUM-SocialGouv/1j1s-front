@@ -16,7 +16,9 @@ import {
 	anActualiteFixture,
 	anArticleAxiosResponse,
 	anOffreDeStageDepotStrapi,
-	aStrapiArticleSlugList, aStrapiCollectionType,
+	aStrapiArticleSlugList,
+	aStrapiCollectionType,
+	aStrapiFicheMetier,
 	aStrapiFicheMetierNomMetierList,
 	aStrapiLesMesuresEmployeurs,
 	aStrapiPage2FicheMetierNomMetierList,
@@ -27,7 +29,7 @@ import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.reposit
 import { createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { aFicheMetier, aStrapiFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
+import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import {
 	anAxiosError,
@@ -75,7 +77,7 @@ describe('strapi cms repository', () => {
 				const result = await strapiCmsRepository.getArticleBySlug(slug) as Success<Article>;
 
 				expect(result.result).toEqual(expectedArticle);
-				expect(httpClientService.get).toHaveBeenCalledWith(`articles?filters[slug][$eq]=${slug}&populate=deep`);
+				expect(httpClientService.get).toHaveBeenCalledWith(`articles?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
 			});
 		});
 	});
@@ -96,7 +98,7 @@ describe('strapi cms repository', () => {
 
 			await strapiCmsRepository.getFicheMetierByNom(nomMetier);
 
-			expect(httpClientService.get).toHaveBeenCalledWith(`fiche-metiers?filters[nom_metier][$eq]=${encodeURIComponent(nomMetier)}&populate=deep`);
+			expect(httpClientService.get).toHaveBeenCalledWith(`fiche-metiers?filters[nom_metier][$eq]=${encodeURIComponent(nomMetier)}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
 		});
 		describe('Si une fiche métier est trouvée', () => {
 			it('récupère la fiche métier selon le nom', async () => {
@@ -131,8 +133,8 @@ describe('strapi cms repository', () => {
 			const { result } = await strapiCmsRepository.listAllFicheMetierNomMetier() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=1');
-			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'fiche-metiers/?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=2');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'fiche-metiers?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=1');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'fiche-metiers?fields[]=nom_metier&pagination[pageSize]=100&pagination[page]=2');
 		});
 	});
 
@@ -147,7 +149,7 @@ describe('strapi cms repository', () => {
 			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('articles/?fields[]=slug&pagination[pageSize]=100&pagination[page]=1');
+			expect(httpClientService.get).toHaveBeenCalledWith('articles?fields[]=slug&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 
@@ -218,7 +220,7 @@ describe('strapi cms repository', () => {
 
 				const { result } = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug) as Success<AnnonceDeLogement>;
 				expect(result).toEqual(uneAnnonceDeLogement());
-				expect(httpClientService.get).toHaveBeenCalledWith(`annonces-de-logement?filters[slug][$eq]=${slug}&populate=deep`);
+				expect(httpClientService.get).toHaveBeenCalledWith(`annonces-de-logement?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
 			});
 		});
 
@@ -247,7 +249,7 @@ describe('strapi cms repository', () => {
 
 				const { result } = await strapiCmsRepository.getOffreDeStageBySlug(slug) as Success<OffreDeStage>;
 				expect(result).toEqual(uneOffreDeStage());
-				expect(httpClientService.get).toHaveBeenCalledWith(`offres-de-stage?filters[slug][$eq]=${slug}&populate=deep`);
+				expect(httpClientService.get).toHaveBeenCalledWith(`offres-de-stage?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
 			});
 		});
 	});

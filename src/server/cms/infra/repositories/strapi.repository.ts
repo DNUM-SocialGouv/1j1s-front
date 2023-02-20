@@ -40,17 +40,6 @@ export class StrapiRepository implements CmsRepository {
 	) {
 	}
 
-	private async getCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
-		try {
-			const endpoint = `${resource}?${query}`;
-			const { data } = await this.httpClientService.get<Strapi.CollectionType<Collection>>(endpoint);
-			const response = data.data.map((data) => mapper(data.attributes));
-			return createSuccess(response);
-		} catch (e) {
-			return handleFailureError(e, resource);
-		}
-	}
-
 	private async getSingleType<Single, Response>(resource: string, query: string, mapper: (data: Single) => Response): Promise<Either<Response>> {
 		try {
 			const endpoint = `${resource}?${query}`;
@@ -60,6 +49,38 @@ export class StrapiRepository implements CmsRepository {
 		} catch (e) {
 			return handleFailureError(e, resource);
 		}
+	}
+
+	private async getCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
+		try {
+			const firstPage = 1;
+			const result = await this.getPaginatedCollectionType<Collection>(resource, query, firstPage);
+			const { page, pageCount } = result.meta.pagination;
+			const dataResponseList = result.data;
+
+			const hasSeveralPages = pageCount > page;
+			if (hasSeveralPages) {
+				const promiseList = [];
+				for (let currentPage = page + 1; currentPage <= pageCount; currentPage++) {
+					promiseList.push(this.getPaginatedCollectionType<Collection>(resource, query, currentPage));
+				}
+				const resultList = await Promise.all(promiseList);
+				dataResponseList.push(...resultList.flatMap((result) => result.data));
+			}
+
+			const response = dataResponseList.map((data) => mapper(data.attributes));
+			return createSuccess(response);
+		} catch (e) {
+			return handleFailureError(e, resource);
+		}
+	}
+
+	private async getPaginatedCollectionType<Collection>(resource: string, query: string, page: number): Promise<Strapi.CollectionType<Collection>> {
+		const paginationQuery = `pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=${page}`;
+		const queryWithPagination = query ? `${query}&${paginationQuery}` : paginationQuery;
+		const endpoint = `${resource}?${queryWithPagination}`;
+		const { data } = await this.httpClientService.get<Strapi.CollectionType<Collection>>(endpoint);
+		return data;
 	}
 
 	private getFirstFromCollection<Response>(responseList: Either<Array<Response>>): Either<Response> {
@@ -91,11 +112,17 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async listAllFicheMetierNomMetier(): Promise<Either<Array<string>>> {
-		return this.listAllCollectionField<Strapi.CollectionType.FicheMétier, 'nom_metier'>('fiche-metiers', 'nom_metier');
+		const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
+		const query = `fields[]=${FICHE_METIER_NOM_METIER_FIELD_NAME}`;
+		const flatMapNomMetier = (strapiFicheMetier: Strapi.CollectionType.FicheMétier): string => strapiFicheMetier.nom_metier;
+		return this.getCollectionType<Strapi.CollectionType.FicheMétier, string>(RESOURCE_FICHE_METIER, query, flatMapNomMetier);
 	}
 
 	async listAllArticleSlug(): Promise<Either<Array<string>>> {
-		return this.listAllCollectionField<Strapi.CollectionType.Article, 'slug'>('articles', 'slug');
+		const ARTICLE_SLUG_FIELD_NAME = 'slug';
+		const query = `fields[]=${ARTICLE_SLUG_FIELD_NAME}`;
+		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
+		return this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
@@ -150,39 +177,5 @@ export class StrapiRepository implements CmsRepository {
 		} catch (e) {
 			return handleFailureError(e, resource);
 		}
-	}
-
-	private mapDataResponseField<CollectionType, Field extends keyof CollectionType>(dataResponseList: Array<Strapi.Data<CollectionType>>, field: Field): Array<CollectionType[Field]> {
-		return dataResponseList.map(({ attributes }) => attributes[field]);
-	}
-
-	// TODO: merge with getCollectionType
-	private async listAllCollectionField<CollectionType, Field extends keyof CollectionType>(resource: string, field: Field): Promise<Either<Array<CollectionType[Field]>>> {
-		try {
-			const firstPage = 1;
-			const result = await this.getPaginatedCollectionWithField<CollectionType, Field>(resource, field, firstPage);
-			const { page, pageCount } = result.meta.pagination;
-			const dataResponseList = result.data;
-
-			const hasSeveralPages = pageCount > page;
-			if (hasSeveralPages) {
-				const promiseList = [];
-				for (let currentPage = page + 1; currentPage <= pageCount; currentPage++) {
-					promiseList.push(this.getPaginatedCollectionWithField<CollectionType, Field>(resource, field, currentPage));
-				}
-				const resultList = await Promise.all(promiseList);
-				dataResponseList.push(...resultList.flatMap((result) => result.data));
-			}
-
-			return createSuccess(this.mapDataResponseField(dataResponseList, field));
-		} catch (e) {
-			return handleFailureError(e, resource);
-		}
-	}
-
-	private async getPaginatedCollectionWithField<CollectionType, Field extends keyof CollectionType>(resource: string, field: Field, page: number): Promise<Strapi.CollectionType<CollectionType>> {
-		const endpoint = `${resource}/?fields[]=${String(field)}&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=${page}`;
-		const { data } = await this.httpClientService.get<Strapi.CollectionType<CollectionType>>(endpoint);
-		return data;
 	}
 }
