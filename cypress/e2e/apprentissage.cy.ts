@@ -24,7 +24,7 @@ describe('Parcours alternance LBA', () => {
 
 	describe('Quand l’utilisateur cherche un métier', () => {
 		const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();
-		it('affiche au maximum 10 métiers', () => {
+		it('tous les métiers sont accessibles mais au maximum 10 sont visibles sans scroll', () => {
 			cy.visit('/apprentissage');
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.focused().type('travaux', { force: true }),

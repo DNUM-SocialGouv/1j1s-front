@@ -12,9 +12,12 @@ export function anAlternanceServiceWithEmptyResultat(): AlternanceService {
 	} as unknown as AlternanceService;
 }
 
-export function anAlternanceService(): AlternanceService {
+export function anAlternanceService(
+	rechercherAlternanceValue = aRésultatRechercherMultipleAlternance(),
+	rechercherMétierValue = aListeDeMetierLaBonneAlternance(),
+): AlternanceService {
 	return {
-		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess(aRésultatRechercherMultipleAlternance())),
-		rechercherMétier: jest.fn().mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance())),
+		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess(rechercherAlternanceValue)),
+		rechercherMétier: jest.fn().mockResolvedValue(createSuccess(rechercherMétierValue)),
 	} as unknown as AlternanceService;
 }

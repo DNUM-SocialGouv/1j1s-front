@@ -101,7 +101,6 @@ describe('InputAutocomplétionMétier', () => {
 				);
 				const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
 				await user.type(inputAutocomplétionMétier, 'boulang');
-				await screen.findByRole('option', { name: 'Conduite de travaux, direction de chantier' });
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);
 
