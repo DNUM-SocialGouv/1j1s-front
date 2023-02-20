@@ -15,7 +15,7 @@ export class GénérerSitemapUseCase {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
-		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList));
+		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
 		// TODO: ajouter les stages et les logements
 		const [ficheMetierNomMetierListResult, articleSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),

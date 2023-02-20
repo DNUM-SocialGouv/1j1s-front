@@ -16,7 +16,7 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path
 		offresNav,
 		orientationNav,
 		logementsNav,
-	} = navigationItemList;
+	} = navigationItemList();
 	const router = useRouter();
 	const [path, setPath] = useState(() => router.pathname || '');
 
