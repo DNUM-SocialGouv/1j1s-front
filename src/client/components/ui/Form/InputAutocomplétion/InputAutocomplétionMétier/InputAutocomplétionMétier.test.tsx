@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -17,6 +17,13 @@ import {
 	anAlternanceService,
 	anAlternanceServiceWithEmptyResultat,
 } from '~/client/services/alternance/alternance.service.fixture';
+
+jest.mock('lodash/debounce', () =>
+	jest.fn((fn) => {
+		fn.cancel = jest.fn();
+		return fn;
+	}));
+
 
 describe('InputAutocomplétionMétier', () => {
 	afterEach(() => {
@@ -32,13 +39,14 @@ describe('InputAutocomplétionMétier', () => {
 				<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
-			await waitFor(() => user.type(inputAutocomplétionMétier, 'dddddd'));
+			await user.type(inputAutocomplétionMétier, 'dddddd');
 			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...');
 
-			expect(emptyResultText).toBeInTheDocument();
+			expect(emptyResultText).toBeVisible();
 			expect(screen.queryByRole('option')).not.toBeInTheDocument();
 		});
 	});
+
 	describe('quand la recherche correspond à des métiers', () => {
 		it('affiche les métiers possibles', async () => {
 			const alternanceServiceMock = anAlternanceService();
@@ -49,13 +57,14 @@ describe('InputAutocomplétionMétier', () => {
 				<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
-			await waitFor(() => user.type(inputAutocomplétionMétier, 'boulang'));
+			await user.type(inputAutocomplétionMétier, 'boulang');
 
-			expect(await screen.findAllByRole('option')).toHaveLength(3);
-			expect(screen.getByRole('option', { name: 'Transport aérien' })).toBeInTheDocument();
-			expect(screen.getByRole('option', { name: 'Transport ferroviaire' })).toBeInTheDocument();
-			expect(screen.getByRole('option', { name: 'Vente, transaction, gestion immobilière' })).toBeInTheDocument();
+			expect(await screen.findAllByRole('option')).toHaveLength(11);
+			expect(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' })).toBeVisible();
+			expect(screen.getByRole('option', { name: 'Génie électrique' })).toBeVisible();
+			expect(screen.getByRole('option', { name: 'Aéronautique' })).toBeVisible();
 		});
+
 		describe('quand je click sur un métier', () => {
 			it('affiche le métier séléctionné', async () => {
 				const alternanceServiceMock = anAlternanceService();
@@ -70,11 +79,11 @@ describe('InputAutocomplétionMétier', () => {
 					</form>,
 				);
 				const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
-				await waitFor(() => user.type(inputAutocomplétionMétier, 'boulang'));
-				await waitFor(() => user.click(screen.getByRole('option', { name: 'Transport aérien' })));
+				await user.type(inputAutocomplétionMétier, 'boulang');
+				await user.click(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' }));
 
-				expect(inputAutocomplétionMétier).toHaveValue('Transport aérien');
-				expect(screen.getByRole('form')).toHaveFormValues({ codeRomes: 'N2101,N2102,N2203,N2204' });
+				expect(inputAutocomplétionMétier).toHaveValue('Conduite de travaux, direction de chantier');
+				expect(screen.getByRole('form')).toHaveFormValues({ codeRomes: 'F1201,F1202,I1101' });
 			});
 		});
 		describe('quand je choisi un métier avec le clavier', () => {
@@ -92,11 +101,10 @@ describe('InputAutocomplétionMétier', () => {
 				);
 				const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
 				await user.type(inputAutocomplétionMétier, 'boulang');
-				await screen.findByRole('option', { name: 'Vente, transaction, gestion immobilière' });
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);
 
-				await waitFor(() => expect(inputAutocomplétionMétier).toHaveValue('Transport aérien'));
+				expect(inputAutocomplétionMétier).toHaveValue('Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)');
 			});
 		});
 	});

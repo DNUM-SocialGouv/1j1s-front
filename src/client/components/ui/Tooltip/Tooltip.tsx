@@ -24,7 +24,7 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 	}, []);
 
 	const closeTooltipOnEscape = useCallback((event: KeyboardEvent) => {
-		if ((event.key === KeyBoard.ESCAPE || event.key === KeyBoard.ESC) && isOpen) {
+		if ((event.key === KeyBoard.ESCAPE || event.key === KeyBoard.IE_ESCAPE) && isOpen) {
 			setIsOpen(false);
 		}
 	}, [isOpen]);

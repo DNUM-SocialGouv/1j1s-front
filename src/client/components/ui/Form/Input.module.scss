@@ -18,6 +18,8 @@
   list-style-type: none;
   margin: 0;
   padding-left: 0;
+  max-height: 16.25rem;
+  overflow: auto;
 }
 
 .suggestionList > li {
@@ -84,11 +86,7 @@
   align-items: center;
 
   &Error {
-    position: absolute;
-    bottom: 0;
-    height: 2rem;
     @extend %text-small;
-    line-height: 1.2;
     align-items: center;
     color: $color-error;
   }

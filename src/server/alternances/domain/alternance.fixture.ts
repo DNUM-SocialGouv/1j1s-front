@@ -8,9 +8,9 @@ export const anAlternanceMatcha = (): Alternance => {
 		niveauRequis: 'débutant',
 		nomEntreprise: 'une entreprise',
 		source: Alternance.Source.MATCHA,
-		tags: ['paris', 'apprentissage', 'débutant'],
+		tags: ['paris', 'Apprentissage', 'débutant'],
 		titre: 'un titre',
-		typeDeContrat: 'apprentissage',
+		typeDeContrat: ['Apprentissage'],
 	};
 };
 
@@ -19,9 +19,9 @@ const anAlternanceMatchaBoucher = (): Alternance => {
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		nomEntreprise: 'SARL HUGUE-DEBRIX',
 		source: Alternance.Source.MATCHA,
-		tags: ['apprentissage', 'Cap, autres formations niveau (Infrabac)'],
+		tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Boucher-charcutier / Bouchère-charcutière',
-		typeDeContrat: 'apprentissage',
+		typeDeContrat: ['Apprentissage'],
 	};
 };
 
@@ -30,9 +30,9 @@ const anAlternanceMatchaBoulanger = (): Alternance => {
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		nomEntreprise: 'MONSIEUR MICHEL',
 		source: Alternance.Source.MATCHA,
-		tags: ['apprentissage',  'Cap, autres formations niveau (Infrabac)'],
+		tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Ouvrier boulanger / Ouvrière boulangère',
-		typeDeContrat: 'apprentissage',
+		typeDeContrat: ['Apprentissage'],
 	};
 };
 
@@ -43,20 +43,26 @@ export const anAlternancePEJobs = (): Alternance => {
 		source: Alternance.Source.POLE_EMPLOI,
 		tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 		titre: 'un titre',
-		typeDeContrat: 'CDD',
+		typeDeContrat: ['CDD'],
 	};
-};
-
-
-export const anAlternanceList = (): Array<Alternance> => {
-	return [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()];
 };
 
 export const aListeDeMetierLaBonneAlternance = (): Array<MetierAlternance> => {
 	return [
-		{ label: 'Vente, transaction, gestion immobilière', romes: ['C1504', 'C1501', 'C1502', 'C1503'] },
-		{ label: 'Transport aérien', romes: ['N2101', 'N2102', 'N2203', 'N2204'] },
-		{ label: 'Transport ferroviaire', romes: ['N4301', 'N4401', 'N4403'] },
+		{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] },
+		{ label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)', romes: ['F1106', 'F1104', 'I1101'] },
+		{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+		{ label: 'Aéronautique', romes: ['I1304', 'I1602'] },
+		{ label: 'Chimie', romes: ['H1201', 'H1505', 'H2301'] },
+		{ label: 'Electronique, informatique industrielle', romes: ['H1206', 'H1402'] },
+		{ label: 'Electricité, climatisation, domotique, électronique', romes: ['F1106'] },
+		{ label: 'Biologie, santé, sciences physiques', romes: ['H1206'] },
+		{ label: 'Energie', romes: ['H1302', 'H1206'] },
+		{ label: 'Mécanique, maintenance industrielle', romes: ['I1310', 'I1502'] },
+		{ label: 'Robotique, systèmes automatisés', romes: ['H1208', 'I1301'] },
 	];
 };
 
+export const aRésultatRechercherMultipleAlternance = (): Array<Alternance> => {
+	return [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()];
+};

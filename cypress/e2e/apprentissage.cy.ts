@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 
 import {
-	anAlternanceList,
+	aListeDeMetierLaBonneAlternance,
+	aRésultatRechercherMultipleAlternance,
 } from '../../src/server/alternances/domain/alternance.fixture';
 import { interceptGet } from '../interceptGet';
 
@@ -21,13 +22,30 @@ describe('Parcours alternance LBA', () => {
 		cy.focused().should('have.attr', 'name', 'libelle');
 	});
 
+	describe('Quand l’utilisateur cherche un métier', () => {
+		const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();
+		it('tous les métiers sont accessibles mais au maximum 10 sont visibles sans scroll', () => {
+			cy.visit('/apprentissage');
+			interceptGet({
+				actionBeforeWaitTheCall: () => cy.focused().type('travaux', { force: true }),
+				alias: 'recherche-mot-cle-alternances',
+				path: '/api/alternances/metiers*',
+				response: JSON.stringify(aListeDeMetierLaBonneAlternanceFixture),
+			});
+
+			cy.contains(aListeDeMetierLaBonneAlternanceFixture[0].label).should('be.visible');
+			cy.contains(aListeDeMetierLaBonneAlternanceFixture[10].label).should('not.be.visible');
+			cy.get('ul[role="listbox"] > li').should('have.length', 11);
+		});
+	});
+
 	describe('Quand l’utilisateur effectue une recherche', () => {
 		it('filtre les résultats par mot clé', () => {
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelle=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104'),
 				alias: 'recherche-metiers',
 				path: '/api/alternances?libelle*',
-				response: JSON.stringify(anAlternanceList()),
+				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
 			});
 
 			cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 4);

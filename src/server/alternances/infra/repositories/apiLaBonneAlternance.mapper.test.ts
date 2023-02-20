@@ -13,14 +13,14 @@ describe('mapAlternance', () => {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
 					diplomaLevel: 'CAP, BEP',
-					job: { contractType: 'CDD' },
+					job: { contractType: ['CDD'] },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 			},
 			peJobs: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
-					job: { contractType: 'CDD' },
+					job: { contractType: ['CDD'] },
 					place: { city: 'PARIS 4' },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
@@ -31,12 +31,13 @@ describe('mapAlternance', () => {
 
 		expect(result).toEqual([
 			{
+				localisation: undefined,
 				niveauRequis: 'CAP, BEP',
 				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
 				source: Alternance.Source.MATCHA,
 				tags: ['CDD', 'CAP, BEP'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
-				typeDeContrat: 'CDD',
+				typeDeContrat: ['CDD'],
 			},
 			{
 				localisation: 'PARIS 4',
@@ -45,7 +46,7 @@ describe('mapAlternance', () => {
 				source: Alternance.Source.POLE_EMPLOI,
 				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
-				typeDeContrat: 'CDD',
+				typeDeContrat: ['CDD'],
 			},
 		]);
 	});
@@ -57,11 +58,6 @@ describe('mapMétier', () => {
 
 		const result = mapMétier(responseAPI);
 
-		expect(result).toEqual([{
-			label: 'Vente, transaction, gestion immobilière',
-			romes: ['C1504', 'C1501', 'C1502', 'C1503'],
-		},
-		{ label: 'Transport aérien', romes: ['N2101', 'N2102', 'N2203', 'N2204'] },
-		{ label: 'Transport ferroviaire', romes: ['N4301', 'N4401', 'N4403'] }]);
+		expect(result).toEqual(responseAPI.labelsAndRomes);
 	});
 });

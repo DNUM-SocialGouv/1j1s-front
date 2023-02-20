@@ -10,7 +10,7 @@ export interface MetierLaBonneAlternanceApiResponse {
 
 export namespace AlternanceApiJobsResponse {
 	export interface Job {
-		contractType?: string
+		contractType: string[]
 	}
 
 	export interface Place {
