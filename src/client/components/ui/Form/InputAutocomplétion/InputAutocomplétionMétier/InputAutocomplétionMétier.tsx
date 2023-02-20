@@ -63,7 +63,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				setSuggestionIndex(0);
 				setSuggestionsActive(true);
 			} else {
-				inputRef.current?.setCustomValidity(ERROR_RETRIEVE_METIER);
+				e.currentTarget.setCustomValidity(ERROR_RETRIEVE_METIER);
 				setSuggestionsActive(false);
 			}
 		} else {
@@ -86,9 +86,9 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 		setSuggestionsActive(false);
 		setSuggestionsApi([]);
 	}, []);
-	
+
 	const handleClickOnSuggestion = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: MetierAlternance) => {
-		if(e.button === 0){
+		if (e.button === 0) {
 			e.preventDefault();
 			setIsValueValidSelected(true);
 			inputRef.current?.setCustomValidity('');
@@ -111,7 +111,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			onChange(event);
 		}
 		setIsValueValidSelected(false);
-		inputRef.current?.setCustomValidity(HINT_INPUT_INVALID);
+		event.currentTarget.setCustomValidity(HINT_INPUT_INVALID);
 		setMétierRecherchéInput(event.target.value);
 		handleRechercherWithDebounce(event);
 	}, [onChange, handleRechercherWithDebounce]);
@@ -133,7 +133,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			setSuggestionIndex(suggestionIndex + 1);
 		} else if (event.key === KeyBoard.ENTER && suggestionsActive) {
 			setIsValueValidSelected(true);
-			inputRef.current?.setCustomValidity('');
+			event.currentTarget.setCustomValidity('');
 			setMétierRecherchéInput(suggestionsApi[suggestionIndex].label);
 			setcodeRomesInput(suggestionsApi[suggestionIndex].romes);
 			setSuggestionsActive(false);
@@ -208,8 +208,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				</div>
 				{suggestionsActive && suggestions}
 			</div>
-			{isTouched && inputRef?.current?.validationMessage &&
-          <p id={errorId.current} className={styles.instructionMessageError}>{inputRef?.current.validationMessage}</p>}
+			{isTouched && inputRef.current?.validationMessage &&
+          <p id={errorId.current} className={styles.instructionMessageError}>{inputRef.current?.validationMessage}</p>}
 		</div>
 	);
 };
