@@ -5,22 +5,23 @@ import { uneAnnonceDeLogement, uneAnnonceDeLogementResponse } from '~/server/cms
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
-import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
-import { anEspaceJeune, anEspaceJeuneResponse } from '~/server/cms/domain/espaceJeune.fixture';
+import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { desMesuresEmployeurs } from '~/server/cms/domain/mesureEmployeur.fixture';
 import { uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import {
 	anActualiteFixture,
-	anArticleAxiosResponse,
 	anOffreDeStageDepotStrapi,
+	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiCollectionType,
 	aStrapiFicheMetier,
 	aStrapiFicheMetierNomMetierList,
 	aStrapiLesMesuresEmployeurs,
+	aStrapiLesMesuresJeunesSingleType,
 	aStrapiPage2FicheMetierNomMetierList,
 	aStrapiSingleType,
 	uneOffreDeStageResponse,
@@ -70,7 +71,7 @@ describe('strapi cms repository', () => {
 				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anArticleAxiosResponse());
+				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiArticleCollectionType()));
 				const expectedArticle = anArticle();
 				const slug = 'mon-article';
 
@@ -177,19 +178,17 @@ describe('strapi cms repository', () => {
 		});
 	});
 
-	describe('getEspaceJeune', () => {
-		describe('Si les cartes mesures jeunes sont trouvés', () => {
-			it('récupère les cartes jeunes', async () => {
-				httpClientService = anHttpClientServiceWithAuthentification();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+	describe('getServiceJeuneList', () => {
+		it('récupère les services jeunes', async () => {
+			httpClientService = anHttpClientServiceWithAuthentification();
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType(anEspaceJeuneResponse())));
-				const expectedMesuesJeunes = anEspaceJeune();
-				const result = await strapiCmsRepository.getMesureJeune() as Success<EspaceJeune>;
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiLesMesuresJeunesSingleType()));
+			const expected = anUnorderedServiceJeuneList();
+			const response = await strapiCmsRepository.getServiceJeuneList() as Success<Array<ServiceJeune>>;
 
-				expect(result.result).toEqual(expectedMesuesJeunes);
-				expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate=deep');
-			});
+			expect(response.result).toEqual(expected);
+			expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate=deep');
 		});
 	});
 

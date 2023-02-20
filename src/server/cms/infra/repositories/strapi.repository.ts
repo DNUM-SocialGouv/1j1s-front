@@ -2,18 +2,18 @@ import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import {
 	mapAnnonceLogement,
 	mapArticle,
 	mapEnregistrerOffreDeStage,
-	mapEspaceJeune,
 	mapFicheMetier,
 	mapMesuresEmployeurs,
 	mapOffreStage,
+	mapServiceJeuneList,
 	mapStrapiListeActualités,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
@@ -143,9 +143,9 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	async getMesureJeune(): Promise<Either<EspaceJeune>> {
+	async getServiceJeuneList(): Promise<Either<Array<ServiceJeune>>> {
 		const query = 'populate=deep';
-		return this.getSingleType<Strapi.SingleType.LesMesuresJeunes, EspaceJeune>(RESOURCE_MESURE_JEUNE, query, mapEspaceJeune);
+		return this.getSingleType<Strapi.SingleType.LesMesuresJeunes, Array<ServiceJeune>>(RESOURCE_MESURE_JEUNE, query, mapServiceJeuneList);
 	}
 
 	async getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>> {

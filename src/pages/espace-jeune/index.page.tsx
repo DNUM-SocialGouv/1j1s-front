@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { GetStaticPropsResult } from 'next';
 import React, { useCallback, useMemo } from 'react';
 
-import { EspaceJeuneComponent } from '~/client/components/features/EspaceJeune/EspaceJeune';
+import { ServicesJeunes } from '~/client/components/features/ServicesJeunes/ServicesJeunes';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
@@ -11,19 +11,19 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useReferrer from '~/client/hooks/useReferrer';
 import { Actualite } from '~/server/cms/domain/actualite';
-import { EspaceJeune } from '~/server/cms/domain/espaceJeune';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { dependencies } from '~/server/start';
 
 import styles from './espace-jeune.module.scss';
 
 interface EspaceJeunePageProps {
 	cartesActualites: Actualite[]
-	espaceJeune: EspaceJeune
+	serviceJeuneList: Array<ServiceJeune>
 }
 
 const MAX_VISIBLE_ACTUALITES_LENGTH = 6;
 
-export default function EspaceJeunePage({ cartesActualites, espaceJeune }: EspaceJeunePageProps) {
+export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useReferrer();
 
 	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
@@ -68,34 +68,34 @@ export default function EspaceJeunePage({ cartesActualites, espaceJeune }: Espac
 						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
 						itemList={articleCardList} />
 				</Container>
-				
 			</section>
 			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
 				<LightHero>
 					<h2>
 						<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
-						<LightHeroSecondaryText>entrée dans la vie professionnelle, orientation, formation,
-							accompagnement</LightHeroSecondaryText>
+						<LightHeroSecondaryText>
+							entrée dans la vie professionnelle, orientation, formation, accompagnement
+						</LightHeroSecondaryText>
 					</h2>
 				</LightHero>
-				<EspaceJeuneComponent espaceJeune={espaceJeune}/>
+				<ServicesJeunes cardList={serviceJeuneList}/>
 			</section>
 		</main>
 	);
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
-	const espaceJeuneResponse = await dependencies.cmsDependencies.récupérerEspaceJeune.handle();
+	const serviceJeuneList = await dependencies.cmsDependencies.listerServicesJeunes.handle();
 	const cartesActualitesResponse = await dependencies.cmsDependencies.récupererActualites.handle();
 
-	if (espaceJeuneResponse.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {
+	if (serviceJeuneList.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };
 	}
 
 	return {
 		props: {
 			cartesActualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)),
-			espaceJeune: JSON.parse(JSON.stringify(espaceJeuneResponse.result)),
+			serviceJeuneList: JSON.parse(JSON.stringify(serviceJeuneList.result)),
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};

@@ -1,8 +1,5 @@
-import { AxiosResponse } from 'axios';
-
 import { DomaineStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 export function aStrapiSingleRelation<T>(data: T): { [Key in keyof Strapi.SingleRelation<T>]: NonNullable<Strapi.SingleRelation<T>[Key]> } {
 	return {
@@ -435,8 +432,8 @@ export function anOffreDeStageDepotStrapi(): Strapi.CollectionType.OffreStageDep
 	};
 }
 
-export function anArticleAxiosResponse(): AxiosResponse<Strapi.CollectionType<Strapi.CollectionType.Article>> {
-	return anAxiosResponse<Strapi.CollectionType<Strapi.CollectionType.Article>>(aStrapiCollectionType([aStrapiArticle()]));
+export function aStrapiArticleCollectionType(): Strapi.CollectionType<Strapi.CollectionType.Article> {
+	return aStrapiCollectionType([aStrapiArticle()]);
 }
 
 export function anActualiteFixture(): Strapi.SingleType<Strapi.SingleType.ListeActualités> {
@@ -495,4 +492,34 @@ export function aStrapiFicheMetier(override?: Partial<Strapi.CollectionType.Fich
 		vie_professionnelle: 'string',
 		...override,
 	}]);
+}
+
+export function aStrapiMesureJeune(override?: Partial<Strapi.SingleType.LesMesuresJeunes.MesureJeune>): Strapi.SingleType.LesMesuresJeunes.MesureJeune {
+	return {
+		article: aStrapiSingleRelation(aStrapiArticle()),
+		banniere: aStrapiSingleRelation(aStrapiImage()),
+		contenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+		pourQui: 'pour les 12 à 18mois',
+		titre: 'Un titre de carte',
+		url: 'Une belle url de carte',
+		...override,
+	};
+}
+
+export function aStrapiLesMesuresJeunesSingleType(): Strapi.SingleType<Strapi.SingleType.LesMesuresJeunes> {
+	return aStrapiSingleType({
+		accompagnement: [aStrapiMesureJeune({
+			titre: 'Une formation en centre EPIDE',
+		})],
+		aidesFinancieres: [aStrapiMesureJeune({
+			article: undefined,
+			titre: 'Des aides pour financer son permis de conduire',
+		})],
+		orienterFormer: [aStrapiMesureJeune({
+			titre: 'Les Junior Entreprises',
+		})],
+		vieProfessionnelle: [aStrapiMesureJeune({
+			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
+		})],
+	});
 }
