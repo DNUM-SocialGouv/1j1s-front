@@ -449,4 +449,50 @@ export function anActualiteFixture(): Strapi.SingleType<Strapi.SingleType.ListeA
 			url: 'https://www.google.com',
 		}],
 	});
-};
+}
+
+export function aStrapiFicheMetier(override?: Partial<Strapi.CollectionType.FicheMétier>): Strapi.CollectionType<Strapi.CollectionType.FicheMétier> {
+	return aStrapiCollectionType([{
+		acces_metier: 'string',
+		accroche_metier: 'string',
+		centres_interet: [
+			{
+				identifiant: 'string',
+				libelle: 'string',
+			},
+		],
+		competences: 'string',
+		condition_travail: 'string',
+		formations_min_requise: [
+			{
+				identifiant: 'string',
+				libelle: 'string',
+			},
+		],
+		id: 'string',
+		identifiant: 'string',
+		nature_travail: 'string',
+		niveau_acces_min: [
+			{
+				identifiant: 'string',
+				libelle: 'string',
+			},
+		],
+		nom_metier: 'string',
+		secteurs_activite: [
+			{
+				identifiant: 'string',
+				libelle: 'string',
+			},
+		],
+		statuts: [
+			{
+				id_ideo1: 'string',
+				identifiant: 'string',
+				libelle: 'string',
+			},
+		],
+		vie_professionnelle: 'string',
+		...override,
+	}]);
+}
