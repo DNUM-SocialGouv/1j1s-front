@@ -20,7 +20,7 @@ import styles from './ConsulterAnnonce.module.scss';
 import { DateMiseÀJour } from './DateMiseÀJour';
 
 interface ConsulterAnnonceDeLogementProps {
-    annonceDeLogement: AnnonceDeLogement
+	annonceDeLogement: AnnonceDeLogement
 }
 
 function AnnonceEntête({ children }: { children: React.ReactNode }) {
@@ -38,14 +38,24 @@ function TypeBien({ children }: { children: React.ReactNode }) {
 }
 
 export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogementProps) {
-	const { dateDeMiseAJour, type, typeBien, titre, description, imageUrlList, source, urlDeCandidature, bilanEnergetique } = annonceDeLogement;
+	const {
+		dateDeMiseAJour,
+		type,
+		typeBien,
+		titre,
+		description,
+		imageList,
+		source,
+		urlDeCandidature,
+		bilanEnergetique,
+	} = annonceDeLogement;
 	const { isSmallScreen } = useBreakpoint();
 
 	return (
 		<main id="contenu" className={styles.gridLayout}>
 			<ButtonRetour className={styles.boutonRetour}/>
-			{ isSmallScreen && <AnnonceSource source={source}/>}
-			<AnnonceCarousel imageUrlList={imageUrlList} />
+			{isSmallScreen && <AnnonceSource source={source}/>}
+			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>
 				<h1>{titre}</h1>
 				<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
@@ -61,18 +71,18 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 						emissionDeGaz={bilanEnergetique.emissionDeGaz}
 					/>
 				</div>
-				{ !isSmallScreen && <CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature}/>}
+				{!isSmallScreen && <CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature}/>}
 			</Container>
-			{isSmallScreen &&
-      <div className={styles.lienDeCandidatureMobile}>
-      	<Link
-      		appearance='asPrimaryButton'
-      		href={urlDeCandidature}
-      	>
-          Voir l‘annonce
-      	</Link>
-      </div>
-			}
+			{isSmallScreen && (
+				<div className={styles.lienDeCandidatureMobile}>
+					<Link
+						appearance="asPrimaryButton"
+						href={urlDeCandidature}
+					>
+            Voir l‘annonce
+					</Link>
+				</div>
+			)}
 		</main>
 	);
 }
@@ -93,27 +103,40 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 	</div>;
 };
 
-const AnnonceSource = ({ source }: { source: AnnonceDeLogement.Source }) => {
-	const diffuseur = useMemo(() => {
+function AnnonceSource({ source }: { source: AnnonceDeLogement.Source }) {
+	return useMemo(() => {
 		switch (source) {
-			case 'immojeune': return <span className={styles.source}>Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/></span>;
-			case 'studapart': return <span className={styles.source}>Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/></span>;
-			default: return null;
+			case 'immojeune':
+				return (
+					<span className={styles.source}>
+						Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/>
+					</span>
+				);
+			case 'studapart':
+				return (
+					<span className={styles.source}>
+						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/>
+					</span>
+				);
+			default:
+				return null;
 		}
 	}, [source]);
-	return diffuseur;
 };
 
-const CandidaterDesktop = ({ source, urlDeCandidature }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) => {
+function CandidaterDesktop({
+														 source,
+														 urlDeCandidature,
+													 }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) {
 	return (
 		<div className={classNames(styles.cardCandidater)}>
-			<AnnonceSource source={source} />
+			<AnnonceSource source={source}/>
 			<Link
-				appearance='asPrimaryButton'
+				appearance="asPrimaryButton"
 				href={urlDeCandidature}
 			>
 				Voir l‘annonce
 			</Link>
 		</div>
 	);
-};
+}

@@ -39,7 +39,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 		return cartesActualites.map((carte, index) =>
 			<ArticleCard className={styles.carteActualite}
 				key={index}
-				imageSrc={carte.bannière && carte.bannière.url || ''}
+				imageSrc={carte.bannière?.src || ''}
 				titleLabel={carte.titre}
 				link={carte.link}
 				linkLabel={getCarteActualiteLinkLabel(carte)}

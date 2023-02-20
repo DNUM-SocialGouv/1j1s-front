@@ -43,7 +43,7 @@ interface ServiceJeuneCardProps {
 function ServiceJeuneCard({ serviceJeune }: ServiceJeuneCardProps) {
 	const titre = useSanitize(serviceJeune.titre);
 	const categorie = serviceJeune.categorie;
-	const bannière = serviceJeune.bannière?.url || '';
+	const bannière = serviceJeune.bannière?.src || '';
 	const link = serviceJeune.link;
 	const concerné = serviceJeune.concerné || '';
 

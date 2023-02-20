@@ -56,7 +56,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 			</span>
 		</Card>
 	);
-};
+}
 
 type ImageSrcListProps = Array<string>
 
@@ -74,11 +74,11 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 	</div>;
 
 	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;
-};
+}
 
 const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 	const { imageSrcList } = props;
-	const formattedList = imageSrcList.map((url) => ({ alt: '', src: url }));
+	const formattedList = imageSrcList.map((src) => ({ alt: '', src }));
 	const MAX_IMAGE_WIDTH = 360;
 	const MAX_IMAGE_HEIGHT = 180;
 	const firstFourthImages = useMemo(() => formattedList.slice(0, 4), [formattedList]);

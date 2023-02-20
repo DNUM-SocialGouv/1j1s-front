@@ -6,10 +6,7 @@ import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Cons
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import {
-	Domaines,
-	OffreDeStage,
-} from '~/server/cms/domain/offreDeStage.type';
+import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
 interface ConsulterOffreDeStageProps {
 	offreDeStage: OffreDeStage
@@ -17,11 +14,7 @@ interface ConsulterOffreDeStageProps {
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
 
-	const listeEtiquettes: Array<string> = offreDeStage.domaines
-		? offreDeStage.domaines
-			.filter((domaine) => domaine.nom !== Domaines.NON_RENSEIGNE)
-			.map((domaine) => domaine.nom)
-		: [];
+	const listeEtiquettes: Array<string> = offreDeStage.domaines;
 	listeEtiquettes.push(
 		offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region as string,
 		dureeCategorisee(offreDeStage.dureeEnJour || 0),

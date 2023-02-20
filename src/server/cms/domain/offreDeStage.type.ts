@@ -1,7 +1,3 @@
-type CmsComponent = {
-	id: string
-}
-
 export enum Domaines {
 	ACHAT = 'achats',
 	CULTURE = 'activités sociales et culturelles',
@@ -50,10 +46,6 @@ export type LocalisationStageIndexée = {
 	codePostal?: string
 	region?: string // enum de region ? (interessant pour savoir si pays en full + majuscule …)
 	pays: string // enum de pays ? (interessant pour savoir si pays en full + majuscule …) (https://www.npmjs.com/package/i18n-iso-countries ?)
-	_geo?: {
-		lat: number
-		lng: number
-	}
 }
 
 export interface LocalisationDepotStageIndexée {
@@ -94,11 +86,11 @@ export type OffreDeStageIndexée = {
 	teletravailPossible?: boolean
 };
 
-export interface EmployeurStageCMS extends CmsComponent {
+export interface EmployeurStageCMS {
 	nom: string
-	description: string
-	logoUrl: string
-	siteUrl: string
+	description?: string
+	logoUrl?: string
+	siteUrl?: string
 }
 
 export interface EmployeurDepotStage {
@@ -109,7 +101,7 @@ export interface EmployeurDepotStage {
 	email: string
 }
 
-export interface DomaineStageCMS extends CmsComponent {
+export interface DomaineStageCMS {
 	nom: Domaines
 }
 
@@ -122,24 +114,26 @@ export interface OffreDeStage {
 	id: string
 	slug: string
 	dateDeDebut: string
-	createdAt: string
-	publishedAt: string
-	updatedAt: string
 	description: string
 	urlDeCandidature?: string
-	sourceCreatedAt: string
-	sourceUpdatedAt: string
-	sourcePublishedAt: string
-	identifiantSource?: string
-	domaines?: Array<DomaineStageCMS>
-	duree?: string
+	domaines: Array<Domaines>
 	dureeEnJour?: number
 	dureeEnJourMax?: number
-	localisation?: LocalisationStageIndexée
-	employeur?: EmployeurStageCMS
+	localisation: OffreDeStage.Localisation
+	employeur: EmployeurStageCMS
 	remunerationBase?: number
 	source?: SourceDesDonnées
 	teletravailPossible?: boolean
+}
+
+export namespace OffreDeStage {
+	export interface Localisation {
+		ville?: string
+		departement?: string
+		codePostal?: string
+		region?: string
+		pays?: string
+	}
 }
 
 export interface OffreDeStageDepot {

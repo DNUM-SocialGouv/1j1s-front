@@ -95,7 +95,7 @@ export interface AnnonceDeLogement {
   localisation: AnnonceDeLogement.Localisation
   description: string
   devise: string
-  imageUrlList: Array<Image>
+  imageList: Array<Image>
   servicesInclus: Array<AnnonceDeLogement.ServiceInclus>
   servicesOptionnels: Array<AnnonceDeLogement.ServiceOptionnel>
   source: AnnonceDeLogement.Source

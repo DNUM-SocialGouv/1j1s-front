@@ -13,7 +13,7 @@ interface ConsulterArticleProps {
 
 export function ConsulterArticle({ article }: ConsulterArticleProps) {
 	const titre = useSanitize(article.titre);
-	const bannièreUrl = useSanitize(article.bannière?.url);
+	const bannièreSrc = useSanitize(article.bannière?.src);
 	const bannièreAlt = useSanitize(article.bannière?.alt);
 	const contenu = article.contenu ;
 
@@ -23,7 +23,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
 				<ButtonRetour className={styles.consulterArticleButtonRetour}/>
 				<h1 className={styles.titre}>{titre}</h1>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
-				{bannièreUrl && <img src={bannièreUrl} alt={bannièreAlt} decoding="async" loading="lazy" />}
+				{bannièreSrc && <img src={bannièreSrc} alt={bannièreAlt} decoding="async" loading="lazy" />}
 				<Marked markdown={contenu} className={classNames(styles.contenu, MarkedStyles.normalize)} />
 			</main>
 		</>
