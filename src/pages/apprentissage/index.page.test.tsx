@@ -24,7 +24,6 @@ describe('Page rechercher une alternance', () => {
 		beforeEach(() => {
 			process.env = {
 				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '0',
-				NODE_ENV: 'development',
 			};
 		});
 

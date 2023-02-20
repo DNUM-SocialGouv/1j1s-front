@@ -72,7 +72,7 @@ export function aMaçonOffre(): Offre {
 		description: 'Vous recherchez un emploi ? Faites confiances à nos différences ! R.A.S Intérim, réseau d‘agences d‘emploi de 170 agences, propose des centaines d‘opportunités d‘emploi dans tous les secteurs d‘activité, en intérim, CDD et CDI.\n\nVotre Agence R.A.S Intérim de PORNIC, recherche un MACON dans pour un de ses clients spécialiste du BTP.\n\nVos missions:\n- Travaux de maçonnerie\n- Travaux sur différents matériaux (parpaings, brique...)\n- Lecture de plans\n\nVotre profil:\n- Titulaire d‘un CAP maçonnerie\n- Expérience sur un poste similaire\n- Rigueur/ Autonome\n\nDisponible? Envoyez nous votre CV !',
 		duréeTravail: Offre.DuréeTravail.TEMPS_PARTIEL,
 		entreprise: {
-			logo: 'https://entreprise.pole-emploi.fr/static/img/logos/Oukw265FRpXdejCSFnIkDoqQujqGiEt4.png',
+			logo: undefined,
 			nom: 'RAS 1040',
 		},
 		expérience: Offre.Expérience.EXPERIENCE_EXIGEE,

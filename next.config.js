@@ -48,12 +48,21 @@ const moduleExports = {
 		NEXT_PUBLIC_APPLICATION_VERSION: version,
 	},
 	images: {
-		domains: [
-			CMS_HOST,
-			API_POLE_EMPLOI_HOST,
-			STRAPI_MEDIA_URL,
+		remotePatterns: [
+			...getImagesRemotePattern(),
+			{
+				hostname: API_POLE_EMPLOI_HOST,
+				protocol: 'https',
+			},
+			{
+				hostname: STRAPI_MEDIA_URL,
+				protocol: 'https',
+			},
+			{
+				hostname: CMS_HOST,
+				protocol: 'https',
+			},
 		],
-		remotePatterns: getImagesRemotePattern(),
 	},
 	pageExtensions: ['page.tsx','controller.ts'],
 	poweredByHeader: false,
