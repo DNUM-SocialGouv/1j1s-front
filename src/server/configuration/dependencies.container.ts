@@ -4,6 +4,9 @@ import {
 import {
 	ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
+import {
+	ConsulterOffreAlternanceLaBonneAlternanceUseCase,
+} from '~/server/alternances/useCases/consulterOffreAlternanceLaBonneAlternance.useCase';
 import { ConsulterOffreAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/consulterOffreAlternancePoleEmploi.useCase';
 import {
 	RechercherAlternanceLaBonneAlternanceUseCase,
@@ -124,6 +127,7 @@ export interface OffresAlternanceDependencies {
 }
 
 export interface AlternanceDependencies {
+	consulterAlternance: ConsulterOffreAlternanceLaBonneAlternanceUseCase
 	rechercherAlternance: RechercherAlternanceLaBonneAlternanceUseCase
 }
 
@@ -224,6 +228,7 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const alternanceDependencies: AlternanceDependencies = {
+		consulterAlternance: new ConsulterOffreAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 

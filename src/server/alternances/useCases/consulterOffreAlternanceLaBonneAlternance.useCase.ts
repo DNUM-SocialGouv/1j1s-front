@@ -3,7 +3,7 @@ import { Either } from '~/server/errors/either';
 import { Alternance } from '../domain/alternance';
 import { AlternanceRepository } from '../domain/alternance.repository';
 
-export class ConsulterOffreAlternancePoleEmploiUseCase {
+export class ConsulterOffreAlternanceLaBonneAlternanceUseCase {
 	constructor(private alternanceRepository: AlternanceRepository) {
 	}
 
