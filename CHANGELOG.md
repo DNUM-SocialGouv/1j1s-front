@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.0.2...v3.1.0) (2023-02-20)
+
+
+### Features
+
+* **cej:** Supprime le feature flip sur la taille min CEJ ([b719c3c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b719c3c91b81c4c5fa3807defd2ec03991e98ce9))
+
 ## [3.0.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.0.1...v3.0.2) (2023-02-20)
 
 
