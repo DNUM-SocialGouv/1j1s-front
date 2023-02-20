@@ -6,12 +6,10 @@ import {
 } from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
 import { mapLocalisationList } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
 import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiLocalisationError';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
-	constructor(
-    private readonly httpClientService: HttpClientService,
-	) {
+	constructor(private readonly httpClientService: HttpClientServiceWithCache) {
 	}
 
 	async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {

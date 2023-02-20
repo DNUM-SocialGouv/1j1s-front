@@ -152,6 +152,7 @@ export interface SitemapDependencies {
 export const dependenciesContainer = (): Dependencies => {
 	const serverConfigurationService = new ServerConfigurationService();
 	let cacheService: CacheService;
+
 	if(process.env.NODE_ENV === 'test') {
 		cacheService = new MockedCacheService();
 	} else {
