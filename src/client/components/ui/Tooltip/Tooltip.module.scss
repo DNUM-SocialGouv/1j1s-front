@@ -3,6 +3,7 @@
 .position {
   display: inline;
 }
+
 .tooltipContainer {
   display: inline-flex;
   padding-left: 0.25rem;
@@ -14,18 +15,23 @@
 }
 
 .tooltip {
-  font-size: 0.75rem;
-  z-index: 15;
   position: absolute;
+  z-index: 15;
+  font-size: 0.75rem;
   padding: 0.5rem 1rem;
   border: 1px solid $color-separator;
   border-radius: 20px;
   background-color: $color-background;
   overflow-y: auto;
-  max-width: 40rem;
+  max-width: 25rem;
+
+  .description {
+    clear: both;
+  }
 }
 
 .buttonClose {
   display: block;
+  float: right;
   padding: 0;
 }

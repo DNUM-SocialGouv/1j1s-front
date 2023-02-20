@@ -66,7 +66,9 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(!isOpen)}>
 					<Icon name="close" />
 				</button>
-				{children}
+				<p className={styles.description}>
+					{children}
+				</p>
 			</div>
 		</div>
 	);
