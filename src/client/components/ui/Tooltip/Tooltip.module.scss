@@ -1,0 +1,37 @@
+@import "@styles/utilities";
+
+.position {
+  display: inline;
+}
+
+.tooltipContainer {
+  display: inline-flex;
+  padding-left: 0.25rem;
+}
+
+.icon {
+  color: $color-primary;
+  width: 1.25rem;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 15;
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid $color-separator;
+  border-radius: 20px;
+  background-color: $color-background;
+  overflow-y: auto;
+  max-width: 25rem;
+
+  .description {
+    clear: both;
+  }
+}
+
+.buttonClose {
+  display: block;
+  float: right;
+  padding: 0;
+}

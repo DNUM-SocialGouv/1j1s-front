@@ -1,7 +1,6 @@
 @import "@styles/utilities";
 
 .energy .tag {
-  display: inline-flex;
   min-width: 12.5rem;
   min-height: 2.5rem;
   @extend %bold;
@@ -31,6 +30,8 @@
 }
 
 .energy figcaption {
+  display: inline;
+  width: fit-content;
   color: $color-primary;
   font-size: 1.25rem;
   line-height: 2rem;
@@ -41,7 +42,7 @@
   }
 }
 
-.energy p {
+.energy > p {
   padding-top: 0.75rem;
   font-size: 0.875rem;
   max-width: 18.5rem;

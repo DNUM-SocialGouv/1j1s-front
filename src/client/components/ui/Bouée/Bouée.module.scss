@@ -2,6 +2,7 @@
 
 .bouée {
   position: fixed;
+  z-index: 10;
   background: $color-primary;
   color: $color-on-primary;
   display: flex;
