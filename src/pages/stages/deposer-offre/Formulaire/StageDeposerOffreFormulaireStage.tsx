@@ -52,8 +52,6 @@ export default function StageDeposerOffreFormulaireStage() {
 
 	const [valueEtape2, setValueEtape2] = useSessionStorage(LABEL_FORMULAIRE_2);
 
-	const isDescriptionMinLengthActive = process.env.NEXT_PUBLIC_DEPOT_STAGE_DESCRIPTION_MIN_LENGTH_ACTIVE === '1';
-
 	useEffect(() => {
 		if (!valueEtape1){
 			router.push('/stages/deposer-offre');
@@ -129,13 +127,13 @@ export default function StageDeposerOffreFormulaireStage() {
 					<InputArea
 						className={styles.textareaWrapper}
 						id="descriptionOffre"
-						label={`Rédigez une description de l’offre de stage${isDescriptionMinLengthActive ? ' (200 caractères minimum)' : ''}`}
+						label={'Rédigez une description de l’offre de stage (200 caractères minimum)'}
 						placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
 						name="descriptionOffre"
 						defaultValue={inputDescriptionOffre}
 						required
 						rows={10}
-						minLength={isDescriptionMinLengthActive ? 200 : 0}
+						minLength={200}
 					/>
 					<InputText
 						label="Date de début du stage"
