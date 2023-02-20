@@ -1,19 +1,16 @@
 import { createSuccess } from '~/server/errors/either';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import { HttpClientService } from '~/server/services/http/httpClientService';
-import { anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosResponse, anHttpClientServiceWithCache } from '~/server/services/http/httpClientService.fixture';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 
 describe('ApiGeoLocalisationRepository', () => {
+	let httpClientService: HttpClientServiceWithCache;
 	let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
-	let httpClientService: HttpClientService;
-
 	beforeEach(() => {
-		httpClientService = anHttpClientService();
+		httpClientService = anHttpClientServiceWithCache();
 
-		apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(
-			httpClientService,
-		);
+		apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(httpClientService);
 	});
 
 	describe('getCommuneListByNom', () => {

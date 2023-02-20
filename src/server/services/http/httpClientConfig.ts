@@ -1,5 +1,6 @@
 import { ConfigurationService } from '~/server/services/configuration.service';
 import { HttpClientService } from '~/server/services/http/httpClientService';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 import { ClientCredentialsTokenAgent } from './ClientCredentialsTokenAgent';
@@ -120,9 +121,9 @@ const getApiLaBonneAlternanceConfig = (configurationService: ConfigurationServic
 
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
 	return {
-		adresseClientService: new HttpClientService(getApiAdresseConfig(configurationService)),
+		adresseClientService: new HttpClientServiceWithCache(getApiAdresseConfig(configurationService)),
 		engagementClientService: new HttpClientService(getApiEngagementConfig(configurationService)),
-		geoGouvClientService: new HttpClientService(getApiGeoGouvConfig(configurationService)),
+		geoGouvClientService: new HttpClientServiceWithCache(getApiGeoGouvConfig(configurationService)),
 		laBonneAlternanceClientService: new HttpClientService(getApiLaBonneAlternanceConfig(configurationService)),
 		lesEntreprisesSEngagentClientService: new HttpClientService(getApiLEEConfig(configurationService)),
 		mailClientService: new HttpClientService(getApiTipimailConfig(configurationService)),

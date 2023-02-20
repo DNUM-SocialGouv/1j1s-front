@@ -1,6 +1,7 @@
 import { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { HttpClientService } from '~/server/services/http/httpClientService';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
 
 function anAxiosInstance(): AxiosInstance {
@@ -61,6 +62,15 @@ export function anHttpClientService(): HttpClientService {
 		post: jest.fn(),
 		setAuthorizationHeader: jest.fn(),
 	} as unknown as HttpClientService;
+}
+
+export function anHttpClientServiceWithCache(): HttpClientServiceWithCache {
+	return {
+		client: anAxiosInstance(),
+		get: jest.fn(),
+		post: jest.fn(),
+		setAuthorizationHeader: jest.fn(),
+	} as unknown as HttpClientServiceWithCache;
 }
 
 export function anHttpClientServiceWithAuthentification(): HttpClientServiceWithAuthentification {

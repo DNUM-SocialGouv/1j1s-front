@@ -2,15 +2,19 @@ import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
-import { HttpClientService } from '~/server/services/http/httpClientService';
-import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
+import {
+	anAxiosError,
+	anAxiosResponse,
+	anHttpClientServiceWithCache,
+} from '~/server/services/http/httpClientService.fixture';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 
 describe('ApiAdresseRepository', () => {
-	let httpClientService: HttpClientService;
+	let httpClientService: HttpClientServiceWithCache;
 	let apiAdresseRepository: ApiAdresseRepository;
 
 	beforeEach(() => {
-		httpClientService = anHttpClientService();
+		httpClientService = anHttpClientServiceWithCache();
 		apiAdresseRepository = new ApiAdresseRepository(httpClientService);
 	});
 

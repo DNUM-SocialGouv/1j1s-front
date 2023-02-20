@@ -1,4 +1,3 @@
-
 import { createSuccess, Either } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
@@ -7,12 +6,10 @@ import {
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiAdresseError';
 import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
-	constructor(
-    private readonly httpClientService: HttpClientService,
-	) {
+	constructor(private readonly httpClientService: HttpClientServiceWithCache) {
 	}
 
 	async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
