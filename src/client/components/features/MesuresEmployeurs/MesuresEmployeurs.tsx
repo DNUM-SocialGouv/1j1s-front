@@ -49,7 +49,7 @@ interface CarteMesureEmployeurProps {
 
 function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 	const titre = useSanitize(carte.titre);
-	const bannière = carte.bannière?.url || '';
+	const bannière = carte.bannière?.src || '';
 	const link = carte.link;
 	const pourQui = carte.pourQui || '';
 

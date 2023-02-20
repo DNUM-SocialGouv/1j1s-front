@@ -1,4 +1,4 @@
-import { DomaineStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 export function aStrapiSingleRelation<T>(data: T): { [Key in keyof Strapi.SingleRelation<T>]: NonNullable<Strapi.SingleRelation<T>[Key]> } {
@@ -372,72 +372,31 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 	};
 }
 
-export function aStrapiFaqArticleSlugList(): Strapi.CollectionType<{problematique: string, reponse: Strapi.SingleRelation<Pick<Strapi.CollectionType.Article, 'slug'>>}> {
-	return {
-		data: [
-			{
-				attributes: {
-					problematique: 'Comment constituer un dossier ?',
-					reponse: {
-						data:
-							{
-								attributes:
-									{ slug: 'comment-constituer-un-dossier-locatif-jeune' },
-								id: 109,
-							},
-					},
-				},
-				id: 109,
-			}, {
-				attributes: {
-					problematique: 'Comment faire son service civique ?',
-					reponse: {
-						data:
-							{
-								attributes: { slug: 'comment-faire-son-service-civique' },
-								id: 110,
-							},
-					},
-				},
-				id: 110,
-			}, {
-				attributes: {
-					problematique: 'Que faire si emploi ne fonctionne pas?',
-					reponse: {
-						data:
-							{
-								attributes: { slug: 'que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas' },
-								id: 111,
-							},
-					},
-				},
-				id: 111,
-			},
-		],
-		meta: {
-			pagination: {
-				page: 1,
-				pageCount: 1,
-				pageSize: 3,
-				total: 3,
-			},
-		},
-	};
-}
-
-export const uneOffreDeStageResponse = (): Strapi.CollectionType.OffreStage => {
+export function uneOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
 	return {
 		createdAt: '2023-01-06T07:49:10.773Z',
 		dateDeDebut: '2024-09-01',
 		description: 'Poste ouvert aux personnes en situation de handicap',
-		domaines: undefined,
-		duree: '',
+		domaines: [],
 		dureeEnJour: 720,
 		dureeEnJourMax: 800,
-		employeur: undefined,
+		employeur: {
+			description: null,
+			email: null,
+			logoUrl: null,
+			nom: 'La Relève',
+			siteUrl: null,
+		},
 		id: 'anId',
 		identifiantSource: '036780b7-95ba-4711-bf26-471d1f95051c',
-		localisation: { pays: 'France' },
+		localisation: {
+			adresse: null,
+			codePostal: null,
+			departement: null,
+			pays: 'France',
+			region: null,
+			ville: null,
+		},
 		publishedAt: '2023-01-06T07:49:10.756Z',
 		remunerationBase: 1000,
 		slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
@@ -450,15 +409,15 @@ export const uneOffreDeStageResponse = (): Strapi.CollectionType.OffreStage => {
 		updatedAt: '2023-01-06T07:49:10.773Z',
 		urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
 	};
-};
+}
 
 export function anOffreDeStageDepotStrapi(): Strapi.CollectionType.OffreStageDepot {
 	return {
 		dateDeDebut: '2023-02-03',
 		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
 		domaines: [
-			{ nom: 'achats' },
-		] as DomaineStageDepot[],
+			{ nom: 'achats' as Strapi.CollectionType.OffreStage.Domaines.Nom.ACHAT },
+		],
 		dureeEnJour: 30,
 		employeur: {
 			description: 'description entreprise',

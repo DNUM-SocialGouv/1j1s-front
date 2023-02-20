@@ -103,7 +103,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand il n‘y a pas d‘image a afficher', () => {
 			it('n‘affiche pas le carousel', () => {
-				annonceDeLogement.imageUrlList = [];
+				annonceDeLogement.imageList = [];
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
 				expect(listDeSlides).not.toBeInTheDocument();
@@ -112,7 +112,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand il y a une seule image a afficher', () => {
 			it('n‘affiche pas le carousel, juste une image', () => {
-				annonceDeLogement.imageUrlList = [{ alt: 'une seule image', src: '/une-seule-image.webp' }];
+				annonceDeLogement.imageList = [{ alt: 'une seule image', src: '/une-seule-image.webp' }];
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 
 				const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
@@ -125,7 +125,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand il y a plusieurs images a afficher', () => {
 			it('affiche le carousel', () => {
-				annonceDeLogement.imageUrlList = [{ alt: '', src: '/une-première-image.webp' }, {
+				annonceDeLogement.imageList = [{ alt: '', src: '/une-première-image.webp' }, {
 					alt: '',
 					src: '/une-deuxième-image.webp',
 				}];

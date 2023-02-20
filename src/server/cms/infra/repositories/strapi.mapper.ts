@@ -1,13 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Image as ImageProps } from '~/client/components/props';
 import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { Question } from '~/server/cms/domain/FAQ.type';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import {
+	Domaines,
+	OffreDeStage,
+	OffreDeStageDepot,
+	SourceDesDonnées,
+} from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
@@ -140,10 +144,14 @@ function mapServiceJeune(response: Strapi.SingleType.LesMesuresJeunes.MesureJeun
 
 function mapServiceJeuneCategorie(mesureJeuneKey: keyof Strapi.SingleType.LesMesuresJeunes): ServiceJeune.Categorie {
 	switch (mesureJeuneKey) {
-		case 'accompagnement': return ServiceJeune.Categorie.ACCOMPAGNEMENT;
-		case 'orienterFormer': return ServiceJeune.Categorie.ORIENTATION_FORMATION;
-		case 'vieProfessionnelle': return ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE;
-		case 'aidesFinancieres': return ServiceJeune.Categorie.AIDES_FINANCIERES;
+		case 'accompagnement':
+			return ServiceJeune.Categorie.ACCOMPAGNEMENT;
+		case 'orienterFormer':
+			return ServiceJeune.Categorie.ORIENTATION_FORMATION;
+		case 'vieProfessionnelle':
+			return ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE;
+		case 'aidesFinancieres':
+			return ServiceJeune.Categorie.AIDES_FINANCIERES;
 	}
 }
 
@@ -153,12 +161,40 @@ function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | unde
 	}
 	return {
 		alt: response.data.attributes.alternativeText || '',
-		url: response.data.attributes.url,
+		src: response.data.attributes.url,
 	};
 }
 
 export function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage {
-	return { ...response };
+	return {
+		dateDeDebut: response.dateDeDebut,
+		description: response.description,
+		domaines: response.domaines
+			.filter((domaine) => domaine.nom !== Strapi.CollectionType.OffreStage.Domaines.Nom.NON_RENSEIGNE)
+			.map((domaine) => domaine.nom as unknown as Domaines),
+		dureeEnJour: response.dureeEnJour ?? undefined,
+		dureeEnJourMax: response.dureeEnJourMax ?? undefined,
+		employeur: {
+			description: response.employeur.description || undefined,
+			logoUrl: response.employeur.logoUrl || undefined,
+			nom: response.employeur.nom,
+			siteUrl: response.employeur.siteUrl || undefined,
+		},
+		id: response.id,
+		localisation: {
+			codePostal: response.localisation.codePostal || undefined,
+			departement: response.localisation.departement || undefined,
+			pays: response.localisation.pays || undefined,
+			region: response.localisation.region || undefined,
+			ville: response.localisation.ville || undefined,
+		},
+		remunerationBase: response.remunerationBase ?? undefined,
+		slug: response.slug,
+		source: response.source || undefined,
+		teletravailPossible: response.teletravailPossible ?? undefined,
+		titre: response.titre,
+		urlDeCandidature: response.urlDeCandidature || undefined,
+	};
 }
 
 function mapAnnonceDeLogementLocalisation(localisation: Strapi.CollectionType.AnnonceLogement.Localisation): AnnonceDeLogement.Localisation {
@@ -170,25 +206,21 @@ function mapAnnonceDeLogementLocalisation(localisation: Strapi.CollectionType.An
 		région: localisation.région,
 		ville: localisation.ville,
 	};
-};
+}
 
-// TODO: utiliser Image en type de sortie, ImageProps est lié à un composant. Changer la propriété url de Image en src ?
-function formatImageUrlList(imagesUrl: Array<{ value: string }> | undefined): Array<ImageProps> | [] {
-	if (!imagesUrl) return [];
-	return imagesUrl.map((url) => {
-		return {
-			alt: '',
-			src: url.value,
-		};
-	});
-};
+function mapImage(imageUrl: { value: string }): Image {
+	return {
+		alt: '',
+		src: imageUrl.value,
+	};
+}
 
 function mapAnnonceDeLogementBilanÉnergétique(bilanEnergetique: Strapi.CollectionType.AnnonceLogement.BilanEnergetique): AnnonceDeLogement.BilanEnergetique {
 	return {
 		consommationEnergetique: bilanEnergetique.consommationEnergetique,
 		emissionDeGaz: bilanEnergetique.emissionDeGaz,
 	};
-};
+}
 
 export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionType.AnnonceLogement): AnnonceDeLogement {
 	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
@@ -201,7 +233,7 @@ export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionTyp
 		description: annonceLogementResponse.description,
 		devise: annonceLogementResponse.devise,
 		garantie: annonceLogementResponse.garantie,
-		imageUrlList: formatImageUrlList(annonceLogementResponse.imagesUrl),
+		imageList: annonceLogementResponse.imagesUrl?.map(mapImage) || [],
 		localisation: mapAnnonceDeLogementLocalisation(annonceLogementResponse.localisation),
 		meublé: annonceLogementResponse.meuble,
 		nombreDePièces: annonceLogementResponse.nombreDePieces,
@@ -225,7 +257,7 @@ export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.Coll
 		dateDeDebut: body.dateDeDebut,
 		description: body.description,
 		domaines: body.domaine ? [{
-			nom: body.domaine,
+			nom: body.domaine as unknown as Strapi.CollectionType.OffreStage.Domaines.Nom,
 		}] : [],
 		dureeEnJour: Number(body.duree),
 		employeur: {

@@ -10,15 +10,13 @@ import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
 describe('ConsulterOffreDeStage', () => {
 	const offreDeStage: OffreDeStage = {
-		createdAt: '',
 		dateDeDebut: '2022-09-01',
 		description: 'stage en graphisme description',
-		duree: '6 mois',
+		domaines: [],
 		dureeEnJour: 180,
 		dureeEnJourMax: 180,
 		employeur: {
 			description: '',
-			id: '12',
 			logoUrl: '',
 			nom: 'Gras Fisme',
 			siteUrl: '',
@@ -31,15 +29,10 @@ describe('ConsulterOffreDeStage', () => {
 			region: 'IDF',
 			ville: 'Paris',
 		},
-		publishedAt: '',
 		remunerationBase: 1500,
 		slug: 'stage-en-graphisme',
-		sourceCreatedAt: '',
-		sourcePublishedAt: '',
-		sourceUpdatedAt: '',
 		teletravailPossible: true,
 		titre: 'stage en graphisme',
-		updatedAt: '',
 		urlDeCandidature: 'http://candidature',
 	};
 
