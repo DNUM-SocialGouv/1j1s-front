@@ -21,7 +21,7 @@ export function HeaderNavDesktop() {
 		offresNav,
 		orientationNav,
 		logementsNav,
-	} = navigationItemList;
+	} = navigationItemList();
 	const router = useRouter();
 	const [path, setPath] = useState(() => router.pathname || '');
 

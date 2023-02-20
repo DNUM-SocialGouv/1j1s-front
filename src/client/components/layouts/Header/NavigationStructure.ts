@@ -13,9 +13,9 @@ export function isNavigationItem(nav: NavigationItem | NavigationItemWithChildre
 	return 'link' in nav;
 }
 
-const accueil: NavigationItem = { label: 'Accueil', link: '/' };
+const accueil = (): NavigationItem => ({ label: 'Accueil', link: '/' });
 
-const offresNav: NavigationItemWithChildren = {
+const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
 		{ label: 'Stages', link: '/stages' },
@@ -24,18 +24,19 @@ const offresNav: NavigationItemWithChildren = {
 		{ label: 'Emplois en Europe', link: '/europe' },
 	],
 	label: 'Offres',
-};
+});
 
-const orientationNav: NavigationItemWithChildren = {
+const orientationNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Formations', link: '/formations' },
+		...(process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE === '1' ? [{ label: 'Formations en apprentissage', link: '/formations/apprentissage' }] : []),
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
 		{ label: 'Participer à un évènement', link: '/evenements' },
 	],
 	label: 'Formations et orientation',
-};
+});
 
-const accompagnementNav: NavigationItemWithChildren = {
+const accompagnementNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Contrat Engagement Jeune', link: '/contrat-engagement-jeune' },
 		{ label: 'Mes aides financières', link: '/mes-aides' },
@@ -46,17 +47,17 @@ const accompagnementNav: NavigationItemWithChildren = {
 		{ label: 'Actualités et services jeunes', link: '/espace-jeune' },
 	],
 	label: 'Aides et accompagnement',
-};
+});
 
-const engagementNav: NavigationItemWithChildren = {
+const engagementNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Le service civique', link: '/service-civique' },
 		{ label: 'Le bénévolat', link: '/benevolat' },
 	],
 	label: 'Engagement',
-};
+});
 
-const employeurNav: NavigationItemWithChildren = {
+const employeurNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Rejoindre la mobilisation', link: '/les-entreprises-s-engagent' },
 		{
@@ -72,15 +73,15 @@ const employeurNav: NavigationItemWithChildren = {
 	],
 	label: 'Je suis employeur',
 	legend: 'Découvrez des services faits pour vous !',
-};
+});
 
-const logementsNav: NavigationItemWithChildren = {
+const logementsNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Annonces', link: '/logements/annonces' },
 		{ label: 'Mes aides au logement', link: '/logements/aides-logement' },
 	],
 	label: 'Logement',
-};
+});
 
 export interface NavigationItemList {
   accueil: NavigationItem,
@@ -92,12 +93,12 @@ export interface NavigationItemList {
   employeurNav: NavigationItemWithChildren,
 }
 
-export const navigationItemList: NavigationItemList = {
-	accompagnementNav,
-	accueil,
-	employeurNav,
-	engagementNav,
-	logementsNav,
-	offresNav,
-	orientationNav,
-};
+export const navigationItemList = (): NavigationItemList => ({
+	accompagnementNav: accompagnementNav(),
+	accueil: accueil(),
+	employeurNav: employeurNav(),
+	engagementNav: engagementNav(),
+	logementsNav: logementsNav(),
+	offresNav: offresNav(),
+	orientationNav: orientationNav(),
+});

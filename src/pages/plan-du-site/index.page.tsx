@@ -44,15 +44,15 @@ export default function PlanDuSite() {
 					<h1 id="planDuSite" className={styles.planDuSiteTitre}>Plan du site</h1>
 					<ul aria-labelledby="planDuSite">
 						<li>
-							<Link href={navigationItemList.accueil.link}>{navigationItemList.accueil.label}</Link>
+							<Link href={navigationItemList().accueil.link}>{navigationItemList().accueil.label}</Link>
 						</li>
 
-						{displayNavigationTree(navigationItemList.offresNav)}
-						{displayNavigationTree(navigationItemList.orientationNav)}
-						{displayNavigationTree(navigationItemList.accompagnementNav)}
-						{displayNavigationTree(navigationItemList.engagementNav)}
-						{displayNavigationTree(navigationItemList.logementsNav)}
-						{displayNavigationTree(navigationItemList.employeurNav)}
+						{displayNavigationTree(navigationItemList().offresNav)}
+						{displayNavigationTree(navigationItemList().orientationNav)}
+						{displayNavigationTree(navigationItemList().accompagnementNav)}
+						{displayNavigationTree(navigationItemList().engagementNav)}
+						{displayNavigationTree(navigationItemList().logementsNav)}
+						{displayNavigationTree(navigationItemList().employeurNav)}
 
 						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
 						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>
