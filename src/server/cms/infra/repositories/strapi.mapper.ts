@@ -4,10 +4,10 @@ import { Image as ImageProps } from '~/client/components/props';
 import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
-import { CarteEspaceJeune, EspaceJeune } from '~/server/cms/domain/espaceJeune';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
@@ -112,33 +112,38 @@ function getExtraitContenu(contenu: string, size = 120): string {
 	return `${brief} …`;
 }
 
-export function mapEspaceJeune(strapiMesureJeune: Strapi.SingleType.LesMesuresJeunes): EspaceJeune {
-	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = strapiMesureJeune;
+export function mapServiceJeuneList(response: Strapi.SingleType.LesMesuresJeunes): Array<ServiceJeune> {
+	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response;
+	const filteredMesuresJeunes = { accompagnement, aidesFinancieres, orienterFormer, vieProfessionnelle };
+	return Object.entries(filteredMesuresJeunes).flatMap(([strapiMesureJeuneCategory, strapiMesureJeuneListByCatégorie]) => {
+		return strapiMesureJeuneListByCatégorie.map((strapiMesureJeune: Strapi.SingleType.LesMesuresJeunes.MesureJeune) => {
+			return mapServiceJeune(strapiMesureJeune, strapiMesureJeuneCategory as keyof Strapi.SingleType.LesMesuresJeunes);
+		});
+	});
+}
 
+function mapServiceJeune(response: Strapi.SingleType.LesMesuresJeunes.MesureJeune, catégorie: keyof Strapi.SingleType.LesMesuresJeunes): ServiceJeune {
+	const article = flatMapSingleRelation(response.article, mapArticle);
 	return {
-		accompagnement: mapCartesEspaceJeuneList(accompagnement, 'Accompagnement'),
-		aidesFinancières: mapCartesEspaceJeuneList(aidesFinancieres, 'Aides financières'),
-		orienterFormer: mapCartesEspaceJeuneList(orienterFormer, 'Orientation et formation'),
-		vieProfessionnelle: mapCartesEspaceJeuneList(vieProfessionnelle, 'Entrée dans la vie professionnelle'),
+		article,
+		bannière: flatMapSingleImage(response.banniere),
+		categorie: mapServiceJeuneCategorie(catégorie),
+		concerné: response.pourQui,
+		contenu: response.contenu,
+		extraitContenu: getExtraitContenu(response.contenu, 110),
+		link: article ? `/articles/${article.slug}` : response.url,
+		titre: response.titre,
+		url: response.url,
 	};
 }
 
-function mapCartesEspaceJeuneList(cartesEspaceJeuneList: Strapi.SingleType.LesMesuresJeunes.MesureJeune[], categorie: string): CarteEspaceJeune[] {
-	return cartesEspaceJeuneList.map<CarteEspaceJeune>((carteEspaceJeune) => {
-		const { banniere, contenu, titre, url, pourQui } = carteEspaceJeune;
-		const article = flatMapSingleRelation(carteEspaceJeune.article, mapArticle);
-		return {
-			article,
-			bannière: flatMapSingleImage(banniere),
-			categorie: categorie,
-			concerné: pourQui,
-			contenu,
-			extraitContenu: getExtraitContenu(contenu, 110),
-			link: article ? `/articles/${article.slug}` : url,
-			titre,
-			url,
-		};
-	});
+function mapServiceJeuneCategorie(mesureJeuneKey: keyof Strapi.SingleType.LesMesuresJeunes): ServiceJeune.Categorie {
+	switch (mesureJeuneKey) {
+		case 'accompagnement': return ServiceJeune.Categorie.ACCOMPAGNEMENT;
+		case 'orienterFormer': return ServiceJeune.Categorie.ORIENTATION_FORMATION;
+		case 'vieProfessionnelle': return ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE;
+		case 'aidesFinancieres': return ServiceJeune.Categorie.AIDES_FINANCIERES;
+	}
 }
 
 function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | undefined): Image | undefined {

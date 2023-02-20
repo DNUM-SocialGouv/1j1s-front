@@ -71,7 +71,8 @@ Liste des contextes de **pages** autorisées (non exhaustive):
 - mentorat
 - entreprendre
 - accompagnement
-- espace jeune
+- services jeunes
+- actualités
 - engagement
 - employeur
 - sitemap
