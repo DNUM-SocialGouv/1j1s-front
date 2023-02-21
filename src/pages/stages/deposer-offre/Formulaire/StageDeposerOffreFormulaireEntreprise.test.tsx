@@ -3,7 +3,11 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import {
+	render,
+	screen,
+	within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -20,11 +24,18 @@ describe('<Entreprise />', () => {
 
 			expect(screen.getByText('Etape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez le nom de l’entreprise ou de l’employeur')).toBeInTheDocument();
-			expect(screen.getByLabelText('Indiquez une adresse mail de contact')).toBeInTheDocument();
+			expect(screen.getByText('Indiquez une adresse mail de contact')).toBeInTheDocument();
 			expect(screen.getByLabelText('Rédigez une courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
 			expect(screen.getByLabelText('Partagez le logo de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByLabelText('Indiquez le lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
+		});
+
+		it('affiche une infobulle pour le champ adresse mail', async () => {
+			render(<Entreprise />);
+			const champsAdresseMail = screen.getByText('Indiquez une adresse mail de contact');
+			const infobulle = within(champsAdresseMail).getByLabelText('informations supplémentaires');
+			expect(infobulle).toBeVisible();
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {

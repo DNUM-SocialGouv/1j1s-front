@@ -6,6 +6,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
@@ -74,6 +75,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						value={inputEmail}
 						placeholder="Exemple : contactRH@exemple.com"
 						required
+						tooltip={<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.</Tooltip>}
 					/>
 					<InputArea
 						className={styles.textareaWrapper}

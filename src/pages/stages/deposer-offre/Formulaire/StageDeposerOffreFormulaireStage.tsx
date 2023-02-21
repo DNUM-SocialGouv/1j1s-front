@@ -164,7 +164,7 @@ export default function StageDeposerOffreFormulaireStage() {
 						optionList={domaineStage}
 					/>
 					<div className={styles.inputRenumerationWrapper}>
-						<label className={styles.labelRemunueration} htmlFor="remunerationStage">Rémunération</label>
+						<label className={styles.labelRemunueration} htmlFor="remunerationStage">Rémunération par mois</label>
 						<div className={styles.contenuRemunueration}>
 							<input
 								id="remunerationStage"

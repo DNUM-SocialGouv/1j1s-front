@@ -33,14 +33,14 @@ describe('<Stage />', () => {
 			expect(screen.getByLabelText('Date de début du stage')).toBeInTheDocument();
 			expect(screen.getByText('Indiquez la durée du stage')).toBeInTheDocument();
 			expect(screen.getByText('Domaine de l’offre de stage')).toBeInTheDocument();
-			expect(screen.getByLabelText('Rémunération')).toBeInTheDocument();
+			expect(screen.getByLabelText('Rémunération par mois')).toBeInTheDocument();
 			expect(screen.getByText('Télétravail possible')).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
 			const labelDomaineOffreStage = 'Domaine de l’offre de stage';
-			const rémunération = 'Rémunération';
+			const rémunération = 'Rémunération par mois';
 			const télétravailPossible = 'Télétravail possible';
 			// Given
 			render(<Stage />);
