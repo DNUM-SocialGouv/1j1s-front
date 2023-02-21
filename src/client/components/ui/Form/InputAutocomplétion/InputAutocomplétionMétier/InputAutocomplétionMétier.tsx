@@ -63,7 +63,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				setSuggestionIndex(0);
 				setSuggestionsActive(true);
 			} else {
-				e.currentTarget.setCustomValidity(ERROR_RETRIEVE_METIER);
+				e.target.setCustomValidity(ERROR_RETRIEVE_METIER);
 				setSuggestionsActive(false);
 			}
 		} else {

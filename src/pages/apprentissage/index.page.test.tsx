@@ -23,6 +23,7 @@ describe('Page rechercher une alternance', () => {
 	describe('quand le feature flip n‘est pas actif', () => {
 		beforeEach(() => {
 			process.env = {
+				...process.env,
 				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '0',
 			};
 		});

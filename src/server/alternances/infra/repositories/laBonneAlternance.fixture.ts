@@ -55,7 +55,7 @@ export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse =
 			results: [
 				{
 					company: { name: 'une entreprise' },
-					job: { contractType: ['CDD'] },
+					job: { contractType: 'CDD' },
 					place: { city: 'paris' },
 					title: 'un titre',
 				},
