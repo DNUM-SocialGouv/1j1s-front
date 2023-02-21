@@ -77,8 +77,10 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 	return {
 		company: { name: 'une entreprise' },
 		diplomaLevel: 'débutant',
-		id: 'id',
-		job: { contractType: 'apprentissage' },
+		job: {
+			contractType: 'apprentissage',
+			id: 'id',
+		},
 		place: { city: 'paris' },
 		title: 'un titre',
 		...override,

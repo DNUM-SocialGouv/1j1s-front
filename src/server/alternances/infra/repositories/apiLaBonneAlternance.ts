@@ -9,12 +9,8 @@ export interface MetierLaBonneAlternanceApiResponse {
 }
 
 export namespace AlternanceApiJobsResponse {
-	export interface MatchaJob {
-		contractType: string[]
-	}
-
-	export interface PEJob {
-		contractType: string
+	export interface Job {
+		id: string;
 	}
 
 	export interface Place {
@@ -26,19 +22,19 @@ export namespace AlternanceApiJobsResponse {
 	}
 
 	export interface Matcha {
-		id: string
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
 		diplomaLevel?: string
+		contractType: string[]
 		job: AlternanceApiJobsResponse.MatchaJob
 	}
 
 	export interface PEJobs {
-		id: string
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
+		contractType: string
 		job: AlternanceApiJobsResponse.PEJob
 	}
 }

@@ -8,8 +8,7 @@ import {
 	mapAlternanceListe,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
 const sourcesMatchaEtPEJobs = 'matcha,offres';
@@ -32,11 +31,9 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		return await this.httpClientService.get<AlternanceApiJobsResponse>(`/jobs?caller=${caller}&romes=${queryList}&sources=${sourcesMatchaEtPEJobs}`);
 	}
 
-	async get(id: string, rome: string): Promise<Either<Alternance>> {
-		const apiResponse = await this.getAlternanceListe([rome]);
-		const matchas = apiResponse.data.matchas.results;
-		const result = matchas.find((matcha) => matcha.id === id);
-		if (!result) return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
-		return createSuccess(mapAlternance(result));
+	async get(id: string): Promise<Either<Alternance>> {
+		const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/jobs/matcha/${id}`);
+		const matcha = apiResponse.data.matchas[0];
+		return createSuccess(mapAlternance(matcha));
 	}
 }

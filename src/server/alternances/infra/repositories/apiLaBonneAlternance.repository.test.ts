@@ -1,6 +1,5 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
 import {
-	aListeLaBonneAlternanceApiResponse,
 	aMatchaResponse,
 	anAlternanceFiltre,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
@@ -46,60 +45,46 @@ describe('ApiLaBonneAlternanceRepository', () => {
 	});
 
 	describe('get', () => {
-		it('renvoie la bonne alternance dans la liste renvoyée par l’api', async () => {
+		it('retourne l’alternance renvoyée par l’API', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse([
-				aMatchaResponse({ id: 'def' }),
-				aMatchaResponse({ id: 'abc' }),
-			])));
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
+				matchas: [
+					aMatchaResponse({ job: { id: 'abc' } }),
+				],
+			}));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			const result = await repository.get('abc', 'I1234') as Success<Alternance>;
+			const result = await repository.get('abc') as Success<Alternance>;
 
 			// Then
 			expect(result.result.id).toEqual('abc');
 		});
-		it('renvoie une erreur CONTENU_INDISPONIBLE quand l’offre n’existe pas', async () => {
+		it('crée une erreur quand l’API renvoie une erreur', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse([
-				aMatchaResponse({ id: 'def' }),
-			])));
+			(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: '500' }));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			const result = await repository.get('abc', 'I1234') as Failure;
+			const result = await repository.get('abc') as Failure;
 
 			// Then
-			expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+			expect(result.errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
 		});
 		it('appelle l’api laBonneAlternance', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse()));
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			await repository.get('abc', 'I1234');
+			await repository.get('abc');
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledTimes(1);
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
-		});
-		it('fait l’appel avec les bons paramètres', async () => {
-			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aListeLaBonneAlternanceApiResponse()));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
-
-			// When
-			await repository.get('abc', 'I1234');
-
-			// Then
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution/));
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=I1234/));
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/matcha/abc'));
 		});
 	});
 });

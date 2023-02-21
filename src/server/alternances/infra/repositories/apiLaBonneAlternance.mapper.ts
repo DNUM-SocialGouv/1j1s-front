@@ -7,7 +7,7 @@ import PEJobs = AlternanceApiJobsResponse.PEJobs;
 
 export function mapAlternance(alternance: Matcha): Alternance {
 	return {
-		id: alternance.id,
+		id: alternance.job.id,
 		localisation: alternance.place?.city,
 		niveauRequis: alternance.diplomaLevel,
 		nomEntreprise: alternance.company?.name,
@@ -19,7 +19,7 @@ export function mapAlternance(alternance: Matcha): Alternance {
 }
 export function mapPEJob(alternance: PEJobs): Alternance {
 	return {
-		id: alternance.id,
+		id: alternance.job.id,
 		localisation: alternance.place?.city,
 		niveauRequis: undefined,
 		nomEntreprise: alternance.company?.name,
