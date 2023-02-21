@@ -75,7 +75,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						value={inputEmail}
 						placeholder="Exemple : contactRH@exemple.com"
 						required
-						tooltip={<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l&apos;adresse sur laquelle il faudra candidater.</Tooltip>}
+						tooltip={<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.</Tooltip>}
 					/>
 					<InputArea
 						className={styles.textareaWrapper}
