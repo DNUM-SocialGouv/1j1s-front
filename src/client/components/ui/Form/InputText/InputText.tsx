@@ -18,6 +18,7 @@ interface TextInputProps extends React.ComponentPropsWithoutRef<'input'> {
   label?: string
   necessity?: 'optional' | 'required'
   validation?: (value: InputValue) => string | null | undefined;
+  tooltip?: React.ReactNode
 }
 
 // eslint-disable-next-line react/display-name
@@ -31,6 +32,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 		onChange,
 		value: outerValue,
 		validation,
+		tooltip,
 		...rest
 	} = props;
 	const ref = useSynchronizedRef(outerRef);
@@ -70,12 +72,15 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 	return (
 		<div className={classNames(styles.textInput, className)}>
 			{label && (
-				<label className={styles.textInputLabel} htmlFor={inputId.current}>
-					{label}
-					{necessity && (
-						<span className="text-small"> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
-					)}
-				</label>
+				<>
+					<label className={styles.textInputLabel} htmlFor={inputId.current}>
+						{label}
+						{tooltip && tooltip}
+						{necessity && (
+							<span className="text-small"> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
+						)}
+					</label>
+				</>
 			)}
 			<input
 				ref={ref}
