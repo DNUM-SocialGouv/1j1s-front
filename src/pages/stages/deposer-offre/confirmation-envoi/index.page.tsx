@@ -15,7 +15,7 @@ export default function DeposerOffreStageEnvoyePage() {
 			/>
 			<LightHero className={styles.hero}>
 				<h1>
-					<LightHeroPrimaryText>Félicitations, votre offre de stage a bien été envoyée</LightHeroPrimaryText>
+					<LightHeroPrimaryText>Merci, votre offre de stage a bien été envoyée</LightHeroPrimaryText>
 				</h1>
 			</LightHero>
 			<main id="contenu">
