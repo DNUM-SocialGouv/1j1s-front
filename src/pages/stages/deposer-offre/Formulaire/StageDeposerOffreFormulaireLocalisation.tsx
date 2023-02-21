@@ -175,7 +175,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					<InputText
 						label="Département"
 						name="departement"
-						placeholder="Exemple : PARIS"
+						placeholder="Exemple : Yvelines"
 						value={inputDepartement}
 					/>
 				</div>
