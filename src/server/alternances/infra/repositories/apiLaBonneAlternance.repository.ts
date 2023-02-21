@@ -32,8 +32,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	}
 
 	async get(id: string): Promise<Either<Alternance>> {
-		const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/jobs/matcha/${id}`);
-		const matcha = apiResponse.data.matchas[0];
-		return createSuccess(mapAlternance(matcha));
+		try {
+			const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/jobs/matcha/${id}`);
+			const matcha = apiResponse.data.matchas[0];
+			return createSuccess(mapAlternance(matcha));
+		} catch (error) {
+			return handleSearchFailureError(error, 'détail annonce alternance');
+		}
 	}
 }
