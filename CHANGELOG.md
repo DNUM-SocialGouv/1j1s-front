@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.4.0...v3.5.0) (2023-02-21)
+
+
+### Features
+
+* **formation:** feature flip page apprentissage ([683e179](https://github.com/DNUM-SocialGouv/1j1s-front/commit/683e1794d79abc7b30fca41fb17aa56042576ccb))
+
 ## [3.4.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.3.0...v3.4.0) (2023-02-20)
 
 
