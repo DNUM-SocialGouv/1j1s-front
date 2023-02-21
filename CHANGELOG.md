@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.5.0...v3.5.1) (2023-02-21)
+
+
+### Bug Fixes
+
+* **stage/depot:** retours depot offre stage infobulle ([815b4b3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/815b4b36997f47e02e5b46ebdab887abe67e1388))
+
 ## [3.5.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.4.0...v3.5.0) (2023-02-21)
 
 
