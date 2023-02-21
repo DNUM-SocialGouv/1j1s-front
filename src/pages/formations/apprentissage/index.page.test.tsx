@@ -7,6 +7,7 @@ describe('Page Formations en Apprentissage', () => {
 	describe('quand le feature flip n‘est pas actif', () => {
 		beforeEach(() => {
 			process.env = {
+				...process.env,
 				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '0',
 			};
 		});
@@ -20,6 +21,7 @@ describe('Page Formations en Apprentissage', () => {
 	describe('quand le feature flip est actif', () => {
 		beforeEach(() => {
 			process.env = {
+				...process.env,
 				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '1',
 			};
 		});

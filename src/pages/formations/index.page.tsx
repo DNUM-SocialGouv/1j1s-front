@@ -47,5 +47,5 @@ function heroFormationContent() {
 				être préparé, du niveau de qualification souhaité et bien plus encore !</b>
 		</>
 	);
-};
+}
 

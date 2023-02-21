@@ -1,10 +1,8 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
 import {
 	AlternanceApiJobsResponse,
-	MetierLaBonneAlternanceApiResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import { mapAlternance, mapMétier } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import { aMetierLaBonneAlternanceApiResponse } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import { mapAlternance } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 
 describe('mapAlternance', () => {
 	it('converti une response en liste d’alternance', () => {
@@ -49,15 +47,5 @@ describe('mapAlternance', () => {
 				typeDeContrat: ['CDD'],
 			},
 		]);
-	});
-});
-
-describe('mapMétier', () => {
-	it('converti une response en liste de métier', () => {
-		const responseAPI: MetierLaBonneAlternanceApiResponse = aMetierLaBonneAlternanceApiResponse();
-
-		const result = mapMétier(responseAPI);
-
-		expect(result).toEqual(responseAPI.labelsAndRomes);
 	});
 });

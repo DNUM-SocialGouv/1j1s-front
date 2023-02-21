@@ -1,4 +1,4 @@
-export interface MetierAlternance {
+export interface Métier {
 	label: string
 	romes: Array<string>
 }
