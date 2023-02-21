@@ -20,7 +20,7 @@ describe('mapAlternance', () => {
 			peJobs: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
-					job: { contractType: ['CDD'] },
+					job: { contractType: 'CDD' },
 					place: { city: 'PARIS 4' },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],

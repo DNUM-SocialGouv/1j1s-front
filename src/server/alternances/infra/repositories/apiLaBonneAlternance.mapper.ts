@@ -23,16 +23,16 @@ export const mapAlternance = (response: AlternanceApiJobsResponse): Array<Altern
 		niveauRequis: undefined,
 		nomEntreprise: alternance.company?.name,
 		source: Alternance.Source.POLE_EMPLOI,
-		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, ...alternance.job.contractType].filter((tag) => !!tag) as string[],
+		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.job.contractType].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
-		typeDeContrat: alternance.job.contractType,
+		typeDeContrat: [alternance.job.contractType],
 	}));
 	return matchas.concat(peJobs);
 };
 
 export const mapMétier = (response: MetierLaBonneAlternanceApiResponse): Array<MetierAlternance> => {
-	const resultats = response.labelsAndRomes;
-	return resultats.map((metier) => ({
+	const résultats = response.labelsAndRomes;
+	return résultats.map((metier) => ({
 		label: metier.label,
 		romes: metier.romes,
 	}));

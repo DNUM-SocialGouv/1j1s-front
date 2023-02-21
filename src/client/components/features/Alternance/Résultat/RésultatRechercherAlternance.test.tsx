@@ -24,7 +24,7 @@ describe('RésultatRechercherAlternance', () => {
 			source: Alternance.Source.MATCHA,
 			tags: ['localisation', 'typeDeContrat', 'niveauRequis'],
 			titre: 'titre',
-			typeDeContrat: 'typeDeContrat',
+			typeDeContrat: ['typeDeContrat'],
 		};
 
 		// When
@@ -41,7 +41,7 @@ describe('RésultatRechercherAlternance', () => {
 		const niveauRequis = screen.getByText(alternance.niveauRequis);
 		expect(niveauRequis).toBeInTheDocument();
 
-		const typeDeContrat = screen.getByText(alternance.typeDeContrat);
+		const typeDeContrat = screen.getByText(alternance.typeDeContrat[0]);
 		expect(typeDeContrat).toBeInTheDocument();
 
 		const localisation = screen.getByText(alternance.localisation);
@@ -60,7 +60,7 @@ describe('RésultatRechercherAlternance', () => {
 			source: Alternance.Source.POLE_EMPLOI,
 			tags: ['localisation', 'Contrat d‘alternance', 'typeDeContrat'],
 			titre: 'titre',
-			typeDeContrat: 'typeDeContrat',
+			typeDeContrat: ['typeDeContrat'],
 		};
 
 		// When

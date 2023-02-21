@@ -35,7 +35,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		describe('Quand l‘api renvoie une erreur', () => {
 			it("retourne une instance d'erreur", async () => {
 				const httpClientService = anHttpClientService();
-				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: '429' }));
+				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 429 }));
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 				const response = await repository.getMetierList('tran');
