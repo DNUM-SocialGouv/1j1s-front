@@ -5,19 +5,19 @@ import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.mi
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { MetierAlternance } from '~/server/alternances/domain/métier';
+import { Métier } from '~/server/metiers/domain/métier';
 import { dependencies } from '~/server/start';
 
 const querySchema = Joi.object({
 	motCle: Joi.string(),
 });
 
-export async function récupererSuggestionsMétiersAlternanceHandler(req: NextApiRequest, res: NextApiResponse<Array<MetierAlternance> | ErrorHttpResponse>) {
-	const result = await dependencies.alternanceDependencies.récupererSuggestionsMetiersAlternance.handle(requestMapper(req));
+export async function récupérerMétierAlternanceHandler(req: NextApiRequest, res: NextApiResponse<Array<Métier> | ErrorHttpResponse>) {
+	const result = await dependencies.métierDependencies.récupérerMétiers.handle(requestMapper(req));
 	return handleResponse(result, res);
 }
 
-export default withMonitoring(withValidation({ query: querySchema }, récupererSuggestionsMétiersAlternanceHandler));
+export default withMonitoring(withValidation({ query: querySchema }, récupérerMétierAlternanceHandler));
 
 function requestMapper(req: NextApiRequest): string {
 	const { query } = req;

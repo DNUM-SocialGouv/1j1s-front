@@ -1,21 +1,18 @@
-import { uuid4 } from '@sentry/utils';
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-import {
-	FormulaireRechercheAlternance,
-} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
-import {
-	RésultatRechercherAlternance,
-} from '~/client/components/features/Alternance/Résultat/RésultatRechercherAlternance';
+import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { Head } from '~/client/components/head/Head';
-import { Container } from '~/client/components/layouts/Container/Container';
-import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
-import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import {
+	ListeRésultatsRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+	RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -24,17 +21,15 @@ import { Erreur } from '~/server/errors/erreur.types';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
-export function RechercherAlternance() {
+export default function RechercherAlternance() {
 	const router = useRouter();
 
 	const alternanceService = useDependency<AlternanceService>('alternanceService');
-
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
 	const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
-	const [nombreRésultats, setNombreRésultats] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [nombreRésultats, setNombreRésultats] = useState(0);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
-
 
 	useEffect(() => {
 		const queryString = stringify(router.query);
@@ -72,56 +67,66 @@ export function RechercherAlternance() {
 		return messageRésultatRechercheSplit.join(' ');
 	}, [nombreRésultats, router.query.motCle]);
 
-	return (
-		<>
-			<Head
-				title={title}
-				description="Des milliers d’alternances sélectionnées pour vous"
-				robots="index,follow"
+	return  <>
+		<Head
+			title={title}
+			description="Des milliers d’alternances sélectionnées pour vous"
+			robots="index,follow"
+		/>
+		<main id="contenu">
+			<RechercherSolutionLayout
+				bannière={<BannièreApprentissage/>}
+				erreurRecherche={erreurRecherche}
+				formulaireRecherche={<FormulaireRechercheAlternance/>}
+				isLoading={isLoading}
+				messageRésultatRecherche={messageRésultatRecherche}
+				nombreSolutions={alternanceList.length}
+				listeSolutionElement={<ListeAlternance résultatList={alternanceList}/>}
 			/>
-			<main id="contenu">
-				<LightHero>
-					<h1>
-						<LightHeroPrimaryText>Avec La Bonne Alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
-						<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
-					</h1>
-				</LightHero>
-				<div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
-					<div className={'separator'}>
-						<Container className={styles.rechercheSolutionFormWrapper}>
-							<FormulaireRechercheAlternance/>
-						</Container>
-					</div>
-					<>
-						{erreurRecherche && !isLoading
-							? <ErrorComponent errorType={erreurRecherche}/>
-							: <>
-								<div className={'separator'}>
-									<Container className={styles.informationRésultat}>
-										<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-											<h2>{messageRésultatRecherche}</h2>
-										</Skeleton>
-									</Container>
-								</div>
+		</main>
+	</>;
+}
 
-								<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-									<Container>
-										<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
-											<ul aria-label="Offres d’alternances">
-												{alternanceList.map((alternance) => (
-													<li key={uuid4()}>
-														<RésultatRechercherAlternance alternance={alternance}/>
-													</li>
-												))}
-											</ul>
-										</Skeleton>
-									</Container>
-								</div>
-							</>
-						}
-					</>
-				</div>
-			</main>
-		</>
+function BannièreApprentissage() {
+	return (
+		<LightHero>
+			<h1>
+				<LightHeroPrimaryText>Avec La Bonne Alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
+			</h1>
+			<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
+		</LightHero>
+	);
+}
+
+interface ListeRésultatProps {
+	résultatList: Alternance[]
+}
+
+function ListeAlternance({ résultatList }: ListeRésultatProps) {
+	if (!résultatList.length) {
+		return null;
+	}
+
+	const getLogo = (alternance: Alternance) =>  {
+		if (alternance.source === Alternance.Source.MATCHA) {
+			return '/images/logos/la-bonne-alternance.svg';
+		}
+		return '/images/logos/pole-emploi.svg';
+	};
+
+	return (
+		<ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
+			{résultatList.map((alternance: Alternance) => (
+				<li key={uuidv4()}>
+					<RésultatRechercherSolution
+						lienOffre={'#'}
+						intituléOffre={alternance.titre}
+						logoEntreprise={getLogo(alternance)}
+						étiquetteOffreList={alternance.tags}
+						nomEntreprise={alternance.nomEntreprise}
+					/>
+				</li>
+			))}
+		</ListeRésultatsRechercherSolution>
 	);
 }

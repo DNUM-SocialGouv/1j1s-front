@@ -11,9 +11,6 @@ import {
 import {
 	RechercherAlternancePoleEmploiUseCase,
 } from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
-import {
-	RécupererSuggestionsMetiersAlternanceUseCase,
-} from '~/server/alternances/useCases/récupererSuggestionsMetiersAlternanceUseCase';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import {
@@ -58,6 +55,10 @@ import {
 	RechercherÉtablissementAccompagnementUseCase,
 } from '~/server/établissement-accompagnement/useCase/rechercherÉtablissementAccompagnement.useCase';
 import {
+	ApiLaBonneAlternanceFormationRepository,
+} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
+import { RechercherFormationUseCase } from '~/server/formations/useCases/rechercherFormation.useCase';
+import {
 	ApiPoleEmploiJobÉtudiantRepository,
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
 import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
@@ -67,6 +68,12 @@ import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repos
 import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
 import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
+import {
+	ApiLaBonneAlternanceMétierRepository,
+} from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
+import {
+	RécupérerMétiersUseCase,
+} from '~/server/metiers/useCases/récupererMétiersUseCase';
 import {
 	ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
@@ -83,6 +90,8 @@ import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSite
 
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
+	formationDependencies: FormationDependencies;
+	métierDependencies: MétierDependencies;
   offreEmploiDependencies: OffresEmploiDependencies;
   cmsDependencies: CmsDependencies;
   engagementDependencies: EngagementDependencies;
@@ -113,7 +122,14 @@ export interface OffresAlternanceDependencies {
 
 export interface AlternanceDependencies {
 	rechercherAlternance: RechercherAlternanceLaBonneAlternanceUseCase
-	récupererSuggestionsMetiersAlternance: RécupererSuggestionsMetiersAlternanceUseCase
+}
+
+export interface FormationDependencies {
+	rechercherFormation: RechercherFormationUseCase
+}
+
+export interface MétierDependencies {
+	récupérerMétiers: RécupérerMétiersUseCase
 }
 
 export interface EngagementDependencies {
@@ -192,7 +208,10 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
-	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService);
+	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
+	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller);
+	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller);
+	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService);
 
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
 		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
@@ -201,7 +220,14 @@ export const dependenciesContainer = (): Dependencies => {
 
 	const alternanceDependencies: AlternanceDependencies = {
 		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
-		récupererSuggestionsMetiersAlternance: new RécupererSuggestionsMetiersAlternanceUseCase(apiLaBonneAlternanceRepository),
+	};
+
+	const formationDependencies: FormationDependencies = {
+		rechercherFormation: new RechercherFormationUseCase(apiLaBonneAlternanceFormationRepository),
+	};
+	
+	const métierDependencies: MétierDependencies = {
+		récupérerMétiers: new RécupérerMétiersUseCase(apiLaBonneAlternanceMétierRepository),
 	};
 
 	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
@@ -259,7 +285,9 @@ export const dependenciesContainer = (): Dependencies => {
 		demandeDeContactDependencies,
 		engagementDependencies,
 		entrepriseDependencies,
+		formationDependencies,
 		localisationDependencies,
+		métierDependencies,
 		offreAlternanceDependencies,
 		offreEmploiDependencies,
 		offreJobÉtudiantDependencies,

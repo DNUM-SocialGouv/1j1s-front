@@ -8,6 +8,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
 
@@ -31,11 +32,13 @@ describe('Page rechercher une alternance', () => {
 		it('affiche le titre contenant Pôle Emploi et une liste de un partenaire', async () => {
 			const offreServiceMock = anOffreService();
 			const localisationServiceMock = aLocalisationService();
+			const métierServiceMock = aMétierService();
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					offreService={offreServiceMock}
+					métierService={métierServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -59,25 +62,27 @@ describe('Page rechercher une alternance', () => {
 	describe('quand le feature flip est actif', () => {
 		beforeEach(() => {
 			process.env = {
+				...process.env,
 				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '1',
-				NODE_ENV: 'development',
 			};
 		});
 
 		it('affiche le titre propre à la Bonne Alternance', async () => {
 			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
+			const métiersServiceMock = aMétierService();
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
+					métierService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
 			);
 
-			const titre = screen.getByRole('heading', { level: 1 });
+			const titre = await screen.findByRole('heading', { level: 1 });
 			expect(titre).toHaveTextContent('Avec La Bonne Alternance');
 
 		});

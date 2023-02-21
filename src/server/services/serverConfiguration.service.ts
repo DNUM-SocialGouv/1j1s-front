@@ -8,6 +8,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
 			API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
+			API_LA_BONNE_ALTERNANCE_CALLER: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_CALLER'),
 			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
 			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
 			API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
@@ -75,6 +76,7 @@ export interface EnvironmentVariables {
   readonly API_ENGAGEMENT_BASE_URL: string
   readonly API_ETABLISSEMENTS_PUBLICS: string
 	readonly API_GEO_BASE_URL: string
+	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
   readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
   readonly API_POLE_EMPLOI_OFFRES_URL: string

@@ -1,24 +1,24 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { récupererSuggestionsMétiersAlternanceHandler } from '~/pages/api/alternances/metiers/index.controller';
+import { récupérerMétierAlternanceHandler } from '~/pages/api/metiers/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
-import { MetierAlternance } from '~/server/alternances/domain/métier';
+import { Métier } from '~/server/metiers/domain/métier';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 import {
 	aMetierLaBonneAlternanceApiResponse,
-} from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+} from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
 
 
-describe('recupérer les métiers correspondant à la recherche', () => {
+describe('récupérer les métiers correspondant à la recherche', () => {
 	it('retourne les métiers recherchés', async () => {
 		const recherche = 'boulang';
 		nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/v1/').get(
 			`/metiers?title=${recherche}`,
 		).reply(200, aMetierLaBonneAlternanceApiResponse());
 
-		await testApiHandler<MetierAlternance[] | ErrorHttpResponse>({
-			handler: (req, res) => récupererSuggestionsMétiersAlternanceHandler(req, res),
+		await testApiHandler<Métier[] | ErrorHttpResponse>({
+			handler: (req, res) => récupérerMétierAlternanceHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();

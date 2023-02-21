@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
-import { RechercherAlternance } from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
+import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
 import { RechercherAlternancePoleEmploi } from '~/client/components/features/Alternance/Rechercher/RechercherAlternancePoleEmploi';
 import useReferrer from '~/client/hooks/useReferrer';
 
@@ -19,7 +19,7 @@ export default function RechercherAlternancePage() {
 		}
 	}, [router, displayRechercherAlternanceLBA]);
 
-	if (displayRechercherAlternanceLBA) return  <RechercherAlternance/>;
+	if (displayRechercherAlternanceLBA) return <RechercherAlternance/>;
 
 	if (Object.keys(router.query).length) {
 		return <RechercherAlternancePoleEmploi/>;

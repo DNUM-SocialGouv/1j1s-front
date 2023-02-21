@@ -13,11 +13,12 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import {
-	aListeDeMetierLaBonneAlternance,
 	aRésultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
-import { MetierAlternance } from '~/server/alternances/domain/métier';
+import { Métier } from '~/server/metiers/domain/métier';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 jest.mock('lodash/debounce', () =>
 	jest.fn((fn) => {
@@ -30,12 +31,38 @@ describe('FormulaireRechercheAlternance', () => {
 		mockSmallScreen();
 	});
 
+	describe('quand le composant est affiché sans recherche', () => {
+		it('affiche un formulaire pour la recherche d‘alternance, sans échantillon de résultat', async () => {
+			// GIVEN
+			const alternanceService = anAlternanceService();
+			const métierService = aMétierService();
+			const localisationService = aLocalisationService();
+			mockUseRouter({});
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceService}
+					métierService={métierService}
+					localisationService={localisationService}
+				>
+					<FormulaireRechercheAlternance/>
+				</DependenciesProvider>,
+			);
+			const formulaireRechercheAlternance = screen.getByRole('form');
+
+			// THEN
+			expect(formulaireRechercheAlternance).toBeInTheDocument();
+			expect(alternanceService.rechercherAlternance).toHaveBeenCalledTimes(0);
+		});
+	});
+
 	describe('lorsqu‘on recherche par commune et par métier', () => {
-		it('filtre les résultats par localisation', async () => {
+		it('filtre les résultats par localisation et métier', async () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<MetierAlternance> = [{
+			const aMétierList: Array<Métier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
@@ -49,10 +76,15 @@ describe('FormulaireRechercheAlternance', () => {
 
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance(), aMétierList);
+			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance());
+			const métierService = aMétierService(aMétierList);
 			// When
 			render(
-				<DependenciesProvider alternanceService={alternanceService} localisationService={localisationService}>
+				<DependenciesProvider
+					alternanceService={alternanceService}
+					métierService={métierService}
+					localisationService={localisationService}
+				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
 			);
@@ -81,16 +113,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<MetierAlternance> = [{
+			const aMétierList: Array<Métier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance(), aMétierList);
+			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance());
+			const métierService = aMétierService(aMétierList);
 			// When
 			render(
-				<DependenciesProvider alternanceService={alternanceService} localisationService={localisationService}>
+				<DependenciesProvider
+					alternanceService={alternanceService}
+					métierService={métierService}
+					localisationService={localisationService}
+				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
 			);
@@ -113,16 +150,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<MetierAlternance> = [{
+			const aMétierList: Array<Métier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance(), aMétierList);
+			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance());
+			const métierService = aMétierService(aMétierList);
 			// When
 			render(
-				<DependenciesProvider alternanceService={alternanceService} localisationService={localisationService}>
+				<DependenciesProvider
+					alternanceService={alternanceService}
+					métierService={métierService}
+					localisationService={localisationService}
+				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
 			);

@@ -15,8 +15,11 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anAlternanceService,
-	anAlternanceServiceWithEmptyResultat,
 } from '~/client/services/alternance/alternance.service.fixture';
+import {
+	aMétierService,
+	aMétierServiceWithEmptyRésultat,
+} from '~/client/services/métiers/métier.fixture';
 
 jest.mock('lodash/debounce', () =>
 	jest.fn((fn) => {
@@ -31,11 +34,11 @@ describe('InputAutocomplétionMétier', () => {
 	});
 	describe('quand la recherche le correspond a aucun métier', () => {
 		it('affiche un message vide et ne propose pas de métier', async () => {
-			const alternanceServiceMock = anAlternanceServiceWithEmptyResultat();
+			const métierServiceMock = aMétierServiceWithEmptyRésultat();
 			const user = userEvent.setup();
 			mockUseRouter({});
 
-			render(<DependenciesProvider alternanceService={alternanceServiceMock}>
+			render(<DependenciesProvider métierService={métierServiceMock}>
 				<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
@@ -50,10 +53,11 @@ describe('InputAutocomplétionMétier', () => {
 	describe('quand la recherche correspond à des métiers', () => {
 		it('affiche les métiers possibles', async () => {
 			const alternanceServiceMock = anAlternanceService();
+			const métierServiceMock = aMétierService();
 			const user = userEvent.setup();
 			mockUseRouter({});
 
-			render(<DependenciesProvider alternanceService={alternanceServiceMock}>
+			render(<DependenciesProvider alternanceService={alternanceServiceMock} métierService={métierServiceMock}>
 				<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
@@ -68,12 +72,13 @@ describe('InputAutocomplétionMétier', () => {
 		describe('quand je click sur un métier', () => {
 			it('affiche le métier séléctionné', async () => {
 				const alternanceServiceMock = anAlternanceService();
+				const métierServiceMock = aMétierService();
 				const user = userEvent.setup();
 				mockUseRouter({});
 
 				render(
 					<form role="form">
-						<DependenciesProvider alternanceService={alternanceServiceMock}>
+						<DependenciesProvider alternanceService={alternanceServiceMock} métierService={métierServiceMock}>
 							<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 						</DependenciesProvider>
 					</form>,
@@ -89,12 +94,13 @@ describe('InputAutocomplétionMétier', () => {
 		describe('quand je choisi un métier avec le clavier', () => {
 			it('affiche le métier séléctionné', async () => {
 				const alternanceServiceMock = anAlternanceService();
+				const métierServiceMock = aMétierService();
 				const user = userEvent.setup();
 				mockUseRouter({});
 
 				render(
 					<form role="form">
-						<DependenciesProvider alternanceService={alternanceServiceMock}>
+						<DependenciesProvider alternanceService={alternanceServiceMock} métierService={métierServiceMock}>
 							<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 						</DependenciesProvider>
 					</form>,

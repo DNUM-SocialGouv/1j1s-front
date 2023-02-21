@@ -15,6 +15,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			API_ENGAGEMENT_BASE_URL: 'https://api.api-engagement.beta.gouv.fr/v0/',
 			API_ETABLISSEMENTS_PUBLICS: '',
 			API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
+			API_LA_BONNE_ALTERNANCE_CALLER: '1jeune-1solution-test',
 			API_LA_BONNE_ALTERNANCE_URL: 'https://labonnealternance-recette.beta.gouv.fr/api/v1/',
 			API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',
 			API_POLE_EMPLOI_OFFRES_URL: 'https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres',

@@ -5,7 +5,9 @@ import { rechercherAlternanceHandler } from '~/pages/api/alternances/index.contr
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { aRésultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
-import { aLaBonneAlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import {
+	aLaBonneAlternanceApiJobsResponse,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 
 describe('rechercher alternance', () => {
 	it("retourne une liste d'alternance", async () => {
@@ -28,7 +30,7 @@ describe('rechercher alternance', () => {
 				const json = await res.json();
 				expect(json).toEqual(aRésultatRechercherMultipleAlternance());
 			},
-			url: `/alternances?codeRomes=${codeRomes}&libelle=Paris&libelleCommune=Gignac-la-Nerthe&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
+			url: `/alternances?codeRomes=${codeRomes}&libelleMetier=Paris&libelleCommune=Gignac-la-Nerthe&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
 		});
 	});
 });

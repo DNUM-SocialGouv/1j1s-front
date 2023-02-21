@@ -6,9 +6,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { MetierAlternance } from '~/server/alternances/domain/métier';
+import { MétierService } from '~/client/services/métiers/métier.service';
 import { isSuccess } from '~/server/errors/either';
+import { Métier } from '~/server/metiers/domain/métier';
 
 interface InputAutocomplétionMétierProps extends React.ComponentPropsWithoutRef<'input'> {
 	label?: string;
@@ -25,13 +25,13 @@ const HINT_INPUT_INVALID = 'Veuillez séléctionner un métier valide';
 export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
 	const { label, libellé, name, className, required, onChange, onBlur, codeRomes, ...rest } = props;
 
-	const métierRecherchéService = useDependency<AlternanceService>('alternanceService');
+	const métierRecherchéService = useDependency<MétierService>('métierService');
 
-	const [suggestionsApi, setSuggestionsApi] = useState<MetierAlternance[]>([]);
+	const [suggestionsApi, setSuggestionsApi] = useState<Métier[]>([]);
 	const [suggestionIndex, setSuggestionIndex] = useState(0);
 	const [suggestionsActive, setSuggestionsActive] = useState(false);
 	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé || '');
-	const [codeRomesInput, setcodeRomesInput] = useState<string[]>([]);
+	const [codeRomesInput, setCodeRomesInput] = useState<string[]>([]);
 	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
 	const [isTouched, setIsTouched] = useState<boolean>(false);
 
@@ -49,7 +49,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			setIsValueValidSelected(true);
 		}
 		if (codeRomes) {
-			setcodeRomesInput(codeRomes.split(','));
+			setCodeRomesInput(codeRomes.split(','));
 		}
 	}, [libellé, codeRomes]);
 
@@ -87,13 +87,13 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 		setSuggestionsApi([]);
 	}, []);
 
-	const handleClickOnSuggestion = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: MetierAlternance) => {
+	const handleClickOnSuggestion = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: Métier) => {
 		if (e.button === 0) {
 			e.preventDefault();
 			setIsValueValidSelected(true);
 			inputRef.current?.setCustomValidity('');
 			setMétierRecherchéInput(selectedMétierRecherché.label);
-			setcodeRomesInput(selectedMétierRecherché.romes);
+			setCodeRomesInput(selectedMétierRecherché.romes);
 			closeSuggestions();
 		}
 	};
@@ -135,7 +135,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			setIsValueValidSelected(true);
 			event.currentTarget.setCustomValidity('');
 			setMétierRecherchéInput(suggestionsApi[suggestionIndex].label);
-			setcodeRomesInput(suggestionsApi[suggestionIndex].romes);
+			setCodeRomesInput(suggestionsApi[suggestionIndex].romes);
 			setSuggestionsActive(false);
 			event.preventDefault();
 		}
