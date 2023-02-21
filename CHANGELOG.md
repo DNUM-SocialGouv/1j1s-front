@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.5.1...v3.6.0) (2023-02-21)
+
+
+### Features
+
+* **multiple:** changement d'image aides financières ([48f2826](https://github.com/DNUM-SocialGouv/1j1s-front/commit/48f28262e89322355a3e86aec43a33b4cba6f77d))
+
 ## [3.5.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.5.0...v3.5.1) (2023-02-21)
 
 
