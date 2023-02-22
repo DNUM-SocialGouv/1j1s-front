@@ -19,6 +19,10 @@ export namespace Alternance {
 	}
 }
 
-export interface AlternanceQuery {
+export interface AlternanceFiltre {
 	codeRomes: Array<string>
+	codeCommune: string
+	distanceCommune: string
+	latitudeCommune: string
+	longitudeCommune: string
 }

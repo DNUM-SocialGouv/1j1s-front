@@ -19,7 +19,7 @@ describe('Parcours alternance LBA', () => {
 
 	it('place le focus sur le premier input du formulaire de recherche', () => {
 		cy.visit('/apprentissage');
-		cy.focused().should('have.attr', 'name', 'libelle');
+		cy.focused().should('have.attr', 'name', 'libelleMetier');
 	});
 
 	describe('Quand l’utilisateur cherche un métier', () => {
@@ -42,9 +42,9 @@ describe('Parcours alternance LBA', () => {
 	describe('Quand l’utilisateur effectue une recherche', () => {
 		it('filtre les résultats par mot clé', () => {
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelle=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104'),
+				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Gignac-la-Nerthe+%2813180%29&codeCommune=13043&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10'),
 				alias: 'recherche-metiers',
-				path: '/api/alternances?libelle*',
+				path: '/api/alternances?libelleMetier*',
 				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
 			});
 
