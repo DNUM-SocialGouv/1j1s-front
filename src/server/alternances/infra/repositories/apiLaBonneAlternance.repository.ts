@@ -1,11 +1,6 @@
-import {
-	Alternance,
-	AlternanceQuery,
-} from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceFiltre } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
-import {
-	MetierAlternance,
-} from '~/server/alternances/domain/métier';
+import { MetierAlternance } from '~/server/alternances/domain/métier';
 import {
 	AlternanceApiJobsResponse,
 	MetierLaBonneAlternanceApiResponse,
@@ -20,7 +15,8 @@ const sourcesMatchaEtPEJobs = 'matcha,offres';
 
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: HttpClientService) {
+	}
 
 	async getMetierList(recherche: string): Promise<Either<Array<MetierAlternance>>> {
 		try {
@@ -32,10 +28,11 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	}
 
 
-	async search(filtre: AlternanceQuery): Promise<Either<Array<Alternance>>> {
-		const queryList = filtre.codeRomes.join(',');
+	async search(filtre: AlternanceFiltre): Promise<Either<Array<Alternance>>> {
+		const codeRomes = filtre.codeRomes.join(',');
 		try {
-			const response = await this.httpClientService.get<AlternanceApiJobsResponse>(`/jobs?caller=${caller}&romes=${queryList}&sources=${sourcesMatchaEtPEJobs}`);
+			const endpoint = `/jobs?caller=${caller}&romes=${codeRomes}&sources=${sourcesMatchaEtPEJobs}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
+			const response = await this.httpClientService.get<AlternanceApiJobsResponse>(endpoint);
 			return createSuccess(mapAlternance(response.data));
 		} catch (e) {
 			return handleSearchFailureError(e, 'la bonne alternance recherche');

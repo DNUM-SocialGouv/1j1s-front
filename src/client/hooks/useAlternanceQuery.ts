@@ -4,22 +4,37 @@ import { useEffect, useState } from 'react';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 interface AlternanceQueryParams {
-  codeRomes?: string
-  libelle?: string
+	codeRomes?: string
+	libelleMetier?: string
+	codeCommune?: string
+	distanceCommune?: string
+	libelleCommune?: string
+	longitudeCommune?: string
+	latitudeCommune?: string
 }
 
 export function useAlternanceQuery(): AlternanceQueryParams {
 	const [alternanceQueryParams, setAlternanceQueryParams] = useState<AlternanceQueryParams>({
+		codeCommune: undefined,
 		codeRomes: undefined,
-		libelle: undefined,
+		distanceCommune: undefined,
+		latitudeCommune: undefined,
+		libelleCommune: undefined,
+		libelleMetier: undefined,
+		longitudeCommune: undefined,
 	});
 
 	const { query } = useRouter();
 
 	useEffect(() => {
 		setAlternanceQueryParams({
+			codeCommune: getSingleQueryParam(query.codeCommune),
 			codeRomes: getSingleQueryParam(query.codeRomes),
-			libelle: getSingleQueryParam(query.libelle),
+			distanceCommune: getSingleQueryParam(query.distanceCommune),
+			latitudeCommune: getSingleQueryParam(query.latitudeCommune),
+			libelleCommune: getSingleQueryParam(query.libelleCommune),
+			libelleMetier: getSingleQueryParam(query.libelleMetier),
+			longitudeCommune: getSingleQueryParam(query.longitudeCommune),
 		});
 	}, [query]);
 

@@ -5,18 +5,20 @@ import { rechercherAlternanceHandler } from '~/pages/api/alternances/index.contr
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { aRésultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
-import {
-	aLaBonneAlternanceApiJobsResponse,
-} from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
+import { aLaBonneAlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/laBonneAlternance.fixture';
 
 describe('rechercher alternance', () => {
 	it("retourne une liste d'alternance", async () => {
-		const query = 'D123,D122';
+		const codeRomes = 'D123,D122';
 		const caller = '1jeune1solution';
 		const sources = 'matcha,offres';
+		const radius = '30';
+		const codeCommune = '13180';
+		const longitudeCommune = '15.845';
+		const latitudeCommune = '2.37';
 
 		nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/v1/').get(
-			`/jobs?caller=${caller}&romes=${query}&sources=${sources}`,
+			`/jobs?caller=${caller}&romes=${codeRomes}&sources=${sources}&insee=${codeCommune}&longitude=${longitudeCommune}&latitude=${latitudeCommune}&radius=${radius}`,
 		).reply(200, aLaBonneAlternanceApiJobsResponse());
 
 		await testApiHandler<Array<Alternance> | ErrorHttpResponse>({
@@ -26,7 +28,7 @@ describe('rechercher alternance', () => {
 				const json = await res.json();
 				expect(json).toEqual(aRésultatRechercherMultipleAlternance());
 			},
-			url: '/alternances?codeRomes=D123,D122',
+			url: `/alternances?codeRomes=${codeRomes}&libelle=Paris&libelleCommune=Gignac-la-Nerthe&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
 		});
 	});
 });

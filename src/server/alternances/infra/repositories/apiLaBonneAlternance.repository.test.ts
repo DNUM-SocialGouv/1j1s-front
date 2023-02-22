@@ -1,6 +1,6 @@
 import { aListeDeMetierLaBonneAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { MetierAlternance } from '~/server/alternances/domain/métier';
-import { anAlternanceQuery } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import { anAlternanceFiltre } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
@@ -54,7 +54,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			repository.search(anAlternanceQuery());
+			repository.search(anAlternanceFiltre());
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledTimes(1);
@@ -65,11 +65,15 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
 
 			// When
-			repository.search(anAlternanceQuery());
+			repository.search(anAlternanceFiltre());
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution/));
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=D1406,D1407/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*insee=13180/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*longitude=29.10/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*latitude=48.2/));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*radius=30/));
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
 		});
 	});

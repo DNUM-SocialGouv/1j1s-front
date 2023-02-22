@@ -6,15 +6,17 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import {
-	Alternance,
-	AlternanceQuery,
-} from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceFiltre } from '~/server/alternances/domain/alternance';
 import { dependencies } from '~/server/start';
 
 export const alternancesQuerySchema = Joi.object({
+	codeCommune: Joi.string().required(),
 	codeRomes: Joi.string().required(),
-	libelle: Joi.string(),
+	distanceCommune: Joi.string().required(),
+	latitudeCommune: Joi.string().required(),
+	libelleCommune: Joi.string(),
+	libelleMetier: Joi.string(),
+	longitudeCommune: Joi.string().required(),
 });
 
 export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<Array<Alternance> | ErrorHttpResponse>) {
@@ -24,9 +26,13 @@ export async function rechercherAlternanceHandler(req: NextApiRequest, res: Next
 
 export default withMonitoring(withValidation({ query: alternancesQuerySchema }, rechercherAlternanceHandler));
 
-export function alternanceFiltreMapper(request: NextApiRequest): AlternanceQuery {
+export function alternanceFiltreMapper(request: NextApiRequest): AlternanceFiltre {
 	const { query } = request;
 	return {
+		codeCommune: query.codeCommune ? String(query.codeCommune) : '',
 		codeRomes: query.codeRomes ? queryToArray(query.codeRomes) : [],
+		distanceCommune: query.distanceCommune ? String(query.distanceCommune) : '',
+		latitudeCommune: query.latitudeCommune ? String(query.latitudeCommune) : '',
+		longitudeCommune: query.longitudeCommune ? String(query.longitudeCommune) : '',
 	};
 }

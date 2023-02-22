@@ -13,14 +13,14 @@ import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 interface InputCommuneProps {
-  code: string
-  distance?: string
-  id?: string
-  latitude?: string
-  libellé: string
-  longitude?: string
-  showRadius?: boolean
-  required?: boolean
+	code: string
+	distance?: string
+	id?: string
+	latitude?: string
+	libellé: string
+	longitude?: string
+	showRadius?: boolean
+	required?: boolean
 	htmlLabel?: string
 }
 
@@ -28,12 +28,12 @@ const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
 
 function clickedOnSearchButton(target: Node) {
 	return target.textContent === 'Rechercher'
-    || (target.parentNode !== undefined && target.parentNode?.textContent === 'Rechercher');
+		|| (target.parentNode !== undefined && target.parentNode?.textContent === 'Rechercher');
 }
 
 function isInputEmptyWhileUserClickedOnSearchButton(e: MouseEvent, libelléCommune: string): boolean {
 	return clickedOnSearchButton((e.target) as Node)
-      && libelléCommune === '';
+		&& libelléCommune === '';
 }
 
 export const InputCommune = ({ className, code, distance, id, libellé, latitude, longitude, required = false, showRadius = true, htmlLabel = 'rechercherCommune' }: InputCommuneProps & React.HTMLAttributes<HTMLDivElement>) => {
@@ -87,14 +87,14 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 		if (e.key === KeyBoard.ESCAPE || e.key === KeyBoard.TAB) {
 			cancelCommuneSelect();
 		}
-		if ((e.key === KeyBoard.TAB || e.key === KeyBoard.ENTER)) {
+		if ((e.key === KeyBoard.TAB || e.key === KeyBoard.ENTER) && suggestionsActive) {
 			if (libelléCommune === '') {
 				setInvalid(true);
 			} else {
 				setInvalid(false);
 			}
 		}
-	}, [cancelCommuneSelect, libelléCommune]);
+	}, [cancelCommuneSelect, libelléCommune, suggestionsActive]);
 
 	useEffect(function gérerPerteDeFocus() {
 		document.addEventListener('mousedown', closeSuggestionsOnClickOutside);
@@ -127,8 +127,8 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 	const rechercherCommune = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
 		if (value.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH) {
-			const response  = await localisationService.rechercherCommune(value);
-			if(isSuccess(response)) {
+			const response = await localisationService.rechercherCommune(value);
+			if (isSuccess(response)) {
 				setCommuneList(response.result.résultats ?? []);
 				setCodeCommune('');
 				setLatitudeCommune('');
@@ -210,11 +210,10 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 					</li>
 				))}
 				{communeList.length === 0 &&
-        <li className={styles.aucunRésultat} data-testid="CommuneNoResultMessage">
-          Aucune proposition ne correspond à votre saisie.
-          Vérifiez que votre saisie correspond bien à un lieu.
-          Exemple : Paris, ...
-        </li>
+            <li className={styles.aucunRésultat} data-testid="CommuneNoResultMessage">
+                Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu.
+                Exemple : Paris, ...
+            </li>
 				}
 			</ul>
 		);
@@ -224,7 +223,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 		<>
 			<div className={classNames(styles.wrapper, className)}>
 				<label htmlFor={htmlLabel} id={id || LOCALISATION_LABEL_ID} className={styles.label}>
-          Localisation
+					Localisation
 				</label>
 				<div ref={autocompleteRef}>
 					<div
@@ -260,22 +259,22 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
                 Veuillez saisir une localisation
 							</span>
 						)}
-						<input type="hidden" name="codeCommune" value={codeCommune} />
-						<input type="hidden" name="latitudeCommune" value={latitudeCommune} />
-						<input type="hidden" name="longitudeCommune" value={longitudeCommune} />
+						<input type="hidden" name="codeCommune" value={codeCommune}/>
+						<input type="hidden" name="latitudeCommune" value={latitudeCommune}/>
+						<input type="hidden" name="longitudeCommune" value={longitudeCommune}/>
 					</div>
 					{suggestionsActive && <SuggestionsCommuneList/>}
 				</div>
 			</div>
-			{ codeCommune && showRadius &&
-      <Select
-      	label="Rayon"
-      	name="distanceCommune"
-      	placeholder={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
-      	optionList={radiusList}
-      	onChange={setDistanceCommune}
-      	value={distanceCommune}
-      />
+			{codeCommune && showRadius &&
+          <Select
+          	label="Rayon"
+          	name="distanceCommune"
+          	placeholder={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
+          	optionList={radiusList}
+          	onChange={setDistanceCommune}
+          	value={distanceCommune}
+          />
 			}
 		</>
 	);

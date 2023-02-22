@@ -38,7 +38,6 @@ export function RechercherAlternance() {
 
 	useEffect(() => {
 		const queryString = stringify(router.query);
-
 		if (queryString !== '') {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
