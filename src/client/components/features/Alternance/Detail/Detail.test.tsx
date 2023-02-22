@@ -17,4 +17,12 @@ describe('<Detail />', () => {
 		expect(titre).toHaveTextContent('Ma super alternance');
 		expect(titre).toBeVisible();
 	});
+	it('affiche le nom de l’entreprise', () => {
+		const annonce = uneAlternance({ nomEntreprise: 'Ma super entreprise' });
+
+		render(<Detail annonce={annonce} />);
+
+		const entreprise = screen.getByRole('paragraph', { name: 'Ma super entreprise' });
+		expect(entreprise).toBeVisible();
+	});
 });
