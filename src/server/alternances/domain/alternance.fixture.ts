@@ -1,6 +1,6 @@
 import { Alternance } from './alternance';
 
-export const anAlternanceMatcha = (): Alternance => {
+export const anAlternanceMatcha = (override: Partial<Alternance>): Alternance => {
 	return {
 		id: 'id',
 		localisation: 'paris',
@@ -10,6 +10,7 @@ export const anAlternanceMatcha = (): Alternance => {
 		tags: ['paris', 'Apprentissage', 'débutant'],
 		titre: 'un titre',
 		typeDeContrat: ['Apprentissage'],
+		...override,
 	};
 };
 
