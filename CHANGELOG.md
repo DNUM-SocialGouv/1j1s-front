@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.6.0...v3.6.1) (2023-02-22)
+
+
+### Bug Fixes
+
+* **alternance:** affichage contract type ([c9de09b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c9de09b3113c936c05bae232dfebd054e28d2b81))
+
 ## [3.6.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.5.1...v3.6.0) (2023-02-21)
 
 
