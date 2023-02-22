@@ -23,7 +23,7 @@ describe('<AnnonceAlternancePage />', () => {
 		expect(document.title).toContain('Ma super alternance');
 	});
 	it("affiche le détail de l'annonce", async () => {
-		const annonce = uneAlternance({ titre: 'Ma super alternance' });
+		const annonce = anAlternanceMatcha({ titre: 'Ma super alternance' });
 
 		render(<AnnonceAlternancePage annonce={annonce} />);
 

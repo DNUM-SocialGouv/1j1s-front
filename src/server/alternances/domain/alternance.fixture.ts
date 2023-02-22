@@ -1,6 +1,6 @@
 import { Alternance } from './alternance';
 
-export const anAlternanceMatcha = (override: Partial<Alternance>): Alternance => {
+export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
 		id: 'id',
 		localisation: 'paris',
