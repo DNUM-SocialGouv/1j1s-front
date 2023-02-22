@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -21,5 +21,13 @@ describe('<AnnonceAlternancePage />', () => {
 		render(<AnnonceAlternancePage annonce={annonce} />);
 
 		expect(document.title).toContain('Ma super alternance');
+	});
+	it("affiche le détail de l'annonce", async () => {
+		const annonce = uneAlternance({ titre: 'Ma super alternance' });
+
+		render(<AnnonceAlternancePage annonce={annonce} />);
+
+		const titre = screen.getByRole('heading', { level: 1, name: /Ma super alternance/i });
+		expect(titre).toBeVisible();
 	});
 });

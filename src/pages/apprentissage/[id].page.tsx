@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import React from 'react';
 
+import { Detail } from '../../client/components/features/Alternance/Detail/Detail';
 import { Head } from '../../client/components/head/Head';
 import { Alternance } from '../../server/alternances/domain/alternance';
 import { PageContextParamsException } from '../../server/exceptions/pageContextParams.exception';
@@ -35,7 +36,7 @@ export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlter
 				title={`${annonce.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<pre>{JSON.stringify(annonce, undefined, 2)}</pre>
+			<Detail annonce={annonce} />
 		</>
 	);
 }
