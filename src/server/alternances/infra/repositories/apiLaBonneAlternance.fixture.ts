@@ -79,6 +79,7 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 		diplomaLevel: 'débutant',
 		job: {
 			contractType: 'apprentissage',
+			description: 'description',
 			id: 'id',
 		},
 		place: { city: 'paris' },

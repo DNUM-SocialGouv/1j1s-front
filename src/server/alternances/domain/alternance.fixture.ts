@@ -2,6 +2,7 @@ import { Alternance } from './alternance';
 
 export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
+		description: 'description',
 		id: 'id',
 		localisation: 'paris',
 		niveauRequis: 'débutant',
@@ -16,6 +17,7 @@ export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance =
 
 const anAlternanceMatchaBoucher = (): Alternance => {
 	return {
+		description: 'Super alternance dans une boucherie',
 		id: 'id-boucher',
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		nomEntreprise: 'SARL HUGUE-DEBRIX',
@@ -28,6 +30,7 @@ const anAlternanceMatchaBoucher = (): Alternance => {
 
 const anAlternanceMatchaBoulanger = (): Alternance => {
 	return {
+		description: 'Super alternance dans une boulangerie',
 		id: 'id-boulanger',
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		nomEntreprise: 'MONSIEUR MICHEL',
@@ -40,6 +43,7 @@ const anAlternanceMatchaBoulanger = (): Alternance => {
 
 export const anAlternancePEJobs = (): Alternance => {
 	return {
+		description: 'Super alternance dans un bar',
 		id: 'alternance-pejob',
 		localisation: 'paris',
 		nomEntreprise: 'une entreprise',

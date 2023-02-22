@@ -71,7 +71,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const result = await repository.get('abc') as Failure;
 
 			// Then
-			expect(result.errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+			expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
 		});
 		it('appelle l’api laBonneAlternance', async () => {
 			// Given

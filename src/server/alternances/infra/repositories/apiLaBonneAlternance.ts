@@ -10,7 +10,8 @@ export interface MetierLaBonneAlternanceApiResponse {
 
 export namespace AlternanceApiJobsResponse {
 	export interface Job {
-		id: string;
+		id: string
+		description: string
 	}
 
 	export interface Place {

@@ -12,7 +12,8 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				<li>{annonce.typeDeContrat}</li>
 				<li>{annonce.niveauRequis}</li>
 			</ul>
-			<pre>{JSON.stringify(annonce, undefined, 2)}</pre>
+			<h2>Description du contrat :</h2>
+			<p>{annonce.description}</p>
 		</>
 	);
 }

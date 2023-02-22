@@ -35,4 +35,14 @@ describe('<Detail />', () => {
 		expect(tags[1]).toHaveTextContent('CDD');
 		expect(tags[2]).toHaveTextContent('CAP');
 	});
+	it('affiche la description du contrat', async () => {
+		const annonce = anAlternanceMatcha({ description: "C'est une super alternance !" });
+
+		render(<Detail annonce={annonce} />);
+
+		const titre = screen.getByRole('heading', { level: 2, name: /Description du contrat/i });
+		expect(titre).toBeVisible();
+		const description = screen.getByText("C'est une super alternance !");
+		expect(description).toBeVisible();
+	});
 });
