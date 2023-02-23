@@ -1,14 +1,18 @@
 export type MissionId = string;
 
 export interface MissionEngagementFiltre {
-  publisher: string
-  domain: string
-  openToMinors?: boolean
-  distance?: string
-  lat?: number
-  lon?: number
-  from: number
-  size: number
+  domaine?: string
+  ouvertAuxMineurs?: boolean
+	localisation?: MissionEngagementFiltre.Localisation
+  page: number
+}
+
+export namespace MissionEngagementFiltre {
+	export interface Localisation {
+		distance: number
+		latitude: number
+		longitude: number
+	}
 }
 
 export interface Mission {

@@ -7,14 +7,14 @@ import {
 
 export function aMissionEngagementFiltre(override?: Partial<MissionEngagementFiltre>): MissionEngagementFiltre {
 	return {
-		distance: '10',
-		domain:'sante',
-		from: 1,
-		lat: 2.3522,
-		lon: 48.8566,
-		openToMinors: true,
-		publisher: 'a-publisher-id',
-		size: 30,
+		domaine: 'sante',
+		localisation: {
+			distance: 10,
+			latitude: 2.3522,
+			longitude: 48.8566,
+		},
+		ouvertAuxMineurs: true,
+		page: 1,
 		...override,
 	};
 }

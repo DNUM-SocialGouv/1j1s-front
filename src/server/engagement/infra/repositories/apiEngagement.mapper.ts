@@ -59,7 +59,7 @@ export function mapMission(mission: RésultatsMissionEngagementResponse): Missio
 		url: data.applicationUrl,
 		étiquetteList,
 	};
-};
+}
 
 export function mapFullLocalisation(city: string, departmentName: string, departmentCode: string, region: string){
 	const cityNotEmpty = city.length > 0;
@@ -100,4 +100,4 @@ export function mapMissionList(missionList: Array<MissionEngagementResponse>): A
 			étiquetteList,
 		};
 	});
-};
+}

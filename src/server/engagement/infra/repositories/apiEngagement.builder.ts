@@ -1,24 +1,30 @@
 import { MissionEngagementFiltre, NOMBRE_RÉSULTATS_MISSION_PAR_PAGE } from '~/server/engagement/domain/engagement';
-import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
+import { ApiEngagement } from '~/server/engagement/infra/repositories/apiEngagement.response';
+import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
 
 export function buildParamètresRechercheApiEngagement(
 	missionEngagementFiltre: MissionEngagementFiltre,
+	publisher: string,
 ): string {
-	const { from, domain, publisher, size, lon, lat, distance, openToMinors } = missionEngagementFiltre;
-	const computedFrom = (from - 1) * NOMBRE_RÉSULTATS_MISSION_PAR_PAGE;
-	const queryList: Record<string, string> = {
-		distance : distance ? `${distance}km`: '',
-		domain,
-		from: computedFrom.toString(),
-		lat: lat ? lat.toString() : '',
-		lon: lon ? lon.toString() : '',
-		openToMinors : openToMinors ? 'yes': '',
+	const { page, domaine, localisation, ouvertAuxMineurs } = missionEngagementFiltre;
+	const computedFrom = (page - 1) * NOMBRE_RÉSULTATS_MISSION_PAR_PAGE;
+	let queryParams: ApiEngagement.RechercherMission = {
+		domain: domaine,
+		from: computedFrom,
 		publisher,
-		size: size ? size.toString() : '',
+		size: NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
 	};
-	removeUndefinedValueInQueryParameterList(queryList);
+	if(ouvertAuxMineurs) {
+		queryParams.openToMinors = 'yes';
+	}
+	if(localisation) {
+		queryParams = {
+			...queryParams,
+			distance: `${localisation.distance}km`,
+			lat: localisation.latitude,
+			lon: localisation.longitude,
+		};
+	}
 
-	const params = new URLSearchParams(queryList);
-
-	return params.toString();
+	return transformObjectToQueryString(queryParams);
 }

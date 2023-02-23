@@ -5,11 +5,11 @@ import {
 import { EngagementRepository } from '~/server/engagement/domain/engagement.repository';
 import { Either } from '~/server/errors/either';
 
-export class RechercherMissionEngagementUseCase {
+export class RechercherMissionBénévolatUseCase {
 	constructor(private engagementRepository: EngagementRepository) {
 	}
 
-	async handle(missionServiceCiviqueFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
-		return this.engagementRepository.searchMissionEngagement(missionServiceCiviqueFiltre);
+	async handle(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
+		return this.engagementRepository.searchMissionBénévolat(missionEngagementFiltre);
 	}
 }

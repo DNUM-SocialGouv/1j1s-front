@@ -8,5 +8,6 @@ import { Either } from '~/server/errors/either';
 
 export interface EngagementRepository {
   getMissionEngagement(id: MissionId): Promise<Either<Mission>>
-  searchMissionEngagement(missionServiceCiviqueFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>>
+  searchMissionServiceCivique(missionServiceCiviqueFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>>
+  searchMissionBénévolat(missionServiceCiviqueFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>>
 }
