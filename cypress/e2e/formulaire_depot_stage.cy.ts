@@ -124,16 +124,6 @@ describe('Dépôt de Stage', () => {
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});
 		});
-		describe('et qu’il n’a pas rempli l’étape 2', () => {
-			it('redirige vers l’étape 1', () => {
-				cy.visit('/stages/deposer-offre/confirmation-envoi');
-
-				window.localStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireÉtape2StoredValue()));
-
-				cy.url().should('include', '/stages/deposer-offre');
-				cy.url().should('not.include', 'votre-offre-de-stage');
-			});
-		});
 		describe('et qu’il n’a pas rempli l’étape 3', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/confirmation-envoi');

@@ -17,7 +17,8 @@ import {
 	LABEL_FORMULAIRE_1,
 	LABEL_FORMULAIRE_2,
 	LABEL_FORMULAIRE_3,
-} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
+	URL_DEPOSER_OFFRE,
+} from '~/pages/stages/deposer-offre/index.page';
 import {
 	EmployeurDepotStage,
 	LocalisationDepotStageIndexée,
@@ -43,13 +44,13 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 
 	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
 
-	const [valueEtape2] = useSessionStorage(LABEL_FORMULAIRE_2);
+	const [valueEtape2, , clearSessionStorage] = useSessionStorage(LABEL_FORMULAIRE_2);
 
 	const [valueEtape3, setValueEtape3] = useLocalStorage(LABEL_FORMULAIRE_3);
 
 	useEffect(() => {
 		if (!valueEtape1 || !valueEtape2) {
-			router.push('/stages/deposer-offre');
+			router.push(URL_DEPOSER_OFFRE);
 		}
 	}, [router, valueEtape1, valueEtape2]);
 
@@ -111,6 +112,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 			const formattedData = retrieveForm(valueEtape1, valueEtape2, formulaireOffreStageEtape3);
 			const result = await stageService.enregistrerOffreDeStage(formattedData);
 			if (isSuccess(result)) {
+				clearSessionStorage();
 				return router.push('/stages/deposer-offre/confirmation-envoi');
 			}
 			setSubmitButtonDisabled(false);
@@ -128,7 +130,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 			>
 				Retour à l’étape précédente
 			</Link>
-			<form className={styles.formulaire} onSubmit={handleFormSubmit} ref={formRef}>
+			<form className={styles.formulaire} onSubmit={handleFormSubmit} ref={formRef} aria-label='dépôt offre de stage'>
 				<p className={styles.champsObligatoires}>
 					Les champs suivants sont obligatoires
 				</p>

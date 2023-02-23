@@ -1,5 +1,10 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, {
+	FormEvent,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -8,14 +13,14 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
+import {
+	LABEL_FORMULAIRE_1,
+	URL_DEPOSER_OFFRE,
+} from '~/pages/stages/deposer-offre/index.page';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
-
-export const LABEL_FORMULAIRE_1 = 'formulaireEtape1';
-export const LABEL_FORMULAIRE_2 = 'formulaireEtape2';
-export const LABEL_FORMULAIRE_3 = 'formulaireEtape3';
 
 export default function StageDeposerOffreFormulaireEntreprise() {
 	const formRef = useRef<HTMLFormElement>(null);
@@ -27,30 +32,28 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 	const [inputSite, setInputSite] = useState('');
 	const router = useRouter();
 
-	const [value, setValue] = useLocalStorage(LABEL_FORMULAIRE_1);
+	const [informationsEntreprise, setInformationsEntreprise] = useLocalStorage(LABEL_FORMULAIRE_1);
 
 	useEffect(() => {
-		if (window) {
-			if (value !== null) {
-				const storedForm = JSON.parse(value);
-				if (formRef.current) {
-					setInputNom(storedForm.nomEmployeur);
-					setInputEmail(storedForm.emailEmployeur);
-					setInputDescription(storedForm.descriptionEmployeur);
-					setInputLogo(storedForm.logoEmployeur);
-					setInputSite(storedForm.siteEmployeur);
-				}
+		if (window && informationsEntreprise) {
+			const informationsEntrepriseStockées = JSON.parse(informationsEntreprise);
+			if (formRef.current) {
+				setInputNom(informationsEntrepriseStockées.nomEmployeur);
+				setInputEmail(informationsEntrepriseStockées.emailEmployeur);
+				setInputDescription(informationsEntrepriseStockées.descriptionEmployeur);
+				setInputLogo(informationsEntrepriseStockées.logoEmployeur);
+				setInputSite(informationsEntrepriseStockées.siteEmployeur);
 			}
 		}
-	}, [value]);
+	}, [informationsEntreprise]);
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const formulaireOffreStageEtape1 = JSON.stringify(parseFormulaireOffreStageEtape1(data));
-		setValue(formulaireOffreStageEtape1);
-		return router.push('/stages/deposer-offre/votre-offre-de-stage');
+		setInformationsEntreprise(formulaireOffreStageEtape1);
+		return router.push(`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`);
 	}
 	
 	return (

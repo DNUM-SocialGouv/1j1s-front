@@ -14,7 +14,8 @@ import useSessionStorage from '~/client/hooks/useSessionStorage';
 import {
 	LABEL_FORMULAIRE_1,
 	LABEL_FORMULAIRE_2,
-} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
+	URL_DEPOSER_OFFRE,
+} from '~/pages/stages/deposer-offre/index.page';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 import { domaineStage } from './StageDomaines';
@@ -22,16 +23,16 @@ import { domaineStage } from './StageDomaines';
 const email_regex = '([a-zA-Z0-9!#$%&@\'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&\'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)';
 const url_regex =  '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
 const EMAIL_OR_URL_REGEX = `^${email_regex}|${url_regex}$`;
-const DUREEMOIS = 30;
+const DUREE_MOIS_EN_JOUR = 30;
 const UNITE = '€';
 
 const dureeStageList: Option[] = [
-	{ libellé: '1 mois', valeur: DUREEMOIS.toString() },
-	{ libellé: '2 mois', valeur: (2 * DUREEMOIS).toString() },
-	{ libellé: '3 mois', valeur: (3 * DUREEMOIS).toString() },
-	{ libellé: '4 mois', valeur: (4 * DUREEMOIS).toString() },
-	{ libellé: '5 mois', valeur: (5 * DUREEMOIS).toString() },
-	{ libellé: '6 mois', valeur: (6 * DUREEMOIS).toString() },
+	{ libellé: '1 mois', valeur: DUREE_MOIS_EN_JOUR.toString() },
+	{ libellé: '2 mois', valeur: (2 * DUREE_MOIS_EN_JOUR).toString() },
+	{ libellé: '3 mois', valeur: (3 * DUREE_MOIS_EN_JOUR).toString() },
+	{ libellé: '4 mois', valeur: (4 * DUREE_MOIS_EN_JOUR).toString() },
+	{ libellé: '5 mois', valeur: (5 * DUREE_MOIS_EN_JOUR).toString() },
+	{ libellé: '6 mois', valeur: (6 * DUREE_MOIS_EN_JOUR).toString() },
 ];
 
 export default function StageDeposerOffreFormulaireStage() {
@@ -53,7 +54,7 @@ export default function StageDeposerOffreFormulaireStage() {
 	const [valueEtape2, setValueEtape2] = useSessionStorage(LABEL_FORMULAIRE_2);
 
 	useEffect(() => {
-		if (!valueEtape1){
+		if (!valueEtape1) {
 			router.push('/stages/deposer-offre');
 		}
 	}, [router, valueEtape1]);
@@ -89,14 +90,14 @@ export default function StageDeposerOffreFormulaireStage() {
 		const data = new FormData(form);
 		const formulaireOffreStageEtape2 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
 		setValueEtape2(formulaireOffreStageEtape2);
-		return router.push('/stages/deposer-offre/localisation');
+		return router.push(`${URL_DEPOSER_OFFRE}/localisation`);
 	}
 	
 	return (
 		<Container className={styles.container}>
 			<div className={styles.etape}>Etape 2 sur 3 : Votre offre de stage</div>
 			<Link
-				href="/stages/deposer-offre"
+				href={URL_DEPOSER_OFFRE}
 				appearance="asBackButton"
 				className={styles.boutonRetour}
 			>
