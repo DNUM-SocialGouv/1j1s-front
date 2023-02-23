@@ -1,4 +1,4 @@
-function useSessionStorage(key: string): [string | null, (key: string) => void] {
+function useSessionStorage(key: string): [string | null, (key: string) => void, () => void] {
 
 	const value = sessionStorage.getItem(key);
 
@@ -6,7 +6,11 @@ function useSessionStorage(key: string): [string | null, (key: string) => void] 
 		sessionStorage.setItem(key, newValue);
 	}
 
-	return [value, setValue];
+	function removeKey() {
+		sessionStorage.removeItem(key);
+	}
+
+	return [value, setValue,removeKey];
 };
 
 export default useSessionStorage;
