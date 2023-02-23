@@ -5,12 +5,13 @@ import {
 import Matcha = AlternanceApiJobsResponse.Matcha;
 import PEJobs = AlternanceApiJobsResponse.PEJobs;
 
-function sanitizeEscapeSequences(alternance: { niveauRequis: string | undefined; titre: string; localisation: string | undefined; description: string | undefined; nomEntreprise: string | undefined; typeDeContrat: string | undefined; id: string }) {
+function sanitizeEscapeSequences(alternance: object) {
 	return JSON.parse(JSON.stringify(alternance).replace(/\\\\/g, '\\'));
 }
 
 export function mapAlternance(matcha: Matcha): Alternance {
-	const alternance = {
+	const alternance: Alternance = {
+		compétences: matcha.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
 		description: matcha.job.romeDetails?.definition,
 		id: matcha.job.id,
 		localisation: matcha.place?.city,

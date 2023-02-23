@@ -7,17 +7,23 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 		<>
 			<h1>{annonce.titre}</h1>
 			<p>{annonce.nomEntreprise}</p>
-			<ul>
-				<li>{annonce.localisation}</li>
-				<li>{annonce.typeDeContrat}</li>
-				<li>{annonce.niveauRequis}</li>
-			</ul>
+			<p>{annonce.localisation}</p>
+			<p>{annonce.typeDeContrat}</p>
+			<p>{annonce.niveauRequis}</p>
 			<dl>
 				{annonce.description && (
 					<>
 						<dt>Description du contrat</dt>
 						<dd>{annonce.description}</dd>
 					</>)}
+				<dt>Connaissances et compétences requises</dt>
+				<dd>
+					<ul>
+						{annonce.compétences?.map((compétence) => (
+							<li key={compétence}>{compétence}</li>
+						))}
+					</ul>
+				</dd>
 			</dl>
 		</>
 	);

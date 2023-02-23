@@ -5,4 +5,5 @@ export type DetailAlternance = {
   typeDeContrat?: string,
   niveauRequis?: string,
   description?: string,
+  compétences?: Array<string>,
 }

@@ -26,7 +26,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		return { notFound: true };
 	}
 
-	const detailAlternance = {
+	const detailAlternance: DetailAlternance = {
+		compétences: annonce.result.compétences,
 		localisation: annonce.result.localisation,
 		niveauRequis: annonce.result.niveauRequis,
 		nomEntreprise: annonce.result.nomEntreprise,

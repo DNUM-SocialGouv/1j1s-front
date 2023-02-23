@@ -16,7 +16,8 @@ export namespace AlternanceApiJobsResponse {
 	}
 
 	export interface RomeDetails {
-		definition?: string
+		definition?: string,
+		competencesDeBase: Array<{libelle: string}>
 	}
 
 	export interface Place {

@@ -31,10 +31,12 @@ describe('<Detail />', () => {
 
 		render(<Detail annonce={annonce} />);
 
-		const tags = within(screen.getByRole('list')).getAllByRole('listitem');
-		expect(tags[0]).toHaveTextContent('Paris (75001)');
-		expect(tags[1]).toHaveTextContent('CDD');
-		expect(tags[2]).toHaveTextContent('CAP');
+		const localisation = screen.getByText('Paris (75001)');
+		const typeContrat = screen.getByText('CDD');
+		const niveauRequis = screen.getByText('CAP');
+		expect(localisation).toBeVisible();
+		expect(typeContrat).toBeVisible();
+		expect(niveauRequis).toBeVisible();
 	});
 	it('affiche la description du contrat', async () => {
 		const annonce = anAlternanceMatcha({ description: "C'est une super alternance !" });
@@ -52,5 +54,19 @@ describe('<Detail />', () => {
 
 		const term = screen.queryByText('Description du contrat');
 		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche les compétences requises', async () => {
+		const annonce = anAlternanceMatcha({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const description = getByDescriptionTerm('Connaissances et compétences requises');
+		expect(description).toBeVisible();
+		const compétencesList = within(description).getByRole('list');
+		expect(compétencesList).toBeVisible();
+		const compétences = within(compétencesList).getAllByRole('listitem');
+		expect(compétences).toHaveLength(2);
+		expect(compétences[0]).toHaveTextContent('Savoir faire des trucs');
+		expect(compétences[1]).toHaveTextContent('Connaître des choses');
 	});
 });
