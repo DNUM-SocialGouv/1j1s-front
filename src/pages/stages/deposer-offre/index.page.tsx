@@ -11,9 +11,9 @@ import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffr
 
 import styles from './DeposerOffreStageEtape1.module.scss';
 
-export const LABEL_FORMULAIRE_1 = 'formulaireEtape1';
-export const LABEL_FORMULAIRE_2 = 'formulaireEtape2';
-export const LABEL_FORMULAIRE_3 = 'formulaireEtape3';
+export const ETAPE_ENTREPRISE = 'formulaireEtape1';
+export const ETAPE_OFFRE_DE_STAGE = 'formulaireEtape2';
+export const ETAPE_LOCALISATION = 'formulaireEtape3';
 
 export const URL_DEPOSER_OFFRE = '/stages/deposer-offre';
 

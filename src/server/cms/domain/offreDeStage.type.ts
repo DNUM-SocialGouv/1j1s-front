@@ -143,14 +143,14 @@ export interface OffreDeStage {
 }
 
 export interface OffreDeStageDepot {
-	dateDeDebut: string,
-	description: string,
-	domaine: Domaines,
-	duree: string,
-	employeur: EmployeurDepotStage,
-	localisation: LocalisationDepotStageIndexée,
-	remunerationBase: number,
-	teletravailPossible: boolean | null,
-	titre: string,
+	dateDeDebut: string
+	description: string
+	domaine: Domaines
+	duree: string
+	employeur: EmployeurDepotStage
+	localisation: LocalisationDepotStageIndexée
+	remunerationBase: number
+	teletravailPossible: boolean | null
+	titre: string
 	urlDeCandidature: string
 }

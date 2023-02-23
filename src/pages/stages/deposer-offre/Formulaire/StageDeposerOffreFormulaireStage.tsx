@@ -11,9 +11,10 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
+import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
 import {
-	LABEL_FORMULAIRE_1,
-	LABEL_FORMULAIRE_2,
+	ETAPE_ENTREPRISE,
+	ETAPE_OFFRE_DE_STAGE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
@@ -26,6 +27,21 @@ const EMAIL_OR_URL_REGEX = `^${email_regex}|${url_regex}$`;
 const DUREE_MOIS_EN_JOUR = 30;
 const UNITE = '€';
 
+enum Stage {
+	DATE_DE_DEBUT= 'dateDebut',
+	NOM = 'nomOffre',
+	LIEN_CANDIDATURE = 'lienCandidature',
+	DESCRIPTION = 'descriptionOffre',
+	DUREE = 'dureeStage',
+	DOMAINE = 'domaineStage',
+	REMUNERATION = 'remunerationStage',
+	TELETRAVAIL = 'teletravail',
+}
+
+enum Télétravail {
+	OUI = 'true',
+	NON = 'false',
+}
 const dureeStageList: Option[] = [
 	{ libellé: '1 mois', valeur: DUREE_MOIS_EN_JOUR.toString() },
 	{ libellé: '2 mois', valeur: (2 * DUREE_MOIS_EN_JOUR).toString() },
@@ -49,31 +65,30 @@ export default function StageDeposerOffreFormulaireStage() {
 	const [inputRemunerationStage, setInputRemunerationStage] = useState('');
 	const [inputTeletravailStage, setInputTeletravailStage] = useState('');
 
-	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const informationsEntreprise = localStorageEntreprise.get();
 
-	const [valueEtape2, setValueEtape2] = useSessionStorage(LABEL_FORMULAIRE_2);
-
-	useEffect(() => {
-		if (!valueEtape1) {
-			router.push('/stages/deposer-offre');
-		}
-	}, [router, valueEtape1]);
+	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_OFFRE_DE_STAGE);
+	const informationsStage = sessionStorageStage.get();
 
 	useEffect(() => {
-		if (valueEtape2 !== null) {
-			const storedForm = JSON.parse(valueEtape2);
-			if (formRef.current) {
-				setInputNomOffre(storedForm.nomOffre);
-				setInputLienCandidature(storedForm.lienCandidature);
-				setInputDescriptionOffre(storedForm.descriptionOffre);
-				setInputDateDebut(storedForm.dateDebut);
-				setInputDureeStage(storedForm.dureeStage);
-				setInputDomaineStage(storedForm.domaineStage);
-				setInputRemunerationStage(storedForm.remunerationStage);
-				setInputTeletravailStage(storedForm.teletravail);
-			}
+		if (!informationsEntreprise) {
+			router.push(URL_DEPOSER_OFFRE);
 		}
-	}, [valueEtape2]);
+	}, [router, informationsEntreprise]);
+
+	useEffect(() => {
+		if (informationsStage !== null && formRef.current) {
+			setInputNomOffre(informationsStage.nomOffre);
+			setInputLienCandidature(informationsStage.lienCandidature);
+			setInputDescriptionOffre(informationsStage.descriptionOffre);
+			setInputDateDebut(informationsStage.dateDebut);
+			setInputDureeStage(informationsStage.dureeStage);
+			setInputDomaineStage(informationsStage.domaineStage  || '');
+			setInputRemunerationStage(informationsStage.remunerationStage  || '');
+			setInputTeletravailStage(informationsStage.teletravail || '');
+		}
+	}, [informationsStage]);
 
 	const disableBeforeToday: string = useMemo(() => {
 		return new Date().toISOString().split('T')[0];
@@ -88,8 +103,8 @@ export default function StageDeposerOffreFormulaireStage() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const formulaireOffreStageEtape2 = JSON.stringify(parseFormulaireOffreStageEtape2(data));
-		setValueEtape2(formulaireOffreStageEtape2);
+		const donnéesOffreDeStage = parseDonnéesOffreDeStage(data);
+		sessionStorageStage.set(donnéesOffreDeStage);
 		return router.push(`${URL_DEPOSER_OFFRE}/localisation`);
 	}
 	
@@ -110,7 +125,7 @@ export default function StageDeposerOffreFormulaireStage() {
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Indiquez le nom de l’offre de stage"
-						name="nomOffre"
+						name={Stage.NOM}
 						value={inputNomOffre}
 						placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
 						required
@@ -119,7 +134,7 @@ export default function StageDeposerOffreFormulaireStage() {
 					<InputText
 						pattern={EMAIL_OR_URL_REGEX}
 						label="Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
-						name="lienCandidature"
+						name={Stage.LIEN_CANDIDATURE}
 						value={inputLienCandidature}
 						placeholder="Exemples : https://candidat.pole-emploi.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
 						required
@@ -130,7 +145,7 @@ export default function StageDeposerOffreFormulaireStage() {
 						id="descriptionOffre"
 						label={'Rédigez une description de l’offre de stage (200 caractères minimum)'}
 						placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
-						name="descriptionOffre"
+						name={Stage.DESCRIPTION}
 						defaultValue={inputDescriptionOffre}
 						required
 						rows={10}
@@ -139,14 +154,14 @@ export default function StageDeposerOffreFormulaireStage() {
 					<InputText
 						label="Date de début du stage"
 						type="date"
-						name="dateDebut"
+						name={Stage.DATE_DE_DEBUT}
 						value={inputDateDebut}
 						required
 						min={disableBeforeToday}
 					/>
 					<Select
 						label="Indiquez la durée du stage"
-						name="dureeStage"
+						name={Stage.DUREE}
 						value={inputDureeStage}
 						placeholder="Sélectionnez une durée"
 						optionList={dureeStageList}
@@ -159,7 +174,7 @@ export default function StageDeposerOffreFormulaireStage() {
 				<div className={styles.bodyFormulaire}>
 					<Select
 						label="Domaine de l’offre de stage"
-						name="domaineStage"
+						name={Stage.DOMAINE}
 						value={inputDomaineStage}
 						placeholder="Sélectionnez un domaine"
 						optionList={domaineStage}
@@ -170,7 +185,7 @@ export default function StageDeposerOffreFormulaireStage() {
 							<input
 								id="remunerationStage"
 								type="number"
-								name="remunerationStage"
+								name={Stage.REMUNERATION}
 								placeholder="Exemple : 560"
 								min={0}
 								value={inputRemunerationStage}
@@ -184,8 +199,8 @@ export default function StageDeposerOffreFormulaireStage() {
 						<fieldset className={styles.contenuTeletravail}>
 							<legend>Télétravail possible</legend>
 							<div ref={inputTeletravailRef} className={styles.inputTeletravail}>
-								<Radio name="teletravail" value="true" label="Oui" checked={inputTeletravailStage === 'true'} onChange={ () => setInputTeletravailStage('true')}/>
-								<Radio name="teletravail" value="false" label="Non" checked={inputTeletravailStage === 'false'} onChange={ () => setInputTeletravailStage('false')}/>
+								<Radio name={Stage.TELETRAVAIL} value="true" label="Oui" checked={inputTeletravailStage === Télétravail.OUI} onChange={ () => setInputTeletravailStage(Télétravail.OUI)}/>
+								<Radio name={Stage.TELETRAVAIL} value="false" label="Non" checked={inputTeletravailStage === Télétravail.NON} onChange={ () => setInputTeletravailStage(Télétravail.NON)}/>
 							</div>
 						</fieldset>
 					</div>
@@ -204,15 +219,15 @@ export default function StageDeposerOffreFormulaireStage() {
 	);
 }
 
-function parseFormulaireOffreStageEtape2(formData: FormData) {
+function parseDonnéesOffreDeStage(formData: FormData): OffreDeStageDéposée.Stage {
 	return {
-		dateDebut: formData.get('dateDebut'),
-		descriptionOffre: formData.get('descriptionOffre'),
-		domaineStage: formData.get('domaineStage'),
-		dureeStage: formData.get('dureeStage'),
-		lienCandidature: formData.get('lienCandidature'),
-		nomOffre: formData.get('nomOffre'),
-		remunerationStage: formData.get('remunerationStage'),
-		teletravail: formData.get('teletravail'),
-	};
+		dateDebut: formData.get(Stage.DATE_DE_DEBUT),
+		descriptionOffre: formData.get(Stage.DESCRIPTION),
+		domaineStage: formData.get(Stage.DOMAINE),
+		dureeStage: formData.get(Stage.DUREE),
+		lienCandidature: formData.get(Stage.LIEN_CANDIDATURE),
+		nomOffre: formData.get(Stage.NOM),
+		remunerationStage: formData.get(Stage.REMUNERATION),
+		teletravail: formData.get(Stage.TELETRAVAIL),
+	} as OffreDeStageDéposée.Stage;
 }

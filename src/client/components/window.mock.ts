@@ -31,53 +31,40 @@ export function mockLargeScreen() {
 	});
 }
 
-export function mockLocalStorage() {
-	const localStorageMock = (function() {
-		let store: Record<string, unknown> = {};
-		return {
-			clear: function() {
-				store = {};
-			},
-			getItem: function(key: string) {
-				return store[key] || null;
-			},
-			removeItem: function(key: string) {
-				delete store[key];
-			},
-			/* eslint-disable  @typescript-eslint/no-explicit-any */
-			setItem: function(key: string, value: any) {
-				store[key] = value.toString();
-			},
-		};
-	})();
-	Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-}
-
-export function mockSessionStorage() {
-	const sessionStorageMock = (function() {
-		let store: Record<string, unknown> = {};
-		return {
-			clear: function() {
-				store = {};
-			},
-			getItem: function(key: string) {
-				return store[key] || null;
-			},
-			removeItem: function(key: string) {
-				delete store[key];
-			},
-			/* eslint-disable  @typescript-eslint/no-explicit-any */
-			setItem: function(key: string, value: any) {
-				store[key] = value.toString();
-			},
-		};
-	})();
-	Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock });
-}
-
-
 export function mockScrollBy() {
 	Object.defineProperty(window, 'scrollBy', {
 		value: jest.fn(),
+	});
+}
+
+export function mockLocalStorage({
+																	 getItem = jest.fn(),
+																	 setItem = jest.fn(),
+																	 clear = jest.fn(),
+																	 removeItem = jest.fn(),
+																 }) {
+	Object.defineProperty(window, 'localStorage', {
+		value: {
+			clear,
+			getItem,
+			removeItem,
+			setItem,
+		},
+	});
+}
+
+export function mockSessionStorage({
+																		 getItem = jest.fn(),
+																		 removeItem = jest.fn(),
+																		 clear = jest.fn(),
+																		 setItem = jest.fn(),
+																	 }) {
+	Object.defineProperty(window, 'sessionStorage', {
+		value: {
+			clear,
+			getItem,
+			removeItem,
+			setItem,
+		},
 	});
 }
