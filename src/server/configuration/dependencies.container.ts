@@ -42,7 +42,10 @@ import { ConsulterOffreEmploiUseCase } from '~/server/emplois/useCases/consulter
 import { RechercherOffreEmploiUseCase } from '~/server/emplois/useCases/rechercherOffreEmploi.useCase';
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import { ConsulterMissionEngagementUseCase } from '~/server/engagement/useCases/consulterMissionEngagement.useCase';
-import { RechercherMissionEngagementUseCase } from '~/server/engagement/useCases/rechercherMissionEngagement.useCase';
+import { RechercherMissionBénévolatUseCase } from '~/server/engagement/useCases/rechercherMissionBenevolat.useCase';
+import {
+	RechercherMissionServiceCiviqueUseCase,
+} from '~/server/engagement/useCases/rechercherMissionServiceCivique.useCase';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import {
 	StrapiRejoindreLaMobilisationRepository,
@@ -133,7 +136,8 @@ export interface MétierDependencies {
 }
 
 export interface EngagementDependencies {
-  rechercherMissionEngagement: RechercherMissionEngagementUseCase;
+	rechercherMissionBénévolat: RechercherMissionBénévolatUseCase;
+	rechercherMissionServiceCivique: RechercherMissionServiceCiviqueUseCase;
   consulterMissionEngagement: ConsulterMissionEngagementUseCase;
 }
 
@@ -233,7 +237,8 @@ export const dependenciesContainer = (): Dependencies => {
 	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
 	const engagementDependencies: EngagementDependencies = {
 		consulterMissionEngagement: new ConsulterMissionEngagementUseCase(apiEngagementRepository),
-		rechercherMissionEngagement: new RechercherMissionEngagementUseCase(apiEngagementRepository),
+		rechercherMissionBénévolat: new RechercherMissionBénévolatUseCase(apiEngagementRepository),
+		rechercherMissionServiceCivique: new RechercherMissionServiceCiviqueUseCase(apiEngagementRepository),
 	};
 
 	const apiAdresseRepository = new ApiAdresseRepository(adresseClientService);

@@ -37,33 +37,57 @@ describe('ApiEngagementRepository', () => {
 		apiEngagementRepository = new ApiEngagementRepository(httpClientService);
 	});
 
-	describe('searchMissionEngagement', () => {
-		describe('quand l‘api engagement répond avec une 200', () => {
-			it('recherche les missions', async () => {
+	describe('searchMissionServiceCivique', () => {
+		describe('quand l’api engagement répond avec une 200', () => {
+			it('recherche les missions de service civique', async () => {
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aSearchMissionEngagementResponse()));
 				const missionEngagementFiltre = aMissionEngagementFiltre();
 
-				const { result } = await apiEngagementRepository.searchMissionEngagement(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
+				const { result } = await apiEngagementRepository.searchMissionServiceCivique(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
 				expect(result).toEqual(aRésultatRechercheMission());
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?distance=10km&domain=sante&from=0&lat=2.3522&lon=48.8566&openToMinors=yes&publisher=a-publisher-id&size=30');
+				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f99dbe75eb1ad767733b206&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
 			});
 		});
 
-		describe('quand l‘api engagement répond avec une erreur', () => {
+		describe('quand l’api engagement répond avec une erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({}));
 				const missionEngagementFiltre = aMissionEngagementFiltre();
 
-				const { errorType } = await apiEngagementRepository.searchMissionEngagement(missionEngagementFiltre) as Failure;
+				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(missionEngagementFiltre) as Failure;
 				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?distance=10km&domain=sante&from=0&lat=2.3522&lon=48.8566&openToMinors=yes&publisher=a-publisher-id&size=30');
+				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f99dbe75eb1ad767733b206&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
+			});
+		});
+	});
+
+	describe('searchMissionBénévolat', () => {
+		describe('quand l’api engagement répond avec une 200', () => {
+			it('recherche les missions', async () => {
+				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aSearchMissionEngagementResponse()));
+				const missionEngagementFiltre = aMissionEngagementFiltre();
+
+				const { result } = await apiEngagementRepository.searchMissionBénévolat(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
+				expect(result).toEqual(aRésultatRechercheMission());
+				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f5931496c7ea514150a818f&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
+			});
+		});
+
+		describe('quand l’api engagement répond avec une erreur', () => {
+			it('retourne une erreur service indisponible', async () => {
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({}));
+				const missionEngagementFiltre = aMissionEngagementFiltre();
+
+				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(missionEngagementFiltre) as Failure;
+				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f99dbe75eb1ad767733b206&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
 			});
 		});
 	});
 
 	describe('getMissionEngagement', () => {
 		const missionEngagementId = '62b14f22c075d0071ada2ce4';
-		describe('quand l‘api engagement répond avec une 200', () => {
+		describe('quand l’api engagement répond avec une 200', () => {
 			it('retourne la mission recherchée', async () => {
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anAmbassadeurDuDonDeVêtementMissionResponse()));
 
@@ -75,7 +99,7 @@ describe('ApiEngagementRepository', () => {
 			});
 		});
 
-		describe('quand l‘api engagement répond avec une 403', () => {
+		describe('quand l’api engagement répond avec une 403', () => {
 			it('retourne une erreur contenu indisponible', async () => {
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError(anInvalidIdMissionResponse()));
 
@@ -86,7 +110,7 @@ describe('ApiEngagementRepository', () => {
 			});
 		});
 
-		describe('quand l‘api engagement répond avec un autre code d‘erreur', () => {
+		describe('quand l’api engagement répond avec un autre code d’erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({
 					response: anAxiosResponse({}, 500),

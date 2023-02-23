@@ -18,6 +18,9 @@ import {
 import { createSuccess, Either } from '~/server/errors/either';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
+const JE_VEUX_AIDER_PUBLISHER_ID = '5f5931496c7ea514150a818f';
+const SERVICE_CIVIQUE_PUBLISHER_ID = '5f99dbe75eb1ad767733b206';
+
 export class ApiEngagementRepository implements EngagementRepository {
 	constructor(private httpClientService: HttpClientService) {}
 
@@ -32,16 +35,24 @@ export class ApiEngagementRepository implements EngagementRepository {
 		}
 	}
 
-	async searchMissionEngagement(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
-		const paramètresRecherche = buildParamètresRechercheApiEngagement(missionEngagementFiltre);
-
+	private async searchMissionEngagement(query: string) {
 		try {
 			const response = await this.httpClientService.get<RésultatsRechercheMissionEngagementResponse>(
-				`mission/search?${paramètresRecherche}`,
+				`mission/search?${query}`,
 			);
 			return createSuccess(mapRésultatsRechercheMission(response.data));
 		} catch (e) {
 			return handleSearchFailureError(e);
 		}
+	}
+
+	async searchMissionServiceCivique(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
+		const paramètresRecherche = buildParamètresRechercheApiEngagement(missionEngagementFiltre, SERVICE_CIVIQUE_PUBLISHER_ID);
+		return this.searchMissionEngagement(paramètresRecherche);
+	}
+
+	async searchMissionBénévolat(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
+		const paramètresRecherche = buildParamètresRechercheApiEngagement(missionEngagementFiltre, JE_VEUX_AIDER_PUBLISHER_ID);
+		return this.searchMissionEngagement(paramètresRecherche);
 	}
 }

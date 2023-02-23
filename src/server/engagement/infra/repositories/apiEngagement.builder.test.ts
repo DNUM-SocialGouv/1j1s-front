@@ -1,43 +1,59 @@
 import { aMissionEngagementFiltre } from '~/server/engagement/domain/missionEngagement.fixture';
 import { buildParamètresRechercheApiEngagement } from '~/server/engagement/infra/repositories/apiEngagement.builder';
 
+const PUBLISHER_ID = 'a-publisher-id';
+
 describe('buildParamètresRechercheApiEngagement', () => {
-	it('retourner les paramétres de recherche pour l api engagement', () => {
-		const filter = aMissionEngagementFiltre();
+	describe('quand le filtre comporte une localisation', () => {
+		it('retourne une chaine de requête complète pour l’api engagement', () => {
+			const filter = aMissionEngagementFiltre();
 
-		const result = buildParamètresRechercheApiEngagement(filter);
+			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
-		expect(result).toEqual('distance=10km&domain=sante&from=0&lat=2.3522&lon=48.8566&openToMinors=yes&publisher=a-publisher-id&size=30');
-	});
-	it('retourner pas les paramétres de vide', () => {
-		const filter = aMissionEngagementFiltre({ distance: undefined, lat: undefined, lon: undefined });
-
-		const result = buildParamètresRechercheApiEngagement(filter);
-
-		expect(result).toEqual('domain=sante&from=0&openToMinors=yes&publisher=a-publisher-id&size=30');
+			expect(result).toEqual('domain=sante&from=0&publisher=a-publisher-id&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
+		});
 	});
 
-	it('quand la page est 1 retourne from=0',() => {
-		const filter = aMissionEngagementFiltre();
+	describe('quand le filtre ne comporte pas de localisation', () => {
+		it('retourne une chaine de requête sans localisation pour l’api engagement', () => {
+			const filter = aMissionEngagementFiltre({ localisation: undefined });
 
-		const result = buildParamètresRechercheApiEngagement(filter);
+			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
-		expect(result).toContain('from=0');
+			expect(result).toEqual('domain=sante&from=0&publisher=a-publisher-id&size=15&openToMinors=yes');
+		});
 	});
 
-	it('quand la page est 2 retourne from=15',() => {
-		const filter = aMissionEngagementFiltre({ from: 2 });
+	describe('quand la page demandée est la première', () => {
+		it('requête les 15 premiers résultats depuis l’index 0',() => {
+			const filter = aMissionEngagementFiltre();
 
-		const result = buildParamètresRechercheApiEngagement(filter);
+			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
-		expect(result).toContain('from=15');
+			expect(result).toContain('from=0');
+			expect(result).toContain('size=15');
+		});
 	});
 
-	it('quand la page est 3 retourne from=30',() => {
-		const filter = aMissionEngagementFiltre({ from: 3 });
+	describe('quand la page demandée est la deuxième', () => {
+		it('requête les 15 résultats suivants depuis l’index 15',() => {
+			const filter = aMissionEngagementFiltre({ page: 2 });
 
-		const result = buildParamètresRechercheApiEngagement(filter);
+			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
-		expect(result).toContain('from=30');
+			expect(result).toContain('from=15');
+			expect(result).toContain('size=15');
+		});
+	});
+
+	describe('quand la page demandée est la troisième', () => {
+		it('requête les 15 résultats suivants depuis l’index 30',() => {
+			const filter = aMissionEngagementFiltre({ page: 3 });
+
+			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
+
+			expect(result).toContain('from=30');
+			expect(result).toContain('size=15');
+		});
 	});
 });

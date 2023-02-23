@@ -36,3 +36,23 @@ export interface RésultatsMissionEngagementResponse {
   ok: boolean
   data: ConsulterMissionEngagementResponse
 }
+
+export namespace ApiEngagement {
+  export type RechercherMission = RechercherMission.SansLocalisation | RechercherMission.AvecLocalisation;
+
+  export namespace RechercherMission {
+    export interface SansLocalisation {
+      domain?: string
+      from: number
+      publisher: string
+      size: number
+      openToMinors?: 'yes' | 'no'
+    }
+
+    export type AvecLocalisation = SansLocalisation & {
+      distance: string
+      lat: number
+      lon: number
+    }
+  }
+}
