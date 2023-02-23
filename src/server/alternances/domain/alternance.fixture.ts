@@ -2,7 +2,7 @@ import { Alternance } from './alternance';
 
 export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
-		description: 'description',
+		description: 'Prépare et confectionne des produits de pâtisserie.',
 		id: 'id',
 		localisation: 'paris',
 		niveauRequis: 'débutant',

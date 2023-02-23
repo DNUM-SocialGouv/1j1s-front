@@ -5,22 +5,27 @@ import {
 import Matcha = AlternanceApiJobsResponse.Matcha;
 import PEJobs = AlternanceApiJobsResponse.PEJobs;
 
-export function mapAlternance(alternance: Matcha): Alternance {
-	return {
-		description: alternance.job.description,
-		id: alternance.job.id,
-		localisation: alternance.place?.city,
-		niveauRequis: alternance.diplomaLevel,
-		nomEntreprise: alternance.company?.name,
+function sanitizeEscapeSequences(alternance: { niveauRequis: string | undefined; titre: string; localisation: string | undefined; description: string | undefined; nomEntreprise: string | undefined; typeDeContrat: string | undefined; id: string }) {
+	return JSON.parse(JSON.stringify(alternance).replace(/\\\\/g, '\\'));
+}
+
+export function mapAlternance(matcha: Matcha): Alternance {
+	const alternance = {
+		description: matcha.job.romeDetails?.definition,
+		id: matcha.job.id,
+		localisation: matcha.place?.city,
+		niveauRequis: matcha.diplomaLevel,
+		nomEntreprise: matcha.company?.name,
 		source: Alternance.Source.MATCHA,
-		tags: [alternance.place?.city, alternance.job.contractType, alternance.diplomaLevel].filter((tag) => !!tag) as string[],
-		titre: alternance.title,
-		typeDeContrat: [alternance.job.contractType],
+		tags: [matcha.place?.city, matcha.job.contractType, matcha.diplomaLevel].filter((tag) => !!tag) as string[],
+		titre: matcha.title,
+		typeDeContrat: [matcha.job.contractType],
 	};
+	return sanitizeEscapeSequences(alternance);
 }
 export function mapPEJob(alternance: PEJobs): Alternance {
 	return {
-		description: alternance.job.description,
+		description: alternance.job.romeDetails?.definition,
 		id: alternance.job.id,
 		localisation: alternance.place?.city,
 		niveauRequis: undefined,

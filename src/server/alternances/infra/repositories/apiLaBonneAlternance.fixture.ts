@@ -1,10 +1,9 @@
 import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
 import {
-	AlternanceApiResponse,
 	AlternanceApiJobsResponse,
 	AlternanceListApiResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import Matcha = AlternanceApiResponse.Matcha;
+import Matcha = AlternanceApiJobsResponse.Matcha;
 
 export function anAlternanceFiltre(): AlternanceFiltre {
 	return {
@@ -78,10 +77,12 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 		company: { name: 'une entreprise' },
 		diplomaLevel: 'débutant',
 		job: {
-			contractType: 'apprentissage',
-			description: 'description',
 			id: 'id',
+			romeDetails: {
+				definition: 'Prépare et confectionne des produits de pâtisserie.',
+			},
 		},
+		contractType: ['apprentissage'],
 		place: { city: 'paris' },
 		title: 'un titre',
 		...override,

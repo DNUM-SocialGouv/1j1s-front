@@ -12,6 +12,11 @@ export namespace AlternanceApiJobsResponse {
 	export interface Job {
 		id: string
 		description: string
+		romeDetails?: AlternanceApiJobsResponse.RomeDetails
+	}
+
+	export interface RomeDetails {
+		definition?: string
 	}
 
 	export interface Place {

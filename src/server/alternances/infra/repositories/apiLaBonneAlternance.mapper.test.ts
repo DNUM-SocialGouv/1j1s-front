@@ -2,7 +2,13 @@ import { Alternance } from '~/server/alternances/domain/alternance';
 import {
 	AlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import { mapAlternanceListe } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import {
+	aMatchaResponse,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import {
+	mapAlternance,
+	mapAlternanceListe,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 
 describe('mapAlternance', () => {
 	it('converti une response en liste d’alternance', () => {
@@ -11,14 +17,20 @@ describe('mapAlternance', () => {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
 					diplomaLevel: 'CAP, BEP',
-					job: { contractType: ['CDD'] },
+					job: {
+						id: 'id',
+					},
+					contractType: ['CDD'],
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 			},
 			peJobs: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
-					job: { contractType: 'CDD' },
+					job: {
+						id: 'id',
+					},
+					contractType: 'CDD',
 					place: { city: 'PARIS 4' },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
@@ -30,6 +42,7 @@ describe('mapAlternance', () => {
 		expect(result).toEqual([
 			{
 				localisation: undefined,
+				id: 'id',
 				niveauRequis: 'CAP, BEP',
 				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
 				source: Alternance.Source.MATCHA,
@@ -38,6 +51,7 @@ describe('mapAlternance', () => {
 				typeDeContrat: ['CDD'],
 			},
 			{
+				id: 'id',
 				localisation: 'PARIS 4',
 				niveauRequis: undefined,
 				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
@@ -47,5 +61,16 @@ describe('mapAlternance', () => {
 				typeDeContrat: ['CDD'],
 			},
 		]);
+	});
+	it('sanitize tout le texte présent dans l’alternance', () => {
+		const input: AlternanceApiJobsResponse.Matcha =
+			aMatchaResponse({ job: { id: 'id', romeDetails: { definition: 'Avec des \\n' } } });
+
+		const result = mapAlternance(input);
+
+		expect(result).toEqual(expect.objectContaining({
+			description: 'Avec des \n',
+		}));
+
 	});
 });
