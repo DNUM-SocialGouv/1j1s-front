@@ -5,7 +5,8 @@
 import { render, screen, within } from '@testing-library/react';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
-import { anAlternanceMatcha, uneAlternance } from '~/server/alternances/domain/alternance.fixture';
+import { anAlternanceMatcha } from '~/server/alternances/domain/alternance.fixture';
+import * as queries from '~/test-utils';
 
 describe('<Detail />', () => {
 	it('affiche le titre de l’annonce comme titre principal', () => {
@@ -38,11 +39,18 @@ describe('<Detail />', () => {
 	it('affiche la description du contrat', async () => {
 		const annonce = anAlternanceMatcha({ description: "C'est une super alternance !" });
 
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const description = getByDescriptionTerm('Description du contrat');
+		expect(description).toBeVisible();
+		expect(description).toHaveTextContent("C'est une super alternance !");
+	});
+	it('n’affiche pas la description du contrat lorsque non-renseignée', async () => {
+		const annonce = anAlternanceMatcha({ description: undefined });
+
 		render(<Detail annonce={annonce} />);
 
-		const titre = screen.getByRole('heading', { level: 2, name: /Description du contrat/i });
-		expect(titre).toBeVisible();
-		const description = screen.getByText("C'est une super alternance !");
-		expect(description).toBeVisible();
+		const term = screen.queryByText('Description du contrat');
+		expect(term).not.toBeInTheDocument();
 	});
 });

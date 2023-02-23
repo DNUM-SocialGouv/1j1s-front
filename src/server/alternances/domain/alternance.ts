@@ -1,7 +1,7 @@
 export interface Alternance {
 	id: string
 	titre: string
-	description: string
+	description?: string
 	nomEntreprise?: string
 	localisation?: string
 	niveauRequis?: string

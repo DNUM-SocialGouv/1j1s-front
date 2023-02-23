@@ -12,8 +12,13 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				<li>{annonce.typeDeContrat}</li>
 				<li>{annonce.niveauRequis}</li>
 			</ul>
-			<h2>Description du contrat :</h2>
-			<p>{annonce.description}</p>
+			<dl>
+				{annonce.description && (
+					<>
+						<dt>Description du contrat</dt>
+						<dd>{annonce.description}</dd>
+					</>)}
+			</dl>
 		</>
 	);
 }
