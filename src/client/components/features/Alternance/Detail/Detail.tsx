@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 
-export function Detail({ annonce }: { annonce: Alternance }) {
+export function Detail({ annonce }: { annonce: DetailAlternance }) {
 	return (
 		<>
 			<h1>{annonce.titre}</h1>

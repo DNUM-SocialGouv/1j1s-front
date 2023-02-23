@@ -1,14 +1,18 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import React from 'react';
 
-import { Detail } from '../../client/components/features/Alternance/Detail/Detail';
-import { Head } from '../../client/components/head/Head';
-import { Alternance } from '../../server/alternances/domain/alternance';
-import { PageContextParamsException } from '../../server/exceptions/pageContextParams.exception';
-import { dependencies } from '../../server/start';
+import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
+import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
+import { Head } from '~/client/components/head/Head';
+import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { dependencies } from '~/server/start';
 
 type ConsulterAnnonceAlternancePageProps = {
-  annonce: Alternance;
+  annonce: DetailAlternance;
+}
+
+function convertUndefinedToNull<T>(payload: T): T {
+	return JSON.parse(JSON.stringify(payload));
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{ id: string }>): Promise<GetServerSidePropsResult<ConsulterAnnonceAlternancePageProps>> {
@@ -22,9 +26,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		return { notFound: true };
 	}
 
+	const detailAlternance = {
+		localisation: annonce.result.localisation,
+		niveauRequis: annonce.result.niveauRequis,
+		nomEntreprise: annonce.result.nomEntreprise,
+		titre: annonce.result.titre,
+		typeDeContrat: annonce.result.typeDeContrat,
+	};
 	return {
 		props: {
-			annonce: JSON.parse(JSON.stringify(annonce.result)),
+			annonce: convertUndefinedToNull(detailAlternance),
 		},
 	};
 }
