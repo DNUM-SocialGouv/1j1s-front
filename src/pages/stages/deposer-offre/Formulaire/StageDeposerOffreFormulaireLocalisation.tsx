@@ -12,22 +12,24 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { StageService } from '~/client/services/stage/stage.service';
-import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
+import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
 import {
-	LABEL_FORMULAIRE_1,
-	LABEL_FORMULAIRE_2,
-	LABEL_FORMULAIRE_3,
+	ETAPE_ENTREPRISE,
+	ETAPE_LOCALISATION,
+	ETAPE_OFFRE_DE_STAGE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
-import {
-	EmployeurDepotStage,
-	LocalisationDepotStageIndexée,
-	OffreDeStageDepot,
-} from '~/server/cms/domain/offreDeStage.type';
-import { isSuccess } from '~/server/errors/either';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
+enum Localisation {
+	PAYS = 'pays',
+	VILLE = 'ville',
+	ADRESSE = 'adresse',
+	CODE_POSTAL = 'codePostal',
+	REGION = 'region',
+	DEPARTEMENT = 'departement',
+}
 export default function StageDeposerOffreFormulaireLocalisation() {
 	const router = useRouter();
 	const stageService = useDependency<StageService>('stageService');
@@ -42,82 +44,48 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	const [inputDepartement, setInputDepartement] = useState('');
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-	const [valueEtape1] = useLocalStorage(LABEL_FORMULAIRE_1);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const informationsEntreprise = localStorageEntreprise.get();
 
-	const [valueEtape2, , clearSessionStorage] = useSessionStorage(LABEL_FORMULAIRE_2);
+	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_OFFRE_DE_STAGE);
+	const informationsStage = sessionStorageStage.get();
 
-	const [valueEtape3, setValueEtape3] = useLocalStorage(LABEL_FORMULAIRE_3);
+	const localStorageLocalisation = useLocalStorage<OffreDeStageDéposée.Localisation>(ETAPE_LOCALISATION);
+	const informationsLocalisation = localStorageLocalisation.get();
 
 	useEffect(() => {
-		if (!valueEtape1 || !valueEtape2) {
+		if (!informationsEntreprise || !informationsStage) {
 			router.push(URL_DEPOSER_OFFRE);
 		}
-	}, [router, valueEtape1, valueEtape2]);
+	}, [router, informationsEntreprise, informationsStage]);
 
 	useEffect(() => {
-		if (window && valueEtape3 !== null) {
-			const storedForm = JSON.parse(valueEtape3);
-			if (formRef.current) {
-				setInputPays(storedForm.pays);
-				setInputVille(storedForm.ville);
-				setInputAdresse(storedForm.adresse);
-				setInputCodePostal(storedForm.codePostal);
-				setInputRegion(storedForm.region);
-				setInputDepartement(storedForm.departement);
-			}
+		if (informationsLocalisation !== null && formRef.current) {
+			setInputPays(informationsLocalisation.pays);
+			setInputVille(informationsLocalisation.ville);
+			setInputAdresse(informationsLocalisation.adresse);
+			setInputCodePostal(informationsLocalisation.codePostal);
+			setInputRegion(informationsLocalisation.region || '');
+			setInputDepartement(informationsLocalisation.departement || '');
 		}
-	}, [valueEtape3]);
-
-	function retrieveForm(formulaireOffreStageEtape1: string, formulaireOffreStageEtape2: string, formulaireOffreStageEtape3: string) {
-		const etape1Data = JSON.parse(formulaireOffreStageEtape1);
-		const etape2Data = JSON.parse(formulaireOffreStageEtape2);
-		const etape3Data = JSON.parse(formulaireOffreStageEtape3);
-
-		const formData: OffreDeStageDepot = {
-			dateDeDebut: etape2Data.dateDebut,
-			description: etape2Data.descriptionOffre,
-			domaine: etape2Data.domaineStage,
-			duree: etape2Data.dureeStage,
-			employeur: {
-				description: etape1Data.descriptionEmployeur,
-				email: etape1Data.emailEmployeur,
-				logoUrl: etape1Data.logoEmployeur || null,
-				nom: etape1Data.nomEmployeur,
-				siteUrl: etape1Data.siteEmployeur || null,
-			} as EmployeurDepotStage,
-			localisation: {
-				adresse: etape3Data.adresse,
-				codePostal: etape3Data.codePostal,
-				departement: etape3Data.departement || null,
-				pays: etape3Data.pays,
-				region: etape3Data.region || null,
-				ville: etape3Data.ville,
-			} as LocalisationDepotStageIndexée,
-			remunerationBase: etape2Data.remunerationStage ?? null,
-			teletravailPossible: etape2Data.teletravail ? etape2Data.teletravail === 'true' : null,
-			titre: etape2Data.nomOffre,
-			urlDeCandidature: etape2Data.lienCandidature.startsWith('http') ? etape2Data.lienCandidature : 'mailto:' + etape2Data.lienCandidature,
-		};
-		return removeNullOrEmptyValue<OffreDeStageDepot>(formData);
-	}
+	}, [informationsLocalisation]);
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		setSubmitButtonDisabled(true);
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const formulaireOffreStageEtape3 = JSON.stringify(mapFormulaireOffreStageEtape3(data));
-		setValueEtape3(formulaireOffreStageEtape3);
-		if (valueEtape1 !== null && valueEtape2 !== null) {
-			const formattedData = retrieveForm(valueEtape1, valueEtape2, formulaireOffreStageEtape3);
-			const result = await stageService.enregistrerOffreDeStage(formattedData);
-			if (isSuccess(result)) {
-				clearSessionStorage();
-				return router.push('/stages/deposer-offre/confirmation-envoi');
+		const donnéesLocalisation = parseDonnéesLocalisation(data);
+		localStorageLocalisation.set(donnéesLocalisation);
+
+		if (informationsEntreprise !== null && informationsStage !== null) {
+			const result = await stageService.enregistrerOffreDeStage(informationsEntreprise, informationsStage, donnéesLocalisation);
+			if (result.instance === 'success') {
+				sessionStorageStage.remove();
+				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}
 			setSubmitButtonDisabled(false);
 		}
-
 	}
 
 	return (
@@ -138,27 +106,27 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 					<InputAutocomplétionPays
 						codePays={inputPays}
 						label="Pays"
-						name="pays"
+						name={Localisation.PAYS}
 						placeholder="Exemple : France"
 						required
 					/>
 					<InputText
 						label="Ville"
-						name="ville"
+						name={Localisation.VILLE}
 						placeholder="Exemple : Paris"
 						required
 						value={inputVille}
 					/>
 					<InputText
 						label="Adresse"
-						name="adresse"
+						name={Localisation.ADRESSE}
 						placeholder="Exemple : 127 rue de Grenelle"
 						required
 						value={inputAdresse}
 					/>
 					<InputText
 						label="Code postal"
-						name="codePostal"
+						name={Localisation.CODE_POSTAL}
 						placeholder="Exemple : 75007"
 						required
 						value={inputCodePostal}
@@ -170,13 +138,13 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 				<div className={styles.bodyFormulaire}>
 					<InputText
 						label="Région"
-						name="region"
+						name={Localisation.REGION}
 						placeholder="Exemple : Île-De-France"
 						value={inputRegion}
 					/>
 					<InputText
 						label="Département"
-						name="departement"
+						name={Localisation.DEPARTEMENT}
 						placeholder="Exemple : Yvelines"
 						value={inputDepartement}
 					/>
@@ -196,13 +164,13 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	);
 };
 
-function mapFormulaireOffreStageEtape3(formData: FormData) {
+function parseDonnéesLocalisation(formData: FormData): OffreDeStageDéposée.Localisation {
 	return {
-		adresse: formData.get('adresse'),
-		codePostal: formData.get('codePostal'),
-		departement: formData.get('departement'),
-		pays: formData.get('pays'),
-		region: formData.get('region'),
-		ville: formData.get('ville'),
-	};
+		adresse: formData.get(Localisation.ADRESSE),
+		codePostal: formData.get(Localisation.CODE_POSTAL),
+		departement: formData.get(Localisation.DEPARTEMENT),
+		pays: formData.get(Localisation.PAYS),
+		region: formData.get(Localisation.REGION),
+		ville: formData.get(Localisation.VILLE),
+	} as OffreDeStageDéposée.Localisation;
 }
