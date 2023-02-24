@@ -13,7 +13,6 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { FormationService } from '~/client/services/formation/formation.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -69,14 +68,6 @@ export default function RechercherFormation() {
 		return messageRésultatRechercheSplit.join(' ');
 	}, [nombreRésultats, router.query.libelleMetier]);
 
-	const étiquettesRecherche = useMemo(() => {
-		if (router.query.libelleMetier) {
-			return <TagList list={[router.query.libelleMetier as string]} aria-label="Filtres de la recherche"/>;
-		} else {
-			return undefined;
-		}
-	}, [router.query]);
-
 	return  <>
 		<Head
 			title={title}
@@ -86,7 +77,6 @@ export default function RechercherFormation() {
 			<RechercherSolutionLayout
 				bannière={<BannièreFormation/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercherFormation/>}
 				isLoading={isLoading}
 				messageRésultatRecherche={messageRésultatRecherche}

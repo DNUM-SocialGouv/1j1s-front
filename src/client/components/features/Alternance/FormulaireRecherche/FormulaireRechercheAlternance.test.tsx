@@ -90,7 +90,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un métier, domaine');
+			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -133,7 +133,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un métier, domaine');
+			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
