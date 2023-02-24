@@ -53,7 +53,7 @@ export function FormulaireRechercheAlternance() {
 					<div className={styles.inputButtonWrapper}>
 						<InputAutocomplétionMétier
 							name={'libelleMetier'}
-							label={'Sélectionnez un métier, domaine'}
+							label={'Sélectionnez un domaine'}
 							libellé={inputLibelleMetier}
 							codeRomes={inputCodeRomes}
 							required
