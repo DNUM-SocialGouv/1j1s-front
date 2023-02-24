@@ -47,15 +47,14 @@
     margin-top: 1.5rem;
   }
 
-  > button[type=submit] {
-    margin-top: 1.25rem;
-  }
-
   .validation {
     margin-top: 1.5rem;
 
+    > button {
+      white-space: normal;
+    }
+
     p {
-      width: 100%;
       font-size: 0.7rem;
       margin-top: 1rem;
       margin-bottom: 1rem;
@@ -153,18 +152,15 @@
     }
 
     .validation {
-      display: flex;
-      flex-direction: column;
-      place-items: center;
-      margin-top: 4rem;
-      text-align: left;
+      width: min-content;
+      margin: 4rem auto 0 auto;
 
       > button {
-        width: 50%;
+        min-width: 25rem;
+        white-space: nowrap;
       }
 
       p {
-        width: 50%;
         font-size: 0.7rem;
       }
     }
