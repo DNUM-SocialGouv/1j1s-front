@@ -1,4 +1,5 @@
 export interface Formation {
+	adresse?: string
 	titre: string
 	nomEntreprise?: string
 	tags: [ localisation: string | undefined, niveauRequis: NiveauRequis | 'Autre' ]

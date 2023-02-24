@@ -5,6 +5,7 @@ import { ApiLaBonneAlternanceFormationResponse } from './apiLaBonneAlternanceFor
 
 export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Array<Formation> => {
 	return response.results.map((formation) => ({
+		adresse: formation.place?.fullAddress,
 		nomEntreprise: formation.company?.name,
 		tags: [formation.place?.city, mapNiveauFormation(formation.diplomaLevel)],
 		titre: formation.title,
