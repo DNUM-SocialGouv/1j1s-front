@@ -9,41 +9,51 @@ function sanitizeEscapeSequences(alternance: object) {
 	return JSON.parse(JSON.stringify(alternance).replace(/\\\\/g, '\\'));
 }
 
-export function mapAlternance(matcha: Matcha): Alternance {
-	const alternance: Alternance = {
-		compétences: matcha.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
-		dateDébut: matcha.job.jobStartDate != null ? new Date(matcha.job.jobStartDate) : undefined,
-		description: matcha.job.romeDetails?.definition,
-		durée: matcha.job.dureeContrat,
+export function mapMatcha(alternance: Matcha): Alternance {
+	const result: Alternance = {
+		compétences: alternance.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
+		dateDébut: alternance.job.jobStartDate != null ? new Date(alternance.job.jobStartDate) : undefined,
+		description: alternance.job.romeDetails?.definition,
+		durée: alternance.job.dureeContrat,
 		entreprise: {
-			nom: matcha.company?.name,
+			adresse: alternance.company?.place?.city,
+			nom: alternance.company?.name,
+			téléphone: alternance.contact?.phone,
 		},
-		id: matcha.job.id,
-		localisation: matcha.place?.city,
-		niveauRequis: matcha.diplomaLevel,
-		rythmeAlternance: matcha.job.rythmeAlternance,
+		id: alternance.job.id,
+		localisation: alternance.place?.city,
+		niveauRequis: alternance.diplomaLevel,
+		rythmeAlternance: alternance.job.rythmeAlternance,
 		source: Alternance.Source.MATCHA,
-		tags: [matcha.place?.city, matcha.job.contractType, matcha.diplomaLevel].filter((tag) => !!tag) as string[],
-		titre: matcha.title,
-		typeDeContrat: [matcha.job.contractType],
+		tags: [alternance.place?.city, alternance.contractType, alternance.diplomaLevel].filter((tag) => !!tag) as string[],
+		titre: alternance.title,
+		typeDeContrat: alternance.contractType,
 	};
-	return sanitizeEscapeSequences(alternance);
+	return sanitizeEscapeSequences(result);
 }
 export function mapPEJob(alternance: PEJobs): Alternance {
 	return {
+		compétences: alternance.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
+		dateDébut: alternance.job.jobStartDate != null ? new Date(alternance.job.jobStartDate) : undefined,
 		description: alternance.job.romeDetails?.definition,
+		durée: alternance.job.dureeContrat,
+		entreprise: {
+			adresse: alternance.company?.place?.city,
+			nom: alternance.company?.name,
+			téléphone: alternance.contact?.phone,
+		},
 		id: alternance.job.id,
 		localisation: alternance.place?.city,
 		niveauRequis: undefined,
-		nomEntreprise: alternance.company?.name,
+		rythmeAlternance: alternance.job.rythmeAlternance,
 		source: Alternance.Source.POLE_EMPLOI,
-		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.job.contractType].filter((tag) => !!tag) as string[],
+		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.contractType].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
-		typeDeContrat: [alternance.job.contractType],
+		typeDeContrat: alternance.contractType ? [alternance.contractType] : [],
 	};
 }
 export const mapAlternanceListe = (response: AlternanceApiJobsResponse): Array<Alternance> => {
-	const matchas = response.matchas.results.map(mapAlternance);
+	const matchas = response.matchas.results.map(mapMatcha);
 	const peJobs = response.peJobs.results.map(mapPEJob);
 	return matchas.concat(peJobs);
 };

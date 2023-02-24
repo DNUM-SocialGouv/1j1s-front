@@ -1,6 +1,8 @@
 export namespace Alternance {
 	export interface Entreprise {
 		nom?: string,
+		adresse?: string,
+		téléphone?: string,
 	}
 }
 

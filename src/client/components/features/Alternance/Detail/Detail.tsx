@@ -70,6 +70,27 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						<dd>{annonce.rythmeAlternance}</dd>
 					</>
 				)}
+				{(annonce.entreprise.téléphone || annonce.entreprise.localisation) && (
+					<>
+						<dt>Informations sur l’entreprise</dt>
+						<dd>
+							<dl>
+								{annonce.entreprise.localisation && (
+									<>
+										<dt>Adresse</dt>
+										<dd>{annonce.entreprise.localisation}</dd>
+									</>
+								)}
+								{annonce.entreprise.téléphone && (
+									<>
+										<dt>Contact</dt>
+										<dd>{annonce.entreprise.téléphone}</dd>
+									</>
+								)}
+							</dl>
+						</dd>
+					</>
+				)}
 			</dl>
 		</>
 	);

@@ -29,6 +29,13 @@ export namespace AlternanceApiJobsResponse {
 
 	export interface Company {
 		name?: string
+		place?: {
+			city?: string,
+		}
+	}
+
+	export interface Contact {
+		phone?: string,
 	}
 
 	export interface Matcha {
@@ -36,16 +43,18 @@ export namespace AlternanceApiJobsResponse {
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
 		diplomaLevel?: string
-		contractType: string[]
-		job: AlternanceApiJobsResponse.MatchaJob
+		job: AlternanceApiJobsResponse.Job
+		contractType?: string[]
+		contact?: AlternanceApiJobsResponse.Contact
 	}
 
 	export interface PEJobs {
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
-		contractType: string
-		job: AlternanceApiJobsResponse.PEJob
+		contractType?: string
+		job: AlternanceApiJobsResponse.Job
+		contact?: AlternanceApiJobsResponse.Contact
 	}
 }
 

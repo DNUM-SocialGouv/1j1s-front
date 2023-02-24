@@ -4,9 +4,9 @@ export function aDetailAlternance(override?: Partial<DetailAlternance>): DetailA
 	return {
 		description: 'description',
 		entreprise: {
-			localisation: 'paris',
 		  nom: 'une entreprise',
 		},
+		localisation: 'paris',
 		niveauRequis: 'débutant',
 		titre: 'un titre',
 		typeDeContrat: 'apprentissage',

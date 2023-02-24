@@ -6,8 +6,8 @@ import {
 	aMatchaResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
-	mapAlternance,
 	mapAlternanceListe,
+	mapMatcha,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 
 describe('mapAlternance', () => {
@@ -42,19 +42,23 @@ describe('mapAlternance', () => {
 		expect(result).toEqual([
 			{
 				localisation: undefined,
+				entreprise: {
+					nom: 'ECOLE DE TRAVAIL ORT',
+				},
 				id: 'id',
 				niveauRequis: 'CAP, BEP',
-				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
 				source: Alternance.Source.MATCHA,
 				tags: ['CDD', 'CAP, BEP'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 				typeDeContrat: ['CDD'],
 			},
 			{
+				entreprise: {
+					nom: 'ECOLE DE TRAVAIL ORT',
+				},
 				id: 'id',
 				localisation: 'PARIS 4',
 				niveauRequis: undefined,
-				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
 				source: Alternance.Source.POLE_EMPLOI,
 				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
@@ -64,9 +68,9 @@ describe('mapAlternance', () => {
 	});
 	it('sanitize tout le texte présent dans l’alternance', () => {
 		const input: AlternanceApiJobsResponse.Matcha =
-			aMatchaResponse({ job: { id: 'id', romeDetails: { definition: 'Avec des \\n' } } });
+      aMatchaResponse({ job: { id: 'id', romeDetails: { definition: 'Avec des \\n' } } });
 
-		const result = mapAlternance(input);
+		const result = mapMatcha(input);
 
 		expect(result).toEqual(expect.objectContaining({
 			description: 'Avec des \n',

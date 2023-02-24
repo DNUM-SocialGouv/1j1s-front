@@ -3,10 +3,12 @@ import { Alternance } from './alternance';
 export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
 		description: 'Prépare et confectionne des produits de pâtisserie.',
+		entreprise: {
+			nom:'une entreprise',
+		},
 		id: 'id',
 		localisation: 'paris',
 		niveauRequis: 'débutant',
-		nomEntreprise: 'une entreprise',
 		source: Alternance.Source.MATCHA,
 		tags: ['paris', 'Apprentissage', 'débutant'],
 		titre: 'un titre',
@@ -18,9 +20,11 @@ export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance =
 const anAlternanceMatchaBoucher = (): Alternance => {
 	return {
 		description: 'Super alternance dans une boucherie',
+		entreprise: {
+			nom: 'SARL HUGUE-DEBRIX',
+		},
 		id: 'id-boucher',
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-		nomEntreprise: 'SARL HUGUE-DEBRIX',
 		source: Alternance.Source.MATCHA,
 		tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Boucher-charcutier / Bouchère-charcutière',
@@ -31,9 +35,11 @@ const anAlternanceMatchaBoucher = (): Alternance => {
 const anAlternanceMatchaBoulanger = (): Alternance => {
 	return {
 		description: 'Super alternance dans une boulangerie',
+		entreprise: {
+			nom: 'MONSIEUR MICHEL',
+		},
 		id: 'id-boulanger',
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-		nomEntreprise: 'MONSIEUR MICHEL',
 		source: Alternance.Source.MATCHA,
 		tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Ouvrier boulanger / Ouvrière boulangère',
@@ -44,9 +50,11 @@ const anAlternanceMatchaBoulanger = (): Alternance => {
 export const anAlternancePEJobs = (): Alternance => {
 	return {
 		description: 'Super alternance dans un bar',
+		entreprise: {
+			nom: 'une entreprise',
+		},
 		id: 'alternance-pejob',
 		localisation: 'paris',
-		nomEntreprise: 'une entreprise',
 		source: Alternance.Source.POLE_EMPLOI,
 		tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 		titre: 'un titre',

@@ -31,7 +31,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		dateDébut: annonce.result.dateDébut,
 		durée: annonce.result.durée,
 		entreprise: {
+			localisation: annonce.result.entreprise.adresse,
 			nom: annonce.result.entreprise.nom,
+			téléphone: annonce.result.entreprise.téléphone,
 		},
 		localisation: annonce.result.localisation,
 		niveauRequis: annonce.result.niveauRequis,

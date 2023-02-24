@@ -4,8 +4,8 @@ import {
 	AlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
-	mapAlternance,
 	mapAlternanceListe,
+	mapMatcha,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
@@ -35,7 +35,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		try {
 			const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/jobs/matcha/${id}`);
 			const matcha = apiResponse.data.matchas[0];
-			return createSuccess(mapAlternance(matcha));
+			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
 			return handleSearchFailureError(error, 'détail annonce alternance');
 		}
