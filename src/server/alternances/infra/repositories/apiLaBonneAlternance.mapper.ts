@@ -12,6 +12,7 @@ function sanitizeEscapeSequences(alternance: object) {
 export function mapAlternance(matcha: Matcha): Alternance {
 	const alternance: Alternance = {
 		compétences: matcha.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
+		dateDébut: matcha.job.jobStartDate != null ? new Date(matcha.job.jobStartDate) : undefined,
 		description: matcha.job.romeDetails?.definition,
 		id: matcha.job.id,
 		localisation: matcha.place?.city,

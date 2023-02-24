@@ -5,6 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
+import { LocaleProvider } from '~/client/context/locale.context';
 import { anAlternanceMatcha } from '~/server/alternances/domain/alternance.fixture';
 import * as queries from '~/test-utils';
 
@@ -88,6 +89,23 @@ describe('<Detail />', () => {
 		render(<Detail annonce={annonce} />);
 
 		const term = screen.queryByText('Niveau requis');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche la date de début de contrat', async () => {
+		const annonce = anAlternanceMatcha({ dateDébut: new Date('2022-01-01') });
+
+		const { getByDescriptionTerm } = render(<LocaleProvider value={'fr'}><Detail annonce={annonce} /></LocaleProvider>, { queries });
+
+		const dateDébut = getByDescriptionTerm('Début du contrat');
+		expect(dateDébut).toBeVisible();
+		expect(dateDébut).toHaveTextContent('1 janvier 2022');
+	});
+	it('n’affiche pas le bloc de la date de début de contrat lorsque non-renseignées', async () => {
+		const annonce = anAlternanceMatcha({ dateDébut: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Début du contrat');
 		expect(term).not.toBeInTheDocument();
 	});
 });

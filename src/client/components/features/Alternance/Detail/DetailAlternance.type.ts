@@ -6,4 +6,5 @@ export type DetailAlternance = {
   niveauRequis?: string,
   description?: string,
   compétences?: Array<string>,
+  dateDébut?: Date,
 }

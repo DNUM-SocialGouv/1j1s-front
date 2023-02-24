@@ -7,6 +7,7 @@ export interface Alternance {
 	niveauRequis?: string
 	typeDeContrat?: string[]
 	compétences?: Array<string>
+	dateDébut?: Date,
 	source: Alternance.Source
 	tags: string[]
 }

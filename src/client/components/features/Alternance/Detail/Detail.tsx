@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
+import { useLocale } from '~/client/context/locale.context';
 
 export function Detail({ annonce }: { annonce: DetailAlternance }) {
+	const locale = useLocale();
 	return (
 		<>
 			<h1>{annonce.titre}</h1>
@@ -32,6 +34,12 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 					<>
 						<dt>Niveau requis</dt>
 						<dd>{annonce.niveauRequis}</dd>
+					</>
+				)}
+				{annonce.dateDébut && (
+					<>
+						<dt>Début du contrat</dt>
+						<dd>{annonce.dateDébut?.toLocaleDateString(locale, { dateStyle: 'long' })}</dd>
 					</>
 				)}
 			</dl>

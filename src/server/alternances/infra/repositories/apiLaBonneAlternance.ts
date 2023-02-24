@@ -13,6 +13,7 @@ export namespace AlternanceApiJobsResponse {
 		id: string
 		description: string
 		romeDetails?: AlternanceApiJobsResponse.RomeDetails
+		jobStartDate?: string,
 	}
 
 	export interface RomeDetails {
