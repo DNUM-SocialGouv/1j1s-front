@@ -1,4 +1,5 @@
 export interface Alternance {
+	durée?: number;
 	id: string
 	titre: string
 	description?: string

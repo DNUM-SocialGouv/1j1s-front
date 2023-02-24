@@ -117,12 +117,38 @@ describe('<Detail />', () => {
 		expect(typeDeContrat).toBeVisible();
 		expect(typeDeContrat).toHaveTextContent('Alternance');
 	});
-	it('n’affiche pas le bloc de type de contrat de contrat lorsque non-renseignées', async () => {
+	it('n’affiche pas le bloc de type de contrat lorsque non-renseignées', async () => {
 		const annonce = uneAlternance({ typeDeContrat: undefined });
 
 		render(<Detail annonce={annonce} />);
 
 		const term = screen.queryByText('Type de contrat');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche la durée du contrat', async () => {
+		const annonce = uneAlternance({ durée: 4 });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const durée = getByDescriptionTerm('Durée du contrat');
+		expect(durée).toBeVisible();
+		expect(durée).toHaveTextContent('4 ans');
+	});
+	it('conjugue au singulier quand durée d’un an', async () => {
+		const annonce = uneAlternance({ durée: 1 });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const durée = getByDescriptionTerm('Durée du contrat');
+		expect(durée).toBeVisible();
+		expect(durée).toHaveTextContent(/1 an$/);
+	});
+	it('n’affiche pas le bloc de la durée du contrat lorsque non-renseignées', async () => {
+		const annonce = uneAlternance({ durée: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Durée du contrat');
 		expect(term).not.toBeInTheDocument();
 	});
 });

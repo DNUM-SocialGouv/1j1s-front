@@ -7,4 +7,5 @@ export type DetailAlternance = {
   description?: string,
   compétences?: Array<string>,
   dateDébut?: Date,
+  durée?: number,
 }

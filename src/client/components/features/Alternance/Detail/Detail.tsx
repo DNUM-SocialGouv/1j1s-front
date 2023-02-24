@@ -48,6 +48,12 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						<dd>{annonce.typeDeContrat}</dd>
 					</>
 				)}
+				{annonce.durée && (
+					<>
+						<dt>Durée du contrat</dt>
+						<dd>{annonce.durée} {annonce.durée > 1 ? 'ans' : 'an'}</dd>
+					</>
+				)}
 			</dl>
 		</>
 	);

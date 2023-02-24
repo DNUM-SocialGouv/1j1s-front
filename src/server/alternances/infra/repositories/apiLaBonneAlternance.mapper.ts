@@ -14,6 +14,7 @@ export function mapAlternance(matcha: Matcha): Alternance {
 		compétences: matcha.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
 		dateDébut: matcha.job.jobStartDate != null ? new Date(matcha.job.jobStartDate) : undefined,
 		description: matcha.job.romeDetails?.definition,
+		durée: matcha.job.dureeContrat,
 		id: matcha.job.id,
 		localisation: matcha.place?.city,
 		niveauRequis: matcha.diplomaLevel,
