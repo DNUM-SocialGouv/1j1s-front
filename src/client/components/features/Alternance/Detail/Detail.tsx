@@ -42,6 +42,12 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						<dd>{annonce.dateDébut?.toLocaleDateString(locale, { dateStyle: 'long' })}</dd>
 					</>
 				)}
+				{annonce.typeDeContrat && (
+					<>
+						<dt>Type de contrat</dt>
+						<dd>{annonce.typeDeContrat}</dd>
+					</>
+				)}
 			</dl>
 		</>
 	);

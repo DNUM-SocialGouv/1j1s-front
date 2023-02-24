@@ -108,4 +108,21 @@ describe('<Detail />', () => {
 		const term = screen.queryByText('Début du contrat');
 		expect(term).not.toBeInTheDocument();
 	});
+	it('affiche le type de contrat', async () => {
+		const annonce = uneAlternance({ typeDeContrat: 'Alternance' });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const typeDeContrat = getByDescriptionTerm('Type de contrat');
+		expect(typeDeContrat).toBeVisible();
+		expect(typeDeContrat).toHaveTextContent('Alternance');
+	});
+	it('n’affiche pas le bloc de type de contrat de contrat lorsque non-renseignées', async () => {
+		const annonce = uneAlternance({ typeDeContrat: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Type de contrat');
+		expect(term).not.toBeInTheDocument();
+	});
 });
