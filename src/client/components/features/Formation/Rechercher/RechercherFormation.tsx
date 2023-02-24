@@ -4,14 +4,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { FormulaireRechercherFormation } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
+import {
+	RésultatRechercherFormation,
+} from '~/client/components/features/Formation/Résultat/RésultatRechercherFormation';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -121,12 +121,13 @@ function ListeFormation({ résultatList }: ListeRésultatProps) {
 		<ListeRésultatsRechercherSolution aria-label="Formations en alternance">
 			{résultatList.map((formation: Formation) => (
 				<li key={uuidv4()}>
-					<RésultatRechercherSolution
+					<RésultatRechercherFormation
 						lienOffre={'#'}
 						intituléOffre={formation.titre}
 						logoEntreprise={'/images/logos/fallback.svg'}
 						étiquetteOffreList={formation.tags as string[]}
 						nomEntreprise={formation.nomEntreprise}
+						adresse={formation.adresse}
 					/>
 				</li>
 			))}

@@ -18,6 +18,7 @@ export const aLaBonneAlternanceApiFormationResponse = (): ApiLaBonneAlternanceFo
 			diplomaLevel: '4 (BAC...)',
 			place: {
 				city: 'Paris',
+				fullAddress: '1 rue de la République',
 			},
 			title: 'Développeur web',
 		},

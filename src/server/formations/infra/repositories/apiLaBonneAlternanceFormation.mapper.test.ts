@@ -10,6 +10,7 @@ describe('mapFormation', () => {
 			results: [{
 				company: { name: 'ECOLE DE TRAVAIL ORT' },
 				diplomaLevel: '3 (CAP...)',
+				place: { fullAddress: '1 rue de la République' },
 				title: 'Monteur / Monteuse en chauffage (H/F)',
 			},
 			{
@@ -22,6 +23,7 @@ describe('mapFormation', () => {
 
 		const expected: Formation[] = [
 			{
+				adresse: '1 rue de la République',
 				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
 				tags: [undefined, NiveauRequis['NIVEAU_3']],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',

@@ -5,6 +5,7 @@ export namespace ApiLaBonneAlternanceFormationResponse {
 
 	export interface Place {
 		city?: string
+		fullAddress?: string
 	}
 
 	export interface Formation {
