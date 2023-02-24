@@ -47,6 +47,8 @@ describe('RechercherAlternance', () => {
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
 			expect(nbRésultats).not.toBeInTheDocument();
 			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledTimes(0);
+			const filtresRecherche = screen.queryByText('Paris (75001)');
+			expect(filtresRecherche).not.toBeInTheDocument();
 		});
 	});
 	
@@ -76,12 +78,16 @@ describe('RechercherAlternance', () => {
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({
 				query: {
-					contrat: 'alternance',
-					formation: 'Développeur web',
-					lieu: 'Paris',
+					codeCommune: '75056',
+					codeRomes: 'D1102%2CD1104',
+					distanceCommune: '10',
+					latitudeCommune: '48.859',
+					libelleCommune: 'Paris (75001)',
+					libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+					longitudeCommune: '2.347',
 				},
 			});
-			const expectedQuery = 'contrat=alternance&formation=D%C3%A9veloppeur%20web&lieu=Paris';
+			const expectedQuery = 'codeCommune=75056&codeRomes=D1102%252CD1104&distanceCommune=10&latitudeCommune=48.859&libelleCommune=Paris%20(75001)&libelleMetier=Boulangerie%2C%20p%C3%A2tisserie%2C%20chocolaterie&longitudeCommune=2.347';
 
 			// WHEN
 			render(
@@ -104,6 +110,8 @@ describe('RechercherAlternance', () => {
 			expect(resultList).toHaveLength(alternanceFixture.length);
 			expect(await screen.findByText(alternanceFixture[0].titre)).toBeInTheDocument();
 			expect(await screen.findByText(alternanceFixture[1].titre)).toBeInTheDocument();
+			const filtresRecherche = await screen.findByText('Paris (75001)');
+			expect(filtresRecherche).toBeInTheDocument();
 		});
 	});
 });

@@ -13,6 +13,7 @@ import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -67,6 +68,14 @@ export default function RechercherAlternance() {
 		return messageRésultatRechercheSplit.join(' ');
 	}, [nombreRésultats, router.query.motCle]);
 
+	const étiquettesRecherche = useMemo(() => {
+		if (router.query.libelleCommune) {
+			return <TagList list={[router.query.libelleCommune as string]} aria-label="Filtres de la recherche"/>;
+		} else {
+			return undefined;
+		}
+	}, [router.query.libelleCommune]);
+
 	return  <>
 		<Head
 			title={title}
@@ -77,6 +86,7 @@ export default function RechercherAlternance() {
 			<RechercherSolutionLayout
 				bannière={<BannièreApprentissage/>}
 				erreurRecherche={erreurRecherche}
+				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
 				isLoading={isLoading}
 				messageRésultatRecherche={messageRésultatRecherche}
