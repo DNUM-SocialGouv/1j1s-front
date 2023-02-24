@@ -26,18 +26,6 @@ describe('<Detail />', () => {
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
 	});
-	it('affiche la liste de tags', async () => {
-		const annonce = anAlternanceMatcha({ localisation: 'Paris (75001)', niveauRequis: 'CAP', typeDeContrat: 'CDD' });
-
-		render(<Detail annonce={annonce} />);
-
-		const localisation = screen.getByText('Paris (75001)');
-		const typeContrat = screen.getByText('CDD');
-		const niveauRequis = screen.getByText('CAP');
-		expect(localisation).toBeVisible();
-		expect(typeContrat).toBeVisible();
-		expect(niveauRequis).toBeVisible();
-	});
 	it('affiche la description du contrat', async () => {
 		const annonce = anAlternanceMatcha({ description: "C'est une super alternance !" });
 
@@ -83,6 +71,23 @@ describe('<Detail />', () => {
 		render(<Detail annonce={annonce} />);
 
 		const term = screen.queryByText('Connaissances et compétences requises');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche le niveau requis', async () => {
+		const annonce = anAlternanceMatcha({ niveauRequis: 'CAP' });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const niveauRequis = getByDescriptionTerm('Niveau requis');
+		expect(niveauRequis).toBeVisible();
+		expect(niveauRequis).toHaveTextContent('CAP');
+	});
+	it('n’affiche pas le bloc de niveau requis lorsque non-renseignées', async () => {
+		const annonce = anAlternanceMatcha({ niveauRequis: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Niveau requis');
 		expect(term).not.toBeInTheDocument();
 	});
 });
