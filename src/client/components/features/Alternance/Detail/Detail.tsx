@@ -3,6 +3,14 @@ import React from 'react';
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { useLocale } from '~/client/context/locale.context';
 
+function toISODuration(duration: number) {
+	return `P${duration}Y`;
+}
+
+function toISODate(date: Date) {
+	return date.toISOString().split('T')[0];
+}
+
 export function Detail({ annonce }: { annonce: DetailAlternance }) {
 	const locale = useLocale();
 	return (
@@ -39,7 +47,8 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 				{annonce.dateDébut && (
 					<>
 						<dt>Début du contrat</dt>
-						<dd>{annonce.dateDébut?.toLocaleDateString(locale, { dateStyle: 'long' })}</dd>
+						<dd>
+							<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' })}</time></dd>
 					</>
 				)}
 				{annonce.typeDeContrat && (
@@ -51,7 +60,8 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 				{annonce.durée && (
 					<>
 						<dt>Durée du contrat</dt>
-						<dd>{annonce.durée} {annonce.durée > 1 ? 'ans' : 'an'}</dd>
+						<dd>
+							<time dateTime={toISODuration(annonce.durée)}>{annonce.durée} {annonce.durée > 1 ? 'ans' : 'an'}</time></dd>
 					</>
 				)}
 			</dl>

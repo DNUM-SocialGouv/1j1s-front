@@ -97,8 +97,10 @@ describe('<Detail />', () => {
 		const { getByDescriptionTerm } = render(<LocaleProvider value={'fr'}><Detail annonce={annonce} /></LocaleProvider>, { queries });
 
 		const dateDébut = getByDescriptionTerm('Début du contrat');
-		expect(dateDébut).toBeVisible();
 		expect(dateDébut).toHaveTextContent('1 janvier 2022');
+		expect(dateDébut).toBeVisible();
+		const time = within(dateDébut).getByText('1 janvier 2022');
+		expect(time).toHaveAttribute('datetime', '2022-01-01');
 	});
 	it('n’affiche pas le bloc de la date de début de contrat lorsque non-renseignées', async () => {
 		const annonce = anAlternanceMatcha({ dateDébut: undefined });
@@ -131,8 +133,11 @@ describe('<Detail />', () => {
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
 		const durée = getByDescriptionTerm('Durée du contrat');
-		expect(durée).toBeVisible();
 		expect(durée).toHaveTextContent('4 ans');
+		expect(durée).toBeVisible();
+		const time = within(durée).getByText('4 ans');
+		const durationISO = 'P4Y';
+		expect(time).toHaveAttribute('datetime', durationISO);
 	});
 	it('conjugue au singulier quand durée d’un an', async () => {
 		const annonce = uneAlternance({ durée: 1 });
