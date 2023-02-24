@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
 import styles
-	from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
+	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
 	InputAutocomplétionMétier,
@@ -33,11 +33,11 @@ export function FormulaireRechercherFormation() {
 		<>
 			<p className={styles.champsObligatoires}>Tous les champs sont obligatoires</p>
 			<form
-				className={styles.rechercheOffreForm}
+				className={styles.rechercheFormationForm}
 				role="form"
 				onSubmit={updateRechercherFormationQueryParams}
 			>
-				<div className={styles.filtresRechercherOffre}>
+				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
 						<InputAutocomplétionMétier
 							name={'libelleMetier'}
