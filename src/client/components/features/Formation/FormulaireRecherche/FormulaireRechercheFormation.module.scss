@@ -1,11 +1,11 @@
 @import "@styles/utilities";
 
-.rechercheOffreForm {
+.rechercheFormationForm {
   display: flex;
   flex-direction: column;
 }
 
-.filtresRechercherOffre {
+.filtresRechercherFormation {
   flex-grow: 1;
 }
 
@@ -19,7 +19,7 @@
 }
 
 @include media(medium) {
-  .rechercheOffreForm {
+  .rechercheFormationForm {
     flex-direction: row;
     align-items: flex-start;
     padding-bottom: 2.5rem;

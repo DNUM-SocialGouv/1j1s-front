@@ -84,8 +84,9 @@ describe('RechercherFormation', () => {
 			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith(expectedQuery);
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeInTheDocument();
-			const resultList = await within(await screen.findByRole('list', { name: 'Formations en alternance' })).findAllByTestId('RésultatRechercherSolution');
-			expect(resultList).toHaveLength(formationFixture.length);
+			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
+			const resultListElements = within(resultList).getAllByText('En savoir plus');
+			expect(resultListElements).toHaveLength(formationFixture.length);
 			expect(await screen.findByText((formationFixture[0].titre))).toBeInTheDocument();
 		});
 	});
