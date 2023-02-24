@@ -19,6 +19,7 @@ export function mapAlternance(matcha: Matcha): Alternance {
 		localisation: matcha.place?.city,
 		niveauRequis: matcha.diplomaLevel,
 		nomEntreprise: matcha.company?.name,
+		rythmeAlternance: matcha.job.rythmeAlternance,
 		source: Alternance.Source.MATCHA,
 		tags: [matcha.place?.city, matcha.job.contractType, matcha.diplomaLevel].filter((tag) => !!tag) as string[],
 		titre: matcha.title,

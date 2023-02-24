@@ -8,4 +8,5 @@ export type DetailAlternance = {
   compétences?: Array<string>,
   dateDébut?: Date,
   durée?: number,
+  rythmeAlternance?: string,
 }

@@ -111,7 +111,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche le type de contrat', async () => {
-		const annonce = uneAlternance({ typeDeContrat: 'Alternance' });
+		const annonce = anAlternanceMatcha({ typeDeContrat: 'Alternance' });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -120,7 +120,7 @@ describe('<Detail />', () => {
 		expect(typeDeContrat).toHaveTextContent('Alternance');
 	});
 	it('n’affiche pas le bloc de type de contrat lorsque non-renseignées', async () => {
-		const annonce = uneAlternance({ typeDeContrat: undefined });
+		const annonce = anAlternanceMatcha({ typeDeContrat: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -128,7 +128,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche la durée du contrat', async () => {
-		const annonce = uneAlternance({ durée: 4 });
+		const annonce = anAlternanceMatcha({ durée: 4 });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -140,7 +140,7 @@ describe('<Detail />', () => {
 		expect(time).toHaveAttribute('datetime', durationISO);
 	});
 	it('conjugue au singulier quand durée d’un an', async () => {
-		const annonce = uneAlternance({ durée: 1 });
+		const annonce = anAlternanceMatcha({ durée: 1 });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -149,11 +149,28 @@ describe('<Detail />', () => {
 		expect(durée).toHaveTextContent(/1 an$/);
 	});
 	it('n’affiche pas le bloc de la durée du contrat lorsque non-renseignées', async () => {
-		const annonce = uneAlternance({ durée: undefined });
+		const annonce = anAlternanceMatcha({ durée: undefined });
 
 		render(<Detail annonce={annonce} />);
 
 		const term = screen.queryByText('Durée du contrat');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche le rythme de l’alternance', async () => {
+		const annonce = anAlternanceMatcha({ rythmeAlternance: '1 jour par semaine' });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const rythmeAlternance = getByDescriptionTerm('Rythme de l’alternance');
+		expect(rythmeAlternance).toBeVisible();
+		expect(rythmeAlternance).toHaveTextContent('1 jour par semaine');
+	});
+	it('n’affiche pas le bloc de rythme de l’alternance lorsque non-renseignées', async () => {
+		const annonce = anAlternanceMatcha({ rythmeAlternance: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Rythme de l’alternance');
 		expect(term).not.toBeInTheDocument();
 	});
 });

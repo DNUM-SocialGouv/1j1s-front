@@ -15,6 +15,7 @@ export namespace AlternanceApiJobsResponse {
 		romeDetails?: AlternanceApiJobsResponse.RomeDetails
 		jobStartDate?: string,
 		dureeContrat?: number,
+		rythmeAlternance?: string,
 	}
 
 	export interface RomeDetails {

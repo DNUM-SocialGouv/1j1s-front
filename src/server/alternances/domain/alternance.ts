@@ -9,6 +9,7 @@ export interface Alternance {
 	typeDeContrat?: string[]
 	compétences?: Array<string>
 	dateDébut?: Date,
+	rythmeAlternance?: string,
 	source: Alternance.Source
 	tags: string[]
 }

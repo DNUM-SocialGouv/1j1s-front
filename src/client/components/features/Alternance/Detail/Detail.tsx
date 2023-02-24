@@ -64,6 +64,12 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 							<time dateTime={toISODuration(annonce.durée)}>{annonce.durée} {annonce.durée > 1 ? 'ans' : 'an'}</time></dd>
 					</>
 				)}
+				{annonce.rythmeAlternance && (
+					<>
+						<dt>Rythme de l’alternance</dt>
+						<dd>{annonce.rythmeAlternance}</dd>
+					</>
+				)}
 			</dl>
 		</>
 	);
