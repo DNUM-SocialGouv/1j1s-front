@@ -6,7 +6,8 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import {
-	MissionEngagementFiltre,
+	bénévolatDomaineList,
+	MissionEngagement,
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import { dependencies } from '~/server/start';
@@ -14,7 +15,7 @@ import { dependencies } from '~/server/start';
 const querySchema = Joi.object({
 	codeCommune: Joi.number().optional(),
 	distanceCommune: Joi.number().optional(),
-	domain: Joi.string().optional(),
+	domain: Joi.string().optional().valid(bénévolatDomaineList.map((domain) => domain.valeur).join(', ')),
 	latitudeCommune: Joi.number().optional(),
 	libelleCommune: Joi.string().optional(),
 	longitudeCommune: Joi.number().optional(),
@@ -29,11 +30,11 @@ export async function rechercherMissionHandler(req: NextApiRequest, res: NextApi
 
 export default withMonitoring(withValidation({ query: querySchema }, rechercherMissionHandler));
 
-function missionRequestMapper(request: NextApiRequest): MissionEngagementFiltre {
+function missionRequestMapper(request: NextApiRequest): MissionEngagement.Recherche.Benevolat {
 	const { query } = request;
 
-	const missionEngagementFiltre: MissionEngagementFiltre = {
-		domaine: query.domain ? String(query.domain) : undefined,
+	const missionEngagementFiltre: MissionEngagement.Recherche.Benevolat = {
+		domaine: query.domain ? query.domain as MissionEngagement.Recherche.Benevolat.Domain : undefined,
 		ouvertAuxMineurs: query.ouvertsAuxMineurs ? true : undefined,
 		page: Number(query.page),
 	};

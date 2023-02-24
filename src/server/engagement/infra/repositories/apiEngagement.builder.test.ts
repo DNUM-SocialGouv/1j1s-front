@@ -1,4 +1,4 @@
-import { aMissionEngagementFiltre } from '~/server/engagement/domain/missionEngagement.fixture';
+import { aRechercheServiceCivique } from '~/server/engagement/domain/missionEngagement.fixture';
 import { buildParamètresRechercheApiEngagement } from '~/server/engagement/infra/repositories/apiEngagement.builder';
 
 const PUBLISHER_ID = 'a-publisher-id';
@@ -6,7 +6,7 @@ const PUBLISHER_ID = 'a-publisher-id';
 describe('buildParamètresRechercheApiEngagement', () => {
 	describe('quand le filtre comporte une localisation', () => {
 		it('retourne une chaine de requête complète pour l’api engagement', () => {
-			const filter = aMissionEngagementFiltre();
+			const filter = aRechercheServiceCivique();
 
 			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
@@ -16,7 +16,7 @@ describe('buildParamètresRechercheApiEngagement', () => {
 
 	describe('quand le filtre ne comporte pas de localisation', () => {
 		it('retourne une chaine de requête sans localisation pour l’api engagement', () => {
-			const filter = aMissionEngagementFiltre({ localisation: undefined });
+			const filter = aRechercheServiceCivique({ localisation: undefined });
 
 			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
@@ -26,7 +26,7 @@ describe('buildParamètresRechercheApiEngagement', () => {
 
 	describe('quand la page demandée est la première', () => {
 		it('requête les 15 premiers résultats depuis l’index 0',() => {
-			const filter = aMissionEngagementFiltre();
+			const filter = aRechercheServiceCivique();
 
 			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
@@ -37,7 +37,7 @@ describe('buildParamètresRechercheApiEngagement', () => {
 
 	describe('quand la page demandée est la deuxième', () => {
 		it('requête les 15 résultats suivants depuis l’index 15',() => {
-			const filter = aMissionEngagementFiltre({ page: 2 });
+			const filter = aRechercheServiceCivique({ page: 2 });
 
 			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 
@@ -48,7 +48,7 @@ describe('buildParamètresRechercheApiEngagement', () => {
 
 	describe('quand la page demandée est la troisième', () => {
 		it('requête les 15 résultats suivants depuis l’index 30',() => {
-			const filter = aMissionEngagementFiltre({ page: 3 });
+			const filter = aRechercheServiceCivique({ page: 3 });
 
 			const result = buildParamètresRechercheApiEngagement(filter, PUBLISHER_ID);
 

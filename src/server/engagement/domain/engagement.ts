@@ -1,17 +1,34 @@
 export type MissionId = string;
 
-export interface MissionEngagementFiltre {
-  domaine?: string
-  ouvertAuxMineurs?: boolean
-	localisation?: MissionEngagementFiltre.Localisation
-  page: number
-}
+export namespace MissionEngagement {
+	export namespace Recherche {
+		export interface ServiceCivique {
+			domaine?: ServiceCivique.Domain
+			ouvertAuxMineurs?: boolean
+			localisation?: Localisation
+			page: number
+		}
 
-export namespace MissionEngagementFiltre {
-	export interface Localisation {
-		distance: number
-		latitude: number
-		longitude: number
+		export namespace ServiceCivique {
+			export type Domain = 'culture-loisirs' | 'education' | 'environnement' | 'humanitaire' | 'sante' | 'solidarite-insertion' | 'sport' | 'vivre-ensemble' | 'autre'
+		}
+
+		export interface Benevolat {
+			domaine?: Benevolat.Domain
+			ouvertAuxMineurs?: boolean
+			localisation?: Localisation
+			page: number
+		}
+
+		export namespace Benevolat {
+			export type Domain = 'culture-loisirs' | 'education' | 'environnement' | 'mémoire et citoyenneté' | 'prevention-protection' | 'sante' | 'solidarite-insertion' | 'sport' | 'vivre-ensemble' | 'autre'
+		}
+
+		export interface Localisation {
+			distance: number
+			latitude: number
+			longitude: number
+		}
 	}
 }
 

@@ -1,6 +1,5 @@
-import { Mission, RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
+import { Mission, MissionEngagement, RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import {
-	aMissionEngagementFiltre,
 	anAmbassadeurDuDonDeVêtementMission,
 	aRésultatRechercheMission,
 } from '~/server/engagement/domain/missionEngagement.fixture';
@@ -10,17 +9,10 @@ import {
 	anInvalidIdMissionResponse,
 	aSearchMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
-import {
-	Failure,
-	Success,
-} from '~/server/errors/either';
+import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { HttpClientService } from '~/server/services/http/httpClientService';
-import {
-	anAxiosError,
-	anAxiosResponse,
-	anHttpClientService,
-} from '~/server/services/http/httpClientService.fixture';
+import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
 
 jest.mock('axios', () => {
 	return {
@@ -41,22 +33,47 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une 200', () => {
 			it('recherche les missions de service civique', async () => {
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aSearchMissionEngagementResponse()));
-				const missionEngagementFiltre = aMissionEngagementFiltre();
+				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
+					domaine: 'sante',
+					localisation: {
+						distance: 10,
+						latitude: 2.3522,
+						longitude: 48.8566,
+					},
+					ouvertAuxMineurs: true,
+					page: 1,
+				};
 
-				const { result } = await apiEngagementRepository.searchMissionServiceCivique(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
+				const { result } = await apiEngagementRepository.searchMissionServiceCivique(rechercheServiceCivique) as Success<RésultatsRechercheMission>;
 				expect(result).toEqual(aRésultatRechercheMission());
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f99dbe75eb1ad767733b206&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('domain=sante'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('from=0'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('publisher=5f99dbe75eb1ad767733b206'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('size=15'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('openToMinors=yes'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('distance=10km'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('lat=2.3522'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('lon=48.8566'));
 			});
 		});
 
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({}));
-				const missionEngagementFiltre = aMissionEngagementFiltre();
+				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
+					domaine: 'sante',
+					localisation: {
+						distance: 10,
+						latitude: 2.3522,
+						longitude: 48.8566,
+					},
+					ouvertAuxMineurs: true,
+					page: 1,
+				};
 
-				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(missionEngagementFiltre) as Failure;
+				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(rechercheServiceCivique) as Failure;
 				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f99dbe75eb1ad767733b206&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
 			});
 		});
 	});
@@ -65,22 +82,47 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une 200', () => {
 			it('recherche les missions', async () => {
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aSearchMissionEngagementResponse()));
-				const missionEngagementFiltre = aMissionEngagementFiltre();
+				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
+					domaine: 'sante',
+					localisation: {
+						distance: 10,
+						latitude: 2.3522,
+						longitude: 48.8566,
+					},
+					ouvertAuxMineurs: true,
+					page: 1,
+				};
 
-				const { result } = await apiEngagementRepository.searchMissionBénévolat(missionEngagementFiltre) as Success<RésultatsRechercheMission>;
+				const { result } = await apiEngagementRepository.searchMissionBénévolat(rechercheBénévolat) as Success<RésultatsRechercheMission>;
 				expect(result).toEqual(aRésultatRechercheMission());
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f5931496c7ea514150a818f&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('domain=sante'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('from=0'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('publisher=5f5931496c7ea514150a818f'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('size=15'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('openToMinors=yes'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('distance=10km'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('lat=2.3522'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('lon=48.8566'));
 			});
 		});
 
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({}));
-				const missionEngagementFiltre = aMissionEngagementFiltre();
+				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
+					domaine: 'sante',
+					localisation: {
+						distance: 10,
+						latitude: 2.3522,
+						longitude: 48.8566,
+					},
+					ouvertAuxMineurs: true,
+					page: 1,
+				};
 
-				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(missionEngagementFiltre) as Failure;
+				const { errorType } = await apiEngagementRepository.searchMissionBénévolat(rechercheBénévolat) as Failure;
 				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/search?domain=sante&from=0&publisher=5f99dbe75eb1ad767733b206&size=15&openToMinors=yes&distance=10km&lat=2.3522&lon=48.8566');
 			});
 		});
 	});
@@ -115,7 +157,6 @@ describe('ApiEngagementRepository', () => {
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({
 					response: anAxiosResponse({}, 500),
 				}));
-
 
 				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
 

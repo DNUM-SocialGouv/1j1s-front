@@ -1,6 +1,6 @@
 import {
 	Mission,
-	MissionEngagementFiltre,
+	MissionEngagement,
 	MissionId,
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
@@ -46,12 +46,12 @@ export class ApiEngagementRepository implements EngagementRepository {
 		}
 	}
 
-	async searchMissionServiceCivique(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
+	async searchMissionServiceCivique(missionEngagementFiltre: MissionEngagement.Recherche.ServiceCivique): Promise<Either<RésultatsRechercheMission>> {
 		const paramètresRecherche = buildParamètresRechercheApiEngagement(missionEngagementFiltre, SERVICE_CIVIQUE_PUBLISHER_ID);
 		return this.searchMissionEngagement(paramètresRecherche);
 	}
 
-	async searchMissionBénévolat(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
+	async searchMissionBénévolat(missionEngagementFiltre: MissionEngagement.Recherche.Benevolat): Promise<Either<RésultatsRechercheMission>> {
 		const paramètresRecherche = buildParamètresRechercheApiEngagement(missionEngagementFiltre, JE_VEUX_AIDER_PUBLISHER_ID);
 		return this.searchMissionEngagement(paramètresRecherche);
 	}

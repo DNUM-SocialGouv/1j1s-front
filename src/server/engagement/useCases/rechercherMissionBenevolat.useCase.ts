@@ -1,5 +1,5 @@
 import {
-	MissionEngagementFiltre,
+	MissionEngagement,
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import { EngagementRepository } from '~/server/engagement/domain/engagement.repository';
@@ -9,7 +9,7 @@ export class RechercherMissionBénévolatUseCase {
 	constructor(private engagementRepository: EngagementRepository) {
 	}
 
-	async handle(missionEngagementFiltre: MissionEngagementFiltre): Promise<Either<RésultatsRechercheMission>> {
-		return this.engagementRepository.searchMissionBénévolat(missionEngagementFiltre);
+	async handle(rechercheBénévolat: MissionEngagement.Recherche.Benevolat): Promise<Either<RésultatsRechercheMission>> {
+		return this.engagementRepository.searchMissionBénévolat(rechercheBénévolat);
 	}
 }
