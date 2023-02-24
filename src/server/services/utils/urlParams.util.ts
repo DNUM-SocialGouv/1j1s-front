@@ -7,13 +7,9 @@ export function removeUndefinedValueInQueryParameterList(queryList: Record<strin
 const ALLOWED_QUERY_PARAMS_TYPE_LIST = ['string', 'number', 'boolean'];
 
 export function transformObjectToQueryString<T extends object>(source: T): string {
-	const urlSearchParams = new URLSearchParams();
-
-	Object.entries(source).forEach(([key, value]) => {
-		if(ALLOWED_QUERY_PARAMS_TYPE_LIST.includes(typeof value)) {
-			urlSearchParams.append(key, value.toString());
-		}
-	});
-
+	const filteredParams = Object.entries(source).filter(([, value]) => (
+		ALLOWED_QUERY_PARAMS_TYPE_LIST.includes(typeof value)
+	));
+	const urlSearchParams = new URLSearchParams(filteredParams);
 	return urlSearchParams.toString();
 }

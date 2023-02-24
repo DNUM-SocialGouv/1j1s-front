@@ -1,11 +1,10 @@
 import {
 	Mission,
 	MissionEngagement,
-	MissionEngagementFiltre,
 	RésultatsRechercheMission,
 } from './engagement';
 
-export function aMissionEngagementFiltre(override?: Partial<MissionEngagementFiltre>): MissionEngagementFiltre {
+export function aRechercheServiceCivique(override?: Partial<MissionEngagement.Recherche.ServiceCivique>): MissionEngagement.Recherche.ServiceCivique {
 	return {
 		domaine: 'sante',
 		localisation: {
