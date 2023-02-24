@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.7.0...v3.8.0) (2023-02-24)
+
+
+### Features
+
+* **formation:** recherche formation par metier ([37cde93](https://github.com/DNUM-SocialGouv/1j1s-front/commit/37cde932b41f83b8633f895356f51134ea2fbe53))
+
 ## [3.7.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.6.2...v3.7.0) (2023-02-24)
 
 
