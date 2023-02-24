@@ -16,7 +16,7 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 	return (
 		<>
 			<h1>{annonce.titre}</h1>
-			<p>{annonce.nomEntreprise}</p>
+			<p>{annonce.entreprise.nom}</p>
 			<p>{annonce.localisation}</p>
 			<p>{annonce.typeDeContrat}</p>
 			<p>{annonce.niveauRequis}</p>

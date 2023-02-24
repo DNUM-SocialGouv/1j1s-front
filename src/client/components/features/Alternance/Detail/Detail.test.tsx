@@ -5,13 +5,13 @@
 import { render, screen, within } from '@testing-library/react';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
+import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';
 import { LocaleProvider } from '~/client/context/locale.context';
-import { anAlternanceMatcha } from '~/server/alternances/domain/alternance.fixture';
 import * as queries from '~/test-utils';
 
 describe('<Detail />', () => {
 	it('affiche le titre de l’annonce comme titre principal', () => {
-		const annonce = anAlternanceMatcha({ titre: 'Ma super alternance' });
+		const annonce = aDetailAlternance({ titre: 'Ma super alternance' });
 
 		render(<Detail annonce={annonce} />);
 
@@ -20,7 +20,7 @@ describe('<Detail />', () => {
 		expect(titre).toBeVisible();
 	});
 	it('affiche le nom de l’entreprise', () => {
-		const annonce = anAlternanceMatcha({ nomEntreprise: 'Ma super entreprise' });
+		const annonce = aDetailAlternance({ entreprise: { nom: 'Ma super entreprise' } });
 
 		render(<Detail annonce={annonce} />);
 
@@ -28,7 +28,7 @@ describe('<Detail />', () => {
 		expect(entreprise).toBeVisible();
 	});
 	it('affiche la description du contrat', async () => {
-		const annonce = anAlternanceMatcha({ description: "C'est une super alternance !" });
+		const annonce = aDetailAlternance({ description: "C'est une super alternance !" });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -37,7 +37,7 @@ describe('<Detail />', () => {
 		expect(description).toHaveTextContent("C'est une super alternance !");
 	});
 	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée', async () => {
-		const annonce = anAlternanceMatcha({ description: undefined });
+		const annonce = aDetailAlternance({ description: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -45,7 +45,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche les compétences requises', async () => {
-		const annonce = anAlternanceMatcha({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
+		const annonce = aDetailAlternance({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -59,7 +59,7 @@ describe('<Detail />', () => {
 		expect(compétences[1]).toHaveTextContent('Connaître des choses');
 	});
 	it('n’affiche pas le bloc des compétences requises lorsque non-renseignées', async () => {
-		const annonce = anAlternanceMatcha({ compétences: undefined });
+		const annonce = aDetailAlternance({ compétences: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -67,7 +67,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('n’affiche pas le bloc des compétences requises lorsque aucune compétence requise', async () => {
-		const annonce = anAlternanceMatcha({ compétences: [] });
+		const annonce = aDetailAlternance({ compétences: [] });
 
 		render(<Detail annonce={annonce} />);
 
@@ -75,7 +75,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche le niveau requis', async () => {
-		const annonce = anAlternanceMatcha({ niveauRequis: 'CAP' });
+		const annonce = aDetailAlternance({ niveauRequis: 'CAP' });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -84,7 +84,7 @@ describe('<Detail />', () => {
 		expect(niveauRequis).toHaveTextContent('CAP');
 	});
 	it('n’affiche pas le bloc de niveau requis lorsque non-renseignées', async () => {
-		const annonce = anAlternanceMatcha({ niveauRequis: undefined });
+		const annonce = aDetailAlternance({ niveauRequis: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -92,7 +92,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche la date de début de contrat', async () => {
-		const annonce = anAlternanceMatcha({ dateDébut: new Date('2022-01-01') });
+		const annonce = aDetailAlternance({ dateDébut: new Date('2022-01-01') });
 
 		const { getByDescriptionTerm } = render(<LocaleProvider value={'fr'}><Detail annonce={annonce} /></LocaleProvider>, { queries });
 
@@ -103,7 +103,7 @@ describe('<Detail />', () => {
 		expect(time).toHaveAttribute('datetime', '2022-01-01');
 	});
 	it('n’affiche pas le bloc de la date de début de contrat lorsque non-renseignées', async () => {
-		const annonce = anAlternanceMatcha({ dateDébut: undefined });
+		const annonce = aDetailAlternance({ dateDébut: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -111,7 +111,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche le type de contrat', async () => {
-		const annonce = anAlternanceMatcha({ typeDeContrat: 'Alternance' });
+		const annonce = aDetailAlternance({ typeDeContrat: 'Alternance' });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -120,7 +120,7 @@ describe('<Detail />', () => {
 		expect(typeDeContrat).toHaveTextContent('Alternance');
 	});
 	it('n’affiche pas le bloc de type de contrat lorsque non-renseignées', async () => {
-		const annonce = anAlternanceMatcha({ typeDeContrat: undefined });
+		const annonce = aDetailAlternance({ typeDeContrat: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -128,7 +128,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche la durée du contrat', async () => {
-		const annonce = anAlternanceMatcha({ durée: 4 });
+		const annonce = aDetailAlternance({ durée: 4 });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -140,7 +140,7 @@ describe('<Detail />', () => {
 		expect(time).toHaveAttribute('datetime', durationISO);
 	});
 	it('conjugue au singulier quand durée d’un an', async () => {
-		const annonce = anAlternanceMatcha({ durée: 1 });
+		const annonce = aDetailAlternance({ durée: 1 });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -149,7 +149,7 @@ describe('<Detail />', () => {
 		expect(durée).toHaveTextContent(/1 an$/);
 	});
 	it('n’affiche pas le bloc de la durée du contrat lorsque non-renseignées', async () => {
-		const annonce = anAlternanceMatcha({ durée: undefined });
+		const annonce = aDetailAlternance({ durée: undefined });
 
 		render(<Detail annonce={annonce} />);
 
@@ -157,7 +157,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche le rythme de l’alternance', async () => {
-		const annonce = anAlternanceMatcha({ rythmeAlternance: '1 jour par semaine' });
+		const annonce = aDetailAlternance({ rythmeAlternance: '1 jour par semaine' });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
 
@@ -166,7 +166,24 @@ describe('<Detail />', () => {
 		expect(rythmeAlternance).toHaveTextContent('1 jour par semaine');
 	});
 	it('n’affiche pas le bloc de rythme de l’alternance lorsque non-renseignées', async () => {
-		const annonce = anAlternanceMatcha({ rythmeAlternance: undefined });
+		const annonce = aDetailAlternance({ rythmeAlternance: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Rythme de l’alternance');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche les contacts d’entreprise', async () => {
+		const annonce = aDetailAlternance({ rythmeAlternance: '1 jour par semaine' });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce} />, { queries });
+
+		const rythmeAlternance = getByDescriptionTerm('Rythme de l’alternance');
+		expect(rythmeAlternance).toBeVisible();
+		expect(rythmeAlternance).toHaveTextContent('1 jour par semaine');
+	});
+	it('n’affiche pas le bloc des contacts d’entreprise lorsqu’aucun n’est renseignées', async () => {
+		const annonce = aDetailAlternance({ rythmeAlternance: undefined });
 
 		render(<Detail annonce={annonce} />);
 

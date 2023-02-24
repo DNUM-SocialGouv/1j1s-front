@@ -1,9 +1,15 @@
+export namespace Alternance {
+	export interface Entreprise {
+		nom?: string,
+	}
+}
+
 export interface Alternance {
 	durée?: number;
 	id: string
 	titre: string
+	entreprise: Alternance.Entreprise
 	description?: string
-	nomEntreprise?: string
 	localisation?: string
 	niveauRequis?: string
 	typeDeContrat?: string[]

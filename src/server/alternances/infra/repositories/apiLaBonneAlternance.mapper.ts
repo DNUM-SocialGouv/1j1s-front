@@ -15,10 +15,12 @@ export function mapAlternance(matcha: Matcha): Alternance {
 		dateDébut: matcha.job.jobStartDate != null ? new Date(matcha.job.jobStartDate) : undefined,
 		description: matcha.job.romeDetails?.definition,
 		durée: matcha.job.dureeContrat,
+		entreprise: {
+			nom: matcha.company?.name,
+		},
 		id: matcha.job.id,
 		localisation: matcha.place?.city,
 		niveauRequis: matcha.diplomaLevel,
-		nomEntreprise: matcha.company?.name,
 		rythmeAlternance: matcha.job.rythmeAlternance,
 		source: Alternance.Source.MATCHA,
 		tags: [matcha.place?.city, matcha.job.contractType, matcha.diplomaLevel].filter((tag) => !!tag) as string[],

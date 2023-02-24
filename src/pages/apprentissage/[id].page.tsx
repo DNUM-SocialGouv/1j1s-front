@@ -30,9 +30,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		compétences: annonce.result.compétences,
 		dateDébut: annonce.result.dateDébut,
 		durée: annonce.result.durée,
+		entreprise: {
+			nom: annonce.result.entreprise.nom,
+		},
 		localisation: annonce.result.localisation,
 		niveauRequis: annonce.result.niveauRequis,
-		nomEntreprise: annonce.result.nomEntreprise,
 		rythmeAlternance: annonce.result.rythmeAlternance,
 		titre: annonce.result.titre,
 		typeDeContrat: annonce.result.typeDeContrat,
