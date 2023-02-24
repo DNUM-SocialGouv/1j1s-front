@@ -47,7 +47,7 @@ describe('<Detail />', () => {
 		expect(description).toBeVisible();
 		expect(description).toHaveTextContent("C'est une super alternance !");
 	});
-	it('n’affiche pas la description du contrat lorsque non-renseignée', async () => {
+	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée', async () => {
 		const annonce = anAlternanceMatcha({ description: undefined });
 
 		render(<Detail annonce={annonce} />);
@@ -68,5 +68,21 @@ describe('<Detail />', () => {
 		expect(compétences).toHaveLength(2);
 		expect(compétences[0]).toHaveTextContent('Savoir faire des trucs');
 		expect(compétences[1]).toHaveTextContent('Connaître des choses');
+	});
+	it('n’affiche pas le bloc des compétences requises lorsque non-renseignées', async () => {
+		const annonce = anAlternanceMatcha({ compétences: undefined });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Connaissances et compétences requises');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('n’affiche pas le bloc des compétences requises lorsque aucune compétence requise', async () => {
+		const annonce = anAlternanceMatcha({ compétences: [] });
+
+		render(<Detail annonce={annonce} />);
+
+		const term = screen.queryByText('Connaissances et compétences requises');
+		expect(term).not.toBeInTheDocument();
 	});
 });
