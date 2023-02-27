@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.8.0...v3.8.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* **employeur:** style du bouton validation POEI ([3b95bec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3b95bec07c682897d0440eeedeb170f95cb9c6ca))
+
 ## [3.8.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.7.0...v3.8.0) (2023-02-24)
 
 
