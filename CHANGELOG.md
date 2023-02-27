@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.8.1...v3.8.2) (2023-02-27)
+
+
+### Bug Fixes
+
+* **stage/depot:** clear session storage après envoi stage ([36fc064](https://github.com/DNUM-SocialGouv/1j1s-front/commit/36fc0641ccb9f238772efdd5ef9a115ed6d5e6d2))
+
 ## [3.8.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.8.0...v3.8.1) (2023-02-27)
 
 
