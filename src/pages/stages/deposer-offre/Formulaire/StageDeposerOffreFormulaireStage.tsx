@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useMemo, useRef } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -12,23 +12,19 @@ import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import {
-	ETAPE_ENTREPRISE,
-	ETAPE_OFFRE_DE_STAGE,
-	URL_DEPOSER_OFFRE,
-} from '~/pages/stages/deposer-offre/index.page';
+import { ETAPE_ENTREPRISE, ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 
 import styles from './StageDeposerOffreFormulaire.module.scss';
 import { domaineStage } from './StageDomaines';
 
 const email_regex = '([a-zA-Z0-9!#$%&@\'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&\'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)';
-const url_regex =  '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
+const url_regex = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
 const EMAIL_OR_URL_REGEX = `^${email_regex}|${url_regex}$`;
 const DUREE_MOIS_EN_JOUR = 30;
 const UNITE = '€';
 
 enum Stage {
-	DATE_DE_DEBUT= 'dateDebut',
+	DATE_DE_DEBUT = 'dateDebut',
 	NOM = 'nomOffre',
 	LIEN_CANDIDATURE = 'lienCandidature',
 	DESCRIPTION = 'descriptionOffre',
@@ -38,10 +34,6 @@ enum Stage {
 	TELETRAVAIL = 'teletravail',
 }
 
-enum Télétravail {
-	OUI = 'true',
-	NON = 'false',
-}
 const dureeStageList: Option[] = [
 	{ libellé: '1 mois', valeur: DUREE_MOIS_EN_JOUR.toString() },
 	{ libellé: '2 mois', valeur: (2 * DUREE_MOIS_EN_JOUR).toString() },
@@ -54,16 +46,6 @@ const dureeStageList: Option[] = [
 export default function StageDeposerOffreFormulaireStage() {
 	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
-	const inputTeletravailRef = useRef<HTMLDivElement>(null);
-
-	const [inputNomOffre, setInputNomOffre] = useState('');
-	const [inputLienCandidature, setInputLienCandidature] = useState('');
-	const [inputDescriptionOffre, setInputDescriptionOffre] = useState('');
-	const [inputDateDebut, setInputDateDebut] = useState('');
-	const [inputDureeStage, setInputDureeStage] = useState('');
-	const [inputDomaineStage, setInputDomaineStage] = useState('');
-	const [inputRemunerationStage, setInputRemunerationStage] = useState('');
-	const [inputTeletravailStage, setInputTeletravailStage] = useState('');
 
 	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
@@ -77,26 +59,8 @@ export default function StageDeposerOffreFormulaireStage() {
 		}
 	}, [router, informationsEntreprise]);
 
-	useEffect(() => {
-		if (informationsStage !== null && formRef.current) {
-			setInputNomOffre(informationsStage.nomOffre);
-			setInputLienCandidature(informationsStage.lienCandidature);
-			setInputDescriptionOffre(informationsStage.descriptionOffre);
-			setInputDateDebut(informationsStage.dateDebut);
-			setInputDureeStage(informationsStage.dureeStage);
-			setInputDomaineStage(informationsStage.domaineStage  || '');
-			setInputRemunerationStage(informationsStage.remunerationStage  || '');
-			setInputTeletravailStage(informationsStage.teletravail || '');
-		}
-	}, [informationsStage]);
-
 	const disableBeforeToday: string = useMemo(() => {
 		return new Date().toISOString().split('T')[0];
-	}, []);
-
-	const onInputChangeRemuneration = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value;
-		setInputRemunerationStage(value);
 	}, []);
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
@@ -107,7 +71,7 @@ export default function StageDeposerOffreFormulaireStage() {
 		sessionStorageStage.set(donnéesOffreDeStage);
 		return router.push(`${URL_DEPOSER_OFFRE}/localisation`);
 	}
-	
+
 	return (
 		<Container className={styles.container}>
 			<div className={styles.etape}>Etape 2 sur 3 : Votre offre de stage</div>
@@ -126,7 +90,7 @@ export default function StageDeposerOffreFormulaireStage() {
 					<InputText
 						label="Indiquez le nom de l’offre de stage"
 						name={Stage.NOM}
-						value={inputNomOffre}
+						value={informationsStage?.nomOffre}
 						placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
 						required
 						className={styles.inputNomOffre}
@@ -135,7 +99,7 @@ export default function StageDeposerOffreFormulaireStage() {
 						pattern={EMAIL_OR_URL_REGEX}
 						label="Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
 						name={Stage.LIEN_CANDIDATURE}
-						value={inputLienCandidature}
+						value={informationsStage?.lienCandidature}
 						placeholder="Exemples : https://candidat.pole-emploi.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
 						required
 						className={styles.inputLienCandidature}
@@ -146,7 +110,7 @@ export default function StageDeposerOffreFormulaireStage() {
 						label={'Rédigez une description de l’offre de stage (200 caractères minimum)'}
 						placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
 						name={Stage.DESCRIPTION}
-						defaultValue={inputDescriptionOffre}
+						defaultValue={informationsStage?.descriptionOffre}
 						required
 						rows={10}
 						minLength={200}
@@ -155,14 +119,14 @@ export default function StageDeposerOffreFormulaireStage() {
 						label="Date de début du stage"
 						type="date"
 						name={Stage.DATE_DE_DEBUT}
-						value={inputDateDebut}
+						value={informationsStage?.dateDebut}
 						required
 						min={disableBeforeToday}
 					/>
 					<Select
 						label="Indiquez la durée du stage"
 						name={Stage.DUREE}
-						value={inputDureeStage}
+						value={informationsStage?.dureeStage}
 						placeholder="Sélectionnez une durée"
 						optionList={dureeStageList}
 						required
@@ -175,7 +139,7 @@ export default function StageDeposerOffreFormulaireStage() {
 					<Select
 						label="Domaine de l’offre de stage"
 						name={Stage.DOMAINE}
-						value={inputDomaineStage}
+						value={informationsStage?.domaineStage}
 						placeholder="Sélectionnez un domaine"
 						optionList={domaineStage}
 					/>
@@ -188,8 +152,7 @@ export default function StageDeposerOffreFormulaireStage() {
 								name={Stage.REMUNERATION}
 								placeholder="Exemple : 560"
 								min={0}
-								value={inputRemunerationStage}
-								onChange={onInputChangeRemuneration}
+								defaultValue={informationsStage?.remunerationStage}
 								className={styles.inputRemunueration}
 							/>
 							<span className={styles.uniteRemunueration}>{UNITE}</span>
@@ -198,9 +161,11 @@ export default function StageDeposerOffreFormulaireStage() {
 					<div>
 						<fieldset className={styles.contenuTeletravail}>
 							<legend>Télétravail possible</legend>
-							<div ref={inputTeletravailRef} className={styles.inputTeletravail}>
-								<Radio name={Stage.TELETRAVAIL} value="true" label="Oui" checked={inputTeletravailStage === Télétravail.OUI} onChange={ () => setInputTeletravailStage(Télétravail.OUI)}/>
-								<Radio name={Stage.TELETRAVAIL} value="false" label="Non" checked={inputTeletravailStage === Télétravail.NON} onChange={ () => setInputTeletravailStage(Télétravail.NON)}/>
+							<div className={styles.inputTeletravail}>
+								<Radio name={Stage.TELETRAVAIL} value="true" label="Oui"
+											 defaultChecked={informationsStage?.teletravail === 'true'}/>
+								<Radio name={Stage.TELETRAVAIL} value="false" label="Non"
+											 defaultChecked={informationsStage?.teletravail === 'false'}/>
 							</div>
 						</fieldset>
 					</div>
