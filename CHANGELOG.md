@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.9.0...v3.10.0) (2023-02-27)
+
+
+### Features
+
+* **script:** ajout npm dedupe au script prepare ([a98cefc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a98cefc69ef98551878790b8ff2cdce66b16af11))
+
 ## [3.9.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.8.2...v3.9.0) (2023-02-27)
 
 
