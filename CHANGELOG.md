@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.8.2...v3.9.0) (2023-02-27)
+
+
+### Features
+
+* **stage/depot:** suppression redirection depot offre stage ([1aa651b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1aa651b7c404486f33321f43e912a58f2e540bb1))
+
 ## [3.8.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.8.1...v3.8.2) (2023-02-27)
 
 
