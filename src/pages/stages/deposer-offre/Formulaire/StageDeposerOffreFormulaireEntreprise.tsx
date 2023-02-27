@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
 import React, {
 	FormEvent,
-	useEffect,
 	useRef,
-	useState,
 } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -34,25 +32,10 @@ enum Employeur {
 export default function StageDeposerOffreFormulaireEntreprise() {
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const [inputNom, setInputNom] = useState('');
-	const [inputEmail, setInputEmail] = useState('');
-	const [inputDescription, setInputDescription] = useState('');
-	const [inputLogo, setInputLogo] = useState('');
-	const [inputSite, setInputSite] = useState('');
 	const router = useRouter();
 
 	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
-
-	useEffect(() => {
-		if (informationsEntreprise !== null && formRef.current) {
-			setInputNom(informationsEntreprise.nomEmployeur);
-			setInputEmail(informationsEntreprise.emailEmployeur);
-			setInputDescription(informationsEntreprise.descriptionEmployeur);
-			setInputLogo(informationsEntreprise.logoEmployeur || '');
-			setInputSite(informationsEntreprise.siteEmployeur || '');
-		}
-	}, [informationsEntreprise]);
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -74,7 +57,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 					<InputText
 						label="Indiquez le nom de l’entreprise ou de l’employeur"
 						name={Employeur.NOM}
-						value={inputNom}
+						value={informationsEntreprise?.nomEmployeur}
 						placeholder="Exemple : Crédit Agricole, SNCF…"
 						required
 					/>
@@ -82,7 +65,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						label="Indiquez une adresse mail de contact"
 						pattern={EMAIL_REGEX}
 						name={Employeur.EMAIL}
-						value={inputEmail}
+						value={informationsEntreprise?.emailEmployeur}
 						placeholder="Exemple : contactRH@exemple.com"
 						required
 						tooltip={<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.</Tooltip>}
@@ -93,7 +76,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						label="Rédigez une courte description de l’entreprise (500 caractères maximum)"
 						placeholder="Indiquez des informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
 						name={Employeur.DESCRIPTION}
-						defaultValue={inputDescription}
+						defaultValue={informationsEntreprise?.descriptionEmployeur}
 						required
 						rows={10}
 						maxLength={500}
@@ -107,14 +90,14 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						label="Partagez le logo de l’entreprise - lien/URL"
 						type="url"
 						name={Employeur.LOGO}
-						value={inputLogo}
+						value={informationsEntreprise?.logoEmployeur}
 						placeholder="Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3..."
 					/>
 					<InputText
 						label="Indiquez le lien du site de l’entreprise - lien/URL"
 						type="url"
 						name={Employeur.SITE}
-						value={inputSite}
+						value={informationsEntreprise?.siteEmployeur}
 						placeholder="Exemple : https://1jeune1solution.gouv.fr"
 					/>
 				</div>

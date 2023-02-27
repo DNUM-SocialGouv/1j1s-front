@@ -32,7 +32,6 @@ function useError(
 
 	useLayoutEffect(function initilizeErrorState() {
 		if (ref.current == null) return;
-
 		reportCustomValidation(ref.current);
 		const message = ref.current?.validationMessage;
 		setError(message);

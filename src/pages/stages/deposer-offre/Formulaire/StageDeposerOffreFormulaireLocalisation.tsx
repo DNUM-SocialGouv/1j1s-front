@@ -36,12 +36,6 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const [inputPays, setInputPays] = useState('');
-	const [inputVille, setInputVille] = useState('');
-	const [inputAdresse, setInputAdresse] = useState('');
-	const [inputCodePostal, setInputCodePostal] = useState('');
-	const [inputRegion, setInputRegion] = useState('');
-	const [inputDepartement, setInputDepartement] = useState('');
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
 	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
@@ -58,17 +52,6 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 			router.push(URL_DEPOSER_OFFRE);
 		}
 	}, [router, informationsEntreprise, informationsStage]);
-
-	useEffect(() => {
-		if (informationsLocalisation !== null && formRef.current) {
-			setInputPays(informationsLocalisation.pays);
-			setInputVille(informationsLocalisation.ville);
-			setInputAdresse(informationsLocalisation.adresse);
-			setInputCodePostal(informationsLocalisation.codePostal);
-			setInputRegion(informationsLocalisation.region || '');
-			setInputDepartement(informationsLocalisation.departement || '');
-		}
-	}, [informationsLocalisation]);
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		setSubmitButtonDisabled(true);
@@ -104,7 +87,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputAutocomplétionPays
-						codePays={inputPays}
+						codePays={informationsLocalisation?.pays}
 						label="Pays"
 						name={Localisation.PAYS}
 						placeholder="Exemple : France"
@@ -115,21 +98,21 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 						name={Localisation.VILLE}
 						placeholder="Exemple : Paris"
 						required
-						value={inputVille}
+						value={informationsLocalisation?.ville}
 					/>
 					<InputText
 						label="Adresse"
 						name={Localisation.ADRESSE}
 						placeholder="Exemple : 127 rue de Grenelle"
 						required
-						value={inputAdresse}
+						value={informationsLocalisation?.adresse}
 					/>
 					<InputText
 						label="Code postal"
 						name={Localisation.CODE_POSTAL}
 						placeholder="Exemple : 75007"
 						required
-						value={inputCodePostal}
+						value={informationsLocalisation?.codePostal}
 					/>
 				</div>
 				<p className={styles.champsFacultatifs}>
@@ -140,13 +123,13 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 						label="Région"
 						name={Localisation.REGION}
 						placeholder="Exemple : Île-De-France"
-						value={inputRegion}
+						value={informationsLocalisation?.region}
 					/>
 					<InputText
 						label="Département"
 						name={Localisation.DEPARTEMENT}
 						placeholder="Exemple : Yvelines"
-						value={inputDepartement}
+						value={informationsLocalisation?.departement}
 					/>
 				</div>
 				<div className={styles.validation}>
