@@ -7,7 +7,7 @@
   "version": "3.9.0",
   "private": true,
   "scripts": {
-    "prepare": "./setup.sh",
+    "prepare": "npm dedupe && ./setup.sh",
     "dev": "next dev",
     "build": "next build",
     "check": "tsc --noEmit",
