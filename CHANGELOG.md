@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.11.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.10.2...v3.11.0) (2023-02-28)
+
+
+### Features
+
+* **alternance:** ajouter tag de localisation ([c9d8b62](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c9d8b62e58f57b55a6e7a07f540343c7c355ee90))
+
 ## [3.10.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.10.1...v3.10.2) (2023-02-28)
 
 
