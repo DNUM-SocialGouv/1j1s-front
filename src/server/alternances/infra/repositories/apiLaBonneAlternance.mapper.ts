@@ -5,15 +5,16 @@ import {
 import Matcha = AlternanceApiJobsResponse.Matcha;
 import PEJobs = AlternanceApiJobsResponse.PEJobs;
 
-function sanitizeEscapeSequences(alternance: object) {
-	return JSON.parse(JSON.stringify(alternance).replace(/\\\\/g, '\\'));
+function sanitizeEscapeSequences(texte?: string) {
+	if (!texte) return texte;
+	return JSON.parse(`"${texte}"`);
 }
 
 export function mapMatcha(alternance: Matcha): Alternance {
-	const result: Alternance = {
+	return {
 		compétences: alternance.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
 		dateDébut: alternance.job.jobStartDate != null ? new Date(alternance.job.jobStartDate) : undefined,
-		description: alternance.job.romeDetails?.definition,
+		description: sanitizeEscapeSequences(alternance.job.romeDetails?.definition),
 		durée: alternance.job.dureeContrat,
 		entreprise: {
 			adresse: alternance.company?.place?.city,
@@ -29,13 +30,12 @@ export function mapMatcha(alternance: Matcha): Alternance {
 		titre: alternance.title,
 		typeDeContrat: alternance.contractType,
 	};
-	return sanitizeEscapeSequences(result);
 }
 export function mapPEJob(alternance: PEJobs): Alternance {
 	return {
 		compétences: alternance.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
 		dateDébut: alternance.job.jobStartDate != null ? new Date(alternance.job.jobStartDate) : undefined,
-		description: alternance.job.romeDetails?.definition,
+		description: sanitizeEscapeSequences(alternance.job.romeDetails?.definition),
 		durée: alternance.job.dureeContrat,
 		entreprise: {
 			adresse: alternance.company?.place?.city,

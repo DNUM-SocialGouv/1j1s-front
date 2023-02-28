@@ -7,8 +7,9 @@ import { Head } from '~/client/components/head/Head';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
+type DetailAlternanceSerialized = Omit<DetailAlternance, 'dateDébut'> & { dateDébut?: string };
 type ConsulterAnnonceAlternancePageProps = {
-  annonce: DetailAlternance;
+  annonce: DetailAlternanceSerialized;
 }
 
 function convertUndefinedToNull<T>(payload: T): T {
@@ -26,9 +27,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		return { notFound: true };
 	}
 
-	const detailAlternance: DetailAlternance = {
+	const detailAlternance: DetailAlternanceSerialized = {
 		compétences: annonce.result.compétences,
-		dateDébut: annonce.result.dateDébut,
+		dateDébut: annonce.result.dateDébut?.toISOString(),
 		durée: annonce.result.durée,
 		entreprise: {
 			localisation: annonce.result.entreprise.adresse,
@@ -49,13 +50,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 }
 
 export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlternancePageProps) {
+	const parsedDétail: DetailAlternance = {
+		...annonce,
+		dateDébut: annonce.dateDébut ? new Date(annonce.dateDébut) : undefined,
+	};
+
 	return (
 		<>
 			<Head
 				title={`${annonce.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<Detail annonce={annonce} />
+			<Detail annonce={parsedDétail} />
 		</>
 	);
 }
