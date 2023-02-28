@@ -4,6 +4,7 @@ import {
 	aMissionLocaleÉtablissementAccompagnementList,
 	anOrderedÉtablissementAccompagnementList,
 } from '../../src/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
 import communeList from '../fixture/communes/communeList.fixture.json';
 import { interceptGet } from '../interceptGet';
 
@@ -18,14 +19,21 @@ describe('Parcours Accompagnement', () => {
 
 		describe('quand l‘utilisateur lance une recherche', () => {
 			it('affiche les résultats de recherche', () => {
-				cy.get('input[name="libelleCommune"]').type('par');
+				interceptGet({
+					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').type('par'),
+					alias: 'recherche-commune',
+					path: '/api/communes?q=par*',
+					response: JSON.stringify({
+						résultats: aCommuneList(),
+					}),
+				});
 				cy.get('ul[role="listbox"]').first().click();
 
-				cy.get('button').contains('Sélectionnez votre choix').click();
+				cy.contains('Sélectionnez votre choix').click();
 				cy.get('ul[role="listbox"] > li').first().click();
 
 				interceptGet({
-					actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
+					actionBeforeWaitTheCall: () => cy.contains('Rechercher').click(),
 					alias: 'recherche-accompagnement',
 					path: '/api/etablissements-accompagnement*',
 					response: JSON.stringify(anOrderedÉtablissementAccompagnementList()),
@@ -37,7 +45,15 @@ describe('Parcours Accompagnement', () => {
 
 		describe('quand l‘utilisateur souhaite contacter un établissement d‘accompagnement', () => {
 			it('permet d‘envoyer une demande de contact', () => {
-				cy.get('input[name="libelleCommune"]').type('par');
+				interceptGet({
+					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').type('par'),
+					alias: 'recherche-commune',
+					path: '/api/communes?q=par*',
+					response: JSON.stringify({
+						résultats: aCommuneList(),
+					}),
+				});
+
 				cy.get('ul[role="listbox"]').first().click();
 
 				cy.get('button').contains('Sélectionnez votre choix').click();
@@ -60,7 +76,16 @@ describe('Parcours Accompagnement', () => {
 				cy.get('input[name=phone]').type('0606060606');
 				cy.get('button').contains('Sélectionnez votre choix').click();
 				cy.get('ul[role="listbox"] > li').eq(7).click();
-				cy.get('input[name="libelleCommune"]').last().type('par');
+
+				interceptGet({
+					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').last().type('par'),
+					alias: 'recherche-commune',
+					path: '/api/communes?q=par*',
+					response: JSON.stringify({
+						résultats: aCommuneList(),
+					}),
+				});
+
 				cy.get('ul[role="listbox"]').first().click();
 				cy.get('textarea[name=commentaire]').type('Merci de me recontacter');
 
