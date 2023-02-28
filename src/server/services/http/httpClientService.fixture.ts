@@ -1,4 +1,5 @@
 import { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { CacheAxiosResponse, InternalCacheRequestConfig } from 'axios-cache-interceptor';
 
 import { HttpClientService } from '~/server/services/http/httpClientService';
 import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
@@ -36,6 +37,23 @@ export function anAxiosResponse<T>(
 		config: undefined as unknown as InternalAxiosRequestConfig,
 		data,
 		headers: {},
+		status: status || 200,
+		statusText: '',
+	};
+}
+
+export function aCacheAxiosResponse<T>(
+	data: T,
+	status?: number,
+	id?: string,
+	cached?: boolean,
+): CacheAxiosResponse<T> {
+	return {
+		cached: cached || false,
+		config: undefined as unknown as InternalCacheRequestConfig,
+		data,
+		headers: {},
+		id: id || '',
 		status: status || 200,
 		statusText: '',
 	};

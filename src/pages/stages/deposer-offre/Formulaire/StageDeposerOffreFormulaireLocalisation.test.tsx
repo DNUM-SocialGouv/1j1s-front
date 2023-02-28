@@ -70,8 +70,8 @@ describe('<Localisation />', () => {
 	describe('quand l’étape 1 et 2 sont remplies', () => {
 		let getSessionItem;
 		let getLocalItem;
-		let setItem;
-		let removeItem;
+		let setItem: jest.Mock;
+		let removeItem: jest.Mock;
 		beforeEach(() => {
 			setItem = jest.fn();
 			removeItem = jest.fn();

@@ -1,8 +1,11 @@
+import { CacheAxiosResponse } from 'axios-cache-interceptor';
+
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import {
+	aCacheAxiosResponse,
 	anAxiosError,
 	anAxiosResponse,
 	anHttpClientServiceWithCache,
@@ -23,7 +26,7 @@ describe('ApiAdresseRepository', () => {
 			it('retourne la liste des communes', async () => {
 				jest
 					.spyOn(httpClientService, 'get')
-					.mockResolvedValue(anAxiosResponse({
+					.mockResolvedValue(aCacheAxiosResponse({
 						attribution: 'BAN',
 						features: [
 							{
@@ -85,7 +88,7 @@ describe('ApiAdresseRepository', () => {
 						query: 'jou',
 						type: 'FeatureCollection',
 						version: 'draft',
-					}));
+					}) as CacheAxiosResponse);
 				const recherche = 'jou';
 				const expected = {
 					résultats: [

@@ -38,8 +38,8 @@ describe('ListeDesResultats Component', () => {
 
 	  render(<ListeDesResultats
 				isLoading={true}
-				resultats={<TestComponent/> as React.ReactNode}
-				pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
+				resultats={<TestComponent/>}
+				pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => (void 0)}/>  as React.ReactNode}
 				isAffichageListeDeResultatsDesktopDirectionRow={true}
 				skeletonRepeat={2}
 	  />);
@@ -58,8 +58,8 @@ describe('ListeDesResultats Component', () => {
 
 				render(<ListeDesResultats
 		  isLoading={true}
-		  resultats={<TestComponent/> as React.ReactNode}
-		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
+		  resultats={<TestComponent/>}
+		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => (void 0)}/>  as React.ReactNode}
 		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={4}
 				/>);
@@ -75,8 +75,8 @@ describe('ListeDesResultats Component', () => {
 
 				render(<ListeDesResultats
 		  isLoading={true}
-		  resultats={<TestComponent/> as React.ReactNode}
-		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
+		  resultats={<TestComponent/>}
+		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => (void 0)}/>  as React.ReactNode}
 		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={2}
 				/>);
@@ -94,8 +94,8 @@ describe('ListeDesResultats Component', () => {
 
 				render(<ListeDesResultats
 		  isLoading={true}
-		  resultats={<TestComponent/> as React.ReactNode}
-		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
+		  resultats={<TestComponent/>}
+		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => (void 0)}/>  as React.ReactNode}
 		  isAffichageListeDeResultatsDesktopDirectionRow={false}
 		  skeletonRepeat={3}
 				/>);
@@ -117,8 +117,8 @@ describe('ListeDesResultats Component', () => {
 
 				render(<ListeDesResultats
 		  isLoading={false}
-		  resultats={<TestComponent/> as React.ReactNode}
-		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
+		  resultats={<TestComponent/>}
+		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => (void 0)}/>  as React.ReactNode}
 		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={2}
 				/>);
@@ -140,8 +140,8 @@ describe('ListeDesResultats Component', () => {
 				spyedPagination.mockImplementation(() => mockUsePagination({ isFirstPage: true, nbHits: 4 }));
 				render(<ListeDesResultats
 		  isLoading={false}
-		  resultats={<TestComponent/> as React.ReactNode}
-		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3}/>  as React.ReactNode}
+		  resultats={<TestComponent/>}
+		  pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => (void 0)}/>  as React.ReactNode}
 		  isAffichageListeDeResultatsDesktopDirectionRow={true}
 		  skeletonRepeat={2}
 				/>);
