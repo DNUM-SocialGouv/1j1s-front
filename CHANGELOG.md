@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.10.1...v3.10.2) (2023-02-28)
+
+
+### Bug Fixes
+
+* **accompagnement:** e2e erreur ([416ce2a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/416ce2a9ae5786c4bd06f2155717c62425fe8d00))
+
 ## [3.10.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.10.0...v3.10.1) (2023-02-27)
 
 
