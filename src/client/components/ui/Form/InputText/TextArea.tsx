@@ -71,7 +71,7 @@ type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
 	validate?: ValidationFunction;
 };
 
-export const InputArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea({
 	label,
 	hint,
 	id: idProps,

@@ -6,7 +6,6 @@ import { InputCommune } from 'src/client/components/ui/Form/InputCommune/InputCo
 import { InputText } from 'src/client/components/ui/Form/InputText/InputText';
 import { Link } from 'src/client/components/ui/Link/Link';
 import { Select } from 'src/client/components/ui/Select/Select';
-import { TextArea } from 'src/client/components/ui/TextArea/TextArea';
 import { useDependency } from 'src/client/context/dependenciesContainer.context';
 import { ageOptions } from 'src/client/domain/selectAgeData';
 import {
@@ -14,6 +13,7 @@ import {
 } from 'src/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { isSuccess } from 'src/server/errors/either';
 
+import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import {
 	ContactÉtablissementAccompagnement,
@@ -94,7 +94,8 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 				label="Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)"
 				placeholder="Saisissez votre texte ici..."
 				name="commentaire"
-				className={styles.formulaireTextArea}
+				rows={5}
+				className={styles.commentaireDemandeDeContact}
 			/>
 			<ButtonComponent
 				type="submit"
