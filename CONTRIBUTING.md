@@ -77,6 +77,7 @@ Liste des contextes de **pages** autorisées (non exhaustive):
 - employeur
 - sitemap
 - robots
+- meilisearch
   
 Exemple d'utilisation avec sous-contexte :
 
