@@ -5,11 +5,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
+import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 
-describe('<InputArea />', () => {
+describe('<TextArea />', () => {
 	it('affiche un input', () => {
-		render(<InputArea />);
+		render(<TextArea />);
 
 		const input = screen.getByRole('textbox');
 
@@ -18,7 +18,7 @@ describe('<InputArea />', () => {
 
 	describe('props natifs', () => {
 		it('passe toutes les props au textarea sous-jacent', () => {
-			render(<InputArea disabled aria-label='Mon input' />);
+			render(<TextArea disabled aria-label='Mon input' />);
 
 			const input = screen.getByRole('textbox');
 
@@ -27,13 +27,13 @@ describe('<InputArea />', () => {
 		});
 		it('accepte une ref', () => {
 			const ref = jest.fn();
-			render(<InputArea ref={ref} />);
+			render(<TextArea ref={ref} />);
 
 			expect(ref).toHaveBeenCalledTimes(1);
 			expect(ref).toHaveBeenCalledWith(expect.any(Element));
 		});
 		it('utilise l’id en props si présent', () => {
-			render(<InputArea label="Mon input" id="mon-id" />);
+			render(<TextArea label="Mon input" id="mon-id" />);
 
 			const input = screen.getByRole('textbox');
 
@@ -41,7 +41,7 @@ describe('<InputArea />', () => {
 			expect(input).toHaveAttribute('id', 'mon-id');
 		});
 		it('utilise l’aria-describedby en props si présent', () => {
-			render(<InputArea aria-describedby="mon-id" />);
+			render(<TextArea aria-describedby="mon-id" />);
 
 			const input = screen.getByRole('textbox');
 
@@ -49,7 +49,7 @@ describe('<InputArea />', () => {
 		});
 		it('utilise onChange en props si présent', async () => {
 			const onChange = jest.fn();
-			render(<InputArea onChange={onChange}/>);
+			render(<TextArea onChange={onChange}/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.type(input, 'a');
@@ -58,7 +58,7 @@ describe('<InputArea />', () => {
 		});
 		it('utilise onBlur en props si présent', async () => {
 			const onBlur = jest.fn();
-			render(<InputArea onBlur={onBlur}/>);
+			render(<TextArea onBlur={onBlur}/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.click(input);
@@ -70,7 +70,7 @@ describe('<InputArea />', () => {
 
 	describe('<label />', () => {
 		it('affiche le label lorsque indiqué', () => {
-			render(<InputArea label='Mon input' />);
+			render(<TextArea label='Mon input' />);
 
 			const label = screen.getByText('Mon input');
 			const input = screen.getByRole('textbox');
@@ -80,7 +80,7 @@ describe('<InputArea />', () => {
 		});
 		it('accepte un ReactNode comme label', () => {
 			render(
-				<InputArea
+				<TextArea
 					label={<>Mon input <abbr title="(required)">*</abbr></>}
 				/>,
 			);
@@ -93,8 +93,8 @@ describe('<InputArea />', () => {
 		it('génère un id unique pour chaque composant', () => {
 			render(
 				<>
-					<InputArea label='Mon input 1' />
-					<InputArea label='Mon input 2' />
+					<TextArea label='Mon input 1' />
+					<TextArea label='Mon input 2' />
 				</>,
 			);
 
@@ -106,14 +106,14 @@ describe('<InputArea />', () => {
 
 	describe('hint', () => {
 		it('affiche une aide lorsque présente', () => {
-			render(<InputArea hint="Ceci est une aide" />);
+			render(<TextArea hint="Ceci est une aide" />);
 
 			const hint = screen.getByText('Ceci est une aide');
 
 			expect(hint).toBeVisible();
 		});
 		it('décrit la textbox avec l’aide si présente', () => {
-			render(<InputArea hint="Ceci est une aide" />);
+			render(<TextArea hint="Ceci est une aide" />);
 
 			const input = screen.getByRole('textbox');
 
@@ -124,7 +124,7 @@ describe('<InputArea />', () => {
 				<>
 					<p id="mon-id1">Ceci est une première description externe.</p>
 					<p id="mon-id2">Ceci est une seconde description externe.</p>
-					<InputArea aria-describedby="mon-id1 mon-id2" hint="Ceci est une aide" />
+					<TextArea aria-describedby="mon-id1 mon-id2" hint="Ceci est une aide" />
 				</>,
 			);
 
@@ -135,7 +135,7 @@ describe('<InputArea />', () => {
 			expect(input).toHaveAccessibleDescription(/Ceci est une aide/);
 		});
 		it('n’ajoute pas d’attribut si pas présent', () => {
-			render(<InputArea />);
+			render(<TextArea />);
 
 			const input = screen.getByRole('textbox');
 
@@ -145,7 +145,7 @@ describe('<InputArea />', () => {
 
 	describe('error', () => {
 		it('affiche un message d’erreur lorsque le champ est en erreur et que l’utilisateur l’a touché', async () => {
-			render(<InputArea required/>);
+			render(<TextArea required/>);
 
 			let message = screen.queryByText('Constraints not satisfied');
 			expect(message).not.toBeInTheDocument();
@@ -158,7 +158,7 @@ describe('<InputArea />', () => {
 			expect(message).toBeVisible();
 		});
 		it('met à jour le message d’erreur quand la valeur change', async () => {
-			render(<InputArea required defaultValue=""/>);
+			render(<TextArea required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.type(input, 'a');
@@ -173,14 +173,14 @@ describe('<InputArea />', () => {
 			expect(message).toBeVisible();
 		});
 		it('masque l’aide à la saisie si un message d’erreur apparait', async () => {
-			render(<InputArea required defaultValue="" hint="Salut"/>);
+			render(<TextArea required defaultValue="" hint="Salut"/>);
 
 			const hint = screen.queryByText('Salut');
 
 			expect(hint).not.toBeInTheDocument();
 		});
 		it('lie l’erreur avec le champ', async () => {
-			render(<InputArea required defaultValue=""/>);
+			render(<TextArea required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.click(input);
@@ -197,7 +197,7 @@ describe('<InputArea />', () => {
 				return null;
 			}
 
-			render(<InputArea validate={validate}/>);
+			render(<TextArea validate={validate}/>);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toBeValid();
@@ -210,7 +210,7 @@ describe('<InputArea />', () => {
 				return 'Error';
 			}
 
-			render(<InputArea validate={validate}/>);
+			render(<TextArea validate={validate}/>);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toBeInvalid();

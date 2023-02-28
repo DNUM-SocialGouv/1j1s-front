@@ -12,8 +12,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  &TextArea {
-    margin-bottom: 1rem;
+  .commentaireDemandeDeContact {
+    margin-top: 1rem;
+
     @include media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;

@@ -2,8 +2,8 @@ import React, { FormEvent, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -105,12 +105,13 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
 								placeholder="Exemple : Demande de contact"
 								required
 							/>
-							<InputArea
+							<TextArea
 								className={styles.textArea}
 								label="Message"
 								name="message"
 								placeholder="Indiquez plus de détails sur votre demande"
 								required
+								rows={4}
 							/>
 							<div className={styles.formulaireDeRappelButton}>
 								{ isLoading

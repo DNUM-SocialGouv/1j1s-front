@@ -8,8 +8,8 @@ import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutoco
 import InputAutocomplétionSecteurActivité, {
 	SecteurActivité,
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
-import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import {
 	Hero,
 	HeroPrimaryText,
@@ -353,7 +353,7 @@ export default function JeRecruteAfprPoeiInscription() {
         								nombreARecruter: event.currentTarget.value,
         							})}
         						/>
-        						<InputArea
+        						<TextArea
         							className={styles.textArea}
         							label="Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles"
         							name="commentaires"
@@ -363,6 +363,7 @@ export default function JeRecruteAfprPoeiInscription() {
         								...formulaireÉtape3,
         								commentaire: event.currentTarget.value,
         							})}
+        							rows={5}
         						/>
         					</div>
         					<div className={styles.validation}>
