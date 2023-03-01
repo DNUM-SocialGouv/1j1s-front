@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.11.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.11.0...v3.11.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* **meilisearch:** retrait sortable attribute ([5af219b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5af219bcb842e96be4bfc73d3b4c52a6a0fa67e5))
+
 ## [3.11.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.10.2...v3.11.0) (2023-02-28)
 
 
