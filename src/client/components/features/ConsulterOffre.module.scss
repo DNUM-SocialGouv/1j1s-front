@@ -13,7 +13,8 @@
   margin: 0 0 1rem;
 }
 
-.titre h2 {
+.titre h2,
+.titre .sousTitre {
   @extend %bold, %text-medium;
 }
 

@@ -4,6 +4,7 @@ import React from 'react';
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { Head } from '~/client/components/head/Head';
+import styles from '~/client/components/layouts/Container/Container.module.scss';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -61,7 +62,9 @@ export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlter
 				title={`${annonce.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<Detail annonce={parsedDétail} />
+			<main id="contenu" className={styles.container}>
+				<Detail annonce={parsedDétail} />
+			</main>
 		</>
 	);
 }

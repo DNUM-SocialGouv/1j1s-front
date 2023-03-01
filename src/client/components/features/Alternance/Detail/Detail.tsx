@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
+import styles from '~/client/components/features/ConsulterOffre.module.scss';
+import { Tag } from '~/client/components/ui/Tag/Tag';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';
 
 function toISODuration(duration: number) {
@@ -15,12 +18,12 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 	const locale = useLocale();
 	return (
 		<>
-			<h1>{annonce.titre}</h1>
-			<p>{annonce.entreprise.nom}</p>
-			<p>{annonce.localisation}</p>
-			<p>{annonce.typeDeContrat}</p>
-			<p>{annonce.niveauRequis}</p>
-			<dl>
+			<header className={styles.titre}>
+				<h1>{annonce.titre}</h1>
+				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
+				<TagList list={[annonce.localisation, annonce.typeDeContrat, annonce.niveauRequis]} />
+			</header>
+			<dl className={styles.contenu}>
 				{annonce.description && (
 					<>
 						<dt>Description du contrat</dt>
