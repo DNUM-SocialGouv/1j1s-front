@@ -46,7 +46,7 @@ export function FormulaireRechercherFormation() {
 							codeRomes={inputCodeRomes}
 							required
 							autoFocus
-							placeholder={'Exemples : informatique, boulanger...'}
+							placeholder="Exemples : Ingénierie, agronomie..."
 						/>
 					</div>
 				</div>

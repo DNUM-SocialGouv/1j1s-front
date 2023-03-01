@@ -1,13 +1,6 @@
 @import "@styles/utilities";
 
 .formulaireDeRappel {
-  input {
-    background-color: $color-on-primary;
-    border: 0.5px solid $color-on-background;
-    border-radius: 30px;
-    box-shadow: none;
-  }
-
   label {
     margin-top: 1rem;
   }
@@ -66,13 +59,11 @@
   }
 }
 
-
 .textArea {
   margin-top: 1rem;
 
   > textarea {
     min-height: 8rem;
-    background-color: $color-on-primary;
     padding-top: 1rem;
   }
 }
@@ -104,11 +95,6 @@
 
   .sujet {
     margin-top: 1rem;
-
-    input {
-      background-color: $color-on-primary;
-    }
-
   }
 }
 

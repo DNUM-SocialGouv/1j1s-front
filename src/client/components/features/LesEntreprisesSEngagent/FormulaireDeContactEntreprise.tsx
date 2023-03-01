@@ -73,13 +73,13 @@ export default function FormulaireDeContactEntreprise({ isOpen, close }: Formula
 									label="Prénom"
 									name="prénom"
 									autoFocus
-									placeholder="Exemple : Marc, Sonia…"
+									placeholder="Exemples : Marc, Sonia…"
 									required
 								/>
 								<InputText
 									label="Nom"
 									name="nom"
-									placeholder="Exemple : Ducourt, Marie"
+									placeholder="Exemples : Ducourt, Marie"
 									required
 								/>
 								<InputText

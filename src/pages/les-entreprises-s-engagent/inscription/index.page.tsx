@@ -149,7 +149,7 @@ export default function LesEntreprisesSEngagentInscription() {
         						<InputText
         							label="Indiquez le nom de l’entreprise"
         							name="companyName"
-        							placeholder="Exemple : Crédit Agricole, SNCF…"
+        							placeholder="Exemples : Crédit Agricole, SNCF…"
         							value={formulaireÉtape1.nomSociété}
         							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
         								...formulaireÉtape1,
@@ -162,7 +162,7 @@ export default function LesEntreprisesSEngagentInscription() {
         							id="autocomplete-commune"
         							label="Indiquez la ville du siège social de l’entreprise"
         							name="companyPostalCode"
-        							placeholder="Exemple: Paris, Béziers..."
+        							placeholder="Exemples : Paris, Béziers..."
         							valeurInitiale={autocomplétionCommuneValeur}
         							onSuggestionSelected={(event, suggestion) => {
         								setAutocomplétionCommuneValeur(suggestion);
@@ -190,7 +190,7 @@ export default function LesEntreprisesSEngagentInscription() {
         							id="autocomplete-secteur-activité"
         							label="Indiquez le secteur d’activité de l’entreprise"
         							name="companySector"
-        							placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
+        							placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
         							valeurInitiale={secteurActivitéValeur}
         							onSuggestionSelected={(event, suggestion) => {
         								setSecteurActivitéValeur(suggestion);
@@ -241,7 +241,7 @@ export default function LesEntreprisesSEngagentInscription() {
         						<InputText
         							label="Indiquez votre prénom"
         							name="firstName"
-        							placeholder="Exemple : Marc, Sonia…"
+        							placeholder="Exemples : Marc, Sonia…"
         							value={formulaireÉtape2.prénom}
         							required
         							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
@@ -252,7 +252,7 @@ export default function LesEntreprisesSEngagentInscription() {
         						<InputText
         							label="Indiquez votre nom"
         							name="lastName"
-        							placeholder="Exemple : Ducourt, Dupont…"
+        							placeholder="Exemples : Ducourt, Dupont…"
         							value={formulaireÉtape2.nom}
         							required
         							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
@@ -263,7 +263,7 @@ export default function LesEntreprisesSEngagentInscription() {
         						<InputText
         							label="Indiquez votre fonction au sein de l’entreprise"
         							name="job"
-        							placeholder="Exemple : RH, Chargé de communications"
+        							placeholder="Exemples : RH, Chargé de communications"
         							value={formulaireÉtape2.travail}
         							required
         							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({

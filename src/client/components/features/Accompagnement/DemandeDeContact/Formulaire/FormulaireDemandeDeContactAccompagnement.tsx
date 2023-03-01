@@ -85,7 +85,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 				id="autocomplete-commune"
 				libellé=""
 				code=""
-				placeholder="Exemple: Paris, Béziers..."
+				placeholder="Exemples : Paris, Béziers..."
 				showRadius={false}
 				htmlLabel="rechercherCommuneFormulaire"
 			/>

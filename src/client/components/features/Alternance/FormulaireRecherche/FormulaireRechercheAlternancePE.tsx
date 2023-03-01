@@ -49,7 +49,7 @@ export function FormulaireRechercheAlternancePE() {
 						value={inputMotCle}
 						name="motCle"
 						autoFocus
-						placeholder="Exemple : serveur, tourisme..."
+						placeholder="Exemples : serveur, tourisme..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
 					<InputLocalisation

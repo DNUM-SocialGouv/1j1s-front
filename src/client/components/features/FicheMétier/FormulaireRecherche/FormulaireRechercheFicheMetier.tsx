@@ -13,7 +13,7 @@ export function FormulaireRechercheFicheMetier() {
 				className={styles.inputNomMetier}
 				label="Indiquez le métier que vous recherchez"
 				name="metier"
-				placeholder="Exemple: cuisinier"
+				placeholder="Exemple : cuisinier"
 	  />
 	  <MeilisearchCustomRefinementList
 				className={styles.inputCentresInteret}

@@ -97,7 +97,7 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				id="autocomplete-commune"
 				label="Ville"
 				name="ville"
-				placeholder="Exemple: Paris, Béziers..."
+				placeholder="Exemples : Paris, Béziers..."
 				onSuggestionSelected={(event, suggestion) => {
 					setInputCodePostal(suggestion.codePostal);
 					setInputVille(suggestion.ville);

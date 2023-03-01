@@ -9,11 +9,6 @@
   @include media(medium) {
     grid-template-columns: repeat(2, 1fr);
   }
-  input {
-    background-color: $color-on-primary;
-    border-radius: 30px;
-    box-shadow: none;
-  }
 
   label {
     margin-top: 1rem;

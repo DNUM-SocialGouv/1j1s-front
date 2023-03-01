@@ -102,7 +102,7 @@ export function FormulaireRechercheOffreEmploi() {
 						value={inputMotCle}
 						name="motCle"
 						autoFocus
-						placeholder="Exemple : boulanger, informatique..."
+						placeholder="Exemples : boulanger, informatique..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
 					<InputLocalisation
@@ -202,7 +202,7 @@ export function FormulaireRechercheOffreEmploi() {
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
 							onChange={setInputTypeDeContrat}
-							label="Type de contrat"
+							label="Types de contrats"
 							value={inputTypeDeContrat}
 							name="typeDeContrats"
 						/>
@@ -226,7 +226,7 @@ export function FormulaireRechercheOffreEmploi() {
 							onChange={setInputDomaine}
 							value={inputDomaine}
 							name="grandDomaine"
-							label="Domaine"
+							label="Domaines"
 						/>
 					</div>
 				)}

@@ -55,14 +55,13 @@
     justify-content: space-between;
     color: $color-mention-grey;
     padding: 0.375rem 0.375rem 0.375rem 0.75rem;
-    border: 1px solid $color-on-background;
+    border: 1px solid $neutral-grey;
     border-radius: 20px;
 
     &[aria-expanded=true] {
         border: 1px solid transparent;
         outline: 2px solid $color-primary;
         outline-offset: -2px;
-        background-color: $color-background-white-lilac;
     }
 
     &Invalid {

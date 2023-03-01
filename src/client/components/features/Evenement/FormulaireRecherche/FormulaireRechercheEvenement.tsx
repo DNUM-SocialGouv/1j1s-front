@@ -12,7 +12,7 @@ export function FormulaireRechercheEvenement() {
 	  <MeilisearchCustomSearchBox
 				label="Mot-clé, métier, accompagnement…"
 				name="motCle"
-				placeholder="Exemples: gendarmerie, cuisinier, mentorat"
+				placeholder="Exemples : gendarmerie, cuisinier, mentorat"
 	  />
 	  <MeilisearchInputRefinement
 				attribute="lieuEvenement"

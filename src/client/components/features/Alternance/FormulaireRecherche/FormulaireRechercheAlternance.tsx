@@ -58,7 +58,7 @@ export function FormulaireRechercheAlternance() {
 							codeRomes={inputCodeRomes}
 							required
 							autoFocus
-							placeholder={'Exemples : informatique, boulanger...'}
+							placeholder={'Exemples : Enseignement, recherche...'}
 						/>
 						<InputCommune
 							code={inputCodeCommune}

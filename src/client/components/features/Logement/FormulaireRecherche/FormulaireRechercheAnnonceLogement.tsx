@@ -39,7 +39,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				className={styles.inputVille}
 				label="Rechercher par ville"
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 			/>
 			{!isSmallScreen && (
 				<>
