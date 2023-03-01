@@ -22,6 +22,7 @@ const url_regex = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-
 const EMAIL_OR_URL_REGEX = `^${email_regex}|${url_regex}$`;
 const DUREE_MOIS_EN_JOUR = 30;
 const UNITE = '€';
+const LONGUEUR_MAX_TITRE = 200;
 
 enum Stage {
 	DATE_DE_DEBUT = 'dateDebut',
@@ -88,10 +89,11 @@ export default function StageDeposerOffreFormulaireStage() {
 				</p>
 				<div className={styles.bodyFormulaire}>
 					<InputText
-						label="Indiquez le nom de l’offre de stage"
+						label="Indiquez le nom de l’offre de stage (200 caractères maximum)"
 						name={Stage.NOM}
 						value={informationsStage?.nomOffre}
 						placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
+						maxLength={LONGUEUR_MAX_TITRE}
 						required
 						className={styles.inputNomOffre}
 					/>
