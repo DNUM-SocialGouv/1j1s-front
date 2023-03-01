@@ -1,10 +1,11 @@
 import { FormationService } from '~/client/services/formation/formation.service';
 import { createSuccess } from '~/server/errors/either';
-import { Formation, NiveauRequis } from '~/server/formations/domain/formation';
+import { NiveauRequis,RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
-export const aRésultatFormation = (): Array<Formation> => [
+export const aRésultatFormation = (): Array<RésultatRechercheFormation> => [
 	{
 		adresse: '1 rue de la République',
+		idRco: '123',
 		nomEntreprise: 'La Bonne Alternance',
 		tags: ['Paris', NiveauRequis['NIVEAU_5']],
 		titre: 'Développeur web',

@@ -11,7 +11,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
-import { Formation, NiveauRequis } from '~/server/formations/domain/formation';
+import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 describe('RechercherFormation', () => {
 	beforeEach(() => {
@@ -52,8 +52,9 @@ describe('RechercherFormation', () => {
 	describe('quand le composant est affiché pour une recherche avec résultats', () => {
 		it('affiche les critères de recherche sous forme d‘étiquettes', async () => {
 			// GIVEN
-			const formationFixture: Formation[] = [
+			const formationFixture: RésultatRechercheFormation[] = [
 				{
+					idRco: '123',
 					nomEntreprise: 'La Bonne Alternance',
 					tags: ['Paris', NiveauRequis['NIVEAU_5']],
 					titre: 'Développeur web',
@@ -91,6 +92,48 @@ describe('RechercherFormation', () => {
 			const resultListElements = within(resultList).getAllByText('En savoir plus');
 			expect(resultListElements).toHaveLength(formationFixture.length);
 			expect(await screen.findByText((formationFixture[0].titre))).toBeInTheDocument();
+		});
+		it('affiche les résultats avec un lien vers la page de la formation', async () => {
+			// GIVEN
+			const formationFixture: RésultatRechercheFormation[] = [
+				{
+					idRco: '123',
+					nomEntreprise: 'La Bonne Alternance',
+					tags: ['Paris', NiveauRequis['NIVEAU_5']],
+					titre: 'Développeur web',
+				},
+			];
+			const formationServiceMock = aFormationService(formationFixture);
+			const métierServiceMock = aMétierService();
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({
+				query: {
+					codeCommune: '75056',
+					codeRomes: 'D1103,D1101,H2101',
+					distanceCommune: '10',
+					latitudeCommune: '48.856614',
+					libelleCommune: 'Paris',
+					libelleMetier: 'Boucherie,charcuterie,traiteur',
+					longitudeCommune: '2.3522219',
+				},
+			});
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					formationService={formationServiceMock}
+					métierService={métierServiceMock}
+					localisationService={localisationServiceMock}
+				>
+					<RechercherFormation/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
+			const resultListElements = within(resultList).getAllByRole('link');
+			expect(resultListElements).toHaveLength(formationFixture.length);
+			expect(resultListElements[0].getAttribute('href')).toEqual('/formations/apprentissage/123?codeCommune=75056&codeRomes=D1103%2CD1101%2CH2101&distanceCommune=10&latitudeCommune=48.856614&longitudeCommune=2.3522219');
 		});
 	});
 });

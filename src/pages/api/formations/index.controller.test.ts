@@ -3,10 +3,10 @@ import nock from 'nock';
 
 import { rechercherFormationHandler } from '~/pages/api/formations/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { Formation } from '~/server/formations/domain/formation';
-import { aRésultatFormation } from '~/server/formations/domain/formation.fixture';
+import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { aRésultatRechercheFormation } from '~/server/formations/domain/formation.fixture';
 import {
-	aLaBonneAlternanceApiFormationResponse,
+	aLaBonneAlternanceApiRésultatRechercheFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.fixture';
 
 describe('rechercher formation', () => {
@@ -20,14 +20,14 @@ describe('rechercher formation', () => {
 
 		nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/v1/').get(
 			`/formations?caller=${caller}&romes=${codeRomes}&insee=${codeCommune}&longitude=${longitudeCommune}&latitude=${latitudeCommune}&radius=${radius}`,
-		).reply(200, aLaBonneAlternanceApiFormationResponse());
+		).reply(200, aLaBonneAlternanceApiRésultatRechercheFormationResponse());
 
-		await testApiHandler<Array<Formation> | ErrorHttpResponse>({
+		await testApiHandler<Array<RésultatRechercheFormation> | ErrorHttpResponse>({
 			handler: (req, res) => rechercherFormationHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
-				expect(json).toEqual(aRésultatFormation());
+				expect(json).toEqual(aRésultatRechercheFormation());
 			},
 			url: `/formations?codeRomes=${codeRomes}&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
 		});

@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 
-import { aRésultatFormation } from '~/server/formations/domain/formation.fixture';
+import { aRésultatRechercheFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	aListeDeMetierLaBonneAlternance,
 } from '~/server/metiers/domain/métier.fixture';
 
 import { interceptGet } from '../interceptGet';
+
 
 
 describe('Parcours formation LBA', () => {
@@ -24,8 +25,8 @@ describe('Parcours formation LBA', () => {
 	});
 
 	describe('Quand l’utilisateur cherche un métier', () => {
-		const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();
 		it('tous les métiers sont accessibles mais au maximum 10 sont visibles sans scroll', () => {
+			const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();
 			cy.visit('/formations/apprentissage');
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.focused().type('travaux', { force: true }),
@@ -43,13 +44,49 @@ describe('Parcours formation LBA', () => {
 	describe('Quand l’utilisateur effectue une recherche', () => {
 		it('filtre les résultats par mot clé', () => {
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104'),
+				actionBeforeWaitTheCall: () => cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Le+Havre+%2876610%29&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10'),
 				alias: 'recherche-metiers',
 				path: '/api/formations*',
-				response: JSON.stringify(aRésultatFormation()),
+				response: JSON.stringify(aRésultatRechercheFormation()),
 			});
 
 			cy.get('ul[aria-label="Formations en alternance"] > li').should('have.length', 2);
+		});
+
+		describe('Quand l’utilisateur clique sur un résultat', () => {
+			describe('Quand la formation résultat est complète', () => {
+				it('affiche la page de formation', () => {
+					const formationList = aRésultatRechercheFormation();
+					const firstId = formationList[0].idRco;
+					
+					const formation = {
+						adresse: {
+							adresseComplète: 'adresse',
+							codePostal: 'codePostal',
+						},
+						contact: {},
+						nomEntreprise: 'nomEntreprise',
+						tags: [ 'codePostal' ],
+						titre: 'titre',
+					};
+
+					interceptGet({
+						actionBeforeWaitTheCall: () => cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Le+Havre+%2876610%29&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10'),
+						alias: 'recherche-metiers',
+						path: '/api/formations*',
+						response: JSON.stringify(aRésultatRechercheFormation()),
+					});
+					
+					interceptGet({
+						actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Formations en alternance"] > li').first().click(),
+						alias: 'résultat-formation',
+						path: `/_next/data/*/formations/apprentissage/${firstId}.json?codeRomes=D1102%2CD1104&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10&id=${firstId}`,
+						response: JSON.stringify({ pageProps: { formation } }),
+					});
+					cy.get('h1').contains(formation.titre);
+					cy.get('h2').contains(formation.nomEntreprise);
+				});
+			});
 		});
 	});
 });

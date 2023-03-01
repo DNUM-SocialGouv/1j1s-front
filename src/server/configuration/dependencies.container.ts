@@ -60,6 +60,7 @@ import {
 import {
 	ApiLaBonneAlternanceFormationRepository,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
+import { ConsulterFormationUseCase } from '~/server/formations/useCases/consulterFormation.useCase';
 import { RechercherFormationUseCase } from '~/server/formations/useCases/rechercherFormation.useCase';
 import {
 	ApiPoleEmploiJobÉtudiantRepository,
@@ -129,6 +130,7 @@ export interface AlternanceDependencies {
 
 export interface FormationDependencies {
 	rechercherFormation: RechercherFormationUseCase
+	consulterFormation: ConsulterFormationUseCase
 }
 
 export interface MétierDependencies {
@@ -227,6 +229,7 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const formationDependencies: FormationDependencies = {
+		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository),
 		rechercherFormation: new RechercherFormationUseCase(apiLaBonneAlternanceFormationRepository),
 	};
 	
