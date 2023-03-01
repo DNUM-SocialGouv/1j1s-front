@@ -1,8 +1,24 @@
-export interface Formation {
+export interface RésultatRechercheFormation {
 	adresse?: string
 	titre: string
 	nomEntreprise?: string
 	tags: [ localisation: string | undefined, niveauRequis: NiveauRequis | 'Autre' ]
+	idRco: string
+	codePostal?: string
+	ville?: string
+}
+
+export interface Formation {
+	titre?: string
+	nomEntreprise?: string
+	tags: string[]
+	description?: string
+	objectif?: string
+	duréeIndicative?: string
+	nombreHeuresEnEntreprise?: number
+	nombreHeuresAuCentre?: number
+	adresse: { adresseComplète?: string, codePostal?: string }
+	contact: { email?: string; tel?: string; url?: string }
 }
 
 export enum NiveauRequis {

@@ -6,7 +6,7 @@ import {
 
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { Either } from '~/server/errors/either';
-import { Formation } from '~/server/formations/domain/formation';
+import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 interface FormationQueryFiltre extends ParsedUrlQuery {
 	codeCommune: string
@@ -19,9 +19,9 @@ interface FormationQueryFiltre extends ParsedUrlQuery {
 export class FormationService {
 	constructor(private httpClientService: HttpClientService) {}
 
-	async rechercherFormation(query: string): Promise<Either<Array<Formation>>> {
+	async rechercherFormation(query: string): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const filtres = this.filtrerQueries(query);
-		return this.httpClientService.get<Array<Formation>>(`formations?${filtres}`);
+		return this.httpClientService.get<Array<RésultatRechercheFormation>>(`formations?${filtres}`);
 	}
 
 	private filtrerQueries(query: string): string {

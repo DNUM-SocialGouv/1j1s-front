@@ -18,7 +18,8 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { FormationService } from '~/client/services/formation/formation.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { Formation } from '~/server/formations/domain/formation';
+import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
@@ -27,7 +28,7 @@ export default function RechercherFormation() {
 
 	const formationService = useDependency<FormationService>('formationService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [formationList, setFormationList] = useState<Formation[]>([]);
+	const [formationList, setFormationList] = useState<RésultatRechercheFormation[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [nombreRésultats, setNombreRésultats] = useState(0);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
@@ -91,7 +92,16 @@ export default function RechercherFormation() {
 				isLoading={isLoading}
 				messageRésultatRecherche={messageRésultatRecherche}
 				nombreSolutions={formationList.length}
-				listeSolutionElement={<ListeFormation résultatList={formationList}/>}
+				listeSolutionElement={
+					<ListeFormation
+						résultatList={formationList}
+						queryParams={transformObjectToQueryString({
+							...router.query,
+							libelleCommune: undefined,
+							libelleMetier: undefined,
+						})}
+					/>
+				}
 			/>
 		</main>
 	</>;
@@ -109,20 +119,21 @@ function BannièreFormation() {
 }
 
 interface ListeRésultatProps {
-	résultatList: Formation[]
+	résultatList: RésultatRechercheFormation[]
+	queryParams: string
 }
 
-function ListeFormation({ résultatList }: ListeRésultatProps) {
+function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 	if (!résultatList.length) {
 		return null;
 	}
 
 	return (
 		<ListeRésultatsRechercherSolution aria-label="Formations en alternance">
-			{résultatList.map((formation: Formation) => (
+			{résultatList.map((formation) => (
 				<li key={uuidv4()}>
 					<RésultatRechercherFormation
-						lienOffre={'#'}
+						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}
 						logoEntreprise={'/images/logos/fallback.svg'}
 						étiquetteOffreList={formation.tags as string[]}
@@ -133,4 +144,8 @@ function ListeFormation({ résultatList }: ListeRésultatProps) {
 			))}
 		</ListeRésultatsRechercherSolution>
 	);
+}
+
+function getLienOffre(formation: RésultatRechercheFormation, queryParams: string) {
+	return `/formations/apprentissage/${encodeURIComponent(formation.idRco)}?${queryParams}`;
 }

@@ -15,4 +15,4 @@ export function withValidation(schemas: ValidationSchemas, handler: NextApiHandl
 			return res.status(400).json({ error: 'les paramètres dans l‘url ne respectent pas le schema de validation' });
 		},
 	})(schemas, handler);
-};
+}

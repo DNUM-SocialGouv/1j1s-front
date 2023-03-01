@@ -1,8 +1,11 @@
 import React from 'react';
 
 import RechercherFormation from '~/client/components/features/Formation/Rechercher/RechercherFormation';
+import useReferrer from '~/client/hooks/useReferrer';
 
 export default function FormationAlternancePage() {
+	useReferrer();
+
 	return (
 		<RechercherFormation/>
 	);
