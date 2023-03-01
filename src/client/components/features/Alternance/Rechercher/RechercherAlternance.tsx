@@ -62,11 +62,11 @@ export default function RechercherAlternance() {
 		} else {
 			return '';
 		}
-		if (router.query.motCle) {
-			messageRésultatRechercheSplit.push(`pour ${router.query.motCle}`);
+		if (router.query.libelleMetier) {
+			messageRésultatRechercheSplit.push(`pour ${router.query.libelleMetier}`);
 		}
 		return messageRésultatRechercheSplit.join(' ');
-	}, [nombreRésultats, router.query.motCle]);
+	}, [nombreRésultats, router.query.libelleMetier]);
 
 	const étiquettesRecherche = useMemo(() => {
 		if (router.query.libelleCommune) {

@@ -100,11 +100,11 @@ describe('RechercherAlternance', () => {
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheAlternance = screen.getByRole('form');
-			const nbRésultats = await screen.findByText(/^[0-9]+ offre(s)? d’alternance(s)?$/);
+			const messageRésultats = await screen.findByText(/^[0-9]+ offre(s)? d’alternance(s)? pour Boulangerie, pâtisserie, chocolaterie/);
 
 			// THEN
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
-			expect(nbRésultats).toBeInTheDocument();
+			expect(messageRésultats).toBeInTheDocument();
 			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expectedQuery);
 			const resultList = await within(await screen.findByRole('list', { name: 'Offres d’alternances' })).findAllByTestId('RésultatRechercherSolution');
 			expect(resultList).toHaveLength(alternanceFixture.length);
