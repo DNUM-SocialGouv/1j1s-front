@@ -67,6 +67,66 @@ describe('<Entreprise />', () => {
 			expect(screen.getByRole('textbox', { name: 'Indiquez une adresse mail de contact' })).toBeInvalid();
 		});
 	});
+
+	describe('quand je saisis une URL vers le logo de l’entreprise', () => {
+		describe('et qu’il ne s’agit pas d’une URL', () => {
+			it('je vois un message d’erreur', async () => {
+				// Given
+				render(<Entreprise />);
+
+				// When
+				const logoUrlInputText = screen.getByRole('textbox', { name: 'Partagez le logo de l’entreprise - lien/URL' });
+				await userEvent.type(logoUrlInputText, 'some random text');
+
+				// Then
+				expect(logoUrlInputText).toBeInvalid();
+			});
+		});
+
+		describe('et qu’il s’agit bien d’une URL', () => {
+			it('je ne vois rien d’autre que mon url saisie', async () => {
+				// Given
+				render(<Entreprise />);
+
+				// When
+				const logoUrlInputText = screen.getByRole('textbox', { name: 'Partagez le logo de l’entreprise - lien/URL' });
+				await userEvent.type(logoUrlInputText, 'http://some.random.url.com');
+
+				// Then
+				expect(logoUrlInputText).toBeValid();
+			});
+		});
+	});
+
+	describe('quand je saisis une URL vers le site de l’entreprise', () => {
+		describe('et qu’il ne s’agit pas d’une URL', () => {
+			it('je vois un message d’erreur', async () => {
+				// Given
+				render(<Entreprise />);
+
+				// When
+				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Indiquez le lien du site de l’entreprise - lien/URL' });
+				await userEvent.type(websiteUrlInputText, 'some random text');
+
+				// Then
+				expect(websiteUrlInputText).toBeInvalid();
+			});
+		});
+
+		describe('et qu’il s’agit bien d’une URL', () => {
+			it('je ne vois rien d’autre que mon url saisie', async () => {
+				// Given
+				render(<Entreprise />);
+
+				// When
+				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Indiquez le lien du site de l’entreprise - lien/URL' });
+				await userEvent.type(websiteUrlInputText, 'http://some.random.url.com');
+
+				// Then
+				expect(websiteUrlInputText).toBeValid();
+			});
+		});
+	});
 });
 
 async function BoutonSuivant() {

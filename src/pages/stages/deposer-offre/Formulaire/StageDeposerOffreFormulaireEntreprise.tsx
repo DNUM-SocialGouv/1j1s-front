@@ -20,6 +20,7 @@ import {
 import styles from './StageDeposerOffreFormulaire.module.scss';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
+const URL_REGEX = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
 
 enum Employeur {
 	DESCRIPTION = 'descriptionEmployeur',
@@ -45,7 +46,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 		localStorageEntreprise.set(donnéesEntreprise);
 		return router.push(`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`);
 	}
-	
+
 	return (
 		<Container className={styles.container}>
 			<div className={styles.etape}>Etape 1 sur 3 : Votre entreprise</div>
@@ -91,6 +92,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						type="url"
 						name={Employeur.LOGO}
 						value={informationsEntreprise?.logoEmployeur}
+						pattern={URL_REGEX}
 						placeholder="Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3..."
 					/>
 					<InputText
@@ -98,6 +100,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 						type="url"
 						name={Employeur.SITE}
 						value={informationsEntreprise?.siteEmployeur}
+						pattern={URL_REGEX}
 						placeholder="Exemple : https://1jeune1solution.gouv.fr"
 					/>
 				</div>
