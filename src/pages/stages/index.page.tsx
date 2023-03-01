@@ -9,7 +9,7 @@ import MeilisearchCustomCurrentRefinements
 import useReferrer from '~/client/hooks/useReferrer';
 
 const HITS_PER_PAGE = 15;
-const MEILISEARCH_INDEX = `${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}:dateDeDebut:desc`;
+const MEILISEARCH_INDEX = `${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}`;
 const MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherOffreStagePage() {

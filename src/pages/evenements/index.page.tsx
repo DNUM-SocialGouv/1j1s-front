@@ -9,7 +9,7 @@ import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 
 const HITS_PER_PAGE = 15;
-const MEILISEARCH_INDEX = 'evenement:dateDebut:asc';
+const MEILISEARCH_INDEX = 'evenement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function PageEvenements() {
