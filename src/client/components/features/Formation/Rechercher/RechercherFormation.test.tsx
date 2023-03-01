@@ -76,7 +76,7 @@ describe('RechercherFormation', () => {
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheFormation = screen.getByRole('form');
-			const nbRésultats = await screen.findByText(/[0-9]+ formation(s)? en alternance/);
+			const nbRésultats = await screen.findByText(/[0-9]+ formation(s)? en alternance pour Boucherie,charcuterie,traiteur/);
 
 			// THEN
 			expect(formulaireRechercheFormation).toBeInTheDocument();
