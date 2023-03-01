@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.11.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.11.1...v3.11.2) (2023-03-01)
+
+
+### Bug Fixes
+
+* **stages:** textarea en erreur quand valeur par default ([e27abbd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e27abbd13c295e4c42c99069ac0cdd145b6f9dc9))
+
 ## [3.11.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.11.0...v3.11.1) (2023-03-01)
 
 
