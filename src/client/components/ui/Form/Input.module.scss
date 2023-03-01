@@ -51,14 +51,14 @@
     height: 2.5rem;
     padding-inline: 1rem;
     border-radius: 1.25rem;
-    border: solid 1px $color-on-surface;
-    background-color: $color-on-primary;
+    border: solid 1px $neutral-grey;
+
+    &:disabled {
+      background-color: $white-lilac;
+    }
 
     &:active, &:focus {
-      border: 1px solid transparent;
-      outline: 2px solid $color-primary;
-      outline-offset: -2px;
-      background-color: $color-background-white-lilac;
+      border-color: $color-primary;
     }
 
     &Error {

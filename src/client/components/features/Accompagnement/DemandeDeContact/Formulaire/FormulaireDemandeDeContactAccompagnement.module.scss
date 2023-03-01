@@ -12,10 +12,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  input {
-    background-color: $color-background;
-  }
-
   &TextArea {
     margin-bottom: 1rem;
     @include media(medium) {

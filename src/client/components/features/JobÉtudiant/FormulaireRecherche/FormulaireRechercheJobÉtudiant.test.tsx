@@ -96,7 +96,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaine' });
+			const button = screen.getByRole('button', { name: 'Domaines' });
 			expect(button).toBeInTheDocument();
 
 		});
@@ -113,7 +113,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaine' });
+				const button = screen.getByRole('button', { name: 'Domaines' });
 				fireEvent.click(button);
 
 				const domaineList = await screen.findByRole('listbox');

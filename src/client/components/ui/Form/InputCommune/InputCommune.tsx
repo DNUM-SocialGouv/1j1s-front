@@ -243,7 +243,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 							aria-autocomplete="list"
 							aria-controls={LOCALISATION_SUGGESTIONS_ID}
 							aria-activedescendant={htmlLabel}
-							placeholder={'Exemple: Paris, Béziers...'}
+							placeholder={'Exemples : Paris, Béziers...'}
 							className={classNames(styles.formControlInput, required && invalid && styles.formControlInputError)}
 							value={libelléCommune}
 							onChange={(event) => {

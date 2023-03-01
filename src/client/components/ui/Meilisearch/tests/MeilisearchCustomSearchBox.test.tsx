@@ -19,7 +19,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	  <MeilisearchCustomSearchBox
 				label='Rechercher par ville'
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 		const form = screen.queryByRole('form');
@@ -31,13 +31,13 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	  <MeilisearchCustomSearchBox
 				label='Rechercher par ville'
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 		const input = screen.getByLabelText('Rechercher par ville', { selector: 'input' });
 		expect(input).toBeInTheDocument();
 		expect(input).toHaveAttribute('name', 'ville');
-		expect(input).toHaveAttribute('placeholder', 'Exemples: Paris, Toulouse');
+		expect(input).toHaveAttribute('placeholder', 'Exemples : Paris, Toulouse');
 	});
 
 	it('ne contient pas de button reset quand le champ est vide', () => {
@@ -45,7 +45,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	  <MeilisearchCustomSearchBox
 				label='Rechercher par ville'
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 
@@ -59,7 +59,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	  <MeilisearchCustomSearchBox
 				label='Rechercher par ville'
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 		const user = userEvent.setup();
@@ -75,7 +75,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	  <MeilisearchCustomSearchBox
 				label='Rechercher par ville'
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 		const user = userEvent.setup();
@@ -91,7 +91,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	  <MeilisearchCustomSearchBox
 				label='Rechercher par ville'
 				name="ville"
-				placeholder="Exemples: Paris, Toulouse"
+				placeholder="Exemples : Paris, Toulouse"
 				resetTitle={'Vider le champ ville'}
 	  />,
 		);

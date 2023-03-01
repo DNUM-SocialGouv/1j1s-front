@@ -16,14 +16,18 @@
   }
 
   &Field {
+    @extend %text-small;
     display: flex;
     align-items: center;
     height: 2.5rem;
     padding: 0 16px;
     border-radius: 1.25rem;
-    border: solid 1px $color-on-surface;
-    background-color: $color-form-field;
+    border: solid 1px $neutral-grey;
     font-family: inherit;
+
+    &:disabled {
+      background-color: $white-lilac;
+    }
 
     &:active, &:focus {
       border-color: $color-primary;
@@ -36,12 +40,10 @@
   }
 
   &Hint {
-    height: 2rem;
-    position: absolute;
-    bottom: 0rem;
+    padding-top: 0.25rem;
+    color: $color-primary;
     @extend %text-small;
-    line-height: 1.2;
-
+    line-height: 1rem;
 
     &Error {
       color: $color-error;

@@ -255,7 +255,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 						aria-autocomplete="list"
 						aria-controls={LOCALISATION_SUGGESTIONS_ID}
 						aria-activedescendant="rechercherLocalisation"
-						placeholder={'Exemple: Paris, Béziers...'}
+						placeholder={'Exemples : Paris, Béziers...'}
 						className={classNames(styles.formControlInput)}
 						value={libelléLocalisation}
 						onChange={(event) => {

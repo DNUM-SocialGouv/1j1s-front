@@ -1,7 +1,5 @@
-// eslint-disable-next-line import/named
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-// eslint-disable-next-line import/named
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -123,12 +121,12 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 							{suggestion}
 						</li>
 					))}
-				{listeDeLocalisations(items, localisation).length === 0 &&
+				{listeDeLocalisations(items, localisation).length === 0 && (
 					<li className={styles.aucunRésultat} data-testid="LocalisationNoResultMessage">
-							Aucune proposition ne correspond à votre saisie.
-							Vérifiez que votre saisie correspond bien à un lieu.
-							Exemple : Paris, ...
-					</li>
+						Aucune proposition ne correspond à votre saisie.
+						Vérifiez que votre saisie correspond bien à un lieu.
+						Exemple : Paris, ...
+					</li>)
 				}
 			</ul>
 		);
@@ -154,7 +152,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 						aria-autocomplete="list"
 						aria-controls={LOCALISATION_SUGGESTIONS_ID}
 						aria-activedescendant="rechercherLocalisation"
-						placeholder={'Exemple : Toulouse, Paris...'}
+						placeholder={'Exemples : Toulouse, Paris...'}
 						className={styles.formControlInput}
 						value={localisation}
 						onChange={(event) => {

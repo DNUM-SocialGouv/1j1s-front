@@ -56,7 +56,7 @@ export function FormulaireRechercheJobÉtudiant() {
 						value={inputMotCle}
 						name="motCle"
 						autoFocus
-						placeholder="Exemple : serveur, tourisme..."
+						placeholder="Exemples : serveur, tourisme..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
 					<InputLocalisation
@@ -69,7 +69,7 @@ export function FormulaireRechercheJobÉtudiant() {
 						multiple
 						optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
 						onChange={setInputDomaine}
-						label="Domaine"
+						label="Domaines"
 						value={inputDomaine}
 						name="grandDomaine"
 					/>

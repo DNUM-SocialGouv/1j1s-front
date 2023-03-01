@@ -166,7 +166,7 @@ export default function JeRecruteAfprPoeiInscription() {
         							<InputText
         								label="Indiquez le nom de l’entreprise"
         								name="companyName"
-        								placeholder="Exemple : Crédit Agricole, SNCF…"
+        								placeholder="Exemples : Crédit Agricole, SNCF…"
         								required
         								value={formulaireÉtape1.nomSociété}
         								onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
@@ -179,7 +179,7 @@ export default function JeRecruteAfprPoeiInscription() {
         								id="autocomplete-commune"
         								label="Indiquez la ville du siège social de l’entreprise"
         								name="companyPostalCode"
-        								placeholder="Exemple : Paris, Marseille..."
+        								placeholder="Exemples : Paris, Marseille..."
         								valeurInitiale={autocomplétionCommuneValeur}
         								onSuggestionSelected={(event, suggestion) => {
         									setAutocomplétionCommuneValeur(suggestion);
@@ -207,7 +207,7 @@ export default function JeRecruteAfprPoeiInscription() {
         								id="autocomplete-secteur-activité"
         								label="Indiquez le secteur d’activité de l’entreprise"
         								name="companySector"
-        								placeholder="Exemple : Administration publique, Fonction publique d’Etat …"
+        								placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
         								valeurInitiale={secteurActivitéValeur}
         								onSuggestionSelected={(event, suggestion) => {
         									setSecteurActivitéValeur(suggestion);
@@ -306,7 +306,7 @@ export default function JeRecruteAfprPoeiInscription() {
         						<InputText
         							label="Indiquez votre rôle au sein de l’entreprise"
         							name="job"
-        							placeholder="Exemple : RH, Manager référent"
+        							placeholder="Exemples : RH, Manager référent"
         							required
         							value={formulaireÉtape2.travail}
         							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({

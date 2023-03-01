@@ -45,7 +45,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 				label="Indiquez le nom de l’entreprise ou de l’employeur"
 				name={Employeur.NOM}
 				value={informationsEntreprise?.nomEmployeur}
-				placeholder="Exemple : Crédit Agricole, SNCF…"
+				placeholder="Exemples : Crédit Agricole, SNCF…"
 				required
 			/>
 			<InputText

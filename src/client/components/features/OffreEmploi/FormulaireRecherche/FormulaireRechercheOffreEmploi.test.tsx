@@ -229,7 +229,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaine' });
+			const button = screen.getByRole('button', { name: 'Domaines' });
 			expect(button).toBeInTheDocument();
 		});
 
@@ -245,7 +245,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
         
-				const button = screen.getByRole('button', { name: 'Type de contrat' });
+				const button = screen.getByRole('button', { name: 'Types de contrats' });
 				fireEvent.click(button);
 
 				const typeDeContratList = await screen.findByRole('listbox');
@@ -272,7 +272,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaine' });
+				const button = screen.getByRole('button', { name: 'Domaines' });
 				fireEvent.click(button);
 
 				const domaineList = await screen.findByRole('listbox');
