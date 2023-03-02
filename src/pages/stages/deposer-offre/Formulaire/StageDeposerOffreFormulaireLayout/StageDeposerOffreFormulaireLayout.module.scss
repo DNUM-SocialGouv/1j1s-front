@@ -1,0 +1,61 @@
+@import "@styles/utilities";
+
+.informationChamp {
+  color: $color-primary;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  @include media(large) {
+    margin-top: 3.5rem;
+  }
+}
+
+.formulaire {
+  @include media(large) {
+    border-radius: 40px;
+    padding: 0 8rem;
+  }
+
+  @include media(xlarge) {
+    padding: 0 8rem 2rem;
+  }
+}
+
+.bodyFormulaire {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  input {
+    background-color: $color-surface;
+  }
+
+  @include media(xlarge) {
+    flex-direction: row;
+    justify-content: space-between;
+
+    > div {
+      min-width: 48%;
+    }
+  }
+}
+
+.validation {
+  margin-bottom: 1.5rem;
+
+  > button {
+    width: 100%;
+  }
+}
+
+@include media(large) {
+  .validation {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    margin-block: 1.5rem;
+
+    > button {
+      width: 50%;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@import "@styles/utilities";
+
+.container {
+  padding: 0 2rem;
+  @include media(large) {
+    padding: 0 0 1rem;
+  }
+}
+
+.texteValidation {
+  @extend %text-large;
+  font-size: 1.2rem;
+}
+
+.boutonsConfirmationEnvoi {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  > a {
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
+@include media(large) {
+  .texteValidation {
+    text-align: center;
+  }
+
+  .boutonsConfirmationEnvoi {
+    display: flex;
+    margin-bottom: 4rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    > a {
+      width: auto;
+    }
+  }
+}

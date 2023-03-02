@@ -1,20 +1,24 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useMemo, useRef } from 'react';
 
-import { Container } from '~/client/components/layouts/Container/Container';
+import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputArea } from '~/client/components/ui/Form/InputText/InputArea';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import { ETAPE_ENTREPRISE, ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
+import { StageDeposerOffreFormulaireLayout } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLayout/StageDeposerOffreFormulaireLayout';
+import {
+	ETAPE_ENTREPRISE,
+	ETAPE_OFFRE_DE_STAGE,
+	URL_DEPOSER_OFFRE,
+} from '~/pages/stages/deposer-offre/index.page';
 
-import styles from './StageDeposerOffreFormulaire.module.scss';
+import styles from './StageDeposerOffreFormulaireStage.module.scss';
 import { domaineStage } from './StageDomaines';
 
 const email_regex = '([a-zA-Z0-9!#$%&@\'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&\'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)';
@@ -33,6 +37,11 @@ enum Stage {
 	DOMAINE = 'domaineStage',
 	REMUNERATION = 'remunerationStage',
 	TELETRAVAIL = 'teletravail',
+}
+
+enum Télétravail {
+	OUI = 'true',
+	NON = 'false',
 }
 
 const dureeStageList: Option[] = [
@@ -64,6 +73,113 @@ export default function StageDeposerOffreFormulaireStage() {
 		return new Date().toISOString().split('T')[0];
 	}, []);
 
+	function ChampsObligatoires() {
+		return <>
+			<InputText
+				label="Indiquez le nom de l’offre de stage (200 caractères maximum)"
+				name={Stage.NOM}
+				value={informationsStage?.nomOffre}
+				placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
+				maxLength={LONGUEUR_MAX_TITRE}
+				required
+				className={styles.inputNomOffre}
+			/>
+			<InputText
+				pattern={EMAIL_OR_URL_REGEX}
+				label="Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
+				name={Stage.LIEN_CANDIDATURE}
+				value={informationsStage?.lienCandidature}
+				placeholder="Exemples : https://candidat.pole-emploi.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
+				required
+				className={styles.inputLienCandidature}
+			/>
+			<InputArea
+				className={styles.textareaWrapper}
+				id="descriptionOffre"
+				label={'Rédigez une description de l’offre de stage (200 caractères minimum)'}
+				placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
+				name={Stage.DESCRIPTION}
+				defaultValue={informationsStage?.descriptionOffre}
+				required
+				rows={10}
+				minLength={200}
+			/>
+			<InputText
+				label="Date de début du stage"
+				type="date"
+				name={Stage.DATE_DE_DEBUT}
+				value={informationsStage?.dateDebut}
+				required
+				min={disableBeforeToday}
+			/>
+			<Select
+				label="Indiquez la durée du stage"
+				name={Stage.DUREE}
+				value={informationsStage?.dureeStage}
+				placeholder="Sélectionnez une durée"
+				optionList={dureeStageList}
+				required
+			/>
+		</>;
+	}
+
+	function ChampsFacultatifs() {
+		return <>
+			<Select
+				label="Domaine de l’offre de stage"
+				name={Stage.DOMAINE}
+				value={informationsStage?.domaineStage}
+				placeholder="Sélectionnez un domaine"
+				optionList={domaineStage}
+			/>
+			<div className={styles.rémunérationWrapper}>
+				<label className={styles.rémunérationLabel} htmlFor="remunerationStage">Rémunération par mois</label>
+				<div className={styles.rémunérationContenu}>
+					<input
+						id="remunerationStage"
+						type="number"
+						name={Stage.REMUNERATION}
+						placeholder="Exemple : 560"
+						min={0}
+						defaultValue={informationsStage?.remunerationStage}
+						className={styles.rémunérationContenuInput}
+					/>
+					<span className={styles.rémunérationContenuUnité}>{UNITE}</span>
+				</div>
+			</div>
+			<div>
+				<fieldset className={styles.contenuTeletravail}>
+					<legend>Télétravail possible</legend>
+					<div className={styles.inputTeletravail}>
+						<Radio name={Stage.TELETRAVAIL} value="true" label="Oui"
+									 defaultChecked={informationsStage?.teletravail === Télétravail.OUI}/>
+						<Radio name={Stage.TELETRAVAIL} value="false" label="Non"
+									 defaultChecked={informationsStage?.teletravail === Télétravail.NON}/>
+					</div>
+				</fieldset>
+			</div>
+		</>;
+	}
+
+	function BoutonValidation() {
+		return <ButtonComponent
+			icon={<Icon name="angle-right"/>}
+			iconPosition="right"
+			label="Suivant"
+			type="submit"
+		/>;
+	}
+
+	function FormulaireOffreDeStage() {
+		return <StageDeposerOffreFormulaireLayout
+			inputsObligatoires={<ChampsObligatoires/>}
+			inputsFacultatifs={<ChampsFacultatifs/>}
+			formRef={formRef}
+			handleFormSubmit={handleFormSubmit}
+			boutonValidation={<BoutonValidation/>}
+		/>;
+	}
+
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
@@ -74,117 +190,13 @@ export default function StageDeposerOffreFormulaireStage() {
 	}
 
 	return (
-		<Container className={styles.container}>
-			<div className={styles.etape}>Etape 2 sur 3 : Votre offre de stage</div>
-			<Link
-				href={URL_DEPOSER_OFFRE}
-				appearance="asBackButton"
-				className={styles.boutonRetour}
-			>
-				Retour à l’étape précédente
-			</Link>
-			<form className={styles.formulaire} onSubmit={handleFormSubmit} ref={formRef}>
-				<p className={styles.champsObligatoires}>
-					Les champs suivants sont obligatoires
-				</p>
-				<div className={styles.bodyFormulaire}>
-					<InputText
-						label="Indiquez le nom de l’offre de stage (200 caractères maximum)"
-						name={Stage.NOM}
-						value={informationsStage?.nomOffre}
-						placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
-						maxLength={LONGUEUR_MAX_TITRE}
-						required
-						className={styles.inputNomOffre}
-					/>
-					<InputText
-						pattern={EMAIL_OR_URL_REGEX}
-						label="Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
-						name={Stage.LIEN_CANDIDATURE}
-						value={informationsStage?.lienCandidature}
-						placeholder="Exemples : https://candidat.pole-emploi.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
-						required
-						className={styles.inputLienCandidature}
-					/>
-					<InputArea
-						className={styles.textareaWrapper}
-						id="descriptionOffre"
-						label={'Rédigez une description de l’offre de stage (200 caractères minimum)'}
-						placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
-						name={Stage.DESCRIPTION}
-						defaultValue={informationsStage?.descriptionOffre}
-						required
-						rows={10}
-						minLength={200}
-					/>
-					<InputText
-						label="Date de début du stage"
-						type="date"
-						name={Stage.DATE_DE_DEBUT}
-						value={informationsStage?.dateDebut}
-						required
-						min={disableBeforeToday}
-					/>
-					<Select
-						label="Indiquez la durée du stage"
-						name={Stage.DUREE}
-						value={informationsStage?.dureeStage}
-						placeholder="Sélectionnez une durée"
-						optionList={dureeStageList}
-						required
-					/>
-				</div>
-				<p className={styles.champsFacultatifs}>
-					Les champs suivants sont facultatifs mais recommandés
-				</p>
-				<div className={styles.bodyFormulaire}>
-					<Select
-						label="Domaine de l’offre de stage"
-						name={Stage.DOMAINE}
-						value={informationsStage?.domaineStage}
-						placeholder="Sélectionnez un domaine"
-						optionList={domaineStage}
-					/>
-					<div className={styles.inputRenumerationWrapper}>
-						<label className={styles.labelRemunueration} htmlFor="remunerationStage">Rémunération par mois</label>
-						<div className={styles.contenuRemunueration}>
-							<input
-								id="remunerationStage"
-								type="number"
-								name={Stage.REMUNERATION}
-								placeholder="Exemple : 560"
-								min={0}
-								defaultValue={informationsStage?.remunerationStage}
-								className={styles.inputRemunueration}
-							/>
-							<span className={styles.uniteRemunueration}>{UNITE}</span>
-						</div>
-					</div>
-					<div>
-						<fieldset className={styles.contenuTeletravail}>
-							<legend>Télétravail possible</legend>
-							<div className={styles.inputTeletravail}>
-								<Radio name={Stage.TELETRAVAIL} value="true" label="Oui"
-											 defaultChecked={informationsStage?.teletravail === 'true'}/>
-								<Radio name={Stage.TELETRAVAIL} value="false" label="Non"
-											 defaultChecked={informationsStage?.teletravail === 'false'}/>
-							</div>
-						</fieldset>
-					</div>
-				</div>
-				<div className={styles.validation}>
-					<ButtonComponent
-						icon={<Icon name="angle-right"/>}
-						iconPosition="right"
-						label="Suivant"
-						type="submit"
-						className={styles.validationLink}
-					/>
-				</div>
-			</form>
-		</Container>
+		<FormulaireÉtapeLayout
+			étape="Etape 2 sur 3 : Votre offre de stage"
+			formulaire={<FormulaireOffreDeStage/>}
+			urlÉtapePrécédente={URL_DEPOSER_OFFRE}
+		/>
 	);
-}
+};
 
 function parseDonnéesOffreDeStage(formData: FormData): OffreDeStageDéposée.Stage {
 	return {

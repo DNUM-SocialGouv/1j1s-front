@@ -1,0 +1,25 @@
+@import "@styles/utilities";
+
+.container {
+  padding: 0 2rem;
+  @include media(large) {
+    padding: 0 0 1rem;
+  }
+}
+
+.étape {
+  @extend %background-primary;
+  max-width: 20rem;
+  text-align: center;
+  padding: 4px;
+  @include media(large) {
+    margin-left: 8rem;
+  }
+}
+
+.boutonRetour {
+  margin-top: 2rem;
+  @include media(large) {
+    margin-left: 8rem;
+  }
+}

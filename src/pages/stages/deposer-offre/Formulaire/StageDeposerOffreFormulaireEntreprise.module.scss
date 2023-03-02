@@ -1,0 +1,18 @@
+@import "@styles/utilities";
+
+
+.textareaWrapper {
+  margin-top: 1rem;
+
+  > textarea {
+    height: auto;
+    background-color: $color-surface;
+    padding-top: 1rem;
+  }
+
+  @include media(xlarge) {
+    width: 100%;
+  }
+}
+
+
