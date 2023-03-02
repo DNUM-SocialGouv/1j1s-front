@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.0...v3.12.1) (2023-03-02)
+
+
+### Bug Fixes
+
+* **stages:** limiter le nombre de caractères du titre d'une offre de stage ([8057b28](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8057b28b4bde6113c43f75632433242518451f62))
+
 ## [3.12.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.11.3...v3.12.0) (2023-03-02)
 
 
