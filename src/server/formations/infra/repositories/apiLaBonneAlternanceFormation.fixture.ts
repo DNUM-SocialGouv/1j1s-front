@@ -5,7 +5,11 @@ import {
 
 export function aFormationQuery(): FormationFiltre {
 	return {
-		codeRomes: ['D1406', 'D1407'],
+		codeCommune: '13180',
+		codeRomes: ['F1603', 'I1308'],
+		distanceCommune: '30',
+		latitudeCommune: '48.2',
+		longitudeCommune: '29.10',
 	};
 }
 
