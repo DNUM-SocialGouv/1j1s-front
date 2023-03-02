@@ -21,7 +21,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const response = await this.httpClientService.get<AlternanceApiJobsResponse>(endpoint);
 			return createSuccess(mapAlternance(response.data));
 		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche');
+			return handleSearchFailureError(e, 'la bonne alternance recherche alternance');
 		}
 	}
 }

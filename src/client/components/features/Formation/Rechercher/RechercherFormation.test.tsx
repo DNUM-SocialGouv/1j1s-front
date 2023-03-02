@@ -9,6 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import { Formation, NiveauRequis } from '~/server/formations/domain/formation';
 
@@ -26,6 +27,7 @@ describe('RechercherFormation', () => {
 			// GIVEN
 			const formationServiceMock = aFormationService();
 			const métierServiceMock = aMétierService();
+			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({});
 
 			// WHEN
@@ -33,6 +35,7 @@ describe('RechercherFormation', () => {
 				<DependenciesProvider
 					formationService={formationServiceMock}
 					métierService={métierServiceMock}
+					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
 				</DependenciesProvider>,
@@ -58,6 +61,7 @@ describe('RechercherFormation', () => {
 			];
 			const formationServiceMock = aFormationService(formationFixture);
 			const métierServiceMock = aMétierService();
+			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({
 				query: {
 					codeRomes: 'D1103,D1101,H2101',
@@ -71,6 +75,7 @@ describe('RechercherFormation', () => {
 				<DependenciesProvider
 					formationService={formationServiceMock}
 					métierService={métierServiceMock}
+					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
 				</DependenciesProvider>,

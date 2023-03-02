@@ -11,12 +11,13 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	constructor(private httpClientService: HttpClientService, private caller: string) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<Formation>>> {
-		const queryList = filtre.codeRomes.join(',');
+		const codeRomes = filtre.codeRomes.join(',');
 		try {
-			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/formations?caller=${this.caller}&romes=${queryList}`);
+			const endpoint = `/formations?caller=${this.caller}&romes=${codeRomes}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
+			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(endpoint);
 			return createSuccess(mapFormation(response.data));
 		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche');
+			return handleSearchFailureError(e, 'la bonne alternance recherche formation');
 		}
 	}
 }

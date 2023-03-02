@@ -59,9 +59,9 @@ context("quand les paramètres de l'url ne respectent pas le schema de validatio
 		cy.viewport('iphone-x');
 
 		interceptGet({
-			actionBeforeWaitTheCall: () => cy.visit('/formations/apprentissage?page=67'),
+			actionBeforeWaitTheCall: () => cy.visit('/formations/apprentissage?libelleMetier=Electronique%2C+informatique+industrielle&codeRomes=H1206%2CH1402%2CH2502%2CI1102%2CH1208%2CH1502%2CH1209%2CH1504%2CI1305%2CI1304%2CI1302%2CH2501%2CH2603%2CH2604%2CH2605&libelleCommune=Paris+20e+Arrondissement+%2875020%29&codeCommune=&latitudeCommune=48.863367&longitudeCommune=2.397152&distanceCommune=10&unwanted-query=not-allowed'),
 			alias: 'recherche-formations-failed',
-			path:'/api/formations?page=67',
+			path:'/api/formations?*',
 			response: JSON.stringify({ error: "les paramètres dans l'url ne respectent pas le schema de validation" }),
 			statusCode: 400,
 		});
