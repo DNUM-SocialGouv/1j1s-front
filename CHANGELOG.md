@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.11.3...v3.12.0) (2023-03-02)
+
+
+### Features
+
+* **entreprendre:** ajout kit outil et changement image logo ([2e6d9b6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2e6d9b60052726961da707948b6fd1142e970dc2))
+
 ## [3.11.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.11.2...v3.11.3) (2023-03-02)
 
 
