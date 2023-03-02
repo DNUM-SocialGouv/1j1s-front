@@ -5,7 +5,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import useReferrer from '~/client/hooks/useReferrer';
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 
-import styles from './StageDeposerOffreFormulaire.module.scss';
+import styles from './StageDeposerOffreFormulaireEnvoye.module.scss';
 
 export default function StageDeposerOffreFormulaireEnvoye() {
 	useReferrer();

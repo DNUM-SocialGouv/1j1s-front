@@ -1,0 +1,79 @@
+@import "@styles/utilities";
+
+.rémunération {
+  &Wrapper {
+    padding-bottom: 2rem;
+  }
+  &Label {
+    margin-bottom: 0.5rem;
+  }
+
+  &Contenu {
+    margin-top: 0.5rem;
+    display: flex;
+    height: 2.5rem;
+
+    &Input {
+      @extend %text-small;
+      font-family: Marianne;
+      align-items: center;
+      padding: 0.375rem 0.375rem 0.375rem 0.75rem;
+      border: 1px solid $color-on-background;
+      width: 100%;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    &Unité {
+      @extend %text-small;
+      padding: 0.375rem 2rem 0 2rem;
+      display: flex;
+      background-color: $color-primary;
+      color: $color-on-primary;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+  }
+}
+
+.contenuTeletravail {
+  border: none;
+
+  .inputTeletravail {
+    display: flex;
+    padding-bottom: 2rem;
+
+    input[type=radio] {
+      margin-right: 1.5rem;
+
+      &:focus + label::before {
+        outline: 2px solid $color-primary;
+        outline-offset: 2px;
+      }
+    }
+  }
+}
+
+.textareaWrapper {
+  margin-top: 1rem;
+
+  > textarea {
+    height: auto;
+    background-color: $color-surface;
+    padding-top: 1rem;
+  }
+
+  @include media(xlarge) {
+    width: 100%;
+  }
+}
+
+@include media(xlarge) {
+  .inputNomOffre {
+    width: 100%;
+  }
+
+  .inputLienCandidature {
+    width: 100%;
+  }
+}
