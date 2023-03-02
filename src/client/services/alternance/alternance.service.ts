@@ -16,6 +16,7 @@ interface AlternanceQueryFiltre extends ParsedUrlQuery {
 	longitudeCommune: string
 }
 
+
 export class AlternanceService {
 	constructor(private httpClientService: HttpClientService) {}
 
