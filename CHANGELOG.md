@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.1...v3.12.2) (2023-03-02)
+
+
+### Bug Fixes
+
+* **stages:** vérification que les URLs sont bien des URLs ([62b2405](https://github.com/DNUM-SocialGouv/1j1s-front/commit/62b240544ac977b3a58c90f4d4c07c14b8a1ac03))
+
 ## [3.12.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.0...v3.12.1) (2023-03-02)
 
 
