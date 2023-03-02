@@ -255,19 +255,6 @@ export const RÉSEAU_FINANCEMENT: EntreprendreRéseauProps[] = [{
 	publicConcerné: 'Public concerné : Les créateurs d‘entreprise qui n‘ont pas accès au crédit bancaire et plus particulièrement les plus éloignés de l‘emploi.',
 }, {
 	entreprise: {
-		description: 'Rejoignez un programme gratuit d‘entraînement à l‘entrepreneuriat : entraînez-vous à créer une entreprise ou une startup en équipe multi-compétences de 3 à 5 jeunes.',
-		lien: 'https://www.lesentrep.fr/',
-		logo: '/images/entreprendre/les_entrep.png',
-		nom: 'Les Entrep',
-	},
-	phases: {
-		anteCréation: true,
-		postCréation: false,
-		test: true,
-	},
-	publicConcerné: 'Public concerné : Jeune post-bac, 30 ans et moins, étudiant, jeune diplômé au chômage ou issu des Quartiers Prioritaires de la Ville.',
-}, {
-	entreprise: {
 		description: 'Réseau Entreprendre propose un accompagnement d‘une durée minimum de deux ans avec des chefs d‘entreprise expérimentés pour réussir le lancement ou la reprise de son projet d‘entreprise. Le réseau propose également un accompagnement financier par le biais d‘un Prêt d‘honneur sans intérêt ni garantie. Réseau Entreprendre fédère près de 15 000 chefs d‘entreprises présents dans 10 pays dans le monde avec ses 130 implantations et 64 associations.',
 		lien: 'https://www.reseau-entreprendre.org/fr/accueil/',
 		logo: '/images/entreprendre/reseau_entreprendre.png',
@@ -323,6 +310,19 @@ export const RÉSEAU_ÉCONOMIE_SOCIALE_ET_SOLIDAIRE: EntreprendreRéseauProps[] 
 		test: false,
 	},
 	publicConcerné: 'Public concerné : Les jeunes ayant le statut étudiant ou étudiant-entrepreneur, qui souhaitent développer leurs compétences et rendre le monde plus juste, plus inclusif et plus durable, qu‘ils aient une envie, une idée ou un projet.',
+}, {
+	entreprise: {
+		description: 'Rejoignez un programme gratuit d‘entraînement à l‘entrepreneuriat : entraînez-vous à créer une entreprise ou une startup en équipe multi-compétences de 3 à 5 jeunes.',
+		lien: 'https://www.lesentrep.fr/',
+		logo: '/images/entreprendre/les_entrep.png',
+		nom: 'Les Entrep',
+	},
+	phases: {
+		anteCréation: true,
+		postCréation: false,
+		test: true,
+	},
+	publicConcerné: 'Public concerné : Jeune post-bac, 30 ans et moins, étudiant, jeune diplômé au chômage ou issu des Quartiers Prioritaires de la Ville.',
 }];
 
 export function RéseauAccompagnementList() {

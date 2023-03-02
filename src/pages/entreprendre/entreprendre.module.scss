@@ -62,6 +62,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    justify-content: center;
 
     @include media(medium) {
       flex-direction: row;
@@ -73,6 +74,7 @@
       @include media(medium) {
         flex: 1 0 calc(100% / 3 - 2.5rem);
         min-width: 22rem;
+        max-width: 24rem;
       }
     }
   }
