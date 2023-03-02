@@ -7,14 +7,14 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import {
 	MissionEngagement,
-	RésultatsRechercheMission, serviceCiviqueDomaineList,
+	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import { dependencies } from '~/server/start';
 
 const querySchema = Joi.object({
 	codeCommune: Joi.number().optional(),
 	distanceCommune: Joi.number().optional(),
-	domain: Joi.string().optional().valid(serviceCiviqueDomaineList.map((domain) => domain.valeur).join(', ')),
+	domain: Joi.string().optional().valid('culture-loisirs', 'education', 'environnement', 'humanitaire', 'sante', 'solidarite-insertion', 'sport', 'vivre-ensemble', 'autre'),
 	latitudeCommune: Joi.number().optional(),
 	libelleCommune: Joi.string().optional(),
 	longitudeCommune: Joi.number().optional(),
