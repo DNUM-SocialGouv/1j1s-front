@@ -23,13 +23,13 @@ export function StageDeposerOffreFormulaireLayout({ inputsObligatoires, inputsFa
 			<p className={styles.informationChamp}>
 				Les champs suivants sont obligatoires
 			</p>
-			<div className={styles.bodyFormulaire}>
+			<div className={styles.champsFormulaire}>
 				{inputsObligatoires}
 			</div>
 			<p className={styles.informationChamp}>
 				Les champs suivants sont facultatifs mais recommandés
 			</p>
-			<div className={styles.bodyFormulaire}>
+			<div className={styles.champsFormulaire}>
 				{inputsFacultatifs}
 			</div>
 			<div className={styles.validation}>
