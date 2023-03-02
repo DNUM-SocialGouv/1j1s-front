@@ -1,9 +1,12 @@
 @import "@styles/utilities";
 
 .entreprendreOutilADisposition {
+  p {
+    min-height: 5rem;
+  }
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 1.25rem;
   text-align: center;
   border: 1px $color-primary solid;
