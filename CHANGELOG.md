@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.14.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.13.0...v3.14.0) (2023-03-03)
+
+
+### Features
+
+* **formation:** ajout domaine dans message résultat recherche ([166780d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/166780d25b8ed635f4bc2113b53d4b64ccd2b2fd))
+
 ## [3.13.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.4...v3.13.0) (2023-03-03)
 
 
