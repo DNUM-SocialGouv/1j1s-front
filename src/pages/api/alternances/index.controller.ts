@@ -14,8 +14,6 @@ export const alternancesQuerySchema = Joi.object({
 	codeRomes: Joi.string().required(),
 	distanceCommune: Joi.string().required(),
 	latitudeCommune: Joi.string().required(),
-	libelleCommune: Joi.string(),
-	libelleMetier: Joi.string(),
 	longitudeCommune: Joi.string().required(),
 });
 

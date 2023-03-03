@@ -47,7 +47,7 @@ describe('Parcours alternance LBA', () => {
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Gignac-la-Nerthe+%2813180%29&codeCommune=13043&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10'),
 				alias: 'recherche-metiers',
-				path: '/api/alternances?libelleMetier*',
+				path: '/api/alternances?*',
 				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
 			});
 
@@ -61,9 +61,9 @@ context("quand les paramètres de l'url ne respectent pas le schema de validatio
 		cy.viewport('iphone-x');
 
 		interceptGet({
-			actionBeforeWaitTheCall: () => cy.visit('/apprentissage?page=67'),
+			actionBeforeWaitTheCall: () => cy.visit('/apprentissage?codeCommune=13180&codeRomes=D123,D122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845&unwanted-query=not-allowed'),
 			alias: 'recherche-alternances-failed',
-			path:'/api/alternances?page=67',
+			path:'/api/alternances?*',
 			response: JSON.stringify({ error: "les paramètres dans l'url ne respectent pas le schema de validation" }),
 			statusCode: 400,
 		});

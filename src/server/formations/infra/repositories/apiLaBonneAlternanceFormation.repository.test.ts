@@ -16,6 +16,7 @@ describe('search', () => {
 
 		// Then
 		expect(httpClientService.get).toHaveBeenCalledTimes(1);
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/formations'));
 	});
 	it('fait l’appel avec les bons paramètres', () => {
 		const httpClientService = anHttpClientService();
@@ -24,7 +25,12 @@ describe('search', () => {
 
 		repository.search(aFormationQuery());
 
-		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(`caller=${caller}`));
-		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('romes=D1406,D1407'));
+		// Then
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution-test/));
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=F1603,I1308/));
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*insee=13180/));
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*longitude=29.10/));
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*latitude=48.2/));
+		expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*radius=30/));
 	});
 });

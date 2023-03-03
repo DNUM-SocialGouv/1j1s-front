@@ -15,4 +15,8 @@ export enum NiveauRequis {
 
 export interface FormationFiltre {
 	codeRomes: Array<string>
+	codeCommune: string
+	distanceCommune: string
+	latitudeCommune: string
+	longitudeCommune: string
 }

@@ -10,8 +10,11 @@ import { Formation, FormationFiltre } from '~/server/formations/domain/formation
 import { dependencies } from '~/server/start';
 
 export const formationQuerySchema = Joi.object({
+	codeCommune: Joi.string().required(),
 	codeRomes: Joi.string().required(),
-	libelleMetier: Joi.string(),
+	distanceCommune: Joi.string().required(),
+	latitudeCommune: Joi.string().required(),
+	longitudeCommune: Joi.string().required(),
 });
 
 export async function rechercherFormationHandler(req: NextApiRequest, res: NextApiResponse<Array<Formation> | ErrorHttpResponse>) {
@@ -24,6 +27,10 @@ export default withMonitoring(withValidation({ query: formationQuerySchema }, re
 export function formationFiltreMapper(request: NextApiRequest): FormationFiltre {
 	const { query } = request;
 	return {
+		codeCommune: query.codeCommune ? String(query.codeCommune) : '',
 		codeRomes: query.codeRomes ? queryToArray(query.codeRomes) : [],
+		distanceCommune: query.distanceCommune ? String(query.distanceCommune) : '',
+		latitudeCommune: query.latitudeCommune ? String(query.latitudeCommune) : '',
+		longitudeCommune: query.longitudeCommune ? String(query.longitudeCommune) : '',
 	};
 }

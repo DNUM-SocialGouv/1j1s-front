@@ -30,7 +30,7 @@ describe('rechercher alternance', () => {
 				const json = await res.json();
 				expect(json).toEqual(aRésultatRechercherMultipleAlternance());
 			},
-			url: `/alternances?codeRomes=${codeRomes}&libelleMetier=Paris&libelleCommune=Gignac-la-Nerthe&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
+			url: `/alternances?codeRomes=${codeRomes}&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
 		});
 	});
 });
