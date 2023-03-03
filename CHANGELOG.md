@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.3...v3.12.4) (2023-03-03)
+
+
+### Bug Fixes
+
+* **entreprendre:** déplacement carte les Entr dans réseau accompagnement ([4cebdb5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4cebdb575a8f9bf05ff7e7dce115b51a6722720a))
+
 ## [3.12.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.2...v3.12.3) (2023-03-02)
 
 
