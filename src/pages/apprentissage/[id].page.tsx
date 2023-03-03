@@ -18,6 +18,11 @@ function convertUndefinedToNull<T>(payload: T): T {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{ id: string }>): Promise<GetServerSidePropsResult<ConsulterAnnonceAlternancePageProps>> {
+	const featureActivée = process.env.NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE === '1';
+	if (!featureActivée) {
+		return { notFound: true };
+	}
+
 	if (!context.params) {
 		throw new PageContextParamsException();
 	}
