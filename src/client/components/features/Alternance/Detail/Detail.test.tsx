@@ -6,10 +6,15 @@ import { queries as defaultQueries,render, screen, within } from '@testing-libra
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
 import * as queries from '~/test-utils';
 
 describe('<Detail />', () => {
+	beforeEach(() => {
+		mockUseRouter({});
+	});
+
 	it('affiche le titre de l’annonce comme titre principal', () => {
 		const annonce = aDetailAlternance({ titre: 'Ma super alternance' });
 

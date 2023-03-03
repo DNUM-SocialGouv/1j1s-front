@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import AnnonceAlternancePage from '~/pages/apprentissage/[id].page';
 import { anAlternanceMatcha } from '~/server/alternances/domain/alternance.fixture';
 
@@ -15,6 +16,10 @@ function HeadMock({ children }: { children: React.ReactNode }) {
 jest.mock('next/head', () => HeadMock);
 
 describe('<AnnonceAlternancePage />', () => {
+	beforeEach(() => {
+		mockUseRouter({});
+	});
+
 	it("ajoute le nom de l'annonce au titre du document", async () => {
 		const annonce = anAlternanceMatcha({ titre: 'Ma super alternance' });
 
