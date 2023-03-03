@@ -1,5 +1,5 @@
 import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
-import { screen, within } from '@testing-library/react';
+import { within } from '@testing-library/react';
 
 function getTerms(container: HTMLElement, name: string) {
 	const terms = getAllByRole(container, 'term');
