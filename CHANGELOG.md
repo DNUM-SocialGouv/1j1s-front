@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.13.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.4...v3.13.0) (2023-03-03)
+
+
+### Features
+
+* **formation:** ajout recherche localisation ([7bd3c2c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7bd3c2c7694de04d484f222671f71179797c2e63))
+
 ## [3.12.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.12.3...v3.12.4) (2023-03-03)
 
 
