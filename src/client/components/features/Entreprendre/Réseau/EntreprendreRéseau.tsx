@@ -210,6 +210,19 @@ const RÉSEAU_ACCOMPAGNEMENT: EntreprendreRéseauProps[] = [{
 		test: false,
 	},
 	publicConcerné: 'Les jeunes de moins de 30 ans pourront être mis en relation avec un acteur du financement habilité à délivrer une prime de 3000 euros, en complément d‘un micro-crédit ou prêt facilité par ce dernier, pour une activité non immatriculée ou immatriculée depuis moins de 3 mois.',
+}, {
+	entreprise: {
+		description: 'Rejoignez un programme gratuit d‘entraînement à l‘entrepreneuriat : entraînez-vous à créer une entreprise ou une startup en équipe multi-compétences de 3 à 5 jeunes.',
+		lien: 'https://www.lesentrep.fr/',
+		logo: '/images/entreprendre/les_entrep.png',
+		nom: 'Les Entrep',
+	},
+	phases: {
+		anteCréation: true,
+		postCréation: false,
+		test: true,
+	},
+	publicConcerné: 'Public concerné : Jeune post-bac, 30 ans et moins, étudiant, jeune diplômé au chômage ou issu des Quartiers Prioritaires de la Ville.',
 }];
 
 export const RÉSEAU_FINANCEMENT: EntreprendreRéseauProps[] = [{
@@ -310,19 +323,6 @@ export const RÉSEAU_ÉCONOMIE_SOCIALE_ET_SOLIDAIRE: EntreprendreRéseauProps[] 
 		test: false,
 	},
 	publicConcerné: 'Public concerné : Les jeunes ayant le statut étudiant ou étudiant-entrepreneur, qui souhaitent développer leurs compétences et rendre le monde plus juste, plus inclusif et plus durable, qu‘ils aient une envie, une idée ou un projet.',
-}, {
-	entreprise: {
-		description: 'Rejoignez un programme gratuit d‘entraînement à l‘entrepreneuriat : entraînez-vous à créer une entreprise ou une startup en équipe multi-compétences de 3 à 5 jeunes.',
-		lien: 'https://www.lesentrep.fr/',
-		logo: '/images/entreprendre/les_entrep.png',
-		nom: 'Les Entrep',
-	},
-	phases: {
-		anteCréation: true,
-		postCréation: false,
-		test: true,
-	},
-	publicConcerné: 'Public concerné : Jeune post-bac, 30 ans et moins, étudiant, jeune diplômé au chômage ou issu des Quartiers Prioritaires de la Ville.',
 }];
 
 export function RéseauAccompagnementList() {
