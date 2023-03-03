@@ -93,7 +93,7 @@ export default function Entreprendre() {
 							<li>
 								<EntreprendreOutilADisposition
 									link="https://www.initiative-france.fr/espace-info/vie-du-reseau/426-mon-kit-entrepreneur-notre-nouvelle-application-mobile.html"
-									linkLabel="Découvrir Mon kit"
+									linkLabel="Découvrir Mon kit entrepreneur"
 									description="Découvrez Mon kit entrepreneur, l’application mobile pour créer son entreprise"
 								/>
 							</li>
