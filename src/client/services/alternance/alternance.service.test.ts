@@ -7,6 +7,17 @@ import { createSuccess } from '~/server/errors/either';
 
 describe('AlternanceService', () => {
 	describe('rechercherAlternance', () => {
+		it('filtre les queries pour ne garder que celles attendues', async () => {
+			const httpClientService = anHttpClientService();
+			const alternanceService = new AlternanceService(httpClientService);
+			const alternanceQuery = 'codeCommune=13180&codeRomes=D123,D122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845&unwantedQuery=query-en-trop';
+
+			await alternanceService.rechercherAlternance(alternanceQuery);
+
+			expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeCommune=13180&codeRomes=D123%2CD122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845');
+
+		});
+
 		it('appelle alternance avec la query', async () => {
 			const httpClientService = anHttpClientService();
 			const alternanceService = new AlternanceService(httpClientService);
@@ -20,16 +31,4 @@ describe('AlternanceService', () => {
 		});
 	});
 
-	describe('filtrerQueries', () => {
-		it('filtre les queries pour ne garder que celles attendues', async () => {
-			const httpClientService = anHttpClientService();
-			const alternanceService = new AlternanceService(httpClientService);
-			const formationQuery = 'codeCommune=13180&codeRomes=D123,D122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845&unwantedQuery=query-en-trop';
-
-			const result = alternanceService.filtrerQueries(formationQuery);
-
-			expect(result).toEqual('codeCommune=13180&codeRomes=D123%2CD122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845');
-
-		});
-	});
 });

@@ -24,7 +24,7 @@ export class FormationService {
 		return this.httpClientService.get<Array<Formation>>(`formations?${filtres}`);
 	}
 
-	filtrerQueries(query: string): string {
+	private filtrerQueries(query: string): string {
 		const currentQueries = parse(query);
 		const queries: FormationQueryFiltre = {
 			codeCommune: currentQueries.codeCommune,

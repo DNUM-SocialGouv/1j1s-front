@@ -24,7 +24,7 @@ export class AlternanceService {
 		return this.httpClientService.get<Array<Alternance>>(`alternances?${filtres}`);
 	}
 
-	filtrerQueries(query: string): string {
+	private filtrerQueries(query: string): string {
 		const currentQueries = parse(query);
 		const queries: AlternanceQueryFiltre = {
 			codeCommune: currentQueries.codeCommune,
