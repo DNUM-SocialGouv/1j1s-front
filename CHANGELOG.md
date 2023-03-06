@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.15.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.14.0...v3.15.0) (2023-03-06)
+
+
+### Features
+
+* **UI:** mise à jour du champ input text ([270f02d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/270f02dd9dfeddc87e080102ee35ff371ae5fe50))
+
 ## [3.14.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.13.0...v3.14.0) (2023-03-03)
 
 
