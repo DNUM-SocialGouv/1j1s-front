@@ -58,7 +58,7 @@ export function FormulaireRechercherFormation() {
 							codeRomes={inputCodeRomes}
 							required
 							autoFocus
-							placeholder="Exemples : Ingénierie, agronomie..."
+							placeholder="Exemples : ingénierie, agronomie..."
 						/>
 						<InputCommune
 							code={inputCodeCommune}
