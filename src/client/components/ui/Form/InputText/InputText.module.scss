@@ -33,6 +33,11 @@
       border-color: $color-primary;
     }
 
+    &::placeholder {
+      color: $deep-neutral-grey;
+      opacity: 1;
+    }
+
     &Touched[aria-invalid=true],
     &Touched:invalid {
       border: solid 2px $color-error;

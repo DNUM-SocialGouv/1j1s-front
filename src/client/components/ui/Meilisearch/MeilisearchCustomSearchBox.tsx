@@ -16,11 +16,11 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from './MeilisearchCustomSearchBox.module.scss';
 
 interface MeilisearchCustomSearchBoxProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
-  id?: string
-  label: string
-  name: string
-  placeholder: string
-  resetTitle?: string
+	id?: string
+	label: string
+	name: string
+	placeholder: string
+	resetTitle?: string
 }
 
 export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProps & UseSearchBoxProps) => {
@@ -64,11 +64,19 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
 					placeholder={placeholder}
 					value={value}
 					onChange={updateValue}
+					className={styles.customSearchBoxInput}
 				/>
 				{
-					!!value && <button type="reset" title={resetTitle || DEFAULT_RESET_TITLE} onClick={() => resetValue()}>
-						<Icon name="close" />
-					</button>
+					!!value && (
+						<button
+							type="reset"
+							title={resetTitle || DEFAULT_RESET_TITLE}
+							onClick={() => resetValue()}
+							className={styles.customSearchBoxResetButton}
+						>
+							<Icon name="close"/>
+						</button>
+					)
 				}
 			</span>
 		</div>

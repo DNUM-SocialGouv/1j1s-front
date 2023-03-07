@@ -61,6 +61,11 @@
       border-color: $color-primary;
     }
 
+    &::placeholder {
+      color: $deep-neutral-grey;
+      opacity: 1;
+    }
+
     &Error {
       border: 1px solid transparent;
       outline: 2px solid $color-error;
