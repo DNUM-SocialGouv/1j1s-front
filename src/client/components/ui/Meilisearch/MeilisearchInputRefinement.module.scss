@@ -49,5 +49,10 @@
     &:active, &:focus {
       border-color: $color-primary;
     }
+
+    &::placeholder {
+      color: $deep-neutral-grey;
+      opacity: 1;
+    }
   }
 }
