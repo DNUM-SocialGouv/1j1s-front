@@ -26,6 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	if (!context.params) {
 		throw new PageContextParamsException();
 	}
+
 	const { id } = context.params;
 	const annonce = await dependencies.alternanceDependencies.consulterAlternance.handle(id);
 

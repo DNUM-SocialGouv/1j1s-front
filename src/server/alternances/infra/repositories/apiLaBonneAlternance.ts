@@ -4,6 +4,7 @@ export namespace MetierLaBonneAlternanceApiResponse {
 		romes: Array<string>
 	}
 }
+
 export interface MetierLaBonneAlternanceApiResponse {
 	labelsAndRomes: Array<MetierLaBonneAlternanceApiResponse.LabelAndRomes>
 }
@@ -13,13 +14,13 @@ export namespace AlternanceApiJobsResponse {
 		id: string
 		description: string
 		romeDetails?: AlternanceApiJobsResponse.RomeDetails
-		jobStartDate?: string,
-		dureeContrat?: number,
-		rythmeAlternance?: string,
+		jobStartDate?: string
+		dureeContrat?: number
+		rythmeAlternance?: string
 	}
 
 	export interface RomeDetails {
-		definition?: string,
+		definition?: string
 		competencesDeBase: Array<{libelle: string}>
 	}
 
@@ -30,12 +31,12 @@ export namespace AlternanceApiJobsResponse {
 	export interface Company {
 		name?: string
 		place?: {
-			city?: string,
+			city?: string
 		}
 	}
 
 	export interface Contact {
-		phone?: string,
+		phone?: string
 	}
 
 	export interface Matcha {

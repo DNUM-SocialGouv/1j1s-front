@@ -1,7 +1,6 @@
+import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { Either } from '~/server/errors/either';
-
-import { Alternance } from '../domain/alternance';
-import { AlternanceRepository } from '../domain/alternance.repository';
 
 export class ConsulterOffreAlternanceLaBonneAlternanceUseCase {
 	constructor(private alternanceRepository: AlternanceRepository) {

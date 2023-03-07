@@ -1,13 +1,13 @@
 export namespace Alternance {
 	export interface Entreprise {
-		nom?: string,
-		adresse?: string,
-		téléphone?: string,
+		nom?: string
+		adresse?: string
+		téléphone?: string
 	}
 }
 
 export interface Alternance {
-	durée?: number;
+	durée?: number
 	id: string
 	titre: string
 	entreprise: Alternance.Entreprise
@@ -16,8 +16,8 @@ export interface Alternance {
 	niveauRequis?: string
 	typeDeContrat?: string[]
 	compétences?: Array<string>
-	dateDébut?: Date,
-	rythmeAlternance?: string,
+	dateDébut?: Date
+	rythmeAlternance?: string
 	source: Alternance.Source
 	tags: string[]
 }

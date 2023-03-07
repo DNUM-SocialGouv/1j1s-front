@@ -1,16 +1,16 @@
 export type DetailAlternance = {
-  titre: string,
+  titre: string
   entreprise: {
-    nom?: string,
-    localisation?: string,
-    téléphone?: string,
+    nom?: string
+    localisation?: string
+    téléphone?: string
   }
-  localisation?: string,
-  typeDeContrat?: string,
-  niveauRequis?: string,
-  description?: string,
-  compétences?: Array<string>,
-  dateDébut?: Date,
-  durée?: number,
-  rythmeAlternance?: string,
+  localisation?: string
+  typeDeContrat?: string
+  niveauRequis?: string
+  description?: string
+  compétences?: Array<string>
+  dateDébut?: Date
+  durée?: number
+  rythmeAlternance?: string
 }

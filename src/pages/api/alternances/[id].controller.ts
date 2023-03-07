@@ -7,4 +7,4 @@ const getAlternanceHandler = withMonitoring(async function(req, res) {
 	return handleResponse(alternance, res);
 });
 
-export default  getAlternanceHandler;
+export default getAlternanceHandler;

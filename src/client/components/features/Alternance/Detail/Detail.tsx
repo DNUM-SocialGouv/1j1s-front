@@ -53,7 +53,7 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						<div className={styles.dateDebut}>
 							<dt>Début du contrat</dt>
 							<dd>
-								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' })}</time></dd>
+								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' } as Intl.DateTimeFormatOptions)}</time></dd>
 						</div>
 					)}
 					{annonce.typeDeContrat && (
