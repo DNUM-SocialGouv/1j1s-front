@@ -61,10 +61,6 @@ export default function Footer() {
 						</div>
 					</div>
 					<div className={styles.footerMessageWrapper}>
-						<div className={styles.footerMessage}>
-							<p>#1jeune1solution</p>
-							<p>Une initiative du Gouvernement pour accompagner, former, et faciliter l’entrée dans la vie professionnelle de tous les jeunes de 15 à 30 ans, sur tous les territoires.</p>
-						</div>
 						<ul aria-label="Liens externes" className={styles.footerLienExterne}>
 							{linkList.map((link) => (
 								<li key={link.title}>

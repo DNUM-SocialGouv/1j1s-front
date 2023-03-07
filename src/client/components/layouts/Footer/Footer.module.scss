@@ -58,15 +58,6 @@
     }
   }
 
-  &Message {
-    @extend %text-small;
-    color: $color-mine-shaft;
-
-    & > p {
-      margin-bottom: 1rem;
-    }
-  }
-
   &LienUtile {
     border-top: 1px solid $color-separator;
     color: $color-mention-grey;
@@ -135,10 +126,6 @@
     &Slogan {
       width: 50%;
       margin-bottom: 0;
-    }
-
-    &Message > div:not(:last-child) {
-      padding-top: 0;
     }
 
     &LienUtile > div {
