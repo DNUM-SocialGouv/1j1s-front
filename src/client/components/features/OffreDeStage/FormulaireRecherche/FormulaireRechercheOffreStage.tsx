@@ -15,7 +15,7 @@ export function FormulaireRechercheOffreStage() {
 	  <MeilisearchCustomSearchBox
 				label="Métiers, mots clés, …"
 				name="motCle"
-				placeholder="Métiers, mots clés, …"
+				placeholder="Exemples : designer, juriste…"
 	  />
 	  <MeilisearchInputRefinement
 				attribute="localisationFiltree"
