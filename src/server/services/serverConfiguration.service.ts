@@ -25,11 +25,7 @@ export class ServerConfigurationService implements ConfigurationService {
 			POLE_EMPLOI_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_SECRET'),
 			POLE_EMPLOI_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_SCOPE').replaceAll(',', ' '),
 			POLE_EMPLOI_CONNECT_URL: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_URL'),
-			REDIS_DB: Number(ServerConfigurationService.getOrThrowError('REDIS_DB')),
-			REDIS_HOST: ServerConfigurationService.getOrThrowError('REDIS_HOST'),
-			REDIS_PASSWORD: ServerConfigurationService.getOrThrowError('REDIS_PASSWORD'),
-			REDIS_PORT: Number(ServerConfigurationService.getOrThrowError('REDIS_PORT')),
-			REDIS_USERNAME: ServerConfigurationService.getOrThrowError('REDIS_USERNAME'),
+			REDIS_URL: ServerConfigurationService.getOrThrowError('REDIS_URL'),
 			STRAPI_AUTH: ServerConfigurationService.matchOrThrowError('STRAPI_AUTH', /^(.+):(.+)$/),
 			STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
 			TIPIMAIL_API_BASE_URL: ServerConfigurationService.getOrThrowError('TIPIMAIL_API_BASE_URL'),
@@ -92,11 +88,7 @@ export interface EnvironmentVariables {
   readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
   readonly POLE_EMPLOI_CONNECT_SCOPE: string
   readonly POLE_EMPLOI_CONNECT_URL: string
-  readonly REDIS_DB: number
-  readonly REDIS_HOST: string
-  readonly REDIS_PASSWORD: string
-  readonly REDIS_PORT: number
-  readonly REDIS_USERNAME: string
+  readonly REDIS_URL: string
   readonly STRAPI_AUTH: string
   readonly STRAPI_URL_API: string
   readonly TIPIMAIL_API_BASE_URL: string

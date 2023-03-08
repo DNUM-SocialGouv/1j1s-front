@@ -51,7 +51,8 @@ describe('RechercherCommuneUseCase', () => {
 
       expect(result).toEqual(expected);
 		});
-		it("n'appelle pas le service si la query est trop courte", async () => {
+
+		it('n’appelle pas le service si la query est trop courte', async () => {
 			configurationService = new ConfigurationServiceFixture({ NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: 3 });
 			const rechercherCommuneUseCase = new RechercherCommuneUseCase(localisationAvecCoordonnéesRepository, configurationService);
 			type ExpectedType = Awaited<ReturnType<typeof rechercherCommuneUseCase.handle>>

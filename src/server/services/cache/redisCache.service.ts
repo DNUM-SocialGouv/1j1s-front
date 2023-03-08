@@ -2,20 +2,12 @@ import Redis from 'ioredis';
 
 import { SentryException } from '~/server/exceptions/sentryException';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { ConfigurationService } from '~/server/services/configuration.service';
 import { LoggerService } from '~/server/services/logger.service';
 
 export class RedisCacheService implements CacheService {
 	private client: Redis;
-	constructor(private configurationService: ConfigurationService) {
-		const conf = configurationService.getConfiguration();
-		this.client = new Redis({
-			db: conf.REDIS_DB,
-			host: conf.REDIS_HOST,
-			password: conf.REDIS_PASSWORD,
-			port: conf.REDIS_PORT,
-			username: conf.REDIS_USERNAME,
-		});
+	constructor(private url: string) {
+		this.client = new Redis(url);
 	}
 
 	async get<T>(key: string): Promise<T | null> {
