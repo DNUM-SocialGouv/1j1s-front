@@ -16,9 +16,9 @@ describe('mapAlternance', () => {
 			matchas: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
-					contractType: ['CDD'],
 					diplomaLevel: 'CAP, BEP',
 					job: {
+						contractType: ['CDD'],
 						description: 'description',
 						id: 'id',
 					},
@@ -28,8 +28,8 @@ describe('mapAlternance', () => {
 			peJobs: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
-					contractType: 'CDD',
 					job: {
+						contractType: 'CDD',
 						description: 'description',
 						id: 'id',
 					},
@@ -68,10 +68,12 @@ describe('mapAlternance', () => {
 			},
 		]);
 	});
+
 	it('sanitize tout le texte présent dans l’alternance', () => {
 		const input: AlternanceApiJobsResponse.Matcha =
       aMatchaResponse({
       	job: {
+      		contractType: ['CDD'],
       		description: 'la description',
       		id: 'id',
       		romeDetails: {

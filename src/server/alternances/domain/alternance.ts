@@ -15,7 +15,7 @@ export interface Alternance {
 	localisation?: string
 	niveauRequis?: string
 	typeDeContrat?: string[]
-	compétences?: Array<string>
+	compétences?: string[]
 	dateDébut?: Date
 	rythmeAlternance?: string
 	source: Alternance.Source

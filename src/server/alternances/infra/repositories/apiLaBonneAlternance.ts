@@ -10,6 +10,8 @@ export interface MetierLaBonneAlternanceApiResponse {
 }
 
 export namespace AlternanceApiJobsResponse {
+
+
 	export interface Job {
 		id: string
 		description: string
@@ -19,6 +21,14 @@ export namespace AlternanceApiJobsResponse {
 		rythmeAlternance?: string
 	}
 
+	export interface JobMatcha extends Job {
+		contractType?: string[]
+	}
+
+	export interface JobPE extends Job {
+		contractType?: string
+	}
+
 	export interface RomeDetails {
 		definition?: string
 		competencesDeBase: Array<{libelle: string}>
@@ -26,6 +36,7 @@ export namespace AlternanceApiJobsResponse {
 
 	export interface Place {
 		city?: string
+		fullAddress?: string
 	}
 
 	export interface Company {
@@ -44,8 +55,7 @@ export namespace AlternanceApiJobsResponse {
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
 		diplomaLevel?: string
-		job: AlternanceApiJobsResponse.Job
-		contractType?: string[]
+		job: AlternanceApiJobsResponse.JobMatcha
 		contact?: AlternanceApiJobsResponse.Contact
 	}
 
@@ -53,8 +63,7 @@ export namespace AlternanceApiJobsResponse {
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
-		contractType?: string
-		job: AlternanceApiJobsResponse.Job
+		job: AlternanceApiJobsResponse.JobPE
 		contact?: AlternanceApiJobsResponse.Contact
 	}
 }

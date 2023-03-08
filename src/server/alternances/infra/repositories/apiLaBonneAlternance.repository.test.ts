@@ -57,14 +57,22 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const httpClientService = anHttpClientService();
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				matchas: [
-					aMatchaResponse({ job: { description: 'la-description', id: 'abc' } }),
+					aMatchaResponse({ job: {
+						contractType: ['Apprentissage'],
+						description: 'Super alternance dans une boucherie',
+						id: 'abc',
+						romeDetails: {
+							competencesDeBase: [],
+							definition: 'Super alternance dans une boucherie',
+						},
+					},
+					}),
 				],
 			}));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
 			// When
 			const result = await repository.get('abc') as Success<Alternance>;
-
 			// Then
 			expect(result.result.id).toEqual('abc');
 		});

@@ -22,13 +22,13 @@ export function mapMatcha(alternance: Matcha): Alternance {
 			téléphone: alternance.contact?.phone,
 		},
 		id: alternance.job.id,
-		localisation: alternance.place?.city,
+		localisation: alternance.place?.fullAddress || alternance.place?.city,
 		niveauRequis: alternance.diplomaLevel,
 		rythmeAlternance: alternance.job.rythmeAlternance,
 		source: Alternance.Source.MATCHA,
-		tags: [alternance.place?.city, alternance.contractType?.toString(), alternance.diplomaLevel].filter((tag) => !!tag) as string[],
+		tags: [alternance.place?.city, alternance.job.contractType?.toString(), alternance.diplomaLevel].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
-		typeDeContrat: alternance.contractType,
+		typeDeContrat: alternance.job.contractType,
 	};
 }
 export function mapPEJob(alternance: PEJobs): Alternance {
@@ -43,13 +43,13 @@ export function mapPEJob(alternance: PEJobs): Alternance {
 			téléphone: alternance.contact?.phone,
 		},
 		id: alternance.job.id,
-		localisation: alternance.place?.city,
+		localisation: alternance.place?.fullAddress || alternance.place?.city,
 		niveauRequis: undefined,
 		rythmeAlternance: alternance.job.rythmeAlternance,
 		source: Alternance.Source.POLE_EMPLOI,
-		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.contractType].filter((tag) => !!tag) as string[],
+		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.job.contractType].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
-		typeDeContrat: alternance.contractType ? [alternance.contractType] : [],
+		typeDeContrat: alternance.job.contractType ? [alternance.job.contractType] : [],
 	};
 }
 export const mapAlternanceListe = (response: AlternanceApiJobsResponse): Array<Alternance> => {

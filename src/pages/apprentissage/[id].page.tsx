@@ -4,7 +4,6 @@ import React from 'react';
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { Head } from '~/client/components/head/Head';
-import styles from '~/client/components/layouts/Container/Container.module.scss';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -33,10 +32,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	if (annonce.instance === 'failure') {
 		return { notFound: true };
 	}
-
 	const detailAlternance: DetailAlternanceSerialized = {
 		compétences: annonce.result.compétences,
 		dateDébut: annonce.result.dateDébut?.toISOString(),
+		description: annonce.result.description,
 		durée: annonce.result.durée,
 		entreprise: {
 			localisation: annonce.result.entreprise.adresse,
@@ -68,9 +67,7 @@ export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlter
 				title={`${annonce.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<main id="contenu" className={styles.container}>
-				<Detail annonce={parsedDétail} />
-			</main>
+			<Detail annonce={parsedDétail} />
 		</>
 	);
 }
