@@ -176,7 +176,8 @@ export const dependenciesContainer = (): Dependencies => {
 	if(process.env.NODE_ENV === 'test') {
 		cacheService = new MockedCacheService();
 	} else {
-		cacheService  = new RedisCacheService(serverConfigurationService);
+		const redisUrl = serverConfigurationService.getConfiguration().REDIS_URL;
+		cacheService  = new RedisCacheService(redisUrl);
 	}
 
 	const {
