@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.16.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.15.2...v3.16.0) (2023-03-08)
+
+
+### Features
+
+* **ui:** changement de style et wording dans les placeholders ([ea5f644](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ea5f644e39ed361e7f06077b81706c4938e7d920))
+* **ui:** mise à jour couleur placeholder des inputs ([1bf34d7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1bf34d78808c02abd3689ace32bbcfb25cc4598e))
+
 ## [3.15.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.15.1...v3.15.2) (2023-03-08)
 
 
