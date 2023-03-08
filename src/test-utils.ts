@@ -11,7 +11,7 @@ function getTerms(container: HTMLElement, name: string) {
 }
 
 function isDefinition(element: Element) {
-	const definitions = within(element.parentElement).getAllByRole('definition');
+	const definitions = within(element.parentElement as HTMLElement).getAllByRole('definition');
 	return definitions.find((currentElement) => currentElement === element) != null;
 }
 

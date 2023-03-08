@@ -8,7 +8,7 @@ import styles from '~/client/components/layouts/Container/Container.module.scss'
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
-type DetailAlternanceSerialized = Omit<DetailAlternance, 'dateDébut'> & { dateDébut?: string };
+export type DetailAlternanceSerialized = Omit<DetailAlternance, 'dateDébut'> & { dateDébut?: string };
 type ConsulterAnnonceAlternancePageProps = {
   annonce: DetailAlternanceSerialized;
 }
@@ -47,7 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		niveauRequis: annonce.result.niveauRequis,
 		rythmeAlternance: annonce.result.rythmeAlternance,
 		titre: annonce.result.titre,
-		typeDeContrat: annonce.result.typeDeContrat,
+		typeDeContrat: annonce.result.typeDeContrat?.toString(),
 	};
 	return {
 		props: {

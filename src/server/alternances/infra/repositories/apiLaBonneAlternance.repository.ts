@@ -19,16 +19,17 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
 	async search(filtre: AlternanceFiltre): Promise<Either<Array<Alternance>>> {
 		try {
-			const response = await this.getAlternanceListe(filtre.codeRomes);
+			const response = await this.getAlternanceListe(filtre);
 			return createSuccess(mapAlternanceListe(response.data));
 		} catch (e) {
 			return handleSearchFailureError(e, 'la bonne alternance recherche alternance');
 		}
 	}
 
-	private async getAlternanceListe(romes: Array<string>) {
-		const queryList = romes.join(',');
-		return await this.httpClientService.get<AlternanceApiJobsResponse>(`/jobs?caller=${caller}&romes=${queryList}&sources=${sourcesMatchaEtPEJobs}`);
+	private async getAlternanceListe(filtre: AlternanceFiltre) {
+		const codeRomes = filtre.codeRomes.join(',');
+		const endpoint = `/jobs?caller=${this.caller}&romes=${codeRomes}&sources=${sourcesMatchaEtPEJobs}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
+		return await this.httpClientService.get<AlternanceApiJobsResponse>(endpoint);
 	}
 
 	async get(id: string): Promise<Either<Alternance>> {

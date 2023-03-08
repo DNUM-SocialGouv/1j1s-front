@@ -7,6 +7,13 @@ import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
+	Failure,
+	Success,
+} from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import {
+	anAxiosError,
+	anAxiosResponse,
 	anHttpClientService,
 } from '~/server/services/http/httpClientService.fixture';
 
@@ -50,10 +57,10 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const httpClientService = anHttpClientService();
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				matchas: [
-					aMatchaResponse({ job: { id: 'abc' } }),
+					aMatchaResponse({ job: { description: 'la-description', id: 'abc' } }),
 				],
 			}));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
 			// When
 			const result = await repository.get('abc') as Success<Alternance>;
@@ -64,8 +71,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('crée une erreur quand l’API renvoie une erreur', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: '500' }));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+			(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
 			// When
 			const result = await repository.get('abc') as Failure;
@@ -77,7 +84,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Given
 			const httpClientService = anHttpClientService();
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService);
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
 			// When
 			await repository.get('abc');

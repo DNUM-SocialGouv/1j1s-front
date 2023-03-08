@@ -19,6 +19,7 @@ import { AlternanceService } from '~/client/services/alternance/alternance.servi
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
+import Source = Alternance.Source
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
@@ -129,11 +130,11 @@ function ListeAlternance({ résultatList }: ListeRésultatProps) {
 			{résultatList.map((alternance: Alternance) => (
 				<li key={uuidv4()}>
 					<RésultatRechercherSolution
-						lienOffre={'#'}
+						lienOffre={alternance.source === Source.MATCHA ? `/apprentissage/${alternance.id}` : '#'}
 						intituléOffre={alternance.titre}
 						logoEntreprise={getLogo(alternance)}
 						étiquetteOffreList={alternance.tags}
-						nomEntreprise={alternance.nomEntreprise}
+						nomEntreprise={alternance.entreprise.nom}
 					/>
 				</li>
 			))}

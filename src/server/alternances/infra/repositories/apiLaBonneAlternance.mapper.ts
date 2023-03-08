@@ -26,7 +26,7 @@ export function mapMatcha(alternance: Matcha): Alternance {
 		niveauRequis: alternance.diplomaLevel,
 		rythmeAlternance: alternance.job.rythmeAlternance,
 		source: Alternance.Source.MATCHA,
-		tags: [alternance.place?.city, alternance.contractType, alternance.diplomaLevel].filter((tag) => !!tag) as string[],
+		tags: [alternance.place?.city, alternance.contractType?.toString(), alternance.diplomaLevel].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
 		typeDeContrat: alternance.contractType,
 	};

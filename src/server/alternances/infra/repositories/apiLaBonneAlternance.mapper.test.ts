@@ -16,21 +16,23 @@ describe('mapAlternance', () => {
 			matchas: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
+					contractType: ['CDD'],
 					diplomaLevel: 'CAP, BEP',
 					job: {
+						description: 'description',
 						id: 'id',
 					},
-					contractType: ['CDD'],
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 			},
 			peJobs: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
+					contractType: 'CDD',
 					job: {
+						description: 'description',
 						id: 'id',
 					},
-					contractType: 'CDD',
 					place: { city: 'PARIS 4' },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
@@ -41,11 +43,11 @@ describe('mapAlternance', () => {
 
 		expect(result).toEqual([
 			{
-				localisation: undefined,
 				entreprise: {
 					nom: 'ECOLE DE TRAVAIL ORT',
 				},
 				id: 'id',
+				localisation: undefined,
 				niveauRequis: 'CAP, BEP',
 				source: Alternance.Source.MATCHA,
 				tags: ['CDD', 'CAP, BEP'],
@@ -68,7 +70,16 @@ describe('mapAlternance', () => {
 	});
 	it('sanitize tout le texte présent dans l’alternance', () => {
 		const input: AlternanceApiJobsResponse.Matcha =
-      aMatchaResponse({ job: { id: 'id', romeDetails: { definition: 'Avec des \\n' } } });
+      aMatchaResponse({
+      	job: {
+      		description: 'la description',
+      		id: 'id',
+      		romeDetails: {
+      		competencesDeBase: [{ libelle: 'un libelle' }],
+      			definition: 'Avec des \\n',
+      		},
+      	},
+      });
 
 		const result = mapMatcha(input);
 
