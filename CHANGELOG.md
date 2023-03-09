@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.17.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.16.0...v3.17.0) (2023-03-09)
+
+
+### Features
+
+* **alternance/details:** detail matcha ([4e988e1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4e988e1fb5a70db38e7cbf747977c6b891737d5a))
+
 ## [3.16.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.15.2...v3.16.0) (2023-03-08)
 
 
