@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.18.0...v3.19.0) (2023-03-09)
+
+
+### Features
+
+* **accompagnement:** mise à jour du nom de l'aide de pôle emploi ([76fbaa1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/76fbaa1424b7975132474ba97ed4ad58e1c35039))
+
 ## [3.18.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.17.0...v3.18.0) (2023-03-09)
 
 
