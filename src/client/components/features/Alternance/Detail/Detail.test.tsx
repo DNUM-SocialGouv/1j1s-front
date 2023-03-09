@@ -37,7 +37,7 @@ describe('<Detail />', () => {
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
 
-		const description = getByDescriptionTerm('Description du contrat');
+		const description = getByDescriptionTerm('Description du poste');
 		expect(description).toBeVisible();
 		expect(description).toHaveTextContent("C'est une super alternance !");
 	});
@@ -117,7 +117,7 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche le type de contrat', async () => {
-		const annonce = aDetailAlternance({ typeDeContrat: 'Alternance' });
+		const annonce = aDetailAlternance({ typeDeContrat: ['Alternance'] });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
 

@@ -46,7 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		niveauRequis: annonce.result.niveauRequis,
 		rythmeAlternance: annonce.result.rythmeAlternance,
 		titre: annonce.result.titre,
-		typeDeContrat: annonce.result.typeDeContrat?.toString(),
+		typeDeContrat: annonce.result.typeDeContrat,
 	};
 	return {
 		props: {

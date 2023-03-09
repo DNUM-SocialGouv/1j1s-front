@@ -6,7 +6,7 @@ export type DetailAlternance = {
     téléphone?: string
   }
   localisation?: string
-  typeDeContrat?: string
+  typeDeContrat?: string[]
   niveauRequis?: string
   description?: string
   compétences?: Array<string>

@@ -9,7 +9,7 @@ export function aDetailAlternance(override?: Partial<DetailAlternance>): DetailA
 		localisation: 'paris',
 		niveauRequis: 'débutant',
 		titre: 'un titre',
-		typeDeContrat: 'apprentissage',
+		typeDeContrat: ['apprentissage'],
 		...override,
 	};
 }

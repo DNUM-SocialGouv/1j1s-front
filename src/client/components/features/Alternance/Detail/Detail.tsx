@@ -17,17 +17,24 @@ function toISODate(date: Date) {
 
 export function Detail({ annonce }: { annonce: DetailAlternance }) {
 	const locale = useLocale();
+
+	const getTagList = () => {
+		if (annonce.typeDeContrat) {
+			return [annonce.localisation, ...annonce.typeDeContrat, annonce.niveauRequis];
+		}
+		return [annonce.localisation, annonce.niveauRequis];
+	};
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
-				<TagList className={styles.tags} list={[annonce.localisation, annonce.typeDeContrat, annonce.niveauRequis]} />
+				<TagList className={styles.tags} list={getTagList()} />
 			</header>
 			<dl className={styles.contenu}>
 				{annonce.description && (
 					<div className={styles.description}>
-						<dt>Description du contrat</dt>
+						<dt>Description du poste</dt>
 						<dd>{annonce.description}</dd>
 					</div>)}
 				{annonce.compétences && annonce.compétences.length > 0 && (
@@ -56,10 +63,10 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' } as Intl.DateTimeFormatOptions)}</time></dd>
 						</div>
 					)}
-					{annonce.typeDeContrat && (
+					{annonce.typeDeContrat && annonce.typeDeContrat.length > 0 && (
 						<div className={styles.typeContrat}>
 							<dt>Type de contrat</dt>
-							<dd>{annonce.typeDeContrat}</dd>
+							<dd>{annonce.typeDeContrat.toString().split(',').join(', ')}</dd>
 						</div>
 					)}
 					{annonce.durée && (

@@ -20,7 +20,7 @@ const annonceAlternanceSerialized: DetailAlternanceSerialized = {
 	localisation: 'paris',
 	niveauRequis: 'débutant',
 	titre: 'Ma super alternance',
-	typeDeContrat: 'Apprentissage',
+	typeDeContrat: ['Apprentissage'],
 };
 
 // NOTE (GAFI 22-02-2023): Mock requis --> https://github.com/vercel/next.js/discussions/11060
