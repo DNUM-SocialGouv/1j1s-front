@@ -4,25 +4,50 @@ export namespace MetierLaBonneAlternanceApiResponse {
 		romes: Array<string>
 	}
 }
+
 export interface MetierLaBonneAlternanceApiResponse {
 	labelsAndRomes: Array<MetierLaBonneAlternanceApiResponse.LabelAndRomes>
 }
 
 export namespace AlternanceApiJobsResponse {
-	export interface MatchaJob {
-		contractType: string[]
+
+
+	export interface Job {
+		id: string
+		description: string
+		romeDetails?: AlternanceApiJobsResponse.RomeDetails
+		jobStartDate?: string
+		dureeContrat?: number
+		rythmeAlternance?: string
 	}
 
-	export interface PEJob {
-		contractType: string
+	export interface JobMatcha extends Job {
+		contractType?: string[]
+	}
+
+	export interface JobPE extends Job {
+		contractType?: string
+	}
+
+	export interface RomeDetails {
+		definition?: string
+		competencesDeBase: Array<{libelle: string}>
 	}
 
 	export interface Place {
 		city?: string
+		fullAddress?: string
 	}
 
 	export interface Company {
 		name?: string
+		place?: {
+			city?: string
+		}
+	}
+
+	export interface Contact {
+		phone?: string
 	}
 
 	export interface Matcha {
@@ -30,14 +55,16 @@ export namespace AlternanceApiJobsResponse {
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
 		diplomaLevel?: string
-		job: AlternanceApiJobsResponse.MatchaJob
+		job: AlternanceApiJobsResponse.JobMatcha
+		contact?: AlternanceApiJobsResponse.Contact
 	}
 
 	export interface PEJobs {
 		title: string
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
-		job: AlternanceApiJobsResponse.PEJob
+		job: AlternanceApiJobsResponse.JobPE
+		contact?: AlternanceApiJobsResponse.Contact
 	}
 }
 

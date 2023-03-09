@@ -4,7 +4,10 @@ import {
 import {
 	ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
-import { ConsulterOffreAlternanceUseCase } from '~/server/alternances/useCases/consulterOffreAlternance.useCase';
+import {
+	ConsulterOffreAlternanceLaBonneAlternanceUseCase,
+} from '~/server/alternances/useCases/consulterOffreAlternanceLaBonneAlternance.useCase';
+import { ConsulterOffreAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/consulterOffreAlternancePoleEmploi.useCase';
 import {
 	RechercherAlternanceLaBonneAlternanceUseCase,
 } from '~/server/alternances/useCases/rechercherAlternanceLaBonneAlternance.useCase';
@@ -119,11 +122,12 @@ export interface OffresJobÉtudiantDependencies {
 }
 
 export interface OffresAlternanceDependencies {
-  consulterOffreAlternance: ConsulterOffreAlternanceUseCase
+  consulterOffreAlternance: ConsulterOffreAlternancePoleEmploiUseCase
   rechercherOffreAlternance: RechercherAlternancePoleEmploiUseCase
 }
 
 export interface AlternanceDependencies {
+	consulterAlternance: ConsulterOffreAlternanceLaBonneAlternanceUseCase
 	rechercherAlternance: RechercherAlternanceLaBonneAlternanceUseCase
 }
 
@@ -219,11 +223,12 @@ export const dependenciesContainer = (): Dependencies => {
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService);
 
 	const offreAlternanceDependencies: OffresAlternanceDependencies = {
-		consulterOffreAlternance: new ConsulterOffreAlternanceUseCase(apiPoleEmploiAlternanceRepository),
+		consulterOffreAlternance: new ConsulterOffreAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
 		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
 	};
 
 	const alternanceDependencies: AlternanceDependencies = {
+		consulterAlternance: new ConsulterOffreAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 

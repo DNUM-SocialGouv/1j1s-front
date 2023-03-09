@@ -57,16 +57,18 @@ describe('RechercherAlternance', () => {
 			// GIVEN
 			const alternanceFixture: Alternance[] = [
 				{
+					entreprise: { nom: 'MONSIEUR MICHEL' },
+					id: 'an-id-matchas',
 					niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-					nomEntreprise: 'MONSIEUR MICHEL',
 					source: Alternance.Source.MATCHA,
 					tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
 					titre: 'Ouvrier boulanger / Ouvrière boulangère',
 					typeDeContrat: ['Apprentissage'],
 				},
 				{
+					entreprise: { nom: 'une entreprise' },
+					id: 'an-id-pe',
 					localisation: 'paris',
-					nomEntreprise: 'une entreprise',
 					source: Alternance.Source.POLE_EMPLOI,
 					tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 					titre: 'un titre',

@@ -6,4 +6,5 @@ import { Either } from '~/server/errors/either';
 
 export interface AlternanceRepository {
 	search(filtre: AlternanceFiltre): Promise<Either<Array<Alternance>>>
+	get(id: string): Promise<Either<Alternance>>
 }

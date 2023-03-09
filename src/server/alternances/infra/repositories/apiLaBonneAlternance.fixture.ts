@@ -1,5 +1,8 @@
 import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
-import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import {
+	AlternanceApiJobsResponse,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import Matcha = AlternanceApiJobsResponse.Matcha;
 
 export function anAlternanceFiltre(): AlternanceFiltre {
 	return {
@@ -10,41 +13,56 @@ export function anAlternanceFiltre(): AlternanceFiltre {
 		longitudeCommune: '29.10',
 	};
 }
-
 export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse => {
 	return {
 		matchas: {
 			results: [
-				{
-					company: { name: 'une entreprise' },
-					diplomaLevel: 'débutant',
-					job: { contractType: ['Apprentissage'] },
-					place: { city: 'paris' },
-					title: 'un titre',
-				},
-				{
-					company: {
-						name: 'SARL HUGUE-DEBRIX',
-					},
+				aMatchaResponse(),
+				aMatchaResponse({
+					company: { name: 'SARL HUGUE-DEBRIX' },
 					diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
-					job: { contractType: ['Apprentissage'] },
+					job: {
+						contractType: ['Apprentissage'],
+						description: 'Super alternance dans une boucherie',
+						id: 'id-boucher',
+						romeDetails: {
+							competencesDeBase: [],
+							definition: 'Super alternance dans une boucherie',
+						},
+					},
+					place: { city: undefined },
 					title: 'Boucher-charcutier / Bouchère-charcutière',
-				},
-				{
-					company: {
-						name: 'MONSIEUR MICHEL',
-					},
+				}),
+				aMatchaResponse({
+					company: { name: 'MONSIEUR MICHEL' },
 					diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
-					job: { contractType: ['Apprentissage'] },
+					job: {
+						contractType: ['Apprentissage'],
+						description: 'Super alternance dans une boulangerie',
+						id: 'id-boulanger',
+						romeDetails: {
+							competencesDeBase: [],
+							definition: 'Super alternance dans une boulangerie',
+						},
+					},
+					place: { city: undefined },
 					title: 'Ouvrier boulanger / Ouvrière boulangère',
-				},
+				}),
 			],
 		},
 		peJobs: {
 			results: [
 				{
 					company: { name: 'une entreprise' },
-					job: { contractType: 'CDD' },
+					job: {
+						contractType: 'CDD',
+						description: 'description offe',
+						id: 'alternance-pejob',
+						romeDetails: {
+							competencesDeBase: [],
+							definition: 'Super alternance dans un bar',
+						},
+					},
 					place: { city: 'paris' },
 					title: 'un titre',
 				},
@@ -52,3 +70,22 @@ export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse =
 		},
 	};
 };
+
+export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
+	return {
+		company: { name: 'une entreprise' },
+		diplomaLevel: 'débutant',
+		job: {
+			contractType: ['Apprentissage'],
+			description: 'une description d’offre matcha',
+			id: 'id',
+			romeDetails: {
+				competencesDeBase: [{ libelle: 'savoir faire' }],
+				definition: 'Prépare et confectionne des produits de pâtisserie.',
+			},
+		},
+		place: { city: 'paris' },
+		title: 'un titre',
+		...override,
+	};
+}

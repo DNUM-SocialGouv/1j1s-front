@@ -2,7 +2,7 @@ import { Either } from '~/server/errors/either';
 import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 
-export class ConsulterOffreAlternanceUseCase {
+export class ConsulterOffreAlternancePoleEmploiUseCase {
 	constructor(private offreRepository: OffreRepository) {
 	}
 
