@@ -6,6 +6,11 @@ import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
+import {
+	uneFaqList,
+	uneFaqListResponse,
+} from '~/server/cms/domain/foireAuxQuestions.fixture';
+import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { desMesuresEmployeurs } from '~/server/cms/domain/mesureEmployeur.fixture';
@@ -271,6 +276,34 @@ describe('strapi cms repository', () => {
 				// Then
 				expect(result).toEqual(createSuccess(anOffreDeStageDepotStrapi()));
 				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offres-de-stage', { data: offreDeStageDepotStrapi });
+			});
+		});
+	});
+
+	describe('getAllFoireAuxQuestions', () => {
+		describe('quand la liste des questions est trouvée', () => {
+			it('retourne la liste des questions avec l’url de leur réponse', async () => {
+				httpClientService = anHttpClientService();
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneFaqListResponse())));
+
+
+				const { result } = await strapiCmsRepository.getAllFoireAuxQuestions() as Success<Array<FoireAuxQuestions>>;
+				expect(result).toEqual(uneFaqList());
+				expect(httpClientService.get).toHaveBeenCalledWith('foire-aux-questions?populate=deep&pagination[pageSize]=100&pagination[page]=1');
+			});
+		});
+
+		describe('quand la liste des questions n’est trouvée', () => {
+			it('retourne une erreur', async () => {
+				httpClientService = anHttpClientService();
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
+
+				const result = await strapiCmsRepository.getAllFoireAuxQuestions() as Failure;
+				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 			});
 		});
 	});

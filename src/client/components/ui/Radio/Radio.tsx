@@ -1,6 +1,6 @@
-import { uuid4 } from '@sentry/utils';
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Radio/Radio.module.scss';
 
@@ -9,10 +9,10 @@ interface RadioProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'type
 }
 
 export function Radio({ id, label, className, ...rest } : RadioProps) {
-	const radioButtonId = useRef(id || uuid4());
+	const radioButtonId = useRef(id || uuidv4());
 
 	useEffect(() => {
-		radioButtonId.current = id || uuid4();
+		radioButtonId.current = id || uuidv4();
 	}, [id]);
 
 	return (

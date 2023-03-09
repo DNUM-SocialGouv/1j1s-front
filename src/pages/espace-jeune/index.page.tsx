@@ -50,39 +50,42 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	}, [cartesActualites, getCarteActualiteLinkIcon, getCarteActualiteLinkLabel]);
 
 	return (
-		<main id={'contenu'}>
+		<>
 			<Head
 				title="Actualités et services jeunes | 1jeune1solution"
 				robots="index,follow"
 			/>
-			<h1 className={styles.title}>Actualités et services jeune</h1>
-			<section className={classNames(styles.section, styles.actualitesSection)} data-testid="actualites">
-				<LightHero>
-					<h2>
-						<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
-						<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
-					</h2>
-				</LightHero>
-				<Container className={styles.cartesActualitesList}>
-					<SeeMoreItemList className={styles.seeMoreButton}
-						seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
-						seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
-						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-						itemList={articleCardList} />
-				</Container>
-			</section>
-			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
-				<LightHero>
-					<h2>
-						<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
-						<LightHeroSecondaryText>
+			<main id='contenu'>
+
+				<h1 className={styles.title}>Actualités et services jeune</h1>
+				<section className={classNames(styles.section, styles.actualitesSection)} data-testid="actualites">
+					<LightHero>
+						<h2>
+							<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
+							<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
+						</h2>
+					</LightHero>
+					<Container className={styles.cartesActualitesList}>
+						<SeeMoreItemList className={styles.seeMoreButton}
+							seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
+							seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
+							numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
+							itemList={articleCardList} />
+					</Container>
+				</section>
+				<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
+					<LightHero>
+						<h2>
+							<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
+							<LightHeroSecondaryText>
 							entrée dans la vie professionnelle, orientation, formation, accompagnement
-						</LightHeroSecondaryText>
-					</h2>
-				</LightHero>
-				<ServicesJeunes cardList={serviceJeuneList}/>
-			</section>
-		</main>
+							</LightHeroSecondaryText>
+						</h2>
+					</LightHero>
+					<ServicesJeunes cardList={serviceJeuneList}/>
+				</section>
+			</main>
+		</>
 	);
 }
 

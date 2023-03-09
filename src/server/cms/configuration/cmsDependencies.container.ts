@@ -6,6 +6,7 @@ import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consul
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
 import { enregistrerOffreDeStageUseCase } from '~/server/cms/useCases/enregistrerOffreDeStage.useCase';
 import { ListerNomMétierFicheMétierUseCase } from '~/server/cms/useCases/listerNomMétierFicheMétier.useCase';
+import { ListerQuestionsFAQUseCase } from '~/server/cms/useCases/listerQuestionsFAQUseCase';
 import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunesUseCase';
 import { RécupererActualitesUseCase } from '~/server/cms/useCases/récupererActualitesUseCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
@@ -19,6 +20,7 @@ export interface CmsDependencies {
 	consulterOffreStage: ConsulterOffreStageUseCase
 	enregistrerOffreDeStage: enregistrerOffreDeStageUseCase
   duréeDeValiditéEnSecondes: () => number
+	listerQuestionsFAQ: ListerQuestionsFAQUseCase
 	listerNomMétierFicheMétier: ListerNomMétierFicheMétierUseCase
   récupererActualites: RécupererActualitesUseCase
   listerServicesJeunes: ListerServicesJeunesUseCase
@@ -40,6 +42,7 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
 		enregistrerOffreDeStage: new enregistrerOffreDeStageUseCase(cmsRepository),
 		listerNomMétierFicheMétier: new ListerNomMétierFicheMétierUseCase(cmsRepository),
+		listerQuestionsFAQ: new ListerQuestionsFAQUseCase(cmsRepository),
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
 		récupererActualites: new RécupererActualitesUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),

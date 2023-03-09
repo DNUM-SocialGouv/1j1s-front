@@ -316,5 +316,10 @@ export namespace Strapi {
 
 			export type Source = 'immojeune' | 'studapart'
 		}
+
+		export interface FoireAuxQuestions {
+			problematique: string
+			reponse: Strapi.SingleRelation<Strapi.CollectionType.Article>
+		}
 	}
 }

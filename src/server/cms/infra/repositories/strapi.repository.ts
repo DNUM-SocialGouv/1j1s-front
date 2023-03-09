@@ -2,6 +2,7 @@ import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
@@ -10,6 +11,7 @@ import {
 	mapAnnonceLogement,
 	mapArticle,
 	mapEnregistrerOffreDeStage,
+	mapFaq,
 	mapFicheMetier,
 	mapMesuresEmployeurs,
 	mapOffreStage,
@@ -32,6 +34,7 @@ const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
+const RESOURCE_FOIRE_AUX_QUESTIONS = 'foire-aux-questions';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -177,5 +180,10 @@ export class StrapiRepository implements CmsRepository {
 		} catch (e) {
 			return handleFailureError(e, resource);
 		}
+	}
+
+	async getAllFoireAuxQuestions(): Promise<Either<Array<FoireAuxQuestions>>> {
+		const query = 'populate=deep';
+		return await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, FoireAuxQuestions>(RESOURCE_FOIRE_AUX_QUESTIONS, query, mapFaq);
 	}
 }

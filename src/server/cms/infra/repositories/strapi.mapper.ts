@@ -4,6 +4,7 @@ import { Image as ImageProps } from '~/client/components/props';
 import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
+import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
@@ -252,4 +253,12 @@ export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.Coll
 		urlDeCandidature: body.urlDeCandidature,
 	};
 }
+
+export const mapFaq = (faq: Strapi.CollectionType.FoireAuxQuestions): FoireAuxQuestions => {
+	const réponse = flatMapSingleRelation(faq.reponse, mapArticle);
+	return {
+		problématique: faq.problematique,
+		urlArticleRéponse: réponse?.slug,
+	};
+};
 
