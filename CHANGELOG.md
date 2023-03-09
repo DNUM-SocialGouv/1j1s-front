@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.18.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.17.0...v3.18.0) (2023-03-09)
+
+
+### Features
+
+* **accompagnement:** suppression du TextArea ([37ad5f2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/37ad5f24ca2a2693a4ac480aa7d0b3c922145c93))
+
 ## [3.17.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.16.0...v3.17.0) (2023-03-09)
 
 
