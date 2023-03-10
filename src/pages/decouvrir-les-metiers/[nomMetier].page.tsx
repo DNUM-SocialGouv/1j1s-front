@@ -9,6 +9,7 @@ import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import { isFailure } from '~/server/errors/either';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -22,6 +23,7 @@ interface ConsulterFicheMetierPageProps {
 }
 
 export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
+	useAnalytics('decouvrir-les-metiers/[nomMetier]');
 	usePopstate();
 
 	if (!ficheMetier) return null;

@@ -10,6 +10,7 @@ import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/I
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import styles from '~/pages/decouvrir-les-metiers/decouvrir-les-metiers.module.scss';
 
@@ -18,6 +19,7 @@ const HITS_PER_PAGE = 15;
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherFicheMetierPage() {
+	useAnalytics('decouvrir-les-metiers');
 	useReferrer();
 
 	return (

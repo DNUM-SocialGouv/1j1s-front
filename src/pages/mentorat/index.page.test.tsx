@@ -5,6 +5,8 @@
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import MentoratPage from '~/pages/mentorat/index.page';
 
 describe('MentoratPage', () => {
@@ -16,20 +18,29 @@ describe('MentoratPage', () => {
 		jest.clearAllMocks();
 	});
 
-	it('possède un h1', () => {
+	it('envoie les analytics de la page à son affichage', () => {
+		const analyticsService = anAnalyticsService();
+
 		render(
-			<MentoratPage />,
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<MentoratPage />
+			</DependenciesProvider>,
 		);
 
-		const headingList = screen.getAllByRole('heading', { level: 1 });
-		const heading = headingList[0];
-
-		expect(heading).toHaveTextContent('1 jeune 1 mentor, être accompagné par un mentor pour réussir');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith('mentorat');
 	});
 
-	it('possède un bouton -Je trouve mon mentor- qui redirige l‘utilisateur', () => {
+	it('possède un bouton -Je trouve mon mentor- qui redirige l’utilisateur', () => {
+		const analyticsService = anAnalyticsService();
+
 		render(
-			<MentoratPage />,
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<MentoratPage />
+			</DependenciesProvider>,
 		);
 		const linkAsButton = screen.getByRole('link', { name: 'Je trouve mon mentor' });
 

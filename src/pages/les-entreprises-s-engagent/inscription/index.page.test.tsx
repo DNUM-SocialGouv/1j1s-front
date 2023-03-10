@@ -7,6 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import LesEntreprisesSEngagentInscription, {
@@ -16,6 +17,7 @@ import LesEntreprisesSEngagentInscription, {
 describe('LesEntreprisesSEngagentInscription', () => {
 	const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
 	const localisationService = aLocalisationService();
+	const analyticsService = anAnalyticsService();
 
 	const routerPush = jest.fn();
 
@@ -37,7 +39,11 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 	const renderComponent = () => {
 		render(
-			<DependenciesProvider lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock} localisationService={localisationService}>
+			<DependenciesProvider
+				lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock}
+				localisationService={localisationService}
+				analyticsService={analyticsService}
+			>
 				<LesEntreprisesSEngagentInscription/>
 			</DependenciesProvider>,
 		);
@@ -47,8 +53,8 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		mockUseRouter({ push: routerPush });
 	});
 
-	describe('quand l’utilisateur arrivent sur la page', () => {
-		it('il peut cliquer sur le lien "Retour" pour retourner sur la page de description des entreprises s’engagent', async () => {
+	describe('quand l’utilisateur arrive sur la page', () => {
+		it('peut cliquer sur le lien "Retour" pour retourner sur la page de description des entreprises s’engagent', async () => {
 			renderComponent();
 
 			const retourLink = screen.getByRole('link', { name: 'Retour' });
@@ -56,13 +62,19 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			expect(retourLink).toHaveAttribute('href', '/les-entreprises-s-engagent');
 		});
 
-		it('il voit afficher la première étape de formulaire', () => {
+		it('voit la première étape de formulaire', () => {
 			renderComponent();
 
 			expect(screen.getByText('Etape 1 sur 2')).toBeInTheDocument();
 			labelsEtape1.forEach((label) => {
 				expect(screen.getByText(label.name)).toBeInTheDocument();
 			});
+		});
+
+		it('envoie les analytics de la page à son affichage', () => {
+			renderComponent();
+
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith('les-entreprises-s-engagent/inscription');
 		});
 	});
 

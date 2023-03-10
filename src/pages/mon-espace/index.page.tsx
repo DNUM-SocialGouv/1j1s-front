@@ -3,8 +3,11 @@ import React from 'react';
 import MonEspaceEntreprise from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/MonEspaceEntreprise';
 import { Objectifs } from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/Objectifs/Objectifs';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
-export default function MesuresEmployeurs() {
+export default function MonEspace() {
+	useAnalytics('mon-espace');
+
 	return (
 		<>
 			<Head

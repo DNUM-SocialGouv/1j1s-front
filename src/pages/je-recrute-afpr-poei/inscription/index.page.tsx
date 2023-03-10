@@ -19,6 +19,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import styles
 	from '~/pages/je-recrute-afpr-poei/inscription/index.module.scss';
@@ -62,6 +63,7 @@ const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libel
 
 export default function JeRecruteAfprPoeiInscription() {
 	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
+	useAnalytics('je-recrute-afpr-poei/inscription');
 	const [étape, setÉtape] = useState<Étape>(Étape.ETAPE_1);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
 	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({

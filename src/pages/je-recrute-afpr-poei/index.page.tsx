@@ -3,9 +3,11 @@ import React from 'react';
 import AidesExceptionnelles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import RecrutementCandidatPôleEmploi from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/RecrutementCandidatPôleEmploi';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
+export default function JeRecruteAfprPoei() {
+	useAnalytics('je-recrute-afpr-poei');
 
-export default function LesEntreprisesSEngagent() {
 	return (
 		<>
 			<Head

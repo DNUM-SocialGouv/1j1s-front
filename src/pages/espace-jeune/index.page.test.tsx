@@ -5,6 +5,8 @@ import { render, screen, within } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
 import { anActualite, anActualiteList } from '~/server/cms/domain/actualite.fixture';
 import { aServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
@@ -22,8 +24,15 @@ describe('Page Espace Jeune', () => {
 		it('n‘affiche pas le bouton voir plus si moins de 7 actualités', () => {
 			const carteActualites = [anActualite({ titre: 'Actualité 1' })];
 			const serviceJeuneList = aServiceJeuneList();
+			const analyticsService = anAnalyticsService();
 
-			render(<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>);
+			render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+				>
+					<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+				</DependenciesProvider>,
+			);
 			const actualitesSection = screen.getByTestId('actualites');
 
 			expect(within(actualitesSection).queryByRole('button', { name: 'Voir plus de résultats sur les actualités' })).not.toBeInTheDocument();
@@ -32,11 +41,34 @@ describe('Page Espace Jeune', () => {
 		it('affiche pas le bouton voir plus si plus de 6 actualités', () => {
 			const carteActualites = anActualiteList();
 			const serviceJeuneList = aServiceJeuneList();
+			const analyticsService = anAnalyticsService();
 
-			render(<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>);
+			render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+				>
+					<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+				</DependenciesProvider>,
+			);
 			const actualitesSection = screen.getByTestId('actualites');
 
 			expect(within(actualitesSection).getByRole('button', { name: 'Voir plus de résultats sur les actualités' })).toBeInTheDocument();
+		});
+
+		it('envoie les analytics de la page à son affichage', () => {
+			const carteActualites = anActualiteList();
+			const serviceJeuneList = aServiceJeuneList();
+			const analyticsService = anAnalyticsService();
+
+			render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+				>
+					<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+				</DependenciesProvider>,
+			);
+
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith('espace-jeune');
 		});
 	});
 });

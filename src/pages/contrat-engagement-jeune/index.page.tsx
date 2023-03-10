@@ -11,8 +11,11 @@ import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/
 import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeune/QuEstCeQueJyGagne/QuEstCeQueJyGagne';
 import { Témoignages } from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
 export default function ContratEngagementJeune() {
+	useAnalytics('contrat-engagement-jeune');
+
 	return (
 		<>
 			<Head

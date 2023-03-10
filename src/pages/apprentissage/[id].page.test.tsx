@@ -6,6 +6,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternancePage, { DetailAlternanceSerialized } from '~/pages/apprentissage/[id].page';
 
 const annonceAlternanceSerialized: DetailAlternanceSerialized = {
@@ -34,15 +36,37 @@ describe('<AnnonceAlternancePage />', () => {
 		mockUseRouter({});
 	});
 
-	it("ajoute le nom de l'annonce au titre du document", async () => {
-		render(<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />);
+	it('ajoute le nom de l’annonce au titre du document', async () => {
+		const analyticsService = anAnalyticsService();
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />
+			</DependenciesProvider>,
+		);
 
 		expect(document.title).toContain('Ma super alternance');
 	});
-	it("affiche le détail de l'annonce", async () => {
-		render(<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />);
+
+	it('affiche le détail de l’annonce', async () => {
+		const analyticsService = anAnalyticsService();
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />
+			</DependenciesProvider>,
+		);
 
 		const titre = screen.getByRole('heading', { level: 1, name: /Ma super alternance/i });
 		expect(titre).toBeVisible();
+	});
+
+	it('envoie les analytics de la page à son affichage', () => {
+		const analyticsService = anAnalyticsService();
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />
+			</DependenciesProvider>,
+		);
+
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith('apprentissage/[id]');
 	});
 });

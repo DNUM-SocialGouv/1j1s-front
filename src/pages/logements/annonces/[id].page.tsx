@@ -8,12 +8,14 @@ import React from 'react';
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
+	useAnalytics('logements/annonces/[id]');
 	usePopstate();
 
 	if (!isFeatureActive) return <ErrorUnavailableService/>;

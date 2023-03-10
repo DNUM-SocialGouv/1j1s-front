@@ -3,9 +3,11 @@ import React from 'react';
 import AvantagesMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation';
 import RejoignezMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation';
 import { Head } from '~/client/components/head/Head';
-
+import useAnalytics from '~/client/hooks/useAnalytics';
 
 export default function LesEntreprisesSEngagent() {
+	useAnalytics('les-entreprises-s-engagent');
+
 	return (
 		<>
 			<Head

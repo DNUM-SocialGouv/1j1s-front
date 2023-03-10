@@ -2,8 +2,11 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
 export default function FormationPage() {
+	useAnalytics('creer-mon-cv');
+
 	return (
 		<>
 			<Head

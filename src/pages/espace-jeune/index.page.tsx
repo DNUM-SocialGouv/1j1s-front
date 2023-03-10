@@ -9,6 +9,7 @@ import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import { Actualite } from '~/server/cms/domain/actualite';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
@@ -24,6 +25,7 @@ interface EspaceJeunePageProps {
 const MAX_VISIBLE_ACTUALITES_LENGTH = 6;
 
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
+	useAnalytics('espace-jeune');
 	useReferrer();
 
 	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {

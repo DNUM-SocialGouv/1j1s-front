@@ -4,6 +4,7 @@ import React from 'react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
@@ -14,6 +15,7 @@ interface ConsulterStagePageProps {
 }
 
 export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {
+	useAnalytics('stages/[id]');
 	usePopstate();
 
 	return (

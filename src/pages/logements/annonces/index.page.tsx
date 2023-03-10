@@ -11,6 +11,7 @@ import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnav
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 
@@ -20,6 +21,7 @@ const ANNONCE_PAR_PAGE = 9 ;
 export default function AnnoncesPage() {
 	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
 
+	useAnalytics('logements/annonces');
 	useReferrer();
 	const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
 		return transformerMeilisearchLogementsItems(items);

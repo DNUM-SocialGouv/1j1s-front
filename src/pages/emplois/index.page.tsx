@@ -3,11 +3,13 @@ import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 
 export default function RechercherOffreEmploiPage() {
 	const router = useRouter();
 	useReferrer();
+	useAnalytics('emplois');
 
 	useEffect(() => {
 		if (router.isReady) {

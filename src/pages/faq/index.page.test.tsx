@@ -3,6 +3,8 @@
  */
 import { render, screen } from '@testing-library/react';
 
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
 
 describe('Page FAQ', () => {
@@ -15,7 +17,11 @@ describe('Page FAQ', () => {
 		});
 
 		it('ne retourne rien', async () => {
-			render(<FaqPage/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<FaqPage/>
+				</DependenciesProvider>,
+			);
 
 
 			const title = screen.queryByRole('heading', { level: 1 });
@@ -32,12 +38,25 @@ describe('Page FAQ', () => {
 		});
 
 		it('affiche le titre de la page', async () => {
-			render(<FaqPage/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<FaqPage/>
+				</DependenciesProvider>,
+			);
 
 			const title = await screen.findByRole('heading', { level: 1 });
 			expect(title).toHaveTextContent('FAQ - Questions fréquemment posées');
+		});
 
+		it('envoie les analytics de la page à son affichage', async () => {
+			const analyticsService = anAnalyticsService();
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<FaqPage/>
+				</DependenciesProvider>,
+			);
+
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith('faq');
 		});
 	});
-
 });

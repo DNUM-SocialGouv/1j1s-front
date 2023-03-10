@@ -5,6 +5,8 @@
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import MesAidesPage from '~/pages/mes-aides/index.page';
 
 describe('MesAidesPage', () => {
@@ -12,19 +14,29 @@ describe('MesAidesPage', () => {
 		mockSmallScreen();
 	});
 
-	it('affiche un titre de niveau 1', () => {
+	it('envoie les analytics de la page à son affichage', () => {
+		const analyticsService = anAnalyticsService();
+
 		render(
-			<MesAidesPage />,
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<MesAidesPage />
+			</DependenciesProvider>,
 		);
 
-		const heading = screen.getByRole('heading', { level: 1 });
-
-		expect(heading).toHaveTextContent('Je découvre les aides auxquelles j’ai droit en moins de 5 minutes');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith('mes-aides');
 	});
 
-	it('permet de rediriger l‘utilisateur vers le simulateur d‘aide', () => {
+	it('permet de rediriger l’utilisateur vers le simulateur d’aide', () => {
+		const analyticsService = anAnalyticsService();
+
 		render(
-			<MesAidesPage />,
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<MesAidesPage />
+			</DependenciesProvider>,
 		);
 
 		const link = screen.getByRole('link', { name: 'Je commence la simulation' });
