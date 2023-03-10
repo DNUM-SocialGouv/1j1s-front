@@ -1,6 +1,5 @@
 import {
-	Alternance,
-	AlternanceFiltre,
+	AlternanceFiltre, RésultatRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { Either } from '~/server/errors/either';
@@ -8,7 +7,7 @@ import { Either } from '~/server/errors/either';
 export class RechercherAlternanceLaBonneAlternanceUseCase {
 	constructor(private repository: AlternanceRepository) {}
 
-	async handle(alternanceFiltre: AlternanceFiltre): Promise<Either<Array<Alternance>>> {
+	async handle(alternanceFiltre: AlternanceFiltre): Promise<Either<Array<RésultatRechercheAlternance>>> {
 		return this.repository.search(alternanceFiltre);
 	}
 }

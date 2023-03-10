@@ -8,19 +8,25 @@ import ReactDOM from 'react-dom';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import AnnonceAlternancePage, { DetailAlternanceSerialized } from '~/pages/apprentissage/[id].page';
+import AnnonceAlternancePage, { AlternanceSerialized } from '~/pages/apprentissage/[id].page';
+import { Alternance } from '~/server/alternances/domain/alternance';
 
-const annonceAlternanceSerialized: DetailAlternanceSerialized = {
+const alternanceSerialized: AlternanceSerialized = {
 	compétences: ['savoir faire'],
 	dateDébut: undefined,
-	durée: 10,
+	description: 'description de l’annonce',
+	durée: '10 ans',
 	entreprise: {
-		localisation: 'paris',
+		adresse: 'paris',
 		nom:'une entreprise',
 		téléphone: undefined,
 	},
+	id: '123',
 	localisation: 'paris',
+	natureDuContrat: 'CDI',
 	niveauRequis: 'débutant',
+	source: Alternance.Source.POLE_EMPLOI,
+	tags: [],
 	titre: 'Ma super alternance',
 	typeDeContrat: ['Apprentissage'],
 };
@@ -40,7 +46,7 @@ describe('<AnnonceAlternancePage />', () => {
 		const analyticsService = anAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />
+				<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 			</DependenciesProvider>,
 		);
 
@@ -51,7 +57,7 @@ describe('<AnnonceAlternancePage />', () => {
 		const analyticsService = anAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />
+				<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 			</DependenciesProvider>,
 		);
 
@@ -63,7 +69,7 @@ describe('<AnnonceAlternancePage />', () => {
 		const analyticsService = anAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternancePage annonce={annonceAlternanceSerialized} />
+				<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 			</DependenciesProvider>,
 		);
 

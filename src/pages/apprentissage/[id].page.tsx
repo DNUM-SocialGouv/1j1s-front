@@ -2,16 +2,16 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import React from 'react';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
-import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/apprentissage/[id].analytics';
+import { Alternance } from '~/server/alternances/domain/alternance';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
-export type DetailAlternanceSerialized = Omit<DetailAlternance, 'dateDébut'> & { dateDébut?: string };
+export type AlternanceSerialized = Omit<Alternance, 'dateDébut'> & { dateDébut?: string };
 type ConsulterAnnonceAlternancePageProps = {
-  annonce: DetailAlternanceSerialized;
+  alternanceSerialized: AlternanceSerialized;
 }
 
 function convertUndefinedToNull<T>(payload: T): T {
@@ -34,44 +34,49 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	if (annonce.instance === 'failure') {
 		return { notFound: true };
 	}
-	const detailAlternance: DetailAlternanceSerialized = {
+	const alternance: AlternanceSerialized = {
 		compétences: annonce.result.compétences,
 		dateDébut: annonce.result.dateDébut?.toISOString(),
 		description: annonce.result.description,
 		durée: annonce.result.durée,
 		entreprise: {
-			localisation: annonce.result.entreprise.adresse,
+			adresse: annonce.result.entreprise.adresse,
 			nom: annonce.result.entreprise.nom,
 			téléphone: annonce.result.entreprise.téléphone,
 		},
+		id: annonce.result.id,
 		localisation: annonce.result.localisation,
+		natureDuContrat: annonce.result.natureDuContrat,
 		niveauRequis: annonce.result.niveauRequis,
 		rythmeAlternance: annonce.result.rythmeAlternance,
+		source: annonce.result.source,
+		tags: annonce.result.tags,
 		titre: annonce.result.titre,
 		typeDeContrat: annonce.result.typeDeContrat,
+		url: annonce.result.url,
 	};
 	return {
 		props: {
-			annonce: convertUndefinedToNull(detailAlternance),
+			alternanceSerialized: convertUndefinedToNull(alternance),
 		},
 	};
 }
 
-export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlternancePageProps) {
+export default function AnnonceAlternancePage({ alternanceSerialized }: ConsulterAnnonceAlternancePageProps) {
 	useAnalytics(analytics);
 
-	const parsedDétail: DetailAlternance = {
-		...annonce,
-		dateDébut: annonce.dateDébut ? new Date(annonce.dateDébut) : undefined,
+	const alternance: Alternance = {
+		...alternanceSerialized,
+		dateDébut: alternanceSerialized.dateDébut ? new Date(alternanceSerialized.dateDébut) : undefined,
 	};
 
 	return (
 		<>
 			<Head
-				title={`${annonce.titre} | 1jeune1solution`}
+				title={`${alternanceSerialized.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<Detail annonce={parsedDétail} />
+			<Detail annonce={alternance} />
 		</>
 	);
 }

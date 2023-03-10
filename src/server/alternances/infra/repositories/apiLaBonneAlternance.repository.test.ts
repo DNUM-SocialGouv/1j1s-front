@@ -88,18 +88,35 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Then
 			expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
 		});
-		it('appelle l’api laBonneAlternance', async () => {
-			// Given
-			const httpClientService = anHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
+		describe('lorsque l’id fournit correspond à une offre Pole Emploi', () => {
+			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/job', async () => {
+				// Given
+				const httpClientService = anHttpClientService();
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
-			// When
-			await repository.get('abc');
+				// When
+				await repository.get('1234567');
 
-			// Then
-			expect(httpClientService.get).toHaveBeenCalledTimes(1);
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/matcha/abc'));
+				// Then
+				expect(httpClientService.get).toHaveBeenCalledTimes(1);
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/job/1234567'));
+			});
+		});
+		describe('lorsque l’id fournit ne correspond pas à une offre matcha', () => {
+			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/matcha', async () => {
+				// Given
+				const httpClientService = anHttpClientService();
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
+
+				// When
+				await repository.get('abc');
+
+				// Then
+				expect(httpClientService.get).toHaveBeenCalledTimes(1);
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/matcha/abc'));
+			});
 		});
 	});
 });

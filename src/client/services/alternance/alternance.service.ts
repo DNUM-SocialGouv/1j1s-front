@@ -5,7 +5,7 @@ import {
 } from 'querystring';
 
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Either } from '~/server/errors/either';
 
 interface AlternanceQueryFiltre extends ParsedUrlQuery {
@@ -19,7 +19,7 @@ interface AlternanceQueryFiltre extends ParsedUrlQuery {
 export class AlternanceService {
 	constructor(private httpClientService: HttpClientService) {}
 
-	async rechercherAlternance(query:string): Promise<Either<Array<Alternance>>> {
+	async rechercherAlternance(query:string): Promise<Either<Array<RésultatRechercheAlternance>>> {
 		const filtres = this.filtrerQueries(query);
 		return this.httpClientService.get<Array<Alternance>>(`alternances?${filtres}`);
 	}
