@@ -1,10 +1,13 @@
 import { GetStaticPropsResult } from 'next';
 
 import { ConsulterContenu, ConsulterContenuProps } from '~/client/components/features/Contenu/ConsulterContenu';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { dependencies } from '~/server/start';
 
 export default function Accessibilite({ titre, contenu }: ConsulterContenuProps) {
+	useAnalytics('accessibilite');
+
 	return (
 		<ConsulterContenu titre={titre} contenu={contenu}/>
 	);

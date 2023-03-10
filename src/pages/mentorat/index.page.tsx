@@ -6,11 +6,13 @@ import { Head } from '~/client/components/head/Head';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Mentorat.module.scss';
 
 export default function MentoratPage() {
+	useAnalytics('mentorat');
 	const { isLargeScreen } = useBreakpoint();
 
 	return (

@@ -6,11 +6,13 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 
 import styles from './aides-logement.module.scss';
 
 export default function AidesLogement() {
+	useAnalytics('logements/aides-logement');
 	useReferrer();
 
 	return (

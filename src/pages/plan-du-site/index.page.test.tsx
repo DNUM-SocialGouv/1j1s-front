@@ -4,6 +4,8 @@
 
 import { render, screen, within } from '@testing-library/react';
 
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import PlanDuSite from '~/pages/plan-du-site/index.page';
 
 describe('Plan du site', () => {
@@ -40,13 +42,36 @@ describe('Plan du site', () => {
     ${'Accessibilité : Partiellement conforme'} | ${'/accessibilite'}
     ${'Mentions légales'}                       | ${'/mentions-legales'}
     ${'Politique de confidentialité'}           | ${'/confidentialite'}
-    ${'Nous contacter'}                         | ${'mailto:contact-1j1s@sg.social.gouv.fr'}
-`('présente la page $nom du site', async ({ nom, path }) => {
-		render(<PlanDuSite />);
+    ${'Nous contacter'}                         | ${'mailto:contact-1j1s@sg.social.gouv.fr'}`(
+		'présente la page $nom du site', 
+		async ({ nom, path }) => {
+			const analyticsService = anAnalyticsService();
 
-		const plan = screen.getByRole('list', { name: /Plan du site/i });
-		const lien = within(plan).getByRole('link', { name: nom });
-		expect(lien).toBeVisible();
-		expect(lien).toHaveAttribute('href', path);
+			render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+				>
+					<PlanDuSite/>
+				</DependenciesProvider>,
+			);
+
+			const plan = screen.getByRole('list', { name: /Plan du site/i });
+			const lien = within(plan).getByRole('link', { name: nom });
+			expect(lien).toBeVisible();
+			expect(lien).toHaveAttribute('href', path);
+		});
+
+	it('envoie les analytics de la page à son affichage', () => {
+		const analyticsService = anAnalyticsService();
+
+		render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<PlanDuSite/>
+			</DependenciesProvider>,
+		);
+		
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith('plan-du-site');
 	});
 });

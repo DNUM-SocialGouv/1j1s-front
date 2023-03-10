@@ -4,6 +4,7 @@ import React from 'react';
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -56,6 +57,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 }
 
 export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlternancePageProps) {
+	useAnalytics('apprentissage/[id]');
+
 	const parsedDétail: DetailAlternance = {
 		...annonce,
 		dateDébut: annonce.dateDébut ? new Date(annonce.dateDébut) : undefined,

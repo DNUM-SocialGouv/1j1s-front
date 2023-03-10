@@ -7,12 +7,14 @@ import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/I
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'evenement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function PageEvenements() {
+	useAnalytics('evenements');
 	const displayRechercheEvenement = process.env.NEXT_PUBLIC_RECHERCHE_EVENEMENT_FEATURE === '1';
 
 	return (

@@ -6,6 +6,7 @@ import {
 	ConsulterMissionEngagement,
 } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { Mission, MissionId } from '~/server/engagement/domain/engagement';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
@@ -15,6 +16,8 @@ interface ConsulterMissionEngagementPageProps {
 }
 
 export default function ConsulterMissionEngagementPage({ missionEngagement }: ConsulterMissionEngagementPageProps) {
+	useAnalytics('benevolat/[id]');
+
 	if (!missionEngagement) return null;
 
 	return (

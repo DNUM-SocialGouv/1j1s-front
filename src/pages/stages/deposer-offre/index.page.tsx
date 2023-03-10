@@ -6,6 +6,7 @@ import {
 	LightHeroPrimaryText,
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
@@ -18,6 +19,7 @@ export const ETAPE_LOCALISATION = 'formulaireEtape3';
 export const URL_DEPOSER_OFFRE = '/stages/deposer-offre';
 
 export default function DeposerOffreStagePage() {
+	useAnalytics('stages/deposer-offre');
 	useReferrer();
 
 	return (

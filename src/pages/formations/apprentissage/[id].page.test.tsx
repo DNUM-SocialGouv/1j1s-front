@@ -7,6 +7,8 @@ import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
@@ -46,7 +48,7 @@ describe('getServerSideProps', () => {
 			};
 		});
 
-		describe('lorsque les query params sont incorrecte', () => {
+		describe('lorsque les query params sont incorrects', () => {
 			it('retourne une page 404', async () => {
 				const queryParam = {} as ParsedUrlQuery;
 
@@ -56,6 +58,7 @@ describe('getServerSideProps', () => {
 				expect(dependencies.formationDependencies.consulterFormation.handle).not.toHaveBeenCalled();
 			});
 		});
+
 		describe('lorsque les query params sont remplis', () => {
 			describe('lorsque le détail de la formation existe', () => {
 				it('retourne les props de la page', async () => {
@@ -78,6 +81,7 @@ describe('getServerSideProps', () => {
 					expect(value).toEqual({ props: { formation: formation } });
 				});
 			});
+
 			describe('lorsque le détail de la formation n‘existe pas', () => {
 				it('retourne une page 404', async () => {
 					const queryParam = {
@@ -106,9 +110,33 @@ describe('Page Consulter Formations en Apprentissage', () => {
 	it('retourne une page avec les informations de la formation', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();
-		render(<ConsulterFormationPage formation={formation} />);
+		const analyticsService = anAnalyticsService();
+		
+		render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<ConsulterFormationPage formation={formation} />
+			</DependenciesProvider>,
+		);
 
 		const titre = screen.getByRole('heading', { name: formation.titre });
 		expect(titre).toBeInTheDocument();
+	});
+	
+	it('envoie les analytics de la page à son affichage', () => {
+		mockUseRouter({ query: {} });
+		const formation = aFormation();
+		const analyticsService = anAnalyticsService();
+		
+		render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<ConsulterFormationPage formation={formation} />
+			</DependenciesProvider>,
+		);
+
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith('formations/apprentissage/[id]');
 	});
 });

@@ -10,12 +10,12 @@ import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import JeRecruteAfprPoeiInscription, {
 	FormulairesPoleEmploi,
 } from '~/pages/je-recrute-afpr-poei/inscription/index.page';
-import { createSuccess } from '~/server/errors/either';
 
 describe('<JeRecruteAfprPoeiInscription />', () => {
 
@@ -44,28 +44,30 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 		{ name: 'Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles' },
 	];
 
-	const anDemandeDeContactService = (): DemandeDeContactService => ({
-		envoyerPourLePOE: jest.fn().mockResolvedValue(createSuccess(undefined)),
-	} as unknown as DemandeDeContactService);
-	const demandeDeContactServiceMock = anDemandeDeContactService();
+	const demandeDeContactServiceMock = aDemandeDeContactService();
 	const localisationService = aLocalisationService();
+	const analyticsService = anAnalyticsService();
   
 	const routerPush = jest.fn();
 
 	function renderComponent() {
 		render(
-			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}
-				localisationService={localisationService}>
+			<DependenciesProvider
+				demandeDeContactService={demandeDeContactServiceMock}
+				localisationService={localisationService}
+				analyticsService={analyticsService}
+			>
 				<JeRecruteAfprPoeiInscription/>
 			</DependenciesProvider>,
 		);
 		return { demandeDeContactServiceMock };
 	};
+	
 	beforeAll(() => {
 		mockUseRouter({ push: routerPush });
 	});
 
-	describe('quand l’utilisateur arrivent sur la page JeRecruteAfprPoei', () => {
+	describe('quand l’utilisateur arrive sur la page JeRecruteAfprPoei', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner sur la page JeRecruteAfprPoei', async () => {
 			renderComponent();
 
@@ -81,6 +83,12 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			labelsEtape1.forEach((label) => {
 				expect(screen.getByText(label.name)).toBeInTheDocument();
 			});
+		});
+
+		it('envoie les analytics de la page à son affichage', () => {
+			renderComponent();
+
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith('je-recrute-afpr-poei/inscription');
 		});
 	});
 

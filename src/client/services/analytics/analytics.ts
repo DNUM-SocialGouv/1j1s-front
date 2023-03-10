@@ -40,8 +40,8 @@ type PageGroup =
 	| 'engagement_entreprise'
 	| 'entreprendre_detail'
 	| 'formation'
-	| 'formation_liste'
-	| 'formations_detail'
+	| 'formation_apprentissage_liste'
+	| 'formation_apprentissage_detail'
 	| 'je_recrute'
 	| 'job_etudiants'
 	| 'job_europe'
@@ -67,7 +67,7 @@ type PageLabel =
 	| 'benevolat'
 	| 'contenu_detail_niv_1'
 	| 'contenu_detail_niv_2'
-	| 'contenu_liste_niv_2'
+	| 'contenu_liste_niv_1'
 	| 'contenu_statique'
 	| 'cv'
 	| 'deposer_offre_emploi_confirmation'
@@ -102,7 +102,7 @@ type PageTemplate =
 	| 'benevolat'
 	| 'contenu_detail_niv_1'
 	| 'contenu_detail_niv_2'
-	| 'contenu_liste_niv_2'
+	| 'contenu_liste_niv_1'
 	| 'contenu_statique'
 	| 'cv'
 	| 'deposer_offre_emploi_confirmation'
@@ -143,6 +143,7 @@ export interface PageTagsConfig {
 	'accompagnement': PageTags;
 	'accueil': PageTags;
 	'apprentissage': PageTags;
+	'apprentissage/[id]': PageTags;
 	'articles': PageTags;
 	'autres': PageTags;
 	'benevolat': PageTags;
@@ -160,8 +161,10 @@ export interface PageTagsConfig {
 	'espace-jeune': PageTags;
 	'europe': PageTags;
 	'evenements': PageTags;
+	'faq': PageTags;
 	'formations': PageTags;
 	'formations/apprentissage': PageTags;
+	'formations/apprentissage/[id]': PageTags;
 	'immersions': PageTags;
 	'immersions/referencer-mon-entreprise': PageTags;
 	'je-deviens-mentor': PageTags;
@@ -204,9 +207,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'page_de_base',
 	},
 	accompagnement: {
-		page_template: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
 		pagegroup: 'accompagnement_liste',
-		pagelabel: 'contenu_liste_niv_2',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	accueil: {
@@ -219,6 +222,12 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		page_template: 'emplois_liste',
 		pagegroup: 'apprentissage',
 		pagelabel: 'emplois_liste',
+		'segment-site': 'offres_d_emploi',
+	},
+	'apprentissage/[id]': {
+		page_template: 'emplois_detail',
+		pagegroup: 'apprentissage',
+		pagelabel: 'emplois_detail',
 		'segment-site': 'offres_d_emploi',
 	},
 	articles: {
@@ -234,9 +243,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'autres',
 	},
 	benevolat: {
-		page_template: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
 		pagegroup: 'benevolat_liste',
-		pagelabel: 'contenu_liste_niv_2',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	'benevolat/[id]': {
@@ -270,9 +279,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'contenu_liens',
 	},
 	'decouvrir-les-metiers': {
-		page_template: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
 		pagegroup: 'decouvrir_les_metiers_liste',
-		pagelabel: 'contenu_liste_niv_2',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	'decouvrir-les-metiers/[nomMetier]': {
@@ -323,6 +332,12 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		pagelabel: 'participer_a_un_evenement',
 		'segment-site': 'contenu_liens',
 	},
+	faq: {
+		page_template: 'contenu_statique',
+		pagegroup: 'contenu_statique',
+		pagelabel: 'contenu_statique',
+		'segment-site': 'page_de_base',
+	},
 	formations: {
 		page_template: 'formation',
 		pagegroup: 'formation',
@@ -330,9 +345,15 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'contenu_liens',
 	},
 	'formations/apprentissage': {
-		page_template: 'contenu_liste_niv_2',
-		pagegroup: 'formation_liste',
-		pagelabel: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
+		pagegroup: 'formation_apprentissage_liste',
+		pagelabel: 'contenu_liste_niv_1',
+		'segment-site': 'contenu_liste',
+	},
+	'formations/apprentissage/[id]': {
+		page_template: 'contenu_detail_niv_2',
+		pagegroup: 'formation_apprentissage_detail',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	immersions: {
@@ -363,7 +384,7 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		page_template: 'contenu_statique',
 		pagegroup: 'contenu_statique',
 		pagelabel: 'contenu_statique',
-		'segment-site': 'page_de_base',
+		'segment-site': 'contenu_liens',
 	},
 	'je-recrute-afpr-poei/inscription': {
 		page_template: 'je_recrute_etape_1',
@@ -414,9 +435,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'contenu_detail',
 	},
 	'logements/annonces': {
-		page_template: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
 		pagegroup: 'logement',
-		pagelabel: 'contenu_liste_niv_2',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	'logements/annonces/[id]': {
@@ -444,9 +465,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'contenu_liens',
 	},
 	'mesures-employeurs': {
-		page_template: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
 		pagegroup: 'mesures_employeurs_liste',
-		pagelabel: 'contenu_liste_niv_2',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	'mon-espace': {
@@ -462,9 +483,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'page_de_base',
 	},
 	'service-civique': {
-		page_template: 'contenu_liste_niv_2',
+		page_template: 'contenu_liste_niv_1',
 		pagegroup: 'service_civique_liste',
-		pagelabel: 'contenu_liste_niv_2',
+		pagelabel: 'contenu_liste_niv_1',
 		'segment-site': 'contenu_liste',
 	},
 	'service-civique/[id]': {

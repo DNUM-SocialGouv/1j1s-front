@@ -7,6 +7,7 @@ import {
 	HeroPrimaryText,
 	HeroSecondaryText,
 } from '~/client/components/ui/Hero/Hero';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
 import styles from './index.module.scss';
 
@@ -14,6 +15,8 @@ const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://immersion-facile-1.gitbook.io
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation';
 
 export default function DéposerUneOffreDEmploi() {
+	useAnalytics('emplois/deposer-offre');
+
 	return (
 		<main id="contenu">
 			<Head

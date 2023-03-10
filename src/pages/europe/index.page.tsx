@@ -4,7 +4,6 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Link as LinkType } from '~/client/components/props';
 import {
 	LightHero,
 	LightHeroPrimaryText,
@@ -13,13 +12,20 @@ import {
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import styles from '~/pages/europe/europe.module.scss';
 
+interface LienEmploiEurope {
+	url: string;
+	title: string;
+}
+
 export default function EuropePage() {
+	useAnalytics('europe');
 	const { isLargeScreen } = useBreakpoint();
 	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
-	const linkList: Array<LinkType> = [
+	const linkList: Array<LienEmploiEurope> = [
 		{
 			title: 'Je cherche un emploi en Europe',
 			url: 'https://ec.europa.eu/eures/portal/jv-se/home',
@@ -69,7 +75,7 @@ export default function EuropePage() {
 					</div>
 				) }
 				<ul>
-					{ linkList.map((link: LinkType) => (
+					{ linkList.map((link: LienEmploiEurope) => (
 						<li key={link.title}>
 							<Link href={link.url} className={classNames('underline-none')}>
 								<TextIcon icon="external-redirection">{link.title}</TextIcon>

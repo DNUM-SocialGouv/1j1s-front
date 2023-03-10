@@ -1,5 +1,10 @@
 import { JeRecrute } from '~/client/components/features/JeRecrute/JeRecrute';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
 export default function JeRecrutePage () {
-	return (<JeRecrute />);
+	useAnalytics('je-recrute');
+
+	return (
+		<JeRecrute />
+	);
 }

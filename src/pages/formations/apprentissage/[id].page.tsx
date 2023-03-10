@@ -2,6 +2,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, NextApiRequest } f
 
 import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import { formationQuerySchema } from '~/pages/api/formations/[id].controller';
 import { formationFiltreMapper } from '~/pages/api/formations/index.controller';
 import { isFailure } from '~/server/errors/either';
@@ -13,6 +14,8 @@ interface ConsulterFormationPageProps {
 }
 
 export default function ConsulterFormationPage(props: ConsulterFormationPageProps) {
+	useAnalytics('formations/apprentissage/[id]');
+
 	const { formation } = props;
 	return (
 		<>

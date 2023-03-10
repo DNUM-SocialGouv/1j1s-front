@@ -7,9 +7,12 @@ import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartne
 import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import styles from '~/pages/formations/index.module.scss';
 
 export default function FormationPage() {
+	useAnalytics('formations');
+
 	return (
 		<>
 			<Head

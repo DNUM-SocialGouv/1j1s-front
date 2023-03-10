@@ -1,18 +1,5 @@
 const LOCAL_MODE_HEADERS = [];
 
-const STRAPI_MEDIA_HOST = new URL(process.env.STRAPI_MEDIA_URL).hostname;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/indexes/fiche-metier/search *.meilisearch.io/indexes/offre-de-stage/search *.meilisearch.io/indexes/evenement/search *.meilisearch.io/indexes/annonce-de-logement/search *.meilisearch.io/indexes/fiche-metier/search *.meilisearch.io/indexes/offre-de-stage/search *.meilisearch.io/indexes/evenement/search *.meilisearch.io/indexes/annonce-de-logement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
-const ANALYTICS_SOURCES = '*.xiti.com *.googletagmanager.com *.googleadservices.com *.google.com';
-const contentSecurityPolicy = `
-  default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES};
-  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES};
-  style-src 'self' 'unsafe-inline';
-  frame-ancestors 'none';
-  frame-src *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube.com;
-  form-action 'self';
-  base-uri 'none';
-`;
 
 const SECURITY_MODE_HEADERS = [{
 	headers: [{
@@ -27,9 +14,6 @@ const SECURITY_MODE_HEADERS = [{
 	}, {
 		key: 'Referrer-Policy',
 		value: 'no-referrer, strict-origin-when-cross-origin',
-	}, {
-		key: 'Content-Security-Policy',
-		value: contentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
 	}],
 	source: '/:path*',
 }];

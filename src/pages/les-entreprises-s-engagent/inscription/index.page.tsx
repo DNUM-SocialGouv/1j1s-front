@@ -16,6 +16,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
@@ -58,6 +59,7 @@ export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobil
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
 export default function LesEntreprisesSEngagentInscription() {
+	useAnalytics('les-entreprises-s-engagent/inscription');
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 	const [title, setTitle] = useState<string>(TITLE_ÉTAPE_1);
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);

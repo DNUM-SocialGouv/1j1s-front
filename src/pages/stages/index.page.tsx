@@ -6,6 +6,7 @@ import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 
 const HITS_PER_PAGE = 15;
@@ -13,6 +14,7 @@ const MEILISEARCH_INDEX = `${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}`;
 const MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherOffreStagePage() {
+	useAnalytics('stages');
 	useReferrer();
 
 	return (

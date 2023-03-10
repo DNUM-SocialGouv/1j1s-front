@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
 import { RechercherAlternancePoleEmploi } from '~/client/components/features/Alternance/Rechercher/RechercherAlternancePoleEmploi';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 
 export default function RechercherAlternancePage() {
@@ -11,6 +12,7 @@ export default function RechercherAlternancePage() {
 	const displayRechercherAlternanceLBA = process.env.NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE === '1';
 
 	useReferrer();
+	useAnalytics('apprentissage');
 
 	useEffect(() => {
 		if (!displayRechercherAlternanceLBA && router.isReady) {

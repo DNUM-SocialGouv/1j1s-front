@@ -7,6 +7,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
@@ -36,6 +37,7 @@ describe('Page rechercher une alternance', () => {
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
+					analyticsService={anAnalyticsService()}
 					localisationService={localisationServiceMock}
 					offreService={offreServiceMock}
 					métierService={métierServiceMock}
@@ -74,6 +76,7 @@ describe('Page rechercher une alternance', () => {
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
+					analyticsService={anAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
 					métierService={métiersServiceMock}
@@ -84,8 +87,28 @@ describe('Page rechercher une alternance', () => {
 
 			const titre = await screen.findByRole('heading', { level: 1 });
 			expect(titre).toHaveTextContent('Avec La Bonne Alternance');
+		});
 
+		it('envoie les analytics de la page à son affichage', async () => {
+			const alternanceServiceMock = anAlternanceService();
+			const localisationServiceMock = aLocalisationService();
+			const métiersServiceMock = aMétierService();
+			const analyticsService = anAnalyticsService();
+
+			mockUseRouter({ query: { page: '1' } });
+			render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+					localisationService={localisationServiceMock}
+					alternanceService={alternanceServiceMock}
+					métierService={métiersServiceMock}
+				>
+					<RechercherAlternancePage/>
+				</DependenciesProvider>,
+			);
+
+			await screen.findByRole('heading', { level: 1 });
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith('apprentissage');
 		});
 	});
-
 });
