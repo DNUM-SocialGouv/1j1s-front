@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-import { AnalyticsProdService } from '~/client/services/analytics/analytics.prod.service';
+import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 
-describe('AnalyticsProdService', () => {
+describe('AnalyticsService', () => {
 	const pageSetSpy = jest.fn();
 	const clickSendSpy = jest.fn();
 	const dispatchSpy = jest.fn();
@@ -14,11 +14,13 @@ describe('AnalyticsProdService', () => {
 		dispatch: dispatchSpy,
 		page: { set: pageSetSpy },
 	});
+	const eulerianAnalyticsPushSpy = jest.fn();
 
 	beforeEach(() => {
 		(global as any).tarteaucitron = {
 			init: initSpy,
 			job: [],
+			services: {},
 			user: {},
 		};
 		(global as any).ATInternet = {
@@ -26,6 +28,7 @@ describe('AnalyticsProdService', () => {
 				Tag: tagSpy,
 			},
 		};
+		(global as any).EA_push = eulerianAnalyticsPushSpy;
 	});
 
 	afterEach(() => {
@@ -33,6 +36,7 @@ describe('AnalyticsProdService', () => {
 		clickSendSpy.mockRestore();
 		dispatchSpy.mockRestore();
 		initSpy.mockRestore();
+		eulerianAnalyticsPushSpy.mockRestore();
 	});
 
 	it('initialise le consentement des cookies et le tracker', () => {
@@ -57,21 +61,20 @@ describe('AnalyticsProdService', () => {
 			privacyUrl: '/confidentialite',
 			readmoreLink: '/confidentialite',
 			removeCredit: true,
-			serviceDefaultState: false,
+			serviceDefaultState: true,
 			showAlertSmall: false,
 			showIcon: true,
 			useExternalCss: false,
 			useExternalJs: false,
 		};
 
-		new AnalyticsProdService();
+		new AnalyticsService();
 
 		expect(tagSpy).toHaveBeenCalled();
-		// Toggle test when cookie consent is needed
-		expect(initSpy).not.toHaveBeenCalledWith(expectedCookiesSettings);
+		expect(initSpy).toHaveBeenCalledWith(expectedCookiesSettings);
 	});
 
-	describe('sendPage', () => {
+	describe('trackAtInternetPageView', () => {
 		describe('quand le consentement est autorisé', () => {
 			beforeEach(() => {
 				document.cookie = 'consentement=!atinternet=true';
@@ -80,57 +83,71 @@ describe('AnalyticsProdService', () => {
 			it('envoie un événement page au tracking', () => {
 				const page = '/emplois';
 
-				const analyticsService = new AnalyticsProdService();
-				analyticsService.sendPage(page);
+				const analyticsService = new AnalyticsService();
+				analyticsService.trackAtInternetPageView(page);
 
 				expect(pageSetSpy).toHaveBeenCalledWith({ name: page });
 			});
 		});
 
-		describe('quand le consentement n‘est pas autorisé', () => {
+		describe('quand le consentement n’est pas autorisé', () => {
 			beforeEach(() => {
 				document.cookie = 'consentement=!atinternet=false';
 			});
 
-			it('n‘envoie aucun événement page au tracking', () => {
+			it('n’envoie aucun événement page au tracking', () => {
 				const page = '/emplois';
 
-				const analyticsService = new AnalyticsProdService();
-				analyticsService.sendPage(page);
+				const analyticsService = new AnalyticsService();
+				analyticsService.trackAtInternetPageView(page);
 
 				expect(pageSetSpy).not.toHaveBeenCalled();
 			});
 		});
 	});
 
-	describe('sendClick', () => {
+	describe('trackPageView', () => {
 		describe('quand le consentement est autorisé', () => {
 			beforeEach(() => {
-				document.cookie = 'consentement=!atinternet=true';
+				document.cookie = 'consentement=!eulerian=true;';
 			});
 
-			it('envoie un événement click au tracking', () => {
-				const action = 'click';
+			it('envoie un événement page au tracking', () => {
+				const analyticsService = new AnalyticsService();
+				analyticsService.trackPageView('emplois');
+				const expected = [
+					'site_entity',
+					'Min. Santé',
+					'site_environment',
+					'dev',
+					'site_target',
+					'information',
+					'site_type',
+					'multiple',
+					'page_template',
+					'emplois_liste',
+					'pagegroup',
+					'emplois',
+					'pagelabel',
+					'emplois_liste',
+					'segment-site',
+					'offres_d_emploi',
+				];
 
-				const analyticsService = new AnalyticsProdService();
-				analyticsService.sendClick(action);
-
-				expect(clickSendSpy).toHaveBeenCalledWith({ name: action });
+				expect(eulerianAnalyticsPushSpy).toHaveBeenCalledWith(expected);
 			});
 		});
 
-		describe('quand le consentement n‘est pas autorisé', () => {
+		describe('quand le consentement n’est pas autorisé', () => {
 			beforeEach(() => {
-				document.cookie = 'consentement=!atinternet=false';
+				document.cookie = 'consentement=!eulerian=false';
 			});
 
-			it('n‘envoie aucun événement click au tracking', () => {
-				const action = 'click';
+			it('n’envoie aucun événement page au tracking', () => {
+				const analyticsService = new AnalyticsService();
+				analyticsService.trackPageView('emplois');
 
-				const analyticsService = new AnalyticsProdService();
-				analyticsService.sendClick(action);
-
-				expect(clickSendSpy).not.toHaveBeenCalled();
+				expect(pageSetSpy).not.toHaveBeenCalled();
 			});
 		});
 	});

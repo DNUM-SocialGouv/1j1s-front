@@ -2,9 +2,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService } from '~/client/services/analytics/analytics';
-import { AnalyticsDevService } from '~/client/services/analytics/analytics.dev.service';
-import { AnalyticsProdService } from '~/client/services/analytics/analytics.prod.service';
+import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -59,7 +57,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
-	const analyticsService = process.env.NODE_ENV === 'production' ? new AnalyticsProdService() : new AnalyticsDevService();
+	const analyticsService = new AnalyticsService();
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
