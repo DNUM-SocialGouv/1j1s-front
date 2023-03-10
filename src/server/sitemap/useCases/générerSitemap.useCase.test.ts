@@ -3,7 +3,9 @@ import { createSuccess } from '~/server/errors/either';
 import {
 	aFAQPathList,
 	aFicheMetierNomMetierList,
+	anAnnonceDeLogementPathList,
 	anArticlePathList,
+	anOffreDeStagePathList,
 	aSitemap,
 } from '~/server/sitemap/domain/sitemap.fixture';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
@@ -21,6 +23,8 @@ describe('GénérerSitemapUseCase', () => {
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
 			cmsRepository.listAllFoireAuxQuestionsSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
 			const baseUrl = 'http://localhost:3000';
 
@@ -43,6 +47,8 @@ describe('GénérerSitemapUseCase', () => {
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
 			cmsRepository.listAllFoireAuxQuestionsSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
 			const baseUrl = 'http://localhost:3000';
 

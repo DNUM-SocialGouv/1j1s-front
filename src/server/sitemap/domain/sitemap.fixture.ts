@@ -90,6 +90,22 @@ export function aFAQPathList(): Array<string> {
 	];
 }
 
+export function anOffreDeStagePathList(): Array<string> {
+	return [
+		'stage-assistant-consultant-en-gestion-de-patrimoine-1a154a14-e68c-45ba-913a-7487eb9089ba',
+		'praktikant-unternehmensbewertung-m-w-d-f5d7f0f1-734b-4e56-8230-5397c8ffa434',
+		'associate-consultant-intern-aci-aeb25e90-f124-4d14-a70e-e8eb1b513257',
+	];
+}
+
+export function anAnnonceDeLogementPathList(): Array<string> {
+	return [
+		'studio-bis-de-28m-a-partir-de-645-1439954',
+		'appartement-t2-de-30m-a-partir-de-675-par-mois-1439955',
+		'studio-avec-grand-lit-double-et-canape-de-23-24-m-a-partir-de-465-par-mois-1470875',
+	];
+}
+
 export function aSitemap() {
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -404,6 +420,24 @@ export function aSitemap() {
 	</url>
 	<url>
 		<loc>http://localhost:3000/faq/que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/stages/stage-assistant-consultant-en-gestion-de-patrimoine-1a154a14-e68c-45ba-913a-7487eb9089ba</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/stages/praktikant-unternehmensbewertung-m-w-d-f5d7f0f1-734b-4e56-8230-5397c8ffa434</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/stages/associate-consultant-intern-aci-aeb25e90-f124-4d14-a70e-e8eb1b513257</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/logements/annonces/studio-bis-de-28m-a-partir-de-645-1439954</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/logements/annonces/appartement-t2-de-30m-a-partir-de-675-par-mois-1439955</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/logements/annonces/studio-avec-grand-lit-double-et-canape-de-23-24-m-a-partir-de-465-par-mois-1470875</loc>
 	</url>
 </urlset>`;
 }

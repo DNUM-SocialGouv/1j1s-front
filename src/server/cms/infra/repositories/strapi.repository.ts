@@ -141,9 +141,21 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async listAllFoireAuxQuestionsSlug(): Promise<Either<Array<string>>> {
-		const query = 'populate=deep';
+		const query = 'populate[reponse][fields][0]=slug';
 		const flatMapSlug = (faq: Strapi.CollectionType.FoireAuxQuestions): string => mapFaq(faq).urlArticleRéponse || '';
 		return await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, string>(RESOURCE_FOIRE_AUX_QUESTIONS, query, flatMapSlug);
+	}
+
+	async listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>> {
+		const query = 'fields[0]=slug';
+		const flatMapSlug = (annoneDeLogement: Strapi.CollectionType.AnnonceLogement): string => annoneDeLogement.slug;
+		return await this.getCollectionType<Strapi.CollectionType.AnnonceLogement, string>(RESOURCE_ANNONCE_DE_LOGEMENT, query, flatMapSlug);
+	}
+
+	async listAllOffreDeStageSlug(): Promise<Either<Array<string>>> {
+		const query = 'fields[0]=slug';
+		const flatMapSlug = (offreDeStage: Strapi.CollectionType.OffreStage): string => offreDeStage.slug;
+		return await this.getCollectionType<Strapi.CollectionType.OffreStage, string>(RESOURCE_OFFRE_DE_STAGE, query, flatMapSlug);
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {

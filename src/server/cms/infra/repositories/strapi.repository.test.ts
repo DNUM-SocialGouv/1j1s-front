@@ -20,6 +20,7 @@ import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import {
 	anActualiteFixture,
 	anOffreDeStageDepotStrapi,
+	aStrapiAnnonceDeLogementSlugList,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiCollectionType,
@@ -28,6 +29,7 @@ import {
 	aStrapiFicheMetierNomMetierList,
 	aStrapiLesMesuresEmployeurs,
 	aStrapiLesMesuresJeunesSingleType,
+	aStrapiOffreDeStageSlugList,
 	aStrapiPage2FicheMetierNomMetierList,
 	aStrapiSingleType,
 	uneOffreDeStageResponse,
@@ -45,7 +47,12 @@ import {
 	anHttpClientServiceWithAuthentification,
 } from '~/server/services/http/httpClientService.fixture';
 import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
-import { aFicheMetierNomMetierList, anArticlePathList } from '~/server/sitemap/domain/sitemap.fixture';
+import {
+	aFicheMetierNomMetierList,
+	anAnnonceDeLogementPathList,
+	anArticlePathList,
+	anOffreDeStagePathList,
+} from '~/server/sitemap/domain/sitemap.fixture';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -60,7 +67,7 @@ describe('strapi cms repository', () => {
 				httpClientService = anHttpClientServiceWithAuthentification();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(anActualiteFixture()));
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(anActualiteFixture()));
 				const expectedCartesActualite = [anActualite({ titre: 'Actualité 1' })];
 				const result = await strapiCmsRepository.getActualitéList() as Success<Actualite[]>;
 
@@ -77,7 +84,7 @@ describe('strapi cms repository', () => {
 				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiArticleCollectionType()));
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiArticleCollectionType()));
 				const expectedArticle = anArticle();
 				const slug = 'mon-article';
 
@@ -109,7 +116,7 @@ describe('strapi cms repository', () => {
 		});
 		describe('Si une fiche métier est trouvée', () => {
 			it('récupère la fiche métier selon le nom', async () => {
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiFicheMetier()));
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiFicheMetier()));
 
 				const result = await strapiCmsRepository.getFicheMetierByNom(nomMetier) as Success<FicheMétier>;
 
@@ -132,7 +139,7 @@ describe('strapi cms repository', () => {
 			httpClientService = anHttpClientService();
 			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-			jest.spyOn(httpClientService, 'get')
+			(httpClientService.get as jest.Mock)
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiFicheMetierNomMetierList()))
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiPage2FicheMetierNomMetierList()));
 			const expected = aFicheMetierNomMetierList();
@@ -158,7 +165,7 @@ describe('strapi cms repository', () => {
 			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'foire-aux-questions?populate=deep&pagination[pageSize]=100&pagination[page]=1');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'foire-aux-questions?populate[reponse][fields][0]=slug&pagination[pageSize]=100&pagination[page]=1');
 			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'articles?fields[0]=slug&filters[$and][0][slug][$ne]=comment-constituer-un-dossier-locatif-jeune&filters[$and][1][slug][$ne]=comment-faire-son-service-civique&filters[$and][2][slug][$ne]=que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
@@ -168,7 +175,7 @@ describe('strapi cms repository', () => {
 			httpClientService = anHttpClientServiceWithAuthentification();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse({
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				data: {
 					attributes: {
 						contenu: 'La présente politique de confidentialité définit et vous informe de la manière dont le Ministère du Travail utilise les données à caractère personnel en conformité à le Règlement t européen (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016 et la loi nᵒ 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés. \n\n[...]\n\n**Gestion des cookies**\n\n**<u>Cookie présent sur le Site</u>**\n| Type de cookie | Nom | Finalité | Durée de conservation |\n| - | - | - | - |\n| ... | Cookie chocolat blanc | Être mangé | Courte |\n| ... | Cookie myrtille | Être mangé, normal | Extrèmement courte |\n\n[...]\n\n<u>**Comment paramétrer les cookies ?**</u>\n\n[...]\n\nLors de votre utilisation du Site, il vous est possible de configurer vos préférences sur les cookies à tout moment en vous rendant sur l’onglet « Gestion des cookies » disponible en bas de la page d’accueil du Site. \n',
@@ -207,7 +214,7 @@ describe('strapi cms repository', () => {
 				httpClientService = anHttpClientServiceWithAuthentification();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
+				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
 				const expectedMesuresEmployeurs = desMesuresEmployeurs();
 				const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<MesureEmployeur[]>;
 
@@ -274,7 +281,7 @@ describe('strapi cms repository', () => {
 				const offreDeStageDepotStrapi = anOffreDeStageDepotStrapi();
 
 				// When
-				jest.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse(anOffreDeStageDepotStrapi()));
+				(authenticatedHttpClientService.post as jest.Mock).mockResolvedValue(anAxiosResponse(anOffreDeStageDepotStrapi()));
 				const result = await strapiCmsRepository.saveOffreDeStage(offreDeStageDepot);
 
 				// Then
@@ -309,6 +316,38 @@ describe('strapi cms repository', () => {
 				const result = await strapiCmsRepository.getAllFoireAuxQuestions() as Failure;
 				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 			});
+		});
+	});
+
+	describe('listAllOffreDeStageSlug', () => {
+		it('retourne un tableau contenant tous les slugs d’offre de stage', async () => {
+			httpClientService = anHttpClientService();
+			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiOffreDeStageSlugList()));
+			const expected = anOffreDeStagePathList();
+
+			const { result } = await strapiCmsRepository.listAllOffreDeStageSlug() as Success<Array<string>>;
+
+			expect(result).toEqual(expected);
+			expect(httpClientService.get).toHaveBeenCalledWith('offres-de-stage?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
+
+		});
+	});
+
+	describe('listAllAnnonceDeLogementSlug', () => {
+		it('retourne un tableau contenant tous les slugs d’annonce de logement', async () => {
+			httpClientService = anHttpClientService();
+			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiAnnonceDeLogementSlugList()));
+			const expected = anAnnonceDeLogementPathList();
+
+			const { result } = await strapiCmsRepository.listAllAnnonceDeLogementSlug() as Success<Array<string>>;
+
+			expect(result).toEqual(expected);
+			expect(httpClientService.get).toHaveBeenCalledWith('annonces-de-logement?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
+
 		});
 	});
 });
