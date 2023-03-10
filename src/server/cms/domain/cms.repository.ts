@@ -22,6 +22,7 @@ export interface CmsRepository {
 	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>
   listAllFicheMetierNomMetier(): Promise<Either<Array<string>>>
   listAllArticleSlug(): Promise<Either<Array<string>>>
+	listAllFoireAuxQuestionsSlug(): Promise<Either<Array<string>>>
 	saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>>
   save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
 }

@@ -123,9 +123,27 @@ export class StrapiRepository implements CmsRepository {
 
 	async listAllArticleSlug(): Promise<Either<Array<string>>> {
 		const ARTICLE_SLUG_FIELD_NAME = 'slug';
-		const query = `fields[]=${ARTICLE_SLUG_FIELD_NAME}`;
+		let query;
+		const faqSlugList = await this.listAllFoireAuxQuestionsSlug();
+		if (isSuccess(faqSlugList)) {
+			const exceptFaqSlug = this.filterFaqSlug(faqSlugList.result);
+			query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}${exceptFaqSlug}`;
+		} else  {
+			query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
+		}
+
 		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
-		return this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
+		return await this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
+	}
+
+	private filterFaqSlug(faqSlugList: Array<string>): string {
+		return faqSlugList.map((slug, index) => `&filters[$and][${index}][slug][$ne]=${slug}`).join('');
+	}
+
+	async listAllFoireAuxQuestionsSlug(): Promise<Either<Array<string>>> {
+		const query = 'populate=deep';
+		const flatMapSlug = (faq: Strapi.CollectionType.FoireAuxQuestions): string => mapFaq(faq).urlArticleRéponse || '';
+		return await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, string>(RESOURCE_FOIRE_AUX_QUESTIONS, query, flatMapSlug);
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
@@ -183,7 +201,7 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async getAllFoireAuxQuestions(): Promise<Either<Array<FoireAuxQuestions>>> {
-		const query = 'populate=deep';
+		const query = 'fields[0]=problematique&populate[reponse][fields][0]=slug';
 		return await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, FoireAuxQuestions>(RESOURCE_FOIRE_AUX_QUESTIONS, query, mapFaq);
 	}
 }

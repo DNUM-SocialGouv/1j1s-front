@@ -23,6 +23,7 @@ import {
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiCollectionType,
+	aStrapiFaqArticleSlugList,
 	aStrapiFicheMetier,
 	aStrapiFicheMetierNomMetierList,
 	aStrapiLesMesuresEmployeurs,
@@ -145,17 +146,20 @@ describe('strapi cms repository', () => {
 	});
 
 	describe('listAllArticleSlug', () => {
-		it('liste tous les identifiants d’article publiés', async () => {
+		it('liste tous les identifiants d’article publiés sauf celles des faq', async () => {
 			httpClientService = anHttpClientService();
 			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-			jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
+			(httpClientService.get as jest.Mock)
+				.mockResolvedValueOnce(anAxiosResponse(aStrapiFaqArticleSlugList()))
+				.mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
 			const expected = anArticlePathList();
 
 			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('articles?fields[]=slug&pagination[pageSize]=100&pagination[page]=1');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'foire-aux-questions?populate=deep&pagination[pageSize]=100&pagination[page]=1');
+			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'articles?fields[0]=slug&filters[$and][0][slug][$ne]=comment-constituer-un-dossier-locatif-jeune&filters[$and][1][slug][$ne]=comment-faire-son-service-civique&filters[$and][2][slug][$ne]=que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 
@@ -291,7 +295,7 @@ describe('strapi cms repository', () => {
 
 				const { result } = await strapiCmsRepository.getAllFoireAuxQuestions() as Success<Array<FoireAuxQuestions>>;
 				expect(result).toEqual(uneFaqList());
-				expect(httpClientService.get).toHaveBeenCalledWith('foire-aux-questions?populate=deep&pagination[pageSize]=100&pagination[page]=1');
+				expect(httpClientService.get).toHaveBeenCalledWith('foire-aux-questions?fields[0]=problematique&populate[reponse][fields][0]=slug&pagination[pageSize]=100&pagination[page]=1');
 			});
 		});
 

@@ -365,8 +365,61 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 			pagination: {
 				page: 1,
 				pageCount: 1,
-				pageSize: 24,
-				total: 24,
+				pageSize: 27,
+				total: 27,
+			},
+		},
+	};
+}
+
+export function aStrapiFaqArticleSlugList(){
+	return {
+		data: [
+			{
+				attributes: {
+					problematique: 'Comment constituer un dossier ?',
+					reponse: {
+						data:
+							{
+								attributes:
+									{ slug: 'comment-constituer-un-dossier-locatif-jeune' },
+								id: 109,
+							},
+					},
+				},
+				id: 109,
+			}, {
+				attributes: {
+					problematique: 'Comment faire son service civique ?',
+					reponse: {
+						data:
+							{
+								attributes: { slug: 'comment-faire-son-service-civique' },
+								id: 110,
+							},
+					},
+				},
+				id: 110,
+			}, {
+				attributes: {
+					problematique: 'Que faire si emploi ne fonctionne pas?',
+					reponse: {
+						data:
+							{
+								attributes: { slug: 'que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas' },
+								id: 111,
+							},
+					},
+				},
+				id: 111,
+			},
+		],
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 3,
+				total: 3,
 			},
 		},
 	};

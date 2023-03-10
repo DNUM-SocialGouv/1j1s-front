@@ -9,6 +9,7 @@ import { Either, isSuccess } from '~/server/errors/either';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
 const ARTICLE_ROOT_PATH = 'articles';
+const FAQ_ROOT_PATH = 'faq';
 
 export class GénérerSitemapUseCase {
 	constructor(private cmsRepository: CmsRepository) {
@@ -17,13 +18,16 @@ export class GénérerSitemapUseCase {
 	async handle(baseUrl: string): Promise<string> {
 		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
 		// TODO: ajouter les stages et les logements
-		const [ficheMetierNomMetierListResult, articleSlugListResult] = await Promise.all([
+		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),
 			this.cmsRepository.listAllArticleSlug(),
+			this.cmsRepository.listAllFoireAuxQuestionsSlug(),
 		]);
 		const dynamicPathList = [
 			...this.mapDynamicPathListResult(ficheMetierNomMetierListResult, DÉCOUVRIR_LES_METIERS_ROOT_PATH),
 			...this.mapDynamicPathListResult(articleSlugListResult, ARTICLE_ROOT_PATH),
+			...this.mapDynamicPathListResult(faqSlugListResult, FAQ_ROOT_PATH),
+
 		];
 		const pathList = [...staticPathList, ...dynamicPathList];
 		return this.generateSiteMap(pathList, baseUrl);

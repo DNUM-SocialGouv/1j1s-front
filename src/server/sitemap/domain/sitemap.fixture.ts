@@ -82,6 +82,14 @@ export function aFicheMetierNomMetierList(): Array<string> {
 	];
 }
 
+export function aFAQPathList(): Array<string> {
+	return [
+		'comment-constituer-un-dossier-locatif-jeune',
+		'comment-faire-son-service-civique',
+		'que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas',
+	];
+}
+
 export function aSitemap() {
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -387,6 +395,15 @@ export function aSitemap() {
 	</url>
 	<url>
 		<loc>http://localhost:3000/articles/comment-constituer-un-dossier-locatif</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/faq/comment-constituer-un-dossier-locatif-jeune</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/faq/comment-faire-son-service-civique</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/faq/que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas</loc>
 	</url>
 </urlset>`;
 }

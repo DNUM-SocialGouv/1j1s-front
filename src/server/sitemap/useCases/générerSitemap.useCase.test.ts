@@ -1,6 +1,11 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aFicheMetierNomMetierList, anArticlePathList, aSitemap } from '~/server/sitemap/domain/sitemap.fixture';
+import {
+	aFAQPathList,
+	aFicheMetierNomMetierList,
+	anArticlePathList,
+	aSitemap,
+} from '~/server/sitemap/domain/sitemap.fixture';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 describe('GénérerSitemapUseCase', () => {
@@ -15,6 +20,7 @@ describe('GénérerSitemapUseCase', () => {
 			const cmsRepository = aStrapiCmsRepository();
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+			cmsRepository.listAllFoireAuxQuestionsSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
 			const baseUrl = 'http://localhost:3000';
 
@@ -36,6 +42,7 @@ describe('GénérerSitemapUseCase', () => {
 			const cmsRepository = aStrapiCmsRepository();
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+			cmsRepository.listAllFoireAuxQuestionsSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
 			const baseUrl = 'http://localhost:3000';
 
