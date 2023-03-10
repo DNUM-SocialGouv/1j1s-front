@@ -11,9 +11,12 @@ import {
 } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import styles from '~/pages/index.module.scss';
 
 export default function Accueil() {
+	useAnalytics('accueil');
+
 	const nosOffresCardList = [
 		<LinkCard
 			className={styles.card}
