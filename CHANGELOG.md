@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.20.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.19.0...v3.20.0) (2023-03-10)
+
+
+### Features
+
+* **formation:** page détail ([6152c6d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6152c6da915a7682b245dfea7384ee3c6023b57d))
+
 ## [3.19.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.18.0...v3.19.0) (2023-03-09)
 
 
