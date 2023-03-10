@@ -38,11 +38,11 @@ export default function FaqPage({ faqList, isFeatureActive }: FaqPageProps) {
 			<main id="contenu">
 				<Container className={styles.container}>
 					<h1 className={styles.titre}>FAQ - QUESTIONS FRÉQUEMMENT POSÉES</h1>
-					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous?</h2>
+					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
 					<ul aria-label="Foire aux questions" className={styles.liste}>
 						{faqList?.map((faq) => <li key={uuidv4()}>
 							<Link href={`/faq/${faq.urlArticleRéponse}`}>
-								{faq.problématique}
+								<h3>{faq.problématique}</h3>
 								<Icon name='angle-right'/>
 							</Link>
 						</li>) }

@@ -89,7 +89,7 @@ describe('Page FAQ', () => {
 			render(<FaqPage isFeatureActive={true} faqList={faqList}/>);
 
 			const sousTitre = await screen.findByRole('heading', { level: 2 });
-			expect(sousTitre).toHaveTextContent('Que pouvons-nous faire pour vous?');
+			expect(sousTitre).toHaveTextContent('Que pouvons-nous faire pour vous ?');
 
 		});
 
