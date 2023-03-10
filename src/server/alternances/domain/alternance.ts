@@ -7,20 +7,24 @@ export namespace Alternance {
 }
 
 export interface Alternance {
-	durée?: number
+	durée?: string
 	id: string
 	titre: string
 	entreprise: Alternance.Entreprise
 	description?: string
 	localisation?: string
 	niveauRequis?: string
+	natureDuContrat?: string
 	typeDeContrat?: string[]
 	compétences?: string[]
 	dateDébut?: Date
 	rythmeAlternance?: string
 	source: Alternance.Source
 	tags: string[]
+	url?: string
 }
+
+export type RésultatRechercheAlternance = Pick<Alternance, 'id' | 'titre' | 'source' | 'tags' | 'entreprise'>
 
 export namespace Alternance {
 	export enum Source {

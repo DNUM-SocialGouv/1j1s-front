@@ -17,16 +17,18 @@ export namespace AlternanceApiJobsResponse {
 		description: string
 		romeDetails?: AlternanceApiJobsResponse.RomeDetails
 		jobStartDate?: string
-		dureeContrat?: number
-		rythmeAlternance?: string
 	}
 
 	export interface JobMatcha extends Job {
+		dureeContrat?: number
 		contractType?: string[]
+		rythmeAlternance?: string
 	}
 
 	export interface JobPE extends Job {
+		duration?: string
 		contractType?: string
+		contractDescription?: string
 	}
 
 	export interface RomeDetails {
@@ -65,6 +67,7 @@ export namespace AlternanceApiJobsResponse {
 		place?: AlternanceApiJobsResponse.Place
 		job: AlternanceApiJobsResponse.JobPE
 		contact?: AlternanceApiJobsResponse.Contact
+		url?: string
 	}
 }
 

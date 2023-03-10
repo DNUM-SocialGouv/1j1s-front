@@ -52,13 +52,13 @@ const anAlternanceMatchaBoulanger = (): Alternance => {
 
 export const anAlternancePEJobs = (): Alternance => {
 	return {
-		compétences: [],
-		description: 'Super alternance dans un bar',
+		description: 'description offre',
 		entreprise: {
 			nom: 'une entreprise',
 		},
 		id: 'alternance-pejob',
 		localisation: 'paris',
+		natureDuContrat: 'Contrat d‘alternance',
 		source: Alternance.Source.POLE_EMPLOI,
 		tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 		titre: 'un titre',

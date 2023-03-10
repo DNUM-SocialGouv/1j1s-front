@@ -7,7 +7,7 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	mapAlternanceListe,
-	mapMatcha,
+	mapMatcha, mapPEJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 
 describe('mapAlternance', () => {
@@ -47,24 +47,18 @@ describe('mapAlternance', () => {
 					nom: 'ECOLE DE TRAVAIL ORT',
 				},
 				id: 'id',
-				localisation: undefined,
-				niveauRequis: 'CAP, BEP',
 				source: Alternance.Source.MATCHA,
 				tags: ['CDD', 'CAP, BEP'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
-				typeDeContrat: ['CDD'],
 			},
 			{
 				entreprise: {
 					nom: 'ECOLE DE TRAVAIL ORT',
 				},
 				id: 'id',
-				localisation: 'PARIS 4',
-				niveauRequis: undefined,
 				source: Alternance.Source.POLE_EMPLOI,
 				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
-				typeDeContrat: ['CDD'],
 			},
 		]);
 	});
@@ -89,5 +83,143 @@ describe('mapAlternance', () => {
 			description: 'Avec des \n',
 		}));
 
+	});
+
+	describe('mapMatcha', () => {
+		it('converti une response Matcha en alternance', () => {
+			const input: AlternanceApiJobsResponse.Matcha = {
+				company: {
+					name: 'ECOLE DE TRAVAIL ORT',
+					place: {
+						city: 'PARIS 4',
+					},
+				},
+				contact: {
+					phone: 'phone',
+				},
+				diplomaLevel: 'CAP, BEP',
+				job: {
+					contractType: ['CDD'],
+					description: 'description',
+					dureeContrat: 1,
+					id: 'id',
+					jobStartDate: '2020-01-01',
+					romeDetails: {
+						competencesDeBase: [{ libelle: 'un libelle' }],
+						definition: 'Avec des \\n',
+					},
+					rythmeAlternance: 'alternance',
+				},
+				place: {
+					city: 'PARIS 4',
+					fullAddress: 'full address',
+				},
+				title: 'Monteur / Monteuse en chauffage (H/F)',
+			};
+	
+			const result = mapMatcha(input);
+	
+			expect(result).toEqual({
+				compétences: ['un libelle'],
+				dateDébut: new Date('2020-01-01'),
+				description: 'Avec des \n',
+				durée: '1 an',
+				entreprise: {
+					adresse: 'full address',
+					nom: 'ECOLE DE TRAVAIL ORT',
+					téléphone: 'phone',
+				},
+				id: 'id',
+				localisation: 'PARIS 4',
+				niveauRequis: 'CAP, BEP',
+				rythmeAlternance: 'alternance',
+				source: Alternance.Source.MATCHA,
+				tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
+				titre: 'Monteur / Monteuse en chauffage (H/F)',
+				typeDeContrat: ['CDD'],
+			});
+		});
+		
+		it('accorde la durée au singulier quand nécessaire', () => {
+			const input = aMatchaResponse({
+				company: undefined,
+				contact: undefined,
+				diplomaLevel: '',
+				job: {
+					description: '',
+					dureeContrat: 1,
+					id: 'id',
+				},
+				place: undefined,
+				title: '',
+			});
+
+			const result = mapMatcha(input);
+
+			expect(result.durée).toEqual('1 an');
+		});
+
+		it('accorde la durée au pluriel quand nécessaire', () => {
+			const input = aMatchaResponse({
+				company: undefined,
+				contact: undefined,
+				diplomaLevel: '',
+				job: {
+					description: '',
+					dureeContrat: 5,
+					id: 'id',
+				},
+				place: undefined,
+				title: '',
+			});
+
+			const result = mapMatcha(input);
+
+			expect(result.durée).toEqual('5 ans');
+		});
+	});
+
+	it('converti une response PEJobs en alternance', () => {
+		const input: AlternanceApiJobsResponse.PEJobs = {
+			company: { name: 'ECOLE DE TRAVAIL ORT' },
+			contact: {
+				phone: 'phone',
+			},
+			job: {
+				contractDescription: 'CDD de 6 mois',
+				contractType: 'CDD',
+				description: 'description',
+				duration: '6 mois',
+				id: 'id',
+			},
+			place: {
+				city: 'PARIS 4',
+				fullAddress: 'full address',
+			},
+			title: 'Monteur / Monteuse en chauffage (H/F)',
+			url: 'url',
+		};
+
+		const result = mapPEJob(input);
+
+		expect(result).toEqual({
+			description: 'description',
+			durée: 'CDD de 6 mois',
+			entreprise: {
+				adresse: 'full address',
+				nom: 'ECOLE DE TRAVAIL ORT',
+				téléphone: 'phone',
+			},
+			id: 'id',
+			localisation: 'PARIS 4',
+			natureDuContrat: 'Contrat d‘alternance',
+			niveauRequis: undefined,
+			rythmeAlternance: '6 mois',
+			source: Alternance.Source.POLE_EMPLOI,
+			tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
+			titre: 'Monteur / Monteuse en chauffage (H/F)',
+			typeDeContrat: ['CDD'],
+			url: 'url',
+		});
 	});
 });

@@ -17,9 +17,8 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
-import Source = Alternance.Source
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
@@ -28,7 +27,7 @@ export default function RechercherAlternance() {
 
 	const alternanceService = useDependency<AlternanceService>('alternanceService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [alternanceList, setAlternanceList] = useState<Alternance[]>([]);
+	const [alternanceList, setAlternanceList] = useState<RésultatRechercheAlternance[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [nombreRésultats, setNombreRésultats] = useState(0);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
@@ -110,7 +109,7 @@ function BannièreApprentissage() {
 }
 
 interface ListeRésultatProps {
-	résultatList: Alternance[]
+	résultatList: RésultatRechercheAlternance[]
 }
 
 function ListeAlternance({ résultatList }: ListeRésultatProps) {
@@ -127,10 +126,10 @@ function ListeAlternance({ résultatList }: ListeRésultatProps) {
 
 	return (
 		<ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
-			{résultatList.map((alternance: Alternance) => (
+			{résultatList.map((alternance) => (
 				<li key={uuidv4()}>
 					<RésultatRechercherSolution
-						lienOffre={alternance.source === Source.MATCHA ? `/apprentissage/${alternance.id}` : '#'}
+						lienOffre={`/apprentissage/${alternance.id}`}
 						intituléOffre={alternance.titre}
 						logoEntreprise={getLogo(alternance)}
 						étiquetteOffreList={alternance.tags}

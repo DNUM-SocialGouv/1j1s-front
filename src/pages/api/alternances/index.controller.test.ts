@@ -4,7 +4,6 @@ import nock from 'nock';
 import { rechercherAlternanceHandler } from '~/pages/api/alternances/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { aRésultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
 import {
 	aLaBonneAlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
@@ -28,7 +27,58 @@ describe('rechercher alternance', () => {
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
-				expect(json).toEqual(aRésultatRechercherMultipleAlternance());
+				expect(json).toEqual([
+					{
+						entreprise: {
+							nom: 'une entreprise',
+						},
+						id: 'id',
+						source: 0,
+						tags: [
+							'paris',
+							'Apprentissage',
+							'débutant',
+						],
+						titre: 'un titre',
+					},
+					{
+						entreprise: {
+							nom: 'SARL HUGUE-DEBRIX',
+						},
+						id: 'id-boucher',
+						source: 0,
+						tags: [
+							'Apprentissage',
+							'Cap, autres formations niveau (Infrabac)',
+						],
+						titre: 'Boucher-charcutier / Bouchère-charcutière',
+					},
+					{
+						entreprise: {
+							nom: 'MONSIEUR MICHEL',
+						},
+						id: 'id-boulanger',
+						source: 0,
+						tags: [
+							'Apprentissage',
+							'Cap, autres formations niveau (Infrabac)',
+						],
+						titre: 'Ouvrier boulanger / Ouvrière boulangère',
+					},
+					{
+						entreprise: {
+							nom: 'une entreprise',
+						},
+						id: 'alternance-pejob',
+						source: 1,
+						tags: [
+							'paris',
+							'Contrat d‘alternance',
+							'CDD',
+						],
+						titre: 'un titre',
+					},
+				]);
 			},
 			url: `/alternances?codeRomes=${codeRomes}&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
 		});

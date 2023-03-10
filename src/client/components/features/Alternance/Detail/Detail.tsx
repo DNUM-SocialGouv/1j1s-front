@@ -1,35 +1,29 @@
 import React from 'react';
 
-import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';
+import { Alternance } from '~/server/alternances/domain/alternance';
 
 import styles from './Detail.module.scss';
-
-function toISODuration(duration: number) {
-	return `P${duration}Y`;
-}
 
 function toISODate(date: Date) {
 	return date.toISOString().split('T')[0];
 }
 
-export function Detail({ annonce }: { annonce: DetailAlternance }) {
+export function Detail({ annonce }: { annonce: Alternance }) {
 	const locale = useLocale();
 
-	const getTagList = () => {
-		if (annonce.typeDeContrat) {
-			return [annonce.localisation, ...annonce.typeDeContrat, annonce.niveauRequis];
-		}
-		return [annonce.localisation, annonce.niveauRequis];
-	};
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
-				<TagList className={styles.tags} list={getTagList()} />
+				<TagList className={styles.tags} list={annonce.tags} />
+				{annonce.source === Alternance.Source.POLE_EMPLOI && annonce.url &&
+					<Link appearance={'asPrimaryButton'} type={'external'} href={annonce.url} className={styles.postuler}>Postuler sur Pôle emploi</Link>
+				}
 			</header>
 			<dl className={styles.contenu}>
 				{annonce.description && (
@@ -60,7 +54,14 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						<div className={styles.dateDebut}>
 							<dt>Début du contrat</dt>
 							<dd>
-								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' } as Intl.DateTimeFormatOptions)}</time></dd>
+								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' })}</time>
+							</dd>
+						</div>
+					)}
+					{annonce.natureDuContrat && annonce.natureDuContrat.length > 0 && (
+						<div className={styles.natureContrat}>
+							<dt>Nature du contrat</dt>
+							<dd>{annonce.natureDuContrat}</dd>
 						</div>
 					)}
 					{annonce.typeDeContrat && annonce.typeDeContrat.length > 0 && (
@@ -73,7 +74,8 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						<div className={styles.duree}>
 							<dt>Durée du contrat</dt>
 							<dd>
-								<time dateTime={toISODuration(annonce.durée)}>{annonce.durée} {annonce.durée > 1 ? 'ans' : 'an'}</time></dd>
+								<time>{annonce.durée}</time>
+							</dd>
 						</div>
 					)}
 					{annonce.rythmeAlternance && (
@@ -83,15 +85,15 @@ export function Detail({ annonce }: { annonce: DetailAlternance }) {
 						</div>
 					)}
 				</div>
-				{(annonce.entreprise.téléphone || annonce.entreprise.localisation) && (
+				{(annonce.entreprise.téléphone || annonce.entreprise.adresse) && (
 					<div>
 						<dt>Informations sur l’entreprise</dt>
 						<dd>
 							<dl>
-								{annonce.entreprise.localisation && (
+								{annonce.entreprise.adresse && (
 									<div className={styles.adresse}>
 										<dt>Adresse</dt>
-										<dd>{annonce.entreprise.localisation}</dd>
+										<dd>{annonce.entreprise.adresse}</dd>
 									</div>
 								)}
 								{annonce.entreprise.téléphone && (
