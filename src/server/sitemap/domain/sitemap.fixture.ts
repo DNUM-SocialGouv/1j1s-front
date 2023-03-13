@@ -191,6 +191,24 @@ export function aSitemap() {
 		<loc>http://localhost:3000/evenements</loc>
 	</url>
 	<url>
+		<loc>http://localhost:3000/faq</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/plan-du-site</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/cgu</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/accessibilite</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/mentions-legales</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/confidentialite</loc>
+	</url>
+	<url>
 		<loc>http://localhost:3000/decouvrir-les-metiers/ingénieur%2Fe production en mécanique</loc>
 	</url>
 	<url>

@@ -12,13 +12,21 @@ const ARTICLE_ROOT_PATH = 'articles';
 const FAQ_ROOT_PATH = 'faq';
 const ANNONCE_DE_LOGEMENT_ROOT_PATH = 'logements/annonces';
 const STAGE_ROOT_PATH = 'stages';
-
+const FOOTER_STATIC_PATH_LIST = [
+	'/faq',
+	'/plan-du-site',
+	'/cgu',
+	'/accessibilite',
+	'/mentions-legales',
+	'/confidentialite',
+];
 export class GénérerSitemapUseCase {
 	constructor(private cmsRepository: CmsRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
 		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
+		staticPathList.push(...FOOTER_STATIC_PATH_LIST);
 
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),

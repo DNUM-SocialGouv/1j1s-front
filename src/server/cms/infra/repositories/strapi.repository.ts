@@ -20,7 +20,12 @@ import {
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { handleFailureError } from '~/server/cms/infra/repositories/strapiCmsError';
-import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
+import {
+	createFailure,
+	createSuccess,
+	Either,
+	isSuccess,
+} from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { HttpClientService } from '~/server/services/http/httpClientService';
@@ -97,6 +102,16 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
+	private async sanitizeCollectionTypeResult<CollectionResult, SanitizedResult>(collectionType: Either<CollectionResult>, mapper: (data: CollectionResult) => SanitizedResult): Promise<Either<SanitizedResult>> {
+		return isSuccess(collectionType)
+			? {
+				instance: 'success',
+				result: mapper(collectionType.result),
+			}
+			: collectionType;
+
+	}
+
 	async getActualitéList(): Promise<Either<Array<Actualite>>> {
 		const query = 'populate=deep';
 		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualite>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
@@ -140,14 +155,10 @@ export class StrapiRepository implements CmsRepository {
 	async listAllFoireAuxQuestionsSlug(): Promise<Either<Array<string>>> {
 		const query = 'populate[reponse][fields][0]=slug';
 		const flatMapSlug = (faq: Strapi.CollectionType.FoireAuxQuestions): string | undefined => mapFaq(faq).urlArticleRéponse;
-		const allFoireAuxQuestionsSlug = await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, string | undefined>(RESOURCE_FOIRE_AUX_QUESTIONS, query, flatMapSlug);
-		if (isSuccess(allFoireAuxQuestionsSlug)) {
-			return  {
-				instance: 'success',
-				result: this.filtrerSlugFoireAuxQuestionSansRelation(allFoireAuxQuestionsSlug.result),
-			};
-		}
-		return allFoireAuxQuestionsSlug;
+		return this.sanitizeCollectionTypeResult<Array<string | undefined>, Array<string>>(
+			await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, string | undefined>(RESOURCE_FOIRE_AUX_QUESTIONS, query, flatMapSlug),
+			this.filtrerSlugFoireAuxQuestionSansRelation,
+		);
 	}
 
 	filtrerSlugFoireAuxQuestionSansRelation(result: Array<string | undefined>): Array<string> {
@@ -222,17 +233,14 @@ export class StrapiRepository implements CmsRepository {
 
 	async getAllFoireAuxQuestions(): Promise<Either<Array<FoireAuxQuestions>>> {
 		const query = 'fields[0]=problematique&populate[reponse][fields][0]=slug';
-		const allFoireAuxQuestions = await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, FoireAuxQuestions>(RESOURCE_FOIRE_AUX_QUESTIONS, query, mapFaq);
-		if (isSuccess(allFoireAuxQuestions)) {
-			return  {
-				instance: 'success',
-				result: this.filtrerFoireAuxQuestionSansRelation(allFoireAuxQuestions.result),
-			};
-		}
-		return allFoireAuxQuestions;
+		return this.sanitizeCollectionTypeResult<FoireAuxQuestions[], FoireAuxQuestions[]>(
+			await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, FoireAuxQuestions>(RESOURCE_FOIRE_AUX_QUESTIONS, query, mapFaq),
+			this.filtrerFoireAuxQuestionSansRelation,
+		);
 	}
 
-	filtrerFoireAuxQuestionSansRelation(result: Array<FoireAuxQuestions>): Array<FoireAuxQuestions> {
+	private filtrerFoireAuxQuestionSansRelation(result: Array<FoireAuxQuestions>): Array<FoireAuxQuestions> {
 		return result.filter((faq) => faq.urlArticleRéponse !== undefined );
 	}
+
 }
