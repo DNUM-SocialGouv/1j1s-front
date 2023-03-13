@@ -37,6 +37,7 @@ export function mapMatcha(alternance: Matcha): Alternance {
 			téléphone: alternance.contact?.phone,
 		},
 		id: alternance.job.id,
+		lienPostuler: alternance.job.id ? `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}postuler?caller=1jeune1solution&itemId=${alternance.job.id}&type=matcha` : undefined,
 		localisation: alternance.place?.city,
 		niveauRequis: alternance.diplomaLevel,
 		rythmeAlternance: alternance.job.rythmeAlternance,
@@ -57,6 +58,7 @@ export function mapPEJob(alternance: PEJobs): Alternance {
 			téléphone: alternance.contact?.phone,
 		},
 		id: alternance.job.id,
+		lienPostuler: alternance.url,
 		localisation: alternance.place?.city,
 		natureDuContrat: Alternance.Contrat.ALTERNANCE,
 		niveauRequis: undefined,
@@ -65,7 +67,6 @@ export function mapPEJob(alternance: PEJobs): Alternance {
 		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.job.contractType].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
 		typeDeContrat: alternance.job.contractType ? [alternance.job.contractType] : [],
-		url: alternance.url,
 	};
 }
 

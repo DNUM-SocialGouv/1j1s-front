@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, isMatcha, isPoleEmploi } from '~/server/alternances/domain/alternance';
 
 import styles from './Detail.module.scss';
 
@@ -15,14 +18,27 @@ function toISODate(date: Date) {
 export function Detail({ annonce }: { annonce: Alternance }) {
 	const locale = useLocale();
 
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const toggleModal = () => setIsModalOpen(!isModalOpen);
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
-				<TagList className={styles.tags} list={annonce.tags} />
-				{annonce.source === Alternance.Source.POLE_EMPLOI && annonce.url &&
-					<Link appearance={'asPrimaryButton'} type={'external'} href={annonce.url} className={styles.postuler}>Postuler sur Pôle emploi</Link>
+				<TagList className={styles.tags} list={annonce.tags}/>
+				{isPoleEmploi(annonce.source) && annonce.lienPostuler &&
+            <Link appearance={'asPrimaryButton'} type={'external'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur Pôle emploi</Link>
+				}
+				{isMatcha(annonce.source) && annonce.id &&
+            <ButtonComponent
+            	appearance={'primary'}
+            	icon={<Icon name="arrow-right"/>}
+            	iconPosition="right"
+            	className={styles.postuler}
+            	label={'Postuler'}
+            	onClick={() => toggleModal()}
+            />
 				}
 			</header>
 			<dl className={styles.contenu}>
@@ -107,6 +123,16 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 					</div>
 				)}
 			</dl>
+			<ModalComponent close={toggleModal} isOpen={isModalOpen} className={styles.modale}>
+				<ModalComponent.Content>
+					<iframe
+						src={annonce.lienPostuler}
+						title="Formulaire de candidature à l’annonce"
+						className={styles.iframe}
+						tabIndex={0}
+					/>
+				</ModalComponent.Content>
+			</ModalComponent>
 		</ConsulterOffreLayout>
 	);
 }

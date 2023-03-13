@@ -1,16 +1,17 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
-import {
-	AlternanceApiJobsResponse,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import {
-	aMatchaResponse,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import { aMatchaResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	mapAlternanceListe,
-	mapMatcha, mapPEJob,
+	mapMatcha,
+	mapPEJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 
 describe('mapAlternance', () => {
+	process.env = {
+		...process.env,
+		NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://lba.com/',
+	};
 	it('converti une response en liste d’alternance', () => {
 		const input: AlternanceApiJobsResponse = {
 			matchas: {
@@ -65,17 +66,17 @@ describe('mapAlternance', () => {
 
 	it('sanitize tout le texte présent dans l’alternance', () => {
 		const input: AlternanceApiJobsResponse.Matcha =
-      aMatchaResponse({
-      	job: {
-      		contractType: ['CDD'],
-      		description: 'la description',
-      		id: 'id',
-      		romeDetails: {
-      		competencesDeBase: [{ libelle: 'un libelle' }],
-      			definition: 'Avec des \\n',
-      		},
-      	},
-      });
+			aMatchaResponse({
+				job: {
+					contractType: ['CDD'],
+					description: 'la description',
+					id: 'id',
+					romeDetails: {
+						competencesDeBase: [{ libelle: 'un libelle' }],
+						definition: 'Avec des \\n',
+					},
+				},
+			});
 
 		const result = mapMatcha(input);
 
@@ -116,9 +117,9 @@ describe('mapAlternance', () => {
 				},
 				title: 'Monteur / Monteuse en chauffage (H/F)',
 			};
-	
+
 			const result = mapMatcha(input);
-	
+
 			expect(result).toEqual({
 				compétences: ['un libelle'],
 				dateDébut: new Date('2020-01-01'),
@@ -130,6 +131,7 @@ describe('mapAlternance', () => {
 					téléphone: 'phone',
 				},
 				id: 'id',
+				lienPostuler: 'http://lba.com/postuler?caller=1jeune1solution&itemId=id&type=matcha',
 				localisation: 'PARIS 4',
 				niveauRequis: 'CAP, BEP',
 				rythmeAlternance: 'alternance',
@@ -139,7 +141,7 @@ describe('mapAlternance', () => {
 				typeDeContrat: ['CDD'],
 			});
 		});
-		
+
 		it('accorde la durée au singulier quand nécessaire', () => {
 			const input = aMatchaResponse({
 				company: undefined,
@@ -211,6 +213,7 @@ describe('mapAlternance', () => {
 				téléphone: 'phone',
 			},
 			id: 'id',
+			lienPostuler: 'url',
 			localisation: 'PARIS 4',
 			natureDuContrat: 'Contrat d‘alternance',
 			niveauRequis: undefined,
@@ -219,7 +222,6 @@ describe('mapAlternance', () => {
 			tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 			titre: 'Monteur / Monteuse en chauffage (H/F)',
 			typeDeContrat: ['CDD'],
-			url: 'url',
 		});
 	});
 });
