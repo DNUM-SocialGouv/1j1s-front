@@ -69,9 +69,11 @@
 
 @include media(large) {
   .modal {
+    padding-left: 50px;
+    padding-right: 50px;
     display: flex;
-    > div:first-child {
-      width: 60%;
+    &Body {
+      width: 1200px;
       height: 90vh;
       margin: auto;
       border-radius: 20px;

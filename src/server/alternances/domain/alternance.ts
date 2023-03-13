@@ -21,7 +21,7 @@ export interface Alternance {
 	rythmeAlternance?: string
 	source: Alternance.Source
 	tags: string[]
-	url?: string
+	lienPostuler?: string
 }
 
 export type RésultatRechercheAlternance = Pick<Alternance, 'id' | 'titre' | 'source' | 'tags' | 'entreprise'>
@@ -43,4 +43,12 @@ export interface AlternanceFiltre {
 	distanceCommune: string
 	latitudeCommune: string
 	longitudeCommune: string
+}
+
+export function isMatcha(source: Alternance.Source): source is Alternance.Source.MATCHA {
+	return source === Alternance.Source.MATCHA;
+}
+
+export function isPoleEmploi(source: Alternance.Source): source is Alternance.Source.POLE_EMPLOI {
+	return source === Alternance.Source.POLE_EMPLOI;
 }

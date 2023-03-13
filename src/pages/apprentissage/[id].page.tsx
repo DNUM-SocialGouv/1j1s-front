@@ -11,7 +11,7 @@ import { dependencies } from '~/server/start';
 
 export type AlternanceSerialized = Omit<Alternance, 'dateDébut'> & { dateDébut?: string };
 type ConsulterAnnonceAlternancePageProps = {
-  alternanceSerialized: AlternanceSerialized;
+	alternanceSerialized: AlternanceSerialized;
 }
 
 function convertUndefinedToNull<T>(payload: T): T {
@@ -35,25 +35,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		return { notFound: true };
 	}
 	const alternance: AlternanceSerialized = {
-		compétences: annonce.result.compétences,
+		...annonce.result,
 		dateDébut: annonce.result.dateDébut?.toISOString(),
-		description: annonce.result.description,
-		durée: annonce.result.durée,
-		entreprise: {
-			adresse: annonce.result.entreprise.adresse,
-			nom: annonce.result.entreprise.nom,
-			téléphone: annonce.result.entreprise.téléphone,
-		},
-		id: annonce.result.id,
-		localisation: annonce.result.localisation,
-		natureDuContrat: annonce.result.natureDuContrat,
-		niveauRequis: annonce.result.niveauRequis,
-		rythmeAlternance: annonce.result.rythmeAlternance,
-		source: annonce.result.source,
-		tags: annonce.result.tags,
-		titre: annonce.result.titre,
-		typeDeContrat: annonce.result.typeDeContrat,
-		url: annonce.result.url,
 	};
 	return {
 		props: {
@@ -76,7 +59,7 @@ export default function AnnonceAlternancePage({ alternanceSerialized }: Consulte
 				title={`${alternanceSerialized.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<Detail annonce={alternance} />
+			<Detail annonce={alternance}/>
 		</>
 	);
 }

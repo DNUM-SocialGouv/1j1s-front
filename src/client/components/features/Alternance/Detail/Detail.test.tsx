@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { queries as defaultQueries,render, screen, within } from '@testing-library/react';
+import { queries as defaultQueries, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';
@@ -33,33 +34,76 @@ describe('<Detail />', () => {
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
 	});
-	it('affiche le lien pour postuler', () => {
-		const annonce = aDetailAlternance({ source: Alternance.Source.POLE_EMPLOI, url: 'url' });
+	describe('pour une offre Pôle Emploi', () => {
+		it('affiche le lien pour postuler', () => {
+			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.POLE_EMPLOI });
 
-		render(<Detail annonce={annonce}/>);
+			render(<Detail annonce={annonce}/>);
 
-		const lien = screen.getByRole('link', { name: 'Postuler sur Pôle emploi' });
+			const lien = screen.getByRole('link', { name: 'Postuler sur Pôle emploi' });
 
-		expect(lien).toBeVisible();
-		expect(lien).toHaveAttribute('href', 'url');
+			expect(lien).toBeVisible();
+			expect(lien).toHaveAttribute('href', 'url');
+		});
+		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
+			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.POLE_EMPLOI });
+
+			render(<Detail annonce={annonce}/>);
+
+			const lien = screen.queryByRole('link', { name: 'Postuler sur Pôle emploi' });
+
+			expect(lien).not.toBeInTheDocument();
+		});
+		it('n’affiche pas un bouton pour postuler a une offre Matcha', () => {
+			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
+			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.POLE_EMPLOI });
+
+			render(<Detail annonce={annonce}/>);
+
+			const bouton = screen.queryByRole('button', { name: /Postuler/i });
+
+			expect(bouton).not.toBeInTheDocument();
+		});
 	});
-	it('n’affiche pas le lien pour postuler lorsque la source n’est pas Pole Emploi', () => {
-		const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, url: 'url' });
+	describe('pour une offre Matcha', () => {
+		it('n’affiche pas le lien pour postuler a une offre Pôle emploi', () => {
+			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 
-		render(<Detail annonce={annonce}/>);
+			render(<Detail annonce={annonce}/>);
 
-		const lien = screen.queryByRole('link', { name: 'Postuler sur Pôle emploi' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur Pôle emploi' });
 
-		expect(lien).not.toBeInTheDocument();
-	});
-	it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
-		const annonce = aDetailAlternance({ source: Alternance.Source.POLE_EMPLOI, url: undefined });
+			expect(lien).not.toBeInTheDocument();
+		});
+		it('affiche un bouton pour postuler affichant une iframe LBA', async () => {
+			process.env = {
+				...process.env,
+				NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://url.com/',
+			};
+			const user = userEvent.setup();
+			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
+			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
 
-		render(<Detail annonce={annonce}/>);
+			render(<Detail annonce={annonce}/>);
 
-		const lien = screen.queryByRole('link', { name: 'Postuler sur Pôle emploi' });
+			const bouton = screen.getByRole('button', { name: /Postuler/i });
+			expect(bouton).toBeVisible();
+			await user.click(bouton);
 
-		expect(lien).not.toBeInTheDocument();
+			const iframe = screen.getByTitle('Formulaire de candidature à l’annonce');
+
+			expect(iframe).toBeVisible();
+			expect(iframe).toHaveAttribute('src', url);
+		});
+		it('n’affiche pas un bouton pour postuler lorsque l’annonce n’a pas d’id', () => {
+			const annonce = aDetailAlternance({ id: undefined });
+
+			render(<Detail annonce={annonce}/>);
+
+			const bouton = screen.queryByRole('button', { name: /Postuler/i });
+
+			expect(bouton).not.toBeInTheDocument();
+		});
 	});
 	it('affiche la description du contrat', () => {
 		const annonce = aDetailAlternance({ description: "C'est une super alternance !" });
@@ -70,7 +114,7 @@ describe('<Detail />', () => {
 		expect(description).toBeVisible();
 		expect(description).toHaveTextContent("C'est une super alternance !");
 	});
-	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée',() => {
+	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ description: undefined });
 
 		render(<Detail annonce={annonce}/>);
@@ -78,7 +122,7 @@ describe('<Detail />', () => {
 		const term = screen.queryByText('Description du contrat');
 		expect(term).not.toBeInTheDocument();
 	});
-	it('affiche les compétences requises',() => {
+	it('affiche les compétences requises', () => {
 		const annonce = aDetailAlternance({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
@@ -92,7 +136,7 @@ describe('<Detail />', () => {
 		expect(compétences[0]).toHaveTextContent('Savoir faire des trucs');
 		expect(compétences[1]).toHaveTextContent('Connaître des choses');
 	});
-	it('n’affiche pas le bloc des compétences requises lorsque non-renseignées',() => {
+	it('n’affiche pas le bloc des compétences requises lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ compétences: undefined });
 
 		render(<Detail annonce={annonce}/>);
@@ -100,7 +144,7 @@ describe('<Detail />', () => {
 		const term = screen.queryByText('Connaissances et compétences requises');
 		expect(term).not.toBeInTheDocument();
 	});
-	it('n’affiche pas le bloc des compétences requises lorsque aucune compétence requise',() => {
+	it('n’affiche pas le bloc des compétences requises lorsque aucune compétence requise', () => {
 		const annonce = aDetailAlternance({ compétences: [] });
 
 		render(<Detail annonce={annonce}/>);
@@ -108,7 +152,7 @@ describe('<Detail />', () => {
 		const term = screen.queryByText('Connaissances et compétences requises');
 		expect(term).not.toBeInTheDocument();
 	});
-	it('affiche le niveau requis',() => {
+	it('affiche le niveau requis', () => {
 		const annonce = aDetailAlternance({ niveauRequis: 'CAP' });
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
@@ -241,10 +285,12 @@ describe('<Detail />', () => {
 		expect(term).not.toBeInTheDocument();
 	});
 	it('n’affiche pas l’adresse quand non-renseignées', () => {
-		const annonce = aDetailAlternance({ entreprise: {
-			adresse: undefined,
-			téléphone: '0123456789',
-		} });
+		const annonce = aDetailAlternance({
+			entreprise: {
+				adresse: undefined,
+				téléphone: '0123456789',
+			},
+		});
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
 
@@ -257,10 +303,12 @@ describe('<Detail />', () => {
 		expect(contact).toBeVisible();
 	});
 	it('n’affiche pas le téléphone quand non-renseignées', () => {
-		const annonce = aDetailAlternance({ entreprise: {
-			adresse: 'Paris',
-			téléphone: undefined,
-		} });
+		const annonce = aDetailAlternance({
+			entreprise: {
+				adresse: 'Paris',
+				téléphone: undefined,
+			},
+		});
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
 

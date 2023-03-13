@@ -27,6 +27,16 @@
   justify-content: center;
 }
 
+.iframe {
+  width: 100%;
+  padding: 1rem;
+  height: 72rem;
+
+  @include media(large) {
+    height: 50rem;
+  }
+}
+
 .contenu {
   display: grid;
   grid-auto-flow: row;
