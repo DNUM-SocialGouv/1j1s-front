@@ -25,6 +25,20 @@ export const uneFaqListResponse = (): Array<Strapi.CollectionType.FoireAuxQuesti
 	];
 };
 
+export const uneFaqListSansRelationResponse = (): Array<Strapi.CollectionType.FoireAuxQuestions> => {
+	return[
+		uneFAQResponse(),
+		uneFAQResponse({
+			problematique: 'Je n’arrive pas à candidater à une offre d’emploi',
+			reponse: unArticleReliéAUneProblématique('Je n’arrive pas à candidater à une offre d’emploi'),
+		}),
+		uneFAQResponse({
+			problematique: 'Je ne suis pas lié à un article',
+			reponse: { data:  null  },
+		}),
+	];
+};
+
 export const uneFAQResponse = (override?: Partial<Strapi.CollectionType.FoireAuxQuestions>): Strapi.CollectionType.FoireAuxQuestions => {
 	return {
 		problematique: 'Comment constituer un dossier locatif ?',

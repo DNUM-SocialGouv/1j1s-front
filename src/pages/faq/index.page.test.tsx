@@ -115,5 +115,14 @@ describe('Page FAQ', () => {
 				expect(lien).toHaveAttribute('href', `/faq/${faqList[index].urlArticleRéponse}`);
 			}
 		});
+
+		describe('quand la list de question est vide', () => {
+			it('n’affiche pas de liste', async () => {
+				render(<FaqPage isFeatureActive={true} faqList={[]}/>);
+
+				const listeDeQuestion = screen.queryByRole('list');
+				expect(listeDeQuestion).not.toBeInTheDocument();
+			});
+		});
 	});
 });

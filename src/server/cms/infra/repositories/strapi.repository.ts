@@ -123,15 +123,12 @@ export class StrapiRepository implements CmsRepository {
 
 	async listAllArticleSlug(): Promise<Either<Array<string>>> {
 		const ARTICLE_SLUG_FIELD_NAME = 'slug';
-		let query;
+		let query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
 		const faqSlugList = await this.listAllFoireAuxQuestionsSlug();
 		if (isSuccess(faqSlugList)) {
 			const exceptFaqSlug = this.filterFaqSlug(faqSlugList.result);
-			query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}${exceptFaqSlug}`;
-		} else  {
-			query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
+			query = `${query}${exceptFaqSlug}`;
 		}
-
 		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
 		return await this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
@@ -142,8 +139,19 @@ export class StrapiRepository implements CmsRepository {
 
 	async listAllFoireAuxQuestionsSlug(): Promise<Either<Array<string>>> {
 		const query = 'populate[reponse][fields][0]=slug';
-		const flatMapSlug = (faq: Strapi.CollectionType.FoireAuxQuestions): string => mapFaq(faq).urlArticleRéponse || '';
-		return await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, string>(RESOURCE_FOIRE_AUX_QUESTIONS, query, flatMapSlug);
+		const flatMapSlug = (faq: Strapi.CollectionType.FoireAuxQuestions): string | undefined => mapFaq(faq).urlArticleRéponse;
+		const allFoireAuxQuestionsSlug = await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, string | undefined>(RESOURCE_FOIRE_AUX_QUESTIONS, query, flatMapSlug);
+		if (isSuccess(allFoireAuxQuestionsSlug)) {
+			return  {
+				instance: 'success',
+				result: this.filtrerSlugFoireAuxQuestionSansRelation(allFoireAuxQuestionsSlug.result),
+			};
+		}
+		return allFoireAuxQuestionsSlug;
+	}
+
+	filtrerSlugFoireAuxQuestionSansRelation(result: Array<string | undefined>): Array<string> {
+		return result.filter((slug): slug is string => slug !== undefined);
 	}
 
 	async listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>> {
@@ -214,6 +222,17 @@ export class StrapiRepository implements CmsRepository {
 
 	async getAllFoireAuxQuestions(): Promise<Either<Array<FoireAuxQuestions>>> {
 		const query = 'fields[0]=problematique&populate[reponse][fields][0]=slug';
-		return await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, FoireAuxQuestions>(RESOURCE_FOIRE_AUX_QUESTIONS, query, mapFaq);
+		const allFoireAuxQuestions = await this.getCollectionType<Strapi.CollectionType.FoireAuxQuestions, FoireAuxQuestions>(RESOURCE_FOIRE_AUX_QUESTIONS, query, mapFaq);
+		if (isSuccess(allFoireAuxQuestions)) {
+			return  {
+				instance: 'success',
+				result: this.filtrerFoireAuxQuestionSansRelation(allFoireAuxQuestions.result),
+			};
+		}
+		return allFoireAuxQuestions;
+	}
+
+	filtrerFoireAuxQuestionSansRelation(result: Array<FoireAuxQuestions>): Array<FoireAuxQuestions> {
+		return result.filter((faq) => faq.urlArticleRéponse !== undefined );
 	}
 }

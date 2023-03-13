@@ -39,7 +39,7 @@ export default function FaqPage({ faqList, isFeatureActive }: FaqPageProps) {
 				<Container className={styles.container}>
 					<h1 className={styles.titre}>FAQ - QUESTIONS FRÉQUEMMENT POSÉES</h1>
 					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
-					<ul aria-label="Foire aux questions" className={styles.liste}>
+					{faqList?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
 						{faqList?.map((faq) => <li key={uuidv4()}>
 							<Link href={`/faq/${faq.urlArticleRéponse}`}>
 								<h3>{faq.problématique}</h3>
@@ -47,6 +47,7 @@ export default function FaqPage({ faqList, isFeatureActive }: FaqPageProps) {
 							</Link>
 						</li>) }
 					</ul>
+					}
 				</Container>
 			</main>
 		</>

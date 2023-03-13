@@ -9,6 +9,7 @@ import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fix
 import {
 	uneFaqList,
 	uneFaqListResponse,
+	uneFaqListSansRelationResponse,
 } from '~/server/cms/domain/foireAuxQuestions.fixture';
 import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
@@ -298,6 +299,18 @@ describe('strapi cms repository', () => {
 				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneFaqListResponse())));
+
+
+				const { result } = await strapiCmsRepository.getAllFoireAuxQuestions() as Success<Array<FoireAuxQuestions>>;
+				expect(result).toEqual(uneFaqList());
+				expect(httpClientService.get).toHaveBeenCalledWith('foire-aux-questions?fields[0]=problematique&populate[reponse][fields][0]=slug&pagination[pageSize]=100&pagination[page]=1');
+			});
+
+			it('filtre la liste de questions retournée pour ne pas envoyer les questions non lié à un article', async () => {
+				httpClientService = anHttpClientService();
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneFaqListSansRelationResponse())));
 
 
 				const { result } = await strapiCmsRepository.getAllFoireAuxQuestions() as Success<Array<FoireAuxQuestions>>;
