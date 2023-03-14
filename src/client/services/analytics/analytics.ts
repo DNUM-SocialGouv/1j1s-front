@@ -24,28 +24,32 @@ type PageGroup =
 	| 'accompagnement'
 	| 'accompagnement_detail'
 	| 'accompagnement_liste'
-	| 'aides_logement_detail'
+	| 'aides_logement'
 	| 'apprentissage'
 	| 'autres'
 	| 'benevolat'
 	| 'benevolat_detail'
 	| 'benevolat_liste'
 	| 'contenu_statique'
-	| 'contrat_engagement_jeune_detail'
+	| 'contrat_engagement_jeune'
 	| 'cv'
 	| 'decouvrir_les_metiers_detail'
 	| 'decouvrir_les_metiers_liste'
 	| 'deposer_offre_emploi'
 	| 'emplois'
 	| 'engagement_entreprise'
-	| 'entreprendre_detail'
+	| 'entreprendre'
 	| 'formation'
 	| 'formation_apprentissage_liste'
 	| 'formation_apprentissage_detail'
+	| 'immersions'
+	| 'je_deviens_mentor'
 	| 'je_recrute'
+	| 'je_recrute_afpr_poei'
 	| 'job_etudiants'
 	| 'job_europe'
 	| 'logement'
+	| 'mentorat'
 	| 'mes_aides_financières'
 	| 'mesures_employeurs_detail'
 	| 'mesures_employeurs_liste'
@@ -58,17 +62,19 @@ type PageGroup =
 	| 'service_civique'
 	| 'service_civique_detail'
 	| 'service_civique_liste'
+	| 'service_jeune_liste'
 	| 'stages';
 
 type PageLabel =
 	'accueil'
 	| 'accompagnement'
+	| 'aides_logement'
 	| 'autres'
 	| 'benevolat'
-	| 'contenu_detail_niv_1'
 	| 'contenu_detail_niv_2'
 	| 'contenu_liste_niv_1'
 	| 'contenu_statique'
+	| 'contrat_engagement_jeune'
 	| 'cv'
 	| 'deposer_offre_emploi_confirmation'
 	| 'deposer_offre_emploi_etape_1'
@@ -76,14 +82,22 @@ type PageLabel =
 	| 'emplois'
 	| 'emplois_detail'
 	| 'emplois_liste'
+	| 'engagement_entreprise'
 	| 'engagement_entreprise_confirmation'
 	| 'engagement_entreprise_etape_1'
 	| 'engagement_entreprise_etape_intermediaire'
+	| 'entreprendre'
 	| 'formation'
+	| 'immersions'
+	| 'je_deviens_mentor'
+	| 'je_recrute'
+	| 'je_recrute_afpr_poei'
 	| 'je_recrute_confirmation'
 	| 'je_recrute_etape_1'
 	| 'je_recrute_etape_intermediaire'
+	| 'job_europe'
 	| 'logement'
+	| 'mentorat'
 	| 'mes_aides_financières'
 	| 'metiers'
 	| 'mon_espace'
@@ -98,12 +112,13 @@ type PageLabel =
 type PageTemplate =
 	'accueil'
 	| 'accompagnement'
+	| 'aides_logement'
 	| 'autres'
 	| 'benevolat'
-	| 'contenu_detail_niv_1'
 	| 'contenu_detail_niv_2'
 	| 'contenu_liste_niv_1'
 	| 'contenu_statique'
+	| 'contrat_engagement_jeune'
 	| 'cv'
 	| 'deposer_offre_emploi_confirmation'
 	| 'deposer_offre_emploi_etape_1'
@@ -111,14 +126,22 @@ type PageTemplate =
 	| 'emplois'
 	| 'emplois_detail'
 	| 'emplois_liste'
+	| 'engagement_entreprise'
 	| 'engagement_entreprise_confirmation'
 	| 'engagement_entreprise_etape_1'
 	| 'engagement_entreprise_etape_intermediaire'
+	| 'entreprendre'
 	| 'formation'
+	| 'immersions'
+	| 'je_deviens_mentor'
+	| 'je_recrute'
+	| 'je_recrute_afpr_poei'
 	| 'je_recrute_confirmation'
 	| 'je_recrute_etape_1'
 	| 'je_recrute_etape_intermediaire'
+	| 'job_europe'
 	| 'logement'
+	| 'mentorat'
 	| 'mes_aides_financières'
 	| 'metiers'
 	| 'mon_espace'
@@ -267,10 +290,10 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'page_de_base',
 	},
 	'contrat-engagement-jeune': {
-		page_template: 'contenu_detail_niv_1',
-		pagegroup: 'contrat_engagement_jeune_detail',
-		pagelabel: 'contenu_detail_niv_1',
-		'segment-site': 'contenu_detail',
+		page_template: 'contrat_engagement_jeune',
+		pagegroup: 'contrat_engagement_jeune',
+		pagelabel: 'contrat_engagement_jeune',
+		'segment-site': 'contenu_liens',
 	},
 	'creer-mon-cv': {
 		page_template: 'cv',
@@ -309,22 +332,22 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'funnel_etape_1',
 	},
 	entreprendre: {
-		page_template: 'contenu_detail_niv_1',
-		pagegroup: 'entreprendre_detail',
-		pagelabel: 'contenu_detail_niv_1',
-		'segment-site': 'contenu_detail',
+		page_template: 'entreprendre',
+		pagegroup: 'entreprendre',
+		pagelabel: 'entreprendre',
+		'segment-site': 'contenu_liens',
 	},
 	'espace-jeune': {
-		page_template: 'contenu_detail_niv_1',
-		pagegroup: 'contrat_engagement_jeune_detail',
-		pagelabel: 'contenu_detail_niv_1',
-		'segment-site': 'contenu_detail',
+		page_template: 'contenu_liste_niv_1',
+		pagegroup: 'service_jeune_liste',
+		pagelabel: 'contenu_liste_niv_1',
+		'segment-site': 'contenu_liste',
 	},
 	europe: {
-		page_template: 'contenu_detail_niv_1',
+		page_template: 'job_europe',
 		pagegroup: 'job_europe',
-		pagelabel: 'contenu_detail_niv_1',
-		'segment-site': 'contenu_detail',
+		pagelabel: 'job_europe',
+		'segment-site': 'contenu_liens',
 	},
 	evenements: {
 		page_template: 'participer_a_un_evenement',
@@ -357,10 +380,10 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'contenu_liste',
 	},
 	immersions: {
-		page_template: 'contenu_statique',
-		pagegroup: 'contenu_statique',
-		pagelabel: 'contenu_statique',
-		'segment-site': 'page_de_base',
+		page_template: 'immersions',
+		pagegroup: 'immersions',
+		pagelabel: 'immersions',
+		'segment-site': 'contenu_liens',
 	},
 	'immersions/referencer-mon-entreprise': {
 		page_template: 'reference_entreprise_etape_1',
@@ -369,21 +392,21 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'funnel_etape_1',
 	},
 	'je-deviens-mentor': {
-		page_template: 'contenu_statique',
-		pagegroup: 'contenu_statique',
-		pagelabel: 'contenu_statique',
+		page_template: 'je_deviens_mentor',
+		pagegroup: 'je_deviens_mentor',
+		pagelabel: 'je_deviens_mentor',
 		'segment-site': 'contenu_liens',
 	},
 	'je-recrute': {
-		page_template: 'contenu_statique',
-		pagegroup: 'contenu_statique',
-		pagelabel: 'contenu_statique',
+		page_template: 'je_recrute',
+		pagegroup: 'je_recrute',
+		pagelabel: 'je_recrute',
 		'segment-site': 'contenu_liens',
 	},
 	'je-recrute-afpr-poei': {
-		page_template: 'contenu_statique',
-		pagegroup: 'contenu_statique',
-		pagelabel: 'contenu_statique',
+		page_template: 'je_recrute_afpr_poei',
+		pagegroup: 'je_recrute_afpr_poei',
+		pagelabel: 'je_recrute_afpr_poei',
 		'segment-site': 'contenu_liens',
 	},
 	'je-recrute-afpr-poei/inscription': {
@@ -405,9 +428,9 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'offres_d_emploi',
 	},
 	'les-entreprises-s-engagent': {
-		page_template: 'contenu_statique',
+		page_template: 'engagement_entreprise',
 		pagegroup: 'engagement_entreprise',
-		pagelabel: 'contenu_statique',
+		pagelabel: 'engagement_entreprise',
 		'segment-site': 'contenu_liens',
 	},
 	'les-entreprises-s-engagent/inscription': {
@@ -429,10 +452,10 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'funnel_etape_intermediaire',
 	},
 	'logements/aides-logement': {
-		page_template: 'contenu_detail_niv_1',
-		pagegroup: 'aides_logement_detail',
-		pagelabel: 'contenu_detail_niv_1',
-		'segment-site': 'contenu_detail',
+		page_template: 'aides_logement',
+		pagegroup: 'aides_logement',
+		pagelabel: 'aides_logement',
+		'segment-site': 'contenu_liens',
 	},
 	'logements/annonces': {
 		page_template: 'contenu_liste_niv_1',
@@ -453,10 +476,10 @@ export const PAGE_TAGS_CONFIG: PageTagsConfig = {
 		'segment-site': 'page_de_base',
 	},
 	mentorat: {
-		page_template: 'contenu_statique',
-		pagegroup: 'contenu_statique',
-		pagelabel: 'contenu_statique',
-		'segment-site': 'page_de_base',
+		page_template: 'mentorat',
+		pagegroup: 'mentorat',
+		pagelabel: 'mentorat',
+		'segment-site': 'contenu_liens',
 	},
 	'mes-aides': {
 		page_template: 'mes_aides_financières',
