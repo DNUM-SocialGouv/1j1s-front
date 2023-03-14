@@ -2,11 +2,12 @@ import { GetStaticPropsResult } from 'next';
 
 import { ConsulterContenu, ConsulterContenuProps } from '~/client/components/features/Contenu/ConsulterContenu';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/confidentialite/index.analytics';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { dependencies } from '~/server/start';
 
 export default function Confidentialite({ titre, contenu }: ConsulterContenuProps) {
-	useAnalytics('confidentialite');
+	useAnalytics(analytics);
 
 	return (
 		<ConsulterContenu titre={titre} contenu={contenu}/>

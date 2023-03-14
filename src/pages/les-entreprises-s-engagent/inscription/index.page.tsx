@@ -20,6 +20,7 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
+import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.analytics';
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
@@ -59,7 +60,7 @@ export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobil
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
 export default function LesEntreprisesSEngagentInscription() {
-	useAnalytics('les-entreprises-s-engagent/inscription');
+	useAnalytics(analytics);
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 	const [title, setTitle] = useState<string>(TITLE_ÉTAPE_1);
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);

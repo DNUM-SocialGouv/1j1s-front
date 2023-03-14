@@ -7,9 +7,10 @@ import AidesExceptionnelles
 	from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/immersions/index.analytics';
 
 export default function Immersions() {
-	useAnalytics('immersions');
+	useAnalytics(analytics);
 
 	return (
 		<>

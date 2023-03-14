@@ -6,6 +6,7 @@ import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
+import analytics from '~/pages/stages/[id].analytics';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
@@ -15,7 +16,7 @@ interface ConsulterStagePageProps {
 }
 
 export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {
-	useAnalytics('stages/[id]');
+	useAnalytics(analytics);
 	usePopstate();
 
 	return (

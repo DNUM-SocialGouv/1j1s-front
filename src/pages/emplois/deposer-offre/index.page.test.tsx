@@ -25,7 +25,12 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith('emplois/deposer-offre');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			page_template: 'deposer_offre_emploi_etape_1',
+			pagegroup: 'deposer_offre_emploi',
+			pagelabel: 'deposer_offre_emploi_etape_1',
+			'segment-site': 'funnel_etape_1',
+		});
 	});
 
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {

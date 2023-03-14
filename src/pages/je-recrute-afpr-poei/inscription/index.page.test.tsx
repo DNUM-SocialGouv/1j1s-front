@@ -88,7 +88,12 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 		it('envoie les analytics de la page à son affichage', () => {
 			renderComponent();
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith('je-recrute-afpr-poei/inscription');
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+				page_template: 'je_recrute_etape_1',
+				pagegroup: 'je_recrute',
+				pagelabel: 'je_recrute_etape_1',
+				'segment-site': 'funnel_etape_1',
+			});
 		});
 	});
 

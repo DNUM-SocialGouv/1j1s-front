@@ -8,14 +8,14 @@ import {
 	HeroSecondaryText,
 } from '~/client/components/ui/Hero/Hero';
 import useAnalytics from '~/client/hooks/useAnalytics';
-
-import styles from './index.module.scss';
+import analytics from '~/pages/emplois/deposer-offre/index.analytics';
+import styles from '~/pages/emplois/deposer-offre/index.module.scss';
 
 const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/politique-de-confidentialite';
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation';
 
 export default function DéposerUneOffreDEmploi() {
-	useAnalytics('emplois/deposer-offre');
+	useAnalytics(analytics);
 
 	return (
 		<main id="contenu">

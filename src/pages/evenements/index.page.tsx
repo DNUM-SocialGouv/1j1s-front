@@ -8,13 +8,14 @@ import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLi
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/evenements/index.analytics';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'evenement';
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function PageEvenements() {
-	useAnalytics('evenements');
+	useAnalytics(analytics);
 	const displayRechercheEvenement = process.env.NEXT_PUBLIC_RECHERCHE_EVENEMENT_FEATURE === '1';
 
 	return (

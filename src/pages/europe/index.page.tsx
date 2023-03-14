@@ -14,7 +14,8 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import styles from '~/pages/europe/europe.module.scss';
+import analytics from '~/pages/europe/index.analytics';
+import styles from '~/pages/europe/index.module.scss';
 
 interface LienEmploiEurope {
 	url: string;
@@ -22,7 +23,7 @@ interface LienEmploiEurope {
 }
 
 export default function EuropePage() {
-	useAnalytics('europe');
+	useAnalytics(analytics);
 	const { isLargeScreen } = useBreakpoint();
 	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 	const linkList: Array<LienEmploiEurope> = [

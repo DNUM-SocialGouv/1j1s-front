@@ -8,14 +8,14 @@ import {
 	HeroSecondaryText,
 } from '~/client/components/ui/Hero/Hero';
 import useAnalytics from '~/client/hooks/useAnalytics';
-
-import styles from './index.module.scss';
+import analytics from '~/pages/immersions/referencer-mon-entreprise/index.analytics';
+import styles from '~/pages/immersions/referencer-mon-entreprise/index.module.scss';
 
 const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/politique-de-confidentialite';
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation';
 
 export default function ImmersionReferenceMonEntreprisePage() {
-	useAnalytics('immersions/referencer-mon-entreprise');
+	useAnalytics(analytics);
 
 	return (
 		<main id="contenu">

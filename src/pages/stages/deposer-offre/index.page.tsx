@@ -9,8 +9,8 @@ import {
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
-
-import styles from './DeposerOffreStageEtape1.module.scss';
+import analytics from '~/pages/stages/deposer-offre/index.analytics';
+import styles from '~/pages/stages/deposer-offre/index.module.scss';
 
 export const ETAPE_ENTREPRISE = 'formulaireEtape1';
 export const ETAPE_OFFRE_DE_STAGE = 'formulaireEtape2';
@@ -19,7 +19,7 @@ export const ETAPE_LOCALISATION = 'formulaireEtape3';
 export const URL_DEPOSER_OFFRE = '/stages/deposer-offre';
 
 export default function DeposerOffreStagePage() {
-	useAnalytics('stages/deposer-offre');
+	useAnalytics(analytics);
 	useReferrer();
 
 	return (

@@ -5,6 +5,7 @@ import React from 'react';
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/articles/[id].analytics';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
@@ -14,7 +15,7 @@ interface ConsulterArticlePageProps {
 }
 
 export default function ConsulterArticlePage({ article }: ConsulterArticlePageProps) {
-	useAnalytics('articles');
+	useAnalytics(analytics);
 
 	if (!article) return null;
 

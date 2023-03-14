@@ -25,7 +25,12 @@ describe('MesAidesPage', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith('mes-aides');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			page_template: 'mes_aides_financières',
+			pagegroup: 'mes_aides_financières',
+			pagelabel: 'mes_aides_financières',
+			'segment-site': 'contenu_liens',
+		});
 	});
 
 	it('permet de rediriger l’utilisateur vers le simulateur d’aide', () => {

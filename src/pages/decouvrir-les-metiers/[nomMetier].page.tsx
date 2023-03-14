@@ -11,19 +11,19 @@ import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSectio
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
+import analytics from '~/pages/decouvrir-les-metiers/[nomMetier].analytics';
+import styles from '~/pages/decouvrir-les-metiers/[nomMetier].module.scss';
 import { isFailure } from '~/server/errors/either';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { dependencies } from '~/server/start';
-
-import styles from './decouvrir-les-metiers.module.scss';
 
 interface ConsulterFicheMetierPageProps {
 	ficheMetier: FicheMétier
 }
 
 export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFicheMetierPageProps) {
-	useAnalytics('decouvrir-les-metiers/[nomMetier]');
+	useAnalytics(analytics);
 	usePopstate();
 
 	if (!ficheMetier) return null;

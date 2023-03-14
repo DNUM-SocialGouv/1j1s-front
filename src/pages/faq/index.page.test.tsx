@@ -56,7 +56,12 @@ describe('Page FAQ', () => {
 				</DependenciesProvider>,
 			);
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith('faq');
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+				page_template: 'contenu_statique',
+				pagegroup: 'contenu_statique',
+				pagelabel: 'contenu_statique',
+				'segment-site': 'page_de_base',
+			});
 		});
 	});
 });

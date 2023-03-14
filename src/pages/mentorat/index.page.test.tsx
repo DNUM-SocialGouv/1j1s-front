@@ -29,7 +29,12 @@ describe('MentoratPage', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith('mentorat');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			page_template: 'mentorat',
+			pagegroup: 'mentorat',
+			pagelabel: 'mentorat',
+			'segment-site': 'contenu_liens',
+		});
 	});
 
 	it('possède un bouton -Je trouve mon mentor- qui redirige l’utilisateur', () => {

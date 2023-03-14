@@ -10,12 +10,13 @@ import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
+import analytics from '~/pages/logements/annonces/[id].analytics';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
-	useAnalytics('logements/annonces/[id]');
+	useAnalytics(analytics);
 	usePopstate();
 
 	if (!isFeatureActive) return <ErrorUnavailableService/>;
