@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/LightHero';
-import StageDeposerOffreFormulaireEnvoye from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEnvoye';
+import FormulaireDeposerOffreDeStageEtape4Envoye from '../../../../client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape4Envoye/FormulaireDeposerOffreDeStageEtape4Envoye';
 
 import styles from './DeposerOffreStageEtapeFin.module.scss';
 
@@ -19,7 +19,7 @@ export default function DeposerOffreStageEnvoyePage() {
 				</h1>
 			</LightHero>
 			<main id="contenu">
-				<StageDeposerOffreFormulaireEnvoye/>
+				<FormulaireDeposerOffreDeStageEtape4Envoye/>
 			</main>	
 		</>
 	);

@@ -11,7 +11,7 @@ import {
 import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
+import Entreprise from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape1Entreprise/FormulaireDeposerOffreDeStageEtape1Entreprise';
 
 describe('<Entreprise />', () => {
 	beforeEach(() => {

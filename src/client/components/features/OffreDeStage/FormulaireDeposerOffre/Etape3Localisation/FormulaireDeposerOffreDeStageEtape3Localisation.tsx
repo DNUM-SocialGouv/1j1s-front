@@ -11,12 +11,12 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { StageService } from '~/client/services/stage/stage.service';
-import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import { StageDeposerOffreFormulaireLayout } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLayout/StageDeposerOffreFormulaireLayout';
+import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/FormulaireDeposerOffreDeStage.type';
+import { FormulaireDeposerOffreDeStageLayout } from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Layout/FormulaireDeposerOffreDeStageLayout';
 import {
-	ETAPE_ENTREPRISE,
-	ETAPE_LOCALISATION,
-	ETAPE_OFFRE_DE_STAGE,
+	ETAPE_1_ENTREPRISE,
+	ETAPE_3_LOCALISATION,
+	ETAPE_2_OFFRE_DE_STAGE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
@@ -28,7 +28,7 @@ enum Localisation {
 	REGION = 'region',
 	DEPARTEMENT = 'departement',
 }
-export default function StageDeposerOffreFormulaireLocalisation() {
+export default function FormulaireDeposerOffreDeStageEtape3Localisation() {
 	const router = useRouter();
 	const stageService = useDependency<StageService>('stageService');
 
@@ -36,13 +36,13 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_1_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
 
-	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_OFFRE_DE_STAGE);
+	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_2_OFFRE_DE_STAGE);
 	const informationsStage = sessionStorageStage.get();
 
-	const localStorageLocalisation = useLocalStorage<OffreDeStageDéposée.Localisation>(ETAPE_LOCALISATION);
+	const localStorageLocalisation = useLocalStorage<OffreDeStageDéposée.Localisation>(ETAPE_3_LOCALISATION);
 	const informationsLocalisation = localStorageLocalisation.get();
 
 	useEffect(() => {
@@ -112,7 +112,7 @@ export default function StageDeposerOffreFormulaireLocalisation() {
 	}
 
 	function FormulaireLocalisation() {
-		return <StageDeposerOffreFormulaireLayout
+		return <FormulaireDeposerOffreDeStageLayout
 			inputsObligatoires={<ChampsObligatoires/>}
 			inputsFacultatifs={<ChampsFacultatifs/>}
 			formRef={formRef}

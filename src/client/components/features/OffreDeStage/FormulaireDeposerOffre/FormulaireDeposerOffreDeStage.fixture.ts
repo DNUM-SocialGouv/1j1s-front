@@ -1,6 +1,6 @@
 import { Domaines } from '~/server/cms/domain/offreDeStage.type';
 
-import { OffreDeStageDéposée } from './StageDeposerOffre';
+import { OffreDeStageDéposée } from './FormulaireDeposerOffreDeStage.type';
 
 export const aFormulaireÉtapeEntreprise = (): OffreDeStageDéposée.Entreprise => {
 	return {

@@ -10,16 +10,16 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
-import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import { StageDeposerOffreFormulaireLayout } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLayout/StageDeposerOffreFormulaireLayout';
+import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/FormulaireDeposerOffreDeStage.type';
+import { FormulaireDeposerOffreDeStageLayout } from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Layout/FormulaireDeposerOffreDeStageLayout';
 import {
-	ETAPE_ENTREPRISE,
-	ETAPE_OFFRE_DE_STAGE,
+	ETAPE_1_ENTREPRISE,
+	ETAPE_2_OFFRE_DE_STAGE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
-import styles from './StageDeposerOffreFormulaireStage.module.scss';
-import { domaineStage } from './StageDomaines';
+import styles from './FormulaireDeposerOffreDeStageEtape2Stage.module.scss';
+import { domaineStage } from '../DomainesStage';
 
 const email_regex = '([a-zA-Z0-9!#$%&@\'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&\'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)';
 const url_regex = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
@@ -53,14 +53,14 @@ const dureeStageList: Option[] = [
 	{ libellé: '6 mois', valeur: (6 * DUREE_MOIS_EN_JOUR).toString() },
 ];
 
-export default function StageDeposerOffreFormulaireStage() {
+export default function FormulaireDeposerOffreDeStageEtape2Stage() {
 	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_1_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
 
-	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_OFFRE_DE_STAGE);
+	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_2_OFFRE_DE_STAGE);
 	const informationsStage = sessionStorageStage.get();
 
 	useEffect(() => {
@@ -171,7 +171,7 @@ export default function StageDeposerOffreFormulaireStage() {
 	}
 
 	function FormulaireOffreDeStage() {
-		return <StageDeposerOffreFormulaireLayout
+		return <FormulaireDeposerOffreDeStageLayout
 			inputsObligatoires={<ChampsObligatoires/>}
 			inputsFacultatifs={<ChampsFacultatifs/>}
 			formRef={formRef}

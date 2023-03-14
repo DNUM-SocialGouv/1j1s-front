@@ -8,7 +8,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import Stage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireStage';
+import Stage from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape2Stage/FormulaireDeposerOffreDeStageEtape2Stage';
 
 describe('<Stage />', () => {
 	beforeEach(() => {

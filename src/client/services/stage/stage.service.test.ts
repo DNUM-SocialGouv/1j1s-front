@@ -9,7 +9,7 @@ import {
 	aFormulaireÉtapeEntreprise,
 	aFormulaireÉtapeLocalisation,
 	aFormulaireÉtapeStage,
-} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre.fixture';
+} from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/FormulaireDeposerOffreDeStage.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 describe('stageService', () => {

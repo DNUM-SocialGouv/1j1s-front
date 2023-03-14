@@ -7,7 +7,7 @@ import {
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
 import useReferrer from '~/client/hooks/useReferrer';
-import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
+import Localisation from '../../../../client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape3Localisation/FormulaireDeposerOffreDeStageEtape3Localisation';
 
 import styles from './DeposerOffreStageEtape3.module.scss';
 

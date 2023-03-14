@@ -3,7 +3,7 @@ import React, {
 	RefObject,
 } from 'react';
 
-import styles from './StageDeposerOffreFormulaireLayout.module.scss';
+import styles from './FormulaireDeposerOffreDeStageLayout.module.scss';
 
 interface StageDeposerOffreFormulaireLayoutProps extends React.ComponentPropsWithoutRef<'form'>{
 	inputsObligatoires: React.ReactElement
@@ -12,7 +12,7 @@ interface StageDeposerOffreFormulaireLayoutProps extends React.ComponentPropsWit
 	handleFormSubmit: (event: FormEvent<HTMLFormElement>) => Promise<boolean | undefined>
 	boutonValidation: React.ReactElement
 }
-export function StageDeposerOffreFormulaireLayout({ inputsObligatoires, inputsFacultatifs, formRef, handleFormSubmit, boutonValidation, ...rest }: StageDeposerOffreFormulaireLayoutProps) {
+export function FormulaireDeposerOffreDeStageLayout({ inputsObligatoires, inputsFacultatifs, formRef, handleFormSubmit, boutonValidation, ...rest }: StageDeposerOffreFormulaireLayoutProps) {
 	return (
 		<form
 			className={styles.formulaire}

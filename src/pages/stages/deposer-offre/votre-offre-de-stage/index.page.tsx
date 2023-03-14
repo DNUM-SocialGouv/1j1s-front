@@ -3,7 +3,7 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import useReferrer from '~/client/hooks/useReferrer';
-import OffreStage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireStage';
+import OffreStage from '../../../../client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape2Stage/FormulaireDeposerOffreDeStageEtape2Stage';
 
 import styles from './DeposerOffreStageEtape2.module.scss';
 

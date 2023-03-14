@@ -20,8 +20,8 @@ import { aStageService } from '~/client/services/stage/stageService.fixture';
 import {
 	aFormulaireÉtapeEntreprise,
 	aFormulaireÉtapeStage,
-} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre.fixture';
-import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
+} from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/FormulaireDeposerOffreDeStage.fixture';
+import Localisation from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape3Localisation/FormulaireDeposerOffreDeStageEtape3Localisation';
 
 describe('<Localisation />', () => {
 	let stageService: StageService;

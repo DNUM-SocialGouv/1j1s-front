@@ -1,13 +1,12 @@
 import React from 'react';
 
+import styles from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape4Envoye/FormulaireDeposerOffreDeStageEtape4Envoye.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
 import useReferrer from '~/client/hooks/useReferrer';
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 
-import styles from './StageDeposerOffreFormulaireEnvoye.module.scss';
-
-export default function StageDeposerOffreFormulaireEnvoye() {
+export default function FormulaireDeposerOffreDeStageEtape4Envoye() {
 	useReferrer();
 
 	return (

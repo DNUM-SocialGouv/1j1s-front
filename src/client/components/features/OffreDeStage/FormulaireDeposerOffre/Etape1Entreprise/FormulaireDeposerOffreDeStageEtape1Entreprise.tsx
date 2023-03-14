@@ -11,14 +11,14 @@ import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
-import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import { StageDeposerOffreFormulaireLayout } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLayout/StageDeposerOffreFormulaireLayout';
+import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/FormulaireDeposerOffreDeStage.type';
+import { FormulaireDeposerOffreDeStageLayout } from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Layout/FormulaireDeposerOffreDeStageLayout';
 import {
-	ETAPE_ENTREPRISE,
+	ETAPE_1_ENTREPRISE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
-import styles from './StageDeposerOffreFormulaireEntreprise.module.scss';
+import styles from './FormulaireDeposerOffreDeStageEtape1Entreprise.module.scss';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 const URL_REGEX = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
@@ -31,12 +31,12 @@ enum Employeur {
 	SITE = 'siteEmployeur'
 }
 
-export default function StageDeposerOffreFormulaireEntreprise() {
+export default function FormulaireDeposerOffreDeStageEtape1Entreprise() {
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const router = useRouter();
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_1_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
 
 	function ChampsObligatoires() {
@@ -102,7 +102,7 @@ export default function StageDeposerOffreFormulaireEntreprise() {
 	}
 
 	function FormulaireEntreprise() {
-		return <StageDeposerOffreFormulaireLayout
+		return <FormulaireDeposerOffreDeStageLayout
 			inputsObligatoires={<ChampsObligatoires/>}
 			inputsFacultatifs={<ChampsFacultatifs/>}
 			formRef={formRef}

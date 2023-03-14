@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Entreprise from '~/client/components/features/OffreDeStage/FormulaireDeposerOffre/Etape1Entreprise/FormulaireDeposerOffreDeStageEtape1Entreprise';
 import { Head } from '~/client/components/head/Head';
 import {
 	LightHero,
@@ -7,13 +8,12 @@ import {
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
 import useReferrer from '~/client/hooks/useReferrer';
-import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
-import styles from './DeposerOffreStageEtape1.module.scss';
+import styles from './index.module.scss';
 
-export const ETAPE_ENTREPRISE = 'formulaireEtape1';
-export const ETAPE_OFFRE_DE_STAGE = 'formulaireEtape2';
-export const ETAPE_LOCALISATION = 'formulaireEtape3';
+export const ETAPE_1_ENTREPRISE = 'formulaireEtape1';
+export const ETAPE_2_OFFRE_DE_STAGE = 'formulaireEtape2';
+export const ETAPE_3_LOCALISATION = 'formulaireEtape3';
 
 export const URL_DEPOSER_OFFRE = '/stages/deposer-offre';
 
