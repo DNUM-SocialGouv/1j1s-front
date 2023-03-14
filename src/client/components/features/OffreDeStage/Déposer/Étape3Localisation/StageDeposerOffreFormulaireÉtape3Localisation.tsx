@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
+import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
+import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionPays
@@ -11,8 +13,6 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { StageService } from '~/client/services/stage/stage.service';
-import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import { StageDeposerOffreFormulaireLayout } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLayout/StageDeposerOffreFormulaireLayout';
 import {
 	ETAPE_ENTREPRISE,
 	ETAPE_LOCALISATION,
@@ -28,7 +28,7 @@ enum Localisation {
 	REGION = 'region',
 	DEPARTEMENT = 'departement',
 }
-export default function StageDeposerOffreFormulaireLocalisation() {
+export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	const router = useRouter();
 	const stageService = useDependency<StageService>('stageService');
 

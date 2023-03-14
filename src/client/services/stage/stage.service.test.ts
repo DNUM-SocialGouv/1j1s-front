@@ -2,14 +2,14 @@
  * @jest-environment jsdom
  */
 
-import { anHttpClientService } from '~/client/services/httpClientService.fixture';
-import { StageService } from '~/client/services/stage/stage.service';
 import {
 	aFormulaireEnvoyéPostedValue,
 	aFormulaireÉtapeEntreprise,
 	aFormulaireÉtapeLocalisation,
 	aFormulaireÉtapeStage,
-} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre.fixture';
+} from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
+import { StageService } from '~/client/services/stage/stage.service';
 import { createSuccess } from '~/server/errors/either';
 
 describe('stageService', () => {

@@ -10,8 +10,8 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Entreprise from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 
 describe('<Entreprise />', () => {
 	beforeEach(() => {

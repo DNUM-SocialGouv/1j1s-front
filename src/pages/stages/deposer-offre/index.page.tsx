@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Entreprise from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { Head } from '~/client/components/head/Head';
 import {
 	LightHero,
@@ -8,7 +9,6 @@ import {
 } from '~/client/components/ui/Hero/LightHero';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
-import Entreprise from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireEntreprise';
 import analytics from '~/pages/stages/deposer-offre/index.analytics';
 import styles from '~/pages/stages/deposer-offre/index.module.scss';
 
