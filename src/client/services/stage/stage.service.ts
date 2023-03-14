@@ -1,5 +1,5 @@
+import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
-import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
 import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
 

@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useMemo, useRef } from 'react';
 
+import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
+import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -10,16 +12,14 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
-import { OffreDeStageDéposée } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre';
-import { StageDeposerOffreFormulaireLayout } from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLayout/StageDeposerOffreFormulaireLayout';
 import {
 	ETAPE_ENTREPRISE,
 	ETAPE_OFFRE_DE_STAGE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
-import styles from './StageDeposerOffreFormulaireStage.module.scss';
-import { domaineStage } from './StageDomaines';
+import { domaineStage } from '../StageDomaines';
+import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
 
 const email_regex = '([a-zA-Z0-9!#$%&@\'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&\'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)';
 const url_regex = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
@@ -53,7 +53,7 @@ const dureeStageList: Option[] = [
 	{ libellé: '6 mois', valeur: (6 * DUREE_MOIS_EN_JOUR).toString() },
 ];
 
-export default function StageDeposerOffreFormulaireStage() {
+export default function StageDeposerOffreFormulaireÉtape2Stage() {
 	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 

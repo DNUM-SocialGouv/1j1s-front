@@ -9,6 +9,11 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Localisation from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
+import {
+	aFormulaireÉtapeEntreprise,
+	aFormulaireÉtapeStage,
+} from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import {
 	mockLocalStorage,
@@ -17,11 +22,6 @@ import {
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { StageService } from '~/client/services/stage/stage.service';
 import { aStageService } from '~/client/services/stage/stageService.fixture';
-import {
-	aFormulaireÉtapeEntreprise,
-	aFormulaireÉtapeStage,
-} from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffre.fixture';
-import Localisation from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireLocalisation';
 
 describe('<Localisation />', () => {
 	let stageService: StageService;

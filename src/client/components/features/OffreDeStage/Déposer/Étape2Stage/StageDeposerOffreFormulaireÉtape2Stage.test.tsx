@@ -7,8 +7,8 @@ import { beforeEach } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Stage from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import Stage from '~/pages/stages/deposer-offre/Formulaire/StageDeposerOffreFormulaireStage';
 
 describe('<Stage />', () => {
 	beforeEach(() => {
