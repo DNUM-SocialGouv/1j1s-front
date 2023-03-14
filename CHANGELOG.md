@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.21.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.20.2...v3.21.0) (2023-03-14)
+
+
+### Features
+
+* **analytics:** ajout tracking de chaque page ([4722397](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4722397d2b7523024336813ec2a817b0e2ed28bb))
+* **analytics:** ajout tracking par Eulerian ([fb6c3cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fb6c3cfb2922d080da144fc8756767be16214800))
+* **analytics:** mise à jour plan de taggage ([90579cb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90579cb5fe97fd3c3a954daf600aec95ea707db9))
+* **analytics:** suppression ATinternet ([d8e1d7d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d8e1d7dce74322f486794878802897a77ac397da))
+* **env:** ménage dans le fichier .env.test ([066691a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/066691a7d7eddff11bb5e8efb39da14786f0cd1b))
+
 ## [3.20.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.20.1...v3.20.2) (2023-03-14)
 
 
