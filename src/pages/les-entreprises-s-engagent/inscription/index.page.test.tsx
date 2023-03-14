@@ -74,7 +74,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		it('envoie les analytics de la page à son affichage', () => {
 			renderComponent();
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'engagement_entreprise_etape_1',
 				pagegroup: 'engagement_entreprise',
 				pagelabel: 'engagement_entreprise_etape_1',

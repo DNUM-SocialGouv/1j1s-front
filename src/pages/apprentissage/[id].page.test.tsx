@@ -67,7 +67,7 @@ describe('<AnnonceAlternancePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'emplois_detail',
 			pagegroup: 'apprentissage',
 			pagelabel: 'emplois_detail',

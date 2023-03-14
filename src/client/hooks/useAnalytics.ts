@@ -8,7 +8,7 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const analyticsService = useDependency<AnalyticsService>('analyticsService');
 	
 	useEffect(() => {
-		analyticsService.trackPageView(pageTags);
+		analyticsService.envoyerAnalyticsPageVue(pageTags);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

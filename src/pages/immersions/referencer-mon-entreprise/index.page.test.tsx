@@ -59,7 +59,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'reference_entreprise_etape_1',
 			pagegroup: 'reference_entreprise',
 			pagelabel: 'reference_entreprise_etape_1',

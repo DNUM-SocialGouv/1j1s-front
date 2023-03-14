@@ -108,7 +108,7 @@ describe('Page rechercher une alternance', () => {
 			);
 
 			await screen.findByRole('heading', { level: 1 });
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'emplois_liste',
 				pagegroup: 'apprentissage',
 				pagelabel: 'emplois_liste',

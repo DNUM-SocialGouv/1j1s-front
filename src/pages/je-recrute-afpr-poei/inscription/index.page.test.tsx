@@ -88,7 +88,7 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 		it('envoie les analytics de la page à son affichage', () => {
 			renderComponent();
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'je_recrute_etape_1',
 				pagegroup: 'je_recrute',
 				pagelabel: 'je_recrute_etape_1',
