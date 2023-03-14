@@ -54,7 +54,7 @@ describe('Page Formations en Apprentissage', () => {
 				</DependenciesProvider>,
 			);
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'contenu_liste_niv_1',
 				pagegroup: 'formation_apprentissage_liste',
 				pagelabel: 'contenu_liste_niv_1',

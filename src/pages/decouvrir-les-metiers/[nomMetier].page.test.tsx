@@ -49,7 +49,7 @@ describe('Page consulter fiche métier', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'contenu_detail_niv_2',
 			pagegroup: 'decouvrir_les_metiers_detail',
 			pagelabel: 'contenu_detail_niv_2',

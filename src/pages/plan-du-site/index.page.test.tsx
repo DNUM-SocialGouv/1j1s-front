@@ -72,7 +72,7 @@ describe('Plan du site', () => {
 			</DependenciesProvider>,
 		);
 		
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'contenu_statique',
 			pagegroup: 'contenu_statique',
 			pagelabel: 'contenu_statique',

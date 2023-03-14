@@ -68,7 +68,7 @@ describe('Page Espace Jeune', () => {
 				</DependenciesProvider>,
 			);
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'contenu_liste_niv_1',
 				pagegroup: 'service_jeune_liste',
 				pagelabel: 'contenu_liste_niv_1',

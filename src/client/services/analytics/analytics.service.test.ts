@@ -59,7 +59,7 @@ describe('AnalyticsService', () => {
 		expect(initSpy).toHaveBeenCalledWith(expectedCookiesSettings);
 	});
 
-	describe('trackPageView', () => {
+	describe('envoyerAnalyticsPageVue', () => {
 		describe('quand le consentement est autorisé', () => {
 			beforeEach(() => {
 				document.cookie = 'consentement=!eulerian=true;';
@@ -73,7 +73,7 @@ describe('AnalyticsService', () => {
 					pagelabel: 'emplois_liste',
 					'segment-site': 'offres_d_emploi',
 				};
-				analyticsService.trackPageView(analyticsPageConfig);
+				analyticsService.envoyerAnalyticsPageVue(analyticsPageConfig);
 				const expected = [
 					'site_entity',
 					'Min. Santé',
@@ -110,7 +110,7 @@ describe('AnalyticsService', () => {
 					pagelabel: 'emplois_liste',
 					'segment-site': 'offres_d_emploi',
 				};
-				analyticsService.trackPageView(analyticsPageConfig);
+				analyticsService.envoyerAnalyticsPageVue(analyticsPageConfig);
 
 				expect(pageSetSpy).not.toHaveBeenCalled();
 			});

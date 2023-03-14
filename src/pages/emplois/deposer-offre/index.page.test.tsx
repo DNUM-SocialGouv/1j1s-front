@@ -25,7 +25,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'deposer_offre_emploi_etape_1',
 			pagegroup: 'deposer_offre_emploi',
 			pagelabel: 'deposer_offre_emploi_etape_1',

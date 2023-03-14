@@ -29,7 +29,7 @@ describe('MentoratPage', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'mentorat',
 			pagegroup: 'mentorat',
 			pagelabel: 'mentorat',

@@ -25,7 +25,7 @@ describe('MesAidesPage', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'mes_aides_financières',
 			pagegroup: 'mes_aides_financières',
 			pagelabel: 'mes_aides_financières',

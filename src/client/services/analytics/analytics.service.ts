@@ -18,11 +18,11 @@ export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
 
 	constructor() {
-		this.initCookieConsent();
-		this.pushDatalayer = this.initEulerianAnalytics();
+		this.initialiserGestionnaireConsentementsCookie();
+		this.pushDatalayer = this.initialiserEulerianAnalytics();
 	}
 
-	private initEulerianAnalytics(): (datalayer: Array<string>) => void {
+	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
 		const fallbackPushDatalayer = () => ({});
 		if (!this.isEulerianAnalyticsActive()) {
 			return fallbackPushDatalayer;
@@ -67,7 +67,7 @@ export class AnalyticsService {
 		}
 	}
 
-	private initCookieConsent(): void {
+	private initialiserGestionnaireConsentementsCookie(): void {
 		/**
 		 * adblocker: Show a Warning if an adblocker is detected (true - false)
 		 * AcceptAllCta: Show the accept all button when highPrivacy on (true - false)
@@ -130,8 +130,8 @@ export class AnalyticsService {
 		}
 	}
 
-	trackPageView(pageTags: PageTags): void {
-		if (this.isCookieConsentAllowed(EULERIAN_ANALYTICS_SERVICE)) {
+	envoyerAnalyticsPageVue(pageTags: PageTags): void {
+		if (this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE)) {
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
 				datalayer.push(key, value);
@@ -147,7 +147,7 @@ export class AnalyticsService {
 		return process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1';
 	}
 
-	private isCookieConsentAllowed(service: string): boolean {
+	private isConsentementCookieAutorisé(service: string): boolean {
 		const filteredConsentementCookieParts = document.cookie.match(new RegExp('(^| )' + CONSENT_MANAGER_COOKIE_NAME + '=([^;]+)'));
 		if (filteredConsentementCookieParts) {
 			const consentementCookieValue: string = filteredConsentementCookieParts[2];

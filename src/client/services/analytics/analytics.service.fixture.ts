@@ -2,6 +2,6 @@ import { AnalyticsService } from './analytics.service';
 
 export function anAnalyticsService(): AnalyticsService {
 	return {
-		trackPageView: jest.fn(),
+		envoyerAnalyticsPageVue: jest.fn(),
 	} as unknown as AnalyticsService;
 }

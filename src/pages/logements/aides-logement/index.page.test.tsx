@@ -27,7 +27,7 @@ describe('Les aides au logement', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'aides_logement',
 			pagegroup: 'aides_logement',
 			pagelabel: 'aides_logement',
