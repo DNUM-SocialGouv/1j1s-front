@@ -5,6 +5,7 @@ import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { DetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.type';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/apprentissage/[id].analytics';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -57,7 +58,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 }
 
 export default function AnnonceAlternancePage({ annonce }: ConsulterAnnonceAlternancePageProps) {
-	useAnalytics('apprentissage/[id]');
+	useAnalytics(analytics);
 
 	const parsedDétail: DetailAlternance = {
 		...annonce,

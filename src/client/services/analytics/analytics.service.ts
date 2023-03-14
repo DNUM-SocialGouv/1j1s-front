@@ -1,5 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-import { PAGE_TAGS_CONFIG, PageTagsConfig, SITE_TAGS } from '~/client/services/analytics/analytics';
+import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
 
 declare global {
 	interface Window {
@@ -15,7 +15,7 @@ const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 
 export class AnalyticsService {
-	private readonly pushDatalayer;
+	private readonly pushDatalayer: (datalayer: Array<string>) => void;
 
 	constructor() {
 		this.initCookieConsent();
@@ -30,7 +30,7 @@ export class AnalyticsService {
 
 		try {
 			// Voir https://eulerian.wiki/doku.php?id=fr:modules:collect:gdpr:tarteaucitron
-			window.tarteaucitron.services.eulerian = {
+			window.tarteaucitron.services[EULERIAN_ANALYTICS_SERVICE] = {
 				cookies: ['etuix'],
 				fallback: function () {
 					this.js();
@@ -54,13 +54,13 @@ export class AnalyticsService {
 						}
 					})(this, window);
 				},
-				key: 'eulerian',
+				key: EULERIAN_ANALYTICS_SERVICE,
 				name: 'Eulerian Analytics',
 				needConsent: true,
 				type: 'analytic',
 				uri: 'https://eulerian.com/vie-privee',
 			};
-			window.tarteaucitron.job.push('eulerian');
+			window.tarteaucitron.job.push(EULERIAN_ANALYTICS_SERVICE);
 			return window.EA_push;
 		} catch (e) {
 			return fallbackPushDatalayer;
@@ -130,17 +130,13 @@ export class AnalyticsService {
 		}
 	}
 
-	trackPageView(pageKey: keyof PageTagsConfig): void {
-		this.trackEulerianPageView(pageKey);
-	}
-
-	private trackEulerianPageView(pageKey: keyof PageTagsConfig): void {
+	trackPageView(pageTags: PageTags): void {
 		if (this.isCookieConsentAllowed(EULERIAN_ANALYTICS_SERVICE)) {
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
 				datalayer.push(key, value);
 			});
-			Object.entries(PAGE_TAGS_CONFIG[pageKey]).forEach(([key, value]) => {
+			Object.entries(pageTags).forEach(([key, value]) => {
 				datalayer.push(key, value);
 			});
 			this.pushDatalayer(datalayer);
@@ -156,9 +152,9 @@ export class AnalyticsService {
 		if (filteredConsentementCookieParts) {
 			const consentementCookieValue: string = filteredConsentementCookieParts[2];
 			return consentementCookieValue?.split('!')
-				?.reduce((acc: Record<string, unknown>, entry: string) => {
-					const [key, value]: string[] = entry.split('=');
-					return { ...acc, [key]: value !== 'false' };
+				?.reduce((consentements: Record<string, unknown>, consentementCourant: string) => {
+					const [key, value]: string[] = consentementCourant.split('=');
+					return { ...consentements, [key]: value !== 'false' };
 				}, {})?.[service] as unknown as boolean;
 		} else {
 			return false;

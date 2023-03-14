@@ -3,9 +3,10 @@ import React from 'react';
 import RechercherFormation from '~/client/components/features/Formation/Rechercher/RechercherFormation';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
+import analytics from '~/pages/formations/apprentissage/index.analytics';
 
 export default function FormationAlternancePage() {
-	useAnalytics('formations/apprentissage');
+	useAnalytics(analytics);
 	useReferrer();
 
 	return (

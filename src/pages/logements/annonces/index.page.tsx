@@ -14,6 +14,7 @@ import MeilisearchCustomCurrentRefinements
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
+import analytics from '~/pages/logements/annonces/index.analytics';
 
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
@@ -21,7 +22,7 @@ const ANNONCE_PAR_PAGE = 9 ;
 export default function AnnoncesPage() {
 	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
 
-	useAnalytics('logements/annonces');
+	useAnalytics(analytics);
 	useReferrer();
 	const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
 		return transformerMeilisearchLogementsItems(items);

@@ -11,10 +11,11 @@ import {
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import styles from '~/pages/plan-du-site/PlanDuSite.module.scss';
+import analytics from '~/pages/plan-du-site/index.analytics';
+import styles from '~/pages/plan-du-site/index.module.scss';
 
 export default function PlanDuSite() {
-	useAnalytics('plan-du-site');
+	useAnalytics(analytics);
 
 	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 

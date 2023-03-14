@@ -3,9 +3,10 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import ErrorNotFound from '~/client/components/layouts/Error/ErrorNotFound';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/404.analytics';
 
 export default function NotFound() {
-	useAnalytics('404');
+	useAnalytics(analytics);
 
 	return (
 		<>

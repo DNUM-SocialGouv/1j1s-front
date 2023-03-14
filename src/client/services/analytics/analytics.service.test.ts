@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
+import { PageTags } from '~/client/services/analytics/analytics';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 
 describe('AnalyticsService', () => {
@@ -66,7 +67,13 @@ describe('AnalyticsService', () => {
 
 			it('envoie un événement page au tracking', () => {
 				const analyticsService = new AnalyticsService();
-				analyticsService.trackPageView('emplois');
+				const analyticsPageConfig: PageTags = {
+					page_template: 'emplois_liste',
+					pagegroup: 'emplois',
+					pagelabel: 'emplois_liste',
+					'segment-site': 'offres_d_emploi',
+				};
+				analyticsService.trackPageView(analyticsPageConfig);
 				const expected = [
 					'site_entity',
 					'Min. Santé',
@@ -97,7 +104,13 @@ describe('AnalyticsService', () => {
 
 			it('n’envoie aucun événement page au tracking', () => {
 				const analyticsService = new AnalyticsService();
-				analyticsService.trackPageView('emplois');
+				const analyticsPageConfig: PageTags = {
+					page_template: 'emplois_liste',
+					pagegroup: 'emplois',
+					pagelabel: 'emplois_liste',
+					'segment-site': 'offres_d_emploi',
+				};
+				analyticsService.trackPageView(analyticsPageConfig);
 
 				expect(pageSetSpy).not.toHaveBeenCalled();
 			});

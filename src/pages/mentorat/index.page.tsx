@@ -8,11 +8,11 @@ import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-
-import styles from './Mentorat.module.scss';
+import analytics from '~/pages/mentorat/index.analytics';
+import styles from '~/pages/mentorat/index.module.scss';
 
 export default function MentoratPage() {
-	useAnalytics('mentorat');
+	useAnalytics(analytics);
 	const { isLargeScreen } = useBreakpoint();
 
 	return (

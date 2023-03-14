@@ -108,7 +108,12 @@ describe('Page rechercher une alternance', () => {
 			);
 
 			await screen.findByRole('heading', { level: 1 });
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith('apprentissage');
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+				page_template: 'emplois_liste',
+				pagegroup: 'apprentissage',
+				pagelabel: 'emplois_liste',
+				'segment-site': 'offres_d_emploi',
+			});
 		});
 	});
 });

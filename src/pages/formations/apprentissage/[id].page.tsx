@@ -5,6 +5,7 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { formationQuerySchema } from '~/pages/api/formations/[id].controller';
 import { formationFiltreMapper } from '~/pages/api/formations/index.controller';
+import analytics from '~/pages/formations/apprentissage/[id].analytics';
 import { isFailure } from '~/server/errors/either';
 import { Formation, FormationFiltre } from '~/server/formations/domain/formation';
 import { dependencies } from '~/server/start';
@@ -14,7 +15,7 @@ interface ConsulterFormationPageProps {
 }
 
 export default function ConsulterFormationPage(props: ConsulterFormationPageProps) {
-	useAnalytics('formations/apprentissage/[id]');
+	useAnalytics(analytics);
 
 	const { formation } = props;
 	return (

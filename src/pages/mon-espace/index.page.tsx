@@ -4,9 +4,10 @@ import MonEspaceEntreprise from '~/client/components/features/LesEntreprisesSEng
 import { Objectifs } from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/Objectifs/Objectifs';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/mon-espace/index.analytics';
 
 export default function MonEspace() {
-	useAnalytics('mon-espace');
+	useAnalytics(analytics);
 
 	return (
 		<>

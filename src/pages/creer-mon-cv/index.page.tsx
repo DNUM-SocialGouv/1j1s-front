@@ -3,9 +3,10 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/creer-mon-cv/index.analytics';
 
 export default function FormationPage() {
-	useAnalytics('creer-mon-cv');
+	useAnalytics(analytics);
 
 	return (
 		<>

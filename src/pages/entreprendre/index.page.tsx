@@ -14,11 +14,11 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
 import { HeroComponent } from '~/client/components/ui/Hero/HeroComponent';
 import useAnalytics from '~/client/hooks/useAnalytics';
-
-import styles from './entreprendre.module.scss';
+import analytics from '~/pages/entreprendre/index.analytics';
+import styles from '~/pages/entreprendre/index.module.scss';
 
 export default function Entreprendre() {
-	useAnalytics('entreprendre');
+	useAnalytics(analytics);
 
 	return (
 		<>

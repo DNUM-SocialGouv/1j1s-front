@@ -27,7 +27,12 @@ describe('Les aides au logement', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith('logements/aides-logement');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			page_template: 'aides_logement',
+			pagegroup: 'aides_logement',
+			pagelabel: 'aides_logement',
+			'segment-site': 'contenu_liens',
+		});
 	});
 
 	describe('La carte partenaire de la CAF', () => {

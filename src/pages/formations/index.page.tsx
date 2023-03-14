@@ -8,10 +8,11 @@ import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourS
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/formations/index.analytics';
 import styles from '~/pages/formations/index.module.scss';
 
 export default function FormationPage() {
-	useAnalytics('formations');
+	useAnalytics(analytics);
 
 	return (
 		<>

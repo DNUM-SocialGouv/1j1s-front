@@ -3,9 +3,10 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/mes-aides/index.analytics';
 
 export default function MesAidesPage() {
-	useAnalytics('mes-aides');
+	useAnalytics(analytics);
 
 	return (
 		<>

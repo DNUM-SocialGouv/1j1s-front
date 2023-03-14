@@ -4,9 +4,10 @@ import AvantagesMobilisation from '~/client/components/features/LesEntreprisesSE
 import RejoignezMobilisation from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/les-entreprises-s-engagent/index.analytics';
 
 export default function LesEntreprisesSEngagent() {
-	useAnalytics('les-entreprises-s-engagent');
+	useAnalytics(analytics);
 
 	return (
 		<>

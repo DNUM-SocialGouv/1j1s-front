@@ -59,6 +59,11 @@ describe('Immersion / Référencer mon entreprise', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.trackPageView).toHaveBeenCalledWith('immersions/referencer-mon-entreprise');
+		expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+			page_template: 'reference_entreprise_etape_1',
+			pagegroup: 'reference_entreprise',
+			pagelabel: 'reference_entreprise_etape_1',
+			'segment-site': 'funnel_etape_1',
+		});
 	});
 });

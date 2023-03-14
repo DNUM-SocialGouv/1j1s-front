@@ -8,11 +8,11 @@ import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLi
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
-
-import styles from './aides-logement.module.scss';
+import analytics from '~/pages/logements/aides-logement/index.analytics';
+import styles from '~/pages/logements/aides-logement/index.module.scss';
 
 export default function AidesLogement() {
-	useAnalytics('logements/aides-logement');
+	useAnalytics(analytics);
 	useReferrer();
 
 	return (

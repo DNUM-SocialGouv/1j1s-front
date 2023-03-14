@@ -11,11 +11,11 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
+import analytics from '~/pages/espace-jeune/index.analytics';
+import styles from '~/pages/espace-jeune/index.module.scss';
 import { Actualite } from '~/server/cms/domain/actualite';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { dependencies } from '~/server/start';
-
-import styles from './espace-jeune.module.scss';
 
 interface EspaceJeunePageProps {
 	cartesActualites: Actualite[]
@@ -25,7 +25,7 @@ interface EspaceJeunePageProps {
 const MAX_VISIBLE_ACTUALITES_LENGTH = 6;
 
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
-	useAnalytics('espace-jeune');
+	useAnalytics(analytics);
 	useReferrer();
 
 	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {

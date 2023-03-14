@@ -5,6 +5,7 @@ import React from 'react';
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/emplois/[id].analytics';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { dependencies } from '~/server/start';
@@ -14,7 +15,7 @@ interface ConsulterOffreEmploiPageProps {
 }
 
 export default function ConsulterOffreEmploiPage({ offreEmploi }: ConsulterOffreEmploiPageProps) {
-	useAnalytics('emplois/[id]');
+	useAnalytics(analytics);
 
 	if (!offreEmploi) return null;
 

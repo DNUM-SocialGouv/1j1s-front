@@ -4,9 +4,10 @@ import AidesExceptionnelles from '~/client/components/features/JeDeviensMentor/A
 import RecrutementCandidatPôleEmploi from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/RecrutementCandidatPôleEmploi';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import analytics from '~/pages/je-recrute-afpr-poei/index.analytics';
 
 export default function JeRecruteAfprPoei() {
-	useAnalytics('je-recrute-afpr-poei');
+	useAnalytics(analytics);
 
 	return (
 		<>

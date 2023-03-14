@@ -12,14 +12,15 @@ import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
-import styles from '~/pages/decouvrir-les-metiers/decouvrir-les-metiers.module.scss';
+import analytics from '~/pages/decouvrir-les-metiers/index.analytics';
+import styles from '~/pages/decouvrir-les-metiers/index.module.scss';
 
 const MEILISEARCH_INDEX = 'fiche-metier';
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherFicheMetierPage() {
-	useAnalytics('decouvrir-les-metiers');
+	useAnalytics(analytics);
 	useReferrer();
 
 	return (

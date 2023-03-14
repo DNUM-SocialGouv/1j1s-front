@@ -74,7 +74,12 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		it('envoie les analytics de la page à son affichage', () => {
 			renderComponent();
 
-			expect(analyticsService.trackPageView).toHaveBeenCalledWith('les-entreprises-s-engagent/inscription');
+			expect(analyticsService.trackPageView).toHaveBeenCalledWith({
+				page_template: 'engagement_entreprise_etape_1',
+				pagegroup: 'engagement_entreprise',
+				pagelabel: 'engagement_entreprise_etape_1',
+				'segment-site': 'funnel_etape_1',
+			});
 		});
 	});
 
