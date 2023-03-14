@@ -12,7 +12,6 @@
     }
   },
   "ignorePatterns": [
-    "public/scripts/smarttag.js",
     "public/scripts/tarteaucitron.js",
     "public/tarteaucitron.service.js",
     "public/lang/*"

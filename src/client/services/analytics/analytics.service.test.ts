@@ -6,14 +6,7 @@ import { AnalyticsService } from '~/client/services/analytics/analytics.service'
 
 describe('AnalyticsService', () => {
 	const pageSetSpy = jest.fn();
-	const clickSendSpy = jest.fn();
-	const dispatchSpy = jest.fn();
 	const initSpy = jest.fn();
-	const tagSpy = jest.fn().mockReturnValue({
-		click: { send: clickSendSpy },
-		dispatch: dispatchSpy,
-		page: { set: pageSetSpy },
-	});
 	const eulerianAnalyticsPushSpy = jest.fn();
 
 	beforeEach(() => {
@@ -23,18 +16,10 @@ describe('AnalyticsService', () => {
 			services: {},
 			user: {},
 		};
-		(global as any).ATInternet = {
-			Tracker : {
-				Tag: tagSpy,
-			},
-		};
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
 	});
 
 	afterEach(() => {
-		pageSetSpy.mockRestore();
-		clickSendSpy.mockRestore();
-		dispatchSpy.mockRestore();
 		initSpy.mockRestore();
 		eulerianAnalyticsPushSpy.mockRestore();
 	});
@@ -70,40 +55,7 @@ describe('AnalyticsService', () => {
 
 		new AnalyticsService();
 
-		expect(tagSpy).toHaveBeenCalled();
 		expect(initSpy).toHaveBeenCalledWith(expectedCookiesSettings);
-	});
-
-	describe('trackAtInternetPageView', () => {
-		describe('quand le consentement est autorisé', () => {
-			beforeEach(() => {
-				document.cookie = 'consentement=!atinternet=true';
-			});
-
-			it('envoie un événement page au tracking', () => {
-				const page = '/emplois';
-
-				const analyticsService = new AnalyticsService();
-				analyticsService.trackAtInternetPageView(page);
-
-				expect(pageSetSpy).toHaveBeenCalledWith({ name: page });
-			});
-		});
-
-		describe('quand le consentement n’est pas autorisé', () => {
-			beforeEach(() => {
-				document.cookie = 'consentement=!atinternet=false';
-			});
-
-			it('n’envoie aucun événement page au tracking', () => {
-				const page = '/emplois';
-
-				const analyticsService = new AnalyticsService();
-				analyticsService.trackAtInternetPageView(page);
-
-				expect(pageSetSpy).not.toHaveBeenCalled();
-			});
-		});
 	});
 
 	describe('trackPageView', () => {

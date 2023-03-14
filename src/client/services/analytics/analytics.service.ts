@@ -3,7 +3,6 @@ import { PAGE_TAGS_CONFIG, PageTagsConfig, SITE_TAGS } from '~/client/services/a
 
 declare global {
 	interface Window {
-		ATInternet: any
 		tarteaucitron: any
 
 		__eaGenericCmpApi(f: any): void
@@ -13,40 +12,14 @@ declare global {
 }
 
 const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
-const AT_INTERNET_ANALYTICS_SERVICE = 'atinternet';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 
 export class AnalyticsService {
-	private readonly atInternetTagTracker;
 	private readonly pushDatalayer;
 
 	constructor() {
 		this.initCookieConsent();
-		this.atInternetTagTracker = this.initAtInternetAnalytics();
 		this.pushDatalayer = this.initEulerianAnalytics();
-	}
-
-	private initAtInternetAnalytics() {
-		const fallbackTracker = {
-			click: { send: () => ({}) },
-			dispatch: () => ({}),
-			page: { set: () => ({}) },
-		};
-
-		if (!this.isAtInternetAnalyticsActive()) {
-			return fallbackTracker;
-		}
-
-		try {
-			window.tarteaucitron.job.push(AT_INTERNET_ANALYTICS_SERVICE);
-			window.tarteaucitron.user.atLibUrl = '/scripts/smarttag.js';
-			window.tarteaucitron.user.atinternetSendData = false;
-			window.tarteaucitron.user.atNoFallback = false;
-
-			return new window.ATInternet.Tracker.Tag();
-		} catch (e) {
-			return fallbackTracker;
-		}
 	}
 
 	private initEulerianAnalytics(): (datalayer: Array<string>) => void {
@@ -174,19 +147,8 @@ export class AnalyticsService {
 		}
 	}
 
-	trackAtInternetPageView(name: string): void {
-		if (this.isCookieConsentAllowed(AT_INTERNET_ANALYTICS_SERVICE)) {
-			this.atInternetTagTracker.page.set({ name });
-			this.atInternetTagTracker.dispatch();
-		}
-	}
-
 	private isEulerianAnalyticsActive(): boolean {
 		return process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1';
-	}
-
-	private isAtInternetAnalyticsActive(): boolean {
-		return process.env.NEXT_PUBLIC_ANALYTICS_AT_INTERNET_FEATURE === '1';
 	}
 
 	private isCookieConsentAllowed(service: string): boolean {
