@@ -110,7 +110,7 @@
   &Faq {
     display: flex;
     flex-direction: column;
-    color: $diva-blue;
+    color: $color-primary;
     @extend %bold;
     font-size: 1rem;
     margin-bottom: 1rem;

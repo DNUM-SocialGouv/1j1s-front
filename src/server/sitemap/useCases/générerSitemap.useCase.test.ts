@@ -22,7 +22,7 @@ describe('GénérerSitemapUseCase', () => {
 			const cmsRepository = aStrapiCmsRepository();
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-			cmsRepository.listAllFoireAuxQuestionsSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+			cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
 			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
 			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
@@ -35,6 +35,7 @@ describe('GénérerSitemapUseCase', () => {
 			expect(result).toEqual(expected);
 		});
 	});
+
 	describe('quand le feature flip de Formation et Apprentissage est actif', () => {
 		beforeEach(() => {
 			process.env = {
@@ -46,7 +47,7 @@ describe('GénérerSitemapUseCase', () => {
 			const cmsRepository = aStrapiCmsRepository();
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-			cmsRepository.listAllFoireAuxQuestionsSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+			cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
 			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
 			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);

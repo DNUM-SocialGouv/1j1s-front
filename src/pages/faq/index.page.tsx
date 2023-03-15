@@ -7,23 +7,23 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import useReferrer from '~/client/hooks/useReferrer';
-import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
-import { dependencies } from '~/server/start';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/faq/index.analytics';
+import { Question } from '~/server/cms/domain/FAQ.type';
+import { dependencies } from '~/server/start';
 
 import styles from './index.page.module.scss';
 
 type FaqPageProps = {
-	faqList: Array<FoireAuxQuestions>
+	listeDeQuestionRéponse: Array<Question>
 	isFeatureActive: true
 } | {
-	faqList?: never
+	listeDeQuestionRéponse?: never
 	isFeatureActive: false
 }
 
-export default function FaqPage({ faqList, isFeatureActive }: FaqPageProps) {
+export default function FaqPage({ listeDeQuestionRéponse, isFeatureActive }: FaqPageProps) {
 	useAnalytics(analytics);
 	useReferrer();
 
@@ -39,10 +39,10 @@ export default function FaqPage({ faqList, isFeatureActive }: FaqPageProps) {
 				<Container className={styles.container}>
 					<h1 className={styles.titre}>FAQ - QUESTIONS FRÉQUEMMENT POSÉES</h1>
 					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
-					{faqList?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
-						{faqList?.map((faq) => <li key={uuidv4()}>
-							<Link href={`/faq/${faq.urlArticleRéponse}`}>
-								<h3>{faq.problématique}</h3>
+					{listeDeQuestionRéponse?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
+						{listeDeQuestionRéponse?.map((question) => <li key={uuidv4()}>
+							<Link href={`/faq/${question.slug}`}>
+								<h3>{question.problématique}</h3>
 								<Icon name='angle-right'/>
 							</Link>
 						</li>) }
@@ -62,15 +62,15 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<FaqPageProp
 		},
 	};
 
-	const faqList = await dependencies.cmsDependencies.listerQuestionsFAQ.handle();
-	if (faqList.instance === 'failure') {
+	const listeDeQuestionRéponse = await dependencies.cmsDependencies.listerQuestionsFAQ.handle();
+	if (listeDeQuestionRéponse.instance === 'failure') {
 		return { notFound: true };
 	}
 
 	return {
 		props: {
-			faqList: faqList.result,
 			isFeatureActive: true,
+			listeDeQuestionRéponse: listeDeQuestionRéponse.result,
 		},
 	};
 }

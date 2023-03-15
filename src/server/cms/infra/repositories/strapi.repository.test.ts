@@ -7,11 +7,11 @@ import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
 import {
-	uneFaqList,
-	uneFaqListResponse,
-	uneFaqListSansRelationResponse,
-} from '~/server/cms/domain/foireAuxQuestions.fixture';
-import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
+	uneListeDeQuestion,
+	uneListeDeQuestionStrapiResponse,
+	uneQuestionRéponse,
+} from '~/server/cms/domain/FAQ.fixture';
+import { Question } from '~/server/cms/domain/FAQ.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { desMesuresEmployeurs } from '~/server/cms/domain/mesureEmployeur.fixture';
@@ -25,7 +25,6 @@ import {
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiCollectionType,
-	aStrapiFaqArticleSlugList,
 	aStrapiFicheMetier,
 	aStrapiFicheMetierNomMetierList,
 	aStrapiLesMesuresEmployeurs,
@@ -159,15 +158,13 @@ describe('strapi cms repository', () => {
 			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 			(httpClientService.get as jest.Mock)
-				.mockResolvedValueOnce(anAxiosResponse(aStrapiFaqArticleSlugList()))
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
 			const expected = anArticlePathList();
 
 			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenNthCalledWith(1, 'foire-aux-questions?populate[reponse][fields][0]=slug&pagination[pageSize]=100&pagination[page]=1');
-			expect(httpClientService.get).toHaveBeenNthCalledWith(2, 'articles?fields[0]=slug&filters[$and][0][slug][$ne]=comment-constituer-un-dossier-locatif-jeune&filters[$and][1][slug][$ne]=comment-faire-son-service-civique&filters[$and][2][slug][$ne]=que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas&pagination[pageSize]=100&pagination[page]=1');
+			expect(httpClientService.get).toHaveBeenCalledWith('articles?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 
@@ -292,31 +289,20 @@ describe('strapi cms repository', () => {
 		});
 	});
 
-	describe('getAllFoireAuxQuestions', () => {
+	describe('getAllFAQ', () => {
 		describe('quand la liste des questions est trouvée', () => {
-			it('retourne la liste des questions avec l’url de leur réponse', async () => {
+			it('retourne la liste des questions avec la problématique et le slug', async () => {
 				httpClientService = anHttpClientService();
 				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneFaqListResponse())));
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
 
 
-				const { result } = await strapiCmsRepository.getAllFoireAuxQuestions() as Success<Array<FoireAuxQuestions>>;
-				expect(result).toEqual(uneFaqList());
-				expect(httpClientService.get).toHaveBeenCalledWith('foire-aux-questions?fields[0]=problematique&populate[reponse][fields][0]=slug&pagination[pageSize]=100&pagination[page]=1');
+				const { result } = await strapiCmsRepository.getAllFAQ() as Success<Array<Question>>;
+				expect(result).toEqual(uneListeDeQuestion());
+				expect(httpClientService.get).toHaveBeenCalledWith('faqs?fields[0]=problematique&fields[1]=slug&pagination[pageSize]=100&pagination[page]=1');
 			});
 
-			it('filtre la liste de questions retournée pour ne pas envoyer les questions non lié à un article', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneFaqListSansRelationResponse())));
-
-
-				const { result } = await strapiCmsRepository.getAllFoireAuxQuestions() as Success<Array<FoireAuxQuestions>>;
-				expect(result).toEqual(uneFaqList());
-				expect(httpClientService.get).toHaveBeenCalledWith('foire-aux-questions?fields[0]=problematique&populate[reponse][fields][0]=slug&pagination[pageSize]=100&pagination[page]=1');
-			});
 		});
 
 		describe('quand la liste des questions n’est trouvée', () => {
@@ -326,7 +312,36 @@ describe('strapi cms repository', () => {
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
 
-				const result = await strapiCmsRepository.getAllFoireAuxQuestions() as Failure;
+				const result = await strapiCmsRepository.getAllFAQ() as Failure;
+				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+			});
+		});
+	});
+
+	describe('getFAQBySlug', () => {
+		describe('quand la question réponse est trouvée', () => {
+			it('retourne la question réponse', async () => {
+				const slug = uneListeDeQuestionStrapiResponse()[0].slug;
+				httpClientService = anHttpClientService();
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
+
+
+				const { result } = await strapiCmsRepository.getFAQBySlug(slug) as Success<Question.QuestionRéponse>;
+				expect(result).toEqual(uneQuestionRéponse('Comment constituer un dossier locatif ?'));
+				expect(httpClientService.get).toHaveBeenCalledWith(`faqs?filters[slug][$eq]=${slug}&pagination[pageSize]=100&pagination[page]=1`);
+			});
+		});
+
+		describe('quand la question réponse n’est trouvée', () => {
+			it('retourne une erreur', async () => {
+				httpClientService = anHttpClientService();
+				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
+
+				const result = await strapiCmsRepository.getFAQBySlug('not-found-slug') as Failure;
 				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 			});
 		});

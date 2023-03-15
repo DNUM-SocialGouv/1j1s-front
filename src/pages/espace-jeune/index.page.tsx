@@ -91,7 +91,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
 	const serviceJeuneList = await dependencies.cmsDependencies.listerServicesJeunes.handle();
-	const cartesActualitesResponse = await dependencies.cmsDependencies.récupererActualites.handle();
+	const cartesActualitesResponse = await dependencies.cmsDependencies.récupérerActualités.handle();
 
 	if (serviceJeuneList.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

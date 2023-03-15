@@ -7,20 +7,20 @@ import {
 	within,
 } from '@testing-library/react';
 
-import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
-import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
+import { Question } from '~/server/cms/domain/FAQ.type';
 
-const faqList: Array<FoireAuxQuestions> = [
+const listeDeQuestionRéponse: Array<Question> = [
 	{
 		problématique: 'Comment constituer un dossier locatif ?',
-		urlArticleRéponse: 'Comment-constituer-un-dossier-locatif-?',
+		slug: 'Comment-constituer-un-dossier-locatif-?',
 	}, {
 		problématique: 'Je n’arrive pas à candidater à une offre d’emploi',
-		urlArticleRéponse: 'Je-n’arrive-pas-à-candidater-à-une-offre-d’emploi',
+		slug: 'Je-n’arrive-pas-à-candidater-à-une-offre-d’emploi',
 	},
 ];
 
@@ -45,7 +45,7 @@ describe('Page FAQ', () => {
 		it('ne retourne rien', async () => {
 			render(
 				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					render(<FaqPage isFeatureActive={false}/>
+					<FaqPage isFeatureActive={false}/>
 				</DependenciesProvider>,
 			);
 
@@ -66,7 +66,7 @@ describe('Page FAQ', () => {
 			const analyticsService = anAnalyticsService();
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<FaqPage/>
+					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
 				</DependenciesProvider>,
 			);
 
@@ -79,14 +79,20 @@ describe('Page FAQ', () => {
 		});
 		
 		it('affiche le titre de la page', async () => {
-			render(<FaqPage isFeatureActive={true} faqList={faqList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				</DependenciesProvider>);
 
 			const title = await screen.findByRole('heading', { level: 1 });
 			expect(title).toHaveTextContent('FAQ - QUESTIONS FRÉQUEMMENT POSÉES');
 		});
 
 		it('affiche le sous titre de la page', async () => {
-			render(<FaqPage isFeatureActive={true} faqList={faqList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				</DependenciesProvider>);
 
 			const sousTitre = await screen.findByRole('heading', { level: 2 });
 			expect(sousTitre).toHaveTextContent('Que pouvons-nous faire pour vous ?');
@@ -94,7 +100,10 @@ describe('Page FAQ', () => {
 		});
 
 		it('affiche une liste de question', async () => {
-			render(<FaqPage isFeatureActive={true} faqList={faqList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				</DependenciesProvider>);
 
 			const listeDeQuestion = screen.getByRole('list');
 			expect(listeDeQuestion).toHaveAttribute('aria-label', 'Foire aux questions');
@@ -104,21 +113,27 @@ describe('Page FAQ', () => {
 		});
 
 		it('affiche les questions sous forme de lien', async () => {
-			render(<FaqPage isFeatureActive={true} faqList={faqList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				</DependenciesProvider>);
 
 			const listeDeQuestion = screen.getByRole('list');
 			const listItem = within(listeDeQuestion).getAllByRole('listitem');
 
 			for (let index = 0; index < listItem.length; index++) {
 				const lien = within(listItem[index]).getByRole('link');
-				expect(lien).toHaveTextContent(faqList[index].problématique);
-				expect(lien).toHaveAttribute('href', `/faq/${faqList[index].urlArticleRéponse}`);
+				expect(lien).toHaveTextContent(listeDeQuestionRéponse[index].problématique);
+				expect(lien).toHaveAttribute('href', `/faq/${listeDeQuestionRéponse[index].slug}`);
 			}
 		});
 
 		describe('quand la list de question est vide', () => {
 			it('n’affiche pas de liste', async () => {
-				render(<FaqPage isFeatureActive={true} faqList={[]}/>);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<FaqPage isFeatureActive={true} listeDeQuestionRéponse={[]}/>
+					</DependenciesProvider>);
 
 				const listeDeQuestion = screen.queryByRole('list');
 				expect(listeDeQuestion).not.toBeInTheDocument();

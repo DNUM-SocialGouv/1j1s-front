@@ -5,12 +5,16 @@ import React from 'react';
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
-import { Article, ArticleSlug } from '~/server/cms/domain/article';
+import { Article } from '~/server/cms/domain/article';
+import {
+	Question,
+	QuestionSlug,
+} from '~/server/cms/domain/FAQ.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
 type ConsulterFAQRéponsePageProps = {
-	faqRéponse: Article
+	faqRéponse: Question.QuestionRéponse
 	isFeatureActive: true
 } | {
 	faqRéponse?: never
@@ -18,7 +22,7 @@ type ConsulterFAQRéponsePageProps = {
 }
 
 interface FAQRéponse extends ParsedUrlQuery {
-	id: ArticleSlug
+	id: QuestionSlug
 }
 
 function convertUndefinedToNull<T>(payload: T): T {
@@ -28,13 +32,20 @@ function convertUndefinedToNull<T>(payload: T): T {
 export default function ConsulterArticlePage({ faqRéponse, isFeatureActive  }: ConsulterFAQRéponsePageProps) {
 	if (!isFeatureActive) return <ErrorUnavailableService/>;
 
+	const faqRéponseMapToArticleFormat = (): Article => {
+		return {
+			contenu: faqRéponse.contenu,
+			titre: faqRéponse.problématique,
+		};
+	};
+
 	return (
 		<>
 			<Head
-				title={`${faqRéponse.titre} | 1jeune1solution`}
+				title={`${faqRéponse.problématique} | 1jeune1solution`}
 				robots="index,follow"
 			/>
-			<ConsulterArticle article={faqRéponse} />
+			<ConsulterArticle article={faqRéponseMapToArticleFormat()} />
 		</>
 	);
 }
@@ -53,7 +64,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 	}
 
 	const { id } = context.params;
-	const faqRéponse = await dependencies.cmsDependencies.consulterArticle.handle(id);
+	const faqRéponse = await dependencies.cmsDependencies.consulterFAQ.handle(id);
 
 	if (faqRéponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

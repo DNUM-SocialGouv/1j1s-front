@@ -31,7 +31,7 @@ export class GénérerSitemapUseCase {
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),
 			this.cmsRepository.listAllArticleSlug(),
-			this.cmsRepository.listAllFoireAuxQuestionsSlug(),
+			this.cmsRepository.listAllFAQSlug(),
 			this.cmsRepository.listAllOffreDeStageSlug(),
 			this.cmsRepository.listAllAnnonceDeLogementSlug(),
 		]);

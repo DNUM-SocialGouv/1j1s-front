@@ -372,7 +372,7 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 	};
 }
 
-export function aStrapiFaqArticleSlugList(){
+export function aStrapiFaqArticleSlugList(): Strapi.CollectionType<{problematique: string, reponse: Strapi.SingleRelation<Pick<Strapi.CollectionType.Article, 'slug'>>}> {
 	return {
 		data: [
 			{

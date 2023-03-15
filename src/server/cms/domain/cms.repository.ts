@@ -1,7 +1,7 @@
 import { Actualite } from '~/server/cms/domain/actualite';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
-import { FoireAuxQuestions } from '~/server/cms/domain/foireAuxQuestions.type';
+import { Question, QuestionSlug } from '~/server/cms/domain/FAQ.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
@@ -12,10 +12,11 @@ import { MesureEmployeur } from './mesureEmployeur';
 
 export interface CmsRepository {
   getActualitéList(): Promise<Either<Actualite[]>>
-	getAllFoireAuxQuestions(): Promise<Either<Array<FoireAuxQuestions>>>
+	getAllFAQ(): Promise<Either<Array<Question>>>
 	getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
   getServiceJeuneList(): Promise<Either<Array<ServiceJeune>>>
+	getFAQBySlug(slug: QuestionSlug): Promise<Either<Question>>
   getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
   getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>>
@@ -23,7 +24,7 @@ export interface CmsRepository {
   listAllFicheMetierNomMetier(): Promise<Either<Array<string>>>
 	listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>>
   listAllArticleSlug(): Promise<Either<Array<string>>>
-	listAllFoireAuxQuestionsSlug(): Promise<Either<Array<string>>>
+	listAllFAQSlug(): Promise<Either<Array<string>>>
 	listAllOffreDeStageSlug(): Promise<Either<Array<string>>>
 	saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>>
   save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
