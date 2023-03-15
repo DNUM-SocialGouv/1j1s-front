@@ -11,4 +11,8 @@
     @extend %bold;
     @extend %text-medium;
   }
+
+  &__Description {
+    @extend %text-regular;
+  }
 }

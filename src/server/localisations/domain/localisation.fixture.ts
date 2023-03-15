@@ -8,6 +8,7 @@ import {
 
 export function aLocalisationRepository(): LocalisationRepository {
 	return {
+		getCodeRegionByCodePostal: jest.fn(),
 		getCommuneListByCodePostal: jest.fn(),
 		getCommuneListByNom: jest.fn(),
 		getCommuneListByNuméroDépartement: jest.fn(),

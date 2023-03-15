@@ -63,7 +63,13 @@ import {
 import {
 	ApiLaBonneAlternanceFormationRepository,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
+import {
+	ApiTrajectoiresProCertificationRepository,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.repository';
 import { ConsulterFormationUseCase } from '~/server/formations/useCases/consulterFormation.useCase';
+import {
+	ConsulterStatistiqueFormationUseCase,
+} from '~/server/formations/useCases/consulterStatistiqueFormation.useCase';
 import { RechercherFormationUseCase } from '~/server/formations/useCases/rechercherFormation.useCase';
 import {
 	ApiPoleEmploiJobÉtudiantRepository,
@@ -135,6 +141,7 @@ export interface AlternanceDependencies {
 export interface FormationDependencies {
 	rechercherFormation: RechercherFormationUseCase
 	consulterFormation: ConsulterFormationUseCase
+	consulterStatistiqueFormation: ConsulterStatistiqueFormationUseCase
 }
 
 export interface MétierDependencies {
@@ -189,6 +196,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const {
 		engagementClientService,
 		laBonneAlternanceClientService,
+		trajectoiresProClientService,
 		lesEntreprisesSEngagentClientService,
 		poleEmploiOffresClientService,
 		poleEmploiReferentielsClientService,
@@ -234,8 +242,12 @@ export const dependenciesContainer = (): Dependencies => {
 		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 
+	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
+	const apiTrajectoiresProCertificationRepository = new ApiTrajectoiresProCertificationRepository(trajectoiresProClientService, apiGeoLocalisationRepository);
+
 	const formationDependencies: FormationDependencies = {
 		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository),
+		consulterStatistiqueFormation: new ConsulterStatistiqueFormationUseCase(apiTrajectoiresProCertificationRepository),
 		rechercherFormation: new RechercherFormationUseCase(apiLaBonneAlternanceFormationRepository),
 	};
 	
@@ -251,7 +263,6 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const apiAdresseRepository = new ApiAdresseRepository(adresseClientService);
-	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
 	const localisationDependencies: LocalisationDependencies = {
 		listeLocalisation: new RechercherLocalisationUseCase(apiGeoLocalisationRepository, apiAdresseRepository),
 		rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository, serverConfigurationService),

@@ -6,6 +6,7 @@ export interface RésultatRechercheFormation {
 	idRco: string
 	codePostal?: string
 	ville?: string
+	codeCertification?: string
 }
 
 export interface Formation {

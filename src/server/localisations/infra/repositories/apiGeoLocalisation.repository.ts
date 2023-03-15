@@ -1,4 +1,5 @@
-import { createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
@@ -40,6 +41,17 @@ export class ApiGeoLocalisationRepository implements LocalisationRepository {
 		try {
 			const response = await this.httpClientService.get<ApiDecoupageAdministratifResponse[]>(endpoint);
 			return createSuccess(mapLocalisationList(response.data));
+		} catch (e) {
+			return handleGetFailureError(e, 'localisation');
+		}
+	}
+
+	async getCodeRegionByCodePostal(codePostalRecherché: string): Promise<Either<string>> {
+		try {
+			const response = await this.httpClientService.get<ApiDecoupageAdministratifResponse[]>(`communes?codePostal=${codePostalRecherché}`);
+			if (response.data.length === 0 || !response.data[0].codeRegion)
+				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			return createSuccess(response.data[0].codeRegion);
 		} catch (e) {
 			return handleGetFailureError(e, 'localisation');
 		}

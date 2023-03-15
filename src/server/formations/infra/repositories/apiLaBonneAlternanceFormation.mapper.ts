@@ -9,6 +9,7 @@ import {
 export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFormationRechercheResponse): Array<RésultatRechercheFormation> => {
 	return response.results.map((formation) => ({
 		adresse: formation.place?.fullAddress,
+		codeCertification: formation.cfd,
 		codePostal: formation.place?.zipCode,
 		idRco: formation.idRco,
 		nomEntreprise: formation.company?.name,

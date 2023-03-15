@@ -1,0 +1,36 @@
+@import "@styles/utilities";
+
+.section {
+  background-color: $color-background-white-lilac
+}
+
+.layout {
+  padding: 0 1rem;
+
+  h3, p {
+    font-size: 0.875rem;
+  }
+}
+
+.texte {
+  &Question {
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  &Pourcentage {
+    color: $color-primary;
+  }
+}
+
+p.millesime {
+  margin-top: 2rem;
+  font-size: 0.6rem;
+}
+
+@include media(large) {
+  .layout {
+    margin: 3rem auto 3.5rem auto;
+    padding: 0 7rem 0 7rem;
+  }
+}

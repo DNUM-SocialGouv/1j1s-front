@@ -5,6 +5,7 @@ import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { dependencies } from '~/server/start';
 
 export const formationQuerySchema = Joi.object({
+	codeCertification: Joi.string(),
 	codeCommune: Joi.string().required(),
 	codeRomes: Joi.string().required(),
 	distanceCommune: Joi.string().required(),
