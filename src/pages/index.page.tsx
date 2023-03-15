@@ -4,11 +4,7 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
-import {
-	HeroPrimaryText,
-	HeroSecondaryText,
-	HeroWithIllustration,
-} from '~/client/components/ui/Hero/Hero';
+import { HeroPrimaryText, HeroSecondaryText, HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -78,6 +74,15 @@ export default function Accueil() {
 		<LinkCard
 			className={styles.card}
 			key={2}
+			imageUrl="/images/formations-apprentissage.webp"
+			link="/formations/apprentissage"
+			linkLabel="En savoir plus"
+			title="Formations en apprentissage">
+			<p>Plus de 40 000 formations accessibles pour réaliser votre projet et trouver un emploi.</p>
+		</LinkCard>,
+		<LinkCard
+			className={styles.card}
+			key={3}
 			imageUrl="/images/métiers.webp"
 			link="/decouvrir-les-metiers"
 			linkLabel="En savoir plus"
@@ -86,7 +91,7 @@ export default function Accueil() {
 		</LinkCard>,
 		<LinkCard
 			className={styles.card}
-			key={3}
+			key={4}
 			imageUrl="/images/évènements.webp"
 			link="/evenements"
 			linkLabel="En savoir plus"
@@ -202,8 +207,8 @@ export default function Accueil() {
 				</HeroWithIllustration>
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
-						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />
-            Découvrez nos offres
+						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon}/>
+						Découvrez nos offres
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -215,8 +220,8 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
 					<h2 id="formation" className={styles.sectionHeader}>
-						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon} />
-            Formations et orientation
+						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon}/>
+						Formations et orientation
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -229,7 +234,7 @@ export default function Accueil() {
 				<section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
 					<h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
 						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon}/>
-            Aides et accompagnement
+						Aides et accompagnement
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -241,8 +246,8 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
 					<h2 id="engagement-benevolat" className={styles.sectionHeader}>
-						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon} />
-            Engagement et bénévolat
+						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon}/>
+						Engagement et bénévolat
 					</h2>
 					<Container>
 						<SeeMoreItemList
