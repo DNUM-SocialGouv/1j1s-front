@@ -20,7 +20,8 @@ export function DécouvrirDispositifs () {
 			<Container className={styles.recruter}>
 				<h1>Vous cherchez à recruter ?</h1>
 				<p>Dans le cadre du plan 1 jeune, 1 solution, nous vous accompagnons dans la recherche de vos futurs collaborateurs.</p>
-				<Link href="/emplois/deposer-offre" appearance='asPrimaryButton'>Déposer une offre d‘emploi ou d‘alternance</Link>
+				<Link href="/emplois/deposer-offre" appearance='asPrimaryButton'>Déposer une offre d‘emploi</Link>
+				<Link href="/apprentissage/deposer-offre" appearance='asPrimaryButton'>Déposer une offre d’alternance</Link>
 				<Link href={MAIL_TO} appearance='asPrimaryButton'>Déposer une offre de stage</Link>
 			</Container>
 		</section>

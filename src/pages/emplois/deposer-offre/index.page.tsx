@@ -29,7 +29,7 @@ export default function DéposerUneOffreDEmploi() {
 					En partenariat avec Pôle Emploi
 				</HeroSecondaryText>
 			</Hero>
-			<Container className={styles.section}>
+			<Container>
 				<iframe
 					className={styles.iframe}
 					src="https://deposer-offre.www.1jeune1solution.gouv.fr/#/deposer-offre"
