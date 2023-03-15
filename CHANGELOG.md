@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.22.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.21.0...v3.22.0) (2023-03-15)
+
+
+### Features
+
+* **alternance:** détail peJobs ([de9b90b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/de9b90bdf4aeb1a61affbc66d1138c9d2f8e3983))
+
 ## [3.21.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.20.2...v3.21.0) (2023-03-14)
 
 
