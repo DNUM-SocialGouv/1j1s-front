@@ -4,6 +4,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
+import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
+import { PassPartner } from '~/client/components/features/Partner/PassPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -12,6 +15,8 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -93,6 +98,26 @@ export default function RechercherAlternance() {
 				nombreSolutions={alternanceList.length}
 				listeSolutionElement={<ListeAlternance résultatList={alternanceList}/>}
 			/>
+			<EnTeteSection heading="Consultez nos articles"/>
+			<ArticleCardList>
+				<ArticleCard
+					vertical={false}
+					imageSrc="/images/articles/aide-exceptionnelle-apprentissage.svg"
+					imageFit="cover"
+					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
+					titleLabel="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
+				>
+					<p>
+						Découvrez un argument supplémentaire à avancer pour vous faire
+						embaucher
+					</p>
+				</ArticleCard>
+			</ArticleCardList>
+			<EnTeteSection heading="Découvrez des services faits pour vous"/>
+			<PartnerCardList>
+				<PassPartner/>
+				<OnisepPartner/>
+			</PartnerCardList>
 		</main>
 	</>;
 }
@@ -101,7 +126,7 @@ function BannièreApprentissage() {
 	return (
 		<LightHero>
 			<h1>
-				<LightHeroPrimaryText>Avec La Bonne Alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
+				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
 			</h1>
 			<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
 		</LightHero>

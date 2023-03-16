@@ -116,4 +116,40 @@ describe('RechercherAlternance', () => {
 			expect(filtresRecherche).toBeInTheDocument();
 		});
 	});
+
+	it('affiche la section "nos articles"', () => {
+		render(
+			<DependenciesProvider
+				alternanceService={anAlternanceService()}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}>
+				<RechercherAlternance/>
+			</DependenciesProvider>,
+		);
+
+		const section = screen.getByRole('heading', { name: /Consultez nos articles/i });
+		const card = screen.getByRole('heading', { name: /Une aide exceptionnelle pour l’apprentissage/i });
+
+		expect(section).toBeVisible();
+		expect(card).toBeVisible();
+	});
+
+	it('affiche la section "services faits pour vous"', () => {
+		render(
+			<DependenciesProvider
+				alternanceService={anAlternanceService()}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}>
+				<RechercherAlternance/>
+			</DependenciesProvider>,
+		);
+
+		const section = screen.getByRole('heading', { name: /Découvrez des services faits pour vous/i });
+		const cardPass = screen.getByRole('heading', { name: /Recherche une offre d'alternance dans la fonction publique/i });
+		const cardONISEP = screen.getByRole('heading', { name: /Besoin d‘informations sur les métiers ?/i });
+
+		expect(section).toBeVisible();
+		expect(cardPass).toBeVisible();
+		expect(cardONISEP).toBeVisible();
+	});
 });

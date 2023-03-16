@@ -69,7 +69,7 @@ describe('Page rechercher une alternance', () => {
 			};
 		});
 
-		it('affiche le titre propre à la Bonne Alternance', async () => {
+		it('affiche le titre propre à la bonne alternance', async () => {
 			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
 			const métiersServiceMock = aMétierService();
@@ -86,7 +86,7 @@ describe('Page rechercher une alternance', () => {
 			);
 
 			const titre = await screen.findByRole('heading', { level: 1 });
-			expect(titre).toHaveTextContent('Avec La Bonne Alternance');
+			expect(titre).toHaveTextContent(/Avec La bonne alternance/i);
 		});
 
 		it('envoie les analytics de la page à son affichage', async () => {
