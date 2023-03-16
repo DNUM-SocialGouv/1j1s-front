@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.25.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.24.0...v3.25.0) (2023-03-16)
+
+
+### Features
+
+* **faq:** ajout des questions sur la page faq depuis le cms ([3c5b2c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3c5b2c3eb192b40fa35d6fae4b83268b5d523737))
+
 ## [3.24.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.23.0...v3.24.0) (2023-03-16)
 
 
