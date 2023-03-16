@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.23.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.22.0...v3.23.0) (2023-03-16)
+
+
+### Features
+
+* **alternances:** ajout carte alternance page d'accueil ([319746f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/319746f8f38ac8a0bf1b78def8770bd34a4af41c))
+
 ## [3.22.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.21.0...v3.22.0) (2023-03-15)
 
 
