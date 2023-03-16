@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.26.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.25.0...v3.26.0) (2023-03-16)
+
+
+### Features
+
+* **alternance:** Ajouter les sections sur la page recherche alternance ([54e79e3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/54e79e3eda167db625e9e2937d456f00edc4db33))
+
 ## [3.25.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.24.0...v3.25.0) (2023-03-16)
 
 
