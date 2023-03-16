@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { LaBonneAlternancePartner } from '~/client/components/features/Partner/LaBonneAlternancePartner';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { PassPartner } from '~/client/components/features/Partner/PassPartner';
 import { Head } from '~/client/components/head/Head';
