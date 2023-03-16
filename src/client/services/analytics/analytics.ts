@@ -1,5 +1,5 @@
 export const SITE_TAGS: Record<string, string> = {
-	site_entity: 'Min. Santé',
+	site_entity: 'Min. Travail',
 	site_environment: process.env.NEXT_PUBLIC_ANALYTICS_ENVIRONMENT || 'dev',
 	site_target: 'information',
 	site_type: 'multiple',
