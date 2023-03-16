@@ -13,12 +13,12 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import styles from '~/pages/espace-jeune/index.module.scss';
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { dependencies } from '~/server/start';
 
 interface EspaceJeunePageProps {
-	cartesActualites: Actualite[]
+	cartesActualites: Actualité[]
 	serviceJeuneList: Array<ServiceJeune>
 }
 
@@ -28,10 +28,10 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	useAnalytics(analytics);
 	useReferrer();
 
-	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
+	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualité): string | undefined => {
 		if (!article) return 'En savoir plus';
 	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualite): React.ReactNode | undefined => {
+	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualité): React.ReactNode | undefined => {
 		if (!article) return <Icon name={'external-redirection'}/>;
 	}, []);
 

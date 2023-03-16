@@ -1,4 +1,4 @@
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
@@ -105,9 +105,9 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	async getActualitéList(): Promise<Either<Array<Actualite>>> {
+	async getActualitéList(): Promise<Either<Array<Actualité>>> {
 		const query = 'populate=deep';
-		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualite>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
+		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualité>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
 	}
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {

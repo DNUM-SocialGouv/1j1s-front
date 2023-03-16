@@ -3,14 +3,14 @@ import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulter
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
 import { ConsulterFAQUseCase } from '~/server/cms/useCases/consulterFAQ.useCase';
 import { ConsulterFicheMetierUseCase } from '~/server/cms/useCases/consulterFicheMetier.useCase';
-import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoireUseCase';
+import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoire.useCase';
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
 import { enregistrerOffreDeStageUseCase } from '~/server/cms/useCases/enregistrerOffreDeStage.useCase';
 import { ListerFAQUseCase } from '~/server/cms/useCases/listerFAQ.useCase';
 import { ListerNomMétierFicheMétierUseCase } from '~/server/cms/useCases/listerNomMétierFicheMétier.useCase';
-import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunesUseCase';
-import { RécupererActualitesUseCase } from '~/server/cms/useCases/récupererActualitesUseCase';
-import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
+import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunes.useCase';
+import { RécupérerActualitésUseCase } from '~/server/cms/useCases/récupérerActualités.useCase';
+import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeurs.useCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
@@ -24,7 +24,7 @@ export interface CmsDependencies {
   duréeDeValiditéEnSecondes: () => number
 	listerQuestionsFAQ: ListerFAQUseCase
 	listerNomMétierFicheMétier: ListerNomMétierFicheMétierUseCase
-  récupérerActualités: RécupererActualitesUseCase
+  récupérerActualités: RécupérerActualitésUseCase
   listerServicesJeunes: ListerServicesJeunesUseCase
   récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
 }
@@ -47,7 +47,7 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 		listerNomMétierFicheMétier: new ListerNomMétierFicheMétierUseCase(cmsRepository),
 		listerQuestionsFAQ: new ListerFAQUseCase(cmsRepository),
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
-		récupérerActualités: new RécupererActualitesUseCase(cmsRepository),
+		récupérerActualités: new RécupérerActualitésUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
 	};
 }

@@ -1,4 +1,4 @@
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { Question, QuestionSlug } from '~/server/cms/domain/FAQ.type';
@@ -11,7 +11,7 @@ import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { MesureEmployeur } from './mesureEmployeur';
 
 export interface CmsRepository {
-  getActualitéList(): Promise<Either<Actualite[]>>
+  getActualitéList(): Promise<Either<Actualité[]>>
 	getAllFAQ(): Promise<Either<Array<Question>>>
 	getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>

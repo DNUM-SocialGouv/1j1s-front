@@ -1,5 +1,5 @@
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { uneAnnonceDeLogement, uneAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
@@ -69,7 +69,7 @@ describe('strapi cms repository', () => {
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(anActualiteFixture()));
 				const expectedCartesActualite = [anActualite({ titre: 'Actualité 1' })];
-				const result = await strapiCmsRepository.getActualitéList() as Success<Actualite[]>;
+				const result = await strapiCmsRepository.getActualitéList() as Success<Actualité[]>;
 
 				expect(httpClientService.get).toHaveBeenCalledWith('actualite?populate=deep');
 				expect(result.result).toEqual(expectedCartesActualite);
