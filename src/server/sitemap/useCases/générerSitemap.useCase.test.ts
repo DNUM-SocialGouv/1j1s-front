@@ -1,6 +1,13 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aFicheMetierNomMetierList, anArticlePathList, aSitemap } from '~/server/sitemap/domain/sitemap.fixture';
+import {
+	aFAQPathList,
+	aFicheMetierNomMetierList,
+	anAnnonceDeLogementPathList,
+	anArticlePathList,
+	anOffreDeStagePathList,
+	aSitemap,
+} from '~/server/sitemap/domain/sitemap.fixture';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 describe('GénérerSitemapUseCase', () => {
@@ -15,6 +22,9 @@ describe('GénérerSitemapUseCase', () => {
 			const cmsRepository = aStrapiCmsRepository();
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+			cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
 			const baseUrl = 'http://localhost:3000';
 
@@ -25,6 +35,7 @@ describe('GénérerSitemapUseCase', () => {
 			expect(result).toEqual(expected);
 		});
 	});
+
 	describe('quand le feature flip de Formation et Apprentissage est actif', () => {
 		beforeEach(() => {
 			process.env = {
@@ -36,6 +47,9 @@ describe('GénérerSitemapUseCase', () => {
 			const cmsRepository = aStrapiCmsRepository();
 			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+			cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
 			const baseUrl = 'http://localhost:3000';
 

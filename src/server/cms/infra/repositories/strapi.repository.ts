@@ -1,7 +1,10 @@
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import {
+	Question,
+} from '~/server/cms/domain/FAQ.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
@@ -13,12 +16,19 @@ import {
 	mapFicheMetier,
 	mapMesuresEmployeurs,
 	mapOffreStage,
+	mapQuestion,
+	mapQuestionRéponse,
 	mapServiceJeuneList,
 	mapStrapiListeActualités,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { handleFailureError } from '~/server/cms/infra/repositories/strapiCmsError';
-import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
+import {
+	createFailure,
+	createSuccess,
+	Either,
+	isSuccess,
+} from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { HttpClientService } from '~/server/services/http/httpClientService';
@@ -32,6 +42,7 @@ const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
+const RESOURCE_FAQ = 'faqs';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -94,9 +105,9 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	async getActualitéList(): Promise<Either<Array<Actualite>>> {
+	async getActualitéList(): Promise<Either<Array<Actualité>>> {
 		const query = 'populate=deep';
-		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualite>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
+		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualité>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
 	}
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
@@ -120,9 +131,28 @@ export class StrapiRepository implements CmsRepository {
 
 	async listAllArticleSlug(): Promise<Either<Array<string>>> {
 		const ARTICLE_SLUG_FIELD_NAME = 'slug';
-		const query = `fields[]=${ARTICLE_SLUG_FIELD_NAME}`;
+		const query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
 		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
-		return this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
+		return await this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
+	}
+
+
+	async listAllFAQSlug(): Promise<Either<Array<string>>> {
+		const query = '[fields][0]=slug';
+		const flatMapSlug = (faq: Strapi.CollectionType.FAQ): string => mapQuestion(faq).slug;
+		return await this.getCollectionType<Strapi.CollectionType.FAQ, string>(RESOURCE_FAQ, query, flatMapSlug);
+	}
+
+	async listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>> {
+		const query = 'fields[0]=slug';
+		const flatMapSlug = (annoneDeLogement: Strapi.CollectionType.AnnonceLogement): string => annoneDeLogement.slug;
+		return await this.getCollectionType<Strapi.CollectionType.AnnonceLogement, string>(RESOURCE_ANNONCE_DE_LOGEMENT, query, flatMapSlug);
+	}
+
+	async listAllOffreDeStageSlug(): Promise<Either<Array<string>>> {
+		const query = 'fields[0]=slug';
+		const flatMapSlug = (offreDeStage: Strapi.CollectionType.OffreStage): string => offreDeStage.slug;
+		return await this.getCollectionType<Strapi.CollectionType.OffreStage, string>(RESOURCE_OFFRE_DE_STAGE, query, flatMapSlug);
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
@@ -177,5 +207,16 @@ export class StrapiRepository implements CmsRepository {
 		} catch (e) {
 			return handleFailureError(e, resource);
 		}
+	}
+
+	async getAllFAQ(): Promise<Either<Array<Question>>> {
+		const query = 'fields[0]=problematique&fields[1]=slug';
+		return await this.getCollectionType<Strapi.CollectionType.FAQ, Question>(RESOURCE_FAQ, query, mapQuestion);
+	}
+
+	async getFAQBySlug(slug: string): Promise<Either<Question.QuestionRéponse>> {
+		const query =`filters[slug][$eq]=${slug}`;
+		const listeDeQuestion = await this.getCollectionType<Strapi.CollectionType.FAQ.Réponse, Question.QuestionRéponse>(RESOURCE_FAQ, query, mapQuestionRéponse);
+		return this.getFirstFromCollection(listeDeQuestion);
 	}
 }

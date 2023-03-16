@@ -7,15 +7,12 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/apprentissage/[id].analytics';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
 export type AlternanceSerialized = Omit<Alternance, 'dateDébut'> & { dateDébut?: string };
 type ConsulterAnnonceAlternancePageProps = {
   alternanceSerialized: AlternanceSerialized;
-}
-
-function convertUndefinedToNull<T>(payload: T): T {
-	return JSON.parse(JSON.stringify(payload));
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{ id: string }>): Promise<GetServerSidePropsResult<ConsulterAnnonceAlternancePageProps>> {
@@ -57,7 +54,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	};
 	return {
 		props: {
-			alternanceSerialized: convertUndefinedToNull(alternance),
+			alternanceSerialized: removeUndefinedKeys(alternance),
 		},
 	};
 }

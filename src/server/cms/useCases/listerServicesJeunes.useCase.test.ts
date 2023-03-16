@@ -1,7 +1,7 @@
 import { anUnorderedServiceJeuneList, aServiceJeune, aServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
-import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunesUseCase';
+import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunes.useCase';
 import { createSuccess } from '~/server/errors/either';
 
 describe('ListerServicesJeunesUseCase', () => {

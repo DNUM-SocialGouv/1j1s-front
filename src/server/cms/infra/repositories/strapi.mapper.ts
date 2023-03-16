@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Image as ImageProps } from '~/client/components/props';
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
+import { Question } from '~/server/cms/domain/FAQ.type';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
@@ -88,11 +89,11 @@ function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: St
 	};
 }
 
-export function mapStrapiListeActualités(strapiListeActualités: Strapi.SingleType.ListeActualités): Actualite[] {
+export function mapStrapiListeActualités(strapiListeActualités: Strapi.SingleType.ListeActualités): Actualité[] {
 	return strapiListeActualités.listeActualites.map(mapStrapiActualité);
 }
 
-function mapStrapiActualité(strapiActualité: Strapi.SingleType.ListeActualités.Actualité): Actualite {
+function mapStrapiActualité(strapiActualité: Strapi.SingleType.ListeActualités.Actualité): Actualité {
 	const article = flatMapSingleRelation(strapiActualité.article, mapArticle);
 	return {
 		article,
@@ -253,3 +254,17 @@ export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.Coll
 	};
 }
 
+export const mapQuestion = (faq: Strapi.CollectionType.FAQ): Question => {
+	return {
+		problématique: faq.problematique,
+		slug: faq.slug,
+	};
+};
+
+export const mapQuestionRéponse = (faq: Strapi.CollectionType.FAQ.Réponse): Question.QuestionRéponse => {
+	return {
+		contenu: faq.contenu,
+		problématique: faq.problematique,
+		slug: faq.slug,
+	};
+};

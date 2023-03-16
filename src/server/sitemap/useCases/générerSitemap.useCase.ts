@@ -9,21 +9,39 @@ import { Either, isSuccess } from '~/server/errors/either';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
 const ARTICLE_ROOT_PATH = 'articles';
-
+const FAQ_ROOT_PATH = 'faq';
+const ANNONCE_DE_LOGEMENT_ROOT_PATH = 'logements/annonces';
+const STAGE_ROOT_PATH = 'stages';
+const FOOTER_STATIC_PATH_LIST = [
+	'/faq',
+	'/plan-du-site',
+	'/cgu',
+	'/accessibilite',
+	'/mentions-legales',
+	'/confidentialite',
+];
 export class GénérerSitemapUseCase {
 	constructor(private cmsRepository: CmsRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
 		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
-		// TODO: ajouter les stages et les logements
-		const [ficheMetierNomMetierListResult, articleSlugListResult] = await Promise.all([
+		staticPathList.push(...FOOTER_STATIC_PATH_LIST);
+
+		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),
 			this.cmsRepository.listAllArticleSlug(),
+			this.cmsRepository.listAllFAQSlug(),
+			this.cmsRepository.listAllOffreDeStageSlug(),
+			this.cmsRepository.listAllAnnonceDeLogementSlug(),
 		]);
 		const dynamicPathList = [
 			...this.mapDynamicPathListResult(ficheMetierNomMetierListResult, DÉCOUVRIR_LES_METIERS_ROOT_PATH),
 			...this.mapDynamicPathListResult(articleSlugListResult, ARTICLE_ROOT_PATH),
+			...this.mapDynamicPathListResult(faqSlugListResult, FAQ_ROOT_PATH),
+			...this.mapDynamicPathListResult(offreDeStageSlugListResult, STAGE_ROOT_PATH),
+			...this.mapDynamicPathListResult(annonceDeLogementSlugListResult, ANNONCE_DE_LOGEMENT_ROOT_PATH),
+
 		];
 		const pathList = [...staticPathList, ...dynamicPathList];
 		return this.generateSiteMap(pathList, baseUrl);

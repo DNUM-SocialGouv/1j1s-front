@@ -12,6 +12,7 @@ interface FooterLink {
 }
 
 export default function Footer() {
+	const displayFAQ = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
 	const linkList: Array<FooterLink> = [
 		{
 			title: 'legifrance.gouv.fr',
@@ -60,6 +61,11 @@ export default function Footer() {
 							<Image src="/images/logos/france-relance.svg" alt="Logo France relance" width={65} height={65} />
 						</div>
 					</div>
+					{ displayFAQ && <Link href="/faq" className={styles.footerFaq}>
+						<div>Besoin d’aide ?</div>
+						<div>Accéder à la FAQ de 1jeune1solution</div>
+					</Link>
+					}
 					<div className={styles.footerMessageWrapper}>
 						<ul aria-label="Liens externes" className={styles.footerLienExterne}>
 							{linkList.map((link) => (

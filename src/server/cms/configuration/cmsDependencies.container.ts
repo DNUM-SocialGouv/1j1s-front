@@ -1,26 +1,30 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulterAnnonceLogement.useCase';
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
+import { ConsulterFAQUseCase } from '~/server/cms/useCases/consulterFAQ.useCase';
 import { ConsulterFicheMetierUseCase } from '~/server/cms/useCases/consulterFicheMetier.useCase';
-import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoireUseCase';
+import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoire.useCase';
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
 import { enregistrerOffreDeStageUseCase } from '~/server/cms/useCases/enregistrerOffreDeStage.useCase';
+import { ListerFAQUseCase } from '~/server/cms/useCases/listerFAQ.useCase';
 import { ListerNomMétierFicheMétierUseCase } from '~/server/cms/useCases/listerNomMétierFicheMétier.useCase';
-import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunesUseCase';
-import { RécupererActualitesUseCase } from '~/server/cms/useCases/récupererActualitesUseCase';
-import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeursUseCase';
+import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunes.useCase';
+import { RécupérerActualitésUseCase } from '~/server/cms/useCases/récupérerActualités.useCase';
+import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeurs.useCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
 	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
   consulterArticle: ConsulterArticleUseCase
+	consulterFAQ: ConsulterFAQUseCase
   consulterFicheMetier: ConsulterFicheMetierUseCase
   consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
 	consulterOffreStage: ConsulterOffreStageUseCase
 	enregistrerOffreDeStage: enregistrerOffreDeStageUseCase
   duréeDeValiditéEnSecondes: () => number
+	listerQuestionsFAQ: ListerFAQUseCase
 	listerNomMétierFicheMétier: ListerNomMétierFicheMétierUseCase
-  récupererActualites: RécupererActualitesUseCase
+  récupérerActualités: RécupérerActualitésUseCase
   listerServicesJeunes: ListerServicesJeunesUseCase
   récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
 }
@@ -34,14 +38,16 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 	return {
 		consulterAnnonceLogement: new ConsulterAnnonceLogementUseCase(cmsRepository),
 		consulterArticle: new ConsulterArticleUseCase(cmsRepository),
+		consulterFAQ: new ConsulterFAQUseCase(cmsRepository),
 		consulterFicheMetier: new ConsulterFicheMetierUseCase(cmsRepository),
 		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		consulterOffreStage: new ConsulterOffreStageUseCase(cmsRepository),
 		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
 		enregistrerOffreDeStage: new enregistrerOffreDeStageUseCase(cmsRepository),
 		listerNomMétierFicheMétier: new ListerNomMétierFicheMétierUseCase(cmsRepository),
+		listerQuestionsFAQ: new ListerFAQUseCase(cmsRepository),
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
-		récupererActualites: new RécupererActualitesUseCase(cmsRepository),
+		récupérerActualités: new RécupérerActualitésUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
 	};
 }

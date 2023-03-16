@@ -13,12 +13,12 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import styles from '~/pages/espace-jeune/index.module.scss';
-import { Actualite } from '~/server/cms/domain/actualite';
+import { Actualité } from '~/server/cms/domain/actualité';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { dependencies } from '~/server/start';
 
 interface EspaceJeunePageProps {
-	cartesActualites: Actualite[]
+	cartesActualites: Actualité[]
 	serviceJeuneList: Array<ServiceJeune>
 }
 
@@ -28,10 +28,10 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	useAnalytics(analytics);
 	useReferrer();
 
-	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
+	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualité): string | undefined => {
 		if (!article) return 'En savoir plus';
 	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualite): React.ReactNode | undefined => {
+	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualité): React.ReactNode | undefined => {
 		if (!article) return <Icon name={'external-redirection'}/>;
 	}, []);
 
@@ -50,45 +50,48 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	}, [cartesActualites, getCarteActualiteLinkIcon, getCarteActualiteLinkLabel]);
 
 	return (
-		<main id={'contenu'}>
+		<>
 			<Head
 				title="Actualités et services jeunes | 1jeune1solution"
 				robots="index,follow"
 			/>
-			<h1 className={styles.title}>Actualités et services jeune</h1>
-			<section className={classNames(styles.section, styles.actualitesSection)} data-testid="actualites">
-				<LightHero>
-					<h2>
-						<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
-						<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
-					</h2>
-				</LightHero>
-				<Container className={styles.cartesActualitesList}>
-					<SeeMoreItemList className={styles.seeMoreButton}
-						seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
-						seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
-						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-						itemList={articleCardList} />
-				</Container>
-			</section>
-			<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
-				<LightHero>
-					<h2>
-						<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
-						<LightHeroSecondaryText>
+			<main id='contenu'>
+
+				<h1 className={styles.title}>Actualités et services jeune</h1>
+				<section className={classNames(styles.section, styles.actualitesSection)} data-testid="actualites">
+					<LightHero>
+						<h2>
+							<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
+							<LightHeroSecondaryText>des dernières actualités relatives aux jeunes</LightHeroSecondaryText>
+						</h2>
+					</LightHero>
+					<Container className={styles.cartesActualitesList}>
+						<SeeMoreItemList className={styles.seeMoreButton}
+							seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
+							seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
+							numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
+							itemList={articleCardList} />
+					</Container>
+				</section>
+				<section className={classNames(styles.section, styles.mesuresJeunesSection)} data-testid={'espace-jeune'}>
+					<LightHero>
+						<h2>
+							<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
+							<LightHeroSecondaryText>
 							entrée dans la vie professionnelle, orientation, formation, accompagnement
-						</LightHeroSecondaryText>
-					</h2>
-				</LightHero>
-				<ServicesJeunes cardList={serviceJeuneList}/>
-			</section>
-		</main>
+							</LightHeroSecondaryText>
+						</h2>
+					</LightHero>
+					<ServicesJeunes cardList={serviceJeuneList}/>
+				</section>
+			</main>
+		</>
 	);
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
 	const serviceJeuneList = await dependencies.cmsDependencies.listerServicesJeunes.handle();
-	const cartesActualitesResponse = await dependencies.cmsDependencies.récupererActualites.handle();
+	const cartesActualitesResponse = await dependencies.cmsDependencies.récupérerActualités.handle();
 
 	if (serviceJeuneList.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

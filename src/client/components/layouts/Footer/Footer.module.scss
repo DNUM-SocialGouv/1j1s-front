@@ -106,6 +106,18 @@
       height: 12px;
     }
   }
+
+  &Faq {
+    display: block;
+    margin-bottom: 1rem;
+    color: $color-primary;
+    @extend %bold;
+    font-size: 1rem;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .preFooter {
@@ -124,7 +136,7 @@
     }
 
     &Slogan {
-      width: 50%;
+      width: 40%;
       margin-bottom: 0;
     }
 

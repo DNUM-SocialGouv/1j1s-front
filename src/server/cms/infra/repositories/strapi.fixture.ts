@@ -365,8 +365,61 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 			pagination: {
 				page: 1,
 				pageCount: 1,
-				pageSize: 24,
-				total: 24,
+				pageSize: 27,
+				total: 27,
+			},
+		},
+	};
+}
+
+export function aStrapiFaqArticleSlugList(): Strapi.CollectionType<{problematique: string, reponse: Strapi.SingleRelation<Pick<Strapi.CollectionType.Article, 'slug'>>}> {
+	return {
+		data: [
+			{
+				attributes: {
+					problematique: 'Comment constituer un dossier ?',
+					reponse: {
+						data:
+							{
+								attributes:
+									{ slug: 'comment-constituer-un-dossier-locatif-jeune' },
+								id: 109,
+							},
+					},
+				},
+				id: 109,
+			}, {
+				attributes: {
+					problematique: 'Comment faire son service civique ?',
+					reponse: {
+						data:
+							{
+								attributes: { slug: 'comment-faire-son-service-civique' },
+								id: 110,
+							},
+					},
+				},
+				id: 110,
+			}, {
+				attributes: {
+					problematique: 'Que faire si emploi ne fonctionne pas?',
+					reponse: {
+						data:
+							{
+								attributes: { slug: 'que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas' },
+								id: 111,
+							},
+					},
+				},
+				id: 111,
+			},
+		],
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 3,
+				total: 3,
 			},
 		},
 	};
@@ -522,4 +575,58 @@ export function aStrapiLesMesuresJeunesSingleType(): Strapi.SingleType<Strapi.Si
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		})],
 	});
+}
+
+export function aStrapiOffreDeStageSlugList(): Strapi.CollectionType<Pick<Strapi.CollectionType.OffreStage, 'slug'>> {
+	return {
+		data: [
+			{
+				attributes: { slug: 'stage-assistant-consultant-en-gestion-de-patrimoine-1a154a14-e68c-45ba-913a-7487eb9089ba' },
+				id: 222,
+			},
+			{
+				attributes: { slug: 'praktikant-unternehmensbewertung-m-w-d-f5d7f0f1-734b-4e56-8230-5397c8ffa434' },
+				id: 223,
+			},
+			{
+				attributes: { slug: 'associate-consultant-intern-aci-aeb25e90-f124-4d14-a70e-e8eb1b513257' },
+				id: 224,
+			},
+		],
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 3,
+				total: 3,
+			},
+		},
+	};
+}
+
+export function aStrapiAnnonceDeLogementSlugList(): Strapi.CollectionType<Pick<Strapi.CollectionType.AnnonceLogement, 'slug'>> {
+	return {
+		data: [
+			{
+				attributes: { slug: 'studio-bis-de-28m-a-partir-de-645-1439954' },
+				id: 333,
+			},
+			{
+				attributes: { slug: 'appartement-t2-de-30m-a-partir-de-675-par-mois-1439955' },
+				id: 334,
+			},
+			{
+				attributes: { slug: 'studio-avec-grand-lit-double-et-canape-de-23-24-m-a-partir-de-465-par-mois-1470875' },
+				id: 335,
+			},
+		],
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 3,
+				total: 3,
+			},
+		},
+	};
 }
