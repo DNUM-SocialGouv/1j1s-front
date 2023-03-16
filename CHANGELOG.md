@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.24.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.23.0...v3.24.0) (2023-03-16)
+
+
+### Features
+
+* **analytics:** mise à jour valeur site_entity ([fa43792](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fa437926a9aec67535c6d595ad0dd0bd57756def))
+
 ## [3.23.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.22.0...v3.23.0) (2023-03-16)
 
 
