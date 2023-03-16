@@ -1,6 +1,5 @@
 import { GetStaticPropsResult } from 'next';
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -40,7 +39,7 @@ export default function FaqPage({ listeDeQuestionRéponse, isFeatureActive }: Fa
 					<h1 className={styles.titre}>FAQ - QUESTIONS FRÉQUEMMENT POSÉES</h1>
 					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
 					{listeDeQuestionRéponse?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
-						{listeDeQuestionRéponse?.map((question) => <li key={uuidv4()}>
+						{listeDeQuestionRéponse?.map((question) => <li key={question.slug}>
 							<Link href={`/faq/${question.slug}`}>
 								<h3>{question.problématique}</h3>
 								<Icon name='angle-right'/>

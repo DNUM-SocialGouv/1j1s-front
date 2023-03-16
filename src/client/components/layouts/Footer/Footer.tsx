@@ -12,7 +12,7 @@ interface FooterLink {
 }
 
 export default function Footer() {
-	const displayFaq = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
+	const displayFAQ = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
 	const linkList: Array<FooterLink> = [
 		{
 			title: 'legifrance.gouv.fr',
@@ -61,9 +61,9 @@ export default function Footer() {
 							<Image src="/images/logos/france-relance.svg" alt="Logo France relance" width={65} height={65} />
 						</div>
 					</div>
-					{ displayFaq && <Link href="/faq" className={styles.footerFaq}>
-						<span>Besoin d’aide ?</span>
-						<span>Accéder à la FAQ de 1jeune1solution</span>
+					{ displayFAQ && <Link href="/faq" className={styles.footerFaq}>
+						<div>Besoin d’aide ?</div>
+						<div>Accéder à la FAQ de 1jeune1solution</div>
 					</Link>
 					}
 					<div className={styles.footerMessageWrapper}>

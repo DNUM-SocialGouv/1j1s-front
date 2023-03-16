@@ -119,13 +119,13 @@ describe('Page FAQ', () => {
 				</DependenciesProvider>);
 
 			const listeDeQuestion = screen.getByRole('list');
-			const listItem = within(listeDeQuestion).getAllByRole('listitem');
+			const questions = within(listeDeQuestion).getAllByRole('listitem');
 
-			for (let index = 0; index < listItem.length; index++) {
-				const lien = within(listItem[index]).getByRole('link');
+			questions.forEach((question, index) => {
+				const lien = within(question).getByRole('link');
 				expect(lien).toHaveTextContent(listeDeQuestionRéponse[index].problématique);
 				expect(lien).toHaveAttribute('href', `/faq/${listeDeQuestionRéponse[index].slug}`);
-			}
+			});
 		});
 
 		describe('quand la list de question est vide', () => {

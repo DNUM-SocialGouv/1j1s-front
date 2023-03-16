@@ -305,7 +305,7 @@ describe('strapi cms repository', () => {
 
 		});
 
-		describe('quand la liste des questions n’est trouvée', () => {
+		describe('quand la liste des questions n’est pas trouvée', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = anHttpClientService();
 				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
@@ -334,7 +334,7 @@ describe('strapi cms repository', () => {
 			});
 		});
 
-		describe('quand la question réponse n’est trouvée', () => {
+		describe('quand la question réponse n’est pas trouvée', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = anHttpClientService();
 				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();

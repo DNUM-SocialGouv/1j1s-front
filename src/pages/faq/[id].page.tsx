@@ -11,6 +11,7 @@ import {
 	QuestionSlug,
 } from '~/server/cms/domain/FAQ.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
 type ConsulterFAQRéponsePageProps = {
@@ -25,19 +26,17 @@ interface FAQRéponse extends ParsedUrlQuery {
 	id: QuestionSlug
 }
 
-function convertUndefinedToNull<T>(payload: T): T {
-	return JSON.parse(JSON.stringify(payload));
-}
+const faqRéponseMapToArticleFormat = (faqRéponse): Article => {
+	return {
+		contenu: faqRéponse.contenu,
+		titre: faqRéponse.problématique,
+	};
+};
 
 export default function ConsulterArticlePage({ faqRéponse, isFeatureActive  }: ConsulterFAQRéponsePageProps) {
 	if (!isFeatureActive) return <ErrorUnavailableService/>;
 
-	const faqRéponseMapToArticleFormat = (): Article => {
-		return {
-			contenu: faqRéponse.contenu,
-			titre: faqRéponse.problématique,
-		};
-	};
+
 
 	return (
 		<>
@@ -45,7 +44,7 @@ export default function ConsulterArticlePage({ faqRéponse, isFeatureActive  }: 
 				title={`${faqRéponse.problématique} | 1jeune1solution`}
 				robots="index,follow"
 			/>
-			<ConsulterArticle article={faqRéponseMapToArticleFormat()} />
+			<ConsulterArticle article={faqRéponseMapToArticleFormat(faqRéponse)} />
 		</>
 	);
 }
@@ -73,7 +72,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 
 	return {
 		props: {
-			faqRéponse: convertUndefinedToNull(result),
+			faqRéponse: removeUndefinedKeys(result),
 			isFeatureActive: true,
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
