@@ -12,6 +12,8 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
+import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -93,6 +95,21 @@ export default function RechercherAlternance() {
 				nombreSolutions={alternanceList.length}
 				listeSolutionElement={<ListeAlternance résultatList={alternanceList}/>}
 			/>
+			<EnTeteSection heading="Consultez nos articles"/>
+			<ArticleCardList>
+				<ArticleCard
+					vertical={false}
+					imageSrc="/images/articles/aide-exceptionnelle-apprentissage.svg"
+					imageFit="cover"
+					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
+					titleLabel="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
+				>
+					<p>
+						Découvrez un argument supplémentaire à avancer pour vous faire
+						embaucher
+					</p>
+				</ArticleCard>
+			</ArticleCardList>
 		</main>
 	</>;
 }

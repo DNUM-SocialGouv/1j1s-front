@@ -116,4 +116,21 @@ describe('RechercherAlternance', () => {
 			expect(filtresRecherche).toBeInTheDocument();
 		});
 	});
+
+	it('affiche la section "nos articles"', () => {
+		render(
+			<DependenciesProvider
+				alternanceService={anAlternanceService()}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}>
+				<RechercherAlternance/>
+			</DependenciesProvider>,
+		);
+
+		const section = screen.getByRole('heading', { name: /Consultez nos articles/i });
+		const card = screen.getByRole('heading', { name: /Une aide exceptionnelle pour l’apprentissage/i });
+
+		expect(section).toBeVisible();
+		expect(card).toBeVisible();
+	});
 });
