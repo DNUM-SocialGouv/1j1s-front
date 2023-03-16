@@ -101,7 +101,7 @@ function BannièreApprentissage() {
 	return (
 		<LightHero>
 			<h1>
-				<LightHeroPrimaryText>Avec La Bonne Alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
+				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
 			</h1>
 			<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
 		</LightHero>
