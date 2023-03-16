@@ -76,7 +76,7 @@ describe('AnalyticsService', () => {
 				analyticsService.envoyerAnalyticsPageVue(analyticsPageConfig);
 				const expected = [
 					'site_entity',
-					'Min. Santé',
+					'Min. Travail',
 					'site_environment',
 					'dev',
 					'site_target',
