@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ref } from 'joi';
 import React from 'react';
 
 import {
@@ -13,6 +14,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
@@ -127,5 +129,28 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
 			});
 		});
+	});
+
+	it('rempli automatiquement les champs avec les query params', () => {
+		mockUseRouter({ query: {
+			codeLocalisation: '75',
+			grandDomaine: référentielDomaineList[0].code,
+			libelleLocalisation: 'Paris (75)',
+			motCle: 'Boulanger',
+			typeLocalisation: 'Commune',
+		} });
+
+		render(
+			<DependenciesProvider localisationService={aLocalisationService()}>
+				<FormulaireRechercheJobÉtudiant />
+			</DependenciesProvider>,
+		);
+
+		const motCle = screen.getByRole('textbox', { name: /Métier, mot-clé/i });
+		expect(motCle).toHaveValue('Boulanger');
+		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		expect(localisation).toHaveValue('Paris (75)');
+		const domaine = screen.getByTestId('Select-InputHidden');
+		expect(domaine).toHaveValue(référentielDomaineList[0].code);
 	});
 });
