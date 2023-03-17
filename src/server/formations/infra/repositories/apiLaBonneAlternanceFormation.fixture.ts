@@ -17,6 +17,7 @@ export function aFormationQuery(): FormationFiltre {
 export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiLaBonneAlternanceFormationRechercheResponse => ({
 	results: [
 		{
+			cfd: '999',
 			company: {
 				name: 'La Bonne Alternance',
 			},
@@ -30,6 +31,7 @@ export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiL
 			title: 'Développeur web',
 		},
 		{
+			cfd: '999',
 			company: {
 				name: 'La Bonne Alternance',
 			},

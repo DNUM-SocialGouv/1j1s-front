@@ -3,7 +3,6 @@ import {
 	StatistiquesFormation,
 } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { Certification } from '~/server/formations/domain/certification';
 import { Formation } from '~/server/formations/domain/formation';
@@ -67,16 +66,7 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 					}
 				</section>
 			</ConsulterOffreLayout>
-			{ statistiques &&
-				<>
-					<EnTeteSection
-						heading="Et après la formation ?"
-						headingLevel={'h2'}
-						description={`Découvrez les chiffres-clés liés à cette formation pour la région ${statistiques.region}`}
-					/>
-					<StatistiquesFormation statistiques={statistiques}/>
-				</>
-			}
+			<StatistiquesFormation statistiques={statistiques}/>
 		</>
 	);
 }

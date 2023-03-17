@@ -1,14 +1,20 @@
 @import "@styles/utilities";
 
 .section {
-  background-color: $color-background-white-lilac
+  background-color: $color-background-white-lilac;
 }
 
+.entête {
+  padding: 1.5rem;
+}
 .layout {
-  padding: 0 1rem;
+  padding: 2rem 1rem;
 
-  h3, p {
+  h3, p, li {
     font-size: 0.875rem;
+  }
+  li:not(last-child) {
+    margin-bottom: 0.25rem;
   }
 }
 
@@ -30,7 +36,6 @@ p.millesime {
 
 @include media(large) {
   .layout {
-    margin: 3rem auto 3.5rem auto;
-    padding: 0 7rem 0 7rem;
+    padding: 3.5rem 0;
   }
 }

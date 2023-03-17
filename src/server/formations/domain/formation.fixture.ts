@@ -3,6 +3,7 @@ import { Formation, NiveauRequis, RésultatRechercheFormation } from '~/server/f
 export const aRésultatRechercheFormation = (): Array<RésultatRechercheFormation> => [
 	{
 		adresse: '1 rue de la République',
+		codeCertification: '999',
 		codePostal: '75001',
 		idRco: '123',
 		nomEntreprise: 'La Bonne Alternance',
@@ -10,6 +11,7 @@ export const aRésultatRechercheFormation = (): Array<RésultatRechercheFormatio
 		titre: 'Développeur web',
 	},
 	{
+		codeCertification: '999',
 		idRco: '456',
 		nomEntreprise: 'La Bonne Alternance',
 		tags: ['Paris', 'Autre'],
