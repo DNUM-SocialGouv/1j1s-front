@@ -15,9 +15,11 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
+import { NiveauRequis } from '~/server/formations/domain/formation';
 import { Métier } from '~/server/metiers/domain/métier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
@@ -222,5 +224,42 @@ describe('FormulaireRechercherFormation', () => {
 			const expectedQuery = `libelleMetier=${expectedLibelle}&codeRomes=${expectedCodeRomes}&libelleCommune=${libelleCommune}&codeCommune=${codeCommune}&latitudeCommune=${latitudeCommune}&longitudeCommune=${longitudeCommune}&distanceCommune=${distanceCommune}&niveauEtudes=${niveauEtudes}`;
 			expect(routerPush).toHaveBeenCalledWith({ query: expectedQuery }, undefined, { shallow: true });
 		});
+	});
+
+	it('rempli automatiquement les champs lorsque les query params sont présents', () => {
+		mockUseRouter({ query: {
+			codeCommune: '75056',
+			codeRomes: 'D1102,D1104',
+			distanceCommune: '10',
+			latitudeCommune: '48.859',
+			libelleCommune: 'Paris (75001)',
+			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+			longitudeCommune: '2.347',
+			niveauEtudes: '3',
+		} });
+
+		render(
+			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercherFormation />
+			</DependenciesProvider>,
+		);
+
+		const domaine = screen.getByRole('textbox', { name: /Sélectionnez un domaine/i });
+		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
+		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		expect(localisation).toHaveValue('Paris (75001)');
+
+		// FIXME (GAFI 17-03-2023): Le composant utilisé pour ces champs ne génère pas un HTML valide et cause des problèmes
+		//  de test-ids
+		/* eslint-disable testing-library/no-node-access */
+		function checkSelectValue(fieldLabel: string, expectedValue: string): void {
+			const labelElement = screen.getByText(fieldLabel);
+			const fieldId = labelElement.getAttribute('for');
+			const field = fieldId && document.getElementById(fieldId);
+			expect(field).toHaveValue(expectedValue);
+		}
+		checkSelectValue('Rayon', '10');
+		checkSelectValue('Niveau d’entrée (facultatif)', '3');
+		/* eslint-enable testing-library/no-node-access */
 	});
 });

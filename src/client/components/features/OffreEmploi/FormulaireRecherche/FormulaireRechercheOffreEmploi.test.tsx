@@ -16,7 +16,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { NiveauRequis } from '~/server/formations/domain/formation';
-import { mapNiveauFormation } from '~/server/formations/domain/formation.mapper';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheOffreEmploi', () => {
