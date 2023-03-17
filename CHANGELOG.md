@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.27.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.26.0...v3.27.0) (2023-03-17)
+
+
+### Features
+
+* **alternance:** ajout du formulaire de dépôt d'alternance La bonne alternance ([26933ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/26933ff9a3a02b9d6b7c7e90cd91e659c5f4bdc8))
+
 ## [3.26.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.25.0...v3.26.0) (2023-03-16)
 
 
