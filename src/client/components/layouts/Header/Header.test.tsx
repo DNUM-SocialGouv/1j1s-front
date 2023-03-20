@@ -91,6 +91,49 @@ describe('Header', () => {
 				expect(jeDeviensMentorNavItem.parentNode).toHaveAttribute('aria-current', 'true');
 			});
 		});
+
+		describe('quand la fonctionnalité encart est activée', () => {
+			it('affiche le composant Header avec l’encart', async () => {
+				// Given
+				process.env = {
+					...process.env,
+					NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '1',
+				};
+				mockUseRouter({ pathname: '/' });
+
+				// When
+				render(<Header/>);
+
+				// Then
+				const encartTitre = screen.getByText('Je choisis l’apprentissage');
+				const encartDescription = screen.getByText('Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation');
+				const encartLien = screen.getByRole('link', { name: 'Je choisis l’apprentissage Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation' });
+				expect(encartTitre).toBeInTheDocument();
+				expect(encartDescription).toBeInTheDocument();
+				expect(encartLien).toHaveAttribute('href', '/apprentissage');
+			});
+		});
+		describe('quand la fonctionnalité encart est désactivée', () => {
+			it('affiche le composant Header sans l’encart', async () => {
+				// Given
+				process.env = {
+					...process.env,
+					NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '0',
+				};
+				mockUseRouter({ pathname: '/' });
+
+				// When
+				render(<Header/>);
+
+				// Then
+				const encartTitre = screen.queryByText('Je choisis l’apprentissage');
+				const encartDescription = screen.queryByText('Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation');
+				const encartLien = screen.queryByRole('link', { name: 'Je choisis l’apprentissage Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation' });
+				expect(encartTitre).not.toBeInTheDocument();
+				expect(encartDescription).not.toBeInTheDocument();
+				expect(encartLien).not.toBeInTheDocument();
+			});
+		});
 	});
 
 	describe('Sur mobile', () => {
@@ -106,6 +149,45 @@ describe('Header', () => {
 				render(<Header/>);
 				const menu = screen.queryByRole('navigation');
 				expect(menu).not.toBeInTheDocument();
+			});
+
+			describe('quand la fonctionnalité encart est activée', () => {
+				it('affiche le composant Header avec l’encart', async () => {
+					// Given
+					process.env = {
+						...process.env,
+						NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '1',
+					};
+					mockUseRouter({ pathname: '/' });
+
+					// When
+					render(<Header/>);
+
+					// Then
+					const encartTitre = screen.getByText('Je choisis l’apprentissage');
+					const encartLien = screen.getByRole('link', { name: 'Je choisis l’apprentissage' });
+					expect(encartTitre).toBeInTheDocument();
+					expect(encartLien).toHaveAttribute('href', '/apprentissage');
+				});
+			});
+			describe('quand la fonctionnalité encart est désactivée', () => {
+				it('affiche le composant Header sans l’encart', async () => {
+					// Given
+					process.env = {
+						...process.env,
+						NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '0',
+					};
+					mockUseRouter({ pathname: '/' });
+
+					// When
+					render(<Header/>);
+
+					// Then
+					const encartTitre = screen.queryByText('Je choisis l’apprentissage');
+					const encartLien = screen.queryByRole('link', { name: 'Je choisis l’apprentissage' });
+					expect(encartTitre).not.toBeInTheDocument();
+					expect(encartLien).not.toBeInTheDocument();
+				});
 			});
 		});
 		describe('Au clic sur le bouton menu', () => {

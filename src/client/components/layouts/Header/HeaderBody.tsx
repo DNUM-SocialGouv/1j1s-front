@@ -7,6 +7,7 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -17,6 +18,8 @@ export function HeaderBody() {
 
 	const router = useRouter();
 	const [path, setPath] = useState(() => router.pathname || '');
+
+	const displayBanner = process.env.NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE === '1';
 
 	useEffect(() => {
 		if (path !== router.pathname){
@@ -40,6 +43,15 @@ export function HeaderBody() {
 					}
 				</div>
 				<div className={styles.headerTitle}>1jeune1solution</div>
+				{ isLargeScreen && displayBanner &&
+				  <Link href="/apprentissage" className={styles.headerBanner}>
+				  	<div>
+					    <div className={styles.headerBannerTitle}>Je choisis l’apprentissage</div>
+					    <div className={styles.headerBannerContent}>Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation</div>
+				  	</div>
+				  	<Icon className={styles.headerBannerIcon} name='angle-right' />
+				  </Link>
+				}
 			</div>
 			{ !isLargeScreen &&
         <ModalComponent close={toggleModal} isOpen={isModalOpen}>
