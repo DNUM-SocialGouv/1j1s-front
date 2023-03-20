@@ -58,4 +58,28 @@ describe('<RechercherAlternancePoleEmploi />', () => {
 		expect(tagLocalisation).toBeVisible();
 		expect(tagLocalisation).toHaveTextContent(/Paris \(75\)/i);
 	});
+	it('récupère les alternances avec les query params filtrés', () => {
+		mockUseRouter({ query: {
+			codeLocalisation: '75',
+			libelleLocalisation: 'Paris (75)',
+			motCle: 'Boulanger',
+			ne: 'devrait pas apparaitre',
+			typeLocalisation: 'Commune',
+		} });
+		const offreService = anOffreService();
+
+		render(
+			<DependenciesProvider offreService={offreService} localisationService={aLocalisationService()}>
+				<RechercherAlternancePoleEmploi />
+			</DependenciesProvider>,
+		);
+
+		expect(offreService.rechercherAlternance).toHaveBeenCalledTimes(1);
+		expect(offreService.rechercherAlternance).toHaveBeenCalledWith({
+			codeLocalisation: '75',
+			libelleLocalisation: 'Paris (75)',
+			motCle: 'Boulanger',
+			typeLocalisation: 'Commune',
+		});
+	});
 });

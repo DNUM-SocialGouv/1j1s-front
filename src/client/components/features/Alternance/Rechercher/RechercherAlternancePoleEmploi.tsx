@@ -57,7 +57,7 @@ export function RechercherAlternancePoleEmploi() {
 	useEffect(() => {
 		setIsLoading(true);
 		setErreurRecherche(undefined);
-		offreService.rechercherAlternance(router.query)
+		offreService.rechercherAlternance(offreQuery)
 			.then((response) => {
 				if (response.instance === 'success') {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
