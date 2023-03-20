@@ -59,7 +59,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 			},
 		};
 	}
-	const statistiques = await dependencies.formationDependencies.consulterStatistiqueFormation.handle(codeCertification, formation.result.adresse.codePostal);
+	const codePostal = formation.result.adresse.codePostal;
+	const statistiques = await dependencies.formationDependencies.consulterStatistiqueFormation.handle(codeCertification, codePostal);
 	if (isFailure(statistiques)) {
 		return {
 			props: {

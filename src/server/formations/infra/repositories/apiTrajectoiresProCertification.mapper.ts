@@ -1,7 +1,7 @@
 import { Statistique } from '~/server/formations/domain/statistique';
 import { ApiTrajectoiresProCertificationResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification';
 
-function mapMillesime(millesime: string | undefined) {
+function mapMillesime(millesime?: string) {
 	if (!millesime) return undefined;
 
 	return millesime.replace('_', '-');

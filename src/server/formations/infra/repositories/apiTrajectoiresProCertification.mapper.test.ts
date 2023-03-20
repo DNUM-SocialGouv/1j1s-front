@@ -3,8 +3,8 @@ import {
 } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification';
 import { mapStatistique } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.mapper';
 
-describe('mapCertification', () => {
-	it('convertit une response en certification', () => {
+describe('mapStatistique', () => {
+	it('convertit une response en statistique', () => {
 		const input: ApiTrajectoiresProCertificationResponse = {
 			millesime: '2020_2021',
 			region: { nom: 'Auvergne-Rhône-Alpes' },
