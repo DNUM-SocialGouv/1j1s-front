@@ -7,10 +7,10 @@
       "value": "review_app"
     },
     "NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL": {
-      "value": "https://ms-c1142afb6f68-2137.lon.meilisearch.io"
+      "value": "https://ms-79349703d667-2137.lon.meilisearch.io"
     },
     "NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY": {
-      "value": "bb8b3fef9527716eceb2284c0d85fc6bdd32a2f67ed409f64fad8dc9bef5d181"
+      "value": "0c1c7a954c4c8b3ccefc8ad450bfcc602afa66f2daa601200b27a2961c448cf4"
     }
   }
 }
