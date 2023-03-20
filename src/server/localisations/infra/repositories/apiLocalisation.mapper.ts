@@ -12,6 +12,10 @@ export function mapLocalisationList(response: ApiDecoupageAdministratifResponse[
 	}));
 }
 
+export const mapCodeRégion = (response: ApiDecoupageAdministratifResponse[]): string | undefined =>  {
+	return response[0].codeRegion;
+};
+
 export function mapRésultatsRechercheCommune(response: ApiAdresseResponse): RésultatsRechercheCommune {
 	return {
 		résultats: response.features.map(({ properties, geometry }) => ({

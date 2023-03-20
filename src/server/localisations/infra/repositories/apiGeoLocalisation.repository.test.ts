@@ -20,7 +20,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 	describe('getCommuneListByNom', () => {
 		it('retourne la liste des communes par nom trouvées par l‘api decoupage administratif', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 0.17971023846171058,
 					code: '11177',
@@ -66,7 +66,7 @@ describe('ApiGeoLocalisationRepository', () => {
 		});
 
 		it('quand les communes contiennent plusieurs code postaux retourne le premier code postal et pas le code insee lui meme', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 0.3835418052804487,
 					code: '81202',
@@ -134,7 +134,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 	describe('getDépartementListByNom', () => {
 		it('retourne la liste des départements par nom trouvées par l‘api decoupage administratif', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 1,
 					code: '78',
@@ -158,7 +158,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 	describe('getRégionListByNom', () => {
 		it('retourne la liste des régions par nom trouvées par l‘api decoupage administratif', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 0.6920702684582538,
 					code: '32',
@@ -181,7 +181,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 	describe('getCommuneListByCodePostal', () => {
 		it('retourne la liste des communes par code postal trouvées par l‘api decoupage administratif', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92022',
 					codeDepartement: '92',
@@ -209,7 +209,7 @@ describe('ApiGeoLocalisationRepository', () => {
 		});
 
 		it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '78322',
 					codeDepartement: '78',
@@ -255,7 +255,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 	describe('getCommuneListByNuméroDépartement', () => {
 		it('retourne la liste des communes du département par numéro du département trouvées par l‘api decoupage administratif', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92002',
 					codeDepartement: '92',
@@ -301,7 +301,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 	describe('getDépartementListByNuméroDépartement', () => {
 		it('retourne la liste du département par numéro du département trouvées par l‘api decoupage administratif', async () => {
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '78',
 					codeRegion: '11',
@@ -317,6 +317,54 @@ describe('ApiGeoLocalisationRepository', () => {
 					nom: 'Yvelines',
 				},
 			]);
+
+			expect(result).toEqual(expected);
+		});
+	});
+
+	describe('getCodeRegionByCodePostal', () => {
+		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région est défini', async () => {
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+				{
+					code: '92022',
+					codeDepartement: '92',
+					codeEpci: '200054781',
+					codeRegion: '11',
+					codesPostaux: [
+						'92370',
+					],
+					nom: 'Chaville',
+					population: 20771,
+					siren: '219200227',
+				},
+			]) as CacheAxiosResponse);
+
+			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+
+			const expected = createSuccess('11');
+
+			expect(result).toEqual(expected);
+		});
+
+		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région n’est pas défini', async () => {
+			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+				{
+					code: '92022',
+					codeDepartement: '92',
+					codeEpci: '200054781',
+					codeRegion: undefined,
+					codesPostaux: [
+						'92370',
+					],
+					nom: 'Chaville',
+					population: 20771,
+					siren: '219200227',
+				},
+			]) as CacheAxiosResponse);
+
+			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+
+			const expected = createSuccess(undefined);
 
 			expect(result).toEqual(expected);
 		});
