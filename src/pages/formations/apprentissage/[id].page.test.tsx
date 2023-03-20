@@ -13,6 +13,7 @@ import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/a
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
+import { Statistique } from '~/server/formations/domain/statistique';
 import { dependencies } from '~/server/start';
 
 jest.mock('~/server/start', () => ({
@@ -60,28 +61,6 @@ describe('getServerSideProps', () => {
 		});
 
 		describe('lorsque les query params sont remplis', () => {
-			describe('lorsque le détail de la formation existe', () => {
-				it('retourne les props de la page', async () => {
-					const formation = aFormation();
-					const queryParam = {
-						codeCommune: '13180',
-						codeRomes: 'F1603',
-						distanceCommune: '30',
-						id: '1',
-						latitudeCommune: '48.2',
-						longitudeCommune: '29.10',
-					} as ParsedUrlQuery;
-					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue(createSuccess(formation));
-
-					const value = await getServerSideProps({
-						params: { id: '1' },
-						query: queryParam,
-					} as GetServerSidePropsContext<{ id: string }>);
-
-					expect(value).toEqual({ props: { formation: formation } });
-				});
-			});
-
 			describe('lorsque le détail de la formation n‘existe pas', () => {
 				it('retourne une page 404', async () => {
 					const queryParam = {
@@ -92,7 +71,7 @@ describe('getServerSideProps', () => {
 						latitudeCommune: '48.2',
 						longitudeCommune: '29.10',
 					} as ParsedUrlQuery;
-					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
 
 					const value = await getServerSideProps({
 						params: { id: '1' },
@@ -100,6 +79,58 @@ describe('getServerSideProps', () => {
 					} as GetServerSidePropsContext<{ id: string }>);
 
 					expect(value).toEqual({ notFound: true });
+				});
+			});
+
+			describe('lorsque le détail de la formation existe', () => {
+				describe('lorsque les statistiques de la formation n‘existent pas', () => {
+					it('retourne les props de la page sans statistiques', async () => {
+						const formation = aFormation();
+						const queryParam = {
+							codeCommune: '13180',
+							codeRomes: 'F1603',
+							distanceCommune: '30',
+							id: '1',
+							latitudeCommune: '48.2',
+							longitudeCommune: '29.10',
+						} as ParsedUrlQuery;
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
+
+						const value = await getServerSideProps({
+							params: { id: '1' },
+							query: queryParam,
+						} as GetServerSidePropsContext<{ id: string }>);
+
+						expect(value).toEqual({ props: { formation: formation } });
+					});
+				});
+				describe('lorque les statistiques de la formation existent', () => {
+					it('retourne les props de la page avec les statistiques', async () => {
+						const formation = aFormation();
+						const statistiques: Statistique = {
+							millesime: '2020',
+							region: 'Provence-Alpes-Côte d‘Azur',
+							tauxAutres6Mois: '0.2',
+							tauxEnEmploi6Mois: '0.0',
+							tauxEnFormation: '0.1',
+						};
+						const queryParam = {
+							codeCommune: '13180',
+							codeRomes: 'F1603',
+							distanceCommune: '30',
+							id: '1',
+							latitudeCommune: '48.2',
+							longitudeCommune: '29.10',
+						} as ParsedUrlQuery;
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createSuccess(statistiques) });
+
+						const value = await getServerSideProps({
+							params: { id: '1' },
+							query: queryParam,
+						} as GetServerSidePropsContext<{ id: string }>);
+
+						expect(value).toEqual({ props: { formation: formation, statistiques: statistiques } });
+					});
 				});
 			});
 		});

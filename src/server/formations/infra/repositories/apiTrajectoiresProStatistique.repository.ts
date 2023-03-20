@@ -1,14 +1,14 @@
 import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createFailure, createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { CertificationRepository } from '~/server/formations/domain/certification.repository';
 import { Statistique } from '~/server/formations/domain/statistique';
-import { ApiTrajectoiresProCertificationResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification';
-import { mapStatistique } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.mapper';
+import { StatistiqueRepository } from '~/server/formations/domain/statistique.repository';
+import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
+import { mapStatistique } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
-export class ApiTrajectoiresProCertificationRepository implements CertificationRepository {
+export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
 	constructor(private httpClientService: HttpClientService, private apiGeoLocalisationRepository: ApiGeoLocalisationRepository) {}
 
 	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
@@ -18,7 +18,7 @@ export class ApiTrajectoiresProCertificationRepository implements CertificationR
 				return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 			}
 
-			const { data } = await this.httpClientService.get<ApiTrajectoiresProCertificationResponse>(
+			const { data } = await this.httpClientService.get<ApiTrajectoiresProStatistiqueResponse>(
 				`inserjeunes/regionales/${codeRegion.result}/certifications/${codeCertification}`,
 			);
 			if (!this.isRegionOuAuMoinsUnPourcentageDisponible(data)) return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
@@ -29,7 +29,7 @@ export class ApiTrajectoiresProCertificationRepository implements CertificationR
 		}
 	}
 
-	private isRegionOuAuMoinsUnPourcentageDisponible(data: ApiTrajectoiresProCertificationResponse): boolean {
+	private isRegionOuAuMoinsUnPourcentageDisponible(data: ApiTrajectoiresProStatistiqueResponse): boolean {
 		const isRegionStatistiqueDisponible = !!data.region?.nom;
 		const isStatistiqueDisponible = !!data.taux_autres_6_mois || !!data.taux_en_emploi_6_mois || !!data.taux_autres_6_mois;
 		return isRegionStatistiqueDisponible && isStatistiqueDisponible;

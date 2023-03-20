@@ -3,8 +3,8 @@ import {
 	createSuccess,
 } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ApiTrajectoiresProCertificationResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification';
-import { ApiTrajectoiresProCertificationRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.repository';
+import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
+import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import {
 	anAxiosError,
@@ -20,7 +20,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
 
 			const httpService = anHttpClientService();
-			const repository = new ApiTrajectoiresProCertificationRepository(httpService, apiGeoLocalisationRepository);
+			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 			const codeCertification = '123';
 			const codePostal = '75000';
@@ -40,7 +40,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 				const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
 
 				const httpService = anHttpClientService();
-				const repository = new ApiTrajectoiresProCertificationRepository(httpService, apiGeoLocalisationRepository);
+				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 				const codeCertification = '123';
 				const codePostal = '75000';
@@ -64,7 +64,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 					const httpService = anHttpClientService();
 					(httpService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
-					const repository = new ApiTrajectoiresProCertificationRepository(httpService, apiGeoLocalisationRepository);
+					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 					const codeCertification = '123';
 					const codePostal = '75000';
@@ -81,7 +81,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			describe('lorsque l’appel à l’api trajectoiresProCertification réussit', () => {
 				describe('et que la région n’est pas retournée', () => {
 					it('retourne une erreur', async () => {
-						const statistiquesFormation: ApiTrajectoiresProCertificationResponse = {
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
 							millesime: '2020_2021',
 							region: undefined,
 							taux_autres_6_mois: '23',
@@ -95,7 +95,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 						const httpService = anHttpClientService();
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
-						const repository = new ApiTrajectoiresProCertificationRepository(httpService, apiGeoLocalisationRepository);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 						const codeCertification = '123';
 						const codePostal = '75000';
@@ -113,7 +113,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 				describe('et que la région est retournée mais pas les statistiques', () => {
 					it('retourne une erreur', async () => {
-						const statistiquesFormation: ApiTrajectoiresProCertificationResponse = {
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
 							millesime: '2020_2021',
 							region: {
 								nom: 'Ile-de-France',
@@ -129,7 +129,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 						const httpService = anHttpClientService();
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
-						const repository = new ApiTrajectoiresProCertificationRepository(httpService, apiGeoLocalisationRepository);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 						const codeCertification = '123';
 						const codePostal = '75000';
@@ -147,7 +147,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 				describe('et que la region et au moins une statisque est disponible', () => {
 					it('retourne les statistiques de la formation', async () => {
 						// Given
-						const statistiquesFormation: ApiTrajectoiresProCertificationResponse = {
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
 							millesime: '2020_2021',
 							region: {
 								nom: 'Ile-de-France',
@@ -163,7 +163,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 						const httpService = anHttpClientService();
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
-						const repository = new ApiTrajectoiresProCertificationRepository(httpService, apiGeoLocalisationRepository);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 						const codeCertification = '123';
 						const codePostal = '75000';

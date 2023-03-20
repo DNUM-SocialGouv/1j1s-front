@@ -64,12 +64,9 @@ import {
 	ApiLaBonneAlternanceFormationRepository,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
 import {
-	ApiTrajectoiresProCertificationRepository,
-} from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.repository';
+	ApiTrajectoiresProStatistiqueRepository,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ConsulterFormationUseCase } from '~/server/formations/useCases/consulterFormation.useCase';
-import {
-	ConsulterStatistiqueFormationUseCase,
-} from '~/server/formations/useCases/consulterStatistiqueFormation.useCase';
 import { RechercherFormationUseCase } from '~/server/formations/useCases/rechercherFormation.useCase';
 import {
 	ApiPoleEmploiJobÉtudiantRepository,
@@ -141,7 +138,6 @@ export interface AlternanceDependencies {
 export interface FormationDependencies {
 	rechercherFormation: RechercherFormationUseCase
 	consulterFormation: ConsulterFormationUseCase
-	consulterStatistiqueFormation: ConsulterStatistiqueFormationUseCase
 }
 
 export interface MétierDependencies {
@@ -243,11 +239,10 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
-	const apiTrajectoiresProCertificationRepository = new ApiTrajectoiresProCertificationRepository(trajectoiresProClientService, apiGeoLocalisationRepository);
+	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProClientService, apiGeoLocalisationRepository);
 
 	const formationDependencies: FormationDependencies = {
-		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository),
-		consulterStatistiqueFormation: new ConsulterStatistiqueFormationUseCase(apiTrajectoiresProCertificationRepository),
+		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository),
 		rechercherFormation: new RechercherFormationUseCase(apiLaBonneAlternanceFormationRepository),
 	};
 	

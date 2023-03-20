@@ -44,24 +44,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 
 	const id = context.params?.id as string;
 	const filtre: FormationFiltre = formationFiltreMapper({ query: context.query } as NextApiRequest);
-	const formation = await dependencies.formationDependencies.consulterFormation.handle(id, filtre);
+	const { formation, statistiques } = await dependencies.formationDependencies.consulterFormation.handle(id, filtre);
 
 	if (isFailure(formation)) {
 		return { notFound: true };
 	}
 
-	const codeCertification = context.query.codeCertification as string | undefined;
-
-	if (!codeCertification || !formation.result.adresse.codePostal) {
-		return {
-			props: {
-				formation: removeUndefinedKeys(formation.result),
-			},
-		};
-	}
-	const codePostal = formation.result.adresse.codePostal;
-	const statistiques = await dependencies.formationDependencies.consulterStatistiqueFormation.handle(codeCertification, codePostal);
-	if (isFailure(statistiques)) {
+	if (!statistiques || isFailure(statistiques)) {
 		return {
 			props: {
 				formation: removeUndefinedKeys(formation.result),

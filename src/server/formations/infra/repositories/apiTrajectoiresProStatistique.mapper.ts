@@ -1,5 +1,5 @@
 import { Statistique } from '~/server/formations/domain/statistique';
-import { ApiTrajectoiresProCertificationResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification';
+import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 
 function mapMillesime(millesime?: string) {
 	if (!millesime) return undefined;
@@ -7,7 +7,7 @@ function mapMillesime(millesime?: string) {
 	return millesime.replace('_', '-');
 }
 
-export function mapStatistique(apiResponse: ApiTrajectoiresProCertificationResponse): Statistique {
+export function mapStatistique(apiResponse: ApiTrajectoiresProStatistiqueResponse): Statistique {
 	return {
 		millesime: mapMillesime(apiResponse.millesime),
 		region: apiResponse.region?.nom,
