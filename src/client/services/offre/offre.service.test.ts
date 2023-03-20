@@ -56,5 +56,16 @@ describe('OffreService', () => {
 			expect(client.get).toHaveBeenCalledWith(expect.stringContaining('motCle=Boulanger'));
 			expect(alternances).toEqual(expectedAlternances);
 		});
+
+		it('supprime les clés undefined de la query', async () => {
+			const client = anHttpClientService();
+
+			await new OffreService(client).rechercherAlternance({
+				motCle: undefined,
+			});
+
+			expect(client.get).toHaveBeenCalledTimes(1);
+			expect(client.get).toHaveBeenCalledWith(expect.not.stringContaining('motCle'));
+		});
 	});
 });
