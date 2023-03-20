@@ -14,6 +14,7 @@ export interface OffreQueryParams {
   tempsDeTravail?: string
   experienceExigence?: string
   grandDomaine?: string
+	page?: string
 }
 
 export function useOffreQuery(): OffreQueryParams {
@@ -26,6 +27,7 @@ export function useOffreQuery(): OffreQueryParams {
 		grandDomaine: getSingleQueryParam(query.grandDomaine),
 		libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
 		motCle: getSingleQueryParam(query.motCle),
+		page: getSingleQueryParam(query.page),
 		tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
 		typeDeContrats: getSingleQueryParam(query.typeDeContrats),
 		typeLocalisation: getSingleQueryParam(query.typeLocalisation),
