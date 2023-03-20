@@ -67,4 +67,23 @@ describe('FormulaireRechercheAccompagnement', () => {
 			expect(selectTypeAccompagnement).toBeInTheDocument();
 		});
 	});
+
+	it('rempli les champs du formulaire avec les query params', async () => {
+		mockUseRouter({ query: {
+			codeCommune: '75001',
+			libelleCommune: 'Paris (75001)',
+			typeAccompagnement: 'pole_emploi',
+		} });
+
+		render(
+			<DependenciesProvider localisationService={aLocalisationService()}>
+				<FormulaireRechercheAccompagnement/>
+			</DependenciesProvider>,
+		);
+
+		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		expect(localisation).toHaveValue('Paris (75001)');
+		const typeAccompagnement = screen.getByTestId('Select-InputHidden');
+		expect(typeAccompagnement).toHaveValue('pole_emploi');
+	});
 });
