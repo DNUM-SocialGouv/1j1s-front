@@ -55,6 +55,24 @@ describe('apiTrajectoiresProCertification.repository', () => {
 		});
 
 		describe('lorsque l’appel à l’api geoLocalisation réussit', () => {
+			describe('mais que le code région récupéré n’est pas défini', () => {
+				it('retourne une erreur', async () => {
+					const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
+					(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: undefined }] });
+					const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
+
+					const httpService = anHttpClientService();
+					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
+
+					const codeCertification = '123';
+					const codePostal = '75000';
+
+
+					const returnValue = await repository.get(codeCertification, codePostal);
+					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				});
+			});
+
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
 				it('retourne une erreur', async () => {
 					// Given
@@ -144,7 +162,8 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 					});
 				});
-				describe('et que la region et au moins une statisque est disponible', () => {
+
+				describe('et que la region et au moins une statistique est disponible', () => {
 					it('retourne les statistiques de la formation', async () => {
 						// Given
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
