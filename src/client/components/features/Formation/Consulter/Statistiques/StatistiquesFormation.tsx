@@ -1,11 +1,10 @@
 import styles from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
-import { Certification } from '~/server/formations/domain/certification';
+import { Statistique } from '~/server/formations/domain/statistique';
 
-export function StatistiquesFormation({ statistiques }: { statistiques: Certification | undefined }) {
-	if (!statistiques || (!statistiques.tauxEnFormation && !statistiques.tauxEnEmploi6Mois && !statistiques.tauxAutres6Mois)) return null;
-	// TODO : recoit-on toujours la région?
+export function StatistiquesFormation({ statistiques }: { statistiques?: Statistique }) {
+	if (!statistiques) return null;
 	return (
 		<div className={styles.section}>
 			<EnTeteSection

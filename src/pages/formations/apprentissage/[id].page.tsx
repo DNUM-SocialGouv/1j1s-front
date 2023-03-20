@@ -7,14 +7,14 @@ import { formationQuerySchema } from '~/pages/api/formations/[id].controller';
 import { formationFiltreMapper } from '~/pages/api/formations/index.controller';
 import analytics from '~/pages/formations/apprentissage/[id].analytics';
 import { isFailure } from '~/server/errors/either';
-import { Certification } from '~/server/formations/domain/certification';
 import { Formation, FormationFiltre } from '~/server/formations/domain/formation';
+import { Statistique } from '~/server/formations/domain/statistique';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
 interface ConsulterFormationPageProps {
 	formation: Formation
-	statistiques?: Certification
+	statistiques?: Statistique
 }
 
 export default function ConsulterFormationPage(props: ConsulterFormationPageProps) {

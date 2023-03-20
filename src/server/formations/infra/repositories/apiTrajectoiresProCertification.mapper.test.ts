@@ -1,7 +1,7 @@
 import {
 	ApiTrajectoiresProCertificationResponse,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification';
-import { mapCertification } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.mapper';
+import { mapStatistique } from '~/server/formations/infra/repositories/apiTrajectoiresProCertification.mapper';
 
 describe('mapCertification', () => {
 	it('convertit une response en certification', () => {
@@ -13,7 +13,7 @@ describe('mapCertification', () => {
 			taux_en_formation: '0.3',
 		};
 
-		const output = mapCertification(input);
+		const output = mapStatistique(input);
 
 		expect(output).toEqual({
 			millesime: '2020-2021',

@@ -8,9 +8,9 @@ import {
 } from '@testing-library/react';
 
 import { StatistiquesFormation } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
-import { Certification } from '~/server/formations/domain/certification';
+import { Statistique } from '~/server/formations/domain/statistique';
 
-const statistiques = (override?: Partial<Certification>) :Certification => {
+const statistiques = (override?: Partial<Statistique>) :Statistique => {
 	return {
 		millesime: '2020-2021',
 		region: 'Pays de la Loire',
@@ -22,17 +22,6 @@ const statistiques = (override?: Partial<Certification>) :Certification => {
 };
 describe('StatistiquesFormation', () => {
 	describe('quand on reçoit des statistiques', () => {
-		describe('quand on ne reçoit aucune valeurs statistiques', () => {
-			it('ne retourne rien', () => {
-				render(<StatistiquesFormation statistiques={statistiques({ tauxAutres6Mois: undefined, tauxEnEmploi6Mois: undefined, tauxEnFormation: undefined })}/>);
-
-				const entête = screen.queryByRole('heading', { level: 2 });
-				expect(entête).not.toBeInTheDocument();
-
-				const listeDeStatistique = screen.queryByRole('list', { name: 'statistiques' });
-				expect(listeDeStatistique).not.toBeInTheDocument();
-			});
-		});
 
 		it('affiche l’entête', () => {
 			render(<StatistiquesFormation statistiques={statistiques()}/>);

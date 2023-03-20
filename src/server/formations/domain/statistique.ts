@@ -1,4 +1,4 @@
-export interface Certification {
+export interface Statistique {
 	region?: string
 	tauxEnEmploi6Mois?: string
 	tauxEnFormation?: string

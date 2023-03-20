@@ -4,10 +4,10 @@ import {
 } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { Certification } from '~/server/formations/domain/certification';
 import { Formation } from '~/server/formations/domain/formation';
+import { Statistique } from '~/server/formations/domain/statistique';
 
-export function ConsulterFormation({ formation, statistiques }: { formation: Formation, statistiques?: Certification }) {
+export function ConsulterFormation({ formation, statistiques }: { formation: Formation, statistiques?: Statistique }) {
 	const displayInformationCentreFormation = formation.adresse.adresseComplète || formation.contact.email || formation.contact.tel || formation.contact.url;
 	return (
 		<>
