@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.29.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.28.0...v3.29.0) (2023-03-21)
+
+
+### Features
+
+* **header:** ajouter un encart dans le header ([a096a1f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a096a1f5193bc80dca854efe88ba497c61d76dd9))
+
 ## [3.28.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.27.0...v3.28.0) (2023-03-21)
 
 
