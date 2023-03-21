@@ -29,7 +29,7 @@ export function aFormationQueryWithDiploma(): FormationFiltre {
 		distanceCommune: '30',
 		latitudeCommune: '48.2',
 		longitudeCommune: '29.10',
-		niveauEtude: '6',
+		niveauEtudes: '6',
 	};
 }
 

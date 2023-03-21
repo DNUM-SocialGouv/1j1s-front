@@ -36,7 +36,7 @@ export interface FormationFiltre {
 	distanceCommune: string
 	latitudeCommune: string
 	longitudeCommune: string
-	niveauEtude?: string
+	niveauEtudes?: string
 }
 
 export namespace FormationFiltre {

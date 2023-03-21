@@ -38,7 +38,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			.concat(`&longitude=${filtre.longitudeCommune}`)
 			.concat(`&latitude=${filtre.latitudeCommune}`)
 			.concat(`&radius=${filtre.distanceCommune}`)
-			.concat(filtre.niveauEtude ? `&diploma=${filtre.niveauEtude}` : '');
+			.concat(filtre.niveauEtudes ? `&diploma=${filtre.niveauEtudes}` : '');
 	}
 
 	private static isFormationNotFound(e: AxiosResponse<{ error: string }>): boolean {
