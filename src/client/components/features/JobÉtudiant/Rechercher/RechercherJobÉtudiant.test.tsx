@@ -165,4 +165,25 @@ describe('RechercherJobÉtudiant', () => {
 			expect(errorMessage).toBeInTheDocument();
 		});
 	});
+
+	it('filtre les query params de la page', () => {
+		const offreService = anOffreService();
+		mockUseRouter({ query: {
+			page: '1',
+			test: 'test',
+		} });
+
+		render(
+			<DependenciesProvider
+				localisationService={aLocalisationService()}
+				offreService={offreService}
+			>
+				<RechercherJobÉtudiant/>
+			</DependenciesProvider>,
+		);
+
+		expect(offreService.rechercherJobÉtudiant).toHaveBeenCalledWith({
+			page: '1',
+		});
+	});
 });
