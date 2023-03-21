@@ -207,7 +207,7 @@ describe('FormulaireRechercherFormation', () => {
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
-			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’entrée' });
+			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’entrée (facultatif)' });
 			await user.click(selectNiveauEtudes);
 
 			const niveauEtudesList = await screen.findByRole('listbox');

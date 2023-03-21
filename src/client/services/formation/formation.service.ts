@@ -34,7 +34,7 @@ export class FormationService {
 			latitudeCommune: currentQueries.latitudeCommune,
 			longitudeCommune: currentQueries.longitudeCommune,
 		} as FormationQueryFiltre;
-		if (currentQueries.niveauEtudes) queries.niveauEtudes = currentQueries.niveauEtudes as string;
+		if (currentQueries.niveauEtudes && currentQueries.niveauEtudes !== 'indifférent') queries.niveauEtudes = currentQueries.niveauEtudes as string;
 		return stringify(queries);
 	}
 }

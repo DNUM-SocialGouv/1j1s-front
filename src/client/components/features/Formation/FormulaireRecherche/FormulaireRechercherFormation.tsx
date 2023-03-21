@@ -47,7 +47,7 @@ export function FormulaireRechercherFormation() {
 
 	return (
 		<>
-			<p className={styles.champsObligatoires}>Tous les champs sont obligatoires</p>
+			<p className={styles.champsObligatoires}>Tous les champs sont obligatoires sauf mention contraire</p>
 			<form
 				className={styles.rechercheFormationForm}
 				role="form"
@@ -80,7 +80,7 @@ export function FormulaireRechercherFormation() {
 						optionList={Formation.NIVEAU_ETUDES}
 						onChange={setInputNiveauEtudes}
 						value={inputNiveauEtudes}
-						label="Niveau d’entrée"
+						label="Niveau d’entrée (facultatif)"
 						className={styles.inputNiveauEtudes}
 					/>
 				</div>

@@ -97,7 +97,7 @@ describe('Étiquettes filtre emploi', () => {
 		});
 	});
 	describe('quand une recherche est lancée avec le filtre localisation', () => {
-		it('retourne une liste d‘étiquettes contenant l‘expérience exigée',  async () => {
+		it('retourne une liste d‘étiquettes contenant la localisation',  async () => {
 
 			mockUseRouter({
 				query: {

@@ -46,7 +46,7 @@ export namespace FormationFiltre {
 }
 
 export namespace Formation {
-	type niveauEtudes = '3' | '4' | '5' | '6' | '7'
+	type niveauEtudes = '3' | '4' | '5' | '6' | '7' | 'indifférent'
 
 	export interface NiveauEtudes {
 		libellé: string
@@ -78,11 +78,17 @@ export namespace Formation {
 		valeur: '7',
 	};
 
+	export const NIVEAU_INDIFFERENT: NiveauEtudes = {
+		libellé: 'Indifférent',
+		valeur: 'indifférent',
+	};
+
 	export const NIVEAU_ETUDES: NiveauEtudes[] = [
 		Formation.NIVEAU_3,
 		Formation.NIVEAU_4,
 		Formation.NIVEAU_5,
 		Formation.NIVEAU_6,
 		Formation.NIVEAU_7,
+		Formation.NIVEAU_INDIFFERENT,
 	];
 }
