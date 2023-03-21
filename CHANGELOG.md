@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.28.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.27.0...v3.28.0) (2023-03-21)
+
+
+### Features
+
+* **alternance:** Postuler offre Matcha ([0fcd7be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0fcd7be161b1e07c9bcc80e83d6257d60b8aa643))
+
 ## [3.27.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.26.0...v3.27.0) (2023-03-17)
 
 
