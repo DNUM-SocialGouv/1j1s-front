@@ -7,9 +7,9 @@ module "front_app" {
 
   containers = {
     web = {
-      size : terraform.workspace == "prod" ? "XL" : "M"
+      size : terraform.workspace == "production" ? "XL" : "M"
       amount : 1
-      autoscaler = terraform.workspace == "prod" ? {
+      autoscaler = terraform.workspace == "production" ? {
         min_containers = 2
         max_containers = 10
         metric         = "cpu"
@@ -28,24 +28,18 @@ module "front_app" {
     local.envs_du_fichier_env
   )
 
-  # .env.example
-  # envsubst < .env.example > .env
-
-  # file .env
-  # REACT_APP_API_URL=$REACT_APP_API_URL
-
   addons = [
     {
       provider = "redis"
-      plan     = terraform.workspace == "prod" ? "redis-business-256" : "redis-sandbox"
+      plan     = terraform.workspace == "production" ? "redis-business-256" : "redis-sandbox"
     }
   ]
 
-  domain         = terraform.workspace == "prod" ? "www.1jeune1solution.gouv.fr" : null
-  domain_aliases = terraform.workspace == "prod" ? ["1jeune1solution.gouv.fr"] : null
+  domain         = var.front_nom_de_domaine
+  domain_aliases = terraform.workspace == "production" ? ["1jeune1solution.gouv.fr"] : null
 
   additionnal_collaborators = (
-    terraform.workspace == "prod"
+    terraform.workspace == "production"
     ? local.production_team_emails
     : local.nonproduction_team_emails
   )

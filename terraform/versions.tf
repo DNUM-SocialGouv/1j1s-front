@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.3.9, < 2.0.0"
+  required_version = ">= 1.4.2, < 2.0.0"
 
   backend "s3" {
     key    = "state/scalingo.tfstate"

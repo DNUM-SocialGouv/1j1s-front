@@ -1,0 +1,49 @@
+name: Terraform Plan
+
+on:
+  push:
+    branches: [ main, terraform ]
+  pull_request:
+    branches: [ main, terraform ]
+
+jobs:
+  terraform:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    environment: recette
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+          
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Run terraform fmt check
+        run: terraform fmt -check -diff -recursive ./terraform
+
+      - name: Expose all secrets as environment variables
+        uses: Firenza/secrets-to-env@v1.2.0
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          env_var_name_lower_case_regex: (?<=TF_VAR_).*
+
+      - name: Write environment variables in .env file
+        run: envsubst < .env.example > .env
+
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          TF_VAR_front_fichier_env_secret: ".env"
+
+      # - name: Terraform Apply
+      #   if: github.event_name == 'workflow_dispatch'
+      #   run: terraform apply -var-file=variables.tfvars -auto-approve
