@@ -22,8 +22,7 @@ export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse =
 					company: { name: 'SARL HUGUE-DEBRIX' },
 					diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
 					job: {
-						contractType: ['Apprentissage'],
-						description: 'Super alternance dans une boucherie',
+						contractType: 'Apprentissage',
 						id: 'id-boucher',
 						romeDetails: {
 							competencesDeBase: [],
@@ -37,8 +36,7 @@ export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse =
 					company: { name: 'MONSIEUR MICHEL' },
 					diplomaLevel: 'Cap, autres formations niveau (Infrabac)',
 					job: {
-						contractType: ['Apprentissage'],
-						description: 'Super alternance dans une boulangerie',
+						contractType: 'Apprentissage, CDD',
 						id: 'id-boulanger',
 						romeDetails: {
 							competencesDeBase: [],
@@ -76,8 +74,7 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 		company: { name: 'une entreprise' },
 		diplomaLevel: 'débutant',
 		job: {
-			contractType: ['Apprentissage'],
-			description: 'une description d’offre matcha',
+			contractType: 'Apprentissage, CDI',
 			id: 'id',
 			romeDetails: {
 				competencesDeBase: [{ libelle: 'savoir faire' }],

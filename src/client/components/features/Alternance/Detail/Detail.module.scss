@@ -33,7 +33,7 @@
   height: 72rem;
 
   @include media(large) {
-    height: 50rem;
+    height: 65rem;
   }
 }
 
@@ -43,6 +43,7 @@
   row-gap: 1rem;
   font-size: 0.875rem;
   line-height: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .contenu dt {

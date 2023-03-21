@@ -37,6 +37,7 @@ describe('rechercher alternance', () => {
 						tags: [
 							'paris',
 							'Apprentissage',
+							'CDI',
 							'débutant',
 						],
 						titre: 'un titre',
@@ -61,6 +62,7 @@ describe('rechercher alternance', () => {
 						source: 0,
 						tags: [
 							'Apprentissage',
+							'CDD',
 							'Cap, autres formations niveau (Infrabac)',
 						],
 						titre: 'Ouvrier boulanger / Ouvrière boulangère',
