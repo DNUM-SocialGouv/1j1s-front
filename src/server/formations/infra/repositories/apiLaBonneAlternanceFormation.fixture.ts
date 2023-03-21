@@ -21,6 +21,18 @@ export const aFormationAvecCodeCertificationQuery = (override?: Partial<Formatio
 		...override,
 	};
 };
+
+export function aFormationQueryWithDiploma(): FormationFiltre {
+	return {
+		codeCommune: '13180',
+		codeRomes: ['F1603', 'I1308'],
+		distanceCommune: '30',
+		latitudeCommune: '48.2',
+		longitudeCommune: '29.10',
+		niveauEtude: '6',
+	};
+}
+
 export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiLaBonneAlternanceFormationRechercheResponse => ({
 	results: [
 		{

@@ -20,14 +20,25 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	constructor(private httpClientService: HttpClientService, private caller: string) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
-		const codeRomes = filtre.codeRomes.join(',');
+		const endpoint = this.getEndPoint(filtre);
 		try {
-			const endpoint = `/formations?caller=${this.caller}&romes=${codeRomes}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
 			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationRechercheResponse>(endpoint);
 			return createSuccess(mapRésultatRechercheFormation(response.data));
 		} catch (e) {
 			return handleSearchFailureError(e, 'la bonne alternance recherche formation');
 		}
+	}
+
+	private getEndPoint(filtre: FormationFiltre): string {
+		const codeRomes = filtre.codeRomes.join(',');
+		return '/formations?'
+			.concat(`caller=${this.caller}`)
+			.concat(`&romes=${codeRomes}`)
+			.concat(`&insee=${filtre.codeCommune}`)
+			.concat(`&longitude=${filtre.longitudeCommune}`)
+			.concat(`&latitude=${filtre.latitudeCommune}`)
+			.concat(`&radius=${filtre.distanceCommune}`)
+			.concat(filtre.niveauEtude ? `&diploma=${filtre.niveauEtude}` : '');
 	}
 
 	private static isFormationNotFound(e: AxiosResponse<{ error: string }>): boolean {
