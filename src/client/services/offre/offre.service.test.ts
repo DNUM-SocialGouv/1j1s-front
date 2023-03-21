@@ -26,7 +26,24 @@ describe('OffreService', () => {
 			const result = await offreService.rechercherOffreEmploi(offreEmploiQuery);
 
 			expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffre() });
-			expect(httpClientService.get).toHaveBeenCalledWith('emplois?motCle=barman&typeDeContrats=CDD%2CCDI&page=1');
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('emplois'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('motCle=barman'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('typeDeContrat=CDD'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('typeDeContrat=CDI'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('page=1'));
+		});
+		it('nettoie les clés vides', async () => {
+			const httpClientService = anHttpClientService();
+			const offreService = new OffreService(httpClientService);
+			const offreEmploiQuery = {
+				motCle: undefined,
+			};
+
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
+
+			await offreService.rechercherOffreEmploi(offreEmploiQuery);
+
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.not.stringContaining('motCle'));
 		});
 	});
 
