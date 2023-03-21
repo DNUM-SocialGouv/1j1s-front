@@ -14,21 +14,20 @@ export namespace AlternanceApiJobsResponse {
 
 	export interface Job {
 		id: string
-		description: string
 		romeDetails?: AlternanceApiJobsResponse.RomeDetails
 		jobStartDate?: string
+		contractType?: string
 	}
 
 	export interface JobMatcha extends Job {
 		dureeContrat?: number
-		contractType?: string[]
 		rythmeAlternance?: string
 	}
 
 	export interface JobPE extends Job {
 		duration?: string
-		contractType?: string
 		contractDescription?: string
+		description: string
 	}
 
 	export interface RomeDetails {

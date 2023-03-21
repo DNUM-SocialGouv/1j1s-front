@@ -58,8 +58,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				matchas: [
 					aMatchaResponse({ job: {
-						contractType: ['Apprentissage'],
-						description: 'Super alternance dans une boucherie',
+						contractType: 'Apprentissage, CDD',
 						id: 'abc',
 						romeDetails: {
 							competencesDeBase: [],

@@ -19,9 +19,12 @@ describe('mapAlternance', () => {
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
 					diplomaLevel: 'CAP, BEP',
 					job: {
-						contractType: ['CDD'],
-						description: 'description',
+						contractType: 'CDD, CDI',
 						id: 'id',
+						romeDetails: {
+							competencesDeBase: [],
+							definition: 'description',
+						},
 					},
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
@@ -49,7 +52,7 @@ describe('mapAlternance', () => {
 				},
 				id: 'id',
 				source: Alternance.Source.MATCHA,
-				tags: ['CDD', 'CAP, BEP'],
+				tags: ['CDD', 'CDI', 'CAP, BEP'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 			},
 			{
@@ -68,8 +71,7 @@ describe('mapAlternance', () => {
 		const input: AlternanceApiJobsResponse.Matcha =
 			aMatchaResponse({
 				job: {
-					contractType: ['CDD'],
-					description: 'la description',
+					contractType: 'CDD, CDI',
 					id: 'id',
 					romeDetails: {
 						competencesDeBase: [{ libelle: 'un libelle' }],
@@ -100,8 +102,7 @@ describe('mapAlternance', () => {
 				},
 				diplomaLevel: 'CAP, BEP',
 				job: {
-					contractType: ['CDD'],
-					description: 'description',
+					contractType: 'CDD',
 					dureeContrat: 1,
 					id: 'id',
 					jobStartDate: '2020-01-01',
@@ -148,7 +149,6 @@ describe('mapAlternance', () => {
 				contact: undefined,
 				diplomaLevel: '',
 				job: {
-					description: '',
 					dureeContrat: 1,
 					id: 'id',
 				},
@@ -167,7 +167,6 @@ describe('mapAlternance', () => {
 				contact: undefined,
 				diplomaLevel: '',
 				job: {
-					description: '',
 					dureeContrat: 5,
 					id: 'id',
 				},

@@ -12,9 +12,9 @@ export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance =
 		localisation: 'paris',
 		niveauRequis: 'débutant',
 		source: Alternance.Source.MATCHA,
-		tags: ['paris', 'Apprentissage', 'débutant'],
+		tags: ['paris', 'Apprentissage', 'CDI', 'débutant'],
 		titre: 'un titre',
-		typeDeContrat: ['Apprentissage'],
+		typeDeContrat: ['Apprentissage', 'CDI'],
 		...override,
 	};
 };

@@ -16,11 +16,16 @@ function parseDurée(durée: number | undefined) {
 	return `${durée} an${durée > 1 ? 's' : ''}`;
 }
 
+function parseContractTypeMatcha(alternance: Matcha): string[] {
+	if (!alternance.job.contractType) return [];
+	return alternance.job.contractType.split(', ');
+}
+
 export function mapMatcha(alternance: Matcha): Alternance {
 	const getTagList = () => {
 		let tagList;
 		if (alternance.job.contractType) {
-			tagList = [alternance.place?.city, ...alternance.job.contractType, alternance.diplomaLevel];
+			tagList = [alternance.place?.city, ...parseContractTypeMatcha(alternance), alternance.diplomaLevel];
 		} else {
 			tagList = [alternance.place?.city, alternance.diplomaLevel];
 		}
@@ -44,7 +49,7 @@ export function mapMatcha(alternance: Matcha): Alternance {
 		source: Alternance.Source.MATCHA,
 		tags: getTagList(),
 		titre: alternance.title,
-		typeDeContrat: alternance.job.contractType,
+		typeDeContrat: parseContractTypeMatcha(alternance),
 	};
 }
 
@@ -86,7 +91,7 @@ function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): RésultatRe
 	const getTagList = () => {
 		let tagList;
 		if (alternance.job.contractType) {
-			tagList = [alternance.place?.city, ...alternance.job.contractType, alternance.diplomaLevel];
+			tagList = [alternance.place?.city, ...parseContractTypeMatcha(alternance), alternance.diplomaLevel];
 		} else {
 			tagList = [alternance.place?.city, alternance.diplomaLevel];
 		}
