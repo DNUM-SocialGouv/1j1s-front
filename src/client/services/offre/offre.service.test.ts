@@ -15,7 +15,14 @@ describe('OffreService', () => {
 		it('appelle emploi avec la requête', async () => {
 			const httpClientService = anHttpClientService();
 			const offreService = new OffreService(httpClientService);
-			const offreEmploiQuery = 'motCle=barman&typeDeContrats=CDD%2CCDI&page=1';
+			const offreEmploiQuery = {
+				motCle: 'barman',
+				page: '1',
+				typeDeContrat: [
+					'CDD',
+					'CDI',
+				],
+			};
 
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
 

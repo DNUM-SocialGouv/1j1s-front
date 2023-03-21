@@ -57,7 +57,6 @@ describe('RechercherOffreEmploi', () => {
 				// GIVEN
 				const offreServiceMock = anOffreService();
 				const localisationServiceMock = aLocalisationService();
-				mockUseRouter({});
 				mockUseRouter({
 					query: {
 						codeLocalisation: '26',
@@ -76,7 +75,6 @@ describe('RechercherOffreEmploi', () => {
 				);
 
 				// THEN
-				expect(offreServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('codeLocalisation=26&libelleLocalisation=BOURG%20LES%20VALENCE%20(26)&typeLocalisation=DEPARTEMENT');
 				expect(await screen.findByText('3 offres d‘emplois')).toBeInTheDocument();
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 				expect(filtresRecherche).toBeInTheDocument();
@@ -107,7 +105,6 @@ describe('RechercherOffreEmploi', () => {
 				// THEN
 				expect(résultatRechercheOffreEmploiList).toHaveLength(3);
 				expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
-				expect(offreServiceMock.rechercherOffreEmploi).toHaveBeenCalledWith('motCle=boulanger&page=1');
 			});
 		});
 	});
@@ -157,6 +154,31 @@ describe('RechercherOffreEmploi', () => {
 
 			// THEN
 			expect(errorMessage).toBeInTheDocument();
+		});
+	});
+
+	it('filtre les query params envoyés', () => {
+		mockUseRouter({ query: {
+			codeLocalisation: '75',
+			libelleLocalisation: 'Paris (75)',
+			motCle: 'Informatique',
+			test: 'test',
+			typeLocalisation: 'DEPARTEMENT',
+		} });
+		const service = anOffreService();
+
+		render(
+			<DependenciesProvider offreService={service} localisationService={aLocalisationService()}>
+				<RechercherOffreEmploi />
+			</DependenciesProvider>,
+		);
+
+		expect(service.rechercherOffreEmploi).toHaveBeenCalledTimes(1);
+		expect(service.rechercherOffreEmploi).toHaveBeenCalledWith({
+			codeLocalisation: '75',
+			libelleLocalisation: 'Paris (75)',
+			motCle: 'Informatique',
+			typeLocalisation: 'DEPARTEMENT',
 		});
 	});
 });

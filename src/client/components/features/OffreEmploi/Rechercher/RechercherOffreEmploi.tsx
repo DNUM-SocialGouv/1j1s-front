@@ -50,10 +50,9 @@ export function RechercherOffreEmploi() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		const queryString = stringify(router.query);
 		setIsLoading(true);
 		setErreurRecherche(undefined);
-		offreService.rechercherOffreEmploi(queryString)
+		offreService.rechercherOffreEmploi(offreQuery)
 			.then((response) => {
 				if (response.instance === 'success') {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -65,7 +64,7 @@ export function RechercherOffreEmploi() {
 				}
 				setIsLoading(false);
 			});
-	}, [router.query, offreService]);
+	}, [offreQuery, offreService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
