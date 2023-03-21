@@ -9,8 +9,10 @@ import {
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
+import { Select } from '~/client/components/ui/Select/Select';
+import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { Formation } from '~/server/formations/domain/formation';
 
 export function FormulaireRechercherFormation() {
 	const [inputLibelleMetier, setInputLibelleMetier] = useState<string>('');
@@ -20,10 +22,11 @@ export function FormulaireRechercherFormation() {
 	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
 	const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
 	const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
+	const [inputNiveauEtudes, setInputNiveauEtudes] = useState<string>('');
 
 	const router = useRouter();
 
-	const queryParams = useAlternanceQuery();
+	const queryParams = useFormationQuery();
 
 	useEffect(function initFormValues() {
 		setInputLibelleMetier(queryParams.libelleMetier || '');
@@ -33,6 +36,7 @@ export function FormulaireRechercherFormation() {
 		setInputDistanceCommune(queryParams.distanceCommune || '');
 		setInputLongitudeCommune(queryParams.longitudeCommune || '');
 		setInputLatitudeCommune(queryParams.latitudeCommune || '');
+		setInputNiveauEtudes(queryParams.niveauEtudes || '');
 	}, [queryParams]);
 
 	async function updateRechercherFormationQueryParams(event: FormEvent<HTMLFormElement>) {
@@ -71,6 +75,14 @@ export function FormulaireRechercherFormation() {
 							showRadius
 						/>
 					</div>
+					<Select
+						name="niveauEtudes"
+						optionList={Formation.NIVEAU_ETUDES}
+						onChange={setInputNiveauEtudes}
+						value={inputNiveauEtudes}
+						label="Niveau d’entrée"
+						className={styles.inputNiveauEtudes}
+					/>
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent

@@ -2,7 +2,11 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import {
+	render,
+	screen,
+	within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
@@ -164,6 +168,59 @@ describe('FormulaireRechercherFormation', () => {
 
 			// Then
 			expect(routerPush).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('lorsqu‘on recherche par commune, métier et niveau d’études', () => {
+		it('filtre les résultats par localisation, métier et niveau d’études', async () => {
+			// Given
+			const routerPush = jest.fn();
+			mockUseRouter({ push: routerPush });
+			const aMétierList: Array<Métier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
+			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
+			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
+			const libelleCommune = 'Paris+%2875006%29';
+			const longitudeCommune = '2.347';
+			const latitudeCommune = '48.859';
+			const codeCommune = '75056';
+			const distanceCommune = '10';
+			const niveauEtudes = '3';
+
+
+			const localisationService = aLocalisationService();
+			const formationService = aFormationService(aRésultatFormation());
+			const métierService = aMétierService(aMétierList);
+
+			// When
+			render(
+				<DependenciesProvider formationService={formationService} métierService={métierService} localisationService={localisationService}>
+					<FormulaireRechercherFormation/>
+				</DependenciesProvider>,
+			);
+
+			const user = userEvent.setup();
+			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
+			await user.type(inputMétiers, 'boulang');
+			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+
+			const inputCommune = screen.getByLabelText('Localisation');
+			await user.type(inputCommune, 'Pari');
+			await user.click(screen.getAllByRole('option')[0]);
+
+			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’entrée' });
+			await user.click(selectNiveauEtudes);
+
+			const niveauEtudesList = await screen.findByRole('listbox');
+			const inputNiveauEtudes = within(niveauEtudesList).getAllByRole('radio');
+			await user.click(inputNiveauEtudes[0]);
+
+			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
+			await user.click(submitButton);
+
+
+			// Then
+			const expectedQuery = `libelleMetier=${expectedLibelle}&codeRomes=${expectedCodeRomes}&libelleCommune=${libelleCommune}&codeCommune=${codeCommune}&latitudeCommune=${latitudeCommune}&longitudeCommune=${longitudeCommune}&distanceCommune=${distanceCommune}&niveauEtudes=${niveauEtudes}`;
+			expect(routerPush).toHaveBeenCalledWith({ query: expectedQuery }, undefined, { shallow: true });
 		});
 	});
 });

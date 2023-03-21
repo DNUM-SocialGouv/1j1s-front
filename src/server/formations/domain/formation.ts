@@ -45,3 +45,44 @@ export namespace FormationFiltre {
 	}
 }
 
+export namespace Formation {
+	type niveauEtudes = '3' | '4' | '5' | '6' | '7'
+
+	export interface NiveauEtudes {
+		libellé: string
+		valeur: niveauEtudes
+	}
+
+	export const NIVEAU_3: NiveauEtudes = {
+		libellé: NiveauRequis.NIVEAU_3,
+		valeur: '3',
+	};
+
+	export const NIVEAU_4: NiveauEtudes = {
+		libellé: NiveauRequis.NIVEAU_4,
+		valeur: '4',
+	};
+
+	export const NIVEAU_5: NiveauEtudes = {
+		libellé: NiveauRequis.NIVEAU_5,
+		valeur: '5',
+	};
+
+	export const NIVEAU_6: NiveauEtudes = {
+		libellé: NiveauRequis.NIVEAU_6,
+		valeur: '6',
+	};
+
+	export const NIVEAU_7: NiveauEtudes = {
+		libellé: NiveauRequis.NIVEAU_7_8,
+		valeur: '7',
+	};
+
+	export const NIVEAU_ETUDES: NiveauEtudes[] = [
+		Formation.NIVEAU_3,
+		Formation.NIVEAU_4,
+		Formation.NIVEAU_5,
+		Formation.NIVEAU_6,
+		Formation.NIVEAU_7,
+	];
+}
