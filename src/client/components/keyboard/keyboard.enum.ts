@@ -16,4 +16,6 @@ export const enum KeyBoard {
 	BACKSPACE = 'Backspace',
 	DELETE = 'Delete',
 	SPACE = ' ',
+	HOME = 'Home',
+	END = 'End',
 }
