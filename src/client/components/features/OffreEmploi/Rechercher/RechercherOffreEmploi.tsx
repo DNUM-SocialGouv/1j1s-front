@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
@@ -37,7 +36,6 @@ const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherOffreEmploi() {
-	const router = useRouter();
 	const offreQuery = useOffreQuery();
 	const offreService = useDependency<OffreService>('offreService');
 

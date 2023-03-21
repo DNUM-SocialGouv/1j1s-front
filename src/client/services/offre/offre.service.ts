@@ -2,7 +2,6 @@ import { stringify } from 'querystring';
 
 import { OffreQueryParams } from '~/client/hooks/useOffreQuery';
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import { Either } from '~/server/errors/either';
 import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';

@@ -1,14 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-import { stringify } from 'querystring';
 
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { OffreService } from '~/client/services/offre/offre.service';
-import { createSuccess, Success } from '~/server/errors/either';
-import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { createSuccess } from '~/server/errors/either';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
-import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
 
 describe('OffreService', () => {
 	describe('rechercherOffreEmploi', () => {

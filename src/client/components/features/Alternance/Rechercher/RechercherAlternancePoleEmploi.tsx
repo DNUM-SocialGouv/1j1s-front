@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
@@ -69,7 +68,7 @@ export function RechercherAlternancePoleEmploi() {
 				}
 				setIsLoading(false);
 			});
-	}, [router.query, offreService]);
+	}, [offreQuery, offreService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
