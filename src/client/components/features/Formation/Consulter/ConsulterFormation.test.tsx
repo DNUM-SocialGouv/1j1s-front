@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 
 import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { Formation } from '~/server/formations/domain/formation';
 
 describe('ConsulterFormation', () => {
 	beforeEach(() => {
@@ -61,5 +62,60 @@ describe('ConsulterFormation', () => {
 		expect(tel).toBeVisible();
 		const url = screen.queryByText(formation.contact.url, { exact: false });
 		expect(url).toBeVisible();
+	});
+	it('affiche un bouton pour demander un rendez-vous', () => {
+		const formation: Formation = {
+			adresse: {
+				adresseComplète: '1 rue de la République - 75001 - Paris',
+				codePostal: '75001',
+			},
+			contact: {
+				email: 'email@domaine.fr',
+				tel: '01 23 45 67 89',
+				url: 'https://domaine.fr',
+			},
+			description: 'Description de la formation',
+			duréeIndicative: '1 an',
+			lienDemandeRendezVous: 'https://domaine.fr',
+			nomEntreprise: 'La Bonne Alternance',
+			nombreHeuresAuCentre: 100,
+			nombreHeuresEnEntreprise: 200,
+			objectif: 'Objectifs de la formation',
+			tags: ['Paris'],
+			titre: 'Développeur web',
+		};
+
+		render(<ConsulterFormation formation={formation}/>);
+
+		const link = screen.getByRole('link', { name: 'Demander un rendez-vous' });
+		expect(link).toBeVisible();
+		expect(link).toHaveAttribute('href', formation.lienDemandeRendezVous);
+	});
+	it('n’affiche pas de bouton pour demander un rendez-vous si le lien n’est pas renseigné', () => {
+		const formation: Formation = {
+			adresse: {
+				adresseComplète: '1 rue de la République - 75001 - Paris',
+				codePostal: '75001',
+			},
+			contact: {
+				email: 'email@domaine.fr',
+				tel: '01 23 45 67 89',
+				url: 'https://domaine.fr',
+			},
+			description: 'Description de la formation',
+			duréeIndicative: '1 an',
+			lienDemandeRendezVous: undefined,
+			nomEntreprise: 'La Bonne Alternance',
+			nombreHeuresAuCentre: 100,
+			nombreHeuresEnEntreprise: 200,
+			objectif: 'Objectifs de la formation',
+			tags: ['Paris'],
+			titre: 'Développeur web',
+		};
+
+		render(<ConsulterFormation formation={formation}/>);
+
+		const link = screen.queryByRole('link', { name: 'Demander un rendez-vous' });
+		expect(link).not.toBeInTheDocument();
 	});
 });

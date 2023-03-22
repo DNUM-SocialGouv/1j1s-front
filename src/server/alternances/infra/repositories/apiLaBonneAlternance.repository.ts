@@ -29,7 +29,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
 	private async getAlternanceListe(filtre: AlternanceFiltre) {
 		const codeRomes = filtre.codeRomes.join(',');
-		const endpoint = `/jobs?caller=${this.caller}&romes=${codeRomes}&sources=${SOURCES_MATCHA_ET_PEJOBS}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
+		const endpoint = `/v1/jobs?caller=${this.caller}&romes=${codeRomes}&sources=${SOURCES_MATCHA_ET_PEJOBS}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
 		return await this.httpClientService.get<AlternanceApiJobsResponse>(endpoint);
 	}
 
@@ -41,12 +41,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	async get(id: string): Promise<Either<Alternance>> {
 		try {
 			if (ApiLaBonneAlternanceRepository.isPoleEmploiId(id)) {
-				const apiResponse = await this.httpClientService.get<{ peJobs: AlternanceApiJobsResponse.PEJobs[] }>(`/jobs/job/${id}`);
+				const apiResponse = await this.httpClientService.get<{ peJobs: AlternanceApiJobsResponse.PEJobs[] }>(`/v1/jobs/job/${id}`);
 				const offre = apiResponse.data.peJobs[0];
 				return createSuccess(mapPEJob(offre));
 			}
 
-			const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/jobs/matcha/${id}`);
+			const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/v1/jobs/matcha/${id}`);
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {

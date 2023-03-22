@@ -1,18 +1,18 @@
 import { Formation, NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
-export const aRésultatRechercheFormation = (): Array<RésultatRechercheFormation> => [
+export const aRésultatRechercheFormationList = (): Array<RésultatRechercheFormation> => [
 	{
 		adresse: '1 rue de la République',
 		codeCertification: '999',
 		codePostal: '75001',
-		idRco: '123',
+		id: '123__cleMinistereEducatif-123456',
 		nomEntreprise: 'La Bonne Alternance',
 		tags: ['Paris', NiveauRequis['NIVEAU_4']],
 		titre: 'Développeur web',
 	},
 	{
 		codeCertification: '888',
-		idRco: '456',
+		id: '456__',
 		nomEntreprise: 'La Bonne Alternance',
 		tags: ['Paris', 'Autre'],
 		titre: 'Développeur web',

@@ -3,13 +3,13 @@ export interface RésultatRechercheFormation {
 	titre: string
 	nomEntreprise?: string
 	tags: [ localisation: string | undefined, niveauRequis: NiveauRequis | 'Autre' ]
-	idRco: string
+	id: string
 	codePostal?: string
 	ville?: string
 	codeCertification?: string
 }
 
-export interface Formation {
+export type Formation = {
 	titre?: string
 	nomEntreprise?: string
 	tags: string[]
@@ -20,6 +20,7 @@ export interface Formation {
 	nombreHeuresAuCentre?: number
 	adresse: { adresseComplète?: string, codePostal?: string }
 	contact: { email?: string; tel?: string; url?: string }
+	lienDemandeRendezVous?: string
 }
 
 export enum NiveauRequis {
