@@ -5,7 +5,7 @@ const { name, version } = require('./package.json');
 const { withSentryConfig } = require('@sentry/nextjs');
 const { URL } = require('url');
 
-const IS_ONLINE_CONFIG_ENVIRONMENT = ['integration', 'production'];
+const IS_ONLINE_CONFIG_ENVIRONMENT = ['recette', 'production'];
 const NODE_ENV_ENABLE_SOURCEMAP = 'production';
 const isOnlineEnvironment = IS_ONLINE_CONFIG_ENVIRONMENT.includes(process.env.ENVIRONMENT);
 

@@ -2,15 +2,17 @@ name: Terraform Plan
 
 on:
   push:
-    branches: [ main, terraform ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, terraform ]
+    branches: [ main ]
 
 jobs:
   terraform:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    environment: recette
+    environment: 
+      name: scalingo-recette
+      url: https://recette.1jeune1solution.gouv.fr
 
     defaults:
       run:
@@ -19,10 +21,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: "< 2.0.0"
           
       - name: Terraform Init
         run: terraform init
