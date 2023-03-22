@@ -12,14 +12,14 @@ import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.
 
 const TYPE_DE_LOGEMENT_INTERGENERATIONNEL = 'habitation intergénérationnelle';
 
-export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) => {
-	const annonce  = props.hit;
-	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL? 'intergénérationnel' : annonce.type;
+export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
+	const annonce = props.hit;
+	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL ? 'intergénérationnel' : annonce.type;
 	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
 	return (
 		<Card layout="vertical">
-			<CardImage imageSrcList={annonce.imagesUrl} />
+			<CardImage imageSrcList={annonce.imagesUrl}/>
 
 			<Card.Content className={styles.CardContenu}>
 				<span className={styles.CardContenuEnTete}>
@@ -38,9 +38,19 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 			</Card.Content>
 
 			<span className={styles.CardFooter}>
-				<TextIcon icon="map-pin" iconPosition="left" className={styles.localisation}><span>{annonce.localisationAAfficher}</span></TextIcon>
-				<Link href={`/logements/annonces/${annonce.slug}`} key={annonce.slug}
-					className={classNames('underline-none', styles.CardFooterCallToAction)} prefetch={false}>
+				<TextIcon
+					icon="map-pin"
+					iconPosition="left"
+					className={styles.localisation}
+				>
+					<span>{annonce.localisationAAfficher}</span>
+				</TextIcon>
+				<Link
+					href={`/logements/annonces/${annonce.slug}`}
+					key={annonce.slug}
+					className={classNames('underline-none', styles.CardFooterCallToAction)}
+					prefetch={false}
+				>
 					<TextIcon icon="arrow-right">Lire l‘annonce</TextIcon>
 				</Link>
 			</span>
@@ -50,23 +60,23 @@ export const AnnonceDeLogement = (props : HitProps<AnnonceDeLogementIndexee>) =>
 
 type ImageSrcListProps = Array<string>
 
-const CardImage = (props: { imageSrcList: ImageSrcListProps} ) => {
+function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 	const { imageSrcList } = props;
 	const hasNoImage = imageSrcList.length === 0;
 	const hasOnlyOneImage = imageSrcList.length === 1;
 
 	if (hasNoImage) return <div className={styles.CardImageWrapper}>
-		<Image src={'/images/defaut-logement.webp'} alt="" width={360} height={180} />
+		<Image src={'/images/defaut-logement.webp'} alt="" width={360} height={180}/>
 	</div>;
 
 	if (hasOnlyOneImage) return <div className={styles.CardImageWrapper}>
-		<Image src={imageSrcList[0]} alt="" width={360} height={180} />
+		<Image src={imageSrcList[0]} alt="" width={360} height={180}/>
 	</div>;
 
-	return <CardAnnonceCarousel imageSrcList={imageSrcList} />;
+	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;
 };
 
-const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps} ) => {
+const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 	const { imageSrcList } = props;
 	const formattedList = imageSrcList.map((url) => ({ alt: '', src: url }));
 	const MAX_IMAGE_WIDTH = 360;

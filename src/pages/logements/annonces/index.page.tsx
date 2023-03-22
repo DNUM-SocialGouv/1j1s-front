@@ -21,6 +21,7 @@ const ANNONCE_PAR_PAGE = 9 ;
 
 export default function AnnoncesPage() {
 	const displayAnnoncesLogement = process.env.NEXT_PUBLIC_LOGEMENT_FEATURE === '1';
+	const indexAnnoncesLogement = process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT;
 
 	useAnalytics(analytics);
 	useReferrer();
@@ -28,7 +29,7 @@ export default function AnnoncesPage() {
 		return transformerMeilisearchLogementsItems(items);
 	}, []);
 
-	if (!displayAnnoncesLogement) return <ErrorUnavailableService/>;
+	if (!displayAnnoncesLogement || !indexAnnoncesLogement) return <ErrorUnavailableService/>;
 	return (
 		<>
 			<Head
@@ -37,7 +38,7 @@ export default function AnnoncesPage() {
 				robots="index,follow"
 			/>
 			<InstantSearchLayout
-				meilisearchIndex={process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT}
+				meilisearchIndex={indexAnnoncesLogement}
 				nombreDeResultatParPage={ANNONCE_PAR_PAGE}
 				titre="Logement étudiant et location jeune actif partout en France"
 				sousTitre="Faites votre recherche parmi plus de 3 000 offres de logements étudiants"

@@ -34,6 +34,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const result = transformerMeilisearchLogementsItems([
 						{
 							attribute: 'prix',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'prix',
 							refine: refineMock,
@@ -46,6 +47,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const expected = [
 						{
 							attribute: 'prix',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'prix',
 							refine: refineMock,
@@ -63,6 +65,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const result = transformerMeilisearchLogementsItems([
 						{
 							attribute: 'prix',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'prix',
 							refine: refineMock,
@@ -75,6 +78,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const expected = [
 						{
 							attribute: 'prix',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'prix',
 							refine: refineMock,
@@ -100,6 +104,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const result = transformerMeilisearchLogementsItems([
 						{
 							attribute: 'prix',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'prix',
 							refine: refineMock,
@@ -112,6 +117,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const expected = [
 						{
 							attribute: 'prix',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'prix',
 							refine: refineMock,
@@ -132,6 +138,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const result = transformerMeilisearchLogementsItems([
 						{
 							attribute: 'surface',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'surface',
 							refine: refineMock,
@@ -152,6 +159,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					const result = transformerMeilisearchLogementsItems([
 						{
 							attribute: 'surface',
+							indexId: 'id-index',
 							indexName: 'nom-index',
 							label: 'surface',
 							refine: refineMock,
@@ -175,6 +183,7 @@ describe('transformerMeilisearchLogementsItems', () => {
 					]);
 					const expected: CurrentRefinementsConnectorParamsItem[] = [{
 						attribute: 'surface',
+						indexId: 'id-index',
 						indexName: 'nom-index',
 						label: 'surface',
 						refine: refineMock,
@@ -195,6 +204,7 @@ const itemsWithoutNumericValue = (): CurrentRefinementsConnectorParamsItem[] => 
 	return [
 		{
 			attribute: 'typeBien',
+			indexId: 'id-index',
 			indexName: 'nom-index',
 			label: 'typeBien',
 			refine: refineMock,
@@ -220,6 +230,7 @@ const expectedItemsWithoutNumericValue = (): CurrentRefinementsConnectorParamsIt
 	return [
 		{
 			attribute: 'typeBien',
+			indexId: 'id-index',
 			indexName: 'nom-index',
 			label: 'typeBien',
 			refine: refineMock,
@@ -246,6 +257,7 @@ const itemsWithDefaultNumericPriceValue = (): CurrentRefinementsConnectorParamsI
 	return [
 		{
 			attribute: 'prix',
+			indexId: 'id-index',
 			indexName: 'nom-index',
 			label: 'prix',
 			refine: refineMock,

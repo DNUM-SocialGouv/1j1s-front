@@ -8,11 +8,9 @@ import {
 	OffreDeStageIndexée,
 } from '~/server/cms/domain/offreDeStage.type';
 
-
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 
-
-export const OffreDeStage = (props : HitProps<OffreDeStageIndexée>) => {
+export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	const stage = props.hit;
 
 	const listeEtiquettes: Array<string> = stage.domaines
