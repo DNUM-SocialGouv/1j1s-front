@@ -10,7 +10,7 @@ describe('MissionEngagementService', () => {
 				const httpClientService = anHttpClientService();
 				const missionEngagementService = new MissionEngagementService(httpClientService);
 				const catégorie = 'service-civique';
-				const missionEngagementQuery = 'domain=sante&page=2';
+				const missionEngagementQuery = { domain: 'sante', page: '2' };
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
@@ -27,7 +27,7 @@ describe('MissionEngagementService', () => {
 				const httpClientService = anHttpClientService();
 				const missionEngagementService = new MissionEngagementService(httpClientService);
 				const catégorie = 'bénévolat';
-				const missionEngagementQuery = 'domain=sante&page=2';
+				const missionEngagementQuery = { domain: 'sante', page: '2' };
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 

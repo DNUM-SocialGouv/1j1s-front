@@ -59,7 +59,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 			missionEngagementService
-				.rechercherMission(queryString, category)
+				.rechercherMission(router.query, category)
 				.then((response) => {
 					if (response.instance === 'success') {
 						setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));

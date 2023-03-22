@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface MissionEngagementQueryParams {
+export type MissionEngagementQueryParams = {
   domain?: string
   codeCommune?: string
   codeRomes?: string
