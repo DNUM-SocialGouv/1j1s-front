@@ -16,7 +16,7 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 			<Container>
 				<article className={styles.layout}>
 					<h3 className={styles.texteQuestion}>Que deviennent les apprenants après cette formation ?</h3>
-					<ul aria-label='statistiques'>
+					<ul>
 						{ statistiques.tauxEnEmploi6Mois &&
             <li><span className={styles.textePourcentage}>{statistiques.tauxEnEmploi6Mois}%</span> sont en emploi au bout de 6 mois (quel que soit le type d’emploi et son secteur)</li>
 						}

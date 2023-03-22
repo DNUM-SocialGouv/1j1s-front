@@ -6,49 +6,46 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
+import { HttpClientService } from '~/server/services/http/httpClientService';
 import {
 	anAxiosError,
 	anHttpClientService,
 	anHttpClientServiceWithCache,
 } from '~/server/services/http/httpClientService.fixture';
+import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
 
 describe('apiTrajectoiresProCertification.repository', () => {
+	let apiGeoLocalisationHttpService: HttpClientServiceWithCache;
+	let httpService: HttpClientService;
+	let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
+
+	let codeCertification: string;
+	let codePostal: string;
+
+	beforeEach(() => {
+		apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
+		httpService = anHttpClientService();
+		apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
+
+		codeCertification = '123';
+		codePostal = '75000';
+
+	});
 	describe('get', () => {
-		it('appelle l’api geoLocalisation avec les bons paramètres', () => {
-			// Given
-			const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
-			const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-			const httpService = anHttpClientService();
+		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
 			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
+			await repository.get(codeCertification, codePostal);
 
-			const codeCertification = '123';
-			const codePostal = '75000';
-
-			// When
-			repository.get(codeCertification, codePostal);
-
-			// Then
 			expect(apiGeoLocalisationHttpService.get).toHaveBeenCalledWith(`communes?codePostal=${codePostal}`);
 		});
 
 		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
-			it('retourne une erreur', async () => {
-				// Given
-				const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
+			it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
 				(apiGeoLocalisationHttpService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
-				const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-				const httpService = anHttpClientService();
 				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
-				const codeCertification = '123';
-				const codePostal = '75000';
-
-				// When
 				const returnValue = await repository.get(codeCertification, codePostal);
 
-				// Then
 				expect(httpService.get).toHaveBeenCalledTimes(0);
 				expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 			});
@@ -56,17 +53,9 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 		describe('lorsque l’appel à l’api geoLocalisation réussit', () => {
 			describe('mais que le code région récupéré n’est pas défini', () => {
-				it('retourne une erreur', async () => {
-					const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
+				it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
 					(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: undefined }] });
-					const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-					const httpService = anHttpClientService();
 					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
-
-					const codeCertification = '123';
-					const codePostal = '75000';
-
 
 					const returnValue = await repository.get(codeCertification, codePostal);
 					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
@@ -74,23 +63,13 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			});
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
-				it('retourne une erreur', async () => {
-					// Given
-					const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
+				it('retourne une erreur DEMANDE_INCORRECTE', async () => {
 					(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-					const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-					const httpService = anHttpClientService();
 					(httpService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
 					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
-					const codeCertification = '123';
-					const codePostal = '75000';
-
-					// When
 					const returnValue = await repository.get(codeCertification, codePostal);
 
-					// Then
 					expect(httpService.get).toHaveBeenCalledTimes(1);
 					expect(returnValue).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 				});
@@ -98,7 +77,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification réussit', () => {
 				describe('et que la région n’est pas retournée', () => {
-					it('retourne une erreur', async () => {
+					it('retourne une erreur CONTENU_INDISPONIBLE', async () => {
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
 							millesime: '2020_2021',
 							region: undefined,
@@ -107,18 +86,10 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							taux_en_formation: '0',
 						};
 
-						const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
 						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-						const httpService = anHttpClientService();
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
 						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
-						const codeCertification = '123';
-						const codePostal = '75000';
-
-						// When
 						const returnValue = await repository.get(codeCertification, codePostal);
 
 						// Then
@@ -130,7 +101,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 				});
 
 				describe('et que la région est retournée mais pas les statistiques', () => {
-					it('retourne une erreur', async () => {
+					it('retourne une erreur CONTENU_INDISPONIBLE', async () => {
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
 							millesime: '2020_2021',
 							region: {
@@ -141,21 +112,12 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							taux_en_formation: undefined,
 						};
 
-						const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
 						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-						const httpService = anHttpClientService();
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
 						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
-						const codeCertification = '123';
-						const codePostal = '75000';
-
-						// When
 						const returnValue = await repository.get(codeCertification, codePostal);
 
-						// Then
 						expect(httpService.get).toHaveBeenCalledTimes(1);
 						expect(returnValue).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
 
@@ -171,21 +133,12 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							region: {
 								nom: 'Ile-de-France',
 							},
-							taux_autres_6_mois: '23',
 							taux_en_emploi_6_mois: '77',
-							taux_en_formation: '0',
 						};
 
-						const apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
 						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
-
-						const httpService = anHttpClientService();
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
 						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
-
-						const codeCertification = '123';
-						const codePostal = '75000';
 
 						// When
 						const returnValue = await repository.get(codeCertification, codePostal);
@@ -195,9 +148,9 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						expect(returnValue).toEqual(createSuccess({
 							millesime: '2020-2021',
 							region: 'Ile-de-France',
-							tauxAutres6Mois: '23',
+							tauxAutres6Mois: undefined,
 							tauxEnEmploi6Mois: '77',
-							tauxEnFormation: '0',
+							tauxEnFormation: undefined,
 						}));
 					});
 				});

@@ -3,8 +3,11 @@ import { createFailure, createSuccess, Either, isFailure } from '~/server/errors
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { StatistiqueRepository } from '~/server/formations/domain/statistique.repository';
-import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
-import { mapStatistique } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
+import {
+	ApiTrajectoiresProStatistiqueResponse,
+	isRegionEtAuMoinsUnPourcentageDisponible,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
+import { mapStatistiques } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
 import { HttpClientService } from '~/server/services/http/httpClientService';
 
@@ -21,17 +24,12 @@ export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepos
 			const { data } = await this.httpClientService.get<ApiTrajectoiresProStatistiqueResponse>(
 				`inserjeunes/regionales/${codeRegion.result}/certifications/${codeCertification}`,
 			);
-			if (!this.isRegionEtAuMoinsUnPourcentageDisponible(data)) return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
-			const statistique = mapStatistique(data);
-			return createSuccess(statistique);
+			const statistiques = mapStatistiques(data);
+			if (isRegionEtAuMoinsUnPourcentageDisponible(statistiques)) return createSuccess(statistiques);
+			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 		} catch (e) {
 			return handleSearchFailureError(e, 'statistique formation');
 		}
 	}
 
-	private isRegionEtAuMoinsUnPourcentageDisponible(data: ApiTrajectoiresProStatistiqueResponse): boolean {
-		const isRegionStatistiqueDisponible = !!data.region?.nom;
-		const isStatistiqueDisponible = !!data.taux_autres_6_mois || !!data.taux_en_emploi_6_mois || !!data.taux_autres_6_mois;
-		return isRegionStatistiqueDisponible && isStatistiqueDisponible;
-	}
 }

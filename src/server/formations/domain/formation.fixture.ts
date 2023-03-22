@@ -11,7 +11,7 @@ export const aRésultatRechercheFormation = (): Array<RésultatRechercheFormatio
 		titre: 'Développeur web',
 	},
 	{
-		codeCertification: '999',
+		codeCertification: '888',
 		idRco: '456',
 		nomEntreprise: 'La Bonne Alternance',
 		tags: ['Paris', 'Autre'],

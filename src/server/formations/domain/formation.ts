@@ -37,3 +37,10 @@ export interface FormationFiltre {
 	latitudeCommune: string
 	longitudeCommune: string
 }
+
+export namespace FormationFiltre {
+	export interface AvecCodeCertification extends FormationFiltre {
+		codeCertification?: string
+	}
+}
+

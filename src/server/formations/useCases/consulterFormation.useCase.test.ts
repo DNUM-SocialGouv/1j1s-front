@@ -4,13 +4,14 @@ import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { aFormationRepository } from '~/server/formations/domain/formation.repository.fixture';
 import { aStatistiqueRepository } from '~/server/formations/domain/statistique.repository.fixture';
 import {
+	aFormationAvecCodeCertificationQuery,
 	aFormationQuery,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.fixture';
 import { ConsulterFormationUseCase } from '~/server/formations/useCases/consulterFormation.useCase';
 
 describe('ConsulterFormationUseCase', () => {
 	describe('handle', () => {
-		describe('lorque la formation n’existe pas', () => {
+		describe('lorsque la formation n’existe pas', () => {
 			it('retourne une erreur', async () => {
 				// Given
 				const formationRepository = aFormationRepository();
@@ -21,7 +22,7 @@ describe('ConsulterFormationUseCase', () => {
 				const filtres = aFormationQuery();
 
 				// When
-				const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres, '4567');
+				const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres);
 
 				// Then
 				expect(returnValue).toEqual({ formation: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
@@ -29,8 +30,8 @@ describe('ConsulterFormationUseCase', () => {
 				expect(statistiqueRepository.get).toHaveBeenCalledTimes(0);
 			});
 		});
-		describe('lorque la formation existe', () => {
-			describe('lorque le codeCertificaiton n’est pas donné', () => {
+		describe('lorsque la formation existe', () => {
+			describe('lorsque le codeCertification n’est pas donné', () => {
 				it('retourne la formation sans statistiques', async () => {
 					// Given
 					const formationRepository = aFormationRepository();
@@ -38,10 +39,10 @@ describe('ConsulterFormationUseCase', () => {
 
 					const statistiqueRepository = aStatistiqueRepository();
 
-					const filtres = aFormationQuery();
+					const filtres = aFormationAvecCodeCertificationQuery({ codeCertification: undefined });
 
 					// When
-					const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres, undefined);
+					const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres);
 
 					// Then
 					expect(returnValue).toEqual({ formation: createSuccess(aFormation()) });
@@ -67,7 +68,7 @@ describe('ConsulterFormationUseCase', () => {
 					const filtres = aFormationQuery();
 
 					// When
-					const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres, '4567');
+					const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres);
 
 					// Then
 					expect(returnValue).toEqual({ formation: createSuccess(formation) });
@@ -75,7 +76,7 @@ describe('ConsulterFormationUseCase', () => {
 					expect(statistiqueRepository.get).toHaveBeenCalledTimes(0);
 				});
 			});
-			describe('lorque le codeCertificaiton est donné et que la formation obtenu contient un code postal', () => {
+			describe('lorsque le codeCertification est donné et que la formation obtenu contient un code postal', () => {
 				describe('lorsque la statistique n’existe pas', () => {
 					it('retourne la formation sans statistiques', async () => {
 						// Given
@@ -85,10 +86,10 @@ describe('ConsulterFormationUseCase', () => {
 						const statistiqueRepository = aStatistiqueRepository();
 						(statistiqueRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 
-						const filtres = aFormationQuery();
+						const filtres = aFormationAvecCodeCertificationQuery();
 
 						// When
-						const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres, '4567');
+						const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres);
 
 						// Then
 						expect(returnValue).toEqual({ formation: createSuccess(aFormation()) });
@@ -112,10 +113,10 @@ describe('ConsulterFormationUseCase', () => {
 						const statistiqueRepository = aStatistiqueRepository();
 						(statistiqueRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(statistique));
 
-						const filtres = aFormationQuery();
+						const filtres = aFormationAvecCodeCertificationQuery();
 
 						// When
-						const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres, '4567');
+						const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres);
 
 						// Then
 						expect(returnValue).toEqual({

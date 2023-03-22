@@ -7,15 +7,15 @@ import { StatistiqueRepository } from '~/server/formations/domain/statistique.re
 export class ConsulterFormationUseCase {
 	constructor(private formationRepository: FormationRepository, private statistiqueRepository: StatistiqueRepository) {}
 
-	async handle(id: string, filtre?: FormationFiltre, codeCertification?: string): Promise<{ formation: Either<Formation>, statistiques?: Either<Statistique> }> {
+	async handle(id: string, filtre?: FormationFiltre.AvecCodeCertification): Promise<{ formation: Either<Formation>, statistiques?: Either<Statistique> }> {
 		const formation = await this.formationRepository.get(id, filtre);
 		
 		if (isFailure(formation)) return { formation };
-		
-		if (!codeCertification || !formation.result.adresse.codePostal) return { formation };
-		
+
 		const codePostal = formation.result.adresse.codePostal;
-		const statistiques = await this.statistiqueRepository.get(codeCertification, codePostal);
+		if (!filtre?.codeCertification || !codePostal) return { formation };
+
+		const statistiques = await this.statistiqueRepository.get(filtre.codeCertification, codePostal);
 		
 		if (isFailure(statistiques)) return { formation };
 		

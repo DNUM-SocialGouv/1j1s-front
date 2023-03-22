@@ -1,7 +1,7 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .section {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
 }
 
 .entête {
@@ -13,29 +13,27 @@
   h3, p, li {
     font-size: 0.875rem;
   }
-  li:not(last-child) {
+  li:not(:last-child) {
     margin-bottom: 0.25rem;
+  }
+
+  @include utilities.media(large) {
+    padding: 3.5rem 0;
   }
 }
 
 .texte {
   &Question {
     margin-bottom: 1rem;
-    font-weight: 700;
+    font-weight: bold;
   }
 
   &Pourcentage {
-    color: $color-primary;
+    color: utilities.$color-primary;
   }
 }
 
 p.millesime {
   margin-top: 2rem;
-  font-size: 0.6rem;
-}
-
-@include media(large) {
-  .layout {
-    padding: 3.5rem 0;
-  }
+  font-size: 0.75rem;
 }

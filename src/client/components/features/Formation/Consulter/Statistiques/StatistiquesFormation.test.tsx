@@ -8,18 +8,8 @@ import {
 } from '@testing-library/react';
 
 import { StatistiquesFormation } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
-import { Statistique } from '~/server/formations/domain/statistique';
+import { statistiques } from '~/server/formations/domain/statistique.fixture';
 
-const statistiques = (override?: Partial<Statistique>) :Statistique => {
-	return {
-		millesime: '2020-2021',
-		region: 'Pays de la Loire',
-		tauxAutres6Mois: '12',
-		tauxEnEmploi6Mois: '36',
-		tauxEnFormation: '22',
-		...override,
-	};
-};
 describe('StatistiquesFormation', () => {
 	describe('quand on reçoit des statistiques', () => {
 
@@ -32,13 +22,6 @@ describe('StatistiquesFormation', () => {
 
 			const descriptionEntTête = screen.getByText('Découvrez les chiffres-clés liés à cette formation pour la région Pays de la Loire');
 			expect(descriptionEntTête).toBeVisible();
-		});
-
-		it('affiche les informations de statistiques', () => {
-			render(<StatistiquesFormation statistiques={statistiques()}/>);
-
-			const listeDeStatistique = screen.getByRole('list', { name: 'statistiques' });
-			expect(listeDeStatistique).toBeInTheDocument();
 		});
 
 		describe('concernant le taux en emploi après 6 mois', () => {
@@ -55,12 +38,10 @@ describe('StatistiquesFormation', () => {
 				it('affiche le taux', () => {
 					render(<StatistiquesFormation statistiques={statistiques()}/>);
 
-
-					const listeDeStatistique = screen.getByRole('list', { name: 'statistiques' });
+					const listeDeStatistique = screen.getByRole('list');
 					const tauxEnEmploi6Mois = within(listeDeStatistique).getByText('sont en emploi au bout de 6 mois (quel que soit le type d’emploi et son secteur)');
 					expect(tauxEnEmploi6Mois).toBeVisible();
-					const tauxEnEmploi6MoisPourcentage = within(listeDeStatistique).getByText('36%');
-					expect(tauxEnEmploi6MoisPourcentage).toBeVisible();
+					expect(tauxEnEmploi6Mois).toHaveTextContent('36%');
 				});
 			});
 		});
@@ -79,12 +60,10 @@ describe('StatistiquesFormation', () => {
 				it('affiche le taux', () => {
 					render(<StatistiquesFormation statistiques={statistiques()}/>);
 
-
-					const listeDeStatistique = screen.getByRole('list', { name: 'statistiques' });
+					const listeDeStatistique = screen.getByRole('list');
 					const tauxEnFormation = within(listeDeStatistique).getByText('sont inscrits en formation (formation supérieure, redoublants, changement de filière)');
 					expect(tauxEnFormation).toBeVisible();
-					const tauxEnFormationPourcentage = within(listeDeStatistique).getByText('22%');
-					expect(tauxEnFormationPourcentage).toBeVisible();
+					expect(tauxEnFormation).toHaveTextContent('22%');
 				});
 			});
 		});
@@ -103,12 +82,11 @@ describe('StatistiquesFormation', () => {
 				it('affiche le taux', () => {
 					render(<StatistiquesFormation statistiques={statistiques()}/>);
 
-
-					const listeDeStatistique = screen.getByRole('list', { name: 'statistiques' });
+					const listeDeStatistique = screen.getByRole('list');
 					const tauxAutres6Mois = within(listeDeStatistique).getByText('sont dans d’autres cas (recherche d’emploi, service civique, à l’étranger, indépendant, etc)');
 					expect(tauxAutres6Mois).toBeVisible();
-					const tauxAutres6MoisPourcentage = within(listeDeStatistique).getByText('12%');
-					expect(tauxAutres6MoisPourcentage).toBeVisible();
+					expect(tauxAutres6Mois).toHaveTextContent('12%');
+
 				});
 			});
 		});
