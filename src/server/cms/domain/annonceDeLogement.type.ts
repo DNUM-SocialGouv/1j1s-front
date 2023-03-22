@@ -1,6 +1,8 @@
+import { BaseHit } from 'instantsearch.js/es/types/results';
+
 import { Image } from '~/client/components/props';
 
-export interface AnnonceDeLogementIndexee {
+export interface AnnonceDeLogementIndexee extends BaseHit {
   titre: string
   slug: string
   dateDeDisponibilite: string

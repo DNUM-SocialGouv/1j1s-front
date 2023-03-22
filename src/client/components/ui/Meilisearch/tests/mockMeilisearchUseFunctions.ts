@@ -105,6 +105,7 @@ export const aDisjunctiveAppartementItemRefinement = (): CurrentRefinementsConne
 export const aTypeBienItem = (override?: Partial<CurrentRefinementsConnectorParamsItem>): CurrentRefinementsConnectorParamsItem => {
 	return {
 		attribute: 'typeBien',
+		indexId: 'id-index',
 		indexName: 'nom-index',
 		label: 'typeBien',
 		refine: jest.fn(),
