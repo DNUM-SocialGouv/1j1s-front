@@ -11,6 +11,6 @@ locals {
 
   # Parse le fichier .env et retourne une map de clé/valeur de variables d'environnement
   envs_du_fichier_env = (var.front_fichier_env_secret != null) ? {
-    for tuple in regexall("(.*)=[\"']?([^\"']*)[\"']?", file(var.front_fichier_env_secret)) : tuple[0] => tuple[1]
+    for tuple in regexall("(.*)=[\"']?(.+)[\"']?", file(var.front_fichier_env_secret)) : tuple[0] => sensitive(tuple[1])
   } : {}
 }

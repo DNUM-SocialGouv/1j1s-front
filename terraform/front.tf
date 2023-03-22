@@ -3,12 +3,12 @@ module "front_app" {
 
   stack = "scalingo-20"
 
-  name = terraform.workspace == "default" ? "1j1s-front" : "1j1s-front-${terraform.workspace}"
+  name = var.front_nom_de_l_application
 
   containers = {
     web = {
-      size : terraform.workspace == "production" ? "XL" : "M"
-      amount : 1
+      size   = terraform.workspace == "production" ? "XL" : "M"
+      amount = 1
       autoscaler = terraform.workspace == "production" ? {
         min_containers = 2
         max_containers = 10
@@ -23,10 +23,7 @@ module "front_app" {
     branch   = var.branche_git
   }
 
-  environment = merge(
-    var.front_variables_environnement_communes,
-    local.envs_du_fichier_env
-  )
+  environment = local.envs_du_fichier_env
 
   addons = [
     {
@@ -47,7 +44,7 @@ module "front_app" {
   log_drains = (var.logstash_uri != null) ? [
     {
       type = "elk"
-      url  = "${var.logstash_uri}"
+      url  = sensitive(var.logstash_uri)
     }
   ] : null
 }

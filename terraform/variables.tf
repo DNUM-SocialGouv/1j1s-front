@@ -1,23 +1,21 @@
+# Peut aussi être défini avec TF_VAR_front_nom_de_l_application
+variable "front_nom_de_l_application" {
+  description = "Nom de l'application"
+  type        = string
+}
+
 # Peut aussi être défini avec TF_VAR_front_nom_de_domaine
 variable "front_nom_de_domaine" {
   description = "Nom de domaine du front"
   type        = string
   default     = null
-
-}
-# Peut aussi être défini avec TF_VAR_front_variables_environnement_communes='{ FOO = "bar", BAR = "foor" }'
-variable "front_variables_environnement_communes" {
-  description = "Variables d'environnement communes à toutes les instances de l'application"
-  type        = map(string)
-  default     = {}
 }
 
 # Peut aussi être défini avec TF_VAR_front_fichier_env_secret
 variable "front_fichier_env_secret" {
   description = "Nom du fichier contenant des variables d'environment, par exemple \".env\". Sera fusionné avec les variables"
   type        = string
-  default     = null # "../.env"
-  sensitive   = true
+  default     = null
 }
 
 # Peut aussi être défini avec TF_VAR_branche_git
