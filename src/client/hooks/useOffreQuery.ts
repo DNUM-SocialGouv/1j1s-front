@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 // FIXME (GAFI 20-03-2023): Les alternances n'utilisent que certains de ces champs, un utilisateur ne devrait pas
-//	pouvoir utiliser les autres champs.
-export interface OffreQueryParams {
+//  pouvoir utiliser les autres champs.
+export type OffreQueryParams = {
   motCle?: string
   typeDeContrats?: string
   typeLocalisation?: string
@@ -14,7 +14,7 @@ export interface OffreQueryParams {
   tempsDeTravail?: string
   experienceExigence?: string
   grandDomaine?: string
-	page?: string
+  page?: string
 }
 
 export function useOffreQuery(): OffreQueryParams {
