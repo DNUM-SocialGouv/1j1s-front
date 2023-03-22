@@ -1,29 +1,40 @@
-import { AxiosError, AxiosResponse, isAxiosError } from 'axios';
+import { AxiosResponse, isAxiosError } from 'axios';
 
 import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
-import { createSuccess, Either, isSuccess } from '~/server/errors/either';
-import { Formation, FormationFiltre,RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
-import { HttpClientService } from '~/server/services/http/httpClientService';
-
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse,
-} from './apiLaBonneAlternanceFormation';
+	ApiLaBonneAlternanceFormationResponse, AppointmentRequest,
+} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 import {
 	mapFormation,
 	mapRésultatRechercheFormation,
-	mapRésultatRechercheFormationToFormation,
-} from './apiLaBonneAlternanceFormation.mapper';
+	mapRésultatRechercheFormationToFormation, parseIdFormation,
+} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
+import { HttpClientService } from '~/server/services/http/httpClientService';
+
+const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
+export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
 	constructor(private httpClientService: HttpClientService, private caller: string) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
+		const searchResult = await this.searchFormationWithFiltre(filtre);
+		if (isSuccess(searchResult)) {
+			return createSuccess(mapRésultatRechercheFormation(searchResult.result));
+		}
+		return searchResult;
+	}
+
+	private async searchFormationWithFiltre(filtre: FormationFiltre): Promise<Either<ApiLaBonneAlternanceFormationRechercheResponse>> {
 		const endpoint = this.getEndPointWithQueryParams(filtre);
 		try {
 			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationRechercheResponse>(endpoint);
-			return createSuccess(mapRésultatRechercheFormation(response.data));
+			return createSuccess(response.data);
 		} catch (e) {
 			return handleSearchFailureError(e, 'la bonne alternance recherche formation');
 		}
@@ -31,7 +42,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 
 	private getEndPointWithQueryParams(filtre: FormationFiltre): string {
 		const codeRomes = filtre.codeRomes.join(',');
-		return '/formations?'
+		return '/v1/formations?'
 			.concat(`caller=${this.caller}`)
 			.concat(`&romes=${codeRomes}`)
 			.concat(`&insee=${filtre.codeCommune}`)
@@ -45,30 +56,58 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		return e.status === 500 && e.data.error === 'internal_error';
 	}
 
-	async get(id: string, filtre?: FormationFiltre): Promise<Either<Formation>> {
+	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
+		const { idRco: formationId, cleMinistereEducatif } = parseIdFormation(id);
 		try {
-			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/formations/formationDescription/${id}`);
+			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formationDescription/${formationId}`);
 			const formation = mapFormation(apiResponse.data);
+			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
 		} catch (e) {
-
-			if (isAxiosError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e.response)) {
-				if (filtre) {
-					return await this.getFormationFromRésultatsRecherche(filtre, id, e);
+			if (ApiLaBonneAlternanceFormationRepository.isSearchDoable(e) && filtreRecherchePourRetrouverLaFormation) {
+				try {
+					const formation = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
+					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
+					return createSuccess(formation);
+				} catch (error) {
+					return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 				}
 			}
-			return handleSearchFailureError(e, 'détail formation la bonne alternance description');
+			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		}
 	}
 
-	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string, e: AxiosError) {
+	private static isSearchDoable(e: unknown) {
+		return isAxiosError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e.response);
+	}
+
+	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Formation> {
 		const searchResult = await this.search(filtre);
 		if (isSuccess(searchResult)) {
-			const résultatRechercheFormation = searchResult.result.find((f) => f.idRco === id);
+			const résultatRechercheFormation = searchResult.result.find((f) => f.id === id);
 			if (résultatRechercheFormation) {
-				return createSuccess(mapRésultatRechercheFormationToFormation(résultatRechercheFormation));
+				return mapRésultatRechercheFormationToFormation(résultatRechercheFormation);
 			}
+			return Promise.reject(ErreurMétier.DEMANDE_INCORRECTE);
 		}
-		return handleSearchFailureError(e, 'détail formation la bonne alternance description');
+		return Promise.reject(searchResult.errorType);
+	}
+
+	private async getFormationLienRendezVous(cleMinistereEducatif: string | undefined): Promise<string | undefined> {
+		try {
+			if (!cleMinistereEducatif) {
+				return undefined;
+			}
+			const response: AxiosResponse<AppointmentRequest> = await this.httpClientService.post(
+				'/appointment-request/context/create',
+				{
+					idCleMinistereEducatif: cleMinistereEducatif,
+					referrer: DEMANDE_RENDEZ_VOUS_REFERRER,
+				},
+			);
+			return response.data.form_url;
+		} catch (e) {
+			return undefined;
+		}
 	}
 }

@@ -16,8 +16,11 @@ export namespace ApiLaBonneAlternanceFormationRechercheResponse {
 		diplomaLevel?: string
 		idRco: string
 		cfd?: string
+		cleMinistereEducatif?: string
 	}
 }
+
+export type IdRcoAndCléMinistèreÉducatif = Pick<ApiLaBonneAlternanceFormationRechercheResponse.Formation, 'idRco' | 'cleMinistereEducatif'>;
 
 export interface ApiLaBonneAlternanceFormationRechercheResponse {
 	results: Array<ApiLaBonneAlternanceFormationRechercheResponse.Formation>
@@ -55,4 +58,8 @@ export interface ApiLaBonneAlternanceFormationResponse {
 	description?: string
 	objectif?: string
 	'duree-indicative'?: string
+}
+
+export interface AppointmentRequest {
+	form_url?: string
 }

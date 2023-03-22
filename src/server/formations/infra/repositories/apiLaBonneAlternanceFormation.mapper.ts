@@ -1,9 +1,12 @@
 import { Formation,RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { mapNiveauFormation } from '~/server/formations/domain/formation.mapper';
+import {
+	ID_FORMATION_SEPARATOR,
+} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
 
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse,
+	ApiLaBonneAlternanceFormationResponse, IdRcoAndCléMinistèreÉducatif,
 } from './apiLaBonneAlternanceFormation';
 
 export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFormationRechercheResponse): Array<RésultatRechercheFormation> => {
@@ -11,12 +14,26 @@ export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFor
 		adresse: formation.place?.fullAddress,
 		codeCertification: formation.cfd,
 		codePostal: formation.place?.zipCode,
-		idRco: formation.idRco,
+		id: mapIdFormation(formation),
 		nomEntreprise: formation.company?.name,
 		tags: [formation.place?.city, mapNiveauFormation(formation.diplomaLevel)],
 		titre: formation.title,
 	}));
 };
+
+function mapIdFormation(
+	response: ApiLaBonneAlternanceFormationRechercheResponse.Formation,
+): RésultatRechercheFormation['id'] {
+	return `${response.idRco}${ID_FORMATION_SEPARATOR}${response.cleMinistereEducatif ? response.cleMinistereEducatif : ''}`;
+}
+
+export function parseIdFormation(id: string): IdRcoAndCléMinistèreÉducatif {
+	const idArray = id.split(ID_FORMATION_SEPARATOR);
+	return {
+		cleMinistereEducatif: idArray[1],
+		idRco: idArray[0],
+	};
+}
 
 function mapFormationAdresse(
 	adresse: string | undefined,

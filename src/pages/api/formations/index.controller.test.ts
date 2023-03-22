@@ -4,7 +4,7 @@ import nock from 'nock';
 import { rechercherFormationHandler } from '~/pages/api/formations/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
-import { aRésultatRechercheFormation } from '~/server/formations/domain/formation.fixture';
+import { aRésultatRechercheFormationList } from '~/server/formations/domain/formation.fixture';
 import {
 	aLaBonneAlternanceApiRésultatRechercheFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.fixture';
@@ -28,7 +28,7 @@ describe('rechercher formation', () => {
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(json).toEqual(aRésultatRechercheFormation());
+					expect(json).toEqual(aRésultatRechercheFormationList());
 				},
 				url: `/formations?codeRomes=${codeRomes}&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}`,
 			});
@@ -55,7 +55,7 @@ describe('rechercher formation', () => {
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(json).toEqual(aRésultatRechercheFormation());
+					expect(json).toEqual(aRésultatRechercheFormationList());
 				},
 				url: `/formations?codeRomes=${codeRomes}&codeCommune=${codeCommune}&longitudeCommune=${longitudeCommune}&latitudeCommune=${latitudeCommune}&distanceCommune=${radius}&niveauEtudes=${niveauEtudes}`,
 			});

@@ -152,5 +152,5 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 }
 
 function getLienOffre(formation: RésultatRechercheFormation, queryParams: string) {
-	return `/formations/apprentissage/${encodeURIComponent(formation.idRco)}?${queryParams}&codeCertification=${formation.codeCertification}`;
+	return `/formations/apprentissage/${encodeURIComponent(formation.id)}?${queryParams}&codeCertification=${formation.codeCertification}`;
 }

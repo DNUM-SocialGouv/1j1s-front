@@ -3,6 +3,7 @@ import {
 	StatistiquesFormation,
 } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { Formation } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
@@ -16,6 +17,11 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 					{formation.titre && <h1>{formation.titre}</h1>}
 					{formation.nomEntreprise && <h2>{formation.nomEntreprise}</h2>}
 					<TagList list={formation.tags} />
+					{formation.lienDemandeRendezVous &&
+						<Link appearance={'asPrimaryButton'} type={'external'} href={formation.lienDemandeRendezVous} className={commonStyles.postuler}>
+							Demander un rendez-vous
+						</Link>
+					}
 				</header>
 				<section className={commonStyles.contenu}>
 					{formation.description &&

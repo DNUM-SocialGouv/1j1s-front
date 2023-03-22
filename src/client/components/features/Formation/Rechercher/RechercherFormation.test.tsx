@@ -54,7 +54,7 @@ describe('RechercherFormation', () => {
 			// GIVEN
 			const formationFixture: RésultatRechercheFormation[] = [
 				{
-					idRco: '123',
+					id: '123',
 					nomEntreprise: 'La Bonne Alternance',
 					tags: ['Paris', NiveauRequis['NIVEAU_5']],
 					titre: 'Développeur web',
@@ -98,7 +98,7 @@ describe('RechercherFormation', () => {
 			const formationFixture: RésultatRechercheFormation[] = [
 				{
 					codeCertification: '123456',
-					idRco: '123',
+					id: '123',
 					nomEntreprise: 'La Bonne Alternance',
 					tags: ['Paris', NiveauRequis['NIVEAU_5']],
 					titre: 'Développeur web',

@@ -37,6 +37,7 @@ export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiL
 	results: [
 		{
 			cfd: '999',
+			cleMinistereEducatif: 'cleMinistereEducatif-123456',
 			company: {
 				name: 'La Bonne Alternance',
 			},

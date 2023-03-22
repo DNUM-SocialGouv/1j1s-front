@@ -5,7 +5,7 @@ import { NiveauRequis,RésultatRechercheFormation } from '~/server/formations/do
 export const aRésultatFormation = (): Array<RésultatRechercheFormation> => [
 	{
 		adresse: '1 rue de la République',
-		idRco: '123',
+		id: '123',
 		nomEntreprise: 'La Bonne Alternance',
 		tags: ['Paris', NiveauRequis['NIVEAU_5']],
 		titre: 'Développeur web',
