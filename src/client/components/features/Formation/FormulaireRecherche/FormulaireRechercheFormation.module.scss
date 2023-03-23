@@ -18,6 +18,7 @@
   margin-block: 1.25rem;
 }
 
+
 @include media(medium) {
   .rechercheFormationForm {
     flex-direction: row;
@@ -40,5 +41,9 @@
 
   .inputButtonWrapper > div {
     flex-grow: 1;
+  }
+
+  .inputNiveauEtudes {
+    width: 60%;
   }
 }

@@ -15,6 +15,7 @@ export const formationRechercheQuerySchema = Joi.object({
 	distanceCommune: Joi.string().required(),
 	latitudeCommune: Joi.string().required(),
 	longitudeCommune: Joi.string().required(),
+	niveauEtudes: Joi.string().optional().valid('3', '4', '5', '6', '7'),
 });
 
 export async function rechercherFormationHandler(req: NextApiRequest, res: NextApiResponse<Array<RésultatRechercheFormation> | ErrorHttpResponse>) {
@@ -32,5 +33,6 @@ export function formationFiltreMapper(request: NextApiRequest): FormationFiltre 
 		distanceCommune: query.distanceCommune ? String(query.distanceCommune) : '',
 		latitudeCommune: query.latitudeCommune ? String(query.latitudeCommune) : '',
 		longitudeCommune: query.longitudeCommune ? String(query.longitudeCommune) : '',
+		niveauEtudes: query.niveauEtudes ? String(query.niveauEtudes) : undefined,
 	};
 }

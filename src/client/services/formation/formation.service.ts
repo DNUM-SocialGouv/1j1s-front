@@ -14,6 +14,7 @@ interface FormationQueryFiltre extends ParsedUrlQuery {
 	distanceCommune: string
 	latitudeCommune: string
 	longitudeCommune: string
+	niveauEtudes?: string
 }
 
 export class FormationService {
@@ -33,6 +34,7 @@ export class FormationService {
 			latitudeCommune: currentQueries.latitudeCommune,
 			longitudeCommune: currentQueries.longitudeCommune,
 		} as FormationQueryFiltre;
+		if (currentQueries.niveauEtudes && currentQueries.niveauEtudes !== 'indifférent') queries.niveauEtudes = currentQueries.niveauEtudes as string;
 		return stringify(queries);
 	}
 }
