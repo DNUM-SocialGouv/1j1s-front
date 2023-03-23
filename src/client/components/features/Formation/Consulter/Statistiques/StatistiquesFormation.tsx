@@ -1,5 +1,11 @@
+import React from 'react';
+
 import styles from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
+import {
+	ArticleCard,
+	ArticleCardList,
+} from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
 import { Statistique } from '~/server/formations/domain/statistique';
 
@@ -31,6 +37,19 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 						<p className={styles.millesime}>Données issues du dispositif InserJeunes, promotion {statistiques.millesime}</p>
 					}
 				</article>
+				<ArticleCardList>
+					<ArticleCard
+						vertical={false}
+						imageSrc="/images/logos/inserjeunes.svg"
+						imageFit="contain"
+						link="/articles/inserjeunes"
+						titleLabel="InserJeunes, le dispositif qui vous présente le devenir des étudiants après un diplôme"
+					>
+						<p>
+							Découvrez ce que sont devenus les étudiants toujours inscrits en formation ou ceux en emploi dans les 6 mois suivants la sortie de formation !
+						</p>
+					</ArticleCard>
+				</ArticleCardList>
 			</Container>
 		</div>
 	);

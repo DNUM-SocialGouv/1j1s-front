@@ -8,9 +8,13 @@ import {
 } from '@testing-library/react';
 
 import { StatistiquesFormation } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { statistiques } from '~/server/formations/domain/statistique.fixture';
 
 describe('StatistiquesFormation', () => {
+	beforeEach(() => {
+		mockSmallScreen();
+	});
 	describe('quand on reçoit des statistiques', () => {
 
 		it('affiche l’entête', () => {
@@ -38,7 +42,8 @@ describe('StatistiquesFormation', () => {
 				it('affiche le taux', () => {
 					render(<StatistiquesFormation statistiques={statistiques()}/>);
 
-					const listeDeStatistique = screen.getByRole('list');
+					const listes = screen.getAllByRole('list');
+					const listeDeStatistique = listes[0];
 					const tauxEnEmploi6Mois = within(listeDeStatistique).getByText('sont en emploi au bout de 6 mois (quel que soit le type d’emploi et son secteur)');
 					expect(tauxEnEmploi6Mois).toBeVisible();
 					expect(tauxEnEmploi6Mois).toHaveTextContent('36%');
@@ -60,7 +65,8 @@ describe('StatistiquesFormation', () => {
 				it('affiche le taux', () => {
 					render(<StatistiquesFormation statistiques={statistiques()}/>);
 
-					const listeDeStatistique = screen.getByRole('list');
+					const listes = screen.getAllByRole('list');
+					const listeDeStatistique = listes[0];
 					const tauxEnFormation = within(listeDeStatistique).getByText('sont inscrits en formation (formation supérieure, redoublants, changement de filière)');
 					expect(tauxEnFormation).toBeVisible();
 					expect(tauxEnFormation).toHaveTextContent('22%');
@@ -82,7 +88,8 @@ describe('StatistiquesFormation', () => {
 				it('affiche le taux', () => {
 					render(<StatistiquesFormation statistiques={statistiques()}/>);
 
-					const listeDeStatistique = screen.getByRole('list');
+					const listes = screen.getAllByRole('list');
+					const listeDeStatistique = listes[0];
 					const tauxAutres6Mois = within(listeDeStatistique).getByText('sont dans d’autres cas (recherche d’emploi, service civique, à l’étranger, indépendant, etc)');
 					expect(tauxAutres6Mois).toBeVisible();
 					expect(tauxAutres6Mois).toHaveTextContent('12%');
@@ -109,6 +116,15 @@ describe('StatistiquesFormation', () => {
 					expect(millesime).toBeVisible();
 				});
 			});
+		});
+
+		it('affiche un article inserjeunes', () => {
+			render(<StatistiquesFormation statistiques={statistiques()}/>);
+
+			const article =  screen.getByRole('link');
+			expect(article).toHaveTextContent('InserJeunes, le dispositif qui vous présente le devenir des étudiants après un diplôme');
+			expect(article).toBeVisible();
+
 		});
 
 	});
