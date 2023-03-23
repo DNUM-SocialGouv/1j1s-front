@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.32.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.32.0...v3.32.1) (2023-03-23)
+
+
+### Bug Fixes
+
+* **alternance:** tags apres changement contrat interface LBA ([1a08951](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1a08951551a7be486285c2681de7f7e8c32fc486))
+
 ## [3.32.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.31.0...v3.32.0) (2023-03-23)
 
 
