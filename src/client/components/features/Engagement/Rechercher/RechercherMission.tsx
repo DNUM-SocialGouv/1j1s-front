@@ -125,9 +125,9 @@ function ListeMission({ résultatList, isServiceCivique }: ListeRésultatProps) 
 				<li key={mission.id}>
 					<RésultatRechercherSolution
 						intituléOffre={mission.titre}
-						nomEntreprise={mission.nomEntreprise}
+						sousTitreOffre={mission.nomEntreprise}
 						lienOffre={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
-						logoEntreprise={isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg'}
+						logo={isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg'}
 						étiquetteOffreList={mission.étiquetteList}
 					/>
 				</li>

@@ -76,7 +76,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance());
+			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
 			const métierService = aMétierService(aMétierList);
 			// When
 			render(
@@ -119,7 +119,7 @@ describe('FormulaireRechercheAlternance', () => {
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance());
+			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
 			const métierService = aMétierService(aMétierList);
 			// When
 			render(
@@ -156,7 +156,7 @@ describe('FormulaireRechercheAlternance', () => {
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance());
+			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
 			const métierService = aMétierService(aMétierList);
 			// When
 			render(

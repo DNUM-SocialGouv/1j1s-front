@@ -1,6 +1,9 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import { aMatchaResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import {
+	aLbaCompaniesResponse,
+	aMatchaResponse,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
 	mapAlternanceListe,
 	mapMatcha,
@@ -14,6 +17,32 @@ describe('mapAlternance', () => {
 	};
 	it('converti une response en liste d’alternance', () => {
 		const input: AlternanceApiJobsResponse = {
+			lbaCompanies: {
+				results: [
+					{
+						company: {
+							name: 'CLUB VET',
+							siret: '52352551700026',
+							size: '0-0',
+						},
+						contact: {
+							email: 'b3759ee20eff2e0a4cd369c4f2eb62238324fc',
+							iv: '93f7bd08e956453cd8d0f8f75821a634',
+						},
+						nafs: [
+							{
+								label: 'Autres intermédiaires du commerce en produits divers',
+							}, {
+								label: 'Développement informatique',
+							},
+						],
+						place: {
+							city: 'Paris',
+							fullAddress: '18 RUE EMILE LANDRIN, 75020 Paris',
+						},
+					},
+				],
+			},
 			matchas: {
 				results: [{
 					company: { name: 'ECOLE DE TRAVAIL ORT' },
@@ -45,26 +74,111 @@ describe('mapAlternance', () => {
 
 		const result = mapAlternanceListe(input);
 
-		expect(result).toEqual([
-			{
-				entreprise: {
-					nom: 'ECOLE DE TRAVAIL ORT',
+		expect(result).toEqual({
+			entrepriseList: [{
+				adresse: '18 RUE EMILE LANDRIN, 75020 Paris',
+				candidaturePossible: true,
+				id: '52352551700026',
+				nom: 'CLUB VET',
+				secteurs: ['Autres intermédiaires du commerce en produits divers', 'Développement informatique'],
+				tags: ['Paris', '0 à 9 salariés','Candidature spontanée'],
+				ville: 'Paris',
+			}],
+			offreList: [
+				{
+					entreprise: {
+						nom: 'ECOLE DE TRAVAIL ORT',
+					},
+					id: 'id',
+					source: Alternance.Source.MATCHA,
+					tags: ['CDD', 'CDI', 'CAP, BEP'],
+					titre: 'Monteur / Monteuse en chauffage (H/F)',
 				},
-				id: 'id',
-				source: Alternance.Source.MATCHA,
-				tags: ['CDD', 'CDI', 'CAP, BEP'],
-				titre: 'Monteur / Monteuse en chauffage (H/F)',
-			},
-			{
-				entreprise: {
-					nom: 'ECOLE DE TRAVAIL ORT',
+				{
+					entreprise: {
+						nom: 'ECOLE DE TRAVAIL ORT',
+					},
+					id: 'id',
+					source: Alternance.Source.POLE_EMPLOI,
+					tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
+					titre: 'Monteur / Monteuse en chauffage (H/F)',
+				}],
+		});
+	});
+	describe('Converti la taille d’une entreprise', () => {
+		it('renvoie la taille de l’entrerprise formatté', () => {
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: {
+					results: [
+						aLbaCompaniesResponse({
+							company: {
+								name: 'CLUB VET',
+								size: '0-0',
+							},
+						}),
+						aLbaCompaniesResponse({
+							company: {
+								name: 'Entreprise2',
+								size: '55',
+							},
+						}),
+						aLbaCompaniesResponse({
+							company: {
+								name: 'Entreprise3',
+								size: '20-30',
+							},
+						}),
+					],
 				},
-				id: 'id',
-				source: Alternance.Source.POLE_EMPLOI,
-				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
-				titre: 'Monteur / Monteuse en chauffage (H/F)',
-			},
-		]);
+				matchas: {
+					results: [],
+				},
+				peJobs: {
+					results: [],
+				},
+			};
+			const resultEntreprise = mapAlternanceListe(input).entrepriseList;
+
+			expect(resultEntreprise[0].tags[1]).toEqual('0 à 9 salariés');
+			expect(resultEntreprise[1].tags[1]).toEqual('55 salariés');
+			expect(resultEntreprise[2].tags[1]).toEqual('20 à 30 salariés');
+		});
+	});
+
+	describe('Quand l’email d’une entreprise n’est pas rempli', () => {
+		it('la candidature est impossible', () => {
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: {
+					results: [
+						{
+							company: {
+								name: 'CLUB VET',
+							},
+							contact: {
+								iv: '93f7bd08e956453cd8d0f8f75821a634',
+							},
+						},
+					],
+				},
+				matchas: {
+					results: [],
+				},
+				peJobs: {
+					results: [],
+				},
+			};
+
+			const result = mapAlternanceListe(input);
+
+			expect(result).toEqual({
+				entrepriseList: [{
+					candidaturePossible: false,
+					nom: 'CLUB VET',
+					tags: ['Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise'],
+				}],
+				offreList: [],
+			});
+		});
 	});
 
 	it('sanitize tout le texte présent dans l’alternance', () => {
@@ -187,4 +301,5 @@ describe('mapAlternance', () => {
 			typeDeContrat: ['CDD'],
 		});
 	});
-});
+})
+;

@@ -152,8 +152,8 @@ function ListeOffreAlternance({ résultatList }: ListeRésultatProps) {
 						étiquetteOffreList={offreEmploi.étiquetteList}
 						intituléOffre={offreEmploi.intitulé}
 						lienOffre={`/emplois/${offreEmploi.id}`}
-						logoEntreprise={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
-						nomEntreprise={offreEmploi.entreprise.nom}
+						logo={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+						sousTitreOffre={offreEmploi.entreprise.nom}
 					/>
 				</li>
 			))}

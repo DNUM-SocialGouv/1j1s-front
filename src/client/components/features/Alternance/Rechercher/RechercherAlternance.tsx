@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-import { FormulaireRechercheAlternance } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+import {
+	FormulaireRechercheAlternance,
+} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
 import { PassPartner } from '~/client/components/features/Partner/PassPartner';
@@ -10,7 +11,9 @@ import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
-import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+	RechercherSolutionLayoutWithTabs,
+} from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
@@ -35,7 +38,10 @@ export default function RechercherAlternance() {
 
 	const alternanceService = useDependency<AlternanceService>('alternanceService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [alternanceList, setAlternanceList] = useState<RésultatRechercheAlternance[]>([]);
+	const [alternanceList, setAlternanceList] = useState<RésultatRechercheAlternance>({
+		entrepriseList: [],
+		offreList: [],
+	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [nombreRésultats, setNombreRésultats] = useState(0);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
@@ -48,9 +54,10 @@ export default function RechercherAlternance() {
 			alternanceService.rechercherAlternance(alternanceQuery)
 				.then((response) => {
 					if (response.instance === 'success') {
-						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
+						const numberResult = response.result.offreList.length + response.result.entrepriseList.length;
+						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${numberResult === 0 ? ' - Aucun résultat' : ''}`));
 						setAlternanceList(response.result);
-						setNombreRésultats(response.result.length);
+						setNombreRésultats(numberResult);
 					} else {
 						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
 						setErreurRecherche(response.errorType);
@@ -63,9 +70,9 @@ export default function RechercherAlternance() {
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
 		if (nombreRésultats > 1) {
-			messageRésultatRechercheSplit.push('offres d’alternances');
+			messageRésultatRechercheSplit.push('résultats');
 		} else if (nombreRésultats === 1) {
-			messageRésultatRechercheSplit.push('offre d’alternance');
+			messageRésultatRechercheSplit.push('résultat');
 		} else {
 			return '';
 		}
@@ -83,22 +90,29 @@ export default function RechercherAlternance() {
 		}
 	}, [router.query.libelleCommune]);
 
-	return  <>
+	return <>
 		<Head
 			title={title}
 			description="Des milliers d’alternances sélectionnées pour vous"
 			robots="index,follow"
 		/>
 		<main id="contenu">
-			<RechercherSolutionLayout
+			<RechercherSolutionLayoutWithTabs
 				bannière={<BannièreApprentissage/>}
 				erreurRecherche={erreurRecherche}
 				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
 				isLoading={isLoading}
 				messageRésultatRecherche={messageRésultatRecherche}
-				nombreSolutions={alternanceList.length}
-				listeSolutionElement={<ListeAlternance résultatList={alternanceList}/>}
+				nombreSolutions={alternanceList.offreList.length + alternanceList.entrepriseList.length}
+				listeSolutionElementTab={[{
+					label: 'Contrats d‘alternance',
+					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
+				}, 
+				{
+					label: 'Entreprises',
+					listeSolutionElement: <ListeSolutionAlternanceEntreprise entrepriseList={alternanceList.entrepriseList}></ListeSolutionAlternanceEntreprise>,
+				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>
 			<ArticleCardList>
@@ -135,16 +149,34 @@ function BannièreApprentissage() {
 	);
 }
 
-interface ListeRésultatProps {
-	résultatList: RésultatRechercheAlternance[]
+
+function ListeSolutionAlternanceEntreprise({ entrepriseList }: { entrepriseList: Array<RésultatRechercheAlternance.Entreprise> }): React.ReactElement {
+	return (
+		<>
+			<ListeRésultatsRechercherSolution aria-label="Entreprises">
+				{entrepriseList.map((entreprise, index) => (
+					<li key={`${entreprise.id}-${index}`}>
+						<RésultatRechercherSolution
+							lienOffre={entreprise.candidaturePossible ? `/apprentissage/entreprise/${entreprise.id}` : undefined}
+							logo={'/images/logos/fallback.svg'}
+							intituléOffre={entreprise.nom}
+							intituléLienOffre={'Candidater'}
+							étiquetteOffreList={entreprise.tags}
+						>
+							<ul>
+								{entreprise.secteurs && entreprise.secteurs.length > 0 && <li>{entreprise.secteurs.join(', ')}</li>}
+								{entreprise.adresse && <li>{entreprise.adresse}</li>}
+							</ul>
+						</RésultatRechercherSolution>
+					</li>
+				))}
+			</ListeRésultatsRechercherSolution>
+		</>
+	);
 }
 
-function ListeAlternance({ résultatList }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return null;
-	}
-
-	const getLogo = (alternance: Alternance) =>  {
+function ListeSolutionAlternance({ alternanceList } : { alternanceList:  Array<RésultatRechercheAlternance.Offre>}): React.ReactElement {
+	const getLogo = (alternance: Alternance) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
 			return '/images/logos/la-bonne-alternance.svg';
 		}
@@ -152,18 +184,21 @@ function ListeAlternance({ résultatList }: ListeRésultatProps) {
 	};
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
-			{résultatList.map((alternance) => (
-				<li key={uuidv4()}>
-					<RésultatRechercherSolution
-						lienOffre={`/apprentissage/${alternance.id}`}
-						intituléOffre={alternance.titre}
-						logoEntreprise={getLogo(alternance)}
-						étiquetteOffreList={alternance.tags}
-						nomEntreprise={alternance.entreprise.nom}
-					/>
-				</li>
-			))}
-		</ListeRésultatsRechercherSolution>
+		<>
+			<ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
+				{alternanceList.map((alternance) => (
+					<li key={alternance.id}>
+						<RésultatRechercherSolution
+							lienOffre={`/apprentissage/${alternance.id}`}
+							intituléOffre={alternance.titre}
+							logo={getLogo(alternance)}
+							étiquetteOffreList={alternance.tags}
+							sousTitreOffre={alternance.entreprise.nom}
+						/>
+					</li>
+				))}
+			</ListeRésultatsRechercherSolution>
+		</>
 	);
 }
+

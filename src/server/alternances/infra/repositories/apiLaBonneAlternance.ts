@@ -11,7 +11,6 @@ export interface MetierLaBonneAlternanceApiResponse {
 
 export namespace AlternanceApiJobsResponse {
 
-
 	export interface Job {
 		id: string
 		romeDetails?: AlternanceApiJobsResponse.RomeDetails
@@ -32,7 +31,7 @@ export namespace AlternanceApiJobsResponse {
 
 	export interface RomeDetails {
 		definition?: string
-		competencesDeBase: Array<{libelle: string}>
+		competencesDeBase: Array<{ libelle: string }>
 	}
 
 	export interface Place {
@@ -45,6 +44,12 @@ export namespace AlternanceApiJobsResponse {
 		place?: {
 			city?: string
 		}
+	}
+
+	export interface CompanyLbaCompanies extends Company {
+		size?: string
+		siret?: string
+		name: string
 	}
 
 	export interface Contact {
@@ -68,9 +73,22 @@ export namespace AlternanceApiJobsResponse {
 		contact?: AlternanceApiJobsResponse.Contact
 		url?: string
 	}
+
+	export interface LbaCompanies {
+		company: AlternanceApiJobsResponse.CompanyLbaCompanies
+		nafs?: Array<{
+			label: string
+		}>
+		place?: AlternanceApiJobsResponse.Place
+		contact?: {
+			email?: string,
+			iv?: string
+		}
+	}
 }
 
 export interface AlternanceApiJobsResponse {
 	matchas: { results: Array<AlternanceApiJobsResponse.Matcha> }
 	peJobs: { results: Array<AlternanceApiJobsResponse.PEJobs> }
+	lbaCompanies?: { results: Array<AlternanceApiJobsResponse.LbaCompanies> }
 }

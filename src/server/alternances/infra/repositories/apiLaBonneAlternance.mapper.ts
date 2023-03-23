@@ -1,9 +1,11 @@
-import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import {
-	AlternanceApiJobsResponse,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+	Alternance,
+	RésultatRechercheAlternance,
+} from '~/server/alternances/domain/alternance';
+import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import Matcha = AlternanceApiJobsResponse.Matcha;
 import PEJobs = AlternanceApiJobsResponse.PEJobs;
+import LbaCompanies = AlternanceApiJobsResponse.LbaCompanies;
 
 function sanitizeEscapeSequences(texte?: string) {
 	if (!texte) return texte;
@@ -75,7 +77,7 @@ export function mapPEJob(alternance: PEJobs): Alternance {
 	};
 }
 
-function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): RésultatRechercheAlternance {
+function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): RésultatRechercheAlternance.Offre {
 	return {
 		entreprise: {
 			nom: alternance.company?.name,
@@ -87,7 +89,40 @@ function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): RésultatRec
 	};
 }
 
-function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): RésultatRechercheAlternance {
+function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): RésultatRechercheAlternance.Entreprise {
+	const getTagList = () => {
+		const tags = [];
+		if (entreprise.place?.city) tags.push(entreprise.place?.city);
+		if (entreprise.company?.size) tags.push(getTailleEntreprise(entreprise.company?.size));
+		if (entreprise.contact?.email) {
+			tags.push('Candidature spontanée');
+		} else {
+			tags.push('Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise');
+		}
+		return tags.filter((tag) => !!tag) as string[];
+	};
+
+	const getTailleEntreprise = (tailleEntreprise: string) => {
+		if (tailleEntreprise === '0-0') {
+			return '0 à 9 salariés';
+		}
+		if (tailleEntreprise.includes('-'))
+			return `${tailleEntreprise.replace('-', ' à ')} salariés`;
+		return `${tailleEntreprise} salariés`;
+	};
+
+	return {
+		adresse: entreprise.place?.fullAddress,
+		candidaturePossible: !!entreprise.contact?.email && !!entreprise.contact?.iv,
+		id: entreprise.company?.siret,
+		nom: entreprise.company.name,
+		secteurs: entreprise.nafs?.map((naf) => naf.label),
+		tags: getTagList(),
+		ville: entreprise.place?.city,
+	};
+}
+
+function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): RésultatRechercheAlternance.Offre {
 	const getTagList = () => {
 		let tagList;
 		if (alternance.job.contractType) {
@@ -108,8 +143,13 @@ function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): RésultatRe
 	};
 }
 
-export const mapAlternanceListe = (response: AlternanceApiJobsResponse): Array<RésultatRechercheAlternance> => {
+export const mapAlternanceListe = (response: AlternanceApiJobsResponse): RésultatRechercheAlternance => {
 	const matchas = response.matchas.results.map(mapRésultatRechercherAlternanceMatcha);
 	const peJobs = response.peJobs.results.map(mapRésultatRechercherAlternancePEJob);
-	return matchas.concat(peJobs);
+	const lbaCompanies = response.lbaCompanies?.results.map(mapRésultatRechercherAlternanceLbaEntreprise) || [];
+	return {
+		entrepriseList: lbaCompanies,
+		offreList: matchas.concat(peJobs),
+	};
 };
+8;

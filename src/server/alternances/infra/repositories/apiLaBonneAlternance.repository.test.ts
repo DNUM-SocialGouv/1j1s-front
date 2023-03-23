@@ -102,7 +102,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/job/1234567'));
 			});
 		});
-		describe('lorsque l’id fournit ne correspond pas à une offre matcha', () => {
+		describe('lorsque l’id fournit ne correspond pas à une offre PEJob', () => {
 			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/matcha', async () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
