@@ -22,7 +22,7 @@ export const aFormationAvecCodeCertificationQuery = (override?: Partial<Formatio
 	};
 };
 
-export function aFormationQueryWithDiploma(): FormationFiltre {
+export function aFormationQueryWithNiveauEtudes(): FormationFiltre {
 	return {
 		codeCommune: '13180',
 		codeRomes: ['F1603', 'I1308'],

@@ -20,7 +20,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	constructor(private httpClientService: HttpClientService, private caller: string) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
-		const endpoint = this.getEndPoint(filtre);
+		const endpoint = this.getEndPointWithQueryParams(filtre);
 		try {
 			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationRechercheResponse>(endpoint);
 			return createSuccess(mapRésultatRechercheFormation(response.data));
@@ -29,7 +29,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		}
 	}
 
-	private getEndPoint(filtre: FormationFiltre): string {
+	private getEndPointWithQueryParams(filtre: FormationFiltre): string {
 		const codeRomes = filtre.codeRomes.join(',');
 		return '/formations?'
 			.concat(`caller=${this.caller}`)

@@ -17,7 +17,7 @@ describe('ÉtiquettesFiltreFormation', () => {
 		jest.clearAllMocks();
 	});
 
-	describe('quand une recherche est lancée', () => {
+	describe('quand une recherche est lancée avec les inputs obligatoires', () => {
 		it('retourne une liste d‘étiquettes',  async () => {
 			mockUseRouter({
 				query: {

@@ -3,7 +3,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	aFormationQuery,
-	aFormationQueryWithDiploma,
+	aFormationQueryWithNiveauEtudes,
 	aLaBonneAlternanceApiFormationResponse,
 	aLaBonneAlternanceApiRésultatRechercheFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.fixture';
@@ -35,7 +35,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				const caller = '1jeune1solution-test';
 				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller);
 
-				repository.search(aFormationQueryWithDiploma());
+				repository.search(aFormationQueryWithNiveauEtudes());
 
 				// Then
 				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution-test/));
