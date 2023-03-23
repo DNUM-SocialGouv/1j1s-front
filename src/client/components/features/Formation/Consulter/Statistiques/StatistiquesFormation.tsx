@@ -6,14 +6,14 @@ import {
 	ArticleCard,
 	ArticleCardList,
 } from '~/client/components/ui/Card/Article/ArticleCard';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { Statistique } from '~/server/formations/domain/statistique';
 
 export function StatistiquesFormation({ statistiques }: { statistiques?: Statistique }) {
 	if (!statistiques) return null;
 	return (
 		<div className={styles.section}>
-			<EnTeteSection
+			<EnTete
 				heading="Et après la formation ?"
 				headingLevel={'h2'}
 				className={styles.entête}

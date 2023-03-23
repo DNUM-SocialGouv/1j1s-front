@@ -20,7 +20,7 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
 	LightHero,
 	LightHeroPrimaryText,
@@ -100,7 +100,7 @@ export function RechercherOffreEmploi() {
 					maxPage={MAX_PAGE}
 					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
 				/>
-				<EnTeteSection heading="Découvrez des services faits pour vous"/>
+				<EnTete heading="Découvrez des services faits pour vous"/>
 				<PartnerCardList>
 					<LaBonneBoitePartner />
 					<OnisepPartner />

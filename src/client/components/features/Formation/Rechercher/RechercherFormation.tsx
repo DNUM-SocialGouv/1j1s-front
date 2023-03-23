@@ -18,7 +18,7 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { FormationService } from '~/client/services/formation/formation.service';
@@ -101,7 +101,7 @@ export default function RechercherFormation() {
 					/>
 				}
 			/>
-			<EnTeteSection heading="Découvrez des services faits pour vous"/>
+			<EnTete heading="Découvrez des services faits pour vous"/>
 			<PartnerCardList>
 				<MonCompteFormationPartner/>
 				<ParcourSupPartner/>
