@@ -15,7 +15,7 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
 	LightHero,
 	LightHeroPrimaryText,
@@ -119,7 +119,7 @@ export function RechercherAccompagnement() {
 					nombreSolutions={établissementAccompagnementList.length}
 					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList}/>}
 				/>
-				<EnTeteSection heading="Découvrez d’autres services faits pour vous"/>
+				<EnTete heading="Découvrez d’autres services faits pour vous"/>
 				<PartnerCardList>
 					<MissionsLocalesPartner />
 					<InfoJeunesPartner />

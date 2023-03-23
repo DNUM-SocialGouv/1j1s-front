@@ -7,7 +7,7 @@ import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
@@ -40,7 +40,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 					<ConsulterFicheMétier ficheMetier={ficheMetier}/>
 				</Container>
 				<div className={'background-white-lilac'}>
-					<EnTeteSection heading="Informations fournies par ONISEP"/>
+					<EnTete heading="Informations fournies par ONISEP"/>
 					<Container className={styles.container}>
 						<PartnerCard
 							logo="/images/logos/onisep.svg"

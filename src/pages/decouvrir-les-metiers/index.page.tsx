@@ -7,7 +7,7 @@ import { MétierDuSoinPartner } from '~/client/components/features/Partner/Méti
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -45,7 +45,7 @@ export default function RechercherFicheMetierPage() {
 				tagList={<MeilisearchCustomCurrentRefinements />}
 				isAffichageListeDeResultatsDesktopDirectionRow
 			/>
-			<EnTeteSection heading="Découvrez des services faits pour vous" />
+			<EnTete heading="Découvrez des services faits pour vous" />
 			<div className={classNames(styles.additionalSection, 'background-white-lilac')}>
 				<Container className={styles.partnerCardContainer}>
 					<MétierDuSoinPartner />

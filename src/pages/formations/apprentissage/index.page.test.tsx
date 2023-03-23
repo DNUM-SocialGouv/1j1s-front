@@ -4,6 +4,7 @@
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
@@ -14,6 +15,7 @@ import FormationAlternancePage, { getServerSideProps } from '~/pages/formations/
 describe('Page Formations en Apprentissage', () => {
 	describe('quand le feature flip n‘est pas actif', () => {
 		beforeEach(() => {
+			mockSmallScreen();
 			process.env = {
 				...process.env,
 				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '0',
@@ -28,6 +30,7 @@ describe('Page Formations en Apprentissage', () => {
 
 	describe('quand le feature flip est actif', () => {
 		beforeEach(() => {
+			mockSmallScreen();
 			process.env = {
 				...process.env,
 				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '1',

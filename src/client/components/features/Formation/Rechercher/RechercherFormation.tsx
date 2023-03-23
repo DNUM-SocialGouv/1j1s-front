@@ -8,11 +8,17 @@ import { ÉtiquettesFiltreFormation } from '~/client/components/features/Formati
 import {
 	RésultatRechercherFormation,
 } from '~/client/components/features/Formation/Résultat/RésultatRechercherFormation';
+import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
+import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
+import { MonCompteFormationPartner } from '~/client/components/features/Partner/MonCompteFormationPartner';
+import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
+import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { FormationService } from '~/client/services/formation/formation.service';
@@ -95,6 +101,13 @@ export default function RechercherFormation() {
 					/>
 				}
 			/>
+			<EnTete heading="Découvrez des services faits pour vous"/>
+			<PartnerCardList>
+				<MonCompteFormationPartner/>
+				<ParcourSupPartner/>
+				<OnisepPartner/>
+				<MétierDuSoinPartner/>
+			</PartnerCardList>
 		</main>
 	</>;
 }

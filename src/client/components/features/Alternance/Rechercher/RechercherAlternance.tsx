@@ -16,7 +16,7 @@ import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
-import { EnTeteSection } from '~/client/components/ui/EnTeteSection/EnTeteSection';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -98,7 +98,7 @@ export default function RechercherAlternance() {
 				nombreSolutions={alternanceList.length}
 				listeSolutionElement={<ListeAlternance résultatList={alternanceList}/>}
 			/>
-			<EnTeteSection heading="Consultez nos articles"/>
+			<EnTete heading="Consultez nos articles"/>
 			<ArticleCardList>
 				<ArticleCard
 					vertical={false}
@@ -113,7 +113,7 @@ export default function RechercherAlternance() {
 					</p>
 				</ArticleCard>
 			</ArticleCardList>
-			<EnTeteSection heading="Découvrez des services faits pour vous"/>
+			<EnTete heading="Découvrez des services faits pour vous"/>
 			<PartnerCardList>
 				<PassPartner/>
 				<OnisepPartner/>

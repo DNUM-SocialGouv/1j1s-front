@@ -46,6 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		id: Joi.string().required(),
 		latitudeCommune: Joi.string().required(),
 		longitudeCommune: Joi.string().required(),
+		niveauEtudes: Joi.string().optional(),
 	});
 
 	if (formationQuerySchema.validate(context.query).error) {
