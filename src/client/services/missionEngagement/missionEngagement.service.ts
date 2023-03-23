@@ -11,6 +11,7 @@ export class MissionEngagementService {
 
 	async rechercherMission(query: MissionEngagementQueryParams, category: string): Promise<Either<RésultatsRechercheMission>> {
 		const sanitizedQuery = removeUndefinedKeys(query);
+
 		const queryString = stringify(sanitizedQuery);
 		return this.httpClientService.get<RésultatsRechercheMission>(`${category === 'service-civique' ? 'services-civique' : 'benevolats'}?${queryString}`);
 	}

@@ -1,5 +1,5 @@
+import { router } from 'next/client';
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
@@ -14,13 +14,9 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
+import { MissionEngagementQueryParams, useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -32,16 +28,20 @@ import {
 	serviceCiviqueDomaineList,
 } from '~/server/engagement/domain/engagement';
 import { Erreur } from '~/server/errors/erreur.types';
+import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 
 interface RechercherMissionProps {
   category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
+}
+
+function empty(missionEngagementQuery: MissionEngagementQueryParams) {
+	return Object.entries(removeUndefinedKeys(missionEngagementQuery)).length === 0;
 }
 
 export function RechercherMission(props: RechercherMissionProps) {
 	const { category } = props;
 	const missionEngagementService = useDependency<MissionEngagementService>('missionEngagementService');
 	const missionEngagementQuery = useMissionEngagementQuery();
-	const router = useRouter();
 	const [missionList, setMissionList] = useState<Mission[]>([]);
 	const [nombreRésultats, setNombreRésultats] = useState(0);
 
@@ -54,25 +54,24 @@ export function RechercherMission(props: RechercherMissionProps) {
 	const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
 	useEffect(() => {
-		const queryString = stringify(router.query);
-		if (queryString) {
-			setIsLoading(true);
-			setErreurRecherche(undefined);
-			missionEngagementService
-				.rechercherMission(router.query, category)
-				.then((response) => {
-					if (response.instance === 'success') {
-						setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
-						setMissionList(response.result.résultats);
-						setNombreRésultats(response.result.nombreRésultats);
-					} else {
-						setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
-						setErreurRecherche(response.errorType);
-					}
-					setIsLoading(false);
-				});
-		}
-	}, [router.query, missionEngagementService, category, isServiceCivique]);
+		if (empty(missionEngagementQuery)) { return; }
+
+		setIsLoading(true);
+		setErreurRecherche(undefined);
+		missionEngagementService
+			.rechercherMission(missionEngagementQuery, category)
+			.then((response) => {
+				if (response.instance === 'success') {
+					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
+					setMissionList(response.result.résultats);
+					setNombreRésultats(response.result.nombreRésultats);
+				} else {
+					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
+					setErreurRecherche(response.errorType);
+				}
+				setIsLoading(false);
+			});
+	}, [missionEngagementQuery, missionEngagementService, category, isServiceCivique]);
 
 	const messageRésultatRecherche = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
