@@ -19,6 +19,9 @@ import { NiveauRequis } from '~/server/formations/domain/formation';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheOffreEmploi', () => {
+	beforeEach(() => {
+		mockLargeScreen();
+	});
 	describe('en version mobile', () => {
 		beforeEach(() => {
 			mockSmallScreen();
