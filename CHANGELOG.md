@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.32.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.31.0...v3.32.0) (2023-03-23)
+
+
+### Features
+
+* **formation:** ajout liste de partenaires ([3dea99a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3dea99adf919965edcdcd49911f9e752c7963215))
+
 ## [3.31.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.30.0...v3.31.0) (2023-03-23)
 
 
