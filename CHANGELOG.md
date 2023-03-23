@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.30.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.29.3...v3.30.0) (2023-03-23)
+
+
+### Features
+
+* **formation:** afficher les statistiques d’une formation ([b190d7f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b190d7fee7238398636280e3807fabfe7104a6ea))
+
 ## [3.29.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.29.2...v3.29.3) (2023-03-22)
 
 
