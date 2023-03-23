@@ -1,43 +1,31 @@
-@import "@styles/_utilities";
+@use "@styles/utilities";
 
-.section {
-  padding: 12rem 1.5rem;
-  max-width: 47rem;
-  margin: 0 auto;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: 100vh;
+  padding: 1rem;
 
-  &Container {
-    padding: 12rem 1.5rem;
-    display: grid;
-    place-items: center;
-
-    &Illustration {
-      display: none;
+  &Text {
+    text-align: center;
+    &Titre {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      font-weight: bold;
     }
-
-    &Text {
-      text-align: center;
-      &Titre {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-        font-weight: 700;
-      }
-      p {
-        font-size: 1rem;
-        margin-bottom: 3rem;
-      }
+    p {
+      font-size: 1rem;
+      margin-bottom: 3rem;
     }
   }
 }
 
-@include media(large) {
-  .section {
-    padding: 3rem 1.5rem;
-    &Container {
-      padding: 3rem 1.5rem;
-      max-width: 47rem;
-      &Illustration {
-        display: block;
-      }
-    }
+@include utilities.media(large) {
+  .container {
+    padding: 3rem 0rem;
+    max-width: 48rem;
   }
 }
