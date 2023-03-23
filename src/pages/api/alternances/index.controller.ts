@@ -6,7 +6,10 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { AlternanceFiltre, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import {
+	AlternanceFiltre,
+	RésultatRechercheAlternance,
+} from '~/server/alternances/domain/alternance';
 import { dependencies } from '~/server/start';
 
 export const alternancesQuerySchema = Joi.object({
@@ -17,7 +20,7 @@ export const alternancesQuerySchema = Joi.object({
 	longitudeCommune: Joi.string().required(),
 });
 
-export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<Array<RésultatRechercheAlternance> | ErrorHttpResponse>) {
+export async function rechercherAlternanceHandler(req: NextApiRequest, res: NextApiResponse<RésultatRechercheAlternance | ErrorHttpResponse>) {
 	const résultatsRechercheAlternance = await dependencies.alternanceDependencies.rechercherAlternance.handle(alternanceFiltreMapper(req));
 	return handleResponse(résultatsRechercheAlternance, res);
 }

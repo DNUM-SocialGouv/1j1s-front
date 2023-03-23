@@ -3,15 +3,19 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
+import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { MétierService } from '~/client/services/métiers/métier.service';
+import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 
 describe('RechercherAlternance', () => {
 	beforeEach(() => {
@@ -21,7 +25,7 @@ describe('RechercherAlternance', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
-	
+
 	describe('quand le composant est affiché sans recherche', () => {
 		it('affiche un formulaire pour la recherche de formations, sans échantillon de résultat', async () => {
 			// GIVEN
@@ -41,43 +45,63 @@ describe('RechercherAlternance', () => {
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheAlternance = screen.getByRole('form');
-			const nbRésultats = screen.queryByText(/^[0-9]+ formation(s)? en alternance$/);
 
 			// THEN
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
-			expect(nbRésultats).not.toBeInTheDocument();
+			expect(screen.queryByText(/^[0-9]+ résulat(s)? $/)).not.toBeInTheDocument();
 			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledTimes(0);
-			const filtresRecherche = screen.queryByText('Paris (75001)');
-			expect(filtresRecherche).not.toBeInTheDocument();
+			expect(screen.queryByText('Paris (75001)')).not.toBeInTheDocument();
 		});
 	});
-	
-	describe('quand le composant est affiché pour une recherche avec résultats', () => {
-		it('affiche les critères de recherche sous forme d‘étiquettes', async () => {
-			// GIVEN
-			const alternanceFixture: Alternance[] = [
-				{
-					entreprise: { nom: 'MONSIEUR MICHEL' },
-					id: 'an-id-matchas',
-					niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-					source: Alternance.Source.MATCHA,
-					tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
-					titre: 'Ouvrier boulanger / Ouvrière boulangère',
-					typeDeContrat: ['Apprentissage'],
-				},
-				{
-					entreprise: { nom: 'une entreprise' },
-					id: 'an-id-pe',
-					localisation: 'paris',
-					source: Alternance.Source.POLE_EMPLOI,
-					tags: ['paris', 'Contrat d‘alternance', 'CDD'],
-					titre: 'un titre',
-					typeDeContrat: ['CDD'],
-				},
-			];
-			const alternanceServiceMock = anAlternanceService(alternanceFixture);
-			const métierServiceMock = aMétierService();
-			const localisationServiceMock = aLocalisationService();
+
+	describe('quand une recherche est effectuée', () => {
+		let alternanceServiceMock: AlternanceService;
+		let métierServiceMock: MétierService;
+		let localisationServiceMock: LocalisationService;
+		const alternanceFixture: Array<Alternance> = [
+			{
+				entreprise: { nom: 'MONSIEUR MICHEL' },
+				id: 'an-id-matchas',
+				niveauRequis: 'Cap, autres formations niveau (Infrabac)',
+				source: Alternance.Source.MATCHA,
+				tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
+				titre: 'Ouvrier boulanger / Ouvrière boulangère',
+				typeDeContrat: ['Apprentissage'],
+			},
+			{
+				entreprise: { nom: 'une entreprise' },
+				id: 'an-id-pe',
+				localisation: 'paris',
+				source: Alternance.Source.POLE_EMPLOI,
+				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
+				titre: 'un titre',
+				typeDeContrat: ['CDD'],
+			},
+		];
+
+		const entrepriseFixture: Array<RésultatRechercheAlternance.Entreprise> = [
+			{
+				adresse: 'une adresse',
+				candidaturePossible: true,
+				id: '0123456789',
+				nom: 'UN NOM 1',
+				secteurs: ['secteur 1', 'secteur 2'],
+				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
+				ville: 'une ville',
+			},
+			{
+				candidaturePossible: false,
+				id: '1234567890',
+				nom: 'UN NOM 2',
+				secteurs: ['secteur 1', 'secteur 2'],
+				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
+			},
+		];
+
+		beforeEach(() => {
+			alternanceServiceMock = anAlternanceService(alternanceFixture, entrepriseFixture);
+			métierServiceMock = aMétierService();
+			localisationServiceMock = aLocalisationService();
 			mockUseRouter({
 				query: {
 					codeCommune: '75056',
@@ -89,6 +113,9 @@ describe('RechercherAlternance', () => {
 					longitudeCommune: '2.347',
 				},
 			});
+		});
+		it('uniquement les offres d’alternances sont affichées', async () => {
+			// GIVEN
 			const expectedQuery = {
 				codeCommune: '75056',
 				codeRomes: 'D1102%2CD1104',
@@ -110,18 +137,45 @@ describe('RechercherAlternance', () => {
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheAlternance = screen.getByRole('form');
-			const messageRésultats = await screen.findByText(/^[0-9]+ offre(s)? d’alternance(s)? pour Boulangerie, pâtisserie, chocolaterie/);
 
 			// THEN
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
-			expect(messageRésultats).toBeInTheDocument();
 			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expectedQuery);
-			const resultList = await within(await screen.findByRole('list', { name: 'Offres d’alternances' })).findAllByTestId('RésultatRechercherSolution');
-			expect(resultList).toHaveLength(alternanceFixture.length);
-			expect(await screen.findByText(alternanceFixture[0].titre)).toBeInTheDocument();
-			expect(await screen.findByText(alternanceFixture[1].titre)).toBeInTheDocument();
+
 			const filtresRecherche = await screen.findByText('Paris (75001)');
 			expect(filtresRecherche).toBeInTheDocument();
+			const messageRésultats = await screen.findByText('4 résultats pour Boulangerie, pâtisserie, chocolaterie');
+			expect(messageRésultats).toBeInTheDocument();
+
+
+			const resultListOffre = await within(await screen.findByRole('list', { name: 'Offres d’alternances' })).findAllByTestId('RésultatRechercherSolution');
+			expect(resultListOffre).toHaveLength(alternanceFixture.length);
+			expect(await screen.findByText(alternanceFixture[0].titre)).toBeInTheDocument();
+			expect(await screen.findByText(alternanceFixture[1].titre)).toBeInTheDocument();
+		});
+
+		describe('lorsque je séléctionne les entreprises', () => {
+			it('je vois uniquement les entreprises', async () => {
+				render(
+					<DependenciesProvider
+						alternanceService={alternanceServiceMock}
+						métierService={métierServiceMock}
+						localisationService={localisationServiceMock}
+					>
+						<RechercherAlternance/>
+					</DependenciesProvider>,
+				);
+				const onglet = await screen.findByText('Entreprises');
+				const user = userEvent.setup();
+
+				await user.click(onglet);
+				expect(onglet).toHaveAttribute('aria-selected', 'true');
+
+				const resultListEntreprise = await within(await screen.findByRole('list', { name: 'Entreprises' })).findAllByTestId('RésultatRechercherSolution');
+				expect(resultListEntreprise).toHaveLength(entrepriseFixture.length);
+				expect(await screen.findByText(entrepriseFixture[0].nom)).toBeVisible();
+				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
+			});
 		});
 	});
 

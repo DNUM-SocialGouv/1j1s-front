@@ -43,8 +43,8 @@ describe('Parcours service civique', () => {
 				response: JSON.stringify(aRésultatRechercheMission()),
 			});
 
-			cy.get('ul[aria-label="Offre pour le service civique"] > li a').should('have.length', 2);
-			cy.get('ul[aria-label="Offre pour le service civique"] > li a').first().should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
+			cy.get('ul[aria-label="Offre pour le service civique"] > li').should('have.length', 2);
+			cy.get('ul[aria-label="Offre pour le service civique"] > li').first().should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
 		});
 	});
 

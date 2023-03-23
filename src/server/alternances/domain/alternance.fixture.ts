@@ -1,11 +1,11 @@
-import { Alternance } from './alternance';
+import { Alternance, RésultatRechercheAlternance } from './alternance';
 
 export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
 		compétences: ['savoir faire'],
 		description: 'Prépare et confectionne des produits de pâtisserie.',
 		entreprise: {
-			nom:'une entreprise',
+			nom: 'une entreprise',
 		},
 		id: 'id',
 		lienPostuler: `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}postuler?caller=1jeune1solution&itemId=id&type=matcha`,
@@ -47,7 +47,7 @@ const anAlternanceMatchaBoulanger = (): Alternance => {
 		lienPostuler: `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}postuler?caller=1jeune1solution&itemId=id-boulanger&type=matcha`,
 		niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 		source: Alternance.Source.MATCHA,
-		tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
+		tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 		titre: 'Ouvrier boulanger / Ouvrière boulangère',
 		typeDeContrat: ['Apprentissage'],
 	};
@@ -69,6 +69,31 @@ export const anAlternancePEJobs = (): Alternance => {
 	};
 };
 
-export const aRésultatRechercherMultipleAlternance = (): Array<Alternance> => {
-	return [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()];
+export const anAlternanceEntreprise = (): RésultatRechercheAlternance.Entreprise => {
+	return {
+		adresse: 'une adresse',
+		candidaturePossible: true,
+		id: '0123456789',
+		nom: 'un nom',
+		secteurs: ['secteur 1', 'secteur 2'],
+		tags: ['une ville', '12 salariés', 'Candidature spontanée'],
+		ville: 'une ville',
+	};
+};
+
+export const anAlternanceEntrepriseSansCandidature = (): RésultatRechercheAlternance.Entreprise => {
+	return {
+		candidaturePossible: false,
+		id: '1234567890',
+		nom: 'un nom',
+		secteurs: ['secteur 1', 'secteur 2'],
+		tags: ['une ville', '12 salariés', 'Candidature spontanée'],
+	};
+};
+
+export const aRésultatRechercherMultipleAlternance = (): RésultatRechercheAlternance => {
+	return {
+		entrepriseList: [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()],
+		offreList: [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()],
+	};
 };

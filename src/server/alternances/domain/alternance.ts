@@ -24,7 +24,23 @@ export interface Alternance {
 	lienPostuler?: string
 }
 
-export type RésultatRechercheAlternance = Pick<Alternance, 'id' | 'titre' | 'source' | 'tags' | 'entreprise'>
+export type RésultatRechercheAlternance = {
+	offreList: Array<RésultatRechercheAlternance.Offre>,
+	entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
+}
+
+export namespace RésultatRechercheAlternance {
+	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'tags' | 'entreprise'>
+	export interface Entreprise {
+		adresse?: string
+		ville?: string
+		nom: string
+		secteurs?: Array<string>
+		tags: string[]
+		id?: string
+		candidaturePossible: boolean
+	}
+}
 
 export namespace Alternance {
 	export enum Source {

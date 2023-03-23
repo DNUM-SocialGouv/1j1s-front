@@ -26,8 +26,8 @@ describe('RésultatRechercherSolution', () => {
 			<RésultatRechercherSolution
 				intituléOffre={offreEmploi.intitulé}
 				lienOffre={`/emplois/${offreEmploi.id}`}
-				logoEntreprise={offreEmploi.entreprise.logo || defaultLogo}
-				nomEntreprise={offreEmploi.entreprise.nom}
+				logo={offreEmploi.entreprise.logo || defaultLogo}
+				sousTitreOffre={offreEmploi.entreprise.nom}
 				étiquetteOffreList={offreEmploi.étiquetteList}
 			/>,
 		);
@@ -37,7 +37,73 @@ describe('RésultatRechercherSolution', () => {
 		const intituléOffreEmploi = screen.getByRole('heading', { level: 3 });
 
 		expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(4);
+		expect(screen.getByText('En savoir plus')).toBeVisible();
 		expect(lienVersOffreEmploi).toHaveAttribute('href', `/emplois/${offreEmploi.id}`);
 		expect(intituléOffreEmploi.textContent).toEqual(offreEmploi.intitulé);
+	});
+
+	describe('lorsque le lien d‘offre n‘existe pas', () => {
+		it('je ne peux pas clicker sur la carte', () => {
+			const offreEmploi = aBarmanOffre();
+			const defaultLogo = '/images/logos/pole-emploi.svg';
+
+			render(
+				<RésultatRechercherSolution
+					intituléOffre={offreEmploi.intitulé}
+					logo={offreEmploi.entreprise.logo || defaultLogo}
+					sousTitreOffre={offreEmploi.entreprise.nom}
+					étiquetteOffreList={offreEmploi.étiquetteList}
+				/>,
+			);
+
+			expect(screen.queryByRole('link')).not.toBeInTheDocument();
+			expect(screen.queryByText('En savoir plus')).not.toBeInTheDocument();
+		});
+	});
+
+
+	describe('lorsqu‘une description est fournise', () => {
+		it('je vois la description', () => {
+			const offreEmploi = aBarmanOffre();
+			const defaultLogo = '/images/logos/pole-emploi.svg';
+
+			render(
+				<RésultatRechercherSolution
+					intituléOffre={offreEmploi.intitulé}
+					logo={offreEmploi.entreprise.logo || defaultLogo}
+					sousTitreOffre={offreEmploi.entreprise.nom}
+					étiquetteOffreList={offreEmploi.étiquetteList}
+				>
+					<div>Description 1</div>
+					<div>Description 2</div>
+				</RésultatRechercherSolution>,
+			);
+
+			expect(screen.getByText('Description 1')).toBeVisible();
+			expect(screen.getByText('Description 2')).toBeVisible();
+		});
+	});
+
+	describe('lorsqu‘un intitulé de lien est fournis', () => {
+		it('je vois l‘intitulé', () => {
+			const offreEmploi = aBarmanOffre();
+			const defaultLogo = '/images/logos/pole-emploi.svg';
+
+			render(
+				<RésultatRechercherSolution
+					intituléOffre={offreEmploi.intitulé}
+					intituléLienOffre="Candidater"
+					logo={offreEmploi.entreprise.logo || defaultLogo}
+					sousTitreOffre={offreEmploi.entreprise.nom}
+					étiquetteOffreList={offreEmploi.étiquetteList}
+					lienOffre={`/emplois/${offreEmploi.id}`}
+				>
+					<div>Description 1</div>
+					<div>Description 2</div>
+				</RésultatRechercherSolution>,
+			);
+
+			expect(screen.getByRole('link', { name: 'Candidater' })).toBeVisible();
+		});
 	});
 });

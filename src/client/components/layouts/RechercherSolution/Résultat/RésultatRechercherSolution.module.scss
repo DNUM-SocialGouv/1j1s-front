@@ -1,53 +1,84 @@
 @import "@styles/utilities";
 
 .card {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   background: $color-surface;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
-  &Header {
+  .cardLead {
     display: flex;
-    padding: 1.5rem;
-    border-bottom: 4px solid $color-primary;
+  }
 
-    > img {
-      width: 56px;
-      height: 56px;
+  &Link {
+    &Container {
+      padding: 1rem;
+      text-align: right;
+      margin-top: auto;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    &CallToAction {
+      @extend %text-medium;
+      color: $color-primary;
     }
   }
 
-  &Description {
-    display: flex;
-    flex-direction: column;
+  &TagsAndCTA {
     padding: 0.75rem;
+  }
+}
+
+.cardLead {
+  display: flex;
+  padding: 1.5rem;
+  border-bottom: 4px solid $color-primary;
+
+  > img {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 56px;
+    height: 56px;
   }
 }
 
 .offreLead {
   margin-left: 2rem;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+
   &Title {
-    @extend  %bold;
-    font-size: 1rem;
+    @extend %bold;
+    @extend %text-medium
   }
+
   &SubTitle {
     min-height: 24px;
-    font-size: 0.75rem;
+    @extend %text-regular;
+  }
+
+  &Description {
+    @extend %text-regular;
   }
 }
 
-.callToAction {
-  color: $color-primary;
-}
 
 @include media(medium) {
   .card {
-    padding: 1rem 1.5rem;
+    padding: 2rem 1.5rem;
     border-left: 4px solid $color-primary;
 
-    &Header {
+    &Lead {
       display: flex;
       width: 100%;
       border-bottom: none;
@@ -63,27 +94,22 @@
     .offreLead {
       margin-left: 2.5rem;
       width: 100%;
-      &Title {
-        font-size: 1.25rem;
-      }
-      &SubTitle {
-        font-size: 1rem;
-      }
     }
 
-    &Description {
-      width: 100%;
+    &TagsAndCTA {
+      height: 100%;
       margin-top: 1rem;
-      flex-direction: row;
-      justify-content: space-between;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
 
-      .callToAction {
-        flex-shrink: 0;
-        align-self: center;
+    &Link {
+      &Container {
+        margin-top: auto;
+        padding: 0;
       }
     }
   }
-
 }
 

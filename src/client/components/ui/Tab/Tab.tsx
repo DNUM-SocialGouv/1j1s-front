@@ -95,7 +95,7 @@ function getHtmlElement(element: Element | null | undefined) {
 	return element instanceof HTMLElement ? element : null;
 }
 
-export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(function TabsLabel(props, outerRef ) {
+export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(function TabsLabel(props, outerRef) {
 	const {
 		children,
 		...rest

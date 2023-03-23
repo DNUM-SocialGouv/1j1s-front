@@ -1,4 +1,8 @@
-import { Alternance, AlternanceFiltre, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import {
+	Alternance,
+	AlternanceFiltre,
+	RésultatRechercheAlternance,
+} from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
 	AlternanceApiJobsResponse,
@@ -14,14 +18,14 @@ import {
 import { createSuccess, Either } from '~/server/errors/either';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
-const SOURCES_MATCHA_ET_PEJOBS = 'matcha,offres';
+const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	constructor(private httpClientService: PublicHttpClientService, private caller: string) {}
 
-	async search(filtre: AlternanceFiltre): Promise<Either<Array<RésultatRechercheAlternance>>> {
+	async search(filtre: AlternanceFiltre): Promise<Either<RésultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
 			return createSuccess(mapAlternanceListe(response.data));
@@ -32,7 +36,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 
 	private async getAlternanceListe(filtre: AlternanceFiltre) {
 		const codeRomes = filtre.codeRomes.join(',');
-		const endpoint = `/v1/jobs?caller=${this.caller}&romes=${codeRomes}&sources=${SOURCES_MATCHA_ET_PEJOBS}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
+		const endpoint = `/v1/jobs?caller=${this.caller}&romes=${codeRomes}&sources=${SOURCES_ALTERNANCE}&insee=${filtre.codeCommune}&longitude=${filtre.longitudeCommune}&latitude=${filtre.latitudeCommune}&radius=${filtre.distanceCommune}`;
 		return await this.httpClientService.get<AlternanceApiJobsResponse>(endpoint);
 	}
 

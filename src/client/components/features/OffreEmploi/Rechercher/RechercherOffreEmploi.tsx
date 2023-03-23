@@ -98,9 +98,9 @@ export function RechercherOffreEmploi() {
 				/>
 				<EnTete heading="Découvrez des services faits pour vous"/>
 				<PartnerCardList>
-					<LaBonneBoitePartner />
-					<OnisepPartner />
-					<ServiceCiviquePartner />
+					<LaBonneBoitePartner/>
+					<OnisepPartner/>
+					<ServiceCiviquePartner/>
 				</PartnerCardList>
 			</main>
 		</>
@@ -108,7 +108,7 @@ export function RechercherOffreEmploi() {
 }
 
 interface ListeRésultatProps {
-  résultatList: Offre[]
+	résultatList: Offre[]
 }
 
 function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
@@ -124,8 +124,8 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 						étiquetteOffreList={offreEmploi.étiquetteList}
 						intituléOffre={offreEmploi.intitulé}
 						lienOffre={`/emplois/${offreEmploi.id}`}
-						logoEntreprise={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
-						nomEntreprise={offreEmploi.entreprise.nom}
+						logo={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+						sousTitreOffre={offreEmploi.entreprise.nom}
 					/>
 				</li>
 			))}

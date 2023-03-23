@@ -3,6 +3,7 @@ import {
 	AlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import Matcha = AlternanceApiJobsResponse.Matcha;
+import LbaCompanies = AlternanceApiJobsResponse.LbaCompanies;
 
 export function anAlternanceFiltre(): AlternanceFiltre {
 	return {
@@ -13,8 +14,12 @@ export function anAlternanceFiltre(): AlternanceFiltre {
 		longitudeCommune: '29.10',
 	};
 }
+
 export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse => {
 	return {
+		lbaCompanies: {
+			results: [aLbaCompaniesResponse()],
+		},
 		matchas: {
 			results: [
 				aMatchaResponse(),
@@ -83,6 +88,33 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 		},
 		place: { city: 'paris' },
 		title: 'un titre',
+		...override,
+	};
+}
+
+export function aLbaCompaniesResponse(override?: Partial<LbaCompanies>): LbaCompanies {
+	return {
+		company: {
+			name: 'CLUB VET',
+			siret: '52352551700026',
+			size: '0-0',
+		},
+		contact: {
+			email: 'b3759ee20eff2e0a4cd369c4f2eb62238324fc',
+			iv: '93f7bd08e956453cd8d0f8f75821a634',
+		},
+		nafs: [
+			{
+				label: 'Autres intermédiaires du commerce en produits divers',
+			},
+			{
+				label: 'Développement informatique',
+			},
+		],
+		place: {
+			city: 'Paris',
+			fullAddress: '18 RUE EMILE LANDRIN, 75020 Paris',
+		},
 		...override,
 	};
 }
