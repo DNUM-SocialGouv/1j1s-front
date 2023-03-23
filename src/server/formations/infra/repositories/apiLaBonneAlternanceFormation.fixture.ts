@@ -14,9 +14,17 @@ export function aFormationQuery(): FormationFiltre {
 	};
 }
 
+export const aFormationAvecCodeCertificationQuery = (override?: Partial<FormationFiltre.AvecCodeCertification>): FormationFiltre.AvecCodeCertification => {
+	return {
+		...aFormationQuery(),
+		codeCertification: '4567',
+		...override,
+	};
+};
 export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiLaBonneAlternanceFormationRechercheResponse => ({
 	results: [
 		{
+			cfd: '999',
 			company: {
 				name: 'La Bonne Alternance',
 			},
@@ -30,6 +38,7 @@ export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiL
 			title: 'Développeur web',
 		},
 		{
+			cfd: '888',
 			company: {
 				name: 'La Bonne Alternance',
 			},

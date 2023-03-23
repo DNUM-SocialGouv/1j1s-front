@@ -63,6 +63,9 @@ import {
 import {
 	ApiLaBonneAlternanceFormationRepository,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
+import {
+	ApiTrajectoiresProStatistiqueRepository,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ConsulterFormationUseCase } from '~/server/formations/useCases/consulterFormation.useCase';
 import { RechercherFormationUseCase } from '~/server/formations/useCases/rechercherFormation.useCase';
 import {
@@ -189,6 +192,7 @@ export const dependenciesContainer = (): Dependencies => {
 	const {
 		engagementClientService,
 		laBonneAlternanceClientService,
+		trajectoiresProClientService,
 		lesEntreprisesSEngagentClientService,
 		poleEmploiOffresClientService,
 		poleEmploiReferentielsClientService,
@@ -234,8 +238,11 @@ export const dependenciesContainer = (): Dependencies => {
 		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
 	};
 
+	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
+	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProClientService, apiGeoLocalisationRepository);
+
 	const formationDependencies: FormationDependencies = {
-		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository),
+		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository),
 		rechercherFormation: new RechercherFormationUseCase(apiLaBonneAlternanceFormationRepository),
 	};
 	
@@ -251,7 +258,6 @@ export const dependenciesContainer = (): Dependencies => {
 	};
 
 	const apiAdresseRepository = new ApiAdresseRepository(adresseClientService);
-	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
 	const localisationDependencies: LocalisationDependencies = {
 		listeLocalisation: new RechercherLocalisationUseCase(apiGeoLocalisationRepository, apiAdresseRepository),
 		rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository, serverConfigurationService),

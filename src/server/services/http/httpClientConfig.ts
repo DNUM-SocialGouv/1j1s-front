@@ -119,6 +119,13 @@ const getApiLaBonneAlternanceConfig = (configurationService: ConfigurationServic
 	});
 };
 
+const getApiTrajectoiresProConfig = (configurationService: ConfigurationService): HttpClientConfig => {
+	return ({
+		apiName: 'API_TRAJECTOIRES_PRO',
+		apiUrl: configurationService.getConfiguration().API_TRAJECTOIRES_PRO_URL,
+	});
+};
+
 export function buildHttpClientConfigList(configurationService: ConfigurationService) {
 	return {
 		adresseClientService: new HttpClientServiceWithCache(getApiAdresseConfig(configurationService)),
@@ -131,6 +138,7 @@ export function buildHttpClientConfigList(configurationService: ConfigurationSer
 		poleEmploiReferentielsClientService: new HttpClientServiceWithAuthentification(getApiPoleEmploiReferentielsConfig(configurationService)),
 		strapiAuthClientService: new HttpClientServiceWithAuthentification(getAuthApiStrapiConfig(configurationService)),
 		strapiClientService: new HttpClientService(getApiStrapiConfig(configurationService)),
+		trajectoiresProClientService: new HttpClientService(getApiTrajectoiresProConfig(configurationService)),
 		établissementAccompagnementClientService: new HttpClientService(getApiÉtablissementsPublicsConfig(configurationService)),
 	};
 }

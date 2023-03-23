@@ -15,6 +15,7 @@ export namespace ApiLaBonneAlternanceFormationRechercheResponse {
 		place?: ApiLaBonneAlternanceFormationRechercheResponse.Place
 		diplomaLevel?: string
 		idRco: string
+		cfd?: string
 	}
 }
 

@@ -64,10 +64,20 @@ describe('Parcours formation LBA', () => {
 							adresseComplète: 'adresse',
 							codePostal: 'codePostal',
 						},
+						codeCertification: '999',
 						contact: {},
 						nomEntreprise: 'nomEntreprise',
 						tags: [ 'codePostal' ],
 						titre: 'titre',
+					};
+
+					const codeCertification = '999';
+					const statistiques = {
+						millesime: '2020-2021',
+						region: 'Pays de la Loire',
+						tauxAutres6Mois: '12',
+						tauxEnEmploi6Mois: '36',
+						tauxEnFormation: '22',
 					};
 
 					interceptGet({
@@ -80,8 +90,8 @@ describe('Parcours formation LBA', () => {
 					interceptGet({
 						actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Formations en alternance"] > li').first().click(),
 						alias: 'résultat-formation',
-						path: `/_next/data/*/formations/apprentissage/${firstId}.json?codeRomes=D1102%2CD1104&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10&id=${firstId}`,
-						response: JSON.stringify({ pageProps: { formation } }),
+						path: `/_next/data/*/formations/apprentissage/${firstId}.json?codeRomes=D1102%2CD1104&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10&codeCertification=${codeCertification}&id=${firstId}`,
+						response: JSON.stringify({ pageProps: { formation, statistiques } }),
 					});
 					cy.get('h1').contains(formation.titre);
 					cy.get('h2').contains(formation.nomEntreprise);

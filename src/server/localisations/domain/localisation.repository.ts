@@ -8,4 +8,5 @@ export interface LocalisationRepository {
   getDépartementListByNom(départementRecherché: string): Promise<Either<Localisation[]>>;
   getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>>;
   getRégionListByNom(régionRecherchée: string): Promise<Either<Localisation[]>>;
+  getCodeRegionByCodePostal(codePostalRecherché: string): Promise<Either<string | undefined>>;
 }

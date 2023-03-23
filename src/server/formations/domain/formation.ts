@@ -6,6 +6,7 @@ export interface RésultatRechercheFormation {
 	idRco: string
 	codePostal?: string
 	ville?: string
+	codeCertification?: string
 }
 
 export interface Formation {
@@ -36,3 +37,10 @@ export interface FormationFiltre {
 	latitudeCommune: string
 	longitudeCommune: string
 }
+
+export namespace FormationFiltre {
+	export interface AvecCodeCertification extends FormationFiltre {
+		codeCertification?: string
+	}
+}
+

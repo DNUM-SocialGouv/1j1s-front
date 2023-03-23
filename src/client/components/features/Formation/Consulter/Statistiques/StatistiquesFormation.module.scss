@@ -1,0 +1,39 @@
+@use "@styles/utilities";
+
+.section {
+  background-color: utilities.$color-background-white-lilac;
+}
+
+.entête {
+  padding: 1.5rem;
+}
+.layout {
+  padding: 2rem 1rem;
+
+  h3, p, li {
+    font-size: 0.875rem;
+  }
+  li:not(:last-child) {
+    margin-bottom: 0.25rem;
+  }
+
+  @include utilities.media(large) {
+    padding: 3.5rem 0 1.5rem;
+  }
+}
+
+.texte {
+  &Question {
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  &Pourcentage {
+    color: utilities.$color-primary;
+  }
+}
+
+p.millesime {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+}

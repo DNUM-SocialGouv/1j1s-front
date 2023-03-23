@@ -7,9 +7,10 @@ import styles from '~/client/components/ui/EnTeteSection/EnTeteSection.module.sc
 interface EnTeteSectionProps extends React.ComponentPropsWithoutRef<'div'>{
   heading: string
   headingLevel?: HtmlHeadingTag
+	description?: string
 }
 
-export function EnTeteSection({ className, heading, headingLevel, ...rest }: EnTeteSectionProps) {
+export function EnTeteSection({ className, heading, headingLevel, description, ...rest }: EnTeteSectionProps) {
 
 	function Heading({ children, className }: { headingLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
 		return React.createElement(headingLevel || 'h2', { className: className }, children);
@@ -17,6 +18,7 @@ export function EnTeteSection({ className, heading, headingLevel, ...rest }: EnT
 	return (
 		<div className={classNames(styles.enteteSection, className)} {...rest}>
 			<Heading className={styles.enteteSection__Title}>{heading}</Heading>
+			{description && <p className={styles.enteteSection__Description}>{description}</p>}
 		</div>
 	);
 }

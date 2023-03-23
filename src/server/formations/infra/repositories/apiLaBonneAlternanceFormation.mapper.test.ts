@@ -15,6 +15,7 @@ describe('mapRésultatRechercheFormation', () => {
 	it('converti une response en liste de formation', () => {
 		const input: ApiLaBonneAlternanceFormationRechercheResponse = {
 			results: [{
+				cfd: '123',
 				company: {
 					name: 'ECOLE DE TRAVAIL ORT',
 				},
@@ -35,6 +36,7 @@ describe('mapRésultatRechercheFormation', () => {
 		const expected: RésultatRechercheFormation[] = [
 			{
 				adresse: '1 rue de la République',
+				codeCertification: '123',
 				codePostal: '75001',
 				idRco: '123',
 				nomEntreprise: 'ECOLE DE TRAVAIL ORT',

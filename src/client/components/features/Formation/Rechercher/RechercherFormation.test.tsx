@@ -97,6 +97,7 @@ describe('RechercherFormation', () => {
 			// GIVEN
 			const formationFixture: RésultatRechercheFormation[] = [
 				{
+					codeCertification: '123456',
 					idRco: '123',
 					nomEntreprise: 'La Bonne Alternance',
 					tags: ['Paris', NiveauRequis['NIVEAU_5']],
@@ -133,7 +134,7 @@ describe('RechercherFormation', () => {
 			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
 			const resultListElements = within(resultList).getAllByRole('link');
 			expect(resultListElements).toHaveLength(formationFixture.length);
-			expect(resultListElements[0].getAttribute('href')).toEqual('/formations/apprentissage/123?codeCommune=75056&codeRomes=D1103%2CD1101%2CH2101&distanceCommune=10&latitudeCommune=48.856614&longitudeCommune=2.3522219');
+			expect(resultListElements[0].getAttribute('href')).toEqual('/formations/apprentissage/123?codeCommune=75056&codeRomes=D1103%2CD1101%2CH2101&distanceCommune=10&latitudeCommune=48.856614&longitudeCommune=2.3522219&codeCertification=123456');
 		});
 	});
 });

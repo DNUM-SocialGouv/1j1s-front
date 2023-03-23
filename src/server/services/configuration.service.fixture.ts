@@ -20,6 +20,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',
 			API_POLE_EMPLOI_OFFRES_URL: 'https://api.emploi-store.fr/partenaire/offresdemploi/v2/offres',
 			API_POLE_EMPLOI_REFERENTIEL_URL: 'https://api.emploi-store.fr/partenaire/offresdemploi/v2/referentiel',
+			API_TRAJECTOIRES_PRO_URL: 'https://trajectoires-pro-recette.apprentissage.beta.gouv.fr/api/',
 			ENVIRONMENT: 'test',
 			IS_REVIEW_APP: '',
 			MAILER_SERVICE_ACTIVE: '',
