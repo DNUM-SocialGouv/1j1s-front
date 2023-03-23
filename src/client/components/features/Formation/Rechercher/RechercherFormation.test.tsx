@@ -137,4 +137,30 @@ describe('RechercherFormation', () => {
 			expect(resultListElements[0].getAttribute('href')).toEqual('/formations/apprentissage/123?codeCommune=75056&codeRomes=D1103%2CD1101%2CH2101&distanceCommune=10&latitudeCommune=48.856614&longitudeCommune=2.3522219&codeCertification=123456');
 		});
 	});
+
+	it('affiche une liste de partenaires', async () => {
+		// GIVEN
+		const formationServiceMock = aFormationService();
+		const métierServiceMock = aMétierService();
+		const localisationServiceMock = aLocalisationService();
+		mockUseRouter({});
+
+		// WHEN
+		render(
+			<DependenciesProvider
+				formationService={formationServiceMock}
+				métierService={métierServiceMock}
+				localisationService={localisationServiceMock}
+			>
+				<RechercherFormation/>
+			</DependenciesProvider>,
+		);
+
+		const entête =  screen.getByRole('heading', { level: 2 });
+		expect(entête).toHaveTextContent('Découvrez des services faits pour vous');
+		expect(entête).toBeVisible();
+
+		const listeDePartenaires = screen.getByRole('list', { name: 'Liste des partenaires' });
+		expect(listeDePartenaires).toBeVisible();
+	});
 });
