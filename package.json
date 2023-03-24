@@ -43,7 +43,7 @@
     "react-instantsearch-hooks-web": "~6.42.0",
     "redis": "~4.6.5",
     "reflect-metadata": "~0.1.13",
-    "sharp": "~0.31.0",
+    "sharp": "~0.32.0",
     "uuid": "~9.0.0"
   },
   "devDependencies": {
