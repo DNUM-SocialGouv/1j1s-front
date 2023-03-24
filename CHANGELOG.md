@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.33.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.32.1...v3.33.0) (2023-03-24)
+
+
+### Features
+
+* **faq:** ajout isr page faq ([2d1071d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2d1071d3d45aaee09c7a8411b259761173f2af09))
+
 ## [3.32.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.32.0...v3.32.1) (2023-03-23)
 
 
