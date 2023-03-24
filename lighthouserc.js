@@ -29,6 +29,8 @@ module.exports = {
 				'https://www.1jeune1solution.gouv.fr/mesures-employeurs',
 				'https://www.1jeune1solution.gouv.fr/je-recrute-afpr-poei',
 				'https://www.1jeune1solution.gouv.fr/logements/annonces',
+				'https://www.1jeune1solution.gouv.fr/logements/aides-logement',
+				'https://www.1jeune1solution.gouv.fr/formations/apprentissage',
 			],
 		},
 		server: {
