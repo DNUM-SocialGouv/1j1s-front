@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.34.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.33.0...v3.34.0) (2023-03-24)
+
+
+### Features
+
+* **monitoring:** ajout nouvelles urls ([a2f6659](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a2f6659b288ab1d83885aa06dd7d381454f00684))
+
 ## [3.33.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.32.1...v3.33.0) (2023-03-24)
 
 
