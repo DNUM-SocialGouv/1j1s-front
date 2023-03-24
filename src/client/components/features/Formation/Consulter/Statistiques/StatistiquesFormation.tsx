@@ -43,10 +43,10 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 						imageSrc="/images/logos/inserjeunes.svg"
 						imageFit="contain"
 						link="/articles/inserjeunes"
-						titleLabel="InserJeunes, le dispositif qui vous présente le devenir des étudiants après un diplôme"
+						titleLabel="Découvrez le dispositif InserJeunes"
 					>
 						<p>
-							Découvrez ce que sont devenus les étudiants toujours inscrits en formation ou ceux en emploi dans les 6 mois suivants la sortie de formation !
+							Inserjeunes est un service d’aide à l’orientation des jeunes qui présente différents indicateurs pour toutes les formations professionnelles.
 						</p>
 					</ArticleCard>
 				</ArticleCardList>
