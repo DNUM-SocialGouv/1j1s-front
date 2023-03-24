@@ -71,5 +71,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<FaqPageProp
 			isFeatureActive: true,
 			listeDeQuestionRéponse: listeDeQuestionRéponse.result,
 		},
+		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 }
