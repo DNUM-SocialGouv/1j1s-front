@@ -165,4 +165,33 @@ describe('RechercherFormation', () => {
 		const listeDePartenaires = screen.getByRole('list', { name: 'Liste des partenaires' });
 		expect(listeDePartenaires).toBeVisible();
 	});
+
+	it('filtre les query params envoyés au service', () => {
+		const formationService = aFormationService();
+		mockUseRouter({ query : {
+			codeCommune: '75056',
+			codeRomes: 'M1805%2CM1806%2CM1802',
+			distanceCommune: '10',
+			latitudeCommune: '48.859',
+			libelleCommune: 'Paris+%2875001%29',
+			libelleMetier: 'Développement+web%2C+intégration',
+			longitudeCommune: '2.347',
+			niveauEtudes: '4',
+			test: 'test',
+		} });
+
+		render(
+			<DependenciesProvider
+				formationService={formationService}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}
+			>
+				<RechercherFormation/>
+			</DependenciesProvider>,
+		);
+
+		expect(formationService.rechercherFormation).toHaveBeenCalledWith(expect.not.objectContaining({
+			test: 'test',
+		}));
+	});
 });

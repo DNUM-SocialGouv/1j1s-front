@@ -21,6 +21,7 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
@@ -32,6 +33,7 @@ const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 export default function RechercherFormation() {
 	const router = useRouter();
 
+	const formationQuery = useFormationQuery();
 	const formationService = useDependency<FormationService>('formationService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
 	const [formationList, setFormationList] = useState<RésultatRechercheFormation[]>([]);
@@ -47,7 +49,7 @@ export default function RechercherFormation() {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
-			formationService.rechercherFormation(router.query)
+			formationService.rechercherFormation(formationQuery)
 				.then((response) => {
 					if (response.instance === 'success') {
 						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
@@ -60,7 +62,7 @@ export default function RechercherFormation() {
 					setIsLoading(false);
 				});
 		}
-	}, [router.query, formationService]);
+	}, [formationQuery, formationService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
