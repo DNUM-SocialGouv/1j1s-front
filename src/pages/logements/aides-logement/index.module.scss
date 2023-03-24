@@ -38,16 +38,6 @@
   }
 }
 
-.articleList {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  @include media(large) {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2.5rem;
-  }
-}
-
 .additionalInfo {
   display: flex;
   align-items: flex-start;

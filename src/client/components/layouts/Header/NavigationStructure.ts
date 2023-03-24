@@ -76,6 +76,7 @@ const logementsNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Annonces', link: '/logements/annonces' },
 		{ label: 'Aides financières au logement', link: '/logements/aides-logement' },
+		{ label: 'Découvrir tous nos conseils', link: '/logements/conseils' },
 	],
 	label: 'Logement',
 });
