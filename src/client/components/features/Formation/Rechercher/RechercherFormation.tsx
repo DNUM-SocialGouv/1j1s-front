@@ -40,13 +40,14 @@ export default function RechercherFormation() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
+		// FIXME (GAFI 24-03-2023): passer par objet vide
 		const queryString = stringify(router.query);
 
 		if (queryString !== '') {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
-			formationService.rechercherFormation(queryString)
+			formationService.rechercherFormation(router.query)
 				.then((response) => {
 					if (response.instance === 'success') {
 						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));

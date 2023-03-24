@@ -69,7 +69,6 @@ describe('RechercherFormation', () => {
 					libelleMetier: 'Boucherie,charcuterie,traiteur',
 				},
 			});
-			const expectedQuery = 'codeRomes=D1103%2CD1101%2CH2101&libelleMetier=Boucherie%2Ccharcuterie%2Ctraiteur';
 
 			// WHEN
 			render(
@@ -87,7 +86,10 @@ describe('RechercherFormation', () => {
 			// THEN
 			expect(formulaireRechercheFormation).toBeInTheDocument();
 			expect(nbRésultats).toBeInTheDocument();
-			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith(expectedQuery);
+			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith({
+				codeRomes: 'D1103,D1101,H2101',
+				libelleMetier: 'Boucherie,charcuterie,traiteur',
+			});
 			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
 			const resultListElements = within(resultList).getAllByText('En savoir plus');
 			expect(resultListElements).toHaveLength(formationFixture.length);

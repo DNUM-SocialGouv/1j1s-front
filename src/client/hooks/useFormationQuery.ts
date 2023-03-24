@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface FormationQueryParams {
+export type FormationQueryParams = {
 	codeRomes?: string
 	libelleMetier?: string
 	codeCommune?: string
