@@ -4,7 +4,7 @@ import React from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
-import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
+import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 interface ListeDesResultatsProps {
 	resultats: React.ReactElement

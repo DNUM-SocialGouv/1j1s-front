@@ -9,10 +9,9 @@ import { Link } from '~/client/components/ui/Link/Link';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/faq/index.analytics';
+import styles from '~/pages/faq/index.module.scss';
 import { Question } from '~/server/cms/domain/FAQ.type';
 import { dependencies } from '~/server/start';
-
-import styles from './index.page.module.scss';
 
 type FaqPageProps = {
 	listeDeQuestionRéponse: Array<Question>

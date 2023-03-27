@@ -1,4 +1,3 @@
-import '~/styles/globals.css';
 import '~/styles/main.scss';
 
 import { NextPage } from 'next';

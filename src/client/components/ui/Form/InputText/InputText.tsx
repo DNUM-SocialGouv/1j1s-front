@@ -9,7 +9,7 @@ import React, {
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
-import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
+import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 type InputValue = string | ReadonlyArray<string> | number | undefined;
 
