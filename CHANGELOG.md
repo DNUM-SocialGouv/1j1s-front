@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.34.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.34.1...v3.34.2) (2023-03-27)
+
+
+### Bug Fixes
+
+* ajouter self parmi la liste des iframes autorisées par les CSP ([#1102](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1102)) ([bde7f9a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bde7f9aa7e7172232770b250f4f8033b1d450c97))
+
 ## [3.34.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.34.0...v3.34.1) (2023-03-27)
 
 
