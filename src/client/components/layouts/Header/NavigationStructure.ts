@@ -21,7 +21,7 @@ const offresNav = (): NavigationItemWithChildren => ({
 		{ label: 'Stages', link: '/stages' },
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },
 		{ label: 'Jobs étudiants', link: '/jobs-etudiants' },
-		{ label: 'Emplois en Europe', link: '/europe' },
+		{ label: 'Expérience en Europe', link: '/europe' },
 	],
 	label: 'Offres',
 });
@@ -31,7 +31,7 @@ const orientationNav = (): NavigationItemWithChildren => ({
 		{ label: 'Formations', link: '/formations' },
 		...(process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE === '1' ? [{ label: 'Formations en apprentissage', link: '/formations/apprentissage' }] : []),
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
-		{ label: 'Participer à un évènement', link: '/evenements' },
+		{ label: 'Participer à des évènements', link: '/evenements' },
 	],
 	label: 'Formations et orientation',
 });
@@ -39,20 +39,17 @@ const orientationNav = (): NavigationItemWithChildren => ({
 const accompagnementNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Contrat Engagement Jeune', link: '/contrat-engagement-jeune' },
-		{ label: 'Mes aides financières', link: '/mes-aides' },
-		{ label: 'Le mentorat', link: '/mentorat' },
-		{ label: 'Je crée mon CV personnalisé', link: '/creer-mon-cv' },
-		{ label: 'Entreprendre', link: '/entreprendre' },
-		{ label: 'Accompagnement', link: '/accompagnement' },
-		{ label: 'Actualités et services jeunes', link: '/espace-jeune' },
+		{ label: 'Echanger avec un mentor', link: '/mentorat' },
+		{ label: 'Trouver une structure d’accompagnement', link: '/accompagnement' },
+		{ label: 'Entreprendre : financements, aides et accompagnement', link: '/entreprendre' },
 	],
-	label: 'Aides et accompagnement',
+	label: 'Accompagnement',
 });
 
 const engagementNav = (): NavigationItemWithChildren => ({
 	children: [
-		{ label: 'Le service civique', link: '/service-civique' },
-		{ label: 'Le bénévolat', link: '/benevolat' },
+		{ label: 'Bénévolat', link: '/benevolat' },
+		{ label: 'Service civique', link: '/service-civique' },
 	],
 	label: 'Engagement',
 });
@@ -78,13 +75,22 @@ const employeurNav = (): NavigationItemWithChildren => ({
 const logementsNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Annonces', link: '/logements/annonces' },
-		{ label: 'Mes aides au logement', link: '/logements/aides-logement' },
+		{ label: 'Aides financières au logement', link: '/logements/aides-logement' },
 	],
 	label: 'Logement',
 });
 
+const aidesEtOutilsNav = (): NavigationItemWithChildren => ({
+	children: [
+		{ label: 'Simulateur d’aides financières', link: '/mes-aides' },
+		{ label: 'Créer son CV personnalisé', link: '/creer-mon-cv' },
+	],
+	label: 'Aides et outils',
+});
+
 export interface NavigationItemList {
   accueil: NavigationItem,
+	aidesEtOutilsNav: NavigationItemWithChildren,
   offresNav: NavigationItemWithChildren,
   orientationNav: NavigationItemWithChildren,
   accompagnementNav: NavigationItemWithChildren,
@@ -96,6 +102,7 @@ export interface NavigationItemList {
 export const navigationItemList = (): NavigationItemList => ({
 	accompagnementNav: accompagnementNav(),
 	accueil: accueil(),
+	aidesEtOutilsNav: aidesEtOutilsNav(),
 	employeurNav: employeurNav(),
 	engagementNav: engagementNav(),
 	logementsNav: logementsNav(),

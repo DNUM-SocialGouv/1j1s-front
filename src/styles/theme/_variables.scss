@@ -10,6 +10,7 @@ $auricula-purple: #6E445A;
 $tapestry: #A558A0;
 $dark-vinaceous: #A66465;
 $coral: #E4794A;
+$seashell-peach: #FFF4ED;
 $brazil-red: #B34000;
 $scarlet-red: #CE0500;
 $cerro-green: #61803E;
@@ -51,7 +52,7 @@ $color-lighten-tapestry: lighten($color-tapestry, 45%);
 $color-smalt-blue: $smalt-blue;
 $color-lighten-smalt-blue: lighten($color-smalt-blue, 48%);
 $color-coral: $coral;
-$color-lighten-coral: lighten($color-coral, 31%);
+$color-lighten-coral: $seashell-peach;
 
 $color-separator: $light-neutral-grey;
 $color-form-field: $white-lilac;

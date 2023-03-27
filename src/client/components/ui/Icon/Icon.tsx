@@ -30,6 +30,7 @@ import { LockIcon } from '~/client/components/ui/Icon/lock.icon';
 import { MagnifyingGlassIcon } from '~/client/components/ui/Icon/magnifying-glass.icon';
 import { MailIcon } from '~/client/components/ui/Icon/mail.icon';
 import { MapPinIcon } from '~/client/components/ui/Icon/map-pin.icon';
+import { MarkPenIcon } from '~/client/components/ui/Icon/mark-pen.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { MicrowaveIcon } from '~/client/components/ui/Icon/microwave.icon';
 import { PhoneIcon } from '~/client/components/ui/Icon/phone.icon';
@@ -79,7 +80,8 @@ export type IconName =
   | 'magnifying-glass'
   | 'mail'
   | 'map-pin'
-  | 'menu'
+	| 'mark-pen'
+	| 'menu'
   | 'microwave'
   | 'phone'
   | 'plant'
@@ -163,6 +165,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest}/>;
 			case 'map-pin':
 				return <MapPinIcon className={className} aria-hidden={true} {...rest} />;
+			case 'mark-pen':
+				return <MarkPenIcon className={className} aria-hidden={true} {...rest} />;
 			case 'menu':
 				return <MenuIcon className={className} aria-hidden={true} {...rest} />;
 			case 'microwave':
