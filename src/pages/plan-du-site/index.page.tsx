@@ -53,9 +53,10 @@ export default function PlanDuSite() {
 
 						{displayNavigationTree(navigationItemList().offresNav)}
 						{displayNavigationTree(navigationItemList().orientationNav)}
-						{displayNavigationTree(navigationItemList().accompagnementNav)}
 						{displayNavigationTree(navigationItemList().engagementNav)}
 						{displayNavigationTree(navigationItemList().logementsNav)}
+						{displayNavigationTree(navigationItemList().accompagnementNav)}
+						{displayNavigationTree(navigationItemList().aidesEtOutilsNav)}
 						{displayNavigationTree(navigationItemList().employeurNav)}
 
 						{ displayFAQ && <li><Link href="/faq">Foire aux questions</Link></li> }

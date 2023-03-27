@@ -1,11 +1,19 @@
 @import "@styles/utilities";
 
-.heroTitle {
-    @extend %bold;
+.hero {
+    &Button {
+        margin-top: 1.5rem;
+    }
+    &Title {
+        @extend %bold;
+    }
 }
 
 .card {
     width: 22.5rem;
+    img {
+        object-fit: cover;
+    }
 }
 
 .section {
@@ -40,7 +48,7 @@
             }
         }
     }
-    &AidesOrientationAccompagnement {
+    &EngagementBénévolat {
         background-color: $color-lighten-smalt-blue;
         &Header {
             &Icon {
@@ -48,11 +56,27 @@
             }
         }
     }
-    &EngagementBénévolat {
+    &Logement {
         background-color: $color-lighten-coral;
         &Header {
             &Icon {
                 color: $color-coral;
+            }
+        }
+    }
+    &AidesOrientationAccompagnement {
+        background-color: $color-lighten-blue-navy;
+        &Header {
+            &Icon {
+                color: $color-blue-navy;
+            }
+        }
+    }
+    &AidesEtOutils {
+        background-color: $color-lighten-tapestry;
+        &Header {
+            &Icon {
+                color: $color-tapestry;
             }
         }
     }

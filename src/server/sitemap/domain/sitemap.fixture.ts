@@ -113,25 +113,22 @@ export function aSitemap() {
 		<loc>http://localhost:3000/contrat-engagement-jeune</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/mes-aides</loc>
-	</url>
-	<url>
 		<loc>http://localhost:3000/mentorat</loc>
-	</url>
-	<url>
-		<loc>http://localhost:3000/creer-mon-cv</loc>
-	</url>
-	<url>
-		<loc>http://localhost:3000/entreprendre</loc>
 	</url>
 	<url>
 		<loc>http://localhost:3000/accompagnement</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/espace-jeune</loc>
+		<loc>http://localhost:3000/entreprendre</loc>
 	</url>
 	<url>
 		<loc>http://localhost:3000/</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/mes-aides</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/creer-mon-cv</loc>
 	</url>
 	<url>
 		<loc>http://localhost:3000/les-entreprises-s-engagent</loc>
@@ -155,10 +152,10 @@ export function aSitemap() {
 		<loc>http://localhost:3000/mon-espace</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/service-civique</loc>
+		<loc>http://localhost:3000/benevolat</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/benevolat</loc>
+		<loc>http://localhost:3000/service-civique</loc>
 	</url>
 	<url>
 		<loc>http://localhost:3000/logements/annonces</loc>

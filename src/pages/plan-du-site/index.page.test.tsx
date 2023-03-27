@@ -10,39 +10,46 @@ import PlanDuSite from '~/pages/plan-du-site/index.page';
 
 describe('Plan du site', () => {
 	it.each`
-	  nom                                         | path
-    ${'Accueil'}                                | ${'/'}
-    ${'Emplois'}                                | ${'/emplois'}
-    ${'Stages'}                                 | ${'/stages'}
-    ${'Contrats d’alternance'}                  | ${'/apprentissage'}
-    ${'Jobs étudiants'}                         | ${'/jobs-etudiants'}
-    ${'Emplois en Europe'}                      | ${'/europe'}
-    ${'Formations'}                             | ${'/formations'}
-    ${'Découvrir les métiers'}                  | ${'/decouvrir-les-metiers'}
-    ${'Participer à un évènement'}              | ${'/evenements'}
-    ${'Contrat Engagement Jeune'}               | ${'/contrat-engagement-jeune'}
-    ${'Mes aides financières'}                  | ${'/mes-aides'}
-    ${'Mes aides au logement'}                  | ${'/logements/aides-logement'}
-    ${'Le mentorat'}                            | ${'/mentorat'}
-    ${'Je crée mon CV personnalisé'}            | ${'/creer-mon-cv'}
-    ${'Entreprendre'}                           | ${'/entreprendre'}
-    ${'Accompagnement'}                         | ${'/accompagnement'}
-    ${'Actualités et services jeunes'}          | ${'/espace-jeune'}
-    ${'Le service civique'}                     | ${'/service-civique'}
-    ${'Le bénévolat'}                           | ${'/benevolat'}
-    ${'Annonces'}                               | ${'/logements/annonces'}
-    ${'Rejoindre la mobilisation'}              | ${'/les-entreprises-s-engagent'}
-    ${'Je recrute'}                             | ${'/je-recrute'}
-    ${'Je deviens mentor'}                      | ${'/je-deviens-mentor'}
-    ${'Je propose des immersions'}              | ${'/immersions'}
-    ${'Je forme les jeunes grâce à l‘emploi'}   | ${'/je-recrute-afpr-poei'}
-    ${'Découvrir les mesures employeurs'}       | ${'/mesures-employeurs'}
-    ${'Accéder à mon espace'}                   | ${'/mon-espace'}
-    ${'Conditions Générales d’utilisation'}     | ${'/cgu'}
-    ${'Accessibilité : Partiellement conforme'} | ${'/accessibilite'}
-    ${'Mentions légales'}                       | ${'/mentions-legales'}
-    ${'Politique de confidentialité'}           | ${'/confidentialite'}
-    ${'Nous contacter'}                         | ${'mailto:contact-1j1s@sg.social.gouv.fr'}`(
+	  nom                                                       | path
+    ${'Accueil'}                                              | ${'/'}
+    
+    ${'Emplois'}                                              | ${'/emplois'}
+    ${'Stages'}                                               | ${'/stages'}
+    ${'Contrats d’alternance'}                                | ${'/apprentissage'}
+    ${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
+    ${'Expérience en Europe'}                                 | ${'/europe'}
+    
+    ${'Formations'}                                           | ${'/formations'}
+    ${'Formations en apprentissage'}                          | ${'/formations/apprentissage'}
+    ${'Découvrir les métiers'}                                | ${'/decouvrir-les-metiers'}
+    ${'Participer à des évènements'}                          | ${'/evenements'}
+    
+    ${'Bénévolat'}                                            | ${'/benevolat'}
+    ${'Service civique'}                                      | ${'/service-civique'}
+    
+    ${'Annonces'}                                             | ${'/logements/annonces'}
+    ${'Aides financières au logement'}                        | ${'/logements/aides-logement'}
+    
+    ${'Contrat Engagement Jeune'}                             | ${'/contrat-engagement-jeune'}
+    ${'Echanger avec un mentor'}                              | ${'/mentorat'}
+    ${'Trouver une structure d’accompagnement'}               | ${'/accompagnement'}
+    ${'Entreprendre : financements, aides et accompagnement'} | ${'/entreprendre'}
+    
+    ${'Simulateur d’aides financières'}                       | ${'/mes-aides'}
+    ${'Créer son CV personnalisé'}                            | ${'/creer-mon-cv'}
+    
+    ${'Rejoindre la mobilisation'}                            | ${'/les-entreprises-s-engagent'}
+    ${'Je recrute'}                                           | ${'/je-recrute'}
+    ${'Je deviens mentor'}                                    | ${'/je-deviens-mentor'}
+    ${'Je propose des immersions'}                            | ${'/immersions'}
+    ${'Je forme les jeunes grâce à l‘emploi'}                 | ${'/je-recrute-afpr-poei'}
+    ${'Découvrir les mesures employeurs'}                     | ${'/mesures-employeurs'}
+    ${'Accéder à mon espace'}                                 | ${'/mon-espace'}
+    ${'Conditions Générales d’utilisation'}                   | ${'/cgu'}
+    ${'Accessibilité : Partiellement conforme'}               | ${'/accessibilite'}
+    ${'Mentions légales'}                                     | ${'/mentions-legales'}
+    ${'Politique de confidentialité'}                         | ${'/confidentialite'}
+    ${'Nous contacter'}                                       | ${'mailto:contact-1j1s@sg.social.gouv.fr'}`(
 		'présente la page $nom du site', 
 		async ({ nom, path }) => {
 			const analyticsService = anAnalyticsService();

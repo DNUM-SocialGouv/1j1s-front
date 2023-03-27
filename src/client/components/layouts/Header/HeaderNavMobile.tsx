@@ -11,6 +11,7 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path
 	const {
 		accueil,
 		accompagnementNav,
+		aidesEtOutilsNav,
 		employeurNav,
 		engagementNav,
 		offresNav,
@@ -33,9 +34,10 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path
 					<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} onClick={toggleModal}/>
 					<NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} onClick={toggleModal}/>
 					<NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path} onClick={toggleModal}/>
 					<NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} onClick={toggleModal}/>
 					<NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} onClick={toggleModal}/>
+					<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path} onClick={toggleModal}/>
+					<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav} path={path} onClick={toggleModal}/>
 					<NavItemWithSubItems className={styles.navItem} item={employeurNav} path={path} onClick={toggleModal}/>
 				</ul>
 			</nav>
