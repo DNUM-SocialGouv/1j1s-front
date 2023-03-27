@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
-import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
+import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 
 type ValidationFunction = (value: string) => string | null | undefined;

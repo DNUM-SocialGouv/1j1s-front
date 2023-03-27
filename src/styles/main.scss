@@ -27,3 +27,20 @@ input[type="radio"] + label::before, select, textarea, video[controls] {
 body {
   overflow: overlay;
 }
+
+a {
+  color: inherit;
+}
+
+button {
+  background-color: initial;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  margin: 0;
+}
+
+abbr[title] {
+  cursor: help;
+  text-decoration: none;
+}

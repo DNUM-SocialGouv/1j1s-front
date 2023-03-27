@@ -11,7 +11,7 @@ import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/Lis
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
-import { useSynchronizedRef } from '~/client/components/useSynchronizedRef';
+import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 
 export interface HitProps<THit extends BaseHit> {
