@@ -416,7 +416,7 @@ export function anOffreDeStageDepotStrapi(): Strapi.CollectionType.OffreStageDep
 		dateDeDebut: '2023-02-03',
 		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
 		domaines: [
-			{ nom: 'achats' as Strapi.CollectionType.OffreStage.Domaines.Nom.ACHAT },
+			{ nom: Strapi.CollectionType.OffreStage.Domaines.Nom.ACHAT },
 		],
 		dureeEnJour: 30,
 		employeur: {

@@ -118,6 +118,8 @@ describe('RechercherAlternance', () => {
 	});
 
 	it('affiche la section "nos articles"', () => {
+		mockUseRouter({});
+
 		render(
 			<DependenciesProvider
 				alternanceService={anAlternanceService()}
@@ -135,6 +137,8 @@ describe('RechercherAlternance', () => {
 	});
 
 	it('affiche la section "services faits pour vous"', () => {
+		mockUseRouter({});
+
 		render(
 			<DependenciesProvider
 				alternanceService={anAlternanceService()}

@@ -6,12 +6,7 @@ import { Article } from '~/server/cms/domain/article';
 import { Question } from '~/server/cms/domain/FAQ.type';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import {
-	Domaines,
-	OffreDeStage,
-	OffreDeStageDepot,
-	SourceDesDonnées,
-} from '~/server/cms/domain/offreDeStage.type';
+import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
@@ -257,7 +252,7 @@ export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.Coll
 		dateDeDebut: body.dateDeDebut,
 		description: body.description,
 		domaines: body.domaine ? [{
-			nom: body.domaine as unknown as Strapi.CollectionType.OffreStage.Domaines.Nom,
+			nom: body.domaine.toString() as Strapi.CollectionType.OffreStage.Domaines.Nom,
 		}] : [],
 		dureeEnJour: Number(body.duree),
 		employeur: {

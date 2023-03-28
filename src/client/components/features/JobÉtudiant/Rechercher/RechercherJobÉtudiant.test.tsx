@@ -166,12 +166,14 @@ describe('RechercherJobÉtudiant', () => {
 		});
 	});
 
-	it('filtre les query params de la page', () => {
+	it('filtre les query params de la page', async () => {
 		const offreService = anOffreService();
-		mockUseRouter({ query: {
-			page: '1',
-			test: 'test',
-		} });
+		mockUseRouter({
+			query: {
+				page: '1',
+				test: 'test',
+			},
+		});
 
 		render(
 			<DependenciesProvider
@@ -181,6 +183,8 @@ describe('RechercherJobÉtudiant', () => {
 				<RechercherJobÉtudiant/>
 			</DependenciesProvider>,
 		);
+
+		await screen.findByText('3 offres de jobs étudiants');
 
 		expect(offreService.rechercherJobÉtudiant).toHaveBeenCalledWith({
 			page: '1',
