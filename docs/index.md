@@ -6,3 +6,4 @@
 4. [Installation](installation.md)
 5. [Standards d'équipe](standards.md)
 6. [Dépannage](depannage.md)
+7. [Comment ça marche ... ?](aide.md)
