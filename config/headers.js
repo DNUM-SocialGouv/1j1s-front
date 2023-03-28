@@ -1,7 +1,7 @@
 const LOCAL_MODE_HEADERS = [];
 
 const STRAPI_MEDIA_HOST = new URL(process.env.STRAPI_MEDIA_URL).hostname;
-const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/indexes/fiche-metier/search *.meilisearch.io/indexes/offre-de-stage/search *.meilisearch.io/indexes/evenement/search *.meilisearch.io/indexes/annonce-de-logement/search *.meilisearch.io/indexes/fiche-metier/search *.meilisearch.io/indexes/offre-de-stage/search *.meilisearch.io/indexes/evenement/search *.meilisearch.io/indexes/annonce-de-logement/search 1j1s-front.osc-fr1.scalingo.io 1j1s-stage-content-manager.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
+const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/indexes/fiche-metier/search *.meilisearch.io/indexes/offre-de-stage/search *.meilisearch.io/indexes/evenement/search *.meilisearch.io/indexes/annonce-de-logement/search 1j1s-front.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
 const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}`;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
