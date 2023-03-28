@@ -51,11 +51,12 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 				// don't know why le premier input ne se remplit pas workaround l'appeler 2 fois
-				cy.get('input').first().focus().type(aFormulaireÉtapeStage().nomOffre);
+				cy.get('input').first().focus();
+				cy.get('input').first().type(aFormulaireÉtapeStage().nomOffre);
 				cy.get('input[name="nomOffre"]').type(aFormulaireÉtapeStage().nomOffre);
 				cy.get('input[name="lienCandidature"]').type(aFormulaireÉtapeStage().lienCandidature);
 				cy.get('textarea[name="descriptionOffre"]').type(aFormulaireÉtapeStage().descriptionOffre);
-				cy.get('input[name="dateDebut"').type(aFormulaireÉtapeStage().dateDebut);
+				cy.get('input[name="dateDebut"]').type(aFormulaireÉtapeStage().dateDebut);
 				cy.get('button').contains('Sélectionnez une durée').click();
 				cy.get('ul[role="listbox"]').first().click();
 
@@ -102,7 +103,8 @@ describe('Dépôt de Stage', () => {
 				});
 
 				// don't know why le premier input ne se remplit pas workaround l'appeler 2 fois
-				cy.get('input').first().focus().type('France');
+				cy.get('input').first().focus();
+				cy.get('input').first().type('France');
 				cy.get('input[placeholder="Exemple : France"]').type('France');
 				cy.get('[role="option"]').click();
 				cy.get('input[name="ville"]').type(aFormulaireÉtapeLocalisation().ville);
