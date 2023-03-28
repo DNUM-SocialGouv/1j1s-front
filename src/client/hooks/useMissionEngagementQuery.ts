@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface MissionEngagementQueryParams {
+export type MissionEngagementQueryParams = {
   domain?: string
   codeCommune?: string
   codeRomes?: string
@@ -12,36 +12,21 @@ interface MissionEngagementQueryParams {
   libelleCommune?: string
   longitudeCommune?: string
   metierSelectionne?: string
-  ouvertsAuxMineurs?: boolean
+  ouvertsAuxMineurs?: true
+	page?: string
 }
 
 export function useMissionEngagementQuery(): MissionEngagementQueryParams {
-	const [missionEngagementQueryParams, setMissionEngagementQueryParams] = useState<MissionEngagementQueryParams>({
-		codeCommune: undefined,
-		codeRomes: undefined,
-		distanceCommune: undefined,
-		domain: undefined,
-		latitudeCommune: undefined,
-		libelleCommune: undefined,
-		longitudeCommune: undefined,
-		metierSelectionne: undefined,
-		ouvertsAuxMineurs: undefined,
-	});
-
 	const { query } = useRouter();
-
-	useEffect(() => {
-		setMissionEngagementQueryParams({
-			codeCommune: getSingleQueryParam(query.codeCommune),
-			codeRomes: getSingleQueryParam(query.codeRomes),
-			distanceCommune: getSingleQueryParam(query.distanceCommune),
-			domain: getSingleQueryParam(query.domain),
-			latitudeCommune: getSingleQueryParam(query.latitudeCommune),
-			libelleCommune: getSingleQueryParam(query.libelleCommune),
-			longitudeCommune: getSingleQueryParam(query.longitudeCommune),
-			ouvertsAuxMineurs: query.ouvertsAuxMineurs === 'true',
-		});
-	}, [query]);
-
-	return missionEngagementQueryParams;
+	return useMemo(() => ({
+		codeCommune: getSingleQueryParam(query.codeCommune),
+		codeRomes: getSingleQueryParam(query.codeRomes),
+		distanceCommune: getSingleQueryParam(query.distanceCommune),
+		domain: getSingleQueryParam(query.domain),
+		latitudeCommune: getSingleQueryParam(query.latitudeCommune),
+		libelleCommune: getSingleQueryParam(query.libelleCommune),
+		longitudeCommune: getSingleQueryParam(query.longitudeCommune),
+		ouvertsAuxMineurs: query.ouvertsAuxMineurs === 'true' || undefined,
+		page: getSingleQueryParam(query.page),
+	}), [query]);
 }

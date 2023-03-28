@@ -10,7 +10,7 @@ describe('MissionEngagementService', () => {
 				const httpClientService = anHttpClientService();
 				const missionEngagementService = new MissionEngagementService(httpClientService);
 				const catégorie = 'service-civique';
-				const missionEngagementQuery = 'domain=sante&page=2';
+				const missionEngagementQuery = { domain: 'sante', page: '2' };
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
@@ -27,7 +27,7 @@ describe('MissionEngagementService', () => {
 				const httpClientService = anHttpClientService();
 				const missionEngagementService = new MissionEngagementService(httpClientService);
 				const catégorie = 'bénévolat';
-				const missionEngagementQuery = 'domain=sante&page=2';
+				const missionEngagementQuery = { domain: 'sante', page: '2' };
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
@@ -35,8 +35,17 @@ describe('MissionEngagementService', () => {
 
 				expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
 				expect(httpClientService.get).toHaveBeenCalledWith('benevolats?domain=sante&page=2');
-
 			});
+		});
+		it('filtre les clés undefined', async () => {
+			const httpClientService = anHttpClientService();
+			const missionEngagementService = new MissionEngagementService(httpClientService);
+			const catégorie = 'bénévolat';
+			const missionEngagementQuery = { codeRomes: undefined };
+
+			await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
+
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.not.stringContaining('codeRomes'));
 		});
 	});
 });

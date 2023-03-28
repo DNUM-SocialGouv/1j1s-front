@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
@@ -35,7 +33,6 @@ const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherJobÉtudiant() {
-	const router = useRouter();
 	const offreEmploiQuery = useOffreQuery();
 	const offreService = useDependency<OffreService>('offreService');
 
@@ -48,11 +45,9 @@ export function RechercherJobÉtudiant() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		const queryString = stringify(router.query);
-
 		setIsLoading(true);
 		setErreurRecherche(undefined);
-		offreService.rechercherJobÉtudiant(queryString)
+		offreService.rechercherJobÉtudiant(offreEmploiQuery)
 			.then((response) => {
 				if (response.instance === 'success') {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -64,7 +59,7 @@ export function RechercherJobÉtudiant() {
 				}
 				setIsLoading(false);
 			});
-	}, [router.query, offreService]);
+	}, [offreEmploiQuery, offreService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];

@@ -13,10 +13,15 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { NiveauRequis } from '~/server/formations/domain/formation';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheOffreEmploi', () => {
+	beforeEach(() => {
+		mockLargeScreen();
+	});
 	describe('en version mobile', () => {
 		beforeEach(() => {
 			mockSmallScreen();
@@ -340,5 +345,44 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
 			});
 		});
+	});
+
+	it('rempli automatiquement les champs de recherche quand query params présents', () => {
+		mockUseRouter({ query: {
+			codeLocalisation: '75',
+			experienceExigence: NiveauRequis.NIVEAU_3,
+			grandDomaine: référentielDomaineList[0].code,
+			libelleLocalisation: 'Paris (75)',
+			motCle: 'Boulanger',
+			tempsDeTravail: 'tempsPlein',
+			typeDeContrats: 'CDD',
+			typeLocalisation: 'Commune',
+		} });
+
+		render(
+			<DependenciesProvider localisationService={aLocalisationService()}>
+				<FormulaireRechercheOffreEmploi />
+			</DependenciesProvider>,
+		);
+
+		const motCle = screen.getByRole('textbox', { name: /Métier, mot-clé/i });
+		expect(motCle).toHaveValue('Boulanger');
+		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		expect(localisation).toHaveValue('Paris (75)');
+
+		// FIXME (GAFI 17-03-2023): Le composant utilisé pour ces champs ne génère pas un HTML valide et cause des problèmes
+		//	de test-ids
+		/* eslint-disable testing-library/no-node-access */
+		function checkSelectValue(fieldLabel: string, expectedValue: string): void {
+			const labelElement = screen.getByText(fieldLabel);
+			const fieldId = labelElement.getAttribute('for');
+			const field = fieldId && document.getElementById(fieldId);
+			expect(field).toHaveValue(expectedValue);
+		}
+		checkSelectValue('Types de contrats', 'CDD');
+		checkSelectValue('Temps de travail', 'tempsPlein');
+		checkSelectValue('Niveau demandé', NiveauRequis.NIVEAU_3);
+		checkSelectValue('Domaines', référentielDomaineList[0].code);
+		/* eslint-enable testing-library/no-node-access */
 	});
 });

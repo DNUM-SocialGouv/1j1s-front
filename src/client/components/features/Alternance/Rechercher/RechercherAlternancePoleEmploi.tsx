@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import {
@@ -42,7 +40,6 @@ const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 export function RechercherAlternancePoleEmploi() {
-	const router = useRouter();
 	const offreQuery = useOffreQuery();
 	const offreService = useDependency<OffreService>('offreService');
 
@@ -55,11 +52,9 @@ export function RechercherAlternancePoleEmploi() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		const queryString = stringify(router.query);
-
 		setIsLoading(true);
 		setErreurRecherche(undefined);
-		offreService.rechercherAlternance(queryString)
+		offreService.rechercherAlternance(offreQuery)
 			.then((response) => {
 				if (response.instance === 'success') {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -71,7 +66,7 @@ export function RechercherAlternancePoleEmploi() {
 				}
 				setIsLoading(false);
 			});
-	}, [router.query, offreService]);
+	}, [offreQuery, offreService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];

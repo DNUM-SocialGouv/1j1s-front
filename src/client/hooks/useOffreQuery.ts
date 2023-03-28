@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface OffreQueryParams {
+// FIXME (GAFI 20-03-2023): Les alternances n'utilisent que certains de ces champs, un utilisateur ne devrait pas
+//  pouvoir utiliser les autres champs.
+export type OffreQueryParams = {
   motCle?: string
   typeDeContrats?: string
   typeLocalisation?: string
@@ -12,34 +14,22 @@ interface OffreQueryParams {
   tempsDeTravail?: string
   experienceExigence?: string
   grandDomaine?: string
+  page?: string
 }
 
 export function useOffreQuery(): OffreQueryParams {
-	const [offreQueryParams, setOffreQueryParams] = useState<OffreQueryParams>({
-		codeLocalisation: undefined,
-		experienceExigence: undefined,
-		grandDomaine: undefined,
-		libelleLocalisation: undefined,
-		motCle: undefined,
-		tempsDeTravail: undefined,
-		typeDeContrats: undefined,
-		typeLocalisation: undefined,
-	});
 
 	const { query } = useRouter();
 
-	useEffect(() => {
-		setOffreQueryParams({
-			codeLocalisation: getSingleQueryParam(query.codeLocalisation),
-			experienceExigence: getSingleQueryParam(query.experienceExigence),
-			grandDomaine: getSingleQueryParam(query.grandDomaine),
-			libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
-			motCle: getSingleQueryParam(query.motCle),
-			tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
-			typeDeContrats: getSingleQueryParam(query.typeDeContrats),
-			typeLocalisation: getSingleQueryParam(query.typeLocalisation),
-		});
-	}, [query]);
-
-	return offreQueryParams;
+	return useMemo(() => ({
+		codeLocalisation: getSingleQueryParam(query.codeLocalisation),
+		experienceExigence: getSingleQueryParam(query.experienceExigence),
+		grandDomaine: getSingleQueryParam(query.grandDomaine),
+		libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
+		motCle: getSingleQueryParam(query.motCle),
+		page: getSingleQueryParam(query.page),
+		tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
+		typeDeContrats: getSingleQueryParam(query.typeDeContrats),
+		typeLocalisation: getSingleQueryParam(query.typeLocalisation),
+	}), [query]);
 }

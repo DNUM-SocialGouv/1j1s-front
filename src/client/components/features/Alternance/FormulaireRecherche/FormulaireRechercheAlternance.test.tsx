@@ -182,4 +182,29 @@ describe('FormulaireRechercheAlternance', () => {
 			expect(routerPush).not.toHaveBeenCalled();
 		});
 	});
+
+	it('rempli automatiquement les champs lorsque les query params sont présents', () => {
+		mockUseRouter({ query: {
+			codeCommune: '75056',
+			codeRomes: 'D1102,D1104',
+			distanceCommune: '10',
+			latitudeCommune: '48.859',
+			libelleCommune: 'Paris (75001)',
+			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+			longitudeCommune: '2.347',
+		} });
+
+		render(
+			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercheAlternance />
+			</DependenciesProvider>,
+		);
+
+		const domaine = screen.getByRole('textbox', { name: /Sélectionnez un domaine/i });
+		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
+		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		expect(localisation).toHaveValue('Paris (75001)');
+		const rayon = screen.getByTestId('Select-InputHidden');
+		expect(rayon).toHaveValue('10');
+	});
 });
