@@ -38,4 +38,13 @@ describe('<Checkbox />', () => {
 		expect(checkbox).toHaveAttribute('id', 'mon-id');
 		expect(checkbox).toHaveAccessibleName('Ma checkbox');
 	});
+
+	it('accepte une ref', () => {
+		const ref = jest.fn();
+
+		render(<Checkbox label={'Ma checkbox'} ref={ref} />);
+
+		expect(ref).toHaveBeenCalledTimes(1);
+		expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
+	});
 });

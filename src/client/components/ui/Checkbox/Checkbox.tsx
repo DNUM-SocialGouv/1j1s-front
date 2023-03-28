@@ -12,7 +12,10 @@ interface CheckboxProps extends React.InputHTMLAttributes<unknown> {
   label: string
 }
 
-export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
+export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+	{ id, label, className, ...rest  }
+	, ref,
+) {
 	const checkboxId = useRef(id || uuidv4());
 
 	useEffect(() => {
@@ -24,9 +27,10 @@ export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
 			<input
 				type="checkbox"
 				{...rest}
+				ref={ref}
 				id={checkboxId.current}
 			/>
 			<label className={styles.label} htmlFor={checkboxId.current}>{label}</label>
 		</div>
 	);
-}
+});
