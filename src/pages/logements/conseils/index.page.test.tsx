@@ -43,7 +43,7 @@ describe('ConseilsLogement', () => {
 			</DependenciesProvider>,
 		);
 
-		const titre = screen.getByRole('heading', { level: 1, name: 'Découvrez tout ce qu’il faut savoir et tous nos conseils' });
+		const titre = screen.getByRole('heading', { level: 1, name: 'Découvrez tout ce qu’il faut savoir et tous nos conseils concernant votre logement' });
 		expect(titre).toBeVisible();
 	});
 
