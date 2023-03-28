@@ -16,8 +16,8 @@ export function TagList({ className, list, ...rest }: TagListProps) {
 			{
 				list
 					.filter((tag) => !!tag)
-					.map((tag) => (
-						<li key={tag}>
+					.map((tag, index) => (
+						<li key={`${tag}-${index}`}>
 							<Tag>{tag}</Tag>
 						</li>
 					))
