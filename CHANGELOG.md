@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.35.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.34.2...v3.35.0) (2023-03-28)
+
+
+### Features
+
+* **multiple:** filtrer les query params ([141eb23](https://github.com/DNUM-SocialGouv/1j1s-front/commit/141eb232171152603465ad045d5384849992db02))
+
 ## [3.34.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.34.1...v3.34.2) (2023-03-27)
 
 
