@@ -45,36 +45,36 @@ describe('Parcours Accompagnement', () => {
 
 		describe('quand l‘utilisateur souhaite contacter un établissement d‘accompagnement', () => {
 			it('permet d‘envoyer une demande de contact', () => {
-				interceptGet({
-					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').type('par'),
-					alias: 'recherche-commune',
-					path: '/api/communes?q=par*',
-					response: JSON.stringify({
-						résultats: aCommuneList(),
-					}),
-				});
+				cy.intercept(
+					'GET',
+					'/api/communes?q=par*',
+					JSON.stringify({ résultats: aCommuneList() }),
+				).as('get-communes');
 
-				cy.get('ul[role="listbox"]').first().click();
+				cy.get('input[name="libelleCommune"]').type('par');
+				cy.wait('@get-communes');
+				cy.get('ul[role="listbox"] > li').first().click();
 
-				cy.get('button').contains('Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').eq(1).click();
+				cy.contains('button', 'Sélectionnez votre choix').click();
+				cy.get('ul[role="listbox"] > li').first().click();
 
-				interceptGet({
-					actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
-					alias: 'recherche-accompagnement',
-					path: '/api/etablissements-accompagnement*',
-					response: JSON.stringify(aMissionLocaleÉtablissementAccompagnementList()),
-				});
+				cy.intercept(
+					'GET',
+					'/api/etablissements-accompagnement*',
+					JSON.stringify(aMissionLocaleÉtablissementAccompagnementList()),
+				).as('recherche-accompagnement');
+				cy.contains('button', 'Rechercher').click();
+				cy.wait('@recherche-accompagnement');
 
 				cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 1);
 
-				cy.get('button').contains('Je souhaite être contacté(e)').click();
+				cy.contains('button', 'Je souhaite être contacté(e)').click();
 
 				cy.get('input[name=firstname]').type('John', { force: true });
 				cy.get('input[name=lastname]').type('Doe', { force: true });
 				cy.get('input[name=mail]').type('john.doe@email.com');
 				cy.get('input[name=phone]').type('0606060606');
-				cy.get('button').contains('Sélectionnez votre choix').click();
+				cy.contains('button', 'Sélectionnez votre choix').click();
 				cy.get('ul[role="listbox"] > li').eq(7).click();
 
 				interceptGet({
@@ -90,10 +90,10 @@ describe('Parcours Accompagnement', () => {
 				cy.get('textarea[name=commentaire]').type('Merci de me recontacter');
 
 				cy.intercept({ method: 'POST', pathname: '/api/etablissements-accompagnement/contact*' }, { statusCode: 201 });
-				cy.get('button').contains('Envoyer mes informations afin d‘être rappelé(e)').click();
+				cy.contains('button', 'Envoyer mes informations afin d‘être rappelé(e)').click();
 
-				cy.get('h1')
-					.contains('Votre demande a bien été transmise !').should('exist')
+				cy.contains('h1', 'Votre demande a bien été transmise !')
+					.should('exist')
 					.next().click();
 
 				cy.get('dialog').should('not.exist');
