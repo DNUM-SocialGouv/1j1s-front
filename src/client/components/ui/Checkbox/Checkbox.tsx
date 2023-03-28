@@ -7,8 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Checkbox/Checkbox.module.scss';
 
-interface CheckboxProps extends React.InputHTMLAttributes<unknown> {
-  id?: string
+interface CheckboxProps extends React.ComponentPropsWithoutRef<'input'> {
   label: string
 }
 
