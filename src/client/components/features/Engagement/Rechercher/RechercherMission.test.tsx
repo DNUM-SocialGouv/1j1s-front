@@ -32,8 +32,11 @@ describe('RechercherMission', () => {
 
 			mockUseRouter({});
 			render(
-				<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-					<RechercherMission category={EngagementCategory.BENEVOLAT} />
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+					missionEngagementService={missionEngagementServiceMock}
+				>
+					<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 				</DependenciesProvider>,
 			);
 
@@ -59,14 +62,20 @@ describe('RechercherMission', () => {
 
 				mockUseRouter({ query: { domain: 'culture-loisirs', page: '1' } });
 				render(
-					<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
+					<DependenciesProvider
+						localisationService={localisationServiceMock}
+						missionEngagementService={missionEngagementServiceMock}
+					>
+						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
 					</DependenciesProvider>,
 				);
 
 				expect(await screen.findByText('2 missions de service civique pour Culture et Loisirs')).toBeInTheDocument();
 				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith(expect.objectContaining({ domain: 'culture-loisirs', page: '1' }), 'service-civique');
+				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith(expect.objectContaining({
+					domain: 'culture-loisirs',
+					page: '1',
+				}), 'service-civique');
 			});
 		});
 
@@ -77,7 +86,10 @@ describe('RechercherMission', () => {
 
 				mockUseRouter({ query: { domain: 'environnement', page: '1' } });
 				render(
-					<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
+					<DependenciesProvider
+						localisationService={localisationServiceMock}
+						missionEngagementService={missionEngagementServiceMock}
+					>
 						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
 					</DependenciesProvider>,
 				);
@@ -93,8 +105,11 @@ describe('RechercherMission', () => {
 
 				mockUseRouter({ query: { distanceCommune: '30', page: '1' } });
 				render(
-					<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
+					<DependenciesProvider
+						localisationService={localisationServiceMock}
+						missionEngagementService={missionEngagementServiceMock}
+					>
+						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
 					</DependenciesProvider>,
 				);
 				const user = userEvent.setup();
@@ -109,7 +124,10 @@ describe('RechercherMission', () => {
 				expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
 				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({ distanceCommune: '30', page: '1' }, 'service-civique');
+				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({
+					distanceCommune: '30',
+					page: '1',
+				}, 'service-civique');
 			});
 		});
 	});
@@ -122,14 +140,20 @@ describe('RechercherMission', () => {
 
 				mockUseRouter({ query: { domain: 'environnement', page: '1' } });
 				render(
-					<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
+					<DependenciesProvider
+						localisationService={localisationServiceMock}
+						missionEngagementService={missionEngagementServiceMock}
+					>
 						<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 					</DependenciesProvider>,
 				);
 
 				expect(await screen.findByText('2 missions de bénévolat pour Environnement')).toBeInTheDocument();
 				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({ domain: 'environnement', page: '1' }, 'bénévolat');
+				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({
+					domain: 'environnement',
+					page: '1',
+				}, 'bénévolat');
 			});
 		});
 
@@ -140,7 +164,10 @@ describe('RechercherMission', () => {
 
 				mockUseRouter({ query: { domain: 'environnement', page: '1' } });
 				render(
-					<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
+					<DependenciesProvider
+						localisationService={localisationServiceMock}
+						missionEngagementService={missionEngagementServiceMock}
+					>
 						<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 					</DependenciesProvider>,
 				);
@@ -156,8 +183,11 @@ describe('RechercherMission', () => {
 
 				mockUseRouter({ query: { distanceCommune: '100', page: '1' } });
 				render(
-					<DependenciesProvider localisationService={localisationServiceMock} missionEngagementService={missionEngagementServiceMock} >
-						<RechercherMission category={EngagementCategory.BENEVOLAT} />
+					<DependenciesProvider
+						localisationService={localisationServiceMock}
+						missionEngagementService={missionEngagementServiceMock}
+					>
+						<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 					</DependenciesProvider>,
 				);
 
@@ -173,43 +203,53 @@ describe('RechercherMission', () => {
 				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
 				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
-				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({ distanceCommune: '100', page: '1' }, 'bénévolat');
+				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({
+					distanceCommune: '100',
+					page: '1',
+				}, 'bénévolat');
 			});
 		});
 	});
 
-	it('filtre les query params envoyés au service', () => {
-		mockUseRouter({ query: {
-			codeCommune: '75056',
-			distanceCommune: '10',
-			domain: 'environnement',
-			latitudeCommune: '48.859',
-			libelleCommune: 'Paris (75001)',
-			longitudeCommune: '2.347',
-			page: '1',
-			test: 'test',
-		} });
+	it('filtre les query params envoyés au service', async () => {
+		mockUseRouter({
+			query: {
+				codeCommune: '75056',
+				distanceCommune: '10',
+				domain: 'environnement',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				longitudeCommune: '2.347',
+				page: '1',
+				test: 'test',
+			},
+		});
 		const missionService = aMissionEngagementService();
 
 		render(
 			<DependenciesProvider missionEngagementService={missionService} localisationService={aLocalisationService()}>
-				<RechercherMission category={EngagementCategory.BENEVOLAT} />
+				<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 			</DependenciesProvider>,
 		);
+
+		await screen.findByText('2 missions de bénévolat pour Environnement');
 
 		expect(missionService.rechercherMission).not.toHaveBeenCalledWith(expect.objectContaining({
 			test: 'test',
 		}));
 	});
+
 	it('n’appelle pas le service quand aucun query params approprié n’est renseigné', () => {
-		mockUseRouter({ query: {
-			test: 'test',
-		} });
+		mockUseRouter({
+			query: {
+				test: 'test',
+			},
+		});
 		const missionService = aMissionEngagementService();
 
 		render(
 			<DependenciesProvider missionEngagementService={missionService} localisationService={aLocalisationService()}>
-				<RechercherMission category={EngagementCategory.BENEVOLAT} />
+				<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 			</DependenciesProvider>,
 		);
 

@@ -14,7 +14,8 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import {
 	anOffreService,
 	aNoResultOffreService,
-	aSingleResultOffreService } from '~/client/services/offre/offreService.fixture';
+	aSingleResultOffreService,
+} from '~/client/services/offre/offreService.fixture';
 
 describe('RechercherOffreEmploi', () => {
 	beforeEach(() => {
@@ -157,21 +158,25 @@ describe('RechercherOffreEmploi', () => {
 		});
 	});
 
-	it('filtre les query params envoyés', () => {
-		mockUseRouter({ query: {
-			codeLocalisation: '75',
-			libelleLocalisation: 'Paris (75)',
-			motCle: 'Informatique',
-			test: 'test',
-			typeLocalisation: 'DEPARTEMENT',
-		} });
+	it('filtre les query params envoyés', async () => {
+		mockUseRouter({
+			query: {
+				codeLocalisation: '75',
+				libelleLocalisation: 'Paris (75)',
+				motCle: 'Informatique',
+				test: 'test',
+				typeLocalisation: 'DEPARTEMENT',
+			},
+		});
 		const service = anOffreService();
 
 		render(
 			<DependenciesProvider offreService={service} localisationService={aLocalisationService()}>
-				<RechercherOffreEmploi />
+				<RechercherOffreEmploi/>
 			</DependenciesProvider>,
 		);
+
+		await screen.findByText('3 offres d‘emplois pour Informatique');
 
 		expect(service.rechercherOffreEmploi).toHaveBeenCalledTimes(1);
 		expect(service.rechercherOffreEmploi).toHaveBeenCalledWith({

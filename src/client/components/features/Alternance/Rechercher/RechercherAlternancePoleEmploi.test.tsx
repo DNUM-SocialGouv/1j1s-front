@@ -22,9 +22,11 @@ describe('<RechercherAlternancePoleEmploi />', () => {
 		mockLargeScreen();
 	});
 	it('affiche le nombre de résultats de la recherche avec le mot-clé', async () => {
-		mockUseRouter({ query: {
-			motCle: 'Boulanger',
-		} });
+		mockUseRouter({
+			query: {
+				motCle: 'Boulanger',
+			},
+		});
 		const offreService = anOffreService();
 		(offreService.rechercherAlternance as jest.Mock).mockResolvedValue(createSuccess(aRésultatsRechercheOffre({
 			nombreRésultats: 4,
@@ -32,7 +34,7 @@ describe('<RechercherAlternancePoleEmploi />', () => {
 
 		render(
 			<DependenciesProvider offreService={offreService} localisationService={aLocalisationService()}>
-				<RechercherAlternancePoleEmploi />
+				<RechercherAlternancePoleEmploi/>
 			</DependenciesProvider>,
 		);
 		await waitForElementToBeRemoved(() => screen.queryAllByRole('list', { name: /En cours de chargement/i }));
@@ -41,14 +43,17 @@ describe('<RechercherAlternancePoleEmploi />', () => {
 		expect(nombreResultats).toBeVisible();
 		expect(nombreResultats).toHaveTextContent(/pour Boulanger/i);
 	});
+
 	it('affiche un tag avec la localisation quand présente dans les query params', async () => {
-		mockUseRouter({ query: {
-			libelleLocalisation: 'Paris (75)',
-		} });
+		mockUseRouter({
+			query: {
+				libelleLocalisation: 'Paris (75)',
+			},
+		});
 
 		render(
 			<DependenciesProvider offreService={anOffreService()} localisationService={aLocalisationService()}>
-				<RechercherAlternancePoleEmploi />
+				<RechercherAlternancePoleEmploi/>
 			</DependenciesProvider>,
 		);
 		await waitForElementToBeRemoved(() => screen.queryAllByRole('list', { name: /En cours de chargement/i }));
@@ -58,21 +63,26 @@ describe('<RechercherAlternancePoleEmploi />', () => {
 		expect(tagLocalisation).toBeVisible();
 		expect(tagLocalisation).toHaveTextContent(/Paris \(75\)/i);
 	});
-	it('récupère les alternances avec les query params filtrés', () => {
-		mockUseRouter({ query: {
-			codeLocalisation: '75',
-			libelleLocalisation: 'Paris (75)',
-			motCle: 'Boulanger',
-			ne: 'devrait pas apparaitre',
-			typeLocalisation: 'Commune',
-		} });
+
+	it('récupère les alternances avec les query params filtrés', async () => {
+		mockUseRouter({
+			query: {
+				codeLocalisation: '75',
+				libelleLocalisation: 'Paris (75)',
+				motCle: 'Boulanger',
+				ne: 'devrait pas apparaitre',
+				typeLocalisation: 'Commune',
+			},
+		});
 		const offreService = anOffreService();
 
 		render(
 			<DependenciesProvider offreService={offreService} localisationService={aLocalisationService()}>
-				<RechercherAlternancePoleEmploi />
+				<RechercherAlternancePoleEmploi/>
 			</DependenciesProvider>,
 		);
+
+		await screen.findByText('3 offres d’alternances pour Boulanger');
 
 		expect(offreService.rechercherAlternance).toHaveBeenCalledTimes(1);
 		expect(offreService.rechercherAlternance).toHaveBeenCalledWith({
