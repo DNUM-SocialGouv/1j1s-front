@@ -18,5 +18,6 @@ export function interceptPost(
 		cy.intercept({ method: 'POST' , path }, response).as(alias);
 	}
 	actionBeforeWaitTheCall && actionBeforeWaitTheCall();
-	cy.wait(`@${alias}`).its('request.body').should('deep.equal', responseBodyToCheck);
+	cy.wait(`@${alias}`);
+	cy.get(`@${alias}`).its('request.body').should('deep.equal', responseBodyToCheck);
 }

@@ -27,7 +27,10 @@ describe('Parcours emplois', () => {
 	context('quand l‘utilisateur rentre un mot clé', () => {
 		it('filtre les résultats par mot clé', () => {
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.focused().type('barman', { force: true }).type('{enter}'),
+				actionBeforeWaitTheCall: () => {
+					cy.focused().type('barman', { force: true });
+					cy.focused().type('{enter}');
+				},
 				alias: 'recherche-emplois',
 				path: '/api/emplois*',
 				response: JSON.stringify({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),

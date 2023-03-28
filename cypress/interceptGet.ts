@@ -17,5 +17,6 @@ export function interceptGet(
 		cy.intercept({ method: 'GET' , path }, response).as(alias);
 	}
 	actionBeforeWaitTheCall && actionBeforeWaitTheCall();
-	cy.wait(`@${alias}`).its('response.statusCode').should('eq', statusCode ? statusCode : 200);
+	cy.wait(`@${alias}`);
+	cy.get(`@${alias}`).its('response.statusCode').should('eq', statusCode ? statusCode : 200);
 }
