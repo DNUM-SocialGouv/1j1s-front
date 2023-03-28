@@ -74,8 +74,9 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 						id="ouvertAuxMineurs"
 						checked={ouvertAuxMineurs}
 						onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
+						name="ouvertsAuxMineurs"
+						value="true"
 					/>
-					<input type="hidden" name="ouvertsAuxMineurs" value={String(ouvertAuxMineurs)}/>
 				</div>
 			</div>
 

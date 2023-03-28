@@ -1,32 +1,30 @@
 import classNames from 'classnames';
 import React, {
-	useEffect,
-	useRef,
+	useId,
 } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Checkbox/Checkbox.module.scss';
 
-interface CheckboxProps extends React.InputHTMLAttributes<unknown> {
-  id?: string
+interface CheckboxProps extends React.ComponentPropsWithoutRef<'input'> {
   label: string
 }
 
-export function Checkbox({ id, label, className, ...rest  }: CheckboxProps) {
-	const checkboxId = useRef(id || uuidv4());
-
-	useEffect(() => {
-		checkboxId.current = id || uuidv4();
-	}, [id]);
+export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+	{ id: idProps, label, className, ...rest  }
+	, ref,
+) {
+	const idState = useId();
+	const id = idProps ?? idState;
 
 	return (
 		<div className={classNames(styles.checkbox, className)}>
 			<input
 				type="checkbox"
+				id={id}
+				ref={ref}
 				{...rest}
-				id={checkboxId.current}
 			/>
-			<label className={styles.label} htmlFor={checkboxId.current}>{label}</label>
+			<label className={styles.label} htmlFor={id}>{label}</label>
 		</div>
 	);
-}
+});
