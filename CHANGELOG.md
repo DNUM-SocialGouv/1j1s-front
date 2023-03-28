@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.36.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.35.0...v3.36.0) (2023-03-28)
+
+
+### Features
+
+* **multiple:** Meilleure gestion des checkboxes ([02901a6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02901a6761c4bdd0c6bb64e5b4846da896481d58))
+
 ## [3.35.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.34.2...v3.35.0) (2023-03-28)
 
 
