@@ -89,7 +89,15 @@ describe('RechercherAlternance', () => {
 					longitudeCommune: '2.347',
 				},
 			});
-			const expectedQuery = 'codeCommune=75056&codeRomes=D1102%252CD1104&distanceCommune=10&latitudeCommune=48.859&libelleCommune=Paris%20(75001)&libelleMetier=Boulangerie%2C%20p%C3%A2tisserie%2C%20chocolaterie&longitudeCommune=2.347';
+			const expectedQuery = {
+				codeCommune: '75056',
+				codeRomes: 'D1102%2CD1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+			};
 
 			// WHEN
 			render(
@@ -151,5 +159,60 @@ describe('RechercherAlternance', () => {
 		expect(section).toBeVisible();
 		expect(cardPass).toBeVisible();
 		expect(cardONISEP).toBeVisible();
+	});
+
+	it('n’appelle pas le service avec les query params inconnus', () => {
+		// GIVEN
+		const alternanceFixture: Alternance[] = [
+			{
+				entreprise: { nom: 'MONSIEUR MICHEL' },
+				id: 'an-id-matchas',
+				niveauRequis: 'Cap, autres formations niveau (Infrabac)',
+				source: Alternance.Source.MATCHA,
+				tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
+				titre: 'Ouvrier boulanger / Ouvrière boulangère',
+				typeDeContrat: ['Apprentissage'],
+			},
+			{
+				entreprise: { nom: 'une entreprise' },
+				id: 'an-id-pe',
+				localisation: 'paris',
+				source: Alternance.Source.POLE_EMPLOI,
+				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
+				titre: 'un titre',
+				typeDeContrat: ['CDD'],
+			},
+		];
+		const alternanceServiceMock = anAlternanceService(alternanceFixture);
+		const métierServiceMock = aMétierService();
+		const localisationServiceMock = aLocalisationService();
+		mockUseRouter({
+			query: {
+				codeCommune: '75056',
+				codeRomes: 'D1102%2CD1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+				test: 'test',
+			},
+		});
+
+		// WHEN
+		render(
+			<DependenciesProvider
+				alternanceService={alternanceServiceMock}
+				métierService={métierServiceMock}
+				localisationService={localisationServiceMock}
+			>
+				<RechercherAlternance/>
+			</DependenciesProvider>,
+		);
+
+		// THEN
+		expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expect.not.objectContaining({
+			test: 'test',
+		}));
 	});
 });

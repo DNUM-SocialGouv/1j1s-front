@@ -1,33 +1,38 @@
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
-import {
-	aRésultatRechercherMultipleAlternance,
-} from '~/server/alternances/domain/alternance.fixture';
-import { createSuccess } from '~/server/errors/either';
 
 describe('AlternanceService', () => {
 	describe('rechercherAlternance', () => {
-		it('filtre les queries pour ne garder que celles attendues', async () => {
-			const httpClientService = anHttpClientService();
-			const alternanceService = new AlternanceService(httpClientService);
-			const alternanceQuery = 'codeCommune=13180&codeRomes=D123,D122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845&unwantedQuery=query-en-trop';
-
-			await alternanceService.rechercherAlternance(alternanceQuery);
-
-			expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeCommune=13180&codeRomes=D123%2CD122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845');
-
-		});
-
 		it('appelle alternance avec la query', async () => {
 			const httpClientService = anHttpClientService();
 			const alternanceService = new AlternanceService(httpClientService);
-			const alternanceQuery = 'codeCommune=13180&codeRomes=D123,D122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845';
+			const alternanceQuery = {
+				codeCommune: '13180',
+				codeRomes: 'D123,D122',
+				distanceCommune: '30',
+				latitudeCommune: '2.37',
+				longitudeCommune: '15.845',
+			};
 
-			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aRésultatRechercherMultipleAlternance()));
-			const result = await alternanceService.rechercherAlternance(alternanceQuery);
+			await alternanceService.rechercherAlternance(alternanceQuery);
 
-			expect(result).toEqual({ instance: 'success', result: aRésultatRechercherMultipleAlternance() });
-			expect(httpClientService.get).toHaveBeenCalledWith('alternances?codeCommune=13180&codeRomes=D123%2CD122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845');
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('alternances'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('codeCommune=13180'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('codeRomes=D123%2CD122'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('distanceCommune=30'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitudeCommune=2.37'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('longitudeCommune=15.845'));
+		});
+		it('filtre les queries à undefined', async () => {
+			const httpClientService = anHttpClientService();
+			const alternanceService = new AlternanceService(httpClientService);
+			const alternanceQuery = {
+				codeCommune: undefined,
+			};
+
+			await alternanceService.rechercherAlternance(alternanceQuery);
+
+			expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('codeCommune'));
 		});
 	});
 
