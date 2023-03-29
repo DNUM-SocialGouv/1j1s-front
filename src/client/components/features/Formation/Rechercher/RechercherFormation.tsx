@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
+import * as queryString from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -23,6 +24,7 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
@@ -42,10 +44,7 @@ export default function RechercherFormation() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		// FIXME (GAFI 24-03-2023): passer par objet vide
-		const queryString = stringify(router.query);
-
-		if (queryString !== '') {
+		if (empty(formationQuery)) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
