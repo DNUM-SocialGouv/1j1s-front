@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import React, { useRef } from 'react';
 
+import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/Article/ArticleCard.module.scss';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -27,6 +28,7 @@ interface ArticleCardProps {
 	link: string
 	linkLabel?: string
 	vertical?: boolean
+	titleHeadingTag?: HtmlHeadingTag
 }
 
 export function ArticleCard({
@@ -39,6 +41,7 @@ export function ArticleCard({
 	linkLabel = 'Lire l‘article',
 	titleLabel,
 	vertical = true,
+	titleHeadingTag = 'h3',
 }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const iconComponent = useRef(icon ? icon : <Icon name={'arrow-right'}/>);
 	const imageClassName = classNames(styles.illustration, imageFit === 'contain' && styles.illustrationContain);
@@ -49,7 +52,7 @@ export function ArticleCard({
 			<Card className={className} layout={vertical || !isLargeScreen ? 'vertical' : 'horizontal'}>
 				<Card.Image className={imageClassName} src={imageSrc} aria-hidden/>
 				<Card.Content className={styles.content}>
-					<Card.Title className={styles.title} titleAs={'h3'}>{titleLabel}</Card.Title>
+					<Card.Title className={styles.title} titleAs={titleHeadingTag}>{titleLabel}</Card.Title>
 					{children}
 					<Card.FakeLink className={styles.cta} appearance={'tertiary'} icon={iconComponent.current} label={linkLabel}/>
 				</Card.Content>
