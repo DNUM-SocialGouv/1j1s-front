@@ -16,6 +16,7 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MissionEngagementQueryParams, useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
+import empty from '~/client/utils/empty';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
@@ -30,10 +31,6 @@ import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 
 interface RechercherMissionProps {
   category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
-}
-
-function empty(missionEngagementQuery: MissionEngagementQueryParams) {
-	return Object.entries(removeUndefinedKeys(missionEngagementQuery)).length === 0;
 }
 
 export function RechercherMission(props: RechercherMissionProps) {
