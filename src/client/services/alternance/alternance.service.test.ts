@@ -1,3 +1,4 @@
+import { AlternanceQueryParams } from '~/client/hooks/useAlternanceQuery';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 
@@ -33,6 +34,17 @@ describe('AlternanceService', () => {
 			await alternanceService.rechercherAlternance(alternanceQuery);
 
 			expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('codeCommune'));
+		});
+		it('filtres les queries d’affichage', async () => {
+			const httpClientService = anHttpClientService();
+			const alternanceService = new AlternanceService(httpClientService);
+			const alternanceQuery: AlternanceQueryParams = {
+				libelleCommune: 'Paris (75001)',
+			};
+
+			await alternanceService.rechercherAlternance(alternanceQuery);
+
+			expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('libelleCommune'));
 		});
 	});
 
