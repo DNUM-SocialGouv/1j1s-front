@@ -1,18 +1,40 @@
-name: Déploiement Terraform en Recette
+name: Déploiement Terraform
+
+# Le déploiement s'éxecute en 4 temps :
+# - un "plan" sur la recette lors d'un push sur une pull_request
+# - un "apply" lors du push sur main (hors commit de release)
+# - un "plan" sur la production lors d'un push sur une pull_request de release (startsWith(github.head_ref, 'release-please--'))
+# - un "apply" lors du push sur main avec un commit de release (github.event.type == 'PushEvent')
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_call:
+    inputs:
+      lint:
+        default: true
+        type: boolean
+      validate:
+        default: true
+        type: boolean
+      plan:
+        default: true
+        type: boolean
+      apply:
+        default: false
+        type: boolean
+      environnement_name:
+        required: true
+        type: string
+      environnement_url:
+        required: true
+        type: string
 
 jobs:
-  terraform-recette:
-    name: Terraform Plan
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
     environment:
-      name: scalingo-recette
-      url: https://recette.1jeune1solution.gouv.fr
+      name: ${{ inputs.environnement_name }}
+      url: ${{ inputs.environnement_url }}
 
     steps:
       - name: Télécharger le code source
@@ -22,48 +44,55 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: "< 2.0.0"
-      
-      - name: Vérifier le format et le style du code Terraform
-        id: fmt
-        run: terraform fmt -check -diff -recursive ./terraform
-        continue-on-error: true
 
       - name: Exposer tous les secrets comme des variables d'environnement
+        if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
         uses: Firenza/secrets-to-env@v1.2.0
         with:
           secrets: ${{ toJSON(secrets) }}
           env_var_name_lower_case_regex: (?<=TF_VAR_).*
 
       - name: Exposer toutes les variables comme des variables d'environnement
+        if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
         uses: Firenza/secrets-to-env@v1.2.0
         with:
           secrets: ${{ toJSON(vars) }}
           env_var_name_lower_case_regex: (?<=TF_VAR_).*
 
       - name: Ecrire les variables d'environnement dans un fichier .env
+        if: ${{ (inputs.plan == true) || (inputs.apply == true) }}
         run: envsubst < .env.example > .env
 
+      - name: Vérifier le format et le style du code Terraform
+        if: ${{ inputs.lint == true }}
+        id: fmt
+        run: terraform fmt -check -diff -recursive ./terraform
+        continue-on-error: true
+
       - name: Terraform Init
+        if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
         id: init
         working-directory: terraform
         run: terraform init -input=false
       
       - name: Terraform Validate
+        if: ${{ inputs.validate == true }}
         id: validate
         working-directory: terraform
         run: terraform validate -no-color
 
       - name: Terraform Plan
+        if: ${{ inputs.plan == true }}
         id: plan
         working-directory: terraform
-        run: terraform plan -input=false -no-color
+        run: terraform plan -detailed-exitcode -input=false -no-color
         env:
           TF_VAR_front_fichier_env_secret: "../.env"
         continue-on-error: true
 
       - name: Ajouter un commentaire avec le résultat de terraform plan
+        if: ${{ (github.event_name == 'pull_request') && (steps.plan.outputs.exitcode == '2') }}
         uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
@@ -76,12 +105,12 @@ jobs:
               issue_number: context.issue.number,
             })
             const botComment = comments.find(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes('Format et Style du code Terraform')
+              return comment.user.type === 'Bot' && comment.body.includes('Simulation des changements d\'infrastruture Terraform sur ${{ inputs.environnement_name }}')
             })
 
             // 2. Prepare format of the comment
-            const output = `#### Format et Style du code Terraform 🖌 : ${{ (steps.fmt.outcome == 'success') && '✅' || '❌' }}
-            #### Initialisation de Terraform (\`init\`) ⚙️ : ${{ (steps.init.outcome == 'success') && '✅' || '❌' }}
+            const output = `### Simulation des changements d'infrastruture Terraform sur ${{ inputs.environnement_name }}
+            #### Format et Style du code Terraform 🖌 : ${{ (steps.fmt.outcome == 'success') && '✅' || '❌' }}
             #### Validation de la configuration de Terraform (\`validate\`) 🤖 : ${{ (steps.validate.outcome == 'success') && '✅' || '❌' }}
             <details><summary>Montrer le résultat de la validation</summary>
 
@@ -91,7 +120,7 @@ jobs:
 
             </details>
 
-            #### Terraform Plan 📖 : ${{ (steps.plan.outcome == 'success') && '✅' || '❌' }}
+            #### Terraform Plan 📖 : ${{ (steps.plan.outputs.exitcode == '2') && '✅' || '❌' }}
 
             <details><summary>Montrer les modifications prévues par Terraform</summary>
 
@@ -103,9 +132,9 @@ jobs:
 
             Pour appliquer les changements proposés par ce plan :
             - en recette : il suffit de merger cette PR
-            - en production : il faut créer une nouvelle release Github
+            - en production : il faut merger la PR de release (créée par release-please)
 
-            *Auteur: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Répertoire: \`./terraform\`, Workflow: \`${{ github.workflow }}\`*`;
+            *Environnement: \`${{ inputs.environnement_name }}\`, Auteur: @${{ github.actor }}, Répertoire: \`./terraform\`*`;
 
             // 3. If we have a comment, update it, otherwise create a new one
             if (botComment) {
@@ -125,12 +154,9 @@ jobs:
             }
 
       - name: Deployer en recette (uniquement une fois mergé)
-        if: github.ref == 'refs/heads/master'
+        if: ${{ inputs.apply == true }}
         id: apply
         working-directory: terraform
         run: terraform apply -input=false -no-color
         env:
           TF_VAR_front_fichier_env_secret: "../.env"
-
-env:
-  AWS_REGION: "lorem-ipsum"
