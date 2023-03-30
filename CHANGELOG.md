@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.37.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.36.0...v3.37.0) (2023-03-30)
+
+
+### Features
+
+* **formation:** lien vers le module de prise de rendez vous ([73f0ce8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/73f0ce8dcc8ac4a70812b4394f7daca8a5faaba2))
+* **ui:** ajout d'un composant onglet ([b784df4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b784df4fb75b00bcb0e230eb5769c7ad0bb19f85))
+
 ## [3.36.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.35.0...v3.36.0) (2023-03-28)
 
 
