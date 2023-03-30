@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.38.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.37.0...v3.38.0) (2023-03-30)
+
+
+### Features
+
+* **header:** mise a jour navigation refonte du menu côté jeune ([30304de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/30304de3b8da9b762a0ed6a4ec49c96110d5314a))
+
 ## [3.37.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.36.0...v3.37.0) (2023-03-30)
 
 
