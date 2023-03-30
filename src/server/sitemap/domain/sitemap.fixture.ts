@@ -164,6 +164,9 @@ export function aSitemap() {
 		<loc>http://localhost:3000/logements/aides-logement</loc>
 	</url>
 	<url>
+		<loc>http://localhost:3000/logements/conseils</loc>
+	</url>
+	<url>
 		<loc>http://localhost:3000/emplois</loc>
 	</url>
 	<url>
