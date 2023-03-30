@@ -17,10 +17,10 @@ export default function JeDeviensMentor() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<PourQui />
-				<QuEstCeQueLeMentorat />
-				<Pourquoi />
-				<AidesExceptionnelles />
+				<PourQui/>
+				<QuEstCeQueLeMentorat/>
+				<Pourquoi/>
+				<AidesExceptionnelles/>
 			</main>
 		</>
 	);

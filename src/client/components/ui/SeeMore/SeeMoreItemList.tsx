@@ -12,8 +12,8 @@ const NUMBER_OF_VISIBLE_ITEMS_DEFAULT = 3;
 export interface SeeMoreProps extends React.ComponentPropsWithoutRef<'div'> {
 	itemList: React.ReactNode[]
 	numberOfVisibleItems: number
-  seeMoreLabel?: string
-  seeLessLabel?: string
+	seeMoreLabel?: string
+	seeLessLabel?: string
 	seeMoreAriaLabel: string
 	seeLessAriaLabel: string
 }
@@ -63,27 +63,30 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 	if (!itemList || itemList.length <= 0) return null;
 	return (
 		<>
-			<div
-	      ref={divRef}
-				id={`section-${ariaId.current}`}
-				{...rest}
-			>
-				<ul className={styles.itemList}>
-					{itemListToDisplay?.map((element, index) =>
-						<li key={index}>{element}</li>,
-					)}
-				</ul>
-			</div>
+			{itemListToDisplay.length > 0 &&
+          <div
+          	ref={divRef}
+          	id={`section-${ariaId.current}`}
+          	{...rest}
+          >
+          	<ul className={styles.itemList}>
+          		{itemListToDisplay?.map((element, index) =>
+          			<li key={index}>{element}</li>,
+          		)}
+          	</ul>
+          </div>
+			}
 			{itemList.length > numberOfVisibleItems &&
-				<button className={classNames(styles.seeMoreButton, className)}
-					ref={buttonRef}
-					onClick={toggle}
-					type="button"
-					aria-expanded={isOpen}
-					aria-controls={`section-${ariaId.current}`}
-					aria-label={buttonAriaLabel}>
-					<TextIcon className={styles.seeMoreButtonLabel} icon={isOpen ? 'angle-up' : 'angle-down'}>{buttonLabel}</TextIcon>
-				</button>
+          <button className={classNames(styles.seeMoreButton, className)}
+          	ref={buttonRef}
+          	onClick={toggle}
+          	type="button"
+          	aria-expanded={isOpen}
+          	aria-controls={`section-${ariaId.current}`}
+          	aria-label={buttonAriaLabel}>
+          	<TextIcon className={styles.seeMoreButtonLabel}
+          		icon={isOpen ? 'angle-up' : 'angle-down'}>{buttonLabel}</TextIcon>
+          </button>
 			}
 		</>
 	);

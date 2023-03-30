@@ -13,29 +13,38 @@ export function Pourquoi() {
 			<article>
 				<section>
 					{isLargeScreen &&
-            <Image
-            	src="/illustrations/mentorat-employeur.svg"
-            	alt=""
-            	width={500}
-            	height={300}
-            />
+              <Image
+              	src="/illustrations/mentorat-employeur.svg"
+              	alt=""
+              	width={500}
+              	height={300}
+              />
 					}
 					<h2>Pourquoi participer à l’aventure du mentorat en tant qu’employeur ?</h2>
-					<SeeMoreMobileOnly seeLessAriaLabel={'Voir plus de raisons de devenir mentor en tant qu‘employeur'} seeMoreAriaLabel={'Voir moins de raisons de devenir mentor en tant qu‘employeur'}>
+					<SeeMoreMobileOnly
+						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant qu‘employeur"
+						seeMoreAriaLabel="Voir moins de raisons de devenir mentor en tant qu‘employeur"
+						itemList={[<ListeEmployeur key={0}/>]}
+						numberOfVisibleItems={0}
+					>
 						<ListeEmployeur/>
 					</SeeMoreMobileOnly>
 				</section>
 				<section>
 					{isLargeScreen &&
-            <Image
-            	src="/illustrations/mentorat-citoyen.svg"
-            	alt=""
-            	width={500}
-            	height={300}
-            />
+              <Image
+              	src="/illustrations/mentorat-citoyen.svg"
+              	alt=""
+              	width={500}
+              	height={300}
+              />
 					}
 					<h2>Vous êtes citoyen : vous pouvez devenir mentor !</h2>
-					<SeeMoreMobileOnly seeLessAriaLabel={'Voir plus de raisons de devenir mentor en tant que citoyen'} seeMoreAriaLabel={'Voir moins de raisons de devenir mentor en tant que citoyen'}>
+					<SeeMoreMobileOnly
+						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant que citoyen"
+						seeMoreAriaLabel="Voir moins de raisons de devenir mentor en tant que citoyen"
+						itemList={[<ListeCitoyen key={0}/>]}
+						numberOfVisibleItems={0}>
 						<ListeCitoyen/>
 					</SeeMoreMobileOnly>
 				</section>
