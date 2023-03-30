@@ -1,3 +1,4 @@
+import { FormationQueryParams } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 
@@ -81,5 +82,17 @@ describe('FormationService', () => {
 				expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('niveauEtudes'));
 			});
 		});
+	});
+
+	it("filtre les query params d'affichage", async () => {
+		const httpClientService = anHttpClientService();
+		const formationService = new FormationService(httpClientService);
+		const formationQuery: FormationQueryParams = {
+			libelleCommune: 'Paris (75001)',
+		};
+
+		await formationService.rechercherFormation(formationQuery);
+
+		expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('libelleCommune'));
 	});
 });
