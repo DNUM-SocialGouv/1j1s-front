@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 

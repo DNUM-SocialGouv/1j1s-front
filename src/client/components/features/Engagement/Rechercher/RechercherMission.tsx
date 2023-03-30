@@ -14,7 +14,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { MissionEngagementQueryParams, useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
+import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import empty from '~/client/utils/empty';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
@@ -27,7 +27,6 @@ import {
 	serviceCiviqueDomaineList,
 } from '~/server/engagement/domain/engagement';
 import { Erreur } from '~/server/errors/erreur.types';
-import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 
 interface RechercherMissionProps {
   category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE

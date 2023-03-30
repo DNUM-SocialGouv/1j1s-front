@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
-import * as queryString from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 

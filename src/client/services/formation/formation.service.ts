@@ -1,8 +1,4 @@
-import { queries } from '@testing-library/react';
-import { router } from 'next/client';
 import {
-	parse,
-	ParsedUrlQuery,
 	stringify,
 } from 'querystring';
 
