@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.39.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.38.1...v3.39.0) (2023-03-30)
+
+
+### Features
+
+* **logement:** ajout page conseils ([#1093](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1093)) ([92b0957](https://github.com/DNUM-SocialGouv/1j1s-front/commit/92b09572d63b8eb2ff7e0f328fa1eded07f8c869))
+
 ## [3.38.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.38.0...v3.38.1) (2023-03-30)
 
 
