@@ -142,6 +142,15 @@ export default function Accueil() {
 			title="Aides financières au logement">
 			<p>Découvrez les aides auxquelles vous avez droit pour votre logement</p>
 		</LinkCard>,
+		<LinkCard
+			className={styles.card}
+			key={3}
+			imageUrl="/images/logement-conseils.webp"
+			link="/logements/conseils"
+			linkLabel="Voir les conseils sur le logement"
+			title="Découvrir tous nos conseils">
+			<p>Découvrez tous nos conseils sur les logements : dossier locatif, garants...</p>
+		</LinkCard>,
 	];
 
 	const accompagnementCardList = [
