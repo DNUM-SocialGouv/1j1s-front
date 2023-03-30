@@ -4,23 +4,21 @@ import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import Marked from '~/client/components/ui/Marked/Marked';
-
-const contenu = `
-Quels avantages à rejoindre la mobilisation pour les jeunes ?
-------------------------------------------------------------
-+ Mettez en avant tous vos engagements pour les jeunes en créant votre page dédiée
-+ Publiez vos offres d’emploi sur la plateforme
-+ Bénéficiez d’un accompagnement par un Conseiller Pôle Emploi (rappel sous 72h)
-+ Relayez vos engagements par intermédiaire d’un kit de communication #1jeune1solution
-`;
 
 export default function AvantagesMobilisation() {
 	return (
-		<Container className={ styles.container }>
-			<Image src={ illustration } width={448} height={300} alt='' />
-			<article className={ styles.article }>
-				<Marked markdown={ contenu }/>
+		<Container className={styles.container}>
+			<Image src={illustration} width={448} height={300} alt=""/>
+			<article className={styles.article}>
+				<h2>
+					Quels avantages à rejoindre la mobilisation pour les jeunes ?
+				</h2>
+				<ul>
+					<li>Mettez en avant tous vos engagements pour les jeunes en créant votre page dédiée</li>
+					<li>Publiez vos offres d’emploi sur la plateforme</li>
+					<li>Bénéficiez d’un accompagnement par un Conseiller Pôle Emploi (rappel sous 72h)</li>
+					<li>Relayez vos engagements par intermédiaire d’un kit de communication #1jeune1solution</li>
+				</ul>
 			</article>
 		</Container>
 	);

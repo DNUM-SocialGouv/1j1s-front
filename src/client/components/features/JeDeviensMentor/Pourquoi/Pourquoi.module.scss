@@ -3,12 +3,13 @@
 .pourquoi {
   background-color: $color-background-white-lilac;
   margin: 0 auto;
-  padding: 16px 28px;
+  padding: 1rem;
 
   img {
     height: 300px;
     width: 500px;
   }
+
   > article {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -29,9 +30,9 @@
     h2 {
       @extend %text-large;
       @extend %bold;
-      max-width: 25rem;
+      max-width: 24.75rem;
       color: $color-primary;
-      margin-block: 2rem .5rem;
+      margin: 2rem 0 0;
     }
   }
 }
@@ -47,6 +48,10 @@
 
       section {
         margin-left: 5rem;
+      }
+
+      h2 {
+        margin: 1rem 1rem;
       }
 
       .listeCitoyen, .listeEmployeur {

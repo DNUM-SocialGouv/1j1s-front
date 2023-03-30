@@ -9,7 +9,7 @@ export default function SeeMoreMobileOnly(props: SeeMoreProps) {
 
 	if (isSmallScreen || isMediumScreen) {
 		return (
-			<SeeMoreItemList {...rest} />
+			<SeeMoreItemList {...rest}/>
 		);
 	} else {
 		return <>{children}</>;
