@@ -42,7 +42,7 @@ export default function RechercherFormation() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		if (empty(formationQuery)) {
+		if (!empty(formationQuery)) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
