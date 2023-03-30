@@ -163,29 +163,7 @@ describe('RechercherAlternance', () => {
 
 	it('n’appelle pas le service avec les query params inconnus', () => {
 		// GIVEN
-		const alternanceFixture: Alternance[] = [
-			{
-				entreprise: { nom: 'MONSIEUR MICHEL' },
-				id: 'an-id-matchas',
-				niveauRequis: 'Cap, autres formations niveau (Infrabac)',
-				source: Alternance.Source.MATCHA,
-				tags: ['Apprentissage',  'Cap, autres formations niveau (Infrabac)'],
-				titre: 'Ouvrier boulanger / Ouvrière boulangère',
-				typeDeContrat: ['Apprentissage'],
-			},
-			{
-				entreprise: { nom: 'une entreprise' },
-				id: 'an-id-pe',
-				localisation: 'paris',
-				source: Alternance.Source.POLE_EMPLOI,
-				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
-				titre: 'un titre',
-				typeDeContrat: ['CDD'],
-			},
-		];
-		const alternanceServiceMock = anAlternanceService(alternanceFixture);
-		const métierServiceMock = aMétierService();
-		const localisationServiceMock = aLocalisationService();
+		const alternanceServiceMock = anAlternanceService();
 		mockUseRouter({
 			query: {
 				codeCommune: '75056',
@@ -203,8 +181,8 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={alternanceServiceMock}
-				métierService={métierServiceMock}
-				localisationService={localisationServiceMock}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}
 			>
 				<RechercherAlternance/>
 			</DependenciesProvider>,
