@@ -71,12 +71,9 @@
 
 .cta {
   margin-top: 1.25rem;
-  align-self: center;
-  width: 100%;
+  align-self: flex-end;
 
   @include media(large) {
-    align-self: flex-end;
     margin-top: 1rem;
-    width: initial;
   }
 }
