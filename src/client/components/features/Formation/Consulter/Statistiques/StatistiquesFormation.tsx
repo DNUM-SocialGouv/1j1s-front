@@ -1,9 +1,9 @@
 import React from 'react';
 
 import styles from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation.module.scss';
+import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
-	ArticleCard,
 	ArticleCardList,
 } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
@@ -38,17 +38,16 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 					}
 				</article>
 				<ArticleCardList>
-					<ArticleCard
-						vertical={false}
-						imageSrc="/images/logos/inserjeunes.svg"
-						imageFit="contain"
+					<PartnerCard
+						linkLabel="Lire l'article"
 						link="/articles/inserjeunes"
-						titleLabel="Découvrez le dispositif InserJeunes"
+						logo="/images/logos/inserjeunes.svg"
+						title="Besoin d‘informations sur les métiers ?"
 					>
 						<p>
 							Inserjeunes est un service d’aide à l’orientation des jeunes qui présente différents indicateurs pour toutes les formations professionnelles.
 						</p>
-					</ArticleCard>
+					</PartnerCard>
 				</ArticleCardList>
 			</Container>
 		</div>
