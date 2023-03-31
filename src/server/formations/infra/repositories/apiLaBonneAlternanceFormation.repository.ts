@@ -1,7 +1,6 @@
 import { AxiosResponse, isAxiosError } from 'axios';
 
-import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
-import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
@@ -14,6 +13,10 @@ import {
 	mapRésultatRechercheFormation,
 	mapRésultatRechercheFormationToFormation, parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
+import {
+	handleGetFailureError,
+	handleSearchFailureError,
+} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
@@ -70,10 +73,10 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 					return createSuccess(formation);
 				} catch (error) {
-					return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+					return handleGetFailureError(error, 'la bonne alternance get formation');
 				}
 			}
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			return handleGetFailureError(e, 'la bonne alternance get formation');
 		}
 	}
 

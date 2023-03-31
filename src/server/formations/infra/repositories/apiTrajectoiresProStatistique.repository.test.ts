@@ -71,7 +71,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					const returnValue = await repository.get(codeCertification, codePostal);
 
 					expect(httpService.get).toHaveBeenCalledTimes(1);
-					expect(returnValue).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 				});
 			});
 
