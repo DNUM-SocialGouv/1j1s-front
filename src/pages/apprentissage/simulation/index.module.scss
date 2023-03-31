@@ -1,0 +1,31 @@
+@use "src/styles/utilities";
+
+.heroTitle {
+  @extend %bold;
+}
+
+.heroSubtitle {
+  @extend %text-large;
+  margin-top: 1em;
+}
+
+.iframe {
+  min-width: 100%;
+  min-height: 1900px;
+  margin-top: 1rem;
+}
+
+@include utilities.media(large) {
+  .iframe {
+    min-height: 1230px;
+  }
+}
+
+.rgpd {
+  @extend %text-small;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  background-color: utilities.$color-cadre-formulaire;
+}
+

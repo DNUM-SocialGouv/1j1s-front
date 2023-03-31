@@ -12,6 +12,7 @@ import {
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
+import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 
 export function CampagneApprentissageEntreprises() {
 	const raisons: Raisons[] = [
@@ -42,7 +43,7 @@ export function CampagneApprentissageEntreprises() {
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
 					<h1>L’apprentissage : <small>le bon choix pour votre entreprise</small></h1>
-					<Link href={'/apprentissage/simulation'} appearance={'asPrimaryButton'} className={styles.cta}>
+					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						Simuler le coût d’embauche
 					</Link>
 				</HeroWithIllustration>
