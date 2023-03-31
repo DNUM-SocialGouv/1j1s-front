@@ -7,7 +7,10 @@ import {
 	mapAlternanceListe,
 	mapMatcha, mapPEJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
+import {
+	handleGetFailureError,
+	handleSearchFailureError,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -50,7 +53,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
-			return handleSearchFailureError(error, 'détail annonce alternance');
+			return handleGetFailureError(error, 'détail annonce alternance');
 		}
 	}
 }
