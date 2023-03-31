@@ -157,7 +157,7 @@ describe('<Detail />', () => {
 
 		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
 
-		const niveauRequis = getByDescriptionTerm('Niveau requis');
+		const niveauRequis = getByDescriptionTerm('Niveau visé en fin d’études');
 		expect(niveauRequis).toBeVisible();
 		expect(niveauRequis).toHaveTextContent('CAP');
 	});

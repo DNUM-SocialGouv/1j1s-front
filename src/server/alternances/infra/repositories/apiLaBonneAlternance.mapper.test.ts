@@ -125,7 +125,7 @@ describe('mapAlternance', () => {
 				compétences: ['un libelle'],
 				dateDébut: new Date('2020-01-01'),
 				description: 'Avec des \n',
-				durée: '1 an',
+				durée: '1 mois',
 				entreprise: {
 					adresse: 'full address',
 					nom: 'ECOLE DE TRAVAIL ORT',
@@ -141,42 +141,6 @@ describe('mapAlternance', () => {
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 				typeDeContrat: ['CDD'],
 			});
-		});
-
-		it('accorde la durée au singulier quand nécessaire', () => {
-			const input = aMatchaResponse({
-				company: undefined,
-				contact: undefined,
-				diplomaLevel: '',
-				job: {
-					dureeContrat: 1,
-					id: 'id',
-				},
-				place: undefined,
-				title: '',
-			});
-
-			const result = mapMatcha(input);
-
-			expect(result.durée).toEqual('1 an');
-		});
-
-		it('accorde la durée au pluriel quand nécessaire', () => {
-			const input = aMatchaResponse({
-				company: undefined,
-				contact: undefined,
-				diplomaLevel: '',
-				job: {
-					dureeContrat: 5,
-					id: 'id',
-				},
-				place: undefined,
-				title: '',
-			});
-
-			const result = mapMatcha(input);
-
-			expect(result.durée).toEqual('5 ans');
 		});
 	});
 

@@ -13,7 +13,7 @@ function sanitizeEscapeSequences(texte?: string) {
 function parseDurée(durée: number | undefined) {
 	if (!durée) return undefined;
 
-	return `${durée} an${durée > 1 ? 's' : ''}`;
+	return `${durée} mois`;
 }
 
 function parseContractTypeMatcha(alternance: Matcha): string[] {

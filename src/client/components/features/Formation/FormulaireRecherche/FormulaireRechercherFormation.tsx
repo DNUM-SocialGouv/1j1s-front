@@ -57,7 +57,7 @@ export function FormulaireRechercherFormation() {
 					<div className={styles.inputButtonWrapper}>
 						<InputAutocomplétionMétier
 							name={'libelleMetier'}
-							label={'Sélectionnez un domaine'}
+							label={'Domaine'}
 							libellé={inputLibelleMetier}
 							codeRomes={inputCodeRomes}
 							required
@@ -80,7 +80,7 @@ export function FormulaireRechercherFormation() {
 						optionList={Formation.NIVEAU_ETUDES}
 						onChange={setInputNiveauEtudes}
 						value={inputNiveauEtudes}
-						label="Niveau d’entrée (facultatif)"
+						label="Niveau d’études visé (facultatif)"
 						className={styles.inputNiveauEtudes}
 					/>
 				</div>
