@@ -1,13 +1,13 @@
 
 import { handleGetFailureError } from '~/server/entreprises/infra/apiRejoindreLaMobilisationError';
 import { createSuccess, Either } from '~/server/errors/either';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 import { Entreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisationRepository {
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: PublicHttpClientService) {}
 
 	async save(entreprise: Entreprise): Promise<Either<void>> {
 		try {

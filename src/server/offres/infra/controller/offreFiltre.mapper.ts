@@ -10,4 +10,3 @@ export function mapLocalisation(query: { [key: string]: string | string[] | unde
 		}
 		: undefined;
 }
-

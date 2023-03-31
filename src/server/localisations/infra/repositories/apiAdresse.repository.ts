@@ -6,10 +6,10 @@ import {
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiAdresseError';
 import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
-	constructor(private readonly httpClientService: HttpClientServiceWithCache) {
+	constructor(private readonly httpClientService: CachedHttpClientService) {
 	}
 
 	async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {

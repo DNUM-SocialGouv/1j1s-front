@@ -7,7 +7,7 @@ import {
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
 	const entrepriseApiUrl = 'https://lesentreprisesengagent.france';
@@ -17,7 +17,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 	describe('.save', () => {
 		let repository: ApiRejoindreLaMobilisationRepository;
 		beforeEach(() => {
-			const client = new HttpClientService({
+			const client = new PublicHttpClientService({
 				apiName: 'test LEE',
 				apiUrl: entrepriseApiUrl,
 			});

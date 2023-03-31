@@ -8,13 +8,13 @@ import {
 import {
 	ApiLaBonneAlternanceMétierRepository,
 } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
-import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiLaBonneAlternanceMétierRepository', () => {
 	describe('getMetierList', () => {
 		describe('Quand l‘api renvoie un résultat', () => {
 			it('retourne un tableau de métier', async () => {
-				const httpClientService = anHttpClientService();
+				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()));
 				const expected = aListeDeMetierLaBonneAlternance();
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService);
@@ -29,7 +29,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 
 		describe('Quand l‘api renvoie une erreur', () => {
 			it("retourne une instance d'erreur", async () => {
-				const httpClientService = anHttpClientService();
+				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 429 }));
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService);
 

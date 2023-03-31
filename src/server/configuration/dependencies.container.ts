@@ -94,7 +94,7 @@ import { GénérerRobotsUseCase } from '~/server/robots/useCases/générerRobots
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
-import { buildHttpClientConfigList } from '~/server/services/http/httpClientConfig';
+import { buildHttpClientConfigList } from '~/server/services/http/httpClient.config';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 

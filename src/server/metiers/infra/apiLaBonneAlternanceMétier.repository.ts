@@ -4,10 +4,10 @@ import { createSuccess, Either } from '~/server/errors/either';
 import { Métier } from '~/server/metiers/domain/métier';
 import { MétierRepository } from '~/server/metiers/domain/métier.repository';
 import { mapMétier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 export class ApiLaBonneAlternanceMétierRepository implements MétierRepository {
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: PublicHttpClientService) {}
 
 	async getMetierList(recherche: string): Promise<Either<Array<Métier>>> {
 		try {

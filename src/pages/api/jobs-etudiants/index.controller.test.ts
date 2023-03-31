@@ -13,7 +13,7 @@ import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture'
 import {
 	aRésultatRechercheOffreEmploiAxiosResponse,
 	aRésultatRéférentielCommuneResponse,
-} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
+} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
 
 describe('rechercher un job étudiant', () => {
 	it('retourne la liste des jobs étudiants filtrée', async () => {

@@ -9,10 +9,10 @@ import {
 	mapLocalisationList,
 } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
 import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiLocalisationError';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
 export class ApiGeoLocalisationRepository implements LocalisationRepository {
-	constructor(private readonly httpClientService: HttpClientServiceWithCache) {
+	constructor(private readonly httpClientService: CachedHttpClientService) {
 	}
 
 	async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {

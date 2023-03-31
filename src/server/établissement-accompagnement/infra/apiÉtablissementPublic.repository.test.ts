@@ -6,15 +6,15 @@ import { ApiÉtablissementPublicRepository } from '~/server/établissement-accom
 import {
 	anAxiosError,
 	anAxiosResponse,
-	anHttpClientService,
-} from '~/server/services/http/httpClientService.fixture';
+	aPublicHttpClientService,
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiÉtablissementPublicRepository', () => {
 	describe('search', () => {
 		describe('lorsque la recherche retourne une 200', () => {
 			it('retourne la liste des établissements d‘accompagnement', async () => {
 				// given
-				const httpClient = anHttpClientService();
+				const httpClient = aPublicHttpClientService();
 				jest
 					.spyOn(httpClient, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatRechercheÉtablissementPublicResponse()));
@@ -35,7 +35,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 		describe('lorsque l‘api retourne une erreur 404', () => {
 			it('renvoie une erreur demande incorrecte', async () => {
 				// given
-				const httpClient = anHttpClientService();
+				const httpClient = aPublicHttpClientService();
 				jest.spyOn(httpClient, 'get').mockRejectedValue(anAxiosError({
 					response: anAxiosResponse({}, 404),
 				}));
@@ -56,7 +56,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 		describe('lorsque l‘api retourne une erreur autre que 404', () => {
 			it('renvoie une erreur service indisponible', async () => {
 				// given
-				const httpClient = anHttpClientService();
+				const httpClient = aPublicHttpClientService();
 				jest.spyOn(httpClient, 'get').mockRejectedValue(anAxiosError({
 					response: anAxiosResponse({}, 500),
 				}));

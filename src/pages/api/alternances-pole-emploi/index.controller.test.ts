@@ -13,8 +13,8 @@ import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture'
 import {
 	aRésultatRechercheOffreEmploiAxiosResponse,
 	aRésultatRéférentielCommuneResponse,
-} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
-import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
+import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('rechercher une alternance', () => {
 	it('retourne la liste des alternances filtrée', async () => {

@@ -1,9 +1,9 @@
 import nock from 'nock';
 
-import { HttpClientConfig } from '~/server/services/http/httpClientConfig';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { PublicHttpClientConfig } from '~/server/services/http/publicHttpClient.service';
 
-const clientConfig: HttpClientConfig = {
+const clientConfig: PublicHttpClientConfig = {
 	apiName: 'SOME_API_NAME',
 	apiUrl: 'https://some.url.com',
 };
@@ -12,11 +12,11 @@ const someOtherQueryParams = 'param1=unParam&param3=encoreUnAutreParam';
 let bodyWithoutParams: { info: string; status: string };
 let bodyWithSomeParams: { extra: string; info: string; status: string };
 let bodyWithSomeOtherParams: { extra: string; info: string; status: string };
-let httpClientServiceWithCache: HttpClientServiceWithCache;
+let httpClientServiceWithCache: CachedHttpClientService;
 
-describe('HttpClientServiceWithCacheService', () => {
+describe('CachedHttpClientService', () => {
 	beforeEach(() => {
-		httpClientServiceWithCache = new HttpClientServiceWithCache(clientConfig);
+		httpClientServiceWithCache = new CachedHttpClientService(clientConfig);
 		bodyWithoutParams = {
 			info: 'some extra info',
 			status: 'It’s all fine',

@@ -1,11 +1,11 @@
 import { mapCodeInsee } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
 export class ApiPoleEmploiRéférentielRepository {
 
 	constructor(
-    private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
+    private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
     private cacheService: CacheService,
 	) {}
 

@@ -39,14 +39,14 @@ import { createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import {
+	anAuthenticatedHttpClientService,
 	anAxiosError,
 	anAxiosResponse,
-	anHttpClientService,
-	anHttpClientServiceWithAuthentification,
-} from '~/server/services/http/httpClientService.fixture';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+	aPublicHttpClientService,
+} from '~/server/services/http/publicHttpClient.service.fixture';
 import {
 	aFicheMetierNomMetierList,
 	anAnnonceDeLogementPathList,
@@ -57,14 +57,14 @@ import {
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
 describe('strapi cms repository', () => {
-	let httpClientService: HttpClientService;
-	let authenticatedHttpClientService: HttpClientServiceWithAuthentification;
+	let httpClientService: PublicHttpClientService;
+	let authenticatedHttpClientService: AuthenticatedHttpClientService;
 	let strapiCmsRepository: StrapiRepository;
 
 	describe('getActualites', () => {
 		describe('Si les actualités sont trouvées', () => {
 			it('récupère les actualités', async () => {
-				httpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(anActualiteFixture()));
@@ -80,8 +80,8 @@ describe('strapi cms repository', () => {
 	describe('getArticleBySlug', () => {
 		describe('Si un article est trouvé', () => {
 			it('récupère l‘article selon le slug', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiArticleCollectionType()));
@@ -101,7 +101,7 @@ describe('strapi cms repository', () => {
 		const expectedFicheMetier = aFicheMetier();
 
 		beforeEach(() => {
-			httpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 		});
 		afterEach(() => {
@@ -136,8 +136,8 @@ describe('strapi cms repository', () => {
 
 	describe('listAllFicheMetierNomMetier', () => {
 		it('liste tous les noms métier des fiches metier', async () => {
-			httpClientService = anHttpClientService();
-			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = aPublicHttpClientService();
+			authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 			(httpClientService.get as jest.Mock)
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiFicheMetierNomMetierList()))
@@ -154,8 +154,8 @@ describe('strapi cms repository', () => {
 
 	describe('listAllArticleSlug', () => {
 		it('liste tous les identifiants d’article publiés sauf celles des faq', async () => {
-			httpClientService = anHttpClientService();
-			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = aPublicHttpClientService();
+			authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 			(httpClientService.get as jest.Mock)
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
@@ -170,7 +170,7 @@ describe('strapi cms repository', () => {
 
 	describe('getMentionObligatoire', () => {
 		it('retourne le mention obligatoire a consulter', async () => {
-			httpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
@@ -194,7 +194,7 @@ describe('strapi cms repository', () => {
 
 	describe('getServiceJeuneList', () => {
 		it('récupère les services jeunes', async () => {
-			httpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiLesMesuresJeunesSingleType()));
@@ -209,7 +209,7 @@ describe('strapi cms repository', () => {
 	describe('getMesuresEmployeurs()', () => {
 		describe('quand les cartes sont trouvées', () => {
 			it('récupère les cartes jeunes', async () => {
-				httpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
@@ -225,8 +225,8 @@ describe('strapi cms repository', () => {
 	describe('getAnnonceDeLogementBySlug', () => {
 		describe('Si un logement est trouvé', () => {
 			it('récupère l‘annonce de logement selon le slug', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([uneAnnonceDeLogementResponse()])));
 				const slug = uneAnnonceDeLogementResponse().slug;
@@ -239,8 +239,8 @@ describe('strapi cms repository', () => {
 
 		describe('Si le logement n‘est pas trouvé', () => {
 			it('retourne une erreur', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
 				const slug = 'bad-slug';
@@ -254,8 +254,8 @@ describe('strapi cms repository', () => {
 	describe('getOffreDeStageBySlug', () => {
 		describe('Si un stage est trouvé', () => {
 			it('récupère l‘offre de stage selon le slug', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([uneOffreDeStageResponse()])));
 				const slug = uneOffreDeStageResponse().slug;
@@ -271,8 +271,8 @@ describe('strapi cms repository', () => {
 		describe('Si un stage est fourni', () => {
 			it('il est enregistré dans le cms', async () => {
 				// Given
-				const httpClientService = anHttpClientService();
-				const authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				const httpClientService = aPublicHttpClientService();
+				const authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				const strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 
 				const offreDeStageDepot = anOffreDeStageDepot();
@@ -292,8 +292,8 @@ describe('strapi cms repository', () => {
 	describe('getAllFAQ', () => {
 		describe('quand la liste des questions est trouvée', () => {
 			it('retourne la liste des questions avec la problématique et le slug', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
 
@@ -307,8 +307,8 @@ describe('strapi cms repository', () => {
 
 		describe('quand la liste des questions n’est pas trouvée', () => {
 			it('retourne une erreur', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
 
@@ -322,8 +322,8 @@ describe('strapi cms repository', () => {
 		describe('quand la question réponse est trouvée', () => {
 			it('retourne la question réponse', async () => {
 				const slug = uneListeDeQuestionStrapiResponse()[0].slug;
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
 
@@ -336,8 +336,8 @@ describe('strapi cms repository', () => {
 
 		describe('quand la question réponse n’est pas trouvée', () => {
 			it('retourne une erreur', async () => {
-				httpClientService = anHttpClientService();
-				authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
 
@@ -349,8 +349,8 @@ describe('strapi cms repository', () => {
 
 	describe('listAllOffreDeStageSlug', () => {
 		it('retourne un tableau contenant tous les slugs d’offre de stage', async () => {
-			httpClientService = anHttpClientService();
-			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = aPublicHttpClientService();
+			authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiOffreDeStageSlugList()));
 			const expected = anOffreDeStagePathList();
@@ -365,8 +365,8 @@ describe('strapi cms repository', () => {
 
 	describe('listAllAnnonceDeLogementSlug', () => {
 		it('retourne un tableau contenant tous les slugs d’annonce de logement', async () => {
-			httpClientService = anHttpClientService();
-			authenticatedHttpClientService = anHttpClientServiceWithAuthentification();
+			httpClientService = aPublicHttpClientService();
+			authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiAnnonceDeLogementSlugList()));
 			const expected = anAnnonceDeLogementPathList();

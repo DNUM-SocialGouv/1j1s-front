@@ -9,14 +9,14 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { handleSearchFailureError } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const SOURCES_MATCHA_ET_PEJOBS = 'matcha,offres';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-	constructor(private httpClientService: HttpClientService, private caller: string) {}
+	constructor(private httpClientService: PublicHttpClientService, private caller: string) {}
 
 	async search(filtre: AlternanceFiltre): Promise<Either<Array<RésultatRechercheAlternance>>> {
 		try {

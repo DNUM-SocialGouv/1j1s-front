@@ -1,9 +1,9 @@
 import { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { CacheAxiosResponse, InternalCacheRequestConfig } from 'axios-cache-interceptor';
 
-import { HttpClientService } from '~/server/services/http/httpClientService';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 function anAxiosInstance(): AxiosInstance {
 	return {
@@ -73,30 +73,30 @@ export function anAxiosError(override?: Partial<AxiosError>): AxiosError {
 	} as unknown as AxiosError;
 }
 
-export function anHttpClientService(): HttpClientService {
+export function aPublicHttpClientService(): PublicHttpClientService {
 	return {
 		client: anAxiosInstance(),
 		get: jest.fn(),
 		post: jest.fn(),
 		setAuthorizationHeader: jest.fn(),
-	} as unknown as HttpClientService;
+	} as unknown as PublicHttpClientService;
 }
 
-export function anHttpClientServiceWithCache(): HttpClientServiceWithCache {
+export function aCachedHttpClientService(): CachedHttpClientService {
 	return {
 		client: anAxiosInstance(),
 		get: jest.fn(),
 		post: jest.fn(),
 		setAuthorizationHeader: jest.fn(),
-	} as unknown as HttpClientServiceWithCache;
+	} as unknown as CachedHttpClientService;
 }
 
-export function anHttpClientServiceWithAuthentification(): HttpClientServiceWithAuthentification {
+export function anAuthenticatedHttpClientService(): AuthenticatedHttpClientService {
 	return {
 		client: anAxiosInstance(),
 		get: jest.fn(),
 		post: jest.fn(),
 		refreshToken: jest.fn(),
 		setAuthorizationHeader: jest.fn(),
-	} as unknown as HttpClientServiceWithAuthentification;
+	} as unknown as AuthenticatedHttpClientService;
 }

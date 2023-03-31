@@ -6,25 +6,25 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import {
+	aCachedHttpClientService,
 	anAxiosError,
-	anHttpClientService,
-	anHttpClientServiceWithCache,
-} from '~/server/services/http/httpClientService.fixture';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
+	aPublicHttpClientService,
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('apiTrajectoiresProCertification.repository', () => {
-	let apiGeoLocalisationHttpService: HttpClientServiceWithCache;
-	let httpService: HttpClientService;
+	let apiGeoLocalisationHttpService: CachedHttpClientService;
+	let httpService: PublicHttpClientService;
 	let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
 	let codeCertification: string;
 	let codePostal: string;
 
 	beforeEach(() => {
-		apiGeoLocalisationHttpService = anHttpClientServiceWithCache();
-		httpService = anHttpClientService();
+		apiGeoLocalisationHttpService = aCachedHttpClientService();
+		httpService = aPublicHttpClientService();
 		apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(apiGeoLocalisationHttpService);
 
 		codeCertification = '123';

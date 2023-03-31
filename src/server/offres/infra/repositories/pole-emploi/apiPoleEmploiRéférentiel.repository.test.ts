@@ -6,11 +6,11 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import {
+	anAuthenticatedHttpClientService,
 	anAxiosResponse,
-	anHttpClientServiceWithAuthentification,
-} from '~/server/services/http/httpClientService.fixture';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 jest.mock('axios', () => {
 	return {
@@ -19,12 +19,12 @@ jest.mock('axios', () => {
 });
 
 describe('ApiPoleEmploiRéférentielRepository', () => {
-	let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification;
+	let httpClientServiceWithAuthentification: AuthenticatedHttpClientService;
 	let cacheService: CacheService;
 	let apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository;
 
 	beforeEach(() => {
-		httpClientServiceWithAuthentification = anHttpClientServiceWithAuthentification();
+		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		cacheService = new MockedCacheService();
 		apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(httpClientServiceWithAuthentification, cacheService);
 	});

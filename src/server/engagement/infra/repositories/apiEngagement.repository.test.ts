@@ -11,8 +11,8 @@ import {
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { HttpClientService } from '~/server/services/http/httpClientService';
-import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 jest.mock('axios', () => {
 	return {
@@ -21,11 +21,11 @@ jest.mock('axios', () => {
 });
 
 describe('ApiEngagementRepository', () => {
-	let httpClientService: HttpClientService;
+	let httpClientService: PublicHttpClientService;
 	let apiEngagementRepository: ApiEngagementRepository;
 
 	beforeEach(() => {
-		httpClientService = anHttpClientService();
+		httpClientService = aPublicHttpClientService();
 		apiEngagementRepository = new ApiEngagementRepository(httpClientService);
 	});
 

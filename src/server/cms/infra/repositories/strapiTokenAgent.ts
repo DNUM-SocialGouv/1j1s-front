@@ -1,15 +1,17 @@
 import axios from 'axios';
 
-import { TokenAgent } from './httpClientConfig';
+import { TokenAgent } from '~/server/services/http/authenticatedHttpClient.service';
 
-interface StrapiLoginTokenAgentConfig {
-  apiUrl: string
-  login: string
-  password: string
+interface StrapiTokenAgentConfig {
+	apiUrl: string
+	login: string
+	password: string
 }
-export class StrapiLoginTokenAgent implements TokenAgent {
-	constructor (private config: StrapiLoginTokenAgentConfig) {
+
+export class StrapiTokenAgent implements TokenAgent {
+	constructor(private config: StrapiTokenAgentConfig) {
 	}
+
 	async getToken() {
 		const endpoint = this.config.apiUrl.endsWith('/')
 			? `${this.config.apiUrl}auth/local`

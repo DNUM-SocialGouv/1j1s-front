@@ -9,7 +9,7 @@ import {
 import {
 	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
 interface SearchÉtablissementPublic {
@@ -18,7 +18,7 @@ interface SearchÉtablissementPublic {
 }
 
 export class ApiÉtablissementPublicRepository {
-	constructor(private httpClient: HttpClientService) {
+	constructor(private httpClient: PublicHttpClientService) {
 	}
 
 	async search(params: SearchÉtablissementPublic): Promise<Either<ÉtablissementAccompagnement[]>> {

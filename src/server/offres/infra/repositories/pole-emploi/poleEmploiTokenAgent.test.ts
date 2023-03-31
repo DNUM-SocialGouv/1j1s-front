@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import { ClientCredentialsTokenAgent } from '~/server/services/http/ClientCredentialsTokenAgent';
+import { PoleEmploiTokenAgent } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiTokenAgent';
 
 describe('ClientCredentialsTokenAgent()', () => {
 	describe('getToken()', () => {
@@ -13,7 +13,7 @@ describe('ClientCredentialsTokenAgent()', () => {
 		afterEach(() => nock.cleanAll());
 		it('fetches a new token using client credentials', async () => {
 			// Given
-			const agent = new ClientCredentialsTokenAgent({
+			const agent = new PoleEmploiTokenAgent({
 				clientId: 'id',
 				clientSecret: 'secret',
 				scope: 'openid',

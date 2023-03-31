@@ -1,11 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
-
-import {
-	OffreResponse,
-	RésultatsRechercheOffreResponse,
-} from './poleEmploiOffre.response';
+import { OffreResponse, RésultatsRechercheOffreResponse } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
+import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 export function aRésultatRechercheOffreEmploiAxiosResponse(override?: Partial<RésultatsRechercheOffreResponse>): AxiosResponse<RésultatsRechercheOffreResponse> {
 	return anAxiosResponse({
@@ -163,4 +159,71 @@ function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponse.FiltresPo
 			],
 		},
 	];
+}
+
+export function anOffreEmploiResponseCompétenceList(): OffreResponse.Compétence[] {
+	return [
+		anOffreEmploiResponseCompétence(),
+		anOffreEmploiResponseCompétence({ libelle: 'Déterminer les besoins thérapeutiques' }),
+	];
+}
+
+export function anOffreEmploiResponseCompétenceListAvecCompétenceNonDéfinie(): OffreResponse.Compétence[] {
+	return [
+		anOffreEmploiResponseCompétence(),
+		anOffreEmploiResponseCompétence({ libelle: undefined }),
+	];
+}
+
+function anOffreEmploiResponseCompétence(override?: Partial<OffreResponse.Compétence>): OffreResponse.Compétence {
+	return {
+		libelle: 'Réaliser la prescription médicale',
+		...override,
+	};
+}
+
+export function anOffreEmploiResponseFormationList(): OffreResponse.Formation[] {
+	return [
+		anOffreEmploiResponseFormation(),
+		anOffreEmploiResponseFormation({
+			commentaire: 'Licence pro commerce',
+			niveauLibelle: 'Bac+3 et plus ou équivalents',
+		}),
+	];
+}
+
+export function anOffreEmploiResponseFormationListAvecFormationNonDéfinie(): OffreResponse.Formation[] {
+	return [
+		anOffreEmploiResponseFormation(),
+		anOffreEmploiResponseFormation({ commentaire: undefined, niveauLibelle: undefined }),
+	];
+}
+
+function anOffreEmploiResponseFormation(override?: Partial<OffreResponse.Formation>): OffreResponse.Formation {
+	return {
+		commentaire: 'DE docteur en médecine',
+		niveauLibelle: 'Bac+5 et plus ou équivalents',
+		...override,
+	};
+}
+
+export function anOffreEmploiResponseQualitéProfessionnelleList(): OffreResponse.QualitéeProfessionnelle[] {
+	return [
+		anOffreEmploiResponseQualitéProfessionnelle(),
+		anOffreEmploiResponseQualitéProfessionnelle({ libelle: 'Capacité de décision' }),
+	];
+}
+
+export function anOffreEmploiResponseQualitéProfessionnelleListAvecQualitéNonDéfinie(): OffreResponse.QualitéeProfessionnelle[] {
+	return [
+		anOffreEmploiResponseQualitéProfessionnelle(),
+		anOffreEmploiResponseQualitéProfessionnelle({ libelle: undefined }),
+	];
+}
+
+function anOffreEmploiResponseQualitéProfessionnelle(override?: Partial<OffreResponse.QualitéeProfessionnelle>): OffreResponse.QualitéeProfessionnelle {
+	return {
+		libelle: 'Capacité d‘adaptation',
+		...override,
+	};
 }

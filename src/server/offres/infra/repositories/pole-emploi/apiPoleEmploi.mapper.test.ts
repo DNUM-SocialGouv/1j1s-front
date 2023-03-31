@@ -6,16 +6,16 @@ import {
 	mapQualitéeProfessionnelleList,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
+	aRésultatsRéférentielCommunesResponseList,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository.fixture';
+import {
 	anOffreEmploiResponseCompétenceList,
 	anOffreEmploiResponseCompétenceListAvecCompétenceNonDéfinie,
 	anOffreEmploiResponseFormationList,
 	anOffreEmploiResponseFormationListAvecFormationNonDéfinie,
-	anOffreEmploiResponseQualitéeProfessionnelleList,
-	anOffreEmploiResponseQualitéeProfessionnelleListAvecQualitéeNonDéfinie,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiOffre.response.fixture';
-import {
-	aRésultatsRéférentielCommunesResponseList,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository.fixture';
+	anOffreEmploiResponseQualitéProfessionnelleList,
+	anOffreEmploiResponseQualitéProfessionnelleListAvecQualitéNonDéfinie,
+} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
 
 
 describe('mapper pour l api pole emploi', () => {
@@ -74,7 +74,7 @@ describe('mapper pour l api pole emploi', () => {
 		describe('quand on récupère une liste de qualitées Professionnelles', () => {
 			it('retourne les qualitées Professionnelles', () => {
 				//given
-				const qualitéesProfessionnelleResponse = anOffreEmploiResponseQualitéeProfessionnelleList();
+				const qualitéesProfessionnelleResponse = anOffreEmploiResponseQualitéProfessionnelleList();
 				//when
 				const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelleList(qualitéesProfessionnelleResponse);
 
@@ -87,7 +87,7 @@ describe('mapper pour l api pole emploi', () => {
 			});
 
 			it('retourne seulement les libellés qui ne sont pas undefined', () => {
-				const qualitéesProfessionnelleResponse = anOffreEmploiResponseQualitéeProfessionnelleListAvecQualitéeNonDéfinie();
+				const qualitéesProfessionnelleResponse = anOffreEmploiResponseQualitéProfessionnelleListAvecQualitéNonDéfinie();
 
 				const mappedOffreEmploiQualitéeProfessionnelleList = mapQualitéeProfessionnelleList(qualitéesProfessionnelleResponse);
 				const résultatAttendu: string[] = [

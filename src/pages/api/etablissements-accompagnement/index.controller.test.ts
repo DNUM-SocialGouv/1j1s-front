@@ -11,7 +11,7 @@ import {
 import {
 	aRésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
-import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('rechercher un établissement d‘accompagnement', () => {
 	describe('lorsque la recherche est valide', () => {

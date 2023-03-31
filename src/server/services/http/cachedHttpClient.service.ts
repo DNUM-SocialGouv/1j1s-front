@@ -1,12 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { AxiosCacheInstance, CacheAxiosResponse, setupCache } from 'axios-cache-interceptor';
 
-import { HttpClientConfig } from '~/server/services/http/httpClientConfig';
+import { PublicHttpClientConfig } from '~/server/services/http/publicHttpClient.service';
 
-export class HttpClientServiceWithCache {
+export class CachedHttpClientService {
 	readonly client: AxiosCacheInstance;
 
-	constructor (private clientConfig: HttpClientConfig) {
+	constructor (private clientConfig: PublicHttpClientConfig) {
 		const headers = clientConfig.apiHeaders;
 		const url = clientConfig.apiUrl;
 		this.client = setupCache(axios.create({ baseURL: url, headers }), { methods: ['get'] });
@@ -21,9 +21,5 @@ export class HttpClientServiceWithCache {
 
 	async post<Body>(endpoint: string, body: Body) {
 		return this.client.post(endpoint, body);
-	}
-
-	protected setAuthorizationHeader(token: string): void {
-		this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 }

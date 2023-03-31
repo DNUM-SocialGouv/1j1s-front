@@ -2,18 +2,18 @@ import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
 import { createSuccess } from '~/server/errors/either';
 import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import {
 	aCacheAxiosResponse,
-	anHttpClientServiceWithCache,
-} from '~/server/services/http/httpClientService.fixture';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
+	aCachedHttpClientService,
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiGeoLocalisationRepository', () => {
-	let httpClientService: HttpClientServiceWithCache;
+	let httpClientService: CachedHttpClientService;
 	let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
 
 	beforeEach(() => {
-		httpClientService = anHttpClientServiceWithCache();
+		httpClientService = aCachedHttpClientService();
 
 		apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(httpClientService);
 	});

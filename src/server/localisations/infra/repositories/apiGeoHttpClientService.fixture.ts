@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 export function aRechercheCommuneResponse(): AxiosResponse {
 	return anAxiosResponse([

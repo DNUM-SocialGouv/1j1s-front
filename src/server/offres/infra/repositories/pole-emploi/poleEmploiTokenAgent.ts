@@ -1,25 +1,23 @@
 import axios from 'axios';
 
-interface ClientCredentialsTokenAgentConnectInfo {
+interface PoleEmploiTokenAgentConfig {
   url: string
   scope: string
   clientId: string
   clientSecret: string
-  query?: Record<string, string>
 }
-export class ClientCredentialsTokenAgent {
+
+export class PoleEmploiTokenAgent {
 	private readonly url: string;
 	private readonly scope: string;
 	private readonly clientId: string;
 	private readonly clientSecret: string;
-	private readonly query: Record<string, string> = {};
 
-	constructor (info: ClientCredentialsTokenAgentConnectInfo) {
-		this.clientId = info.clientId;
-		this.clientSecret = info.clientSecret;
-		this.scope = info.scope;
-		this.url = info.url;
-		if (info.query) this.query = info.query;
+	constructor (config: PoleEmploiTokenAgentConfig) {
+		this.clientId = config.clientId;
+		this.clientSecret = config.clientSecret;
+		this.scope = config.scope;
+		this.url = config.url;
 	}
 
 	async getToken(): Promise<string> {
@@ -40,6 +38,7 @@ export class ClientCredentialsTokenAgent {
 		return response.data.access_token;
 	}
 }
+
 interface TokenResponse {
   access_token: string;
   expires_in: number;
