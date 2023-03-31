@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.41.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.41.0...v3.41.1) (2023-03-31)
+
+
+### Bug Fixes
+
+* **bsr:** console error dans test rechercher alternance ([9ed243a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9ed243ab2da1f10149e673f045e1af4f5c25c75b))
+* **multiple:** retour recette alternance + formation ([5aebf8b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5aebf8b4604faca77de90145cfe4e3e99583ed06))
+
 ## [3.41.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.40.0...v3.41.0) (2023-03-31)
 
 
