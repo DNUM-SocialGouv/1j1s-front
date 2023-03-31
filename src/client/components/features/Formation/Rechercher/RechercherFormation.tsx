@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -21,7 +20,9 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
@@ -32,6 +33,7 @@ const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 export default function RechercherFormation() {
 	const router = useRouter();
 
+	const formationQuery = useFormationQuery();
 	const formationService = useDependency<FormationService>('formationService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
 	const [formationList, setFormationList] = useState<RésultatRechercheFormation[]>([]);
@@ -40,13 +42,11 @@ export default function RechercherFormation() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		const queryString = stringify(router.query);
-
-		if (queryString !== '') {
+		if (!empty(formationQuery)) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
-			formationService.rechercherFormation(queryString)
+			formationService.rechercherFormation(formationQuery)
 				.then((response) => {
 					if (response.instance === 'success') {
 						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
@@ -59,7 +59,7 @@ export default function RechercherFormation() {
 					setIsLoading(false);
 				});
 		}
-	}, [router.query, formationService]);
+	}, [formationQuery, formationService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];

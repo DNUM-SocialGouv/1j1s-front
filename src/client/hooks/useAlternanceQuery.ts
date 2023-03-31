@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-interface AlternanceQueryParams {
+export type AlternanceQueryParams = {
 	codeRomes?: string
 	libelleMetier?: string
 	codeCommune?: string

@@ -69,7 +69,6 @@ describe('RechercherFormation', () => {
 					libelleMetier: 'Boucherie,charcuterie,traiteur',
 				},
 			});
-			const expectedQuery = 'codeRomes=D1103%2CD1101%2CH2101&libelleMetier=Boucherie%2Ccharcuterie%2Ctraiteur';
 
 			// WHEN
 			render(
@@ -87,7 +86,10 @@ describe('RechercherFormation', () => {
 			// THEN
 			expect(formulaireRechercheFormation).toBeInTheDocument();
 			expect(nbRésultats).toBeInTheDocument();
-			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith(expectedQuery);
+			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith({
+				codeRomes: 'D1103,D1101,H2101',
+				libelleMetier: 'Boucherie,charcuterie,traiteur',
+			});
 			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
 			const resultListElements = within(resultList).getAllByText('En savoir plus');
 			expect(resultListElements).toHaveLength(formationFixture.length);
@@ -162,5 +164,34 @@ describe('RechercherFormation', () => {
 
 		const listeDePartenaires = screen.getByRole('list', { name: 'Liste des partenaires' });
 		expect(listeDePartenaires).toBeVisible();
+	});
+
+	it('filtre les query params envoyés au service', () => {
+		const formationService = aFormationService();
+		mockUseRouter({ query : {
+			codeCommune: '75056',
+			codeRomes: 'M1805%2CM1806%2CM1802',
+			distanceCommune: '10',
+			latitudeCommune: '48.859',
+			libelleCommune: 'Paris+%2875001%29',
+			libelleMetier: 'Développement+web%2C+intégration',
+			longitudeCommune: '2.347',
+			niveauEtudes: '4',
+			test: 'test',
+		} });
+
+		render(
+			<DependenciesProvider
+				formationService={formationService}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}
+			>
+				<RechercherFormation/>
+			</DependenciesProvider>,
+		);
+
+		expect(formationService.rechercherFormation).toHaveBeenCalledWith(expect.not.objectContaining({
+			test: 'test',
+		}));
 	});
 });

@@ -89,7 +89,15 @@ describe('RechercherAlternance', () => {
 					longitudeCommune: '2.347',
 				},
 			});
-			const expectedQuery = 'codeCommune=75056&codeRomes=D1102%252CD1104&distanceCommune=10&latitudeCommune=48.859&libelleCommune=Paris%20(75001)&libelleMetier=Boulangerie%2C%20p%C3%A2tisserie%2C%20chocolaterie&longitudeCommune=2.347';
+			const expectedQuery = {
+				codeCommune: '75056',
+				codeRomes: 'D1102%2CD1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+			};
 
 			// WHEN
 			render(
@@ -155,5 +163,38 @@ describe('RechercherAlternance', () => {
 		expect(section).toBeVisible();
 		expect(cardPass).toBeVisible();
 		expect(cardONISEP).toBeVisible();
+	});
+
+	it('n’appelle pas le service avec les query params inconnus', () => {
+		// GIVEN
+		const alternanceServiceMock = anAlternanceService();
+		mockUseRouter({
+			query: {
+				codeCommune: '75056',
+				codeRomes: 'D1102%2CD1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+				test: 'test',
+			},
+		});
+
+		// WHEN
+		render(
+			<DependenciesProvider
+				alternanceService={alternanceServiceMock}
+				métierService={aMétierService()}
+				localisationService={aLocalisationService()}
+			>
+				<RechercherAlternance/>
+			</DependenciesProvider>,
+		);
+
+		// THEN
+		expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expect.not.objectContaining({
+			test: 'test',
+		}));
 	});
 });

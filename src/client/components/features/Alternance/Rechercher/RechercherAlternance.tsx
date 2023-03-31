@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { stringify } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -20,7 +19,9 @@ import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
@@ -30,6 +31,8 @@ const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 export default function RechercherAlternance() {
 	const router = useRouter();
 
+	const alternanceQuery = useAlternanceQuery();
+
 	const alternanceService = useDependency<AlternanceService>('alternanceService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
 	const [alternanceList, setAlternanceList] = useState<RésultatRechercheAlternance[]>([]);
@@ -38,12 +41,11 @@ export default function RechercherAlternance() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
-		const queryString = stringify(router.query);
-		if (queryString !== '') {
+		if (!empty(alternanceQuery)) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 
-			alternanceService.rechercherAlternance(queryString)
+			alternanceService.rechercherAlternance(alternanceQuery)
 				.then((response) => {
 					if (response.instance === 'success') {
 						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
@@ -56,7 +58,7 @@ export default function RechercherAlternance() {
 					setIsLoading(false);
 				});
 		}
-	}, [router.query, alternanceService]);
+	}, [alternanceQuery, alternanceService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];

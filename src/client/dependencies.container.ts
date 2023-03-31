@@ -7,7 +7,6 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact/dema
 import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
-import { FicheMetierService } from '~/client/services/ficheMetier/ficheMetier.service';
 import { FormationService } from '~/client/services/formation/formation.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import {
@@ -25,7 +24,6 @@ export type Dependencies = {
 	alternanceService: AlternanceService
 	analyticsService: AnalyticsService
 	demandeDeContactService: DemandeDeContactService
-	ficheMetierService: FicheMetierService
 	formationService: FormationService
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
@@ -53,7 +51,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const localisationService = new LocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
 	const demandeDeContactService = new DemandeDeContactService(httpClientService);
-	const ficheMetierService = new FicheMetierService(httpClientService);
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
@@ -82,7 +79,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		alternanceService,
 		analyticsService,
 		demandeDeContactService,
-		ficheMetierService,
 		formationService,
 		lesEntreprisesSEngagentService,
 		localisationService,
