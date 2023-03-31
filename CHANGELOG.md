@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.40.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.39.0...v3.40.0) (2023-03-31)
+
+
+### Features
+
+* **accueil:** carte logement conseils ([e9810ce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e9810ceb4da490ea8dec219d205f14609c9149a4))
+
 ## [3.39.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.38.1...v3.39.0) (2023-03-30)
 
 
