@@ -5,11 +5,10 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
 	aCacheAxiosResponse,
 	aCachedHttpClientService,
-	anAxiosError,
-	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiAdresseRepository', () => {
@@ -125,11 +124,7 @@ describe('ApiAdresseRepository', () => {
 			it('renvoie une demande incorrecte', async () => {
 				jest
 					.spyOn(httpClientService, 'get')
-					.mockRejectedValue(anAxiosError({
-						response: anAxiosResponse(
-							{ message: 'q must contain at least 3 chars and start with a number or a letter' },
-							400),
-					}));
+					.mockRejectedValue(anHttpError(400, 'q must contain at least 3 chars and start with a number or a letter'));
 				const recherche = 'jou';
 
 				const result = await apiAdresseRepository.getCommuneList(recherche) as Failure;

@@ -35,7 +35,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 		it('retourne une erreur Demande Incorrecte', async () => {
 			nock('https://etablissements-publics.api.gouv.fr/v3')
 				.get('/communes/46100/cij')
-				.reply(404, anAxiosError({ response: anAxiosResponse({}, 401) }));
+				.reply(404, anAxiosError({ response: anAxiosResponse({}, 404) }));
 
 			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
 				handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),

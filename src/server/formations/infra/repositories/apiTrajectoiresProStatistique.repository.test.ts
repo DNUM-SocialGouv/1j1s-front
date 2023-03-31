@@ -7,10 +7,10 @@ import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra
 import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import {
 	aCachedHttpClientService,
-	anAxiosError,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -41,7 +41,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
 			it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
-				(apiGeoLocalisationHttpService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
+				(apiGeoLocalisationHttpService.get as jest.Mock).mockRejectedValue(anHttpError(500));
 				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 				const returnValue = await repository.get(codeCertification, codePostal);
@@ -63,15 +63,15 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			});
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
-				it('retourne une erreur DEMANDE_INCORRECTE', async () => {
+				it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
 					(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-					(httpService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
+					(httpService.get as jest.Mock).mockRejectedValue(anHttpError(500));
 					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository);
 
 					const returnValue = await repository.get(codeCertification, codePostal);
 
 					expect(httpService.get).toHaveBeenCalledTimes(1);
-					expect(returnValue).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 				});
 			});
 

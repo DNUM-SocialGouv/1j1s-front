@@ -4,20 +4,13 @@ import {
 	errorFromApiPoleEmploi,
 	handleSearchFailureError,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
-import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 
 describe('handleSearchFailureError', () => {
 	errorFromApiPoleEmploi.forEach((messageErrorFromApiPoleEmploi) => {
 		describe(`quand l’api renvoie une erreur 400 et le message d’erreur ${messageErrorFromApiPoleEmploi}`, () => {
 			it('retourne une failure demande incorrecte sans logger', async () => {
-				const error = anAxiosError({
-					response: anAxiosResponse(
-						{
-							message: messageErrorFromApiPoleEmploi,
-						},
-						400,
-					),
-				});
+				const error = anHttpError(400, messageErrorFromApiPoleEmploi);
 
 				const result = await handleSearchFailureError(error, 'context') as Failure;
 
@@ -28,14 +21,7 @@ describe('handleSearchFailureError', () => {
 
 	describe('quand l’api renvoie une erreur 400 et un message inconnue', () => {
 		it('retourne une failure demande incorrecte en loggant', async () => {
-			const error = anAxiosError({
-				response: anAxiosResponse(
-					{
-						message: 'message inconnu',
-					},
-					400,
-				),
-			});
+			const error = anHttpError(400, 'message inconnu');
 
 			const result = await handleSearchFailureError(error, 'context') as Failure;
 

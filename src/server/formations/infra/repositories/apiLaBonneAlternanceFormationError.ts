@@ -12,27 +12,22 @@ export function handleGetFailureError(e: unknown, context: string) {
 	return handleFailureError(e, `get ${context}`);
 }
 
-export function handleGetMetierFailureError(e: unknown, context: string) {
-	return handleFailureError(e, `get metier ${context}`);
-}
-
 export function handleFailureError(e: unknown, customContext: string) {
 	if (isHttpError(e)) {
 		LoggerService.errorWithExtra(
 			new SentryException(
-				'[API LaBonneAlternance] impossible d’effectuer une recherche',
-				{ context: customContext, source: 'API LaBonneAlternance' },
+				'[API LaBonneAlternance] Formation : impossible d’effectuer une recherche',
+				{ context: customContext, source: 'API LaBonneAlternance Formation' },
 				{ errorDetail: e.response?.data },
 			),
 		);
-		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 	}
 	LoggerService.errorWithExtra(
 		new SentryException(
-			'[API LaBonneAlternance] impossible d’effectuer une recherche',
-			{ context: customContext, source: 'API LaBonneAlternance' },
+			'[API LaBonneAlternance] Formation : impossible d’effectuer une recherche',
+			{ context: customContext, source: 'API LaBonneAlternance Formation' },
 			{ stacktrace: (<Error> e).stack },
 		),
 	);
-	return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-}
+	return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);}

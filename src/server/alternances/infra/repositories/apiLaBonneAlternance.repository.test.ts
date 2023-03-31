@@ -11,8 +11,8 @@ import {
 	Success,
 } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
-	anAxiosError,
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -78,7 +78,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('crée une erreur quand l’API renvoie une erreur', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
-			(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
+			(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(500));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
 			// When
