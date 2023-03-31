@@ -63,7 +63,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 					<div>
 						{annonce.niveauRequis && (
 							<div className={styles.niveauRequis}>
-								<dt>Niveau requis</dt>
+								<dt>Niveau visé en fin d’études</dt>
 								<dd>{annonce.niveauRequis}</dd>
 							</div>
 						)}
@@ -84,7 +84,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 						{annonce.typeDeContrat && annonce.typeDeContrat.length > 0 && (
 							<div className={styles.typeContrat}>
 								<dt>Type de contrat</dt>
-								<dd>{annonce.typeDeContrat}</dd>
+								<dd>{annonce.typeDeContrat.join(', ')}</dd>
 							</div>
 						)}
 						{annonce.durée && (

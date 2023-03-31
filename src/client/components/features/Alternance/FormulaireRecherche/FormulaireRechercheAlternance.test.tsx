@@ -90,7 +90,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
+			const inputMétiers = screen.getByLabelText('Domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -133,7 +133,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
+			const inputMétiers = screen.getByLabelText('Domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -200,7 +200,7 @@ describe('FormulaireRechercheAlternance', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('textbox', { name: /Sélectionnez un domaine/i });
+		const domaine = screen.getByRole('textbox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');

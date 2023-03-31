@@ -85,7 +85,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
+			const inputMétiers = screen.getByLabelText('Domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -124,7 +124,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
+			const inputMétiers = screen.getByLabelText('Domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -199,7 +199,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Sélectionnez un domaine');
+			const inputMétiers = screen.getByLabelText('Domaine');
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -207,7 +207,7 @@ describe('FormulaireRechercherFormation', () => {
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
-			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’entrée (facultatif)' });
+			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’études visé (facultatif)' });
 			await user.click(selectNiveauEtudes);
 
 			const niveauEtudesList = await screen.findByRole('listbox');
@@ -242,7 +242,7 @@ describe('FormulaireRechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('textbox', { name: /Sélectionnez un domaine/i });
+		const domaine = screen.getByRole('textbox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
@@ -257,7 +257,7 @@ describe('FormulaireRechercherFormation', () => {
 			expect(field).toHaveValue(expectedValue);
 		}
 		checkSelectValue('Rayon', '10');
-		checkSelectValue('Niveau d’entrée (facultatif)', '3');
+		checkSelectValue('Niveau d’études visé (facultatif)', '3');
 		/* eslint-enable testing-library/no-node-access */
 	});
 });
