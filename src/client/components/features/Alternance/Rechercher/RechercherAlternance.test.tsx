@@ -165,7 +165,7 @@ describe('RechercherAlternance', () => {
 		expect(cardONISEP).toBeVisible();
 	});
 
-	it('n’appelle pas le service avec les query params inconnus', () => {
+	it('n’appelle pas le service avec les query params inconnus', async () => {
 		// GIVEN
 		const alternanceServiceMock = anAlternanceService();
 		mockUseRouter({
@@ -191,6 +191,8 @@ describe('RechercherAlternance', () => {
 				<RechercherAlternance/>
 			</DependenciesProvider>,
 		);
+
+		await screen.findByRole('heading', { name: /Découvrez des services faits pour vous/i });
 
 		// THEN
 		expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expect.not.objectContaining({
