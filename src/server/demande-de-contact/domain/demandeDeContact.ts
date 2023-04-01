@@ -1,7 +1,7 @@
 import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import {
 	ContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export type DemandeDeContactType = 'CEJ' | 'LesEntreprisesSEngagent';
 

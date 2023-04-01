@@ -2,7 +2,7 @@ import {
 	ContactÉtablissementAccompagnement,
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export function anOrderedÉtablissementAccompagnementList(): ÉtablissementAccompagnement[] {
 	return [

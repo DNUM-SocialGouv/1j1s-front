@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import { StrapiTokenAgent } from '~/server/cms/infra/repositories/strapiTokenAgent';
+import { StrapiTokenAgent } from '~/server/cms/configuration/strapi/strapiTokenAgent';
 
 describe('StrapiLoginTokenAgent', () => {
 	describe('getToken()', () => {

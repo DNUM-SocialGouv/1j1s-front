@@ -10,7 +10,7 @@ import {
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand le type d‘accompagnement est une mission locale', () => {

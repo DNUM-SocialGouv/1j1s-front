@@ -1,6 +1,6 @@
 import { createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anOrderedÉtablissementAccompagnementList } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+import { anOrderedÉtablissementAccompagnementList } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aRésultatRechercheÉtablissementPublicResponse } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
 import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import {

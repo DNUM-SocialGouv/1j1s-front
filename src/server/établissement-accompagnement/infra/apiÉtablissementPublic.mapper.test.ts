@@ -1,7 +1,7 @@
 import {
 	anOrderedÉtablissementAccompagnementList,
 	anUnorderedÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	aRésultatRechercheÉtablissementPublicResponse,
 	aRésultatRechercheÉtablissementPublicResponseInIncorrectOrder,

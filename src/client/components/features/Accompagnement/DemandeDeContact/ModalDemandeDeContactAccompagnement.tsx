@@ -11,7 +11,7 @@ import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import {
 	ContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 interface ModalDemandeDeContactAccompagnementProps {
   contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement

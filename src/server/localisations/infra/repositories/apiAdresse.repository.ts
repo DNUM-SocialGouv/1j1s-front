@@ -3,9 +3,9 @@ import { RésultatsRechercheCommune } from '~/server/localisations/domain/locali
 import {
 	LocalisationAvecCoordonnéesRepository,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiAdresse.error';
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
-import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiAdresseError';
-import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
+import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {

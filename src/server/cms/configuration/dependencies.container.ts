@@ -15,18 +15,18 @@ import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
 	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
-  consulterArticle: ConsulterArticleUseCase
+	consulterArticle: ConsulterArticleUseCase
 	consulterFAQ: ConsulterFAQUseCase
-  consulterFicheMetier: ConsulterFicheMetierUseCase
-  consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
+	consulterFicheMetier: ConsulterFicheMetierUseCase
+	consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
 	consulterOffreStage: ConsulterOffreStageUseCase
 	enregistrerOffreDeStage: enregistrerOffreDeStageUseCase
-  duréeDeValiditéEnSecondes: () => number
+	duréeDeValiditéEnSecondes: () => number
 	listerQuestionsFAQ: ListerFAQUseCase
 	listerNomMétierFicheMétier: ListerNomMétierFicheMétierUseCase
-  récupérerActualités: RécupérerActualitésUseCase
-  listerServicesJeunes: ListerServicesJeunesUseCase
-  récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
+	récupérerActualités: RécupérerActualitésUseCase
+	listerServicesJeunes: ListerServicesJeunesUseCase
+	récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
 }
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;

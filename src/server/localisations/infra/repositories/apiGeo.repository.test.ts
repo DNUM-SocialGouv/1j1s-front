@@ -1,7 +1,7 @@
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
 import { createSuccess } from '~/server/errors/either';
-import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
+import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import {
 	aCacheAxiosResponse,
@@ -10,12 +10,12 @@ import {
 
 describe('ApiGeoLocalisationRepository', () => {
 	let httpClientService: CachedHttpClientService;
-	let apiGeoLocalisationRepository: ApiGeoLocalisationRepository;
+	let apiGeoLocalisationRepository: ApiGeoRepository;
 
 	beforeEach(() => {
 		httpClientService = aCachedHttpClientService();
 
-		apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(httpClientService);
+		apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService);
 	});
 
 	describe('getCommuneListByNom', () => {

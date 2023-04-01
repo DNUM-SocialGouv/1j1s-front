@@ -9,7 +9,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 const typeAccompagnementListe: Option[] = [
 	{ libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.AGENCE_POLE_EMPLOI },

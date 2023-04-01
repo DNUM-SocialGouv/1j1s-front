@@ -3,7 +3,7 @@ import { RésultatsRechercheCommune } from '~/server/localisations/domain/locali
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import {
 	ApiDecoupageAdministratifResponse,
-} from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
+} from '~/server/localisations/infra/repositories/apiGeo.response';
 
 export function mapLocalisationList(response: ApiDecoupageAdministratifResponse[]): Localisation[] {
 	return response.map((commune) => ({

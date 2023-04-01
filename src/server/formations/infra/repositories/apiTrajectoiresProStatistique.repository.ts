@@ -8,11 +8,11 @@ import {
 	isRegionEtAuMoinsUnPourcentageDisponible,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { mapStatistiques } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
-import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
+import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
-	constructor(private httpClientService: PublicHttpClientService, private apiGeoLocalisationRepository: ApiGeoLocalisationRepository) {}
+	constructor(private httpClientService: PublicHttpClientService, private apiGeoLocalisationRepository: ApiGeoRepository) {}
 
 	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
 		try {

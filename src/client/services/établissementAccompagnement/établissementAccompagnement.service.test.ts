@@ -6,7 +6,7 @@ import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/dom
 import { createSuccess } from '~/server/errors/either';
 import {
 	anOrderedÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('établissementAccompagnementService', () => {
 	describe('rechercher', () => {

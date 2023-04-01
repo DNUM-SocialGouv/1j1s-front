@@ -4,10 +4,10 @@ import nock from 'nock';
 import { rechercherÉtablissementAccompagnementHandler } from '~/pages/api/etablissements-accompagnement/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anOrderedÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	aRésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';

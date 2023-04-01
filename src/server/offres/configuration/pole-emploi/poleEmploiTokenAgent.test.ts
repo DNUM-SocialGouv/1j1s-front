@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import { PoleEmploiTokenAgent } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiTokenAgent';
+import { PoleEmploiTokenAgent } from '~/server/offres/configuration/pole-emploi/poleEmploiTokenAgent';
 
 describe('ClientCredentialsTokenAgent()', () => {
 	describe('getToken()', () => {

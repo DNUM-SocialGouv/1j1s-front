@@ -1,21 +1,25 @@
 import {
+	AlternanceDependencies,
+	alternancesDependenciesContainer,
+	OffresAlternanceDependencies,
+	offresAlternancesDependenciesContainer,
+} from '~/server/alternances/configuration/dependencies.container';
+import {
+	getApiLaBonneAlternanceConfig,
+} from '~/server/alternances/configuration/la-bonne-alternance/laBonneAlternanceHttpClient.config';
+import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
 	ApiPoleEmploiAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
-import {
-	ConsulterOffreAlternanceLaBonneAlternanceUseCase,
-} from '~/server/alternances/useCases/consulterOffreAlternanceLaBonneAlternance.useCase';
-import { ConsulterOffreAlternancePoleEmploiUseCase } from '~/server/alternances/useCases/consulterOffreAlternancePoleEmploi.useCase';
-import {
-	RechercherAlternanceLaBonneAlternanceUseCase,
-} from '~/server/alternances/useCases/rechercherAlternanceLaBonneAlternance.useCase';
-import {
-	RechercherAlternancePoleEmploiUseCase,
-} from '~/server/alternances/useCases/rechercherAlternancePoleEmploi.useCase';
-import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/cmsDependencies.container';
+import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
+import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import {
+	DemandeDeContactDependencies,
+	demandeDeContactDependenciesContainer,
+} from '~/server/demande-de-contact/configuration/dependencies.container';
 import {
 	DemandeDeContactAccompagnementRepository,
 } from '~/server/demande-de-contact/infra/repositories/accompagnement/demandeDeContactAccompagnement.repository';
@@ -29,240 +33,170 @@ import {
 	DemandeDeContactPOERepository,
 } from '~/server/demande-de-contact/infra/repositories/poe/demandeDeContactPOE.repository';
 import {
-	EnvoyerDemandeDeContactAccompagnementUseCase,
-} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactAccompagnement.usecase';
-import {
-	EnvoyerDemandeDeContactCEJUseCase,
-} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
-import {
-	EnvoyerDemandeDeContactEntrepriseUseCase,
-} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactEntreprise.usecase';
-import {
-	EnvoyerDemandeDeContactPOEUseCase,
-} from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactPOE.usecase';
+	OffresEmploiDependencies,
+	offresEmploiDependenciesContainer,
+} from '~/server/emplois/configuration/dependencies.container';
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
-import { ConsulterOffreEmploiUseCase } from '~/server/emplois/useCases/consulterOffreEmploi.useCase';
-import { RechercherOffreEmploiUseCase } from '~/server/emplois/useCases/rechercherOffreEmploi.useCase';
-import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
-import { ConsulterMissionEngagementUseCase } from '~/server/engagement/useCases/consulterMissionEngagement.useCase';
-import { RechercherMissionBénévolatUseCase } from '~/server/engagement/useCases/rechercherMissionBenevolat.useCase';
 import {
-	RechercherMissionServiceCiviqueUseCase,
-} from '~/server/engagement/useCases/rechercherMissionServiceCivique.useCase';
+	getApiEngagementConfig,
+} from '~/server/engagement/configuration/api-engagement/apiEngagementHttpClient.config';
+import {
+	EngagementDependencies,
+	engagementDependenciesContainer,
+} from '~/server/engagement/configuration/dependencies.container';
+import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
+import {
+	EntrepriseDependencies,
+	entreprisesDependenciesContainer,
+} from '~/server/entreprises/configuration/dependencies.container';
+import {
+	getApiRejoindreLaMobilisationConfig,
+} from '~/server/entreprises/configuration/rejoindre-la-mobilisation/rejoindreLaMobilisationHttpClient.config';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import {
 	StrapiRejoindreLaMobilisationRepository,
 } from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
-import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
+import {
+	ÉtablissementAccompagnementDependencies,
+	établissementAccompagnementDependenciesContainer,
+} from '~/server/établissement-accompagnement/configuration/dependencies.container';
+import {
+	getApiÉtablissementsPublicsConfig,
+} from '~/server/établissement-accompagnement/configuration/établissements-publics/établissementPublicHttpClient.config';
 import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import {
-	RechercherÉtablissementAccompagnementUseCase,
-} from '~/server/établissement-accompagnement/useCase/rechercherÉtablissementAccompagnement.useCase';
+	getApiTrajectoiresProConfig,
+} from '~/server/formations/configuration/api-trajectoires-pro/apiTrajectoiresProHttpClient.config';
+import {
+	FormationDependencies,
+	formationsDependenciesContainer,
+} from '~/server/formations/configuration/dependencies.container';
 import {
 	ApiLaBonneAlternanceFormationRepository,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
 import {
 	ApiTrajectoiresProStatistiqueRepository,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
-import { ConsulterFormationUseCase } from '~/server/formations/useCases/consulterFormation.useCase';
-import { RechercherFormationUseCase } from '~/server/formations/useCases/rechercherFormation.useCase';
+import {
+	jobsÉtudiantsDependenciesContainer,
+	OffresJobÉtudiantDependencies,
+} from '~/server/jobs-étudiants/configuration/dependencies.container';
 import {
 	ApiPoleEmploiJobÉtudiantRepository,
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
-import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
-import { RechercherOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobÉtudiantUseCase';
+import { getApiAdresseConfig } from '~/server/localisations/configuration/adresse/adresseHttpClient.config';
+import {
+	LocalisationDependencies,
+	localisationDependenciesContainer,
+} from '~/server/localisations/configuration/dependencies.container';
+import { getApiGeoGouvConfig } from '~/server/localisations/configuration/geo/geoHttpClient.config';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
-import { ApiGeoLocalisationRepository } from '~/server/localisations/infra/repositories/apiGeoLocalisation.repository';
-import { RechercherCommuneUseCase } from '~/server/localisations/useCases/rechercherCommune.useCase';
-import { RechercherLocalisationUseCase } from '~/server/localisations/useCases/rechercherLocalisation.useCase';
+import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
+import { getApiTipimailConfig } from '~/server/mail/configuration/tipimail/tipimailHttpClient.config';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import {
-	ApiLaBonneAlternanceMétierRepository,
-} from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
+	MétierDependencies,
+	métiersDependenciesContainer,
+} from '~/server/metiers/configuration/dependencies.container';
+import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
 import {
-	RécupérerMétiersUseCase,
-} from '~/server/metiers/useCases/récupererMétiersUseCase';
+	getApiPoleEmploiOffresConfig,
+	getApiPoleEmploiReferentielsConfig,
+} from '~/server/offres/configuration/pole-emploi/poleEmploiHttpClient.config';
 import {
 	ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
 import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
-import { GénérerRobotsUseCase } from '~/server/robots/useCases/générerRobots.useCase';
+import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots/configuration/dependencies.container';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
-import { buildHttpClientConfigList } from '~/server/services/http/httpClient.config';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
-import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
+import {
+	SitemapDependencies,
+	sitemapDependenciesContainer,
+} from '~/server/sitemap/configuration/dependencies.container';
 
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
 	métierDependencies: MétierDependencies;
-  offreEmploiDependencies: OffresEmploiDependencies;
-  cmsDependencies: CmsDependencies;
-  engagementDependencies: EngagementDependencies;
-  localisationDependencies: LocalisationDependencies;
-  demandeDeContactDependencies: DemandeDeContactDependencies;
-  entrepriseDependencies: EntrepriseDependencies;
-  offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
-  offreAlternanceDependencies: OffresAlternanceDependencies;
+	offreEmploiDependencies: OffresEmploiDependencies;
+	cmsDependencies: CmsDependencies;
+	engagementDependencies: EngagementDependencies;
+	localisationDependencies: LocalisationDependencies;
+	demandeDeContactDependencies: DemandeDeContactDependencies;
+	entrepriseDependencies: EntrepriseDependencies;
+	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
+	offreAlternanceDependencies: OffresAlternanceDependencies;
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
-  établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
+	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
 }
 
-export interface OffresEmploiDependencies {
-  consulterOffreEmploi: ConsulterOffreEmploiUseCase
-  rechercherOffreEmploi: RechercherOffreEmploiUseCase
-}
-
-export interface OffresJobÉtudiantDependencies {
-  consulterOffreJobÉtudiant: ConsulterOffreJobÉtudiantUseCase
-  rechercherOffreJobÉtudiant: RechercherOffreJobÉtudiantUseCase
-}
-
-export interface OffresAlternanceDependencies {
-  consulterOffreAlternance: ConsulterOffreAlternancePoleEmploiUseCase
-  rechercherOffreAlternance: RechercherAlternancePoleEmploiUseCase
-}
-
-export interface AlternanceDependencies {
-	consulterAlternance: ConsulterOffreAlternanceLaBonneAlternanceUseCase
-	rechercherAlternance: RechercherAlternanceLaBonneAlternanceUseCase
-}
-
-export interface FormationDependencies {
-	rechercherFormation: RechercherFormationUseCase
-	consulterFormation: ConsulterFormationUseCase
-}
-
-export interface MétierDependencies {
-	récupérerMétiers: RécupérerMétiersUseCase
-}
-
-export interface EngagementDependencies {
-	rechercherMissionBénévolat: RechercherMissionBénévolatUseCase;
-	rechercherMissionServiceCivique: RechercherMissionServiceCiviqueUseCase;
-  consulterMissionEngagement: ConsulterMissionEngagementUseCase;
-}
-
-export interface LocalisationDependencies {
-  listeLocalisation: RechercherLocalisationUseCase;
-  rechercherCommune: RechercherCommuneUseCase;
-}
-
-export interface DemandeDeContactDependencies {
-  envoyerDemandeDeContactCEJUseCase: EnvoyerDemandeDeContactCEJUseCase
-  envoyerDemandeDeContactEntrepriseUseCase: EnvoyerDemandeDeContactEntrepriseUseCase
-  envoyerDemandeDeContactPOEUseCase: EnvoyerDemandeDeContactPOEUseCase
-  envoyerDemandeDeContactAccompagnementUseCase: EnvoyerDemandeDeContactAccompagnementUseCase
-}
-
-export interface EntrepriseDependencies {
-  lesEntreprisesSEngagentUseCase: LesEntreprisesSEngagentUseCase
-}
-
-export interface ÉtablissementAccompagnementDependencies {
-  rechercherÉtablissementAccompagnementUseCase: RechercherÉtablissementAccompagnementUseCase
-}
-
-export interface RobotsDependencies {
-	générerRobotsUseCase: GénérerRobotsUseCase
-}
-
-export interface SitemapDependencies {
-	générerSitemapUseCase: GénérerSitemapUseCase
-}
-
-export const dependenciesContainer = (): Dependencies => {
+export function dependenciesContainer(): Dependencies {
 	const serverConfigurationService = new ServerConfigurationService();
 	let cacheService: CacheService;
 
-	if(process.env.NODE_ENV === 'test') {
+	if (process.env.NODE_ENV === 'test') {
 		cacheService = new MockedCacheService();
 	} else {
 		const redisUrl = serverConfigurationService.getConfiguration().REDIS_URL;
-		cacheService  = new RedisCacheService(redisUrl);
+		cacheService = new RedisCacheService(redisUrl);
 	}
-
-	const {
-		engagementClientService,
-		laBonneAlternanceClientService,
-		trajectoiresProClientService,
-		lesEntreprisesSEngagentClientService,
-		poleEmploiOffresClientService,
-		poleEmploiReferentielsClientService,
-		strapiAuthClientService,
-		strapiClientService,
-		adresseClientService,
-		geoGouvClientService,
-		établissementAccompagnementClientService,
-		mailClientService,
-	} = buildHttpClientConfigList(serverConfigurationService);
-
-	const cmsRepository = new StrapiRepository(strapiClientService, strapiAuthClientService);
+	
+	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService));
+	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
+	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
 
-	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiReferentielsClientService, cacheService);
+	const poleEmploiRéférentielsHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiReferentielsConfig(serverConfigurationService));
+	const poleEmploiOffresHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiOffresConfig(serverConfigurationService));
+	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiRéférentielsHttpClientService, cacheService);
 	const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
-	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
-	const offreEmploiDependencies: OffresEmploiDependencies = {
-		consulterOffreEmploi: new ConsulterOffreEmploiUseCase(apiPoleEmploiOffreRepository),
-		rechercherOffreEmploi: new RechercherOffreEmploiUseCase(apiPoleEmploiOffreRepository),
-	};
+	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService);
+	const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
 
-	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
-	const offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies = {
-		consulterOffreJobÉtudiant: new ConsulterOffreJobÉtudiantUseCase(apiPoleEmploiJobÉtudiantOffreRepository),
-		rechercherOffreJobÉtudiant: new RechercherOffreJobÉtudiantUseCase(apiPoleEmploiJobÉtudiantOffreRepository),
-	};
+	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService);
+	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
 
-	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresClientService, poleEmploiParamètreBuilderService, cacheService);
+	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
+	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService);
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
 	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller);
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService);
 
-	const offreAlternanceDependencies: OffresAlternanceDependencies = {
-		consulterOffreAlternance: new ConsulterOffreAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
-		rechercherOffreAlternance: new RechercherAlternancePoleEmploiUseCase(apiPoleEmploiAlternanceRepository),
-	};
+	const offreAlternanceDependencies = offresAlternancesDependenciesContainer(apiPoleEmploiAlternanceRepository);
 
-	const alternanceDependencies: AlternanceDependencies = {
-		consulterAlternance: new ConsulterOffreAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
-		rechercherAlternance: new RechercherAlternanceLaBonneAlternanceUseCase(apiLaBonneAlternanceRepository),
-	};
+	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
-	const apiGeoLocalisationRepository = new ApiGeoLocalisationRepository(geoGouvClientService);
-	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProClientService, apiGeoLocalisationRepository);
+	const trajectoiresProHttpClientService = new PublicHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService));
+	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
+	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService);
+	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProHttpClientService, apiGeoLocalisationRepository);
 
-	const formationDependencies: FormationDependencies = {
-		consulterFormation: new ConsulterFormationUseCase(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository),
-		rechercherFormation: new RechercherFormationUseCase(apiLaBonneAlternanceFormationRepository),
-	};
-	
-	const métierDependencies: MétierDependencies = {
-		récupérerMétiers: new RécupérerMétiersUseCase(apiLaBonneAlternanceMétierRepository),
-	};
+	const formationDependencies = formationsDependenciesContainer(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository);
 
-	const apiEngagementRepository = new ApiEngagementRepository(engagementClientService);
-	const engagementDependencies: EngagementDependencies = {
-		consulterMissionEngagement: new ConsulterMissionEngagementUseCase(apiEngagementRepository),
-		rechercherMissionBénévolat: new RechercherMissionBénévolatUseCase(apiEngagementRepository),
-		rechercherMissionServiceCivique: new RechercherMissionServiceCiviqueUseCase(apiEngagementRepository),
-	};
+	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
-	const apiAdresseRepository = new ApiAdresseRepository(adresseClientService);
-	const localisationDependencies: LocalisationDependencies = {
-		listeLocalisation: new RechercherLocalisationUseCase(apiGeoLocalisationRepository, apiAdresseRepository),
-		rechercherCommune: new RechercherCommuneUseCase(apiAdresseRepository, serverConfigurationService),
-	};
+	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
+	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService);
+	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
 
+	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));
+	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService);
+	const localisationDependencies = localisationDependenciesContainer(apiGeoLocalisationRepository, apiAdresseRepository, serverConfigurationService);
+
+	const mailClientService = new PublicHttpClientService(getApiTipimailConfig(serverConfigurationService));
 	const mailRepository = new TipimailRepository(
 		mailClientService,
 		serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
@@ -273,31 +207,25 @@ export const dependenciesContainer = (): Dependencies => {
 	const demandeDeContactEntrepriseRepository = new DemandeDeContactEntrepriseRepository(cmsRepository);
 	const demandeDeContactPOERepository = new DemandeDeContactPOERepository(cmsRepository);
 
-	const demandeDeContactDependencies: DemandeDeContactDependencies = {
-		envoyerDemandeDeContactAccompagnementUseCase: new EnvoyerDemandeDeContactAccompagnementUseCase(demandeDeContactAccompagnementRepository),
-		envoyerDemandeDeContactCEJUseCase: new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactCEJRepository),
-		envoyerDemandeDeContactEntrepriseUseCase: new EnvoyerDemandeDeContactEntrepriseUseCase(demandeDeContactEntrepriseRepository),
-		envoyerDemandeDeContactPOEUseCase: new EnvoyerDemandeDeContactPOEUseCase(demandeDeContactPOERepository),
-	};
+	const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
+		demandeDeContactAccompagnementRepository,
+		demandeDeContactCEJRepository,
+		demandeDeContactEntrepriseRepository,
+		demandeDeContactPOERepository,
+	);
 
-	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentClientService);
-	const strapiRejoindreLaMobilisationRepository = new StrapiRejoindreLaMobilisationRepository(strapiAuthClientService);
-	const entrepriseDependencies: EntrepriseDependencies = {
-		lesEntreprisesSEngagentUseCase: new LesEntreprisesSEngagentUseCase(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository),
-	};
+	const lesEntreprisesSEngagentHttpClientService = new PublicHttpClientService(getApiRejoindreLaMobilisationConfig(serverConfigurationService));
+	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService);
+	const strapiRejoindreLaMobilisationRepository = new StrapiRejoindreLaMobilisationRepository(strapiAuthenticatedHttpClientService);
+	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository);
 
-	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementAccompagnementClientService);
-	const établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies = {
-		rechercherÉtablissementAccompagnementUseCase: new RechercherÉtablissementAccompagnementUseCase(apiÉtablissementPublicRepository),
-	};
+	const établissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
+	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService);
+	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiÉtablissementPublicRepository);
 
-	const robotsDependencies: RobotsDependencies = {
-		générerRobotsUseCase: new GénérerRobotsUseCase(serverConfigurationService.getConfiguration().ENVIRONMENT),
-	};
+	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies: SitemapDependencies = {
-		générerSitemapUseCase: new GénérerSitemapUseCase(cmsRepository),
-	};
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository);
 
 	return {
 		alternanceDependencies,

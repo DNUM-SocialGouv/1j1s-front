@@ -1,9 +1,9 @@
-import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresseHttpClientService.fixture';
-import { aRechercheCommuneResponse } from '~/server/localisations/infra/repositories/apiGeoHttpClientService.fixture';
+import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.fixture';
+import { aRechercheCommuneResponse } from '~/server/localisations/infra/repositories/apiGeo.fixture';
 import {
 	mapLocalisationList,
 	mapRésultatsRechercheCommune,
-} from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
+} from '~/server/localisations/infra/repositories/apiGeo.mapper';
 
 describe('mapper pour les api de geo localisation', () => {
 	describe('mapLocalisationList', () => {

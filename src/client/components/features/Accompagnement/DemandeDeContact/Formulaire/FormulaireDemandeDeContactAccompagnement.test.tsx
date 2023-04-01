@@ -21,7 +21,7 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import {
 	aContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('FormulaireDemandeDeContactAccompagnement', () => {
 	let localisationService: LocalisationService;

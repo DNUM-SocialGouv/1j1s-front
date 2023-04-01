@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import {
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export function useAccompagnementLogo(typeÉtablissement: TypeÉtablissement) {
 	return useMemo(() => {

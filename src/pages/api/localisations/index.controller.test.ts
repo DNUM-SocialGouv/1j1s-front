@@ -8,7 +8,7 @@ import { aLongList } from '~/server/localisations/domain/localisation.fixture';
 import {
 	RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
-import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresseHttpClientService.fixture';
+import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.fixture';
 
 describe('rechercher une localisation', () => {
 	describe('quand la réponse est en succès' , () => {

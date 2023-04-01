@@ -1,17 +1,17 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import {
-	ApiDecoupageAdministratifResponse,
-} from '~/server/localisations/infra/repositories/apiGeoLocalisation.response';
+import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiGeo.error';
 import {
 	mapCodeRégion,
 	mapLocalisationList,
-} from '~/server/localisations/infra/repositories/apiLocalisation.mapper';
-import { handleGetFailureError } from '~/server/localisations/infra/repositories/apiLocalisationError';
+} from '~/server/localisations/infra/repositories/apiGeo.mapper';
+import {
+	ApiDecoupageAdministratifResponse,
+} from '~/server/localisations/infra/repositories/apiGeo.response';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
-export class ApiGeoLocalisationRepository implements LocalisationRepository {
+export class ApiGeoRepository implements LocalisationRepository {
 	constructor(private readonly httpClientService: CachedHttpClientService) {
 	}
 

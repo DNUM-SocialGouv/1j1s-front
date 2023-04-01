@@ -33,7 +33,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export function RechercherAccompagnement() {
 	const accompagnementQuery = useAccompagnementQuery();

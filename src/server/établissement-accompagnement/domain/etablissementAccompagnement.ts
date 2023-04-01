@@ -24,6 +24,11 @@ export namespace ÉtablissementAccompagnement {
   }
 }
 
+export interface ParamètresRechercheÉtablissementAccompagnement {
+  commune: string
+  typeAccompagnement: string
+}
+
 export enum TypeÉtablissement {
   AGENCE_POLE_EMPLOI = 'pole_emploi',
   MISSION_LOCALE = 'mission_locale',

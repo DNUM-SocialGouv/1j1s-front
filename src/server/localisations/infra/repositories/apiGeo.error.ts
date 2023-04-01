@@ -5,7 +5,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { LoggerService } from '~/server/services/logger.service';
 
-import { ApiDecoupageAdministratifResponse } from './apiGeoLocalisation.response';
+import { ApiDecoupageAdministratifResponse } from './apiGeo.response';
 
 export function handleGetFailureError(e: unknown, context: string) {
 	if (axios.isAxiosError(e)) {
