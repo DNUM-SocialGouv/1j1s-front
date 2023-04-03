@@ -16,13 +16,13 @@ import {
 	handleSearchFailureError,
 } from '~/server/engagement/infra/repositories/apiEngagementError';
 import { createSuccess, Either } from '~/server/errors/either';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const JE_VEUX_AIDER_PUBLISHER_ID = '5f5931496c7ea514150a818f';
 const SERVICE_CIVIQUE_PUBLISHER_ID = '5f99dbe75eb1ad767733b206';
 
 export class ApiEngagementRepository implements EngagementRepository {
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: PublicHttpClientService) {}
 
 	async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
 		try {

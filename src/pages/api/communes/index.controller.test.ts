@@ -5,7 +5,7 @@ import nock from 'nock';
 import { rechercherCommuneHandler } from '~/pages/api/communes/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresseHttpClientService.fixture';
+import { aRechercheAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.fixture';
 
 describe('rechercherCommuneHandler', () => {
 	describe('quand l‘api répond avec une 200', () => {

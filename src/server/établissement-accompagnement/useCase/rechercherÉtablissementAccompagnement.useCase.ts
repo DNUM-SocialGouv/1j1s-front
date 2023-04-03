@@ -1,11 +1,16 @@
 import { Either } from '~/server/errors/either';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
-import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import {
+	ÉtablissementAccompagnement,
+	ParamètresRechercheÉtablissementAccompagnement,
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	ÉtablissementAccompagnementRepository,
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.repository';
 
 export class RechercherÉtablissementAccompagnementUseCase {
-	constructor(private apiÉtablissementPublicRepository: ApiÉtablissementPublicRepository) {}
+	constructor(private établissementAccompagnementRepository: ÉtablissementAccompagnementRepository) {}
 
-	async handle({ commune, typeAccompagnement }: { commune: string, typeAccompagnement: string }): Promise<Either<ÉtablissementAccompagnement[]>> {
-		return this.apiÉtablissementPublicRepository.search({ commune, typeAccompagnement });
+	async handle(params: ParamètresRechercheÉtablissementAccompagnement): Promise<Either<ÉtablissementAccompagnement[]>> {
+		return this.établissementAccompagnementRepository.search(params);
 	}
 }

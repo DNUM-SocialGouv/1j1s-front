@@ -14,14 +14,14 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
 	anAxiosError,
 	anAxiosResponse,
-	anHttpClientService,
-} from '~/server/services/http/httpClientService.fixture';
+	aPublicHttpClientService,
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('search', () => {
 		it('appelle l’api LaBonneAlternance', () => {
 			// Given
-			const httpClientService = anHttpClientService();
+			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller);
 
@@ -33,7 +33,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs'));
 		});
 		it('fait l’appel avec les bons paramètres', () => {
-			const httpClientService = anHttpClientService();
+			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller);
 
@@ -54,7 +54,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 	describe('get', () => {
 		it('retourne l’alternance renvoyée par l’API', async () => {
 			// Given
-			const httpClientService = anHttpClientService();
+			const httpClientService = aPublicHttpClientService();
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				matchas: [
 					aMatchaResponse({ job: {
@@ -77,7 +77,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		});
 		it('crée une erreur quand l’API renvoie une erreur', async () => {
 			// Given
-			const httpClientService = anHttpClientService();
+			const httpClientService = aPublicHttpClientService();
 			(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 500 }));
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
@@ -90,7 +90,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		describe('lorsque l’id fournit correspond à une offre Pole Emploi', () => {
 			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/job', async () => {
 				// Given
-				const httpClientService = anHttpClientService();
+				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 
@@ -105,7 +105,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		describe('lorsque l’id fournit ne correspond pas à une offre matcha', () => {
 			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/matcha', async () => {
 				// Given
-				const httpClientService = anHttpClientService();
+				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
 				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
 

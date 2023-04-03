@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { TimeRange } from '~/client/components/ui/TimeRange/TimeRange';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 import styles from './HorairesRésultatRechercherAccompagnement.module.scss';
 

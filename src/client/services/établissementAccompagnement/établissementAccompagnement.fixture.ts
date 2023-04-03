@@ -6,7 +6,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
 	aMissionLocaleÉtablissementAccompagnementList,
 	anOrderedÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 export function anÉtablissementAccompagnementService(): ÉtablissementAccompagnementService {
 	return {

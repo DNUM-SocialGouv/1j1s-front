@@ -1,13 +1,13 @@
 import { handleGetFailureError } from '~/server/entreprises/infra/apiRejoindreLaMobilisationError';
 import { createSuccess, Either } from '~/server/errors/either';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
 import { Entreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class StrapiRejoindreLaMobilisationRepository implements RejoindreLaMobilisationRepository {
 
-	constructor(private httpClientService: HttpClientServiceWithAuthentification) {
+	constructor(private httpClientService: AuthenticatedHttpClientService) {
 	}
 	async save(entreprise: Entreprise, annotation?: string): Promise<Either<void>> {
 		try {

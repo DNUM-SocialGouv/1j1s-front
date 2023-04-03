@@ -13,7 +13,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export interface RésultatRechercherAccompagnementProps {
   établissement: ÉtablissementAccompagnement

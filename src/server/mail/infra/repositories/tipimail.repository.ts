@@ -6,14 +6,14 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { Mail } from '~/server/mail/domain/mail';
 import { MailRepository } from '~/server/mail/domain/mail.repository';
 import { mapTipimailRequest } from '~/server/mail/infra/repositories/tipimail.mapper';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
 const SOURCE = 'API Tipimail';
 
 export class TipimailRepository implements MailRepository {
 	constructor(
-    private httpClient: HttpClientService,
+    private httpClient: PublicHttpClientService,
     private mailerServiceActive: boolean,
     private mailerServiceRedirectTo?: string,
 	) {}

@@ -13,7 +13,7 @@ import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture'
 import {
 	aRésultatRechercheOffreEmploiAxiosResponse,
 	aRésultatRéférentielCommuneResponse,
-} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
+} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
 
 describe('rechercher une offre d‘emploi', () => {
 	it('retourne la liste des offres d‘emploi filtrée', async () => {

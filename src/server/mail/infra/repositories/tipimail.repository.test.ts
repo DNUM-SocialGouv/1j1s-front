@@ -7,7 +7,7 @@ import { aTipimailRequest, aTipimailRequestWithRedirection } from '~/server/mail
 import {
 	TipimailRepository,
 } from '~/server/mail/infra/repositories/tipimail.repository';
-import { anAxiosError, anAxiosResponse, anHttpClientService } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 jest.mock('@sentry/nextjs');
 
@@ -23,7 +23,7 @@ describe('TipimailRepository', () => {
 			describe('lorsque l’api retourne une 200', () => {
 				it('envoie le mail', async () => {
 					// given
-					const httpClient = anHttpClientService();
+					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
 					const repository = new TipimailRepository(httpClient, true);
 					const expected = createSuccess(undefined);
@@ -44,7 +44,7 @@ describe('TipimailRepository', () => {
 			describe('lorsque l‘api retourne une erreur 400', () => {
 				it('renvoie une erreur demande incorrecte', async () => {
 					// given
-					const httpClient = anHttpClientService();
+					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
 						response: anAxiosResponse({}, 400),
 					}));
@@ -66,7 +66,7 @@ describe('TipimailRepository', () => {
 			describe('lorsque l‘api retourne une erreur 401', () => {
 				it('renvoie une erreur service indisponible', async () => {
 					// given
-					const httpClient = anHttpClientService();
+					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
 						response: anAxiosResponse({}, 401),
 					}));
@@ -88,7 +88,7 @@ describe('TipimailRepository', () => {
 			describe('lorsque l‘api retourne une erreur autre que 400 et 401', () => {
 				it('renvoie une erreur service indisponible', async () => {
 					// given
-					const httpClient = anHttpClientService();
+					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
 						response: anAxiosResponse({}, 500),
 					}));
@@ -110,7 +110,7 @@ describe('TipimailRepository', () => {
 		describe('quand le mailer est inactif', () => {
 			it('n‘envoie pas le mail', async () => {
 				// given
-				const httpClient = anHttpClientService();
+				const httpClient = aPublicHttpClientService();
 				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailRequest()));
 				const debug = jest.spyOn(console, 'log').mockImplementation(() => undefined);
 				const repository = new TipimailRepository(httpClient, false);
@@ -131,7 +131,7 @@ describe('TipimailRepository', () => {
 
 		describe('quand le mail doit être redirigé vers une autre adresse', () => {
 			it('change le destinataire avec cette adresse', async () => {
-				const httpClient = anHttpClientService();
+				const httpClient = aPublicHttpClientService();
 				const redirectTo = 'redirect@email.com';
 				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
 				const repository = new TipimailRepository(httpClient, true, redirectTo);

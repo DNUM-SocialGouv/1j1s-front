@@ -1,23 +1,23 @@
 import React, { FormEvent, PropsWithChildren } from 'react';
 import styles
 	from 'src/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement.module.scss';
-import { ButtonComponent } from 'src/client/components/ui/Button/ButtonComponent';
-import { InputCommune } from 'src/client/components/ui/Form/InputCommune/InputCommune';
-import { InputText } from 'src/client/components/ui/Form/InputText/InputText';
-import { Link } from 'src/client/components/ui/Link/Link';
-import { Select } from 'src/client/components/ui/Select/Select';
-import { useDependency } from 'src/client/context/dependenciesContainer.context';
-import { ageOptions } from 'src/client/domain/selectAgeData';
+
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+import { Link } from '~/client/components/ui/Link/Link';
+import { Select } from '~/client/components/ui/Select/Select';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { ageOptions } from '~/client/domain/selectAgeData';
 import {
 	ÉtablissementAccompagnementService,
-} from 'src/client/services/établissementAccompagnement/établissementAccompagnement.service';
-import { isSuccess } from 'src/server/errors/either';
-
-import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
+import { isSuccess } from '~/server/errors/either';
 import {
 	ContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 

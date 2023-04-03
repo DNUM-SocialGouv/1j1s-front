@@ -3,7 +3,7 @@
 import {
 	aMissionLocaleÉtablissementAccompagnementList,
 	anOrderedÉtablissementAccompagnementList,
-} from '../../src/server/établissement-accompagnement/domain/ÉtablissementAccompagnement.fixture';
+} from '../../src/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
 import communeList from '../fixture/communes/communeList.fixture.json';
 import { interceptGet } from '../interceptGet';

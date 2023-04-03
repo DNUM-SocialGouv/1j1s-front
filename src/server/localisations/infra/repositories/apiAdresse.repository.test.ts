@@ -4,20 +4,20 @@ import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
+import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import {
 	aCacheAxiosResponse,
+	aCachedHttpClientService,
 	anAxiosError,
 	anAxiosResponse,
-	anHttpClientServiceWithCache,
-} from '~/server/services/http/httpClientService.fixture';
-import { HttpClientServiceWithCache } from '~/server/services/http/httpClientServiceWithCache.service';
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiAdresseRepository', () => {
-	let httpClientService: HttpClientServiceWithCache;
+	let httpClientService: CachedHttpClientService;
 	let apiAdresseRepository: ApiAdresseRepository;
 
 	beforeEach(() => {
-		httpClientService = anHttpClientServiceWithCache();
+		httpClientService = aCachedHttpClientService();
 		apiAdresseRepository = new ApiAdresseRepository(httpClientService);
 	});
 

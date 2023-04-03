@@ -14,13 +14,13 @@ import {
 	mapRésultatRechercheFormation,
 	mapRésultatRechercheFormationToFormation, parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private httpClientService: HttpClientService, private caller: string) {}
+	constructor(private httpClientService: PublicHttpClientService, private caller: string) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);

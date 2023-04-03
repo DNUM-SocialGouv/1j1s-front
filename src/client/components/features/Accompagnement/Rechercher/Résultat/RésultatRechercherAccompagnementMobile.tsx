@@ -13,7 +13,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 interface RésultatRechercherAccompagnementMobileProps {
   établissement: ÉtablissementAccompagnement

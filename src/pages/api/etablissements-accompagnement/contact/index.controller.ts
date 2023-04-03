@@ -9,7 +9,7 @@ import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact
 import {
 	ContactÉtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import { dependencies } from '~/server/start';
 
 export const demandeContactAccompagnementBodySchema = Joi.object({

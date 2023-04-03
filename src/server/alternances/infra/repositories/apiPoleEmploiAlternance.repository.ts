@@ -25,11 +25,11 @@ import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
 export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 	constructor(
-    private httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification,
+    private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
 	) {}

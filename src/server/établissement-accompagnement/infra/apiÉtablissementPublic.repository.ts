@@ -2,26 +2,27 @@ import axios from 'axios';
 
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import {
+	ÉtablissementAccompagnement,
+	ParamètresRechercheÉtablissementAccompagnement,
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	ÉtablissementAccompagnementRepository,
+} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.repository';
 import {
 	mapÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
 import {
 	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
-import { HttpClientService } from '~/server/services/http/httpClientService';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
-interface SearchÉtablissementPublic {
-  commune: string
-  typeAccompagnement: string
-}
-
-export class ApiÉtablissementPublicRepository {
-	constructor(private httpClient: HttpClientService) {
+export class ApiÉtablissementPublicRepository implements ÉtablissementAccompagnementRepository {
+	constructor(private httpClient: PublicHttpClientService) {
 	}
 
-	async search(params: SearchÉtablissementPublic): Promise<Either<ÉtablissementAccompagnement[]>> {
+	async search(params: ParamètresRechercheÉtablissementAccompagnement): Promise<Either<ÉtablissementAccompagnement[]>> {
 		const { commune, typeAccompagnement } = params;
 		try {
 			const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);

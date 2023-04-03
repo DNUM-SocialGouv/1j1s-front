@@ -5,7 +5,7 @@ import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.mi
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import { dependencies } from '~/server/start';
 
 export const querySchema = Joi.object({

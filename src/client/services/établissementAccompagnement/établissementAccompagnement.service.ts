@@ -4,7 +4,7 @@ import { AccompagnementQueryParams } from '~/client/hooks/useAccompagnementQuery
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { Either } from '~/server/errors/either';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export class ÉtablissementAccompagnementService {
 	constructor(private httpClientService: HttpClientService) {

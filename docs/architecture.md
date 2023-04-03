@@ -87,12 +87,16 @@ Le nom des dossiers est au pluriel alors que le nom des fichiers est au singulie
 ```
 └─── server/
      ├── {modules}/
+     │    ├── configuration/ : centralisation des dépendances pour le module et configuration éventuelle pour les clients http 
      │    ├── domain/ : types liés au module et interface du repository
      │    ├── infra/
      │    │     └── repositories/ : implémentation de l'interface du domain et typage des objets liés aux repositories
      │    └── useCases/ : cas d'usage métier
      └── ...
 ```
+
+Le dossier `configuration/` à la racine de `server/` et de chaque module s'occupe d'initialiser, à l'aide d'une seule fonction, toutes les dépendances dans son scope respectif.
+
 
 ### Styles
 

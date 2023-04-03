@@ -4,7 +4,7 @@ import {
 	errorFromApiPoleEmploi,
 	handleSearchFailureError,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
-import { anAxiosError, anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('handleSearchFailureError', () => {
 	errorFromApiPoleEmploi.forEach((messageErrorFromApiPoleEmploi) => {

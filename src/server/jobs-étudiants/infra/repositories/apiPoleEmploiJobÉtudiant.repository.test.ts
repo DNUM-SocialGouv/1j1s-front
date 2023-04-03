@@ -13,7 +13,7 @@ import {
 import {
 	aBarmanOffreEmploiApiResponse,
 	aRésultatsRechercheOffreEmploiApiResponse,
-} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiHttpClientService.fixture';
+} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
 import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
@@ -22,21 +22,21 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import {
+	anAuthenticatedHttpClientService,
 	anAxiosResponse,
-	anHttpClientServiceWithAuthentification,
-} from '~/server/services/http/httpClientService.fixture';
-import { HttpClientServiceWithAuthentification } from '~/server/services/http/httpClientWithAuthentification.service';
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiPoleEmploiJobÉtudiantRepository', () => {
-	let httpClientServiceWithAuthentification: HttpClientServiceWithAuthentification;
+	let httpClientServiceWithAuthentification: AuthenticatedHttpClientService;
 	let apiPoleEmploiJobÉtudiantRepository: ApiPoleEmploiJobÉtudiantRepository;
 	let poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService;
 	let cacheService: CacheService;
 
 	beforeEach(() => {
 		cacheService = new MockedCacheService();
-		httpClientServiceWithAuthentification = anHttpClientServiceWithAuthentification();
+		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
 		apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService);
 	});

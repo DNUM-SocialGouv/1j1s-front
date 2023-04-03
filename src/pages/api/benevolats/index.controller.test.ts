@@ -6,7 +6,7 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 import { aSearchMissionEngagementResponse } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
-import { anAxiosResponse } from '~/server/services/http/httpClientService.fixture';
+import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('rechercher une mission de bénévolat', () => {
 	it('retourne la liste des missions filtrées', async () => {

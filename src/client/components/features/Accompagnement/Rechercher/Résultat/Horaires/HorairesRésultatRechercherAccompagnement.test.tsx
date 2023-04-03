@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import {
 	HorairesRésultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/ÉtablissementAccompagnement';
+import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 describe('HorairesRésultatRechercherAccompagnement', () => {
 	describe('quand heures est undefined ou un tableau vide', () => {
