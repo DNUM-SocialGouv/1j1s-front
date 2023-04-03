@@ -31,8 +31,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 					const originalRequest = error.config;
 
 					if (originalRequest !== undefined && this.shouldRetry(error)) {
-						// le type de `originalRequest` ne peut ni être importé de la librairie axios, ni être étendue avec un type générique
-						(<typeof originalRequest & { _retry: boolean }>originalRequest)._retry = true;
+						this.traceRetry(error);
 						return this.refreshToken()
 							.then(() => {
 								return this.client(originalRequest);
@@ -45,10 +44,26 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 		);
 	}
 
-	private shouldRetry(error: AxiosError): boolean {
+
+	private traceRetry(error: AxiosError) {
 		const originalRequest = error.config;
+
+		// le type de `originalRequest` ne peut ni être importé de la librairie axios, ni être étendue avec un type générique
+		(<typeof originalRequest & { _retry: boolean }>originalRequest)._retry = true;
+	}
+
+	private isAuthenticationError(error: AxiosError): boolean {
 		// Note : 403, bien que peu standard, est le code d’erreur retourné par Strapi lors d'un défaut d'authentification
-		return (error.response?.status === 401 || error.response?.status === 403) && !(<typeof originalRequest & { _retry: boolean }>originalRequest)._retry;
+		return (error.response?.status === 401 || error.response?.status === 403);
+	}
+
+	private isRequestFirstTry(error: AxiosError): boolean {
+		const originalRequest = error.config;
+		return !(<typeof originalRequest & { _retry: boolean }>originalRequest)._retry;
+	}
+
+	private shouldRetry(error: AxiosError): boolean {
+		return this.isAuthenticationError(error) && this.isRequestFirstTry(error);
 	}
 
 	async refreshToken(): Promise<void> {
