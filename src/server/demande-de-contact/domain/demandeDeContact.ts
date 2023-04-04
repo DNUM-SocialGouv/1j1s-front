@@ -11,12 +11,6 @@ export interface DemandeDeContact {
   téléphone: string
 }
 
-export interface DemandeDeContactEntreprise extends DemandeDeContact {
-  sujet: string
-  message: string
-  email: string
-}
-
 export interface DemandeDeContactCEJ extends DemandeDeContact {
   ville: string
   codePostal: string

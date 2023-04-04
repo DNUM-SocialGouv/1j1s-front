@@ -20,10 +20,6 @@ export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, re
 			response = await dependencies.demandeDeContactDependencies.envoyerDemandeDeContactCEJUseCase.handle(req.body);
 			break;
 		}
-		case 'LesEntreprisesSEngagent': {
-			response = await dependencies.demandeDeContactDependencies.envoyerDemandeDeContactEntrepriseUseCase.handle(req.body);
-			break;
-		}
 		default: {
 			response = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 			break;

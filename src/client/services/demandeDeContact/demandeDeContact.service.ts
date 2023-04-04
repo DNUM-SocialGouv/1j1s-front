@@ -12,15 +12,6 @@ export interface FormulaireDemandeDeContactCEJ {
   codePostal: string
 }
 
-export interface FormulaireDemandeDeContactEntreprise {
-  sujet: string
-  email: string
-  nom: string
-  prénom: string
-  téléphone: string
-  message: string
-}
-
 export class DemandeDeContactService {
 
 	constructor(private readonly httpClientService: HttpClientService) {
@@ -28,10 +19,6 @@ export class DemandeDeContactService {
 
 	async envoyerPourLeCEJ(formulaire: FormulaireDemandeDeContactCEJ): Promise<Either<undefined>> {
 		return this.httpClientService.post('demandes-de-contact', { ...formulaire, type: 'CEJ' });
-	};
-
-	async envoyerPourLesEntreprisesSEngagent(formulaire: FormulaireDemandeDeContactEntreprise): Promise<Either<undefined>> {
-		return this.httpClientService.post('demandes-de-contact', { ...formulaire, type: 'LesEntreprisesSEngagent' });
 	};
 
 	async envoyerPourLePOE(formulaire: FormulairesPoleEmploi): Promise<Either<void>> {

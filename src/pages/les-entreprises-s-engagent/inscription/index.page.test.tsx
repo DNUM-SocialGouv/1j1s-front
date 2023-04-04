@@ -8,7 +8,9 @@ import userEvent from '@testing-library/user-event';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { aLesEntreprisesSEngagentService } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import {
+	aLesEntreprisesSEngagentService,
+} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import LesEntreprisesSEngagentInscription, {
 	FormulaireEngagement,
@@ -51,6 +53,15 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 	beforeAll(() => {
 		mockUseRouter({ push: routerPush });
+	});
+
+	describe('quand l‘utilisateur souhaite faire une demande de contact', () => {
+		it('il peut envoyer un email', () => {
+			renderComponent();
+
+			const link = screen.getByRole('link', { name: 'nous contacter' });
+			expect(link.getAttribute('href')).toMatch(/^mailto:/);
+		});
 	});
 
 	describe('quand l’utilisateur arrive sur la page', () => {
