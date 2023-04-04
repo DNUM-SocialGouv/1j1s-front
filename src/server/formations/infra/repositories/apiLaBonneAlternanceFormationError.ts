@@ -1,7 +1,7 @@
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
-import { HttpError, isHttpError } from '~/server/services/http/httpError';
+import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
 export function handleSearchFailureError(e: unknown, context: string) {
@@ -14,12 +14,11 @@ export function handleGetFailureError(e: unknown, context: string) {
 
 export function handleFailureError(e: unknown, customContext: string) {
 	if (isHttpError(e)) {
-		const error = e as HttpError;
 		LoggerService.errorWithExtra(
 			new SentryException(
 				'[API LaBonneAlternance] Formation : impossible d’effectuer une recherche',
 				{ context: customContext, source: 'API LaBonneAlternance Formation' },
-				{ errorDetail: error.response?.data },
+				{ errorDetail: e.response?.data },
 			),
 		);
 		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);

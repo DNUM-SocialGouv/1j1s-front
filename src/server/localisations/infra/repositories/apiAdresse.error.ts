@@ -1,28 +1,21 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
-
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
+import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
-
-interface ApiAdresseErrorResponse {
-  message: string
-}
-
 export function handleGetFailureError(e: unknown, context: string) {
-	if (axios.isAxiosError(e)) {
-		const error: AxiosError<ApiAdresseErrorResponse> = e as AxiosError<ApiAdresseErrorResponse>;
-		if (error.response?.status === 400 && (<AxiosResponse<{ message: string }>>e?.response)?.data?.message === 'Le format de l’id de l’adresse recherchée est incorrect.') {
+	if (isHttpError(e)) {
+		if (e.response?.status === 400 && e?.response.data?.message === 'Le format de l’id de l’adresse recherchée est incorrect.') {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-		} if(error.response?.status === 504) {
+		} if(e.response?.status === 504) {
 			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		} else {
 			LoggerService.warnWithExtra(
 				new SentryException(
 					'[API Adresse] impossible de récupérer une ressource',
 					{ context: `détail ${context}`, source: 'API Adresse' },
-					{ errorDetail: error.response?.data },
+					{ errorDetail: e.response?.data },
 				),
 			);
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);

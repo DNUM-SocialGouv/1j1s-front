@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
@@ -16,6 +14,7 @@ import {
 	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiÉtablissementPublicRepository implements ÉtablissementAccompagnementRepository {
@@ -29,7 +28,7 @@ export class ApiÉtablissementPublicRepository implements ÉtablissementAccompag
 			return createSuccess(mapÉtablissementAccompagnement(data));
 		} catch (e) {
 			LoggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');
-			if (axios.isAxiosError(e)) {
+			if (isHttpError(e)) {
 				if (e.response?.status === 404) {
 					return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 				}
