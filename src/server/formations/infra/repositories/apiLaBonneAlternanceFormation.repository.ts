@@ -1,12 +1,10 @@
-import { AxiosResponse, isAxiosError } from 'axios';
-
 import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse, AppointmentRequest,
+	ApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 import {
 	mapFormation,
@@ -18,6 +16,7 @@ import {
 	handleSearchFailureError,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
@@ -55,8 +54,8 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			.concat(filtre.niveauEtudes ? `&diploma=${filtre.niveauEtudes}` : '');
 	}
 
-	private static isFormationNotFound(e: AxiosResponse<{ error: string }>): boolean {
-		return e.status === 500 && e.data.error === 'internal_error';
+	private static isFormationNotFound(e: HttpError): boolean {
+		return e.response?.status === 500 && e.response.data.error === 'internal_error';
 	}
 
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
@@ -81,7 +80,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	}
 
 	private static isSearchDoable(e: unknown) {
-		return isAxiosError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e.response);
+		return isHttpError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e);
 	}
 
 	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Formation> {
@@ -101,7 +100,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			if (!cleMinistereEducatif) {
 				return undefined;
 			}
-			const response: AxiosResponse<AppointmentRequest> = await this.httpClientService.post(
+			const response = await this.httpClientService.post(
 				'/appointment-request/context/create',
 				{
 					idCleMinistereEducatif: cleMinistereEducatif,

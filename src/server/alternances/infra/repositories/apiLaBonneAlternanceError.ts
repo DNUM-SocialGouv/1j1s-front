@@ -1,13 +1,8 @@
-import axios, { AxiosError } from 'axios';
-
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { LoggerService } from '~/server/services/logger.service';
-
-export interface ApiLaBonneAlternanceErrorResponse {
-	message: string
-}
+import { isHttpError } from '~/server/services/http/httpError';
 
 export function handleSearchFailureError(e: unknown, context: string) {
 	return handleFailureError(e, `search ${context}`);
@@ -22,13 +17,12 @@ export function handleGetMetierFailureError(e: unknown, context: string) {
 }
 
 export function handleFailureError(e: unknown, customContext: string) {
-	if (axios.isAxiosError(e)) {
-		const error = e as AxiosError<ApiLaBonneAlternanceErrorResponse>;
+	if (isHttpError(e)) {
 		LoggerService.errorWithExtra(
 			new SentryException(
 				'[API LaBonneAlternance] impossible d’effectuer une recherche',
 				{ context: customContext, source: 'API LaBonneAlternance' },
-				{ errorDetail: error.response?.data },
+				{ errorDetail: e.response?.data },
 			),
 		);
 		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);

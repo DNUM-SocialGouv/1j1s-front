@@ -1,9 +1,9 @@
-export class HttpError extends Error {
-	public response?: {
-		data: unknown;
-	};
+import { AxiosResponse } from 'axios';
 
-	constructor (public status: number, message: string, response?: { data: unknown }) {
+export class HttpError extends Error {
+	public response?: AxiosResponse;
+
+	constructor (public status: number, message: string, response?: AxiosResponse) {
 		super(message);
 		this.response = response;
 	}

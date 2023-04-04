@@ -1,12 +1,11 @@
-import axios, { AxiosResponse } from 'axios';
-
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
+import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
 export function handleSearchFailureError(e: unknown) {
-	if(axios.isAxiosError(e)) {
+	if(isHttpError(e)) {
 		LoggerService.errorWithExtra(new SentryException(
 			'[API Engagement] impossible d’effectuer une recherche',
 			{ context: 'recherche engagement', source: 'API Engagement' },
@@ -24,8 +23,8 @@ export function handleSearchFailureError(e: unknown) {
 }
 
 export function handleGetFailureError(e: unknown, context: string) {
-	if (axios.isAxiosError(e)) {
-		if(e.response?.status === 403 && (<AxiosResponse<{ error: string }>> e?.response)?.data?.error === 'Id not valid') {
+	if (isHttpError(e)) {
+		if(e.response?.status === 403 && e?.response?.data?.error === 'Id not valid') {
 			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 		} else {
 			LoggerService.warnWithExtra(
