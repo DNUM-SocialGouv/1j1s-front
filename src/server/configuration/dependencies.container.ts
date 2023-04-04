@@ -27,9 +27,6 @@ import {
 	DemandeDeContactCEJRepository,
 } from '~/server/demande-de-contact/infra/repositories/cej/demandeDeContactCEJ.repository';
 import {
-	DemandeDeContactEntrepriseRepository,
-} from '~/server/demande-de-contact/infra/repositories/entreprise/demandeDeContactEntreprise.repository';
-import {
 	DemandeDeContactPOERepository,
 } from '~/server/demande-de-contact/infra/repositories/poe/demandeDeContactPOE.repository';
 import {
@@ -204,13 +201,11 @@ export function dependenciesContainer(): Dependencies {
 	);
 	const demandeDeContactAccompagnementRepository = new DemandeDeContactAccompagnementRepository(mailRepository);
 	const demandeDeContactCEJRepository = new DemandeDeContactCEJRepository(cmsRepository);
-	const demandeDeContactEntrepriseRepository = new DemandeDeContactEntrepriseRepository(cmsRepository);
 	const demandeDeContactPOERepository = new DemandeDeContactPOERepository(cmsRepository);
 
 	const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
 		demandeDeContactAccompagnementRepository,
 		demandeDeContactCEJRepository,
-		demandeDeContactEntrepriseRepository,
 		demandeDeContactPOERepository,
 	);
 
@@ -243,4 +238,4 @@ export function dependenciesContainer(): Dependencies {
 		sitemapDependencies,
 		établissementAccompagnementDependencies,
 	};
-};
+}

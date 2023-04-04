@@ -67,55 +67,6 @@ describe('enregistrerDemandeDeContactHandler', () => {
 		});
 	});
 
-	describe('quand le type de demande de contact est entreprise', () => {
-		it('répond une 200 quand tout s’est bien passé', async () => {
-			const strapiAuth = nock('http://localhost:1337/api')
-				.post('/contact-entreprises')
-				.once()
-				.reply(401, 'unauthorized')
-				.post('/auth/local', { identifier, password })
-				.once()
-				.reply(200, { jwt });
-			const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
-				.post('/contact-entreprises', {
-					data: {
-						email: 'toto@msn.fr',
-						message: 'rrr',
-						nom: 'Mc Totface',
-						prenom: 'Toto',
-						sujet: 'super sujet',
-						telephone: '+33678954322',
-					},
-				})
-				.reply(201);
-
-			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
-				test: async ({ fetch }) => {
-					const res = await fetch({
-						body: JSON.stringify({
-							email: 'toto@msn.fr',
-							message: 'rrr',
-							nom: 'Mc Totface',
-							prénom: 'Toto',
-							sujet: 'super sujet',
-							type: 'LesEntreprisesSEngagent',
-							téléphone: '0678954322',
-						}),
-						headers: {
-							'content-type': 'application/json',
-						},
-						method: 'POST',
-					});
-					expect(res.status).toEqual(200);
-					strapiAuth.done();
-					strapiApi.done();
-				},
-				url: '/demandes-de-contact',
-			});
-		});
-	});
-
 	describe('quand le type de demande de contact est incorrecte', () => {
 		it('répond une 400 quand DEMANDE_INCORRECTE', async () => {
 			await testApiHandler<void | ErrorHttpResponse>({
