@@ -5,7 +5,6 @@ import { aRésultatRechercheÉtablissementPublicResponse } from '~/server/établ
 import { ApiÉtablissementPublicRepository } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
-	anAxiosError,
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -58,9 +57,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 			it('renvoie une erreur service indisponible', async () => {
 				// given
 				const httpClient = aPublicHttpClientService();
-				jest.spyOn(httpClient, 'get').mockRejectedValue(anAxiosError({
-					response: anAxiosResponse({}, 500),
-				}));
+				jest.spyOn(httpClient, 'get').mockRejectedValue(anHttpError(500));
 				const commune = '46100';
 				const typeAccompagnement = 'cij';
 
