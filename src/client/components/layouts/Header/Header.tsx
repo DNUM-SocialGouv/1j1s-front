@@ -9,7 +9,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function Header() {
 	const { isLargeScreen } = useBreakpoint();
-	const displayBanner = process.env.NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE === '1';
+	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	return (
 		<header
