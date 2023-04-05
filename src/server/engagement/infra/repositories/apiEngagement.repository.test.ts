@@ -12,7 +12,7 @@ import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 jest.mock('axios', () => {
 	return {
@@ -60,7 +60,7 @@ describe('ApiEngagementRepository', () => {
 
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({}));
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
 				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
 					domaine: 'sante',
 					localisation: {
@@ -109,7 +109,7 @@ describe('ApiEngagementRepository', () => {
 
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({}));
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
 				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
 					domaine: 'sante',
 					localisation: {
@@ -161,9 +161,7 @@ describe('ApiEngagementRepository', () => {
 
 		describe('quand l’api engagement répond avec un autre code d’erreur', () => {
 			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({
-					response: anAxiosResponse({}, 500),
-				}));
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
 
 				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
 
