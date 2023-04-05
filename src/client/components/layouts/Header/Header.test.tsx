@@ -134,6 +134,21 @@ describe('Header', () => {
 				expect(encartLien).not.toBeInTheDocument();
 			});
 		});
+
+		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage"', async() => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			render(<Header/>);
+			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(formationsEtOrientationNavItem);
+
+			// THEN
+			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
+			expect(campagneApprentissageLink).toBeVisible();
+		});
 	});
 
 	describe('Sur mobile', () => {
