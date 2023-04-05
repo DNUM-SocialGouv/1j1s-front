@@ -97,7 +97,7 @@ describe('Header', () => {
 				// Given
 				process.env = {
 					...process.env,
-					NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '1',
+					NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '1',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -118,7 +118,7 @@ describe('Header', () => {
 				// Given
 				process.env = {
 					...process.env,
-					NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '0',
+					NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '0',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -171,7 +171,7 @@ describe('Header', () => {
 					// Given
 					process.env = {
 						...process.env,
-						NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '1',
+						NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '1',
 					};
 					mockUseRouter({ pathname: '/' });
 
@@ -190,7 +190,7 @@ describe('Header', () => {
 					// Given
 					process.env = {
 						...process.env,
-						NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE: '0',
+						NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '0',
 					};
 					mockUseRouter({ pathname: '/' });
 

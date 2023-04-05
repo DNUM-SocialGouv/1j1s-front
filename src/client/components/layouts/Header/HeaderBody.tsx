@@ -19,7 +19,7 @@ export function HeaderBody() {
 	const router = useRouter();
 	const [path, setPath] = useState(() => router.pathname || '');
 
-	const displayBanner = process.env.NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE === '1';
+	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	useEffect(() => {
 		if (path !== router.pathname){
