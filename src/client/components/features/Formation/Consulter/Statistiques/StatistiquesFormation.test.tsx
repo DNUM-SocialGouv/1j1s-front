@@ -8,11 +8,13 @@ import {
 } from '@testing-library/react';
 
 import { StatistiquesFormation } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { statistiques } from '~/server/formations/domain/statistique.fixture';
 
 describe('StatistiquesFormation', () => {
 	beforeEach(() => {
+		mockUseRouter({});
 		mockSmallScreen();
 	});
 	describe('quand on reçoit des statistiques', () => {
