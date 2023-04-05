@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styles from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation.module.scss';
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
@@ -8,6 +7,8 @@ import {
 } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { Statistique } from '~/server/formations/domain/statistique';
+
+import styles from './StatistiquesFormation.module.scss';
 
 export function StatistiquesFormation({ statistiques }: { statistiques?: Statistique }) {
 	if (!statistiques) return null;
