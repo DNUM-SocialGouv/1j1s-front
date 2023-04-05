@@ -22,7 +22,7 @@ export class PublicHttpClientService {
 		config?: AxiosRequestConfig,
 	): Promise<AxiosResponse<Response>> {
 		try {
-			return this.client.get<Response>(endpoint, config);
+			return await this.client.get<Response>(endpoint, config);
 		} catch (e) {
 			if (axios.isAxiosError(e) && e.response) {
 				throw new HttpError(e.response.status, e.response.data.message, e.response);
@@ -33,7 +33,7 @@ export class PublicHttpClientService {
 
 	async post<Body, Response>(endpoint: string, body: Body): Promise<AxiosResponse<Response>> {
 		try {
-			return this.client.post<Response>(endpoint, body);
+			return await this.client.post<Response>(endpoint, body);
 		} catch (e) {
 			if (axios.isAxiosError(e) && e.response) {
 				throw new HttpError(e.response.status, e.response.data.message, e.response);

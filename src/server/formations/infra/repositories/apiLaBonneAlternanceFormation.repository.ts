@@ -15,8 +15,8 @@ import {
 	handleGetFailureError,
 	handleSearchFailureError,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
-import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
@@ -100,7 +100,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			if (!cleMinistereEducatif) {
 				return undefined;
 			}
-			const response = await this.httpClientService.post(
+			const response = await this.httpClientService.post<{ idCleMinistereEducatif: string, referrer: string }, { form_url: string }>(
 				'/appointment-request/context/create',
 				{
 					idCleMinistereEducatif: cleMinistereEducatif,

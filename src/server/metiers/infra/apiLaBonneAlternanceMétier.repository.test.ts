@@ -8,7 +8,8 @@ import {
 import {
 	ApiLaBonneAlternanceMétierRepository,
 } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
-import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('ApiLaBonneAlternanceMétierRepository', () => {
 	describe('getMetierList', () => {
@@ -30,7 +31,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 		describe('Quand l‘api renvoie une erreur', () => {
 			it("retourne une instance d'erreur", async () => {
 				const httpClientService = aPublicHttpClientService();
-				(httpClientService.get as jest.Mock).mockRejectedValue(anAxiosError({ status: 429 }));
+				(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(429));
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService);
 
 				const response = await repository.getMetierList('tran');

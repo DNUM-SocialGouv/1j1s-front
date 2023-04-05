@@ -1,8 +1,8 @@
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
-import { LoggerService } from '~/server/services/logger.service';
 import { isHttpError } from '~/server/services/http/httpError';
+import { LoggerService } from '~/server/services/logger.service';
 
 export function handleSearchFailureError(e: unknown, context: string) {
 	return handleFailureError(e, `search ${context}`);
