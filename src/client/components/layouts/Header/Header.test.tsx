@@ -135,9 +135,10 @@ describe('Header', () => {
 			});
 		});
 
-		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage"', async() => {
+		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé', async() => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 			render(<Header/>);
 			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
 			const user = userEvent.setup();
@@ -148,6 +149,21 @@ describe('Header', () => {
 			// THEN
 			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 			expect(campagneApprentissageLink).toBeVisible();
+		});
+		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async() => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+			render(<Header/>);
+			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(formationsEtOrientationNavItem);
+
+			// THEN
+			const campagneApprentissageLink = screen.queryByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
+			expect(campagneApprentissageLink).not.toBeInTheDocument();
 		});
 	});
 
