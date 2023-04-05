@@ -13,8 +13,8 @@ import {
 import {
 	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
-import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { isHttpError } from '~/server/services/http/httpError';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiÉtablissementPublicRepository implements ÉtablissementAccompagnementRepository {

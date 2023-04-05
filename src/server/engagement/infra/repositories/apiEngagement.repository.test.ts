@@ -6,11 +6,11 @@ import {
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import {
 	anAmbassadeurDuDonDeVêtementMissionResponse,
-	anInvalidIdMissionResponse,
 	aSearchMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
 import { Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -143,7 +143,14 @@ describe('ApiEngagementRepository', () => {
 
 		describe('quand l’api engagement répond avec une 403', () => {
 			it('retourne une erreur contenu indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError(anInvalidIdMissionResponse()));
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(403, '', anAxiosResponse(
+					{
+						data: null,
+						error: 'Id not valid',
+						ok: false,
+					},
+					403,
+				)));
 
 				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
 

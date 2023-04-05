@@ -40,10 +40,10 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import {
 	anAuthenticatedHttpClientService,
-	anAxiosError,
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -125,7 +125,7 @@ describe('strapi cms repository', () => {
 		});
 		describe('Si aucune fiche métier n‘est trouvée', () => {
 			it('retourne une erreur', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(404, '', anAxiosResponse({}, 404)));
 
 				const result = await strapiCmsRepository.getFicheMetierByNom(nomMetier) as Failure;
 
@@ -242,7 +242,7 @@ describe('strapi cms repository', () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
+				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404, '', anAxiosResponse({}, 404)));
 				const slug = 'bad-slug';
 
 				const result = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug) as Failure;
@@ -310,7 +310,7 @@ describe('strapi cms repository', () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
+				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404, '', anAxiosResponse({}, 404)));
 
 				const result = await strapiCmsRepository.getAllFAQ() as Failure;
 				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
@@ -339,7 +339,7 @@ describe('strapi cms repository', () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-				httpClientService.get = jest.fn().mockRejectedValue(anAxiosError({ response: anAxiosResponse({}, 404) }));
+				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404, '', anAxiosResponse({}, 404)));
 
 				const result = await strapiCmsRepository.getFAQBySlug('not-found-slug') as Failure;
 				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);

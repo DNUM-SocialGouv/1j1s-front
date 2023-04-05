@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { AxiosCacheInstance, CacheAxiosResponse, setupCache } from 'axios-cache-interceptor';
 
+import { HttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientConfig } from '~/server/services/http/publicHttpClient.service';
 
 export class CachedHttpClientService {
@@ -16,10 +17,24 @@ export class CachedHttpClientService {
 		endpoint: string,
 		config?: AxiosRequestConfig,
 	): Promise<CacheAxiosResponse<Response>> {
-		return this.client.get<Response>(endpoint, config);
+		try {
+			return this.client.get<Response>(endpoint, config);
+		} catch (e) {
+			if (axios.isAxiosError(e) && e.response) {
+				throw new HttpError(e.response.status, e.response.data.message, e.response);
+			}
+			throw e;
+		}
 	}
 
 	async post<Body>(endpoint: string, body: Body) {
-		return this.client.post(endpoint, body);
+		try {
+			return this.client.post(endpoint, body);
+		} catch (e) {
+			if (axios.isAxiosError(e) && e.response) {
+				throw new HttpError(e.response.status, e.response.data.message, e.response);
+			}
+			throw e;
+		}
 	}
 }
