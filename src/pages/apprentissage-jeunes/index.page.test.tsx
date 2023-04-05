@@ -2,7 +2,7 @@ import * as process from 'process';
 
 import { getServerSideProps } from './index.page';
 
-describe('<CampagneApprentissageJeunes />', () => {
+describe('<ApprentissageJeunes />', () => {
 	it('renvoie 404 quand la page est feature flippé off', async () => {
 		process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 
