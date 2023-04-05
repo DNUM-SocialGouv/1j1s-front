@@ -191,7 +191,7 @@ export function aSitemap() {
 		<loc>http://localhost:3000/evenements</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/campagne-apprentissage-jeunes</loc>
+		<loc>http://localhost:3000/apprentissage-jeunes</loc>
 	</url>
 	<url>
 		<loc>http://localhost:3000/faq</loc>

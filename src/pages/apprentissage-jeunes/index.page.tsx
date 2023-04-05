@@ -1,13 +1,13 @@
 import { GetServerSidePropsResult } from 'next';
 
-export default function CampagneApprentissageJeunes () {
+export default function ApprentissageJeunes () {
 
-	return <h1>Campagne Apprentissage Jeunes</h1>;
+	return <h1>Apprentissage Jeunes</h1>;
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
-	const featureFlip = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-	if (!featureFlip) {
+	const featureActivated = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+	if (!featureActivated) {
 		return {
 			notFound: true,
 		};
