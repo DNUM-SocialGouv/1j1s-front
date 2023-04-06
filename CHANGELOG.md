@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.42.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.41.1...v3.42.0) (2023-04-06)
+
+
+### Features
+
+* **transverse:** suppression abusive Marked ([8b659ab](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b659abfa70309b2281181b77eb5390120c37f0d))
+
 ## [3.41.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.41.0...v3.41.1) (2023-03-31)
 
 
