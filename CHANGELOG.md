@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.43.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.42.0...v3.43.0) (2023-04-06)
+
+
+### Features
+
+* **apprentissage:** ajout de la landing page jeune ([f6c68ce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f6c68ce5417d3d0d9f0edca49241e3d88c26939c))
+* **apprentissage:** Ajoute le feature flip sur la page ([92c85f3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/92c85f313f4ca22e70956d7eabd7516fb97db684))
+* **apprentissage:** Ajoute le feature flip sur le menu ([1dd6dc3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1dd6dc3613de28a119a0b072f73b01f157323208))
+* **apprentissage:** renommer l'url en apprentissage-jeunes git-notify: NEXT_PUBLIC_ENCART_APPRENTISSAGE_FEATURE a été renommée en NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE pour permettre à l'encart apprentissage et la campagne apprentissage de suivre le même cycle de vie. ([f883171](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f88317195d5ab1ecc821915cbb8dbbd5c73547d6))
+
+
+### Bug Fixes
+
+* **apprentissage:** Fix la fixture du sitemap avec la page de campagne ([2417f3a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2417f3ac9e1f80f5ab62d00c08529b32bad11fa9))
+
 ## [3.42.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.41.1...v3.42.0) (2023-04-06)
 
 
