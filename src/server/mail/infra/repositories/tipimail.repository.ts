@@ -1,11 +1,10 @@
-import axios from 'axios';
-
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { Mail } from '~/server/mail/domain/mail';
 import { MailRepository } from '~/server/mail/domain/mail.repository';
 import { mapTipimailRequest } from '~/server/mail/infra/repositories/tipimail.mapper';
+import { isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 
@@ -36,7 +35,7 @@ export class TipimailRepository implements MailRepository {
 					{ errorDetail: e },
 				),
 			);
-			if (axios.isAxiosError(e)) {
+			if (isHttpError(e)) {
 				if (e.response?.status === 400) {
 					return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 				}

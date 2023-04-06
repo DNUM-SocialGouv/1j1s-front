@@ -7,7 +7,8 @@ import { aTipimailRequest, aTipimailRequestWithRedirection } from '~/server/mail
 import {
 	TipimailRepository,
 } from '~/server/mail/infra/repositories/tipimail.repository';
-import { anAxiosError, anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 jest.mock('@sentry/nextjs');
 
@@ -45,9 +46,7 @@ describe('TipimailRepository', () => {
 				it('renvoie une erreur demande incorrecte', async () => {
 					// given
 					const httpClient = aPublicHttpClientService();
-					jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
-						response: anAxiosResponse({}, 400),
-					}));
+					jest.spyOn(httpClient, 'post').mockRejectedValue(anHttpError(400));
 
 					const repository = new TipimailRepository(httpClient, true);
 					const tipimailRequest = aTipimailRequest();
@@ -67,9 +66,7 @@ describe('TipimailRepository', () => {
 				it('renvoie une erreur service indisponible', async () => {
 					// given
 					const httpClient = aPublicHttpClientService();
-					jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
-						response: anAxiosResponse({}, 401),
-					}));
+					jest.spyOn(httpClient, 'post').mockRejectedValue(anHttpError(401));
 
 					const repository = new TipimailRepository(httpClient, true);
 					const tipimailRequest = aTipimailRequest();
@@ -89,9 +86,7 @@ describe('TipimailRepository', () => {
 				it('renvoie une erreur service indisponible', async () => {
 					// given
 					const httpClient = aPublicHttpClientService();
-					jest.spyOn(httpClient, 'post').mockRejectedValue(anAxiosError({
-						response: anAxiosResponse({}, 500),
-					}));
+					jest.spyOn(httpClient, 'post').mockRejectedValue(anHttpError(500));
 					const repository = new TipimailRepository(httpClient, true);
 					const tipimailRequest = aTipimailRequest();
 					const mail = aMail();
