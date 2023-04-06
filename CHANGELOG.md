@@ -6,6 +6,14 @@
 ### Bug Fixes
 
 * **deps:** update dependency @sentry/nextjs to ~7.47.0 ([#1138](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1138)) ([41f804a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/41f804a883efddfd8904e67ba0d9c1671eb98482))
+* **formation:** Fix le padding de la card InserJeunes ([#1127](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1127)) ([04235f8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04235f89e121a8a92400737221fcac46e38bc7bb))
+
+## [3.43.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.43.0...v3.43.1) (2023-04-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to ~7.47.0 ([#1138](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1138)) ([41f804a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/41f804a883efddfd8904e67ba0d9c1671eb98482))
 
 ## [3.43.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.42.0...v3.43.0) (2023-04-06)
 
