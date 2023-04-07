@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.44.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.44.0...v3.44.1) (2023-04-07)
+
+
+### Bug Fixes
+
+* **multiple:** gestion erreur Sentry Api LBA et Trajectories Pro ([fd22cc4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd22cc478e04ecc4a7f05a2c14692fdf15160f5b))
+
 ## [3.44.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.43.1...v3.44.0) (2023-04-07)
 
 
