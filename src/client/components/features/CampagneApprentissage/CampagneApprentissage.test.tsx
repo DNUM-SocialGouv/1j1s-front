@@ -29,4 +29,13 @@ describe('CampagneApprentissage', () => {
 		expect(main).toBeVisible();
 		expect(main).toHaveAttribute('id', 'contenu');
 	});
+	it('affiche un lien vers la simulation', () => {
+		// WHEN
+		render(<CampagneApprentissage />);
+
+		// THEN
+		const simulation = screen.getByRole('link', { name: /Simuler ma rémunération/i });
+		expect(simulation).toBeVisible();
+		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation');
+	});
 });
