@@ -1,0 +1,22 @@
+@import "@styles/utilities";
+
+.simulateur {
+  & h1 {
+    @extend %headline;
+    font-weight: bold;
+
+    & small {
+      font-weight: normal;
+      color: $color-secondary;
+    }
+  }
+
+  & p {
+    @extend %text-regular;
+    color: $color-on-background;
+  }
+
+  & .hero {
+    background-color: $color-background;
+  }
+}

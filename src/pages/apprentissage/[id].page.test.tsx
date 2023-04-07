@@ -3,8 +3,8 @@
  */
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
+import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
@@ -31,10 +31,6 @@ const alternanceSerialized: AlternanceSerialized = {
 	typeDeContrat: ['Apprentissage'],
 };
 
-// NOTE (GAFI 22-02-2023): Mock requis --> https://github.com/vercel/next.js/discussions/11060
-function HeadMock({ children }: { children: React.ReactNode }) {
-	return <>{ReactDOM.createPortal(children, document.head)}</>;
-}
 jest.mock('next/head', () => HeadMock);
 
 describe('<AnnonceAlternancePage />', () => {
