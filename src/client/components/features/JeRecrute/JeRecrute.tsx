@@ -5,8 +5,12 @@ import DecouvrirMesuresEmployeurs
 import { Head } from '~/client/components/head/Head';
 
 import { DécouvrirDispositifs } from './DecouvrirDispositifs/DecouvrirDispositifs';
+import DecouvrirMesuresEmployeursEtApprentissage
+	from './DecouvrirMesuresEmployeursEtApprentissage/DecouvrirMesuresEmployeursEtApprentissage';
 
 export function JeRecrute () {
+	const featureActivated = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+
 	return (
 		<>
 			<Head
@@ -16,7 +20,11 @@ export function JeRecrute () {
 			/>
 			<main id="contenu">
 				<DécouvrirDispositifs />
-				<DecouvrirMesuresEmployeurs />
+				{featureActivated ?
+					<DecouvrirMesuresEmployeursEtApprentissage />
+					:
+					<DecouvrirMesuresEmployeurs />
+				}
 				<AidesExceptionnelles />
 			</main>
 		</>
