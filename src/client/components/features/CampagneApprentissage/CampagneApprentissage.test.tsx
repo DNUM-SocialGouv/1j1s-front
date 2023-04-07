@@ -20,4 +20,13 @@ describe('CampagneApprentissage', () => {
 		expect(titre).toHaveTextContent('L’apprentissage : pour moi c’est le bon choix');
 		expect(description).toBeVisible();
 	});
+	it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
+		// WHEN
+		render(<CampagneApprentissage />);
+
+		// THEN
+		const main = screen.getByRole('main');
+		expect(main).toBeVisible();
+		expect(main).toHaveAttribute('id', 'contenu');
+	});
 });
