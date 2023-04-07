@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.44.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.43.1...v3.44.0) (2023-04-07)
+
+
+### Features
+
+* **lee:** changement de la demande de contact entreprise ([60711ea](https://github.com/DNUM-SocialGouv/1j1s-front/commit/60711ea1cc6799bca972b39bd2c82b599ec843e1))
+
 ## [3.43.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.43.0...v3.43.1) (2023-04-06)
 
 
