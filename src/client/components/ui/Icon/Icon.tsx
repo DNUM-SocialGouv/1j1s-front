@@ -7,6 +7,7 @@ import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
+import { AwardIcon } from '~/client/components/ui/Icon/award.icon';
 import { BedIcon } from '~/client/components/ui/Icon/bed.icon';
 import { BikeIcon } from '~/client/components/ui/Icon/bike.icon';
 import { BookIcon } from '~/client/components/ui/Icon/book.icon';
@@ -50,54 +51,55 @@ import { WashingMachineIcon } from '~/client/components/ui/Icon/washing-machine.
 import { WifiIcon } from '~/client/components/ui/Icon/wifi.icon';
 
 export type IconName =
-  'angle-down'
-  | 'angle-left'
-  | 'angle-left-from-line'
-  | 'angle-right'
-  | 'angle-right-from-line'
-  | 'angle-up'
-  | 'arrow-right'
-  | 'bed'
-  | 'bike'
-  | 'book'
-  | 'brief-case'
-  | 'burger-menu'
-  | 'burger-menu-left'
-  | 'car'
-  | 'clean-hands'
-  | 'close'
+	'angle-down'
+	| 'angle-left'
+	| 'angle-left-from-line'
+	| 'angle-right'
+	| 'angle-right-from-line'
+	| 'angle-up'
+	| 'arrow-right'
+	| 'award'
+	| 'bed'
+	| 'bike'
+	| 'book'
+	| 'brief-case'
+	| 'burger-menu'
+	| 'burger-menu-left'
+	| 'car'
+	| 'clean-hands'
+	| 'close'
 	| 'community'
 	| 'compass'
-  | 'error'
-  | 'euro'
-  | 'exit'
-  | 'external-redirection'
-  | 'filter'
-  | 'home'
-  | 'information'
-  | 'iron'
-  | 'lock'
-  | 'magnifying-glass'
-  | 'mail'
-  | 'map-pin'
+	| 'error'
+	| 'euro'
+	| 'exit'
+	| 'external-redirection'
+	| 'filter'
+	| 'home'
+	| 'information'
+	| 'iron'
+	| 'lock'
+	| 'magnifying-glass'
+	| 'mail'
+	| 'map-pin'
 	| 'mark-pen'
 	| 'menu'
-  | 'microwave'
-  | 'phone'
-  | 'plant'
-  | 'restaurant'
+	| 'microwave'
+	| 'phone'
+	| 'plant'
+	| 'restaurant'
 	| 'roadmap'
 	| 'sport'
-  | 'suitcase'
-  | 'swimming'
-  | 'table'
-  | 'temperature'
-  | 'trophy'
-  | 'TV'
-  | 'user'
-  | 'vacuum'
-  | 'washing-machine'
-  | 'wifi'
+	| 'suitcase'
+	| 'swimming'
+	| 'table'
+	| 'temperature'
+	| 'trophy'
+	| 'TV'
+	| 'user'
+	| 'vacuum'
+	| 'washing-machine'
+	| 'wifi'
 
 interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
   name: IconName
@@ -121,6 +123,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <AngleUpIcon className={className} aria-hidden={true} {...rest} />;
 			case 'arrow-right':
 				return <ArrowRightIcon className={className} aria-hidden={true} {...rest} />;
+			case 'award':
+				return <AwardIcon className={className} aria-hidden={true} {...rest} />;
 			case 'bed':
 				return <BedIcon className={className} aria-hidden={true} {...rest} />;
 			case 'bike':

@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 
 .recruter {
@@ -7,8 +7,8 @@
 
   h1 {
     @extend %bold;
-    color: $color-primary;
-    margin-bottom: 1em;
+    color: utilities.$color-primary;
+    margin-bottom: 1.5em;
     font-size: 1.5rem;
   }
 
@@ -19,19 +19,30 @@
     margin-bottom: 3rem;
   }
 
-  a {
+  .offres {
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
 
-    &:not(:last-of-type) {
-      margin-bottom: 1rem;
+    li {
+      width: 100%;
+      @include utilities.media(medium) {
+        width: auto;
+      }
+    }
+
+
+    &Lien {
+      display: flex;
+      min-width: 34ch;
     }
   }
 }
 
 
-@include media(medium) {
+@include utilities.media(medium) {
   .recruter {
-    width: 35rem;
     padding: 4rem;
     margin: auto;
   }
