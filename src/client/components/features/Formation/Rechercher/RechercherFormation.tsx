@@ -2,11 +2,10 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { FormulaireRechercherFormation } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
-import { ÉtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/ÉtiquettesFiltreFormation';
 import {
-	RésultatRechercherFormation,
-} from '~/client/components/features/Formation/Résultat/RésultatRechercherFormation';
+	FormulaireRechercherFormation,
+} from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
+import { ÉtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/ÉtiquettesFiltreFormation';
 import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
 import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
 import { MonCompteFormationPartner } from '~/client/components/features/Partner/MonCompteFormationPartner';
@@ -17,6 +16,9 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+	RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -76,7 +78,7 @@ export default function RechercherFormation() {
 		return messageRésultatRechercheSplit.join(' ');
 	}, [nombreRésultats, router.query.libelleMetier]);
 
-	return  <>
+	return <>
 		<Head
 			title={title}
 			robots="index,follow"
@@ -134,17 +136,21 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 	}
 
 	return (
+
 		<ListeRésultatsRechercherSolution aria-label="Formations en alternance">
 			{résultatList.map((formation) => (
 				<li key={uuidv4()}>
-					<RésultatRechercherFormation
+					<RésultatRechercherSolution
 						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}
-						logoEntreprise={'/images/logos/fallback.svg'}
+						logo={'/images/logos/fallback.svg'}
 						étiquetteOffreList={formation.tags as string[]}
-						nomEntreprise={formation.nomEntreprise}
-						adresse={formation.adresse}
-					/>
+					>
+						<section>
+							<div>{formation.nomEntreprise && formation.nomEntreprise}</div>
+							<div>Adresse : {formation.adresse && formation.adresse}</div>
+						</section>
+					</RésultatRechercherSolution>
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>
