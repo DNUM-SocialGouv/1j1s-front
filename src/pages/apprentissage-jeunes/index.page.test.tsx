@@ -6,12 +6,21 @@ import { render, screen } from '@testing-library/react';
 import * as process from 'process';
 
 import { HeadMock } from '~/client/components/head.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
 
 jest.mock('next/head', () => HeadMock);
 
 describe('<ApprentissageJeunes />', () => {
+	beforeEach(() => {
+		mockSmallScreen();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	it('renvoie 404 quand la page est feature flippé off', async () => {
 		process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 
