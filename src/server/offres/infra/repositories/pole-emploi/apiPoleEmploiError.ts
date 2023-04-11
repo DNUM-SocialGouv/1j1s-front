@@ -18,12 +18,12 @@ export const errorFromApiPoleEmploi = [
 	'Format du paramètre « experienceExigence » incorrect. D, E ou S attendu.',
 ];
 
-export function handleSearchFailureError(e: unknown, context: string) {
+export function handleSearchFailureError(e: unknown, context: string, loggerService: LoggerService) {
 	if (isHttpError(e)) {
 		if(e.response?.status === 400 && errorFromApiPoleEmploi.includes(e.response.data?.message)) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		} else {
-			LoggerService.warnWithExtra(
+			loggerService.warnWithExtra(
 				new SentryException(
 					'[API Pole Emploi] impossible d’effectuer une recherche',
 					{ context: `recherche ${context}`, source: 'API Pole Emploi' },
@@ -33,7 +33,7 @@ export function handleSearchFailureError(e: unknown, context: string) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		}
 	}
-	LoggerService.errorWithExtra(new SentryException(
+	loggerService.errorWithExtra(new SentryException(
 		'[API Pole Emploi] impossible d’effectuer une recherche',
 		{ context: 'recherche offre emploi', source: 'API Pole Emploi' },
 		{ stacktrace: (<Error> e).stack },
@@ -41,12 +41,12 @@ export function handleSearchFailureError(e: unknown, context: string) {
 	return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 }
 
-export function handleGetFailureError(e: unknown, context: string) {
+export function handleGetFailureError(e: unknown, context: string, loggerService: LoggerService) {
 	if (isHttpError(e)) {
 		if(e.response?.status === 400 && e.response.data?.message === 'Le format de l\'id de l\'offre recherchée est incorrect.') {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		} else {
-			LoggerService.warnWithExtra(
+			loggerService.warnWithExtra(
 				new SentryException(
 					'[API Pole Emploi] impossible de récupérer une ressource',
 					{ context: `détail ${context}`, source: 'API Pole Emploi' },
@@ -56,7 +56,7 @@ export function handleGetFailureError(e: unknown, context: string) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		}
 	}
-	LoggerService.errorWithExtra(new SentryException(
+	loggerService.errorWithExtra(new SentryException(
 		'[API Pole Emploi] impossible de récupérer une ressource',
 		{ context: 'détail offre emploi', source: 'API Pole Emploi' },
 		{ stacktrace: (<Error> e).stack },

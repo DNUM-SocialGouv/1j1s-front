@@ -5,6 +5,7 @@ import {
 	handleSearchFailureError,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('handleSearchFailureError', () => {
 	errorFromApiPoleEmploi.forEach((messageErrorFromApiPoleEmploi) => {
@@ -12,7 +13,7 @@ describe('handleSearchFailureError', () => {
 			it('retourne une failure demande incorrecte sans logger', async () => {
 				const error = anHttpError(400, messageErrorFromApiPoleEmploi);
 
-				const result = await handleSearchFailureError(error, 'context') as Failure;
+				const result = await handleSearchFailureError(error, 'context', aLoggerService()) as Failure;
 
 				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
 			});
@@ -23,7 +24,7 @@ describe('handleSearchFailureError', () => {
 		it('retourne une failure demande incorrecte en loggant', async () => {
 			const error = anHttpError(400, 'message inconnu');
 
-			const result = await handleSearchFailureError(error, 'context') as Failure;
+			const result = await handleSearchFailureError(error, 'context', aLoggerService()) as Failure;
 
 			expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
 		});

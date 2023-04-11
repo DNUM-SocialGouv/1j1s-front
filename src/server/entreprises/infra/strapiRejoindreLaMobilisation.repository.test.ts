@@ -10,6 +10,7 @@ import {
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
 	const entreprise = uneEntreprise();
@@ -26,8 +27,8 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
 			tokenAgent: {
 				getToken: jest.fn(),
 			},
-		});
-		const repository = new StrapiRejoindreLaMobilisationRepository(client);
+		}, aLoggerService());
+		const repository = new StrapiRejoindreLaMobilisationRepository(client, aLoggerService());
 
 		it('fait un POST vers Strapi', async () => {
 			// Given

@@ -22,6 +22,7 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiOffreRepository implements OffreRepository {
@@ -29,6 +30,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
     private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
+	private loggerService: LoggerService,
 	) {}
 
 	paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI';
@@ -43,7 +45,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'offre emploi');
+			return handleGetFailureError(e, 'offre emploi', this.loggerService);
 		}
 	}
 
@@ -80,7 +82,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 				}
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'offre emploi');
+				return handleSearchFailureError(e, 'offre emploi', this.loggerService);
 			}
 		}
 		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
@@ -98,7 +100,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 				this.cacheService.set(this.ECHANTILLON_OFFRE_EMPLOI_KEY, response.data, 24);
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'échantillon offre emploi');
+				return handleSearchFailureError(e, 'échantillon offre emploi', this.loggerService);
 			}
 		}
 	}

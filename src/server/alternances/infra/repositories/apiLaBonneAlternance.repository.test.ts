@@ -16,6 +16,7 @@ import {
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('search', () => {
@@ -23,7 +24,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller);
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -35,7 +36,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('fait l’appel avec les bons paramètres', () => {
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller);
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -68,7 +69,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 					}),
 				],
 			}));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 			// When
 			const result = await repository.get('abc') as Success<Alternance>;
@@ -79,7 +80,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(500));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 			// When
 			const result = await repository.get('abc') as Failure;
@@ -92,7 +93,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 				// When
 				await repository.get('1234567');
@@ -107,7 +108,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test');
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 				// When
 				await repository.get('abc');

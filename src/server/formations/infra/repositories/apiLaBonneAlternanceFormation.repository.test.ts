@@ -12,6 +12,7 @@ import {
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('apiLaBonneAlternanceFormation.repository', () => {
 	describe('search', () => {
@@ -19,7 +20,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller);
+			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, aLoggerService());
 
 			// When
 			repository.search(aFormationQuery());
@@ -34,7 +35,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			it('fait l’appel avec les paramètres obligatoires et celui du niveau d’études', () => {
 				const httpClientService = aPublicHttpClientService();
 				const caller = '1jeune1solution-test';
-				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller);
+				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, aLoggerService());
 
 				repository.search(aFormationQueryWithNiveauEtudes());
 
@@ -53,7 +54,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			it('fait l’appel avec les paramètres obligatoires', () => {
 				const httpClientService = aPublicHttpClientService();
 				const caller = '1jeune1solution-test';
-				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller);
+				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, aLoggerService());
 
 				repository.search(aFormationQuery());
 
@@ -74,7 +75,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			// Given
 			const id = 'formationId__';
 			const httpClientService = aPublicHttpClientService();
-			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 			(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 
 			// When
@@ -91,7 +92,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					// Given
 					const httpClientService = aPublicHttpClientService();
 					(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 					// When
 					const result = await repository.get('formationId__');
@@ -109,7 +110,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 						(httpClientService.get as jest.Mock).mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 
-						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 						// When
 						const result = await repository.get('id pas dans la recherche__', aFormationQuery());
@@ -129,7 +130,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 
 							const id = '456__';
 
-							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 							// When
 							const result = await repository.get(id, aFormationQuery());
@@ -156,7 +157,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 							(httpClientService.get as jest.Mock).mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 
-							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 							const id = '123__cleMinistereEducatif-123456';
 
 							// When
@@ -177,7 +178,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							(httpClientService.get as jest.Mock).mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 							(httpClientService.post as jest.Mock).mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 
-							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 							const id = '123__cleMinistereEducatif-123456';
 
 							// When
@@ -211,7 +212,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					(httpClientService.get as jest.Mock).mockResolvedValue({
 						data: aLaBonneAlternanceApiFormationResponse(),
 					});
-					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 					// When
 					const result = await repository.get('formationId');
@@ -229,7 +230,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						(httpClientService.get as jest.Mock).mockResolvedValueOnce({
 							data: aLaBonneAlternanceApiFormationResponse(),
 						});
-						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 						// When
 						const result = await repository.get('formationId__', aFormationQuery());
@@ -247,7 +248,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							data: aLaBonneAlternanceApiFormationResponse(),
 						});
 						(httpClientService.post as jest.Mock).mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
-						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test');
+						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', aLoggerService());
 
 						// When
 						const result = await repository.get('123__cleMinistereEducatif-123456', aFormationQuery());

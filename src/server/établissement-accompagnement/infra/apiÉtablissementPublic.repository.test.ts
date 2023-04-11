@@ -8,6 +8,7 @@ import {
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiÉtablissementPublicRepository', () => {
 	describe('search', () => {
@@ -18,7 +19,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				jest
 					.spyOn(httpClient, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatRechercheÉtablissementPublicResponse()));
-				const repository = new ApiÉtablissementPublicRepository(httpClient);
+				const repository = new ApiÉtablissementPublicRepository(httpClient, aLoggerService());
 				const expected = createSuccess(anOrderedÉtablissementAccompagnementList());
 				const commune = '46100';
 				const typeAccompagnement = 'cij';
@@ -42,7 +43,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				const commune = '46100';
 				const typeAccompagnement = 'cij';
 
-				const repository = new ApiÉtablissementPublicRepository(httpClient);
+				const repository = new ApiÉtablissementPublicRepository(httpClient, aLoggerService());
         
 				// when
 				const result = await repository.search({ commune, typeAccompagnement });
@@ -61,7 +62,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				const commune = '46100';
 				const typeAccompagnement = 'cij';
 
-				const repository = new ApiÉtablissementPublicRepository(httpClient);
+				const repository = new ApiÉtablissementPublicRepository(httpClient, aLoggerService());
         
 				// when
 				const result = await repository.search({ commune, typeAccompagnement });

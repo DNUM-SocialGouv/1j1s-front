@@ -10,9 +10,10 @@ import { mapStatistiques } from '~/server/formations/infra/repositories/apiTraje
 import { handleFailureError } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistiqueError';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
-	constructor(private httpClientService: PublicHttpClientService, private apiGeoLocalisationRepository: ApiGeoRepository) {}
+	constructor(private httpClientService: PublicHttpClientService, private apiGeoLocalisationRepository: ApiGeoRepository, private loggerService: LoggerService) {}
 
 	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
 		try {
@@ -28,7 +29,7 @@ export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepos
 			if (isRegionEtAuMoinsUnPourcentageDisponible(statistiques)) return createSuccess(statistiques);
 			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 		} catch (e) {
-			return handleFailureError(e, 'statistique formation');
+			return handleFailureError(e, 'statistique formation', this.loggerService);
 		}
 	}
 

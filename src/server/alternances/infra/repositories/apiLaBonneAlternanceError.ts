@@ -4,21 +4,21 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
-export function handleSearchFailureError(e: unknown, context: string) {
-	return handleFailureError(e, `search ${context}`);
+export function handleSearchFailureError(e: unknown, context: string, loggerService: LoggerService) {
+	return handleFailureError(e, `search ${context}`, loggerService);
 }
 
 export function handleGetFailureError(e: unknown, context: string) {
 	return handleFailureError(e, `get ${context}`);
 }
 
-export function handleGetMetierFailureError(e: unknown, context: string) {
-	return handleFailureError(e, `get metier ${context}`);
+export function handleGetMetierFailureError(e: unknown, context: string, loggerService: LoggerService) {
+	return handleFailureError(e, `get metier ${context}`, loggerService);
 }
 
-export function handleFailureError(e: unknown, customContext: string) {
+export function handleFailureError(e: unknown, customContext: string, loggerService: LoggerService) {
 	if (isHttpError(e)) {
-		LoggerService.errorWithExtra(
+		loggerService.errorWithExtra(
 			new SentryException(
 				'[API LaBonneAlternance] impossible d’effectuer une recherche',
 				{ context: customContext, source: 'API LaBonneAlternance' },
@@ -27,7 +27,7 @@ export function handleFailureError(e: unknown, customContext: string) {
 		);
 		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 	}
-	LoggerService.errorWithExtra(
+	loggerService.errorWithExtra(
 		new SentryException(
 			'[API LaBonneAlternance] impossible d’effectuer une recherche',
 			{ context: customContext, source: 'API LaBonneAlternance' },

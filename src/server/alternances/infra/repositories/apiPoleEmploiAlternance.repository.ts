@@ -26,12 +26,14 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 	constructor(
     private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
+	private loggerService: LoggerService,
 	) {}
   
 	paramètreParDéfaut = 'natureContrat=E2,FS';
@@ -46,7 +48,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'alternance');
+			return handleGetFailureError(e, 'alternance', this.loggerService);
 		}
 	}
 
@@ -67,7 +69,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 				}
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'alternance');
+				return handleSearchFailureError(e, 'alternance', this.loggerService);
 			}
 
 		}
@@ -88,7 +90,7 @@ export class ApiPoleEmploiAlternanceRepository implements OffreRepository {
 				this.cacheService.set(this.ECHANTILLON_OFFRE_ALTERNANCE_KEY, response.data, 24);
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'échantillon alternance');
+				return handleSearchFailureError(e, 'échantillon alternance', this.loggerService);
 			}
 		}
 	}

@@ -13,6 +13,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 jest.mock('axios', () => {
 	return {
@@ -26,7 +27,7 @@ describe('ApiEngagementRepository', () => {
 
 	beforeEach(() => {
 		httpClientService = aPublicHttpClientService();
-		apiEngagementRepository = new ApiEngagementRepository(httpClientService);
+		apiEngagementRepository = new ApiEngagementRepository(httpClientService, aLoggerService());
 	});
 
 	describe('searchMissionServiceCivique', () => {

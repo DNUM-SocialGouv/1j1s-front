@@ -20,6 +20,14 @@ export class ServerConfigurationService implements ConfigurationService {
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
+			// TODO décider si default value?
+			NEXT_PUBLIC_SENTRY_DSN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_DSN'),
+			
+			NEXT_PUBLIC_SENTRY_ENVIRONMENT: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_ENVIRONMENT'),
+			
+			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'), 
+			NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST')),
+			NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
 			POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
@@ -69,6 +77,11 @@ class EnvironmentVariablesException extends Error {
 export interface EnvironmentVariables {
   readonly API_ADRESSE_BASE_URL: string
   readonly NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: number
+  readonly NEXT_PUBLIC_SENTRY_LOG_LEVEL: string
+readonly NEXT_PUBLIC_SENTRY_DSN: string
+readonly NEXT_PUBLIC_SENTRY_ENVIRONMENT: string
+readonly NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: string
+readonly NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: number
   readonly API_ENGAGEMENT_API_KEY_TOKEN: string
   readonly API_ENGAGEMENT_BASE_URL: string
   readonly API_ETABLISSEMENTS_PUBLICS: string

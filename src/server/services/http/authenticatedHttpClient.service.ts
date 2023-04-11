@@ -19,7 +19,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 	private tokenAgent: TokenAgent;
 	private readonly apiName: string;
 
-	constructor(private config: AuthenticatedHttpClientConfig) {
+	constructor(private config: AuthenticatedHttpClientConfig, private loggerService: LoggerService) {
 		super(config);
 		this.tokenAgent = config.tokenAgent;
 		this.apiName = config.apiName;
@@ -71,7 +71,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 			const accessToken = await this.tokenAgent.getToken();
 			this.setAuthorizationHeader(accessToken);
 		} catch (e) {
-			LoggerService.errorWithExtra(new SentryException(
+			this.loggerService.errorWithExtra(new SentryException(
 				`[API ${this.apiName}] Impossible de renouveler le token`,
 				{ context: 'refreshToken', source: `API ${this.apiName}` },
 				{ stacktrace: (<Error>e).stack },
