@@ -9,7 +9,7 @@ on:
 jobs:
 
   # Déploiement en recette à chaque push sur la branche "main"
-  terraform-recette:
+  recette:
     if: github.event_name == 'push'
     # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
     uses: ./.github/workflows/terraform.yml
@@ -20,7 +20,7 @@ jobs:
       environnement_url: https://recette.1jeune1solution.gouv.fr
 
   # Déploiement en production lors de la publication d'une nouvelle release
-  terraform-production:
+  production:
     if: github.event_name == 'release'
     # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
     uses: ./.github/workflows/terraform.yml

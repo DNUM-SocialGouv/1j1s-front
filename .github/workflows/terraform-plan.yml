@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  terraform-recette:
+  recette:
     if: (!startsWith(github.head_ref, 'release-please--'))
 
     # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
@@ -16,7 +16,7 @@ jobs:
       environnement_name: scalingo-recette
       environnement_url: https://recette.1jeune1solution.gouv.fr
 
-  terraform-production:
+  production:
     if: startsWith(github.head_ref, 'release-please--')
 
     # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main

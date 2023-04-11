@@ -35,12 +35,6 @@ module "front_app" {
   domain         = var.front_nom_de_domaine
   domain_aliases = terraform.workspace == "production" ? ["1jeune1solution.gouv.fr"] : null
 
-  additionnal_collaborators = (
-    terraform.workspace == "production"
-    ? local.production_team_emails
-    : local.nonproduction_team_emails
-  )
-
   log_drains = (var.logstash_uri != null) ? [
     {
       type = "elk"

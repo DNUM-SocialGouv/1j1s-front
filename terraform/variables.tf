@@ -31,23 +31,3 @@ variable "logstash_uri" {
   type        = string
   sensitive   = true
 }
-
-variable "equipe_application" {
-  description = "Liste des membres de l'équipe de développement de l'application"
-  type = list(object({
-    name           = optional(string)
-    email          = string
-    fin_de_mission = optional(string)
-  }))
-  default = []
-}
-
-variable "equipe_plateforme" {
-  description = "Liste des membres de l'équipe Plateforme/OPS"
-  type = list(object({
-    name           = optional(string)
-    email          = string
-    fin_de_mission = optional(string)
-  }))
-  default = []
-}
