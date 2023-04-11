@@ -4,32 +4,26 @@
   & h1 {
     @extend %headline;
     font-weight: bold;
+    margin-bottom: 1rem;
 
     & small {
       font-weight: normal;
       color: $color-secondary;
     }
-  }
 
-  & p {
-    @extend %text-regular;
-    color: $color-on-background;
+    @include media(small) {
+      margin-bottom: 2rem;
+    }
   }
 
   & .hero {
     background-color: $color-background;
 
-    & .textContent {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    & .cta {
+      width: 100%;
 
       @include media(small) {
-        gap: 2rem;
-
-        & .cta {
-          width: fit-content;
-        }
+        width: fit-content;
       }
     }
   }

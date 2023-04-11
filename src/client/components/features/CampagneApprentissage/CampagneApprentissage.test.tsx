@@ -5,8 +5,17 @@
 import { render, screen } from '@testing-library/react';
 
 import { CampagneApprentissage } from '~/client/components/features/CampagneApprentissage/CampagneApprentissage';
+import { mockSmallScreen } from '~/client/components/window.mock';
 
 describe('CampagneApprentissage', () => {
+	beforeEach(() => {
+		mockSmallScreen();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
 		// WHEN
 		render(<CampagneApprentissage />);
@@ -17,15 +26,13 @@ describe('CampagneApprentissage', () => {
 		expect(main).toHaveAttribute('id', 'contenu');
 	});
 
-	it('affiche les titres de la page', () => {
+	it('affiche le titre de la page', () => {
 		// WHEN
 		render(<CampagneApprentissage />);
 		const titre = screen.getByRole('heading', { level:1, name: /L’apprentissage : pour moi c’est le bon choix/i });
-		const description = screen.getByText(/Avant de démarrer la simulation de vos aides,/i);
 
 		// THEN
 		expect(titre).toBeVisible();
-		expect(description).toBeVisible();
 	});
 
 	it('affiche un lien vers la simulation', () => {
