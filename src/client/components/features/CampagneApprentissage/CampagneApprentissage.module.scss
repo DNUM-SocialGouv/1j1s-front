@@ -18,5 +18,19 @@
 
   & .hero {
     background-color: $color-background;
+
+    & .textContent {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      @include media(small) {
+        gap: 2rem;
+
+        & .cta {
+          width: fit-content;
+        }
+      }
+    }
   }
 }
