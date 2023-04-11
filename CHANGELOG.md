@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.45.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.44.1...v3.45.0) (2023-04-11)
+
+
+### Features
+
+* **alternance:** ajout des entreprises proposant des alternances ([4c8cd28](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4c8cd289e63c28fe089f2b237c2e5cd467241524))
+
 ## [3.44.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.44.0...v3.44.1) (2023-04-07)
 
 
