@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.45.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.45.0...v3.45.1) (2023-04-11)
+
+
+### Bug Fixes
+
+* **formation:** style des cartes de recherche de formation ([22f0fb7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/22f0fb74a7534df3e2df3c700e313da7bae5d298))
+
 ## [3.45.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.44.1...v3.45.0) (2023-04-11)
 
 
