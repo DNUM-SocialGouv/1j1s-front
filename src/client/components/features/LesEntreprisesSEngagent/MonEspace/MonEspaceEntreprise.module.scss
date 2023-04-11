@@ -1,12 +1,12 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .monEspace {
   margin: 0 auto;
   padding: 2rem 1rem 2rem 1rem;
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
 
   &Titre {
-    color: $color-primary;
+    color: utilities.$color-primary;
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.75rem;
@@ -14,7 +14,7 @@
   }
 
   &Accroche {
-    color: $color-secondary;
+    color: utilities.$color-secondary;
     font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 1.25rem;
@@ -31,7 +31,7 @@
   }
 
   &Inscription {
-    color: $color-primary;
+    color: utilities.$color-primary;
     display: block;
     text-align: center;
 
@@ -41,12 +41,12 @@
     }
 
     &:hover {
-      color: $color-primary-on-hover;
+      color: utilities.$color-primary-on-hover;
     }
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .monEspace {
     padding: 4rem 1rem 4rem 1rem;
 
@@ -71,14 +71,14 @@
     }
 
     &Titre {
-      color: $color-primary;
+      color: utilities.$color-primary;
       font-weight: 700;
       text-align: left;
     }
 
     &Accroche {
       font-weight: 400;
-      color: $color-secondary;
+      color: utilities.$color-secondary;
       margin-bottom: 3.5rem;
       text-align: left;
     }

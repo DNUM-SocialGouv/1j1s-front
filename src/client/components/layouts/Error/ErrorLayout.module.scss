@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .container {
   padding: 1rem;
@@ -21,7 +21,7 @@
 .buttonWrapper {
   padding: 3rem 0;
   text-align: center;
-  @include media(medium){
+  @include utilities.media(medium){
     text-align: left;
   }
 }

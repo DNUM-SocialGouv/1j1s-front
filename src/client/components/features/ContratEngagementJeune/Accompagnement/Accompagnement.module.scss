@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .accompagnement {
   @extend %background-primary;
@@ -10,7 +10,7 @@
 
     h2 {
       @extend %headline;
-      color: $color-on-primary;
+      color: utilities.$color-on-primary;
       font-size: 1.5rem;
     }
   }
@@ -30,7 +30,7 @@
       text-align: start;
       line-height: 1.25rem;
       border-radius: 20px;
-      border: 1px solid $color-primary;
+      border: 1px solid utilities.$color-primary;
       margin-top: 20px;
       width: 100%;
     }
@@ -38,7 +38,7 @@
     .boutonRetour {
       @extend %text-regular;
       border: none;
-      color: $color-primary;
+      color: utilities.$color-primary;
       padding: 5px;
       border-radius: 10px;
       margin-bottom: 20px;
@@ -66,7 +66,7 @@
     }
     &Content {
       text-align: center;
-      color: $color-primary;
+      color: utilities.$color-primary;
       padding: 3rem 2rem 2rem 2rem;
       h1 {
         @extend %text-large;
@@ -92,7 +92,7 @@
     display:block;
     font-size: 1rem;
     margin-top: 1rem;
-    color: $color-primary;
+    color: utilities.$color-primary;
     text-align: center;
   }
 
@@ -101,14 +101,14 @@
 
     &Message {
       margin: 1rem 0;
-      color: $color-primary;
+      color: utilities.$color-primary;
     }
 
     &Icon {
       margin: auto;
       width: 8rem;
       height: 8rem;
-      color: $color-secondary;
+      color: utilities.$color-secondary;
     }
   }
 
@@ -117,7 +117,7 @@
     &__Title {
       @extend %text-xLarge;
       @extend %bold;
-      color: $color-primary;
+      color: utilities.$color-primary;
       text-align: center;
       line-height: 2rem;
       margin: 1rem 2rem;
@@ -136,7 +136,7 @@
 
       &Icon {
         box-shadow: 0 1px 1px rgba(55, 86, 189) !important;
-        border: 1px solid $color-primary;
+        border: 1px solid utilities.$color-primary;
         border-radius: 20px;
         width: 300px;
         display: grid;
@@ -148,25 +148,25 @@
         }
 
         &Offre {
-          color: $color-blue-navy;
+          color: utilities.$color-blue-navy;
           width: 30px;
           margin-top: 0.5rem;
         }
 
         &Formation {
-          color: $color-tapestry;
+          color: utilities.$color-tapestry;
           width: 30px;
           margin-top: 0.5rem;
         }
 
         &Aide {
-          color: $color-smalt-blue;
+          color: utilities.$color-smalt-blue;
           width: 30px;
           margin-top: 0.5rem;
         }
 
         &Benevolat {
-          color: $color-coral;
+          color: utilities.$color-coral;
           width: 30px;
           margin-top: 0.5rem;
         }
@@ -190,13 +190,13 @@
     text-align: center;
     min-width: 230px;
     border-radius: 20px;
-    border: 1px solid $color-primary;
+    border: 1px solid utilities.$color-primary;
     margin-top: 15px;
     width: 100%;
     min-height: 3.375rem;
     padding: 1rem;
-    background-color: $color-primary;
-    color: $color-on-primary;
+    background-color: utilities.$color-primary;
+    color: utilities.$color-on-primary;
   }
   &Desactive {
     display: grid;
@@ -204,7 +204,7 @@
     text-align: center;
     min-width: 230px;
     border-radius: 20px;
-    border: 1px solid $color-primary;
+    border: 1px solid utilities.$color-primary;
     margin-top: 15px;
     width: 100%;
     min-height: 3.375rem;
@@ -212,7 +212,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .accompagnement {
     padding: 5rem 2rem;
 

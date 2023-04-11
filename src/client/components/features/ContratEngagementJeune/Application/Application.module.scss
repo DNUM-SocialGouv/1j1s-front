@@ -1,11 +1,11 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .application {
   padding: 40px 20px;
-  background: $color-primary;
+  background: utilities.$color-primary;
 
   &Container {
-    background: $color-on-primary;
+    background: utilities.$color-on-primary;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
@@ -24,7 +24,7 @@
     gap: 0.5rem;
     margin-top: 20px;
 
-    @include media(large) {
+    @include utilities.media(large) {
       gap: 0.75rem;
     }
 
@@ -32,8 +32,8 @@
       display: flex;
       align-items: center;
       gap: .5rem;
-      background: $color-on-background;
-      color: $color-on-primary;
+      background: utilities.$color-on-background;
+      color: utilities.$color-on-primary;
       text-align: left;
       line-height: 1rem;
       font-size: 0.625rem;
@@ -42,7 +42,7 @@
       padding: 8px 10px;
       text-decoration: none;
 
-      @include media(large) {
+      @include utilities.media(large) {
         font-size: 0.875rem;
       }
 
@@ -51,7 +51,7 @@
         flex: 0 0 35px;
         align-self: stretch;
 
-        @include media(large) {
+        @include utilities.media(large) {
           flex-basis: 50px;
         }
       }
@@ -60,7 +60,7 @@
         font-weight: 500;
         white-space: nowrap;
 
-        @include media(large) {
+        @include utilities.media(large) {
           font-size: 1.25rem;
           line-height: 2rem;
         }
@@ -69,7 +69,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .application {
     padding: 2.5rem 0;
 

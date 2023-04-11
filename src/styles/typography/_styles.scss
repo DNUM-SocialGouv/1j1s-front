@@ -1,18 +1,19 @@
-@import "@styles/media/mixins";
-@import "mixins";
-@import "placeholders";
-@import "variables";
+@use "@styles/media/mixins" as mixins2;
+@use "mixins";
+@use "placeholders";
+@use "variables";
+@use "../theme/variables" as theme-variables;
 
-@include font-face($font-family, "Marianne-Light", 300);
-@include font-face($font-family, "Marianne-Light_Italic", 300, italic);
-@include font-face($font-family, "Marianne-Regular", 400);
-@include font-face($font-family, "Marianne-Regular_Italic", 400, italic);
-@include font-face($font-family, "Marianne-Medium", 500);
-@include font-face($font-family, "Marianne-Medium_Italic", 500, italic);
+@include mixins.font-face(variables.$font-family, "Marianne-Light", 300);
+@include mixins.font-face(variables.$font-family, "Marianne-Light_Italic", 300, italic);
+@include mixins.font-face(variables.$font-family, "Marianne-Regular", 400);
+@include mixins.font-face(variables.$font-family, "Marianne-Regular_Italic", 400, italic);
+@include mixins.font-face(variables.$font-family, "Marianne-Medium", 500);
+@include mixins.font-face(variables.$font-family, "Marianne-Medium_Italic", 500, italic);
 
 body {
   font-family: Marianne, arial, sans-serif;
-  color: $color-on-surface;
+  color: theme-variables.$color-on-surface;
 }
 
 .text-regular, .paragraph {
@@ -44,7 +45,7 @@ body {
 }
 
 .separator {
-  border-bottom: 1px solid $color-separator;
+  border-bottom: 1px solid theme-variables.$color-separator;
 }
 
 .underline-none {

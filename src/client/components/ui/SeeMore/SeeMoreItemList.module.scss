@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .seeMoreButton {
   font-size: 1rem;
@@ -6,7 +6,7 @@
   display: block;
   margin: auto;
 
-  @include media(large) {
+  @include utilities.media(large) {
     padding-block: 1.5rem;
   }
 }
@@ -18,7 +18,7 @@
   flex-wrap: wrap;
   margin-bottom: 1rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     margin-bottom: 2rem;
   }
 }

@@ -1,15 +1,15 @@
-@import "variables";
+@use "variables";
 
 @mixin media($size) {
   @if $size == medium {
-    @media (min-width: $breakpoint-md) { @content; }
+    @media (min-width: variables.$breakpoint-md) { @content; }
   } @else if $size == large {
-    @media (min-width: $breakpoint-lg) { @content; }
+    @media (min-width: variables.$breakpoint-lg) { @content; }
   } @else if $size == xlarge {
-    @media (min-width: $breakpoint-xl) { @content; }
+    @media (min-width: variables.$breakpoint-xl) { @content; }
   } @else if $size == xxlarge {
-    @media (min-width: $breakpoint-xxl) { @content; }
+    @media (min-width: variables.$breakpoint-xxl) { @content; }
   } @else if $size == small {
-   @media (min-width: $breakpoint-sm) { @content; }
+   @media (min-width: variables.$breakpoint-sm) { @content; }
   }
 }

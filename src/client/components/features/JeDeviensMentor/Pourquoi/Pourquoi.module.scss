@@ -1,7 +1,7 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .pourquoi {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
   margin: 0 auto;
   padding: 1rem;
 
@@ -31,13 +31,13 @@
       @extend %text-large;
       @extend %bold;
       max-width: 24.75rem;
-      color: $color-primary;
+      color: utilities.$color-primary;
       margin: 2rem 0 0;
     }
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .pourquoi {
     padding: 1rem 0 4rem 0;
 
@@ -55,7 +55,7 @@
       }
 
       .listeCitoyen, .listeEmployeur {
-        color: $color-on-surface;
+        color: utilities.$color-on-surface;
         max-width: 30rem;
         margin: auto;
       }

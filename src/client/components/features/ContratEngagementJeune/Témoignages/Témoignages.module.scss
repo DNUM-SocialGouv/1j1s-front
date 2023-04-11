@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .témoignage {
   padding: 2rem;
@@ -31,14 +31,14 @@
       }
 
       &SeeMore {
-        color: $color-primary;
+        color: utilities.$color-primary;
       }
     }
   }
 
-  @include media(large) {
+  @include utilities.media(large) {
     padding: 5rem 0;
-    background-color: $color-background-white-lilac;
+    background-color: utilities.$color-background-white-lilac;
 
     & + & {
       padding-top: 0;
@@ -65,7 +65,7 @@
       }
 
       .bio {
-        margin: 0 0 0 $gutter;
+        margin: 0 0 0 utilities.$gutter;
       }
 
       h2 {
@@ -86,14 +86,14 @@
         ".        programme programme programme"
         ;
 
-      gap: $gutter;
-      max-width: $breakpoint-xl;
+      gap: utilities.$gutter;
+      max-width: utilities.$breakpoint-xl;
       margin: 0 auto;
-      padding: 0 $gutter;
+      padding: 0 utilities.$gutter;
 
       &::before {
         content: '';
-        background-color: $color-cej-background;
+        background-color: utilities.$color-cej-background;
         grid-area: 2 / 1 / span 4 / span 2;
         border-radius: 20px;
       }
@@ -102,15 +102,15 @@
       h2 {
         display: initial;
         font-size: 1.8em;
-        color: $color-primary;
+        color: utilities.$color-primary;
         margin: 3em 0 0 0;
         grid-area: titre;
       }
 
       .bio {
         grid-area: bio;
-        color: $color-on-primary;
-        margin: 0 $gutter 0 0;
+        color: utilities.$color-on-primary;
+        margin: 0 utilities.$gutter 0 0;
       }
 
 
@@ -121,8 +121,8 @@
         position: relative;
         margin: 0 2em 0 3em;
         line-height: 0;
-        border: solid 4px $color-on-primary;
-        box-shadow: 16px 16px 0 $color-primary;
+        border: solid 4px utilities.$color-on-primary;
+        box-shadow: 16px 16px 0 utilities.$color-primary;
       }
 
       .programme {
@@ -130,14 +130,14 @@
         border-radius: 1.25rem;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         line-height: 1.5;
-        padding: $gutter;
+        padding: utilities.$gutter;
 
         h4 {
           font-size: initial;
         }
 
         ul > li {
-          margin-top: $gutter;
+          margin-top: utilities.$gutter;
         }
       }
     }

@@ -1,4 +1,4 @@
-@import "src/styles/utilities";
+@use "@styles/utilities";
 
 .heroTitle {
   @extend %bold;
@@ -26,7 +26,7 @@
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
-  background-color: $color-cadre-formulaire;
+  background-color: utilities.$color-cadre-formulaire;
 }
 
 

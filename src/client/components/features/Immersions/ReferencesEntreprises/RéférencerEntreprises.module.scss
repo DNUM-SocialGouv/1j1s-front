@@ -1,8 +1,8 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .referencer {
   padding: 2rem 1rem 2rem 1rem;
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
   display: grid;
 
   .container {
@@ -11,7 +11,7 @@
   }
   &Titre {
     @extend %bold;
-    color: $color-primary;
+    color: utilities.$color-primary;
     max-width: 43rem;
     text-align: left;
     font-size: 1.5rem;
@@ -37,7 +37,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .referencer {
     padding: 4rem 1rem 4rem 1rem;
 

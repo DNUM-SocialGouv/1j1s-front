@@ -1,9 +1,9 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .entête {
-  background-color: $color-background-white-titan;
-  border-top: 0.5px solid $color-on-surface;
-  border-bottom: 0.5px solid $color-on-surface;
+  background-color: utilities.$color-background-white-titan;
+  border-top: 0.5px solid utilities.$color-on-surface;
+  border-bottom: 0.5px solid utilities.$color-on-surface;
   text-align: center;
   padding: 1.5rem 0;
 

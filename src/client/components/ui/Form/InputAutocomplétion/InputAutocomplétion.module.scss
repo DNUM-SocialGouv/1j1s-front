@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .container {
   font-family: Marianne;
@@ -8,8 +8,8 @@
 .suggestionsList {
   z-index: 2;
   position: absolute;
-  border: 1px solid $color-disabled;
-  background-color: $color-background;
+  border: 1px solid utilities.$color-disabled;
+  background-color: utilities.$color-background;
   width: 100%;
   list-style-type: none;
   margin: 0;

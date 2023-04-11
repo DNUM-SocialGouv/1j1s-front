@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .rémunération {
   &Wrapper {
@@ -17,7 +17,7 @@
       @extend %text-small;
       font-family: Marianne;
       padding: 1rem;
-      border: 1px solid $neutral-grey;
+      border: 1px solid utilities.$neutral-grey;
       width: 100%;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
@@ -28,8 +28,8 @@
       padding: 0 2rem;
       align-items: center;
       display: flex;
-      background-color: $color-primary;
-      color: $color-on-primary;
+      background-color: utilities.$color-primary;
+      color: utilities.$color-on-primary;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
     }
@@ -47,7 +47,7 @@
       margin-right: 1.5rem;
 
       &:focus + label::before {
-        outline: 2px solid $color-primary;
+        outline: 2px solid utilities.$color-primary;
         outline-offset: 2px;
       }
     }
@@ -57,12 +57,12 @@
 .textareaWrapper {
   margin-top: 1rem;
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     width: 100%;
   }
 }
 
-@include media(xlarge) {
+@include utilities.media(xlarge) {
   .inputNomOffre {
     width: 100%;
   }

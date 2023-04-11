@@ -1,12 +1,12 @@
-@import "src/styles/utilities";
+@use "@styles/utilities";
 
 .section {
-  background: $color-on-primary;
+  background: utilities.$color-on-primary;
   padding: 2rem 1.5rem 2rem;
 }
 
 .container {
-  max-width: $breakpoint-xl;
+  max-width: utilities.$breakpoint-xl;
 }
 
 .titre {
@@ -33,14 +33,14 @@
 }
 
 .contenu ul > li > b {
-  color: $color-primary;
+  color: utilities.$color-primary;
 }
 
 .contenu, .contenu b {
   @extend %text-regular;
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .section {
     padding: 5rem;
   }

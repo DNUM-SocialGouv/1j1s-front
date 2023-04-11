@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .rechercheOffreForm {
   display: flex;
@@ -14,11 +14,11 @@
 }
 
 .champsObligatoires {
-  color: $color-primary;
+  color: utilities.$color-primary;
   margin-block: 1.25rem;
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .rechercheOffreForm {
     flex-direction: row;
     align-items: flex-start;

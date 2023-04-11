@@ -1,9 +1,12 @@
+@forward "@styles/utilities";
+@use "@styles/theme/_variables.scss";
+
 %linkWithRightIcon {
   @extend %text-regular;
   display: inline-flex;
   align-items: center;
   align-self: flex-end;
-  color: $color-primary;
+  color: variables.$color-primary;
   svg {
     margin-left: 0.5ch;
   }

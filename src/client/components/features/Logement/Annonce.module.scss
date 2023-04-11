@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .Card {
   &ImageWrapper {
@@ -71,12 +71,12 @@
       $lineHeight: 1.5;
       line-height: $lineHeight;
       span {
-        @include line-clamp(1, $lineHeight);
+        @include utilities.line-clamp(1, $lineHeight);
       }
     }
 
     &CallToAction {
-      color: $color-primary;
+      color: utilities.$color-primary;
       :hover {
         text-decoration: underline;
       }
@@ -87,7 +87,7 @@
   }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .Card {
     &Contenu {
       & h3 {

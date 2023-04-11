@@ -1,12 +1,12 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .suggestionList {
   z-index: 15;
   position: absolute;
   padding: 8px;
-  border: 1px solid $color-separator;
+  border: 1px solid utilities.$color-separator;
   border-radius: 20px;
-  background-color: $color-background;
+  background-color: utilities.$color-background;
   margin: 4px 0 0 0;
   max-height: 300px;
   overflow-y: auto;
@@ -42,16 +42,16 @@
     height: 2.5rem;
     padding: 0 16px;
     border-radius: 1.25rem;
-    border: solid 1px $color-on-background;
-    background-color: $color-background;
+    border: solid 1px utilities.$color-on-background;
+    background-color: utilities.$color-background;
     margin-top: 0.5rem;
 
     &:active, &:focus {
-      border-color: $color-primary;
+      border-color: utilities.$color-primary;
     }
 
     &::placeholder {
-      color: $deep-neutral-grey;
+      color: utilities.$deep-neutral-grey;
       opacity: 1;
     }
   }

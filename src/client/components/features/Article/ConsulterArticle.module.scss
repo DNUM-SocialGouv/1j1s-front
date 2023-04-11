@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .consulterArticle {
   max-width: 78rem;
@@ -31,11 +31,11 @@
 
 .titre {
   @extend %bold, %headline;
-  color: $color-on-background;
+  color: utilities.$color-on-background;
   padding-bottom: 1rem;
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .consulterArticle {
     padding-top: 4rem;
 

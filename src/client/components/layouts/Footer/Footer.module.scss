@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .footer {
   padding: 2rem 1.5rem;
@@ -59,8 +59,8 @@
   }
 
   &LienUtile {
-    border-top: 1px solid $color-separator;
-    color: $color-mention-grey;
+    border-top: 1px solid utilities.$color-separator;
+    color: utilities.$color-mention-grey;
     margin-top: 0.7rem;
     display: flex;
     flex-wrap: wrap;
@@ -76,7 +76,7 @@
       padding: 0.7rem 0.7rem 0.7rem 0;
 
       &:not(:last-child) {
-        border-right: 1px solid $color-separator;
+        border-right: 1px solid utilities.$color-separator;
         margin-right: 0.7rem;
       }
     }
@@ -98,7 +98,7 @@
 
   &CopyRight {
     padding-top: 0.7rem;
-    color: $color-mention-grey;
+    color: utilities.$color-mention-grey;
     font-size: .75rem;
 
     & > a > svg {
@@ -110,7 +110,7 @@
   &Faq {
     display: block;
     margin-bottom: 1rem;
-    color: $color-primary;
+    color: utilities.$color-primary;
     @extend %bold;
     font-size: 1rem;
     text-decoration: none;
@@ -121,14 +121,14 @@
 }
 
 .preFooter {
-  background-color: $color-secondary;
+  background-color: utilities.$color-secondary;
   color: white;
   padding: 2.5rem 1rem;
   text-align: center;
   font-weight: 500;
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .footer {
     &Header {
       display: flex;

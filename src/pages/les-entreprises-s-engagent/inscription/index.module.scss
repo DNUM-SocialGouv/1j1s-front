@@ -1,8 +1,8 @@
-@import "@styles/_utilities";
+@use "@styles/_utilities";
 
 .header {
-  background-color: $color-on-primary;
-  color: $color-blue-navy;
+  background-color: utilities.$color-on-primary;
+  color: utilities.$color-blue-navy;
   padding: 2rem 0;
   display: flex;
 
@@ -65,7 +65,7 @@
 }
 
 .etape {
-  background-color: $color-primary;
+  background-color: utilities.$color-primary;
   color: white;
   max-width: 8rem;
   text-align: center;
@@ -79,19 +79,19 @@
   margin-bottom: 1rem;
 
   > span {
-    color: $color-primary;
+    color: utilities.$color-primary;
     cursor: pointer;
   }
 }
 
 .success {
-  color: $color-primary;
+  color: utilities.$color-primary;
   @extend %bold;
   @extend %text-xLarge;
   padding: 40px;
 }
 
-@include media(large) {
+@include utilities.media(large) {
 
   .header {
     padding: 4rem 16rem;
@@ -182,7 +182,7 @@
   }
 }
 
-@include media(xlarge) {
+@include utilities.media(xlarge) {
   .formulaire {
     padding: 2rem 8rem 1rem;
 

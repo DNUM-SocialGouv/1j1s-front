@@ -1,7 +1,7 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .section {
-  background: $color-cej-background;
+  background: utilities.$color-cej-background;
   padding: 48px 0 16px;
 }
 
@@ -14,7 +14,7 @@
 .titre {
   @extend %headline;
   @extend %bold;
-  color: $color-on-primary;
+  color: utilities.$color-on-primary;
   width: 325px;
   margin-bottom: 8px;
   font-size: 1.5rem;
@@ -29,8 +29,8 @@
 
   > li {
     @extend %text-regular;
-    background-color: $color-surface;
-    max-width: $breakpoint-xl;
+    background-color: utilities.$color-surface;
+    max-width: utilities.$breakpoint-xl;
     min-height: 60px;
     display: flex;
     flex-direction: row;
@@ -51,7 +51,7 @@
   border-radius: 50%;
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .section {
     padding: 48px 0;
   }

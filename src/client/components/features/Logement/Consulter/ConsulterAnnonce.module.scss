@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .displayContents {
   display: contents;
@@ -16,7 +16,7 @@
       "lienDeCandidatureMobile";
 
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     grid-template-areas:
       "boutonRetour"
       "entête"
@@ -39,7 +39,7 @@
   padding: 1rem;
   gap: 0.5rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     flex-direction: column;
   }
 }
@@ -50,7 +50,7 @@
   bottom: 0;
   width: 100%;
   grid-area: lienDeCandidatureMobile;
-  background-color: $color-surface;
+  background-color: utilities.$color-surface;
   padding: 0.5rem;
 
   a {
@@ -67,7 +67,7 @@
         "date"
         "type"
         "titre";
-  @include media(medium) {
+  @include utilities.media(medium) {
     grid-template-columns: 1fr auto;
     grid-template-areas:
           "type date"
@@ -77,9 +77,9 @@
     grid-area: type;
     font-size: .875rem;
     line-height: 1.25rem;
-    color: $color-mine-shaft;
+    color: utilities.$color-mine-shaft;
     text-transform: uppercase;
-    @include media(medium) {
+    @include utilities.media(medium) {
       font-size: 1.25rem;
       line-height: 2rem;
     }
@@ -87,10 +87,10 @@
 
   & .date {
     grid-area: date;
-    color: $color-mine-shaft;
+    color: utilities.$color-mine-shaft;
     font-size: .75rem;
     line-height: 1rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       font-size: 1.25rem;
       line-height: 2rem;
     }
@@ -99,10 +99,10 @@
   & h1 {
     grid-area: titre;
     @extend %bold;
-    color: $color-on-background;
+    color: utilities.$color-on-background;
     font-size: 1.25rem;
     line-height: 2rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       font-size: 2rem;
       line-height: 3rem;
     }
@@ -117,17 +117,17 @@
       &:not(:first-child) {
         margin-top: 2.5rem;
       }
-      color: $color-primary;
+      color: utilities.$color-primary;
       font-size: 1.25rem;
       line-height: 2rem;
-      @include media(medium) {
+      @include utilities.media(medium) {
         font-size: 1.5rem;
       }
     }
 
     & button.readMore {
       font-size: 1rem;
-      color: $color-primary;
+      color: utilities.$color-primary;
       width: 100%;
       margin-top: 1.25rem;
     }
@@ -135,17 +135,17 @@
     &:nth-child(2n + 1) {
       border-width: 1px 0;
       border-style: solid;
-      border-color: $color-primary;
-      background-color: $color-background-white-lilac;
-      @include media(medium) {
-        border: 1px solid $neutral-grey;
+      border-color: utilities.$color-primary;
+      background-color: utilities.$color-background-white-lilac;
+      @include utilities.media(medium) {
+        border: 1px solid utilities.$neutral-grey;
         border-radius: 1.25rem;
-        background-color: $color-background;
+        background-color: utilities.$color-background;
       }
     }
 
-    @include media(medium) {
-      border: 1px solid $neutral-grey;
+    @include utilities.media(medium) {
+      border: 1px solid utilities.$neutral-grey;
       border-radius: 1.25rem;
       padding: 2.5rem;
       margin: 2.5rem;
@@ -161,7 +161,7 @@
       top: 2rem;
       grid-area: candidater;
       height: fit-content;
-      border: 1px solid $neutral-grey;
+      border: 1px solid utilities.$neutral-grey;
       border-radius: 1.25rem;
       padding: 2.5rem;
       margin: 2.5rem;
@@ -173,7 +173,7 @@
 
   .annonceBody {
     grid-area: annonceBody;
-    @include media(medium) {
+    @include utilities.media(medium) {
       display: grid;
       grid-template-columns: 1fr auto;
       grid-template-areas:
@@ -201,7 +201,7 @@
 
     & caption {
       display: contents;
-      color: $color-primary;
+      color: utilities.$color-primary;
     }
 
     & tbody {
@@ -213,7 +213,7 @@
         margin-bottom: .75rem;
       }
 
-      @include media(medium) {
+      @include utilities.media(medium) {
         column-count: 2;
       }
     }
@@ -246,10 +246,10 @@
     display: flex;
     margin: auto;
   }
-  @include media(medium) {
-    background-color: $white-lilac;
-    border-bottom: 1px solid $color-primary;
-    border-top: 1px solid $color-primary;
+  @include utilities.media(medium) {
+    background-color: utilities.$white-lilac;
+    border-bottom: 1px solid utilities.$color-primary;
+    border-top: 1px solid utilities.$color-primary;
   }
 }
 
@@ -259,8 +259,8 @@
   height: 15rem;
   width: 100%;
   max-width: 25rem;
-  @include media(medium) {
-    max-width: $breakpoint-xl;
+  @include utilities.media(medium) {
+    max-width: utilities.$breakpoint-xl;
     height: 25rem;
 
     > ul > li > img {
@@ -274,7 +274,7 @@
       box-sizing: content-box;
       width: 2.5rem;
       height: 2.5rem;
-      border: 1px solid $color-primary;
+      border: 1px solid utilities.$color-primary;
       > svg {
         width: 2.5rem;
         height: 2.5rem;
@@ -288,7 +288,7 @@
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       gap: 1.25rem;
     }
 
@@ -298,7 +298,7 @@
 
     &:not(:first-child) {
       margin-top: 1.25rem;
-      @include media(medium) {
+      @include utilities.media(medium) {
         margin-top: 1.875rem;
       }
     }
@@ -306,7 +306,7 @@
   ul {
     column-count: 2;
     gap: 1.25rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       gap: 1.875rem;
     }
     &:empty {

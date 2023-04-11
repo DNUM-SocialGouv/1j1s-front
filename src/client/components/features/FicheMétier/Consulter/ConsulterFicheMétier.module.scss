@@ -1,14 +1,14 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .section {
   border-radius: 20px;
-  box-shadow: $box-shadow;
+  box-shadow: utilities.$box-shadow;
   overflow: hidden;
 
   &:not(:last-of-type) {
     margin-bottom: 1rem;
 
-    @include media(xlarge) {
+    @include utilities.media(xlarge) {
       margin-bottom: 2rem;
     }
   }
@@ -21,7 +21,7 @@
   &Content {
     padding: 1.5rem 1rem;
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding-inline: 1.5rem;
     }
   }
@@ -29,11 +29,11 @@
 
 .foldingSectionContent {
   padding: 1.5rem 1rem;
-  border: 1px solid $color-separator;
+  border: 1px solid utilities.$color-separator;
   border-radius: 0 0 20px 20px;
-  background-color: $color-surface;
+  background-color: utilities.$color-surface;
 
-  @include media(large) {
+  @include utilities.media(large) {
     padding-inline: 1.5rem;
   }
 }
@@ -44,7 +44,7 @@
   row-gap: 1rem;
   column-gap: 1.5rem;
 
-  @include media(large) {
+  @include utilities.media(large) {
     grid-template-columns: 1fr 0.5fr 1fr;
     grid-auto-flow: column;
     padding-inline: 1.5rem;
@@ -52,8 +52,8 @@
 }
 
 .mainTitle {
-  background-color: $color-primary;
-  color: $color-on-primary;
+  background-color: utilities.$color-primary;
+  color: utilities.$color-on-primary;
   text-align: center;
   padding: 1.5rem;
   @extend %text-large;
@@ -61,7 +61,7 @@
 }
 
 .fieldDomaine, .fieldRésumé {
-  @include media(large) {
+  @include utilities.media(large) {
     grid-column-start: 1;
     grid-column-end: 3;
   }
@@ -73,13 +73,13 @@
 }
 
 .fieldDomaine .fieldContent {
-  @include media(medium) {
+  @include utilities.media(medium) {
     max-width: 75%;
   }
 }
 
 .fieldRésumé {
-  @include media(large) {
+  @include utilities.media(large) {
     display: flex;
   }
 
@@ -89,14 +89,14 @@
 }
 
 .fieldNiveauAccès, .fieldStatutsPro {
-  @include media(large) {
+  @include utilities.media(large) {
     grid-column-start: 3;
   }
 
   .fieldContent {
     display: inline-block;
 
-    @include media(large) {
+    @include utilities.media(large) {
       display: block;
     }
   }
@@ -107,14 +107,14 @@
   @extend %text-medium;
   @extend %bold;
 
-  @include media(large) {
+  @include utilities.media(large) {
     margin-right: 1rem;
   }
 }
 
 .lastSectionTitle {
-  background-color: $color-primary;
-  color: $color-on-primary;
+  background-color: utilities.$color-primary;
+  color: utilities.$color-on-primary;
   padding: 1.5rem;
   @extend %bold;
   @extend %text-medium;

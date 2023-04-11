@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .animate {
   --rotate-y: 180deg;
@@ -17,10 +17,10 @@
   flex-direction: column;
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
-  background-color: $color-on-primary;
+  background-color: utilities.$color-on-primary;
   max-height: calc(250px + 8.75rem);
   overflow: hidden;
-  border: 1px solid $deep-neutral-grey;
+  border: 1px solid utilities.$deep-neutral-grey;
 
   > img {
     object-fit: cover;
@@ -30,20 +30,20 @@
 
   &Category {
     margin-inline: 1rem;
-    color: $white;
+    color: utilities.$white;
     padding-inline: 0.25rem;
     width: fit-content;
     @extend %text-small;
     @extend %bold;
 
     &Accompagnement {
-      background-color: $cerro-green;
+      background-color: utilities.$cerro-green;
     }
     &OrienterFormer {
-      background-color: $auricula-purple;
+      background-color: utilities.$auricula-purple;
     }
     &VieProfessionnelle {
-      background-color: $dark-vinaceous;
+      background-color: utilities.$dark-vinaceous;
     }
   }
 
@@ -54,28 +54,28 @@
   &FlipBack {
     width: 100%;
     backface-visibility: hidden;
-    background-color: $color-primary;
+    background-color: utilities.$color-primary;
     position: absolute;
     top: 0;
     bottom: 0;
     transform: rotateY(180deg) translateZ(1px);
-    color: $color-on-primary;
+    color: utilities.$color-on-primary;
     padding: 1rem;
 
     &Action {
-      background-color: $color-on-primary;
+      background-color: utilities.$color-on-primary;
       border-radius: 50%;
       padding: 0.25rem;
       line-height: 1.4;
       font-size: 1rem;
-      color: $color-primary;
+      color: utilities.$color-primary;
       width: 2rem;
       height: 2rem;
     }
 
     &Title {
       $lineHeight: 1.2;
-      @include line-clamp(2, $lineHeight);
+      @include utilities.line-clamp(2, $lineHeight);
       font-size: 1rem;
       font-weight: bold;
       text-align: center;
@@ -97,7 +97,7 @@
 
     &Title {
       $lineHeight: 1.2;
-      @include line-clamp(3, $lineHeight);
+      @include utilities.line-clamp(3, $lineHeight);
       font-size: 1rem;
       font-weight: bold;
       line-height: $lineHeight;
@@ -120,11 +120,11 @@
     &Button {
       text-decoration: underline;
       text-underline-offset: 3px;
-      color: $color-primary;
+      color: utilities.$color-primary;
       font-size: 0.875rem;
 
       &:hover {
-        color: $color-primary-on-hover;
+        color: utilities.$color-primary-on-hover;
       }
     }
   }
@@ -142,7 +142,7 @@
   }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .card {
     max-height: calc(17.5rem + 8.75rem);
 

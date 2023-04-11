@@ -1,25 +1,25 @@
-@import "variables";
+@use "variables";
 
 %background-surface {
-  background: $color-surface;
-  color: $color-on-surface;
+  background: variables.$color-surface;
+  color: variables.$color-on-surface;
 }
 
 %background-primary {
-  background: $color-primary;
-  color: $color-on-primary;
+  background: variables.$color-primary;
+  color: variables.$color-on-primary;
 }
 
 %background-secondary {
-  background: $color-secondary;
-  color: $color-on-secondary;
+  background: variables.$color-secondary;
+  color: variables.$color-on-secondary;
 }
 
 %background-tertiary {
-  background: $color-background;
-  color: $color-on-background;
+  background: variables.$color-background;
+  color: variables.$color-on-background;
 }
 
 %box-shadow {
-  box-shadow: $box-shadow;
+  box-shadow: variables.$box-shadow;
 }

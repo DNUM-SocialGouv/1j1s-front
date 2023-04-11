@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .entete {
   margin: 2.5rem 0;
@@ -32,7 +32,7 @@
   padding: 1rem;
   height: 72rem;
 
-  @include media(large) {
+  @include utilities.media(large) {
     height: 65rem;
   }
 }
@@ -76,7 +76,7 @@
   white-space: pre-line;
 }
 .contenu .description > * {
-  @include media(large) {
+  @include utilities.media(large) {
     display: block;
   }
 }

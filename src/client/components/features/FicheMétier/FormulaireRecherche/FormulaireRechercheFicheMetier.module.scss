@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .RechercherMetierForm {
   padding: 2rem 1rem;
@@ -7,11 +7,11 @@
   gap: 1rem;
   justify-content: space-between;
 
-  @include media(large) {
+  @include utilities.media(large) {
     flex-direction: row;
   }
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     gap: 1.5rem;
   }
 }

@@ -1,10 +1,10 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .contentWrapper {
   padding-block: 1.5rem;
   padding-inline: 1rem;
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     padding-block: 1rem;
     padding-inline: 0;
   }
@@ -15,13 +15,13 @@
     margin-bottom: 3rem;
   }
 
-  @include media(large) {
+  @include utilities.media(large) {
     margin-bottom: 3rem;
   }
 }
 
 .sectionHeading {
-  color: $color-primary;
+  color: utilities.$color-primary;
   margin-top: 1.5rem;
   margin-bottom: 2.5rem;
   text-align: center;
@@ -45,7 +45,7 @@
   @extend %text-small;
 
   svg {
-    color: $color-primary;
+    color: utilities.$color-primary;
     flex-shrink: 0;
     margin-right: 0.5rem;
     margin-top: 0.3rem;

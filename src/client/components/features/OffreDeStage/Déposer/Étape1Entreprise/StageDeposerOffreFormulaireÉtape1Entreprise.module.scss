@@ -1,10 +1,10 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 
 .textareaWrapper {
   margin-top: 1rem;
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     width: 100%;
   }
 }

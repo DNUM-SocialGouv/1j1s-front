@@ -1,4 +1,5 @@
-@import "@styles/utilities";
+@use "sass:color";
+@use "@styles/utilities";
 
 @mixin underline {
   text-decoration: underline;
@@ -9,8 +10,8 @@
   position: relative;
   @extend %text-regular;
 
-  color: $color-on-secondary;
-  background-color: $color-secondary;
+  color: utilities.$color-on-secondary;
+  background-color: utilities.$color-secondary;
 
 
   &Button {
@@ -36,7 +37,7 @@
   }
 
   &:hover {
-    background-color: fade-out($color-secondary, 0.15);
+    background-color: color.adjust(utilities.$color-secondary, utilities.$alpha: -0.15);
   }
 
   &:hover {
@@ -47,8 +48,8 @@
 
   .navWrapper {
     @extend %box-shadow;
-    background: $color-background;
-    color: $color-on-background;
+    background: utilities.$color-background;
+    color: utilities.$color-on-background;
     position: absolute;
     z-index: 12;
     box-sizing: border-box;
@@ -61,7 +62,7 @@
 
     &.expanded {
       height: var(--contentHeight, 25rem);
-      border-top: 1px solid $color-separator;
+      border-top: 1px solid utilities.$color-separator;
     }
 
     transition: height 200ms ease-in-out;
@@ -114,7 +115,7 @@
 
         > li {
           padding: 0 var(--gutter);
-          border-left: 1px solid $color-primary;
+          border-left: 1px solid utilities.$color-primary;
 
           &:first-child {
             border: none;
@@ -122,7 +123,7 @@
         }
 
         > .navLeaf {
-          color: $color-primary;
+          color: utilities.$color-primary;
           font-weight: bold;
         }
       }
@@ -139,7 +140,7 @@
     }
 
     > .navSectionHeader {
-      color: $color-primary;
+      color: utilities.$color-primary;
 
       &:after {
         content: ' :'
@@ -157,9 +158,9 @@
   @extend %bold;
 }
 
-@include media(xlarge) {
+@include utilities.media(xlarge) {
   .navItem .navWrapper {
-    right: calc((100vw - $breakpoint-xl) / -2);
+    right: calc((100vw - utilities.$breakpoint-xl) / -2);
     width: 100vw;
   }
 }

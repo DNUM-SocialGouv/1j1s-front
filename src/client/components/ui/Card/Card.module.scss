@@ -1,9 +1,9 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .cardComponent {
   display: flex;
-  background-color: $color-surface;
-  box-shadow: $box-shadow;
+  background-color: utilities.$color-surface;
+  box-shadow: utilities.$box-shadow;
   border-radius: 20px;
   overflow: hidden;
 
@@ -21,7 +21,7 @@
   min-width: 50px;
   position: relative;
 
-  @include media(large) {
+  @include utilities.media(large) {
     min-width: 140px;
   }
 }
@@ -41,42 +41,42 @@
 
   &Primary {
     border-radius: 50px;
-    border: 1px solid $color-primary;
-    background-color: $color-primary;
-    color: $color-on-primary;
+    border: 1px solid utilities.$color-primary;
+    background-color: utilities.$color-primary;
+    color: utilities.$color-on-primary;
     padding-block: 0.4rem;
     padding-inline: 1.5rem 1.3rem;
 
     &:hover {
-      background-color: $color-primary-on-hover;
-      border-color: $color-primary-on-hover;
+      background-color: utilities.$color-primary-on-hover;
+      border-color: utilities.$color-primary-on-hover;
     }
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding-block: 0.5rem;
     }
   }
 
   &Secondary {
     border-radius: 50px;
-    border: 1px solid $color-primary;
-    color: $color-primary;
+    border: 1px solid utilities.$color-primary;
+    color: utilities.$color-primary;
     padding-block: 0.4rem;
     padding-inline: 1.5rem 1.3rem;
 
     &:hover {
-      background-color: $color-background-white-titan;
-      border-color: $color-primary-on-hover;
-      color: $color-primary-on-hover;
+      background-color: utilities.$color-background-white-titan;
+      border-color: utilities.$color-primary-on-hover;
+      color: utilities.$color-primary-on-hover;
     }
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding-block: 0.5rem;
     }
   }
 
   &Tertiary {
-    color: $color-primary;
+    color: utilities.$color-primary;
 
     &:hover {
       text-decoration: underline;

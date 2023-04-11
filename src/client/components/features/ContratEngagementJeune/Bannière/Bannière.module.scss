@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .bannière {
   background: #ea711b;
@@ -34,8 +34,8 @@
 .titre {
   @extend %bold;
   font-size: 2rem;
-  color: $color-on-secondary;
-  @include media(large) {
+  color: utilities.$color-on-secondary;
+  @include utilities.media(large) {
     font-size: 2.5rem;
   }
 }
@@ -55,16 +55,16 @@
   border: 1px solid #161616;
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .bannière {
     height: 27.5rem;
   }
   .bannièreContent {
-    padding: 42px 42px 42px $gutter;
+    padding: 42px 42px 42px utilities.$gutter;
   }
 }
 
-@include media(xlarge) {
+@include utilities.media(xlarge) {
   .bannière {
     height: 27.5rem;
   }

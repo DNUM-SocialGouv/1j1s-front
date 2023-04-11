@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .FormulaireDeRecherche {
   padding: 1.5rem 1rem;
@@ -10,7 +10,7 @@
 
 .pagination {
   padding-top: 2.5rem;
-  @include media(large) {
+  @include utilities.media(large) {
     padding-top: 5rem;
   }
 }
@@ -33,10 +33,10 @@
   @extend %text-small;
   padding: 2px 8px;
   margin: 2px 8px 2px 0;
-  background-color: $color-tag;
+  background-color: utilities.$color-tag;
   border-radius: calc((2px * 2 + 1.25rem) / 2);
 
-  @include media(large) {
+  @include utilities.media(large) {
     padding: 4px 12px;
     margin: 4px 12px 4px 0;
     border-radius: calc((4px * 2 + 1.5rem) / 2);

@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .position {
   display: inline;
@@ -10,7 +10,7 @@
 }
 
 .icon {
-  color: $color-primary;
+  color: utilities.$color-primary;
   width: 1.25rem;
 }
 
@@ -19,9 +19,9 @@
   z-index: 15;
   font-size: 0.75rem;
   padding: 0.5rem 1rem;
-  border: 1px solid $color-separator;
+  border: 1px solid utilities.$color-separator;
   border-radius: 20px;
-  background-color: $color-background;
+  background-color: utilities.$color-background;
   overflow-y: auto;
   max-width: 25rem;
 

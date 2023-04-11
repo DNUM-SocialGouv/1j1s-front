@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .tagList {
   display: flex;
@@ -13,7 +13,7 @@
   display: inline-flex;
   align-items: center;
   padding: 2px 8px;
-  background-color: $color-tag;
+  background-color: utilities.$color-tag;
   border-radius: calc((2px * 2 + 1.25rem) / 2);
   gap: 0.5rem;
   > button {
@@ -23,7 +23,7 @@
     }
   }
 
-  @include media(large) {
+  @include utilities.media(large) {
     padding: 4px 12px;
     border-radius: calc((4px * 2 + 1.5rem) / 2);
   }

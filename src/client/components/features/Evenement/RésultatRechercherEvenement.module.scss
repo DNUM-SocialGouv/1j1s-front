@@ -1,7 +1,7 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .resultatCard {
-  border-left: 4px solid $color-primary;
+  border-left: 4px solid utilities.$color-primary;
   padding: 1.5rem 2rem;
 }
 

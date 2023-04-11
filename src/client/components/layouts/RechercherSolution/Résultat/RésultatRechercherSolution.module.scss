@@ -1,8 +1,8 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .card {
   position: relative;
-  background: $color-surface;
+  background: utilities.$color-surface;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
@@ -29,7 +29,7 @@
 
     &CallToAction {
       @extend %text-medium;
-      color: $color-primary;
+      color: utilities.$color-primary;
     }
   }
 
@@ -41,7 +41,7 @@
 .cardLead {
   display: flex;
   padding: 1.5rem;
-  border-bottom: 4px solid $color-primary;
+  border-bottom: 4px solid utilities.$color-primary;
 
   > img {
     margin-top: auto;
@@ -73,10 +73,10 @@
 }
 
 
-@include media(medium) {
+@include utilities.media(medium) {
   .card {
     padding: 2rem 1.5rem;
-    border-left: 4px solid $color-primary;
+    border-left: 4px solid utilities.$color-primary;
 
     &Lead {
       display: flex;
