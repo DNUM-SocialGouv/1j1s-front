@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .simulateur {
   & h1 {
@@ -8,21 +8,21 @@
 
     & small {
       font-weight: normal;
-      color: $color-secondary;
+      color: utilities.$color-secondary;
     }
 
-    @include media(small) {
+    @include utilities.media(small) {
       margin-bottom: 2rem;
     }
   }
 
   & .hero {
-    background-color: $color-background;
+    background-color: utilities.$color-background;
 
     & .cta {
       width: 100%;
 
-      @include media(small) {
+      @include utilities.media(small) {
         width: fit-content;
       }
     }
