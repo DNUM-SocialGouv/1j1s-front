@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.46.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.45.1...v3.46.0) (2023-04-12)
+
+
+### Features
+
+* **apprentissage:** créer la page de la campagne entreprises ([1b30a9f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1b30a9f20fd1e9781744ef306963e91f88467e11))
+
 ## [3.45.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.45.0...v3.45.1) (2023-04-11)
 
 
