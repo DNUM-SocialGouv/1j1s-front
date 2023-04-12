@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.46.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.46.0...v3.46.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* **offre-de-stage:** correction url des images des offres de stage ([d75cf29](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d75cf29c200c77c46032b0c9412315ca7bb2bfc6))
+
 ## [3.46.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.45.1...v3.46.0) (2023-04-12)
 
 
