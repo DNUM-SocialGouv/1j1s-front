@@ -27,9 +27,9 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	return <RésultatRechercherSolution
 		lienOffre={`/stages/${stage.slug}`}
 		intituléOffre={stage.titre}
-		logoEntreprise={IMAGE_FIXE}
-		nomEntreprise={stage.nomEmployeur}
+		logo={IMAGE_FIXE}
+		sousTitreOffre={stage.nomEmployeur}
 		étiquetteOffreList={listeEtiquettes || []}
 		key={stage.slug}
 	/>;
-};
+}
