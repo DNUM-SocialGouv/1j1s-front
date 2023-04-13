@@ -16,16 +16,6 @@ describe('CampagneApprentissage', () => {
 		jest.clearAllMocks();
 	});
 
-	it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
-		// WHEN
-		render(<CampagneApprentissage />);
-
-		// THEN
-		const main = screen.getByRole('main');
-		expect(main).toBeVisible();
-		expect(main).toHaveAttribute('id', 'contenu');
-	});
-
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(<CampagneApprentissage />);

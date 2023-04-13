@@ -21,7 +21,7 @@ describe('<ApprentissageJeunes />', () => {
 		jest.clearAllMocks();
 	});
 
-	it('renvoie 404 quand la page est feature flippé off', async () => {
+	it('renvoie 404 quand la page est feature flippée off', async () => {
 		process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 
 		const result = await getServerSideProps();
@@ -29,12 +29,22 @@ describe('<ApprentissageJeunes />', () => {
 		expect(result).toMatchObject({ notFound: true });
 	});
 
-	it('renvoie les props quand la page est feature flippé on', async () => {
+	it('renvoie les props quand la page est feature flippée on', async () => {
 		process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 
 		const result = await getServerSideProps();
 
 		expect(result).toMatchObject({ props: {} });
+	});
+
+	it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
+		// WHEN
+		render(<ApprentissageJeunes />);
+
+		// THEN
+		const main = screen.getByRole('main');
+		expect(main).toBeVisible();
+		expect(main).toHaveAttribute('id', 'contenu');
 	});
 
 	it('affiche la bonne page', () => {
