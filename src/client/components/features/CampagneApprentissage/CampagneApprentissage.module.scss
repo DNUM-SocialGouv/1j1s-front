@@ -1,0 +1,30 @@
+@use "@styles/utilities";
+
+.simulateur {
+  & h1 {
+    @extend %headline;
+    font-weight: bold;
+    margin-bottom: 1rem;
+
+    & small {
+      font-weight: normal;
+      color: utilities.$color-secondary;
+    }
+
+    @include utilities.media(small) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  & .hero {
+    background-color: utilities.$color-background;
+
+    & .cta {
+      width: 100%;
+
+      @include utilities.media(small) {
+        width: fit-content;
+      }
+    }
+  }
+}
