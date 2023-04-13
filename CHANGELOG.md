@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.47.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.46.1...v3.47.0) (2023-04-13)
+
+
+### Features
+
+* **apprentissage:** accéder au simulateur d'aides ([#1152](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1152)) ([475f461](https://github.com/DNUM-SocialGouv/1j1s-front/commit/475f461db6428a52100c9efdad0c1a4510541339))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @meilisearch/instant-meilisearch to ^0.12.0 ([#1134](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1134)) ([58c3142](https://github.com/DNUM-SocialGouv/1j1s-front/commit/58c314276937ee7792a6f912e3363dc37a3f4d2d))
+
 ## [3.46.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.46.0...v3.46.1) (2023-04-12)
 
 
