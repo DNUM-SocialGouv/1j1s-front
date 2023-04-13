@@ -8,7 +8,9 @@ export default function ApprentissageJeunes () {
 	return (
 		<>
 			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow" />
-			<CampagneApprentissage/>
+			<main id="contenu">
+				<CampagneApprentissage/>
+			</main>
 		</>
 	);
 }
