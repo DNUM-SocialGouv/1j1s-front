@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import * as process from 'process';
 
 import { HeadMock } from '~/client/components/head.mock';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
@@ -15,6 +16,7 @@ jest.mock('next/head', () => HeadMock);
 describe('<ApprentissageJeunes />', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+		mockUseRouter({});
 	});
 
 	afterEach(() => {

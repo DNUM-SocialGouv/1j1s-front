@@ -26,7 +26,7 @@ interface FAQRéponse extends ParsedUrlQuery {
 	id: QuestionSlug
 }
 
-const faqRéponseMapToArticleFormat = (faqRéponse): Article => {
+const faqRéponseMapToArticleFormat = (faqRéponse: Question.QuestionRéponse): Article => {
 	return {
 		contenu: faqRéponse.contenu,
 		titre: faqRéponse.problématique,
@@ -35,8 +35,6 @@ const faqRéponseMapToArticleFormat = (faqRéponse): Article => {
 
 export default function ConsulterArticlePage({ faqRéponse, isFeatureActive  }: ConsulterFAQRéponsePageProps) {
 	if (!isFeatureActive) return <ErrorUnavailableService/>;
-
-
 
 	return (
 		<>
