@@ -1,5 +1,7 @@
 {
-  "hits": [
+  "results":
+  [{
+    "hits": [
     {
       "titre": "Appartement à louer",
       "url": "https://www.immojeune.com",
@@ -13,7 +15,11 @@
       "slug": "appartement-a-louer-external-1",
       "surfaceAAfficher": "de 70 à 72m²",
       "dateDeMiseAJour": "2022-12-04",
-      "imagesUrl": ["/image-0.jpg", "/image-1.jpg","/image-2.jpg"],
+      "imagesUrl": [
+        "/image-0.jpg",
+        "/image-1.jpg",
+        "/image-2.jpg"
+      ],
       "localisationAAfficher": "75020 - Paris",
       "_formatted": {
         "titre": "Appartement à louer",
@@ -44,7 +50,11 @@
       "slug": "chambre-a-louer-external-2",
       "surfaceAAfficher": "70m²",
       "dateDeMiseAJour": "2022-12-04",
-      "imagesUrl": ["/image-0.jpg", "/image-1.jpg","/image-2.jpg"],
+      "imagesUrl": [
+        "/image-0.jpg",
+        "/image-1.jpg",
+        "/image-2.jpg"
+      ],
       "localisationAAfficher": "75020 - Paris",
       "_formatted": {
         "titre": "Chambre à louer",
@@ -67,5 +77,9 @@
   "query": "par",
   "limit": 21,
   "offset": 0,
-  "processingTimeMs": 0
+  "processingTimeMs": 0,
+  "facetDistribution":{"prix":{"700":1}},
+  "facetStats":{"prix":{"min":700.0,"max":700.0}}
+  }
+]
 }

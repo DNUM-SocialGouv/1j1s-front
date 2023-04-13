@@ -1,8 +1,14 @@
 {
-  "estimatedTotalHits": 0,
-  "hits": [],
-  "limit": 0,
-  "offset": 0,
-  "processingTimeMs": 12,
-  "query": ""
+  "results": [
+    {
+      "hits": [],
+      "estimatedTotalHits": 0,
+      "limit": 0,
+      "offset": 0,
+      "processingTimeMs": 12,
+    "query": ""
+    }
+  ]
 }
+
+
