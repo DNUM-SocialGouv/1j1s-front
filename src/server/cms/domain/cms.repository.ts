@@ -16,7 +16,7 @@ export interface CmsRepository {
 	getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
   getServiceJeuneList(): Promise<Either<Array<ServiceJeune>>>
-	getFAQBySlug(slug: QuestionSlug): Promise<Either<Question>>
+	getFAQBySlug(slug: QuestionSlug): Promise<Either<Question.QuestionRéponse>>
   getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
   getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>>

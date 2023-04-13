@@ -2,12 +2,14 @@ import { GetServerSidePropsResult } from 'next';
 
 import { CampagneApprentissageJeunes } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { Head } from '~/client/components/head/Head';
+import useReferrer from '~/client/hooks/useReferrer';
 
-export default function ApprentissageJeunes () {
+export default function ApprentissageJeunes() {
+	useReferrer();
 
 	return (
 		<>
-			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow" />
+			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow"/>
 			<main id="contenu">
 				<CampagneApprentissageJeunes/>
 			</main>
