@@ -1,6 +1,6 @@
 import { GetServerSidePropsResult } from 'next';
 
-import { CampagneApprentissage } from '~/client/components/features/CampagneApprentissage/CampagneApprentissage';
+import { CampagneApprentissageJeunes } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { Head } from '~/client/components/head/Head';
 
 export default function ApprentissageJeunes () {
@@ -9,7 +9,7 @@ export default function ApprentissageJeunes () {
 		<>
 			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow" />
 			<main id="contenu">
-				<CampagneApprentissage/>
+				<CampagneApprentissageJeunes/>
 			</main>
 		</>
 	);

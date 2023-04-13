@@ -1,8 +1,20 @@
 import { GetServerSidePropsResult } from 'next';
 
+import {
+	CampagneApprentissageEntreprises,
+} from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
+import { Head } from '~/client/components/head/Head';
+
 export default function ApprentissageEntreprises () {
 
-	return <h1>Apprentissage Entreprises</h1>;
+	return (
+		<>
+			<Head title="Découvrir les avantages de l’apprentissage pour les entreprises | 1jeune1solution" robots="index,follow" />
+			<main id="contenu">
+				<CampagneApprentissageEntreprises/>
+			</main>
+		</>
+	);
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
