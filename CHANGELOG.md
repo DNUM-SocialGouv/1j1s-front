@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.49.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.48.0...v3.49.0) (2023-04-14)
+
+
+### Features
+
+* **apprentissage:** ajout de la section en savoir plus ([944a9fb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/944a9fbb72d1d83cc576a5297e6c511b1cf1a4da))
+
 ## [3.48.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.47.0...v3.48.0) (2023-04-14)
 
 
