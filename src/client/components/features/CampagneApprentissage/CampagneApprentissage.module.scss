@@ -28,3 +28,14 @@
     }
   }
 }
+
+section.raisons {
+  & h2 {
+    @extend %subheading;
+    color: utilities.$color-primary;
+
+    @include utilities.media(large) {
+      text-align: center;
+    }
+  }
+}
