@@ -53,8 +53,29 @@ section.raisons {
 
   & ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+
+    @include utilities.media(large) {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2.5rem;
+    }
+
+    & .tuile {
+      height: 100%;
+    }
+
+    & li:last-child {
+      grid-column-start: 1;
+      grid-column-end: 3;
+
+      @include utilities.media(large) {
+        grid-column-start: auto;
+        grid-column-end: auto;
+      }
+    }
   }
 
 }
@@ -65,7 +86,6 @@ section.raisons {
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  //width: 240px;
   min-height: 100px;
   background-color: utilities.$color-primary;
   color: utilities.$color-on-primary;

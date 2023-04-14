@@ -26,7 +26,7 @@ export function CampagneApprentissageJeunes() {
 					<ul>
 						<li>
 							<div className={styles.tuile}>
-								<Icon name={'euro'}/>
+								<Icon name={'euro'} />
 								Obtenir un diplôme reconnu
 							</div>
 						</li>

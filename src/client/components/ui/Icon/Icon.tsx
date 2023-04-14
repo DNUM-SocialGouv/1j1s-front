@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 
+import { AccountIcon } from '~/client/components/ui/Icon/account.icon';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
@@ -51,64 +52,67 @@ import { WashingMachineIcon } from '~/client/components/ui/Icon/washing-machine.
 import { WifiIcon } from '~/client/components/ui/Icon/wifi.icon';
 
 export type IconName =
-	'angle-down'
-	| 'angle-left'
-	| 'angle-left-from-line'
-	| 'angle-right'
-	| 'angle-right-from-line'
-	| 'angle-up'
-	| 'arrow-right'
-	| 'award'
+    'account'
+    | 'angle-down'
+    | 'angle-left'
+    | 'angle-left-from-line'
+    | 'angle-right'
+    | 'angle-right-from-line'
+    | 'angle-up'
+    | 'arrow-right'
+    | 'award'
 	| 'bed'
-	| 'bike'
-	| 'book'
-	| 'brief-case'
-	| 'burger-menu'
-	| 'burger-menu-left'
-	| 'car'
-	| 'clean-hands'
-	| 'close'
-	| 'community'
-	| 'compass'
-	| 'error'
-	| 'euro'
-	| 'exit'
-	| 'external-redirection'
-	| 'filter'
-	| 'home'
-	| 'information'
-	| 'iron'
-	| 'lock'
-	| 'magnifying-glass'
-	| 'mail'
-	| 'map-pin'
-	| 'mark-pen'
-	| 'menu'
-	| 'microwave'
-	| 'phone'
-	| 'plant'
-	| 'restaurant'
-	| 'roadmap'
-	| 'sport'
-	| 'suitcase'
-	| 'swimming'
-	| 'table'
-	| 'temperature'
-	| 'trophy'
-	| 'TV'
-	| 'user'
-	| 'vacuum'
-	| 'washing-machine'
-	| 'wifi'
+    | 'bike'
+    | 'book'
+    | 'brief-case'
+    | 'burger-menu'
+    | 'burger-menu-left'
+    | 'car'
+    | 'clean-hands'
+    | 'close'
+    | 'community'
+    | 'compass'
+    | 'error'
+    | 'euro'
+    | 'exit'
+    | 'external-redirection'
+    | 'filter'
+    | 'home'
+    | 'information'
+    | 'iron'
+    | 'lock'
+    | 'magnifying-glass'
+    | 'mail'
+    | 'map-pin'
+    | 'mark-pen'
+    | 'menu'
+    | 'microwave'
+    | 'phone'
+    | 'plant'
+    | 'restaurant'
+    | 'roadmap'
+    | 'sport'
+    | 'suitcase'
+    | 'swimming'
+    | 'table'
+    | 'temperature'
+    | 'trophy'
+    | 'TV'
+    | 'user'
+    | 'vacuum'
+    | 'washing-machine'
+    | 'wifi'
 
 interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
-  name: IconName
+    name: IconName;
 }
 
 export function Icon({ name, className, ...rest }: IconProps) {
 
 	const getIcon = useMemo(() => {
 		switch (name) {
+			case 'account':
+				return <AccountIcon className={className} aria-hidden={true} {...rest} />;
 			case 'angle-down':
 				return <AngleDownIcon className={className} aria-hidden={true} {...rest} />;
 			case 'angle-left':
@@ -212,5 +216,5 @@ export function Icon({ name, className, ...rest }: IconProps) {
 		}
 	}, [name, className, rest]);
 
-	return ( getIcon );
+	return (getIcon);
 }
