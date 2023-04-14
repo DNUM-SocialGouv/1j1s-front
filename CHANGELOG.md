@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.48.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.47.0...v3.48.0) (2023-04-14)
+
+
+### Features
+
+* **apprentissage:** accéder au simulateur d'aides partie entreprises ([cfd9224](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cfd92248e2ec994a3696c237e76556f48dc74a9d))
+
 ## [3.47.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.46.1...v3.47.0) (2023-04-13)
 
 
