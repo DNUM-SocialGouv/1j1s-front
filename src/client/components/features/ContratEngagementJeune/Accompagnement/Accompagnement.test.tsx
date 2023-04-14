@@ -125,7 +125,7 @@ describe('<Accompagnement />', () => {
 		it('ça te renvoie chez Pôle Emploi sur la page Inscription', async () => {
 			// Given
 			const contenuModal = 'Vous pouvez bénéficier des services de Pôle Emploi';
-			const inscriptionPoleEmploi = 'Inscrivez-vous à Pôle Emploi';
+			const inscriptionPoleEmploi = 'S‘inscrire à Pôle Emploi';
 
 			renderComponent();
 			// When
@@ -163,7 +163,7 @@ describe('<Accompagnement />', () => {
 		it('ça te renvoie chez Pôle Emploi', async () => {
 			// Given
 			const pôleEmploi = 'Oui, je suis accompagné(e) par Pôle Emploi';
-			const jeContacteMonConseiller = 'Je contacte mon conseiller';
+			const jeContacteMonConseiller = 'Contacter mon conseiller';
 			renderComponent();
 
 			// When

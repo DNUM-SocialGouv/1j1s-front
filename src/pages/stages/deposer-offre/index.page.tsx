@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Entreprise from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
+import Entreprise
+	from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { Head } from '~/client/components/head/Head';
 import {
 	LightHero,
@@ -33,7 +34,7 @@ export default function DeposerOffreStagePage() {
 					<LightHero>
 						<h1>
 							<LightHeroPrimaryText>
-								Déposez votre offre de stage
+								Je dépose une offre de stage
 							</LightHeroPrimaryText>
 							<LightHeroSecondaryText>
 								sur 1jeune1solution

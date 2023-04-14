@@ -28,25 +28,25 @@ export default function EuropePage() {
 	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 	const linkList: Array<LienEmploiEurope> = [
 		{
-			title: 'Je cherche un emploi en Europe',
+			title: 'Trouver un emploi en Europe',
 			url: 'https://ec.europa.eu/eures/portal/jv-se/home',
 		},
 		{
-			title: 'Je souhaite faire une partie de mon apprentissage en Europe',
+			title: 'Faire une partie de mon apprentissage en Europe',
 			url: 'https://www.euroappmobility.eu/fr/',
 		},
 		{
-			title: 'Je cherche un Volontariat International (V.I.E / V.I.A)',
+			title: 'Chercher un Volontariat International (V.I.E / V.I.A)',
 			url: 'https://mon-vie-via.businessfrance.fr/',
 		},
 		{
-			title: 'Je souhaite m’engager dans une mission de solidarité en Europe',
+			title: 'S‘engager dans une mission de solidarité en Europe',
 			url: 'https://europa.eu/youth/solidarity/young-people/volunteering_fr ',
 		},
 	];
 
 	const sectionExperienceEurope = () => (
-		<div className={'background-white-lilac'} >
+		<div className={'background-white-lilac'}>
 			<Container className={styles.sectionExperienceEurope}>
 				<LightHero>
 					<h1>
@@ -55,7 +55,8 @@ export default function EuropePage() {
 					</h1>
 				</LightHero>
 				<p>
-          Trouvez des offres d’emploi, de stage et des volontariats internationaux au sein de pays Européens ainsi que des aides financières afin de partir à la découverte de nouvelles opportunités et de nouveaux pays !
+					Trouvez des offres d’emploi, de stage et des volontariats internationaux au sein de pays Européens ainsi que
+					des aides financières afin de partir à la découverte de nouvelles opportunités et de nouveaux pays !
 				</p>
 				<span className={styles.sectionExperienceEurope__Information}>
 					<Icon name="information"/>
@@ -70,13 +71,13 @@ export default function EuropePage() {
 	const sectionLiens = () => (
 		<div>
 			<Container className={styles.sectionLiens}>
-				{ isLargeScreen && (
+				{isLargeScreen && (
 					<div className={styles.imageWrapper}>
-						<Image src="/images/europe.webp" alt="" width={560} height={160} />
+						<Image src="/images/europe.webp" alt="" width={560} height={160}/>
 					</div>
-				) }
+				)}
 				<ul>
-					{ linkList.map((link: LienEmploiEurope) => (
+					{linkList.map((link: LienEmploiEurope) => (
 						<li key={link.title}>
 							<Link href={link.url} className={classNames('underline-none')}>
 								<TextIcon icon="external-redirection">{link.title}</TextIcon>
@@ -102,21 +103,22 @@ export default function EuropePage() {
 						<h3>Le programme de mobilité ciblé EURES</h3>
 						<ul aria-label="Foire aux questions" className={styles.sectionDispositif__CardList}>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Comment cela fonctionne ?</h4>
-									<p>Il vous aide à trouver un emploi, une formation ou un apprentissage dans un autre État membre de l’Union européenne.</p>
+									<p>Il vous aide à trouver un emploi, une formation ou un apprentissage dans un autre État membre de
+										l’Union européenne.</p>
 								</div>
 							</li>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Pour qui ?</h4>
 									<p>Tout demandeur d’emploi de plus de 18 ans; indépendamment de ses qualifications.</p>
 								</div>
 							</li>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Pour quelle durée ?</h4>
 									<p>
@@ -126,7 +128,7 @@ export default function EuropePage() {
 								</div>
 							</li>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Quelles aides ?</h4>
 									<p>
@@ -138,7 +140,11 @@ export default function EuropePage() {
 						</ul>
 
 						<div className={styles.buttonWrapper}>
-							<Link href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr" appearance="asPrimaryButton">En savoir plus</Link>
+							<Link
+								href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
+								appearance="asPrimaryButton">
+								En savoir plus
+							</Link>
 						</div>
 
 					</article>
@@ -148,21 +154,22 @@ export default function EuropePage() {
 						<p>Entre 200 et 600 euros par mois selon le pays où vous effectuez votre mobilité d’études.</p>
 						<ul aria-label="Foire au questions" className={styles.sectionDispositif__CardList}>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Comment cela fonctionne ?</h4>
-									<p> Il vous donne la possibilité de séjourner à l’étranger pour renforcer vos compétences et accroître votre employabilité.</p>
+									<p> Il vous donne la possibilité de séjourner à l’étranger pour renforcer vos compétences et accroître
+										votre employabilité.</p>
 								</div>
 							</li>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Pour qui ?</h4>
 									<p>Tout public</p>
 								</div>
 							</li>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Pour quelle durée ?</h4>
 									<p>
@@ -173,7 +180,7 @@ export default function EuropePage() {
 								</div>
 							</li>
 							<li className={styles.sectionDispositif__CardContent}>
-								{ isLargeScreen && <Icon name='arrow-right'/>}
+								{isLargeScreen && <Icon name="arrow-right"/>}
 								<div>
 									<h4>Quelles aides ?</h4>
 									<p>
@@ -209,29 +216,34 @@ export default function EuropePage() {
 	const sectionNiveauAnglais = () => (
 		<div className={!isLargeScreen ? 'background-primary' : 'background-gradient-to-primary'}>
 			<Container className={styles.sectionNiveauAnglais}>
-				{ isLargeScreen
+				{isLargeScreen
 					? (
 						<div className={styles.sectionNiveauAnglais__ImageWrapper}>
-							<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" width={210} height={150} />
+							<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" width={210} height={150}/>
 						</div>
 					)
 					: (
-						<Image src={'/images/logos/wall-street-english.svg'} alt="" width={132} height={100} />
+						<Image src={'/images/logos/wall-street-english.svg'} alt="" width={132} height={100}/>
 					)
 				}
 
 				<div className={styles.sectionNiveauAnglais__Content}>
 					<h2>
-						<strong>J’évalue mon niveau </strong>
-            d’anglais grâce à un
-						<strong> test gratuit </strong>
-            avec “Wall Street English”
+						<strong>J’évalue mon niveau </strong>d’anglais grâce à un<strong> test gratuit </strong>avec “Wall Street
+						English”
 					</h2>
-					<p>Quel est mon niveau d‘anglais ? Rien de plus simple avec le test en ligne de Wall Street English. Vous êtes évalué sur votre niveau de grammaire, de vocabulaire, de compréhension écrite et orale.</p>
+					<p>Quel est mon niveau d‘anglais ? Rien de plus simple avec le test en ligne de Wall Street English. Vous êtes
+						évalué sur votre niveau de grammaire, de vocabulaire, de compréhension écrite et orale.</p>
 					<div className={styles.buttonWrapper}>
-						<Link href="https://lp.wallstreetenglish.fr/1jeune-1solution" appearance="asPrimaryButton" className={styles.buttonOnDarkBackground}>Je veux me tester</Link>
+						<Link
+							href="https://lp.wallstreetenglish.fr/1jeune-1solution"
+							appearance="asPrimaryButton"
+							className={styles.buttonOnDarkBackground}>
+							Tester son niveau d‘anglais
+						</Link>
 					</div>
-					<span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>
+					<span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link
+						href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>
 				</div>
 			</Container>
 		</div>

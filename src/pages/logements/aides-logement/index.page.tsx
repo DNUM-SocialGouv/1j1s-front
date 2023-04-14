@@ -27,7 +27,7 @@ export default function AidesLogement() {
 					content="Grâce à notre simulateur, découvrez les aides auxquelles vous avez droit
             pour votre logement mais aussi votre mobilité, vos vacances, votre santé... et bien plus encore !
             Tout cela à portée de clic et en moins de 5 minutes."
-					buttonLabel="Je découvre mes aides"
+					buttonLabel="Découvrir mes aides"
 					buttonHref="/mes-aides"
 					imgSrc="/images/aides-au-logement.webp"
 					additionalInformation={additionalInformation()}

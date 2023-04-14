@@ -76,7 +76,7 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 	function ChampsObligatoires() {
 		return <>
 			<InputText
-				label="Indiquez le nom de l’offre de stage (200 caractères maximum)"
+				label="Nom de l’offre de stage (200 caractères maximum)"
 				name={Stage.NOM}
 				value={informationsStage?.nomOffre}
 				placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
@@ -86,7 +86,7 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 			/>
 			<InputText
 				pattern={EMAIL_OR_URL_REGEX}
-				label="Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
+				label="Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
 				name={Stage.LIEN_CANDIDATURE}
 				value={informationsStage?.lienCandidature}
 				placeholder="Exemples : https://candidat.pole-emploi.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
@@ -96,8 +96,8 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 			<TextArea
 				className={styles.textareaWrapper}
 				id="descriptionOffre"
-				label={'Rédigez une description de l’offre de stage (200 caractères minimum)'}
-				placeholder="Indiquez des informations sur le stage : les objectifs, les challenges, les missions..."
+				label={'Description de l’offre de stage (200 caractères minimum)'}
+				placeholder="Informations sur le stage : les objectifs, les challenges, les missions..."
 				name={Stage.DESCRIPTION}
 				defaultValue={informationsStage?.descriptionOffre}
 				required
@@ -113,7 +113,7 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 				min={disableBeforeToday}
 			/>
 			<Select
-				label="Indiquez la durée du stage"
+				label="Durée du stage"
 				name={Stage.DUREE}
 				value={informationsStage?.dureeStage}
 				placeholder="Sélectionnez une durée"

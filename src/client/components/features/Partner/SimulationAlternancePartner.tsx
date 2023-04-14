@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 
 import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
@@ -13,7 +12,7 @@ export function SimulationAlternancePartner() {
 			title="Vous êtes alternant ?"
 		>
 			<>
-				<strong className={classNames(styles.cardHeadline, styles.link)}>
+				<strong className={styles.cardHeadline}>
 					Simulez en quelques clics
 				</strong>
 				et moins de 3 minutes le montant de la rémunération à laquelle vous

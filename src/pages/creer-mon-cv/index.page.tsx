@@ -20,7 +20,7 @@ export default function FormationPage() {
 					titleSecondaryText="et s’adapte à chaque annonce"
 					content={heroCVContent()}
 					buttonHref="https://cv.1jeune1solution.beta.gouv.fr/#/connexion"
-					buttonLabel="Je crée mon CV"
+					buttonLabel="Créer mon CV"
 					imgSrc="/images/créer-son-cv.webp"
 				/>
 			</main>
@@ -32,4 +32,4 @@ function heroCVContent() {
 	return(
 		<span>Booster vos chances de trouver un emploi en personnalisant votre CV et en mettant en valeur vos compétences en fonction des annonces auxquelles vous postulez.</span>
 	);
-};
+}

@@ -33,8 +33,8 @@ export default function PageEvenements() {
 							content='À la recherche d’un emploi ou d’une formation ?
               Dépassez les frontières du virtuel en allant directement à la rencontre de votre futur employeur,
               en participant à des ateliers thématiques ou en assistant à une conférence près de chez vous !'
-							buttonLabel='Je trouve un événement Pôle Emploi'
-							buttonLabelSecondary='Je trouve un événement ma Mission Locale'
+							buttonLabel='Trouver un événement Pôle Emploi'
+							buttonLabelSecondary='Trouver un événement ma Mission Locale'
 							buttonHref='https://mesevenementsemploi.pole-emploi.fr/mes-evenements-emploi/evenements'
 							buttonHrefSecondary='https://40-ans.unml.info/le-programme'
 							imgSrc='/images/évènements.webp'/>

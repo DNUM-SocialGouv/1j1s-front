@@ -5,16 +5,16 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import styles from './Bannière.module.scss';
 
 
-export default function Bannière () {
+export default function Bannière() {
 
 	return (
 		<LightHero className={styles.bannière}>
 			<h1>
 				<LightHeroPrimaryText>
-					Employeurs, découvrez toutes les mesures du plan 1 jeune 1 solution pour vous aider à
+					Je découvre toutes les mesures du plan 1 jeune 1 solution
 				</LightHeroPrimaryText>
 				<LightHeroSecondaryText>
-					recruter plus facilement
+					pour m‘aider à recruter plus facilement
 				</LightHeroSecondaryText>
 			</h1>
 		</LightHero>

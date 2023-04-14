@@ -59,7 +59,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		it('affiche le champ ville dans le formulaire', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
-			const inputVille = screen.getByRole('textbox', { name: 'Rechercher par ville' });
+			const inputVille = screen.getByRole('textbox', { name: 'Ville' });
 			expect(inputVille).toBeInTheDocument();
 		});
 
@@ -111,7 +111,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		it('affiche le champ ville dans le formulaire', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
-			const inputVille = screen.getByRole('textbox', { name: 'Rechercher par ville' });
+			const inputVille = screen.getByRole('textbox', { name: 'Ville' });
 			expect(inputVille).toBeInTheDocument();
 			expect(inputVille).toBeVisible();
 		});

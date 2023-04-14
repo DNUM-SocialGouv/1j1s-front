@@ -24,24 +24,24 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 	});
 
 	const labelsEtape1 = [
-		{ name: 'Indiquez le nom de l’entreprise' },
-		{ name: 'Indiquez la ville du siège social de l’entreprise' },
-		{ name: 'Indiquez votre numéro de SIRET' },
-		{ name: 'Indiquez le secteur d’activité de l’entreprise' },
-		{ name: 'Indiquez la taille de l’entreprise' },
+		{ name: 'Nom de l’entreprise' },
+		{ name: 'Ville du siège social de l’entreprise' },
+		{ name: 'Numéro de SIRET' },
+		{ name: 'Secteur d’activité de l’entreprise' },
+		{ name: 'Taille de l’entreprise' },
 	];
 
 	const labelsEtape2 = [
-		{ name: 'Indiquez votre prénom' },
-		{ name: 'Indiquez votre nom' },
-		{ name: 'Indiquez une adresse e-mail' },
-		{ name: 'Indiquez votre rôle au sein de l’entreprise' },
-		{ name: 'Indiquez un numéro de téléphone' },
+		{ name: 'Prénom' },
+		{ name: 'Nom' },
+		{ name: 'Adresse e-mail' },
+		{ name: 'Rôle au sein de l’entreprise' },
+		{ name: 'Numéro de téléphone' },
 	];
 
 	const labelsEtape3 = [
-		{ name: 'Indiquez le nombre de recrutements AFPR/POE que vous souhaitez' },
-		{ name: 'Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles' },
+		{ name: 'Nombre de recrutements AFPR/POE que vous souhaitez' },
+		{ name: 'Commentaires ou autres informations utiles' },
 	];
 
 	const demandeDeContactServiceMock = aDemandeDeContactService();
@@ -61,7 +61,7 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			</DependenciesProvider>,
 		);
 		return { demandeDeContactServiceMock };
-	};
+	}
 	
 	beforeAll(() => {
 		mockUseRouter({ push: routerPush });
@@ -101,15 +101,15 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 		it('il voit des messages d’erreur', async () => {
 			renderComponent();
 
-			const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
+			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
 			await userEvent.type(inputNomSociété, 'Crédit Agricole');
 
 			await directionNouvelleEtape();
 
-			expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez la ville du siège social de l’entreprise' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez votre numéro de SIRET' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de l’entreprise' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise' })).toBeValid();
+			expect(screen.getByRole('textbox', { name: 'Ville du siège social de l’entreprise' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Numéro de SIRET' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' })).toBeInvalid();
 		});
 	});
 
@@ -146,15 +146,15 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			await remplirFormulaireEtape1();
 			await directionNouvelleEtape();
 
-			const inputNom = screen.getByRole('textbox', { name: 'Indiquez votre prénom' });
+			const inputNom = screen.getByRole('textbox', { name: 'Prénom' });
 			await userEvent.type(inputNom, 'Tata');
 
 			await directionNouvelleEtape();
 
-			expect(screen.getByRole('textbox', { name: 'Indiquez votre prénom' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez votre nom' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez une adresse e-mail' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez un numéro de téléphone' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Prénom' })).toBeValid();
+			expect(screen.getByRole('textbox', { name: 'Nom' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Adresse e-mail' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Numéro de téléphone' })).toBeInvalid();
 		});
 	});
 
@@ -197,13 +197,13 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			await remplirFormulaireEtape2();
 			await directionNouvelleEtape();
 
-			const inputNbRecrutement = screen.getByRole('textbox', { name: 'Indiquez le nombre de recrutements AFPR/POE que vous souhaitez' });
+			const inputNbRecrutement = screen.getByRole('textbox', { name: 'Nombre de recrutements AFPR/POE que vous souhaitez' });
 			await userEvent.type(inputNbRecrutement, '4');
-			const inputCommentaire = screen.getByRole('textbox', { name: 'Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles' });
+			const inputCommentaire = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles' });
 			await userEvent.type(inputCommentaire, 'Coucou le commentaire');
 
-			expect(screen.getByRole('textbox', { name: 'Indiquez le nombre de recrutements AFPR/POE que vous souhaitez' })).toHaveValue('4');
-			expect(screen.getByRole('textbox', { name: 'Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles' })).toHaveValue('Coucou le commentaire');
+			expect(screen.getByRole('textbox', { name: 'Nombre de recrutements AFPR/POE que vous souhaitez' })).toHaveValue('4');
+			expect(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles' })).toHaveValue('Coucou le commentaire');
 		});
 	});
 
@@ -241,28 +241,28 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 
 async function remplirFormulaireEtape1() {
 	const user = userEvent.setup();
-	const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
+	const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
 	await user.type(inputNomSociété, 'Fnac');
-	const inputSiret = screen.getByRole('textbox', { name: 'Indiquez votre numéro de SIRET' });
+	const inputSiret = screen.getByRole('textbox', { name: 'Numéro de SIRET' });
 	await user.type(inputSiret, '12345678901112');
-	const inputSecteur = screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de l’entreprise' });
+	const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
 	await user.type(inputSecteur, 'Santé humaine et action sociale');
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
-	await user.click(screen.getByText('Indiquez la taille de l’entreprise'));
+	await user.click(screen.getByText('Taille de l’entreprise'));
 	await user.click(screen.getByText('20 à 49 salariés'));
-	const inputVille = screen.getByText('Indiquez la ville du siège social de l’entreprise');
+	const inputVille = screen.getByText('Ville du siège social de l’entreprise');
 	await user.type(inputVille, 'Paris');
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 }
 
 async function remplirFormulaireEtape2() {
-	const inputPrenom = screen.getByRole('textbox', { name: 'Indiquez votre prénom' });
-	const inputNom = screen.getByRole('textbox', { name: 'Indiquez votre nom' });
-	const inputEmail = screen.getByRole('textbox', { name: 'Indiquez une adresse e-mail' });
-	const inputTravail = screen.getByRole('textbox', { name: 'Indiquez votre rôle au sein de l’entreprise' });
-	const inputTéléphone = screen.getByRole('textbox', { name: 'Indiquez un numéro de téléphone' });
+	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom' });
+	const inputNom = screen.getByRole('textbox', { name: 'Nom' });
+	const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail' });
+	const inputTravail = screen.getByRole('textbox', { name: 'Rôle au sein de l’entreprise' });
+	const inputTéléphone = screen.getByRole('textbox', { name: 'Numéro de téléphone' });
 	await userEvent.type(inputPrenom, 'Jean');
 	await userEvent.type(inputNom, 'Tata');
 	await userEvent.type(inputTravail, 'RH');

@@ -64,7 +64,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	});
 
 	it('a un champ Commentaire facultatif', async () => {
-		const label = 'Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)';
+		const label = 'Commentaires ou autres informations utiles (facultatif)';
 		// Given
 		renderComponent();
 
@@ -106,7 +106,7 @@ async function envoyerDemandeContact() {
 	await userEvent.type(screen.getByLabelText('Nom'), demandeDeContactAccompagnement.nom);
 	await userEvent.type(screen.getByLabelText('Prénom'), demandeDeContactAccompagnement.prénom);
 	await userEvent.type(screen.getByLabelText('Téléphone'), demandeDeContactAccompagnement.téléphone);
-	await userEvent.type(screen.getByLabelText('Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)'), demandeDeContactAccompagnement.commentaire || '');
+	await userEvent.type(screen.getByLabelText('Commentaires ou autres informations utiles (facultatif)'), demandeDeContactAccompagnement.commentaire || '');
 	const button = screen.getByRole('button', { name: 'Age' });
 	await userEvent.click(button);
 	const listbox = screen.getByRole('listbox');

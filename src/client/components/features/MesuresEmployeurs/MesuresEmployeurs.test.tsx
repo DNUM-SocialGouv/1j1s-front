@@ -23,8 +23,8 @@ describe('MesuresEmployeurs', () => {
 
 	it('affiche les sections des mesures employeurs', () => {
 		render(<MesuresEmployeursComponent mesureEmployeurList={aCartesMesuresEmployeursList()}/>);
-		const dispositifs = screen.getByText('Découvrir les dispositifs pour vous aider à recruter');
-		expect(dispositifs).toBeInTheDocument();
+		const dispositifs = screen.getByText(/Je découvre toutes les mesures du plan 1 jeune 1 solution/);
+		expect(dispositifs).toBeVisible();
 	});
 
 	it('affiches les cartes dispositifs employeurs', () => {

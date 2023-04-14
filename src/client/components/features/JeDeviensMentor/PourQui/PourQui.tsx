@@ -36,8 +36,8 @@ export function PourQui() {
 					</dl>
 				</div>
 				<div className={styles.linkWrapper}>
-					<Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance="asPrimaryButton">Je deviens mentor</Link>
-					<Link href="/les-entreprises-s-engagent" appearance="asSecondaryButton">J‘engage mon entreprise</Link>
+					<Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance="asPrimaryButton">Devenir mentor</Link>
+					<Link href="/les-entreprises-s-engagent" appearance="asSecondaryButton">Engager mon entreprise</Link>
 				</div>
 			</Container>
 		</div>);
