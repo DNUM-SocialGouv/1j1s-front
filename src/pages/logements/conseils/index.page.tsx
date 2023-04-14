@@ -76,7 +76,7 @@ function BannièreConseilsLogement() {
 	return (
 		<LightHero>
 			<h1>
-				<LightHeroPrimaryText>Découvrez tout ce qu’il faut savoir et tous nos conseils</LightHeroPrimaryText>
+				<LightHeroPrimaryText>Tout ce qu’il faut savoir et tous nos conseils</LightHeroPrimaryText>
 				<LightHeroSecondaryText>concernant votre logement</LightHeroSecondaryText>
 			</h1>
 		</LightHero>

@@ -24,19 +24,19 @@ describe('LesEntreprisesSEngagentInscription', () => {
 	const routerPush = jest.fn();
 
 	const labelsEtape1 = [
-		{ name: 'Indiquez le nom de l’entreprise' },
-		{ name: 'Indiquez la ville du siège social de l’entreprise' },
-		{ name: 'Indiquez votre numéro de SIRET' },
-		{ name: 'Indiquez le secteur d’activité de l’entreprise' },
-		{ name: 'Indiquez la taille de l’entreprise' },
+		{ name: 'Nom de l’entreprise' },
+		{ name: 'Ville du siège social de l’entreprise' },
+		{ name: 'Numéro de SIRET' },
+		{ name: 'Secteur d’activité de l’entreprise' },
+		{ name: 'Taille de l’entreprise' },
 	];
 
 	const labelsEtape2 = [
-		{ name: 'Indiquez votre prénom' },
-		{ name: 'Indiquez votre nom' },
-		{ name: 'Indiquez votre adresse e-mail de contact' },
-		{ name: 'Indiquez votre fonction au sein de l’entreprise' },
-		{ name: 'Indiquez un numéro de téléphone de contact' },
+		{ name: 'Prénom' },
+		{ name: 'Nom' },
+		{ name: 'Adresse e-mail de contact' },
+		{ name: 'Fonction au sein de l’entreprise' },
+		{ name: 'Numéro de téléphone de contact' },
 	];
 
 	const renderComponent = () => {
@@ -98,15 +98,15 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		it('il voit des messages d’erreur', async () => {
 			renderComponent();
 
-			const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
+			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
 			await userEvent.type(inputNomSociété, 'Octo');
 
 			await clickOnGoToEtape2();
 
-			expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez la ville du siège social de l’entreprise' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez votre numéro de SIRET' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de l’entreprise' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise' })).toBeValid();
+			expect(screen.getByRole('textbox', { name: 'Ville du siège social de l’entreprise' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Numéro de SIRET' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' })).toBeInvalid();
 		});
 	});
 
@@ -190,28 +190,28 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 async function remplirFormulaireEtape1() {
 	const user = userEvent.setup();
-	const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise' });
+	const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
 	await user.type(inputNomSociété, 'Octo');
-	const inputSiret = screen.getByRole('textbox', { name: 'Indiquez votre numéro de SIRET' });
+	const inputSiret = screen.getByRole('textbox', { name: 'Numéro de SIRET' });
 	await user.type(inputSiret, '41816609600069');
-	const inputSecteur = screen.getByRole('textbox', { name: 'Indiquez le secteur d’activité de l’entreprise' });
+	const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
 	await user.type(inputSecteur, 'Santé humaine et action sociale');
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
-	await user.click(screen.getByText('Indiquez la taille de l’entreprise'));
+	await user.click(screen.getByText('Taille de l’entreprise'));
 	await user.click(screen.getByText('20 à 49 salariés'));
-	const inputVille = screen.getByText('Indiquez la ville du siège social de l’entreprise');
+	const inputVille = screen.getByText('Ville du siège social de l’entreprise');
 	await user.type(inputVille, 'Paris');
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 }
 
 async function remplirFormulaireEtape2() {
-	const inputPrénom = screen.getByRole('textbox', { name: 'Indiquez votre prénom' });
-	const inputNom = screen.getByRole('textbox', { name: 'Indiquez votre nom' });
-	const inputEmail = screen.getByRole('textbox', { name: 'Indiquez votre adresse e-mail de contact' });
-	const inputTravail = screen.getByRole('textbox', { name: 'Indiquez votre fonction au sein de l’entreprise' });
-	const inputTéléphone = screen.getByRole('textbox', { name: 'Indiquez un numéro de téléphone de contact' });
+	const inputPrénom = screen.getByRole('textbox', { name: 'Prénom' });
+	const inputNom = screen.getByRole('textbox', { name: 'Nom' });
+	const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail de contact' });
+	const inputTravail = screen.getByRole('textbox', { name: 'Fonction au sein de l’entreprise' });
+	const inputTéléphone = screen.getByRole('textbox', { name: 'Numéro de téléphone de contact' });
 	await userEvent.type(inputPrénom, 'Toto');
 	await userEvent.type(inputNom, 'Tata');
 	await userEvent.type(inputEmail, 'toto@email.com');

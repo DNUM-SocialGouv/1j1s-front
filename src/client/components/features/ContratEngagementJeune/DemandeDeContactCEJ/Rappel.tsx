@@ -16,7 +16,7 @@ export default function Rappel() {
 		<div className={classNames(styles.rappel, 'background-white-lilac')}>
 			<Container className={styles.rappelContainer}>
 				<h2>J‘ai des questions sur le Contrat d‘Engagement Jeune</h2>
-				<ButtonComponent label='Je souhaite être contacté(e)' icon={<Icon name={'angle-right'}/>} onClick={() => setIsPopInOpen(true)} />
+				<ButtonComponent label='Demander à être contacté.e' icon={<Icon name={'angle-right'}/>} onClick={() => setIsPopInOpen(true)} />
 			</Container>
 			<Modal
 				isOpen={isPopInOpen}

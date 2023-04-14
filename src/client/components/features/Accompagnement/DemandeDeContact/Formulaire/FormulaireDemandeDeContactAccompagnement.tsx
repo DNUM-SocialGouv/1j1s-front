@@ -91,7 +91,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 			/>
 			<TextArea
 				id="commentaire"
-				label="Vous avez la possibilité de nous faire part de vos commentaires ou toute autres informations que vous jugeriez utiles (facultatif)"
+				label="Commentaires ou autres informations utiles (facultatif)"
 				placeholder="Saisissez votre texte ici..."
 				name="commentaire"
 				rows={5}

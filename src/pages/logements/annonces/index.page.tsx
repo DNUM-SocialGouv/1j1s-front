@@ -40,8 +40,8 @@ export default function AnnoncesPage() {
 			<InstantSearchLayout
 				meilisearchIndex={indexAnnoncesLogement}
 				nombreDeResultatParPage={ANNONCE_PAR_PAGE}
-				titre="Logement étudiant et location jeune actif partout en France"
-				sousTitre="Faites votre recherche parmi plus de 3 000 offres de logements étudiants"
+				titre="Plus de 3 000 offres de logements étudiants et de locations jeune actif"
+				sousTitre="partout en France"
 				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
 				formulaireDeRecherche={<FormulaireRechercheAnnonceLogement />}
 				messageResultatRechercheLabelSingulier="annonce pour étudiants"

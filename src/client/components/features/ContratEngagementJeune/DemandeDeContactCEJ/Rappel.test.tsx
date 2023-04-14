@@ -44,14 +44,14 @@ describe('<Rappel />', () => {
 		// When
 		renderComponent();
 		// Then
-		expect(screen.getByText('Je souhaite être contacté(e)')).toBeInTheDocument();
+		expect(screen.getByText('Demander à être contacté.e')).toBeInTheDocument();
 	});
 	describe('Lorsqu‘on clique sur le bouton je souhaite être contacté(e)', () => {
 		it('affiche un formulaire de rappel', async () => {
 			// Given
 			renderComponent();
 			// When
-			await userEvent.click(screen.getByText('Je souhaite être contacté(e)'));
+			await userEvent.click(screen.getByText('Demander à être contacté.e'));
 			// Then
 			expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
 			expect(screen.getByLabelText('Nom')).toBeInTheDocument();

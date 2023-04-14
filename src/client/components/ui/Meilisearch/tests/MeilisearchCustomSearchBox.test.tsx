@@ -17,7 +17,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	it('ne retourne pas de form', () => {
 		render(
 	  <MeilisearchCustomSearchBox
-				label='Rechercher par ville'
+				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 	  />,
@@ -29,12 +29,12 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	it('contient un input associé à label', () => {
 		render(
 	  <MeilisearchCustomSearchBox
-				label='Rechercher par ville'
+				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
-		const input = screen.getByLabelText('Rechercher par ville', { selector: 'input' });
+		const input = screen.getByLabelText('Ville', { selector: 'input' });
 		expect(input).toBeInTheDocument();
 		expect(input).toHaveAttribute('name', 'ville');
 		expect(input).toHaveAttribute('placeholder', 'Exemples : Paris, Toulouse');
@@ -43,7 +43,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	it('ne contient pas de button reset quand le champ est vide', () => {
 		render(
 	  <MeilisearchCustomSearchBox
-				label='Rechercher par ville'
+				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 	  />,
@@ -57,13 +57,13 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	it('contient un button reset quand le champ est rempli', async() => {
 		render(
 	  <MeilisearchCustomSearchBox
-				label='Rechercher par ville'
+				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 		const user = userEvent.setup();
-		const input = screen.getByLabelText('Rechercher par ville', { selector: 'input' });
+		const input = screen.getByLabelText('Ville', { selector: 'input' });
 		await user.type(input, 'pa');
 
 		const resetButton = screen.queryByRole('button');
@@ -73,13 +73,13 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	it('rend le titre du bouton reset par défaut quand celui ci n‘est pas précisé', async () => {
 		render(
 	  <MeilisearchCustomSearchBox
-				label='Rechercher par ville'
+				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 	  />,
 		);
 		const user = userEvent.setup();
-		const input = screen.getByLabelText('Rechercher par ville', { selector: 'input' });
+		const input = screen.getByLabelText('Ville', { selector: 'input' });
 		await user.type(input, 'pa');
 
 		const resetButton = screen.queryByRole('button');
@@ -89,14 +89,14 @@ describe('MeilisearchCustomSearchBox Component', () => {
 	it('rend le titre du bouton reset passé en paramètre quand celui ci est précisé', async () => {
 		render(
 	  <MeilisearchCustomSearchBox
-				label='Rechercher par ville'
+				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 				resetTitle={'Vider le champ ville'}
 	  />,
 		);
 		const user = userEvent.setup();
-		const input = screen.getByLabelText('Rechercher par ville', { selector: 'input' });
+		const input = screen.getByLabelText('Ville', { selector: 'input' });
 		await user.type(input, 'pa');
 
 		const resetButton = screen.queryByRole('button');

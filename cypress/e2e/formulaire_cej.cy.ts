@@ -21,12 +21,12 @@ describe('Parcours formulaire cej', () => {
 
 	context('quand l’utilisateur correctement remplie le formulaire', () => {
 		it('clique sur le bouton qui affiche le formulaire de contact', () => {
-			cy.get('button').contains('Je souhaite être contacté(e)').click();
+			cy.get('button').contains('Demander à être contacté.e').click();
 			cy.contains('J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé').should('be.visible');
 		});
 
 		it('affiche un message de succès', () => {
-			cy.get('button').contains('Je souhaite être contacté(e)').click({ force: true });
+			cy.get('button').contains('Demander à être contacté.e').click({ force: true });
 
 			cy.get('input[name="firstname"]').type('jean', { force: true });
 			cy.get('input[name="lastname"]').type('dupont', { force: true });

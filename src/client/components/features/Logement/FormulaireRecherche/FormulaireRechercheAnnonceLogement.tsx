@@ -37,7 +37,7 @@ export function FormulaireRechercheAnnonceLogement() {
 			onSubmit={(event) => event.preventDefault()}>
 			<MeilisearchCustomSearchBox
 				className={styles.inputVille}
-				label="Rechercher par ville"
+				label="Ville"
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 			/>
@@ -59,7 +59,7 @@ export function FormulaireRechercheAnnonceLogement() {
 						className={styles.inputSurface}
 						attribute="surface"
 						label="Surface (m²)"
-						placeholder="Indiquez une surface"
+						placeholder="Surface"
 						unite={UNITE_SURFACE}
 						min={SURFACE_MINIMUM}
 						max={SURFACE_MAXIMUM}
@@ -68,7 +68,7 @@ export function FormulaireRechercheAnnonceLogement() {
 						className={styles.inputPrix}
 						attribute="prix"
 						label="Prix"
-						placeholder="Indiquez une fourchette de prix"
+						placeholder="Fourchette de prix"
 						unite={DEVISE}
 						min={PRIX_MINIMUM}
 						max={PRIX_MAXIMUM}

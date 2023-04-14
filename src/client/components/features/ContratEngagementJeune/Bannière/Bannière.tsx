@@ -7,7 +7,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
-export default function Bannière () {
+export default function Bannière() {
 	const { isLargeScreen } = useBreakpoint();
 	const titre = 'Je découvre le Contrat d‘Engagement Jeune';
 	const accroche = 'Contrat d‘engagement jeune, finie la galère, trouvez un métier qui va vous plaire.';
@@ -16,16 +16,18 @@ export default function Bannière () {
 		<div className={styles.bannière}>
 			<div className={styles.bannièreContent}>
 				<span className={styles.bannièreTitle}>
-					<h1 className={ styles.titre } >{ titre }</h1>
-					{ !isLargeScreen && (<p className={ styles.bannièreAccroche}>{ accroche }</p>) }
-					<a href="#accompagnement" className={ styles.cta } aria-label={'Je me lance : Contrat d‘Engagement Jeune'}>Je me lance &nbsp;<Icon name="angle-right" /></a>
+					<h1 className={styles.titre}>{titre}</h1>
+					{!isLargeScreen && (<p className={styles.bannièreAccroche}>{accroche}</p>)}
+					<a href="#accompagnement" className={styles.cta} aria-label={'Se lancer : Contrat d‘Engagement Jeune'}>
+						Se lancer &nbsp;<Icon name="angle-right"/>
+					</a>
 				</span>
 			</div>
 			{isLargeScreen && (
 				<Image
 					priority
 					src={bannièreImage}
-					alt={ accroche }
+					alt={accroche}
 					width={800}
 					height={400}
 				/>

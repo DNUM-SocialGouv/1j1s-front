@@ -42,14 +42,14 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	function ChampsObligatoires() {
 		return <>
 			<InputText
-				label="Indiquez le nom de l’entreprise ou de l’employeur"
+				label="Nom de l’entreprise ou de l’employeur"
 				name={Employeur.NOM}
 				value={informationsEntreprise?.nomEmployeur}
 				placeholder="Exemples : Crédit Agricole, SNCF…"
 				required
 			/>
 			<InputText
-				label="Indiquez une adresse mail de contact"
+				label="Adresse mail de contact"
 				pattern={EMAIL_REGEX}
 				name={Employeur.EMAIL}
 				value={informationsEntreprise?.emailEmployeur}
@@ -60,8 +60,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			<TextArea
 				className={styles.textareaWrapper}
 				id="description"
-				label="Rédigez une courte description de l’entreprise (500 caractères maximum)"
-				placeholder="Indiquez des informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
+				label="Courte description de l’entreprise (500 caractères maximum)"
+				placeholder="Informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
 				name={Employeur.DESCRIPTION}
 				defaultValue={informationsEntreprise?.descriptionEmployeur}
 				required
@@ -74,7 +74,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	function ChampsFacultatifs() {
 		return <>
 			<InputText
-				label="Partagez le logo de l’entreprise - lien/URL"
+				label="Logo de l’entreprise - lien/URL"
 				type="url"
 				name={Employeur.LOGO}
 				value={informationsEntreprise?.logoEmployeur}
@@ -82,7 +82,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				placeholder="Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3..."
 			/>
 			<InputText
-				label="Indiquez le lien du site de l’entreprise - lien/URL"
+				label="Lien du site de l’entreprise - lien/URL"
 				type="url"
 				name={Employeur.SITE}
 				value={informationsEntreprise?.siteEmployeur}

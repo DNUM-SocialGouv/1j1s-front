@@ -22,11 +22,11 @@ export default function FormationPage() {
 			/>
 			<main id="contenu">
 				<HeroWithButtonLink
-					titlePrimaryText="Trouvez la formation pour réaliser "
-					titleSecondaryText="votre projet professionnel"
+					titlePrimaryText="Je trouve une formation pour réaliser "
+					titleSecondaryText="mon projet professionnel"
 					content={heroFormationContent()}
 					buttonHref="https://reseau.intercariforef.org/"
-					buttonLabel="Je trouve ma formation"
+					buttonLabel="Trouver sa formation"
 					imgSrc="/images/formations-initiales.webp"
 				/>
 				<div className={styles.partenaires}>

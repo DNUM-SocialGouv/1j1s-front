@@ -29,7 +29,7 @@ import {
 import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherMissionProps {
-  category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
+	category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
 }
 
 export function RechercherMission(props: RechercherMissionProps) {
@@ -48,7 +48,9 @@ export function RechercherMission(props: RechercherMissionProps) {
 	const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
 	useEffect(() => {
-		if (empty(missionEngagementQuery)) { return; }
+		if (empty(missionEngagementQuery)) {
+			return;
+		}
 
 		setIsLoading(true);
 		setErreurRecherche(undefined);
@@ -97,7 +99,8 @@ export function RechercherMission(props: RechercherMissionProps) {
 					bannière={<BannièreMission isServiceCivique={isServiceCivique}/>}
 					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={<ÉtiquettesFiltreMission/>}
-					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
+					formulaireRecherche={<FormulaireRechercheMissionEngagement
+						domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
 					isLoading={isLoading}
 					messageRésultatRecherche={messageRésultatRecherche}
 					nombreSolutions={nombreRésultats}
@@ -110,8 +113,8 @@ export function RechercherMission(props: RechercherMissionProps) {
 }
 
 interface ListeRésultatProps {
-  résultatList: Mission[]
-  isServiceCivique: boolean
+	résultatList: Mission[]
+	isServiceCivique: boolean
 }
 
 function ListeMission({ résultatList, isServiceCivique }: ListeRésultatProps) {
@@ -120,7 +123,8 @@ function ListeMission({ résultatList, isServiceCivique }: ListeRésultatProps) 
 	}
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}>
+		<ListeRésultatsRechercherSolution
+			aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}>
 			{résultatList.map((mission: Mission) => (
 				<li key={mission.id}>
 					<RésultatRechercherSolution
@@ -137,16 +141,16 @@ function ListeMission({ résultatList, isServiceCivique }: ListeRésultatProps) 
 }
 
 interface BannièreMissionProps {
-  isServiceCivique: boolean
+	isServiceCivique: boolean
 }
 
 function BannièreMission({ isServiceCivique }: BannièreMissionProps) {
-	const secondaryText = `grâce aux missions de ${isServiceCivique ? 'Service Civique' : 'Bénévolat'}`;
+	const primaryText = `Je découvre les missions de ${isServiceCivique ? 'Service Civique' : 'Bénévolat'}`;
 	return (
 		<LightHero>
 			<h1>
-				<LightHeroPrimaryText>Se rendre utile tout en préparant son avenir</LightHeroPrimaryText>
-				<LightHeroSecondaryText>{secondaryText}</LightHeroSecondaryText>
+				<LightHeroPrimaryText>{primaryText}</LightHeroPrimaryText>
+				<LightHeroSecondaryText>pour me rendre utile tout en préparant mon avenir</LightHeroSecondaryText>
 			</h1>
 		</LightHero>
 	);

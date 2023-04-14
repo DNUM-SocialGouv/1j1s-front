@@ -130,7 +130,7 @@ export default function LesEntreprisesSEngagentInscription() {
           		<div className={styles.logo}>
           			<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={144} height={80}/>
           		</div>
-          		<h1 className={styles.titre}>REJOIGNEZ &ldquo;LES ENTREPRISES S‘ENGAGENT&rdquo;</h1>
+          		<h1 className={styles.titre}>JE REJOINS &ldquo;LES ENTREPRISES S‘ENGAGENT&rdquo;</h1>
           	</div>
           	<div className={styles.content}>
           		<div className={styles.etape}>{étape}</div>
@@ -147,7 +147,7 @@ export default function LesEntreprisesSEngagentInscription() {
           				<form className={styles.formulaire} onSubmit={goToÉtape2}>
           					<div className={styles.bodyFormulaire}>
           						<InputText
-          							label="Indiquez le nom de l’entreprise"
+          							label="Nom de l’entreprise"
           							name="companyName"
           							placeholder="Exemples : Crédit Agricole, SNCF…"
           							value={formulaireÉtape1.nomSociété}
@@ -160,7 +160,7 @@ export default function LesEntreprisesSEngagentInscription() {
           						<InputAutocomplétionCommune
           							required
           							id="autocomplete-commune"
-          							label="Indiquez la ville du siège social de l’entreprise"
+          							label="Ville du siège social de l’entreprise"
           							name="companyPostalCode"
           							placeholder="Exemples : Paris, Béziers..."
           							valeurInitiale={autocomplétionCommuneValeur}
@@ -174,7 +174,7 @@ export default function LesEntreprisesSEngagentInscription() {
           							}}
           						/>
           						<InputText
-          							label="Indiquez votre numéro de SIRET"
+          							label="Numéro de SIRET"
           							name="companySiret"
           							placeholder="Exemple : 12345678901112"
           							value={formulaireÉtape1.siret}
@@ -188,7 +188,7 @@ export default function LesEntreprisesSEngagentInscription() {
           						<InputAutocomplétionSecteurActivité
           							required
           							id="autocomplete-secteur-activité"
-          							label="Indiquez le secteur d’activité de l’entreprise"
+          							label="Secteur d’activité de l’entreprise"
           							name="companySector"
           							placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
           							valeurInitiale={secteurActivitéValeur}
@@ -202,7 +202,7 @@ export default function LesEntreprisesSEngagentInscription() {
           						/>
           						<Select
           							required
-          							label="Indiquez la taille de l’entreprise"
+          							label="Taille de l’entreprise"
           							name="companySize"
           							placeholder="Exemple : 250 à 499 salariés"
           							optionList={taillesEntreprises}
@@ -239,7 +239,7 @@ export default function LesEntreprisesSEngagentInscription() {
           				<form className={styles.formulaire} onSubmit={submitFormulaire}>
           					<div className={styles.bodyFormulaire}>
           						<InputText
-          							label="Indiquez votre prénom"
+          							label="Prénom"
           							name="firstName"
           							placeholder="Exemples : Marc, Sonia…"
           							value={formulaireÉtape2.prénom}
@@ -250,7 +250,7 @@ export default function LesEntreprisesSEngagentInscription() {
           							})}
           						/>
           						<InputText
-          							label="Indiquez votre nom"
+          							label="Nom"
           							name="lastName"
           							placeholder="Exemples : Ducourt, Dupont…"
           							value={formulaireÉtape2.nom}
@@ -261,7 +261,7 @@ export default function LesEntreprisesSEngagentInscription() {
           							})}
           						/>
           						<InputText
-          							label="Indiquez votre fonction au sein de l’entreprise"
+          							label="Fonction au sein de l’entreprise"
           							name="job"
           							placeholder="Exemples : RH, Chargé de communications"
           							value={formulaireÉtape2.travail}
@@ -272,7 +272,7 @@ export default function LesEntreprisesSEngagentInscription() {
           							})}
           						/>
           						<InputText
-          							label="Indiquez votre adresse e-mail de contact"
+          							label="Adresse e-mail de contact"
           							pattern={EMAIL_REGEX}
           							name="email"
           							placeholder="Exemple : mail@exemple.com"
@@ -285,7 +285,7 @@ export default function LesEntreprisesSEngagentInscription() {
           							})}
           						/>
           						<InputText
-          							label="Indiquez un numéro de téléphone de contact"
+          							label="Numéro de téléphone de contact"
           							name="phone"
           							placeholder="Exemple : 0199999999"
           							pattern="^(\+33|0|0033)[1-9]\d{8}$"

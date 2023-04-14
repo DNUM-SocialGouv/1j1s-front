@@ -136,266 +136,263 @@ export default function JeRecruteAfprPoeiInscription() {
 				robots="index,follow"
 			/>
 			{!isFormSuccessfullySent &&
-        <>
-        	<Hero>
-        		<h1>
-        			<HeroPrimaryText className={styles.heroTitle}>
-                Vous avez besoin d’accompagnement pour bénéficier d’une aide à la formation avant l’embauche
-        			</HeroPrimaryText>
-        		</h1>
-        		<HeroSecondaryText className={styles.heroSubtitle}>
-              Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement
-        		</HeroSecondaryText>
-        	</Hero>
+          <>
+          	<Hero>
+          		<h1>
+          			<HeroPrimaryText className={styles.heroTitle}>
+										Je souhaite obtenir un accompagnement pour bénéficier d’une aide à la formation avant l’embauche
+          			</HeroPrimaryText>
+          		</h1>
+          		<HeroSecondaryText className={styles.heroSubtitle}>
+									Remplissez le formulaire ci-dessous et un conseiller Pôle Emploi prendra contact avec vous rapidement
+          		</HeroSecondaryText>
+          	</Hero>
 
-        	<div className={styles.content}>
-        		<Container className={styles.container}>
-        			<div className={styles.etape}>{étape}</div>
-        			{
-        				isPremièreÉtape && <>
-        					<Link
-        						appearance="asBackButton"
-        						className={styles.boutonRetour}
-        						href="/je-recrute-afpr-poei"
-        					>
-                    Retour
-        					</Link>
-        					<div className={styles.champsObligatoires}>
-        						<p>Etape 1 : Votre entreprise</p>
-        						<p>Tous les champs du formulaire sont obligatoires</p>
-        					</div>
-        					<form className={styles.formulaire} onSubmit={redirectionÉtape2}>
-        						<div className={styles.bodyFormulaire}>
-        							<InputText
-        								label="Indiquez le nom de l’entreprise"
-        								name="companyName"
-        								placeholder="Exemples : Crédit Agricole, SNCF…"
-        								required
-        								value={formulaireÉtape1.nomSociété}
-        								onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
-        									...formulaireÉtape1,
-        									nomSociété: event.currentTarget.value,
-        								})}
-        							/>
-        							<InputAutocomplétionCommune
-        								required
-        								id="autocomplete-commune"
-        								label="Indiquez la ville du siège social de l’entreprise"
-        								name="companyPostalCode"
-        								placeholder="Exemples : Paris, Marseille..."
-        								valeurInitiale={autocomplétionCommuneValeur}
-        								onSuggestionSelected={(event, suggestion) => {
-        									setAutocomplétionCommuneValeur(suggestion);
-        									setFormulaireÉtape1({
-        										...formulaireÉtape1,
-        										codePostal: suggestion.codePostal,
-        										ville: suggestion.ville,
-        									});
-        								}}
-        							/>
-        							<InputText
-        								label="Indiquez votre numéro de SIRET"
-        								name="companySiret"
-        								placeholder="Exemple : 12345678901112"
-        								required
-        								pattern={'^[0-9]{14}$'}
-        								value={formulaireÉtape1.siret}
-        								onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
-        									...formulaireÉtape1,
-        									siret: event.currentTarget.value,
-        								})}
-        							/>
-        							<InputAutocomplétionSecteurActivité
-        								required
-        								id="autocomplete-secteur-activité"
-        								label="Indiquez le secteur d’activité de l’entreprise"
-        								name="companySector"
-        								placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
-        								valeurInitiale={secteurActivitéValeur}
-        								onSuggestionSelected={(event, suggestion) => {
-        									setSecteurActivitéValeur(suggestion);
-        									setFormulaireÉtape1({
-        										...formulaireÉtape1,
-        										secteur: suggestion.valeur,
-        									});
-        								}}
-        							/>
-        							<Select
-        								required
-        								label="Indiquez la taille de l’entreprise"
-        								name="companySize"
-        								placeholder="Exemple : 500 à 999 salariés"
-        								optionList={taillesEntreprises}
-        								value={formulaireÉtape1.taille}
-        								onChange={(value: string) => setFormulaireÉtape1({
-        									...formulaireÉtape1,
-        									taille: value,
-        								})}
-        							/>
-        						</div>
-        						<div className={styles.validation}>
-        							<ButtonComponent
-        								icon={<Icon name="angle-right"/>}
-        								iconPosition="right"
-        								label="Suivant"
-        								type="submit"
-        							/>
-        							<DéchargeRGPD/>
-        						</div>
-        					</form>
-        				</>
-        			}
-        			{isDeuxièmeÉtape && <>
-        				<ButtonComponent
-        					appearance="secondary"
-        					className={styles.boutonRetour}
-        					icon={<Icon name="angle-left"/>}
-        					iconPosition="left"
-        					onClick={retourÉtape1}
-        					label="Retour"
-        				/>
-        				<div className={styles.champsObligatoires}>
-        					<p>Etape 2 : Vos informations personnelles</p>
-        					<p>Tous les champs du formulaire sont obligatoires</p>
-        				</div>
-        				<form className={styles.formulaire} onSubmit={redirectionÉtape3}>
-        					<div className={styles.bodyFormulaire}>
-        						<InputText
-        							label="Indiquez votre nom"
-        							name="lastName"
-        							placeholder="Exemple : Dupont"
-        							required
-        							value={formulaireÉtape2.nom}
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-        								...formulaireÉtape2,
-        								nom: event.currentTarget.value,
-        							})}
-        						/>
-        						<InputText
-        							label="Indiquez votre prénom"
-        							name="firstName"
-        							placeholder="Exemple : David"
-        							required
-        							value={formulaireÉtape2.prénom}
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-        								...formulaireÉtape2,
-        								prénom: event.currentTarget.value,
-        							})}
-        						/>
-        						<InputText
-        							label="Indiquez un numéro de téléphone"
-        							name="phone"
-        							placeholder="Exemple : 0601020304"
-        							pattern="^(\+33|0|0033)[1-9]\d{8}$"
-        							required
-        							value={formulaireÉtape2.téléphone}
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-        								...formulaireÉtape2,
-        								téléphone: event.currentTarget.value,
-        							})}
-        						/>
-        						<InputText
-        							label="Indiquez une adresse e-mail"
-        							pattern={EMAIL_REGEX}
-        							name="email"
-        							placeholder="Exemple : david.dupont@exemple.fr"
-        							required
-        							value={formulaireÉtape2.email}
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-        								...formulaireÉtape2,
-        								email: event.currentTarget.value,
-        							})}
-        						/>
-        						<InputText
-        							label="Indiquez votre rôle au sein de l’entreprise"
-        							name="job"
-        							placeholder="Exemples : RH, Manager référent"
-        							required
-        							value={formulaireÉtape2.travail}
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-        								...formulaireÉtape2,
-        								travail: event.currentTarget.value,
-        							})}
-        						/>
-        					</div>
+          	<div className={styles.content}>
+          		<Container className={styles.container}>
+          			<div className={styles.etape}>{étape}</div>
+          			{
+          				isPremièreÉtape && <>
+          					<Link appearance="asBackButton" className={styles.boutonRetour} href="/je-recrute-afpr-poei">
+												Retour
+          					</Link>
+          					<div className={styles.champsObligatoires}>
+          						<p>Etape 1 : Votre entreprise</p>
+          						<p>Tous les champs du formulaire sont obligatoires</p>
+          					</div>
+          					<form className={styles.formulaire} onSubmit={redirectionÉtape2}>
+          						<div className={styles.bodyFormulaire}>
+          							<InputText
+          								label="Nom de l’entreprise"
+          								name="companyName"
+          								placeholder="Exemples : Crédit Agricole, SNCF…"
+          								required
+          								value={formulaireÉtape1.nomSociété}
+          								onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+          									...formulaireÉtape1,
+          									nomSociété: event.currentTarget.value,
+          								})}
+          							/>
+          							<InputAutocomplétionCommune
+          								required
+          								id="autocomplete-commune"
+          								label="Ville du siège social de l’entreprise"
+          								name="companyPostalCode"
+          								placeholder="Exemples : Paris, Marseille..."
+          								valeurInitiale={autocomplétionCommuneValeur}
+          								onSuggestionSelected={(event, suggestion) => {
+          									setAutocomplétionCommuneValeur(suggestion);
+          									setFormulaireÉtape1({
+          										...formulaireÉtape1,
+          										codePostal: suggestion.codePostal,
+          										ville: suggestion.ville,
+          									});
+          								}}
+          							/>
+          							<InputText
+          								label="Numéro de SIRET"
+          								name="companySiret"
+          								placeholder="Exemple : 12345678901112"
+          								required
+          								pattern={'^[0-9]{14}$'}
+          								value={formulaireÉtape1.siret}
+          								onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+          									...formulaireÉtape1,
+          									siret: event.currentTarget.value,
+          								})}
+          							/>
+          							<InputAutocomplétionSecteurActivité
+          								required
+          								id="autocomplete-secteur-activité"
+          								label="Secteur d’activité de l’entreprise"
+          								name="companySector"
+          								placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
+          								valeurInitiale={secteurActivitéValeur}
+          								onSuggestionSelected={(event, suggestion) => {
+          									setSecteurActivitéValeur(suggestion);
+          									setFormulaireÉtape1({
+          										...formulaireÉtape1,
+          										secteur: suggestion.valeur,
+          									});
+          								}}
+          							/>
+          							<Select
+          								required
+          								label="Taille de l’entreprise"
+          								name="companySize"
+          								placeholder="Exemple : 500 à 999 salariés"
+          								optionList={taillesEntreprises}
+          								value={formulaireÉtape1.taille}
+          								onChange={(value: string) => setFormulaireÉtape1({
+          									...formulaireÉtape1,
+          									taille: value,
+          								})}
+          							/>
+          						</div>
+          						<div className={styles.validation}>
+          							<ButtonComponent
+          								icon={<Icon name="angle-right"/>}
+          								iconPosition="right"
+          								label="Suivant"
+          								type="submit"
+          							/>
+          							<DéchargeRGPD/>
+          						</div>
+          					</form>
+          				</>
+          			}
+          			{isDeuxièmeÉtape && <>
+          				<ButtonComponent
+          					appearance="secondary"
+          					className={styles.boutonRetour}
+          					icon={<Icon name="angle-left"/>}
+          					iconPosition="left"
+          					onClick={retourÉtape1}
+          					label="Retour"
+          				/>
+          				<div className={styles.champsObligatoires}>
+          					<p>Etape 2 : Vos informations personnelles</p>
+          					<p>Tous les champs du formulaire sont obligatoires</p>
+          				</div>
+          				<form className={styles.formulaire} onSubmit={redirectionÉtape3}>
+          					<div className={styles.bodyFormulaire}>
+          						<InputText
+          							label="Nom"
+          							name="lastName"
+          							placeholder="Exemple : Dupont"
+          							required
+          							value={formulaireÉtape2.nom}
+          							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+          								...formulaireÉtape2,
+          								nom: event.currentTarget.value,
+          							})}
+          						/>
+          						<InputText
+          							label="Prénom"
+          							name="firstName"
+          							placeholder="Exemple : David"
+          							required
+          							value={formulaireÉtape2.prénom}
+          							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+          								...formulaireÉtape2,
+          								prénom: event.currentTarget.value,
+          							})}
+          						/>
+          						<InputText
+          							label="Numéro de téléphone"
+          							name="phone"
+          							placeholder="Exemple : 0601020304"
+          							pattern="^(\+33|0|0033)[1-9]\d{8}$"
+          							required
+          							value={formulaireÉtape2.téléphone}
+          							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+          								...formulaireÉtape2,
+          								téléphone: event.currentTarget.value,
+          							})}
+          						/>
+          						<InputText
+          							label="Adresse e-mail"
+          							pattern={EMAIL_REGEX}
+          							name="email"
+          							placeholder="Exemple : david.dupont@exemple.fr"
+          							required
+          							value={formulaireÉtape2.email}
+          							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+          								...formulaireÉtape2,
+          								email: event.currentTarget.value,
+          							})}
+          						/>
+          						<InputText
+          							label="Rôle au sein de l’entreprise"
+          							name="job"
+          							placeholder="Exemples : RH, Manager référent"
+          							required
+          							value={formulaireÉtape2.travail}
+          							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+          								...formulaireÉtape2,
+          								travail: event.currentTarget.value,
+          							})}
+          						/>
+          					</div>
 
-        					<div className={styles.validation}>
-        						<ButtonComponent
-        							icon={<Icon name="angle-right"/>}
-        							iconPosition="right"
-        							label="Suivant"
-        							type="submit"
-        						/>
-        						<DéchargeRGPD/>
-        					</div>
-        				</form>
-        			</>
-        			}
-        			{isTroisièmeÉtape && <>
-        				<ButtonComponent
-        					appearance="secondary"
-        					className={styles.boutonRetour}
-        					icon={<Icon name="angle-left"/>}
-        					iconPosition="left"
-        					onClick={retourÉtape2}
-        					label="Retour"
-        				/>
-        				<div className={styles.champsObligatoires}>
-        					<p> Etape 3 : Vos besoins et commentaires</p>
-        				</div>
-        				<form className={styles.formulaire} onSubmit={sendForm}>
-        					<div className={styles.bodyFormulaireEtape3}>
-        						<InputText
-        							label="Indiquez le nombre de recrutements AFPR/POE que vous souhaitez"
-        							name="nombre-recrutement"
-        							placeholder="Exemple : 3"
-        							pattern="^([1-9]\d{0,4})$"
-        							value={formulaireÉtape3.nombreARecruter}
-        							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape3({
-        								...formulaireÉtape3,
-        								nombreARecruter: event.currentTarget.value,
-        							})}
-        						/>
-        						<TextArea
-        							className={styles.textArea}
-        							label="Vous avez la possibilité de nous faire part de vos commentaires ou toutes autres informations que vous jugeriez utiles"
-        							name="commentaires"
-        							placeholder="Saisissez votre texte ici"
-        							defaultValue={formulaireÉtape3.commentaire}
-        							onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setFormulaireÉtape3({
-        								...formulaireÉtape3,
-        								commentaire: event.currentTarget.value,
-        							})}
-        							rows={5}
-        						/>
-        					</div>
-        					<div className={styles.validation}>
-        						<ButtonComponent
-        							icon={<Icon name="angle-right"/>}
-        							iconPosition="right"
-        							label="Envoyer mes informations afin d’être rappelé(e)"
-        							type="submit"
-        						/>
-        						<p>En cliquant sur &ldquo;Je souhaite être rappelé&rdquo;, j‘accepte que mes données soient
-                      transférées au Pole emploi de la
-                      zone géographique
-                      dans laquelle je réside en vue d‘être rappelé</p>
-        					</div>
-        				</form>
-        			</>
-        			}
-        		</Container>
-        	</div>
-        </>
+          					<div className={styles.validation}>
+          						<ButtonComponent
+          							icon={<Icon name="angle-right"/>}
+          							iconPosition="right"
+          							label="Suivant"
+          							type="submit"
+          						/>
+          						<DéchargeRGPD/>
+          					</div>
+          				</form>
+          			</>
+          			}
+          			{isTroisièmeÉtape && <>
+          				<ButtonComponent
+          					appearance="secondary"
+          					className={styles.boutonRetour}
+          					icon={<Icon name="angle-left"/>}
+          					iconPosition="left"
+          					onClick={retourÉtape2}
+          					label="Retour"
+          				/>
+          				<div className={styles.champsObligatoires}>
+          					<p> Etape 3 : Vos besoins et commentaires</p>
+          				</div>
+          				<form className={styles.formulaire} onSubmit={sendForm}>
+          					<div className={styles.bodyFormulaireEtape3}>
+          						<InputText
+          							label="Nombre de recrutements AFPR/POE que vous souhaitez"
+          							name="nombre-recrutement"
+          							placeholder="Exemple : 3"
+          							pattern="^([1-9]\d{0,4})$"
+          							value={formulaireÉtape3.nombreARecruter}
+          							onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape3({
+          								...formulaireÉtape3,
+          								nombreARecruter: event.currentTarget.value,
+          							})}
+          						/>
+          						<TextArea
+          							className={styles.textArea}
+          							label="Commentaires ou autres informations utiles"
+          							name="commentaires"
+          							placeholder="Saisissez votre texte ici"
+          							defaultValue={formulaireÉtape3.commentaire}
+          							onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setFormulaireÉtape3({
+          								...formulaireÉtape3,
+          								commentaire: event.currentTarget.value,
+          							})}
+          							rows={5}
+          						/>
+          					</div>
+          					<div className={styles.validation}>
+          						<ButtonComponent
+          							icon={<Icon name="angle-right"/>}
+          							iconPosition="right"
+          							label="Envoyer mes informations afin d’être rappelé(e)"
+          							type="submit"
+          						/>
+          						<p>
+													En cliquant sur &ldquo;Je souhaite être rappelé&rdquo;, j‘accepte que mes données soient 
+													transférées au Pole emploi de la zone géographique dans laquelle je réside en vue d‘être 
+													rappelé
+          						</p>
+          					</div>
+          				</form>
+          			</>
+          			}
+          		</Container>
+          	</div>
+          </>
 			}
 			{isFormSuccessfullySent &&
-        <Container className={styles.container}>
-        	<div className={styles.success}>
-        		<p>Félicitations, votre formulaire a bien été envoyé !</p>
-        		<p>Vous serez recontacté(e) dès que possible</p>
-        		<Link href="/" appearance="asPrimaryButton">Retourner à l‘accueil</Link>
-        	</div>
-        </Container>
+          <Container className={styles.container}>
+          	<div className={styles.success}>
+          		<p>Félicitations, votre formulaire a bien été envoyé !</p>
+          		<p>Vous serez recontacté(e) dès que possible</p>
+          		<Link href="/" appearance="asPrimaryButton">Retourner à l‘accueil</Link>
+          	</div>
+          </Container>
 			}
 		</main>
 	);

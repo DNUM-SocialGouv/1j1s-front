@@ -23,24 +23,24 @@ describe('<Entreprise />', () => {
 			render(<Entreprise />);
 
 			expect(screen.getByText('Etape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
-			expect(screen.getByLabelText('Indiquez le nom de l’entreprise ou de l’employeur')).toBeInTheDocument();
-			expect(screen.getByText('Indiquez une adresse mail de contact')).toBeInTheDocument();
-			expect(screen.getByLabelText('Rédigez une courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
-			expect(screen.getByLabelText('Partagez le logo de l’entreprise - lien/URL')).toBeInTheDocument();
-			expect(screen.getByLabelText('Indiquez le lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
+			expect(screen.getByLabelText('Nom de l’entreprise ou de l’employeur')).toBeInTheDocument();
+			expect(screen.getByText('Adresse mail de contact')).toBeInTheDocument();
+			expect(screen.getByLabelText('Courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
+			expect(screen.getByLabelText('Logo de l’entreprise - lien/URL')).toBeInTheDocument();
+			expect(screen.getByLabelText('Lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
 		it('affiche une infobulle pour le champ adresse mail', async () => {
 			render(<Entreprise />);
-			const champsAdresseMail = screen.getByText('Indiquez une adresse mail de contact');
+			const champsAdresseMail = screen.getByText('Adresse mail de contact');
 			const infobulle = within(champsAdresseMail).getByLabelText('informations supplémentaires');
 			expect(infobulle).toBeVisible();
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
-			const labelLogo = 'Partagez le logo de l’entreprise - lien/URL';
-			const labelSite = 'Indiquez le lien du site de l’entreprise - lien/URL';
+			const labelLogo = 'Logo de l’entreprise - lien/URL';
+			const labelSite = 'Lien du site de l’entreprise - lien/URL';
 			// Given
 			render(<Entreprise />);
 
@@ -58,13 +58,13 @@ describe('<Entreprise />', () => {
 		it('il voit des messages d’erreur', async () => {
 			render(<Entreprise />);
 
-			const inputNomSociété = screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise ou de l’employeur' });
+			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur' });
 			await userEvent.type(inputNomSociété, 'Crédit Agricole');
 
 			await BoutonSuivant();
 
-			expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’entreprise ou de l’employeur' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Indiquez une adresse mail de contact' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur' })).toBeValid();
+			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact' })).toBeInvalid();
 		});
 	});
 
@@ -75,7 +75,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const logoUrlInputText = screen.getByRole('textbox', { name: 'Partagez le logo de l’entreprise - lien/URL' });
+				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL' });
 				await userEvent.type(logoUrlInputText, 'some random text');
 
 				// Then
@@ -89,7 +89,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const logoUrlInputText = screen.getByRole('textbox', { name: 'Partagez le logo de l’entreprise - lien/URL' });
+				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL' });
 				await userEvent.type(logoUrlInputText, 'http://some.random.url.com');
 
 				// Then
@@ -105,7 +105,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Indiquez le lien du site de l’entreprise - lien/URL' });
+				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL' });
 				await userEvent.type(websiteUrlInputText, 'some random text');
 
 				// Then
@@ -119,7 +119,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Indiquez le lien du site de l’entreprise - lien/URL' });
+				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL' });
 				await userEvent.type(websiteUrlInputText, 'http://some.random.url.com');
 
 				// Then

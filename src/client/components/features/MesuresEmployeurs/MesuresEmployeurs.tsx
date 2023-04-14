@@ -10,7 +10,7 @@ import useSanitize from '~/client/hooks/useSanitize';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 
 export interface MesuresEmployeursProps {
-  mesureEmployeurList: MesureEmployeur[];
+	mesureEmployeurList: MesureEmployeur[];
 }
 
 export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmployeursProps) {
@@ -26,9 +26,6 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 			<main id="contenu" className={classNames({ [styles.mobile]: isMobile })}>
 				<Bannière/>
 				<section className={styles.dispositifs}>
-					<h2 id="dispositifs">
-            Découvrir les dispositifs pour vous aider à recruter
-					</h2>
 					<ul className={styles.cartes} aria-labelledby="dispositifs">
 						{mesureEmployeurList.map((carte) => (
 							<li key={carte.url}>
@@ -43,8 +40,8 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 }
 
 interface CarteMesureEmployeurProps {
-  carte: MesureEmployeur;
-  isMobile: boolean;
+	carte: MesureEmployeur;
+	isMobile: boolean;
 }
 
 function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {

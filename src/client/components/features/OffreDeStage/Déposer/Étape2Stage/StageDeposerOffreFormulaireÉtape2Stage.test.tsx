@@ -27,11 +27,11 @@ describe('<Stage />', () => {
 			render(<Stage />);
 
 			expect(screen.getByText('Etape 2 sur 3 : Votre offre de stage')).toBeInTheDocument();
-			expect(screen.getByLabelText('Indiquez le nom de l’offre de stage (200 caractères maximum)')).toBeInTheDocument();
-			expect(screen.getByLabelText('Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature')).toBeInTheDocument();
-			expect(screen.getByLabelText('Rédigez une description de l’offre de stage (200 caractères minimum)')).toBeInTheDocument();
+			expect(screen.getByLabelText('Nom de l’offre de stage (200 caractères maximum)')).toBeInTheDocument();
+			expect(screen.getByLabelText('Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature')).toBeInTheDocument();
+			expect(screen.getByLabelText('Description de l’offre de stage (200 caractères minimum)')).toBeInTheDocument();
 			expect(screen.getByLabelText('Date de début du stage')).toBeInTheDocument();
-			expect(screen.getByText('Indiquez la durée du stage')).toBeInTheDocument();
+			expect(screen.getByText('Durée du stage')).toBeInTheDocument();
 			expect(screen.getByText('Domaine de l’offre de stage')).toBeInTheDocument();
 			expect(screen.getByLabelText('Rémunération par mois')).toBeInTheDocument();
 			expect(screen.getByText('Télétravail possible')).toBeInTheDocument();
@@ -70,8 +70,8 @@ describe('<Stage />', () => {
 
 		it('affiche le composant avec le bon label et la limite sur le textarea', () => {
 			// Given
-			const label = 'Rédigez une description de l’offre de stage (200 caractères minimum)';
-			const placeholder = 'Indiquez des informations sur le stage : les objectifs, les challenges, les missions...';
+			const label = 'Description de l’offre de stage (200 caractères minimum)';
+			const placeholder = 'Informations sur le stage : les objectifs, les challenges, les missions...';
 			const minLengthValue = '200';
 
 			// When
@@ -87,14 +87,14 @@ describe('<Stage />', () => {
 		it('il voit des messages d’erreur', async () => {
 			render(<Stage />);
 
-			const inputNomOffreStage = screen.getByRole('textbox', { name: 'Indiquez le nom de l’offre de stage (200 caractères maximum)' });
+			const inputNomOffreStage = screen.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' });
 			await userEvent.type(inputNomOffreStage, 'Chef de projet');
 
 			await BoutonSuivant();
 
-			expect(screen.getByRole('textbox', { name: 'Indiquez le nom de l’offre de stage (200 caractères maximum)' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Partagez le lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Rédigez une description de l’offre de stage (200 caractères minimum)' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' })).toBeValid();
+			expect(screen.getByRole('textbox', { name: 'Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature' })).toBeInvalid();
+			expect(screen.getByRole('textbox', { name: 'Description de l’offre de stage (200 caractères minimum)' })).toBeInvalid();
 		});
 	});
 
@@ -107,7 +107,7 @@ describe('<Stage />', () => {
 				// When
 				render(<Stage />);
 				const inputTextTitreOffreDeStage = screen
-					.getByRole('textbox', { name: 'Indiquez le nom de l’offre de stage (200 caractères maximum)' });
+					.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' });
 				await userEvent.type(inputTextTitreOffreDeStage, longTextToType);
 
 				// Then
@@ -124,7 +124,7 @@ describe('<Stage />', () => {
 				// When
 				render(<Stage />);
 				const inputTextTitreOffreDeStage = screen
-					.getByRole('textbox', { name: 'Indiquez le nom de l’offre de stage (200 caractères maximum)' });
+					.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' });
 				await userEvent.type(inputTextTitreOffreDeStage, shortTextToType);
 
 				// Then

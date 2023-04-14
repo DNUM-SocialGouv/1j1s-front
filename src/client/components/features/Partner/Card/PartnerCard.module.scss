@@ -61,26 +61,6 @@
     }
   }
 
-  .bonneAlternanceColor {
-    @extend %bold;
-    color: #a558a0;
-  }
-
-  .bonneBoiteColor {
-    @extend %bold;
-    color: #c7297e;
-  }
-
-  .onisepColor {
-    @extend %bold;
-    color: #c52e25;
-  }
-
-  .passColor {
-    @extend %bold;
-    color: #524795;
-  }
-
   .serviceCiviqueColor {
     @extend %bold;
     color: #107cc0;

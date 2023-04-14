@@ -17,7 +17,7 @@ describe('deposer-offre', () => {
 			</DependenciesProvider>,
 		);
 		const titre = screen.getByRole('heading', { level: 1 });
-		expect(titre).toHaveTextContent('Déposez votre offre d’alternance sur 1jeune1solution');
+		expect(titre).toHaveTextContent('Je dépose une offre d’alternance sur 1jeune1solution');
 
 		const iframe = screen.getByTitle('Formulaire de dépôt d’offre d’alternance en partenariat avec La bonne alternance');
 		expect(iframe).toBeInTheDocument();

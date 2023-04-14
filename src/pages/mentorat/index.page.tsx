@@ -45,7 +45,7 @@ export default function MentoratPage() {
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
 									<Link href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
-										Je trouve mon mentor
+										Trouver mon mentor
 									</Link>
 								</div>
 							</div>
@@ -58,7 +58,7 @@ export default function MentoratPage() {
 									</p>
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<Link href="/je-deviens-mentor" appearance="asPrimaryButton">Je deviens mentor</Link>
+									<Link href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor</Link>
 								</div>
 							</div>
 						</div>

@@ -11,7 +11,7 @@ export function FormulaireRechercheFicheMetier() {
 		<form className={styles.RechercherMetierForm} onSubmit={(event) => event.preventDefault()}>
 	  <MeilisearchCustomSearchBox
 				className={styles.inputNomMetier}
-				label="Indiquez le métier que vous recherchez"
+				label="Métier"
 				name="metier"
 				placeholder="Exemple : cuisinier"
 	  />

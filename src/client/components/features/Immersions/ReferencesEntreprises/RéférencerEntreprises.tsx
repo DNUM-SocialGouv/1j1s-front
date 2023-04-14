@@ -9,7 +9,7 @@ export function RéférencerEntreprises () {
 	return (
 		<div className={styles.referencer}>
 			<Container className={styles.container}>
-				<h1 className={styles.referencerTitre}>Référencer votre entreprise afin de proposer des immersions au sein de votre entreprise</h1>
+				<h1 className={styles.referencerTitre}>Je référence mon entreprise afin de proposer des immersions</h1>
 				<p>Proposer une immersion c’est permettre à des jeunes :</p>
 				<ul>
 					<li>De découvrir un métier</li>

@@ -25,7 +25,7 @@ export default function DeposerOffrePage() {
 			<Hero>
 				<h1>
 					<HeroPrimaryText className={styles.heroTitle}>
-						Déposez votre offre d’alternance sur 1jeune1solution
+						Je dépose une offre d’alternance sur 1jeune1solution
 					</HeroPrimaryText>
 				</h1>
 				<HeroSecondaryText className={styles.heroSubtitle}>

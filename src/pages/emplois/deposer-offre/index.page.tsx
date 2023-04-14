@@ -24,7 +24,11 @@ export default function DéposerUneOffreDEmploi() {
 				robots="index,follow"
 			/>
 			<Hero>
-				<h1><HeroPrimaryText className={styles.heroTitle}>Déposez votre offre d‘emploi ou d‘alternance sur 1jeune1solution</HeroPrimaryText></h1>
+				<h1>
+					<HeroPrimaryText className={styles.heroTitle}>
+						Je dépose une offre d‘emploi ou d‘alternance sur 1jeune1solution
+					</HeroPrimaryText>
+				</h1>
 				<HeroSecondaryText className={styles.heroSubtitle}>
 					En partenariat avec Pôle Emploi
 				</HeroSecondaryText>
@@ -36,11 +40,12 @@ export default function DéposerUneOffreDEmploi() {
 					title="Formulaire de dépôt d‘offre d‘emploi ou d‘alternance en partenariat avec Pôle Emploi"
 				/>
 				<p className={styles.rgpd}>
-          Vous êtes informé que vos données sont collectées et traitées par Pôle emploi pour traiter votre demande de
-          dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique
-          de Confidentialité</a> de Pôle emploi. En cliquant sur «&nbsp;confirmer&nbsp;» vous reconnaissez avoir pris connaissance
-          et accepter les <a href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</a> de Pôle
-          Emploi.
+					Vous êtes informé que vos données sont collectées et traitées par Pôle emploi pour traiter votre demande de
+					dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique
+					de Confidentialité</a> de Pôle emploi. En cliquant sur «&nbsp;confirmer&nbsp;» vous reconnaissez avoir pris
+					connaissance
+					et accepter les <a href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</a> de Pôle
+					Emploi.
 				</p>
 			</Container>
 		</main>
