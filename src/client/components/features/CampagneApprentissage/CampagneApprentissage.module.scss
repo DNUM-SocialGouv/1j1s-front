@@ -65,8 +65,17 @@ section.raisons {
       flex: 1;
       min-width: 155px;
     }
-  }
 
+    > li:nth-child(even) .tuile {
+      color: utilities.$color-primary;
+      background-color: utilities.$color-on-primary;
+      border: 1px solid utilities.$color-primary;
+
+      @include utilities.media(large) {
+        border: 2px solid utilities.$color-primary;
+      }
+    }
+  }
 }
 
 .tuile {
