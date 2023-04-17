@@ -151,7 +151,11 @@ export function dependenciesContainer(): Dependencies {
 	if (process.env.NODE_ENV === 'test') {
 		loggerService = aLoggerService();
 	}  else {
-		loggerService = new PinoLoggerService(serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_DSN, serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_LOG_LEVEL);
+		loggerService = new PinoLoggerService(
+			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_DSN,
+			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_LOG_LEVEL,
+			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+		);
 	}
 
 	if (process.env.NODE_ENV === 'test') {

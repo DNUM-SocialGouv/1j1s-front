@@ -1,12 +1,12 @@
 import pino from 'pino';
 
 import { SentryException } from '~/server/exceptions/sentryException';
-import { Logger, PinoLoggerService } from '~/server/services/logger.service';
+import { PinoLoggerService } from '~/server/services/pinoLogger.service';
 
 jest.mock('pino');
 
 const pinoMock = jest.mocked(pino);
-const mockedLogger: Logger = {
+const mockedLogger = {
 	debug: jest.fn(),
 	error: jest.fn(),
 	fatal: jest.fn(),
@@ -14,13 +14,13 @@ const mockedLogger: Logger = {
 	trace: jest.fn(),
 	warn: jest.fn(),
 };
-pinoMock.mockImplementation(() => mockedLogger as pino.Logger);
+pinoMock.mockImplementation(() => mockedLogger as unknown as pino.Logger);
 
 
 describe('PinoLoggerService', () => {
 	describe('error', () => {
 		it('appelle le logger error avec le message passé en paramètre', () => {
-			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'error');
+			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'error', 'development');
 
 			loggerService.error('mon erreur message');
 
@@ -30,7 +30,7 @@ describe('PinoLoggerService', () => {
 
 	describe('info', () => {
 		it('appelle le logger info avec le message passé en paramètre', () => {
-			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'error');
+			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'error', 'development');
 
 			loggerService.info('mon info message');
 
@@ -40,7 +40,7 @@ describe('PinoLoggerService', () => {
 
 	describe('warn', () => {
 		it('appelle le logger warn avec le message passé en paramètre', () => {
-			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'warn');
+			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'warn', 'development');
 
 			loggerService.warn('mon warn message');
 
@@ -50,7 +50,7 @@ describe('PinoLoggerService', () => {
 
 	describe('warnWithExtra', () => {
 		it('appelle le logger warn avec le message, les bons tags et les extras', () => {
-			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'warn');
+			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'warn', 'development');
 
 			loggerService.warnWithExtra(new SentryException(
 				'impossible d’effectuer une recherche',
@@ -64,7 +64,7 @@ describe('PinoLoggerService', () => {
 
 	describe('errorWithExtra', () => {
 		it('appelle le logger error avec le message, les bons tags et les extras', () => {
-			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'error');
+			const loggerService = new PinoLoggerService('https://12345@sentry.fabrique.social.gouv.fr/79', 'error', 'development');
 
 			loggerService.errorWithExtra(new SentryException(
 				'impossible d’effectuer une recherche',
