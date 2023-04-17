@@ -117,13 +117,14 @@ import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService, PinoLoggerService } from '~/server/services/logger.service';
+import { LoggerService } from '~/server/services/logger.service';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
 } from '~/server/sitemap/configuration/dependencies.container';
+import {PinoLoggerService} from "~/server/services/pinoLogger.service";
 
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;

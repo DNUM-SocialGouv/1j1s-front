@@ -73,10 +73,10 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 					return createSuccess(formation);
 				} catch (error) {
-					return handleGetFailureError(error, 'la bonne alternance get formation');
+					return handleGetFailureError(error, 'la bonne alternance get formation', this.loggerService);
 				}
 			}
-			return handleGetFailureError(e, 'la bonne alternance get formation');
+			return handleGetFailureError(e, 'la bonne alternance get formation', this.loggerService);
 		}
 	}
 

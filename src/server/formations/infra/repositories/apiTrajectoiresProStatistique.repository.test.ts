@@ -28,8 +28,8 @@ describe('apiTrajectoiresProCertification.repository', () => {
 	beforeEach(() => {
 		apiGeoLocalisationHttpService = aCachedHttpClientService();
 		httpService = aPublicHttpClientService();
-		apiGeoLocalisationRepository = new ApiGeoRepository(apiGeoLocalisationHttpService);
 		loggerService = aLoggerService();
+		apiGeoLocalisationRepository = new ApiGeoRepository(apiGeoLocalisationHttpService, loggerService);
 
 		codeCertification = '123';
 		codePostal = '75000';
