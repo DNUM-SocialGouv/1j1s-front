@@ -5,8 +5,8 @@ import EnSavoirPlusApprentissage
 	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/EnSavoirPlusApprentissage/EnSavoirPlusApprentissage';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { Tuile } from '~/client/components/ui/Tuile/Tuile';
 
 export function CampagneApprentissageJeunes() {
 	return (
@@ -25,34 +25,29 @@ export function CampagneApprentissageJeunes() {
 					<h2 id={'titre-section-raisons'}>Choisir l’apprentissage c’est…</h2>
 					<ul>
 						<li>
-							<div className={styles.tuile}>
-								<Icon name={'euro'} />
+							<Tuile iconName={'euro'} className={styles.tuile}>
 								Obtenir un diplôme reconnu
-							</div>
+							</Tuile>
 						</li>
 						<li>
-							<div className={styles.tuile}>
-								<Icon name={'account'}/>
+							<Tuile iconName={'account'} className={styles.tuile}>
 								Apprendre en pratiquant
-							</div>
+							</Tuile>
 						</li>
 						<li>
-							<div className={styles.tuile}>
-								<Icon name={'sun'}/>
+							<Tuile iconName={'sun'} className={styles.tuile}>
 								Une formation gratuite
-							</div>
+							</Tuile>
 						</li>
 						<li>
-							<div className={styles.tuile}>
-								<Icon name={'thumb-up'}/>
+							<Tuile iconName={'thumb-up'} className={styles.tuile}>
 								Avoir une expérience professionnelle complète
-							</div>
+							</Tuile>
 						</li>
 						<li>
-							<div className={styles.tuile}>
-								<Icon name={'euro'}/>
+							<Tuile iconName={'euro'} className={styles.tuile}>
 								Un salaire chaque mois
-							</div>
+							</Tuile>
 						</li>
 					</ul>
 				</Container>

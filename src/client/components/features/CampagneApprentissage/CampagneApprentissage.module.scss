@@ -71,7 +71,7 @@ section.raisons {
 
     & li {
       flex: 1;
-      min-width: 155px;
+      min-width: 144px;
     }
 
     & .tuile {
@@ -82,56 +82,23 @@ section.raisons {
       color: utilities.$color-primary;
       background-color: utilities.$color-on-primary;
       border: 1px solid utilities.$color-primary;
-
-      @include utilities.media(small) {
-        border: 2px solid utilities.$color-primary;
-      }
     }
 
     @include utilities.media(small) {
-      > li:nth-child(even) .tuile {
-        color: utilities.$color-primary;
-        background-color: utilities.$color-on-primary;
-        border: 1px solid utilities.$color-primary;
+    //@media (min-width: calc(2 * 144px + 16 + )) {
 
-        @include utilities.media(small) {
-          border: 2px solid utilities.$color-primary;
-        }
+      > li:nth-child(even) .tuile {
+        border: 2px solid utilities.$color-primary;
+        background-color: utilities.$color-on-primary;
+        color: utilities.$color-primary;
       }
 
       > li:nth-child(odd) .tuile {
+        border: 2px solid utilities.$color-primary;
         background-color: utilities.$color-primary;
         color: utilities.$color-on-primary;
-        border: 1px solid utilities.$color-primary;
-
-        @include utilities.media(small) {
-          border: 2px solid utilities.$color-primary;
-        }
       }
     }
-
-
   }
 }
 
-.tuile {
-  & svg {
-    margin-bottom: 0.25rem;
-    width: 100%;
-    height: 2em;
-
-    @include utilities.media(large) {
-      margin-bottom: 1.25rem;
-    }
-  }
-
-  text-align: center;
-  min-height: 100px;
-  background-color: utilities.$color-primary;
-  color: utilities.$color-on-primary;
-  border-radius: 24px;
-  padding: 1rem;
-
-  @extend %text-regular; // size en mobile et line-height pas pareil que la maquette -> ping joy
-  @extend %bold;
-}
