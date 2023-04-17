@@ -1,0 +1,30 @@
+@use '@styles/utilities';
+
+.toutSavoir {
+  padding: 2rem 1.75rem ;
+
+  @include utilities.media(large) {
+    padding: 5rem 27rem ;
+  }}
+
+.toutSavoir .contenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+
+  @include utilities.media(large) {
+    gap: 2.5rem;
+  }
+
+  & h2 {
+    @extend %subheading; // Joy line-height ne correspond pas à l'existant
+    @extend %bold;
+    color: utilities.$color-primary;
+
+    @include utilities.media(large) {
+      text-align: center;
+    }
+  }
+}
