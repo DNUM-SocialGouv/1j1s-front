@@ -66,15 +66,39 @@ section.raisons {
       min-width: 155px;
     }
 
-    > li:nth-child(even) .tuile {
+    > li:nth-child(4n+2) .tuile, li:nth-child(4n+3) .tuile {
       color: utilities.$color-primary;
       background-color: utilities.$color-on-primary;
       border: 1px solid utilities.$color-primary;
 
-      @include utilities.media(large) {
+      @include utilities.media(small) {
         border: 2px solid utilities.$color-primary;
       }
     }
+
+    @include utilities.media(small) {
+      > li:nth-child(even) .tuile {
+        color: utilities.$color-primary;
+        background-color: utilities.$color-on-primary;
+        border: 1px solid utilities.$color-primary;
+
+        @include utilities.media(small) {
+          border: 2px solid utilities.$color-primary;
+        }
+      }
+
+      > li:nth-child(odd) .tuile {
+        background-color: utilities.$color-primary;
+        color: utilities.$color-on-primary;
+        border: 1px solid utilities.$color-primary;
+
+        @include utilities.media(small) {
+          border: 2px solid utilities.$color-primary;
+        }
+      }
+    }
+
+
   }
 }
 
