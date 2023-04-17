@@ -119,12 +119,12 @@ import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
+import { PinoLoggerService } from '~/server/services/pinoLogger.service';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
 } from '~/server/sitemap/configuration/dependencies.container';
-import {PinoLoggerService} from "~/server/services/pinoLogger.service";
 
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
