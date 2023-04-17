@@ -11,7 +11,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 export function CampagneApprentissageJeunes() {
 	return (
 		<>
-			<header className={styles.simulateur}>
+			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
 					<h1>L’apprentissage : <small>pour moi c’est le bon choix</small></h1>
 					<Link href={'/apprentissage/simulation'} appearance={'asPrimaryButton'} className={styles.cta}>
@@ -57,6 +57,7 @@ export function CampagneApprentissageJeunes() {
 					</ul>
 				</Container>
 			</section>
+
 
 			<EnSavoirPlusApprentissage/>
 		</>

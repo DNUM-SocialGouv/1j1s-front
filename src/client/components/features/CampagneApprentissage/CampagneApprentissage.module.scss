@@ -1,6 +1,6 @@
 @use "@styles/utilities";
 
-.simulateur {
+.titrePage {
   & h1 {
     @extend %headline;
     font-weight: bold;
@@ -29,13 +29,25 @@
   }
 }
 
-section.raisons {
-  background-color: utilities.$color-background-white-lilac;
+%container {
   padding: 1.75rem 2rem;
 
   @include utilities.media(large) {
     padding: 5rem 1rem;
   }
+}
+
+//section.faq {
+//  @extend %container;
+//
+//  & div:first-child {
+//    border: solid 1px red;
+//  }
+//}
+
+section.raisons {
+  @extend %container;
+  background-color: utilities.$color-background-white-lilac;
 
   & h2 {
     @extend %subheading;
@@ -57,13 +69,13 @@ section.raisons {
       gap: 2.5rem;
     }
 
-    & .tuile {
-      height: 100%;
-    }
-
     & li {
       flex: 1;
       min-width: 155px;
+    }
+
+    & .tuile {
+      height: 100%;
     }
 
     > li:nth-child(4n+2) .tuile, li:nth-child(4n+3) .tuile {
@@ -122,6 +134,4 @@ section.raisons {
 
   @extend %text-regular; // size en mobile et line-height pas pareil que la maquette -> ping joy
   @extend %bold;
-
-
 }
