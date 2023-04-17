@@ -41,9 +41,11 @@ import { RestaurantIcon } from '~/client/components/ui/Icon/restaurant.icon';
 import { RoadmapIcon } from '~/client/components/ui/Icon/roadmap.icon';
 import { SportIcon } from '~/client/components/ui/Icon/sport.icon';
 import { SuitcaseIcon } from '~/client/components/ui/Icon/suitcase.icon';
+import { SunIcon } from '~/client/components/ui/Icon/sun';
 import { SwimmingIcon } from '~/client/components/ui/Icon/swimming.icon';
 import { TableIcon } from '~/client/components/ui/Icon/table.icon';
 import { TemperatureIcon } from '~/client/components/ui/Icon/temperature.icon';
+import { ThumbUpIcon } from '~/client/components/ui/Icon/thumb-up';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { TVIcon } from '~/client/components/ui/Icon/tv.icon';
 import { UserIcon } from '~/client/components/ui/Icon/user.icon';
@@ -93,9 +95,11 @@ export type IconName =
     | 'roadmap'
     | 'sport'
     | 'suitcase'
+	| 'sun'
     | 'swimming'
     | 'table'
     | 'temperature'
+	| 'thumb-up'
     | 'trophy'
     | 'TV'
     | 'user'
@@ -193,12 +197,16 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <SportIcon className={className} aria-hidden={true} {...rest} />;
 			case 'suitcase':
 				return <SuitcaseIcon className={className} aria-hidden={true} {...rest} />;
+			case 'sun':
+				return <SunIcon className={className} aria-hidden={true} {...rest} />;
 			case 'swimming':
 				return <SwimmingIcon className={className} aria-hidden={true} {...rest} />;
 			case 'table':
 				return <TableIcon className={className} aria-hidden={true} {...rest} />;
 			case 'temperature':
 				return <TemperatureIcon className={className} aria-hidden={true} {...rest} />;
+			case 'thumb-up':
+				return <ThumbUpIcon className={className} aria-hidden={true} {...rest} />;
 			case 'trophy':
 				return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
 			case 'TV':

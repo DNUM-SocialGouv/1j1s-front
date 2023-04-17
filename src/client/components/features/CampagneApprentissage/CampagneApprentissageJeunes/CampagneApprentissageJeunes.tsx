@@ -20,8 +20,8 @@ export function CampagneApprentissageJeunes() {
 				</HeroWithIllustration>
 			</header>
 
-			<Container>
-				<section aria-labelledby={'titre-section-raisons'} className={styles.raisons}>
+			<section aria-labelledby={'titre-section-raisons'} className={styles.raisons}>
+				<Container>
 					<h2 id={'titre-section-raisons'}>Choisir l’apprentissage c’est…</h2>
 					<ul>
 						<li>
@@ -32,19 +32,19 @@ export function CampagneApprentissageJeunes() {
 						</li>
 						<li>
 							<div className={styles.tuile}>
-								<Icon name={'euro'}/>
+								<Icon name={'account'}/>
 								Apprendre en pratiquant
 							</div>
 						</li>
 						<li>
 							<div className={styles.tuile}>
-								<Icon name={'euro'}/>
+								<Icon name={'sun'}/>
 								Une formation gratuite
 							</div>
 						</li>
 						<li>
 							<div className={styles.tuile}>
-								<Icon name={'euro'}/>
+								<Icon name={'thumb-up'}/>
 								Avoir une expérience professionnelle complète
 							</div>
 						</li>
@@ -55,8 +55,8 @@ export function CampagneApprentissageJeunes() {
 							</div>
 						</li>
 					</ul>
-				</section>
-			</Container>
+				</Container>
+			</section>
 
 			<EnSavoirPlusApprentissage/>
 		</>
