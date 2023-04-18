@@ -28,18 +28,22 @@ import {
 	anAuthenticatedHttpClientService,
 	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
+import { LoggerService } from '~/server/services/logger.service';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiPoleEmploiAlternanceRepository', () => {
 	let httpClientServiceWithAuthentification: AuthenticatedHttpClientService;
 	let apiPoleEmploiAlternanceRepository: ApiPoleEmploiAlternanceRepository;
 	let poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService;
 	let cacheService: CacheService;
+	let loggerService: LoggerService;
 
 	beforeEach(() => {
 		cacheService = new MockedCacheService();
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
-		apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService);
+		loggerService = aLoggerService();
+		apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	});
 
 	describe('getOffreEmploi', () => {
