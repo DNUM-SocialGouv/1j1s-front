@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.50.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.49.1...v3.50.0) (2023-04-18)
+
+
+### Features
+
+* **je-recrute:** modifier la page campagne apprentissage ([e166381](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e166381ef04f8f1d401c1b47950d721629cb5209))
+
 ## [3.49.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.49.0...v3.49.1) (2023-04-17)
 
 
