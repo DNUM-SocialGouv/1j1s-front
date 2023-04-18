@@ -11,7 +11,7 @@ export function RaisonsDeChoisirApprentissage() {
 			<h2 id={'titre-section-raisons'}>Choisir l’apprentissage c’est…</h2>
 			<ul>
 				<li>
-					<Tuile iconName={'euro'} className={styles.tuile}>
+					<Tuile iconName={'award'} className={styles.tuile}>
                         Obtenir un diplôme reconnu
 					</Tuile>
 				</li>

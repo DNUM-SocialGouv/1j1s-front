@@ -63,7 +63,7 @@ export type IconName =
     | 'angle-up'
     | 'arrow-right'
     | 'award'
-	| 'bed'
+    | 'bed'
     | 'bike'
     | 'book'
     | 'brief-case'
