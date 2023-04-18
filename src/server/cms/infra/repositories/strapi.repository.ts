@@ -9,6 +9,7 @@ import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { handleFailureError } from '~/server/cms/infra/repositories/strapi.error';
 import {
 	mapAnnonceLogement,
@@ -20,7 +21,7 @@ import {
 	mapQuestion,
 	mapQuestionRéponse,
 	mapServiceJeuneList,
-	mapStrapiListeActualités,
+	mapStrapiListeActualités, mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import {
@@ -44,6 +45,7 @@ const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 const RESOURCE_FAQ = 'faqs';
+const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -220,5 +222,10 @@ export class StrapiRepository implements CmsRepository {
 		const query =`filters[slug][$eq]=${slug}`;
 		const listeDeQuestion = await this.getCollectionType<Strapi.CollectionType.FAQ.Réponse, Question.QuestionRéponse>(RESOURCE_FAQ, query, mapQuestionRéponse);
 		return this.getFirstFromCollection(listeDeQuestion);
+	}
+
+	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
+		const query = 'populate=deep&sort[0]=id';
+		return await this.getCollectionType<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
 	}
 }

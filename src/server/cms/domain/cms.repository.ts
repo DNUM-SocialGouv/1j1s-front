@@ -5,6 +5,7 @@ import { Question, QuestionSlug } from '~/server/cms/domain/FAQ.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
@@ -21,6 +22,7 @@ export interface CmsRepository {
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
   getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>>
 	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>
+	getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>>
   listAllFicheMetierNomMetier(): Promise<Either<Array<string>>>
 	listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>>
   listAllArticleSlug(): Promise<Either<Array<string>>>

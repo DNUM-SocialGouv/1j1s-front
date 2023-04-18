@@ -11,6 +11,9 @@ import { ListerNomMétierFicheMétierUseCase } from '~/server/cms/useCases/liste
 import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunes.useCase';
 import { RécupérerActualitésUseCase } from '~/server/cms/useCases/récupérerActualités.useCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeurs.useCase';
+import {
+	RécupérerVidéosCampagneApprentissageUseCase,
+} from '~/server/cms/useCases/récupérerVidéosCampagneApprentissage.useCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
@@ -27,6 +30,7 @@ export interface CmsDependencies {
 	récupérerActualités: RécupérerActualitésUseCase
 	listerServicesJeunes: ListerServicesJeunesUseCase
 	récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
+	récupérerVidéosCampagneApprentissage: RécupérerVidéosCampagneApprentissageUseCase
 }
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
@@ -49,5 +53,6 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
 		récupérerActualités: new RécupérerActualitésUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
+		récupérerVidéosCampagneApprentissage: new RécupérerVidéosCampagneApprentissageUseCase(cmsRepository),
 	};
 }

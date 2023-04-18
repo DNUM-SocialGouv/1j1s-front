@@ -8,6 +8,7 @@ import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
@@ -295,3 +296,12 @@ export const mapQuestionRéponse = (faq: Strapi.CollectionType.FAQ.Réponse): Qu
 		slug: faq.slug,
 	};
 };
+
+export function mapVideoCampagneApprentissage(videos: Strapi.CollectionType.VideoCampagneApprentissage): VideoCampagneApprentissage {
+	const videoId = videos.url.split('v=')[1].split('&')[0];
+	return {
+		titre: videos.titre,
+		transcription: videos.transcription,
+		videoId: videoId,
+	};
+}
