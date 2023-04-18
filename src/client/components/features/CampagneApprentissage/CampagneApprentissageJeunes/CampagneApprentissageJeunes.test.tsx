@@ -44,7 +44,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2 });
+			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /Choisir l’apprentissage c’est…/i });
 			expect(titre).toBeVisible();
 		});
 

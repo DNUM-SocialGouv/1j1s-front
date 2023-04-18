@@ -1,7 +1,7 @@
 @use "@styles/utilities";
 
 .tuile {
-  @extend %text-regular; // size en mobile et line-height pas pareil que la maquette -> ping joy
+  @extend %text-regular;
   @extend %bold;
 
   text-align: center;
