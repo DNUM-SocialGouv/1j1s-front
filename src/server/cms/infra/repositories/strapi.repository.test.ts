@@ -18,6 +18,7 @@ import { desMesuresEmployeurs } from '~/server/cms/domain/mesureEmployeur.fixtur
 import { uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	anActualiteFixture,
 	anOffreDeStageDepotStrapi,
@@ -32,6 +33,7 @@ import {
 	aStrapiOffreDeStageSlugList,
 	aStrapiPage2FicheMetierNomMetierList,
 	aStrapiSingleType,
+	aStrapiVideoCampagneApprentissageList,
 	uneOffreDeStageResponse,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
@@ -377,6 +379,27 @@ describe('strapi cms repository', () => {
 			expect(result).toEqual(expected);
 			expect(httpClientService.get).toHaveBeenCalledWith('annonces-de-logement?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
 
+		});
+	});
+
+	describe('getAllVideosCampagneApprentissage', () => {
+		describe('quand les videos sont trouvées', () => {
+			it('retourne la liste de videos', async () => {
+				httpClientService = aPublicHttpClientService();
+				authenticatedHttpClientService = anAuthenticatedHttpClientService();
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideoCampagneApprentissageList()));
+
+				const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
+				expect(result).toEqual([
+					{
+						titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
+						transcription: '[transcription]',
+						videoId: 'V3cxW3ZRV-I',
+					},
+				]);
+				expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissages?populate=deep&sort[0]=id&pagination[pageSize]=100&pagination[page]=1');
+			});
 		});
 	});
 });

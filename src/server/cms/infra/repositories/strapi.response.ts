@@ -379,5 +379,11 @@ export namespace Strapi {
 			problematique: string
 			slug: string
 		}
+
+		export interface VideoCampagneApprentissage {
+			titre: string
+			transcription: string
+			url: string
+		}
 	}
 }

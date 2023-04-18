@@ -10,7 +10,7 @@ const contentSecurityPolicy = `
   img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST};
   style-src 'self' 'unsafe-inline';
   frame-ancestors 'none';
-  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube.com;
+  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com;
   form-action 'self';
   base-uri 'none';
 `;
