@@ -123,6 +123,17 @@ export namespace Strapi {
 				article: Strapi.SingleRelation<Strapi.CollectionType.Article>;
 			}
 		}
+
+
+		export interface Video {
+			titre: string
+			transcription: string
+			url: string
+		}
+
+		export interface VideosCampagneApprentissage {
+			Video: Video[]
+		}
 	}
 
 	export namespace CollectionType {
@@ -378,12 +389,6 @@ export namespace Strapi {
 		export interface FAQ {
 			problematique: string
 			slug: string
-		}
-
-		export interface VideoCampagneApprentissage {
-			titre: string
-			transcription: string
-			url: string
 		}
 	}
 }

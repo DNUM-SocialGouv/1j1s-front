@@ -45,7 +45,7 @@ const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 const RESOURCE_FAQ = 'faqs';
-const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
+const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissage';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -225,7 +225,7 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
-		const query = 'populate=deep&sort[0]=id';
-		return await this.getCollectionType<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
+		const query = 'populate=deep';
+		return await this.getSingleType<Strapi.SingleType.VideosCampagneApprentissage, Array<VideoCampagneApprentissage>>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
 	}
 }
