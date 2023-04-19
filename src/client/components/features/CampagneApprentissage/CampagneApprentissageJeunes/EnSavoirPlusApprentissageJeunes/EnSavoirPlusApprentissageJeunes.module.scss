@@ -1,0 +1,54 @@
+@use "@styles/utilities";
+
+.enSavoirPlus {
+  &Parents {
+    background-color: utilities.$color-background-white-lilac;
+
+    @include utilities.media(large) {
+      background-color: inherit;
+    }
+  }
+
+  &Parents, &Employeurs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem 2rem;
+
+    @include utilities.media(large) {
+      padding: 5rem 1rem
+    }
+  }
+
+  .heading {
+    @extend %subheading;
+    color: utilities.$color-primary;
+    margin-bottom: 1rem;
+
+    @include utilities.media(large) {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    &Secondary {
+      color: utilities.$color-secondary;
+    }
+  }
+
+  .link {
+    max-width: 60ch;
+    width: 100%;
+    align-self: center;
+    @extend %text-regular;
+
+    @include utilities.media(large) {
+      max-width: fit-content;
+    }
+  }
+
+  @include utilities.media(large) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2.5rem;
+  }
+}

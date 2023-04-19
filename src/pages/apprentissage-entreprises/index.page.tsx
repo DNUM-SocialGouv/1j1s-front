@@ -4,8 +4,10 @@ import {
 	CampagneApprentissageEntreprises,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
 import { Head } from '~/client/components/head/Head';
+import useReferrer from '~/client/hooks/useReferrer';
 
 export default function ApprentissageEntreprises () {
+	useReferrer();
 
 	return (
 		<>

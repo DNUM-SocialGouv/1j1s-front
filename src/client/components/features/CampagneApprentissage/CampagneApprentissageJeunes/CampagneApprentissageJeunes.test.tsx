@@ -72,7 +72,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 	});
 
-	describe('EnSavoirPlusApprentissage', () => {
+	describe('EnSavoirPlusApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
 			render(<CampagneApprentissageJeunes/>);
 			expect(screen.getByRole('heading', {

@@ -2,9 +2,9 @@ import React from 'react';
 import { Container } from 'src/client/components/layouts/Container/Container';
 import { Link } from 'src/client/components/ui/Link/Link';
 
-import styles from './EnSavoirPlusApprentissage.module.scss';
+import styles from './EnSavoirPlusApprentissageJeunes.module.scss';
 
-export default function EnSavoirPlusApprentissage() {
+export default function EnSavoirPlusApprentissageJeunes() {
 	return <Container className={styles.enSavoirPlus}>
 		<div className={styles.enSavoirPlusParents}>
 			<h2 className={styles.heading}>Parents : l’apprentissage, le bon choix pour votre enfant. <span

@@ -1,7 +1,14 @@
 @use "@styles/utilities";
 
 .enSavoirPlus {
-  &Parents {
+
+  @include utilities.media(large) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2.5rem;
+  }
+
+  &Faq {
     background-color: utilities.$color-background-white-lilac;
 
     @include utilities.media(large) {
@@ -9,7 +16,7 @@
     }
   }
 
-  &Parents, &Employeurs {
+  &Faq, &DepotOffre {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,18 +29,19 @@
 
   .heading {
     @extend %subheading;
-    line-height: 1.5rem;
     color: utilities.$color-primary;
     margin-bottom: 1rem;
 
     @include utilities.media(large) {
       text-align: center;
-      margin-bottom: 2.5rem;
-      line-height: 1.75rem;
+      margin-bottom: 1.5rem;
     }
+  }
 
-    &Secondary {
-      color: utilities.$color-secondary;
+  .description {
+    margin-bottom: 1rem;
+    @include utilities.media(large) {
+      margin-bottom: 2.5rem;
     }
   }
 
@@ -41,17 +49,10 @@
     max-width: 60ch;
     width: 100%;
     align-self: center;
-    font-size: 0.875rem;
-
+    @extend %text-regular;
+    
     @include utilities.media(large) {
       max-width: fit-content;
-      font-size: 1.125rem;
     }
-  }
-
-  @include utilities.media(large) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 2.5rem;
   }
 }

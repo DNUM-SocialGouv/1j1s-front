@@ -30,10 +30,10 @@ export default function Entreprendre() {
 				<HeroComponent
 					titlePrimaryText={
 						<span>
-							<b>Je découvre les solutions qui s’offrent à vous</b>, pour créer votre entreprise…
+							<b>Je découvre les solutions qui s’offrent à moi</b>, pour créer mon entreprise…
 						</span>
 					}
-					titleSecondaryText={<>…quel que soit le stade de votre projet de création !</>}
+					titleSecondaryText={<>…quel que soit le stade de mon projet de création !</>}
 					imgSrc="/images/entrepreneurs.webp"
 				>
 					<ol className={styles.phases} aria-label="stades projet de création">
