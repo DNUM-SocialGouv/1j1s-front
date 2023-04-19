@@ -46,11 +46,7 @@
           }
         }
         &Description {
-          display: none;
-          @include utilities.media(medium) {
-            display: block;
-            margin-bottom: 1rem;
-          }
+          margin-bottom: 1rem;
         }
       }
     }
@@ -78,11 +74,6 @@
           &Titre {
             text-align: center;
             margin-top: 1rem;
-            margin-bottom: 1rem;
-          }
-
-          &Description {
-            display: block;
             margin-bottom: 1rem;
           }
         }
