@@ -33,7 +33,7 @@ import {
 	aStrapiOffreDeStageSlugList,
 	aStrapiPage2FicheMetierNomMetierList,
 	aStrapiSingleType,
-	aStrapiVideoCampagneApprentissageList,
+	aStrapiVideosCampagneApprentissage,
 	uneOffreDeStageResponse,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
@@ -383,23 +383,21 @@ describe('strapi cms repository', () => {
 	});
 
 	describe('getAllVideosCampagneApprentissage', () => {
-		describe('quand les videos sont trouvées', () => {
-			it('retourne la liste de videos', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideoCampagneApprentissageList()));
+		it('retourne la liste de videos', async () => {
+			httpClientService = aPublicHttpClientService();
+			authenticatedHttpClientService = anAuthenticatedHttpClientService();
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideosCampagneApprentissage()));
 
-				const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
-				expect(result).toEqual([
-					{
-						titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
-						transcription: '[transcription]',
-						videoId: 'V3cxW3ZRV-I',
-					},
-				]);
-				expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissages?populate=deep&sort[0]=id&pagination[pageSize]=100&pagination[page]=1');
-			});
+			const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
+			expect(result).toEqual([
+				{
+					titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
+					transcription: '[transcription]',
+					videoId: 'V3cxW3ZRV-I',
+				},
+			]);
+			expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissage?populate=deep');
 		});
 	});
 });

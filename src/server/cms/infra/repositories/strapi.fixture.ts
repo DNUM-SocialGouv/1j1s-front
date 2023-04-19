@@ -590,8 +590,8 @@ export function aStrapiAnnonceDeLogementSlugList(): Strapi.CollectionType<Pick<S
 	};
 }
 
-export function aStrapiVideoCampagneApprentissageList(): Strapi.CollectionType<Strapi.CollectionType.VideoCampagneApprentissage> {
-	return aStrapiCollectionType([{
+export function aStrapiVideosCampagneApprentissage(): Strapi.SingleType<Strapi.SingleType.VideoCampagneApprentissage> {
+	return aStrapiSingleType([{
 		titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
 		transcription: '[transcription]',
 		url: 'https://www.youtube.com/watch?v=V3cxW3ZRV-I',
