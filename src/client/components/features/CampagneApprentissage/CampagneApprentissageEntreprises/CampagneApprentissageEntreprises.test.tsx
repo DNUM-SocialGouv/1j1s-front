@@ -37,6 +37,41 @@ describe('CampagneApprentissageEntreprises', () => {
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation');
 	});
 
+	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
+		it('comportant un titre', () => {
+			// WHEN
+			render(<CampagneApprentissageEntreprises />);
+
+			// THEN
+			const sectionRaison = screen.getByRole('region', { name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			expect(titre).toBeVisible();
+		});
+
+		it('comportant une liste des raisons', () => {
+			// GIVEN
+			const expectedRaisonList = [
+				'Former votre futur collaborateur',
+				'Transmettre votre savoir-faire',
+				'Bénéficier d’aides pour le recrutement',
+				'Découvrir de nouvelles idées et pratiques',
+				'Préparer l’avenir de votre entreprise',
+			];
+
+			// WHEN
+			render(<CampagneApprentissageEntreprises />);
+
+			// THEN
+			const sectionRaison = screen.getByRole('region', { name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			const raisonList = within(sectionRaison).getAllByRole('listitem');
+			expect(raisonList).toHaveLength(expectedRaisonList.length);
+			expectedRaisonList.forEach((raison, index) => {
+				expect(raisonList[index]).toHaveTextContent(raison);
+				expect(raisonList[index]).toBeVisible();
+			});
+		});
+	});
+
 	describe('affiche une section informative sur l’embauche d’un apprenti', () => {
 		it('comprenant un titre', () => {
 			// WHEN
