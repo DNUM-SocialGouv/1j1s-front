@@ -590,10 +590,12 @@ export function aStrapiAnnonceDeLogementSlugList(): Strapi.CollectionType<Pick<S
 	};
 }
 
-export function aStrapiVideosCampagneApprentissage(): Strapi.SingleType<Strapi.SingleType.VideoCampagneApprentissage> {
-	return aStrapiSingleType([{
-		titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
-		transcription: '[transcription]',
-		url: 'https://www.youtube.com/watch?v=V3cxW3ZRV-I',
-	}]);
+export function aStrapiVideosCampagneApprentissage(): Strapi.SingleType<Strapi.SingleType.VideosCampagneApprentissage> {
+	return aStrapiSingleType({ 
+		Video: [{
+			titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
+			transcription: '[transcription]',
+			url: 'https://www.youtube.com/watch?v=V3cxW3ZRV-I',
+		}], 
+	});
 }

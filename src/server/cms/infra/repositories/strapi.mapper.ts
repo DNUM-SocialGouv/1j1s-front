@@ -298,7 +298,7 @@ export const mapQuestionRéponse = (faq: Strapi.CollectionType.FAQ.Réponse): Qu
 };
 
 export function mapVideoCampagneApprentissage(videos: Strapi.SingleType.VideosCampagneApprentissage): Array<VideoCampagneApprentissage> {
-	return videos.map((videoStrapi) => {
+	return videos.Video.map((videoStrapi) => {
 		const videoId = videoStrapi.url.split('v=')[1].split('&')[0];
 		return {
 			titre: videoStrapi.titre,

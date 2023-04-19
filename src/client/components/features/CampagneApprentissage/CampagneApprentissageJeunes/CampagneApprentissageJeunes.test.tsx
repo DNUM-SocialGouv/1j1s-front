@@ -8,6 +8,7 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
 	beforeEach(() => {
@@ -20,7 +21,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 	it('affiche le titre de la page', () => {
 		// WHEN
-		render(<CampagneApprentissageJeunes/>);
+		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage : pour moi c’est le bon choix/i });
 
 		// THEN
@@ -29,7 +30,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 	it('affiche un lien vers la simulation', () => {
 		// WHEN
-		render(<CampagneApprentissageJeunes/>);
+		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler ma rémunération/i });
@@ -94,7 +95,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 	describe('EnSavoirPlusApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
-			render(<CampagneApprentissageJeunes/>);
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Parents : l’apprentissage, le bon choix pour votre enfant. On répond à toutes vos questions',
@@ -102,12 +103,34 @@ describe('CampagneApprentissageJeunes', () => {
 			expect(screen.getByRole('link', { name: 'Accéder à la FAQ Parents-Enfants' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
-			render(<CampagneApprentissageJeunes/>);
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Employeurs : tout ce qu’il y a à savoir sur l’apprentissage pour votre entreprise',
 			})).toBeVisible();
 			expect(screen.getByRole('link', { name: 'Découvrir l’apprentissage' })).toHaveAttribute('href', '/apprentissage-entreprises');
+		});
+	});
+	describe('VideosCampagneApprentissage', () => {
+		const aVideoCampagneApprentissagesList = aVideoCampagneApprentissageList();
+		it('je vois le titre de la partie videos', () => {
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			expect(screen.getByRole('heading', {
+				level: 2,
+				name: 'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?',
+			})).toBeVisible();
+		});
+		it('je vois la description de la video', () => {
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !')).toBeVisible();
+		});
+		it('je vois les titres vidéos', () => {
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !' });
+			const titresVideo = within(sectionVideos).getAllByRole('listitem');
+			expect(titresVideo.length).toBe(1);
+			expect(titresVideo[0]).toBeVisible();
+			expect(titresVideo[0].textContent).toBe(aVideoCampagneApprentissagesList[0].titre);
 		});
 	});
 });

@@ -9,10 +9,17 @@ import {
 	Raisons,
 	RaisonsDeChoisirApprentissage,
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
+import VideosCampagneApprentissage
+	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
-export function CampagneApprentissageJeunes() {
+interface CampagneApprentissageJeunesProps {
+	videos: Array<VideoCampagneApprentissage>
+}
+
+export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeunesProps) {
 	const raisons: Raisons[] = [
 		{
 			iconName: 'award',
@@ -48,6 +55,7 @@ export function CampagneApprentissageJeunes() {
 			</header>
 			<RaisonsDeChoisirApprentissage titre="Choisir l’apprentissage c’est…" raisons={raisons}/>
 			<PreparationApprentissage/>
+			<VideosCampagneApprentissage videos={videos}/>
 			<EnSavoirPlusApprentissage/>
 		</>
 	);
