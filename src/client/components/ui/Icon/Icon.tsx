@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 
+import { AccountIcon } from '~/client/components/ui/Icon/account.icon';
 import { AngleDownIcon } from '~/client/components/ui/Icon/angle-down.icon';
 import { AngleLeftIcon } from '~/client/components/ui/Icon/angle-left.icon';
 import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-from-line.icon';
@@ -40,9 +41,11 @@ import { RestaurantIcon } from '~/client/components/ui/Icon/restaurant.icon';
 import { RoadmapIcon } from '~/client/components/ui/Icon/roadmap.icon';
 import { SportIcon } from '~/client/components/ui/Icon/sport.icon';
 import { SuitcaseIcon } from '~/client/components/ui/Icon/suitcase.icon';
+import { SunIcon } from '~/client/components/ui/Icon/sun';
 import { SwimmingIcon } from '~/client/components/ui/Icon/swimming.icon';
 import { TableIcon } from '~/client/components/ui/Icon/table.icon';
 import { TemperatureIcon } from '~/client/components/ui/Icon/temperature.icon';
+import { ThumbUpIcon } from '~/client/components/ui/Icon/thumb-up';
 import { TrophyIcon } from '~/client/components/ui/Icon/trophy.icon';
 import { TVIcon } from '~/client/components/ui/Icon/tv.icon';
 import { UserIcon } from '~/client/components/ui/Icon/user.icon';
@@ -51,64 +54,69 @@ import { WashingMachineIcon } from '~/client/components/ui/Icon/washing-machine.
 import { WifiIcon } from '~/client/components/ui/Icon/wifi.icon';
 
 export type IconName =
-	'angle-down'
-	| 'angle-left'
-	| 'angle-left-from-line'
-	| 'angle-right'
-	| 'angle-right-from-line'
-	| 'angle-up'
-	| 'arrow-right'
-	| 'award'
-	| 'bed'
-	| 'bike'
-	| 'book'
-	| 'brief-case'
-	| 'burger-menu'
-	| 'burger-menu-left'
-	| 'car'
-	| 'clean-hands'
-	| 'close'
-	| 'community'
-	| 'compass'
-	| 'error'
-	| 'euro'
-	| 'exit'
-	| 'external-redirection'
-	| 'filter'
-	| 'home'
-	| 'information'
-	| 'iron'
-	| 'lock'
-	| 'magnifying-glass'
-	| 'mail'
-	| 'map-pin'
-	| 'mark-pen'
-	| 'menu'
-	| 'microwave'
-	| 'phone'
-	| 'plant'
-	| 'restaurant'
-	| 'roadmap'
-	| 'sport'
-	| 'suitcase'
-	| 'swimming'
-	| 'table'
-	| 'temperature'
-	| 'trophy'
-	| 'TV'
-	| 'user'
-	| 'vacuum'
-	| 'washing-machine'
-	| 'wifi'
+    'account'
+    | 'angle-down'
+    | 'angle-left'
+    | 'angle-left-from-line'
+    | 'angle-right'
+    | 'angle-right-from-line'
+    | 'angle-up'
+    | 'arrow-right'
+    | 'award'
+    | 'bed'
+    | 'bike'
+    | 'book'
+    | 'brief-case'
+    | 'burger-menu'
+    | 'burger-menu-left'
+    | 'car'
+    | 'clean-hands'
+    | 'close'
+    | 'community'
+    | 'compass'
+    | 'error'
+    | 'euro'
+    | 'exit'
+    | 'external-redirection'
+    | 'filter'
+    | 'home'
+    | 'information'
+    | 'iron'
+    | 'lock'
+    | 'magnifying-glass'
+    | 'mail'
+    | 'map-pin'
+    | 'mark-pen'
+    | 'menu'
+    | 'microwave'
+    | 'phone'
+    | 'plant'
+    | 'restaurant'
+    | 'roadmap'
+    | 'sport'
+    | 'suitcase'
+    | 'sun'
+    | 'swimming'
+    | 'table'
+    | 'temperature'
+    | 'thumb-up'
+    | 'trophy'
+    | 'TV'
+    | 'user'
+    | 'vacuum'
+    | 'washing-machine'
+    | 'wifi'
 
 interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
-  name: IconName
+    name: IconName;
 }
 
 export function Icon({ name, className, ...rest }: IconProps) {
 
 	const getIcon = useMemo(() => {
 		switch (name) {
+			case 'account':
+				return <AccountIcon className={className} aria-hidden={true} {...rest} />;
 			case 'angle-down':
 				return <AngleDownIcon className={className} aria-hidden={true} {...rest} />;
 			case 'angle-left':
@@ -189,12 +197,16 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <SportIcon className={className} aria-hidden={true} {...rest} />;
 			case 'suitcase':
 				return <SuitcaseIcon className={className} aria-hidden={true} {...rest} />;
+			case 'sun':
+				return <SunIcon className={className} aria-hidden={true} {...rest} />;
 			case 'swimming':
 				return <SwimmingIcon className={className} aria-hidden={true} {...rest} />;
 			case 'table':
 				return <TableIcon className={className} aria-hidden={true} {...rest} />;
 			case 'temperature':
 				return <TemperatureIcon className={className} aria-hidden={true} {...rest} />;
+			case 'thumb-up':
+				return <ThumbUpIcon className={className} aria-hidden={true} {...rest} />;
 			case 'trophy':
 				return <TrophyIcon className={className} aria-hidden={true} {...rest} />;
 			case 'TV':
@@ -212,5 +224,5 @@ export function Icon({ name, className, ...rest }: IconProps) {
 		}
 	}, [name, className, rest]);
 
-	return ( getIcon );
+	return (getIcon);
 }
