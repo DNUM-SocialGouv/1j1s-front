@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.51.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.50.0...v3.51.0) (2023-04-19)
+
+
+### Features
+
+* **apprentissage:** afficher les raisons de choisir l'apprentissage pour les jeunes ([#1178](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1178)) ([f7942e1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f7942e1342c3353b440ae532edfb8788c63f219d))
+
 ## [3.50.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.49.1...v3.50.0) (2023-04-18)
 
 
