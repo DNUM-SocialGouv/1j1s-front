@@ -14,7 +14,7 @@ export function ToutSavoirSurApprentissage() {
 				<h2 id={'titre-section-tout-savoir'}>
 					Tout savoir sur l’embauche d’un apprenti
 				</h2>
-				<div>
+				<div className={styles.description}>
 					Des conseils pour bien recruter votre apprenti, le point sur les aides à l’embauche d’un apprenti… Le site “Embaucher un apprenti” met à disposition un ensemble de conseils pratiques à destination des employeurs
 				</div>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'}>

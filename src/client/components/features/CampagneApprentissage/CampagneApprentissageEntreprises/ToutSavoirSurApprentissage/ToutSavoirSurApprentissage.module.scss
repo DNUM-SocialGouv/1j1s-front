@@ -1,10 +1,10 @@
 @use '@styles/utilities';
 
 .toutSavoir {
-  padding: 2rem 1.75rem ;
+  padding: 1.75rem 2rem;
 
   @include utilities.media(large) {
-    padding: 5rem 27rem ;
+    padding: 5rem 1rem ;
   }}
 
 .toutSavoir .contenu {
@@ -13,18 +13,18 @@
   gap: 1rem;
   align-items: center;
   text-align: center;
+  max-width: 40rem;
 
   @include utilities.media(large) {
     gap: 2.5rem;
   }
 
   & h2 {
-    @extend %subheading; // Joy line-height ne correspond pas à l'existant
-    @extend %bold;
+    @extend %subheading;
     color: utilities.$color-primary;
+  }
 
-    @include utilities.media(large) {
-      text-align: center;
-    }
+  & .description {
+    @extend %text-regular;
   }
 }
