@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/ToutSavoirSurApprentissage/ToutSavoirSurApprentissage.module.scss';
+import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/ToutSavoirSurEmbaucheApprenti/ToutSavoirSurEmbaucheApprenti.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 
 import { Link } from '../../../../ui/Link/Link';
 
-export function ToutSavoirSurApprentissage() {
+export function ToutSavoirSurEmbaucheApprenti() {
 	const embaucherUnApprentiLink = 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/';
 
 	return (
