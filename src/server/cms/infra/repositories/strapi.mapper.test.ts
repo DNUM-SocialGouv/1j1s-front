@@ -6,19 +6,23 @@ describe('mapVideoCampagneApprentissage', () => {
 		const url = 'https://www.youtube.com/watch?v=V3cxW3ZRV-I';
 
 		it('map les données de la vidéo de campagne d’apprentissage', () => {
-			const input: Strapi.CollectionType.VideoCampagneApprentissage = {
-				titre: 'Contrat d\'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…',
-				transcription: '[transcription]',
-				url,
+			const input: Strapi.SingleType.VideosCampagneApprentissage = {
+				Video: [
+					{
+						titre: 'Contrat d\'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…',
+						transcription: '[transcription]',
+						url,
+					},
+				],
 			};
 
 			const result = mapVideoCampagneApprentissage(input);
 
-			expect(result).toEqual({
+			expect(result).toEqual([{
 				titre: 'Contrat d\'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…',
 				transcription: '[transcription]',
 				videoId: 'V3cxW3ZRV-I',
-			});;
+			}]);
 		});
 	});
 
@@ -26,19 +30,23 @@ describe('mapVideoCampagneApprentissage', () => {
 		const url = 'https://www.youtube.com/watch?v=F_oOtaxb0L8&t=1059';
 
 		it('map les données de la vidéo de campagne d’apprentissage', () => {
-			const input: Strapi.CollectionType.VideoCampagneApprentissage = {
-				titre: 'Contrat d\'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…',
-				transcription: '[transcription]',
-				url,
+			const input: Strapi.SingleType.VideosCampagneApprentissage = {
+				Video: [
+					{
+						titre: 'Contrat d\'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…',
+						transcription: '[transcription]',
+						url,
+					},
+				],
 			};
 
 			const result = mapVideoCampagneApprentissage(input);
 
-			expect(result).toEqual({
+			expect(result).toEqual([{
 				titre: 'Contrat d\'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…',
 				transcription: '[transcription]',
 				videoId: 'F_oOtaxb0L8',
-			});
+			}]);
 		});
 	});
 });
