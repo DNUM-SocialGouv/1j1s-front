@@ -1,12 +1,17 @@
+---
+sidebar_label: Architecture
+sidebar_position: 1
+---
+
 # Architecture de 1j1s-front
 
 ## Introduction
 
 Propulsé par NextJS, l'application est découpée de la sorte :
 - Une partie `client` qui présente ce qui est affiché à nos utilisateurs
-- Une partie `server` qui nous sert d'interfaces avec [les services externes consommés](ecosysteme.md#services-externes)
+- Une partie `server` qui nous sert d'interfaces avec [les services externes consommés](./ecosysteme#services-externes)
 
-![Architecture 1j1s-front](assets/1j1s-front-architecture.svg)
+![Architecture 1j1s-front](../assets/1j1s-front-architecture.svg)
 
 
 ## Technologies
@@ -21,12 +26,12 @@ Propulsé par NextJS, l'application est découpée de la sorte :
 
 ## ADR (Architectural Decision Record)
 
-Certains choix techniques sont expliqués [l'ADR](ADR.md).
+Certains choix techniques sont expliqués [l'ADR](./ADR).
 
 
 ## Génération des pages web
 
-![Génération des pages web](assets/1j1s-front-generation-pages.png)
+![Génération des pages web](../assets/1j1s-front-generation-pages.png)
 
 L'application exploite les possibilités de NextJS pour optimiser les performances lors de la génération des pages web :
 - Des pages statiques (SSG), générées lors de l'étape de `build` de l'application pour quelques "pages de base" (accueil, pages de recherche, etc.)

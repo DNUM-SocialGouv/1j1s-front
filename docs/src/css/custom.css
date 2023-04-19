@@ -1,0 +1,157 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@font-face {
+  font-family: Marianne;
+  src: url(/fonts/Marianne-Light.woff2) format("woff2"),url(/fonts/Marianne-Light.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(/fonts/Marianne-Light_Italic.woff2) format("woff2"),url(/fonts/Marianne-Light_Italic.woff) format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(/fonts/Marianne-Regular.woff2) format("woff2"),url(/fonts/Marianne-Regular.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(/fonts/Marianne-Regular_Italic.woff2) format("woff2"),url(/fonts/Marianne-Regular_Italic.woff) format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(/fonts/Marianne-Medium.woff2) format("woff2"),url(/fonts/Marianne-Medium.woff) format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(/fonts/Marianne-Medium_Italic.woff2) format("woff2"),url(/fonts/Marianne-Medium_Italic.woff) format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap
+}
+
+ :root {
+  /* ***************
+  * Color palette
+  * ***************/
+
+  --blue-navy: #000091;
+  --diva-blue: #566BB1;
+  --smalt-blue: #53918C;
+  --cornflower-blue: #735BF2;
+  --deepslate-blue: #455A64;
+  --auricula-purple: #6E445A;
+  --tapestry: #A558A0;
+  --dark-vinaceous: #A66465;
+  --coral: #E4794A;
+  --brazil-red: #B34000;
+  --scarlet-red: #CE0500;
+  --cerro-green: #61803E;
+  --duck-green: #18753C;
+  --white: #FFFFFF;
+  --white-lilac: #F6F7FB;
+  --white-titan: #ECECFF;
+  --light-neutral-grey: #EEEEEE;
+  --neutral-grey: #929292;
+  --deep-neutral-grey: #666666;
+  --black: #161616;
+ 
+ /* ***************
+  * Semantic colors
+  * ***************/
+  --color-primary: var(--diva-blue);
+  --color-primary-on-hover: var(--cornflower-blue);
+  --color-on-primary: var(--white);
+  --color-secondary: var(--duck-green);
+  --color-on-secondary: var(--white);
+  --color-background-white-lilac: var(--white-lilac);
+  --color-background-white-titan: var(--white-titan);
+  --color-background: var(--white);
+  --color-on-background: var(--black);
+  --color-surface: var(--white);
+  --color-on-surface: var(--black);
+  --color-cej-background : #EA711B;
+  --color-tertiary: var(--brazil-red);
+ 
+  --color-error: var(--scarlet-red);
+  --color-mention-grey: var(--deep-neutral-grey);
+  --color-disabled: var(--light-neutral-grey);
+  --color-on-disabled: var(--deep-neutral-grey);
+ 
+  --color-blue-navy: var(--blue-navy);
+  --color-lighten-blue-navy: lighten(var(--color-blue-navy), 67%);
+  --color-tapestry: var(--tapestry);
+  --color-lighten-tapestry: lighten(var(--color-tapestry), 45%);
+  --color-smalt-blue: var(--smalt-blue);
+  --color-lighten-smalt-blue: lighten(var(--color-smalt-blue), 48%);
+  --color-coral: var(--coral);
+  --color-lighten-coral: lighten(var(--color-coral), 31%);
+ 
+  --color-separator: var(--light-neutral-grey);
+  --color-form-field: var(--white-lilac);
+  --color-mine-shaft: #3A3A3A;
+  --color-skeleton: var(--light-neutral-grey);
+  --color-cadre-formulaire: var(--white-lilac);
+  --color-tag: var(--light-neutral-grey);
+ 
+ /* ***************
+  * Shadows
+  * ***************/
+  --box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
+}
+
+  /* **************
+  * Customization of Docusaurus default theme
+  * ***************/
+
+:root {
+  --ifm-font-family-base: 'Marianne';
+  --ifm-color-primary: var(--color-primary);
+  --ifm-color-primary-dark: #4b5fa2;
+  --ifm-color-primary-darker: #475a99;
+  --ifm-color-primary-darkest: #3a4a7e;
+  --ifm-color-primary-light: #687bb9;
+  --ifm-color-primary-lighter: #7183bd;
+  --ifm-color-primary-lightest: #8c9aca;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #ececff;
+  --ifm-color-primary-dark: #bbbbff;
+  --ifm-color-primary-darker: #a2a2ff;
+  --ifm-color-primary-darkest: #5959ff;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  color: var(--ifm-color-primary);
+}

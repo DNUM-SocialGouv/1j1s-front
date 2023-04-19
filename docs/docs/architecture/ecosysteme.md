@@ -1,8 +1,13 @@
+---
+sidebar_label: Flux
+sidebar_position: 2
+---
+
 # 1j1s-front dans l'écosystème 1j1s
 
 ## Schéma
 
-![Big picture](assets/1j1s-front-ecosysteme.png)
+![Big picture](../assets/1j1s-front-ecosysteme.png)
 
 Le front interagit majoritairement avec les services suivants :
 * [le CMS (Strapi)](https://github.com/DNUM-SocialGouv/1j1s-main-cms)

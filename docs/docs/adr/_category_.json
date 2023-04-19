@@ -1,0 +1,9 @@
+{
+    "label": "📓 ADRs",
+    "position": 3,
+    "link": {
+        "type": "generated-index",
+        "title": "📓 ADRs",
+        "description": "Liste des Architecture Decision Records"
+    }
+}
