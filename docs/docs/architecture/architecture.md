@@ -26,7 +26,7 @@ Propulsé par NextJS, l'application est découpée de la sorte :
 
 ## ADR (Architectural Decision Record)
 
-Certains choix techniques sont expliqués [l'ADR](./ADR).
+Certains choix techniques sont expliqués [l'ADR](../ADR).
 
 
 ## Génération des pages web
