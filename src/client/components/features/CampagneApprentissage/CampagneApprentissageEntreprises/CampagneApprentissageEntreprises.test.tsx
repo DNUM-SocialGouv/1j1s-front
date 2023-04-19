@@ -72,6 +72,25 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 	});
 
+	describe('EnSavoirPlusApprentissageEntreprises', () => {
+		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
+			render(<CampagneApprentissageEntreprises/>);
+			expect(screen.getByRole('heading', {
+				level: 2,
+				name: 'On répond à toutes vos questions sur l’apprentissage',
+			})).toBeVisible();
+			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
+		});
+		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
+			render(<CampagneApprentissageEntreprises/>);
+			expect(screen.getByRole('heading', {
+				level: 2,
+				name: 'Vous êtes à la recherche d’un apprenti ?',
+			})).toBeVisible();
+			expect(screen.getByRole('link', { name: 'Déposer une offre' })).toHaveAttribute('href', '/apprentissage/deposer-offre');
+		});
+	});
+
 	describe('affiche une section informative sur l’embauche d’un apprenti', () => {
 		it('comprenant un titre', () => {
 			// WHEN
