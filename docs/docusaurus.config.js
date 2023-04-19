@@ -253,7 +253,7 @@ const config = {
     				href: 'https://dnum-socialgouv.github.io/1j1s-etl/docs/architecture',
     				label: 'ETL',
     				position: 'left',
-            target: '_self',
+    				target: '_self',
     			},
     			{
     				position: 'right',
