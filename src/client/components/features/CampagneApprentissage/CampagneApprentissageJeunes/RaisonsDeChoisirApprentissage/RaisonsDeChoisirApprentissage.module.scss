@@ -44,9 +44,6 @@ $padding-horizontal: 2rem;
 
     & .tuile {
       height: 100%;
-    }
-
-    > li .tuile {
       border: 1px solid utilities.$color-primary;
 
       @include utilities.media(large) {
@@ -67,7 +64,7 @@ $padding-horizontal: 2rem;
     $three-columns: calc(3 * $min-width-tuile + 2 * $padding-horizontal + 2 * $gap-between-tuiles - 1px);
     $two-columns: calc(2 * $min-width-tuile + 2 * $padding-horizontal + $gap-between-tuiles);
 
-    @media ((max-width: $three-columns) and (min-width: $two-columns)) {
+    @media ((min-width: $two-columns) and (max-width: $three-columns)) {
       > li:nth-child(4n+2) .tuile, li:nth-child(4n+3) .tuile {
         color: utilities.$color-primary;
         background-color: utilities.$color-on-primary;
