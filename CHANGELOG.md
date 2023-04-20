@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.52.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.52.0...v3.52.1) (2023-04-20)
+
+
+### Bug Fixes
+
+* re-add missing configs ([b11ba8e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b11ba8e6293b5db021544311d1eb72c1d49da9ba))
+
 ## [3.52.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.51.0...v3.52.0) (2023-04-20)
 
 
