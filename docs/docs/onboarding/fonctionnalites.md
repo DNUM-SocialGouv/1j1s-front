@@ -1,4 +1,11 @@
+---
+sidebar_label: Liste des fonctionnalités
+sidebar_position: 1000
+---
+
 # Fonctionnalités du site 1jeune1solution
+
+_20 Avril 2023_
 
 Ce site web propose aux utilisateurs différents services destinés aux jeunes de 13 à 30 ans.
 

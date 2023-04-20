@@ -1,0 +1,9 @@
+{
+    "label": "🧑‍🎓 Tutoriels",
+    "position": 1000,
+    "link": {
+        "type": "generated-index",
+        "title": "🧑‍🎓 Tutoriels",
+        "description": "Une question sur un sujet ? c'est ici !"
+    }
+}

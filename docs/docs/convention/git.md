@@ -1,14 +1,28 @@
-# Standards d'équipe
+---
+sidebar_label: Git
+sidebar_position: 1
+---
+
+# Standards d'équipe liés à Git
+
+_20 Avril 2023_
 
 Ahoy 👋
 Afin de garder une base de code homogène, merci de respecter ces quelques standards.
 
+## Commits
 
-## Git
+### Convention
 
-### Commits
+Nous allons nous baser sur la convention "[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)".
 
-Nous suivons [conventional commits](https://conventionalcommits.org/)
+### Langue
+
+Il a été convenu de rédiger les commits en français car le projet n'est pas à destination internationale.
+Celui-ci est destiné en premier lieu au gouvernement français. Les messages de chaque commit doivent être autoportants.
+
+### Contextes d'un commit
+
 Les types de commit sont donc :
 * **feat** : nouvelle fonctionnalité
 * **fix** : correction d'un bug
@@ -22,7 +36,7 @@ Les types de commit sont donc :
 * **test** : ajoute ou corrige un test
 * **revert** : annule un précédent changement
 
-Les messages de commit sont rédigés en français et doivent être autoportants. Chaque commit doit assurer que :
+Chaque commit doit assurer que :
 * l'application fonctionne
 * le linter passe
 * les tests passent
@@ -52,6 +66,10 @@ Liste des contextes de **fonctionnalités** autorisées (non exhaustive) :
 - sitemap
 - robots
 
+### Contenu du message
+Un message de commit doit contenir a minima un titre court formaté contenant un préfixe cité dans la convention ci-dessus. Si une description supplémentaire est nécessaire, celle-ci sera ajoutée dans un sous-message de commit.
+
+### Exemples de nommage
 _exemple : `feat(sitemap): ajout des offres de stages au sitemap`_
 
 Exemple de composants transverses (non exhaustive) :
@@ -59,7 +77,7 @@ Exemple de composants transverses (non exhaustive) :
 - footer
 - nav
 
-- _exemple : `refactor(nav): génération du menu à partir d'un fichier de configuration`_
+_exemple : `refactor(nav): génération du menu à partir d'un fichier de configuration`_
 
 Dans le cas de changement de style, préférer :
 - ui
@@ -73,7 +91,7 @@ Exigences non fonctionnelles (non exhaustive) :
 _exemple : `chore(deps): mise à jour des dépendances`_
 
 
-## Branching
+## Stratégie pour les branches
 
 Pour une parfaite intégration avec Jira, une branche liée à une user story doit comporter le numéro du ticket. Ex :
 _exemple :`feat/UNJ1S-1307-Afficher-les-statistiques-d-une-formation-avec-InserJeunes`_
@@ -84,7 +102,7 @@ Les branches peuvent être mergées selon 2 méthodes :
 Dans les 2 cas, les titres et descriptions des commit finaux doivent respecter nos [standards](#commits). A chaque commit, l'application doit donc fonctionner, les tests et le linter passer.
 
 
-### Versioning
+## Stratégie de Versioning
 
 Nous respectons le [Semantic Versioning](https://semver.org)
 Une fois une branche mergée dans main, une Pull Request de release est automatiquement ouverte avec un commit de release pour :
@@ -100,47 +118,3 @@ Nous favorisons des tests unitaires autant que possible, rapides à exécuter. L
 * tests d'intégration sur les endpoints API
 * tests de composants via React Testing Library sur les composants comportant de la logique d'affichage, de la validation (formulaires) et récupération de données
 * tests end-to-end pour simuler un workflow complet utilisateur sur une fonctionnalité. Exemple : recherche d'une offre d'emploi puis consultation du détail d'une offre
-
-
-## Code
-
-### Langue
-* les objets métiers sont en **français**
-* les intitulés de test sont en **français**
-* Le reste du code est en **anglais**
-
-_exemple : `getJobÉtudiant`, `OffreEmploi`, `it("récupère la liste des alternances", () => ...)`_
-
-
-### Fonctions
-
-* privilégier les fonctions nommées et avec le constructeur `function` au lieu des arrow functions `() => `
-* nommer la callback des useEffect
-* préciser le type de sortie de fonction
-
-```javascript
-useEffect(function myFunction() {
-  /*  contenu de la fonction */
-}, []);
-```
-
-```javascript
-function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage {
-  return { ... };
-}
-```
-
-
-### Nommage des fichiers et dossiers
-
-* composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.scss`
-* tout le reste : camelCase, `httpClient.service.ts`, `offreEmploi.ts`, `offreEmploi.repository.ts`
-
-Plus d'info sur [l'arborescence des dossiers](./architecture#structure)
-
-
-### Nommage des collections
-
-Une variable représentant une collection sera suffixée par le mot `List` afin d'éviter le pluriel, parfois en conflit avec des mots invariables
-
-_exemple: `const offreEmploiList: Array<OffreEmploi> = [...]`

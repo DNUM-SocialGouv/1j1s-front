@@ -4,6 +4,7 @@ sidebar_position: 1
 ---
 
 # Architecture de 1j1s-front
+_20 Avril 2023_
 
 ## Introduction
 

@@ -5,6 +5,8 @@ sidebar_position: 2
 
 # 1j1s-front dans l'écosystème 1j1s
 
+_20 Avril 2023_
+
 ## Schéma
 
 ![Big picture](../assets/1j1s-front-ecosysteme.png)
