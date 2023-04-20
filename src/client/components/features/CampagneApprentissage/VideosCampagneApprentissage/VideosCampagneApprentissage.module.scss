@@ -1,0 +1,106 @@
+@import "@styles/utilities";
+
+$padding-horizontal: 2rem;
+
+%container {
+  padding: 1.75rem $padding-horizontal;
+
+  @include media(large) {
+    padding: 5rem 1rem;
+  }
+}
+
+.videos {
+  @extend %container;
+}
+
+.titreSection {
+  @extend %text-large;
+  @extend %bold;
+
+  margin-bottom: 1.5rem;
+}
+
+
+.video {
+  &Container {
+    position: relative;
+    width: 100%;
+    padding-top: calc(100% * 9 / 16); /* 16:9 Aspect Ratio */
+    margin-bottom: 1.5rem;
+  }
+  &Iframe {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.transcription {
+  margin-bottom: 1.5rem;
+
+  summary {
+    padding: 12px 16px 12px 16px;
+    max-width: 60rem;
+    list-style-type: none;
+    border-top: 1px $neutral-grey solid;
+    border-bottom: 1px $neutral-grey solid;
+  }
+  summary::after {
+    padding-left: .4rem;
+    content: "+";
+    font-weight: 700;
+  }
+  &[open] summary::after {
+    padding-left: .4rem;
+    content: "-";
+  }
+
+  &Content {
+    padding: 12px 16px 12px 16px;
+    white-space: pre;
+  }
+}
+
+.titreTemoignage {
+  margin-bottom: 1rem;
+}
+
+.titreVideo {
+  &Button {
+    text-align: start;
+    span {
+      padding-left: .4rem;
+    }
+  }
+}
+
+@include media(large) {
+  .container {
+    display: grid;
+    //grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
+    grid-template-columns: 1fr 29rem;
+    grid-template-areas:
+            "video titre"
+            "video temoignages"
+            "transcription temoignages";
+    column-gap: 2rem;
+  }
+
+  .titreSection {
+    grid-area: titre;
+  }
+
+  .videoContainer {
+    grid-area: video;
+  }
+
+  .transcription {
+    grid-area: transcription;
+  }
+
+  .temoignage {
+    grid-area: temoignages;
+  }
+}

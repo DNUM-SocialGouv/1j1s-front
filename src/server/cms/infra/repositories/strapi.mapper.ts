@@ -297,13 +297,11 @@ export const mapQuestionRéponse = (faq: Strapi.CollectionType.FAQ.Réponse): Qu
 	};
 };
 
-export function mapVideoCampagneApprentissage(videos: Strapi.SingleType.VideosCampagneApprentissage): Array<VideoCampagneApprentissage> {
-	return videos.Video.map((videoStrapi) => {
-		const videoId = videoStrapi.url.split('v=')[1].split('&')[0];
-		return {
-			titre: videoStrapi.titre,
-			transcription: videoStrapi.transcription,
-			videoId: videoId,
-		};
-	});
+export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.VideoCampagneApprentissage): VideoCampagneApprentissage {
+	const videoId = video.Url.split('v=')[1].split('&')[0];
+	return {
+		titre: video.Titre,
+		transcription: video.Transcription,
+		videoId: videoId,
+	};
 }
