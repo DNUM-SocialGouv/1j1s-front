@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.52.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.51.0...v3.52.0) (2023-04-20)
+
+
+### Features
+
+* **apprentissage:** Entreprises - Découvrir les conseils pratiques de l'apprentissage ([#1186](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1186)) ([9d10ff0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9d10ff0c5c06050075a465f6aff08d353a0050b4))
+
 ## [3.51.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.50.0...v3.51.0) (2023-04-19)
 
 
