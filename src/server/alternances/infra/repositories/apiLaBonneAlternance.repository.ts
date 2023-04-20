@@ -17,20 +17,21 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-	constructor(private httpClientService: PublicHttpClientService, private caller: string) {}
+	constructor(private httpClientService: PublicHttpClientService, private caller: string, private loggerService: LoggerService) {}
 
 	async search(filtre: AlternanceFiltre): Promise<Either<RésultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
 			return createSuccess(mapAlternanceListe(response.data));
 		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche alternance');
+			return handleSearchFailureError(e, 'la bonne alternance recherche alternance', this.loggerService);
 		}
 	}
 
@@ -57,7 +58,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
-			return handleGetFailureError(error, 'détail annonce alternance');
+			return handleGetFailureError(error, 'détail annonce alternance', this.loggerService);
 		}
 	}
 }

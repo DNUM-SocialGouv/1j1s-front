@@ -1,3 +1,5 @@
+import * as process from 'process';
+
 import {
 	AlternanceDependencies,
 	alternancesDependenciesContainer,
@@ -115,6 +117,9 @@ import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
+import { PinoLoggerService } from '~/server/services/pinoLogger.service';
 import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
 import {
 	SitemapDependencies,
@@ -136,41 +141,54 @@ export type Dependencies = {
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
 	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
+	loggerService: LoggerService
 }
 
 export function dependenciesContainer(): Dependencies {
 	const serverConfigurationService = new ServerConfigurationService();
 	let cacheService: CacheService;
+	let loggerService: LoggerService;
+
+	if (process.env.NODE_ENV === 'test') {
+		loggerService = aLoggerService();
+	}  else {
+		loggerService = new PinoLoggerService(
+			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_DSN,
+			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_LOG_LEVEL,
+			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+		);
+	}
 
 	if (process.env.NODE_ENV === 'test') {
 		cacheService = new MockedCacheService();
 	} else {
 		const redisUrl = serverConfigurationService.getConfiguration().REDIS_URL;
-		cacheService = new RedisCacheService(redisUrl);
+		cacheService = new RedisCacheService(redisUrl, loggerService);
 	}
-	
-	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService));
+
+
+	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
-	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService);
+	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, loggerService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
 
-	const poleEmploiRéférentielsHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiReferentielsConfig(serverConfigurationService));
-	const poleEmploiOffresHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiOffresConfig(serverConfigurationService));
+	const poleEmploiRéférentielsHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiReferentielsConfig(serverConfigurationService), loggerService);
+	const poleEmploiOffresHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiOffresConfig(serverConfigurationService), loggerService);
 	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiRéférentielsHttpClientService, cacheService);
 	const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
-	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService);
+	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
 
-	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService);
+	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
-	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService);
+	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
-	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller);
-	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller);
-	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService);
+	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
+	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
+	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, loggerService);
 
 	const offreAlternanceDependencies = offresAlternancesDependenciesContainer(apiPoleEmploiAlternanceRepository);
 
@@ -178,24 +196,25 @@ export function dependenciesContainer(): Dependencies {
 
 	const trajectoiresProHttpClientService = new PublicHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService));
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
-	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService);
-	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProHttpClientService, apiGeoLocalisationRepository);
+	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService, loggerService);
+	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProHttpClientService, apiGeoLocalisationRepository, loggerService);
 
 	const formationDependencies = formationsDependenciesContainer(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository);
 
 	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
-	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService);
+	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, loggerService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
 
 	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));
-	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService);
+	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService, loggerService);
 	const localisationDependencies = localisationDependenciesContainer(apiGeoLocalisationRepository, apiAdresseRepository, serverConfigurationService);
 
 	const mailClientService = new PublicHttpClientService(getApiTipimailConfig(serverConfigurationService));
 	const mailRepository = new TipimailRepository(
 		mailClientService,
+		loggerService,
 		serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
 		serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,
 	);
@@ -210,17 +229,18 @@ export function dependenciesContainer(): Dependencies {
 	);
 
 	const lesEntreprisesSEngagentHttpClientService = new PublicHttpClientService(getApiRejoindreLaMobilisationConfig(serverConfigurationService));
-	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService);
-	const strapiRejoindreLaMobilisationRepository = new StrapiRejoindreLaMobilisationRepository(strapiAuthenticatedHttpClientService);
+	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, loggerService);
+	const strapiRejoindreLaMobilisationRepository = new StrapiRejoindreLaMobilisationRepository(strapiAuthenticatedHttpClientService, loggerService);
 	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository);
 
 	const établissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
-	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService);
+	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService, loggerService);
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiÉtablissementPublicRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository);
+
 
 	return {
 		alternanceDependencies,
@@ -230,6 +250,7 @@ export function dependenciesContainer(): Dependencies {
 		entrepriseDependencies,
 		formationDependencies,
 		localisationDependencies,
+		loggerService,
 		métierDependencies,
 		offreAlternanceDependencies,
 		offreEmploiDependencies,

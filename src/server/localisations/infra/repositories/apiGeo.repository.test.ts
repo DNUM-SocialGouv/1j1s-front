@@ -7,15 +7,19 @@ import {
 	aCacheAxiosResponse,
 	aCachedHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
+import { LoggerService } from '~/server/services/logger.service';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiGeoLocalisationRepository', () => {
 	let httpClientService: CachedHttpClientService;
+	let loggerService: LoggerService;
 	let apiGeoLocalisationRepository: ApiGeoRepository;
 
 	beforeEach(() => {
 		httpClientService = aCachedHttpClientService();
+		loggerService = aLoggerService();
 
-		apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService);
+		apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, loggerService);
 	});
 
 	describe('getCommuneListByNom', () => {

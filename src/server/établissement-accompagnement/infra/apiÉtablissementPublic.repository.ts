@@ -18,7 +18,7 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiÉtablissementPublicRepository implements ÉtablissementAccompagnementRepository {
-	constructor(private httpClient: PublicHttpClientService) {
+	constructor(private httpClient: PublicHttpClientService, private loggerService: LoggerService) {
 	}
 
 	async search(params: ParamètresRechercheÉtablissementAccompagnement): Promise<Either<ÉtablissementAccompagnement[]>> {
@@ -27,7 +27,7 @@ export class ApiÉtablissementPublicRepository implements ÉtablissementAccompag
 			const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);
 			return createSuccess(mapÉtablissementAccompagnement(data));
 		} catch (e) {
-			LoggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');
+			this.loggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');
 			if (isHttpError(e)) {
 				if (e.response?.status === 404) {
 					return createFailure(ErreurMétier.DEMANDE_INCORRECTE);

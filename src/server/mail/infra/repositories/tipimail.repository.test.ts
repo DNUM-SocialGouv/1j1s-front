@@ -9,6 +9,7 @@ import {
 } from '~/server/mail/infra/repositories/tipimail.repository';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 jest.mock('@sentry/nextjs');
 
@@ -26,7 +27,7 @@ describe('TipimailRepository', () => {
 					// given
 					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
-					const repository = new TipimailRepository(httpClient, true);
+					const repository = new TipimailRepository(httpClient, aLoggerService(), true);
 					const expected = createSuccess(undefined);
 					const tipimailRequest = aTipimailRequest();
 					const mail = aMail();
@@ -48,7 +49,7 @@ describe('TipimailRepository', () => {
 					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockRejectedValue(anHttpError(400));
 
-					const repository = new TipimailRepository(httpClient, true);
+					const repository = new TipimailRepository(httpClient, aLoggerService(), true);
 					const tipimailRequest = aTipimailRequest();
 					const mail = aMail();
 					const context = ['accompagnement', 'mission_locale'];
@@ -68,7 +69,7 @@ describe('TipimailRepository', () => {
 					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockRejectedValue(anHttpError(401));
 
-					const repository = new TipimailRepository(httpClient, true);
+					const repository = new TipimailRepository(httpClient, aLoggerService(), true);
 					const tipimailRequest = aTipimailRequest();
 					const mail = aMail();
 					const context = ['accompagnement', 'mission_locale'];
@@ -87,7 +88,7 @@ describe('TipimailRepository', () => {
 					// given
 					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockRejectedValue(anHttpError(500));
-					const repository = new TipimailRepository(httpClient, true);
+					const repository = new TipimailRepository(httpClient, aLoggerService(), true);
 					const tipimailRequest = aTipimailRequest();
 					const mail = aMail();
 					const context = ['accompagnement', 'mission_locale'];
@@ -108,7 +109,7 @@ describe('TipimailRepository', () => {
 				const httpClient = aPublicHttpClientService();
 				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailRequest()));
 				const debug = jest.spyOn(console, 'log').mockImplementation(() => undefined);
-				const repository = new TipimailRepository(httpClient, false);
+				const repository = new TipimailRepository(httpClient, aLoggerService(), false);
 				const expected = createSuccess(undefined);
 				const tipimailRequest = aTipimailRequest();
 				const mail = aMail();
@@ -129,7 +130,7 @@ describe('TipimailRepository', () => {
 				const httpClient = aPublicHttpClientService();
 				const redirectTo = 'redirect@email.com';
 				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
-				const repository = new TipimailRepository(httpClient, true, redirectTo);
+				const repository = new TipimailRepository(httpClient, aLoggerService(), true, redirectTo);
 				const expected = createSuccess(undefined);
 				const tipimailRequest = aTipimailRequestWithRedirection();
 				const mail = aMail();

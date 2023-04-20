@@ -17,12 +17,13 @@ import {
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private httpClientService: PublicHttpClientService, private caller: string) {}
+	constructor(private httpClientService: PublicHttpClientService, private caller: string, private loggerService: LoggerService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -38,7 +39,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationRechercheResponse>(endpoint);
 			return createSuccess(response.data);
 		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche formation');
+			return handleSearchFailureError(e, 'la bonne alternance recherche formation', this.loggerService);
 		}
 	}
 
@@ -72,10 +73,10 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 					return createSuccess(formation);
 				} catch (error) {
-					return handleGetFailureError(error, 'la bonne alternance get formation');
+					return handleGetFailureError(error, 'la bonne alternance get formation', this.loggerService);
 				}
 			}
-			return handleGetFailureError(e, 'la bonne alternance get formation');
+			return handleGetFailureError(e, 'la bonne alternance get formation', this.loggerService);
 		}
 	}
 

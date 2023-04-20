@@ -10,9 +10,10 @@ import {
 	ApiDecoupageAdministratifResponse,
 } from '~/server/localisations/infra/repositories/apiGeo.response';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiGeoRepository implements LocalisationRepository {
-	constructor(private readonly httpClientService: CachedHttpClientService) {
+	constructor(private readonly httpClientService: CachedHttpClientService, private readonly loggerService: LoggerService) {
 	}
 
 	async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {
@@ -50,7 +51,7 @@ export class ApiGeoRepository implements LocalisationRepository {
 			const endpoint = `communes?codePostal=${codePostalRecherché}`;
 			return this.request<ApiDecoupageAdministratifResponse[], string | undefined>(endpoint, mapCodeRégion);
 		} catch (e) {
-			return handleGetFailureError(e, 'localisation');
+			return handleGetFailureError(e, 'localisation', this.loggerService);
 		}
 	}
 
@@ -59,7 +60,7 @@ export class ApiGeoRepository implements LocalisationRepository {
 			const { data } = await this.httpClientService.get<Data>(endpoint);
 			return createSuccess(mapper(data));
 		} catch (e) {
-			return handleGetFailureError(e, 'localisation');
+			return handleGetFailureError(e, 'localisation', this.loggerService);
 		}
 	}
 }

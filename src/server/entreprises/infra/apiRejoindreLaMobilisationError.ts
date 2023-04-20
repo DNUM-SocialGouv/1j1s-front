@@ -4,7 +4,8 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
-export function handleGetFailureError(e: unknown, context: string) {
+
+export function handleGetFailureError(e: unknown, context: string, loggerService: LoggerService) {
 	if (isHttpError(e)) {
 		if(e.response?.status === 400 && e?.response?.data?.message === '[API Rejoindre Mobilisation] 400 Bad request pour la ressource') {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
@@ -13,7 +14,7 @@ export function handleGetFailureError(e: unknown, context: string) {
 		} else if(e.response?.status === 404 && e?.response?.data?.message === '[API Rejoindre Mobilisation] 404 Contenu indisponible') {
 			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 		} else {
-			LoggerService.errorWithExtra(
+			loggerService.errorWithExtra(
 				new SentryException(
 					'[API Rejoindre Mobilisation] Erreur inconnue - Insertion formulaire',
 					{ context: `formulaire ${context}`, source: 'API Rejoindre Mobilisation' },
@@ -23,7 +24,7 @@ export function handleGetFailureError(e: unknown, context: string) {
 			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		}
 	}
-	LoggerService.errorWithExtra(new SentryException(
+	loggerService.errorWithExtra(new SentryException(
 		'[API Rejoindre Mobilisation] Erreur inconnue - Impossible de récupérer la ressource',
 		{ context: `formulaire ${context}`, source: 'API Rejoindre Mobilisation' },
 		{ stacktrace: (<Error> e).stack },

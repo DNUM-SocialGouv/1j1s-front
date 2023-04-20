@@ -33,6 +33,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
@@ -48,6 +49,7 @@ export class StrapiRepository implements CmsRepository {
 	constructor(
 		private httpClientService: PublicHttpClientService,
 		private authenticatedHttpClientService: AuthenticatedHttpClientService,
+		private loggerService: LoggerService,
 	) {
 	}
 
@@ -58,7 +60,7 @@ export class StrapiRepository implements CmsRepository {
 			const response = mapper(data.data.attributes);
 			return createSuccess(response);
 		} catch (e) {
-			return handleFailureError(e, resource);
+			return handleFailureError(e, resource, this.loggerService);
 		}
 	}
 
@@ -82,7 +84,7 @@ export class StrapiRepository implements CmsRepository {
 			const response = dataResponseList.map((data) => mapper(data.attributes));
 			return createSuccess(response);
 		} catch (e) {
-			return handleFailureError(e, resource);
+			return handleFailureError(e, resource, this.loggerService);
 		}
 	}
 
@@ -205,7 +207,7 @@ export class StrapiRepository implements CmsRepository {
 			const { data } = await this.authenticatedHttpClientService.post<{ data: Body }, Response>(resource, { data: body });
 			return createSuccess(data);
 		} catch (e) {
-			return handleFailureError(e, resource);
+			return handleFailureError(e, resource, this.loggerService);
 		}
 	}
 

@@ -20,6 +20,14 @@ export class ServerConfigurationService implements ConfigurationService {
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
+			// TODO décider si default value?
+			NEXT_PUBLIC_SENTRY_DSN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_DSN'),
+			
+			NEXT_PUBLIC_SENTRY_ENVIRONMENT: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_ENVIRONMENT'),
+			
+			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'), 
+			NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST')),
+			NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
 			POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
@@ -67,33 +75,38 @@ class EnvironmentVariablesException extends Error {
 }
 
 export interface EnvironmentVariables {
-  readonly API_ADRESSE_BASE_URL: string
-  readonly NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: number
-  readonly API_ENGAGEMENT_API_KEY_TOKEN: string
-  readonly API_ENGAGEMENT_BASE_URL: string
-  readonly API_ETABLISSEMENTS_PUBLICS: string
+	readonly API_ADRESSE_BASE_URL: string
+	readonly NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: number
+	readonly NEXT_PUBLIC_SENTRY_LOG_LEVEL: string
+	readonly NEXT_PUBLIC_SENTRY_DSN: string
+	readonly NEXT_PUBLIC_SENTRY_ENVIRONMENT: string
+	readonly NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: string
+	readonly NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: number
+	readonly API_ENGAGEMENT_API_KEY_TOKEN: string
+	readonly API_ENGAGEMENT_BASE_URL: string
+	readonly API_ETABLISSEMENTS_PUBLICS: string
 	readonly API_GEO_BASE_URL: string
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
-  readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
-  readonly API_POLE_EMPLOI_OFFRES_URL: string
-  readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
+	readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
+	readonly API_POLE_EMPLOI_OFFRES_URL: string
+	readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
 	readonly ENVIRONMENT: string
-  readonly IS_REVIEW_APP: string
-  readonly MAILER_SERVICE_ACTIVE: string
+	readonly IS_REVIEW_APP: string
+	readonly MAILER_SERVICE_ACTIVE: string
 	readonly MAILER_SERVICE_REDIRECT_TO: string
 	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
-  readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
-  readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
-  readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
-  readonly POLE_EMPLOI_CONNECT_SCOPE: string
-  readonly POLE_EMPLOI_CONNECT_URL: string
-  readonly REDIS_URL: string
-  readonly STRAPI_AUTH: string
-  readonly STRAPI_URL_API: string
-  readonly TIPIMAIL_API_BASE_URL: string
-  readonly TIPIMAIL_API_KEY: string
-  readonly TIPIMAIL_API_USER: string
+	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
+	readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
+	readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
+	readonly POLE_EMPLOI_CONNECT_SCOPE: string
+	readonly POLE_EMPLOI_CONNECT_URL: string
+	readonly REDIS_URL: string
+	readonly STRAPI_AUTH: string
+	readonly STRAPI_URL_API: string
+	readonly TIPIMAIL_API_BASE_URL: string
+	readonly TIPIMAIL_API_KEY: string
+	readonly TIPIMAIL_API_USER: string
 }

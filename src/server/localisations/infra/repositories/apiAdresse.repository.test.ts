@@ -10,6 +10,7 @@ import {
 	aCacheAxiosResponse,
 	aCachedHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiAdresseRepository', () => {
 	let httpClientService: CachedHttpClientService;
@@ -17,7 +18,7 @@ describe('ApiAdresseRepository', () => {
 
 	beforeEach(() => {
 		httpClientService = aCachedHttpClientService();
-		apiAdresseRepository = new ApiAdresseRepository(httpClientService);
+		apiAdresseRepository = new ApiAdresseRepository(httpClientService, aLoggerService());
 	});
 
 	describe('getCommuneList', () => {

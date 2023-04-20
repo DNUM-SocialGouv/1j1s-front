@@ -10,6 +10,7 @@ import {
 } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiLaBonneAlternanceMétierRepository', () => {
 	describe('getMetierList', () => {
@@ -18,7 +19,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()));
 				const expected = aListeDeMetierLaBonneAlternance();
-				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService);
+				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, aLoggerService());
 
 				const response = await repository.getMetierList('tran');
 
@@ -32,7 +33,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 			it("retourne une instance d'erreur", async () => {
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(429));
-				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService);
+				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, aLoggerService());
 
 				const response = await repository.getMetierList('tran');
 

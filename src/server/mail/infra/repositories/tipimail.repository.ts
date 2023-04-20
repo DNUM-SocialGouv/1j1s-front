@@ -13,6 +13,7 @@ const SOURCE = 'API Tipimail';
 export class TipimailRepository implements MailRepository {
 	constructor(
     private httpClient: PublicHttpClientService,
+	private loggerService: LoggerService,
     private mailerServiceActive: boolean,
     private mailerServiceRedirectTo?: string,
 	) {}
@@ -28,7 +29,7 @@ export class TipimailRepository implements MailRepository {
 			}
 			return createSuccess(undefined);
 		} catch (e) {
-			LoggerService.errorWithExtra(
+			this.loggerService.errorWithExtra(
 				new SentryException(
 					'[API Tipimail] impossible d‘envoyer un email',
 					{ context: 'Envoi mail', source: SOURCE },

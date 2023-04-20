@@ -7,9 +7,10 @@ import { handleGetFailureError } from '~/server/localisations/infra/repositories
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
-	constructor(private readonly httpClientService: CachedHttpClientService) {
+	constructor(private readonly httpClientService: CachedHttpClientService, private loggerService: LoggerService) {
 	}
 
 	async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
@@ -19,7 +20,7 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
 			);
 			return createSuccess(mapRésultatsRechercheCommune(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'adresse');
+			return handleGetFailureError(e, 'adresse', this.loggerService);
 		}
 	}
 }

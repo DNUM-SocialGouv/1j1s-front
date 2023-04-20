@@ -1,6 +1,7 @@
 import nock from 'nock';
 
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('AuthenticatedHttpClientService', () => {
 	describe('.get(url)', () => {
@@ -24,7 +25,7 @@ describe('AuthenticatedHttpClientService', () => {
 					apiName: 'test',
 					apiUrl,
 					tokenAgent: tokenAgentStub,
-				});
+				}, aLoggerService());
 
 				const actual = await client.get('/test');
 
@@ -56,7 +57,7 @@ describe('AuthenticatedHttpClientService', () => {
 						apiName: 'test',
 						apiUrl,
 						tokenAgent: tokenAgentStub,
-					});
+					},  aLoggerService());
 
 					const actual = await client.get('/test');
 
@@ -83,7 +84,7 @@ describe('AuthenticatedHttpClientService', () => {
 						apiName: 'test',
 						apiUrl,
 						tokenAgent: tokenAgentStub,
-					});
+					},  aLoggerService());
 
 					let result = undefined;
 					try {

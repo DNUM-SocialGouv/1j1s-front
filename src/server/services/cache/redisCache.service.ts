@@ -6,7 +6,7 @@ import { LoggerService } from '~/server/services/logger.service';
 
 export class RedisCacheService implements CacheService {
 	private client: Redis;
-	constructor(private url: string) {
+	constructor(private url: string, private loggerService: LoggerService) {
 		this.client = new Redis(url);
 	}
 
@@ -15,7 +15,7 @@ export class RedisCacheService implements CacheService {
 			const value = await this.client.get(key);
 			return value ? JSON.parse(value) as T : null;
 		} catch (error) {
-			LoggerService.warnWithExtra(
+			this.loggerService.warnWithExtra(
 				new SentryException(
 					'[Cache Redis] Erreur de récupération du cache',
 					{ context: JSON.stringify(error), source: 'Cache Redis' },
@@ -31,7 +31,7 @@ export class RedisCacheService implements CacheService {
 			await this.client.set(key, JSON.stringify(value));
 			this.client.expire(key, 3600 *  expiresInHours);
 		} catch (error) {
-			LoggerService.warnWithExtra(
+			this.loggerService.warnWithExtra(
 				new SentryException(
 					'[Cache Redis] Erreur de mise en cache',
 					{ context: JSON.stringify(error), source: 'Cache Redis' },

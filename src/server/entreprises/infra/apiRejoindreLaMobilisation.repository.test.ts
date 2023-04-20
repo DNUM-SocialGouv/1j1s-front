@@ -8,6 +8,8 @@ import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
+import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
 	const entrepriseApiUrl = 'https://lesentreprisesengagent.france';
@@ -16,12 +18,14 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 	});
 	describe('.save', () => {
 		let repository: ApiRejoindreLaMobilisationRepository;
+		let loggerService: LoggerService;
 		beforeEach(() => {
 			const client = new PublicHttpClientService({
 				apiName: 'test LEE',
 				apiUrl: entrepriseApiUrl,
 			});
-			repository = new ApiRejoindreLaMobilisationRepository(client);
+			loggerService = aLoggerService();
+			repository = new ApiRejoindreLaMobilisationRepository(client, loggerService);
 		});
 		it('envoie un POST vers l‘API des entreprise s‘engagent', async () => {
 			// Given

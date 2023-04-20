@@ -17,12 +17,13 @@ import {
 } from '~/server/engagement/infra/repositories/apiEngagementError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 
 const JE_VEUX_AIDER_PUBLISHER_ID = '5f5931496c7ea514150a818f';
 const SERVICE_CIVIQUE_PUBLISHER_ID = '5f99dbe75eb1ad767733b206';
 
 export class ApiEngagementRepository implements EngagementRepository {
-	constructor(private httpClientService: PublicHttpClientService) {}
+	constructor(private httpClientService: PublicHttpClientService, private loggerService: LoggerService) {}
 
 	async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
 		try {
@@ -31,7 +32,7 @@ export class ApiEngagementRepository implements EngagementRepository {
 			);
 			return createSuccess(mapMission(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'engagement');
+			return handleGetFailureError(e, 'engagement', this.loggerService);
 		}
 	}
 
@@ -42,7 +43,7 @@ export class ApiEngagementRepository implements EngagementRepository {
 			);
 			return createSuccess(mapRésultatsRechercheMission(response.data));
 		} catch (e) {
-			return handleSearchFailureError(e);
+			return handleSearchFailureError(e, this.loggerService);
 		}
 	}
 

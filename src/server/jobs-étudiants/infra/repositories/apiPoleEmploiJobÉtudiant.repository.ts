@@ -21,6 +21,7 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
@@ -29,6 +30,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
+	private loggerService: LoggerService,
 	) {}
 
 	paramètreParDéfaut = 'dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
@@ -43,7 +45,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'job étudiant');
+			return handleGetFailureError(e, 'job étudiant', this.loggerService);
 		}
 	}
 
@@ -77,7 +79,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 				}
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'job étudiant');
+				return handleSearchFailureError(e, 'job étudiant', this.loggerService);
 			}
 		}
 		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
@@ -97,7 +99,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 				this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.data, 24);
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'échantillon job étudiant');
+				return handleSearchFailureError(e, 'échantillon job étudiant', this.loggerService);
 			}
 		}
 	}
