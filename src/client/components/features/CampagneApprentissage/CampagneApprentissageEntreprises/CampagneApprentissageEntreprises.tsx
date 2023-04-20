@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissage.module.scss';
 import {
-	ToutSavoirSurEmbaucheApprenti,
-} from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/ToutSavoirSurEmbaucheApprenti/ToutSavoirSurEmbaucheApprenti';
+	InformationSurEmbaucheApprenti,
+} from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/InformationSurEmbaucheApprenti/InformationSurEmbaucheApprenti';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
 
@@ -17,7 +17,7 @@ export function CampagneApprentissageEntreprises() {
 				</HeroWithIllustration>
 			</header>
 
-			<ToutSavoirSurEmbaucheApprenti/>
+			<InformationSurEmbaucheApprenti/>
 		</>
 	);
 }
