@@ -386,7 +386,7 @@ describe('strapi cms repository', () => {
 		it('retourne la liste de videos', async () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService);
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
 			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideosCampagneApprentissage()));
 
 			const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
@@ -397,7 +397,7 @@ describe('strapi cms repository', () => {
 					videoId: 'V3cxW3ZRV-I',
 				},
 			]);
-			expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissage?populate=deep');
+			expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissages?sort[0]=Index&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 });

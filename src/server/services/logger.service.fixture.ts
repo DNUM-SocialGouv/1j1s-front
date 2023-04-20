@@ -8,6 +8,6 @@ export function aLoggerService(): LoggerService {
 		warn: jest.fn(),
 		warnWithExtra: jest.fn(),
 	} as unknown as LoggerService;
-};
+}
 
 

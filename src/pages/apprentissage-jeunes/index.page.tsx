@@ -10,7 +10,7 @@ import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
 
 type ApprentissageJeunesPageProps = {
-	videos?: VideoCampagneApprentissage[];
+	videos: VideoCampagneApprentissage[];
 }
 
 export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps) {
@@ -20,20 +20,20 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 		<>
 			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow"/>
 			<main id="contenu">
-				<CampagneApprentissageJeunes/>
-				<ul>
-					{props.videos?.map((video) => (
-						<li key={video.videoId}>
-							<iframe 
-								width="560" 
-								height="315" 
-								src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
-								title="YouTube video player"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowFullScreen/>
-						</li>
-					))}
-				</ul>
+				<CampagneApprentissageJeunes videos={props.videos}/>
+				{/*<ul>*/}
+				{/*	{props.videos?.map((video) => (*/}
+				{/*		<li key={video.videoId}>*/}
+				{/*			<iframe */}
+				{/*				width="560" */}
+				{/*				height="315" */}
+				{/*				src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}*/}
+				{/*				title="YouTube video player"*/}
+				{/*				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"*/}
+				{/*				allowFullScreen/>*/}
+				{/*		</li>*/}
+				{/*	))}*/}
+				{/*</ul>*/}
 			</main>
 		</>
 	);
@@ -50,7 +50,9 @@ export async function getServerSideProps(): Promise<GetServerSidePropsResult<App
 	const videos = await dependencies.cmsDependencies.récupérerVidéosCampagneApprentissage.handle();
 	if (isFailure(videos)) {
 		return {
-			props: {},
+			props: {
+				videos: [],
+			},
 		};
 	}
 

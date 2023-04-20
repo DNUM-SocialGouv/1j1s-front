@@ -3,16 +3,19 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+		mockUseRouter({ asPath: '/apprentissage-jeunes' });
 	});
 
 	afterEach(() => {
@@ -41,7 +44,7 @@ describe('CampagneApprentissageJeunes', () => {
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
 		it('comportant un titre', () => {
 			// WHEN
-			render(<CampagneApprentissageJeunes />);
+			render(<CampagneApprentissageJeunes videos={[]} />);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
@@ -60,7 +63,7 @@ describe('CampagneApprentissageJeunes', () => {
 			];
 
 			// WHEN
-			render(<CampagneApprentissageJeunes />);
+			render(<CampagneApprentissageJeunes videos={[]} />);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
@@ -111,6 +114,7 @@ describe('CampagneApprentissageJeunes', () => {
 			expect(screen.getByRole('link', { name: 'Découvrir l’apprentissage' })).toHaveAttribute('href', '/apprentissage-entreprises');
 		});
 	});
+
 	describe('VideosCampagneApprentissage', () => {
 		const aVideoCampagneApprentissagesList = aVideoCampagneApprentissageList();
 		it('je vois le titre de la partie videos', () => {
@@ -124,13 +128,86 @@ describe('CampagneApprentissageJeunes', () => {
 			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
 			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !')).toBeVisible();
 		});
-		it('je vois les titres vidéos', () => {
+		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
 			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !' });
-			const titresVideo = within(sectionVideos).getAllByRole('listitem');
-			expect(titresVideo.length).toBe(1);
-			expect(titresVideo[0]).toBeVisible();
-			expect(titresVideo[0].textContent).toBe(aVideoCampagneApprentissagesList[0].titre);
+			const titresVideos = within(sectionVideos).getAllByRole('listitem');
+
+			const boutons = titresVideos.map((titreVideo) => within(titreVideo).getByRole('button'));
+
+			expect(titresVideos.length).toBe(aVideoCampagneApprentissagesList.length);
+			expect(titresVideos[0].textContent).toBe(aVideoCampagneApprentissagesList[0].titre);
+			expect(boutons[0]).toBeVisible();
+		});
+		it('si je n’ai pas selectionné de vidéo, c’est la première vidéo de la liste qui est visible', () => {
+			const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+			const iframe = screen.getByTitle(premièreVideoCampagne.titre);
+			expect(iframe).toBeVisible();
+			expect(iframe).toHaveAttribute('src', expect.stringContaining(`${premièreVideoCampagne.videoId}`)); //TODO refaire avec stringMatching
+		});
+		it('si j’ai selectionné une vidéo, c’est la vidéo selectionnée qui est visible', async () => {
+			const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
+			const user = userEvent.setup();
+
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+			const boutonDeuxiemeVideo = screen.getByRole('button', { name: deuxièmeVideoCampagne.titre });
+			await user.click(boutonDeuxiemeVideo);
+
+			const iframe = screen.getByTitle(deuxièmeVideoCampagne.titre);
+			expect(iframe).toBeVisible();
+			expect(iframe).toHaveAttribute('src', expect.stringContaining(`${deuxièmeVideoCampagne.videoId}`)); //TODO refaire avec stringMatching
+			expect(boutonDeuxiemeVideo).toHaveAttribute('aria-current', 'true');
+		});
+		it('si j’ai selectionné une vidéo, j’ai l’information que la vidéo courante est celle j’ai selectionné', async () => {
+			const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
+			const user = userEvent.setup();
+
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+			const boutonDeuxiemeVideo = screen.getByRole('button', { name: deuxièmeVideoCampagne.titre });
+			await user.click(boutonDeuxiemeVideo);
+
+			const boutonVideoCourante = screen.getByRole('button', { current: true });
+			expect(boutonVideoCourante).toBe(boutonDeuxiemeVideo);
+		});
+		it('si j’ai selectionné une vidéo, le focus se retrouve avant la vidéo', async () => {
+			const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
+			const user = userEvent.setup();
+
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+			await user.click(screen.getByRole('button', { name: deuxièmeVideoCampagne.titre }));
+
+			const titre = screen.getByRole('heading', { name: 'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?' });
+			expect(titre).toHaveFocus();
+			const iframe = screen.getByTitle(deuxièmeVideoCampagne.titre);
+			expect(titre.compareDocumentPosition(iframe)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+		});
+		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+			const ouvrirTranscription = screen.getByText('Lire la transcription');
+
+			expect(ouvrirTranscription).toBeVisible();
+		});
+		it('je ne vois pas la transcription de la vidéo', () => {
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+			const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
+			expect(screen.queryByText(premièreVideoCampagne.transcription)).not.toBeVisible();
+		});
+		it('si je clique sur le bouton de transcription, je vois la transcription de la vidéo', async () => {
+			const user = userEvent.setup();
+			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
+			const ouvrirTranscription = screen.getByText('Lire la transcription');
+
+			await user.click(ouvrirTranscription);
+			expect(screen.getByText(premièreVideoCampagne.transcription)).toBeVisible();
 		});
 	});
 });

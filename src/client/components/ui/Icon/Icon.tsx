@@ -7,6 +7,7 @@ import { AngleLeftFromLineIcon } from '~/client/components/ui/Icon/angle-left-fr
 import { AngleRightIcon } from '~/client/components/ui/Icon/angle-right.icon';
 import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-from-line.icon';
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
+import { ArrowLeftIcon } from '~/client/components/ui/Icon/arrow-left.icon';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
 import { AwardIcon } from '~/client/components/ui/Icon/award.icon';
 import { BedIcon } from '~/client/components/ui/Icon/bed.icon';
@@ -37,6 +38,7 @@ import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { MicrowaveIcon } from '~/client/components/ui/Icon/microwave.icon';
 import { PhoneIcon } from '~/client/components/ui/Icon/phone.icon';
 import { PlantIcon } from '~/client/components/ui/Icon/plant.icon';
+import { PlayCircleIcon } from '~/client/components/ui/Icon/play-circle.icon';
 import { RestaurantIcon } from '~/client/components/ui/Icon/restaurant.icon';
 import { RoadmapIcon } from '~/client/components/ui/Icon/roadmap.icon';
 import { SportIcon } from '~/client/components/ui/Icon/sport.icon';
@@ -61,6 +63,7 @@ export type IconName =
     | 'angle-right'
     | 'angle-right-from-line'
     | 'angle-up'
+		| 'arrow-left'
     | 'arrow-right'
     | 'award'
     | 'bed'
@@ -91,6 +94,7 @@ export type IconName =
     | 'microwave'
     | 'phone'
     | 'plant'
+		| 'play-circle'
     | 'restaurant'
     | 'roadmap'
     | 'sport'
@@ -129,6 +133,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <AngleRightFromLineIcon className={className} aria-hidden={true} {...rest} />;
 			case 'angle-up':
 				return <AngleUpIcon className={className} aria-hidden={true} {...rest} />;
+			case 'arrow-left':
+				return <ArrowLeftIcon className={className} aria-hidden={true} {...rest} />;
 			case 'arrow-right':
 				return <ArrowRightIcon className={className} aria-hidden={true} {...rest} />;
 			case 'award':
@@ -189,6 +195,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <PhoneIcon className={className} aria-hidden={true} {...rest} />;
 			case 'plant':
 				return <PlantIcon className={className} aria-hidden={true} {...rest} />;
+			case 'play-circle':
+				return <PlayCircleIcon className={className} aria-hidden={true} {...rest} />;
 			case 'restaurant':
 				return <RestaurantIcon className={className} aria-hidden={true} {...rest} />;
 			case 'roadmap':

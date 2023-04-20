@@ -75,7 +75,7 @@ describe('Page Apprentissage Jeunes', () => {
 	describe('<ApprentissageJeunes />', () => {
 		it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
 			// WHEN
-			render(<ApprentissageJeunes />);
+			render(<ApprentissageJeunes videos={[]} />);
 	
 			// THEN
 			const main = screen.getByRole('main');
@@ -84,7 +84,7 @@ describe('Page Apprentissage Jeunes', () => {
 		});
 	
 		it('affiche la bonne page', () => {
-			render(<ApprentissageJeunes/>);
+			render(<ApprentissageJeunes videos={[]}/>);
 	
 			const titrePage = screen.getByRole('heading', { level: 1, name: /L’apprentissage : pour moi c’est le bon choix/i });
 	
@@ -92,7 +92,7 @@ describe('Page Apprentissage Jeunes', () => {
 		});
 	
 		it('affiche le titre du document', () => {
-			render(<ApprentissageJeunes/> );
+			render(<ApprentissageJeunes videos={[]}/> );
 	
 			const titre = document.title;
 	
