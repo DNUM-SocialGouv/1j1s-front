@@ -28,7 +28,7 @@ describe('Link', () => {
 		});
 	});
 
-	describe('quand le lien est un lien interne', () => {
+	describe('quand le lien est un lien interne avec href relatif', () => {
 		it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
 			const lienInterne = '/emplois';
 
@@ -39,6 +39,39 @@ describe('Link', () => {
 			const linkComponent = screen.getByRole('link');
 
 			expect(linkComponent.getAttribute('href')).toEqual('/emplois');
+			expect(linkComponent).not.toHaveAttribute('target');
+			expect(linkComponent).not.toHaveAttribute('rel');
+		});
+	});
+	describe('quand le lien est un lien interne avec href absolut', () => {
+		it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
+			Object.defineProperty(window, 'location', {
+				value: { origin: 'localhost' },
+			});
+			const lienInterne = 'localhost/emplois';
+
+			render(
+				<Link href={lienInterne} />,
+			);
+
+			const linkComponent = screen.getByRole('link');
+
+			expect(linkComponent.getAttribute('href')).toEqual('localhost/emplois');
+			expect(linkComponent).not.toHaveAttribute('target');
+			expect(linkComponent).not.toHaveAttribute('rel');
+		});
+	});
+	describe('quand le lien est un lien interne vers une ancre', () => {
+		it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
+			const lienInterne = '#emplois';
+
+			render(
+				<Link href={lienInterne} />,
+			);
+
+			const linkComponent = screen.getByRole('link');
+
+			expect(linkComponent.getAttribute('href')).toEqual('#emplois');
 			expect(linkComponent).not.toHaveAttribute('target');
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});
