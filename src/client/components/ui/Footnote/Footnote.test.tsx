@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 
@@ -55,5 +55,17 @@ describe('<Footnote />', () => {
 
 		const footnote = screen.getByText(/Ceci est une explication complémentaire./);
 		expect(footnote).toHaveTextContent(/^\* .+/);
+	});
+	it('ajoute une description accessible à l’astérisque en début de footnote', () => {
+		render(
+			<>
+				<p>Ceci est un paragraphe<Footnote.Reference to="footnote" /></p>
+				<Footnote id="footnote">Ceci est une explication complémentaire.</Footnote>
+			</>,
+		);
+
+		const footnote = screen.getByText(/Ceci est une explication complémentaire./);
+		const asterisque = within(footnote).getByText('*');
+		expect(asterisque).toHaveAccessibleDescription('note de pied de page');
 	});
 });

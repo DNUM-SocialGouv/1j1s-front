@@ -8,7 +8,7 @@ const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(functi
 }, ref) {
 	return (
 		<p {...pProps} ref={ref}>
-			* {children}
+			<abbr title="note de pied de page">*</abbr> {children}
 		</p>
 	);
 });
