@@ -14,8 +14,7 @@ interface ListeDesResultatsProps {
 	pagination: React.ReactNode
 }
 
-// eslint-disable-next-line react/display-name
-export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesResultatsProps>((props: ListeDesResultatsProps, outerRef) => {
+export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesResultatsProps>(function ListeDesResultats(props: ListeDesResultatsProps, outerRef) {
 	const { resultats, isLoading, isAffichageListeDeResultatsDesktopDirectionRow, skeletonRepeat, pagination } = props;
 	const ref = useSynchronizedRef(outerRef);
 
