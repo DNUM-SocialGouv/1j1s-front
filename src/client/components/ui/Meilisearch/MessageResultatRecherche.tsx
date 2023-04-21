@@ -11,6 +11,10 @@ interface MessageResultatRechercheProps {
   numberOfResult: number
 }
 
+function Footnote() {
+	return <a href="#partenaires" title="note de pied de page"><abbr title="note de pied de page">*</abbr></a>;
+}
+
 export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 	const { labelSingulier, labelPluriel, isLoading, numberOfResult } = props;
 
@@ -20,11 +24,13 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
             <h2 className={styles.stats}>
             	<span className={styles.nombreRésultats}>{numberOfResult}</span>
             	{' ' + labelSingulier}
+            	<Footnote />
             </h2>}
 			{numberOfResult > 1 &&
             <h2 className={styles.stats}>
             	<span className={styles.nombreRésultats}>{numberOfResult}</span>
             	{' ' + labelPluriel}
+            	<Footnote />
             </h2>}
 			{(numberOfResult === 0) &&
             <ErrorComponent/>
