@@ -2,6 +2,7 @@ import React from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 
 interface MessageResultatRechercheProps {
@@ -9,10 +10,6 @@ interface MessageResultatRechercheProps {
   labelPluriel: string
   isLoading: boolean
   numberOfResult: number
-}
-
-function Footnote() {
-	return <a href="#partenaires" title="note de pied de page"><abbr title="note de pied de page">*</abbr></a>;
 }
 
 export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
@@ -24,13 +21,13 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
             <h2 className={styles.stats}>
             	<span className={styles.nombreRésultats}>{numberOfResult}</span>
             	{' ' + labelSingulier}
-            	<Footnote />
+            	<Footnote.Reference to="partenaires" id="partenaires-reference" />
             </h2>}
 			{numberOfResult > 1 &&
             <h2 className={styles.stats}>
             	<span className={styles.nombreRésultats}>{numberOfResult}</span>
             	{' ' + labelPluriel}
-            	<Footnote />
+            	<Footnote.Reference to="partenaires" id="partenaires-reference" />
             </h2>}
 			{(numberOfResult === 0) &&
             <ErrorComponent/>
