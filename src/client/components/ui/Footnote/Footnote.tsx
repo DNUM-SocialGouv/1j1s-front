@@ -16,7 +16,11 @@ const Reference = forwardRef<HTMLAnchorElement, ReferenceProps>(function Referen
 	to,
 	...aProps
 }, ref) {
-	return <a href={`#${to}`} {...aProps} ref={ref}>*</a>;
+	return (
+		<a href={`#${to}`} title="note de pied de page" {...aProps} ref={ref}>
+			<abbr title="note de pied de page">*</abbr>
+		</a>
+	);
 });
 
 export const Footnote = Object.assign(FootnoteComponent, { Reference });
