@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.53.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.52.1...v3.53.0) (2023-04-21)
+
+
+### Features
+
+* **apprentissage:** raisons de choisir l'apprentissage employeurs ([100f66a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/100f66a75b40f9b7928a168ced37b76641cc9870))
+
 ## [3.52.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.52.0...v3.52.1) (2023-04-20)
 
 
