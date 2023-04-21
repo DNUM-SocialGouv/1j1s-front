@@ -3,8 +3,9 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 
-type FootnoteProps = ComponentPropsWithoutRef<'p'> & {
+type FootnoteProps = Omit<ComponentPropsWithoutRef<'p'>, 'id'> & {
 	htmlFor: string,
+	id: string,
 };
 
 const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(function Footnote({
@@ -19,8 +20,9 @@ const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(functi
 	);
 });
 
-type ReferenceProps = ComponentPropsWithoutRef<'a'> & {
+type ReferenceProps = Omit<ComponentPropsWithoutRef<'a'>, 'id'> & {
 	to: string,
+	id: string,
 };
 
 const Reference = forwardRef<HTMLAnchorElement, ReferenceProps>(function Reference({
