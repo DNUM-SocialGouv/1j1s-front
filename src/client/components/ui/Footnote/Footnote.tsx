@@ -1,14 +1,20 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
-type FootnoteProps = ComponentPropsWithoutRef<'p'>;
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
+
+type FootnoteProps = ComponentPropsWithoutRef<'p'> & {
+	htmlFor: string,
+};
 
 const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(function Footnote({
 	children,
+	htmlFor,
 	...pProps
 }, ref) {
 	return (
 		<p {...pProps} ref={ref}>
-			<abbr title="note de pied de page">*</abbr> {children}
+			<abbr title="note de pied de page">*</abbr><Link href={`#${htmlFor}`}><Icon name="angle-up" /></Link> {children}
 		</p>
 	);
 });
