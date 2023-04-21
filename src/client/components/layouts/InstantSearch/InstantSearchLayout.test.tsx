@@ -40,9 +40,10 @@ jest.mock('react-instantsearch-hooks-web', () => ({
 }));
 
 describe('<InstantSearchLayout />', () => {
-	it('affiche la note de bas de page sur les partenaires', async () => {
+	beforeEach(() => {
 		mockLargeScreen();
-
+	});
+	it('affiche la note de bas de page sur les partenaires', async () => {
 		render(
 			<DependenciesProvider rechercheClientService={mockRechercheService}>
 				<InstantSearchLayout
@@ -61,11 +62,35 @@ describe('<InstantSearchLayout />', () => {
 					resultatDeRecherche={() => <div></div>}/>
 			</DependenciesProvider>,
 		);
-		await screen.findByRole('heading', { name: '1 résultat trouvé' });
+		await screen.findByRole('heading', { name: /1 résultat trouvé/ });
 
 		const mention = screen.getByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
 		expect(mention).toBeVisible();
 		const lienCGU = within(mention).getByRole('link', { name: 'liste disponible dans les CGU' });
 		expect(lienCGU).toHaveAttribute('href', '/cgu#3-services');
+	});
+	it('ajoute une abréviation sur les CGU', async () => {
+		render(
+			<DependenciesProvider rechercheClientService={mockRechercheService}>
+				<InstantSearchLayout
+					meilisearchIndex="fake"
+					titre="Titre"
+					sousTitre="Sous-titre"
+					isMeilisearchQueryParamsRoutingEnabled={false}
+					formulaireDeRecherche={<div></div>}
+					tagList={<div></div>}
+					nombreDeResultatParPage={1}
+					messageResultatRechercheLabelSingulier="résultat trouvé"
+					messageResultatRechercheLabelPluriel="résultats trouvés"
+					nombreDeSkeleton={1}
+					ariaLabelListeDesResultats="résultats trouvés"
+					isAffichageListeDeResultatsDesktopDirectionRow={true}
+					resultatDeRecherche={() => <div></div>}/>
+			</DependenciesProvider>,
+		);
+		await screen.findByRole('heading', { name: /1 résultat trouvé/ });
+
+		const abreviation = screen.getByText('CGU');
+		expect(abreviation).toHaveAccessibleName("Conditions Générales d'Utilisation");
 	});
 });

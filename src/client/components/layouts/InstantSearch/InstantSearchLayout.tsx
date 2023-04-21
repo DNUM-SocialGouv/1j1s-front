@@ -160,7 +160,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 				isLoading={isInstantSearchLoading}
 				isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 			/>
-			<Footnote htmlFor="partenaires-reference" id="partenaires">les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les CGU</a>)</Footnote>
+			<Footnote htmlFor="partenaires-reference" id="partenaires">les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)</Footnote>
 		</>
 	);
 }) as <THit extends BaseHit>(props: AfficherResultatDeRechercheWithScrollProps<THit>, outerRef: React.Ref<HTMLElement> | null) => React.ReactElement;
