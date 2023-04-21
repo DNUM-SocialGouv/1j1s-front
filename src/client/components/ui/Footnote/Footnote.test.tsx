@@ -28,7 +28,7 @@ describe('<Footnote />', () => {
 			);
 
 			const reference = screen.getByRole('link', { name: /\*/i });
-			const footnote = screen.getByText('Ceci est une explication complémentaire.');
+			const footnote = screen.getByText(/Ceci est une explication complémentaire./);
 			expect(footnote).toHaveAttribute('id');
 			expect(reference).toHaveAttribute('href', `#${footnote.id}`);
 		});
@@ -43,5 +43,17 @@ describe('<Footnote />', () => {
 			const reference = screen.getByRole('link', { name: /\*/i });
 			expect(reference).toHaveAccessibleDescription('note de pied de page');
 		});
+	});
+
+	it('affiche une astérisque en début de footnote', () => {
+		render(
+			<>
+				<p>Ceci est un paragraphe<Footnote.Reference to="footnote" /></p>
+				<Footnote id="footnote">Ceci est une explication complémentaire.</Footnote>
+			</>,
+		);
+
+		const footnote = screen.getByText(/Ceci est une explication complémentaire./);
+		expect(footnote).toHaveTextContent(/^\* .+/);
 	});
 });
