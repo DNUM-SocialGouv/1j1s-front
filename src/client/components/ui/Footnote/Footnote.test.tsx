@@ -76,6 +76,7 @@ describe('<Footnote />', () => {
 
 		const footnote = screen.getByText(/Ceci est une explication complémentaire./);
 		const lienDeRetour = within(footnote).getByRole('link');
+		expect(lienDeRetour).toHaveAccessibleName('Retour à la référence');
 		expect(lienDeRetour).toHaveAttribute('href', '#reference');
 	});
 });
