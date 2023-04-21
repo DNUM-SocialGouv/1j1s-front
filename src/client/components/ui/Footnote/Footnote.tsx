@@ -8,12 +8,15 @@ const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(functi
 	return <p {...pProps} ref={ref}/>;
 });
 
-type ReferenceProps = ComponentPropsWithoutRef<'a'>;
+type ReferenceProps = ComponentPropsWithoutRef<'a'> & {
+	to: string,
+};
 
 const Reference = forwardRef<HTMLAnchorElement, ReferenceProps>(function Reference({
+	to,
 	...aProps
 }, ref) {
-	return <a {...aProps} ref={ref}>*</a>;
+	return <a href={`#${to}`} {...aProps} ref={ref}>*</a>;
 });
 
 export const Footnote = Object.assign(FootnoteComponent, { Reference });
