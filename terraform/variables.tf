@@ -1,6 +1,6 @@
 # Peut aussi être défini avec TF_VAR_front_nom_de_l_application
 variable "front_nom_de_l_application" {
-  description = "Nom de l'application"
+  description = "Nom de l'application Scalingo"
   type        = string
 }
 
@@ -30,4 +30,16 @@ variable "logstash_uri" {
   description = "URI du logstash, sous le format https://user:password@host:port"
   type        = string
   sensitive   = true
+}
+
+variable "front_nom_de_domaine_analytics" {
+  description = "Nom de domaine dédié à l'analytics Eulerian pour le front"
+  type        = string
+  default     = null
+}
+
+variable "front_eulerian_domaine" {
+  description = "Domaine du serveur Eulerian pour le front"
+  type        = string
+  default     = "minsante.ent.et-gv.fr"
 }

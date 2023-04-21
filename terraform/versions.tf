@@ -23,6 +23,16 @@ terraform {
       source  = "Scalingo/scalingo"
       version = "~> 2.0"
     }
+
+    statuscake = {
+      source  = "StatusCakeDev/statuscake"
+      version = "~> 2.1"
+    }
+
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.3"
+    }
   }
 }
 
@@ -31,4 +41,17 @@ provider "scalingo" {
   # il faut configurer en variables d'environnements :
   # SCALINGO_API_TOKEN : le token d'authentification de l'utilisateur Scalingo ("tk-us-...")
   # SCALINGO_REGION : la région de l'API Scalingo ("osc-fr1" ou "osc-secnum-fr1")
+}
+
+provider "statuscake" {
+  # Afin de ne pas stocker de token dans le code source, pour utiliser le provider StatusCake
+  # il faut configurer en variables d'environnements :
+  # STATUSCAKE_API_TOKEN : le token d'authentification de l'utilisateur StatusCake
+}
+
+provider "cloudflare" {
+  # Afin de ne pas stocker de token dans le code source, pour utiliser le provider Cloudflare
+  # il faut configurer en variables d'environnements :
+  # CLOUDFLARE_API_TOKEN : le token d'authentification de l'utilisateur Cloudflare
+  # CLOUDFLARE_ZONE_ID : l'ID de la zone Cloudflare  
 }

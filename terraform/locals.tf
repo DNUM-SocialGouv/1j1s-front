@@ -11,4 +11,7 @@ locals {
   envs_du_fichier_env = (var.front_fichier_env_secret != null) ? {
     for tuple in regexall("(.*)=[\"']?(.+)[\"']?", file(var.front_fichier_env_secret)) : tuple[0] => sensitive(tuple[1])
   } : {}
+
+  # Nom de l'environnement
+  nom_environnement = terraform.workspace == "default" ? "recette" : terraform.workspace
 }
