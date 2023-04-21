@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.54.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.53.0...v3.54.0) (2023-04-21)
+
+
+### Features
+
+* **UI:** homogeneisation du wording ([2481eeb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2481eeb16e9fa19d0db0d33187c69e96f453d1db))
+
 ## [3.53.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.52.1...v3.53.0) (2023-04-21)
 
 
