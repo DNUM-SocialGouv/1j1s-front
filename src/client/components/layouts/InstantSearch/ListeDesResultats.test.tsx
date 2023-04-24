@@ -9,10 +9,12 @@ import {
 } from '@testing-library/react';
 import React from 'react';
 
+import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
 import { mockLargeScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyedPagination = jest.spyOn(require('react-instantsearch-hooks-web'), 'usePagination');
@@ -134,7 +136,6 @@ describe('ListeDesResultats Component', () => {
 	  });
 		});
 
-
 		describe('Quand le nombre de résultats est supérieur au maximum à afficher', () => {
 	  it('Affiche une liste de résultats avec pagination', () => {
 				spyedPagination.mockImplementation(() => mockUsePagination({ isFirstPage: true, nbHits: 4 }));
@@ -155,6 +156,33 @@ describe('ListeDesResultats Component', () => {
 				const pagination = screen.getByRole('navigation', { name: 'pagination' });
 				expect(pagination).toBeInTheDocument();
 	  });
+		});
+
+		it('affiche la note de bas de page sur les partenaires', async () => {
+			render(<ListeDesResultats
+				isLoading={false}
+				resultats={<div />}
+				pagination={<MeiliSearchCustomPagination numberOfResultPerPage={1} onPageChange={() => (void 0)}/>}
+				isAffichageListeDeResultatsDesktopDirectionRow={true}
+				skeletonRepeat={2}
+			/>);
+
+			const mention = screen.getByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
+			expect(mention).toBeVisible();
+			const lienCGU = within(mention).getByRole('link', { name: 'liste disponible dans les CGU' });
+			expect(lienCGU).toHaveAttribute('href', '/cgu#3-services');
+		});
+		it('ajoute une abréviation sur les CGU', async () => {
+			render(<ListeDesResultats
+				isLoading={false}
+				resultats={<div />}
+				pagination={<MeiliSearchCustomPagination numberOfResultPerPage={1} onPageChange={() => (void 0)}/>}
+				isAffichageListeDeResultatsDesktopDirectionRow={true}
+				skeletonRepeat={2}
+			/>);
+
+			const abreviation = screen.getByText('CGU');
+			expect(abreviation).toHaveAccessibleName("Conditions Générales d'Utilisation");
 		});
 	});
 
