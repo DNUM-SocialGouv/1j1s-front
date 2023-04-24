@@ -1,14 +1,13 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventForHits';
 import { BaseHit } from 'instantsearch.js/es/types/results';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Configure, Hits, InstantSearch, useInstantSearch } from 'react-instantsearch-hooks-web';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
-import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
@@ -95,7 +94,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 							messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
 							nombreDeSkeleton={nombreDeSkeleton}
 							ariaLabelListeDesResultats={ariaLabelListeDesResultats}
-							resultatDeRecherche={resultatDeRecherche as HitComponent<THit>}
+							resultatDeRecherche={resultatDeRecherche}
 							isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 							nombreDeResultatParPage={nombreDeResultatParPage}
 							scrollToTopOfListeDesResultats={scrollToTopOfListeDesResultats}
@@ -126,14 +125,11 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 	const STALLED_STATUS = 'stalled';
 
 	const { status, results } = useInstantSearch();
-	const isSettingUp: boolean = results.__isArtificial || false;
-	const [isInstantSearchLoading, setIsInstantSearchLoading] = useState<boolean>(true);
+	const isSettingUp: boolean = results.__isArtificial ?? false;
 
 	const ref = useSynchronizedRef(outerRef);
 
-	useEffect(() => {
-		setIsInstantSearchLoading((status === LOADING_STATUS || status === STALLED_STATUS) && isSettingUp);
-	}, [status, isSettingUp]);
+	const isInstantSearchLoading = (status === LOADING_STATUS || status === STALLED_STATUS) && isSettingUp;
 
 	return (
 		<>
