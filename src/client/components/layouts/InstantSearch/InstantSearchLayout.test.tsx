@@ -72,5 +72,6 @@ describe('<InstantSearchLayout />', () => {
 		await user.click(pageSuivant);
 		
 		expect(résultats.scrollIntoView).toHaveBeenCalledTimes(1);
+		expect(résultats.scrollIntoView).toHaveBeenCalledWith(true);
 	});
 });
