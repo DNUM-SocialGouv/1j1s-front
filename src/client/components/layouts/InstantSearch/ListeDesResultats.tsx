@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
+import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -31,6 +32,7 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 					<>
 						{resultats}
 						{pagination}
+						<Footnote htmlFor="partenaires-reference" id="partenaires">les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)</Footnote>
 					</>
 				</Skeleton>
 			</Container>
