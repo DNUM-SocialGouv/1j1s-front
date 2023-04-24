@@ -63,10 +63,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 	const listeDesResultatsRef = useRef<HTMLElement>(null);
 
 	const scrollToTopOfListeDesResultats = () => {
-		const sectionListeDesResultats = listeDesResultatsRef.current;
-		if (sectionListeDesResultats) {
-			sectionListeDesResultats.scrollIntoView(true);
-		}
+		listeDesResultatsRef.current?.scrollIntoView(true);
 	};
 
 	return (
