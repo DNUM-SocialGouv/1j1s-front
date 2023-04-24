@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.54.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.54.1...v3.54.2) (2023-04-24)
+
+
+### Bug Fixes
+
+* add script hash exception to CSP ([#1201](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1201)) ([82f8dcf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/82f8dcf4c2e4fb6d44afd79ef67cd2c89c521682))
+
 ## [3.54.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.54.0...v3.54.1) (2023-04-24)
 
 
