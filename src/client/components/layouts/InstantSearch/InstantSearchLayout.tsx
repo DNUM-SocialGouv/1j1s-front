@@ -60,14 +60,12 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 
 	const searchClient = useDependency<SearchClient>('rechercheClientService');
 
-	const listeDesResultatsRef = useRef(null);
+	const listeDesResultatsRef = useRef<HTMLElement>(null);
 
 	const scrollToTopOfListeDesResultats = () => {
-		const sectionListeDesResultats = listeDesResultatsRef.current as unknown as HTMLElement;
+		const sectionListeDesResultats = listeDesResultatsRef.current;
 		if (sectionListeDesResultats) {
-			const axeHorizontal = sectionListeDesResultats.offsetLeft;
-			const axeVertical = sectionListeDesResultats.offsetTop;
-			window.scrollTo(axeHorizontal, axeVertical);
+			sectionListeDesResultats.scrollIntoView();
 		}
 	};
 

@@ -3,6 +3,7 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
@@ -16,9 +17,9 @@ const mockRechercheService: SearchClient = {
 				exhaustiveFacetsCount: true,
 				exhaustiveNbHits: true,
 				hits: [],
-				hitsPerPage: 20,
-				nbHits: 1,
-				nbPages: 1,
+				hitsPerPage: 1,
+				nbHits: 2,
+				nbPages: 2,
 				page: 1,
 				params: '',
 				processingTimeMS: 0,
@@ -43,6 +44,36 @@ describe('<InstantSearchLayout />', () => {
 	beforeEach(() => {
 		mockLargeScreen();
 	});
+	it('scroll en haut des résultats quand on change de page', async () => {
+		const user = userEvent.setup();
+		render(
+			<DependenciesProvider rechercheClientService={mockRechercheService}>
+				<InstantSearchLayout
+					meilisearchIndex="fake"
+					titre="Titre"
+					sousTitre="Sous-titre"
+					isMeilisearchQueryParamsRoutingEnabled={false}
+					formulaireDeRecherche={<div></div>}
+					tagList={<div></div>}
+					nombreDeResultatParPage={1}
+					messageResultatRechercheLabelSingulier="résultat trouvé"
+					messageResultatRechercheLabelPluriel="résultats trouvés"
+					nombreDeSkeleton={1}
+					ariaLabelListeDesResultats="résultats trouvés"
+					isAffichageListeDeResultatsDesktopDirectionRow={true}
+					resultatDeRecherche={() => <div></div>}/>
+			</DependenciesProvider>,
+		);
+		await screen.findByRole('heading', { name: /2 résultats trouvés/ });
+		const résultats = screen.getByRole('region', { name: /Résultats de la recherche/i });
+		résultats.scrollIntoView = jest.fn();
+
+		const pageSuivant = screen.getByRole('link', { name: /Page suivante/i });
+		await user.click(pageSuivant);
+		
+		expect(résultats.scrollIntoView).toHaveBeenCalledTimes(1);
+	});
+
 	it('affiche la note de bas de page sur les partenaires', async () => {
 		render(
 			<DependenciesProvider rechercheClientService={mockRechercheService}>
@@ -62,7 +93,7 @@ describe('<InstantSearchLayout />', () => {
 					resultatDeRecherche={() => <div></div>}/>
 			</DependenciesProvider>,
 		);
-		await screen.findByRole('heading', { name: /1 résultat trouvé/ });
+		await screen.findByRole('heading', { name: /2 résultats trouvés/ });
 
 		const mention = screen.getByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
 		expect(mention).toBeVisible();
@@ -88,7 +119,7 @@ describe('<InstantSearchLayout />', () => {
 					resultatDeRecherche={() => <div></div>}/>
 			</DependenciesProvider>,
 		);
-		await screen.findByRole('heading', { name: /1 résultat trouvé/ });
+		await screen.findByRole('heading', { name: /2 résultats trouvés/ });
 
 		const abreviation = screen.getByText('CGU');
 		expect(abreviation).toHaveAccessibleName("Conditions Générales d'Utilisation");

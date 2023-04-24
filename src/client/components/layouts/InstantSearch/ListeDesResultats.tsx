@@ -20,7 +20,7 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 	const ref = useSynchronizedRef(outerRef);
 
 	return (
-		<section className={styles.listeDesResultatsWrapper} ref={ref}>
+		<section className={styles.listeDesResultatsWrapper} ref={ref} aria-label='Résultats de la recherche'>
 			<Container
 				className={classNames({ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
 				<Skeleton
