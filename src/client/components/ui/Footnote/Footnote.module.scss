@@ -1,0 +1,9 @@
+@use "@styles/utilities";
+
+.footnote {
+  @extend %text-small;
+  text-align: justify;
+  @include utilities.media(medium) {
+    text-align: end;
+  }
+}

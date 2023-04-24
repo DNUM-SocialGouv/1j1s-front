@@ -1,7 +1,10 @@
+import classNames from 'classnames';
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+
+import styles from './Footnote.module.scss';
 
 type FootnoteProps = Omit<ComponentPropsWithoutRef<'p'>, 'id'> & {
 	htmlFor: string,
@@ -11,10 +14,11 @@ type FootnoteProps = Omit<ComponentPropsWithoutRef<'p'>, 'id'> & {
 const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(function Footnote({
 	children,
 	htmlFor,
+	className,
 	...pProps
 }, ref) {
 	return (
-		<p {...pProps} ref={ref}>
+		<p {...pProps} className={classNames(className, styles.footnote)} ref={ref}>
 			<abbr title="note de pied de page">*</abbr><Link href={`#${htmlFor}`} title="Retour à la référence"><Icon name="angle-up" /></Link> {children}
 		</p>
 	);
