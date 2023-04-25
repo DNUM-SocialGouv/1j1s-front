@@ -2,15 +2,13 @@ module.exports = {
 	ci: {
 	  	assert: {
 			assertMatrix: [
-			  {
-				"matchingUrlPattern": ".*",
-				"assertions": {
-				  "categories:accessibility": ["error", { "minScore": 1 }],
-				}
-			  }
-			assertions: {
-			  	'categories:accessibility': ['error', { minScore: 1 }],
-			},
+			  	{
+				  	assertions: {
+						'categories:accessibility': ['error', { minScore: 1 }],
+				  	},
+					matchingUrlPattern: '.*',
+			  	},
+			],
 		},
 		collect: {
 			numberOfRuns: 1,
