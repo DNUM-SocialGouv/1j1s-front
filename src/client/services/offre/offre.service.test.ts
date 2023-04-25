@@ -66,32 +66,4 @@ describe('OffreService', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('page=1'));
 		});
 	});
-
-	describe('rechercherAlternance', () => {
-		it('appelle le usecase avec la query', async () => {
-			const client = anHttpClientService();
-			const expectedAlternances = createSuccess(aRésultatsRechercheOffre());
-			(client.get as jest.Mock).mockResolvedValue(expectedAlternances);
-
-			const alternances = await new OffreService(client).rechercherAlternance({
-				motCle: 'Boulanger',
-			});
-
-			expect(client.get).toHaveBeenCalledTimes(1);
-			expect(client.get).toHaveBeenCalledWith(expect.stringContaining('alternances-pole-emploi'));
-			expect(client.get).toHaveBeenCalledWith(expect.stringContaining('motCle=Boulanger'));
-			expect(alternances).toEqual(expectedAlternances);
-		});
-
-		it('supprime les clés undefined de la query', async () => {
-			const client = anHttpClientService();
-
-			await new OffreService(client).rechercherAlternance({
-				motCle: undefined,
-			});
-
-			expect(client.get).toHaveBeenCalledTimes(1);
-			expect(client.get).toHaveBeenCalledWith(expect.not.stringContaining('motCle'));
-		});
-	});
 });

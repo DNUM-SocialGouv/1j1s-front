@@ -23,10 +23,4 @@ export class OffreService {
 		const queryString = stringify(sanitizedQuery);
 		return this.httpClientService.get<RésultatsRechercheOffre>(`jobs-etudiants?${queryString}`);
 	}
-	async rechercherAlternance(query: OffreQueryParams): Promise<Either<RésultatsRechercheOffre>> {
-		// FIXME (GAFI 20-03-2023): cf commentaire dans l'interface OffreQueryParams
-		const sanitizedQuery = removeUndefinedKeys(query);
-		const queryString = stringify(sanitizedQuery);
-		return this.httpClientService.get<RésultatsRechercheOffre>(`alternances-pole-emploi?${queryString}`);
-	}
 }

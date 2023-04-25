@@ -3,8 +3,6 @@ import * as process from 'process';
 import {
 	AlternanceDependencies,
 	alternancesDependenciesContainer,
-	OffresAlternanceDependencies,
-	offresAlternancesDependenciesContainer,
 } from '~/server/alternances/configuration/dependencies.container';
 import {
 	getApiLaBonneAlternanceConfig,
@@ -12,9 +10,6 @@ import {
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import {
-	ApiPoleEmploiAlternanceRepository,
-} from '~/server/alternances/infra/repositories/apiPoleEmploiAlternance.repository';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
@@ -137,7 +132,6 @@ export type Dependencies = {
 	demandeDeContactDependencies: DemandeDeContactDependencies;
 	entrepriseDependencies: EntrepriseDependencies;
 	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
-	offreAlternanceDependencies: OffresAlternanceDependencies;
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
 	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
@@ -184,13 +178,10 @@ export function dependenciesContainer(): Dependencies {
 	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
-	const apiPoleEmploiAlternanceRepository = new ApiPoleEmploiAlternanceRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
 	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, loggerService);
-
-	const offreAlternanceDependencies = offresAlternancesDependenciesContainer(apiPoleEmploiAlternanceRepository);
 
 	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
@@ -252,7 +243,6 @@ export function dependenciesContainer(): Dependencies {
 		localisationDependencies,
 		loggerService,
 		métierDependencies,
-		offreAlternanceDependencies,
 		offreEmploiDependencies,
 		offreJobÉtudiantDependencies,
 		robotsDependencies,
