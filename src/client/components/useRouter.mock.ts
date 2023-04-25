@@ -30,7 +30,7 @@ export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = 
 	} as unknown as NextRouter));
 }
 
-export const createMockRouter = (router: Partial<NextRouter>): NextRouter => {
+export const createMockRouter = (router?: Partial<NextRouter>): NextRouter => {
 	return {
 		asPath: '/',
 		back: jest.fn(),
