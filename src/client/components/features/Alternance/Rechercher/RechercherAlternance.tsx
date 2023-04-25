@@ -108,7 +108,7 @@ export default function RechercherAlternance() {
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
-				}, 
+				},
 				{
 					label: 'Entreprises',
 					listeSolutionElement: <ListeSolutionAlternanceEntreprise entrepriseList={alternanceList.entrepriseList}></ListeSolutionAlternanceEntreprise>,
@@ -122,6 +122,7 @@ export default function RechercherAlternance() {
 					imageFit="cover"
 					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
 					titleLabel="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
+					titleHeadingTag={'h3'}
 				>
 					<p>
 						Découvrez un argument supplémentaire à avancer pour vous faire
