@@ -19,11 +19,5 @@ describe('poleEmploiParamètreBuilder.service', () => {
 
 			expect(result).toEqual('commune=75101&motsCles=boulanger&range=0-14');
 		});
-
-		it('quand la page dépasse le range max renvoie undefined', async () => {
-			const result = await new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepositoryMock).buildCommonParamètresRecherche(anOffreÉchantillonAvecLocalisationEtMotCléFiltre({ page: 1001 }));
-
-			expect(result).toEqual(undefined);
-		});
 	});
 });

@@ -10,7 +10,7 @@ import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
 import {
 	DomaineCode,
-	MAX_PAGE_ALLOWED,
+	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
@@ -21,7 +21,7 @@ export const jobsEtudiantsQuerySchema = Joi.object({
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
 	libelleLocalisation: Joi.string(),
 	motCle: Joi.string(),
-	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
+	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_POLE_EMPLOI).required(),
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 });
 

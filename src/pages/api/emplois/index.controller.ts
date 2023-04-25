@@ -8,7 +8,7 @@ import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
-import { DomaineCode, MAX_PAGE_ALLOWED, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { DomaineCode, MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 
@@ -18,7 +18,7 @@ export const emploisQuerySchema = Joi.object({
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
 	libelleLocalisation: Joi.string(),
 	motCle: Joi.string(),
-	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED).required(),
+	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_POLE_EMPLOI).required(),
 	tempsDeTravail: Joi.string().valid('tempsPlein', 'tempsPartiel', 'indifférent'),
 	typeDeContrats: transformQueryToArray.array().items(Joi.string().valid('CDD', 'CDI', 'SAI', 'MIS')),
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),

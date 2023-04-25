@@ -1,5 +1,4 @@
-import { Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Success } from '~/server/errors/either';
 import {
 	ApiPoleEmploiJobÉtudiantRepository,
 } from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
@@ -126,19 +125,6 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalled();
 
 				expect(cacheService.set).not.toHaveBeenCalled();
-			});
-		});
-
-		describe('quand la range est supérieur à 1149', () => {
-			it('renvoie une erreur DEMANDE_INCORRECTE', async () => {
-				const offreEmploiFiltre = anOffreEmploiFiltre({ page: 1001 });
-				jest
-					.spyOn(poleEmploiParamètreBuilderService, 'buildCommonParamètresRecherche')
-					.mockResolvedValue(undefined);
-
-				const { errorType } = await apiPoleEmploiJobÉtudiantRepository.search(offreEmploiFiltre) as Failure;
-
-				expect(errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
 			});
 		});
 

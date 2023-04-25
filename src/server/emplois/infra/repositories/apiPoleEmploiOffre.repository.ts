@@ -72,20 +72,17 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	private async getOffreEmploiRecherche(emploiFiltre: EmploiFiltre) {
 		const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(emploiFiltre);
 		const emploiParamètresRecherche = await this.buildEmploiParamètresRecherche(emploiFiltre);
-		if(paramètresRecherche) {
-			try {
-				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
-					`/search?${emploiParamètresRecherche}&${paramètresRecherche}`,
-				);
-				if(response.status === 204) {
-					return createSuccess({ nombreRésultats: 0, résultats: [] });
-				}
-				return createSuccess(mapRésultatsRechercheOffre(response.data));
-			} catch (e) {
-				return handleSearchFailureError(e, 'offre emploi', this.loggerService);
+		try {
+			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
+				`/search?${emploiParamètresRecherche}&${paramètresRecherche}`,
+			);
+			if(response.status === 204) {
+				return createSuccess({ nombreRésultats: 0, résultats: [] });
 			}
+			return createSuccess(mapRésultatsRechercheOffre(response.data));
+		} catch (e) {
+			return handleSearchFailureError(e, 'offre emploi', this.loggerService);
 		}
-		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 	}
 
 	private async getÉchantillonOffreEmploi(emploiFiltre: EmploiFiltre) {

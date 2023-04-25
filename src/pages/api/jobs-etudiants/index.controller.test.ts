@@ -8,7 +8,7 @@ import {
 	rechercherJobÉtudiantHandler,
 } from '~/pages/api/jobs-etudiants/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import {
 	aRésultatRechercheOffreEmploiAxiosResponse,
@@ -67,7 +67,7 @@ describe('rechercher un job étudiant', () => {
 
 	describe('Quand les paramètres de l‘url ne respectent pas le schema de validation du controller', () => {
 		it.each([
-			{ page: '67' },
+			{ page: MAX_PAGE_ALLOWED_BY_POLE_EMPLOI + 1 },
 			{ page: '0' },
 			{ page: 'NaN' },
 			{ page: 'nan' },

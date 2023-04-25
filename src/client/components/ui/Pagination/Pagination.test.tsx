@@ -28,8 +28,8 @@ describe('Pagination', () => {
 		});
 	});
 
-	describe('quand il y a 70000 résultats', () => {
-		it('doit afficher seulement 66 pages', () => {
+	describe('quand on souhaite limiter le nombre maximum de page visible', () => {
+		it('doit afficher seulement les pages souhaitées', () => {
 			mockLargeScreen();
 			mockUseRouter({});
 			render(

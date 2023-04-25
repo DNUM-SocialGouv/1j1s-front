@@ -29,7 +29,7 @@ import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
+import { MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
@@ -37,8 +37,6 @@ const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 export function RechercherOffreEmploi() {
 	const offreQuery = useOffreQuery();
 	const offreService = useDependency<OffreService>('offreService');
-
-	const MAX_PAGE = 65;
 
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
 	const [offreEmploiList, setOffreEmploiList] = useState<Offre[]>([]);
@@ -93,7 +91,7 @@ export function RechercherOffreEmploi() {
 					messageRésultatRecherche={messageRésultatRecherche}
 					nombreSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
-					maxPage={MAX_PAGE}
+					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
 					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
 				/>
 				<EnTete heading="Découvrez des services faits pour vous"/>
