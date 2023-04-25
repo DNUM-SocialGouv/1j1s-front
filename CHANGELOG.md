@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.55.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.54.2...v3.55.0) (2023-04-25)
+
+
+### Features
+
+* **apprentissage:** ajout de la section en savoir plus campagne apprentissage entreprise ([1252f63](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1252f63a2dc1be6b685aa264fc0a331bfdad7491))
+
 ## [3.54.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.54.1...v3.54.2) (2023-04-24)
 
 
