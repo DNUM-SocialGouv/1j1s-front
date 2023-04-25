@@ -139,7 +139,8 @@ export function Select(props: SelectProps) {
 			className={styles.options}
 			role="listbox"
 			ref={listBoxRef}
-			aria-multiselectable={multiple}>
+			aria-multiselectable={multiple}
+			hidden={!isOptionListOpen}>
 			{optionList.map((option, index) =>
 				<li
 					tabIndex={-1}
@@ -209,7 +210,7 @@ export function Select(props: SelectProps) {
 					/>
 					{isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 				</button>
-				{isOptionListOpen && renderOptionList()}
+				{renderOptionList()}
 			</div>
 			{hasError &&
         <p className={classNames(styles.inputError)} id={errorMessageBy.current}>

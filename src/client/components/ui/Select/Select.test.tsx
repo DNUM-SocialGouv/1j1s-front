@@ -34,9 +34,9 @@ describe('Select', () => {
 			await screen.findByRole('listbox');
 
 			//THEN
-			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeVisible();
 		});
 
 		it('quand on sélectionne une valeur, met la valeur selectionné dans l‘input', async () => {
@@ -180,10 +180,10 @@ describe('Select', () => {
 			await screen.findByRole('listbox');
 
 			//THEN
-			expect(screen.getByRole('checkbox', { name: 'CDD' })).toBeInTheDocument();
-			expect(screen.getByRole('checkbox', { name: 'CDI' })).toBeInTheDocument();
-			expect(screen.getByRole('checkbox', { name: 'Intérim' })).toBeInTheDocument();
-			expect(screen.getByRole('checkbox', { name: 'Saisonnier' })).toBeInTheDocument();
+			expect(screen.getByRole('checkbox', { name: 'CDD' })).toBeVisible();
+			expect(screen.getByRole('checkbox', { name: 'CDI' })).toBeVisible();
+			expect(screen.getByRole('checkbox', { name: 'Intérim' })).toBeVisible();
+			expect(screen.getByRole('checkbox', { name: 'Saisonnier' })).toBeVisible();
 		});
 
 		it('quand on sélectionne une valeur, met la valeur sélectionnée dans l‘input', async () => {
@@ -235,9 +235,9 @@ describe('Keyboard Select', () => {
 			await screen.findByRole('listbox');
 
 			//THEN
-			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeVisible();
 		});
 
 		it('ferme les options avec la touche escape', async () => {
@@ -256,13 +256,13 @@ describe('Keyboard Select', () => {
 			await user.keyboard(KeyBoard.SPACE);
 			const optionList = await screen.findByRole('listbox');
 
-			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeVisible();
 
 			await user.keyboard(KeyBoard.ESCAPE);
 
-			expect(optionList).not.toBeInTheDocument();
+			expect(optionList).not.toBeVisible();
 		});
 
 		it('a le focus sur la première option quand on ouvre la liste des options', async () => {
@@ -345,7 +345,7 @@ describe('Keyboard Select', () => {
 			const hiddenInput = await screen.findByTestId('Select-InputHidden');
 			expect(hiddenInput).toHaveValue('tempsPlein');
 
-			expect(optionList).not.toBeInTheDocument();
+			expect(optionList).not.toBeVisible();
 
 		});
 
@@ -365,13 +365,13 @@ describe('Keyboard Select', () => {
 			await user.keyboard(KeyBoard.SPACE);
 			const optionList = await screen.findByRole('listbox');
 
-			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeInTheDocument();
-			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeInTheDocument();
+			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Temps partiel' })).toBeVisible();
+			expect(screen.getByRole('radio', { name: 'Indifférent' })).toBeVisible();
 
 			await user.keyboard(KeyBoard.ESCAPE);
 
-			expect(optionList).not.toBeInTheDocument();
+			expect(optionList).not.toBeVisible();
 
 			expect(button).toHaveFocus();
 		});
@@ -402,14 +402,14 @@ describe('Keyboard Select', () => {
 			await user.keyboard(KeyBoard.SPACE);
 			const hiddenInput = await screen.findByTestId('Select-InputHidden');
 			expect(hiddenInput).toHaveValue('CDD');
-			expect(optionList).toBeInTheDocument();
+			expect(optionList).toBeVisible();
 
 			await user.keyboard(KeyBoard.ARROW_DOWN);
 			expect(secondOption).toHaveFocus();
 
 			await user.keyboard(KeyBoard.SPACE);
 			expect(hiddenInput).toHaveValue('CDD,CDI');
-			expect(optionList).toBeInTheDocument();
+			expect(optionList).toBeVisible();
 		});
 	});
 });
