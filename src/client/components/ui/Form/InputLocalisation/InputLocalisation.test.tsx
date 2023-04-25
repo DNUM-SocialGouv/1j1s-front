@@ -61,22 +61,22 @@ describe('InputLocalisation', () => {
 
 			// WHEN
 			await user.type(inputLocalisation, 'Par');
-			let résultatsLocalisation = screen.queryByTestId('RésultatsLocalisation');
+			let résultatsLocalisation = screen.getByTestId('RésultatsLocalisation');
 
 			// THEN
 			// FIXME (GAFI 09-02-2023): Plutôt injecter le setTimeout
 			await waitFor(() => {
 				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
 			});
-			expect(résultatsLocalisation).not.toBeInTheDocument();
+			expect(résultatsLocalisation).not.toBeVisible();
 
 			// WHEN
 			await user.type(inputLocalisation, 'is');
-			résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
 			// THEN
-			expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Paris');
-			expect(résultatsLocalisation).toBeInTheDocument();
+			await waitFor(() => expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Paris'));
+			résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+			await waitFor(() => expect(résultatsLocalisation).toBeVisible());
 
 			const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
 			fireEvent.click(résultatLocalisationList[1]);

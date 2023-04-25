@@ -201,6 +201,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 				aria-labelledby={LOCALISATION_LABEL_ID}
 				id={LOCALISATION_SUGGESTIONS_ID}
 				data-testid="RésultatsLocalisation"
+				hidden={!suggestionsActive}
 			>
 				{localisationList.régionList.length > 0 &&
           <li className={styles.catégorieRésultat}><strong>Régions</strong></li>}
@@ -268,7 +269,7 @@ export const InputLocalisation = (props: InputLocalisationProps) => {
 					<input type="hidden" name="typeLocalisation" value={typeLocalisation} data-testid="typeLocalisation" />
 					<input type="hidden" name="codeLocalisation" value={codeLocalisation} data-testid="codeLocalisation" />
 				</div>
-				{suggestionsActive && <SuggestionsLocalisationList/>}
+				<SuggestionsLocalisationList/>
 			</div>
 		</div>
 	);
