@@ -69,20 +69,17 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 	private async getOffreJobÉtudiantRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre) {
 		const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(jobÉtudiantFiltre);
 		const jobÉtudiantParamètresRecherche = await this.buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre);
-		if(paramètresRecherche) {
-			try {
-				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
-					`/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
-				);
-				if(response.status === 204) {
-					return createSuccess({ nombreRésultats: 0, résultats: [] });
-				}
-				return createSuccess(mapRésultatsRechercheOffre(response.data));
-			} catch (e) {
-				return handleSearchFailureError(e, 'job étudiant', this.loggerService);
+		try {
+			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
+				`/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
+			);
+			if(response.status === 204) {
+				return createSuccess({ nombreRésultats: 0, résultats: [] });
 			}
+			return createSuccess(mapRésultatsRechercheOffre(response.data));
+		} catch (e) {
+			return handleSearchFailureError(e, 'job étudiant', this.loggerService);
 		}
-		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 	}
 
 	async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobÉtudiantFiltre) {

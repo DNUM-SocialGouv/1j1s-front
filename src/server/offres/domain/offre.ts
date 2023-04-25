@@ -190,8 +190,9 @@ export interface RéférentielDomaine {
 }
 
 export const NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE = 15;
-const MAX_RESULT_ALLOWED = 1000;
-export const MAX_PAGE_ALLOWED = Math.floor(MAX_RESULT_ALLOWED / NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE);
+// Pôle emploi provides us with results whose starting index does not exceed 3000.
+const MAX_RESULT_ALLOWED_BY_POLE_EMPLOI = 3000;
+export const MAX_PAGE_ALLOWED_BY_POLE_EMPLOI = Math.ceil(MAX_RESULT_ALLOWED_BY_POLE_EMPLOI / NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE);
 
 export function isOffreÉchantillonFiltre(offreFiltre: OffreFiltre) {
 	const { page, ...rest } = offreFiltre;

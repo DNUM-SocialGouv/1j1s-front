@@ -12,13 +12,8 @@ export class PoleEmploiParamètreBuilderService {
     private apiPoleEmploiRéférentielRepository: ApiPoleEmploiRéférentielRepository,
 	) {}
 
-	private MAX_AUTHORIZED_RANGE = 1000;
 
-	async buildCommonParamètresRecherche(offreFiltre: OffreFiltre): Promise<string | undefined> {
-		if((offreFiltre.page * NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE - 1) > this.MAX_AUTHORIZED_RANGE) {
-			return undefined;
-		}
-
+	async buildCommonParamètresRecherche(offreFiltre: OffreFiltre): Promise<string> {
 		const localisation = await this.buildLocalisation(offreFiltre);
 
 		const queryList: Record<string, string> = {

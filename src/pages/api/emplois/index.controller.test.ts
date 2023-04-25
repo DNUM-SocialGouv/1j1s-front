@@ -8,7 +8,7 @@ import {
 	rechercherOffreEmploiHandler,
 } from '~/pages/api/emplois/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import {
 	aRésultatRechercheOffreEmploiAxiosResponse,
@@ -70,8 +70,8 @@ describe('rechercher une offre d‘emploi', () => {
 
 	describe('Quand les paramètres de l‘url ne respectent pas le schema de validation du controller', () => {
 		it.each([
-			{ page: '67' },
 			{ page: '0' },
+			{ page: MAX_PAGE_ALLOWED_BY_POLE_EMPLOI + 1 },
 			{ page: 'NaN' },
 			{ page: 'nan' },
 			{ page: '1', typeDeContrats: 'RSA' },
