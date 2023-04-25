@@ -3,7 +3,7 @@ import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
-import { RechercherAlternancePoleEmploi } from '~/client/components/features/Alternance/Rechercher/RechercherAlternancePoleEmploi';
+import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/apprentissage/index.analytics';
@@ -22,10 +22,7 @@ export default function RechercherAlternancePage() {
 		}
 	}, [router, displayRechercherAlternanceLBA]);
 
-	if (displayRechercherAlternanceLBA) return <RechercherAlternance/>;
+	if (!displayRechercherAlternanceLBA) return <ErrorUnavailableService/>;
 
-	if (Object.keys(router.query).length) {
-		return <RechercherAlternancePoleEmploi/>;
-	}
-	return null;
+	return <RechercherAlternance/>;
 }
