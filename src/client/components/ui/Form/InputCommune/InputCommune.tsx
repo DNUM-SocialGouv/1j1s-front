@@ -196,6 +196,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 				aria-labelledby={id || LOCALISATION_LABEL_ID}
 				id={LOCALISATION_SUGGESTIONS_ID}
 				data-testid="RésultatsCommune"
+				hidden={!suggestionsActive}
 			>
 				{communeList.length > 0 && communeList.map((suggestion, index) => (
 					<li
@@ -263,7 +264,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 						<input type="hidden" name="latitudeCommune" value={latitudeCommune}/>
 						<input type="hidden" name="longitudeCommune" value={longitudeCommune}/>
 					</div>
-					{suggestionsActive && <SuggestionsCommuneList/>}
+					<SuggestionsCommuneList/>
 				</div>
 			</div>
 			{codeCommune && showRadius &&

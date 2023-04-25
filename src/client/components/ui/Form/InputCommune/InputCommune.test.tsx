@@ -95,14 +95,21 @@ describe('InputCommune', () => {
 
 			// WHEN
 			const résultatCommuneList = within(résultatsCommune).getAllByRole('option');
-			fireEvent.click(résultatCommuneList[0]);
+			await user.click(résultatCommuneList[0]);
 
 			// THEN
-			expect(screen.getByRole('textbox', { name: 'Localisation' })).toHaveValue('Paris (75006)');
-			expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
-			expect(screen.getByDisplayValue('48.859')).toBeInTheDocument();
-			expect(screen.getByDisplayValue('2.347')).toBeInTheDocument();
-			expect(screen.getByDisplayValue('10')).toBeInTheDocument();
+
+			const localisation = screen.getByRole('textbox', { name: 'Localisation' });
+			expect(localisation).toHaveValue('Paris (75006)');
+			const codeCommune = screen.getByDisplayValue('75056', {});
+			expect(codeCommune).toBeInTheDocument();
+			const latitude = screen.getByDisplayValue('48.859');
+			expect(latitude).toBeInTheDocument();
+			const longitude = screen.getByDisplayValue('2.347');
+			expect(longitude).toBeInTheDocument();
+			// FIXME (GAFI 25-04-2023): À fixer après avoir mis le nez dans <Select />
+			const rayon = screen.getAllByDisplayValue<HTMLInputElement>('10').find((element) => element.name != null);
+			expect(rayon).toBeInTheDocument();
 		});
 	});
 
