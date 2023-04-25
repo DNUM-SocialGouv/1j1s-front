@@ -120,6 +120,7 @@ export default function Entreprendre() {
 							linkLabel="Prendre rendez-vous pour exposer son projet"
 							logo="/images/entreprendre/région-sud.png"
 							title="Vous avez moins de 30 ans, habitez Marseille et souhaitez créer votre entreprise ?"
+							titleAs={'h3'}
 						>
 							Dans le cadre de l’initiative “Marseille en grand” lancée par le
 							Président de la République le 2 septembre 2021, l’Etat et la

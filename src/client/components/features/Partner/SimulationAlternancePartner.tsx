@@ -10,6 +10,7 @@ export function SimulationAlternancePartner() {
 			logo="/images/logos/portail-alternance.png"
 			link="https://www.alternance.emploi.gouv.fr/simulateur-alternant/etape-1"
 			title="Vous êtes alternant ?"
+			titleAs={'h3'}
 		>
 			<>
 				<strong className={styles.cardHeadline}>
