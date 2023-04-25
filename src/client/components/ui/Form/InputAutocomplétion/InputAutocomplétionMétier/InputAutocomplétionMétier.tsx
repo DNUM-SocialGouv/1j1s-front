@@ -41,7 +41,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	const autocompleteRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const CONTROL_ID = 'autocomplete-métier';
+	const CONTROL_ID = 'autocomplete-metier';
 
 	useEffect(() => {
 		if (libellé) {
@@ -147,6 +147,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			role="listbox"
 			aria-labelledby={label}
 			id={CONTROL_ID}
+			hidden={!suggestionsActive}
 		>
 			{suggestionsApi.length === 0 &&
           <li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
@@ -168,7 +169,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 			))}
 		</ul>;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [suggestionsApi, label, suggestionIndex, métierRecherchéInput]);
+	}, [suggestionsApi, label, suggestionIndex, métierRecherchéInput, suggestionsActive]);
 
 	return (
 		<div className={classNames(styles.wrapper, className)}>
@@ -206,7 +207,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 					/>
 					<input type="hidden" value={codeRomesInput} name={'codeRomes'}/>
 				</div>
-				{suggestionsActive && suggestions}
+				{suggestions}
 			</div>
 			{isTouched && inputRef.current?.validationMessage &&
           <p id={errorId.current} className={styles.instructionMessageError}>{inputRef.current?.validationMessage}</p>}
