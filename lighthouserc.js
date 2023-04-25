@@ -1,8 +1,14 @@
 module.exports = {
 	ci: {
 	  	assert: {
+			assertMatrix: [
+			  {
+				"matchingUrlPattern": ".*",
+				"assertions": {
+				  "categories:accessibility": ["error", { "minScore": 1 }],
+				}
+			  }
 			assertions: {
-			  // minScore = 1 except for url: https://www.1jeune1solution.gouv.fr/contrat-engagement-jeune
 			  	'categories:accessibility': ['error', { minScore: 1 }],
 			},
 		},
@@ -17,27 +23,27 @@ module.exports = {
 				],
 			},
 			url: [
-				'https://www.1jeune1solution.gouv.fr/',
-				'https://www.1jeune1solution.gouv.fr/emplois',
-				'https://www.1jeune1solution.gouv.fr/apprentissage',
-				'https://www.1jeune1solution.gouv.fr/jobs-etudiants',
-				'https://www.1jeune1solution.gouv.fr/service-civique',
-				'https://www.1jeune1solution.gouv.fr/benevolat',
-				'https://www.1jeune1solution.gouv.fr/stages',
-				'https://www.1jeune1solution.gouv.fr/stages?offre-de-stage%5Bpage%5D=3',
-				'https://www.1jeune1solution.gouv.fr/contrat-engagement-jeune',
-				'https://www.1jeune1solution.gouv.fr/mes-aides',
-				'https://www.1jeune1solution.gouv.fr/mentorat',
-				'https://www.1jeune1solution.gouv.fr/creer-mon-cv',
-				'https://www.1jeune1solution.gouv.fr/espace-jeune',
-				'https://www.1jeune1solution.gouv.fr/je-deviens-mentor',
-				'https://www.1jeune1solution.gouv.fr/les-entreprises-s-engagent',
-				'https://www.1jeune1solution.gouv.fr/immersions',
-				'https://www.1jeune1solution.gouv.fr/mesures-employeurs',
-				'https://www.1jeune1solution.gouv.fr/je-recrute-afpr-poei',
-				'https://www.1jeune1solution.gouv.fr/logements/annonces',
-				'https://www.1jeune1solution.gouv.fr/logements/aides-logement',
-				'https://www.1jeune1solution.gouv.fr/formations/apprentissage',
+				'http://localhost:3000/',
+				'http://localhost:3000/emplois',
+				'http://localhost:3000/apprentissage',
+				'http://localhost:3000/jobs-etudiants',
+				'http://localhost:3000/service-civique',
+				'http://localhost:3000/benevolat',
+				'http://localhost:3000/stages',
+				'http://localhost:3000/stages?offre-de-stage%5Bpage%5D=3',
+				'http://localhost:3000/contrat-engagement-jeune',
+				'http://localhost:3000/mes-aides',
+				'http://localhost:3000/mentorat',
+				'http://localhost:3000/creer-mon-cv',
+				'http://localhost:3000/espace-jeune',
+				'http://localhost:3000/je-deviens-mentor',
+				'http://localhost:3000/les-entreprises-s-engagent',
+				'http://localhost:3000/immersions',
+				'http://localhost:3000/mesures-employeurs',
+				'http://localhost:3000/je-recrute-afpr-poei',
+				'http://localhost:3000/logements/annonces',
+				'http://localhost:3000/logements/aides-logement',
+				'http://localhost:3000/formations/apprentissage',
 			],
 		},
 		server: {

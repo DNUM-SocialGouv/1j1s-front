@@ -1,16 +1,20 @@
+---
 name: Lighthouse
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18.x ]
+        node-version:
+          - 18.x
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -18,10 +22,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
+      - run: npm ci && cp .env.test .env
+      - name: Start dev
+        run: |
+          nohup npm run dev </dev/null &>/dev/null &
+      - name: Sleep for 5 seconds
+        run: sleep 5s
+        shell: bash
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.12.x
       - name: Run Lighthouse CI
         run: lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
