@@ -69,7 +69,7 @@
     height: 27.5rem;
   }
   .bannièreContent {
-    padding: 80px 80px 80px calc((100vw - #{$breakpoint-xl}) / 2 + #{$gutter});
+    padding: 80px 80px 80px calc((100vw - #{utilities.$breakpoint-xl}) / 2 + #{utilities.$gutter});
   }
 }
 

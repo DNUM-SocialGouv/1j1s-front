@@ -78,7 +78,7 @@
 
     &Container {
       max-width: 45rem;
-      margin-right: calc(#{$breakpoint-xl}/1.5 - 45rem);
+      margin-right: calc(#{utilities.$breakpoint-xl}/1.5 - 45rem);
     }
 
     .imageWrapper {
