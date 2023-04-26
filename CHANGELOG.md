@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.55.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.0...v3.55.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-instantsearch-hooks-web to ~6.43.0 ([7282ec3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7282ec376e4827db9c8f8b030d080ea6ad67c659))
+
 ## [3.55.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.54.2...v3.55.0) (2023-04-25)
 
 
