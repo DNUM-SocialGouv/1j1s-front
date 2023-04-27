@@ -1,0 +1,96 @@
+@use '@styles/utilities';
+
+.preparationApprentissage {
+  & .contenu {
+    @include utilities.media(large) {
+      display: grid;
+      grid-template-areas:
+             "titleChoixApprentissage titlePrepaApprentissage"
+             "linkContainerChoixApprentissage linkPrepaApprentissage";
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 5rem;
+      padding: 5rem 1rem;
+    }
+
+    & .prepaApprentissage,
+    & .choixApprentissage {
+      padding: 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+      @include utilities.media(large) {
+        padding: 0;
+        display: contents;
+      }
+    }
+
+    & .choixApprentissage{
+      background-color: utilities.$color-background-white-lilac;
+      @include utilities.media(large) {
+        background-color: utilities.$color-background;
+      }
+      }
+
+    & .link {
+      max-width: 60ch;
+      width: 100%;
+      margin: 1.25rem auto 0 auto;
+      @include utilities.media(large) {
+        margin: 0;
+      }
+    }
+
+    & .linkContainerChoixApprentissage {
+      display: contents;
+      @extend %text-regular;
+      @include utilities.media(large) {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        gap: 1.25rem
+      }
+    }
+
+    & .linkChoixApprentissage {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      @include utilities.media(large) {
+        grid-area: linkChoixApprentissage;
+        max-width: fit-content;
+        justify-self: center;
+        gap: 0.5rem;
+      }
+    }
+
+    & .titlePrepaApprentissage {
+      grid-area: titlePrepaApprentissage;
+    }
+
+    & .titleChoixApprentissage {
+      grid-area: titleChoixApprentissage;
+    }
+
+    & .linkPrepaApprentissage {
+      @extend %text-regular;
+      grid-area: linkPrepaApprentissage;
+      height: min-content;
+
+      @include utilities.media(large) {
+        justify-self: center;
+        max-width: fit-content;
+      }
+    }
+
+    & h2 {
+      @extend %subheading;
+      color: utilities.$color-primary;
+      margin-bottom: 1.25rem;
+
+      @include utilities.media(large) {
+        text-align: center;
+        margin: 0;
+      }
+    }
+  }
+}
