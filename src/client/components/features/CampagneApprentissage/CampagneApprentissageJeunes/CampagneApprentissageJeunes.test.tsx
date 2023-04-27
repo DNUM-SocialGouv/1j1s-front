@@ -72,6 +72,26 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 	});
 
+	describe('PreparationApprentissage', () => {
+		it('je vois les informations pour accéder aux offres de formation et d‘alternance', () => {
+			render(<CampagneApprentissageJeunes/>);
+			expect(screen.getByRole('heading', {
+				level: 2,
+				name: 'Vous souhaitez faire le choix de l’apprentissage ?',
+			})).toBeVisible();
+			expect(screen.getByRole('link', { name: 'Trouver votre formation en apprentissage' })).toHaveAttribute('href', '/formations/apprentissage');
+			expect(screen.getByRole('link', { name: 'Trouver votre entreprise' })).toHaveAttribute('href', '/apprentissage');
+		});
+		it('je vois les informations pour accéder à l‘article sur la prépa apprentissage', () => {
+			render(<CampagneApprentissageJeunes/>);
+			expect(screen.getByRole('heading', {
+				level: 2,
+				name: 'La prépa-apprentissage c’est quoi ?',
+			})).toBeVisible();
+			expect(screen.getByRole('link', { name: 'Lire l‘article' })).toHaveAttribute('href', '/articles/la-prepa-apprentissage-c-est-quoi');
+		});
+	});
+
 	describe('EnSavoirPlusApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
 			render(<CampagneApprentissageJeunes/>);

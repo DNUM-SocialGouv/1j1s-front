@@ -3,6 +3,8 @@ import React from 'react';
 import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissage.module.scss';
 import EnSavoirPlusApprentissage
 	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/EnSavoirPlusApprentissageJeunes/EnSavoirPlusApprentissageJeunes';
+import PreparationApprentissage
+	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/PreparationApprentissage/PreparationApprentissage';
 import {
 	Raisons,
 	RaisonsDeChoisirApprentissage,
@@ -45,6 +47,7 @@ export function CampagneApprentissageJeunes() {
 				</HeroWithIllustration>
 			</header>
 			<RaisonsDeChoisirApprentissage titre="Choisir l’apprentissage c’est…" raisons={raisons}/>
+			<PreparationApprentissage/>
 			<EnSavoirPlusApprentissage/>
 		</>
 	);
