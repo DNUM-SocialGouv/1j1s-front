@@ -9,7 +9,7 @@ export default function AvantagesMobilisation() {
 	return (
 		<Container className={styles.container}>
 			<Image src={illustration} width={448} height={300} alt=""/>
-			<section className={styles.article}>
+			<section className={styles.avantages}>
 				<h2>
 					Quels avantages à rejoindre la mobilisation pour les jeunes ?
 				</h2>
