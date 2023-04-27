@@ -9,7 +9,7 @@ export default function AvantagesMobilisation() {
 	return (
 		<Container className={styles.container}>
 			<Image src={illustration} width={448} height={300} alt=""/>
-			<article className={styles.article}>
+			<section className={styles.avantages}>
 				<h2>
 					Quels avantages à rejoindre la mobilisation pour les jeunes ?
 				</h2>
@@ -19,7 +19,7 @@ export default function AvantagesMobilisation() {
 					<li>Bénéficiez d’un accompagnement par un Conseiller Pôle Emploi (rappel sous 72h)</li>
 					<li>Relayez vos engagements par intermédiaire d’un kit de communication #1jeune1solution</li>
 				</ul>
-			</article>
+			</section>
 		</Container>
 	);
 }
