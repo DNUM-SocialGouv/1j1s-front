@@ -54,7 +54,7 @@ describe('Parcours formulaire cej', () => {
 					] } ),
 				},
 			);
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"]:visible').first().click();
 
 			interceptPost(
 				{

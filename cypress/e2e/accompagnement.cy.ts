@@ -27,10 +27,10 @@ describe('Parcours Accompagnement', () => {
 						résultats: aCommuneList(),
 					}),
 				});
-				cy.get('ul[role="listbox"]').first().click();
+				cy.get('ul[role="listbox"]:visible > li').first().click();
 
 				cy.contains('Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').first().click();
+				cy.get('ul[role="listbox"]:visible > li').first().click();
 
 				interceptGet({
 					actionBeforeWaitTheCall: () => cy.contains('Rechercher').click(),
@@ -53,10 +53,10 @@ describe('Parcours Accompagnement', () => {
 
 				cy.get('input[name="libelleCommune"]').type('par');
 				cy.wait('@get-communes');
-				cy.get('ul[role="listbox"] > li').first().click();
+				cy.get('ul[role="listbox"]:visible > li').first().click();
 
 				cy.contains('button', 'Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').first().click();
+				cy.contains('ul[role="listbox"]:visible > li', 'Agences Pôle Emploi').click();
 
 				cy.intercept(
 					'GET',
@@ -75,7 +75,7 @@ describe('Parcours Accompagnement', () => {
 				cy.get('input[name=mail]').type('john.doe@email.com');
 				cy.get('input[name=phone]').type('0606060606');
 				cy.contains('button', 'Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').eq(7).click();
+				cy.get('ul[role="listbox"]:visible > li').eq(7).click();
 
 				interceptGet({
 					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').last().type('par'),
@@ -86,7 +86,7 @@ describe('Parcours Accompagnement', () => {
 					}),
 				});
 
-				cy.get('ul[role="listbox"]').first().click();
+				cy.get('ul[role="listbox"]:visible > li').first().click();
 				cy.get('textarea[name=commentaire]').type('Merci de me recontacter');
 
 				cy.intercept({ method: 'POST', pathname: '/api/etablissements-accompagnement/contact*' }, { statusCode: 201 });

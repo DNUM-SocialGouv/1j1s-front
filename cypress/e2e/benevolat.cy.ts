@@ -12,7 +12,7 @@ describe('Parcours bénévolat', () => {
 	context('quand l‘utilisateur choisi un domaine', () => {
 		it('affiche la liste des résultats', () => {
 			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"]:visible').first().click();
 
 			interceptGet(
 				{
@@ -33,7 +33,7 @@ describe('Parcours bénévolat', () => {
 					] } ),
 				},
 			);
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"]:visible').first().click();
 
 			interceptGet(
 				{
@@ -53,7 +53,7 @@ describe('Parcours bénévolat', () => {
 			const id = aRésultatRechercheMission().résultats[0].id;
 
 			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"]:visible').first().click();
 
 			interceptGet(
 				{

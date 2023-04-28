@@ -34,7 +34,7 @@ describe('Parcours service civique', () => {
 					] } ),
 				},
 			);
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"]:visible').first().click();
 
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
@@ -51,7 +51,7 @@ describe('Parcours service civique', () => {
 	context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
 		it('navigue vers le détail de l‘offre', () => {
 			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"]:visible').first().click();
 
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
