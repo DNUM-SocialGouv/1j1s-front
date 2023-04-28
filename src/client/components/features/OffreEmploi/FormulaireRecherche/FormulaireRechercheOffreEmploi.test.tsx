@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -169,14 +169,15 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				// WHEN
 				await user.type(inputLocalisation, 'Par');
-				const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
 
 				// WHEN
+				await waitForElementToBeRemoved(() => screen.queryByText(/Aucune proposition ne correspond à votre saisie/));
 				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
+				const résultatsLocalisation = screen.getByTestId('RésultatsLocalisation');
 				const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
 
+				// FIXME (GAFI 28-04-2023): For some reason, only fireEvent works here, not userEvent ?
 				fireEvent.click(résultatLocalisationList[1]);
-
 				fireEvent.click(buttonRechercher);
 
 				// THEN

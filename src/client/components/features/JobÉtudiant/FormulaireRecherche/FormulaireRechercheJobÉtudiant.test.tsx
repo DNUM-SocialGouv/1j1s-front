@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -66,14 +66,15 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 
 				// WHEN
 				await user.type(inputLocalisation, 'Par');
-				const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+
+				// THEN
+				await waitFor(() => expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par'));
 
 				// WHEN
-				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
+				const résultatsLocalisation = screen.getByTestId('RésultatsLocalisation');
 				const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
-
+				// FIXME (GAFI 28-04-2023): For some reason, only fireEvent works here, not userEvent ?
 				fireEvent.click(résultatLocalisationList[1]);
-
 				fireEvent.click(buttonRechercher);
 
 				// THEN

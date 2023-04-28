@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -115,8 +115,9 @@ describe('RechercherMission', () => {
 				const user = userEvent.setup();
 				const inputCommune = screen.getByTestId('InputCommune');
 				await user.type(inputCommune, 'Pari');
-				const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-				const resultListCommune = within(résultatsCommune).getAllByRole('option');
+				await waitForElementToBeRemoved(() => screen.queryByText(/Aucune proposition ne correspond à votre saisie/));
+				const résultatsCommune = screen.getByTestId('RésultatsCommune');
+				const resultListCommune = await within(résultatsCommune).findAllByRole('option');
 				fireEvent.click(resultListCommune[0]);
 				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
 				fireEvent.click(selectButtonRadius);
@@ -194,11 +195,12 @@ describe('RechercherMission', () => {
 				const user = userEvent.setup();
 				const inputCommune = screen.getByTestId('InputCommune');
 				await user.type(inputCommune, 'Pari');
-				const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+				await waitForElementToBeRemoved(() => screen.queryByText(/Aucune proposition ne correspond à votre saisie/));
+				const résultatsCommune = screen.getByTestId('RésultatsCommune');
 				const resultListCommune = within(résultatsCommune).getAllByRole('option');
-				fireEvent.click(resultListCommune[0]);
+				await user.click(resultListCommune[0]);
 				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
-				fireEvent.click(selectButtonRadius);
+				await user.click(selectButtonRadius);
 
 				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitForElementToBeRemoved, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -85,18 +85,19 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			const user = userEvent.setup();
 			const inputCommune = screen.getByTestId('InputCommune');
 			await user.type(inputCommune, 'Pari');
-			const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+			await waitForElementToBeRemoved(() => screen.queryByText(/Aucune proposition ne correspond à votre saisie/));
+			const résultatsCommune = screen.getByTestId('RésultatsCommune');
 			const resultListCommune = within(résultatsCommune).getAllByRole('option');
-			fireEvent.click(resultListCommune[0]);
+			await user.click(resultListCommune[0]);
 			const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
-			fireEvent.click(selectButtonRadius);
+			await user.click(selectButtonRadius);
 
 			const rayon30kmOption = screen.getByRole('radio', { name: '30 km' });
-			fireEvent.click(rayon30kmOption);
+			await user.click(rayon30kmOption);
 			const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
 			// WHEN
-			fireEvent.submit(rechercherMissionButton);
+			await user.click(rechercherMissionButton);
 
 			// THEN
 			expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris+%2875006%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });

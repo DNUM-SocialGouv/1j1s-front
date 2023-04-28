@@ -89,7 +89,7 @@ describe('FormulaireRechercherFormation', () => {
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
-			const inputCommune = screen.getByLabelText('Localisation');
+			const inputCommune = screen.getByRole('textbox', { name: 'Localisation' });
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
@@ -159,7 +159,7 @@ describe('FormulaireRechercherFormation', () => {
 
 			const user = userEvent.setup();
 
-			const inputCommune = screen.getByLabelText('Localisation');
+			const inputCommune = screen.getByRole('textbox', { name: 'Localisation' });
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
@@ -203,7 +203,7 @@ describe('FormulaireRechercherFormation', () => {
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
-			const inputCommune = screen.getByLabelText('Localisation');
+			const inputCommune = screen.getByRole('textbox', { name: 'Localisation' });
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 

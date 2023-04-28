@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -35,7 +35,8 @@ describe('FormulaireRechercheAccompagnement', () => {
 			const user = userEvent.setup();
 			const inputCommune = screen.getByTestId('InputCommune');
 			await user.type(inputCommune, 'Pari');
-			const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+			await waitForElementToBeRemoved(() => screen.queryByText(/Aucune proposition ne correspond à votre saisie/));
+			const résultatsCommune = screen.getByTestId('RésultatsCommune');
 			const resultListCommune = within(résultatsCommune).getAllByRole('option');
 			fireEvent.click(resultListCommune[0]);
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });

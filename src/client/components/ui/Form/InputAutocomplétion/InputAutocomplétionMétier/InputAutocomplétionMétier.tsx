@@ -188,15 +188,15 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 					onBlur={handleOnBlur}
 				>
 					<input
+						id={inputId.current}
+						aria-activedescendant={inputId.current}
 						ref={inputRef}
 						className={classNames(styles.formControlInput, required && isTouched && !isValueValidSelected && styles.formControlInputError)}
 						type="text"
-						id={inputId.current}
 						name={name}
 						autoComplete="off"
 						aria-autocomplete="list"
 						aria-controls={CONTROL_ID}
-						aria-activedescendant={inputId.current}
 						value={métierRecherchéInput}
 						onChange={
 							handleChange

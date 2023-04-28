@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, waitForElementToBeRemoved, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
@@ -114,7 +114,8 @@ async function envoyerDemandeContact() {
 	await userEvent.click(input);
 	const inputCommune = screen.getByTestId('InputCommune');
 	await userEvent.type(inputCommune, 'Paris');
-	const résultatsCommune = await screen.findByTestId('RésultatsCommune');
+	await waitForElementToBeRemoved(() => screen.queryByText(/Aucune proposition ne correspond à votre saisie/));
+	const résultatsCommune = screen.getByTestId('RésultatsCommune');
 	const résultatCommuneList = within(résultatsCommune).getAllByRole('option');
 	await userEvent.click(résultatCommuneList[0]);
 
