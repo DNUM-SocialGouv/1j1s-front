@@ -28,15 +28,14 @@ export function PartnerCardList({ children }: React.PropsWithChildren) {
 	);
 }
 
-type PartnerCardBaseProps = {
+interface PartnerCardProps {
 	children: React.ReactNode
 	logo: string
 	link: string
 	linkLabel: string
+	title: string
+	titleAs: HtmlHeadingTag
 }
-type PartnerCardProps = PartnerCardBaseProps &
-	({title?: never; titleAs?: never } | {title: string; titleAs: HtmlHeadingTag })
-
 
 export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const { className, logo, link, linkLabel, title, titleAs , children } = props;
@@ -54,7 +53,7 @@ export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'} className={styles.cardContainer}>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
 				<Card.Content className={styles.cardBody}>
-					title ?? <Card.Title titleAs={titleAs!} className={styles.cardBody__Title}>{title}</Card.Title>
+					<Card.Title titleAs={titleAs} className={styles.cardBody__Title}>{title}</Card.Title>
 					<p>{children}</p>
 					<span className={styles.cardAction}>
 						<Card.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
