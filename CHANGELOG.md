@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.55.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.1...v3.55.2) (2023-04-28)
+
+
+### Bug Fixes
+
+* **emplois:** affichage de la dernière page manquante pole emploi ([c7c5380](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c7c5380083182e22636c3990ba335098abdc1f1f))
+
 ## [3.55.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.0...v3.55.1) (2023-04-26)
 
 
