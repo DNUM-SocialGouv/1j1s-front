@@ -11,8 +11,8 @@ import { createMockRouter, mockUseRouter } from '~/client/components/useRouter.m
 import App from './_app.page';
 
 describe('<App />', () => {
-	it('render la page', async () => {
-		// NOTE (GAFI 25-04-2023): Ça suffit ces bêtises de Next là !
+	it('focus l’ancre au render', async () => {
+		// NOTE (GAFI 25-04-2023): Parce qu'apparemment un NextRouter n'est pas un Router, mais que ça marche quand même
 		const router = createMockRouter() as Router;
 		mockUseRouter({ asPath: '/test#cible' });
 		const Component = Object.assign(
