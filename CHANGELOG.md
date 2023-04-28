@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.55.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.3...v3.55.4) (2023-04-28)
+
+
+### Bug Fixes
+
+* doc url v2 ([584cb09](https://github.com/DNUM-SocialGouv/1j1s-front/commit/584cb097f6ffd0b0b100a74f887e84963173fa7a))
+
 ## [3.55.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.2...v3.55.3) (2023-04-28)
 
 
