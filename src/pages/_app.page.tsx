@@ -3,16 +3,15 @@ import '~/styles/main.scss';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import React, { ReactElement, ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
 import useSessionId from '~/client/hooks/useSessionId';
 
-// replace {} by JSON
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = object> = NextPage<P, P> & {
   getLayout?: (page: ReactElement) => ReactNode;
 }
 
@@ -22,7 +21,15 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
-  
+	const router = useRouter();
+
+	useEffect(() => {
+		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];
+		if (targetId) {
+			document.getElementById(targetId)?.focus();
+		}
+	}, [router.asPath, sessionId]);
+
 	const getLayout = Component.getLayout ?? defaultLayout;
 	return (
 		<>
