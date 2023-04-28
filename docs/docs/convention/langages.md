@@ -39,7 +39,7 @@ function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage
 * composant, style : PascalCase, `ButtonPrimary.tsx`, `ButtonPrimary.module.scss`
 * tout le reste : camelCase, `httpClient.service.ts`, `offreEmploi.ts`, `offreEmploi.repository.ts`
 
-Plus d'info sur [l'arborescence des dossiers](../architecture/architecture#structure)
+Plus d'info sur [l'arborescence des dossiers](../architecture/architecture.md#structure)
 
 
 ### Nommage des collections
