@@ -47,7 +47,7 @@ describe('ListeDesResultats Component', () => {
 			);
 
 			const skeletonList = screen.getByLabelText('...En cours de chargement');
-			expect(skeletonList).toBeInTheDocument();
+			expect(skeletonList).toBeVisible();
 			const annoncesDeLogementList = screen.queryByLabelText('Résultats de recherche');
 			expect(annoncesDeLogementList).not.toBeInTheDocument();
 		});
@@ -67,7 +67,7 @@ describe('ListeDesResultats Component', () => {
 				);
 
 				const skeletonList = screen.getByLabelText('...En cours de chargement');
-				expect(skeletonList).toBeInTheDocument();
+				expect(skeletonList).toBeVisible();
 				const numberOfSkeleton = within(skeletonList).getAllByRole('listitem');
 				expect(numberOfSkeleton.length).toEqual(4);
 			});
@@ -107,7 +107,7 @@ describe('ListeDesResultats Component', () => {
 				);
 
 				const skeletonList = screen.getByLabelText('...En cours de chargement');
-				expect(skeletonList).toBeInTheDocument();
+				expect(skeletonList).toBeVisible();
 
 				const numberOfSkeleton = within(skeletonList).getAllByRole('listitem');
 				expect(numberOfSkeleton.length).toEqual(3);
@@ -132,7 +132,7 @@ describe('ListeDesResultats Component', () => {
 				);
 
 				const annoncesDeLogementList = screen.getByLabelText('Résultats de recherche');
-				expect(annoncesDeLogementList).toBeInTheDocument();
+				expect(annoncesDeLogementList).toBeVisible();
 
 				const skeletonList = screen.queryByLabelText('...En cours de chargement');
 				expect(skeletonList).not.toBeInTheDocument();
@@ -156,13 +156,13 @@ describe('ListeDesResultats Component', () => {
 				);
 
 				const annoncesDeLogementList = screen.getByLabelText('Résultats de recherche');
-				expect(annoncesDeLogementList).toBeInTheDocument();
+				expect(annoncesDeLogementList).toBeVisible();
 
 				const skeletonList = screen.queryByLabelText('...En cours de chargement');
 				expect(skeletonList).not.toBeInTheDocument();
 
 				const pagination = screen.getByRole('navigation', { name: 'pagination' });
-				expect(pagination).toBeInTheDocument();
+				expect(pagination).toBeVisible();
 			});
 		});
 
