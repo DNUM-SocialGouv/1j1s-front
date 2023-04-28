@@ -29,7 +29,7 @@ describe('Link', () => {
 	});
 
 	describe('quand le lien est un lien interne avec href relatif', () => {
-		it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
+		it('retourne le composant Link sans les propriétés de la redirection externe', () => {
 			const lienInterne = '/emplois';
 
 			render(
@@ -44,7 +44,7 @@ describe('Link', () => {
 		});
 	});
 	describe('quand le lien est un lien interne avec href absolut', () => {
-		it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
+		it('retourne le composant Link sans les propriétés de la redirection externe', () => {
 			Object.defineProperty(window, 'location', {
 				value: { origin: 'localhost' },
 			});
@@ -62,7 +62,7 @@ describe('Link', () => {
 		});
 	});
 	describe('quand le lien est un lien interne vers une ancre', () => {
-		it('retourne le composant Link avec sans les propriétés de la redirection externe', () => {
+		it('retourne le composant Link sans les propriétés de la redirection externe', () => {
 			const lienInterne = '#emplois';
 
 			render(
