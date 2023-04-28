@@ -109,12 +109,3 @@ Une fois une branche mergée dans main, une Pull Request de release est automati
 * monter la version dans les `package.json` et `package-lock.json` selon les changements apportés par les précédents commits,
 * ajouter un tag de version de la forme `vX.Y.Z`
 * mettre à jour le changelog en reprenant les messages de commits précédents
-
-
-## Stratégie de test
-
-Nous favorisons des tests unitaires autant que possible, rapides à exécuter. Les tests de composants via React Testing Library complètent ces tests afin de tester l'affichage, par l'**arbre d'accessibilité**
-* tests unitaires autant que possible
-* tests d'intégration sur les endpoints API
-* tests de composants via React Testing Library sur les composants comportant de la logique d'affichage, de la validation (formulaires) et récupération de données
-* tests end-to-end pour simuler un workflow complet utilisateur sur une fonctionnalité. Exemple : recherche d'une offre d'emploi puis consultation du détail d'une offre

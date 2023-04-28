@@ -47,3 +47,11 @@ Plus d'info sur [l'arborescence des dossiers](./architecture#structure)
 Une variable représentant une collection sera suffixée par le mot `List` afin d'éviter le pluriel, parfois en conflit avec des mots invariables
 
 _exemple: `const offreEmploiList: Array<OffreEmploi> = [...]`
+
+## Stratégie de test
+
+Nous favorisons des tests unitaires autant que possible, rapides à exécuter. Les tests de composants via React Testing Library complètent ces tests afin de tester l'affichage, par l'**arbre d'accessibilité**
+* tests unitaires autant que possible
+* tests d'intégration sur les endpoints API
+* tests de composants via React Testing Library sur les composants comportant de la logique d'affichage, de la validation (formulaires) et récupération de données
+* tests end-to-end pour simuler un workflow complet utilisateur sur une fonctionnalité. Exemple : recherche d'une offre d'emploi puis consultation du détail d'une offre
