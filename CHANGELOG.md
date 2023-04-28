@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.56.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.4...v3.56.0) (2023-04-28)
+
+
+### Features
+
+* **multiple:** Ajoute la mention des partenaires ([1fcc395](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1fcc395f2b3a3dc65d3f2539debd18e59ab8ab78))
+
 ## [3.55.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.3...v3.55.4) (2023-04-28)
 
 
