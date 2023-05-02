@@ -51,8 +51,8 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 		listerNomMétierFicheMétier: new ListerNomMétierFicheMétierUseCase(cmsRepository),
 		listerQuestionsFAQ: new ListerFAQUseCase(cmsRepository),
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
+		recupererVideosCampagneApprentissage: new RecupererVideosCampagneApprentissageUseCase(cmsRepository),
 		récupérerActualités: new RécupérerActualitésUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
-		recupererVideosCampagneApprentissage: new RecupererVideosCampagneApprentissageUseCase(cmsRepository),
 	};
 }

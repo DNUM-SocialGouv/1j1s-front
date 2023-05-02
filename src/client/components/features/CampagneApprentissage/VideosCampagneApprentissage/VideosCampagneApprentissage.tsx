@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 import styles from './VideosCampagneApprentissage.module.scss';
@@ -12,10 +14,7 @@ interface VideosCampagneApprentissageProps {
 }
 
 export default function VideosCampagneApprentissage({ videos }: VideosCampagneApprentissageProps) {
-	const [videoToDisplay, setVideoToDisplay] = useState(videos.length > 0 ? videos[0] : null);
-	if (!videoToDisplay) {
-		return null;
-	}
+	const [videoToDisplay, setVideoToDisplay] = useState(videos[0]);
 
 	function selectVideo(video: VideoCampagneApprentissage) {
 		setVideoToDisplay(video);
@@ -49,7 +48,7 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 				</details>
 				<section className={styles.temoignage} aria-labelledby="description-video">
 					<p className={styles.titreTemoignage} id="description-video">Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !</p>
-					<ul>
+					<ul className={styles.boutonsVideosList}>
 						{
 							videos.map((video, index) => (
 								<li key={index}>
@@ -70,6 +69,11 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 							))
 						}
 					</ul>
+					<div className={styles.lienPlaylistContainer}>
+						<Link href={'https://www.youtube.com/playlist?list=PLr4bjAdWwofltWnk3Ys1m-EhjuMaPAcbh'} className={styles.lienPlaylist}>
+							<TextIcon icon="external-redirection">Découvrir tous les témoignages</TextIcon>
+						</Link>
+					</div>
 				</section>
 			</Container>
 		</section>

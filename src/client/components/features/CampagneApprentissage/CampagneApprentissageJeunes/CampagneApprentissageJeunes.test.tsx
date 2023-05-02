@@ -78,7 +78,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 	describe('PreparationApprentissage', () => {
 		it('je vois les informations pour accéder aux offres de formation et d‘alternance', () => {
-			render(<CampagneApprentissageJeunes/>);
+			render(<CampagneApprentissageJeunes videos={[]}/>);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Vous souhaitez faire le choix de l’apprentissage ?',
@@ -87,7 +87,7 @@ describe('CampagneApprentissageJeunes', () => {
 			expect(screen.getByRole('link', { name: 'Trouver votre entreprise' })).toHaveAttribute('href', '/apprentissage');
 		});
 		it('je vois les informations pour accéder à l‘article sur la prépa apprentissage', () => {
-			render(<CampagneApprentissageJeunes/>);
+			render(<CampagneApprentissageJeunes videos={[]}/>);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'La prépa-apprentissage c’est quoi ?',
