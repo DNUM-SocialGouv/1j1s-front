@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.57.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.57.0...v3.57.1) (2023-05-02)
+
+
+### Bug Fixes
+
+* **analytics:** fix valeurs de certains event analytics ([#1205](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1205)) ([1d5bd7c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1d5bd7c844f4bbe631871950bd4adda8b724cd96))
+
 ## [3.57.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.56.0...v3.57.0) (2023-05-02)
 
 
