@@ -4,10 +4,12 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
+import analyticsPageConfig from '~/pages/apprentissage-jeunes/index.analytics';
 
 type ApprentissageJeunesPageProps = {
 	videos: VideoCampagneApprentissage[];
@@ -15,6 +17,7 @@ type ApprentissageJeunesPageProps = {
 
 export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps) {
 	useReferrer();
+	useAnalytics(analyticsPageConfig);
 
 	return (
 		<>
