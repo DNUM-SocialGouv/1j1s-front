@@ -42,11 +42,12 @@ https://github.com/EulerianTechnologies/nextjs-eulerian-analytics
 
 
 ex : 
-
-    script type="text/javascript"
-        (function(e,a){var i=e.length,y=5381,k='script',s=window,v=document,o=v.createElement(k);for(;i;){i-=1;y=(y*33)^e.charCodeAt(i)}y='_EA_'+(y>>>=0);
-        (function(e,a,s,y){s[a]=s[a]||function(){(s[y]=s[y]||[]).push(arguments);s[y].eah=e;};}(e,a,s,y));i=new Date/1E7|0;o.ea=y;y=i%26;o.async=1;o.src='//'+e+'/'+String.fromCharCode(97+y,122-y,65+y)+(i%1E3)+'.js?2';s=v.getElementsByTagName(k)[0];s.parentNode.insertBefore(o,s);})
-    ('mon.domainedetracking.com','EA_push');
+```js
+script type="text/javascript"
+    (function(e,a){var i=e.length,y=5381,k='script',s=window,v=document,o=v.createElement(k);for(;i;){i-=1;y=(y*33)^e.charCodeAt(i)}y='_EA_'+(y>>>=0);
+    (function(e,a,s,y){s[a]=s[a]||function(){(s[y]=s[y]||[]).push(arguments);s[y].eah=e;};}(e,a,s,y));i=new Date/1E7|0;o.ea=y;y=i%26;o.async=1;o.src='//'+e+'/'+String.fromCharCode(97+y,122-y,65+y)+(i%1E3)+'.js?2';s=v.getElementsByTagName(k)[0];s.parentNode.insertBefore(o,s);})
+('mon.domainedetracking.com','EA_push');
+```
 
 
 ## Intégrer le service dans Tarte au citron
@@ -63,25 +64,26 @@ Consignes d'implémentation :
     1. Le premier argument sera le nom de la variable
     2. Le second argument sera la valeur de la variable
             Exemple :
-            data.push('key', 'value');
+            `data.push('key', 'value');`
 - Une fois la construction de window.EA_datalayer finalisée, invoquer la fonction EA_push() dans laquelle nous passerons fnialement EA_data en argument.
 
 ex : 
+```js
+"script type=""text/javascript"
+(function(){
 
-    "script type=""text/javascript"
-    (function(){
+        // Création d'un datalayer au scope global :
+        window.EA_datalayer = [];
 
-            // Création d'un datalayer au scope global :
-            window.EA_datalayer = [];
+        // Données à envoyer (dimensions/métriques) à posser dans le datalayer :
+        window.EA_datalayer.push('dimension_personnalisee_X', '{{valeur X}}'); // etc.
+        window.EA_datalayer.push('metrique_personnalisee_Y', {{valeur Y}}); // etc.
+    
+        // Envoi des données :
+        window.EA_push(window.EA_datalayer);
 
-            // Données à envoyer (dimensions/métriques) à posser dans le datalayer :
-            window.EA_datalayer.push('dimension_personnalisee_X', '{{valeur X}}'); // etc.
-            window.EA_datalayer.push('metrique_personnalisee_Y', {{valeur Y}}); // etc.
-        
-            // Envoi des données :
-            window.EA_push(window.EA_datalayer);
-
-    })();
+})();
+```
 
 ## Gestion des domaines
 

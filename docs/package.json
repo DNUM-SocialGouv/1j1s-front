@@ -1,10 +1,10 @@
 {
-  "name": "1-j-1-s-front-docs",
+  "name": "1j1s-front-docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --host=0.0.0.0",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -19,7 +19,7 @@
     "@docusaurus/preset-classic": "2.4.0",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.2.1",
-    "prism-react-renderer": "^2.0.0",
+    "prism-react-renderer": "^2.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
