@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
-import { MonCompteFormationPartner } from '~/client/components/features/Partner/MonCompteFormationPartner';
-import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
-import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourSupPartner';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
+import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
+import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -31,12 +31,12 @@ export default function FormationPage() {
 				/>
 				<div className={styles.partenaires}>
 					<h2 className={styles.partenairesTitle}>Je découvre les dispositifs pour m’accompagner dans ma formation</h2>
-					<PartnerCardList>
+					<ServiceCardList>
 						<MonCompteFormationPartner/>
 						<ParcourSupPartner/>
 						<OnisepPartner/>
 						<MétierDuSoinPartner/>
-					</PartnerCardList>
+					</ServiceCardList>
 				</div>
 			</main>
 		</>

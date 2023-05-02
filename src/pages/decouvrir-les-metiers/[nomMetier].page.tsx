@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
@@ -42,7 +42,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 				<div className={'background-white-lilac'}>
 					<EnTete heading="Informations fournies par ONISEP"/>
 					<Container className={styles.container}>
-						<PartnerCard
+						<ServiceCard
 							logo="/images/logos/onisep.svg"
 							link="https://www.onisep.fr/"
 							linkLabel="Aller sur le site de l’ONISEP"
@@ -58,7 +58,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 							et les équipes éducatives en leur fournissant des ressources, des
 							outils et dispositifs permettant de construire un parcours de
 							formation et un projet professionnel tout au long de la vie.
-						</PartnerCard>
+						</ServiceCard>
 						<div className={styles.partnerInfo}>
 							<Icon name="information" className={styles.partnerInfoIcon}/>
 							<span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>

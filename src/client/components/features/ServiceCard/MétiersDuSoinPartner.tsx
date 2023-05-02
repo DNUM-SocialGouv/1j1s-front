@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from './Card/ServiceCard';
 
 export function MétierDuSoinPartner() {
 	return (
-		<PartnerCard
+		<ServiceCard
 			linkLabel="En savoir plus"
 			logo="/images/logos/métiers-du-soin.svg"
 			link="https://solidarites-sante.gouv.fr/metiers-et-concours/metiers-soin-et-accompagnement/metiersdusoin"
@@ -15,6 +15,6 @@ export function MétierDuSoinPartner() {
 			accompagnant éducatif et social…. Renseignez-vous sur les métiers du soin
 			et de l’accompagnement et découvrez toutes les formations pour les
 			rejoindre.
-		</PartnerCard>
+		</ServiceCard>
 	);
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 
 export function LaBonneBoitePartner() {
 	return (
-		<PartnerCard
+		<ServiceCard
 			linkLabel="Accéder au site web"
 			logo="/images/logos/la-bonne-boite.svg"
 			link="https://labonneboite.pole-emploi.fr/"
@@ -15,6 +15,6 @@ export function LaBonneBoitePartner() {
 			recruter même si elles n’ont pas déposé d’offres. Nos outils détectent
 			les entreprises qui vont probablement embaucher dans les 6 prochains
 			mois.
-		</PartnerCard>
+		</ServiceCard>
 	);
 }

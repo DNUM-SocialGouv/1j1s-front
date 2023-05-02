@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from './Card/ServiceCard';
 
 export function LaBonneAlternancePartner() {
 	return (
-		<PartnerCard
+		<ServiceCard
 			linkLabel="J’accède au site web"
 			link="https://labonnealternance.apprentissage.beta.gouv.fr/"
 			logo="/images/logos/la-bonne-alternance.svg"
@@ -12,6 +12,6 @@ export function LaBonneAlternancePartner() {
 			titleAs={'h3'}
 		>
 			Vous ne trouvez pas de contrat ou d’offres d’alternance ? Essayez La bonne alternance !
-		</PartnerCard>
+		</ServiceCard>
 	);
 }

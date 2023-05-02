@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from './Card/ServiceCard';
 
 export function PassPartner() {
 	return (
-		<PartnerCard
+		<ServiceCard
 			linkLabel="Accéder au site web"
 			link="https://www.pass.fonction-publique.gouv.fr/"
 			logo="/images/logos/pass.png"
@@ -13,6 +13,6 @@ export function PassPartner() {
 		>
 			La fonction publique accueille des apprentis dans tous les domaines et
 			de tous niveaux. Découvrez les offres sur la place de l’apprentissage et des stages.
-		</PartnerCard>
+		</ServiceCard>
 	);
 }

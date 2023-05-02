@@ -6,11 +6,12 @@ import {
 	FormulaireRechercherFormation,
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
 import { ÉtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/ÉtiquettesFiltreFormation';
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { MétierDuSoinPartner } from '~/client/components/features/Partner/MétiersDuSoinPartner';
-import { MonCompteFormationPartner } from '~/client/components/features/Partner/MonCompteFormationPartner';
-import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
-import { ParcourSupPartner } from '~/client/components/features/Partner/ParcourSupPartner';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
+import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
+import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
+import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -104,12 +105,13 @@ export default function RechercherFormation() {
 				}
 			/>
 			<EnTete heading="Découvrez des services faits pour vous"/>
-			<PartnerCardList>
+			<ServiceCardList>
+				<DecouvrirApprentissage/>
 				<MonCompteFormationPartner/>
 				<ParcourSupPartner/>
 				<OnisepPartner/>
 				<MétierDuSoinPartner/>
-			</PartnerCardList>
+			</ServiceCardList>
 		</main>
 	</>;
 }

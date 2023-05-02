@@ -3,10 +3,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
 	FormulaireRechercheJobÉtudiant,
 } from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
-import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
-import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/LaBonneBoitePartner';
+import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { ServiceCiviquePartner } from '~/client/components/features/ServiceCard/ServiceCiviquePartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -101,11 +101,11 @@ export function RechercherJobÉtudiant() {
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
 				/>
 				<EnTete heading="Découvrez des services faits pour vous" />
-				<PartnerCardList>
+				<ServiceCardList>
 					<LaBonneBoitePartner />
 					<OnisepPartner />
 					<ServiceCiviquePartner />
-				</PartnerCardList>
+				</ServiceCardList>
 			</main>
 		</>
 	);
