@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
@@ -38,7 +38,7 @@ export default function AidesLogement() {
 							<h2 className={styles.sectionHeading}>Découvrez vos aides :</h2>
 							<ul aria-label="Vos aides">
 								<li className={styles.partnerCard}>
-									<PartnerCard
+									<ServiceCard
 										logo="/images/logos/caisse-allocations-familiales.svg"
 										link="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
 										linkLabel="Tester mon éligibilité pour les aides au logement de la CAF"
@@ -50,10 +50,10 @@ export default function AidesLogement() {
 										qui concernent la famille, le logement mais aussi une partie
 										des aides destinées à lutter contre la pauvreté, comme le
 										RSA ou la Prime d’activité.
-									</PartnerCard>
+									</ServiceCard>
 								</li>
 								<li className={styles.partnerCard}>
-									<PartnerCard
+									<ServiceCard
 										logo="/images/logos/mutualite-sociale-agricole.svg"
 										link="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
 										linkLabel="Découvrir les aides au logement de la MSA"
@@ -65,7 +65,7 @@ export default function AidesLogement() {
 										secteur agricole. Son rôle est donc de verser à tous ses
 										adhérents les aides dont ils pourraient avoir besoin :
 										maladie, maternité, retraite...mais aussi logement !
-									</PartnerCard>
+									</ServiceCard>
 								</li>
 							</ul>
 						</section>

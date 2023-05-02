@@ -151,7 +151,7 @@ describe('RechercherAccompagnement', () => {
 			);
 
 			// When
-			const partenaireList = screen.getByRole('list', { name : 'Liste des partenaires' });
+			const partenaireList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
 			const partenaireListItemList = within(partenaireList).getAllByRole('listitem');
 			// Then
 			expect(partenaireList).toBeInTheDocument();

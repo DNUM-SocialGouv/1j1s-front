@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCard } from './Card/PartnerCard';
+import { ServiceCard } from './Card/ServiceCard';
 
 export function PoleEmploiPartner() {
 	return (
-		<PartnerCard
+		<ServiceCard
 			title="Pôle Emploi propose un accompagnement individualisé pour les jeunes de 16 à 30 ans"
 			logo="/images/logos/pole-emploi.svg"
 			link="/articles/pole-emploi"
@@ -15,6 +15,6 @@ export function PoleEmploiPartner() {
 			emploi propose à tous les jeunes demandeurs d’emploi de 16 à 30 ans, un
 			accompagnement personnalisé intensif d’une durée de 3 à 6 mois pour les
 			aider à trouver ou retrouver plus rapidement un emploi.
-		</PartnerCard>
+		</ServiceCard>
 	);
 }

@@ -8,12 +8,11 @@ import styles from './PreparationApprentissage.module.scss';
 
 export default function PreparationApprentissage() {
 	return (
-		<section
-			aria-labelledby={'titre-section-preparation-apprentissage'}
+		<div
 			className={styles.preparationApprentissage}>
 			<Container className={styles.contenu}>
-				<div className={styles.choixApprentissage}>
-					<h2 className={styles.titleChoixApprentissage} id={'titre-section-preparation-apprentissage'}>
+				<section className={styles.choixApprentissage} aria-labelledby={'titre-section-choix-apprentissage'}>
+					<h2 className={styles.titleChoixApprentissage} id={'titre-section-choix-apprentissage'}>
 						Vous souhaitez faire le choix de l’apprentissage ?
 					</h2>
 					<div className={styles.linkContainerChoixApprentissage}>
@@ -24,18 +23,18 @@ export default function PreparationApprentissage() {
 							Trouver votre entreprise
 						</Link>
 					</div>
-				</div>
-				<div className={styles.prepaApprentissage}>
-					<h2 className={styles.titlePrepaApprentissage} id={'titre-section-preparation-apprentissage'}>
+				</section>
+				<section className={styles.prepaApprentissage} aria-labelledby={'titre-section-prepa-apprentissage'}>
+					<h2 className={styles.titlePrepaApprentissage} id={'titre-section-prepa-apprentissage'}>
 						La prépa-apprentissage c’est quoi ?
 					</h2>
 					<Link
 						className={classNames(styles.linkPrepaApprentissage, styles.link)}
 						href={'/articles/la-prepa-apprentissage-c-est-quoi'}
 						appearance={'asPrimaryButton'}>
-							Lire l‘article
+						Lire l‘article
 					</Link>
-				</div>
+				</section>
 			</Container>
-		</section>);
+		</div>);
 }

@@ -8,7 +8,7 @@ import {
 	RéseauÉconomieSocialeEtSolidaireList,
 	RéseauFinancementList,
 } from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau';
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
@@ -115,7 +115,7 @@ export default function Entreprendre() {
 						<h2 className={styles.marseilleHeader}>Découvrez l’ensemble des opportunités offertes par l’éco-système
 							marseillais</h2>
 
-						<PartnerCard
+						<ServiceCard
 							link="https://entreprendreamarseille.fr/prendre-un-rendez-vous/"
 							linkLabel="Prendre rendez-vous pour exposer son projet"
 							logo="/images/entreprendre/région-sud.png"
@@ -127,7 +127,7 @@ export default function Entreprendre() {
 							région Sud se mobilisent pour soutenir la création d’entreprises à
 							Marseille notamment avec l’ouverture des Carrefours de
 							l’entreprenariat.
-						</PartnerCard>
+						</ServiceCard>
 					</Container>
 				</div>
 			</main>

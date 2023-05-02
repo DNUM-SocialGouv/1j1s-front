@@ -6,10 +6,10 @@ import {
 import {
 	ÉtiquettesFiltreOffreEmploi,
 } from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { LaBonneBoitePartner } from '~/client/components/features/Partner/LaBonneBoitePartner';
-import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
-import { ServiceCiviquePartner } from '~/client/components/features/Partner/ServiceCiviquePartner';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/LaBonneBoitePartner';
+import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { ServiceCiviquePartner } from '~/client/components/features/ServiceCard/ServiceCiviquePartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -95,11 +95,11 @@ export function RechercherOffreEmploi() {
 					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
 				/>
 				<EnTete heading="Découvrez des services faits pour vous"/>
-				<PartnerCardList>
+				<ServiceCardList>
 					<LaBonneBoitePartner/>
 					<OnisepPartner/>
 					<ServiceCiviquePartner/>
-				</PartnerCardList>
+				</ServiceCardList>
 			</main>
 		</>
 	);

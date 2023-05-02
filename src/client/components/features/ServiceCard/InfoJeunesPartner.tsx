@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { PartnerCard } from './Card/PartnerCard';
+import { ServiceCard } from './Card/ServiceCard';
 
 export function InfoJeunesPartner() {
 	return (
-		<PartnerCard
+		<ServiceCard
 			linkLabel="En savoir plus"
 			link="/articles/info-jeunes"
 			logo="/images/logos/info-jeunes.svg"
@@ -15,6 +15,6 @@ export function InfoJeunesPartner() {
 			anonymement et gratuitement. On vous aide à trouver des informations et on
 			vous accompagne sur des sujets comme : scolarité, formation, emploi,
 			logement, loisirs, départ vers l’étranger, aides pour un projet...
-		</PartnerCard>
+		</ServiceCard>
 	);
 }

@@ -162,7 +162,7 @@ describe('RechercherFormation', () => {
 		expect(entête).toHaveTextContent('Découvrez des services faits pour vous');
 		expect(entête).toBeVisible();
 
-		const listeDePartenaires = screen.getByRole('list', { name: 'Liste des partenaires' });
+		const listeDePartenaires = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 		expect(listeDePartenaires).toBeVisible();
 	});
 

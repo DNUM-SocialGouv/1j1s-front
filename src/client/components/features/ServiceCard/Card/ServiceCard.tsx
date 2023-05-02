@@ -3,7 +3,6 @@ import React, {
 	useMemo,
 } from 'react';
 
-import styles from '~/client/components/features/Partner/Card/PartnerCard.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -12,10 +11,12 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 import useReferrer from '~/client/hooks/useReferrer';
 
-export function PartnerCardList({ children }: React.PropsWithChildren) {
+import styles from './ServiceCard.module.scss';
+
+export function ServiceCardList({ children }: React.PropsWithChildren) {
 	return (
-		<div className={styles.partnerListWrapper}>
-			<ul className={styles.partnerList} aria-label="Liste des partenaires">
+		<div className={styles.services}>
+			<ul aria-label="Liste des partenaires et des services">
 				{
 					React.Children.map(children, (child, index) => (
 						<li key={index}>
@@ -30,6 +31,7 @@ export function PartnerCardList({ children }: React.PropsWithChildren) {
 
 interface PartnerCardProps {
 	children: React.ReactNode
+	imageFit?: 'cover' | 'contain'
 	logo: string
 	link: string
 	linkLabel: string
@@ -37,8 +39,10 @@ interface PartnerCardProps {
 	titleAs: HtmlHeadingTag
 }
 
-export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-	const { className, logo, link, linkLabel, title, titleAs , children } = props;
+export function ServiceCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
+	const {
+		className, imageFit = 'contain', logo, link, linkLabel, title, titleAs, children,
+	} = props;
 	const isInternalLink = useIsInternalLink(link);
 	const { isLargeScreen } = useBreakpoint();
 	useReferrer();
@@ -49,11 +53,11 @@ export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 
 
 	return (
-		<Link href={link} className={classNames(styles.card, className, 'underline-none')}>
-			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'} className={styles.cardContainer}>
+		<Link href={link} className={classNames(styles.cardContainer, className, 'underline-none')}>
+			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'} className={classNames(styles.card, imageFit === 'cover' && styles.cardCover)}>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
 				<Card.Content className={styles.cardBody}>
-					<Card.Title titleAs={titleAs} className={styles.cardBody__Title}>{title}</Card.Title>
+					<Card.Title titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>
 					<p>{children}</p>
 					<span className={styles.cardAction}>
 						<Card.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>

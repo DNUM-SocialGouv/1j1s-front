@@ -6,10 +6,10 @@ import {
 import {
 	RésultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { InfoJeunesPartner } from '~/client/components/features/Partner/InfoJeunesPartner';
-import { MissionsLocalesPartner } from '~/client/components/features/Partner/MissionsLocalesPartner';
-import { PoleEmploiPartner } from '~/client/components/features/Partner/PoleEmploiPartner';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
+import { MissionsLocalesPartner } from '~/client/components/features/ServiceCard/MissionsLocalesPartner';
+import { PoleEmploiPartner } from '~/client/components/features/ServiceCard/PoleEmploiPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -120,11 +120,11 @@ export function RechercherAccompagnement() {
 					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList}/>}
 				/>
 				<EnTete heading="Découvrez d’autres services faits pour vous"/>
-				<PartnerCardList>
+				<ServiceCardList>
 					<MissionsLocalesPartner />
 					<InfoJeunesPartner />
 					<PoleEmploiPartner />
-				</PartnerCardList>
+				</ServiceCardList>
 			</main>
 		</>
 	);

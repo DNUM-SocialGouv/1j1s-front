@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PartnerCard } from '~/client/components/features/Partner/Card/PartnerCard';
+import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
 	ArticleCardList,
@@ -39,7 +39,7 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 					}
 				</article>
 				<ArticleCardList>
-					<PartnerCard
+					<ServiceCard
 						linkLabel="Lire l'article"
 						link="/articles/inserjeunes"
 						logo="/images/logos/inserjeunes.svg"
@@ -47,7 +47,7 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 						titleAs={'h3'}
 					>
 						Inserjeunes est un service d’aide à l’orientation des jeunes qui présente différents indicateurs pour toutes les formations professionnelles.
-					</PartnerCard>
+					</ServiceCard>
 				</ArticleCardList>
 			</Container>
 		</div>

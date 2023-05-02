@@ -4,9 +4,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
 	FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
-import { PartnerCardList } from '~/client/components/features/Partner/Card/PartnerCard';
-import { OnisepPartner } from '~/client/components/features/Partner/OnisepPartner';
-import { PassPartner } from '~/client/components/features/Partner/PassPartner';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
+import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { PassPartner } from '~/client/components/features/ServiceCard/PassPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -131,10 +132,11 @@ export default function RechercherAlternance() {
 				</ArticleCard>
 			</ArticleCardList>
 			<EnTete heading="Découvrez des services faits pour vous"/>
-			<PartnerCardList>
+			<ServiceCardList>
+				<DecouvrirApprentissage/>
 				<PassPartner/>
 				<OnisepPartner/>
-			</PartnerCardList>
+			</ServiceCardList>
 		</main>
 	</>;
 }
