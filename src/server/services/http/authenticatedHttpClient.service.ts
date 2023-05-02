@@ -8,7 +8,7 @@ import {
 import { LoggerService } from '~/server/services/logger.service';
 
 export interface TokenAgent {
-	 getToken(): Promise<string>
+	getToken(): Promise<string>
 }
 
 export interface AuthenticatedHttpClientConfig extends PublicHttpClientConfig {
