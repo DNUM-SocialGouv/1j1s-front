@@ -11,6 +11,9 @@
     },
     "NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY": {
       "value": "0c1c7a954c4c8b3ccefc8ad450bfcc602afa66f2daa601200b27a2961c448cf4"
+    },
+    "NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE": {
+      "value": "0"
     }
   }
 }
