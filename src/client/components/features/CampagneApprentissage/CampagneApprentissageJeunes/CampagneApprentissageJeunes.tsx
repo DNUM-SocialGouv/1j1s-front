@@ -55,7 +55,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 			</header>
 			<RaisonsDeChoisirApprentissage titre="Choisir l’apprentissage c’est…" raisons={raisons}/>
 			<PreparationApprentissage/>
-			<VideosCampagneApprentissage videos={videos}/>
+			{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
 			<EnSavoirPlusApprentissage/>
 		</>
 	);

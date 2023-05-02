@@ -17,11 +17,22 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 		return null;
 	}
 
+	function selectVideo(video: VideoCampagneApprentissage) {
+		setVideoToDisplay(video);
+		document.getElementById('titre-section-video')?.focus();
+	}
+
+	function getVideoButtonIcon(video: VideoCampagneApprentissage) {
+		return videoToDisplay === video ?
+			<Icon name="arrow-left"/> :
+			<Icon name="play-circle"/>;
+	}
+
 	return (
 		<section className={styles.videos}>
 			<Container className={styles.container}>
 				<h2 className={styles.titreSection} id="titre-section-video" tabIndex={-1}>Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?</h2>
-				<div className={styles.videoContainer}>
+				<div className={styles.video}>
 					<iframe
 						width="326"
 						height="180"
@@ -29,12 +40,12 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 						title={videoToDisplay.titre}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowFullScreen
-						className={styles.videoIframe}
+						className={styles.iframe}
 					/>
 				</div>
 				<details className={styles.transcription}>
 					<summary>Lire la transcription</summary>
-					<p className={styles.transcriptionContent}>{videoToDisplay.transcription}</p>
+					<p className={styles.content}>{videoToDisplay.transcription}</p>
 				</details>
 				<section className={styles.temoignage} aria-labelledby="description-video">
 					<p className={styles.titreTemoignage} id="description-video">Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !</p>
@@ -46,15 +57,12 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 										label={video.titre}
 										appearance={'tertiary'}
 										onClick={() => {
-											setVideoToDisplay(video);
-											document.getElementById('titre-section-video')?.focus();
+											selectVideo(video);
 										}}
 										aria-current={videoToDisplay === video ? true : undefined}
 										className={styles.titreVideoButton}
 										icon={
-											videoToDisplay === video ?
-												<Icon name="arrow-left"/> :
-												<Icon name="play-circle"/>
+											getVideoButtonIcon(video)
 										}
 										iconPosition="left"
 									/>
