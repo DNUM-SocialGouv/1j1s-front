@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.58.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.57.2...v3.58.0) (2023-05-02)
+
+
+### Features
+
+* **alternance:** recuperation de video depuis Strapi ([0a4f793](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0a4f793359d049b4fbca25892dc36ed90f2d20c2))
+* **apprentissage:** ajout des videos coté front ([a9ac8b2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a9ac8b2315c8d0a9af1de8c340da10dc64bfd81b))
+* **apprentissage:** page jeune affichage video ([059281b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/059281b6d86cbf298a159a72d886692e4704da68))
+
 ## [3.57.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.57.1...v3.57.2) (2023-05-02)
 
 
