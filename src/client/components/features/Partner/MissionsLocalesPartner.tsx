@@ -9,6 +9,7 @@ export function MissionsLocalesPartner() {
 			logo="/images/logos/union-mission-locale.svg"
 			link="/articles/mission-locale"
 			linkLabel="En savoir plus"
+			titleAs={'h3'}
 		>
 			Les missions locales sont présentes sur l’ensemble du territoire national
 			et permettent à tous les jeunes de 16 à 25 ans de surmonter les

@@ -46,6 +46,8 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 							logo="/images/logos/onisep.svg"
 							link="https://www.onisep.fr/"
 							linkLabel="Aller sur le site de l’ONISEP"
+							title={'Onisep : l’information pour l’orientation'}
+							titleAs={'h3'}
 						>
 							L’Onisep est un établissement public, sous tutelle du ministère de
 							l’Education nationale, de la Jeunesse et des Sports, et du

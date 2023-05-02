@@ -9,6 +9,7 @@ export function InfoJeunesPartner() {
 			link="/articles/info-jeunes"
 			logo="/images/logos/info-jeunes.svg"
 			title="Info Jeunes, le réseau d’accueil et d’information des jeunes en France au service d’une ambition : explorer les possibles !"
+			titleAs={'h3'}
 		>
 			La structure Info Jeunes (SIJ) accueille tous les jeunes (de 12 à 30 ans)
 			anonymement et gratuitement. On vous aide à trouver des informations et on

@@ -44,6 +44,7 @@ export function StatistiquesFormation({ statistiques }: { statistiques?: Statist
 						link="/articles/inserjeunes"
 						logo="/images/logos/inserjeunes.svg"
 						title="Découvrez le dispositif InserJeunes"
+						titleAs={'h3'}
 					>
 						Inserjeunes est un service d’aide à l’orientation des jeunes qui présente différents indicateurs pour toutes les formations professionnelles.
 					</PartnerCard>

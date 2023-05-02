@@ -23,12 +23,12 @@ export function ArticleCardList({ children }: React.PropsWithChildren) {
 interface ArticleCardProps {
 	icon?: React.ReactNode
 	imageSrc: string
-	imageFit?: 'cover' | 'contain'
-	titleLabel: string
 	link: string
+	titleLabel: string
+	titleHeadingTag: HtmlHeadingTag
+	imageFit?: 'cover' | 'contain'
 	linkLabel?: string
 	vertical?: boolean
-	titleHeadingTag?: HtmlHeadingTag
 }
 
 export function ArticleCard({
@@ -36,12 +36,12 @@ export function ArticleCard({
 	children,
 	icon,
 	imageSrc,
-	imageFit = 'cover',
 	link,
-	linkLabel = 'Lire l‘article',
 	titleLabel,
+	titleHeadingTag,
+	imageFit = 'cover',
+	linkLabel = 'Lire l‘article',
 	vertical = true,
-	titleHeadingTag = 'h3',
 }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const iconComponent = useRef(icon ? icon : <Icon name={'arrow-right'}/>);
 	const imageClassName = classNames(styles.illustration, imageFit === 'contain' && styles.illustrationContain);

@@ -9,6 +9,7 @@ export function PoleEmploiPartner() {
 			logo="/images/logos/pole-emploi.svg"
 			link="/articles/pole-emploi"
 			linkLabel="En savoir plus"
+			titleAs={'h3'}
 		>
 			Avec son dispositif d’accompagnement individualisé des jeunes (AIJ), Pôle
 			emploi propose à tous les jeunes demandeurs d’emploi de 16 à 30 ans, un

@@ -33,12 +33,12 @@ interface PartnerCardProps {
 	logo: string
 	link: string
 	linkLabel: string
-	title?: string
-	titleAs?: HtmlHeadingTag
+	title: string
+	titleAs: HtmlHeadingTag
 }
 
 export function PartnerCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-	const { className, logo, link, linkLabel, title, titleAs, children } = props;
+	const { className, logo, link, linkLabel, title, titleAs , children } = props;
 	const isInternalLink = useIsInternalLink(link);
 	const { isLargeScreen } = useBreakpoint();
 	useReferrer();

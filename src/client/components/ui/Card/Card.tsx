@@ -97,9 +97,9 @@ function CardImage(props: CardImageProps & React.ComponentPropsWithoutRef<'div'>
 	);
 }
 
-function CardTitle(props: { titleAs?: HtmlHeadingTag } & React.ComponentPropsWithoutRef<HtmlHeadingTag>) {
+function CardTitle(props: { titleAs: HtmlHeadingTag } & React.ComponentPropsWithoutRef<HtmlHeadingTag>) {
 	const { children, className, titleAs, ...rest } = props;
-	return React.createElement(titleAs || 'h3', { className: classNames(styles.cardTitle, className), ...rest }, children);
+	return React.createElement(titleAs, { className: classNames(styles.cardTitle, className), ...rest }, children);
 }
 
 Card.Button = CardButton;
