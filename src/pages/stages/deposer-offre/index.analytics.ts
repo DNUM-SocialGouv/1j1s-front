@@ -1,9 +1,9 @@
 import { PageTags } from '~/client/services/analytics/analytics';
 
 const analyticsPageConfig: PageTags = {
-	page_template: 'contenu_statique',
-	pagegroup: 'contenu_statique',
-	pagelabel: 'contenu_statique',
+	page_template: 'deposer_offre_stage_etape_1',
+	pagegroup: 'deposer_offre_stage',
+	pagelabel: 'deposer_offre_stage_etape_1',
 	'segment-site': 'funnel_etape_1',
 };
 
