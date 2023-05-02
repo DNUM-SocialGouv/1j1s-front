@@ -298,7 +298,8 @@ export const mapQuestionRéponse = (faq: Strapi.CollectionType.FAQ.Réponse): Qu
 };
 
 export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.VideoCampagneApprentissage): VideoCampagneApprentissage {
-	const videoId = video.Url.split('v=')[1].split('&')[0];
+	const videoIdWithPotentialParams = video.Url.split('v=')[1];
+	const videoId = videoIdWithPotentialParams.split('&')[0];
 	return {
 		titre: video.Titre,
 		transcription: video.Transcription,

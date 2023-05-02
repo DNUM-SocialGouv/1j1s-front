@@ -21,7 +21,8 @@ import {
 	mapQuestion,
 	mapQuestionRéponse,
 	mapServiceJeuneList,
-	mapStrapiListeActualités, mapVideoCampagneApprentissage,
+	mapStrapiListeActualités,
+	mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import {

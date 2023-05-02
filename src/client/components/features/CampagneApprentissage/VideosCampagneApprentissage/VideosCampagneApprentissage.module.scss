@@ -1,17 +1,23 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
-$padding-horizontal: 2rem;
-
-%container {
-  padding: 1.75rem $padding-horizontal;
-
-  @include media(large) {
-    padding: 5rem 1rem;
+.container {
+  @include utilities.media(large) {
+    display: grid;
+    grid-template-columns: 1fr 29rem;
+    grid-template-areas:
+              "video titre"
+              "video temoignage"
+              "transcription temoignage";
+    column-gap: 2rem;
   }
 }
 
 .videos {
-  @extend %container;
+  padding: 1.75rem 2rem;
+
+  @include utilities.media(large) {
+    padding: 5rem 1rem;
+  }
 }
 
 .titreSection {
@@ -19,17 +25,23 @@ $padding-horizontal: 2rem;
   @extend %bold;
 
   margin-bottom: 1.5rem;
+
+  @include utilities.media(large) {
+    grid-area: titre;
+  }
 }
 
-
 .video {
-  &Container {
-    position: relative;
-    width: 100%;
-    padding-top: calc(100% * 9 / 16); /* 16:9 Aspect Ratio */
-    margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+  padding-top: calc(100% * 9 / 16); /* 16:9 Aspect Ratio */
+  margin-bottom: 1.5rem;
+
+  @include utilities.media(large) {
+    grid-area: video;
   }
-  &Iframe {
+
+  & .iframe {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -40,12 +52,17 @@ $padding-horizontal: 2rem;
 .transcription {
   margin-bottom: 1.5rem;
 
+  @include utilities.media(large) {
+    grid-area: transcription;
+  }
+
   summary {
     padding: 12px 16px 12px 16px;
     max-width: 60rem;
     list-style-type: none;
-    border-top: 1px $neutral-grey solid;
-    border-bottom: 1px $neutral-grey solid;
+    border-top: 1px utilities.$neutral-grey solid;
+    border-bottom: 1px utilities.$neutral-grey solid;
+    cursor: pointer;
   }
   summary::after {
     padding-left: .4rem;
@@ -57,9 +74,9 @@ $padding-horizontal: 2rem;
     content: "-";
   }
 
-  &Content {
+  & .content {
     padding: 12px 16px 12px 16px;
-    white-space: pre;
+    white-space: pre-line;
   }
 }
 
@@ -67,40 +84,15 @@ $padding-horizontal: 2rem;
   margin-bottom: 1rem;
 }
 
-.titreVideo {
-  &Button {
-    text-align: start;
-    span {
-      padding-left: .4rem;
-    }
+.titreVideoButton {
+  text-align: start;
+  span {
+    padding-left: .4rem;
   }
 }
 
-@include media(large) {
-  .container {
-    display: grid;
-    //grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
-    grid-template-columns: 1fr 29rem;
-    grid-template-areas:
-            "video titre"
-            "video temoignages"
-            "transcription temoignages";
-    column-gap: 2rem;
-  }
-
-  .titreSection {
-    grid-area: titre;
-  }
-
-  .videoContainer {
-    grid-area: video;
-  }
-
-  .transcription {
-    grid-area: transcription;
-  }
-
-  .temoignage {
-    grid-area: temoignages;
+.temoignage {
+  @include utilities.media(large) {
+    grid-area: temoignage;
   }
 }

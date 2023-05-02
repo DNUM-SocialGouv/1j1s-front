@@ -9,6 +9,7 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
+import { createFailure, createSuccess } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
@@ -18,7 +19,7 @@ jest.mock('next/head', () => HeadMock);
 jest.mock('~/server/start', () => ({
 	dependencies: {
 		cmsDependencies: {
-			récupérerVidéosCampagneApprentissage: {
+			recupererVideosCampagneApprentissage: {
 				handle: jest.fn(),
 			},
 		},
@@ -48,24 +49,28 @@ describe('Page Apprentissage Jeunes', () => {
 		
 		describe('quand le feature flip est actif', () => {
 			describe('quand les vidéos ne sont pas récupérées', () => {
-				it('renvoie des props vides', async () => {
+				it('renvoie une liste vide pour les vidéos', async () => {
 					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-					(dependencies.cmsDependencies.récupérerVidéosCampagneApprentissage.handle as jest.Mock).mockReturnValue({});
+					(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure({}));
 					
 					const result = await getServerSideProps();
 					
-					expect(result).toMatchObject({ props: {} });
+					expect(result).toMatchObject({ props: {
+						videos: [],
+					} });
 				});
 			});
 			
 			describe('quand les vidéos sont récupérées', () => {
 				it('renvoie les props', async () => {
 					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-					(dependencies.cmsDependencies.récupérerVidéosCampagneApprentissage.handle as jest.Mock).mockReturnValue(aVideoCampagneApprentissageList());
+					(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createSuccess(aVideoCampagneApprentissageList()));
 	
 					const result = await getServerSideProps();
 			
-					expect(result).toMatchObject({ props: {} });
+					expect(result).toMatchObject({ props: {
+						videos: aVideoCampagneApprentissageList(),
+					} });
 				});
 			});
 		});
