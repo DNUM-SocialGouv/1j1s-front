@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.57.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.56.0...v3.57.0) (2023-05-02)
+
+
+### Features
+
+* **alternance:** ajout de la section preparation apprentissage dans la campagne d'apprentissage jeunes ([3ad36a4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3ad36a4aaa2a12b7caac5304282cd193d1174374))
+
 ## [3.56.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.55.4...v3.56.0) (2023-04-28)
 
 
