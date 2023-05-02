@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { dependencies } from '~/server/start';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
@@ -51,7 +52,7 @@ describe('Page Apprentissage Jeunes', () => {
 			describe('quand les vidéos ne sont pas récupérées', () => {
 				it('renvoie une liste vide pour les vidéos', async () => {
 					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-					(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure({}));
+					(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 					
 					const result = await getServerSideProps();
 					

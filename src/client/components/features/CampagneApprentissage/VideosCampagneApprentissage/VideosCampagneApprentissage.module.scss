@@ -17,6 +17,7 @@
 
   @include utilities.media(large) {
     padding: 5rem 1rem;
+    background-color: utilities.$color-background-white-lilac;
   }
 }
 
@@ -94,5 +95,17 @@
 .temoignage {
   @include utilities.media(large) {
     grid-area: temoignage;
+  }
+
+  & .boutonsVideosList {
+    margin-bottom: 1rem;
+  }
+
+  & .lienPlaylistContainer {
+    display: flex;
+
+    & .lienPlaylist {
+      margin-left: auto;
+    }
   }
 }

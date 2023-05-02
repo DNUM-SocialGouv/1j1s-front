@@ -13,6 +13,7 @@ import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 interface CampagneApprentissageJeunesProps {
@@ -20,6 +21,8 @@ interface CampagneApprentissageJeunesProps {
 }
 
 export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeunesProps) {
+	const { isSmallScreen } = useBreakpoint();
+
 	const raisons: Raisons[] = [
 		{
 			iconName: 'award',
@@ -54,8 +57,15 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 				</HeroWithIllustration>
 			</header>
 			<RaisonsDeChoisirApprentissage titre="Choisir l’apprentissage c’est…" raisons={raisons}/>
-			<PreparationApprentissage/>
-			{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+			{ isSmallScreen ? <>
+				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+				<PreparationApprentissage/>
+			</> : <>
+				<PreparationApprentissage/>
+				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+			</>
+			}
+
 			<EnSavoirPlusApprentissage/>
 		</>
 	);
