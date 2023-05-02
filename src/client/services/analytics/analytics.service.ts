@@ -13,6 +13,8 @@ declare global {
 
 const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
+const INSTAGRAM_SERVICE = 'instagram';
+const YOUTUBE_SERVICE = 'youtube';
 
 export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
@@ -20,6 +22,10 @@ export class AnalyticsService {
 	constructor() {
 		this.initialiserGestionnaireConsentementsCookie();
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
+
+		// POC
+		window.tarteaucitron.job.push(INSTAGRAM_SERVICE);
+		window.tarteaucitron.job.push(YOUTUBE_SERVICE);
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
