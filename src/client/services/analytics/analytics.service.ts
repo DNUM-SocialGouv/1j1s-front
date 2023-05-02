@@ -24,8 +24,10 @@ export class AnalyticsService {
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
 
 		// POC
-		window.tarteaucitron.job.push(INSTAGRAM_SERVICE);
-		window.tarteaucitron.job.push(YOUTUBE_SERVICE);
+		if (window && window.tarteaucitron) {
+			window.tarteaucitron.job.push(INSTAGRAM_SERVICE);
+			window.tarteaucitron.job.push(YOUTUBE_SERVICE);
+		}
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
