@@ -111,6 +111,7 @@ describe('Header', () => {
 				expect(encartLien).toHaveAttribute('href', '/apprentissage');
 			});
 		});
+
 		describe('quand la fonctionnalité encart est désactivée', () => {
 			it('affiche le composant Header sans l’encart', async () => {
 				// Given
@@ -144,6 +145,7 @@ describe('Header', () => {
 			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 			expect(campagneApprentissageLink).toBeVisible();
 		});
+
 		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
@@ -189,6 +191,18 @@ describe('Header', () => {
 			// THEN
 			const jobsEteLink = screen.queryByRole('link', { name: 'Jobs d‘été' });
 			expect(jobsEteLink).not.toBeInTheDocument();
+		});
+
+		it('affiche un encart pour accéder à l’enquête de satisfaction', () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+
+			// WHEN
+			render(<Header/>);
+
+			// THEN
+			const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+			expect(lienEnquete).toBeVisible();
 		});
 	});
 
