@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.58.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.58.0...v3.58.1) (2023-05-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency prism-react-renderer to v2 ([#1228](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1228)) ([8389675](https://github.com/DNUM-SocialGouv/1j1s-front/commit/83896756311a7d66b7f83524a8449e5ead6a1e16))
+
 ## [3.58.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.57.2...v3.58.0) (2023-05-02)
 
 
