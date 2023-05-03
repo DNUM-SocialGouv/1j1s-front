@@ -4,10 +4,13 @@ import {
 	CampagneApprentissageEntreprises,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
 import { Head } from '~/client/components/head/Head';
+import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
+import analyticsPageConfig from '~/pages/apprentissage-entreprises/index.analytics';
 
 export default function ApprentissageEntreprises () {
 	useReferrer();
+	useAnalytics(analyticsPageConfig);
 
 	return (
 		<>
