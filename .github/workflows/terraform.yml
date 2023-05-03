@@ -59,9 +59,15 @@ jobs:
           secrets: ${{ toJSON(vars) }}
           env_var_name_lower_case_regex: (?<=TF_VAR_).*
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
       - name: Ecrire les variables d'environnement dans un fichier .env
         if: ${{ (inputs.plan == true) || (inputs.apply == true) }}
-        run: envsubst < .env.example > .env
+        run: |
+          npm install -g envsub
+          envsub --protect .env.example .env
 
       - name: Vérifier le format et le style du code Terraform
         if: ${{ inputs.lint == true }}
