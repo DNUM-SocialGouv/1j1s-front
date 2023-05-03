@@ -31,10 +31,11 @@ type ReferenceProps = Omit<ComponentPropsWithoutRef<'a'>, 'id'> & {
 
 const Reference = forwardRef<HTMLAnchorElement, ReferenceProps>(function Reference({
 	to,
+	className,
 	...aProps
 }, ref) {
 	return (
-		<a href={`#${to}`} title="note de pied de page" {...aProps} ref={ref}>
+		<a href={`#${to}`} className={classNames(className, styles.reference)} title="note de pied de page" {...aProps} ref={ref}>
 			<abbr title="note de pied de page">*</abbr>
 		</a>
 	);
