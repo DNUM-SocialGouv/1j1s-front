@@ -44,7 +44,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 
 export default function AnnonceAlternancePage({ alternanceSerialized }: ConsulterAnnonceAlternancePageProps) {
 	useAnalytics(analytics);
-
 	const alternance: Alternance = {
 		...alternanceSerialized,
 		dateDébut: alternanceSerialized.dateDébut ? new Date(alternanceSerialized.dateDébut) : undefined,

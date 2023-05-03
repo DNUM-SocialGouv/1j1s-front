@@ -14,6 +14,7 @@ import VideosCampagneApprentissage
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
+import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 interface CampagneApprentissageJeunesProps {
@@ -51,7 +52,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
 					<h1>L’apprentissage : <small>pour moi c’est le bon choix</small></h1>
-					<Link href={'/apprentissage/simulation'} appearance={'asPrimaryButton'} className={styles.cta}>
+					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						Simuler ma rémunération
 					</Link>
 				</HeroWithIllustration>

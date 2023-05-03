@@ -27,14 +27,14 @@ describe('CampagneApprentissageEntreprises', () => {
 		expect(titre).toBeVisible();
 	});
 
-	it('affiche un lien vers la simulation', () => {
+	it('affiche un lien vers la simulation pour les employeurs', () => {
 		// WHEN
 		render(<CampagneApprentissageEntreprises />);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler le coût d’embauche/i });
 		expect(simulation).toBeVisible();
-		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation');
+		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {

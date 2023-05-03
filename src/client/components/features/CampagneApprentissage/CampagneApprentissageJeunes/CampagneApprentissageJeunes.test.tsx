@@ -31,14 +31,14 @@ describe('CampagneApprentissageJeunes', () => {
 		expect(titre).toBeVisible();
 	});
 
-	it('affiche un lien vers la simulation', () => {
+	it('affiche un lien vers la simulation pour les alternants', () => {
 		// WHEN
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler ma rémunération/i });
 		expect(simulation).toBeVisible();
-		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation');
+		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=alternant');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
