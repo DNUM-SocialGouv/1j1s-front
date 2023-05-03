@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.59.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.58.3...v3.59.0) (2023-05-03)
+
+
+### Features
+
+* **apprentissage:** ajouter le tracking sur les pages de la campagne ([#1236](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1236)) ([5fddac7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5fddac7b236ffacd4ea41a7b69e8eb203871eaaa))
+* **multiple:** refonte visuelle de la note de bas de page ([0920786](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0920786200839f5ff85ead5de4c71c0f55a658f5))
+
 ## [3.58.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.58.2...v3.58.3) (2023-05-03)
 
 
