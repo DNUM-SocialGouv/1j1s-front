@@ -135,7 +135,7 @@ describe('Header', () => {
 			});
 		});
 
-		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé', async() => {
+		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
@@ -150,7 +150,7 @@ describe('Header', () => {
 			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 			expect(campagneApprentissageLink).toBeVisible();
 		});
-		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async() => {
+		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
@@ -164,6 +164,37 @@ describe('Header', () => {
 			// THEN
 			const campagneApprentissageLink = screen.queryByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 			expect(campagneApprentissageLink).not.toBeInTheDocument();
+		});
+		it('affiche le lien jobs d‘été quand le feature flip est actif', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '1';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const jobsEteLink = screen.getByRole('link', { name: 'Jobs d‘été' });
+			expect(jobsEteLink).toBeVisible();
+			expect(jobsEteLink).toHaveAttribute('href', '/jobs-ete');
+		});
+		it('masque le lien jobs d‘été quand le feature flip est inactif', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const jobsEteLink = screen.queryByRole('link', { name: 'Jobs d‘été' });
+			expect(jobsEteLink).not.toBeInTheDocument();
 		});
 	});
 
