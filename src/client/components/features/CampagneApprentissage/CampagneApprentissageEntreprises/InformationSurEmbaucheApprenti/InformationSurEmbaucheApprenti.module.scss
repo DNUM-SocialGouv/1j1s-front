@@ -2,9 +2,11 @@
 
 .toutSavoir {
   padding: 1.75rem 2rem;
+  background-color: utilities.$color-background-white-lilac;
 
   @include utilities.media(large) {
     padding: 5rem 1rem ;
+    background-color: revert;
   }}
 
 .toutSavoir .contenu {

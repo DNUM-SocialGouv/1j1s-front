@@ -189,7 +189,7 @@ describe('CampagneApprentissageJeunes', () => {
 				expect(iframe).toHaveAttribute('src', expect.stringMatching(`${deuxièmeVideoCampagne.videoId}`));
 				expect(boutonDeuxiemeVideo).toHaveAttribute('aria-current', 'true');
 			});
-			it('j’ai l’information que la vidéo courante est celle j’ai selectionné', async () => {
+			it('j’ai l’information que la vidéo courante est celle que j’ai selectionné', async () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 

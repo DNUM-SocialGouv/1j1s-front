@@ -60,11 +60,23 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons}/>
 			{ isSmallScreen ? <>
-				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+				{ videos.length > 0 &&
+					<VideosCampagneApprentissage
+						videos={videos}
+						titre={'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?'}
+						description={'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !'}
+					/>
+				}
 				<PreparationApprentissage/>
 			</> : <>
 				<PreparationApprentissage/>
-				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+				{ videos.length > 0 &&
+					<VideosCampagneApprentissage
+						videos={videos}
+						titre={'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?'}
+						description={'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !'}
+					/>
+				}
 			</>
 			}
 
