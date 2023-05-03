@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.61.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.60.0...v3.61.0) (2023-05-03)
+
+
+### Features
+
+* ajout du simulateur aides alternant ([#1128](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1128)) ([6207d68](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6207d68662ba725440534e77d74a60157edab25d))
+
 ## [3.60.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.59.0...v3.60.0) (2023-05-03)
 
 
