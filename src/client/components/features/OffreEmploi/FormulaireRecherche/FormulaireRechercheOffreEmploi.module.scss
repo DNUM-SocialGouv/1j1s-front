@@ -21,10 +21,10 @@
 .filtresAvancésModalContenu {
 
   & details {
-    border-top: 1px solid color.adjust(utilities.$color-primary, utilities.$lightness: 15%);
+    border-top: 1px solid lighten(utilities.$color-primary, 15%);
 
     &:last-of-type {
-      border-bottom: 1px solid color.adjust(utilities.$color-primary, utilities.$lightness: 15%);
+      border-bottom: 1px solid lighten(utilities.$color-primary, 15%);
     }
   }
 }

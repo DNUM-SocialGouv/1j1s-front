@@ -2,8 +2,8 @@
 @use "reset/styles";
 
 // Base
-@use "theme/styles" as styles2;
-@use "typography/styles" as styles3;
+@use "theme/styles" as theme-styles;
+@use "typography/styles" as typography-styles;
 @use "utilities";
 
 [contenteditable]:not([contenteditable="false"]), [tabindex], a, audio[controls], button,

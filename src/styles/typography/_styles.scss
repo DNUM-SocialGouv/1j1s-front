@@ -1,8 +1,7 @@
-@use "@styles/media/mixins" as mixins2;
+@use "@styles/theme/variables" as theme-variables;
 @use "mixins";
 @use "placeholders";
 @use "variables";
-@use "../theme/variables" as theme-variables;
 
 @include mixins.font-face(variables.$font-family, "Marianne-Light", 300);
 @include mixins.font-face(variables.$font-family, "Marianne-Light_Italic", 300, italic);

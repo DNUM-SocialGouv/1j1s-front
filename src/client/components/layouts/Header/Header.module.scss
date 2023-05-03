@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "@styles/_utilities";
+@use "@styles/utilities";
 
 @mixin underline {
   text-decoration: underline;
