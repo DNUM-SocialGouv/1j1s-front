@@ -1,31 +1,3 @@
-export const SITE_TAGS: Record<string, string> = {
-	site_entity: 'Min. Travail',
-	site_environment: process.env.NEXT_PUBLIC_ANALYTICS_ENVIRONMENT || 'dev',
-	site_target: 'information',
-	site_type: 'multiple',
-};
-
-export interface PageTags {
-	page_template: PageTemplate;
-	pagegroup: PageGroup;
-	pagelabel: PageLabel;
-	'segment-site': SegmentSite;
-}
-
-type SegmentSite =
-	'accueil'
-	| 'autres'
-	| 'contenu_detail'
-	| 'contenu_liens'
-	| 'contenu_liste'
-	| 'funnel_etape_1'
-	| 'funnel_etape_confirmation'
-	| 'funnel_etape_intermediaire'
-	| 'offres_d_emploi'
-	| 'page_404'
-	| 'page_de_base'
-	| 'resultats_de_recherche';
-
 type PageGroup =
 	'accueil'
 	| 'accompagnement'
@@ -54,6 +26,7 @@ type PageGroup =
 	| 'je_deviens_mentor'
 	| 'je_recrute'
 	| 'je_recrute_afpr_poei'
+	| 'job_ete'
 	| 'job_etudiants'
 	| 'job_europe'
 	| 'logement'
@@ -73,6 +46,34 @@ type PageGroup =
 	| 'service_civique_liste'
 	| 'service_jeune_liste'
 	| 'stages';
+
+export const SITE_TAGS: Record<string, string> = {
+	site_entity: 'Min. Travail',
+	site_environment: process.env.NEXT_PUBLIC_ANALYTICS_ENVIRONMENT || 'dev',
+	site_target: 'information',
+	site_type: 'multiple',
+};
+
+export interface PageTags {
+	page_template: PageTemplate;
+	pagegroup: PageGroup;
+	pagelabel: PageLabel;
+	'segment-site': SegmentSite;
+}
+
+type SegmentSite =
+	'accueil'
+	| 'autres'
+	| 'contenu_detail'
+	| 'contenu_liens'
+	| 'contenu_liste'
+	| 'funnel_etape_1'
+	| 'funnel_etape_confirmation'
+	| 'funnel_etape_intermediaire'
+	| 'offres_d_emploi'
+	| 'page_404'
+	| 'page_de_base'
+	| 'resultats_de_recherche';
 
 type PageLabel =
 	'accueil'

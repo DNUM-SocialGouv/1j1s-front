@@ -165,6 +165,36 @@ describe('Header', () => {
 			const campagneApprentissageLink = screen.queryByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 			expect(campagneApprentissageLink).not.toBeInTheDocument();
 		});
+		it('affiche le lien jobs d‘été quand le feature flip est actif', async() => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_JOB_ETE = '1';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const jobsEteLink = screen.getByRole('link', { name: 'Jobs d‘été' });
+			expect(jobsEteLink).toBeVisible();
+		});
+		it('masque le lien jobs d‘été quand le feature flip est inactif', async() => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_JOB_ETE = '0';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const jobsEteLink = screen.getByRole('link', { name: 'Jobs d‘été' });
+			expect(jobsEteLink).not.toBeInTheDocument();
+		});
 	});
 
 	describe('Sur mobile', () => {

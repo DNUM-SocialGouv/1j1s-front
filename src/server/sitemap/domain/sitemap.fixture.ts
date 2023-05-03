@@ -176,8 +176,11 @@ export function aSitemap() {
 		<loc>http://localhost:3000/apprentissage</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/jobs-etudiants</loc>
+		<loc>http://localhost:3000/jobs-ete</loc>
 	</url>
+	</url>
+	<url>
+		<loc>http://localhost:3000/jobs-etudiants</loc>
 	<url>
 		<loc>http://localhost:3000/europe</loc>
 	</url>
