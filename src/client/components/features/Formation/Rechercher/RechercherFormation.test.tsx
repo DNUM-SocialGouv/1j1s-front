@@ -158,7 +158,7 @@ describe('RechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const entête =  screen.getByRole('heading', { level: 2 });
+		const entête = screen.getByRole('heading', { level: 2 });
 		expect(entête).toHaveTextContent('Découvrez des services faits pour vous');
 		expect(entête).toBeVisible();
 
@@ -166,7 +166,7 @@ describe('RechercherFormation', () => {
 		expect(listeDePartenaires).toBeVisible();
 	});
 
-	it('filtre les query params envoyés au service', () => {
+	it('filtre les query params envoyés au service', async () => {
 		const formationService = aFormationService();
 		mockUseRouter({ query : {
 			codeCommune: '75056',
@@ -190,6 +190,7 @@ describe('RechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
+		await screen.findByRole('list', { name: 'Formations en alternance' });
 		expect(formationService.rechercherFormation).toHaveBeenCalledWith(expect.not.objectContaining({
 			test: 'test',
 		}));

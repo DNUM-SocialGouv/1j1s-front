@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -9,11 +10,13 @@ import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApp
 
 import styles from './VideosCampagneApprentissage.module.scss';
 
-interface VideosCampagneApprentissageProps {
+interface VideosCampagneApprentissageProps extends React.HTMLAttributes<HTMLDivElement> {
+	titre: string
+	description: string
 	videos: Array<VideoCampagneApprentissage>
 }
 
-export default function VideosCampagneApprentissage({ videos }: VideosCampagneApprentissageProps) {
+export default function VideosCampagneApprentissage({ videos, titre, description, className }: VideosCampagneApprentissageProps) {
 	const [videoToDisplay, setVideoToDisplay] = useState(videos[0]);
 
 	function selectVideo(video: VideoCampagneApprentissage) {
@@ -28,9 +31,9 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 	}
 
 	return (
-		<section className={styles.videos}>
+		<section className={classNames(styles.videos, className)}>
 			<Container className={styles.container}>
-				<h2 className={styles.titreSection} id="titre-section-video" tabIndex={-1}>Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?</h2>
+				<h2 className={styles.titreSection} id="titre-section-video" tabIndex={-1}>{titre}</h2>
 				<div className={styles.video}>
 					<iframe
 						width="326"
@@ -47,7 +50,7 @@ export default function VideosCampagneApprentissage({ videos }: VideosCampagneAp
 					<p className={styles.content}>{videoToDisplay.transcription}</p>
 				</details>
 				<section className={styles.temoignage} aria-labelledby="description-video">
-					<p className={styles.titreTemoignage} id="description-video">Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !</p>
+					<p className={styles.titreTemoignage} id="description-video">{description}</p>
 					<ul className={styles.boutonsVideosList}>
 						{
 							videos.map((video, index) => (

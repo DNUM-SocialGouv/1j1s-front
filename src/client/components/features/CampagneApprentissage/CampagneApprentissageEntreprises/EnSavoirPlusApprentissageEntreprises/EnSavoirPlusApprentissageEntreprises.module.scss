@@ -8,11 +8,10 @@
     grid-gap: 2.5rem;
   }
 
-  &Faq {
+  &DepotOffre {
     background-color: utilities.$color-background-white-lilac;
-
     @include utilities.media(large) {
-      background-color: inherit;
+      background-color: revert;
     }
   }
 
