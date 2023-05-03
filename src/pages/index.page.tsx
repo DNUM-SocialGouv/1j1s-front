@@ -49,6 +49,15 @@ export default function Accueil() {
 		<LinkCard
 			className={styles.card}
 			key={4}
+			imageUrl="/images/jobs-ete.webp"
+			link="/jobs-ete"
+			linkLabel="Voir les offres"
+			title="Jobs d'été">
+			<p>Des milliers d‘offres de jobs d‘été sélectionnées pour vous (durée maximale de 2 mois)</p>
+		</LinkCard>,
+		<LinkCard
+			className={styles.card}
+			key={5}
 			imageUrl="/images/jobs-étudiant.webp"
 			link="/jobs-etudiants"
 			linkLabel="Voir les offres"
@@ -57,7 +66,7 @@ export default function Accueil() {
 		</LinkCard>,
 		<LinkCard
 			className={styles.card}
-			key={5}
+			key={6}
 			imageUrl="/images/europe.webp"
 			link="/europe"
 			linkLabel="Voir les offres"

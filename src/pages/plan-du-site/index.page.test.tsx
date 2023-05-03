@@ -16,6 +16,7 @@ describe('Plan du site', () => {
     ${'Emplois'}                                              | ${'/emplois'}
     ${'Stages'}                                               | ${'/stages'}
     ${'Contrats d’alternance'}                                | ${'/apprentissage'}
+    ${'Jobs d‘été'}                    			                  | ${'/jobs-ete'}
     ${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
     ${'Expérience en Europe'}                                 | ${'/europe'}
     
@@ -50,7 +51,7 @@ describe('Plan du site', () => {
     ${'Mentions légales'}                                     | ${'/mentions-legales'}
     ${'Politique de confidentialité'}                         | ${'/confidentialite'}
     ${'Nous contacter'}                                       | ${'mailto:contact-1j1s@sg.social.gouv.fr'}`(
-		'présente la page $nom du site', 
+		'présente la page $nom du site',
 		async ({ nom, path }) => {
 			const analyticsService = anAnalyticsService();
 
