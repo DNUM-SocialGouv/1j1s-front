@@ -193,9 +193,10 @@ describe('Header', () => {
 			expect(jobsEteLink).not.toBeInTheDocument();
 		});
 
-		it('affiche un encart pour accéder à l’enquête de satisfaction', () => {
+		it('affiche le lien vers l’enquête de satisfaction quand l’enquête est feature flippé on', () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 
 			// WHEN
 			render(<Header/>);
@@ -205,6 +206,20 @@ describe('Header', () => {
 			expect(lienEnquete).toBeVisible();
 			expect(lienEnquete).toHaveAttribute('href','https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
 		});
+
+		it('masque le lien vers l’enquête de satisfaction quand l’enquête est feature flippé off', () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '0';
+
+			// WHEN
+			render(<Header/>);
+
+			// THEN
+			const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+			expect(lienEnquete).toBeNull();
+		});
+
 	});
 
 	describe('Sur mobile', () => {
