@@ -15,6 +15,7 @@ const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 const INSTAGRAM_SERVICE = 'instagram';
 const YOUTUBE_SERVICE = 'youtube';
+const ADFORM_SERVICE = 'adform';
 
 export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
@@ -27,6 +28,10 @@ export class AnalyticsService {
 		if (window && window.tarteaucitron) {
 			window.tarteaucitron.job.push(INSTAGRAM_SERVICE);
 			window.tarteaucitron.job.push(YOUTUBE_SERVICE);
+
+			//TODO window.tarteaucitron.user.adformpm = adformpm;
+			window.tarteaucitron.job.push(ADFORM_SERVICE);
+			//TODO window.tarteaucitron.user.adformpagename = 'adformpagename';
 		}
 	}
 
