@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.60.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.59.0...v3.60.0) (2023-05-03)
+
+
+### Features
+
+* **emplois:** changement de end point pôle emploi ([58dbea3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/58dbea31f37b0051a4859995fdd7d8a97a2e6ef0))
+
 ## [3.59.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.58.3...v3.59.0) (2023-05-03)
 
 
