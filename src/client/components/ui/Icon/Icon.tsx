@@ -9,6 +9,7 @@ import { AngleRightFromLineIcon } from '~/client/components/ui/Icon/angle-right-
 import { AngleUpIcon } from '~/client/components/ui/Icon/angle-up.icon';
 import { ArrowLeftIcon } from '~/client/components/ui/Icon/arrow-left.icon';
 import { ArrowRightIcon } from '~/client/components/ui/Icon/arrow-right.icon';
+import { ArrowUpIcon } from '~/client/components/ui/Icon/arrow-up.icon';
 import { AwardIcon } from '~/client/components/ui/Icon/award.icon';
 import { BedIcon } from '~/client/components/ui/Icon/bed.icon';
 import { BikeIcon } from '~/client/components/ui/Icon/bike.icon';
@@ -65,6 +66,7 @@ export type IconName =
     | 'angle-up'
 		| 'arrow-left'
     | 'arrow-right'
+    | 'arrow-up'
     | 'award'
     | 'bed'
     | 'bike'
@@ -137,6 +139,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <ArrowLeftIcon className={className} aria-hidden={true} {...rest} />;
 			case 'arrow-right':
 				return <ArrowRightIcon className={className} aria-hidden={true} {...rest} />;
+			case 'arrow-up':
+				return <ArrowUpIcon className={className} aria-hidden={true} {...rest} />;
 			case 'award':
 				return <AwardIcon className={className} aria-hidden={true} {...rest} />;
 			case 'bed':

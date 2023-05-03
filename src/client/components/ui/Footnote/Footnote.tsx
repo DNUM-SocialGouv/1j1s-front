@@ -19,7 +19,7 @@ const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(functi
 }, ref) {
 	return (
 		<p {...pProps} className={classNames(className, styles.footnote)} ref={ref}>
-			<abbr title="note de pied de page">*</abbr><Link href={`#${htmlFor}`} title="Retour à la référence"><Icon name="angle-up" /></Link> {children}
+			<abbr title="note de pied de page">*</abbr> {children} <Link href={`#${htmlFor}`} title="Retour à la référence" className={styles.backlink}><Icon name="arrow-up" /></Link>
 		</p>
 	);
 });
@@ -31,10 +31,11 @@ type ReferenceProps = Omit<ComponentPropsWithoutRef<'a'>, 'id'> & {
 
 const Reference = forwardRef<HTMLAnchorElement, ReferenceProps>(function Reference({
 	to,
+	className,
 	...aProps
 }, ref) {
 	return (
-		<a href={`#${to}`} title="note de pied de page" {...aProps} ref={ref}>
+		<a href={`#${to}`} className={classNames(className, styles.reference)} title="note de pied de page" {...aProps} ref={ref}>
 			<abbr title="note de pied de page">*</abbr>
 		</a>
 	);

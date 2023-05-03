@@ -6,4 +6,15 @@
   @include utilities.media(medium) {
     text-align: end;
   }
+
+  & .backlink > svg {
+    color: utilities.$color-primary;
+    height: 1em;
+    width: 1em;
+  }
+}
+
+.reference {
+  color: utilities.$color-primary;
+  text-decoration: none;
 }
