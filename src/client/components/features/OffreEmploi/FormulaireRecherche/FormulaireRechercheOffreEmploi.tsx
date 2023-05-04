@@ -114,7 +114,7 @@ export function FormulaireRechercheOffreEmploi() {
 					{isSmallScreen &&
             <div>
             	<ButtonComponent
-            		appearance='tertiary'
+            		appearance='quaternary'
             		icon={<Icon name="filter" />}
             		iconPosition='right'
             		label='Filtrer ma recherche'

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
@@ -11,11 +10,12 @@ import {
 } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import analytics from '~/pages/europe/index.analytics';
 import styles from '~/pages/europe/index.module.scss';
+
+import { LinkStyledAsButton } from '../../client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 interface LienEmploiEurope {
 	url: string;
@@ -79,9 +79,9 @@ export default function EuropePage() {
 				<ul>
 					{linkList.map((link: LienEmploiEurope) => (
 						<li key={link.title}>
-							<Link href={link.url} className={classNames('underline-none')}>
-								<TextIcon icon="external-redirection">{link.title}</TextIcon>
-							</Link>
+							<LinkStyledAsButton appearance={'asQuaternayButton'} href={link.url}>
+								{link.title}
+							</LinkStyledAsButton>
 						</li>
 					))}
 				</ul>
@@ -140,11 +140,11 @@ export default function EuropePage() {
 						</ul>
 
 						<div className={styles.buttonWrapper}>
-							<Link
+							<LinkStyledAsButton
 								href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
 								appearance="asPrimaryButton">
 								En savoir plus
-							</Link>
+							</LinkStyledAsButton>
 						</div>
 
 					</article>
@@ -193,9 +193,8 @@ export default function EuropePage() {
 							</li>
 						</ul>
 						<div className={styles.buttonWrapper}>
-							<Link href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</Link>
+							<LinkStyledAsButton href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</LinkStyledAsButton>
 						</div>
-
 					</article>
 				</div>
 			</Container>
@@ -207,7 +206,7 @@ export default function EuropePage() {
 			<Container className={styles.sectionAidesFinancieres}>
 				<h2>Je cherche des aides financières pour vivre une expérience en Europe</h2>
 				<div className={styles.buttonWrapper}>
-					<Link href="/mes-aides" appearance="asPrimaryButton">Faire une simulation d’aides</Link>
+					<LinkStyledAsButton href="/mes-aides" appearance="asPrimaryButton">Faire une simulation d’aides</LinkStyledAsButton>
 				</div>
 			</Container>
 		</div>
@@ -235,12 +234,12 @@ export default function EuropePage() {
 					<p>Quel est mon niveau d‘anglais ? Rien de plus simple avec le test en ligne de Wall Street English. Vous êtes
 						évalué sur votre niveau de grammaire, de vocabulaire, de compréhension écrite et orale.</p>
 					<div className={styles.buttonWrapper}>
-						<Link
+						<LinkStyledAsButton
 							href="https://lp.wallstreetenglish.fr/1jeune-1solution"
 							appearance="asPrimaryButton"
 							className={styles.buttonOnDarkBackground}>
 							Tester son niveau d‘anglais
-						</Link>
+						</LinkStyledAsButton>
 					</div>
 					<span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link
 						href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>

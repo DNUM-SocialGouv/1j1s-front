@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/InformationSurEmbaucheApprenti/InformationSurEmbaucheApprenti.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 
 
@@ -16,9 +16,9 @@ export function InformationSurEmbaucheApprenti() {
 				<h2 id={'titre-section-renseignement'}>
 					Comme eux, vous souhaitez faire <span>le choix de l’apprentissage&nbsp;?</span>
 				</h2>
-				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
+				<LinkStyledAsButton href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
 					Se renseigner sur l’embauche
-				</Link>
+				</LinkStyledAsButton>
 			</section>
 			<section aria-labelledby={'titre-section-aide'} className={styles.aideFinanciere}>
 				<h2 id={'titre-section-aide'}>
@@ -27,9 +27,9 @@ export function InformationSurEmbaucheApprenti() {
 				<p className={styles.description}>
 						Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master
 				</p>
-				<Link href={enSavoirPlusSurAideLink} appearance={'asSecondaryButton'} className={styles.link}>
+				<LinkStyledAsButton href={enSavoirPlusSurAideLink} appearance={'asSecondaryButton'} className={styles.link}>
 						En savoir plus
-				</Link>
+				</LinkStyledAsButton>
 			</section>
 		</Container>
 	);

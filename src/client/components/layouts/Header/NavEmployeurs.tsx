@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useExitModal } from '~/client/hooks/useExitModal';
 
-import { Icon } from '../../ui/Icon/Icon';
 import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from './NavigationStructure';
 
 interface NavEmployeursProps {

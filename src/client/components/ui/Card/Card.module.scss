@@ -31,57 +31,59 @@
 }
 
 .cardButton {
-  line-height: 1.6em;
-  text-align: center;
+  display: flex;
+  border-radius: 50px;
+  outline-offset: 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
-  svg {
+  @extend %button;
+
+  > svg {
     margin-left: 0.3rem;
     vertical-align: bottom;
   }
+}
 
-  &Primary {
-    border-radius: 50px;
-    border: 1px solid utilities.$color-primary;
-    background-color: utilities.$color-primary;
-    color: utilities.$color-on-primary;
-    padding-block: 0.4rem;
-    padding-inline: 1.5rem 1.3rem;
+.cardButtonPrimary {
+  border: 1px solid utilities.$color-primary;
+  background-color: utilities.$color-primary;
+  color: utilities.$color-on-primary;
 
-    &:hover {
-      background-color: utilities.$color-primary-on-hover;
-      border-color: utilities.$color-primary-on-hover;
-    }
-
-    @include utilities.media(large) {
-      padding-block: 0.5rem;
-    }
+  &:hover {
+    background-color: utilities.$color-primary-2;
+    border-color: utilities.$color-primary-2;
   }
+}
 
-  &Secondary {
-    border-radius: 50px;
-    border: 1px solid utilities.$color-primary;
+
+.cardButtonSecondary {
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-primary;
+  background-color: utilities.$white;
+
+  &:hover {
+    background-color: utilities.$color-background-white-titan;
+    border-color: utilities.$color-primary;
     color: utilities.$color-primary;
-    padding-block: 0.4rem;
-    padding-inline: 1.5rem 1.3rem;
-
-    &:hover {
-      background-color: utilities.$color-background-white-titan;
-      border-color: utilities.$color-primary-on-hover;
-      color: utilities.$color-primary-on-hover;
-    }
-
-    @include utilities.media(large) {
-      padding-block: 0.5rem;
-    }
   }
+}
 
-  &Tertiary {
-    color: utilities.$color-primary;
+.cardButtonQuaternary {
+  color: utilities.$color-primary;
+  border-radius: 0;
+  padding: 0;
+}
 
-    &:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+.cardButtonTertiary {
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-primary;
+  background-color: utilities.$color-background-white-titan;
+
+  &:hover {
+    background-color: utilities.$color-tertiary-2;
+    border-color: utilities.$color-tertiary-2;
+    color: utilities.$white;
   }
 }
 

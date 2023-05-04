@@ -66,7 +66,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 					<Card.Title titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>
 					<p>{children}</p>
 					<span className={styles.cardAction}>
-						<Card.FakeLink appearance={'tertiary'} label={linkLabel} icon={icon}/>
+						<Card.FakeLink appearance={'quaternary'} label={linkLabel} icon={icon}/>
 					</span>
 				</Card.Content>
 			</Card>

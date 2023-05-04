@@ -94,12 +94,17 @@
 
   & .boutonsVideosList {
     margin-bottom: 1rem;
+    & li {
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
   }
 
   & .lienPlaylistContainer {
     display: flex;
 
     & .lienPlaylist {
+      color: utilities.$black;
       margin-left: auto;
     }
   }

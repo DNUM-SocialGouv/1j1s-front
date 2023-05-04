@@ -8,41 +8,116 @@
 
 .header {
   border-bottom: 1px solid utilities.$color-separator;
-  position: relative;
-  width: 100%;
   background-color: utilities.$color-surface;
 
-  &Body {
-    padding-inline: 1rem;
-    padding-block: 1rem;
+  a {
+    text-decoration: none;
   }
 
-  &BodyContainer {
-    @include utilities.media(large) {
-      align-items: center;
-      display: flex;
-      gap: 4rem;
-      width: 100%;
-    }
-  }
-
-  &LogoWrapper {
-    border-bottom: 2px solid utilities.$color-separator;
+  & .headerBannerMobile {
+    background-color: utilities.$color-primary;
+    color: utilities.$color-surface;
     display: flex;
-    justify-content: space-between;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding-block: 0.5rem;
+    padding-inline: 0.5rem;
+    @extend %text-small;
 
-    @include utilities.media(large) {
-      border-bottom: none;
-      padding-bottom: 0;
+    & .headerBannerMobileTitle {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      margin-right: 0.5rem;
+      line-height: 1.6rem;
+      @extend %bold;
     }
   }
 
-  &Title {
-    line-height: 1rem;
-    @extend %text-large;
-    @extend %bold;
+  > svg {
+    margin-left: 0.5rem;
+  }
+
+  & .headerBodyContainer {
+    padding: 1rem;
+
+    & .headerBody {
+      @include utilities.media(large) {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+      }
+
+      & .headerBodyLogoWrapper {
+        border-bottom: 2px solid utilities.$color-separator;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+
+        @include utilities.media(large) {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+      }
+
+
+      & .headerBodyTitle {
+        line-height: 1rem;
+        @extend %text-large;
+        @extend %bold;
+      }
+
+      & .headerBodyBanner {
+        padding: 0.5rem 1rem;
+        border: 1px solid utilities.$color-primary;
+        box-shadow: 1px 1px 0 utilities.$color-primary,
+        2px 2px 0 utilities.$color-primary,
+        3px 3px 0 utilities.$color-primary,
+        4px 4px 0 utilities.$color-primary,
+        5px 5px 0 utilities.$color-primary,
+        6px 6px 0 utilities.$color-primary;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+        margin-left: 10rem;
+        margin-right: 4rem;
+        @extend %text-small;
+
+        &:hover {
+          border: 1px solid utilities.$color-primary-on-hover;
+          box-shadow: 1px 1px 0 utilities.$color-primary-on-hover,
+          2px 2px 0 utilities.$color-primary-on-hover,
+          3px 3px 0 utilities.$color-primary-on-hover,
+          4px 4px 0 utilities.$color-primary-on-hover,
+          5px 5px 0 utilities.$color-primary-on-hover,
+          6px 6px 0 utilities.$color-primary-on-hover;
+
+          & .headerBodyBannerTitle, .headerBodyBannerIcon {
+            color: utilities.$color-primary-on-hover;
+          }
+        }
+
+        & .headerBodyBannerTitle {
+          color: utilities.$color-primary;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          @extend %bold;
+        }
+
+        & .headerBodyBannerContent {
+          @include utilities.media(large) {
+            font-size: .825rem;
+          }
+        }
+
+        & .headerBodyBannerIcon {
+          color: utilities.$color-primary;
+          height: 1.25rem;
+          width: 1.25rem;
+        }
+      }
+    }
   }
 
   &NavigationList {
@@ -62,7 +137,7 @@
       background-color: utilities.$color-secondary;
 
       &:hover {
-        background-color: color.adjust(utilities.$color-secondary, utilities.$alpha: -0.15);
+        background-color: color.adjust(utilities.$color-secondary, utilities.$alpha:-0.15);
       }
 
       & .subNavItemList {
@@ -80,81 +155,8 @@
       padding-inline: 0;
     }
   }
-
-  a {
-    text-decoration: none;
-  }
-
-  &Banner {
-    padding-block: 0.5rem;
-    padding-inline: 1rem;
-    border: 1px solid utilities.$color-primary;
-    box-shadow: 1px 1px 0 utilities.$color-primary,
-    2px 2px 0 utilities.$color-primary,
-    3px 3px 0 utilities.$color-primary,
-    4px 4px 0 utilities.$color-primary,
-    5px 5px 0 utilities.$color-primary,
-    6px 6px 0 utilities.$color-primary;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-grow: 1;
-    margin-left: 10rem;
-    margin-right: 4rem;
-    @extend %text-small;
-
-    &:hover {
-      border: 1px solid utilities.$color-primary-on-hover;
-      box-shadow: 1px 1px 0 utilities.$color-primary-on-hover,
-      2px 2px 0 utilities.$color-primary-on-hover,
-      3px 3px 0 utilities.$color-primary-on-hover,
-      4px 4px 0 utilities.$color-primary-on-hover,
-      5px 5px 0 utilities.$color-primary-on-hover,
-      6px 6px 0 utilities.$color-primary-on-hover;
-
-      .headerBannerTitle, .headerBannerIcon {
-        color: utilities.$color-primary-on-hover;
-      }
-    }
-  }
-
-  &BannerTitle {
-    color: utilities.$color-primary;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    @extend %bold;
-  }
-
-  &BannerContent {
-    @extend %text-small;
-    @include utilities.media(large) {
-      font-size: .825rem;
-    }
-  }
-
-  &BannerIcon {
-    color: utilities.$color-primary;
-  }
-
-  &BannerMobile {
-    background-color: utilities.$color-primary;
-    color: utilities.$color-surface;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-block: 0.5rem;
-    padding-inline: 0.5rem;
-    @extend %text-small;
-  }
-
-  &BannerMobileTitle {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    margin-right: 0.5rem;
-    line-height: 1.6rem;
-    @extend %bold;
-  }
 }
+
 
 .subNavItemList {
   color: utilities.$color-on-surface;
@@ -183,9 +185,9 @@
   }
 
   &Label {
+    @extend %text-regular;
     display: block;
-    padding-block: 0.8rem;
-    padding-inline: 1rem;
+    padding: 0.8rem 1rem;
     color: utilities.$color-on-background;
   }
 
@@ -264,7 +266,7 @@
     background-color: utilities.$color-secondary;
 
     &:hover {
-      background-color: color.adjust(utilities.$color-secondary, utilities.$alpha: -0.15);
+      background-color: color.adjust(utilities.$color-secondary, utilities.$alpha:-0.15);
     }
 
     & .subNavItemList {
@@ -310,25 +312,29 @@
   }
 
   .embeddedNavItem {
-      @extend .subNavItem;
-      &Button {
-        > span {
-          @extend %text-regular;
-        }
-        @extend .navItemLabel;
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
+    @extend .subNavItem;
+
+    &Button {
+      > span {
+        @extend %text-regular;
       }
+
+      @extend .navItemLabel;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 
   .subNavItemButton.embedded {
     flex-direction: row-reverse;
+
     > span {
       flex-grow: 2;
       text-align: left;
       padding-left: .3rem;
     }
+
     > .subNavItemIconExpanded {
       transform: rotate(90deg);
     }

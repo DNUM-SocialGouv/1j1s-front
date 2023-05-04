@@ -25,9 +25,16 @@
 .cardContainer {
   display: block;
 
+  &:hover {
+    & .cardAction {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
 
   & .card {
     display: grid;
+
     &Horizontal {
       grid-template-columns: 18.875rem 1fr;
     }

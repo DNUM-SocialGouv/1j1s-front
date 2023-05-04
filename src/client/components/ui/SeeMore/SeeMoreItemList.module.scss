@@ -1,14 +1,9 @@
 @use "@styles/utilities";
 
 .seeMoreButton {
-  font-size: 1rem;
-  padding-block: 1rem;
+  color: utilities.$black;
   display: block;
   margin: auto;
-
-  @include utilities.media(large) {
-    padding-block: 1.5rem;
-  }
 }
 
 .itemList {

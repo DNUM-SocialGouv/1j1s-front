@@ -19,6 +19,14 @@
   }
 }
 
+
+.card:hover {
+  & .cta {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
 .notOnlyVertical {
   .illustration {
     height: 7rem;

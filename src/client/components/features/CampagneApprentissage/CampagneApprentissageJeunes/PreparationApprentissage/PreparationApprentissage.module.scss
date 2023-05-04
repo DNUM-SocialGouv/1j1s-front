@@ -41,7 +41,6 @@
 
     & .linkContainerChoixApprentissage {
       display: contents;
-      @extend %text-regular;
       @include utilities.media(large) {
         display: flex;
         flex-direction: column;
@@ -72,7 +71,6 @@
     }
 
     & .linkPrepaApprentissage {
-      @extend %text-regular;
       grid-area: linkPrepaApprentissage;
       height: min-content;
 

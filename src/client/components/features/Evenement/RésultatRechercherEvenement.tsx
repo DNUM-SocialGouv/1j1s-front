@@ -27,7 +27,8 @@ export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
 				<div className={styles.tagLink}>
 					<TagList list={[lieuEvenement]} aria-label="Lieu de l‘évènement"/>
 					<Card.FakeLink
-						appearance={'tertiary'}
+						className={styles.fakeLink}
+						appearance={'quaternary'}
 						icon={<Icon name={'angle-right'}/>}
 						label={'En savoir plus'}
 					/>

@@ -19,11 +19,11 @@ export function Header() {
 		<header
 			className={styles.header}
 			role="banner">
-			{ !isLargeScreen && displayCampagneApprentissageBanner &&
-				<Link href="/choisir-apprentissage" className={styles.headerBannerMobile}>
-				  <div className={styles.headerBannerMobileTitle}>L’apprentissage, c’est le bon choix !</div>
-				  <Icon className={styles.headerBannerMobileIcon} name='angle-right' />
-				</Link>
+			{!isLargeScreen && displayCampagneApprentissageBanner &&
+          <Link href="/choisir-apprentissage" className={styles.headerBannerMobile}>
+          	<div className={styles.headerBannerMobileTitle}>L’apprentissage, c’est le bon choix !</div>
+          	<Icon className={styles.headerBannerMobileIcon} name="angle-right"/>
+          </Link>
 			}
 			<HeaderBody />
 			{ isLargeScreen && <HeaderNavDesktop />}

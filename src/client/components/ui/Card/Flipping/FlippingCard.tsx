@@ -9,9 +9,10 @@ import React, {
 } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import styles from '~/client/components/ui/Card/Flipping/FlippingCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
@@ -56,14 +57,14 @@ export function FlippingCard(props: FlippingCardProps) {
 
 
 	const linkAsButton = useMemo(function () {
-		return <Link
+		return <LinkStyledAsButton
 			href={link}
 			prefetch={false}
 			className={styles.cardAction}
 			appearance="asPrimaryButton"
 		>
 			<span>{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}</span>
-		</Link>;
+		</LinkStyledAsButton>;
 	}, [isInternalLink, link]);
 
 	const flipCard = useCallback((reverse = false) => {
@@ -83,16 +84,21 @@ export function FlippingCard(props: FlippingCardProps) {
 	return (
 		<div className={classNames(styles.cardWrapper, { [styles.animate]: isAnimationOn }, className)} {...rest}>
 			<div className={classNames(styles.card, styles.cardFlip)}>
-				<Image src={imageUrl} alt="" width={360} height={180} />
+				<Image src={imageUrl} alt="" width={360} height={180}/>
 				{category && <div className={classNames(styles.cardCategory, categoryClass)}>{category}</div>}
 
 				<div className={styles.cardBody}>
 					<CardTitle className={styles.cardBodyTitle} titleAs={titleAs}>{title}</CardTitle>
-					<div className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
+					<div
+						className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
 						{hasFlipCardContent &&
-              <button className={styles.cardActionWrapperButton} ref={flipButton} onClick={() => flipCard()}>
-								Qui est concerné ?
-              </button>
+                <ButtonComponent
+                	label="Qui est concerné ?"
+                	appearance={'quaternary'}
+                	className={styles.cardActionWrapperButton}
+                	ref={flipButton}
+                	onClick={() => flipCard()}>
+                </ButtonComponent>
 						}
 						{linkAsButton}
 					</div>

@@ -1,6 +1,13 @@
 @use "@styles/utilities";
 @use "@styles/components/link/_placeholders.scss";
 
+.card:hover {
+  & .fakeLink {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
 .resultatCard {
   border-left: 4px solid utilities.$color-primary;
   padding: 1.5rem 2rem;
@@ -40,7 +47,7 @@
   @extend %linkWithRightIcon;
 }
 
-.tagLink{
+.tagLink {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

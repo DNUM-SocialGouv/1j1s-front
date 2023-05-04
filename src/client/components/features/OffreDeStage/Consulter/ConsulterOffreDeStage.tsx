@@ -4,7 +4,7 @@ import React from 'react';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
@@ -31,7 +31,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{offreDeStage.urlDeCandidature &&
-              <Link href={offreDeStage.urlDeCandidature} appearance="asPrimaryButton">Postuler</Link>}
+              <LinkStyledAsButton href={offreDeStage.urlDeCandidature} appearance="asPrimaryButton">Postuler</LinkStyledAsButton>}
 					</div>
 				</div>
 			</header>

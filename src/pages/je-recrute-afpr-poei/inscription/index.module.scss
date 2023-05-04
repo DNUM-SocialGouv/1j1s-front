@@ -17,11 +17,6 @@
   max-width: 78em;
 }
 
-.boutonRetour {
-  @extend %text-regular;
-  margin-block: 1.25rem;
-}
-
 .formulaire {
   .bodyFormulaire {
     display: flex;

@@ -18,9 +18,9 @@ export function HeaderBody() {
 	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	return (
-		<Container className={styles.headerBody}>
-			<div className={styles.headerBodyContainer}>
-				<div className={styles.headerLogoWrapper}>
+		<Container className={styles.headerBodyContainer}>
+			<div className={styles.headerBody}>
+				<div className={styles.headerBodyLogoWrapper}>
 					<Image
 						src="/images/logos/république-française.svg"
 						alt=""
@@ -29,17 +29,17 @@ export function HeaderBody() {
 						aria-hidden="true"
 					/>
 					{ !isLargeScreen &&
-            <ButtonComponent appearance='tertiary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
+            <ButtonComponent appearance='quaternary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
 					}
 				</div>
-				<div className={styles.headerTitle}>1jeune1solution</div>
+				<div className={styles.headerBodyTitle}>1jeune1solution</div>
 				{ isLargeScreen && displayBanner &&
-				  <Link href="/choisir-apprentissage" className={styles.headerBanner}>
+				  <Link href="/choisir-apprentissage" className={styles.headerBodyBanner}>
 				  	<div>
-					    <div className={styles.headerBannerTitle}>L’apprentissage, c’est le bon choix !</div>
-					    <div className={styles.headerBannerContent}>Apprenez en plus sur cette voie de formation.</div>
+					    <div className={styles.headerBodyBannerTitle}>L’apprentissage, c’est le bon choix !</div>
+					    <div className={styles.headerBodyBannerContent}>Apprenez en plus sur cette voie de formation.</div>
 				  	</div>
-				  	<Icon className={styles.headerBannerIcon} name='angle-right' />
+				  	<Icon className={styles.headerBodyBannerIcon} name='angle-right' />
 				  </Link>
 				}
 			</div>
