@@ -7,9 +7,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
-import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { anOffreService } from '~/client/services/offre/offreService.fixture';
+import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
 
 describe('Page rechercher un job d‘été', () => {
 	beforeEach(() => {

@@ -36,7 +36,7 @@ export function jobEteFiltreMapper(request: NextApiRequest): JobEteFiltre {
 	const { query } = request;
 
 	return {
-		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) : undefined,
+		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) as DomaineCode[] : undefined,
 		localisation: mapLocalisation(query),
 		motClé: query.motCle ? String(query.motCle) : '',
 		page: Number(query.page),

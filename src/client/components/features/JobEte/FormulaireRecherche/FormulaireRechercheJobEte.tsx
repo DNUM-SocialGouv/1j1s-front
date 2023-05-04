@@ -44,7 +44,7 @@ export function FormulaireRechercheJobEte() {
 	return (
 		<form
 			ref={rechercheJobEteForm}
-			role="form"
+			role="search"
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherJobEteQueryParams}
 		>
