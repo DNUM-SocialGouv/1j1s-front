@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.63.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.62.0...v3.63.0) (2023-05-04)
+
+
+### Features
+
+* **jobs-été:** ajout feature flipping jobs d'été ([f858092](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f85809257e636059578bd65f590b095953d7233e))
+
 ## [3.62.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.61.0...v3.62.0) (2023-05-04)
 
 
