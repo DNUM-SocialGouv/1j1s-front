@@ -1,11 +1,12 @@
 import { Success } from '~/server/errors/either';
+import { aJobEteFiltre } from '~/server/jobs-ete/domain/jobEte.fixture';
 import { ApiPoleEmploiJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiPoleEmploiJobEte.repository';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
 	aBarmanOffre,
 	anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
 	anOffreÉchantillonFiltre,
-	anOffreEmploiFiltre, 	aRésultatsRechercheOffre,
+	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
 import {
 	aBarmanOffreEmploiApiResponse, aRésultatsRechercheOffreEmploiApiResponse,
@@ -113,9 +114,7 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 				jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
 				jest.spyOn(cacheService, 'set');
 
-				const offreFiltre = anOffreEmploiFiltre();
-
-				const { result } = await apiPoleEmploiJobEteRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiPoleEmploiJobEteRepository.search(aJobEteFiltre()) as Success<RésultatsRechercheOffre>;
 
 				expect(cacheService.get).not.toHaveBeenCalled();
 
@@ -134,9 +133,8 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 				jest
 					.spyOn(poleEmploiParamètreBuilderService, 'buildCommonParamètresRecherche')
 					.mockResolvedValue('region=34&motsCles=boulanger&range=0-14');
-				const offreEmploiFiltre = anOffreEmploiFiltre();
 
-				const { result } = await apiPoleEmploiJobEteRepository.search(offreEmploiFiltre) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiPoleEmploiJobEteRepository.search(aJobEteFiltre()) as Success<RésultatsRechercheOffre>;
 
 				expect(result).toEqual(aRésultatsRechercheOffre());
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(

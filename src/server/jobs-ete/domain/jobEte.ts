@@ -1,5 +1,5 @@
-import { OffreFiltre } from '~/server/offres/domain/offre';
+import { DomaineCode, OffreFiltre } from '~/server/offres/domain/offre';
 
 export interface JobEteFiltre extends OffreFiltre {
-	grandDomaineList?: string[];
+	grandDomaineList?: DomaineCode[];
 }

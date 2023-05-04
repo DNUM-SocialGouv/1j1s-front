@@ -42,7 +42,7 @@ describe('RechercherJobEte', () => {
 			);
 
 			// WHEN
-			const formulaireRechercheOffreEmploi = screen.getByRole('form');
+			const formulaireRechercheOffreEmploi = screen.getByRole('search');
 			expect(offreServiceMock.rechercherJobEte).toHaveBeenCalled();
 			expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
 			const errorMessage = screen.queryByText('0 résultat');
