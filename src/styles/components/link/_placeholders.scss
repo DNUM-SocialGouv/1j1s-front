@@ -1,5 +1,6 @@
-@forward "@styles/utilities";
+@use "@styles/typography/_placeholders.scss";
 @use "@styles/theme/_variables.scss";
+
 
 %linkWithRightIcon {
   @extend %text-regular;

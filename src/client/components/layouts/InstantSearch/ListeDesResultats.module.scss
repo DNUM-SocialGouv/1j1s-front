@@ -59,7 +59,7 @@
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     margin-top: 5rem;
     margin-bottom: 3rem;
   }
