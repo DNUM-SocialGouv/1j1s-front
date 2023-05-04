@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
-import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
+import { RechercherJobEte } from '~/client/components/features/JobEte/Rechercher/RechercherJobEte';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -17,7 +17,7 @@ import {
 	aSingleResultOffreService,
 } from '~/client/services/offre/offreService.fixture';
 
-describe('RechercherJobÉtudiant', () => {
+describe('RechercherJobEte', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
@@ -27,7 +27,7 @@ describe('RechercherJobÉtudiant', () => {
 	});
 
 	describe('quand le composant est affiché sans recherche', () => {
-		it('affiche un formulaire pour la recherche de jobs étudiants, avec un échantillon de résultat', async () => {
+		it('affiche un formulaire pour la recherche de jobs d’été, avec un échantillon de résultat', async () => {
 			// GIVEN
 			const offreServiceMock = anOffreService();
 			const localisationServiceMock = aLocalisationService();
@@ -37,14 +37,14 @@ describe('RechercherJobÉtudiant', () => {
 					localisationService={localisationServiceMock}
 					offreService={offreServiceMock}
 				>
-					<RechercherJobÉtudiant/>
+					<RechercherJobEte/>
 				</DependenciesProvider>,
 			);
 
 			// WHEN
-			const formulaireRechercheOffreEmploi = screen.getByRole('search');
-			expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalled();
-			expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
+			const formulaireRechercheOffreEmploi = screen.getByRole('form');
+			expect(offreServiceMock.rechercherJobEte).toHaveBeenCalled();
+			expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
 			const errorMessage = screen.queryByText('0 résultat');
 
 			// THEN
@@ -73,17 +73,17 @@ describe('RechercherJobÉtudiant', () => {
 						localisationService={localisationServiceMock}
 						offreService={offreServiceMock}
 					>
-						<RechercherJobÉtudiant/>
+						<RechercherJobEte/>
 					</DependenciesProvider>,
 				);
 
 				// THEN
-				expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith({
+				expect(offreServiceMock.rechercherJobEte).toHaveBeenCalledWith({
 					codeLocalisation: '26',
 					libelleLocalisation: 'BOURG LES VALENCE (26)',
 					typeLocalisation: 'DEPARTEMENT',
 				});
-				expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
+				expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
 				const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
 				expect(filtresRecherche).toBeInTheDocument();
 				expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26)')).toBeInTheDocument();
@@ -102,18 +102,18 @@ describe('RechercherJobÉtudiant', () => {
 						localisationService={localisationServiceMock}
 						offreService={offreServiceMock}
 					>
-						<RechercherJobÉtudiant/>
+						<RechercherJobEte/>
 					</DependenciesProvider>,
 				);
 
 				// WHEN
 				const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherSolution');
-				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres de jobs étudiants pour boulanger');
+				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres de jobs d’été pour boulanger');
 
 				// THEN
 				expect(résultatRechercheOffreEmploiList).toHaveLength(3);
 				expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
-				expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith({ motCle: 'boulanger', page: '1' });
+				expect(offreServiceMock.rechercherJobEte).toHaveBeenCalledWith({ motCle: 'boulanger', page: '1' });
 			});
 		});
 	});
@@ -130,12 +130,12 @@ describe('RechercherJobÉtudiant', () => {
 					localisationService={localisationServiceMock}
 					offreService={offreServiceMock}
 				>
-					<RechercherJobÉtudiant/>
+					<RechercherJobEte/>
 				</DependenciesProvider>,
 			);
 
 			// WHEN
-			const errorMessage = await screen.findByText('1 offre de job étudiant pour barman');
+			const errorMessage = await screen.findByText('1 offre de job d’été pour barman');
 
 			// THEN
 			expect(errorMessage).toBeInTheDocument();
@@ -154,7 +154,7 @@ describe('RechercherJobÉtudiant', () => {
 					localisationService={localisationServiceMock}
 					offreService={offreServiceMock}
 				>
-					<RechercherJobÉtudiant/>
+					<RechercherJobEte/>
 				</DependenciesProvider>,
 			);
 
@@ -180,13 +180,13 @@ describe('RechercherJobÉtudiant', () => {
 				localisationService={aLocalisationService()}
 				offreService={offreService}
 			>
-				<RechercherJobÉtudiant/>
+				<RechercherJobEte/>
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('3 offres de jobs étudiants');
+		await screen.findByText('3 offres de jobs d’été');
 
-		expect(offreService.rechercherJobÉtudiant).toHaveBeenCalledWith({
+		expect(offreService.rechercherJobEte).toHaveBeenCalledWith({
 			page: '1',
 		});
 	});
