@@ -58,8 +58,8 @@ describe('CampagneApprentissageEntreprises', () => {
 			render(<CampagneApprentissageEntreprises />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage :/i });
+			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage :/i });
 			expect(titre).toBeVisible();
 		});
 
@@ -77,7 +77,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			render(<CampagneApprentissageEntreprises />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage :/i });
 			const raisonList = within(sectionRaison).getAllByRole('listitem');
 			expect(raisonList).toHaveLength(expectedRaisonList.length);
 			expectedRaisonList.forEach((raison, index) => {

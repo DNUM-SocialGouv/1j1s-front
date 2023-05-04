@@ -50,7 +50,7 @@ export function CampagneApprentissageEntreprises() {
 					</Link>
 				</HeroWithIllustration>
 			</header>
-			<RaisonsDeChoisirApprentissage titre="Cinq bonnes raisons d’embaucher un apprenti :" raisons={raisons}
+			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons}
 			/>
 			<EnSavoirPlusApprentissageEntreprises/>
 			<InformationSurEmbaucheApprenti/>
