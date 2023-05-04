@@ -33,7 +33,7 @@ const orientationNav = (): NavigationItemWithChildren => ({
 		...(process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE === '1' ? [{ label: 'Formations en apprentissage', link: '/formations/apprentissage' }] : []),
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
 		{ label: 'Participer à des évènements', link: '/evenements' },
-		...(process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1' ? [{ label: 'Découvrir et trouver sa voie avec l’apprentissage', link: '/apprentissage-jeunes' }] : []),
+		...(process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1' ? [{ label: 'Découvrir et trouver sa voie avec l’apprentissage', link: '/choisir-apprentissage' }] : []),
 	],
 	label: 'Formations et orientation',
 });

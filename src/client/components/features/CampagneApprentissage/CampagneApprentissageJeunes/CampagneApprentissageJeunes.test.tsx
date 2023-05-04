@@ -15,7 +15,7 @@ import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampag
 describe('CampagneApprentissageJeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
-		mockUseRouter({ asPath: '/apprentissage-jeunes' });
+		mockUseRouter({ asPath: '/choisir-apprentissage' });
 	});
 
 	afterEach(() => {
