@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
@@ -10,16 +11,15 @@ import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from './
 
 interface NavEmployeursProps {
   item: NavigationItemWithChildren;
-  path: string;
   onClick?: () => void;
 }
 
-export function NavEmployeurs({ item: root, path }: NavEmployeursProps) {
+export function NavEmployeurs({ item: root }: NavEmployeursProps) {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const wrapper = useRef<HTMLDivElement>(null);
 	const content = useRef<HTMLUListElement>(null);
-
-	const isActive = useMemo(() => isItemActive(root, path), [path, root]);
+	const router = useRouter();
+	const isActive = useMemo(() => isItemActive(root, router.pathname), [router.pathname, root]);
 
 	useLayoutEffect(() => {
 		function onResize() {
@@ -51,7 +51,7 @@ export function NavEmployeurs({ item: root, path }: NavEmployeursProps) {
 			</button>
 			<div ref={wrapper} className={classNames(styles.navWrapper, { [styles.expanded]: isExpanded })}>
 				<ul ref={content} className={styles.navDetail}>
-					{listsFromChildren(path, root, () => setIsExpanded(false))}
+					{listsFromChildren(router.pathname, root, () => setIsExpanded(false))}
 				</ul>
 			</div>
 		</li>

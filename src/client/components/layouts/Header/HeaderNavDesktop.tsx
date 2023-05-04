@@ -31,15 +31,15 @@ export function HeaderNavDesktop() {
 					aria-label="Menu principal">
 					<ul className={styles.headerNavigationListLeft}>
 						<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} />
-						<NavItemWithSubItems className={styles.navItem} item={offresNav} path={router.pathname} />
-						<NavItemWithSubItems className={styles.navItem} item={orientationNav} path={router.pathname} />
-						<NavItemWithSubItems className={styles.navItem} item={engagementNav} path={router.pathname} />
-						<NavItemWithSubItems className={styles.navItem} item={logementsNav} path={router.pathname} />
-						<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={router.pathname}/>
-						<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav} path={router.pathname}/>
+						<NavItemWithSubItems className={styles.navItem} item={offresNav} />
+						<NavItemWithSubItems className={styles.navItem} item={orientationNav} />
+						<NavItemWithSubItems className={styles.navItem} item={engagementNav} />
+						<NavItemWithSubItems className={styles.navItem} item={logementsNav} />
+						<NavItemWithSubItems className={styles.navItem} item={accompagnementNav}/>
+						<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav}/>
 					</ul>
 					<ul className={styles.headerNavigationListRight}>
-						<NavEmployeurs item={employeurNav} path={router.pathname}/>
+						<NavEmployeurs item={employeurNav} />
 					</ul>
 				</nav>
 			</Container>
